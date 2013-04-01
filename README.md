@@ -1,4 +1,4 @@
-dmx
+DMX
 ===
 
-Discrete-Event Simulation Modelling Framework with Extensibility
+**D**iscrete-Event Simulation **M**odelling Framework with e**X**tensibility
