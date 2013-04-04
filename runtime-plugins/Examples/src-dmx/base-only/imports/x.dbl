@@ -1,0 +1,8 @@
+#import "../../base"
+
+module x {
+	extension Foo {
+		Statement -> Foo;
+		Foo -> "foo" ";";
+	}
+}

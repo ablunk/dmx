@@ -1,0 +1,21 @@
+#import "../base"
+
+module StmExtDef {
+
+extension StatementExtension {
+	ModuleContentExtension -> StatementExtension;
+	//extensionDef:instantiates(ExtensionDefinition) -> StatementExtension;
+	StatementExtension -> "statement" name:ID "{" firstRhs:RhsExpression ";" OtherRules "}";
+	OtherRules -> ;
+	OtherRules -> tsRule:list(TsRule) OtherRules;
+}
+semantics {
+	gen "
+		extension " name " {
+			Statement -> " name ";
+			" name " -> " tsRule.first ";
+		}
+	";
+}
+
+}

@@ -1,0 +1,13 @@
+#import "../base"
+
+module unless {
+
+	extension Unless {
+		Statement -> Unless;
+		Unless -> "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
+	}
+	semantics {
+		gen "if (!(" condition ")) " codeBlock "";
+	}
+
+}

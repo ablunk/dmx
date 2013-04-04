@@ -1,0 +1,106 @@
+module SmlPattern {
+
+	interface Object {
+	}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+
+	class M1 {
+	}
+	
+	active class Timer {
+		P p;
+		int delay = 1;
+		boolean invalid = false;
+		
+		actions {
+			advance delay;
+			if (!invalid) {
+				place self into p.eventPool;
+				reactivate p;
+			}
+		}
+	}
+	
+	active class P {
+		list(Object) eventPool;
+		string currentState;
+		boolean firstRun = true;
+		
+		int i = 0;
+		
+		initial {
+			currentState = "A";
+		}
+		
+		actions {
+			Timer timer;
+			
+			while (true) {
+				if (timer != null) {
+					timer.invalid = true;
+				}
+				if (currentState == "A") {
+					// handle completion events
+					if (i == 0) {
+						trace("i is 0.");
+					}
+					if (i > 0) {
+						trace("i is greater 0.");
+					}
+
+					// schedule time events
+					timer = new Timer;
+					timer.delay = 2;
+					timer.p = self;
+					activate timer;
+				}
+
+				if (!firstRun) {
+					empty eventPool;
+					wait;
+				}
+				else {
+					firstRun = false;
+				}
+				
+				while (eventPool.size > 0 and currentState != null) {
+					Object ev = eventPool.first;
+					remove ev from eventPool;
+					if (currentState == "A") {					
+						if (ev instanceof M1) {
+							trace("received M1.");
+							currentState = "A";
+						}
+						if (ev instanceof Timer) {
+							trace("time passed.");
+							i=i+1;
+							currentState = "A";
+						}
+						break; // goon
+					}
+				}
+				
+			}
+		}
+	}
+	
+	void main() {
+		P p = new P;
+		activate p;
+		place new M1 into p.eventPool;
+		
+		advance 2;
+		place new M1 into p.eventPool;
+		activate p;
+
+		advance 8;
+	}
+
+}

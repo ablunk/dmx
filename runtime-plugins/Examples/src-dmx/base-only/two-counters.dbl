@@ -1,0 +1,41 @@
+module TwoCountersAdvance {
+
+	interface Object {}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+	int limit = 1000000;
+
+	active class Counter {
+		int count = 0;		
+		actions {
+			while (count < limit) {
+				advance 1;
+				count=count+1;
+			}
+			trace("Finished.");
+		}
+	}
+	
+	void main() {
+		Counter c1 = new Counter;
+		activate c1;
+		
+		Counter c2 = new Counter;
+		activate c2;
+
+		advance limit+10;
+		
+		list(int) is;
+		int i;
+		for (int i:is) {
+		}
+	}
+
+}

@@ -1,0 +1,12 @@
+//import "x" // TODO multiple imports
+#import "a"
+
+module importer {
+
+	void main() {
+		//foo;
+		A a;
+		B b;
+	}
+
+}

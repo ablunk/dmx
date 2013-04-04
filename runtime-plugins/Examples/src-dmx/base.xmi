@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="dbl">
+    <classifiers xsi:type="dbl:Interface" name="Object"/>
+    <classifiers xsi:type="dbl:Interface" name="EObject">
+      <methods name="eContainer">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.1"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Construct" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.113">
+      <methods name="getConcreteSyntax">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Model" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getImports" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.4"/>
+      </methods>
+      <methods name="getModules" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.5"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Import" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getFile">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+      <methods name="getModel">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.3"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Module" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33 //@modules.0/@classifiers.6">
+      <methods name="getClassifiers" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.22"/>
+      </methods>
+      <methods name="getClassAugments" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.28"/>
+      </methods>
+      <methods name="getExtensionDefs" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.116"/>
+      </methods>
+      <methods name="getAnnotationDefs" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.18"/>
+      </methods>
+      <methods name="getProcedures" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.16"/>
+      </methods>
+      <methods name="getVariables" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.31"/>
+      </methods>
+      <methods name="getIdRes">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.161"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EmbeddableExtensionsContainer" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getExtensions" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.112"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ModifierExtensionsContainer" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getModifierExtensions" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.112"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Type" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="TypedElement" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getPrimitiveType">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.10"/>
+      </methods>
+      <methods name="isIsList">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="getClassifierTypeExpr">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.106"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="PrimitiveType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.8"/>
+    <classifiers xsi:type="dbl:Interface" name="VoidType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.10"/>
+    <classifiers xsi:type="dbl:Interface" name="IntType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.10"/>
+    <classifiers xsi:type="dbl:Interface" name="BoolType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.10"/>
+    <classifiers xsi:type="dbl:Interface" name="DoubleType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.10"/>
+    <classifiers xsi:type="dbl:Interface" name="StringType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.10"/>
+    <classifiers xsi:type="dbl:Interface" name="Procedure" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33 //@modules.0/@classifiers.9 //@modules.0/@classifiers.34 //@modules.0/@classifiers.21">
+      <methods name="getParameters" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.32"/>
+      </methods>
+      <methods name="isClazz">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SimpleAnnotation" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33">
+      <methods name="getValue">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Annotation" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33">
+      <methods name="getKeys" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.31"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AnnotationApplication" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getAnnotationDef">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.18"/>
+      </methods>
+      <methods name="getKeyValuePairs" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.20"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="KeyValuePair" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getKey">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.109"/>
+      </methods>
+      <methods name="getValue">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AnnotatableElement" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getAnnotationApplications" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.19"/>
+      </methods>
+      <methods name="getSimpleAnnotations" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.17"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Classifier" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.8 //@modules.0/@classifiers.33 //@modules.0/@classifiers.118">
+      <methods name="getBindings" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.23"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="NativeBinding" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getTargetLanguage">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+      <methods name="getTargetType">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ClassSimilar" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.6 //@modules.0/@classifiers.7">
+      <methods name="getAttributes" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.31"/>
+      </methods>
+      <methods name="getMethods" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.16"/>
+      </methods>
+      <methods name="getSuperClass">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.26"/>
+      </methods>
+      <methods name="getImplementedInterfaces" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.29"/>
+      </methods>
+      <methods name="getInitialBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.25"/>
+      </methods>
+      <methods name="getFinalBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.25"/>
+      </methods>
+      <methods name="getActionsBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.25"/>
+      </methods>
+      <methods name="getReportBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.25"/>
+      </methods>
+      <methods name="getClearBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.25"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="StartCodeBlock" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.34"/>
+    <classifiers xsi:type="dbl:Interface" name="Clazz" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.22 //@modules.0/@classifiers.24">
+      <methods name="isActive">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="getConstructor">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.27"/>
+      </methods>
+      <methods name="getBaseConstructorArguments" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Constructor" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getParameters" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.32"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ClassAugment" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.24">
+      <methods name="getAugmentedClass">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.26"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Interface" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.22">
+      <methods name="getMethods" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.16"/>
+      </methods>
+      <methods name="getSuperInterfaces" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.29"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AbstractVariable" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33 //@modules.0/@classifiers.9"/>
+    <classifiers xsi:type="dbl:Interface" name="Variable" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.30 //@modules.0/@classifiers.35 //@modules.0/@classifiers.7">
+      <methods name="isControl">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="isClazz">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="getInitialValue">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Parameter" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.30"/>
+    <classifiers xsi:type="dbl:Interface" name="NamedElement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.159">
+      <methods name="getName">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="CodeBlock" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.2">
+      <methods name="getStatements" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.35"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Statement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.2"/>
+    <classifiers xsi:type="dbl:Interface" name="CompositeStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35"/>
+    <classifiers xsi:type="dbl:Interface" name="SimpleStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35"/>
+    <classifiers xsi:type="dbl:Interface" name="ExpressionStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.39"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="StatementExpression" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="Assignment" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getVariable">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.109"/>
+      </methods>
+      <methods name="getValue">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="DeprecatedProcedureCallStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.38">
+      <methods name="getProcedureCall">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ProcedureCall" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.39">
+      <methods name="getProcedureAccess">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Return" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getValue">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="WaitUntil" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getCondition">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Terminate" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37"/>
+    <classifiers xsi:type="dbl:Interface" name="Wait" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37"/>
+    <classifiers xsi:type="dbl:Interface" name="Reactivate" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getObjectAccess">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ActivateObject" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getObjectAccess">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getPriority">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Advance" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getTime">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Print" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getOutputs" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SetStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getObject">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getSet">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="RemoveFromSet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.51"/>
+    <classifiers xsi:type="dbl:Interface" name="AddToSet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.51">
+      <methods name="getAtIndex">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EmptySet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.51"/>
+    <classifiers xsi:type="dbl:Interface" name="IfStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.36">
+      <methods name="getCondition">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getIfCaseBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+      <methods name="getElifCondition" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getElifCaseBlock" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+      <methods name="getElseCaseBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="WhileStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.36">
+      <methods name="getCondition">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getWhileBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="BreakStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37"/>
+    <classifiers xsi:type="dbl:Interface" name="ContinueStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37"/>
+    <classifiers xsi:type="dbl:Interface" name="ForEachStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.36">
+      <methods name="getIteratorVariableDefinition">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.31"/>
+      </methods>
+      <methods name="getIteratorVariableReference">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.109"/>
+      </methods>
+      <methods name="getIterableExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getForBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Expression" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.2"/>
+    <classifiers xsi:type="dbl:Interface" name="L1Expr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60"/>
+    <classifiers xsi:type="dbl:Interface" name="BinaryOperator" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getOp1">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getOp2">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="UnaryOperator" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getOp">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Plus" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Minus" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Mul" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Mod" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Div" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Neg" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.63"/>
+    <classifiers xsi:type="dbl:Interface" name="And" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Or" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Greater" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="GreaterEqual" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Less" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="LessEqual" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="NotEqual" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Equal" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="InstanceOf" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.62"/>
+    <classifiers xsi:type="dbl:Interface" name="Not" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.63"/>
+    <classifiers xsi:type="dbl:Interface" name="CreateObject" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60 //@modules.0/@classifiers.9"/>
+    <classifiers xsi:type="dbl:Interface" name="Cast" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.63 //@modules.0/@classifiers.9"/>
+    <classifiers xsi:type="dbl:Interface" name="NullLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60"/>
+    <classifiers xsi:type="dbl:Interface" name="TimeLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60"/>
+    <classifiers xsi:type="dbl:Interface" name="ActiveLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60"/>
+    <classifiers xsi:type="dbl:Interface" name="EvalExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getExpr">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MeLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.105"/>
+    <classifiers xsi:type="dbl:Interface" name="SuperLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.105"/>
+    <classifiers xsi:type="dbl:Interface" name="MetaLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.105"/>
+    <classifiers xsi:type="dbl:Interface" name="TypeLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.105"/>
+    <classifiers xsi:type="dbl:Interface" name="SetOp" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.105">
+      <methods name="getSet">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SizeOfSet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="FirstInSet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="LastInSet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="Contains" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="IndexOf" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="ObjectAt" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="BeforeInSet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="AfterInSet" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.90"/>
+    <classifiers xsi:type="dbl:Interface" name="StringLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getValue">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IntLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getValue">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TrueLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60"/>
+    <classifiers xsi:type="dbl:Interface" name="FalseLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60"/>
+    <classifiers xsi:type="dbl:Interface" name="DoubleLiteral" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getValue">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="DepIdentifiableElement" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="PredefinedId" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="IdExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getParentIdExpr">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.106"/>
+      </methods>
+      <methods name="getReferencedElement">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.33"/>
+      </methods>
+      <methods name="getPredefinedId">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.105"/>
+      </methods>
+      <methods name="getArguments">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.107"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ArgumentExpression" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getArguments" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ElementAccess" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getIdExpr">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.106"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="VariableAccess" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.108 //@modules.0/@classifiers.159"/>
+    <classifiers xsi:type="dbl:Interface" name="MetaAccess" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.109"/>
+    <classifiers xsi:type="dbl:Interface" name="TypeAccess" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.108 //@modules.0/@classifiers.159"/>
+    <classifiers xsi:type="dbl:Interface" name="Extension" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="NamedExtension" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.112 //@modules.0/@classifiers.33"/>
+    <classifiers xsi:type="dbl:Interface" name="ClassContentExtension" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.113"/>
+    <classifiers xsi:type="dbl:Interface" name="ModuleContentExtension" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.113"/>
+    <classifiers xsi:type="dbl:Interface" name="ExtensionDefinition" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33">
+      <methods name="getAbstractSyntaxDef" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.22"/>
+      </methods>
+      <methods name="getTextualSyntaxDef">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.117"/>
+      </methods>
+      <methods name="getMappingDef">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.139"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TextualSyntaxDef" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getExtensionRule">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.120"/>
+      </methods>
+      <methods name="getNewRules" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.119"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ReferableRhsType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33"/>
+    <classifiers xsi:type="dbl:Interface" name="TsRule" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33 //@modules.0/@classifiers.118">
+      <methods name="getMetaClassName">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+      <methods name="getRhs">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExtensionRule" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33">
+      <methods name="getInstantiableMetaClass">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.22"/>
+      </methods>
+      <methods name="getFirstNewRule">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.130"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="RhsExpression" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="SequenceExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getSequence" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="OptionalExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="RuntimeExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AtLeastOneExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ArbitraryExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AlternativeExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getLeft">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+      <methods name="getRight">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.121"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TerminalExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getTerminal">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="PropertyBindingExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33 //@modules.0/@classifiers.121">
+      <methods name="getPropertyType">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.131"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="RuleExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.121">
+      <methods name="getRule">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.119"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="PropertyType" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="IdPropertyType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.131"/>
+    <classifiers xsi:type="dbl:Interface" name="IntPropertyType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.131"/>
+    <classifiers xsi:type="dbl:Interface" name="StringPropertyType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.131"/>
+    <classifiers xsi:type="dbl:Interface" name="BooleanPropertyType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.131">
+      <methods name="getTerminal">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="StructuredPropertyType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.131">
+      <methods name="getType">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.118"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="CompositePropertyType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.136">
+      <methods name="isList">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ReferencePropertyType" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.136">
+      <methods name="getIdResolutionPattern">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.162"/>
+      </methods>
+      <methods name="isRawReference">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Mapping" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.34">
+      <methods name="getParts" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.140"/>
+      </methods>
+      <methods name="getMetaObject">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MappingPart" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="MetaExpr" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getExpr">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TargetStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getCodeBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MappingStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getParts" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.140"/>
+      </methods>
+      <methods name="getExprs" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SetGenContextStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getContext">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="isAddAfterContext">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ResetGenContextStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37"/>
+    <classifiers xsi:type="dbl:Interface" name="SaveGenStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getVariable">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ResumeGenStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.37">
+      <methods name="getVariable">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="FixedMappingPart" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.140">
+      <methods name="getCode">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="DynamicMappingPart" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.140">
+      <methods name="getExpr">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandExpression" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.39 //@modules.0/@classifiers.60">
+      <methods name="getMetaObject">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getMetaObject">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+      <methods name="getLocation">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandSection" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.36">
+      <methods name="getCodeBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="CodeQuoteExpression" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.60">
+      <methods name="getQuotedCode">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.154"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedCode" superInterfaces="//@modules.0/@classifiers.1"/>
+    <classifiers xsi:type="dbl:Interface" name="QuotedExpression" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.154">
+      <methods name="getExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedStatements" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.154">
+      <methods name="getStatements" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.35"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedClassContent" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.154 //@modules.0/@classifiers.24"/>
+    <classifiers xsi:type="dbl:Interface" name="QuotedModuleContent" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.154 //@modules.0/@classifiers.5"/>
+    <classifiers xsi:type="dbl:Interface" name="ExpandableElement" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getExpandExpression">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.150"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TestStatement" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getValue">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IdResolution" superInterfaces="//@modules.0/@classifiers.1">
+      <methods name="getMetaModelPlatformURI">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
+      <methods name="getPatterns" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.162"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Pattern" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.33">
+      <methods name="isTop">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="getContext">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.32"/>
+      </methods>
+      <methods name="getCodeBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="PotentiallyHiddenIdElements" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getCodeBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="FindContainer" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getVariableBinding">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.32"/>
+      </methods>
+      <methods name="getContainerBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+      <methods name="getElseBlock">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.34"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ConsiderIdElements" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getElementsQuery">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IncludePattern" superInterfaces="//@modules.0/@classifiers.1 //@modules.0/@classifiers.35">
+      <methods name="getPattern">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.162"/>
+      </methods>
+      <methods name="getContext">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.60"/>
+      </methods>
+    </classifiers>
+  </modules>
+</dbl:Model>

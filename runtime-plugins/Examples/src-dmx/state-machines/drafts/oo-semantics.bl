@@ -1,0 +1,248 @@
+#import "../base"
+
+module sml {
+
+extension SendStatement {
+	Statement -> SendStatement;
+	SendStatement -> "send" signal:Expression "to" target:Expression ";"
+	{
+		void send() {
+			place #{signal} into #{target}.eventPool;
+			reactivate #{target};
+		}
+	};
+}
+semantics {
+	send();
+	// RuntimeSendStatement rss = ...
+	// rss.send();
+}
+
+// t1: An Approach to Defining Extensible Execution Semantics for Language Extensions
+
+// t2: Defining a Real-time Extension to a Subset of SDL for Simulation
+
+// advantages/objectives:
+- object oriented semantics description: extensions can redefine semantics operations
+  e.g. a State extension CompositeState could redefine State.handleEvent()
+- runtime structures that would need to be written in a library-style are already existing
+- context concept makes executing statements and expressions in the context that they were defined in very simple
+
+// new concepts:
+- runtime data and operation description for rules { ... }
+- {#syntaxPartAccess} in runtime descriptions
+- compile { ...Ê} in runtime descriptions
+- runtime modifier for rule variables used in extensions (also new runtime Rule for syntaxElement)
+- extension keyword for accessing an extension instance as object repr. which is automatically injected
+- a BL statement for directly using identifiers defined in another context
+
+extension StateMachine {
+	ClassContentExtension -> StateMachine;
+	
+	StateMachine -> "stateMachine" name:ID "{" initialState:InitialState StateListOptional "}"
+	{
+		// runtime data
+		
+		list(Object) eventPool;
+		runtime State currentState;
+		
+		void run(Object ctx) {
+			runtime StateMachine rsm = self;
+			rsm.currentState = new runtime state for initialState.target;
+			while (true) {
+				wait; // wait for events
+				while (rsm.eventPool.size > 0 and rsm.currentState != null) {
+					Object ev = rsm.eventPool.first;
+					remove ev from rsm.eventPool;
+					State nextState = rsm.currentState.handleEvent(ev, ctx);
+					rsm.currentState = nextState;
+				}
+			}
+		}
+	};
+	
+	StateListOptional -> ;
+	StateListOptional -> states:list(State) StateListOptional;
+	
+	InitialState -> "initial" "->" target:$$State ";";
+	State -> "state" name:ID TransitionsOptional ";"
+	{
+		State handleEvent(Object ev, Object ctx) {
+			for (Transition t: outgoing) {
+				#{for (Transition t: outgoing)}
+					if (t.signalEvent instanceof #{t.signalEvent}) {
+						runtime Transition rt = new runtime Transition for t; // runtime is a special keyword that creates a runtime instance
+						return rt.fire(ctx);
+					}
+				#{endfor}
+				
+				// variant ...
+				compile {
+					for (Transition t: outgoing) {
+						gen "if (t.signalEvent instanceof " t.signalEvent ") {";
+						gen "	runtime Transition rt = new runtime Transition for t;";
+						gen "	return rt.fire(ctx);";
+						gen "}"
+					}
+				}
+			}
+			return self;
+		}
+	};
+		
+	// problem, dass immer wieder auftritt: der kontext in dem man ein statement oder eine expression
+	// geschrieben hat muss an einer ganz anderen stellen verfŸgbar und aufrufbar sein.
+	// daher kšnnte man statements und expressions generell in automatisch erzeugt kontextfunktionen
+	// auslagern und aufrufbar machen.
+	
+	TransitionsOptional -> ;
+	TransitionsOptional -> "(" OutgoingList ")";
+	
+	OutgoingList -> outgoing:list(Transition) OutgoingListOptional;
+	OutgoingListOptional -> ;
+	OutgoingListOptional -> "," OutgoingList;
+
+	Transition -> signalEvent:$Clazz GuardOptional EffectsOptional TargetStateOptional
+	{
+		// each transition gets an operation...
+		
+		State fire(Object ctx) {
+			context = ctx; // changes the execution/evaluation context (this is a BL concept)
+			#{if (effect != null)}
+				#{effect}
+			#{endif} // template statement #{ ... }
+			return target;
+
+			compile { // compile blocks are executed at extension substitution time			
+				gen "context = ctx"; // changes the execution/evaluation context (this is a BL concept)
+				if (effect != null) {
+					gen "" effect "";
+				}
+				gen "return target;";
+			}
+		}
+	};
+	
+	GuardOptional -> ;
+	GuardOptional -> "[" condition:Expression "]";
+	
+	EffectsOptional -> ;
+	EffectsOptional -> "/" effect:CodeBlock;
+	
+	TargetStateOptional -> ;
+	TargetStateOptional -> "->" target:$$State;
+	TargetStateOptional -> "->" "final";
+}
+semantics {
+	// for ClassContentExtensions an attribute is created for the class by default.
+	// this attributes references the object representation of the extension instance.
+	// the object is constructed by adding statements to the initial part.
+	
+	// for ModuleContentExtensions, a global variable is created.
+	// it is initialised in the main procedure of the program.
+	// or maybe each module gets a module initializer. all such initializers
+	// are called by the main method for each imported module.
+	
+	// for expressions and statements, a local variable is created before the
+	// expression or statement. initialization code is also added.
+	
+	// for type extensions, a class is created in the same module.
+	
+	// other kinds (arbitrary) of extensions are only supported by pure substitution,
+	// i.e. no object repr. access in target code, e.g. ENBF
+	
+	actions {
+		extension.run(self); // 'extension' is a keyword that references the object repr.
+	}
+	
+	// variant
+	gen "actions { extension.run(self); }";
+}
+
+extension StateMachineWithGuards extends StateMachine {
+	redefines Transition -> GuardedTransition; // only redefines notation, abstract syntax remains intact
+
+	GuardedTransition -> signalEvent:$Clazz GuardOptional EffectsOptional TargetStateOptional
+	{
+		State fire(Object ctx) {
+			context = ctx;
+			#{if (condition != null)}
+				if(#{condition})
+			#{endif}
+					super.fire(ctx);
+					
+			// variant ...
+			compile {
+				if (condition != null) {
+					gen "if (" condition ")"; 
+				}
+			}
+			super.fire(ctx);
+		}
+	}
+
+	GuardOptional -> ;
+	GuardOptional -> "[" condition:Expression "]";
+}
+
+extension StateMachineWithSignalPriorities extends StateMachine {
+	extends StateMachine -> "priority" sm:StateMachine
+	{
+		void run(Object ctx) {
+			runtime StateMachine rsm = self;
+			rsm.currentState = new runtime state for initialState.target;
+			while (true) {
+				wait; // wait for events
+				while (rsm.eventPool.size > 0 and rsm.currentState != null) {
+					Object ev = rsm.eventPool.first;
+					remove ev from rsm.eventPool;
+					State nextState = rsm.currentState.handleEvent(ev, ctx);
+					rsm.currentState = nextState;
+				}
+			}
+		}
+	};
+	
+	redefines Transition -> PrioTransition; // only redefines notation, abstract syntax remains intact
+
+	PrioTransition -> signalEvent:$Clazz priority:int EffectsOptional TargetStateOptional
+	{
+		State fire(Object ctx) {
+			context = ctx;
+			#{if (condition != null)}
+				if(#{condition})
+			#{endif}
+					super.fire(ctx);
+					
+			// variant ...
+			compile {
+				if (condition != null) {
+					gen "if (" condition ")"; 
+				}
+			}
+			super.fire(ctx);
+		}
+	}
+
+	GuardOptional -> ;
+	GuardOptional -> "[" condition:Expression "]";
+}
+
+extension Forever {
+	Statement -> Forever;
+	Forever -> "forever" "{" stms:list(Statement) "}";
+}
+semantics {
+	while (true) {
+		#{for (Statement s: stms) }
+			#{s}
+		#{endfor}
+	}
+}
+
+extension ElseGuardExpr {
+	Factor:instantiates(Expression) -> ElseGuardExpr;
+	ElseGuardExpr -> "else";
+}
+
+}

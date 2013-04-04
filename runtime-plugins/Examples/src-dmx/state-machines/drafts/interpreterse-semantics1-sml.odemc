@@ -1,0 +1,107 @@
+//#import "odemcustom"
+
+module sml {
+
+	interface Expression {}
+	interface Statement {}
+	interface CodeBlock {}
+	interface Extension {}
+	interface NamedExtension {}
+	
+	class StateMachine {
+		State initialState;
+		list(State) states;
+		State current; // runtime
+	}
+	
+	class State {
+		list(Transition) outgoing;
+		
+		Expression waitCond; // pre-built
+	}
+	
+	class Transition {
+		Expression condition;
+		Expression timeExpr;
+		Statement oneLineEffect;
+		CodeBlock multiLineEffect;
+		State target;
+	}
+
+	extension StateMachine {
+		ClassContentExtension:instantiates(NamedExtension) -> StateMachine;
+		
+		//StateMachine -> "sm" "{" (states+=State)* "}";
+		//State -> "state" name=ID ( "(" outgoing+=Transition ("," outgoing+=Transition)* ")" )? ";";
+		//Transition -> (StateEventTransition | TimeEventTransition) (Effects)? (TargetState)?;
+
+		//StateEventTransition -> "when" "(" condition=Expression ")";
+		//TimeEventTransition -> "after" "(" timeExpr=Expression ")";
+		//Effects -> "/" effect=Statement;
+		//Effects -> "/" codeBlock=CodeBlock;
+		//TargetState -> "->" target=$State;
+		
+		StateMachine -> "sm" "{" "}";
+	}
+	semantics {
+		StateMachine ctx;
+		ctx.current = ctx.initialState;
+		handleEffect(ctx.current.outgoing.first);
+		
+		while (true) {
+			if (ctx.current.outgoing.size == 0) {
+				break;
+			}
+		
+			string expr = "false";
+			list(Expression) allExprs;
+			double ctime = time;
+			for (Transition t: ctx.current.outgoing) {
+				if (t.condition != null) {
+					expr = expr + " or " + t.condition;
+					// expr assigned to an Expression variable are not evaluated directly
+					place t.condition into allExprs;
+				}
+				elif (t.timeExpr != null) {
+					expr = expr + " or time >= " + ctime + t.timeExpr;
+					place t.timeExpr into allExprs;
+				}
+			}
+			wait until eval(expr);
+			//wait until ctx.current.waitCond;
+			Transition firing;
+			for (Expression e: allExprs) {
+				if (eval(e)) {
+					firing = ctx.current.outgoing.at(allExprs.indexOf(e));
+					handleEffect(firing);
+					ctx.current = firing.target;
+				}
+			}
+		}
+	}
+	
+	void preBuilt(StateMachine sm) {
+		for (State s: sm.states) {
+			string expr = "false";
+			for (Transition t: s.outgoing) {
+				if (t.condition != null) {
+					expr = expr + " or " + t.condition;
+				}
+				elif (t.timeExpr != null) {
+					expr = expr + " or time >= ctime + " + t.timeExpr;
+				}
+			}
+			s.waitCond = eval(expr);
+		}
+	}
+	
+	void handleEffect(Transition t) {
+		if (t.oneLineEffect != null) {
+			exec t.oneLineEffect;
+		}
+		if (t.multiLineEffect != null) {
+			exec t.multiLineEffect;
+		}
+	}
+
+}

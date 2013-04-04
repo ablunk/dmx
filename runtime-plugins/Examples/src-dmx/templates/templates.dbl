@@ -1,0 +1,37 @@
+#import "../base"
+
+module TemplateDef {
+
+	extension TemplateDef {
+		ModuleContentExtension -> TemplateDef;
+		TemplateDef -> "tdef" "<" typeParam1:Classifier ">" tdef:Classifier;
+	}
+	semantics {
+	}
+	
+	extension TemplateType {
+		BareIdExpr:instantiates(IdExpr) -> TemplateType;
+		TemplateType -> "stack" "<" Type ">" ;
+		Type -> T:$Classifier;
+		Type -> ptype:PrimitiveType;
+	}
+	semantics {
+		gen "
+		class Stack {
+			list("T") elements;
+			int numElements;
+			
+			void push("T" e) {
+				place e into elements;
+			}
+			
+			"T" pop() {
+				"T" e = elements.last;
+				remove e from elements;
+				return e;
+			}
+		}
+		";
+	}
+
+}

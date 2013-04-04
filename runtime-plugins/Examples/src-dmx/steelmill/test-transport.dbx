@@ -1,0 +1,65 @@
+#import "transport"
+
+module ElementPlacing {
+	
+	// die Form von Ringen und Möglichkeiten der Überlagerungen von Ringen
+	// sind vorerst ohne Belang
+	class Ring(int height) implements Placeable {
+		int height;
+		
+		initial {
+			self.height = height;
+		}
+		
+		int getHeight() {
+			return height;
+		}
+	}
+	
+	interface Palette {} // TODO reference DSL constructs
+	
+	class PufferStrecke {
+		list(Palette) paletten;
+		
+		initial {
+			int n = 3;
+			while (n > 0) {
+				Palette pal = new Palette;
+				place pal into paletten;
+				n = n-1;
+			}
+		}
+	}
+	
+	PufferStrecke ps;
+	
+	area Palette : maxHeight = 200, places = 2;
+	area PufferStrecke : places = 10;
+		
+	void main() {
+		ps = new PufferStrecke;
+		
+		Ring ring;
+		ring = new Ring(15);
+		
+		// placeable Ring { height = height }
+		
+		// einen geeigneten Platz für den Ring suchen
+		for (Palette pal: ps.paletten) {
+		
+			// DSL construct:
+			// put <Placeable> into <Area> {
+			//     onTransport { advance 5; ... }
+			//     [onNoRoom { ... }]
+			// }
+		
+			Place p = pal.area.canPlaceObject(ring);
+			if (p != null) {
+				p.reserve();
+				advance 5; // transport time
+				pal.area.placeObject(ring);
+			}
+		}
+	}
+
+}

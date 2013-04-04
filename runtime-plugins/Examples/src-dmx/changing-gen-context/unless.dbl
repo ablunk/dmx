@@ -1,0 +1,34 @@
+#import "../base"
+
+module unless {
+
+	extension UnlessX {
+		Statement -> UnlessX; // must be the same name as the extension definition name
+		UnlessX -> "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
+	}
+	semantics {
+		Statement unlessStm = self;
+
+		resetGenContext;
+		gen "
+			print \"hello\";
+		";
+
+		EObject con = unlessStm.eContainer().eContainer();
+		if (con instanceof Module) {
+			Module mod = con as Module;
+			Statement firstStatement = mod.getProcedures().first.getStatements().first;
+			setGenContext after firstStatement;
+			gen "
+				i=3;
+			";
+			resetGenContext;
+		}
+		
+		gen "
+			if (!("condition"))
+				"codeBlock"
+		";
+	}
+
+}

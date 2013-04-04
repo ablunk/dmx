@@ -1,0 +1,57 @@
+#import "sml"
+
+module sml_application {
+
+	class M1 {
+	}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+
+	active class P {
+		int i;
+		
+		stateMachine PBehavior {
+			initial / {
+				trace("init.");
+				i=0;
+			} -> A;
+			state A (
+				[i == 0] / {
+					trace("i is zero.");
+				} -> A,
+				[i > 0] / {
+					trace("i is greater zero.");
+				} -> A,
+				M1 [i > 0] / {
+					trace("M1 received, i="+i);
+				} -> A,
+				after(2) / {
+					trace("time passed.");
+					i=i+1;
+				} -> A
+			);
+		}
+	}
+	
+	void main() {
+		P p = new P;
+		activate p;
+		send new M1 to p;
+
+		advance 3;
+		
+		send new M1 to p;
+		advance 1;
+		send new M1 to p;
+		
+		advance 8;
+	}
+	
+}
+

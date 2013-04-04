@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+ <copyright>
+ </copyright>
+
+ $Id$
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="hub.sam.edu.modsoftuml2.emf.bf.presentation.BfModelWizardID"
+            name="%_UI_BfModelWizard_label"
+            class="hub.sam.edu.modsoftuml2.emf.bf.presentation.BfModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/BfModelFile.gif">
+         <description>%_UI_BfModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="hub.sam.edu.modsoftuml2.emf.bf.presentation.BfEditorID"
+            name="%_UI_BfEditor_label"
+            icon="icons/full/obj16/BfModelFile.gif"
+            extensions="bf"
+            class="hub.sam.edu.modsoftuml2.emf.bf.presentation.BfEditor"
+            contributorClass="hub.sam.edu.modsoftuml2.emf.bf.presentation.BfActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

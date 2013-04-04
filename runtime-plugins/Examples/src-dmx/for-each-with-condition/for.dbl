@@ -1,0 +1,25 @@
+#import "../base"
+
+module ForEachWithCondition {
+
+	extension ForEachWithCondition {
+		Statement -> ForEachWithCondition;
+		ForEachWithCondition -> "for" "("
+			variable:$Variable "=" value:Expression ";"
+			condition:Expression ";"
+			incStm:Assignment ")"
+			"{"	MultipleStatements "}";
+		MultipleStatements -> ;
+		MultipleStatements -> statements:list(Statement) MultipleStatements;
+	}
+	semantics {
+		gen "" variable "=" value ";";
+		gen "while (" condition ") {";
+		for (Statement stm: statements) {
+			gen "" stm ";";
+		}
+		gen "" incStm ";";
+		gen "}";
+	}
+	
+}

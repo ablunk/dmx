@@ -1,0 +1,12 @@
+#import "forever"
+
+module ForeverUsage {
+
+	void main() {
+		forever {
+			break;
+		}
+		print "hallo";
+	}
+
+}

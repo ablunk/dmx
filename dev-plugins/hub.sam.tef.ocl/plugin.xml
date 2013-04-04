@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="hub.sam.tef.ocl.OclTextEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            default="true"
+            extensions="ocl"
+            icon="icons/ExpressionsModelFile.gif"
+            id="hub.sam.tef.ocl.texteditor"
+            name="TEF OCL Text Editor">
+      </editor>
+   </extension>
+   <extension
+         point="hub.sam.tef.popupeditor">
+      <popupeditor
+            class="hub.sam.tef.ocl.OclPopupEditor"
+            name="hub.sam.tef.ocl.OclPopupEditor">
+      </popupeditor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="hub.sam.tef.contextOclPopup"
+            objectClass="org.eclipse.emf.ecore.impl.EStringToStringMapEntryImpl">
+         <action
+               class="hub.sam.tef.ocl.EMFOpenOclPopupEditor"
+               definitionId="hub.sam.tef.OpenOclPopupEditor"
+               icon="icons/ExpressionsModelFile.gif"
+               id="hub.sam.tef.openOclEditor"
+               label="Open OCL Editor"
+               menubarPath="additions">
+         </action>
+      </objectContribution>
+   </extension>
+
+</plugin>

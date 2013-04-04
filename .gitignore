@@ -1,0 +1,11 @@
+*.class
+*.bak
+.DS_Store
+bin/
+runtime-plugins/**/gen-src/*
+runtime-plugins/hub.*
+runtime-plugins/**/*.html
+dev-plugins/**/src-gen/*
+dev-plugins/**/resources/gen/*
+unversioned/
+dev-plugins/DESMO-J/docs/

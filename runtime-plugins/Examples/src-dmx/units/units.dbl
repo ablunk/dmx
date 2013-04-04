@@ -1,0 +1,40 @@
+#import "../base"
+
+module units {
+
+	interface L1Expr {}
+	interface L2Expr {}
+	
+	extension Unit {
+		L1Expr -> Unit;
+		Unit -> op:L1Expr ":" unit:L2Expr;
+	}
+	semantics {
+		//return eval(op) * eval(unit);
+	}
+	
+	extension Sekunde {
+		L1Expr -> Sekunde;
+		Sekunde -> "s";
+	}
+	semantics {
+		//return eval(1);
+	}
+
+	extension ZentiMeter {
+		L1Expr -> ZentiMeter;
+		ZentiMeter -> "cm";
+	}
+	semantics {
+		//return eval(1/100);
+	}
+
+	extension MilliMeter {
+		L1Expr -> MilliMeter;
+		MilliMeter -> "mm";
+	}
+	semantics {
+		//return eval(1/1000);
+	}
+
+}

@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hub.sam.dbl.model/src"
+    editDirectory="/hub.sam.dbl.model.edit/src" editorDirectory="/hub.sam.dbl.model.editor/src"
+    modelPluginID="hub.sam.dbl.model" modelName="Dbl" modelPluginClass="" editPluginClass="dbl.provider.dblEditPlugin"
+    editorPluginClass="dbl.presentation.dblEditorPlugin" testsDirectory="/hub.sam.dbl.model.tests/src"
+    testSuiteClass="dbl.tests.dblAllTests" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="hub.sam.dbl.model.edit"
+    editorPluginID="hub.sam.dbl.model.editor">
+  <foreignModel>dbl.ecore</foreignModel>
+  <genPackages prefix="Dbl" basePackage="hub.sam" disposableProviderFactory="true"
+      ecorePackage="dbl.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="dbl.ecore#//BindingExprOpKind">
+      <genEnumLiterals ecoreEnumLiteral="dbl.ecore#//BindingExprOpKind/ASSIGN"/>
+      <genEnumLiterals ecoreEnumLiteral="dbl.ecore#//BindingExprOpKind/ADD"/>
+      <genEnumLiterals ecoreEnumLiteral="dbl.ecore#//BindingExprOpKind/BOOL"/>
+    </genEnums>
+    <genClasses ecoreClass="dbl.ecore#//Construct">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Construct/concreteSyntax"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Model/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Model/modules"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Import/file"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//Import/model"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Module">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/classifiers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/classAugments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/extensionDefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/annotationDefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/procedures"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/idRes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//EmbeddableExtensionsContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//EmbeddableExtensionsContainer/extensions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//ModifierExtensionsContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ModifierExtensionsContainer/modifierExtensions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//Type"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//TypedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TypedElement/primitiveType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//TypedElement/isList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TypedElement/classifierTypeExpr"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//PrimitiveType"/>
+    <genClasses ecoreClass="dbl.ecore#//VoidType"/>
+    <genClasses ecoreClass="dbl.ecore#//IntType"/>
+    <genClasses ecoreClass="dbl.ecore#//BoolType"/>
+    <genClasses ecoreClass="dbl.ecore#//DoubleType"/>
+    <genClasses ecoreClass="dbl.ecore#//StringType"/>
+    <genClasses ecoreClass="dbl.ecore#//Procedure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Procedure/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Procedure/clazz"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//SimpleAnnotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//SimpleAnnotation/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Annotation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Annotation/keys"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//AnnotationApplication">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//AnnotationApplication/annotationDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AnnotationApplication/keyValuePairs"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//KeyValuePair">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//KeyValuePair/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//KeyValuePair/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//AnnotatableElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AnnotatableElement/annotationApplications"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AnnotatableElement/simpleAnnotations"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//Classifier">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Classifier/bindings"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//NativeBinding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NativeBinding/targetLanguage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NativeBinding/targetType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//ClassSimilar">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/methods"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/superClass"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/implementedInterfaces"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/initialBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/finalBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/actionsBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/reportBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/clearBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//StartCodeBlock"/>
+    <genClasses ecoreClass="dbl.ecore#//Clazz">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Clazz/active"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Clazz/constructor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Clazz/baseConstructorArguments"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Constructor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Constructor/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ClassAugment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassAugment/augmentedClass"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Interface">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Interface/methods"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//Interface/superInterfaces"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//AbstractVariable"/>
+    <genClasses ecoreClass="dbl.ecore#//Variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Variable/control"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Variable/clazz"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Variable/initialValue"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Parameter"/>
+    <genClasses ecoreClass="dbl.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//CodeBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//CodeBlock/statements"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//Statement"/>
+    <genClasses ecoreClass="dbl.ecore#//CompositeStatement"/>
+    <genClasses ecoreClass="dbl.ecore#//SimpleStatement"/>
+    <genClasses ecoreClass="dbl.ecore#//ExpressionStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpressionStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//StatementExpression"/>
+    <genClasses ecoreClass="dbl.ecore#//Assignment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Assignment/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Assignment/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//DeprecatedProcedureCallStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//DeprecatedProcedureCallStatement/procedureCall"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ProcedureCall">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ProcedureCall/procedureAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Return">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Return/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//WaitUntil">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//WaitUntil/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Terminate"/>
+    <genClasses ecoreClass="dbl.ecore#//Wait"/>
+    <genClasses ecoreClass="dbl.ecore#//Reactivate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Reactivate/objectAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ActivateObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ActivateObject/objectAccess"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ActivateObject/priority"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Advance">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Advance/time"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Print">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Print/outputs"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//SetStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SetStatement/object"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SetStatement/set"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//RemoveFromSet"/>
+    <genClasses ecoreClass="dbl.ecore#//AddToSet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference dbl.ecore#//AddToSet/atIndex"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//EmptySet"/>
+    <genClasses ecoreClass="dbl.ecore#//IfStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IfStatement/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IfStatement/ifCaseBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IfStatement/elifCondition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IfStatement/elifCaseBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IfStatement/elseCaseBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//WhileStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//WhileStatement/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//WhileStatement/whileBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//BreakStatement"/>
+    <genClasses ecoreClass="dbl.ecore#//ContinueStatement"/>
+    <genClasses ecoreClass="dbl.ecore#//ForEachStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForEachStatement/iteratorVariableDefinition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForEachStatement/iteratorVariableReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForEachStatement/iterableExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForEachStatement/forBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Expression"/>
+    <genClasses ecoreClass="dbl.ecore#//L1Expr"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//BinaryOperator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//BinaryOperator/op1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//BinaryOperator/op2"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//UnaryOperator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//UnaryOperator/op"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Plus"/>
+    <genClasses ecoreClass="dbl.ecore#//Minus"/>
+    <genClasses ecoreClass="dbl.ecore#//Mul"/>
+    <genClasses ecoreClass="dbl.ecore#//Mod"/>
+    <genClasses ecoreClass="dbl.ecore#//Div"/>
+    <genClasses ecoreClass="dbl.ecore#//Neg"/>
+    <genClasses ecoreClass="dbl.ecore#//And"/>
+    <genClasses ecoreClass="dbl.ecore#//Or"/>
+    <genClasses ecoreClass="dbl.ecore#//Greater"/>
+    <genClasses ecoreClass="dbl.ecore#//GreaterEqual"/>
+    <genClasses ecoreClass="dbl.ecore#//Less"/>
+    <genClasses ecoreClass="dbl.ecore#//LessEqual"/>
+    <genClasses ecoreClass="dbl.ecore#//NotEqual"/>
+    <genClasses ecoreClass="dbl.ecore#//Equal"/>
+    <genClasses ecoreClass="dbl.ecore#//InstanceOf"/>
+    <genClasses ecoreClass="dbl.ecore#//Not"/>
+    <genClasses ecoreClass="dbl.ecore#//CreateObject"/>
+    <genClasses ecoreClass="dbl.ecore#//Cast"/>
+    <genClasses ecoreClass="dbl.ecore#//NullLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//TimeLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//ActiveLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//EvalExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//EvalExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//MeLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//SuperLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//MetaLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//TypeLiteral"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//SetOp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SetOp/set"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//SizeOfSet"/>
+    <genClasses ecoreClass="dbl.ecore#//FirstInSet"/>
+    <genClasses ecoreClass="dbl.ecore#//LastInSet"/>
+    <genClasses ecoreClass="dbl.ecore#//Contains"/>
+    <genClasses ecoreClass="dbl.ecore#//IndexOf"/>
+    <genClasses ecoreClass="dbl.ecore#//ObjectAt"/>
+    <genClasses ecoreClass="dbl.ecore#//BeforeInSet"/>
+    <genClasses ecoreClass="dbl.ecore#//AfterInSet"/>
+    <genClasses ecoreClass="dbl.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//IntLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//IntLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//TrueLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//FalseLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//DoubleLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//DoubleLiteral/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//DepIdentifiableElement"/>
+    <genClasses ecoreClass="dbl.ecore#//PredefinedId"/>
+    <genClasses ecoreClass="dbl.ecore#//IdExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IdExpr/parentIdExpr"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//IdExpr/referencedElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IdExpr/predefinedId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IdExpr/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ArgumentExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ArgumentExpression/arguments"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//ElementAccess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ElementAccess/idExpr"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//VariableAccess"/>
+    <genClasses ecoreClass="dbl.ecore#//MetaAccess"/>
+    <genClasses ecoreClass="dbl.ecore#//TypeAccess"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//Extension"/>
+    <genClasses ecoreClass="dbl.ecore#//NamedExtension"/>
+    <genClasses ecoreClass="dbl.ecore#//ClassContentExtension"/>
+    <genClasses ecoreClass="dbl.ecore#//ModuleContentExtension"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//ExtensionDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/abstractSyntaxDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/textualSyntaxDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/mappingDef"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//TextualSyntaxDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TextualSyntaxDef/extensionRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TextualSyntaxDef/newRules"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//ReferableRhsType"/>
+    <genClasses ecoreClass="dbl.ecore#//TsRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//TsRule/metaClassName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TsRule/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ExtensionRule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionRule/instantiableMetaClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionRule/firstNewRule"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//RhsExpression">
+      <genOperations ecoreOperation="dbl.ecore#//RhsExpression/getSubExpressions"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//SequenceExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SequenceExpr/sequence"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//OptionalExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//OptionalExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//RuntimeExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//RuntimeExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//AtLeastOneExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AtLeastOneExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ArbitraryExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ArbitraryExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//AlternativeExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AlternativeExpr/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AlternativeExpr/right"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//TerminalExpr">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//TerminalExpr/terminal"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//PropertyBindingExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//PropertyBindingExpr/propertyType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//PropertyBindingExpr/operator"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//RuleExpr">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//RuleExpr/rule"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//PropertyType"/>
+    <genClasses ecoreClass="dbl.ecore#//IdPropertyType"/>
+    <genClasses ecoreClass="dbl.ecore#//IntPropertyType"/>
+    <genClasses ecoreClass="dbl.ecore#//StringPropertyType"/>
+    <genClasses ecoreClass="dbl.ecore#//BooleanPropertyType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//BooleanPropertyType/terminal"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//StructuredPropertyType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//StructuredPropertyType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//CompositePropertyType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//CompositePropertyType/list"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ReferencePropertyType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ReferencePropertyType/idResolutionPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ReferencePropertyType/rawReference"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Mapping">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Mapping/parts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Mapping/metaObject"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//MappingPart"/>
+    <genClasses ecoreClass="dbl.ecore#//MetaExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//MetaExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//TargetStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TargetStatement/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//MappingStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//MappingStatement/parts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//MappingStatement/exprs"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//SetGenContextStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SetGenContextStatement/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//SetGenContextStatement/addAfterContext"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ResetGenContextStatement"/>
+    <genClasses ecoreClass="dbl.ecore#//SaveGenStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SaveGenStatement/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ResumeGenStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ResumeGenStatement/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//FixedMappingPart">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//FixedMappingPart/code"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//DynamicMappingPart">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//DynamicMappingPart/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ExpandExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandExpression/metaObject"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ExpandStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandStatement/metaObject"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandStatement/location"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ExpandSection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandSection/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//CodeQuoteExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//CodeQuoteExpression/quotedCode"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//QuotedCode"/>
+    <genClasses ecoreClass="dbl.ecore#//QuotedExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//QuotedExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//QuotedStatements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//QuotedStatements/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//QuotedClassContent"/>
+    <genClasses ecoreClass="dbl.ecore#//QuotedModuleContent"/>
+    <genClasses ecoreClass="dbl.ecore#//ExpandableElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandableElement/expandExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//TestStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//TestStatement/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//IdResolution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//IdResolution/metaModelPlatformURI"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IdResolution/patterns"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Pattern">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Pattern/top"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Pattern/context"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Pattern/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//PotentiallyHiddenIdElements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//PotentiallyHiddenIdElements/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//FindContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//FindContainer/variableBinding"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//FindContainer/containerBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//FindContainer/elseBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ConsiderIdElements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ConsiderIdElements/elementsQuery"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//IncludePattern">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//IncludePattern/pattern"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IncludePattern/context"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Signal"/>
+    <genClasses ecoreClass="dbl.ecore#//SendStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SendStatement/signal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SendStatement/target"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//StateMachine">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//StateMachine/initialState"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//StateMachine/states"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//InitialState">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//InitialState/effect"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//InitialState/target"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//State">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//State/outgoing"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Transition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/trigger"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/condition"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/target"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/effect"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Trigger">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Trigger/signalEvent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Trigger/timeEvent"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//TimeEvent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TimeEvent/delay"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

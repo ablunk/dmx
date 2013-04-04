@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hub.sam.dmx.modifications/src"
+    editDirectory="/hub.sam.dmx.modifications.edit/src" editorDirectory="/hub.sam.dmx.modifications.editor/src"
+    modelPluginID="hub.sam.dmx.modifications" modelName="Modifications" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="6.0" copyrightFields="false" editPluginID="hub.sam.dmx.modifications.edit"
+    editorPluginID="hub.sam.dmx.modifications.editor">
+  <foreignModel>modifications.ecore</foreignModel>
+  <genPackages prefix="Modifications" basePackage="hub.sam.dmx" disposableProviderFactory="true"
+      ecorePackage="modifications.ecore#/">
+    <genClasses ecoreClass="modifications.ecore#//ModificationsRecord">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference modifications.ecore#//ModificationsRecord/modifications"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="modifications.ecore#//Modification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modifications.ecore#//Modification/sourceEObjectUri"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modifications.ecore#//Modification/sourceStart"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modifications.ecore#//Modification/replacementText"/>
+    </genClasses>
+    <genClasses ecoreClass="modifications.ecore#//Substitution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modifications.ecore#//Substitution/sourceLength"/>
+    </genClasses>
+    <genClasses ecoreClass="modifications.ecore#//Addition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute modifications.ecore#//Addition/addAfterPosition"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,13 @@
+module forTest {
+
+	void main() {
+		list(int) is;
+		int i;
+		place 1 into is;
+		place 2 into is;
+		for (i:is) {
+			print i + "\n";
+		}
+	}
+
+}

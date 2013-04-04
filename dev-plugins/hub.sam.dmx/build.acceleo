@@ -1,0 +1,26 @@
+<!-- ===================================================================== -->
+<!-- Custom targets.                                                       -->
+<!-- Set customBuildCallbacks = build.acceleo in your build.properties.    -->
+<!-- ===================================================================== -->
+<project name="Build Acceleo Module" default="noDefault">    
+    <!-- ================================================================= -->
+    <!-- Default target                                                    -->
+    <!-- ================================================================= -->
+    <target name="noDefault">
+        <echo message="This file must be called with explicit targets" />
+    </target>
+
+    <!-- ================================================================= -->
+    <!-- This will be called automatically after the compilation of each   -->
+    <!-- Bundle... in dependency order.                                    -->
+    <!-- ================================================================= -->
+    <target name="post.compile.@dot">
+        <acceleoCompiler 
+            sourceFolder="${target.folder}"
+            outputFolder="${target.folder}"
+            dependencies="${target.folder}/../../hub.sam.tef;${target.folder}/../../hub.sam.tef.rcc;${target.folder}/../../DESMO-J;${target.folder}/../../JiST-SWANS-Pro;${target.folder}/../../hub.sam.dbl.model;${target.folder}/../../hub.sam.dbl.model.edit;${target.folder}/../../hub.sam.dmx.modifications;${target.folder}/../../hub.sam.dmx.modifications.edit;"
+            binaryResource="false"
+            packagesToRegister="">
+        </acceleoCompiler>
+    </target>    
+</project>

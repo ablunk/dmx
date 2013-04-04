@@ -1,0 +1,25 @@
+module listTest {
+
+	interface Object {}
+
+	interface JavaMap {
+		void put(int index, Object element);
+	}
+	
+	// bind JavaMap to Map;
+
+	void main() {
+		list(int) is;
+		
+		place 3 into is;
+		place 1+2*3 into is;
+		place 1+2 into is;
+		
+		for (int i : is) {
+			print i + "\n";
+		}
+		
+		print is.at(1);
+	}
+
+}

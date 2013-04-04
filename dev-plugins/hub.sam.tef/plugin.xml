@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="hub.sam.tef.layout" name="layout" schema="schema/hub.sam.tef.layout.exsd"/>
+   <extension-point id="hub.sam.tef.primitivetypedescriptor" name="primitive type descriptor" schema="schema/hub.sam.tef.primitivetypedescriptor.exsd"/>
+   <extension-point id="hub.sam.tef.popupeditor" name="popeditor" schema="schema/hub.sam.tef.popupeditor.exsd"/>
+   <extension-point id="hub.sam.tef.tokendescriptor" name="token descriptor" schema="schema/hub.sam.tef.tokendescriptor.exsd"/>
+
+   
+   <extension point="org.eclipse.ui.editors.annotationTypes">
+         <type
+               name="hub.sam.tef.occurence"
+               >
+         </type>
+          <type
+                name="hub.sam.tef.warning"
+                super="org.eclipse.ui.workbench.texteditor.warning"/>
+          <type
+                name="hub.sam.tef.error"
+                super="org.eclipse.ui.workbench.texteditor.error"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors.markerAnnotationSpecification">
+         <specification
+               annotationType="hub.sam.tef.occurence"
+               colorPreferenceKey="occurrenceIndicationColor"
+               colorPreferenceValue="230,230,230"
+               highlightPreferenceKey="occurrenceHighlighting"
+               highlightPreferenceValue="true"
+               includeOnPreferencePage="false"
+               label="%marker.occurences.label"
+               overviewRulerPreferenceKey="occurrenceIndicationInOverviewRuler"
+               overviewRulerPreferenceValue="true"
+               presentationLayer="5"
+               textPreferenceKey="occurrenceIndication"
+               textPreferenceValue="true"
+               textStylePreferenceValue="IBEAM"
+               verticalRulerPreferenceKey="occurrenceIndicationInVerticalRuler"
+               verticalRulerPreferenceValue="true">
+	  </specification>
+   </extension>
+   
+  
+
+  <extension
+        point="hub.sam.tef.layout">
+     <layout
+           class="hub.sam.tef.layout.BlockLayout"
+           name="BlockLayout">
+     </layout>
+     <layout
+           class="hub.sam.tef.layout.ExpressionLayout"
+           name="ExpressionLayout">
+     </layout>
+  </extension>
+  <extension
+        point="hub.sam.tef.primitivetypedescriptor">
+     <primitivetypedescriptor
+           class="hub.sam.tef.primitivetypes.IdentifierDescriptor"
+           rccsymbol="`identifier`"
+           symbolname="IDENTIFIER">
+     </primitivetypedescriptor>
+     <primitivetypedescriptor
+           class="hub.sam.tef.primitivetypes.StringDefDescriptor"
+           rccsymbol="`stringdef`"
+           symbolname="STRINGDEF">
+     </primitivetypedescriptor>
+     <primitivetypedescriptor
+           class="hub.sam.tef.primitivetypes.IntegerDescriptor"
+           rccsymbol="`integer`"
+           symbolname="INTEGER">
+     </primitivetypedescriptor>
+     <primitivetypedescriptor
+           class="hub.sam.tef.primitivetypes.FloatDescriptor"
+           rccsymbol="`float`"
+           symbolname="FLOAT">
+     </primitivetypedescriptor>
+     <primitivetypedescriptor
+           class="hub.sam.tef.primitivetypes.EtslActionParameter"
+           rccsymbol="etsl_action_parameter"
+           symbolname="ETSL_ACTION_PARAMETER">
+     </primitivetypedescriptor>
+  </extension>
+  <extension
+        point="org.eclipse.ui.editors">
+     <editor
+           class="hub.sam.tef.contentassist.ContentAssistTestEditor"
+           extensions="cct"
+           icon="icons/TSL.gif"
+           id="hub.sam.tef.cctesteditor"
+           name="Content Assist Test Test Editor">
+     </editor>
+  </extension>
+  <extension
+        point="org.eclipse.ui.popupMenus">
+     <objectContribution
+           id="hub.sam.tef.contextPopup"
+           objectClass="org.eclipse.emf.ecore.EObject">
+        <action
+              class="hub.sam.tef.editor.popup.EMFOpenPopupEditor"
+              definitionId="hub.sam.tef.OpenPopupEditor"
+              icon="icons/TSL.gif"
+              id="hub.sam.tef.openEditor"
+              label="Open TEF Editor Action"
+              menubarPath="additions">
+        </action>
+     </objectContribution>
+  </extension>
+  <extension
+        point="org.eclipse.ui.commands">
+     <command
+           categoryId="hub.sam.tef.commands"
+           id="hub.sam.tef.ClosePopupEditor"
+           name="Close a Popup Editor">
+     </command>
+     <command
+           categoryId="hub.sam.tef.commands"
+           id="hub.sam.tef.OpenPopupEditor"
+           name="Open a Popup Editor">
+     </command>
+     <category
+           description="Textual Editing Framework (TEF)"
+           id="hub.sam.tef.commands"
+           name="TEF">
+     </category>
+     <command
+           categoryId="hub.sam.tef.commands"
+           id="hub.sam.tef.Format"
+           name="Format">
+     </command>
+  </extension>
+  <extension
+        point="org.eclipse.ui.bindings">
+     <key
+           commandId="hub.sam.tef.ClosePopupEditor"
+           contextId="hub.sam.tef.context"
+           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+           sequence="ESC">
+     </key>
+     <key
+           commandId="hub.sam.tef.OpenPopupEditor"
+           contextId="org.eclipse.ui.contexts.window"
+           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+           sequence="ALT+T">
+     </key>
+     <key
+           commandId="hub.sam.tef.Format"
+           contextId="hub.sam.tef.context"
+           schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+           sequence="CTRL+SHIFT+F">
+     </key>
+  </extension>
+  <extension
+        point="org.eclipse.ui.contexts">
+     <context
+           description="In TEF Editors"
+           id="hub.sam.tef.context"
+           name="In TEF Editors"
+           parentId="org.eclipse.ui.textEditorScope">
+     </context>
+  </extension>
+  <extension
+        point="hub.sam.tef.tokendescriptor">
+     <tokendescriptor
+           class="hub.sam.tef.tokens.CStyleComment"
+           rccsymbol="`cstylecomment`">
+     </tokendescriptor>
+  </extension>
+</plugin>

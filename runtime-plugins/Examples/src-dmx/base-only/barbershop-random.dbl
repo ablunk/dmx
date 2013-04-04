@@ -1,0 +1,77 @@
+module BarberShop {
+
+	interface Object {}
+	
+	class UniformReal(string name, double lower, double upper) {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.RealDistUniform",
+			"jist" -> "hub.sam.dmx.javasim.generic.dist.RealDistUniform"
+		}
+		double sample() {}
+	}
+	
+	int stopTime = 480000;
+	UniformReal arrivalTime = new UniformReal("arrival1", 12.0, 24.0);
+	UniformReal serviceTime = new UniformReal("arrival1", 12.0, 18.0);
+	boolean debug = true;
+
+	void main() {
+		CustomerArrival arrival = new CustomerArrival;
+		activate arrival;
+		
+		advance stopTime;
+	}
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+	class Facility {
+		boolean busy = false;
+		list(Object) waiting;
+		
+		void seize() {
+			if (busy) {
+				trace("facility busy. waiting.");
+				place active into waiting;
+				wait;
+				remove active from waiting;
+			}
+			trace("facility seized.");
+			busy = true;
+		}
+		
+		void release() {
+			busy = false;
+			if (waiting.size > 0) {
+				trace("activate waiting process.");
+				reactivate waiting.first;
+			}
+			trace("facility released.");
+		}
+	}
+	
+	Facility joe = new Facility;
+
+	active class Customer {		
+		actions {
+			joe.seize();
+			advance serviceTime.sample();
+			joe.release();
+		}
+	}
+	
+	active class CustomerArrival {
+		actions {
+			while (time <= stopTime) {
+				advance arrivalTime.sample();
+				Customer c = new Customer;
+				activate c;
+				trace("new customer created.");
+			}
+		}
+	}
+
+}

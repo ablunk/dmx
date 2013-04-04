@@ -1,0 +1,18 @@
+#import "for-loop"
+
+module forLoopUse {
+
+	void main() {
+		list(int) is;
+		int i;
+		
+		place 15 into is;
+		place 42 into is;
+		
+		for (i in is with i > 0) {
+			print i + "\n";
+		}
+
+	}
+
+}

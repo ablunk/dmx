@@ -1,0 +1,14 @@
+#import "ebnf"
+
+module EbnfSample {
+
+	extension ExtensionUsingEbfn {
+		Statemtent -> Forever;
+		Forever -> "forever" "{" (stms:list(Statement))* "}";
+	}
+	semantics {
+		for (Statement stm: stms) {
+		}
+	}
+
+}

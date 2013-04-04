@@ -1,0 +1,32 @@
+TEF Version 1.0.7
+-----------------
+
++ made MANIFEST.MF Eclipse 3.4/OSGI compliant
++ changed Java Environment requirement to Jave SE 5, updated classpaths
++ fixed a bug in the editor resource handling to allow opening files which are not stored in the eclipse workspace
++ Support for reloading a model from file system. 
++ Improved editing domain handling and reconciling synchronization.
++ Allow editor subclasses to control resource set creation strategy.
+
+TEF Version 1.0.5
+-----------------
+
++ **IMPORTANT** added new plugin hub.sam.tef.ui:
+  factored out dependency on the Eclipse User interface: moved editor wizards to the new plugin hub.sam.tef.ui, plugins hub.sam.tef and hub.sam.tef.rcc now works as TEF runtime packages
++ removed dependency from Java Development Toolkit (JDT) and replaced popup menu constants with corresponding definitions from org.eclipse.ui.navigator.ICommonMenuConstants; now Eclipse RCP applications using TEF do not need to include the Eclipse JDT ;)
++ fixed layout extension point description to point to correct package of AbstractLayoutManager
++ fixed popup editor extension point description to point to correct package of PopupEditor
++ added getCurrentText() method to ModelEditor to behave like the corresponding method of the TextEditor
++ fixed Bug #14284 <https://developer.berlios.de/bugs/?func=detailbug&bug_id=14284&group_id=7559>,
+  implemented proper resource manipulation in TextEditor#updateCurrentModel
++ made pretty printer an exchangeable component of the editor, the methods
+  hub.sam.tef.editor.text.TextEditor#createPrettyPrinter(), and
+  hub.sam.tef.editor.text.TextEditor#createPrettyPrinter(Syntax, ISemanticsProvider)
+  retrieve the standard hub.sam.tef.prettyprinting.PrettyPrinter,
+  the methods can be overridden for specialized pretty printers
++ extended TSL and ETSL grammar to allow bison-style statements that are interpreted
+  during model resolution
++ extended TSL and ETSL grammar to make comment tokens part of the grammar specification
++ added TokenDescriptor extension point to include new non-standard tokens in the
+  lexer, added CStyleComment token descriptor
++ fixed memory leaks

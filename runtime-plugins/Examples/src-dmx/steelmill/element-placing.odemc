@@ -1,0 +1,172 @@
+module ElementPlacing {
+
+	passive class Point(int x, int y) {
+		int x;
+		int y;
+	}
+	
+	passive class Shape {
+	}
+	
+	passive class ArbitraryPointShape extends Shape {
+		set(Point) points;
+	}
+	
+	passive class Rectangle extends Shape {
+		int length;
+		int width;
+	}
+	
+	interface WeightRestrictedRegion {
+		int getHeight();
+	}
+	
+	// ein Gebiet in dem es Plätze gibt
+	passive class Area {
+		set(Place) places;
+		int maxHeight;
+						
+		int getHeight() {
+			int height;
+			for (Place p: places) {
+				height = height + p.getHeight();
+			}
+			return height;
+		}
+		
+		// tries to place the object, returns true on success and otherwise false
+		Place canPlaceObject(Placeable placeable) {
+			if (placeable.height + getHeight() > maxHeight) {
+				return false;
+			}
+			for (Place p: places) {
+				if (p.getHeight() + placeable.height <= maxHeight and !p.reserved) {
+					// found a place
+					return p;
+				}
+			}
+			return null;
+		}
+
+		boolean placeObject(Placeable placeable) {
+			Place p = canPlaceObject(placeable);
+			if (p != null) {
+				place placeable into p.content;
+				p.reserved = false;
+				return true;
+			}
+			return false;
+		}
+
+		void removeObject(Placeable placeable) {
+		}
+	}
+	
+	passive class Place implements WeightRestrictedRegion {
+		set(Placeable) content;
+		boolean reserved = false;
+		
+		void reserve() {
+			reserved = true;
+		}
+		
+		int getHeight() {
+			int height;
+			for (Placeable p: content) {
+				height = height + p.height;
+			}
+			return height;
+		}
+	}
+	
+	// Platz mit einem festen Platzierungspunkt innerhalb eines Gebietes
+	passive class PointPlace(int x, int y) extends Place {
+		Point p;
+		initial {
+			p = new Point(x,y);
+		}
+	}
+	
+	// Platz mit vielen Platzierungspunkten entlang einer Linie, Bsp. ABP
+	passive class LinePlace extends Place {
+		Point p1;
+		Point p2;
+	}
+	
+	// Platz mit wahlfreier Platzierung auf einem Feld einer best. Form
+	passive class FreeSpacePlace extends Place {
+		Shape shape; // Form des Feldes
+		Point position; // Position im Gebiet in dem sich der Platz befindet
+	}
+	
+	// Objekte, die platziert werden
+	passive class Placeable(int height) {
+		int height; // zur Vereinfachung betrachten wir nur das Attribut Höhe
+		int zPosition = 0; // Position auf dem Objekt-Stack entlang der Z-Koordinate
+	}
+	
+	// *** USE CASE ***
+	
+	// Form und Möglichkeiten der Überlagerungen von Ringen vorerst ohne Belang
+	passive class Ring extends Placeable {
+	}
+	
+	passive class Stapel {
+		set(Ring) ringe;
+	}
+	
+	passive class Palette {
+		Area area;
+		initial {
+			area = new Area;
+			area.maxHeight = 200; // cm
+			
+			Place p;
+			p = new PointPlace(33,50); // cm
+			place p into area.places;
+			
+			p = new PointPlace(66,50); // cm
+			place p into area.places;
+		}
+	}
+	
+	passive class PufferStrecke {
+		set(Palette) paletten;
+		
+		initial {
+			int n = 3;
+			while (n > 0) {
+				Palette pal = new Palette;
+				place pal into paletten;
+				n = n-1;
+			}
+		}
+	}
+	
+	PufferStrecke ps;
+	
+	void main() {
+		ps = new PufferStrecke;
+		
+		Ring ring;
+		ring = new Ring(100, 15);
+		
+		// einen geeigneten Platz für den Ring suchen
+		for (Palette pal: ps.paletten) {
+		
+			// DSL construct:
+			// put <Placeable> into <Area> {
+			//     onTransport { advance 5; ... }
+			//     [onNoRoom { ... }]
+			// }
+		
+			Place p = pal.area.canPlaceObject(ring);
+			if (p != null) {
+				p.reserve();
+				advance 5; // transport time
+				pal.area.placeObject(ring);
+			}
+		}
+	}
+
+}

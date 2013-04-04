@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: DESMO-J-Sample
+Bundle-SymbolicName: DESMO-J-Example
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: desmo_j_sample.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ DESMO-J;bundle-version="2.2.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

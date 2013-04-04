@@ -1,0 +1,101 @@
+#import "../../odemcustom"
+
+module sml {
+	
+	class StateMachine {
+		State initialState;
+		list(State) states;
+	}
+	
+	class State {
+		list(Transition) outgoing;
+	}
+	
+	class Transition {
+		Expression condition;
+		Expression timeExpr;
+		Statement oneLineEffect;
+		CodeBlock multiLineEffect;
+		State target;
+	}
+
+	extension StateMachine {
+		ClassContentExtension:instantiates(NamedExtension) -> StateMachine;
+		
+		//StateMachine -> "sm" "{" (states+=State)* "}";
+		//State -> "state" name=ID ( "(" outgoing+=Transition ("," outgoing+=Transition)* ")" )? ";";
+		//Transition -> (StateEventTransition | TimeEventTransition) (Effects)? (TargetState)?;
+
+		//StateEventTransition -> "when" "(" condition=Expression ")";
+		//TimeEventTransition -> "after" "(" timeExpr=Expression ")";
+		//Effects -> "/" effect=Statement;
+		//Effects -> "/" codeBlock=CodeBlock;
+		//TargetState -> "->" target=$State;
+		
+		StateMachine -> "sm" "{" "}";
+	}
+	semantics {
+		CodeBlock cb = createEventLoop(self);
+	
+		expand {# CC:
+			void main() {
+				int currentStateIndex = 0; // initialState = 0
+				
+				while (true) {
+					?(cb); //?(cb.getStatements());
+				}
+			}
+		};
+	}
+	
+	CodeBlock createEventLoop(StateMachine sm) {
+		CodeBlock eventLoop;
+					
+		for (State s: sm.states) {
+			Expression waitCond = {# E: false };
+			int minTime = 0;
+			for (Transition t: s.outgoing) {
+				if (t.condition != null) {
+					waitCond = {# E: ?(waitCond) or ?(t.condition) };
+				}
+				elif (t.timeExpr != null and (?(t.timeExpr) < minTime or minTime == 0)) {
+					minTime = ?(t.timeExpr);
+				}
+			}
+						
+			Statement ctimeStm;
+			if (minTime > 0) {
+				ctimeStm = {# S: double ctime = time; };
+				waitCond = {# E: ?(waitCond) or time >= ?("ctime") + ?(minTime) };
+			}
+						
+			CodeBlock stateEffects;
+			for (Transition t: s.outgoing) {
+				if (t.condition != null) {
+					stateEffects = {# S:
+						?(stateEffects);
+						if (?(t.condition)) {
+							?(t.oneLineEffect);
+							?("currentStateIndex") = ?(sm.states.indexOf(t.target));
+						}
+					};
+				}
+			}
+						
+			eventLoop = {# S:
+				?(eventLoop);
+							
+				if (?("currentStateIndex") == ?(sm.states.indexOf(s))) {
+					?(ctimeStm);
+					wait until ?(waitCond);
+								
+					// determine which transition fired, execute effects, and goto target state
+					?(stateEffects);
+				}
+			};
+			
+			return eventLoop;
+		}
+	}	
+
+}

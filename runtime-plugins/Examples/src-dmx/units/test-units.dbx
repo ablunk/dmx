@@ -1,0 +1,14 @@
+#import "units"
+
+module testUnits {
+
+	void main() {
+		print (1:cm + 2:mm):cm;
+		
+		int kante = 10:mm;
+		print (kante + 2:cm):mm;
+		
+		int v = 10:cm/s;
+	}
+
+}

@@ -1,0 +1,167 @@
+package desmoj.extensions.applicationDomains.production;
+
+import desmoj.core.advancedModellingFeatures.ProcessCoop;
+import desmoj.core.dist.RealDist;
+import desmoj.core.simulator.Model;
+import desmoj.core.simulator.SimProcess;
+import desmoj.core.simulator.SimTime;
+
+/**
+ * Transportation is the object representing the process cooperation between a
+ * <code>Transporter</code> process and the goods (products represented by
+ * SimProcesses) he is transporting. It is intended that that this
+ * Transportation is used with the <code>TransportJunction</code> construct,
+ * where a <code>Transporter</code>( as a master process) is waiting for
+ * goods (slave processes) to carry them around in the manufacturing system.
+ * During the Transportation the master is active and the slaves are passive.
+ * The transportation carried out together is described in the method
+ * <code>cooperation</code>, which can be overwritten by the user to build
+ * more complex models. Until now this method only models the time it takes to
+ * transport the goods. Note: when using the <code>TransportJunction</code>
+ * construct the master (Transporter) will be activated after the transportation
+ * is done and the slaves will be activated after the master (if they have not
+ * been activated during the transportation already).
+ * 
+ * @see desmoj.extensions.applicationDomains.production.TransportJunction
+ * 
+ * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @author Soenke Claassen
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You
+ * may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
+ *
+ */
+public class Transportation extends ProcessCoop {
+
+	/**
+	 * The random number stream determining the time it takes to transport the
+	 * goods.
+	 */
+	private desmoj.core.dist.RealDist transportTimeStream;
+
+	/**
+	 * Constructs a Transportation process where a master (
+	 * <code>Transporter</code>) is transporting slaves (
+	 * <code>SimPorcess</code> es) in a cooperate process. The time it takes
+	 * to transport the goods is determined by the specified
+	 * transportTimeStream.
+	 * 
+	 * @param owner
+	 *            desmoj.Model : The model this Transportation is associated to.
+	 * @param name
+	 *            java.lang.String : the name of this Transportation.
+	 * @param transportTimeStream
+	 *            desmoj.dist.RealDist : The random number stream determining
+	 *            the time it takes to transport the goods.
+	 * @param showInTrace
+	 *            boolean : Flag, if this Transportation should produce a trace
+	 *            output or not.
+	 */
+	public Transportation(Model owner, String name,
+			RealDist transportTimeStream, boolean showInTrace) {
+		super(owner, name, showInTrace); // make a ProcessCoop
+
+		this.transportTimeStream = transportTimeStream;
+	}
+
+	/**
+	 * The <code>cooperation()</code> method with only one master and one
+	 * slave is not needed here. So we pass it to the more general method with
+	 * an array of slaves as parameter.
+	 */
+	protected void cooperation(SimProcess master, SimProcess slave) {
+		// make an array for the slave to be wrapped up
+		SimProcess[] wrapArray = new SimProcess[1];
+
+		wrapArray[0] = slave;
+
+		// hand it over to the more general cooperation method
+		transport(master, wrapArray);
+	}
+
+	/**
+	 * Returns a <code>SimTime</code> object representing the time it takes to
+	 * transport the goods with the transporter. The time is taken from the
+	 * given random number stream transportTimeStream.
+	 * 
+	 * @return desmoj.SimTime : The time it takes to transport the goods with
+	 *         the transporter.
+	 */
+	protected SimTime getTransportTimeSample() {
+
+		return new SimTime(transportTimeStream.sample());
+	}
+
+	/**
+	 * Sets the transportTimeStream to a new <code>RealDist</code> random
+	 * number stream.
+	 * 
+	 * @param newTransportTimeStream
+	 *            desmoj.dist.RealDist : The new <code>RealDist</code> random
+	 *            number stream determining the time it takes to transport the
+	 *            goods.
+	 */
+	public void setTransportTimeStream(RealDist newTransportTimeStream) {
+
+		this.transportTimeStream = newTransportTimeStream;
+	}
+
+	/**
+	 * This method describes the transportation process carried out by the
+	 * master process (some kind of <code>Transporter</code>). In this simple
+	 * case only the time it takes to transport the goods is taken into
+	 * consideration. If the user building the model has to implement a more
+	 * complex behavior, he has to overwrite this method in a subclass. The time
+	 * it takes to transport the goods is obtained from the method
+	 * <code>getTransportTimeSample()</code>.
+	 * 
+	 * @param master
+	 *            SimProcess : The master process which really carries out the
+	 *            cooperation. Should be a subclass of <code>Transporter</code>.
+	 * @param slaves
+	 *            SimProcess[] : The slave processes which are lead through the
+	 *            cooperation by the master.
+	 */
+	protected void transport(SimProcess master, SimProcess[] slaves) {
+		// check if the master is a Transporter
+		if (!(master instanceof desmoj.extensions.applicationDomains.production.Transporter)) {
+			sendWarning(
+					"The given master process for a transportation is "
+							+ "not a Transporter. The transport will be carried out anyway!",
+					"Transportation : "
+							+ getName()
+							+ " Method: void "
+							+ "cooperation (SimProcess master, SimProcess[] slave)",
+					"The given master process is not a Transporter.",
+					"It is recommended to use a Transporter process as a master "
+							+ "to carry out a transportation");
+		}
+
+		// hold for the time the goods are transported
+		hold(getTransportTimeSample());
+
+	}
+
+	/**
+	 * The <code>transport()</code> method with only one master and one slave
+	 * is not needed here. So we pass it to the more general method with an
+	 * array of slaves as parameter.
+	 */
+	protected void transport(SimProcess master, SimProcess slave) {
+		// make an array for the slave to be wrapped up
+		SimProcess[] wrapArray = new SimProcess[1];
+
+		wrapArray[0] = slave;
+
+		// hand it over to the more general cooperation method
+		transport(master, wrapArray);
+	}
+}

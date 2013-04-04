@@ -1,0 +1,154 @@
+module SmlPattern {
+
+	class Event {
+		string name;
+	}
+	
+	class State {
+		string name;
+		
+		State handleEvent(Event ev) {
+		}
+	}
+	
+	class A_State extends State {
+		Consumer ctx;
+		
+		State handleEvent(Event ev) {
+			if (ev.name == "Start") {
+				ctx.doEffect_fromState_a_onEvent_Start();
+				return ctx.b_state;
+			}
+			elseif (ev.name == "Resume") {
+				return ctx.b_state;
+			}
+			return self;
+		}
+	}
+
+	class B_State extends State {
+		Consumer ctx;
+		
+		State handleEvent(Event ev) {
+			if (ev.name == "Tick") {
+				if (ctx.i < 10) {
+					ctx.i = ctx.i + 1;
+					return self;
+				}
+				else {
+					return null;
+				}
+			}
+			elif (ev.name == "Pause") {
+				return ctx.a_state;
+			}
+			return self;
+		}
+	}
+	
+	class StateMachine {
+		list(Event) eventPool;
+		State currentState;
+
+		actions {
+			while (true) {
+				while (eventPool.size > 0) {
+					Event ev = eventPool.first;
+					State nextState = currentState.handleEvent(ev);
+					currentState = nextState;
+				}
+				wait;
+			}
+		}
+	}
+
+	active class Consumer extends StateMachine {
+		A_State a_state;
+		B_State b_state;
+		
+		int i;
+		
+		initial {
+			a_state = new A_State;
+			a_state.ctx = self;
+			b_state = new B_State;
+			b_state.ctx = self;
+		}
+		
+		void doEffect_fromState_a_onEvent_Start() {
+			i = 0;
+		}
+	}
+	
+	class P_State extends State {
+		Producer ctx;
+	
+		State handleEvent(Event ev) {
+			if (ev.name == "TimeEvent") {
+				// do effect
+				Event eev = new Event;
+				eev.name = "Tick";
+				Consumer c = ctx.c;
+				place eev into c.eventPool;
+				activate c;
+				
+				// create next time event
+				TimeEvent nextEv = new TimeEvent;
+				nextEv.delay = 2;
+				nextEv.triggeringMachine = self;
+				activate nextEv;
+			}
+		}
+	}
+	
+	// ---> an example-driven language semantics description
+	
+	// each class that specialises a meta-class serves as an example for
+	// the general rule for generating the semantics of an extension
+	active class Producer extends StateMachine {
+		Consumer c;
+		
+		// (annotation start) foreach states {
+		// how to generate the code in between is automatically "learned" by
+		// the corresponding example code
+		P_State p_state;
+		// (annotation end) }
+		
+		initial {
+			p_state = new P_State;
+			p_state.ctx = self;
+		
+			TimeEvent ev = new TimeEvent;
+			ev.delay = 2;
+			ev.triggeringMachine = self;
+			activate ev;
+		}
+	}
+	
+	active class TimeEvent extends Event {
+		int delay = 1;
+		StateMachine triggeringMachine;
+		
+		initial {
+			name = "TimeEvent";
+		}
+		
+		actions {
+			advance delay;
+			place self into triggeringMachine.eventPool;
+			activate triggeringMachine;
+		}
+	}
+
+	void main() {
+		Consumer c = new Consumer;
+		Producer p = new Producer;
+		p.c = c;
+		
+		activate c;
+		activate p;
+		
+		wait until c.currentState == null;
+	}
+
+}

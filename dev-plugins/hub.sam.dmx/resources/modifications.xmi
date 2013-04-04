@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="ASCII"?>
+<modifications:ModificationsRecord xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:modifications="http://www.informatik.hu-berlin.de/sam/modifications" xsi:schemaLocation="http://www.informatik.hu-berlin.de/sam/modifications modifications.ecore"/>

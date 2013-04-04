@@ -1,0 +1,123 @@
+module SmlPattern {
+
+	// --- BEGIN GENERATED ---
+
+	interface Object {
+	}
+	
+	class StateMachine {
+		string name;
+		InitialState initialState;
+		list(State) states;
+	}
+	
+	class RuntimeStateMachine {
+		StateMachine stateMachine;
+
+		// runtime data
+		list(Object) eventPool;
+		RuntimeState currentState;
+		
+		void run() {
+			RuntimeStateMachine rsm = self;			
+			rsm.currentState = stateMachine.initialState.target;
+			while (true) {
+				wait; // wait for events
+				while (rsm.eventPool.size > 0 and rsm.currentState != null) {
+					Object ev = rsm.eventPool.first;
+					remove ev from rsm.eventPool;
+					State nextState = rsm.currentState.handleEvent(ev, self);
+					rsm.currentState = nextState;
+				}
+			}
+		}
+	}
+
+	class InitialState {
+		State target;
+	}
+	
+	class State {
+		string name;
+		State target;
+		
+		list(Transition) outgoing;
+	}
+	
+	class RuntimeState {
+		State state;
+
+		State handleEvent(Object ev, Object ctx) {
+		}
+	}
+	
+	class A_RuntimeState extends RuntimeState {
+		State handleEvent(Object ev, Object ctx) {
+			for (Transition t: state.outgoing) {
+				if (t.signalEvent instanceof M1) {
+					A_M1_RuntimeTransition rt = new A_M1_RuntimeTransition;
+					rt.transition = t;
+					return rt.fire(ctx);
+				}
+			}
+			return state;
+		}
+	}
+	
+	class Transition {
+		State target;
+		Object signalEvent;
+	}
+	
+	class RuntimeTransition {
+		Transition transition;
+		State fire(Object ctx) {
+		}
+	}
+	
+	class A_M1_RuntimeTransition extends RuntimeTransition {
+		Transition transition;
+		State fire(Object ctx) {
+		
+			// context = ctx;
+			// --> P p = ctx as P;
+			// print "received M1 with i=" + i + ".\n";
+			// --> print ... p.i ...;
+		
+			//ctx.executeStatements(1);
+			return transition.target;
+		}
+	}
+	
+	// --- END GENERATED ---
+
+	class M1 implements Object {
+	}
+	
+	active class P {
+		
+		int i;
+
+		StateMachine stateMachine; // refers to the object representation of the extension instance
+		RuntimeStateMachine runtimeStateMachine; // and extension instance runtime
+
+		initial {
+			runtimeStateMachine = new RuntimeStateMachine;
+			runtimeStateMachine.stateMachine = stateMachine;
+		}		
+		
+		actions {
+			runtimeStateMachine.run();
+		}
+	}
+	
+	void main() {
+		P p = new P;
+		activate p;
+
+		place new M1 into p.runtimeStateMachine.eventPool;
+
+		advance 1;
+	}
+
+}

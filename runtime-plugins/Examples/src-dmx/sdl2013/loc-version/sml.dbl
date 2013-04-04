@@ -1,0 +1,158 @@
+#import "../../base"
+module sml {
+extension Signal {
+	ModuleContentExtension -> Signal;
+	Signal -> "signal" name:ID ";";
+}
+semantics {
+	gen "class " name " {}";
+}
+extension SendStatement {
+	Statement -> SendStatement;
+	SendStatement -> "send" signal:Expression "to" target:Expression ";";
+}
+semantics {
+	gen "place " signal " into " target ".eventPool;";
+	gen "reactivate " target ";";
+}
+extension StateMachine {
+	ClassContentExtension -> StateMachine;
+	StateMachine -> "stateMachine" name:ID "{" initialState:InitialState StateListOptional "}";
+	StateListOptional -> ;
+	StateListOptional -> states:list(State) StateListOptional;
+	InitialState -> "initial" EffectsOptional "->" target:$$State ";";
+	State -> "state" name:ID TransitionsOptional ";";
+	TransitionsOptional -> ;
+	TransitionsOptional -> "(" OutgoingList ")";
+	OutgoingList -> outgoing:list(Transition) OutgoingListOptional;
+	OutgoingListOptional -> ;
+	OutgoingListOptional -> "," OutgoingList;
+	Transition -> trigger:Trigger GuardOptional EffectsOptional TargetStateOptional;
+	Trigger -> ;
+	Trigger -> signalEvent:$Clazz;
+	Trigger -> "after" timeEvent:TimeEvent;
+	TimeEvent -> "(" delay:Expression ")"; 
+	GuardOptional -> ;
+	GuardOptional -> "[" condition:Expression "]";
+	EffectsOptional -> ;
+	EffectsOptional -> "/" effect:CodeBlock;
+	TargetStateOptional -> "->" target:$$State;
+	TargetStateOptional -> "->" "final";
+}
+semantics {
+		gen "list(Object) eventPool;
+			string currentState;
+			boolean firstRun = true;";
+		gen "initial {
+				currentState = \"" initialState.target.name "\";";
+		if (initialState.effect != null) {
+			for (Statement stm: initialState.effect.getStatements()) {
+				gen "" stm.getConcreteSyntax() ";";
+			}
+		}
+		gen "}";
+		gen "actions {
+				Timer timer;
+				while (currentState != null) {
+					if (timer != null) {
+						timer.invalid = true;
+					}";
+		for (State state: states) {
+			gen "if (currentState == \"" state.name "\") {";
+			for (Transition tr: state.outgoing) {
+				if (tr.trigger.signalEvent == null and tr.trigger.timeEvent == null) {
+					if (tr.condition != null) {
+						gen "if (" tr.condition ") {";
+					}
+					if (tr.effect != null) {
+						for (Statement stm: tr.effect.getStatements()) {
+							gen "" stm.getConcreteSyntax() ";";
+						}
+					}
+					if (tr.target != null) {
+						gen "	currentState = \"" tr.target.name "\";";
+					}
+					else {
+						gen "	currentState = null;";
+					}
+					gen "continue;"; // goon
+					if (tr.condition != null) {
+						gen "}";
+					}
+				}
+				if (tr.trigger.timeEvent != null) {
+					gen "timer = new Timer;
+						timer.delay = " tr.trigger.timeEvent.delay ";
+						timer.sm = self;
+						activate timer;";
+				}
+			}
+			gen "}";
+		}
+		gen "if (!firstRun) {
+						empty eventPool;
+						wait;
+					}
+					else {
+						firstRun = false;
+					}
+					
+					while (eventPool.size > 0 and currentState != null) {
+						Object ev = eventPool.first;
+						remove ev from eventPool;";
+		for (State state: states) {
+			gen "if (currentState == \"" state.name "\") {";
+			for (Transition tr: state.outgoing) {
+				if (tr.trigger.signalEvent != null or tr.trigger.timeEvent != null) {
+					if (tr.trigger.signalEvent != null) {
+						gen "if (ev instanceof " tr.trigger.signalEvent ") {";
+					}
+					else {
+						gen "if (ev instanceof Timer) {";
+					}
+					if (tr.condition != null) {
+						gen "if (" tr.condition ") {";
+					}
+					if (tr.effect != null) {
+						for (Statement stm: tr.effect.getStatements()) {
+							gen "" stm.getConcreteSyntax() ";";
+						}
+					}
+					if (tr.target != null) {
+						gen "	currentState = \"" tr.target.name "\";";
+					}
+					else {
+						gen "	currentState = null;";
+					}
+					gen "break;"; // goon
+					if (tr.condition != null) {
+						gen "}";
+					}
+					gen "}";
+				}			
+			}
+			gen "}";
+		}
+		gen "		} // end while (eventPool ...
+
+				} // end while (true ...
+			} // end actions";
+		ClassContentExtension ext = self;
+		ClassSimilar classSimilar = ext.eContainer() as ClassSimilar;
+		Module mod = classSimilar.eContainer() as Module;
+		Clazz clazz = classSimilar as Clazz;			
+		setGenContext after mod.getClassifiers().first;
+		gen "active class Timer {
+				" clazz.getName() " sm;
+				int delay = 1;
+				boolean invalid = false;
+				actions {
+					advance delay;
+					if (!invalid) {
+						place self into sm.eventPool;
+						reactivate sm;
+					}
+				}
+			}";
+}
+}

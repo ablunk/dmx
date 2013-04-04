@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="hub.sam.dmx.DblTextEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="dbl"
+            icon="icons/TSL.gif"
+            id="hub.sam.dmx.dbl.editor"
+            name="DBL Editor ">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="hub.sam.dmx.DbxTextEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="dbx"
+            icon="icons/TSL.gif"
+            id="hub.sam.dmx.dbx.editor"
+            name="DBX Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="hub.sam.tef.commands"
+            id="hub.sam.dmx.SaveXmi"
+            name="Save XMI">
+      </command>
+   </extension>
+   <extension
+         point="hub.sam.tef.primitivetypedescriptor">
+      <primitivetypedescriptor
+            class="hub.sam.dmx.tokens.MiddleTargetCode"
+            rccsymbol="code"
+            symbolname="CODE">
+      </primitivetypedescriptor>
+   </extension>
+
+</plugin>

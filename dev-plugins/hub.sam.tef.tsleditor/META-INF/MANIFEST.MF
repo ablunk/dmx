@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TSL Editor
+Bundle-SymbolicName: hub.sam.tef.tsleditor;singleton:=true
+Bundle-Version: 1.0.10
+Bundle-Activator: hub.sam.tef.tsleditor.TslEditorPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ hub.sam.tef,
+ hub.sam.tef.edit,
+ org.eclipse.ui,
+ hub.sam.tef.edit,
+ org.eclipse.ui.ide
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

@@ -1,0 +1,100 @@
+#import "../base"
+
+module TransportExtensions {
+
+	extension AreaExtension {
+		ModuleContentExtension -> Area;
+		Area -> "area" name:ID ":" "maxHeight" "=" maxHeight:INT "," "places" "=" numPlaces:INT ";";
+	}
+	semantics {
+		//"augment $clazz$ { Area area; initial { area.maxHeight = $maxHeight$; ... } }"
+		//"augment" [clazz/] "{" "Area area_;" "}"
+		
+		//class Palette {
+		//	Area area;
+		//	
+		//	initial {
+		//		area = new Area;
+		//		area.maxHeight = 200; // cm
+		//		
+		//		Place p;
+		//		p = new Place; // cm
+		//		place p into area.places;
+		//		
+		//		p = new Place; // cm
+		//		place p into area.places;
+		//	}
+		//}
+	}
+	
+		interface WeightRestrictedRegion {
+		int getHeight();
+	}
+	
+	// ein Gebiet in dem es PlŠtze gibt
+	class Area {
+		list(Place) places;
+		int maxHeight; // eine BeispieleinschrŠnkung fŸr PlŠtze
+						
+		int getHeight() {
+			int height;
+			for (Place p: places) {
+				height = height + p.getHeight();
+			}
+			return height;
+		}
+		
+		// tries to place the object, returns true on success and otherwise false
+		Place canPlaceObject(Placeable placeable) {
+			if (placeable.getHeight() + getHeight() > maxHeight) {
+				return null;
+			}
+			for (Place p: places) {
+				if (p.getHeight() + placeable.getHeight() <= maxHeight and !p.reserved) {
+					// found a place
+					return p;
+				}
+			}
+			return null;
+		}
+
+		boolean placeObject(Placeable placeable) {
+			Place p = canPlaceObject(placeable);
+			if (p != null) {
+				place placeable into p.content;
+				p.reserved = false;
+				return true;
+			}
+			return false;
+		}
+
+		void removeObject(Placeable placeable) {
+		}
+	}
+	
+	class Place implements WeightRestrictedRegion {
+		list(Placeable) content;
+		boolean reserved = false;
+		
+		void reserve() {
+			reserved = true;
+		}
+		
+		int getHeight() {
+			int height;
+			for (Placeable p: content) {
+				height = height + p.getHeight();
+			}
+			return height;
+		}
+	}
+	
+	// Objekte, die platziert werden kšnnen
+	interface Placeable {
+		//int height; // zur Vereinfachung betrachten wir nur das Attribut Hšhe
+		//int zPosition = 0; // Position auf dem Objekt-Stack entlang der Z-Koordinate
+		
+		int getHeight();
+	}
+
+}

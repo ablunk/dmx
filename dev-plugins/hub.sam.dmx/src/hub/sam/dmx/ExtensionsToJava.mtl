@@ -1,0 +1,44 @@
+[comment encoding = UTF-8 /]
+[module ExtensionsToJava('platform:/resource/hub.sam.dmx/resources/dbl.ecore')/]
+
+[import hub::sam::dmx::BaseToJava /]
+
+[template public extensionsToJava(model : Model)]
+[comment @main /]
+
+[for (ext : Extension | model.eAllContents(Extension)->asSet())]
+	[for (extDef : ExtensionDefinition | model.imports.model.modules.extensionDefs)]
+		[if (extDef.name = ext.eClass().name)]
+			[comment TODO this only works for procedures defined in the current module /]
+			[genGlobalElements(extDef.eContainer().oclAsType(Module))/]
+
+			[file (extDef.name + 'Semantics.java', false, 'UTF-8')]
+				//package hub.sam.dmx.extensions;
+
+				import hub.sam.dmx.AbstractExtensionSemantics;
+				import hub.sam.dbl.*;
+				import org.eclipse.emf.ecore.EObject;
+
+				public class [extDef.name/]Semantics extends AbstractExtensionSemantics {
+
+					public static void main(String['['/][']'/] args) {
+						(new [extDef.name/]Semantics()).doGenerate(args);
+					}
+
+
+					public void doGenerate(EObject extensionInstance) {
+						[let typeNameOfExtensionInstance : String = extDef.textualSyntaxDef.extensionRule.firstNewRule.rule.name]
+							[typeNameOfExtensionInstance/] self = ([typeNameOfExtensionInstance/]) extensionInstance;
+
+							[for (stm : Statement | extDef.mappingDef.statements)]
+								[genStatement(stm, true)/]
+							[/for]
+						[/let]
+					}
+
+				}
+			[/file]
+		[/if]
+	[/for]
+[/for]	
+[/template]

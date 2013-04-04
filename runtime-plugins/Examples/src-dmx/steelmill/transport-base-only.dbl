@@ -1,0 +1,145 @@
+module TransportLibraryBased {
+	
+	interface WeightRestrictedRegion {
+		int getHeight();
+	}
+	
+	// ein Gebiet in dem es Plätze gibt
+	class Area {
+		list(Place) places;
+		int maxHeight; // eine Beispieleinschränkung
+						
+		int getHeight() {
+			int height;
+			for (Place p: places) {
+				height = height + p.getHeight();
+			}
+			return height;
+		}
+		
+		// tries to place the object, returns true on success and otherwise false
+		Place canPlaceObject(Placeable placeable) {
+			if (placeable.getHeight() + getHeight() > maxHeight) {
+				return null;
+			}
+			for (Place p: places) {
+				if (p.getHeight() + placeable.getHeight() <= maxHeight and !p.reserved) {
+					// found a place
+					return p;
+				}
+			}
+			return null;
+		}
+
+		boolean placeObject(Placeable placeable) {
+			Place p = canPlaceObject(placeable);
+			if (p != null) {
+				place placeable into p.content;
+				p.reserved = false;
+				return true;
+			}
+			return false;
+		}
+
+		void removeObject(Placeable placeable) {
+		}
+	}
+	
+	class Place implements WeightRestrictedRegion {
+		list(Placeable) content;
+		boolean reserved = false;
+		
+		void reserve() {
+			reserved = true;
+		}
+		
+		int getHeight() {
+			int height;
+			for (Placeable p: content) {
+				height = height + p.getHeight();
+			}
+			return height;
+		}
+	}
+	
+	// Objekte, die platziert werden
+	interface Placeable {
+		//int height; // zur Vereinfachung betrachten wir nur das Attribut Höhe
+		//int zPosition = 0; // Position auf dem Objekt-Stack entlang der Z-Koordinate
+		
+		int getHeight();
+	}
+	
+	// *** USE CASE ***
+	
+	// Form und Möglichkeiten der Überlagerungen von Ringen vorerst ohne Belang
+	class Ring(int height) implements Placeable {
+		int height;
+		
+		initial {
+			self.height = height;
+		}
+		
+		int getHeight() {
+			return height;
+		}
+	}
+	
+	class Palette {
+		Area area;
+		
+		initial {
+			area = new Area;
+			area.maxHeight = 200; // cm
+			
+			Place p;
+			p = new Place; // cm
+			place p into area.places;
+			
+			p = new Place; // cm
+			place p into area.places;
+		}
+	}
+	
+	class PufferStrecke {
+		list(Palette) paletten;
+		
+		initial {
+			int n = 3;
+			while (n > 0) {
+				Palette pal = new Palette;
+				place pal into paletten;
+				n = n-1;
+			}
+		}
+	}
+	
+	PufferStrecke ps;
+		
+	void main() {
+		ps = new PufferStrecke;
+		
+		Ring ring;
+		ring = new Ring(15);
+		
+		// placeable Ring { height = height }
+		
+		// einen geeigneten Platz für den Ring suchen
+		for (Palette pal: ps.paletten) {
+		
+			// DSL construct:
+			// put <Placeable> into <Area> {
+			//     onTransport { advance 5; ... }
+			//     [onNoRoom { ... }]
+			// }
+		
+			Place p = pal.area.canPlaceObject(ring);
+			if (p != null) {
+				p.reserve();
+				advance 5; // transport time
+				pal.area.placeObject(ring);
+			}
+		}
+	}
+
+}

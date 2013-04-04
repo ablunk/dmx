@@ -1,0 +1,19 @@
+#import "../base"
+
+module ForeverExtension {
+
+	extension Forever {
+		Statement -> Forever;
+		Forever -> "forever" "{" ManyStatements "}";
+		ManyStatements -> ;
+		ManyStatements -> statements : Statement ManyStatements;
+	}
+	semantics {
+		gen "while (true) {";
+		for (Statement stm : statements) {
+			gen "" stm "";
+		}
+		gen "}";
+	}
+
+}

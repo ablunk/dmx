@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="ASCII"?>
+<odemcustom:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:odemcustom="http://www.informatik.hu-berlin.de/sam/odemcustom">
+  <imports file="ecore">
+    <model href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#/"/>
+  </imports>
+  <modules name="odemcustom">
+    <classifiers xsi:type="odemcustom:Interface" name="Object"/>
+    <classifiers xsi:type="odemcustom:Interface" name="Model">
+      <methods name="getImports" classifierType="//@modules.0/@classifiers.2" isList="true"/>
+      <methods name="getModules" classifierType="//@modules.0/@classifiers.3" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Import">
+      <methods name="getFile">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <methods name="getModel" classifierType="//@modules.0/@classifiers.1"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Module">
+      <methods name="getClassifiers" classifierType="//@modules.0/@classifiers.15" isList="true"/>
+      <methods name="getClassAugments" classifierType="//@modules.0/@classifiers.19" isList="true"/>
+      <methods name="getExtensionDefs" classifierType="//@modules.0/@classifiers.102" isList="true"/>
+      <methods name="getProcedures" classifierType="//@modules.0/@classifiers.14" isList="true"/>
+      <methods name="getVariables" classifierType="//@modules.0/@classifiers.22" isList="true"/>
+      <methods name="getIdRes" classifierType="//@modules.0/@classifiers.134"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Type">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TypedElement">
+      <methods name="getClassifierType" classifierType="//@modules.0/@classifiers.15"/>
+      <methods name="getPredefinedType" classifierType="//@modules.0/@classifiers.7"/>
+      <methods name="getListType" classifierType="//@modules.0/@classifiers.6"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ListType">
+      <methods name="getClassifierType" classifierType="//@modules.0/@classifiers.15"/>
+      <methods name="getPredefinedType" classifierType="//@modules.0/@classifiers.7"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.4"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="PredefinedType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.4"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="PrimitiveType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.7"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="VoidType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.8"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IntType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.8"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="BoolType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.8"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="DoubleType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.8"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="StringType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.8"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Procedure">
+      <methods name="getParameters" classifierType="//@modules.0/@classifiers.23" isList="true"/>
+      <methods name="isClazz">
+        <primitiveType xsi:type="odemcustom:BoolType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+      <superInterfaces href="#//@modules.0/@classifiers.5"/>
+      <superInterfaces href="#//@modules.0/@classifiers.25"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Classifier">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.4"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+      <superInterfaces href="#//@modules.0/@classifiers.104"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ClassSimilar">
+      <methods name="getAttributes" classifierType="//@modules.0/@classifiers.22" isList="true"/>
+      <methods name="getMethods" classifierType="//@modules.0/@classifiers.14" isList="true"/>
+      <methods name="getSuperClass" classifierType="//@modules.0/@classifiers.17"/>
+      <methods name="getImplementedInterfaces" classifierType="//@modules.0/@classifiers.20" isList="true"/>
+      <methods name="getInitialPart" classifierType="//@modules.0/@classifiers.26"/>
+      <methods name="getActionsPart" classifierType="//@modules.0/@classifiers.26"/>
+      <methods name="getReportPart" classifierType="//@modules.0/@classifiers.26"/>
+      <methods name="getClearPart" classifierType="//@modules.0/@classifiers.26"/>
+      <methods name="getExtensions" classifierType="//@modules.0/@classifiers.100" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Clazz">
+      <methods name="isActive">
+        <primitiveType xsi:type="odemcustom:BoolType"/>
+      </methods>
+      <methods name="getConstructor" classifierType="//@modules.0/@classifiers.18"/>
+      <methods name="getBaseConstructorArguments" classifierType="//@modules.0/@classifiers.50" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.15"/>
+      <superInterfaces href="#//@modules.0/@classifiers.16"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Constructor">
+      <methods name="getParameters" classifierType="//@modules.0/@classifiers.23" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ClassAugment">
+      <methods name="getAugmentedClass" classifierType="//@modules.0/@classifiers.17"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.16"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Interface">
+      <methods name="getMethods" classifierType="//@modules.0/@classifiers.14" isList="true"/>
+      <methods name="getSuperInterfaces" classifierType="//@modules.0/@classifiers.20" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.15"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="AbstractVariable">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+      <superInterfaces href="#//@modules.0/@classifiers.5"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Variable">
+      <methods name="isControl">
+        <primitiveType xsi:type="odemcustom:BoolType"/>
+      </methods>
+      <methods name="isClazz">
+        <primitiveType xsi:type="odemcustom:BoolType"/>
+      </methods>
+      <methods name="getInitialValue" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.21"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Parameter">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.21"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="NamedElement">
+      <methods name="getName">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="CodeBlock">
+      <methods name="getStatements" classifierType="//@modules.0/@classifiers.27" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="CodePart">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.108"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Statement">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.99"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="OpaqueStatement">
+      <methods name="getStatement">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Assignment">
+      <methods name="getVariable" classifierType="//@modules.0/@classifiers.98"/>
+      <methods name="getValue" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ProcedureCallStatement">
+      <methods name="getProcedureCall" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ProcedureCall">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.97"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Return">
+      <methods name="getValue" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="WaitUntil">
+      <methods name="getCondition" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Terminate">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Wait">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Reactivate">
+      <methods name="getPuck" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ActivateObject">
+      <methods name="getObjectAccess" classifierType="//@modules.0/@classifiers.50"/>
+      <methods name="getPriority">
+        <primitiveType xsi:type="odemcustom:IntType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Advance">
+      <methods name="getTime" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Print">
+      <methods name="getOutputs" classifierType="//@modules.0/@classifiers.50" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="SetStatement">
+      <methods name="getObject" classifierType="//@modules.0/@classifiers.50"/>
+      <methods name="getSet" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="RemoveFromSet">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.40"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="AddToSet">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.40"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="EmptySet">
+      <methods name="getSet" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IfStatement">
+      <methods name="getCondition" classifierType="//@modules.0/@classifiers.50"/>
+      <methods name="getIfCaseBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <methods name="getElifCondition" classifierType="//@modules.0/@classifiers.50" isList="true"/>
+      <methods name="getElifCaseBlock" classifierType="//@modules.0/@classifiers.25" isList="true"/>
+      <methods name="getElseCaseBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="WhileStatement">
+      <methods name="getCondition" classifierType="//@modules.0/@classifiers.50"/>
+      <methods name="getWhileBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="BreakStatement">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ContinueStatement">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ForEachStatement">
+      <methods name="getIteratorVariable" classifierType="//@modules.0/@classifiers.22"/>
+      <methods name="getIterableExpression" classifierType="//@modules.0/@classifiers.50"/>
+      <methods name="getForBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Execute">
+      <methods name="getExpr" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Expression">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="BinaryOperator">
+      <methods name="getOp1" classifierType="//@modules.0/@classifiers.50"/>
+      <methods name="getOp2" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="UnaryOperator">
+      <methods name="getOp" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Plus">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Minus">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Mul">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Mod">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Div">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Neg">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.52"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="And">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Or">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Greater">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="GreaterEqual">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Less">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="LessEqual">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="NotEqual">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Equal">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="InstanceOf">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.51"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Not">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.52"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="CreateObject">
+      <methods name="getArguments" classifierType="//@modules.0/@classifiers.50" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+      <superInterfaces href="#//@modules.0/@classifiers.5"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Cast">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.52"/>
+      <superInterfaces href="#//@modules.0/@classifiers.5"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="NullLiteral">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TimeLiteral">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="EvalExpr">
+      <methods name="getExpr" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="MeLiteral">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.94"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="SuperLiteral">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.94"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ActiveLiteral">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.94"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="SetOp">
+      <methods name="getSet" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.94"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="SizeOfSet">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="FirstInSet">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="LastInSet">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Contains">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IndexOf">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ObjectAt">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="BeforeInSet">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="AfterInSet">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.77"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="StringLiteral">
+      <methods name="getValue">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IntLiteral">
+      <methods name="getValue">
+        <primitiveType xsi:type="odemcustom:IntType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TrueLiteral">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="FalseLiteral">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="DoubleLiteral">
+      <methods name="getValue">
+        <primitiveType xsi:type="odemcustom:DoubleType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="MetaAccess">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.98"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TypeAccess">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.97"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="DepIdentifiableElement">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="PredefinedId">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IdExpr">
+      <methods name="getParentIdExpr" classifierType="//@modules.0/@classifiers.95"/>
+      <methods name="getReferencedElement" classifierType="//@modules.0/@classifiers.24"/>
+      <methods name="getPredefinedId" classifierType="//@modules.0/@classifiers.94"/>
+      <methods name="getArguments" classifierType="//@modules.0/@classifiers.96"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ArgumentExpression">
+      <methods name="getArguments" classifierType="//@modules.0/@classifiers.50" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ElementAccess">
+      <methods name="getIdExpr" classifierType="//@modules.0/@classifiers.95"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="VariableAccess">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.97"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Extendable">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Extension">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="NamedExtension">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.100"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ExtensionDefinition">
+      <methods name="getAbstractSyntaxDef" classifierType="//@modules.0/@classifiers.15" isList="true"/>
+      <methods name="getTextualSyntaxDef" classifierType="//@modules.0/@classifiers.103"/>
+      <methods name="getMappingDef" classifierType="//@modules.0/@classifiers.125"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TextualSyntaxDef">
+      <methods name="getExtensionRule" classifierType="//@modules.0/@classifiers.106"/>
+      <methods name="getNewRules" classifierType="//@modules.0/@classifiers.105" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ReferableRhsType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TsRule">
+      <methods name="getMetaClassName">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <methods name="getRhs" classifierType="//@modules.0/@classifiers.109"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+      <superInterfaces href="#//@modules.0/@classifiers.104"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ExtensionRule">
+      <methods name="getInstantiableMetaClass" classifierType="//@modules.0/@classifiers.15"/>
+      <methods name="getFirstNewRule" classifierType="//@modules.0/@classifiers.117"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="StatementExtensionDefinition">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.102"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="CodeBlockParts">
+      <methods name="getCodeBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="RhsExpression">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="SequenceExpr">
+      <methods name="getSequence" classifierType="//@modules.0/@classifiers.109" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="OptionalExpr">
+      <methods name="getExpression" classifierType="//@modules.0/@classifiers.109"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="AtLeastOneExpr">
+      <methods name="getExpression" classifierType="//@modules.0/@classifiers.109"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ArbitraryExpr">
+      <methods name="getExpression" classifierType="//@modules.0/@classifiers.109"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="AlternativeExpr">
+      <methods name="getLeft" classifierType="//@modules.0/@classifiers.109"/>
+      <methods name="getRight" classifierType="//@modules.0/@classifiers.109"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TerminalExpr">
+      <methods name="getTerminal">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="PropertyBindingExpr">
+      <methods name="getPropertyType" classifierType="//@modules.0/@classifiers.118"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="RuleExpr">
+      <methods name="getRule" classifierType="//@modules.0/@classifiers.105"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.109"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="PropertyType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IdPropertyType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.118"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IntPropertyType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.118"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="StringPropertyType">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.118"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="BooleanPropertyType">
+      <methods name="getTerminal">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.118"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="CompositePropertyType">
+      <methods name="getType" classifierType="//@modules.0/@classifiers.104"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.118"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ReferencePropertyType">
+      <methods name="getType" classifierType="//@modules.0/@classifiers.104"/>
+      <methods name="getIdResolutionPattern" classifierType="//@modules.0/@classifiers.135"/>
+      <methods name="isQualified">
+        <primitiveType xsi:type="odemcustom:BoolType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.118"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Mapping">
+      <methods name="getParts" classifierType="//@modules.0/@classifiers.126" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.25"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="MappingPart">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="MetaExpr">
+      <methods name="getExpr" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.50"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TargetStatement">
+      <methods name="getCodeBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="MappingStatement">
+      <methods name="getParts" classifierType="//@modules.0/@classifiers.126" isList="true"/>
+      <methods name="getExprs" classifierType="//@modules.0/@classifiers.50" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="FixedMappingPart">
+      <methods name="getCode">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.126"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="DynamicMappingPart">
+      <methods name="getExpr" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.126"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="StatementExtension">
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.100"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="TestStatement">
+      <methods name="getValue">
+        <primitiveType xsi:type="odemcustom:IntType"/>
+      </methods>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IdResolution">
+      <methods name="getMetaModelPlatformURI">
+        <primitiveType xsi:type="odemcustom:StringType"/>
+      </methods>
+      <methods name="getPatterns" classifierType="//@modules.0/@classifiers.135" isList="true"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="Pattern">
+      <methods name="isTop">
+        <primitiveType xsi:type="odemcustom:BoolType"/>
+      </methods>
+      <methods name="getContext" classifierType="//@modules.0/@classifiers.23"/>
+      <methods name="getCodeBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.24"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="PotentiallyHiddenIdElements">
+      <methods name="getCodeBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="FindContainer">
+      <methods name="getVariableBinding" classifierType="//@modules.0/@classifiers.23"/>
+      <methods name="getContainerBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <methods name="getElseBlock" classifierType="//@modules.0/@classifiers.25"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="ConsiderIdElements">
+      <methods name="getElementsQuery" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+    <classifiers xsi:type="odemcustom:Interface" name="IncludePattern">
+      <methods name="getPattern" classifierType="//@modules.0/@classifiers.135"/>
+      <methods name="getContext" classifierType="//@modules.0/@classifiers.50"/>
+      <superInterfaces href="file:/Users/brain/Projekte/ODEMcustom/eclipse-workspace/hub.sam.tef.odemcustom/resources/ecore.xmi#//@modules.0/@classifiers.1"/>
+      <superInterfaces href="#//@modules.0/@classifiers.27"/>
+    </classifiers>
+  </modules>
+</odemcustom:Model>

@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/hub.sam.tef.odemcustom.model/src"
+    editDirectory="/hub.sam.tef.odemcustom.model.edit/src" editorDirectory="/hub.sam.tef.odemcustom.model.editor/src"
+    modelPluginID="hub.sam.tef.odemcustom.model" modelName="OdemCustom" modelPluginClass=""
+    editPluginClass="odemcustom.provider.OdemCustomEditPlugin" editorPluginClass="odemcustom.presentation.OdemCustomEditorPlugin"
+    testsDirectory="/hub.sam.tef.odemcustom.model.tests/src" testSuiteClass="odemcustom.tests.OdemCustomAllTests"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0">
+  <foreignModel>odemcustom.ecore</foreignModel>
+  <genPackages prefix="OdemCustom" basePackage="hub.sam.tef.odemcustom" disposableProviderFactory="true"
+      ecorePackage="odemcustom.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="odemcustom.ecore#//BindingExprOpKind">
+      <genEnumLiterals ecoreEnumLiteral="odemcustom.ecore#//BindingExprOpKind/ASSIGN"/>
+      <genEnumLiterals ecoreEnumLiteral="odemcustom.ecore#//BindingExprOpKind/ADD"/>
+      <genEnumLiterals ecoreEnumLiteral="odemcustom.ecore#//BindingExprOpKind/BOOL"/>
+    </genEnums>
+    <genClasses ecoreClass="odemcustom.ecore#//Construct">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//Construct/concreteSyntax"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Model/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Model/modules"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//Import/file"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Import/model"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Module">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Module/classifiers"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Module/classAugments"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Module/extensionDefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Module/annotationDefs"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Module/procedures"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Module/variables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Module/idRes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//EmbeddableExtensionsContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//EmbeddableExtensionsContainer/extensions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//ModifierExtensionsContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ModifierExtensionsContainer/modifierExtensions"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//Type"/>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//TypedElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//TypedElement/primitiveType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//TypedElement/isList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//TypedElement/classifierTypeExpr"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//PrimitiveType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//VoidType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//IntType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//BoolType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//DoubleType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//StringType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Procedure">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Procedure/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//Procedure/clazz"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//SimpleAnnotation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//SimpleAnnotation/value"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Annotation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Annotation/keys"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//AnnotationApplication">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//AnnotationApplication/annotationDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//AnnotationApplication/keyValuePairs"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//KeyValuePair">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//KeyValuePair/key"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//KeyValuePair/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//AnnotatableElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//AnnotatableElement/annotationApplications"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//AnnotatableElement/simpleAnnotations"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//Classifier">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Classifier/bindings"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//NativeBinding">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//NativeBinding/targetLanguage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//NativeBinding/targetType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//ClassSimilar">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/methods"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/superClass"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/implementedInterfaces"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/initialBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/finalBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/actionsBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/reportBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassSimilar/clearBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//StartCodeBlock"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Clazz">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//Clazz/active"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Clazz/constructor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Clazz/baseConstructorArguments"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Constructor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Constructor/parameters"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ClassAugment">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ClassAugment/augmentedClass"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Interface">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Interface/methods"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Interface/superInterfaces"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//AbstractVariable"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//Variable/control"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//Variable/clazz"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Variable/initialValue"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Parameter"/>
+    <genClasses ecoreClass="odemcustom.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//NamedElement/name"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//CodeBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//CodeBlock/statements"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//Statement"/>
+    <genClasses ecoreClass="odemcustom.ecore#//CompositeStatement"/>
+    <genClasses ecoreClass="odemcustom.ecore#//SimpleStatement"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ExpressionStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExpressionStatement/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//StatementExpression"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Assignment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Assignment/variable"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Assignment/value"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//DeprecatedProcedureCallStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//DeprecatedProcedureCallStatement/procedureCall"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ProcedureCall">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ProcedureCall/procedureAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Return">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Return/value"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//WaitUntil">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//WaitUntil/condition"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Terminate"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Wait"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Reactivate">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Reactivate/objectAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ActivateObject">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ActivateObject/objectAccess"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//ActivateObject/priority"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Advance">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Advance/time"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Print">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Print/outputs"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//SetStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//SetStatement/object"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//SetStatement/set"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//RemoveFromSet"/>
+    <genClasses ecoreClass="odemcustom.ecore#//AddToSet">
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference odemcustom.ecore#//AddToSet/atIndex"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//EmptySet"/>
+    <genClasses ecoreClass="odemcustom.ecore#//IfStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IfStatement/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IfStatement/ifCaseBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IfStatement/elifCondition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IfStatement/elifCaseBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IfStatement/elseCaseBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//WhileStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//WhileStatement/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//WhileStatement/whileBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//BreakStatement"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ContinueStatement"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ForEachStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ForEachStatement/iteratorVariableDefinition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ForEachStatement/iteratorVariableReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ForEachStatement/iterableExpression"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ForEachStatement/forBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Expression"/>
+    <genClasses ecoreClass="odemcustom.ecore#//L1Expr"/>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//BinaryOperator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//BinaryOperator/op1"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//BinaryOperator/op2"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//UnaryOperator">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//UnaryOperator/op"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Plus"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Minus"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Mul"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Mod"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Div"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Neg"/>
+    <genClasses ecoreClass="odemcustom.ecore#//And"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Or"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Greater"/>
+    <genClasses ecoreClass="odemcustom.ecore#//GreaterEqual"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Less"/>
+    <genClasses ecoreClass="odemcustom.ecore#//LessEqual"/>
+    <genClasses ecoreClass="odemcustom.ecore#//NotEqual"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Equal"/>
+    <genClasses ecoreClass="odemcustom.ecore#//InstanceOf"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Not"/>
+    <genClasses ecoreClass="odemcustom.ecore#//CreateObject"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Cast"/>
+    <genClasses ecoreClass="odemcustom.ecore#//NullLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//TimeLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ActiveLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//EvalExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//EvalExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//MeLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//SuperLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//MetaLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//TypeLiteral"/>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//SetOp">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//SetOp/set"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//SizeOfSet"/>
+    <genClasses ecoreClass="odemcustom.ecore#//FirstInSet"/>
+    <genClasses ecoreClass="odemcustom.ecore#//LastInSet"/>
+    <genClasses ecoreClass="odemcustom.ecore#//Contains"/>
+    <genClasses ecoreClass="odemcustom.ecore#//IndexOf"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ObjectAt"/>
+    <genClasses ecoreClass="odemcustom.ecore#//BeforeInSet"/>
+    <genClasses ecoreClass="odemcustom.ecore#//AfterInSet"/>
+    <genClasses ecoreClass="odemcustom.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//IntLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//IntLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//TrueLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//FalseLiteral"/>
+    <genClasses ecoreClass="odemcustom.ecore#//DoubleLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//DoubleLiteral/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//DepIdentifiableElement"/>
+    <genClasses ecoreClass="odemcustom.ecore#//PredefinedId"/>
+    <genClasses ecoreClass="odemcustom.ecore#//IdExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IdExpr/parentIdExpr"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IdExpr/referencedElement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IdExpr/predefinedId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IdExpr/arguments"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ArgumentExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ArgumentExpression/arguments"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//ElementAccess">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ElementAccess/idExpr"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//VariableAccess"/>
+    <genClasses ecoreClass="odemcustom.ecore#//MetaAccess"/>
+    <genClasses ecoreClass="odemcustom.ecore#//TypeAccess"/>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//Extension"/>
+    <genClasses ecoreClass="odemcustom.ecore#//NamedExtension"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ClassContentExtension"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ModuleContentExtension"/>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//ExtensionDefinition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExtensionDefinition/abstractSyntaxDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExtensionDefinition/textualSyntaxDef"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExtensionDefinition/mappingDef"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//TextualSyntaxDef">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//TextualSyntaxDef/extensionRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//TextualSyntaxDef/newRules"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//ReferableRhsType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//TsRule">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//TsRule/metaClassName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//TsRule/rhs"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ExtensionRule">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExtensionRule/instantiableMetaClass"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExtensionRule/firstNewRule"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//RhsExpression">
+      <genOperations ecoreOperation="odemcustom.ecore#//RhsExpression/getSubExpressions"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//SequenceExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//SequenceExpr/sequence"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//OptionalExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//OptionalExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//RuntimeExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//RuntimeExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//AtLeastOneExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//AtLeastOneExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ArbitraryExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ArbitraryExpr/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//AlternativeExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//AlternativeExpr/left"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//AlternativeExpr/right"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//TerminalExpr">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//TerminalExpr/terminal"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//PropertyBindingExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//PropertyBindingExpr/propertyType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//PropertyBindingExpr/operator"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//RuleExpr">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//RuleExpr/rule"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//PropertyType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//IdPropertyType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//IntPropertyType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//StringPropertyType"/>
+    <genClasses ecoreClass="odemcustom.ecore#//BooleanPropertyType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//BooleanPropertyType/terminal"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//StructuredPropertyType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//StructuredPropertyType/type"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//CompositePropertyType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//CompositePropertyType/list"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ReferencePropertyType">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ReferencePropertyType/idResolutionPattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//ReferencePropertyType/rawReference"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Mapping">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Mapping/parts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Mapping/metaObject"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="odemcustom.ecore#//MappingPart"/>
+    <genClasses ecoreClass="odemcustom.ecore#//MetaExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//MetaExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//TargetStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//TargetStatement/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//MappingStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//MappingStatement/parts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//MappingStatement/exprs"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//SetGenContextStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//SetGenContextStatement/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//SetGenContextStatement/addAfterContext"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ResetGenContextStatement"/>
+    <genClasses ecoreClass="odemcustom.ecore#//SaveGenStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//SaveGenStatement/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ResumeGenStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ResumeGenStatement/variable"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//FixedMappingPart">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//FixedMappingPart/code"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//DynamicMappingPart">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//DynamicMappingPart/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ExpandExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExpandExpression/metaObject"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ExpandStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExpandStatement/metaObject"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExpandStatement/location"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ExpandSection">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExpandSection/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//CodeQuoteExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//CodeQuoteExpression/quotedCode"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//QuotedCode"/>
+    <genClasses ecoreClass="odemcustom.ecore#//QuotedExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//QuotedExpression/expression"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//QuotedStatements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//QuotedStatements/statements"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//QuotedClassContent"/>
+    <genClasses ecoreClass="odemcustom.ecore#//QuotedModuleContent"/>
+    <genClasses ecoreClass="odemcustom.ecore#//ExpandableElement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ExpandableElement/expandExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//TestStatement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//TestStatement/value"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//IdResolution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//IdResolution/metaModelPlatformURI"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IdResolution/patterns"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//Pattern">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute odemcustom.ecore#//Pattern/top"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Pattern/context"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//Pattern/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//PotentiallyHiddenIdElements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//PotentiallyHiddenIdElements/codeBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//FindContainer">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//FindContainer/variableBinding"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//FindContainer/containerBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//FindContainer/elseBlock"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//ConsiderIdElements">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//ConsiderIdElements/elementsQuery"/>
+    </genClasses>
+    <genClasses ecoreClass="odemcustom.ecore#//IncludePattern">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IncludePattern/pattern"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference odemcustom.ecore#//IncludePattern/context"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

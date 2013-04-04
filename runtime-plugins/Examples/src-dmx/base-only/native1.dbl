@@ -1,0 +1,36 @@
+module NativeTest {
+
+	void trace(string msg) {
+		print time + ": " + msg + "\n";
+	}
+	
+	class UniformInt(string name, int min, int max) {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.IntDistUniform",
+			"slx" -> "IntDistUniform",
+			"odemx" -> "odemx::random::dmx::Uniform",
+			"jist" -> "hub.sam.dmx.javasim.generic.dist.IntDistUniform"
+		}
+		int sample() {}
+	}
+	
+	class UniformReal(string name, double lower, double upper) {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.RealDistUniform",
+			"jist" -> "hub.sam.dmx.javasim.generic.dist.RealDistUniform"
+		}
+		double sample() {}
+	}
+	
+	void main() {
+		UniformReal ui = new UniformReal("arrival1", 12.0, 18.0);		
+		int i=0;
+		while (i < 20) {
+			print ui.sample() + "\n";
+			i=i+1;
+		}
+		
+		advance 1;
+	}
+
+}

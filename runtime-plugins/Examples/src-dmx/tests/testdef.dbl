@@ -1,0 +1,47 @@
+#import "../base"
+
+module testDef {
+
+	extension Bar {
+		Statement -> Bar;
+		Bar -> "bar" name:ID A ";";
+		A -> ;
+		A -> "(" BuzList ")";
+		BuzList -> buz:list(Buz) BuzListOpt;
+		BuzListOpt -> ;
+		BuzListOpt -> BuzList;
+		Buz -> "r" barRef:$$Bar;
+		Buz -> "i" i:INT;
+	}
+
+	extension Foo {
+		ClassContentExtension -> Foo;
+		Foo -> "foo" name:ID OptionalBaz ";";
+		OptionalBaz -> ;
+		OptionalBaz -> baz:list(Baz) OptionalBaz;
+		Baz -> RBaz;
+		Baz -> IBaz;
+		IBaz -> "ibaz" name:ID OptionalToBaz OptionalPart;
+		RBaz -> "baz" name:ID OptionalToBaz;
+		OptionalToBaz -> ;
+		OptionalToBaz -> "to" otherBaz:$$Baz; // OptionalToBaz; // --> add otherBaz:list($$Baz) otherBaz...:$$Baz
+		//OptionalToBaz2 -> ;
+		//OptionalToBaz2 -> "to" otherBaz:$$Baz;
+		OptionalPart -> ;
+		OptionalPart -> num:INT;
+		//X -> I;
+		//X -> S;
+		//X -> "i" i:INT;
+		//X -> "s" ss:STRING;
+		//B -> "b";
+		//C -> "c";
+		//D -> name:ID;
+	}
+	semantics {
+		//A a;
+		//B b = a.b; // TODO
+		
+		//print a.name;
+	}
+
+}

@@ -1,0 +1,17 @@
+#import "../base"
+
+module MapExtension {
+
+	extension MapExt {
+		Statement -> MapExt;
+		MapExt -> "map" "<" keyType:Type "," valueType:Type ">" name:ID ";";
+	}
+	semantics {
+		gen	"
+		class MapC { 
+			void put(" keyType " key, " valueType " value);
+		}
+		";
+	}
+	
+}

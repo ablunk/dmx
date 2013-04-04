@@ -1,0 +1,20 @@
+#import "../base"
+
+module forLoopDefinition {
+
+extension ForLoop {
+	Statement -> ForLoop;
+	ForLoop -> "for" "(" it:$Variable "in" set:Expression "with" condition:Expression ")" "{" ManyStatements "}";
+	ManyStatements -> ;
+	ManyStatements -> statements:list(Statement) ManyStatements;
+}
+semantics {
+	gen "for (" it ":" set ") {";
+	gen "if (" condition ") {";
+	for (Statement stm: statements) {
+		gen "" stm.getConcreteSyntax() ";";
+	}
+	gen "} }";
+}
+
+}
