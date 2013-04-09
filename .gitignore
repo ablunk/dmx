@@ -5,6 +5,7 @@ bin/
 runtime-plugins/**/gen-src/*
 runtime-plugins/hub.*
 runtime-plugins/**/*.html
+runtime-plugins/Examples/temp/*
 dev-plugins/**/src-gen/*
 dev-plugins/**/resources/gen/*
 unversioned/

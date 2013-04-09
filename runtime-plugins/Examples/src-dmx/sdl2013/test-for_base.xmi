@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="for-loop">
+    <model href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/sdl2013/for-loop.xmi#/"/>
+  </imports>
+  <modules name="forLoopUse">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="is" isList="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="i">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="15"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="42"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:ForEachStatement">
+        <iteratorVariableReference>
+          <idExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+        </iteratorVariableReference>
+        <iterableExpression xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+        <forBlock>
+          <statements xsi:type="dbl:IfStatement">
+            <condition xsi:type="dbl:Greater">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+              <op2 xsi:type="dbl:IntLiteral"/>
+            </condition>
+            <ifCaseBlock>
+              <statements xsi:type="dbl:Print">
+                <outputs xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+                </outputs>
+              </statements>
+            </ifCaseBlock>
+          </statements>
+        </forBlock>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

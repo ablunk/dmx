@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../base">
+    <model href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/base.xmi#/"/>
+  </imports>
+  <modules name="forLoopDefinition">
+    <extensionDefs name="ForLoop">
+      <textualSyntaxDef>
+        <extensionRule name="Statement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="ForLoop">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="for"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="it">
+              <propertyType xsi:type="dbl:ReferencePropertyType">
+                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.31"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="set">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.60"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="with"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="condition">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.60"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </newRules>
+        <newRules name="ManyStatements">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="ManyStatements">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="statements">
+              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.35"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.2"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="for ("/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.2"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=":"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.4"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=") {"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="if ("/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.6"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=") {"/>
+        </statements>
+        <statements xsi:type="dbl:ForEachStatement">
+          <iteratorVariableDefinition name="stm">
+            <classifierTypeExpr>
+              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.35"/>
+            </classifierTypeExpr>
+          </iteratorVariableDefinition>
+          <iterableExpression xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.2/@rhs/@sequence.0"/>
+          <forBlock>
+            <statements xsi:type="dbl:MappingStatement">
+              <parts xsi:type="dbl:FixedMappingPart" code=""/>
+              <parts xsi:type="dbl:DynamicMappingPart">
+                <expr xsi:type="dbl:IdExpr">
+                  <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2/@iteratorVariableDefinition"/>
+                  <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.2/@methods.0"/>
+                  <arguments/>
+                </expr>
+              </parts>
+              <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+            </statements>
+          </forBlock>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="} }"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

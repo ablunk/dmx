@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <imports file="sml">
-    <model href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/sdl2013/sml.xmi#/"/>
+    <model href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/sdl2013/sml.xmi#/"/>
   </imports>
   <modules name="sml_application">
     <classifiers xsi:type="dbl:Clazz" name="Start"/>
