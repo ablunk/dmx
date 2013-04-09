@@ -32,12 +32,11 @@ public class DblSemanticsProvider extends DefaultSemanticsProvider {
 			if (actual instanceof Import && value instanceof String && !value.equals("")) {
 				Import imprt = (Import) actual;
 				String stringValue = (String) value;
-				//IPath editorInputLocation = ((FileEditorInput)editor.getEditorInput()).getFile().getLocation().removeLastSegments(1);
 				IPath editorInputLocation = preProcessedDocument.getLocation().removeLastSegments(1);
-				URI fileURI = URI.createFileURI(editorInputLocation.append(stringValue).addFileExtension("xmi").toPortableString());
+				URI uri = DblPreProcessor.getPlatformResourceURI(editorInputLocation.append(stringValue).addFileExtension("xmi"));
 				
 				for (Resource resource: preProcessedDocument.getImportedResources()) {
-					if (resource.getURI() != null && resource.getURI().equals(fileURI)) {
+					if (resource.getURI() != null && resource.getURI().equals(uri)) {
 						if (resource.getContents().size() > 0) {
 							Model model = (Model) resource.getContents().get(0);
 							imprt.setModel(model);

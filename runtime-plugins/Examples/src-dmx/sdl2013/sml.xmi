@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <imports file="../base">
-    <model href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#/"/>
+    <model href="../base.xmi#/"/>
   </imports>
   <modules name="sml">
     <extensionDefs name="Signal">
@@ -39,13 +39,13 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="send"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="signal">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="target">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
@@ -168,7 +168,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="signalEvent">
               <propertyType xsi:type="dbl:ReferencePropertyType">
-                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.26"/>
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.26"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -186,7 +186,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="delay">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
@@ -200,7 +200,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="["/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="condition">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal="]"/>
@@ -214,7 +214,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="/"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="effect">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.34"/>
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.34"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -260,14 +260,14 @@
             <statements xsi:type="dbl:ForEachStatement">
               <iteratorVariableDefinition name="stm">
                 <classifierTypeExpr>
-                  <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.35"/>
+                  <referencedElement href="../base.xmi#//@modules.0/@classifiers.35"/>
                 </classifierTypeExpr>
               </iteratorVariableDefinition>
               <iterableExpression xsi:type="dbl:IdExpr">
                 <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.18/@rhs/@sequence.1">
                   <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.0/@rhs/@sequence.3"/>
                 </parentIdExpr>
-                <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.34/@methods.0"/>
+                <referencedElement href="../base.xmi#//@modules.0/@classifiers.34/@methods.0"/>
                 <arguments/>
               </iterableExpression>
               <forBlock>
@@ -276,7 +276,7 @@
                   <parts xsi:type="dbl:DynamicMappingPart">
                     <expr xsi:type="dbl:IdExpr">
                       <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.2/@ifCaseBlock/@statements.0/@iteratorVariableDefinition"/>
-                      <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.2/@methods.0"/>
+                      <referencedElement href="../base.xmi#//@modules.0/@classifiers.2/@methods.0"/>
                       <arguments/>
                     </expr>
                   </parts>
@@ -365,14 +365,14 @@
                         <statements xsi:type="dbl:ForEachStatement">
                           <iteratorVariableDefinition name="stm">
                             <classifierTypeExpr>
-                              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.35"/>
+                              <referencedElement href="../base.xmi#//@modules.0/@classifiers.35"/>
                             </classifierTypeExpr>
                           </iteratorVariableDefinition>
                           <iterableExpression xsi:type="dbl:IdExpr">
                             <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.18/@rhs/@sequence.1">
                               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.5/@forBlock/@statements.1/@iteratorVariableDefinition"/>
                             </parentIdExpr>
-                            <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.34/@methods.0"/>
+                            <referencedElement href="../base.xmi#//@modules.0/@classifiers.34/@methods.0"/>
                             <arguments/>
                           </iterableExpression>
                           <forBlock>
@@ -381,7 +381,7 @@
                               <parts xsi:type="dbl:DynamicMappingPart">
                                 <expr xsi:type="dbl:IdExpr">
                                   <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.5/@forBlock/@statements.1/@forBlock/@statements.0/@ifCaseBlock/@statements.1/@ifCaseBlock/@statements.0/@iteratorVariableDefinition"/>
-                                  <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.2/@methods.0"/>
+                                  <referencedElement href="../base.xmi#//@modules.0/@classifiers.2/@methods.0"/>
                                   <arguments/>
                                 </expr>
                               </parts>
@@ -571,14 +571,14 @@
                         <statements xsi:type="dbl:ForEachStatement">
                           <iteratorVariableDefinition name="stm">
                             <classifierTypeExpr>
-                              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.35"/>
+                              <referencedElement href="../base.xmi#//@modules.0/@classifiers.35"/>
                             </classifierTypeExpr>
                           </iteratorVariableDefinition>
                           <iterableExpression xsi:type="dbl:IdExpr">
                             <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.18/@rhs/@sequence.1">
                               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.7/@forBlock/@statements.1/@iteratorVariableDefinition"/>
                             </parentIdExpr>
-                            <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.34/@methods.0"/>
+                            <referencedElement href="../base.xmi#//@modules.0/@classifiers.34/@methods.0"/>
                             <arguments/>
                           </iterableExpression>
                           <forBlock>
@@ -587,7 +587,7 @@
                               <parts xsi:type="dbl:DynamicMappingPart">
                                 <expr xsi:type="dbl:IdExpr">
                                   <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.7/@forBlock/@statements.1/@forBlock/@statements.0/@ifCaseBlock/@statements.2/@ifCaseBlock/@statements.0/@iteratorVariableDefinition"/>
-                                  <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.2/@methods.0"/>
+                                  <referencedElement href="../base.xmi#//@modules.0/@classifiers.2/@methods.0"/>
                                   <arguments/>
                                 </expr>
                               </parts>
@@ -656,7 +656,7 @@
         </statements>
         <statements xsi:type="dbl:Variable" name="ext">
           <classifierTypeExpr>
-            <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.114"/>
+            <referencedElement href="../base.xmi#//@modules.0/@classifiers.114"/>
           </classifierTypeExpr>
           <initialValue xsi:type="dbl:IdExpr">
             <predefinedId xsi:type="dbl:MeLiteral"/>
@@ -664,42 +664,42 @@
         </statements>
         <statements xsi:type="dbl:Variable" name="classSimilar">
           <classifierTypeExpr>
-            <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.24"/>
+            <referencedElement href="../base.xmi#//@modules.0/@classifiers.24"/>
           </classifierTypeExpr>
           <initialValue xsi:type="dbl:Cast">
             <op xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.9"/>
-              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.1/@methods.0"/>
+              <referencedElement href="../base.xmi#//@modules.0/@classifiers.1/@methods.0"/>
               <arguments/>
             </op>
             <classifierTypeExpr>
-              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.24"/>
+              <referencedElement href="../base.xmi#//@modules.0/@classifiers.24"/>
             </classifierTypeExpr>
           </initialValue>
         </statements>
         <statements xsi:type="dbl:Variable" name="mod">
           <classifierTypeExpr>
-            <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.5"/>
+            <referencedElement href="../base.xmi#//@modules.0/@classifiers.5"/>
           </classifierTypeExpr>
           <initialValue xsi:type="dbl:Cast">
             <op xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.10"/>
-              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.1/@methods.0"/>
+              <referencedElement href="../base.xmi#//@modules.0/@classifiers.1/@methods.0"/>
               <arguments/>
             </op>
             <classifierTypeExpr>
-              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.5"/>
+              <referencedElement href="../base.xmi#//@modules.0/@classifiers.5"/>
             </classifierTypeExpr>
           </initialValue>
         </statements>
         <statements xsi:type="dbl:Variable" name="clazz">
           <classifierTypeExpr>
-            <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.26"/>
+            <referencedElement href="../base.xmi#//@modules.0/@classifiers.26"/>
           </classifierTypeExpr>
           <initialValue xsi:type="dbl:Cast">
             <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.10"/>
             <classifierTypeExpr>
-              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.26"/>
+              <referencedElement href="../base.xmi#//@modules.0/@classifiers.26"/>
             </classifierTypeExpr>
           </initialValue>
         </statements>
@@ -707,7 +707,7 @@
           <context xsi:type="dbl:IdExpr">
             <parentIdExpr>
               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.11"/>
-              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.5/@methods.0"/>
+              <referencedElement href="../base.xmi#//@modules.0/@classifiers.5/@methods.0"/>
               <arguments/>
             </parentIdExpr>
             <predefinedId xsi:type="dbl:FirstInSet"/>
@@ -718,7 +718,7 @@
           <parts xsi:type="dbl:DynamicMappingPart">
             <expr xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.12"/>
-              <referencedElement href="file:/Users/blunk/Projekte/Entwicklungen/dmx/git/runtime-plugins/Examples/src-dmx/base.xmi#//@modules.0/@classifiers.33/@methods.0"/>
+              <referencedElement href="../base.xmi#//@modules.0/@classifiers.33/@methods.0"/>
               <arguments/>
             </expr>
           </parts>

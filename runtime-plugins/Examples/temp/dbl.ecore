@@ -567,45 +567,13 @@
     <eLiterals name="ADD" value="1"/>
     <eLiterals name="BOOL" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Signal" eSuperTypes="#//ModuleContentExtension"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SendStatement" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="signal" eType="#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//Expression"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StateMachine" eSuperTypes="#//ClassContentExtension">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="initialState" eType="#//InitialState"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
-        eType="#//State" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="InitialState" eSuperTypes="#//ClassContentExtension">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="effect" eType="#//CodeBlock"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//State"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="State" eSuperTypes="#//ClassContentExtension">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoing" upperBound="-1"
-        eType="#//Transition" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Transition" eSuperTypes="#//ClassContentExtension">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="trigger" eType="#//Trigger"
+  <eClassifiers xsi:type="ecore:EClass" name="ForLoop" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="it" eType="#//IdExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="set" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Expression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//State"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="effect" eType="#//CodeBlock"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Trigger" eSuperTypes="#//ClassContentExtension">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="signalEvent" eType="#//IdExpr"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="timeEvent" eType="#//TimeEvent"
-        containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TimeEvent" eSuperTypes="#//ClassContentExtension">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="delay" eType="#//Expression"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
+        eType="#//Statement" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

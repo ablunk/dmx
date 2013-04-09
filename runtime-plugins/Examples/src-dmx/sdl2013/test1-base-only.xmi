@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="SmlPattern">
+    <classifiers xsi:type="dbl:Interface" name="Object"/>
+    <classifiers xsi:type="dbl:Clazz" name="M1"/>
+    <classifiers xsi:type="dbl:Clazz" name="Timer" active="true">
+      <attributes name="p">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.3"/>
+      </attributes>
+      <attributes name="delay">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="1"/>
+      </attributes>
+      <attributes name="invalid">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:FalseLiteral"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Advance">
+          <time xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@attributes.1"/>
+        </statements>
+        <statements xsi:type="dbl:IfStatement">
+          <condition xsi:type="dbl:Not">
+            <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@attributes.2"/>
+          </condition>
+          <ifCaseBlock>
+            <statements xsi:type="dbl:AddToSet">
+              <object xsi:type="dbl:IdExpr">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </object>
+              <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.0">
+                <parentIdExpr referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+              </set>
+            </statements>
+            <statements xsi:type="dbl:Reactivate">
+              <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+            </statements>
+          </ifCaseBlock>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="P" active="true">
+      <attributes name="eventPool" isList="true">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.0"/>
+      </attributes>
+      <attributes name="currentState">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="firstRun">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:TrueLiteral"/>
+      </attributes>
+      <attributes name="i">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral"/>
+      </attributes>
+      <initialBlock>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classifiers.3/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:StringLiteral" value="A"/>
+        </statements>
+      </initialBlock>
+      <actionsBlock>
+        <statements xsi:type="dbl:Variable" name="timer">
+          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.2"/>
+        </statements>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:TrueLiteral"/>
+          <whileBlock>
+            <statements xsi:type="dbl:IfStatement">
+              <condition xsi:type="dbl:NotEqual">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0"/>
+                <op2 xsi:type="dbl:NullLiteral"/>
+              </condition>
+              <ifCaseBlock>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@classifiers.2/@attributes.2">
+                      <parentIdExpr referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:TrueLiteral"/>
+                </statements>
+              </ifCaseBlock>
+            </statements>
+            <statements xsi:type="dbl:IfStatement">
+              <condition xsi:type="dbl:Equal">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.1"/>
+                <op2 xsi:type="dbl:StringLiteral" value="A"/>
+              </condition>
+              <ifCaseBlock>
+                <statements xsi:type="dbl:IfStatement">
+                  <condition xsi:type="dbl:Equal">
+                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.3"/>
+                    <op2 xsi:type="dbl:IntLiteral"/>
+                  </condition>
+                  <ifCaseBlock>
+                    <statements xsi:type="dbl:ExpressionStatement">
+                      <expression xsi:type="dbl:ProcedureCall">
+                        <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
+                          <arguments>
+                            <arguments xsi:type="dbl:StringLiteral" value="i is 0."/>
+                          </arguments>
+                        </procedureAccess>
+                      </expression>
+                    </statements>
+                  </ifCaseBlock>
+                </statements>
+                <statements xsi:type="dbl:IfStatement">
+                  <condition xsi:type="dbl:Greater">
+                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.3"/>
+                    <op2 xsi:type="dbl:IntLiteral"/>
+                  </condition>
+                  <ifCaseBlock>
+                    <statements xsi:type="dbl:ExpressionStatement">
+                      <expression xsi:type="dbl:ProcedureCall">
+                        <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
+                          <arguments>
+                            <arguments xsi:type="dbl:StringLiteral" value="i is greater 0."/>
+                          </arguments>
+                        </procedureAccess>
+                      </expression>
+                    </statements>
+                  </ifCaseBlock>
+                </statements>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0"/>
+                  </variable>
+                  <value xsi:type="dbl:CreateObject">
+                    <classifierTypeExpr referencedElement="//@modules.0/@classifiers.2"/>
+                  </value>
+                </statements>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@classifiers.2/@attributes.1">
+                      <parentIdExpr referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:IntLiteral" value="2"/>
+                </statements>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@classifiers.2/@attributes.0">
+                      <parentIdExpr referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:IdExpr">
+                    <predefinedId xsi:type="dbl:MeLiteral"/>
+                  </value>
+                </statements>
+                <statements xsi:type="dbl:ActivateObject">
+                  <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0"/>
+                </statements>
+              </ifCaseBlock>
+            </statements>
+            <statements xsi:type="dbl:IfStatement">
+              <condition xsi:type="dbl:Not">
+                <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.2"/>
+              </condition>
+              <ifCaseBlock>
+                <statements xsi:type="dbl:EmptySet">
+                  <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+                </statements>
+                <statements xsi:type="dbl:Wait"/>
+              </ifCaseBlock>
+              <elseCaseBlock>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@classifiers.3/@attributes.2"/>
+                  </variable>
+                  <value xsi:type="dbl:FalseLiteral"/>
+                </statements>
+              </elseCaseBlock>
+            </statements>
+            <statements xsi:type="dbl:WhileStatement">
+              <condition xsi:type="dbl:And">
+                <op1 xsi:type="dbl:Greater">
+                  <op1 xsi:type="dbl:IdExpr">
+                    <parentIdExpr referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+                    <predefinedId xsi:type="dbl:SizeOfSet"/>
+                  </op1>
+                  <op2 xsi:type="dbl:IntLiteral"/>
+                </op1>
+                <op2 xsi:type="dbl:NotEqual">
+                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.1"/>
+                  <op2 xsi:type="dbl:NullLiteral"/>
+                </op2>
+              </condition>
+              <whileBlock>
+                <statements xsi:type="dbl:Variable" name="ev">
+                  <classifierTypeExpr referencedElement="//@modules.0/@classifiers.0"/>
+                  <initialValue xsi:type="dbl:IdExpr">
+                    <parentIdExpr referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+                    <predefinedId xsi:type="dbl:FirstInSet"/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:RemoveFromSet">
+                  <object xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.1/@whileBlock/@statements.3/@whileBlock/@statements.0"/>
+                  <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+                </statements>
+                <statements xsi:type="dbl:IfStatement">
+                  <condition xsi:type="dbl:Equal">
+                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.1"/>
+                    <op2 xsi:type="dbl:StringLiteral" value="A"/>
+                  </condition>
+                  <ifCaseBlock>
+                    <statements xsi:type="dbl:IfStatement">
+                      <condition xsi:type="dbl:InstanceOf">
+                        <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.1/@whileBlock/@statements.3/@whileBlock/@statements.0"/>
+                        <op2 xsi:type="dbl:TypeAccess">
+                          <idExpr referencedElement="//@modules.0/@classifiers.1"/>
+                        </op2>
+                      </condition>
+                      <ifCaseBlock>
+                        <statements xsi:type="dbl:ExpressionStatement">
+                          <expression xsi:type="dbl:ProcedureCall">
+                            <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
+                              <arguments>
+                                <arguments xsi:type="dbl:StringLiteral" value="received M1."/>
+                              </arguments>
+                            </procedureAccess>
+                          </expression>
+                        </statements>
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classifiers.3/@attributes.1"/>
+                          </variable>
+                          <value xsi:type="dbl:StringLiteral" value="A"/>
+                        </statements>
+                      </ifCaseBlock>
+                    </statements>
+                    <statements xsi:type="dbl:IfStatement">
+                      <condition xsi:type="dbl:InstanceOf">
+                        <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.1/@whileBlock/@statements.3/@whileBlock/@statements.0"/>
+                        <op2 xsi:type="dbl:TypeAccess">
+                          <idExpr referencedElement="//@modules.0/@classifiers.2"/>
+                        </op2>
+                      </condition>
+                      <ifCaseBlock>
+                        <statements xsi:type="dbl:ExpressionStatement">
+                          <expression xsi:type="dbl:ProcedureCall">
+                            <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
+                              <arguments>
+                                <arguments xsi:type="dbl:StringLiteral" value="time passed."/>
+                              </arguments>
+                            </procedureAccess>
+                          </expression>
+                        </statements>
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classifiers.3/@attributes.3"/>
+                          </variable>
+                          <value xsi:type="dbl:Plus">
+                            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.3"/>
+                            <op2 xsi:type="dbl:IntLiteral" value="1"/>
+                          </value>
+                        </statements>
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classifiers.3/@attributes.1"/>
+                          </variable>
+                          <value xsi:type="dbl:StringLiteral" value="A"/>
+                        </statements>
+                      </ifCaseBlock>
+                    </statements>
+                    <statements xsi:type="dbl:BreakStatement"/>
+                  </ifCaseBlock>
+                </statements>
+              </whileBlock>
+            </statements>
+          </whileBlock>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <procedures name="trace">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement">
+        <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+        <ifCaseBlock>
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:Plus">
+                      <op1 xsi:type="dbl:TimeLiteral"/>
+                      <op2 xsi:type="dbl:StringLiteral" value=" - "/>
+                    </op1>
+                    <op2 xsi:type="dbl:ActiveLiteral"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" value=": "/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+            </outputs>
+          </statements>
+        </ifCaseBlock>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </procedures>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="p">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.3"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.3"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:CreateObject">
+          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.1"/>
+        </object>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.0">
+          <parentIdExpr referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+        </set>
+      </statements>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:IntLiteral" value="2"/>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:CreateObject">
+          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.1"/>
+        </object>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.0">
+          <parentIdExpr referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+        </set>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:IntLiteral" value="8"/>
+      </statements>
+    </procedures>
+    <variables name="debug">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral"/>
+    </variables>
+  </modules>
+</dbl:Model>

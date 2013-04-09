@@ -420,34 +420,11 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//IncludePattern/pattern"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IncludePattern/context"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//Signal"/>
-    <genClasses ecoreClass="dbl.ecore#//SendStatement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SendStatement/signal"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SendStatement/target"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//StateMachine">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//StateMachine/initialState"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//StateMachine/states"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//InitialState">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//InitialState/effect"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//InitialState/target"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//State">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//State/outgoing"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//Transition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/trigger"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/condition"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/target"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Transition/effect"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//Trigger">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Trigger/signalEvent"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Trigger/timeEvent"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//TimeEvent">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TimeEvent/delay"/>
+    <genClasses ecoreClass="dbl.ecore#//ForLoop">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/it"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/set"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/condition"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/statements"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

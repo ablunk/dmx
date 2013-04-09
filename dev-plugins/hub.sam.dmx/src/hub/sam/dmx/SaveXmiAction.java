@@ -8,6 +8,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -17,6 +19,7 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.ResourceAction;
 
@@ -56,8 +59,11 @@ public class SaveXmiAction extends ResourceAction implements ITefEditorStatusLis
 			IPath xmiRawLocation = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiLocation).getRawLocation();
 			
 			try {
+				Map<String, Object> options = new HashMap<String, Object>();
+				options.put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
+				
 				FileOutputStream originalAsXmiStream = new FileOutputStream(xmiRawLocation.toString());
-				editor.getCurrentModel().save(originalAsXmiStream, Collections.EMPTY_MAP);
+				editor.getCurrentModel().save(originalAsXmiStream, options);
 				System.out.println("saved as XMI: " + xmiRawLocation);
 				
 				// refreshing the folder that contains the XMI file, so the change is recognized by the editor

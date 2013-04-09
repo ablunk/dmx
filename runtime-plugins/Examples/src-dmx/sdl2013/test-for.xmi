@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <imports file="for-loop">
-    <model href="file:/Users/blunk/Projekte/Entwicklungen/dmx/runtime-plugins/Examples/src-dmx/sdl2013/for-loop.xmi#/"/>
+    <model href="for-loop.xmi#/"/>
   </imports>
   <modules name="forLoopUse">
     <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;list(int) is;&#xA;&#x9;&#x9;int i;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;place 15 into is;&#xA;&#x9;&#x9;place 42 into is;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;for (i in is with i > 0) {&#xA;&#x9;&#x9;&#x9;print i + &quot;\n&quot;;&#xA;&#x9;&#x9;}&#xA;&#xA;&#x9;}">
