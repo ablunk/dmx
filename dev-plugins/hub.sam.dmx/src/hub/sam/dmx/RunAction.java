@@ -28,6 +28,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -45,8 +46,12 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.IStreamListener;
@@ -72,6 +77,8 @@ import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.text.Position;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
@@ -242,16 +249,54 @@ public class RunAction extends Action {
 		compileJavaFiles(emfProject, emfProject.getFolder("src"));
 	}
 	
+	private Display currentDisplay;
+	
 	public void run() {
-		long startCompileTime = System.nanoTime();
+		currentDisplay = Display.getCurrent();
+
+		final IRunnableWithProgress runnable = new IRunnableWithProgress() {
+			@Override
+			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+				run0(monitor);
+				monitor.done();
+			}
+		};
 		
+//		final Job job = new Job("Compile & Run") {
+//			@Override
+//			protected IStatus run(IProgressMonitor monitor) {
+//				runnable.run(monitor);
+//				return Status.OK_STATUS;
+//			}
+//		};
+//		job.schedule();
+		
+		ProgressMonitorDialog dialog = new ProgressMonitorDialog(currentDisplay.getActiveShell());
+        try {
+			dialog.run(true, false, runnable);
+		}
+        catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+        catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	private void run0(IProgressMonitor monitor) {
+		long startCompileTime = System.nanoTime();
+
+		monitor.beginTask("Compile && Run ...", 100);
+		
+		monitor.subTask("Cleaning up");
 		IFile file = ((FileEditorInput) editor.getEditorInput()).getFile();
 		IProject currentProject = file.getProject();
-		//IPath tempFolder = currentProject.getLocation().append(TEMP_FOLDER_NAME);
 		cleanFolder(getTempFolder(currentProject));
 		cleanFolder(getJavaGenFolder(currentProject));
 		
 		resetConsole();
+		monitor.worked(5);
 		
 		// 1a. generate EMF Java classes for all the meta-classes of extensions used in the model
 		
@@ -261,8 +306,10 @@ public class RunAction extends Action {
 
 		// TODO make this step optional: generate only if an extension definition was changed !!
 		if (file.getFileExtension().equals("dbx")) {
+			monitor.subTask("Generating extended EMF model plugin");
 			genEmfJavaClasses(currentProject);
 		}
+		monitor.worked(40); // 45%
 		
 		// NOTE --> Another solution is to access properties by EMF's reflection mechanism. In this, no EMF code needs to generated here.
 
@@ -272,7 +319,11 @@ public class RunAction extends Action {
 		// 2. for every extension used in the model, generate Java code for executing the semantics of the extension definition that they are defined by
 
 		Resource originalResource = editor.getCurrentModel();
-		URI xmiFile = URI.createURI(originalResource.getURI().trimFileExtension() + "_base.xmi");
+		String workingCopyFile = originalResource.getURI().trimFileExtension() + "_base.xmi";
+
+		monitor.subTask("Creating working copy " + workingCopyFile);
+		
+		URI xmiFile = URI.createURI(workingCopyFile);
 		IPath xmiFileLocation = new Path(xmiFile.toPlatformString(true));
 		IPath xmiFileRaw = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiFileLocation).getRawLocation();
 		
@@ -289,6 +340,10 @@ public class RunAction extends Action {
 			e.printStackTrace();
 			return;
 		}
+		
+		monitor.worked(5); // 50%
+		
+		monitor.subTask("Looking for extension instances");
 		
 		Collection<String> importedExtensionDefinitionNames = new HashSet<String>();
 		Model model = (Model) originalResource.getContents().get(0);
@@ -316,11 +371,15 @@ public class RunAction extends Action {
 				}
 			}
 		}
+		
+		monitor.worked(5); // 55%
+		
+		monitor.subTask("Generating Java code for semantics definitions");
 
 		IPath genFolder = getJavaGenFolder(currentProject).getRawLocation();
 
 		// generate all ExtensionSemantics classes by executing ExtensionsToJava.mtl
-		System.out.println("Generating Java files for executing extension semantics (ExtensionsToJava.mtl) ...");
+		System.out.println("Generating Java files for executing semantics definitions (ExtensionsToJava.mtl) ...");
 		
 		// NOTE Usually, launching an Acceleo template from the current project won't work. This is because Acceleo
 		//      needs to create objects of non-existent extension meta-classes, e.g. Unless. We worked around this
@@ -329,9 +388,17 @@ public class RunAction extends Action {
 		ExtensionsToJava.main(new String[] { xmiFileRaw.toString(), genFolder.toString() });		
 		System.out.println("Finished.");
 		
+		monitor.worked(10); // 65%
+		
+		monitor.subTask("Compiling Java code for semantics definitions");
+		
 		// execute the generated Java code and remember its execution result as the substitution text for step 3 below
 		compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
 		IPath workingDirectory = currentProject.getLocation();
+		
+		monitor.worked(5); // 70%
+		
+		monitor.subTask("Executing semantics definition");
 		
 		createEmptyModificationsXmi(currentProject);
 		
@@ -340,7 +407,7 @@ public class RunAction extends Action {
 			
 			try {
 				IJavaProject currentJavaProject = JavaCore.create(currentProject);
-				launchJavaProgram(currentJavaProject, workingDirectory, extensionDef+"Semantics",
+				launchJavaProgram(true, currentJavaProject, workingDirectory, extensionDef+"Semantics",
 						new String[] { xmiFileRaw.toString(), AbstractExtensionSemantics.getEmfUriFragment(extensionInstance) });
 			}
 			catch (CoreException e) {
@@ -348,6 +415,8 @@ public class RunAction extends Action {
 				return;
 			}
 		}
+		
+		monitor.subTask("Applying modifications");
 			
 		// get all the modifications from <temp-folder>/modifications.xmi
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -420,7 +489,12 @@ public class RunAction extends Action {
 			saveAsXmi(parser.getLastModelCreationContext().getResource(), xmiFile);
 		}
 		
+		monitor.worked(10); // 80%
+				
 		// 5. invoke Acceleo for BaseToTarget transformation
+		
+		monitor.subTask("Generating target language code");
+		
 		System.out.println("Executing Base-To-Target transformation ...");
 
 		if (targetSimLib == null) {
@@ -433,19 +507,30 @@ public class RunAction extends Action {
 
 		String modelFile = xmiFileRaw.toString();
 		BaseToJava.main(new String[] { modelFile, genFolder.toString() });
+		
+		monitor.worked(10); // 90%
 
 		// 6. compile and execute generated artifacts
+		
+		monitor.subTask("Compiling target language code");
+		
 		boolean compileOk = false;
 		compileOk = compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
 
 		long estimatedTime = System.nanoTime() - startCompileTime;
 		long ms = estimatedTime / (1000 * 1000);
 		System.out.println("Compile time: " + ms / 1000.0 + " seconds");
+		
+		monitor.worked(5); // 95%
 
 		if (compileOk) {
 			try {
+				monitor.subTask("Executing target language program");
+				
 				IJavaProject currentJavaProject = JavaCore.create(currentProject);
-				launchJavaProgram(currentJavaProject, workingDirectory, "JavaMain", null);
+				launchJavaProgram(true, currentJavaProject, workingDirectory, "JavaMain", null);
+				
+				monitor.worked(5); // 100%
 			}
 			catch (CoreException e) {
 				e.printStackTrace();
@@ -519,7 +604,34 @@ public class RunAction extends Action {
 		}
 	}
 	
-	private void launchJavaProgram(IJavaProject project, IPath workingDirectory, String className, String[] args) throws CoreException {
+	private void launchJavaProgram(boolean sync, final IJavaProject project, final IPath workingDirectory, final String className, final String[] args) throws CoreException {
+		if (sync) {
+			currentDisplay.syncExec(new Runnable () {
+			      public void run () {
+			    	  try {
+						launchJavaProgram0(project, workingDirectory, className, args);
+					}
+			    	catch (CoreException e) {
+						e.printStackTrace();
+					}
+			      }
+			});
+		}
+		else {
+			currentDisplay.asyncExec(new Runnable () {
+			      public void run () {
+			    	  try {
+						launchJavaProgram0(project, workingDirectory, className, args);
+					}
+			    	catch (CoreException e) {
+						e.printStackTrace();
+					}
+			      }
+			});
+		}
+	}
+	
+	private void launchJavaProgram0(IJavaProject project, IPath workingDirectory, String className, String[] args) throws CoreException {
 		IVMInstall vmInstall = JavaRuntime.getVMInstall(project);
 		if (vmInstall == null) {
 			vmInstall = JavaRuntime.getDefaultVMInstall();

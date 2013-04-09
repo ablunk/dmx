@@ -10,7 +10,7 @@ module TwoCountersAdvance {
 		}
 	}
 	
-	int limit = 1000000;
+	int limit = 400000;
 
 	active class Counter {
 		int count = 0;		
@@ -31,11 +31,6 @@ module TwoCountersAdvance {
 		activate c2;
 
 		advance limit+10;
-		
-		list(int) is;
-		int i;
-		for (int i:is) {
-		}
 	}
 
 }
