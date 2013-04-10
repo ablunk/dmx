@@ -97,7 +97,7 @@ public class DbxTextEditor extends DblTextEditor {
 				public boolean visit(IResourceDelta delta) throws CoreException {
 					IPath path = delta.getFullPath();
 					if (path != null && path.getFileExtension() != null && path.getFileExtension().equals("xmi")) {
-						String rawPath = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getRawLocation().toString();
+						String rawPath = DblPreProcessor.getPlatformResourceURI(ResourcesPlugin.getWorkspace().getRoot().getFile(path).getRawLocation()).toString();
 						if (preProcessor.getFileForImportedResources().containsKey(rawPath)) {
 							Resource importedResourceWithChanges = preProcessor.getFileForImportedResources().get(rawPath);
 							unwindExtensionDefinitionEffects(importedResourceWithChanges);
