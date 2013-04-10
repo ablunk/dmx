@@ -431,6 +431,24 @@
 		else false
 		endif /]
 
+[query public refersToVariableOfStructuredType(idExpr : IdExpr) : Boolean
+	= if (not idExpr.referencedElement.oclIsUndefined() and idExpr.referencedElement.oclIsKindOf(Variable))
+		then (
+			let variable : Variable = idExpr.referencedElement.oclAsType(Variable)
+			in
+				if (not variable.classifierTypeExpr.oclIsUndefined() and variable.classifierTypeExpr.referencedElement.eContainer().oclIsTypeOf(Module))
+				then (
+					if (variable.classifierTypeExpr.referencedElement.eContainer().oclAsType(Module).name = 'dbl')
+					then true
+					else false
+					endif
+				)
+				else false
+				endif
+		) 
+		else false
+		endif /]
+
 [query public hasSyntaxType(idExpr : IdExpr) : Boolean
 	= if (idExpr.parentIdExpr.oclIsUndefined())
 		then (
@@ -459,7 +477,7 @@
 [if (extensionSemantics and (refersToSyntaxPart(idExpr) or hasSyntaxType(idExpr)))]
 	[if (isUsedInGenStatement(idExpr))]
 		[if (refersToSyntaxPart(idExpr))]self.[/if][genIdExpr(idExpr, extensionSemantics)/]
-		[if (refersToSyntaxPartOfStructuredType(idExpr))]
+		[if (refersToSyntaxPartOfStructuredType(idExpr) or refersToVariableOfStructuredType(idExpr))]
 			.getConcreteSyntax()
 		[/if]
 	[else]
@@ -711,6 +729,9 @@
 					[for (stm : Statement | procedure.statements)]
 						[genStatement(stm)/]
 					[/for]
+
+					// simulations are stopped when main terminates
+					getModel().getExperiment().stop();
 				}
 
 				public static void startMain() {
@@ -880,7 +901,8 @@
 					[for (stm : Statement | procedure.statements)]
 						[genStatement(stm)/]
 					[/for]
-					Controller.getActiveController().endAt(JistAPI.getTime());
+
+					JistAPI.end();
 				}
 
 				public static void main(String['['/][']'/] args) {

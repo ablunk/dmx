@@ -780,6 +780,10 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 		reconciling = dirty;
 		this.notifyAll();
 	}
+	
+	public synchronized boolean isReconciling() {
+		return reconciling;
+	}
 
 	/**
 	 * Waits until {@link #isReconciling()} becomes false. Immediately returns if it is already

@@ -192,11 +192,13 @@ public class ReconcilingStrategy implements IReconcilingStrategy {
 			if (editorStatusListener == null) {
 				editorStatusListener = new ITefEditorStatusListener() {
 					
-					public void rccSyntaxChanged(TextEditor editor) {
+					public void rccSyntaxChanged(final TextEditor editor) {
 						PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 							public void run() {
 								fParser.reset();
-								reconcile();
+								if (!editor.isReconciling()) {
+									reconcile();
+								}
 							}
 						});
 					}

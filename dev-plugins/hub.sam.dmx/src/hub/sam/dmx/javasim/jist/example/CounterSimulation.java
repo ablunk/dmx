@@ -33,8 +33,10 @@ public class CounterSimulation implements Timeless, IProcess {
 		c2.getEntity().activate();
 		
 		System.out.println(getActiveEntity());
-		getActiveEntity().advance(10);
+		getActiveEntity().advance(3);
 		System.out.println(JistAPI.getTime());
+		
+		JistAPI.end();
 	}
 	
 	public static void main(String[] args) {

@@ -85,11 +85,13 @@ public class DbxTextEditor extends DblTextEditor {
 	public void preProcessDocument() {
 		super.preProcessDocument();
 		
-		//synchronized (this) {
-			for (Resource importedResource: getImportedResources()) {
-				updateExtensionDefs((Model) importedResource.getContents().get(0));
-			}			
-		//}
+		boolean additions = false;
+		for (Resource importedResource: getImportedResources()) {
+			additions |= updateExtensionDefs((Model) importedResource.getContents().get(0));
+		}
+		if (additions) {
+			fireRccSyntaxChanged();
+		}
 		
 		if (workspaceResourceChangeListener == null) {
 			resourceDeltaVisitor = new IResourceDeltaVisitor() {
@@ -139,11 +141,13 @@ public class DbxTextEditor extends DblTextEditor {
 		}
 	}
 
-	private void updateExtensionDefs(Model model) {
+	private boolean updateExtensionDefs(Model model) {
+		boolean additions = false;
 		for (Module module: model.getModules()) {
 			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
 				if (!extensionDefs.containsKey(extensionDef.getName())) {
 					addExtensionDef(extensionDef);
+					additions = true;
 				}
 			}
 		}
@@ -155,6 +159,8 @@ public class DbxTextEditor extends DblTextEditor {
 				getSourceViewerConfiguration().getPresentationReconciler(getSourceViewer()).install(getSourceViewer());
 			}
 		});
+		
+		return additions;
 	}
 	
 	private void unwindExtensionDefinitionEffects(Resource resource) {
@@ -205,7 +211,7 @@ public class DbxTextEditor extends DblTextEditor {
 				}
 			} while (duplicatedRules.size() > 0);
 			
-			printCurrentSyntax();
+			//printCurrentSyntax();
 
 			return true;
 		}

@@ -12,7 +12,7 @@ semantics {
 	gen "for (" it ":" set ") {";
 	gen "if (" condition ") {";
 	for (Statement stm: statements) {
-		gen "" stm.getConcreteSyntax() ";";
+		gen "" stm ";";
 	}
 	gen "} }";
 }

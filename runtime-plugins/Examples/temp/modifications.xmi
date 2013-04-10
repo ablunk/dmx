@@ -1,4 +1,2 @@
 <?xml version="1.0" encoding="ASCII"?>
-<modifications:ModificationsRecord xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modifications="http://www.informatik.hu-berlin.de/sam/modifications">
-  <modifications xsi:type="modifications:Substitution" sourceEObjectUri="//@modules.0/@procedures.0/@statements.4" replacementText="for (i:is) {if (i > 0) {print i + &quot;\n&quot;;} }"/>
-</modifications:ModificationsRecord>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI"/>
