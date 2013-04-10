@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: hub.sam.dbl.model;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: .
+Bundle-ClassPath: bin/
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

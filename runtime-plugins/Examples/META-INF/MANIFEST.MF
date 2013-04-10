@@ -6,13 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: hub.sam.dmx.examples.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
- org.eclipse.acceleo.common;bundle-version="3.2.2",
- org.eclipse.acceleo.engine;bundle-version="3.2.2",
- com.google.guava;bundle-version="10.0.1",
- hub.sam.tef;bundle-version="1.0.10",
- hub.sam.dbl.model;bundle-version="1.0.0",
- hub.sam.dbl.model.edit;bundle-version="1.0.0",
- hub.sam.dmx.modifications;bundle-version="1.0.0",
  hub.sam.dmx;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Eclipse-RegisterBuddy: hub.sam.dmx
