@@ -170,7 +170,8 @@ public class ReconcilingStrategy implements IReconcilingStrategy {
 		try {
 			fEditor.preProcessDocument();
 			reconcileWithExceptions();
-		} catch (final Throwable ex) {
+		}
+		catch (final Throwable ex) {
 			TEFPlugin.getDefault().getLog().log(
 					new Status(Status.WARNING, TEFPlugin.PLUGIN_ID, Status.OK,
 							"Reconciliation failed (" + ex.getMessage() + ")",
@@ -185,7 +186,8 @@ public class ReconcilingStrategy implements IReconcilingStrategy {
 									"Reconciliation failed due to an unexpected exception.");
 				}
 			});
-		} finally {
+		}
+		finally {
 			fEditor.setReconciling(false);
 			if (editorStatusListener == null) {
 				editorStatusListener = new ITefEditorStatusListener() {
