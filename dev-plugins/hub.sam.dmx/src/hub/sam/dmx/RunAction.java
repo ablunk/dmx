@@ -284,14 +284,19 @@ public class RunAction extends Action {
 
 	}
 	
+	private IProject getCurrentProject() {
+		IFile file = ((FileEditorInput) editor.getEditorInput()).getFile();
+		return file.getProject();
+	}
+	
 	private void run0(IProgressMonitor monitor) {
 		long startCompileTime = System.nanoTime();
 
 		monitor.beginTask("Compile && Run ...", 100);
 		
 		monitor.subTask("Cleaning up");
-		IFile file = ((FileEditorInput) editor.getEditorInput()).getFile();
-		IProject currentProject = file.getProject();
+		IProject currentProject = getCurrentProject();
+		IPath genFolder = getJavaGenFolder(currentProject).getRawLocation();
 		cleanFolder(getTempFolder(currentProject));
 		cleanFolder(getJavaGenFolder(currentProject));
 		
@@ -305,7 +310,9 @@ public class RunAction extends Action {
 		//      the extension meta-classes must exist.
 
 		// TODO make this step optional: generate only if an extension definition was changed !!
-		if (file.getFileExtension().equals("dbx")) {
+		IFile file = ((FileEditorInput) editor.getEditorInput()).getFile();
+		final boolean dbxFile = file.getFileExtension().equals("dbx");
+		if (dbxFile) {
 			monitor.subTask("Generating extended EMF model plugin");
 			genEmfJavaClasses(currentProject);
 		}
@@ -319,17 +326,17 @@ public class RunAction extends Action {
 		// 2. for every extension used in the model, generate Java code for executing the semantics of the extension definition that they are defined by
 
 		Resource originalResource = editor.getCurrentModel();
-		String workingCopyFile = originalResource.getURI().trimFileExtension() + "_base.xmi";
+		String workingCopyXmiName = originalResource.getURI().trimFileExtension() + "_base.xmi";
 
-		monitor.subTask("Creating working copy " + workingCopyFile);
+		monitor.subTask("Creating working copy " + workingCopyXmiName);
 		
-		URI xmiFile = URI.createURI(workingCopyFile);
-		IPath xmiFileLocation = new Path(xmiFile.toPlatformString(true));
-		IPath xmiFileRaw = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiFileLocation).getRawLocation();
+		URI workingCopyXmiUri = URI.createURI(workingCopyXmiName);
+		IPath workingCopyXmiPath = new Path(workingCopyXmiUri.toPlatformString(true));
+		IPath workingCopyXmiRawLocation = ResourcesPlugin.getWorkspace().getRoot().getFile(workingCopyXmiPath).getRawLocation();
 		
 		FileOutputStream originalAsXmiStream;
 		try {
-			originalAsXmiStream = new FileOutputStream(xmiFileRaw.toString());
+			originalAsXmiStream = new FileOutputStream(workingCopyXmiRawLocation.toString());
 			originalResource.save(originalAsXmiStream, Collections.EMPTY_MAP);
 		}
 		catch (FileNotFoundException e) {
@@ -343,6 +350,62 @@ public class RunAction extends Action {
 		
 		monitor.worked(5); // 50%
 		
+		if (dbxFile) {
+			translateExtensions(monitor, originalResource, workingCopyXmiUri, workingCopyXmiRawLocation);
+		}
+				
+		// 5. invoke Acceleo for BaseToTarget transformation
+		
+		monitor.subTask("Generating target language code");
+		
+		System.out.println("Executing Base-To-Target transformation ...");
+
+		if (targetSimLib == null) {
+			TransformationProperties.resetToDefaults();
+		}
+		else {
+			TransformationProperties.setSimLib(targetSimLib);
+		}
+		System.out.println("Target: Java/" + TransformationProperties.getSimLib());
+
+		String modelFile = workingCopyXmiRawLocation.toString();
+		BaseToJava.main(new String[] { modelFile, genFolder.toString() });
+		
+		monitor.worked(10); // 90%
+
+		// 6. compile and execute generated artifacts
+		
+		monitor.subTask("Compiling target language code");
+		
+		boolean compileOk = false;
+		compileOk = compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
+
+		long estimatedTime = System.nanoTime() - startCompileTime;
+		long ms = estimatedTime / (1000 * 1000);
+		System.out.println("Compile time: " + ms / 1000.0 + " seconds");
+		
+		monitor.worked(5); // 95%
+
+		if (compileOk) {
+			try {
+				monitor.subTask("Executing target language program");
+				
+				IJavaProject currentJavaProject = JavaCore.create(currentProject);
+				IPath workingDirectory = currentProject.getLocation();
+				launchJavaProgram(true, currentJavaProject, workingDirectory, "JavaMain", null);
+				
+				monitor.worked(5); // 100%
+			}
+			catch (CoreException e) {
+				e.printStackTrace();
+				return;
+			}
+		}		
+	}
+	
+	private void translateExtensions(IProgressMonitor monitor, Resource originalResource,
+			URI workingCopyXmiUri, IPath workingCopyXmiFile) {
+
 		monitor.subTask("Looking for extension instances");
 		
 		Collection<String> importedExtensionDefinitionNames = new HashSet<String>();
@@ -372,171 +435,131 @@ public class RunAction extends Action {
 			}
 		}
 		
-		monitor.worked(5); // 55%
+		monitor.worked(5); // 55%		
 		
-		monitor.subTask("Generating Java code for semantics definitions");
-
-		IPath genFolder = getJavaGenFolder(currentProject).getRawLocation();
-
-		// generate all ExtensionSemantics classes by executing ExtensionsToJava.mtl
-		System.out.println("Generating Java files for executing semantics definitions (ExtensionsToJava.mtl) ...");
+		if (extensionInstances.size() > 0) {
 		
-		// NOTE Usually, launching an Acceleo template from the current project won't work. This is because Acceleo
-		//      needs to create objects of non-existent extension meta-classes, e.g. Unless. We worked around this
-		//      problem by manually adapting the metamodel factory in DblFactoryImpl.create(...).
-		//      -> changed default case to: return DbxModelCreationContext.createObjectOfParentClass(eClass);
-		ExtensionsToJava.main(new String[] { xmiFileRaw.toString(), genFolder.toString() });		
-		System.out.println("Finished.");
-		
-		monitor.worked(10); // 65%
-		
-		monitor.subTask("Compiling Java code for semantics definitions");
-		
-		// execute the generated Java code and remember its execution result as the substitution text for step 3 below
-		compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
-		IPath workingDirectory = currentProject.getLocation();
-		
-		monitor.worked(5); // 70%
-		
-		monitor.subTask("Executing semantics definition");
-		
-		createEmptyModificationsXmi(currentProject);
-		
-		for (Extension extensionInstance: extensionInstances) {
-			String extensionDef = extensionInstance.eClass().getName();
+			monitor.subTask("Generating Java code for semantics definitions");
 			
-			try {
-				IJavaProject currentJavaProject = JavaCore.create(currentProject);
-				launchJavaProgram(true, currentJavaProject, workingDirectory, extensionDef+"Semantics",
-						new String[] { xmiFileRaw.toString(), AbstractExtensionSemantics.getEmfUriFragment(extensionInstance) });
-			}
-			catch (CoreException e) {
-				e.printStackTrace();
-				return;
-			}
-		}
-		
-		monitor.subTask("Applying modifications");
+			IProject currentProject = getCurrentProject();
+			IPath genFolder = getJavaGenFolder(currentProject).getRawLocation();
+	
+			// generate all ExtensionSemantics classes by executing ExtensionsToJava.mtl
+			System.out.println("Generating Java files for executing semantics definitions (ExtensionsToJava.mtl) ...");
 			
-		// get all the modifications from <temp-folder>/modifications.xmi
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
-
-    	String modificationsXmiFile = getTempFolder(currentProject).getLocation().append("modifications.xmi").toString();
-		URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());		
-		
-		Resource modificationsResource = resourceSet.getResource(modificationsFileUri, true);
-		ModificationsRecord modificationsRecord = null;
-		for (EObject rootObject: modificationsResource.getContents()) {
-			modificationsRecord = (ModificationsRecord) rootObject;
-			break;
-		}
-		
-		// 3. substitute the text of extension instances by their semantics execution result
-		String originalText = editor.getCurrentText();
-		System.out.println("--------- original text ---------");
-		System.out.println(originalText);
-		System.out.println("--------- ------------- ---------");
+			// NOTE Usually, launching an Acceleo template from the current project won't work. This is because Acceleo
+			//      needs to create objects of non-existent extension meta-classes, e.g. Unless. We worked around this
+			//      problem by manually adapting the metamodel factory in DblFactoryImpl.create(...).
+			//      -> changed default case to: return DbxModelCreationContext.createObjectOfParentClass(eClass);
+			ExtensionsToJava.main(new String[] { workingCopyXmiFile.toString(), genFolder.toString() });		
+			System.out.println("Finished.");
 			
-		if (modificationsRecord == null) {
-			System.out.println("No modifications found. Skipping extension substitution.");
-		}
-		else {
-			// compute text positions from position objects
-			for (Modification mod: modificationsRecord.getModifications()) {
-				EObject positionObject = originalResource.getEObject(mod.getSourceEObjectUri());
-				Position position = editor.getLastModelCreatingContext().getTreeNodeForObject(positionObject).getPosition();
+			monitor.worked(10); // 65%
+			
+			monitor.subTask("Compiling Java code for semantics definitions");
+			
+			// execute the generated Java code and remember its execution result as the substitution text for step 3 below
+			compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
+			IPath workingDirectory = currentProject.getLocation();
+			
+			monitor.worked(5); // 70%
+			
+			monitor.subTask("Executing semantics definition");
+			
+			createEmptyModificationsXmi(currentProject);
+			
+			for (Extension extensionInstance: extensionInstances) {
+				String extensionDef = extensionInstance.eClass().getName();
 				
-				if (mod instanceof Substitution) {
-					Substitution sub = (Substitution) mod;
-					sub.setSourceStart(position.getOffset());
-					sub.setSourceLength(position.getLength());
+				try {
+					IJavaProject currentJavaProject = JavaCore.create(currentProject);
+					launchJavaProgram(true, currentJavaProject, workingDirectory, extensionDef+"Semantics",
+							new String[] { workingCopyXmiFile.toString(), AbstractExtensionSemantics.getEmfUriFragment(extensionInstance) });
 				}
-				else if (mod instanceof Addition) {
-					Addition addition = (Addition) mod;
-					if (addition.isAddAfterPosition()) {
-						addition.setSourceStart(position.getOffset() + position.getLength());
-					}
-					else {
-						addition.setSourceStart(position.getOffset());
-					}
-				}				
-			}
-			
-			IncrementalModificationApplier modificationApplier = new IncrementalModificationApplier(modificationsRecord.getModifications(), originalText);
-			String workingText = modificationApplier.applyAll();
-			
-			System.out.println("--------- text with extension substitutions ---------");
-			System.out.println(workingText);
-			System.out.println("--------- --------------------------------- ---------");
-
-			// 4. parse input text again (contains BL constructs only), save as XMI
-			HeadlessEclipseParser parser = new DblParser(xmiFileRaw);
-			try {
-				//IModelCreatingContext context = parser.parse("module test { void main() { print \"hello\"; } }");
-				IModelCreatingContext context = parser.parse(workingText);
-				if (context.getErrors().size() > 0) {
-					for (AbstractError error: context.getErrors()) {
-						System.out.println("ERROR: " + error.getMessage());
-						return;
-					}
+				catch (CoreException e) {
+					e.printStackTrace();
+					return;
 				}
 			}
-			catch (ModelCreatingException e) {
-				e.printStackTrace();
-			}
-			saveAsXmi(parser.getLastModelCreationContext().getResource(), xmiFile);
-		}
-		
-		monitor.worked(10); // 80%
+			
+			monitor.subTask("Applying modifications");
 				
-		// 5. invoke Acceleo for BaseToTarget transformation
-		
-		monitor.subTask("Generating target language code");
-		
-		System.out.println("Executing Base-To-Target transformation ...");
-
-		if (targetSimLib == null) {
-			TransformationProperties.resetToDefaults();
+			// get all the modifications from <temp-folder>/modifications.xmi
+			ResourceSet resourceSet = new ResourceSetImpl();
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+	    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
+	
+	    	String modificationsXmiFile = getTempFolder(currentProject).getLocation().append("modifications.xmi").toString();
+			URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());		
+			
+			Resource modificationsResource = resourceSet.getResource(modificationsFileUri, true);
+			ModificationsRecord modificationsRecord = null;
+			for (EObject rootObject: modificationsResource.getContents()) {
+				modificationsRecord = (ModificationsRecord) rootObject;
+				break;
+			}
+			
+			// 3. substitute the text of extension instances by their semantics execution result
+			String originalText = editor.getCurrentText();
+			System.out.println("--------- original text ---------");
+			System.out.println(originalText);
+			System.out.println("--------- ------------- ---------");
+				
+			if (modificationsRecord == null) {
+				System.out.println("No modifications found. Skipping extension substitution.");
+			}
+			else {
+				// compute text positions from position objects
+				for (Modification mod: modificationsRecord.getModifications()) {
+					EObject positionObject = originalResource.getEObject(mod.getSourceEObjectUri());
+					Position position = editor.getLastModelCreatingContext().getTreeNodeForObject(positionObject).getPosition();
+					
+					if (mod instanceof Substitution) {
+						Substitution sub = (Substitution) mod;
+						sub.setSourceStart(position.getOffset());
+						sub.setSourceLength(position.getLength());
+					}
+					else if (mod instanceof Addition) {
+						Addition addition = (Addition) mod;
+						if (addition.isAddAfterPosition()) {
+							addition.setSourceStart(position.getOffset() + position.getLength());
+						}
+						else {
+							addition.setSourceStart(position.getOffset());
+						}
+					}				
+				}
+				
+				IncrementalModificationApplier modificationApplier = new IncrementalModificationApplier(modificationsRecord.getModifications(), originalText);
+				String workingText = modificationApplier.applyAll();
+				
+				System.out.println("--------- text with extension substitutions ---------");
+				System.out.println(workingText);
+				System.out.println("--------- --------------------------------- ---------");
+	
+				// 4. parse input text again (contains BL constructs only), save as XMI
+				HeadlessEclipseParser parser = new DblParser(workingCopyXmiFile);
+				try {
+					//IModelCreatingContext context = parser.parse("module test { void main() { print \"hello\"; } }");
+					IModelCreatingContext context = parser.parse(workingText);
+					if (context.getErrors().size() > 0) {
+						for (AbstractError error: context.getErrors()) {
+							System.out.println("ERROR: " + error.getMessage());
+							return;
+						}
+					}
+				}
+				catch (ModelCreatingException e) {
+					e.printStackTrace();
+				}
+				saveAsXmi(parser.getLastModelCreationContext().getResource(), workingCopyXmiUri);
+			}
+			
+			monitor.worked(10); // 80%
 		}
 		else {
-			TransformationProperties.setSimLib(targetSimLib);
+			monitor.worked(25); // 80%
 		}
-		System.out.println("Target: Java/" + TransformationProperties.getSimLib());
-
-		String modelFile = xmiFileRaw.toString();
-		BaseToJava.main(new String[] { modelFile, genFolder.toString() });
-		
-		monitor.worked(10); // 90%
-
-		// 6. compile and execute generated artifacts
-		
-		monitor.subTask("Compiling target language code");
-		
-		boolean compileOk = false;
-		compileOk = compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
-
-		long estimatedTime = System.nanoTime() - startCompileTime;
-		long ms = estimatedTime / (1000 * 1000);
-		System.out.println("Compile time: " + ms / 1000.0 + " seconds");
-		
-		monitor.worked(5); // 95%
-
-		if (compileOk) {
-			try {
-				monitor.subTask("Executing target language program");
-				
-				IJavaProject currentJavaProject = JavaCore.create(currentProject);
-				launchJavaProgram(true, currentJavaProject, workingDirectory, "JavaMain", null);
-				
-				monitor.worked(5); // 100%
-			}
-			catch (CoreException e) {
-				e.printStackTrace();
-				return;
-			}
-		}		
 	}
 	
 	private void createEmptyModificationsXmi(IProject currentProject) {
