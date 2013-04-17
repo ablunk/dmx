@@ -747,6 +747,135 @@
 	[/file]
 [/template]
 
+
+[comment JDISCO SPECIFIC /]
+[template public genGlobalElements(mod : Module)
+		? (getSimLib() = 'jdisco')]
+	[genJDiscoGlobalElements(mod)/]
+[/template]
+
+
+[template public genJDiscoGlobalElements(mod : Module) {
+	moduleName : String = mod.name.toUpperFirst();
+	isMainModule : Boolean = mod.procedures->exists(name = 'main')
+}]
+	[file (moduleName + '.java', false, 'UTF-8')]
+		//package hub.sam.tef.odemcustom.extensions;
+
+import hub.sam.dmx.javasim.jdisco.Process;
+import hub.sam.dmx.javasim.jdisco.*;
+
+		public class [moduleName/] 
+		[if (isMainModule)]
+			extends Process
+		[/if]
+		{
+
+			public [moduleName/]() {
+			}
+
+		[for (variable : Variable | mod.variables)]
+			public static [genStatement(variable)/]	[/for]
+
+		[for (procedure : Procedure | mod.procedures)]
+			[if (procedure.name = 'main')]
+				public void actions() {
+					[for (stm : Statement | procedure.statements)]
+						[genStatement(stm)/]
+					[/for]
+				}
+
+				public static void startMain() {
+					activate(new [moduleName/]());
+				}	
+			[else]
+				public static [genProcedure(procedure)/]
+			[/if]
+		[/for]
+		}
+	[/file]
+[/template]
+
+
+[template public genClassifier(clazz : Clazz)
+		? (getSimLib() = 'jdisco')]
+	[genJDiscoClassifier(clazz)/]
+[/template]
+
+[template public genJDiscoClassifier(clazz : Clazz)]
+[if (clazz.bindings->isEmpty())]
+[file (clazz.name.toUpperFirst() + '.java', false, 'MacRoman')]
+import hub.sam.dmx.javasim.jdisco.Process;
+import hub.sam.dmx.javasim.jdisco.*;
+
+	// JDisco
+	public class [clazz.name.toUpperFirst()/] extends Process {
+		
+		public [clazz.name.toUpperFirst()/]() {
+
+			[if (not clazz.initialBlock.oclIsUndefined())]
+				[for (stm : Statement | clazz.initialBlock.statements)]
+					[genStatement(stm)/]
+				[/for]
+			[/if]
+		}
+
+		[for (attr : Variable | clazz.attributes)] public [genStatement(attr)/][/for]
+
+		[for (method : Procedure | clazz.methods)] public [genProcedure(method)/] [/for]
+
+		public void actions() {
+				[if (not clazz.actionsBlock.oclIsUndefined())][for (stm : Statement | clazz.actionsBlock.statements)][genStatement(stm)/][/for][/if]
+			}
+		
+	}
+[/file]
+[/if]
+[/template]
+
+
+[template public genStartSimulationStatement(model : Model)
+		? (getSimLib() = 'jdisco')]
+	[model.modules->first().name.toUpperFirst()/].startMain();
+[/template]
+
+
+[template public genExpression(expr : TimeLiteral, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	time()
+[/template]
+
+[template public genExpression(expr : ActiveLiteral, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	current()
+[/template]
+
+
+[template public genStatement(stm : ActivateObject, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	activate([genExpression(stm.objectAccess)/]);
+[/template]
+
+
+[template public genStatement(stm : Advance, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	hold([genExpression(stm.time)/]);
+[/template]
+
+
+[template public genStatement(stm : Wait, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	current().passivate();
+[/template]
+
+
+[template public genStatement(stm : Reactivate, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	 activate((Process)[genExpression(stm.objectAccess)/]);
+[/template]
+
+
+
 [comment JiST SPECIFIC /]
 
 [template public genStartSimulationStatement(model : Model)
