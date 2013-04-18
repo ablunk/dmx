@@ -763,13 +763,15 @@
 [template public genStatement(stm : ActivateObject, extensionSemantics : Boolean)
 		? (getSimLib() = 'jist')]
 	([genExpression(stm.objectAccess)/]).getEntity().activate();
-	// comment can only be invoked on an active object directly
 [/template]
 
 [template public genStatement(stm : Reactivate, extensionSemantics : Boolean)
 		? (getSimLib() = 'jist')]
-	((GenericEntity) [genExpression(stm.objectAccess)/]).reactivate();
-	// can only be invoked on a GenericEntity obtained by the keyword ACTIVE and not on an active object directly
+	((GenericEntity) ([genExpression(stm.objectAccess)/])
+		[if (not stm.objectAccess.oclIsTypeOf(ActiveLiteral))]
+			.getEntity()
+		[/if]
+	).reactivate();
 [/template]
 
 [template public genStatement(stm : Advance, extensionSemantics : Boolean)

@@ -1,0 +1,29 @@
+#import "../base"
+
+module EmpiricalDef {
+
+	extension DiscreteEmpirical {
+		Statement -> DiscreteEmpirical;
+		DiscreteEmpirical -> "discreteEmpirical" 
+			name:ID "{" EntryList "}";
+		EntryList -> entries:list(Entry) EntryOptional;
+		Entry -> cumPercent:INT ":" value:INT;
+		EntryOptional -> ;
+		EntryOptional -> "," EntryList;
+	}
+	semantics {
+		gen "EmpiricalInt " name " = new EmpiricalInt(\"" name "\");";
+		for (Entry e: entries) {
+			gen "" name ".addEntry(" e.value "," e.cumPercent " / 100.0);";
+		}
+	}
+	
+	extension SampleDiscreteEmpirical {
+		L1Expr -> SampleDiscreteEmpirical;
+		SampleDiscreteEmpirical -> "sample" "of" de:$$NamedElement;
+	}
+	semantics {
+		gen "" de.getName() ".sample()";
+	}
+
+}

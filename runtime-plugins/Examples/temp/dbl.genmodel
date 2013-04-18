@@ -420,11 +420,15 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//IncludePattern/pattern"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//IncludePattern/context"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//ForLoop">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/it"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/set"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/condition"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ForLoop/statements"/>
+    <genClasses ecoreClass="dbl.ecore#//DiscreteEmpirical">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//DiscreteEmpirical/entries"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//Entry">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Entry/cumPercent"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Entry/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//SampleDiscreteEmpirical">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//SampleDiscreteEmpirical/de"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

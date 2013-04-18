@@ -38,7 +38,7 @@
               <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
               <op2 xsi:type="dbl:IdExpr" concreteSyntax="limit" referencedElement="//@modules.0/@classifiers.4/@attributes.1"/>
             </condition>
-            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;Finished.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;trace(&quot;Finished.&quot;);&#xA;&#x9;&#x9;&#x9;}">
               <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;Finished.&quot;)">
                 <expression xsi:type="dbl:ProcedureCall">
                   <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;Finished.&quot;)" referencedElement="//@modules.0/@procedures.0">
@@ -60,7 +60,7 @@
               <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
               <op2 xsi:type="dbl:IdExpr" concreteSyntax="limit" referencedElement="//@modules.0/@classifiers.4/@attributes.1"/>
             </condition>
-            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;count=count+1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;Tick &quot; + count);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;count=count+1;&#xA;&#x9;&#x9;&#x9;&#x9;trace(&quot;Tick &quot; + count);&#xA;&#x9;&#x9;&#x9;}">
               <statements xsi:type="dbl:Assignment" concreteSyntax="count=count+1">
                 <variable concreteSyntax="count">
                   <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
@@ -93,7 +93,7 @@
             <trigger>
               <signalEvent concreteSyntax="Reset" referencedElement="//@modules.0/@classifiers.3"/>
             </trigger>
-            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;count=0;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;count=0;&#xA;&#x9;&#x9;&#x9;}">
               <statements xsi:type="dbl:Assignment" concreteSyntax="count=0">
                 <variable concreteSyntax="count">
                   <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
@@ -145,7 +145,7 @@
         <primitiveType xsi:type="dbl:StringType"/>
       </parameters>
     </procedures>
-    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;Counter c = new Counter;&#xA;&#x9;&#x9;activate c;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;send new Start to c;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;advance 20;&#xA;&#x9;}">
+    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;Counter c = new Counter;&#xA;&#x9;activate c;&#xA;&#x9;&#xA;&#x9;send new Start to c;&#xA;&#x9;&#xA;&#x9;advance 20;&#xA;}">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="c" concreteSyntax="Counter c = new Counter">
         <classifierTypeExpr concreteSyntax="Counter" referencedElement="//@modules.0/@classifiers.4"/>

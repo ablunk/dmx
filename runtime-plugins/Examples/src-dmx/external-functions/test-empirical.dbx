@@ -1,0 +1,29 @@
+#import "empirical"
+
+module NativeTest {
+
+	class EmpiricalInt(string name) {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.IntDistEmpirical"
+		}
+		int sample() {}
+		void addEntry(int value, double cumFrequency) {}
+	}
+
+	void main() {
+		discreteEmpirical myde {
+			10  : 450,
+			29  : 750,
+			61  : 1000,
+			85  : 500,
+			100 : 3000
+		}
+		
+		int i=0;
+		while (i < 8) {
+			print sample of myde + "\n";
+			i=i+1;
+		}
+	}
+
+}

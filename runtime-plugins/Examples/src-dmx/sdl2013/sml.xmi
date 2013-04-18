@@ -236,10 +236,10 @@
       </textualSyntaxDef>
       <mappingDef>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;list(Object) eventPool;&#xA;&#x9;&#x9;&#x9;string currentState;&#xA;&#x9;&#x9;&#x9;boolean firstRun = true;&#xA;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;list(Object) eventPool;&#xA;&#x9;string currentState;&#xA;&#x9;boolean firstRun = true;&#xA;"/>
         </statements>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;initial {&#xA;&#x9;&#x9;&#x9;&#x9;currentState = \&quot;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;initial {&#xA;&#x9;&#x9;currentState = \&quot;"/>
           <parts xsi:type="dbl:DynamicMappingPart">
             <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.4/@rhs/@sequence.1">
               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.3/@rhs/@sequence.3">
@@ -247,7 +247,7 @@
               </parentIdExpr>
             </expr>
           </parts>
-          <parts xsi:type="dbl:FixedMappingPart" code="\&quot;;&#xA;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="\&quot;;&#xA;"/>
         </statements>
         <statements xsi:type="dbl:IfStatement">
           <condition xsi:type="dbl:NotEqual">
@@ -290,7 +290,7 @@
           <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;"/>
         </statements>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;actions {&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (currentState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (timer != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;timer.invalid = true;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;actions {&#xA;&#x9;&#x9;Timer timer;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;while (currentState != null) {&#xA;&#x9;&#x9;&#x9;if (timer != null) {&#xA;&#x9;&#x9;&#x9;&#x9;timer.invalid = true;&#xA;&#x9;&#x9;&#x9;}&#xA;"/>
         </statements>
         <statements xsi:type="dbl:ForEachStatement">
           <iteratorVariableDefinition name="state">
@@ -468,7 +468,7 @@
           </forBlock>
         </statements>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (!firstRun) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;empty eventPool;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;firstRun = false;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;while (eventPool.size > 0 and currentState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Object ev = eventPool.first;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;remove ev from eventPool;&#xA;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;if (!firstRun) {&#xA;&#x9;&#x9;&#x9;&#x9;empty eventPool;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;&#x9;firstRun = false;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;while (eventPool.size > 0 and currentState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;Object ev = eventPool.first;&#xA;&#x9;&#x9;&#x9;&#x9;remove ev from eventPool;&#xA;"/>
         </statements>
         <statements xsi:type="dbl:ForEachStatement">
           <iteratorVariableDefinition name="state">
@@ -714,7 +714,7 @@
           </context>
         </statements>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;active class Timer {&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;active class Timer {&#xA;&#x9;&#x9;"/>
           <parts xsi:type="dbl:DynamicMappingPart">
             <expr xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@modules.0/@extensionDefs.2/@mappingDef/@statements.12"/>
@@ -722,7 +722,7 @@
               <arguments/>
             </expr>
           </parts>
-          <parts xsi:type="dbl:FixedMappingPart" code=" sm;&#xA;&#x9;&#x9;&#x9;&#x9;int delay = 1;&#xA;&#x9;&#x9;&#x9;&#x9;boolean invalid = false;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;actions {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance delay;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (!invalid) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;place self into sm.eventPool;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;reactivate sm;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code=" sm;&#xA;&#x9;&#x9;int delay = 1;&#xA;&#x9;&#x9;boolean invalid = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;actions {&#xA;&#x9;&#x9;&#x9;advance delay;&#xA;&#x9;&#x9;&#x9;if (!invalid) {&#xA;&#x9;&#x9;&#x9;&#x9;place self into sm.eventPool;&#xA;&#x9;&#x9;&#x9;&#x9;reactivate sm;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;"/>
         </statements>
       </mappingDef>
     </extensionDefs>

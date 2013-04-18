@@ -567,13 +567,15 @@
     <eLiterals name="ADD" value="1"/>
     <eLiterals name="BOOL" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ForLoop" eSuperTypes="#//Statement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="it" eType="#//IdExpr" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="set" eType="#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" eType="#//Expression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
-        eType="#//Statement" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DiscreteEmpirical" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entries" upperBound="-1"
+        eType="#//Entry" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Entry" eSuperTypes="#//Statement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="cumPercent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SampleDiscreteEmpirical" eSuperTypes="#//L1Expr">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="de" eType="#//NamedElement"/>
   </eClassifiers>
 </ecore:EPackage>
