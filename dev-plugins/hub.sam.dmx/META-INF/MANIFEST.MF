@@ -28,4 +28,5 @@ Export-Package: hub.sam.dmx,
  hub.sam.dmx.javasim.desmoj,
  hub.sam.dmx.javasim.desmoj.dist,
  hub.sam.dmx.javasim.generic.dist,
+ hub.sam.dmx.javasim.jdisco,
  hub.sam.dmx.javasim.jist

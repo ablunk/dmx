@@ -125,6 +125,8 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		
 		addRunAction("DESMO-J", "desmoj");
 		addRunAction("JiST", "jist");
+		addRunAction("jDisco", "jdisco");
+		
 	}
 	
 	private void addRunAction(String name, String targetSimLib) {
