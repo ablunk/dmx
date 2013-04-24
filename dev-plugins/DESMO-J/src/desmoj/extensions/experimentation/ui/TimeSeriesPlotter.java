@@ -3,7 +3,7 @@ package desmoj.extensions.experimentation.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
-import java.util.Vector;
+import java.util.List;
 import java.util.Observer;
 import java.util.Observable;
 
@@ -16,7 +16,7 @@ import desmoj.core.util.SimRunEvent;
  * A simple time series plotter that can be displayed in the experiment
  * launcher.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * @author Philip Joschko
  * 
@@ -223,15 +223,15 @@ public class TimeSeriesPlotter extends GraphicalObserver implements
 		
 		for(int series=0; series<myData.length; series++) {
 			g.setColor(ChartPanel.color(series));
-			Vector<Double> timeValues=myData[series].getTimeValues();
-			Vector<Double> dataValues=myData[series].getDataValues();
+			List<Double> timeValues=myData[series].getTimeValues();
+			List<Double> dataValues=myData[series].getDataValues();
 			if(timeValues!=null && dataValues!=null) {
 				if(timeValues.size()>=2) {
-					double lastData=dataValues.firstElement();
-					double lastTime=timeValues.firstElement();
+					double lastData=dataValues.get(0);
+					double lastTime=timeValues.get(0);
 					for(int pair=1; pair<timeValues.size(); pair++) {
-						newData = dataValues.elementAt(pair);
-						newTime = timeValues.elementAt(pair);
+						newData = dataValues.get(pair);
+						newTime = timeValues.get(pair);
 						myGUI.drawLine(g, lastTime, lastData, newTime, lastData);
 						myGUI.drawLine(g, newTime, lastData, newTime, newData);
 						lastData=newData;
@@ -259,8 +259,8 @@ public class TimeSeriesPlotter extends GraphicalObserver implements
 	 * you have to call this method at least one time, when the upper and lower limits are known.
 	 */
 	public void updatePlotter() {
-		Vector<Double> dataValues;
-		Vector<Double> timeValues;
+	    List<Double> dataValues;
+	    List<Double> timeValues;
 		boolean redraw=false;
 		for(int series=0; series<myData.length; series++) {
 			dataValues=myData[series].getDataValues();
@@ -269,15 +269,15 @@ public class TimeSeriesPlotter extends GraphicalObserver implements
 				continue;
 			
 			if(elements[series]==0 && dataValues.size()>0) {
-				myGUI.setMax_x(timeValues.elementAt(0));
-				myGUI.setMin_x(timeValues.elementAt(0));
-				myGUI.setMax_y(dataValues.elementAt(0));
-				myGUI.setMin_y(dataValues.elementAt(0));
+				myGUI.setMax_x(timeValues.get(0));
+				myGUI.setMin_x(timeValues.get(0));
+				myGUI.setMax_y(dataValues.get(0));
+				myGUI.setMin_y(dataValues.get(0));
 				elements[series]=1;
 			}
 				
 			for(int i=elements[series]; i<dataValues.size(); i++) {
-				redraw=redraw || myGUI.testValue(timeValues.elementAt(i), dataValues.elementAt(i).doubleValue());
+				redraw=redraw || myGUI.testValue(timeValues.get(i), dataValues.get(i).doubleValue());
 			}
 			if (myGUI.isShowing()) {
 				if(dataValues.size()>=2) {
@@ -289,11 +289,11 @@ public class TimeSeriesPlotter extends GraphicalObserver implements
 							double newData;
 							double newTime;
 							Color color = ChartPanel.color(series);
-							double lastData=dataValues.elementAt(elements[series]-1).doubleValue();
-							double lastTime=timeValues.elementAt(elements[series]-1).doubleValue();
+							double lastData=dataValues.get(elements[series]-1).doubleValue();
+							double lastTime=timeValues.get(elements[series]-1).doubleValue();
 							for(int pair=elements[series]; pair<timeValues.size(); pair++) {
-								newData = dataValues.elementAt(pair).doubleValue();
-								newTime = timeValues.elementAt(pair).doubleValue();
+								newData = dataValues.get(pair).doubleValue();
+								newTime = timeValues.get(pair).doubleValue();
 								myGUI.drawLine(color, lastTime, lastData, newTime, lastData);
 								myGUI.drawLine(color, newTime, lastData, newTime, newData);
 								lastData=newData;
@@ -307,4 +307,51 @@ public class TimeSeriesPlotter extends GraphicalObserver implements
 			elements[series]=dataValues.size();
 		}
 	}
+	
+	/**
+	 * A simple means of drawing a TimeSeries without requiring the 
+	 * experimentation GUI by adding a TimeSeriesPlotter to an  
+	 * otherwise empty Frame.  
+	 * 
+	 * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
+	 * @author Nicolas Knaak
+	 * @author Philip Joschko
+	 * 
+	 * Licensed under the Apache License, Version 2.0 (the "License");
+	 * you may not use this file except in compliance with the License. You
+	 * may obtain a copy of the License at
+	 * http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 * Unless required by applicable law or agreed to in writing, software
+	 * distributed under the License is distributed on an "AS IS"
+	 * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+	 * or implied. See the License for the specific language governing
+	 * permissions and limitations under the License.
+	 *
+	 */
+     public static class SimpleTimeSeriesViewer extends javax.swing.JFrame {
+    
+            private static final long serialVersionUID = 1L;
+    
+            /**
+             * Opens a frame containing the plot of a TimeSeries.
+             * 
+             * @param ts
+             *            The time Series to plot
+             */
+            public SimpleTimeSeriesViewer(TimeSeries ts){
+                
+                super("Viewer of " + ts.getQuotedName());
+                this.setLocation(0, 0);
+                this.setSize(600, 400);
+                this.setVisible(true);
+                ObserverDesktop o = new ObserverDesktop();
+                TimeSeriesPlotter tsp = new TimeSeriesPlotter(ts.getName(), o, ts, 300, 300);
+                tsp.experimentStopped(null);
+                tsp.update();
+                tsp.drawChart(getGraphics());
+                this.getContentPane().add(o);
+                this.setVisible(true);
+            }
+      }
 }

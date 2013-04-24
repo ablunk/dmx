@@ -3,10 +3,9 @@ package desmoj.core.statistic;
 import desmoj.core.simulator.Model;
 
 /**
- * <code>StatisticObject</code> belongs to the <code>desmoj.statistic</code>
- * package. The <code>StatisticObject</code> class is the super class of all
+ * <code>StatisticObject</code> class is the super class of all
  * other classes collecting statistical data. <br>
- * It extends the <code>desmoj.Reportable</code> class so that it can provide
+ * It extends the <code>desmoj.core.simulator.Reportable</code> class so that it can provide
  * a reporter to represent the statistical data in the report. <br>
  * It also implements the <code>java.util.Observer</code> interface. So this
  * is the observer part of the observer pattern as described in [Gamm95] that is
@@ -27,7 +26,7 @@ import desmoj.core.simulator.Model;
  * 
  * @see desmoj.core.statistic.ValueSupplier
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -48,6 +47,11 @@ public abstract class StatisticObject extends desmoj.core.simulator.Reportable
 		implements java.util.Observer {
 
 	// ****** attributes ******
+    
+    /**
+     * A unit (optional) / 21.11.12 extended bx cm
+     */
+    private String unit;
 
 	/**
 	 * Represents the value returned in case of an error. If no valid value can
@@ -70,7 +74,7 @@ public abstract class StatisticObject extends desmoj.core.simulator.Reportable
 	// ****** methods ******
 
 	/**
-	 * Constructor for a StatisticObject
+	 * Constructor for a StatisticObject, preliminarily without a unit assigned
 	 * 
 	 * @param ownerModel
 	 *            Model : The model this StatisticObject is associated to.
@@ -161,4 +165,48 @@ public abstract class StatisticObject extends desmoj.core.simulator.Reportable
 			sendTraceNote("updates " + this.getQuotedName());
 		} // tell in the trace which StatisticObject is updated
 	}
+
+    /**
+     * Rounds a double value with repect to the <code>PRECISION</code>.
+     * 
+     * @return double : The rounded value.
+     * @param d
+     *           double : The value to be rounded
+     */
+    public static double round(double d) {
+        return java.lang.Math.rint(PRECISION * d) / PRECISION;
+    }
+    
+    //   Extension by Chr. M&uuml;ller (TH Wildau) 28.11.12 -------------------------------------
+    
+    /**
+     * Set an optional unit of reported value. Default is null.
+     * This value is shown in description reports.
+     */
+    public void setUnit(String unit){
+        this.unit           = unit;
+    }
+
+    /**
+     * Get an optional unit of reported value. Default is null.
+     * This value is shown in description reports.
+     * @return String : The optional unit
+     */
+    public String getUnit(){
+        
+        return this.unit;
+    }
+    
+    /**
+     * Textually wraps the output of <code>getUnit()</code>, adding
+     * brackets and displaying "none" if case unit is <code>null</code>.
+     * @return
+     */
+    public String getUnitText(){
+        String unit = this.getUnit();
+        if(unit == null || unit.length() == 0) 
+            return "none";
+        else
+            return "["+unit+"]";
+    }
 } // end class StatisticObject

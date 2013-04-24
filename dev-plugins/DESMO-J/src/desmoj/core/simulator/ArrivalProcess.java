@@ -1,6 +1,6 @@
 package desmoj.core.simulator;
 
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 
 /**
  * An <code>ArrivalProcess</code> is some kind of source for
@@ -15,7 +15,7 @@ import desmoj.core.dist.RealDist;
  * recommended to use one ArrivalProcess for each different kind of arriving
  * process (with its specific arrival rate).
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author modified by Ruth Meyer
  * 
@@ -31,13 +31,14 @@ import desmoj.core.dist.RealDist;
  * permissions and limitations under the License.
  *
  */
-public abstract class ArrivalProcess extends SimProcess {
+public abstract class ArrivalProcess<S extends SimProcess> extends SimProcess
+{
 
 	/**
 	 * The rate (frequency) at which the SimProcesses arrive at the system
 	 * (border).
 	 */
-	private desmoj.core.dist.RealDist arrivalRate;
+	private desmoj.core.dist.NumericalDist<Double> _arrivalRate;
 
 	/**
 	 * Constructor for an ArrivalProcess to make a certain kind of SimProcess
@@ -49,17 +50,17 @@ public abstract class ArrivalProcess extends SimProcess {
 	 *            java.lang.String : The name of this ArrivalProcess, should
 	 *            indicate that this is a source of some kind of SimProcesses.
 	 * @param arrivalRate
-	 *            desmoj.dist.RealDist : The rate at which the SimProcesses are
+	 *            desmoj.dist.NumericalDist<Double> : The rate at which the processes are
 	 *            arriving at the system.
 	 * @param showInTrace
 	 *            boolean : Flag, if this ArrivalProcess should produce a trace
 	 *            output or not.
 	 */
-	public ArrivalProcess(Model owner, String name, RealDist arrivalRate,
+	public ArrivalProcess(Model owner, String name, NumericalDist<Double> arrivalRate,
 			boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, true, showInTrace); // make a SimProcess
 
-		this.arrivalRate = arrivalRate;
+		this._arrivalRate = arrivalRate;
 	}
 
 	/**
@@ -68,10 +69,10 @@ public abstract class ArrivalProcess extends SimProcess {
 	 * (border). When this method returns <code>null</code> the arrival
 	 * process stops its lifecycle.
 	 * 
-	 * @return desmoj.SimProcess : The <code>SimProcess</code> object which is
+	 * @return desmoj.core.SimProcess : The <code>SimProcess</code> object which is
 	 *         arriving next in the system.
 	 */
-	public abstract SimProcess createSuccessor();
+	public abstract S createSuccessor();
 
 	/**
 	 * Returns the rate (frequency) at which the SimProcesses arrive at the
@@ -80,9 +81,9 @@ public abstract class ArrivalProcess extends SimProcess {
 	 * @return desmoj.dist.RealDist : The rate (frequency) at which the
 	 *         SimProcesses arrive at the system.
 	 */
-	public desmoj.core.dist.RealDist getArrivalRate() {
+	public desmoj.core.dist.NumericalDist<Double> getArrivalRate() {
 
-		return arrivalRate;
+		return _arrivalRate;
 	}
 
 	/**
@@ -99,35 +100,25 @@ public abstract class ArrivalProcess extends SimProcess {
 	 */
 	public void lifeCycle() {
 
-		// while (true) // a never ending source of ... ;-)
+		// make a new SimProcess
+		SimProcess arrivingProcess = createSuccessor();
 
-		/*
-		 * modified to accomodate arrival processes of a predefined number of
-		 * simulation processes: once the createSuccessor() method returns no
-		 * new process (= returns null) this lifeCycle() will stop
-		 */
-		boolean notFinished = true;
-		while (notFinished) {
-			// make a new SimProcess
-			SimProcess arrivingProcess = createSuccessor();
-
-			if (arrivingProcess == null) {
-				notFinished = false;
-				break;
-			}
-
-			// debug out
-			if (currentlySendDebugNotes()) {
-				sendDebugNote("activates " + arrivingProcess.getQuotedName());
-			}
-
-			// make him arrive at the system right now (after this
-			// ArrivalProcess)
-			arrivingProcess.activate(new TimeSpan(0));
-
-			// wait until next SimProcess is to arrive
-			hold(new TimeSpan(arrivalRate.sample()));
+		if (arrivingProcess == null) {
+			setRepeating(false);
+			return;
 		}
+
+		// debug out
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("activates " + arrivingProcess.getQuotedName());
+		}
+
+		// make him arrive at the system right now (after this
+		// ArrivalProcess)
+		arrivingProcess.activate(new TimeSpan(0));
+
+		// wait until next SimProcess is to arrive
+		hold(new TimeSpan(_arrivalRate.sample()));
 
 	}
 }

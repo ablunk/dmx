@@ -3,41 +3,44 @@ package desmoj.core.advancedModellingFeatures;
 import desmoj.core.simulator.QueueBased;
 import desmoj.core.simulator.QueueList;
 import desmoj.core.simulator.QueueListFifo;
+import desmoj.core.simulator.QueueListLifo;
+import desmoj.core.simulator.QueueListRandom;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeOperations;
 import desmoj.core.simulator.TimeSpan;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Bin is the place where producers can store their products for consumers to
  * come and use them up. Bin is used to implement process synchronization
  * between producers and consumers. Producers are producing products and store
  * them using <code>store()</code> in the bin. Consumers make the Bin
- * <code>deliver()</code> the products to use them up. If no or not enough
- * units of a product are available for the consumers, they have to wait in a
- * queue until new units are delivered by a producer. The first sort criteria of
- * the queue is always highest priorities first, the second queueing discipline
- * of the underlying queue and the capacity limit can be determined by the user
- * (default is Fifo and unlimited capacity). Bin is derived from QueueBased,
+ * <code>deliver()</code> the products to use them up. If no or not enough units
+ * of a product are available for the consumers, they have to wait in a queue
+ * until new units are delivered by a producer. The first sort criteria of the
+ * queue is always highest priorities first, the second queueing discipline of
+ * the underlying queue and the capacity limit can be determined by the user
+ * (default is FIFO and unlimited capacity). Bin is derived from QueueBased,
  * which provides all the statistical functionality for a queue.
  * 
  * @see QueueBased
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You
- * may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- *
+ *         Licensed under the Apache License, Version 2.0 (the "License"); you
+ *         may not use this file except in compliance with the License. You may
+ *         obtain a copy of the License at
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *         Unless required by applicable law or agreed to in writing, software
+ *         distributed under the License is distributed on an "AS IS" BASIS,
+ *         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ *         implied. See the License for the specific language governing
+ *         permissions and limitations under the License.
+ * 
  */
 
 public class Bin extends desmoj.core.simulator.QueueBased {
@@ -47,62 +50,62 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	/**
 	 * The queue, actually storing the processes waiting for products
 	 */
-	private QueueList queue;
+    protected QueueList<SimProcess> _queue;
 
 	/**
 	 * The initial number of products in the Bin
 	 */
-	private long initial;
+	private long _initial;
 
 	/**
 	 * The maximum number of products in the Bin
 	 */
-	private long maximum;
+	private long _maximum;
 
 	/**
 	 * Number of products available at the moment
 	 */
-	private long avail;
+	private long _avail;
 
 	/**
 	 * Number of producers having visited the Bin
 	 */
-	private long producers;
+	private long _producers;
 
 	/**
 	 * Number of consumers having visited the Bin
 	 */
-	private long consumers;
+	private long _consumers;
 
 	/**
 	 * Weighted sum of available products in the Bin over the time (must be
 	 * divided by the total time to get the average available units!)
 	 */
-	private double wSumAvail;
+	private double _wSumAvail;
 
 	/**
 	 * The last time the Bin has been used
 	 */
-	private TimeInstant lastUsage;
+	private TimeInstant _lastUsage;
 
 	/**
 	 * Indicates the method where something has gone wrong. Is passed as a
 	 * parameter to the method <code>checkProcess()</code>.
 	 */
-	private String where;
+	private String _where;
 
 	/**
 	 * Counter for the SimProcesses which are refused to be enqueued, because
 	 * the queue capacity is full.
 	 */
-	private long refused;
+	private long _refused;
 
 	/**
 	 * Flag to indicate whether an entity can pass by other entities in the
 	 * queue which are enqueued before that entity in the queue. Is
 	 * <code>false</code> per default.
 	 */
-	private boolean passBy = false;
+	private boolean _passBy = false;
 
 	// ****** methods ******
 
@@ -137,9 +140,9 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 		super(owner, name, showInReport, showInTrace); // construct QueueBased
 		reset();
 
-		this.initial = initialUnits;
-		this.maximum = initialUnits;
-		this.avail = initialUnits;
+		this._initial = initialUnits;
+		this._maximum = initialUnits;
+		this._avail = initialUnits;
 
 		if (initialUnits < 0) // there can't be less than nothing
 		{
@@ -152,102 +155,36 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 					"Make sure to initialize a Bin always with a positive number of "
 							+ "initialUnits.");
 
-			initial = maximum = avail = 0; // set it to 0, that makes more
+			_initial = _maximum = _avail = 0; // set it to 0, that makes more
 			// sense
 		}
 
-		// check if a valid sortOrder is given
-		if (sortOrder < 0) {
-			sendWarning(
-					"The given sortOrder parameter is negative! "
-							+ "A queue with Fifo sort order will be created.",
-					"Bin : "
-							+ getName()
-							+ " Constructor: Bin (desmoj.Model owner, String name, "
-							+ "int sortOrder, long qCapacity, long initialUnits, "
-							+ "boolean showInReport, boolean showInTrace)",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
-			// make a Fifo queue
-			queue = new QueueListFifo(); // better than nothing
-			queue.setQueueBased(this);
-		} else {
-			try {
-				// determine the queueing strategy
-				Class queueListStrategy = queueingStrategy[sortOrder];
-
-				queue = (QueueList) queueListStrategy.newInstance();
-			}
-
-			catch (ArrayIndexOutOfBoundsException arrayExcept) {
-				// the given sortOrder is not valid
-				sendWarning(
-						"The given sortOrder parameter is not valid! "
-								+ "A queue with Fifo sort order will be created.",
-						"Bin : "
-								+ getName()
-								+ " Constructor: Bin (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, long initialUnits, "
-								+ "boolean showInReport, boolean showInTrace)",
-						"A valid positive integer number must be provided to "
-								+ "determine the sort order of the underlying queue.",
-						"Make sure to provide a valid positive integer number "
-								+ "by using the constants in the class QueueBased, like "
-								+ "QueueBased.FIFO or QueueBased.LIFO.");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (IllegalAccessException illAccExcept) {
-				// the class to be loaded can not be found
-				sendWarning(
-						"IllegalAccessException: The class implementing the "
-								+ "sortOrder of the queue can not be found. A queue with "
-								+ "Fifo sort order will be created instead.",
-						"Bin : "
-								+ getName()
-								+ " Constructor: Bin (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, long initialUnits, "
-								+ "boolean showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the zero-argument constructor of that "
-								+ "class can not be found",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (InstantiationException instExcept) {
-				// no object of the given class can be instantiated
-				sendWarning(
-						"InstantiationException: No object of the given class "
-								+ "can be instantiated! A queue with Fifo sort order will "
-								+ "be created instead.",
-						"Bin : "
-								+ getName()
-								+ " Constructor: Bin (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, long initialUnits, "
-								+ "boolean showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the the class is an interface or an "
-								+ "abstract class that can not be instantiated",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			// give the QueueList a reference to this QueueBased
-			queue.setQueueBased(this);
-		}
+        // determine the queueing strategy
+        switch (sortOrder) {
+        case QueueBased.FIFO :
+            _queue = new QueueListFifo<SimProcess>(); break;
+        case QueueBased.LIFO :
+            _queue = new QueueListLifo<SimProcess>(); break;
+        case QueueBased.RANDOM :
+            _queue = new QueueListRandom<SimProcess>(); break;
+        default :
+            sendWarning(
+                    "The given sortOrder parameter " + sortOrder + " is not valid! "
+                            + "A queue with Fifo sort order will be created.",
+                    "Bin: "
+                            + getName() + " Constructor: Bin (desmoj.Model owner, "
+                            + "String name, long initialUnits, boolean showInReport, "
+                            + "boolean showInTrace)",
+                    "A valid positive integer number must be provided to "
+                            + "determine the sort order of the queue.",
+                    "Make sure to provide a valid positive integer number "
+                            + "by using the constants in the class QueueBased, like "
+                            + "QueueBased.FIFO, QueueBased.LIFO or QueueBased.RANDOM.");
+            _queue = new QueueListFifo<SimProcess>(); 
+        }
+        
+        // give the QueueList a reference to this QueueBased
+        _queue.setQueueBased(this);
 
 		// set the capacity of the queue
 		queueLimit = qCapacity;
@@ -301,12 +238,12 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 		super(owner, name, showInReport, showInTrace); // construct QueueBased
 		reset();
 
-		queue = new QueueListFifo(); // make an actual queue and give it a
-		queue.setQueueBased(this); // reference of this "QueueBased"-Bin
+		_queue = new QueueListFifo<SimProcess>(); // make an actual queue and give it a
+		_queue.setQueueBased(this); // reference of this "QueueBased"-Bin
 
-		this.initial = initialUnits;
-		this.maximum = initialUnits;
-		this.avail = initialUnits;
+		this._initial = initialUnits;
+		this._maximum = initialUnits;
+		this._avail = initialUnits;
 
 		if (initialUnits < 0) // there can't be less than nothing
 		{
@@ -319,7 +256,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 					"Make sure to initialize a Bin always with a positive number of "
 							+ "initialUnits.");
 
-			initial = maximum = avail = 0; // set it to 0, that makes more
+			_initial = _maximum = _avail = 0; // set it to 0, that makes more
 			// sense
 		}
 	}
@@ -333,18 +270,18 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 *            SimProcess : The process that is to be activated as next.
 	 */
 	protected void activateAsNext(SimProcess process) {
-		where = "protected void activateAsNext(SimProcess process)";
+		_where = "protected void activateAsNext(SimProcess process)";
 
 		if (process != null) {
 			// if the given process is not valid just return
-			if (!checkProcess(process, where)) {
+			if (!checkProcess(process, _where)) {
 				return;
 			}
 
-			// if the process is scheduled (on the event list) already
+			// if the process is scheduled (on the event-list) already
 			if (process.isScheduled()) {
 				process.skipTraceNote(); // don't tell the user, that we ...
-				process.cancel(); // get the process from the EventList
+				process.cancel(); // get the process from the event-list
 			}
 
 			// remember if the process is blocked at the moment
@@ -374,25 +311,25 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 * was trying to take products, but it could not get any because there were
 	 * not enough products for it or another process was first in the queue to
 	 * be served. This method is called every time a producer has given new
-	 * products or a consumer in the waiting queue is satisfied.
+	 * products or a consumer in the waiting-queue is satisfied.
 	 */
 	protected void activateFirst() {
-		where = "protected void activateFirst()";
+		_where = "protected void activateFirst()";
 
 		// first is the first process in the queue (or null if none is in the
 		// queue)
-		SimProcess first = (SimProcess) queue.first();
+		SimProcess first = _queue.first();
 
 		if (first != null) {
 			// if first is not modelcompatible just return
-			if (!checkProcess(first, where)) {
+			if (!checkProcess(first, _where)) {
 				return;
 			}
 
-			// if first is scheduled (on the event list) already
+			// if first is scheduled (on the event-list) already
 			if (first.isScheduled()) {
 				first.skipTraceNote(); // don't tell the user, that we ...
-				first.cancel(); // get the process from the Eventlist
+				first.cancel(); // get the process from the event-list
 			}
 
 			// remember if first is blocked at the moment
@@ -428,10 +365,11 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 		TimeSpan diff = TimeOperations.diff(now, resetAt());
 
 		// update the weighted sum of available units
-		double wSumAvl = wSumAvail
-				+ ((double) avail * TimeOperations.diff(now, lastUsage).getTimeInEpsilon());
+		double wSumAvl = _wSumAvail
+				+ ((double) _avail * TimeOperations.diff(now, _lastUsage)
+						.getTimeInEpsilon());
 
-		if (TimeSpan.isEqual(diff,TimeSpan.ZERO)) // diff is not long enough
+		if (TimeSpan.isEqual(diff, TimeSpan.ZERO)) // diff is not long enough
 		{
 			sendWarning("A Division-by-Zero error occured in a calculation. "
 					+ "The UNDEFINED Value: -1.0 is returned as result.",
@@ -441,7 +379,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 			return UNDEFINED; // see QueueBased: UNDEFINED = -1
 		}
 		// return the rounded average
-		return java.lang.Math.rint(100000 * (wSumAvl / diff.getTimeInEpsilon())) / 100000;
+		return StatisticObject.round(wSumAvl / diff.getTimeInEpsilon());
 	}
 
 	/**
@@ -494,7 +432,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 * Method for consumers to make the Bin deliver a number of n products. When
 	 * there are not enough products available or another consumer is first in
 	 * the queue to be served (and it is not possible to pass by), the current
-	 * consumer process will be blocked and inserted in the waiting queue.
+	 * consumer process will be blocked and inserted in the waiting-queue.
 	 * 
 	 * @return boolean : Is <code>true</code> if the specified number of units
 	 *         have been delivered successfully, <code>false</code> otherwise
@@ -504,11 +442,11 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 *            consumer.
 	 */
 	public boolean retrieve(long n) {
-		where = "boolean retrieve (long n)";
+		_where = "boolean retrieve (long n)";
 
 		SimProcess currentProcess = currentSimProcess();
 
-		if (!checkProcess(currentProcess, where)) // check the current process
+		if (!checkProcess(currentProcess, _where)) // check the current process
 		{
 			return false;
 		} // if it is not valid return false
@@ -518,7 +456,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 			sendWarning(
 					"Attempt to take nothing or a negative number of units"
 							+ " out of a Bin. The attempted action is ignored!",
-					"Bin: " + getName() + " Method: " + where,
+					"Bin: " + getName() + " Method: " + _where,
 					"It does not make sense to take nothing or less out of a Bin. "
 							+ "The statistic will be corrupted with negative numbers!",
 					"Make sure to take at least one unit out of the Bin.");
@@ -529,28 +467,28 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 		{
 			if (currentlySendDebugNotes()) {
 				sendDebugNote("refuses to insert "
-					+ currentProcess.getQuotedName()
-					+ " in waiting queue, because the capacity limit is reached. ");
+						+ currentProcess.getQuotedName()
+						+ " in waiting-queue, because the capacity limit is reached. ");
 			}
 
 			if (currentlySendTraceNotes()) {
 				sendTraceNote("is refused to be enqueued in "
-					+ this.getQuotedName() + "because the capacity limit ("
-					+ getQueueLimit() + ") of the " + "queue is reached");
+						+ this.getQuotedName() + "because the capacity limit ("
+						+ getQueueLimit() + ") of the " + "queue is reached");
 			}
 
-			refused++; // count the refused ones
+			_refused++; // count the refused ones
 
 			return false; // capacity limit is reached
 		}
 
 		// insert every process in the queue for statistic reasons
-		queue.insert(currentProcess);
+		_queue.insert(currentProcess);
 
 		// is it possible for this process to pass by?
-		if (passBy == false) {
-			if (n > avail || // not enough products available OR
-					currentProcess != queue.first()) // other process is
+		if (_passBy == false) {
+			if (n > _avail || // not enough products available OR
+					currentProcess != _queue.first()) // other process is
 			// first
 			// in the q
 			{
@@ -574,8 +512,8 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 					currentProcess.skipTraceNote(); // don't tell the user, that
 					// we ...
 					currentProcess.passivate(); // passivate the current process
-				} while (n > avail || // not enough products available OR
-						currentProcess != queue.first()); // other process is
+				} while (n > _avail || // not enough products available OR
+						currentProcess != _queue.first()); // other process is
 				// first
 			} // end if
 
@@ -585,13 +523,13 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 		// =
 		// true
 		{
-			if (n > avail || // not enough products available OR
-					currentProcess != queue.first()) // other process is
+			if (n > _avail || // not enough products available OR
+					currentProcess != _queue.first()) // other process is
 			// first
 			// in the q
 			{
 				// if this process is not the first in the queue
-				if (currentProcess != queue.first()) {
+				if (currentProcess != _queue.first()) {
 					// we have to make sure that no other process in front of
 					// this current
 					// process in the wait queue could be satisfied, so activate
@@ -605,7 +543,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 
 				// only if not enough units are available the process has to
 				// wait
-				if (n > avail) {
+				if (n > _avail) {
 					// tell in the trace what the process is waiting for
 					if (currentlySendTraceNotes()) {
 						sendTraceNote("awaits " + n + " of '" + this.getName()
@@ -632,8 +570,8 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 
 					// activate the next process in the queue to see what he can
 					// do
-					activateAsNext((SimProcess) queue.succ(currentProcess));
-				} while (n > avail); // not enough products available
+					activateAsNext(_queue.succ(currentProcess));
+				} while (n > _avail); // not enough products available
 			}
 		} // end else (passBy = true)
 
@@ -644,7 +582,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 			sendTraceNote("takes " + n + " from '" + this.getName() + "'");
 		}
 
-		queue.remove(currentProcess); // get the process out of the queue
+		_queue.remove(currentProcess); // get the process out of the queue
 		currentProcess.setBlocked(false); // we are not blocked (anymore),
 		// yeah!
 
@@ -662,7 +600,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 * @return long : The number of units available at the moment.
 	 */
 	public long getAvail() {
-		return this.avail;
+		return this._avail;
 	}
 
 	/**
@@ -671,7 +609,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 * @return long : The number of consumers having visited the bin.
 	 */
 	public long getConsumers() {
-		return this.consumers;
+		return this._consumers;
 	}
 
 	/**
@@ -680,7 +618,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 * @return long : The number of products the bin started with.
 	 */
 	public long getInitial() {
-		return this.initial;
+		return this._initial;
 	}
 
 	/**
@@ -689,7 +627,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 * @return long : The maximum number of products in the bin.
 	 */
 	public long getMaximum() {
-		return this.maximum;
+		return this._maximum;
 	}
 
 	/**
@@ -700,7 +638,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 *         which are enqueued before them in the queue.
 	 */
 	public boolean getPassBy() {
-		return passBy;
+		return _passBy;
 	}
 
 	/**
@@ -709,7 +647,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 * @return long : The number of producers having put products in the bin.
 	 */
 	public long getProducers() {
-		return this.producers;
+		return this._producers;
 	}
 
 	/**
@@ -720,7 +658,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 */
 	public String getQueueStrategy() {
 
-		return queue.getAbbreviation(); // that's it
+		return _queue.getAbbreviation(); // that's it
 
 	}
 
@@ -733,7 +671,7 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 */
 	public long getRefused() {
 
-		return refused; // that's it
+		return _refused; // that's it
 	}
 
 	/**
@@ -745,12 +683,12 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	public void reset() {
 		super.reset(); // reset the QueueBased also
 
-		maximum = avail;
-		producers = 0;
-		consumers = 0;
-		wSumAvail = 0.0;
-		lastUsage = presentTime();
-		refused = 0;
+		_maximum = _avail;
+		_producers = 0;
+		_consumers = 0;
+		_wSumAvail = 0.0;
+		_lastUsage = presentTime();
+		_refused = 0;
 	}
 
 	/**
@@ -766,24 +704,24 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 *            other entities in the queue.
 	 */
 	public void setPassBy(boolean newPassBy) {
-		this.passBy = newPassBy; // that's all!
+		this._passBy = newPassBy; // that's all!
 	}
 
 	/**
 	 * Method for producers to put a number of n new products in the Bin. When
-	 * producers <code>store()</code> new products n is positive. Producers
-	 * can always store products into the Bin and will never be inserted in a
-	 * queue and blocked, because the Bin has no capacity limit..
+	 * producers <code>store()</code> new products n is positive. Producers can
+	 * always store products into the Bin and will never be inserted in a queue
+	 * and blocked, because the Bin has no capacity limit..
 	 * 
 	 * @param n
 	 *            long : The number of products put into the Bin.
 	 */
 	public void store(long n) {
-		where = "void store (long n)";
+		_where = "void store (long n)";
 
 		SimProcess currentProcess = currentSimProcess();
 
-		if (!checkProcess(currentProcess, where)) // if the current process
+		if (!checkProcess(currentProcess, _where)) // if the current process
 		{
 			return;
 		} // is not valid: just return
@@ -820,21 +758,22 @@ public class Bin extends desmoj.core.simulator.QueueBased {
 	 */
 	protected void updateStatistics(long n) {
 		TimeInstant now = presentTime();
-		wSumAvail = wSumAvail
-				+ ((double) avail * TimeOperations.diff(now, lastUsage).getTimeInEpsilon());
-						
-		lastUsage = now;
-		avail += n; // n can be positive or negative
+		_wSumAvail = _wSumAvail
+				+ ((double) _avail * TimeOperations.diff(now, _lastUsage)
+						.getTimeInEpsilon());
+
+		_lastUsage = now;
+		_avail += n; // n can be positive or negative
 
 		if (n > 0) // it is a real producer
 		{
-			producers++;
-			if (avail > maximum) {
-				maximum = avail;
+			_producers++;
+			if (_avail > _maximum) {
+				_maximum = _avail;
 			}
 		} else // it is a consumer
 		{
-			consumers++;
+			_consumers++;
 		}
 	}
 }

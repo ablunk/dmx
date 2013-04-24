@@ -14,7 +14,7 @@ import desmoj.core.simulator.ModelComponent;
  * number of different kinds of parts and then adding pairs of [kindOfPart,
  * number of this kind of parts] using the <code>addPart</code> method.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

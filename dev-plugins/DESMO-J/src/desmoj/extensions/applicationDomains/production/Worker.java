@@ -13,7 +13,7 @@ import desmoj.core.simulator.SimProcess;
  * @see Processing
  * @see WorkStation
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +44,7 @@ public abstract class Worker extends SimProcess {
 	 */
 	public Worker(Model owner, String name, boolean showInTrace) {
 
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, showInTrace); // make a sim-process
 	}
 
 	/**

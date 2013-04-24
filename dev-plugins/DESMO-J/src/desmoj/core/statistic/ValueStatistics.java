@@ -4,6 +4,7 @@ import java.util.Observable;
 
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimClock;
+import desmoj.core.simulator.TimeSpan;
 
 /**
  * The <code>ValueStatistics</code> class is the super class for all the
@@ -11,7 +12,7 @@ import desmoj.core.simulator.SimClock;
  * maximum values). Derived classes are: Tally, Accumulate and Histogram
  * (because it is derived from Tally).
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -29,29 +30,29 @@ import desmoj.core.simulator.SimClock;
  */
 
 public abstract class ValueStatistics extends
-        desmoj.core.statistic.StatisticObject {
+        desmoj.core.statistic.StatisticObjectSupportingTimeSpans {
 
     // ****** attributes ******
 
     /**
      * The ValueSupplier providing the values which will be processed.
      */
-    private ValueSupplier valSuppl;
+    private ValueSupplier _valSuppl;
 
     /**
      * The minimum of all values so far
      */
-    private double min;
+    private double _min;
 
     /**
      * The maximum of all values so far
      */
-    private double max;
+    private double _max;
 
     /**
      * The last value we got from the ValueSupplier
      */
-    private double lastValue;
+    private double _lastValue;
 
     // ****** methods ******
 
@@ -95,10 +96,13 @@ public abstract class ValueStatistics extends
             return; // just return
         }
 
-        this.valSuppl = valSup;
+        this._valSuppl = valSup;
+        this._max = Double.NaN;
+        this._min = Double.NaN;
+        this._lastValue = Double.NaN;
 
         // this ValueStatistics will observe the valSuppl
-        valSuppl.addObserver(this);
+        _valSuppl.addObserver(this);
     }
 
     /**
@@ -121,7 +125,11 @@ public abstract class ValueStatistics extends
         super(ownerModel, name, showInReport, showInTrace);
 
         // no ValueSupplier will be observed
-        this.valSuppl = null;
+        this._valSuppl = null;
+        this._max = Double.NaN;
+        this._min = Double.NaN;
+        this._lastValue = Double.NaN;
+
     }
 
     /**
@@ -130,7 +138,7 @@ public abstract class ValueStatistics extends
      * @return double : The last value observed so far.
      */
     public double getLastValue() {
-        return this.lastValue;
+        return this._lastValue;
     }
 
     /**
@@ -139,8 +147,21 @@ public abstract class ValueStatistics extends
      * @return double : The maximum value observed so far.
      */
     public double getMaximum() {
+        
+        if (getObservations() == 0) {
+            sendWarning(
+                    "Attempt to get a maximum value, but there is not "
+                            + "sufficient data yet. UNDEFINED (-1.0) will be returned!",
+                    "ValueStatistics: " + this.getName() + " Method: double getMaximum()",
+                    "You can not obtain a maximum value as long as no data is collected.",
+                    "Make sure to ask for a maximum value only after some data has been "
+                            + "collected already.");
+
+            return UNDEFINED; // return UNDEFINED = -1.0
+        }
+        
         // return the rounded maximum
-        return java.lang.Math.rint(PRECISION * this.max) / PRECISION;
+        return round(this._max);
     }
 
     /**
@@ -157,8 +178,21 @@ public abstract class ValueStatistics extends
      * @return double : The minimum value observed so far.
      */
     public double getMinimum() {
+        
+        if (getObservations() == 0) {
+            sendWarning(
+                    "Attempt to get a minimum value, but there is not "
+                            + "sufficient data yet. UNDEFINED (-1.0) will be returned!",
+                    "ValueStatistics: " + this.getName() + " Method: double getMinimum()",
+                    "You can not obtain a minimum value as long as no data is collected.",
+                    "Make sure to ask for a minimum value only after some data has been "
+                            + "collected already.");
+
+            return UNDEFINED; // return UNDEFINED = -1.0
+        }
+        
         // return the rounded minimum
-        return java.lang.Math.rint(PRECISION * this.min) / PRECISION;
+        return round(this._min);
     }
 
     /**
@@ -177,7 +211,7 @@ public abstract class ValueStatistics extends
      *         this ValueStatistics.
      */
     protected ValueSupplier getValueSupplier() {
-        return valSuppl;
+        return _valSuppl;
     }
 
     /**
@@ -186,7 +220,16 @@ public abstract class ValueStatistics extends
     public void reset() {
         super.reset(); // reset the StatisticObject, too.
 
-        this.min = this.max = this.lastValue = 0.0;
+        this._min = this._max = this._lastValue = Double.NaN;
+    }
+    
+    @Override
+    /**
+     * {@inheritDoc}
+     */
+    public void update(TimeSpan t) {
+        this.setShowTimeSpansInReport(true);
+        this.update(t.getTimeAsDouble());
     }
 
     /**
@@ -197,12 +240,12 @@ public abstract class ValueStatistics extends
      * method complies with the one described in DESMO, see [Page91].
      */
     public void update() {
-        if (this.valSuppl == null) {
+        if (this._valSuppl == null) {
             sendWarning(
                     "Attempt to update a ValueStatistics that is not "
                             + "connected to a ValueSupplier. No value is provided with which "
                             + "the statistic could be updated. The command will be ignored!",
-                    "ValueStatistics: " + this.getName() + " Method: update ()",
+                    "ValueStatistics: " + this.getName() + " Method: update()",
                     "The given ValueSupplier: valSuppl is only a null pointer.",
                     "Make sure to update a ValueStatistics only when it is connected "
                             + "to a valid ValueSupplier. Or use the update(double val) method.");
@@ -211,21 +254,21 @@ public abstract class ValueStatistics extends
         }
 
         // get the actual value from the ValueSupplier
-        lastValue = valSuppl.value();
+        _lastValue = _valSuppl.value();
 
         incrementObservations(); // use the method from the Reportable class
 
         if (getObservations() <= 1) // the first observation?
         {
-            min = max = lastValue; // update min and max
+            _min = _max = _lastValue; // update min and max
         }
 
-        if (lastValue < min) {
-            min = lastValue; // update min
+        if (_lastValue < _min) {
+            _min = _lastValue; // update min
         }
 
-        if (lastValue > max) {
-            max = lastValue; // update max
+        if (_lastValue > _max) {
+            _max = _lastValue; // update max
         }
 
         traceUpdate(); // leave a message in the trace
@@ -243,26 +286,26 @@ public abstract class ValueStatistics extends
      *            <code>ValueStatistics</code> will be updated.
      */
     public void update(double val) {
-        lastValue = val; // update lastValue
+        _lastValue = val; // update lastValue
 
         incrementObservations(); // use the method from the Reportable class
 
         if (getObservations() <= 1) // the first onbservation?
         {
-            min = max = lastValue; // update min and max
+            _min = _max = _lastValue; // update min and max
         }
 
-        if (lastValue < min) {
-            min = lastValue; // update min
+        if (_lastValue < _min) {
+            _min = _lastValue; // update min
         }
 
-        if (lastValue > max) {
-            max = lastValue; // update max
+        if (_lastValue > _max) {
+            _max = _lastValue; // update max
         }
 
         traceUpdate(); // leave a message in the trace
     }
-
+        
     /**
      * Implementation of the virtual <code>update(Observable, Object)</code>
      * method of the <code>Observer</code> interface. This method will be
@@ -279,12 +322,13 @@ public abstract class ValueStatistics extends
      * @param arg
      *            Object : The Object with which this
      *            <code>ValueStatistics</code> is updated. Normally a double
-     *            number which is added to the statistics or <code>null</code>.
+     *            number or TimeSpan which is added to the statistics or 
+     *            <code>null</code>.
      */
     public void update(Observable o, Object arg) {
         // update was called with no arg Object OR from the SimClock
         if (arg == null || o instanceof SimClock) {
-            if (valSuppl == null) {
+            if (_valSuppl == null) {
                 sendWarning(
                         "Attempt to update a ValueStatistics that is not "
                                 + "connected to a ValueSupplier. No value is provided with which "
@@ -300,18 +344,21 @@ public abstract class ValueStatistics extends
             }
 
             // get the actual value from the ValueSupplier
-            lastValue = valSuppl.value();
+            _lastValue = _valSuppl.value();
 
             incrementObservations(); // use the method from the Reportable
             // class
         } else {
             if (arg instanceof Number) {
                 // get the value out of the Object arg
-                lastValue = convertToDouble(arg);
-
+                _lastValue = convertToDouble(arg);
                 incrementObservations(); // use the method from the
-                // Reportable
-                // class
+                // Reportable class
+            } else if (arg instanceof TimeSpan) {
+                // get the value out of the Object arg
+                _lastValue = ((TimeSpan) arg).getTimeAsDouble();
+                incrementObservations(); // use the method from the
+                // Reportable class
             } else {
                 sendWarning(
                         "Attempt to update a ValueStatistics with an argument "
@@ -328,17 +375,18 @@ public abstract class ValueStatistics extends
 
         if (getObservations() <= 1) // the first observation?
         {
-            min = max = lastValue; // update min and max
+            _min = _max = _lastValue; // update min and max
         }
 
-        if (lastValue < min) {
-            min = lastValue; // update min
+        if (_lastValue < _min) {
+            _min = _lastValue; // update min
         }
 
-        if (lastValue > max) {
-            max = lastValue; // update max
+        if (_lastValue > _max) {
+            _max = _lastValue; // update max
         }
 
         traceUpdate(); // leave a message in the trace
     }
+        
 } // end class ValueStatistics

@@ -1,8 +1,11 @@
 package desmoj.core.advancedModellingFeatures;
 
+import desmoj.core.simulator.Condition;
 import desmoj.core.simulator.QueueBased;
 import desmoj.core.simulator.QueueList;
 import desmoj.core.simulator.QueueListFifo;
+import desmoj.core.simulator.QueueListLifo;
+import desmoj.core.simulator.QueueListRandom;
 import desmoj.core.simulator.SimProcess;
 
 /**
@@ -10,11 +13,11 @@ import desmoj.core.simulator.SimProcess;
  * Process synchronisation happens when processes are waiting in a queue for a
  * specific condition to become true. Each process which uses
  * <code>waitUntil(condition)</code> and does not find this condition to be
- * true, is inserted in a waiting queue automatically. Whenever something
+ * true, is inserted in a waiting-queue automatically. Whenever something
  * happens which might influence the condition to become <code>true</code>,
  * <code>signal()</code> should be used to check if the first entity (or, if
  * the attribute <code>checkAll</code> is set to true, all entities) in the
- * waiting queue finds the desired condition now and therefore can continue. The
+ * waiting-queue finds the desired condition now and therefore can continue. The
  * designer of the model is responsible that this check takes place! He also has
  * to implement the condition, this can easily be done by deriving it from the
  * interface <code>Condition</code>. The flag, if only the first or all
@@ -22,13 +25,13 @@ import desmoj.core.simulator.SimProcess;
  * changed using <code>getCheckAll()</code> and <code>setCheckAll()</code>.
  * The first sort criteria of the queue is always highest priorities first, the
  * second queueing discipline of the underlying queue and the capacity limit can
- * be determined by the user (default is Fifo and unlimited capacity). CondQueue
+ * be determined by the user (default is FIFO and unlimited capacity). CondQueue
  * is derived from QueueBased, which provides all the statistical functionality
  * for a queue.
  * 
  * @see QueueBased
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -45,7 +48,7 @@ import desmoj.core.simulator.SimProcess;
  *
  */
 
-public class CondQueue extends desmoj.core.simulator.QueueBased {
+public class CondQueue<P extends SimProcess> extends desmoj.core.simulator.QueueBased {
 
 	// ****** attributes ******
 
@@ -53,24 +56,24 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 	 * The queue, actually storing the processes waiting for the condition to
 	 * become true
 	 */
-	private QueueList queue;
+	protected QueueList<P> _queue;
 
 	/**
 	 * Check all the entities in the queue?
 	 */
-	private boolean checkAll;
+	private boolean _checkAll;
 
 	/**
 	 * Indicates the method where something has gone wrong. Is passed as a
 	 * parameter to the method <code>checkProcess()</code>.
 	 */
-	private String where;
+	private String _where;
 
 	/**
 	 * Counter for the SimProcesses which are refused to be enqueued, because
 	 * the queue capacity is full.
 	 */
-	private long refused;
+	private long _refused;
 
 	/**
 	 * Constructor for a CondQueue where entities can wait for a certain
@@ -101,100 +104,35 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 		super(owner, name, showInReport, showInTrace); // construct QueueBased
 		reset();
 
-		refused = 0; // reset the statistics
+		_refused = 0; // reset the statistics
 
-		// check if a valid sortOrder is given
-		if (sortOrder < 0) {
-			sendWarning(
-					"The given sortOrder parameter is negative! "
-							+ "A queue with Fifo sort order will be created.",
-					"CondQueue : "
-							+ getName()
-							+ " Constructor: CondQueue (desmoj.Model owner, String name, "
-							+ "int sortOrder, long qCapacity, boolean showInReport, "
-							+ "boolean showInTrace)",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
-			// make a Fifo queue
-			queue = new QueueListFifo(); // better than nothing
-			queue.setQueueBased(this);
-		} else {
-			try {
-				// determine the queueing strategy
-				Class queueListStrategy = queueingStrategy[sortOrder];
-
-				queue = (QueueList) queueListStrategy.newInstance();
-			}
-
-			catch (ArrayIndexOutOfBoundsException arrayExcept) {
-				// the given sortOrder is not valid
-				sendWarning(
-						"The given sortOrder parameter is not valid! "
-								+ "A queue with Fifo sort order will be created.",
-						"CondQueue : "
-								+ getName()
-								+ " Constructor: CondQueue (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, boolean showInReport, "
-								+ "boolean showInTrace)",
-						"A valid positive integer number must be provided to "
-								+ "determine the sort order of the underlying queue.",
-						"Make sure to provide a valid positive integer number "
-								+ "by using the constants in the class QueueBased, like "
-								+ "QueueBased.FIFO or QueueBased.LIFO.");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (IllegalAccessException illAccExcept) {
-				// the class to be loaded can not be found
-				sendWarning(
-						"IllegalAccessException: The class implementing the "
-								+ "sortOrder of the queue can not be found. A queue with "
-								+ "Fifo sort order will be created instead.",
-						"CondQueue : "
-								+ getName()
-								+ " Constructor: CondQueue (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, boolean showInReport, "
-								+ "boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the zero-argument constructor of that "
-								+ "class can not be found",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (InstantiationException instExcept) {
-				// no object of the given class can be instantiated
-				sendWarning(
-						"InstantiationException: No object of the given class "
-								+ "can be instantiated! A queue with Fifo sort order will "
-								+ "be created instead.",
-						"CondQueue : "
-								+ getName()
-								+ " Constructor: CondQueue (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, boolean showInReport, "
-								+ "boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the the class is an interface or an "
-								+ "abstract class that can not be instantiated",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			// give the QueueList a reference to this QueueBased
-			queue.setQueueBased(this);
-		}
+        // determine the queueing strategy
+        switch (sortOrder) {
+        case QueueBased.FIFO :
+            _queue = new QueueListFifo<P>(); break;
+        case QueueBased.LIFO :
+            _queue = new QueueListLifo<P>(); break;
+        case QueueBased.RANDOM :
+            _queue = new QueueListRandom<P>(); break;
+        default :
+            sendWarning(
+                    "The given sortOrder parameter " + sortOrder + " is not valid! "
+                            + "A queue with Fifo sort order will be created.",
+                    "CondQueue : "
+                            + getName()
+                            + " Constructor: CondQueue (desmoj.Model owner, String name, "
+                            + "int sortOrder, long qCapacity, boolean showInReport, "
+                            + "boolean showInTrace)",
+                    "A valid positive integer number must be provided to "
+                            + "determine the sort order of the queue.",
+                    "Make sure to provide a valid positive integer number "
+                            + "by using the constants in the class QueueBased, like "
+                            + "QueueBased.FIFO, QueueBased.LIFO or QueueBased.RANDOM.");
+            _queue = new QueueListFifo<P>(); 
+        }
+        
+        // give the QueueList a reference to this QueueBased
+        _queue.setQueueBased(this);
 
 		// set the capacity of the queue
 		queueLimit = qCapacity;
@@ -222,7 +160,7 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 			queueLimit = Integer.MAX_VALUE;
 		}
 
-		this.checkAll = false; // only the first entity in the queue is checked
+		this._checkAll = false; // only the first entity in the queue is checked
 	}
 
 	// ****** methods ******
@@ -246,10 +184,10 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 		super(owner, name, showInReport, showInTrace); // construct QueueBased
 		reset();
 
-		queue = new QueueListFifo(); // make an actual queue and give it a
-		queue.setQueueBased(this); // reference of this "QueueBased"-CondQueue
+		_queue = new QueueListFifo<P>(); // make an actual queue and give it a
+		_queue.setQueueBased(this); // reference of this "QueueBased"-CondQueue
 
-		this.checkAll = false; // only the first entity in the queue is checked
+		this._checkAll = false; // only the first entity in the queue is checked
 	}
 
 	/**
@@ -263,11 +201,11 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 	 *            its condition.
 	 */
 	protected void activateAsNext(SimProcess process) {
-		where = "protected void activateAsNext (SimProcess process)";
+		_where = "protected void activateAsNext (SimProcess process)";
 
 		if (process != null) // if queue is not empty or a successor is found
 		{
-			if (!checkProcess(process, where)) // if next is a null pointer or
+			if (!checkProcess(process, _where)) // if next is a null pointer or
 			{
 				return;
 			} // not modelcompatible just return
@@ -275,7 +213,7 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 			if (process.isScheduled()) // different from DESMO, see DESMO-C
 			{
 				process.skipTraceNote(); // don't tell the user, that we ...
-				process.cancel(); // get the process from the EventList
+				process.cancel(); // get the process from the event-list
 			}
 
 			boolean wasBlocked = process.isBlocked();
@@ -348,7 +286,7 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 	 *         first process in the queue is checking its condition.
 	 */
 	public boolean getCheckAll() {
-		return this.checkAll;
+		return this._checkAll;
 	}
 
 	/**
@@ -359,7 +297,7 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 	 */
 	public String getQueueStrategy() {
 
-		return queue.getAbbreviation(); // that's it
+		return _queue.getAbbreviation(); // that's it
 
 	}
 
@@ -372,7 +310,7 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 	 */
 	public long getRefused() {
 
-		return refused; // that's it
+		return _refused; // that's it
 	}
 
 	/**
@@ -385,7 +323,7 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 	 *            first entity in the queue is checking its condition.
 	 */
 	public void setCheckAll(boolean chckall) {
-		checkAll = chckall;
+		_checkAll = chckall;
 	}
 
 	/**
@@ -400,8 +338,101 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 		}
 
 		// activate the first process in the queue, others might follow...
-		activateAsNext((SimProcess) queue.first());
+		activateAsNext(_queue.first());
 	}
+	
+    /**
+     * Returns the first process waiting in the queue. If there is no process 
+     * waiting, <code>null</code> is returned.
+     * 
+     * @return SimProcess : Returns the first process in the queue
+     *         (or <code>null</code> if no process is waiting).
+     */
+    public P first()
+    {
+        if (_queue.isEmpty()) { // nobody home to be checked
+            return null;
+        } else { 
+            return _queue.first();
+        }
+
+    } // end method	
+	
+	/**
+     * Returns the first process waiting in the queue that complies to
+     * the given condition. If there is no such process waiting,
+     * <code>null</code> is returned.
+     * 
+     * @return SimProcess : Returns the first process in the queue
+     *         which complies to the given condition.
+     * @param cond
+     *            Condition : The Condition <code>cond</code> is describing the
+     *            condition to which the process must comply to. This has
+     *            to be implemented by the user in the class:
+     *            <code>Condition</code> in the method: <code>check()</code>.
+     */
+    public P first(Condition<P> cond)
+    {
+        if (_queue.isEmpty()) { // nobody home to be checked
+            return null;
+        } // return null
+
+        for (P process = _queue.first(); process != null; process = _queue
+                .succ(process)) {
+            if (cond.check(process))
+                return process;
+        }
+
+        // if no SimProcess complies to the condition just return null
+        return null;
+
+    } // end method
+    
+    /**
+     * Removes the given SimProcess from the Queue. 
+     * The process no longer waits for its condition to become true
+     * and resumes its lifecycle.
+     * 
+     * @param p
+     *            P : The P to be removed from the queue
+     */
+    public void waitCancel(P p) {
+
+        if (p == null) {
+            sendWarning("Can not cancel waiting of SimProcess in Queue!", "CondQueue : "
+                    + getName() + " Method:  void remove(P p)",
+                    "The SimProcess 'p' given as parameter is a null reference!",
+                    "Check to always have valid references when removing "
+                            + "processes");
+            return; // no proper parameter
+        }
+        if (!_queue.contains(p)) { 
+            sendWarning("Can not cancel waiting of SimProcess in Queue!", "CondQueue : "
+                    + getName() + " Method:  void remove(P p)",
+                    "The SimProcess 'p' given as parameter is not enqueued in this "
+                            + "CondQueue!",
+                    "Make sure the process is inside the queue.");
+            return; // not enqueued here
+        }
+        
+        // make sure process is passive
+        if (p.isScheduled()) // different from DESMO, see DESMO-C
+        {
+            p.skipTraceNote(); // don't tell the user, that we ...
+            p.cancel(); // get the process from the event-list
+        }
+        
+        // unblock
+        p.setBlocked(false);
+        p.skipTraceNote(); p.activate();  // don't tell we do an ordinary activation here
+
+        // produce trace output
+        if (currentlySendTraceNotes()) {
+            sendTraceNote("cancels waiting of " + p.getQuotedName() + " in "
+                    + this.getQuotedName());
+        }
+    }
+	
 
 	/**
 	 * Lets the current process wait in the CondQueue until a certain condition,
@@ -419,17 +450,17 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 	 *            process can continue.
 	 * @see desmoj.core.simulator.Condition
 	 */
-	public boolean waitUntil(desmoj.core.simulator.Condition cond) {
-		where = "boolean waitUntil (desmoj.core.simulator.Condition cond)";
+	public boolean waitUntil(Condition<P> cond) {
+		_where = "boolean waitUntil (desmoj.core.simulator.Condition cond)";
 
-		SimProcess currentProcess = currentSimProcess();
+		P currentProcess = (P) currentSimProcess();
 
-		if (!checkProcess(currentProcess, where)) // check the current process
+		if (!checkProcess(currentProcess, _where)) // check the current process
 		{
 			return false;
 		} // if it is not valid just return
 
-		if (!isModelCompatible(cond)) // if cond is not modelcompatible
+		if (!this.isModelCompatible(cond)) // if cond is not modelcompatible
 		{
 			sendWarning("Attempt to use a Condition object that does not "
 					+ "belong to this model. The attempted action is ignored!",
@@ -446,7 +477,7 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 			if (currentlySendDebugNotes()) {
 				sendDebugNote("refuses to insert "
 					+ currentProcess.getQuotedName()
-					+ " in waiting queue, because the capacity limit is reached. ");
+					+ " in waiting-queue, because the capacity limit is reached. ");
 			}
 			
 			if (currentlySendTraceNotes()) {
@@ -455,13 +486,15 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 					+ getQueueLimit() + ") of the " + "queue is reached");
 			}
 
-			refused++; // count the refused ones
+			_refused++; // count the refused ones
 
 			return false; // capacity limit is reached
 		}
 
-		queue.insert(currentProcess); // insert every process in the queue for
+		_queue.insert(currentProcess); // insert every process in the queue for
 		// statistic reasons
+		
+		boolean waitingCanceled = false;
 
 		if (!cond.check(currentProcess)) // condition is not true
 		{
@@ -478,15 +511,21 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 				currentProcess.skipTraceNote(); // don't tell the user, that we
 				// ...
 				currentProcess.passivate(); // passivate the current process
+				
+				// waiting canceled? 
+				if (!currentProcess.isBlocked()) {
+				    waitingCanceled = true;
+				    break;
+				}
 
 				proceed = cond.check(currentProcess); // has the condition
 				// become true?
 
-				if (proceed || checkAll) // check also the next process in
+				if (proceed || _checkAll) // check also the next process in
 				// the
 				// q?
 				{
-					activateAsNext((SimProcess) queue.succ(currentProcess));
+					activateAsNext(_queue.succ(currentProcess));
 					// activate the next process in the queue
 				}
 			} while (!proceed); // as long as the condition is not true
@@ -494,10 +533,15 @@ public class CondQueue extends desmoj.core.simulator.QueueBased {
 
 		// the condition is true now, so we are free...yeah!
 		if (currentlySendTraceNotes()) {
-			sendTraceNote("leaves '" + getName() + "', because '"
-					+ cond.getName() + "' "); // send a traceNote
+		    if (waitingCanceled) {
+                  sendTraceNote("resumes after waiting in '" + getName() 
+                          + "' canceled"); // send a traceNote
+		    } else {
+		          sendTraceNote("leaves '" + getName() + "', because '"
+		                    + cond.getName() + "' is true"); // send a traceNote
+		    }
 		}
-		queue.remove(currentProcess); // get the process out of the queue
+		_queue.remove(currentProcess); // get the process out of the queue
 		currentProcess.setBlocked(false); // we are not blocked (anymore),
 		// yeah!
 

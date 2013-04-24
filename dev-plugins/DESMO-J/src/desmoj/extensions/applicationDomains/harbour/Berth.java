@@ -1,17 +1,14 @@
 package desmoj.extensions.applicationDomains.harbour;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Vector;
 
 import desmoj.core.report.Reporter;
-import desmoj.core.simulator.Model;
-import desmoj.core.simulator.QueueBased;
-import desmoj.core.simulator.QueueList;
-import desmoj.core.simulator.QueueListFifo;
-import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
+import desmoj.core.simulator.*;
 
-//import desmoj.harbour.Ship;
 
 /**
  * Berth is the place where ships are berthing until they will be unloaded
@@ -29,11 +26,11 @@ import desmoj.core.simulator.SimTime;
  * queue is checked for ships waiting for her. The first sort criteria of the
  * queue is always highest priorities first, the second queueing discipline of
  * the underlying queue and the capacity limit can be determined by the user
- * (default is Fifo and unlimited capacity).
+ * (default is FIFO and unlimited capacity).
  * 
  * @see QueueBased
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,7 +60,7 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 	/**
 	 * The inner queue for the ships.
 	 */
-	private QueueList queue;
+	private QueueList<Ship> queue;
 
 	/**
 	 * The number of the users (ships) of this berth.
@@ -98,20 +95,20 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 	private String where;
 
 	/**
-	 * The table is using to define the berth time of the ships.
+	 * The shipBerth is using to define the berth time of the ships.
 	 */
-	private Hashtable table;
+	private HashMap<Ship, SimTime> shipBerth;
 
 	/**
-	 * The table is using to define the usage (occupation) time of this the
+	 * The shipBerth is using to define the usage (occupation) time of this the
 	 * berth.
 	 */
-	private Hashtable table1;
+	private HashMap<Ship, List<Ship>> shipPredecessors;
 
 	/**
 	 * The current users (ships) of this berth.
 	 */
-	private Vector v;
+	private List<Ship> currentShips;
 
 	/**
 	 * Constructor for a Berth with a certain length. The queueing discipline
@@ -144,97 +141,33 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 		super(owner, name, showInReport, showInTrace); // construct QueueBased
 
 		// check if a valid sortOrder is given
-		if (sortOrder < 0) {
-			sendWarning(
-					"The given sortOrder parameter is negative! "
-							+ "A queue with Fifo sort order will be created.",
-					"Berth : "
-							+ getName()
-							+ " Constructor: Berth (Model owner, String name, int "
-							+ "sortOrder, long qCapacity, int length,	boolean "
-							+ "showInReport, boolean showInTrace)",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
-			// make a Fifo queue
-			queue = new QueueListFifo(); // better than nothing
-			queue.setQueueBased(this);
-		} else {
-			try {
-				// determine the queueing strategy
-				Class queueListStrategy = queueingStrategy[sortOrder];
-
-				queue = (QueueList) queueListStrategy.newInstance();
-			}
-
-			catch (ArrayIndexOutOfBoundsException arrayExcept) {
-				// the given sortOrder is not valid
-				sendWarning(
-						"The given sortOrder parameter is not valid! "
-								+ "A queue with Fifo sort order will be created.",
-						"Berth : "
-								+ getName()
-								+ " Constructor: Berth (Model owner, String name, int "
-								+ "sortOrder, long qCapacity, int length,	boolean "
-								+ "showInReport, boolean showInTrace)",
-						"A valid positive integer number must be provided to "
-								+ "determine the sort order of the underlying queue.",
-						"Make sure to provide a valid positive integer number "
-								+ "by using the constants in the class QueueBased, like "
-								+ "QueueBased.FIFO or QueueBased.LIFO.");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (IllegalAccessException illAccExcept) {
-				// the class to be loaded can not be found
-				sendWarning(
-						"IllegalAccessException: The class implementing the "
-								+ "sortOrder of the queue can not be found. A queue with "
-								+ "Fifo sort order will be created instead.",
-						"Berth : "
-								+ getName()
-								+ " Constructor: Berth (Model owner, String name, int "
-								+ "sortOrder, long qCapacity, int length,	boolean "
-								+ "showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the zero-argument constructor of that "
-								+ "class can not be found",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (InstantiationException instExcept) {
-				// no object of the given class can be instantiated
-				sendWarning(
-						"InstantiationException: No object of the given class "
-								+ "can be instantiated! A queue with Fifo sort order will "
-								+ "be created instead.",
-						"Berth : "
-								+ getName()
-								+ " Constructor: Berth (Model owner, String name, int "
-								+ "sortOrder, long qCapacity, int length,	boolean "
-								+ "showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the the class is an interface or an "
-								+ "abstract class that can not be instantiated",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			// give the QueueList a reference to this QueueBased
-			queue.setQueueBased(this);
-		}
+		// determine the queueing strategy
+        switch (sortOrder) {
+        case QueueBased.FIFO :
+            queue = new QueueListFifo<Ship>(); break;
+        case QueueBased.LIFO :
+            queue = new QueueListLifo<Ship>(); break;
+        case QueueBased.RANDOM :
+            queue = new QueueListRandom<Ship>(); break;
+        default :
+            sendWarning(
+                    "The given sortOrder parameter " + sortOrder + " is not valid! "
+                            + "A queue with Fifo sort order will be created.",
+                    "Berth : "
+                            + getName()
+                            + " Constructor: Berth (Model owner, String name, int "
+                            + "sortOrder, long qCapacity, int length,   boolean "
+                            + "showInReport, boolean showInTrace)",
+                    "A valid positive integer number must be provided to "
+                            + "determine the sort order of the queue.",
+                    "Make sure to provide a valid positive integer number "
+                            + "by using the constants in the class QueueBased, like "
+                            + "QueueBased.FIFO, QueueBased.LIFO or QueueBased.RANDOM.");
+            queue = new QueueListFifo<Ship>(); 
+        }
+        
+        // give the QueueList a reference to this QueueBased
+        queue.setQueueBased(this);
 
 		// set the capacity of the queue
 		queueLimit = qCapacity;
@@ -262,8 +195,8 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 			queueLimit = Integer.MAX_VALUE;
 		}
 
-		this.table = new Hashtable();
-		this.table1 = new Hashtable();
+		this.shipBerth = new HashMap<Ship, SimTime>();
+		this.shipPredecessors = new HashMap<Ship, List<Ship>>();
 
 		if (length <= 0)
 
@@ -286,7 +219,7 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 		this.avail = length;
 		this.SumUsageTime = 0.0;
 		this.SumBerthTime = 0.0;
-		this.v = new Vector();
+		this.currentShips = new ArrayList<Ship>();
 	}
 
 	/**
@@ -311,12 +244,12 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 
 		// make an actual queue and give it a reference of this
 		// "QueueBased"-Berth
-		queue = new QueueListFifo();
+		queue = new QueueListFifo<Ship>();
 		queue.setQueueBased(this);
 
-		this.table = new Hashtable();
-		this.table1 = new Hashtable();
-		this.v = new Vector();
+        this.shipBerth = new HashMap<Ship, SimTime>();
+        this.shipPredecessors = new HashMap<Ship, List<Ship>>();
+        this.currentShips = new ArrayList<Ship>();
 
 		if (length <= 0)
 
@@ -451,9 +384,9 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 		// if one or more ships in the berth
 		if (this.currentUsers >= 1) {
 			// get first arrival ship from the current ship-users
-			SimProcess s = (SimProcess) v.firstElement();
+			SimProcess s = currentShips.get(0);
 			// get its arrival time
-			SimTime t = (SimTime) table.get(s);
+			SimTime t = shipBerth.get(s);
 
 			SumUT = SumUsageTime + (now.getTimeValue() - t.getTimeValue());
 
@@ -477,14 +410,14 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 
 		where = "public boolean take()";
 
-		SimProcess currentProcess = currentSimProcess();
+		SimProcess current = currentSimProcess();
 		Ship ship;
 
 		// check if it is a Ship
-		if (currentProcess instanceof desmoj.extensions.applicationDomains.harbour.Ship) {
-			ship = (Ship) currentProcess; // cast it to the right type
+		if (current instanceof desmoj.extensions.applicationDomains.harbour.Ship) {
+			ship = (Ship) current; // cast it to the right type
 		} else {
-			sendWarning("The SimProcess using a Berth is not a "
+			sendWarning("The sim-process using a Berth is not a "
 					+ "Ship. The attempted action is ignored!", getClass()
 					.getName()
 					+ ": " + getQuotedName() + ", Method: " + where,
@@ -496,7 +429,7 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 			return false; // ignore that rubbish
 		}
 
-		if (!checkProcess(currentProcess, where)) // check the current process
+		if (!checkProcess(ship, where)) // check the current process
 		{
 			return false;
 		}
@@ -516,8 +449,8 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 		{
 			if (currentlySendDebugNotes())
 				sendDebugNote("refuses to insert "
-						+ currentProcess.getQuotedName()
-						+ " in waiting queue, because the capacity limit is reached. ");
+						+ ship.getQuotedName()
+						+ " in waiting-queue, because the capacity limit is reached. ");
 
 			if (currentlySendTraceNotes())
 				sendTraceNote("is refused to be enqueued in "
@@ -529,11 +462,11 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 			return false; // capacity limit is reached
 		}
 
-		queue.insert(currentProcess);
+		queue.insert(ship);
 
 		if (ship.getBerthLength() > avail || // not enough length available
 				// OR
-				currentProcess != queue.first()) // other process is first in
+		        ship != queue.first()) // other process is first in
 		// the q
 		{
 			// tell in the trace what the process is waiting for
@@ -546,24 +479,24 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 			if (currentlySendDebugNotes()) {
 				sendDebugNote("has not enough length left to take "
 						+ ship.getBerthLength() + " length to '"
-						+ currentProcess.getName() + "'");
+						+ ship.getName() + "'");
 			}
 			// the process is caught in this do-while loop as long as ...see
 			// while
 			do {
-				currentProcess.setBlocked(true); // block the process
-				currentProcess.skipTraceNote(); // don't tell the user, that we
+			    ship.setBlocked(true); // block the process
+			    ship.skipTraceNote(); // don't tell the user, that we
 				// ...
-				currentProcess.passivate(); // passivate the current process
+			    ship.passivate(); // passivate the current process
 			} while (ship.getBerthLength() > avail || // not enough length
 					// available OR
-					currentProcess != queue.first()); // other process is
+			        ship != queue.first()); // other process is
 			// first
 
 		}
 
-		queue.remove(currentProcess); // get the process out of the queue
-		currentProcess.setBlocked(false);
+		queue.remove(ship); // get the process out of the queue
+		ship.setBlocked(false);
 
 		// give the new first process in the queue a chance
 		activateFirst();
@@ -572,7 +505,7 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 
 		if (currentlySendDebugNotes()) {
 
-			sendDebugNote("gives to Ship " + currentProcess.getName() + " "
+			sendDebugNote("gives to Ship " + ship.getName() + " "
 					+ ship.getBerthLength());
 		}
 		if (currentlySendTraceNotes()) {
@@ -606,37 +539,33 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 			if (this.currentUsers >= 1) // if there're other users
 			{
 				// store all my predecessors
-				Vector myPred = new Vector();
-				for (int i = 0; i < v.size(); i++) {
-
-					myPred.addElement(v.elementAt(i));
-				}
-				table1.put(currentProcess, myPred);
+				ArrayList<Ship> myPred = new ArrayList<Ship>(currentShips);
+				shipPredecessors.put((Ship)currentProcess, myPred);
 
 			} // end if current users >=1
 
 			this.currentUsers++;
-			table.put(currentProcess, now); // store the time the ship is taking
+			shipBerth.put((Ship)currentProcess, now); // store the time the ship is taking
 			// some length
 
 			// store this ship as current user
-			v.addElement(currentProcess);
+			currentShips.add((Ship)currentProcess);
 
 		}
 
 		else // the ship leaves this berth
 		{
 			// my predecessors
-			Vector pred = (Vector) table1.get(currentProcess);
+		    List<Ship> pred = shipPredecessors.get(currentProcess);
 
 			boolean isPred = false;
 			// check if me is predecessor of other ships
-			for (int i = 0; i < v.size(); i++) {
-				SimProcess s = (SimProcess) v.elementAt(i);
-				Vector vector = (Vector) table1.get(s);
-				if (vector != null) {
-					for (int j = 0; j < vector.size(); j++) {
-						if (vector.contains(s)) {
+			for (int i = 0; i < currentShips.size(); i++) {
+				SimProcess s = currentShips.get(i);
+				List<Ship> s_pred = shipPredecessors.get(s);
+				if (s_pred != null) {
+					for (int j = 0; j < s_pred.size(); j++) {
+						if (s_pred.contains(s)) {
 							isPred = true;
 							break;
 
@@ -649,7 +578,7 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 			{
 
 				// get the arrival time (when this berth was taking)
-				SimTime time = (SimTime) table.get(currentProcess);
+				SimTime time = shipBerth.get(currentProcess);
 
 				if (time != null)
 				// add the berthing time of the ship to sum
@@ -660,9 +589,9 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 					SumUsageTime = SumUsageTime
 							+ (now.getTimeValue() - time.getTimeValue());
 
-					table.remove(currentProcess);
+					shipBerth.remove(currentProcess);
 
-					v.removeElement(currentProcess);
+					currentShips.remove(currentProcess);
 				} else // when the ship tries to release the berth without it
 				{
 					sendWarning(
@@ -684,9 +613,9 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 					boolean allLeft = true;
 					// check if all my pred. already left this berth
 					for (int j = 0; j < pred.size(); j++) {
-						SimProcess ship = (SimProcess) pred.elementAt(j);
+						SimProcess ship = pred.get(j);
 
-						if (v.contains(ship)) {
+						if (currentShips.contains(ship)) {
 							allLeft = false;
 							break;
 						}
@@ -695,22 +624,22 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 					{
 
 						// get my first pred.
-						SimProcess firstPred = (SimProcess) pred.firstElement();
-						SimTime time1 = (SimTime) table.get(firstPred);
+						SimProcess firstPred = pred.get(0);
+						SimTime time1 = shipBerth.get(firstPred);
 						SumUsageTime = SumUsageTime
 								+ (now.getTimeValue() - time1.getTimeValue());
 
 						// check the arrival time
-						SimTime arrivalTime = (SimTime) table
+						SimTime arrivalTime = (SimTime) shipBerth
 								.get(currentProcess);
 
 						SumBerthTime = SumBerthTime
 								+ (now.getTimeValue() - arrivalTime
 										.getTimeValue());
 						this.currentUsers--;
-						table.remove(currentProcess);
-						table1.remove(currentProcess);
-						v.removeElement(currentProcess);
+						shipBerth.remove(currentProcess);
+						shipPredecessors.remove(currentProcess);
+						currentShips.remove(currentProcess);
 
 					} // end of allLeft
 				} // end of if there're pred.
@@ -725,7 +654,7 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 	/**
 	 * Checks whether the process (ship) using the Berth is a valid process.
 	 * 
-	 * @return boolean : Returns whether the SimProcess is valid or not.
+	 * @return boolean : Returns whether the sim-process is valid or not.
 	 * @param p
 	 *            SimProcess : Is this SimProcess a valid one?
 	 */
@@ -759,14 +688,14 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 	 * process which was trying to take the needed length of the berth, but
 	 * there was not enough left in the berth. Or another ship was first in the
 	 * queue to be served. This method is called every time a process returns
-	 * length to berth or when a ship in the waiting queue is satisfied.
+	 * length to berth or when a ship in the waiting-queue is satisfied.
 	 */
 	protected void activateFirst() {
 		where = "protected void activateFirst()";
 
 		// first is the first process in the queue (or null if none is in the
 		// queue)
-		SimProcess first = (SimProcess) queue.first();
+		SimProcess first = queue.first();
 
 		if (first != null) {
 			// if first is not modelcompatible just return
@@ -774,10 +703,10 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 				return;
 			}
 
-			// if first is scheduled (on the event list) already
+			// if first is scheduled (on the event-list) already
 			if (first.isScheduled()) {
 				first.skipTraceNote(); // don't tell the user, that we ...
-				first.cancel(); // get the process from the Eventlist
+				first.cancel(); // get the process from the event-list
 			}
 
 			// remember if first is blocked at the moment
@@ -816,7 +745,7 @@ public class Berth extends desmoj.core.simulator.QueueBased {
 		if (currentProcess instanceof desmoj.extensions.applicationDomains.harbour.Ship) {
 			ship = (Ship) currentProcess; // cast it to the right type
 		} else {
-			sendWarning("The SimProcess using a Berth is not a "
+			sendWarning("The sim-process using a Berth is not a "
 					+ "Ship. The attempted action is ignored!", getClass()
 					.getName()
 					+ ": " + getQuotedName() + ", Method: " + where,

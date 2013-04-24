@@ -17,7 +17,7 @@ import desmoj.core.report.TraceNote;
  * holds at the moment are stored. This information is needed i.e. for detecting
  * deadlocks. An instance will be created, when an experiment is created.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,13 +40,13 @@ public class ResourceDB {
 	/**
 	 * The reference to the experiment this ResourceDB belongs to.
 	 */
-	private Experiment owner;
+	private Experiment _owner;
 
 	/**
 	 * Flag indicating if this resourceDB should be listed in the debug output
 	 * file.
 	 */
-	private boolean debugMode;
+	private boolean _debugMode;
 
 	/**
 	 * Stores for every resource pool (the <code>Res</code> is the key to the
@@ -54,7 +54,7 @@ public class ResourceDB {
 	 * of resources the SimProcess holds at the moment (see the inner class
 	 * <code>AssignedResources</code>).
 	 */
-	private Hashtable assignmentTable;
+	private Hashtable<Res, Vector<AssignedResources>> _assignmentTable;
 
 	/**
 	 * Stores for every SimProcess the resource pool (<code>Res</code>) he
@@ -63,7 +63,7 @@ public class ResourceDB {
 	 * building the key to the table entries which in turn are holding objects
 	 * of the inner class <code>RequestedResources</code>.
 	 */
-	private Hashtable requestTable;
+	private Hashtable<SimProcess, RequestedResources> _requestTable;
 
 	/**
 	 * Stores for every resource pool (the <code>Res</code> is the key to the
@@ -73,41 +73,41 @@ public class ResourceDB {
 	 * pool due to reduction (the units which might be returned in the future
 	 * because they are not stuck in a deadlock).
 	 */
-	private Hashtable effCapacity;
+	private Hashtable<Res, Integer> _effCapacity;
 
 	/**
 	 * Stores all the visited resources when traversing the resource allocation
 	 * graph. Maybe another implementation is performing better. You are invited
 	 * to think about it.
 	 */
-	private Vector visitedRes;
+	private Vector<Res> _visitedRes;
 
 	/**
 	 * Stores all the visited SimProcesses when traversing the resource
 	 * allocation graph. Maybe another implementation is performing better. You
 	 * are invited to think about it.
 	 */
-	private Vector visitedProcs;
+	private Vector<SimProcess> _visitedProcs;
 
 	/**
 	 * Stores all the SimProcesses which are involved in a deadlock. Is filled
 	 * when the method <code>checkForDeadlock()</code> is called.
 	 */
-	private Vector deadlockedProcs;
+	private Vector<SimProcess> _deadlockedProcs;
 
 	/**
 	 * Stores all the resource pools (<code>Res</code>) which are involved
 	 * in a deadlock. The Vector is filled when the method
 	 * <code>checkForDeadlock()</code> is called.
 	 */
-	private Vector deadlockedRes;
+	private Vector<Res> _deadlockedRes;
 
 	/**
 	 * Stores all the visited resources when traversing the resource allocation
 	 * graph is done with examining all it's children vertices. Maybe another
 	 * implementation is performing better. You are invited to think about it.
 	 */
-	private Vector doneRes;
+	private Vector<Res> _doneRes;
 
 	/**
 	 * Stores all the visited SimProcesses when traversing the resource
@@ -115,34 +115,34 @@ public class ResourceDB {
 	 * another implementation is performing better. You are invited to think
 	 * about it.
 	 */
-	private Vector doneProcs;
+	private Vector<SimProcess> _doneProcs;
 
 	/**
 	 * Stores the cycle in the resource allocation graph as a string
 	 * representation. Is built up as the graph containing the cycle (deadlock)
 	 * is drawn.
 	 */
-	private StringBuffer resAllocGraph;
+	private StringBuffer _resAllocGraph;
 
 	/**
 	 * Stores all the elements not belonging to the the cycle in the resource
 	 * allocation graph as a string representation. Is built up as the graph
 	 * containing the cycle (deadlock) is drawn.
 	 */
-	private StringBuffer nonCycleGraph;
+	private StringBuffer _nonCycleGraph;
 
 	/**
 	 * Indicates the method where something has gone wrong. Is passed as a
 	 * parameter to i.e. the method <code>checkProcess()</code>.
 	 */
-	private String where;
+	private String _where;
 
 	/**
 	 * Indicates whether a cycle in the resource allocation graph is found or
 	 * not. Is set to <code>true</code> if a cycle (and therefore a possible
 	 * deadlock) is found and <code>false</code> if no cycle is found.
 	 */
-	private boolean cycleFound;
+	private boolean _cycleFound;
 
 	// ****** inner class ******
 
@@ -248,9 +248,9 @@ public class ResourceDB {
 		 *            int : The number of resources requested from the resource
 		 *            pool <code>Res</code>.
 		 */
-		protected RequestedResources(Res ResPool, int requestedRes) {
+		protected RequestedResources(Res resPool, int requestedRes) {
 			// init variables
-			this.resourcePool = ResPool;
+			this.resourcePool = resPool;
 			this.requestedUnits = requestedRes;
 		}
 
@@ -296,13 +296,15 @@ public class ResourceDB {
 	 * This private constructor is defined to prevent the compiler from
 	 * generating a default public constructor.
 	 */
+	/* Constructor is never used 
 	private ResourceDB() {
 
 		// make the hashtables to store all the information
-		assignmentTable = new Hashtable();
-		requestTable = new Hashtable();
-		effCapacity = new Hashtable();
+		_assignmentTable = new Hashtable<Res, Vector<AssignedResources>>();
+		_requestTable = new Hashtable<SimProcess, RequestedResources>();
+		_effCapacity = new Hashtable<Res, Integer>();
 	}
+	*/
 
 	/**
 	 * This constructor is called from the constructor of
@@ -317,12 +319,12 @@ public class ResourceDB {
 	 */
 	protected ResourceDB(Experiment owner) {
 
-		this.owner = owner;
+		this._owner = owner;
 
 		// make the hashtables to store all the information
-		assignmentTable = new Hashtable();
-		requestTable = new Hashtable();
-		effCapacity = new Hashtable();
+		_assignmentTable = new Hashtable<Res, Vector<AssignedResources>>();
+		_requestTable = new Hashtable<SimProcess, RequestedResources>();
+		_effCapacity = new Hashtable<Res, Integer>();
 
 		// turn the debug output on, so the ResourceDB can produce debug output
 		debugOn();
@@ -340,18 +342,18 @@ public class ResourceDB {
 
 		// we have to update the effCapacity for every Res
 		// get all the resource pools
-		for (Enumeration resPools = assignmentTable.keys(); resPools
+		for (Enumeration<Res> resPools = _assignmentTable.keys(); resPools
 				.hasMoreElements();) {
 			// get hold of the resouce pool
 			Res rs = (Res) resPools.nextElement();
 
 			// put the number of available resource in the effCapacity hashtable
-			effCapacity.put(rs, Integer.valueOf(rs.getAvail()));
+			_effCapacity.put(rs, Integer.valueOf(rs.getAvail()));
 		}
 
 		// don't mess with the original, get yourself a copy of the visited
 		// processes
-        Vector listOfProcs = (Vector) visitedProcs.clone();
+        Vector<SimProcess> listOfProcs = (Vector<SimProcess>) _visitedProcs.clone();
 
 		// do we have to search the whole list of SimProcesses from the
 		// beginning
@@ -368,7 +370,7 @@ public class ResourceDB {
 				SimProcess crntProc = (SimProcess) listOfProcs.elementAt(i);
 
 				// get the request resources for this SimProcess
-				RequestedResources reqRes = (RequestedResources) requestTable
+				RequestedResources reqRes = (RequestedResources) _requestTable
 						.get(crntProc);
 
 				if (reqRes == null) {
@@ -403,7 +405,7 @@ public class ResourceDB {
 						// how many resources is the proc requesting from
 						// crntRes?
 						int procReq = 0;
-						RequestedResources reqR = (RequestedResources) requestTable
+						RequestedResources reqR = (RequestedResources) _requestTable
 								.get(proc);
 
 						// is the Res pool the same?
@@ -423,7 +425,7 @@ public class ResourceDB {
 
 				// if the SimProcess can be satisfied in the future
 				// i.e. vReq < effCapacity of crntRes
-				if (vReq <= ((Integer) effCapacity.get(crntRes)).intValue()) {
+				if (vReq <= ((Integer) _effCapacity.get(crntRes)).intValue()) {
 					reduce(crntProc);
 
 					// delete the SimProcess from the list
@@ -461,39 +463,39 @@ public class ResourceDB {
 	 */
 	public synchronized boolean checkForDeadlock(SimProcess unsatProc) {
 
-		where = "protected synchronized boolean checkForDeadlock(SimProcess "
+		_where = "protected synchronized boolean checkForDeadlock(SimProcess "
 				+ "unsatProc)";
 
 		// check for null reference
-		if (!checkProcess(unsatProc, where))
+		if (!checkProcess(unsatProc, _where))
 			return false; // if the SimProcess is not valid just return
 
-		visitedProcs = new Vector();
-		visitedRes = new Vector();
-		doneProcs = new Vector();
-		doneRes = new Vector();
-		deadlockedProcs = new Vector();
-		deadlockedRes = new Vector();
+		_visitedProcs = new Vector<SimProcess>();
+		_visitedRes = new Vector<Res>();
+		_doneProcs = new Vector<SimProcess>();
+		_doneRes = new Vector<Res>();
+		_deadlockedProcs = new Vector<SimProcess>();
+		_deadlockedRes = new Vector<Res>();
 
-		cycleFound = false;
+		_cycleFound = false;
 
-		resAllocGraph = new StringBuffer();
-		nonCycleGraph = new StringBuffer();
+		_resAllocGraph = new StringBuffer();
+		_nonCycleGraph = new StringBuffer();
 
 		// look for a cycle starting with the unsatisfied process
 		findCycleProc(unsatProc);
 
-		if (cycleFound) {
+		if (_cycleFound) {
 			// check what kind of deadlock is discovered
 
 			// check if a total deadlock is discovered (all the visited
 			// processes
 			// are involved in the deadlock)
-			if (deadlockedProcs.size() == visitedProcs.size()) {
+			if (_deadlockedProcs.size() == _visitedProcs.size()) {
 				System.out
 						.println("A total deadlock was detected in your model "
 								+ "at simulation time "
-								+ owner.getSimClock().getTime() + " .");
+								+ _owner.getSimClock().getTime() + " .");
 				System.out.println("Please check the error file!");
 				System.out
 						.println("The debug file also might help to learn more about "
@@ -518,14 +520,14 @@ public class ResourceDB {
 						"A <b>total deadlock</b> is detected in the resource "
 								+ "allocation graph. <br>The simulation can not continue properly due "
 								+ "to this deadlock.",
-						"ResourceDB Method: " + where,
+						"ResourceDB Method: " + _where,
 						"The SimProcess '"
 								+ unsatProc.getName()
 								+ "' can not get the "
 								+ "resources desired, because they are occupied by another "
 								+ "SimProcess. <br>The following chain of resource allocations and "
 								+ "requests has lead to the deadlock: <br>"
-								+ resAllocGraph,
+								+ _resAllocGraph,
 						"Check if a situation as described above can happen in the real "
 								+ "system, too. <br>Check if your model may not be implemented "
 								+ "correctly!");
@@ -537,7 +539,7 @@ public class ResourceDB {
 					System.out
 							.println("A pending deadlock was detected in your model "
 									+ "at simulation time "
-									+ owner.getSimClock().getTime() + " .");
+									+ _owner.getSimClock().getTime() + " .");
 					System.out.println("Please check the error file!");
 					System.out
 							.println("The debug file also might help to learn more about "
@@ -563,16 +565,16 @@ public class ResourceDB {
 									+ "allocation graph. <br>Some of the processes in the "
 									+ "simulation are stuck in the deadlock and can not "
 									+ "continue properly.",
-							"ResourceDB Method: " + where,
+							"ResourceDB Method: " + _where,
 							"The SimProcess '"
 									+ unsatProc.getName()
 									+ "' can not get the "
 									+ "resources desired, because they are occupied by another "
 									+ "SimProcess. <br>The following chain of resource allocations and "
 									+ "requests has lead to the deadlock: <br>"
-									+ resAllocGraph
+									+ _resAllocGraph
 									+ "<br>Furthermore the following resource allocations and requests "
-									+ "are present: <br>" + nonCycleGraph,
+									+ "are present: <br>" + _nonCycleGraph,
 							"Check if a situation as described above can happen in the real "
 									+ "system, too. <br>Check if your model may not be implemented "
 									+ "correctly!");
@@ -581,7 +583,7 @@ public class ResourceDB {
 					System.out
 							.println("A transient deadlock was detected in your model "
 									+ "at simulation time "
-									+ owner.getSimClock().getTime() + " . ");
+									+ _owner.getSimClock().getTime() + " . ");
 					System.out
 							.println("Although this situation may self-resolve, better "
 									+ "check the error and debug files!");
@@ -604,17 +606,17 @@ public class ResourceDB {
 							"A <b>transient deadlock</b> is detected in the resource "
 									+ "allocation graph. <br>This situation may self-resolve, "
 									+ "but at the moment some processes are blocked.",
-							"ResourceDB Method: " + where,
+							"ResourceDB Method: " + _where,
 							"The SimProcess '"
 									+ unsatProc.getName()
 									+ "' can not get the "
 									+ "resources desired, because they are occupied by another "
 									+ "SimProcess at the moment. <br>The following chain of resource "
 									+ "allocations and requests has lead to the deadlock: <br>"
-									+ resAllocGraph
+									+ _resAllocGraph
 									+ "<br>Furthermore the following resource allocations and "
 									+ "requests are present: <br>"
-									+ nonCycleGraph,
+									+ _nonCycleGraph,
 							"Check if a situation as described above can happen in the real "
 									+ "system, too. <br>Check if your model may not be implemented "
 									+ "correctly!");
@@ -622,7 +624,7 @@ public class ResourceDB {
 			}
 
 			// set the deadlockDetected field for all the Res's involved to true
-			for (Enumeration e = deadlockedRes.elements(); e.hasMoreElements();) {
+			for (Enumeration<Res> e = _deadlockedRes.elements(); e.hasMoreElements();) {
 				((Res) e.nextElement()).setDeadlockDetected(true); // that's it
 			}
 
@@ -638,7 +640,7 @@ public class ResourceDB {
 
 		} // end if cycle found
 
-		return cycleFound;
+		return _cycleFound;
 
 	}
 
@@ -717,7 +719,7 @@ public class ResourceDB {
 	 */
 	public boolean debugIsOn() {
 
-		return debugMode; // that's all
+		return _debugMode; // that's all
 
 	}
 
@@ -726,7 +728,7 @@ public class ResourceDB {
 	 */
 	public void debugOff() {
 
-		debugMode = false; // yep, that's it!
+		_debugMode = false; // yep, that's it!
 
 	}
 
@@ -735,13 +737,13 @@ public class ResourceDB {
 	 */
 	public void debugOn() {
 
-		debugMode = true; // yep, that's true!
+		_debugMode = true; // yep, that's true!
 
 	}
 
 	/**
 	 * Deletes an entry in the resource data base (should be called when a
-	 * SimProcess is done with it's requested number of resources from a
+	 * Sim-process is done with it's requested number of resources from a
 	 * resource pool (<code>Res</code> )). The SimProcess and the number of
 	 * requested resources will be deleted in the corresponding Vector (of the
 	 * Res pool) in the assignment hashtable. The Res pool is the key to this
@@ -759,20 +761,20 @@ public class ResourceDB {
 	 */
 	public void deleteResAllocation(Res resPool, SimProcess doneProc,
 			int quantity) {
-		where = "protected void deleteResAllocation(Res resPool, "
+		_where = "protected void deleteResAllocation(Res resPool, "
 				+ "SimProcess doneProc, int quantity)";
 
 		// checks for null references and negative quantity
-		if (!checkProcess(doneProc, where))
+		if (!checkProcess(doneProc, _where))
 			return; // if the SimProcess is not valid just return
 
-		if (!checkRes(resPool, where))
+		if (!checkRes(resPool, _where))
 			return; // if the Res is not valid just return
 
 		if (quantity <= 0) {
 			sendWarning("Attempt to delete a negative or zero quantity from a "
 					+ "ResourceDB . The attempted action is ignored!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The given quantity is zero or negative.",
 					"Make sure to only use positive quantities which are more than "
 							+ "nothing.");
@@ -781,19 +783,19 @@ public class ResourceDB {
 
 		// check if there is an entry for the given Res pool in the assignment
 		// hashtable
-		if (!assignmentTable.containsKey(resPool)) { // if no entry -> error
+		if (!_assignmentTable.containsKey(resPool)) { // if no entry -> error
 			sendWarning(
 					"Attempt to delete an entry in the resource database "
 							+ "for a resource pool (Res), but the Res pool does not exist in the "
 							+ "database. The attempted action is ignored!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The given resource pool has no entry in the database.",
 					"Make sure that the given resource pool has provided resources "
 							+ "before you try to delete it's entry in the database.");
 			return; // the Res pool is not registered in the resourceDB
 		} else // get hold of the corresponding Vector
 		{
-			Vector resPoolVec = (Vector) assignmentTable.get(resPool);
+			Vector<AssignedResources> resPoolVec = (Vector<AssignedResources>) _assignmentTable.get(resPool);
 
 			// flag to indicate whether the given SimProcess is found in the
 			// Vector
@@ -824,7 +826,7 @@ public class ResourceDB {
 											+ "the SimProcess has allocated. Only all the formerly "
 											+ "allocated resources will be deleted in the database and "
 											+ "no more!",
-									"ResourceDB Method: " + where,
+									"ResourceDB Method: " + _where,
 									"The entry in the database has not registered as many "
 											+ "allocated resources as there should be deleted now.",
 									"Make sure to only delete the same quantity of "
@@ -852,7 +854,7 @@ public class ResourceDB {
 				sendWarning(
 						"Can't find the SimProcess for which there should be "
 								+ "deleted allocated resources. The attempted action can't be "
-								+ "performed!", "ResourceDB Method: " + where,
+								+ "performed!", "ResourceDB Method: " + _where,
 						"The entry in the database for the given SimProcess "
 								+ "can not be found.",
 						"Make sure to only delete resources which a SimProcess "
@@ -862,11 +864,11 @@ public class ResourceDB {
 			// is the Vector empty now?
 			if (resPoolVec.isEmpty()) {
 				// remove the Res pool Vector from the assignment hashtable
-				assignmentTable.remove(resPool);
+				_assignmentTable.remove(resPool);
 			} else // there is still something in the Vector, so...
 			{
 				// put the updated Vector back in the assignment hashtable
-				assignmentTable.put(resPool, resPoolVec);
+				_assignmentTable.put(resPool, resPoolVec);
 			}
 
 		} // end outer else
@@ -881,10 +883,10 @@ public class ResourceDB {
 
 	/**
 	 * Deletes an entry in the resource data base (should be called when a
-	 * SimProcess receives it's requested number of resources from a resource
+	 * Sim-process receives it's requested number of resources from a resource
 	 * pool (<code>Res</code> )). The resource pool and the number of
 	 * requested resources will be deleted in the request hashtable. The
-	 * SimProcess is the key to this hashtable, specifying the
+	 * Sim-process is the key to this hashtable, specifying the
 	 * RequestedResources object which holds the (resource pool/number of
 	 * requested resources)-pair.
 	 * 
@@ -897,20 +899,20 @@ public class ResourceDB {
 	 *            int : The number of resources the SimProcess gets.
 	 */
 	public void deleteResRequest(SimProcess gainProc, Res resPool, int quantity) {
-		where = "protected void deleteResRequest(SimProcess gainProc, "
+		_where = "protected void deleteResRequest(SimProcess gainProc, "
 				+ "Res resPool,	int quantity)";
 
 		// checks for null references and negative quantity
-		if (!checkProcess(gainProc, where))
+		if (!checkProcess(gainProc, _where))
 			return; // if the SimProcess is not valid just return
 
-		if (!checkRes(resPool, where))
+		if (!checkRes(resPool, _where))
 			return; // if the Res is not valid just return
 
 		if (quantity <= 0) {
 			sendWarning("Attempt to delete a negative or zero quantity from a "
 					+ "ResourceDB . The attempted action is ignored!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The given quantity is zero or negative.",
 					"Make sure to only use positive quantities which are more than "
 							+ "nothing.");
@@ -919,12 +921,12 @@ public class ResourceDB {
 
 		// check if there is an entry for the given SimProcess in the request
 		// hashtable
-		if (!requestTable.containsKey(gainProc)) { // if no entry -> error
+		if (!_requestTable.containsKey(gainProc)) { // if no entry -> error
 			sendWarning(
 					"Attempt to delete an entry in the resource database "
 							+ "for a SimProcess, but the SimProcess does not exist in the "
 							+ "database. The attempted action is ignored!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The given SimProcess has no entry in the database.",
 					"Make sure that the given SimProcess has requested resources "
 							+ "before you try to delete it's entry in the database.");
@@ -932,7 +934,7 @@ public class ResourceDB {
 		}
 
 		// get hold of the pair (resource pool / number of resources)
-		RequestedResources reqRes = (RequestedResources) requestTable
+		RequestedResources reqRes = (RequestedResources) _requestTable
 				.get(gainProc);
 
 		// is the given resource not the same as in the database?
@@ -940,7 +942,7 @@ public class ResourceDB {
 			sendWarning(
 					"Can't find the resource pool which requested resources "
 							+ "should be deleted. The attempted action can't be performed!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The entry in the database for the given resource pool "
 							+ "can not be found.",
 					"Make sure to only delete requested resources of a  "
@@ -954,7 +956,7 @@ public class ResourceDB {
 							+ "the SimProcess has requested. Only all the formerly "
 							+ "requested resources will be deleted in the database and "
 							+ "no more!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The entry in the database has not registered as many "
 							+ "requested resources as there should be deleted now.",
 					"Make sure to only delete the same quantity of requested "
@@ -967,7 +969,7 @@ public class ResourceDB {
 		// is the given quantity exactly the same as found in the reqRes?
 		if ((reqRes.getRequestedUnits() == quantity)) {
 			// remove the entry for the SimProcess from the request hashtable
-			requestTable.remove(gainProc);
+			_requestTable.remove(gainProc);
 		} else // there will be less resources deleted than once requested
 		{
 			// reduce the quantity of requested resources
@@ -975,7 +977,7 @@ public class ResourceDB {
 
 			// put the updated pair of (resource pool/number of resources)
 			// back in the request hashtable
-			requestTable.put(gainProc, reqRes);
+			_requestTable.put(gainProc, reqRes);
 		} // end else
 
 		// for debugging purposes
@@ -996,16 +998,16 @@ public class ResourceDB {
 	 */
 	private void findCycleProc(SimProcess vertex) {
 		// mark the given SimProcess vertex as visited
-		visitedProcs.addElement(vertex);
+		_visitedProcs.addElement(vertex);
 
 		// mark the given SimProcess vertex as possible member of a cycle
 		// as no cycle is found yet
-		if (!cycleFound) {
-			deadlockedProcs.addElement(vertex);
+		if (!_cycleFound) {
+			_deadlockedProcs.addElement(vertex);
 		}
 
 		// get the adjacent Res vertex to this SimProcess vertex
-		RequestedResources reqRes = (RequestedResources) requestTable
+		RequestedResources reqRes = (RequestedResources) _requestTable
 				.get(vertex);
 
 		// if the RequestedResources for this SimProcess contains an adjacent
@@ -1018,25 +1020,25 @@ public class ResourceDB {
 			int nReqRes = reqRes.getRequestedUnits();
 
 			// is the Res vertex not visited already
-			if (!visitedRes.contains(resVertex)) {
+			if (!_visitedRes.contains(resVertex)) {
 				// remember if there is a cycle found already or not
-				boolean oldCycleStatus = cycleFound;
+				boolean oldCycleStatus = _cycleFound;
 
 				// get the length of resAllocGraph and nonCycleGraph so far
-				int len = resAllocGraph.length();
-				int lenNoCycle = nonCycleGraph.length();
+				int len = _resAllocGraph.length();
+				int lenNoCycle = _nonCycleGraph.length();
 
 				// draw the nonCycle part of the resource request graph
-				nonCycleGraph.append("SimProcess '" + vertex.getName()
+				_nonCycleGraph.append("SimProcess '" + vertex.getName()
 						+ "' is waiting for " + nReqRes
 						+ " unit(s) from the resource pool '"
 						+ resVertex.getName() + "' , but <br>");
 
 				// 'draw' the cycle of the resource request graph only as no
 				// cycle is found yet
-				if (!cycleFound) {
+				if (!_cycleFound) {
 					// draw the cycle
-					resAllocGraph.append("SimProcess '" + vertex.getName()
+					_resAllocGraph.append("SimProcess '" + vertex.getName()
 							+ "' is waiting for " + nReqRes
 							+ " unit(s) from the resource pool '"
 							+ resVertex.getName() + "' , <br>");
@@ -1044,39 +1046,39 @@ public class ResourceDB {
 
 				// get the length of resAllocGraph and nonCycleGraph now (after
 				// appending it)
-				int m = resAllocGraph.length();
-				int k = nonCycleGraph.length();
+				int m = _resAllocGraph.length();
+				int k = _nonCycleGraph.length();
 
 				// look for a cycle in the subsequent graph
 				findCycleRes(resVertex);
 
 				// if no cycle is found in the subsequent graph delete the cycle
 				// 'drawing'
-				if (!cycleFound) {
+				if (!_cycleFound) {
 					// delete the drawing from the cycle graph
-					resAllocGraph.delete(len, m);
+					_resAllocGraph.delete(len, m);
 				}
 
 				// if a new cycle is found in the newly investigated subsequent
 				// graph, that means
 				// the status has changed while investigating the subsequent
 				// path
-				if (oldCycleStatus != cycleFound) {
+				if (oldCycleStatus != _cycleFound) {
 					// delete the drawing from the nonCycle graph
-					nonCycleGraph.delete(lenNoCycle, k);
+					_nonCycleGraph.delete(lenNoCycle, k);
 				}
 
 			} else // the vertex is visited
 			{
-				if (!doneRes.contains(resVertex) && // but is not done with his
+				if (!_doneRes.contains(resVertex) && // but is not done with his
 						// sons AND
-						!cycleFound) // no cycle is found so far
+						!_cycleFound) // no cycle is found so far
 				{
 					// deadlock cycle found
-					cycleFound = true;
+					_cycleFound = true;
 
 					// "draw" the cycle part of the resource request graph
-					resAllocGraph.append("SimProcess '" + vertex.getName()
+					_resAllocGraph.append("SimProcess '" + vertex.getName()
 							+ "' is waiting for " + nReqRes
 							+ " unit(s) from the resource pool '"
 							+ resVertex.getName() + "' , <br>");
@@ -1086,7 +1088,7 @@ public class ResourceDB {
 				{
 					// draw the nonCycle path of the resource allocation graph
 					// how you came here
-					nonCycleGraph.append("SimProcess '" + vertex.getName()
+					_nonCycleGraph.append("SimProcess '" + vertex.getName()
 							+ "' is waiting for " + nReqRes
 							+ " unit(s) from the resource pool '"
 							+ resVertex.getName() + "' . <br>");
@@ -1097,12 +1099,12 @@ public class ResourceDB {
 
 		// mark the given SimProcess as "done with the investigation
 		// of all his sons"
-		doneProcs.addElement(vertex);
+		_doneProcs.addElement(vertex);
 
 		// if no cycle is found yet delete the given SimProcess vertex as
 		// possible member of a cycle
-		if (!cycleFound) {
-			deadlockedProcs.removeElement(vertex);
+		if (!_cycleFound) {
+			_deadlockedProcs.removeElement(vertex);
 		}
 
 	}
@@ -1120,29 +1122,28 @@ public class ResourceDB {
 	private void findCycleRes(Res vertex) {
 
 		// mark the given Res vertex as visited
-		visitedRes.addElement(vertex);
+		_visitedRes.addElement(vertex);
 
 		// mark the given Res vertex as possible member of a cycle
 		// as no cycle is found yet
-		if (!cycleFound) {
-			deadlockedRes.addElement(vertex);
+		if (!_cycleFound) {
+			_deadlockedRes.addElement(vertex);
 		}
 
 		// get all the adjacent SimProcess vertices to this Res vertex
-		Vector assigToProcVec = (Vector) assignmentTable.get(vertex);
+		Vector<AssignedResources> assigToProcVec = _assignmentTable.get(vertex);
 
 		// if the Vector for this Res contains some adjacent SimProcesses
 		if (assigToProcVec != null) {
 			// for every adjacent SimProcess
-			for (Enumeration enumAssigProc = assigToProcVec.elements(); enumAssigProc
+			for (Enumeration<AssignedResources> enumAssigProc = assigToProcVec.elements(); enumAssigProc
 					.hasMoreElements();) {
 				// start a new path and remember if there is a cycle found in
 				// the old path or not
-				boolean oldCycleStatus = cycleFound;
+				boolean oldCycleStatus = _cycleFound;
 
 				// get hold of the adjacent AssignedResource
-				AssignedResources assigRes = (AssignedResources) enumAssigProc
-						.nextElement();
+				AssignedResources assigRes = enumAssigProc.nextElement();
 
 				// get hold of the adjacent SimProcess
 				SimProcess procVertex = assigRes.getProcess();
@@ -1151,21 +1152,21 @@ public class ResourceDB {
 				int nAssigRes = assigRes.getSeizedUnits();
 
 				// is the vertex not visited already
-				if (!visitedProcs.contains(procVertex)) {
+				if (!_visitedProcs.contains(procVertex)) {
 					// get the length of resAllocGraph and nonCycleGraph so far
-					int len = resAllocGraph.length();
-					int lenNoCycle = nonCycleGraph.length();
+					int len = _resAllocGraph.length();
+					int lenNoCycle = _nonCycleGraph.length();
 
 					// draw the nonCycle part of the resource allocation graph
-					nonCycleGraph.append(nAssigRes + " unit(s) from '"
+					_nonCycleGraph.append(nAssigRes + " unit(s) from '"
 							+ vertex.getName() + "' is/are currently "
 							+ "used by '" + procVertex.getName() + "' . <br>");
 
 					// 'draw' the cycle part of the resource allocation graph
 					// only as no cycle is found yet
-					if (!cycleFound) {
+					if (!_cycleFound) {
 						// draw the cycle
-						resAllocGraph.append("but " + nAssigRes
+						_resAllocGraph.append("but " + nAssigRes
 								+ " unit(s) from '" + vertex.getName()
 								+ "' is/are currently " + "used by '"
 								+ procVertex.getName() + "' and <br>");
@@ -1173,40 +1174,40 @@ public class ResourceDB {
 
 					// get the length of resAllocGraph and nonCycleGraph now
 					// (after appending it)
-					int m = resAllocGraph.length();
-					int k = nonCycleGraph.length();
+					int m = _resAllocGraph.length();
+					int k = _nonCycleGraph.length();
 
 					// look for a cycle in the subsequent graph
 					findCycleProc(procVertex);
 
 					// if no cycle is found in the subsequent graph delete the
 					// 'drawing'
-					if (!cycleFound) {
+					if (!_cycleFound) {
 						// delete the drawing from the cycle graph
-						resAllocGraph.delete(len, m);
+						_resAllocGraph.delete(len, m);
 					}
 
 					// if a new cycle is found in the newly investigated
 					// subsequent graph, that means
 					// the status has changed while investigating the subsequent
 					// path
-					if (oldCycleStatus != cycleFound) {
+					if (oldCycleStatus != _cycleFound) {
 						// delete the drawing from the nonCycle graph
-						nonCycleGraph.delete(lenNoCycle, k);
+						_nonCycleGraph.delete(lenNoCycle, k);
 					}
 
 				} else // the vertex is visited
 				{
-					if (!doneProcs.contains(procVertex) && // but is not done
+					if (!_doneProcs.contains(procVertex) && // but is not done
 							// with his sons AND
-							!cycleFound) // no cycle is found so far
+							!_cycleFound) // no cycle is found so far
 					{
 						// deadlock cycle found!
-						cycleFound = true;
+						_cycleFound = true;
 
 						// "draw" the cycle part of the resource allocation
 						// graph
-						resAllocGraph.append("but " + nAssigRes
+						_resAllocGraph.append("but " + nAssigRes
 								+ " unit(s) from '" + vertex.getName()
 								+ "' is/are currently " + "used by '"
 								+ procVertex.getName() + "'.<br>");
@@ -1216,7 +1217,7 @@ public class ResourceDB {
 					{
 						// draw the nonCycle path of the resource allocation
 						// graph how you came here
-						nonCycleGraph.append(nAssigRes + " unit(s) from '"
+						_nonCycleGraph.append(nAssigRes + " unit(s) from '"
 								+ vertex.getName() + "' is/are currently "
 								+ "used by '" + procVertex.getName()
 								+ "' . <br>");
@@ -1228,12 +1229,12 @@ public class ResourceDB {
 
 		// mark the given Res as "done with the investigation
 		// of all his sons"
-		doneRes.addElement(vertex);
+		_doneRes.addElement(vertex);
 
 		// if no cycle is found yet delete the given Res vertex as
 		// possible member of a cycle
-		if (!cycleFound) {
-			deadlockedRes.removeElement(vertex);
+		if (!_cycleFound) {
+			_deadlockedRes.removeElement(vertex);
 		}
 
 	}
@@ -1241,7 +1242,7 @@ public class ResourceDB {
 	/**
 	 * Makes an entry in the resource data base when a SimProcess is allocating
 	 * a number of resources from a resource pool (<code>Res</code>). The
-	 * SimProcess and the number of allocated resources will be saved in the
+	 * Sim-process and the number of allocated resources will be saved in the
 	 * assignment hashtable. The resource pool is the key to this hashtable.
 	 * 
 	 * @param resourcePool
@@ -1255,20 +1256,20 @@ public class ResourceDB {
 	 */
 	public void noteResourceAllocation(Res resourcePool,
 			SimProcess allocatingProcess, int quantity) {
-		where = "protected void noteResourceAllocation(Res resourcePool,"
+		_where = "protected void noteResourceAllocation(Res resourcePool,"
 				+ "SimProcess allocatingProcess, int quantity)";
 
 		// checks for null references and negative quantity
-		if (!checkProcess(allocatingProcess, where))
+		if (!checkProcess(allocatingProcess, _where))
 			return; // if the SimProcess is not valid just return
 
-		if (!checkRes(resourcePool, where))
+		if (!checkRes(resourcePool, _where))
 			return; // if the Res is not valid just return
 
 		if (quantity <= 0) {
 			sendWarning("Attempt to insert a negative or zero quantity into a "
 					+ "ResourceDB . The attempted action is ignored!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The given quantity is zero or negative.",
 					"Make sure to only use positive quantities which are more than "
 							+ "nothing.");
@@ -1282,7 +1283,7 @@ public class ResourceDB {
 
 		// is for the given resource pool existing an entry in the
 		// assignment hashtable already?
-		if (assignmentTable.containsKey(resourcePool)) // there is an entry ...
+		if (_assignmentTable.containsKey(resourcePool)) // there is an entry ...
 		{
 			// flag to indicate whether there is already an entry in the Vector
 			// for this SimProcess
@@ -1290,7 +1291,7 @@ public class ResourceDB {
 
 			// get the Vector containing all pairs of SimProcesses and number of
 			// assigned resources for the given resource pool
-			Vector arrayOfAssigResources = (Vector) assignmentTable
+			Vector<AssignedResources> arrayOfAssigResources = (Vector<AssignedResources>) _assignmentTable
 					.get(resourcePool);
 
 			// search the Vector of the given resource pool to find if the
@@ -1339,20 +1340,20 @@ public class ResourceDB {
 				; // nothing in this else branch
 
 			// put the updated Vector back in the Hashtable
-			assignmentTable.put(resourcePool, arrayOfAssigResources);
+			_assignmentTable.put(resourcePool, arrayOfAssigResources);
 
 		} // end outer if
 
 		else { // there is no entry for this Res pool in the assignment
 			// hashtable
 			// make a new Vector as a new entry in the assignment hashtable
-			Vector resPoolVector = new Vector();
+			Vector<AssignedResources> resPoolVector = new Vector<AssignedResources>();
 			// insert the pair (SimProcess/number of assigned resources) in
 			// the Vector
 			resPoolVector.add(assigResources);
 			// store the Vector as a new entry of the Res pool in the
 			// assignment hashtable
-			assignmentTable.put(resourcePool, resPoolVector);
+			_assignmentTable.put(resourcePool, resPoolVector);
 		} // end outer else
 
 		// update the effective available capacity of the Res pool
@@ -1381,20 +1382,20 @@ public class ResourceDB {
 	 */
 	public void noteResourceRequest(SimProcess requestingProcess,
 			Res resourcePool, int quantity) {
-		where = "protected void noteResourceRequest(SimProcess requestingProcess, "
+		_where = "protected void noteResourceRequest(SimProcess requestingProcess, "
 				+ "Res resourcePool, int quantity)";
 
 		// checks for null references and negative quantity
-		if (!checkProcess(requestingProcess, where))
+		if (!checkProcess(requestingProcess, _where))
 			return; // if the SimProcess is not valid just return
 
-		if (!checkRes(resourcePool, where))
+		if (!checkRes(resourcePool, _where))
 			return; // if the Res is not valid just return
 
 		if (quantity <= 0) {
 			sendWarning("Attempt to insert a negative or zero quantity into a "
 					+ "ResourceDB . The attempted action is ignored!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"The given quantity is zero or negative.",
 					"Make sure to only use positive quantities which are more than "
 							+ "nothing.");
@@ -1407,13 +1408,13 @@ public class ResourceDB {
 				quantity);
 		// is for the given SimProcess existing an entry in the
 		// request hashtable already?
-		if (requestTable.containsKey(requestingProcess)) // there is an entry
+		if (_requestTable.containsKey(requestingProcess)) // there is an entry
 		// ...
 		{
 			sendWarning(
 					"Attempt to make a SimProcess request resources from "
 							+ "more than one resource pool. The attempted action is ignored!",
-					"ResourceDB Method: " + where,
+					"ResourceDB Method: " + _where,
 					"A SimProcess can request resource from only one resource pool, "
 							+ "because then he is blocked until he gets the desired resources.",
 					"The SimProcess '"
@@ -1427,7 +1428,7 @@ public class ResourceDB {
 		// insert the RequestedResources pair (resource pool/#requested
 		// resources)
 		// in the request hashtable
-		requestTable.put(requestingProcess, reqResources);
+		_requestTable.put(requestingProcess, reqResources);
 
 		// for debugging purposes
 		if (debugIsOn())
@@ -1450,22 +1451,22 @@ public class ResourceDB {
 
 		// get the Vector of all the resources this SimProcess holds at the
 		// moment
-		Vector usedResVec = process.getUsedResources();
+		Vector<Resource> usedResVec = process.getUsedResources();
 
 		// for every resource unit the SimProcess holds
-		for (Enumeration e = usedResVec.elements(); e.hasMoreElements();) {
+		for (Enumeration<Resource> e = usedResVec.elements(); e.hasMoreElements();) {
 			// get the resource
-			Resource resource = (Resource) e.nextElement();
+			Resource resource = e.nextElement();
 
 			// get the Res pool the resource belongs to
 			Res resPool = resource.getResPool();
 
 			// increment the effective available capacity of the Res pool
-			int effCap = ((Integer) effCapacity.get(resPool)).intValue();
+			int effCap = ((Integer) _effCapacity.get(resPool)).intValue();
 			effCap++;
 
 			// save the newly calculated effective capacity in the hashtable
-			effCapacity.put(resPool, Integer.valueOf(effCap));
+			_effCapacity.put(resPool, Integer.valueOf(effCap));
 		} // end for
 
 	}
@@ -1483,7 +1484,7 @@ public class ResourceDB {
 	 */
 	protected void sendDebugNote(String description) {
 
-		sendMessage(new DebugNote(owner.getModel(), owner.getSimClock()
+		sendMessage(new DebugNote(_owner.getModel(), _owner.getSimClock()
 				.getTime(), "resource database", description));
 
 	}
@@ -1520,8 +1521,8 @@ public class ResourceDB {
 			return; // no proper parameter
 		}
 
-		if (owner != null) { // is ResourceDB connected to Experiment?
-			owner.getMessageManager().receive(m);
+		if (_owner != null) { // is ResourceDB connected to Experiment?
+			_owner.getMessageManager().receive(m);
 			return;
 		}
 
@@ -1541,9 +1542,9 @@ public class ResourceDB {
 	 */
 	protected void sendTraceNote(String description) {
 
-		sendMessage(new TraceNote(owner.getModel(), description, owner
-				.getSimClock().getTime(), owner.getScheduler()
-				.getCurrentEntity(), owner.getScheduler().getCurrentEvent()));
+		sendMessage(new TraceNote(_owner.getModel(), description, _owner
+				.getSimClock().getTime(), _owner.getScheduler()
+				.getCurrentEntity(), _owner.getScheduler().getCurrentEvent()));
 
 	}
 
@@ -1570,8 +1571,8 @@ public class ResourceDB {
 			String reason, String prevention) {
 
 		// compose the ErrorMessage and send it in one command
-		sendMessage(new ErrorMessage(owner.getModel(), description, location,
-				reason, prevention, owner.getSimClock().getTime()));
+		sendMessage(new ErrorMessage(_owner.getModel(), description, location,
+				reason, prevention, _owner.getSimClock().getTime()));
 
 	}
 
@@ -1593,19 +1594,19 @@ public class ResourceDB {
 		buffer.append("<u>List of all SimProcesses requesting resources:</u>");
 
 		// list for every SimProcess all the resources he is requesting
-		if (requestTable.isEmpty()) { // no SimProcess is requesting any
+		if (_requestTable.isEmpty()) { // no SimProcess is requesting any
 			// resources
 			buffer.append("<br>---   (empty)   ---<br>");
 		} else { // there are some SimProcesses requesting some resources
 
 			// loop through all the SimProcesses waiting on resources
-			for (Enumeration waitingProcs = requestTable.keys(); waitingProcs
+			for (Enumeration<SimProcess> waitingProcs = _requestTable.keys(); waitingProcs
 					.hasMoreElements();) {
 				SimProcess process = (SimProcess) waitingProcs.nextElement();
 				buffer.append("<br>SimProcess '" + process.toString()
 						+ "' is waiting on: " + "<ul>"); // start indent list
 
-				RequestedResources reqRes = (RequestedResources) requestTable
+				RequestedResources reqRes = (RequestedResources) _requestTable
 						.get(process);
 
 				if (reqRes == null) {
@@ -1627,13 +1628,13 @@ public class ResourceDB {
 				.append("<u>List of all resource pools with resources used at the "
 						+ "moment:</u>");
 
-		if (assignmentTable.isEmpty()) {// no resources are allocated by any
+		if (_assignmentTable.isEmpty()) {// no resources are allocated by any
 			// process
 			buffer.append("<br>---   (empty)   ---<br>");
 		} else { // list the resources with their allocating processes
 
 			// loop through all the resource pools used at the moment
-			for (Enumeration usedRes = assignmentTable.keys(); usedRes
+			for (Enumeration<Res> usedRes = _assignmentTable.keys(); usedRes
 					.hasMoreElements();) {
 				Res resPool = (Res) usedRes.nextElement();
 				buffer.append("<br>resource pool '" + resPool.toString()
@@ -1641,15 +1642,15 @@ public class ResourceDB {
 
 				// get the Vector holding all the pairs of
 				// (SimProcess/allocated resources) for this resource pool
-				Vector allocVector = (Vector) assignmentTable.get(resPool);
+				Vector<AssignedResources> allocVector = _assignmentTable.get(resPool);
 
 				if (allocVector == null || allocVector.isEmpty()) {
 					buffer.append("nothing!");
 				} else {
 					// loop through the Vector
-					for (Enumeration processQtyPairs = allocVector.elements(); processQtyPairs
+					for (Enumeration<AssignedResources> processQtyPairs = allocVector.elements(); processQtyPairs
 							.hasMoreElements();) {
-						AssignedResources assignedRes = (AssignedResources) processQtyPairs
+						AssignedResources assignedRes = processQtyPairs
 								.nextElement();
 						buffer
 								.append(assignedRes.getSeizedUnits()

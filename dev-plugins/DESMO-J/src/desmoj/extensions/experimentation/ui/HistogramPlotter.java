@@ -12,7 +12,7 @@ import desmoj.core.util.SimRunEvent;
  * A simple histogram plotter based on the statistic class Histogram and
  * the UI class ChartPanel.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * @author Philip Joschko
  * 

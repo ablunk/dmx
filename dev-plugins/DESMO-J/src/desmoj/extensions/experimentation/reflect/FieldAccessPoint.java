@@ -12,7 +12,7 @@ import desmoj.core.util.AccessPoint;
  * komponentenorientierte Simulation" by Ralf Bachmann (2003).
  * 
  * @author Ruth Meyer, Nicolas Knaak
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -94,7 +94,7 @@ public class FieldAccessPoint implements AccessPoint {
 		this.accessed = accessed;
 		this.declaringClass = accessed.getClass();
 		// rekursiv in der Klassenhierarchie die deklarierende Klasse bestimmen,
-		// um das Field-Objekt f¸r fieldName zu bekommen
+		// um das Field-Objekt fï¿½r fieldName zu bekommen
 		this.inspectableField = ReflectionManager.getField(declaringClass,
 				fieldName);
 	}
@@ -119,7 +119,7 @@ public class FieldAccessPoint implements AccessPoint {
 		this.accessed = null;
 		this.declaringClass = declaringClass;
 		// rekursiv in der Klassenhierarchie die deklarierende Klasse bestimmen,
-		// um das Field-Objekt f¸r fieldName zu bekommen
+		// um das Field-Objekt fï¿½r fieldName zu bekommen
 		this.inspectableField = ReflectionManager.getField(declaringClass,
 				fieldName);
 	}

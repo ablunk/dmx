@@ -5,7 +5,7 @@ package desmoj.core.simulator;
  * design special real time external events for a model. To use real time
  * external events, always create a new object of this class.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Felix Klueckmann
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -27,13 +27,13 @@ public class RealTimeEventWrapper {
 	 * A nanosecond timestamp that will be associated to the encapsulated ExternalEvent.
 	 * 
 	 */
-	private long nanos;
+	private long _nanos;
 
 	/**
 	 * The ExternalEvent encapsulated by this RealTimEventWrapper
 	 * 
 	 */
-	private ExternalEvent myExternalEvent;
+	private ExternalEvent _myExternalEvent;
 
 	/**
 	 * Creates an real time wrapper for an external event. This constructor will
@@ -41,7 +41,7 @@ public class RealTimeEventWrapper {
 	 * 
 	 */
 	public RealTimeEventWrapper(ExternalEvent externalEvent) {
-		this.myExternalEvent = externalEvent;
+		this._myExternalEvent = externalEvent;
 		this.setNanos(System.nanoTime());
 	}
 
@@ -50,8 +50,8 @@ public class RealTimeEventWrapper {
 	 * 
 	 */
 	public RealTimeEventWrapper(ExternalEvent externalEvent, long nanoTimeStamp) {
-		this.myExternalEvent = externalEvent;
-		this.nanos = nanoTimeStamp;
+		this._myExternalEvent = externalEvent;
+		this._nanos = nanoTimeStamp;
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class RealTimeEventWrapper {
 	 * 
 	 */
 	ExternalEvent getExternalEvent() {
-		return myExternalEvent;
+		return _myExternalEvent;
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class RealTimeEventWrapper {
 	 * 
 	 */
 	public void realTimeSchedule() {
-		myExternalEvent.getModel().getExperiment().getScheduler()
+		_myExternalEvent.getModel().getExperiment().getScheduler()
 				.realTimeSchedule(this);
 
 	}
@@ -78,14 +78,14 @@ public class RealTimeEventWrapper {
 	 * method System.nanoTime() to get a time stamp.
 	 */
 	public void setNanos(long nanos) {
-		this.nanos = nanos;
+		this._nanos = nanos;
 	}
 
 	/**
 	 * Returns the nanosecond timestamp associated with the encapsulated ExternalEvent.	 *
 	 */
 	public long getNanos() {
-		return nanos;
+		return _nanos;
 	}
 
 }

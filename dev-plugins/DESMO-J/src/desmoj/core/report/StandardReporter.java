@@ -7,7 +7,7 @@ package desmoj.core.report;
  * reportable can supply. To get more specific information, build a custom
  * reporter for that reportable.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@ public class StandardReporter extends Reporter {
 	 * report output.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The reportable to produce a report about
+	 *            desmoj.core.simulator.Reportable : The reportable to produce a report about
 	 */
 	public StandardReporter(desmoj.core.simulator.Reportable informationSource) {
 

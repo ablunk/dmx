@@ -36,7 +36,7 @@ import desmoj.core.simulator.SimProcess;
  * <code>setPassBy()</code> and <code>getPassBy()</code>. The first sort
  * criteria for the queues is always highest priorities first, the second
  * queueing discipline of the underlying queues and the capacity limit can be
- * determined by the user (default is Fifo and unlimited capacity).
+ * determined by the user (default is FIFO and unlimited capacity).
  * TransportJunction is derived from <code>WaitQueue</code> which in turn is
  * derived from <code>QueueBased</code>, which provides all the statistical
  * functionality for the queues.
@@ -45,7 +45,7 @@ import desmoj.core.simulator.SimProcess;
  * @see desmoj.core.simulator.QueueBased
  * @see desmoj.core.advancedModellingFeatures.ProcessCoop
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -70,7 +70,7 @@ public class TransportJunction extends WaitQueue {
 	private boolean passBy = false;
 
 	/**
-	 * Constructor for a TransportJunction. There are two waiting queues
+	 * Constructor for a TransportJunction. There are two waiting-queues
 	 * constructed, one internal <code>QueueList</code> for the
 	 * <code>Transporter</code> s (masters) and one separate
 	 * <code>ProcessQueue</code> for the slave processes. The queueing
@@ -113,7 +113,7 @@ public class TransportJunction extends WaitQueue {
 	}
 
 	/**
-	 * Constructor for a TransportJunction. There are two waiting queues
+	 * Constructor for a TransportJunction. There are two waiting-queues
 	 * constructed, one internal <code>QueueList</code> for the
 	 * <code>Transporter</code> s (masters) and one separate
 	 * <code>ProcessQueue</code> for the slave processes. Both queues have a
@@ -144,7 +144,7 @@ public class TransportJunction extends WaitQueue {
 	 *         which comply to the given condition. If no suitable SimProcess is
 	 *         available <code>null</code> will be returned.
 	 * @param cond
-	 *            desmoj.Condition : The condition to which the SimProcesses we
+	 *            desmoj.Condition : The condition to which the sim-processes we
 	 *            are looking for must comply.
 	 */
 	public synchronized SimProcess[] availableSet(Condition cond) {
@@ -164,10 +164,10 @@ public class TransportJunction extends WaitQueue {
 		if (first == null) {
 			return null; // no such slave available
 		} else {
-			// make a Vector to hold all the SimProcesses we find
+			// make a Vector to hold all the sim-processes we find
 			Vector foundSlaves = new Vector();
 
-			// loop through all the SimProcesses fulfilling the given condition
+			// loop through all the sim-processes fulfilling the given condition
 			for (SimProcess tmp = first; tmp != null; tmp = slaveQueue.succ(
 					tmp, cond)) {
 				foundSlaves.addElement(tmp);
@@ -322,7 +322,7 @@ public class TransportJunction extends WaitQueue {
 	 * This method is to be called from a <code>Transporter</code> which wants
 	 * to transport goods as a master. If not enough suitable goods (slave
 	 * processes) are available at the moment, the transporter process will be
-	 * stored in the master waiting queue, until enough suitable slaves are
+	 * stored in the master waiting-queue, until enough suitable slaves are
 	 * available. If the capacity limit of the master queue is reached, the
 	 * process will not be enqueued and <code>false</code> returned. When
 	 * enough suitable slaves are available their
@@ -367,7 +367,7 @@ public class TransportJunction extends WaitQueue {
 			master = (Transporter) currntProc; // cast it to the right type
 		} else {
 			sendWarning(
-					"The SimProcess using a TransportJunction is not a "
+					"The sim-process using a TransportJunction is not a "
 							+ "Transporter. The attempted action is ignored!",
 					getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
@@ -416,7 +416,7 @@ public class TransportJunction extends WaitQueue {
 			return false; // capacity limit is reached
 		}
 
-		// insert the master in its waiting queue
+		// insert the master in its waiting-queue
 		masterQueue.insert(master);
 
 		// is it possible for this process to pass by?
@@ -552,7 +552,7 @@ public class TransportJunction extends WaitQueue {
 	 * must be specified in the method <code>check()</code> in a class derived
 	 * from <code>Condition</code>. If not enough suitable goods (slave
 	 * processes) are available at the moment, the transporter process will be
-	 * stored in the master waiting queue, until enough suitable slaves are
+	 * stored in the master waiting-queue, until enough suitable slaves are
 	 * available. If the capacity limit of the master queue is reached, the
 	 * process will not be enqueued and <code>false</code> returned. When
 	 * enough suitable slaves are available their
@@ -602,7 +602,7 @@ public class TransportJunction extends WaitQueue {
 			master = (Transporter) currntProc; // cast it to the right type
 		} else {
 			sendWarning(
-					"The SimProcess using a TransportJunction is not a "
+					"The sim-process using a TransportJunction is not a "
 							+ "Transporter. The attempted action is ignored!",
 					getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
@@ -656,7 +656,7 @@ public class TransportJunction extends WaitQueue {
 			return false; // capacity limit is reached
 		}
 
-		// insert the master in its waiting queue
+		// insert the master in its waiting-queue
 		masterQueue.insert(master);
 
 		// get the array of suitable slaves
@@ -838,7 +838,7 @@ public class TransportJunction extends WaitQueue {
 	}
 
 	/**
-	 * This method is called from a SimProcess which wants to be transported as
+	 * This method is called from a sim-process which wants to be transported as
 	 * a slave. If no suitable master process (transporter) is available at the
 	 * moment, the slave process will be stored in the slave queue, until a
 	 * suitable master (transporter) is available. If the capacity limit of the
@@ -876,7 +876,7 @@ public class TransportJunction extends WaitQueue {
 							+ "transportation is ignored!",
 					getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
-					"The slave process can not wait in more than one waiting queue.",
+					"The slave process can not wait in more than one waiting-queue.",
 					"Make sure that slave processes are only transported by one master "
 							+ "at a time.");
 			return false; // ignore the second transportation, just return
@@ -903,7 +903,7 @@ public class TransportJunction extends WaitQueue {
 		slaveQueue.insert(slave); // insert the slave process in the wait
 		// queue
 
-		slave.setSlaveWaitQueue(slaveQueue); // tell the SimProcess where he
+		slave.setSlaveWaitQueue(slaveQueue); // tell the sim-process where he
 		// is waiting. Will be reset in SimProcess.cooperate(), when the
 		// master is leading the slave through the transportation.
 

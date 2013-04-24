@@ -9,7 +9,7 @@ import desmoj.core.simulator.Experiment;
  * multiple distinct HTML tables with individual headings givne as parameter can
  * be written into one file.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @deprecated Replaced by the TableFormatter interface and the classes
  *             ASCIITableFormatter and HTMLTableFormatter for more flexible
@@ -33,19 +33,19 @@ public class HTMLFileOutput extends FileOutput {
 	 * Status for a single line to keep track of when to open or close a new
 	 * table row.
 	 */
-	private boolean rowOpen;
+	private boolean _rowOpen;
 
 	/**
 	 * Status for the table printed. Needed to keep track of when to open or
 	 * close the table.
 	 */
-	private boolean tableOpen;
+	private boolean _tableOpen;
 
 	/**
 	 * Used to format the output of simulation time to the given number of
 	 * floating point digits.
 	 */
-	private int timeFloats;
+	private int _timeFloats;
 
 	/**
 	 * Creates a TraceOut to write into a HTML page. The number of floating
@@ -60,13 +60,13 @@ public class HTMLFileOutput extends FileOutput {
 	public HTMLFileOutput(int timePrecision) {
 
 		super();
-		rowOpen = false;
-		tableOpen = false;
+		_rowOpen = false;
+		_tableOpen = false;
 
 		if (timePrecision < 0)
-			timeFloats = 0;
+			_timeFloats = 0;
 		else
-			timeFloats = timePrecision;
+			_timeFloats = timePrecision;
 
 	}
 
@@ -76,9 +76,9 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public void close() {
 
-		if (rowOpen)
+		if (_rowOpen)
 			closeRow();
-		if (tableOpen)
+		if (_tableOpen)
 			closeTable();
 		writeln("<FONT SIZE=-2>created using <A HREF=http://www.desmoj.de>"
 				+ "DESMO-J</A> Version " + Experiment.getDesmoJVersion() + " at " + new java.util.Date()
@@ -94,9 +94,9 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public void closeRow() {
 
-		if ((rowOpen) && (tableOpen)) {
+		if ((_rowOpen) && (_tableOpen)) {
 			writeln("</TR>");
-			rowOpen = false;
+			_rowOpen = false;
 		}
 
 	}
@@ -107,18 +107,18 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public void closeTable() {
 
-		if (!tableOpen)
+		if (!_tableOpen)
 			return; // do nothing if table not open
 
-		if (rowOpen) {
+		if (_rowOpen) {
 			closeRow(); // correct an open row if necessary
-			rowOpen = false;
+			_rowOpen = false;
 		}
 
 		writeln("</TABLE><P>"); // The table end tag
 		writeln("<FONT SIZE=-1><A HREF=#top>top</A></FONT><P>");
 
-		tableOpen = false;
+		_tableOpen = false;
 
 	}
 
@@ -131,18 +131,18 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public void closeTableNoTopTag() {
 
-		if (!tableOpen)
+		if (!_tableOpen)
 			return; // do nothing if table not open, just return
 
-		if (rowOpen) {
+		if (_rowOpen) {
 			closeRow(); // correct an open row if necessary
-			rowOpen = false;
+			_rowOpen = false;
 		}
 
 		writeln("</TABLE><P>"); // The table end tag
 		// writeln("<FONT SIZE=-1><A HREF=#top>top</A></FONT><P>");
 
-		tableOpen = false;
+		_tableOpen = false;
 
 	}
 
@@ -150,7 +150,7 @@ public class HTMLFileOutput extends FileOutput {
 	 * Opens a new file with the given fileName for writing a HTML table to. If
 	 * no String is given, the default filename "unnamed_DESMOJ_file" is used.
 	 * 
-	 * @param fileName
+	 * @param name
 	 *            java.lang.String : The name of the file to be created
 	 */
 	public void open(String name) {
@@ -161,8 +161,7 @@ public class HTMLFileOutput extends FileOutput {
 		sb.append("<HTML><HEAD>" + FileOutput.getEndOfLine());
 		sb.append("<META HTTP-EQUIV=\"Content-Type\" CONTENT=");
 		sb.append("\"text/html; charset=iso-8859-1\">" + FileOutput.getEndOfLine());
-		sb.append("<META NAME=\"Author\" CONTENT=\"Tim Lechler\">" + FileOutput.getEndOfLine());
-		sb.append("<META NAME=\"GENERATOR\" CONTENT=\"DESMO-J 2.1.5\">" + FileOutput.getEndOfLine());
+		sb.append("<META NAME=\"GENERATOR\" CONTENT=\"DESMO-J " + Experiment.getDesmoJVersion() + "\">" + FileOutput.getEndOfLine());
 		sb.append("<TITLE>" + name + "</TITLE></HEAD>" + FileOutput.getEndOfLine());
 		sb
 				.append("<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\"");
@@ -180,11 +179,11 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public void openRow() {
 
-		if (tableOpen) {
+		if (_tableOpen) {
 
-			if (!rowOpen) {
+			if (!_rowOpen) {
 				write("<TR VALIGN=TOP>");
-				rowOpen = true; // keep a note to shut the row on closes
+				_rowOpen = true; // keep a note to shut the row on closes
 			}
 
 		}
@@ -200,7 +199,7 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public void openTable(String s) {
 
-		if (tableOpen)
+		if (_tableOpen)
 			return; // table already opened
 
 		StringBuffer sb = new StringBuffer();
@@ -210,8 +209,8 @@ public class HTMLFileOutput extends FileOutput {
 		sb.append("WIDTH=\"100%\" >" + FileOutput.getEndOfLine());
 
 		write(sb.toString());
-		tableOpen = true;
-		rowOpen = false;
+		_tableOpen = true;
+		_rowOpen = false;
 
 	}
 
@@ -224,7 +223,7 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public boolean rowIsOpen() {
 
-		return rowOpen;
+		return _rowOpen;
 
 	}
 
@@ -238,7 +237,7 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public boolean tableIsOpen() {
 
-		return tableOpen;
+		return _tableOpen;
 
 	}
 
@@ -251,7 +250,7 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	protected int timePrecision() {
 
-		return timeFloats;
+		return _timeFloats;
 
 	}
 
@@ -270,7 +269,7 @@ public class HTMLFileOutput extends FileOutput {
 		if (s == null)
 			return;
 
-		if ((rowOpen) && (tableOpen))
+		if ((_rowOpen) && (_tableOpen))
 			write("<TD>" + s + "</TD>");
 
 	}
@@ -302,7 +301,7 @@ public class HTMLFileOutput extends FileOutput {
 			style = 1;
 
 		// check if no table is open, otherwise I can't write centered heading
-		if (tableOpen)
+		if (_tableOpen)
 			return;
 
 		// now write heading
@@ -327,7 +326,7 @@ public class HTMLFileOutput extends FileOutput {
 		if (s == null)
 			return;
 
-		if ((rowOpen) && (tableOpen))
+		if ((_rowOpen) && (_tableOpen))
 			write("<TD><B><DIV align=left>" + s + "</DIV></B></TD>");
 
 	}
@@ -339,7 +338,7 @@ public class HTMLFileOutput extends FileOutput {
 	 */
 	public void writeHorizontalRuler() {
 
-		if (!tableOpen)
+		if (!_tableOpen)
 			write("<HR>");
 
 	}
@@ -358,20 +357,20 @@ public class HTMLFileOutput extends FileOutput {
 	public String writeTime(String t) {
 	    
 	    if (t == null)
-			return "none";
+			return "None";
 
 		if (t.lastIndexOf(".") == -1)
 			return t; // no decimal point -> just print it
 
 		int decPoint = t.lastIndexOf(".");
 
-		if (t.length() - decPoint <= timeFloats + 1)
+		if (t.length() - decPoint <= _timeFloats + 1)
 			return t; // less floats than specified
 
         if (t.lastIndexOf("E") == -1)
-            return t.substring(0, decPoint + timeFloats + 1);  // no scientific notation
+            return t.substring(0, decPoint + _timeFloats + 1);  // no scientific notation
         else
-            return t.substring(0, decPoint + timeFloats + 1) + t.substring(t.lastIndexOf("E")); // scientific notation
+            return t.substring(0, decPoint + _timeFloats + 1) + t.substring(t.lastIndexOf("E")); // scientific notation
         
 	}
 }

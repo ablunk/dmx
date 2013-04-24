@@ -1,9 +1,11 @@
 package desmoj.core.report;
 
+import desmoj.core.simulator.Queue;
+
 /**
  * Captures all relevant information about a queue.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @author modified by Soenke Claassen
  * 
@@ -27,7 +29,7 @@ public class QueueReporter extends Reporter {
 	 * headings will differ from the actual content collected by this reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The Queue to report about
+	 *            desmoj.core.simulator.Reportable : The Queue to report about
 	 */
 	public QueueReporter(desmoj.core.simulator.Reportable informationSource) {
 
@@ -64,10 +66,10 @@ public class QueueReporter extends Reporter {
 	 */
 	public String[] getEntries() {
 
-		if (source instanceof desmoj.core.simulator.Queue) {
+		if (source instanceof Queue) {
 
 			// variable valid for block only - for faster access
-			desmoj.core.simulator.Queue q = (desmoj.core.simulator.Queue) source;
+			Queue<?> q = (Queue<?>) source;
 
 			// Title
 			entries[0] = source.getName();

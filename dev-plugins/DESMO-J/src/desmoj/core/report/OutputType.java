@@ -1,10 +1,10 @@
 package desmoj.core.report;
 
 /**
- * Interface for all Outputs (Report, Trace, Error, Debug) in specific formats
- * (e.g. HTML, ASCII, XML)
+ * Interface for all Outputs (Report, Trace, Error, Debug) in format
+ * like HTML, ASCII, XML written line by line.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

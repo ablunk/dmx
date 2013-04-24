@@ -11,7 +11,7 @@ package desmoj.core.simulator;
  * their models a name. The class is set abstract to prevent clients from
  * accidentally creating otherwise functionless (but named) objects.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ public abstract class NamedObject {
 	/*
 	 * The name of the namedObject as a String.
 	 */
-	private String myName;
+	private String _myName;
 
 	/**
 	 * Constructs a named object with the given initial name. Note, that this
@@ -44,9 +44,9 @@ public abstract class NamedObject {
 	public NamedObject(String name) {
 
 		if (name == null)
-			myName = "unnamed";
+			_myName = "unnamed";
 		else
-			myName = name;
+			_myName = name;
 
 	}
 
@@ -59,7 +59,7 @@ public abstract class NamedObject {
 	 */
 	public String getName() {
 
-		return myName;
+		return _myName;
 
 	}
 
@@ -71,7 +71,7 @@ public abstract class NamedObject {
 	 */
 	public String getQuotedName() {
 
-		return "'" + myName + "'";
+		return "'" + _myName + "'";
 
 	}
 
@@ -88,7 +88,7 @@ public abstract class NamedObject {
 	 */
 	protected void rename(String newName) {
 
-		myName = newName;
+		_myName = newName;
 
 	}
 
@@ -101,7 +101,7 @@ public abstract class NamedObject {
 	 */
 	public String toString() {
 
-		return myName;
+		return _myName;
 
 	}
 }

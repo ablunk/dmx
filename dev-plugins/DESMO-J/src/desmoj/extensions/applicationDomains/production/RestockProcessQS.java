@@ -3,7 +3,7 @@ package desmoj.extensions.applicationDomains.production;
 import java.beans.PropertyChangeEvent;
 
 import desmoj.core.advancedModellingFeatures.Stock;
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.SimTime;
@@ -12,7 +12,7 @@ import desmoj.core.simulator.SimTime;
  * RestockProcessQS is a process restocking a <code>Stock</code> with a fixed
  * given quantity (Q) every time a given safety (S) stock level is reached.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +47,7 @@ public class RestockProcessQS extends SimProcess implements
 	 * time between the placement and receipt of an order. If <code>null</code>
 	 * lead time is zero.
 	 */
-	private desmoj.core.dist.RealDist leadTime;
+	private NumericalDist<?> leadTime;
 
 	/**
 	 * The safety stock level. In case this level is reached a new order will be
@@ -75,7 +75,7 @@ public class RestockProcessQS extends SimProcess implements
 	 * @param client
 	 *            Stock : The <code>Stock</code> which will replenished.
 	 * @param lt
-	 *            desmoj.dist.RealDist : The lead time random number
+	 *            NumericalDist<?> : The lead time random number
 	 *            distribution to determine the time between placement and
 	 *            receipt of an order. If <code>null</code> the lead time is
 	 *            zero.
@@ -87,8 +87,8 @@ public class RestockProcessQS extends SimProcess implements
 	 *            in trace.
 	 */
 	public RestockProcessQS(Model owner, String name, long q, long safetyStk,
-			Stock client, RealDist lt, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+			Stock client, NumericalDist<?> lt, boolean showInTrace) {
+		super(owner, name, true, showInTrace); // make a sim-process
 
 		this.orderQuantity = q;
 		this.safetyStockLevel = safetyStk;
@@ -182,7 +182,7 @@ public class RestockProcessQS extends SimProcess implements
 	 */
 	public RestockProcessQS(Model owner, String name, long q, long safetyStk,
 			Stock client, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, true, showInTrace); // make a sim-process
 
 		this.orderQuantity = q;
 		this.safetyStockLevel = safetyStk;
@@ -252,10 +252,10 @@ public class RestockProcessQS extends SimProcess implements
 	 * Returns the random number distribution for the lead time (time between
 	 * placement and receipt of an order).
 	 * 
-	 * @return desmoj.dist.RealDist : The random number distribution for the
+	 * @return NumericalDist<?> : The random number distribution for the
 	 *         lead time (time between placement and receipt of an order).
 	 */
-	public desmoj.core.dist.RealDist getLeadTime() {
+	public NumericalDist<?> getLeadTime() {
 		return leadTime;
 	}
 
@@ -286,28 +286,47 @@ public class RestockProcessQS extends SimProcess implements
 	 * inventory level dropped below the safety (S) stock level.
 	 */
 	public void lifeCycle() {
-		// endless loop
-		while (true) {
-			// wait until inventory level drops below safety stock
-			passivate();
 
-			// woken up because inventory level dropped below safety stock
-			// place order (and tell so in the debug file)
-			if (currentlySendTraceNotes()) {
-				sendTraceNote("places an order over " + orderQuantity
-						+ " units for " + "Stock "
-						+ clientStock.getQuotedName());
-			}
+		// wait until inventory level drops below safety stock
+		passivate();
 
-			// wait the lead time if necessary
-			if (leadTime != null) {
-				hold(new SimTime(leadTime.sample()));
-			}
+		// woken up because inventory level dropped below safety stock
+		// place order (and tell so in the debug file)
+		if (currentlySendTraceNotes()) {
+			sendTraceNote("places an order over " + orderQuantity
+					+ " units for " + "Stock "
+					+ clientStock.getQuotedName());
+		}
 
-			// store the ordered quantity in the Stock
-			clientStock.store(orderQuantity);
+        // wait the lead time if necessary
+        if (leadTime != null) {
+            double leadDuration = leadTime.sample().doubleValue();
+            
+            // check lead duration non-negative
+            if (leadDuration < 0) {
+                
+                sendWarning(
+                        "Lead duration distribution sample is negative (" + leadDuration + "). Assuming" 
+                                + " immediate delivery instead (i.e. duration 0).",
+                        "RestockProcessQS : "
+                                + getName()
+                                + " lifeCycle()",
+                        "The given lead time distribution " + leadTime.getName() 
+                                + " has returned a negative sample.",
+                        "Make sure to use a non-negativ lead time distribution."
+                                + " Distributions potentially yielding negative values"
+                                + " (like Normal distributions) should bet set to non-negative.");
 
-		} // end of the endless loop
+                // set lead duration to 0
+                leadDuration = 0;
+
+            }
+            
+            hold(new SimTime(leadDuration));
+        }
+
+		// store the ordered quantity in the Stock
+		clientStock.store(orderQuantity);
 
 	}
 
@@ -317,7 +336,7 @@ public class RestockProcessQS extends SimProcess implements
 	 * level this RestockProcessQS must be woken up to place an order.
 	 * 
 	 * @param evt
-	 *            java.beans.PropertyChangeEvent : The Event informing about an
+	 *            java.beans.PropertyChangeEvent : Informing the event about an
 	 *            inventory level change of the Stock.
 	 */
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -339,10 +358,10 @@ public class RestockProcessQS extends SimProcess implements
 	 * <code>null</code> the lead time is zero.
 	 * 
 	 * @param newLeadTime
-	 *            desmoj.dist.RealDist : The new real random number distribution
+	 *            NumericalDist<?> : The new real random number distribution
 	 *            determining the lead time.
 	 */
-	public void setLeadTime(desmoj.core.dist.RealDist newLeadTime) {
+	public void setLeadTime(NumericalDist<?> newLeadTime) {
 
 		leadTime = newLeadTime;
 	}

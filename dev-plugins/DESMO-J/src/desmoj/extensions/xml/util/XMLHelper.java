@@ -26,7 +26,7 @@ import org.w3c.dom.Text;
 /**
  * A utility class providing several static methods to handle DOM documents.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak and Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -213,7 +213,7 @@ public class XMLHelper {
 	 * @param out:
 	 *            Writer: The (file)writer to be used
 	 */
-	public static void serializeDocument(Document document, Writer out) {
+ 	public static void serializeDocument(Document document, Writer out) {
 		try {
 			XMLSerializer serializer = new XMLSerializer();
 			OutputFormat format = new OutputFormat(document);

@@ -23,7 +23,7 @@ import desmoj.extensions.experimentation.util.XMLFilter;
 /**
  * GUI for the Experiment Starter when used as application.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak, Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,7 +102,7 @@ public class ExperimentStarterApplication extends JFrame implements
 	public ExperimentStarterApplication() {
 		this(null, null);
 	}
-
+	
 	/**
 	 * Creates a new experiment starter application. The experiment starter
 	 * dynamically instantiates a model and an experiment runner from the
@@ -111,20 +111,37 @@ public class ExperimentStarterApplication extends JFrame implements
 	 * @param modelClass
 	 *            the model class to be loaded
 	 * @param expRunnerClass
-	 *            th experiment runner class to be loaded.
+	 *            the experiment runner class to be loaded.
 	 */
 	public ExperimentStarterApplication(Class modelClass, Class expRunnerClass) {
-		try {
-			jbInit();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		experimentStarter = new ExperimentStarter(this, modelClass,
-				expRunnerClass);
-		experimentStarter.observerDesktop = observerDesktop;
-		experimentStarter.resetModel();
+		this(modelClass, expRunnerClass, null);
 	}
+	
+	/**
+     * Creates a new experiment starter application with command line 
+     * parameters passed to the model. The experiment starter
+     * dynamically instantiates a model and an experiment runner from the
+     * specified classes.
+     * 
+     * @param modelClass
+     *            the model class to be loaded
+     * @param expRunnerClass
+     *            the experiment runner class to be loaded.
+     * @param args
+     *            command line parameters to pass to the model
+     */
+    public ExperimentStarterApplication(Class modelClass, Class expRunnerClass, String[] args) {
+        try {
+            jbInit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        experimentStarter = new ExperimentStarter(this, modelClass,
+                expRunnerClass, args);
+        experimentStarter.observerDesktop = observerDesktop;
+        experimentStarter.resetModel();
+    }
 
 	/**
 	 * Creates a new experiment starter application. On initialization the
@@ -389,7 +406,7 @@ public class ExperimentStarterApplication extends JFrame implements
 		this.setTitle(TITLE + text);
 
 		// Clean observer desktop
-		GraphicalObserver[] observers = observerDesktop.getChildren();
+		IGraphicalObserver[] observers = observerDesktop.getChildren();
 		for (int i = 0; i < observers.length; i++) {
 			observers[i].deregister();
 		}

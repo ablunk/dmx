@@ -5,9 +5,16 @@ import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.QueueBased;
 import desmoj.core.simulator.QueueList;
 import desmoj.core.simulator.QueueListFifo;
+import desmoj.core.simulator.QueueListLifo;
+import desmoj.core.simulator.QueueListRandom;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeInstant;
+import desmoj.core.simulator.TimeOperations;
 import desmoj.core.simulator.TimeSpan;
+
+import java.util.Iterator;
+import java.util.Set; 
+import java.util.HashSet; 
 
 /**
  * The WaitQueue is used to synchronize the cooperation of two processes. One
@@ -18,26 +25,27 @@ import desmoj.core.simulator.TimeSpan;
  * a master. Slaves are calling <code>waitOnCoop()</code>. The action performed
  * during the cooperation of the two processes has to be implemented in the
  * method <code>cooperation()</code> in the class <code>ProcessCoop</code>.
- * There are two waiting queues, one for the masters and one for the slaves. If
+ * There are two waiting-queues, one for the masters and one for the slaves. If
  * there is no corresponding master or slave available, they are inserted in a
- * such a waiting queue.
+ * such a waiting-queue.
  * 
  * WaitQueue is encapsulating the queue for the master processes and has a
  * reference to a ProcessQueue where the slaves are waiting.
  * 
  * The first sort criteria for the queues is always highest priorities first,
  * the second queueing discipline of the underlying queues and the capacity
- * limit can be determined by the user (default is Fifo and unlimited capacity).
+ * limit can be determined by the user (default is FIFO and unlimited capacity).
  * WaitQueue is derived from QueueBased, which provides all the statistical
  * functionality for a queue.
  * 
  * @see desmoj.core.simulator.QueueBased
  * @see desmoj.core.advancedModellingFeatures.ProcessCoop
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
- * 
+ * @author edited by Lorna Slawski (process removing added)
+
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
  * may obtain a copy of the License at
@@ -51,7 +59,7 @@ import desmoj.core.simulator.TimeSpan;
  *
  */
 
-public class WaitQueue extends desmoj.core.simulator.QueueBased {
+public class WaitQueue<M extends SimProcess, S extends SimProcess> extends desmoj.core.simulator.QueueBased {
 
 	// ****** attributes ******
 
@@ -59,13 +67,13 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 * The queue, actually storing the master processes waiting for slaves to
 	 * cooperate with
 	 */
-	protected QueueList masterQueue;
+	protected QueueList<M> masterQueue;
 
 	/**
 	 * The queue, actually storing the slave processes. Can contain processes
 	 * only!
 	 */
-	protected ProcessQueue slaveQueue;
+	protected ProcessQueue<S> slaveQueue;
 
 	/**
 	 * Counter for the SimProcesses which are refused to be enqueued in the
@@ -80,16 +88,45 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	protected long sRefused;
 
 	/**
+	 * Counter for cooperations completed
+	 */
+	protected long cCompleted;
+
+	/**
+	 * The sum of the cooperation times for all master and slaves pairs that have
+	 * been served. Value is valid for the span of time since the last
+	 * reset.
+	 */
+	private TimeSpan _sumWaitTime;
+
+	/**
 	 * Indicates the method where something has gone wrong. Is passed as a
 	 * parameter to the methods <code>checkProcess()</code> and
 	 * <code>checkCondition</code>.
 	 */
 	protected String where;
 
+	/**
+	 * Set of masters to be removed
+	 */
+	private Set<M> _mastersToBeRemoved; 
+	
+	/**
+	 * Counter for the SimProcesses which have been removed from the
+	 * master queue because <code>cancelCoop(SimProcess)</code> has been called. 
+	 */
+	protected long mRemoved; 
+	
+	/**
+	 * Counter for the SimProcesses which have been removed from the
+	 * slave queue because <code>cancelCoop(SimProcess)</code> has been called. 
+	 */
+	protected long sRemoved; 
+
 	// ****** methods ******
 
 	/**
-	 * Constructor for a WaitQueue. Actually there are two waiting queues
+	 * Constructor for a WaitQueue. Actually there are two waiting-queues
 	 * constructed, one internal <code>QueueList</code> for the masters and one
 	 * separate <code>ProcessQueue</code> for the slave processes. The queueing
 	 * discipline and the capacity limit of the underlying queues can be chosen.
@@ -129,87 +166,30 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		// MASTER queue
 
 		// check if a valid sortOrder is given for the master queue
-		if (mSortOrder < 0) {
+		// check the parameters for the consumer queue
+		// check if a valid sortOrder is given
+		switch (mSortOrder) {
+		case QueueBased.FIFO :
+			masterQueue = new QueueListFifo<M>(); break;
+		case QueueBased.LIFO :
+			masterQueue = new QueueListLifo<M>(); break;
+		case QueueBased.RANDOM :
+			masterQueue = new QueueListRandom<M>(); break;
+		default :
 			sendWarning(
-					"The given mSortOrder parameter is negative! "
-							+ "A master queue with Fifo sort order will be created "
-							+ "instead.",
-					" Constructor of " + getClass().getName() + " : "
-							+ getQuotedName() + ".",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
-			// make a Fifo queue
-			masterQueue = new QueueListFifo(); // better than nothing
-			masterQueue.setQueueBased(this);
-		} else {
-			try {
-				// determine the queueing strategy
-				Class queueListStrategy = queueingStrategy[mSortOrder];
-
-				masterQueue = (QueueList) queueListStrategy.newInstance();
-			}
-
-			catch (ArrayIndexOutOfBoundsException arrayExcept) {
-				// the given sortOrder is not valid
-				sendWarning(
-						"The given mSortOrder parameter is not valid! "
-								+ "A master queue with Fifo sort order will be created "
-								+ "instead.",
-						" Constructor of " + getClass().getName() + " : "
-								+ getQuotedName() + ".",
-						"A valid positive integer number must be provided to "
-								+ "determine the sort order of the underlying queue.",
-						"Make sure to provide a valid positive integer number "
-								+ "by using the constants in the class QueueBased, like "
-								+ "QueueBased.FIFO or QueueBased.LIFO.");
-				// make a Fifo queue
-				masterQueue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (IllegalAccessException illAccExcept) {
-				// the class to be loaded can not be found
-				sendWarning(
-						"IllegalAccessException: The class implementing the "
-								+ "mSortOrder of the queue can not be found. A master "
-								+ "queue with Fifo sort order will be created instead.",
-						" Constructor of " + getClass().getName() + " : "
-								+ getQuotedName() + ".",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the zero-argument constructor of that "
-								+ "class can not be found",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				masterQueue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (InstantiationException instExcept) {
-				// no object of the given class can be instantiated
-				sendWarning(
-						"InstantiationException: No object of the given class "
-								+ "can be instantiated! A master queue with Fifo sort "
-								+ "order will be created instead.",
-						" Constructor of " + getClass().getName() + " : "
-								+ getQuotedName() + ".",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the the class is an interface or an "
-								+ "abstract class that can not be instantiated",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				masterQueue = new QueueListFifo(); // better than nothing
-			}
-
-			// give the QueueList a reference to this QueueBased
-			masterQueue.setQueueBased(this);
+					"The given mSortOrder parameter " + mSortOrder + " is not valid! "
+							+ "A queue with Fifo sort order will be created instead.",
+							" Constructor of " + getClass().getName() + " : "
+									+ getQuotedName() + ".",
+									"A valid positive integer number must be provided to "
+											+ "determine the sort order of the underlying queue.",
+											"Make sure to provide a valid positive integer number "
+													+ "by using the constants in the class QueueBased, like "
+													+ "QueueBased.FIFO or QueueBased.LIFO.");
+			masterQueue = new QueueListFifo<M>(); 
 		}
+		// give the QueueList a reference to this QueueBased
+		masterQueue.setQueueBased(this);
 
 		// set the capacity of the master queue
 		queueLimit = mQCapacity;
@@ -239,18 +219,18 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		int slaveQSortOrder = sSortOrder;
 
 		// check if a valid sortOrder is given for the slave queue
-		if (sSortOrder < 0 || sSortOrder >= queueingStrategy.length) {
+		if (sSortOrder < 0 || sSortOrder >= 3) {
 			sendWarning(
 					"The given sSortOrder parameter is negative or too big! "
 							+ "A slave queue with Fifo sort order will be created "
 							+ "instead.",
-					" Constructor of " + getClass().getName() + " : "
-							+ getQuotedName() + ".",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
+							" Constructor of " + getClass().getName() + " : "
+									+ getQuotedName() + ".",
+									"A valid positive integer number must be provided to "
+											+ "determine the sort order of the underlying queue.",
+											"Make sure to provide a valid positive integer number "
+													+ "by using the constants in the class QueueBased, like "
+													+ "QueueBased.FIFO or QueueBased.LIFO.");
 
 			slaveQSortOrder = QueueBased.FIFO;
 		}
@@ -274,16 +254,18 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		// make an actual slave queue with the right sort order and capacity
 		// limit
 		// but don't provide any extra report or trace for this "internal" queue
-		slaveQueue = new ProcessQueue(owner, name + "_S", slaveQSortOrder,
+		slaveQueue = new ProcessQueue<S>(owner, name + "_S", slaveQSortOrder,
 				slaveQLimit, false, false);
 
+		// initialize the set holding the master processes which shall be removed from the queues
+		_mastersToBeRemoved = new HashSet<M>(); 
 		reset();
 	}
 
 	// ****** methods ******
 
 	/**
-	 * Constructor for a WaitQueue. Actually there are two waiting queues
+	 * Constructor for a WaitQueue. Actually there are two waiting-queues
 	 * constructed, one internal <code>QueueList</code> for the masters and one
 	 * separate <code>ProcessQueue</code> for the slave processes. Both queues
 	 * have a FIFO sort order and no capacity limit.
@@ -305,13 +287,15 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 
 		// make an actual queue and give it a reference of this
 		// "QueueBased"-WaitQueue for the masters to wait in
-		masterQueue = new QueueListFifo();
+		masterQueue = new QueueListFifo<M>();
 		masterQueue.setQueueBased(this);
 
 		// make an actual queue where we can store the slave processes but don't
 		// provide any extra report or trace for this "internal" queue
-		slaveQueue = new ProcessQueue(owner, name + "_S", false, false);
+		slaveQueue = new ProcessQueue<S>(owner, name + "_S", false, false);
 
+		// initialize the set holding the master processes which shall be removed from the queues
+		_mastersToBeRemoved = new HashSet<M>(); 
 		reset();
 	}
 
@@ -336,7 +320,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			if (process.isScheduled()) // different from DESMO, see DESMO-C
 			{
 				process.skipTraceNote(); // don't tell the user, that we ...
-				process.cancel(); // get the process from the EventList
+				process.cancel(); // get the process from the event-list
 			}
 
 			boolean wasBlocked = process.isBlocked();
@@ -359,12 +343,12 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	} // end method
 
 	/**
-	 * Activates the first master process in the master waiting queue.
+	 * Activates the first master process in the master waiting-queue.
 	 */
 	protected void activateFirst() {
 		where = "protected void activateFirst()";
 
-		SimProcess mProcess = (SimProcess) masterQueue.first();
+		M mProcess = masterQueue.first();
 
 		if (mProcess != null) {
 			if (!checkProcess(mProcess, where)) // if mProcess is not valid
@@ -375,7 +359,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			if (mProcess.isScheduled()) // different from DESMO, see DESMO-C
 			{
 				mProcess.skipTraceNote(); // don't tell the user, that we ...
-				mProcess.cancel(); // get the process from the EventList
+				mProcess.cancel(); // get the process from the event-list
 			}
 
 			boolean wasBlocked = mProcess.isBlocked();
@@ -410,7 +394,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 *            to be implemented by the user in the class:
 	 *            <code>Condition</code> in the method: <code>check()</code>.
 	 */
-	public SimProcess avail(Condition cond) // different from DESMO-C !
+	public S avail(Condition<S> cond) // different from DESMO-C !
 	{
 		where = "SimProcess avail(Condition cond)";
 
@@ -429,7 +413,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		} // return null
 
 		// the first slave complying to the condition or null
-		SimProcess slave = slaveQueue.first(cond);
+		S slave = slaveQueue.first(cond);
 
 		return slave; // return the found slave (or null)
 	} // end method
@@ -447,7 +431,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 *            to be implemented by the user in the class:
 	 *            <code>Condition</code> in the method: <code>check()</code>.
 	 */
-	public SimProcess availMaster(Condition cond) // different from DESMO-C !
+	public M availMaster(Condition<M> cond) // different from DESMO-C !
 	{
 		where = "SimProcess availMaster(Condition cond)";
 
@@ -469,7 +453,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			return null;
 		} // return null
 
-		for (SimProcess master = (SimProcess) masterQueue.first(); master != null; master = (SimProcess) masterQueue
+		for (M master = masterQueue.first(); master != null; master = masterQueue
 				.succ(master)) {
 			if (cond.check(master))
 				return master;
@@ -479,6 +463,39 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		return null;
 
 	} // end method
+
+	/** 
+	 * Removes the given process from its queue and activates it. If the process is in either the 
+	 * master queue or the slave queue it can be removed from there and 
+	 * <code>true</code> is returned. 
+	 * 
+	 * @return boolean : Is <code>true</code> if the process can be removed from
+	 * 			its queue,  <code>false</code> otherwise
+	 * @param process
+	 * 				SimProcess : The process to be removed. 
+	 */
+	public boolean cancelCoop(SimProcess process) { 
+		// a master is to be removed
+		if(this.masterQueue.contains((M) process)) {
+			this._mastersToBeRemoved.add((M) process); 
+			activateAsNext(process); 
+			return true; 
+		}
+		// a slave is to be removed
+		for(SimProcess slave : this.getSlaveQueue()) {
+			if (slave == process) {
+				slaveQueue.remove(process);
+				slave.setBlocked(false); // the slave process is not blocked any more
+				slave.skipTraceNote(); 
+				slave.activate(); 
+				sRemoved++; 
+				slave.sendTraceNote("has removed " + slave.getQuotedName() + " from the slave queue "); 
+				return true; 
+			}	
+		}
+		// given process is not enqueued
+		return false; 
+	}
 
 	/**
 	 * Checks whether the given condition is valid and compatible with the
@@ -491,7 +508,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 *            String : The String representation of the method where this
 	 *            check takes place.
 	 */
-	protected boolean checkCondition(Condition cond, String where) {
+	protected boolean checkCondition(Condition<?> cond, String where) {
 		if (cond == null) // if cond is a null pointer instead of a condition
 		{
 			sendWarning("A non existing condition is used in a "
@@ -504,16 +521,16 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			return false;
 		}
 
-		if (!isModelCompatible(cond)) // if cond is not modelcompatible
+		if (!this.isModelCompatible(cond)) // if cond is not modelcompatible
 		{
 			sendWarning(
 					"The condition used to identify a slave process for a "
 							+ "cooperation does not belong to this model. The attempted action is "
 							+ "ignored!", getClass().getName() + ": "
-							+ getQuotedName() + ", Method: " + where,
-					"The condition is not modelcompatible.",
-					"Make sure that conditions used to identify slave processes for a "
-							+ "cooperation are belonging to the same model.");
+									+ getQuotedName() + ", Method: " + where,
+									"The condition is not modelcompatible.",
+									"Make sure that conditions used to identify slave processes for a "
+											+ "cooperation are belonging to the same model.");
 			return false;
 		}
 
@@ -537,7 +554,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			sendWarning("A non existing process is trying to cooperate with "
 					+ "another process. The attempted action is ignored!",
 					getClass().getName() + ": " + getQuotedName()
-							+ ", Method: " + where,
+					+ ", Method: " + where,
 					"The process is only a null pointer.",
 					"Make sure that only real SimProcesses are trying to cooperate with "
 							+ "each other.");
@@ -549,11 +566,11 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			sendWarning(
 					"The SimProcess trying to cooperate with another process"
 							+ " does not belong to this model. The attempted action is ignored!",
-					getClass().getName() + ": " + getQuotedName()
+							getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
-					"The process is not modelcompatible.",
-					"Make sure that processes are cooperating only with processes "
-							+ "belonging to the same model.");
+							"The process is not modelcompatible.",
+							"Make sure that processes are cooperating only with processes "
+									+ "belonging to the same model.");
 			return false;
 		}
 
@@ -563,7 +580,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	/**
 	 * This method is to be called from a <code>SimProcess</code> which wants to
 	 * cooperate as a master. If no suitable slave process is available at the
-	 * moment, the master process will be stored in the master waiting queue,
+	 * moment, the master process will be stored in the master waiting-queue,
 	 * until a suitable slave is available. If the capacity limit of the master
 	 * queue is reached, the process will not be enqueued and <code>false</code>
 	 * returned. When a suitable slave is available its <code>cooperate</code>
@@ -581,7 +598,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 *            <code>ProcessCoop</code> in the method:
 	 *            <code>cooperation()</code>.
 	 */
-	public boolean cooperate(ProcessCoop coop) {
+	public boolean cooperate(ProcessCoop<M, S> coop) {
 		where = "boolean cooperate(ProcessCoop coop)";
 
 		// check the ProcessCoop
@@ -589,16 +606,16 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			sendWarning(
 					"The given ProcessCoop object does not "
 							+ "belong to this model. The attempted cooperation is ignored!",
-					getClass().getName() + ": " + getQuotedName()
+							getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
-					"The ProcessCoop is not modelcompatible.",
+							"The ProcessCoop is not modelcompatible.",
 					"Make sure that the process cooperation belongs to this model.");
 
 			return false; // coop is not modelcompatible
 		}
 
 		// the current SimProcess which was calling cooperate() is the master
-		SimProcess master = currentSimProcess();
+		M master = (M) currentSimProcess();
 
 		if (!checkProcess(master, where)) // if the master is no valid process
 		{
@@ -625,13 +642,13 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			return false; // capacity limit is reached
 		}
 
-		// insert the master in its waiting queue
+		// insert the master in its waiting-queue
 		masterQueue.insert(master);
 
 		// check if the master has to wait in his queue
 		if (slaveQueue.length() == 0 || // no slaves available OR
-				master != (SimProcess) masterQueue.first()) // this master is
-		// not
+				master != masterQueue.first()) // this master is
+			// not
 		{ // the first to be served
 			if (currentlySendTraceNotes()) {
 				sendTraceNote("waits in '" + this.getName() + "'");
@@ -642,7 +659,19 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 				activateFirst(); // activate the first master in the
 			} // queue to see what he can do
 
-			do { // block the master process
+			do { 
+				// remove a master from the master queue
+				if(this._mastersToBeRemoved.contains(master)) {
+					if(master.isScheduled()) {
+						master.cancel(); 
+					}
+					masterQueue.remove(master); 
+					this._mastersToBeRemoved.remove(master); 
+					mRemoved++; 
+					master.sendTraceNote("has been removed from the waiting queue "); 
+					return false; 
+				}
+				// block the master process
 				master.setBlocked(true); // as long as ...(see while)
 				master.skipTraceNote(); // don't tell the user, that we
 				master.passivate(); // passivate the master process
@@ -652,18 +681,21 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		// the master has found a slave to cooperate with...
 
 		// activate the successor of this master in the master wait queue
-		activateAsNext((SimProcess) masterQueue.succ(master));
+		activateAsNext(masterQueue.succ(master));
 
 		masterQueue.remove(master); // remove this master from the wait queue
 		master.setBlocked(false); // this master is not blocked anymore
 
 		// get the first slave from its queue
-		SimProcess slave = slaveQueue.first();
+		S slave = slaveQueue.first();
 
 		if (!checkProcess(slave, where)) // if the slave process is not O.K.
 		{
 			return false;
 		} // just return
+
+		// remember start instant of cooperation
+		TimeInstant startCoop = this.presentTime();
 
 		// prepare the slave for the cooperation
 		slave.cooperate();
@@ -679,6 +711,12 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		// after him
 		slave.activateAfter(master);
 
+		// count cooperation completed
+		this.cCompleted++;
+
+		// add cooperation duration to overall cooperation durations
+		this._sumWaitTime = TimeOperations.add(this._sumWaitTime, TimeOperations.diff(this.presentTime(), startCoop));
+
 		return true;
 	}
 
@@ -687,7 +725,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 * master and is looking for a slave complying to a certain condition
 	 * described in <code>cond</code>. If no suitable slave process with this
 	 * condition is available at the moment, the master process will be stored
-	 * in the master waiting queue, until a suitable slave is available. If the
+	 * in the master waiting-queue, until a suitable slave is available. If the
 	 * capacity limit of the master queue is reached, the process will not be
 	 * enqueued and <code>false</code> returned. During the cooperation the
 	 * master process is the only active one. The slave process is passive and
@@ -707,7 +745,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 *            to be implemented by the user in the class:
 	 *            <code>Condition</code> in the method: <code>check()</code>.
 	 */
-	public boolean cooperate(ProcessCoop coop, Condition cond) {
+	public boolean cooperate(ProcessCoop<M, S> coop, Condition<S> cond) {
 		where = "boolean cooperate(ProcessCoop coop, Condition cond)";
 
 		// check the ProcessCoop
@@ -715,16 +753,16 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			sendWarning(
 					"The given ProcessCoop object does not "
 							+ "belong to this model. The attempted cooperation is ignored!",
-					getClass().getName() + ": " + getQuotedName()
+							getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
-					"The ProcessCoop is not modelcompatible.",
+							"The ProcessCoop is not modelcompatible.",
 					"Make sure that the process cooperation belongs to this model.");
 
 			return false; // coop is not modelcompatible
 		}
 
 		// the current SimProcess which was calling cooperate() is the master
-		SimProcess master = currentSimProcess();
+		M master = (M) currentSimProcess();
 
 		if (!checkProcess(master, where)) // if the master is no valid process
 		{
@@ -756,16 +794,16 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			return false; // capacity limit is reached
 		}
 
-		masterQueue.insert(master); // insert the master in its waiting queue
+		masterQueue.insert(master); // insert the master in its waiting-queue
 
 		// see if there is suitable slave (if no slave is available: slave =
 		// null)
-		SimProcess slave = avail(cond);
+		S slave = avail(cond);
 
 		// check if the master has to wait in his queue
-		if (slave == null || master != (SimProcess) masterQueue.first())
-		// no slave with this condition is available OR
-		// this master is not the first one in the queue
+		if (slave == null || master != masterQueue.first())
+			// no slave with this condition is available OR
+			// this master is not the first one in the queue
 		{
 			if (currentlySendTraceNotes()) {
 				sendTraceNote("waits in '" + this.getName() + "' for '"
@@ -774,14 +812,27 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			// on which condition
 
 			if (slaveQueue.length() > 0 && // there are slaves waiting AND
-					master != (SimProcess) masterQueue.first())
-			// this master is not the first one in the queue
+					master != masterQueue.first())
+				// this master is not the first one in the queue
 			{
 				activateFirst(); // activate the first master in the
 			} // queue to see what he can do
 
 			do // infinite loop
-			{ // block the master process
+			{ 
+				// remove a master from the master queue
+				if(this._mastersToBeRemoved.contains(master)) {
+					if(master.isScheduled()) {
+						master.cancel(); 
+					}
+					masterQueue.remove(master); 
+					master.setBlocked(false);
+					this._mastersToBeRemoved.remove(master); 
+					mRemoved++; 
+					master.sendTraceNote("has been removed from the waiting queue "); 
+					return false; 
+				}
+				// block the master process
 				master.setBlocked(true); // set blocked status to true
 				master.skipTraceNote(); // don't tell the user, that we ...
 				master.passivate(); // passivate the master process
@@ -795,7 +846,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 
 				if (slaveQueue.length() > 0) // there are slaves waiting
 				{
-					activateAsNext((SimProcess) masterQueue.succ(master));
+					activateAsNext(masterQueue.succ(master));
 				} // activate the next master in the queue to see what he can
 				// do
 			} while (true); // end infinite loop
@@ -812,7 +863,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		if (slaveQueue.length() > 1) {
 			// activate the successor of this master in the master wait queue to
 			// see what he can do
-			activateAsNext((SimProcess) masterQueue.succ(master));
+			activateAsNext(masterQueue.succ(master));
 		}
 
 		masterQueue.remove(master); // remove this master from the wait queue
@@ -830,6 +881,9 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 			// cooperate()
 		}
 
+		// remember start instant of cooperation
+		TimeInstant startCoop = this.presentTime();
+
 		// prepare the slave for the cooperation
 		slave.cooperate();
 
@@ -843,6 +897,12 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		// the master is done with the cooperation, get the slave activated
 		// after him
 		slave.activateAfter(master);
+
+		// count cooperation completed
+		this.cCompleted++;
+
+		// add cooperation duration to overall cooperation durations
+		this._sumWaitTime = TimeOperations.add(this._sumWaitTime, TimeOperations.diff(this.presentTime(), startCoop));
 
 		return true;
 	}
@@ -881,6 +941,28 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 
 		return mRefused; // that's it
 	}
+	
+	/**
+	 * Returns the number of entities which have been removed from the master
+	 * queue because <code>cancelCoop(SimProcess)</code> has been called. 
+	 * 
+	 * @return long : The number of entities removed from the
+	 *         master queue.
+	 */
+	public long getMRemoved() {
+
+		return mRemoved; // that's it
+	}
+
+	/**
+	 * Returns the number of cooperations completed.
+	 * 
+	 * @return long : The number of cooperations completed.
+	 */
+	public long getCooperationsCompleted() {
+
+		return cCompleted; 
+	}
 
 	/**
 	 * Returns the <code>ProcessQueue</code> where the waiting slaves are
@@ -889,7 +971,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	 * @return ProcessQueue : The <code>ProcessQueue</code> where the slaves are
 	 *         waiting on masters to cooperate with.
 	 */
-	public ProcessQueue getSlaveQueue() {
+	public ProcessQueue<S> getSlaveQueue() {
 		return this.slaveQueue;
 	}
 
@@ -914,6 +996,18 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 	public long getSRefused() {
 
 		return sRefused; // that's it
+	}
+	
+	/**
+	 * Returns the number of entities which have been removed from the slave
+	 * queue because <code>cancelCoop(SimProcess)</code> has been called. 
+	 * 
+	 * @return long : The number of entities removed from the
+	 *         slave queue.
+	 */
+	public long getSRemoved() {
+
+		return sRemoved; // that's it
 	}
 
 	/**
@@ -943,11 +1037,28 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		return averageWaitTime(); // of the underlying QueueBased
 	}
 
+	/**
+	 * Returns the masters' (and slaves') time spent per cooperation
+	 * (accounting only for the cooperation itself, excluding waiting). 
+	 * Value is valid for the time span since the last reset.
+	 * Returns 0 (zero) if no cooperations were completed since the
+	 * last reset.
+	 * 
+	 * @return TimeSpan : Average cooperation time since last reset
+	 *         or 0 no cooperations were completed since the last reset.
+	 */
+	public TimeSpan mAverageCoopTime() {
+		if (this.getCooperationsCompleted() > 0)
+			return TimeOperations.divide(this._sumWaitTime, this.getCooperationsCompleted());
+		else
+			return TimeSpan.ZERO;
+	}
+
 	// statistics of the underlying master queue
 
 	/**
 	 * Returns a boolean value indicating if the master queue is empty or if any
-	 * number of simprocess is currently enqueued in it.
+	 * number of SimProcess is currently enqueued in it.
 	 * 
 	 * @return boolean : Is <code>true</code> if the master queue is empty,
 	 *         <code>false</code> otherwise
@@ -1078,6 +1189,10 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 
 		mRefused = 0; // reset the statistics of the refused processes
 		sRefused = 0;
+		mRemoved = 0; // reset the statistics of the removed processes
+		sRemoved = 0; 
+		cCompleted = 0;
+		_sumWaitTime = TimeSpan.ZERO;
 	}
 
 	/**
@@ -1111,7 +1226,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 
 	/**
 	 * Returns a boolean value indicating if the slave queue is empty or if any
-	 * number of simprocess is currently enqueued in it.
+	 * number of SimProcess is currently enqueued in it.
 	 * 
 	 * @return boolean : Is <code>true</code> if the slave queue is empty,
 	 *         <code>false</code> otherwise
@@ -1246,10 +1361,10 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		where = "boolean waitOnCoop ()";
 
 		// the current process calling the waitOnCoop()-method is the slave
-		SimProcess slave = currentSimProcess();
+		S slave = (S) currentSimProcess();
 
 		if (!checkProcess(slave, where)) // if the slave is not a valid
-		// process
+			// process
 		{
 			return false;
 		} // just return false
@@ -1262,11 +1377,11 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 							+ slave.getSlaveWaitQueue().getName()
 							+ " is trying to initiate a second cooperation. The attempted second "
 							+ "cooperation is ignored!",
-					getClass().getName() + ": " + getQuotedName()
+							getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
-					"The slave process can not wait in more than one waiting queue.",
-					"Make sure that slave processes are only cooperating with one master "
-							+ "at a time.");
+							"The slave process can not wait in more than one waiting-queue.",
+							"Make sure that slave processes are only cooperating with one master "
+									+ "at a time.");
 			return false; // ignore the second cooperation, just return false.
 		}
 
@@ -1299,7 +1414,7 @@ public class WaitQueue extends desmoj.core.simulator.QueueBased {
 		// master is leading the slave through the cooperation.
 
 		if (currentlySendTraceNotes()) // tell in the trace where the slave is
-										// waiting
+			// waiting
 		{
 			sendTraceNote("waits in " + slaveQueue.getQuotedName());
 		}

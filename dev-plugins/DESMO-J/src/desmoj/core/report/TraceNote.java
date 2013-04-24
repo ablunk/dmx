@@ -1,7 +1,9 @@
 package desmoj.core.report;
 
+import java.util.List;
+
 import desmoj.core.simulator.Entity;
-import desmoj.core.simulator.Event;
+import desmoj.core.simulator.EventAbstract;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.TimeInstant;
 
@@ -19,7 +21,7 @@ import desmoj.core.simulator.TimeInstant;
  * <li>A text to describe the kind of changes made to the model</li>
  * </ul>
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,15 +39,15 @@ import desmoj.core.simulator.TimeInstant;
 public class TraceNote extends Message {
 
 	/**
-	 * The current entity that produced this message.
+	 * The current entity/entities that produced this message.
 	 */
-	private String who;
+	private String _who;
 
 	/**
-	 * The current event that produced this message. is especially useful when
+	 * The current Event that produced this message. is especially useful when
 	 * using multiple models.
 	 */
-	private String what;
+	private String _what;
 
 	/**
 	 * Creates a new tracenote with the given parameters as initial values. If
@@ -54,33 +56,74 @@ public class TraceNote extends Message {
 	 * 
 	 * @param origin
 	 *            Model : The model that produced this tracenote
-	 * @param description
+	 * @param message
 	 *            java.lang.String : The actual trace message
-	 * @param messageTime
+	 * @param time
 	 *            TimeInstant : The point in simulation time this tracenote was
 	 *            produced
 	 * @param entityInvolved
-	 *            Event : The entity involved in this change of state
+	 *            Entity : The entity involved in this change of state
 	 * @param eventInvolved
-	 *            Entity : The event involved in this change of state
+	 *            Event : The event involved in this change of state
 	 */
-	//TODO:
 	public TraceNote(Model origin, String message, TimeInstant time,
-			Entity entityInvolved, Event eventInvolved) {
+			Entity entityInvolved, EventAbstract eventInvolved) {
 
 		super(origin, message, time);
 
 		if (entityInvolved == null)
-			who = "----";
+			_who = "----";
 		else
-			who = entityInvolved.getName();
+			_who = entityInvolved.getName();
 
 		if (eventInvolved == null)
-			what = "----";
+			_what = "----";
 		else
-			what = eventInvolved.getName();
+			_what = eventInvolved.getName();
 
 	}
+	
+	   /**
+     * Creates a new tracenote with the given parameters as initial values. If
+     * <code>null</code> references are given, they are displayed as "----" in
+     * the trace output.
+     * 
+     * @param origin
+     *            Model : The model that produced this tracenote
+     * @param message
+     *            java.lang.String : The actual trace message
+     * @param time
+     *            TimeInstant : The point in simulation time this tracenote was
+     *            produced
+     * @param entitiesInvolved
+     *            List<Entity> : The entities involved in this change of state
+     * @param eventInvolved
+     *            Event : The event involved in this change of state
+     */
+    public TraceNote(Model origin, String message, TimeInstant time,
+            List<Entity> entitiesInvolved, EventAbstract eventInvolved) {
+
+        super(origin, message, time);
+
+        if (entitiesInvolved == null || entitiesInvolved.isEmpty())
+            _who = "----";
+        else {
+            _who = entitiesInvolved.get(0).getQuotedName();
+            if (entitiesInvolved.size() > 1) {
+                _who += entitiesInvolved.size() > 2 ?
+                        ", " + entitiesInvolved.get(1).getQuotedName() : " and " + entitiesInvolved.get(1).getQuotedName();
+                if (entitiesInvolved.size() > 2) {
+                    _who += " and " + entitiesInvolved.get(2).getQuotedName();
+                }
+            }
+        }
+
+        if (eventInvolved == null)
+            _what = "----";
+        else
+            _what = eventInvolved.getQuotedName();
+
+    }
 
 	/**
 	 * Returns the name of the entity this tracenote evolved from.
@@ -90,7 +133,7 @@ public class TraceNote extends Message {
 	 */
 	public String getEntity() {
 
-		return who;
+		return _who;
 
 	}
 
@@ -102,7 +145,7 @@ public class TraceNote extends Message {
 	 */
 	public String getEvent() {
 
-		return what;
+		return _what;
 
 	}
 }

@@ -1,23 +1,27 @@
 package desmoj.core.report;
 
+import desmoj.core.simulator.TimeSpan;
+
 /**
  * Captures all relevant information about the Tally.
+ * Extended to show unit and description of reported object.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen based on ideas from Tim Lechler
  * @author based on DESMO-C from Thomas Schniewind, 1998
+ * @author modified by Chr. M&uuml;ller (TH Wildau) 28.11.2012
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You
- * may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- *
+ *         Licensed under the Apache License, Version 2.0 (the "License"); you
+ *         may not use this file except in compliance with the License. You may
+ *         obtain a copy of the License at
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *         Unless required by applicable law or agreed to in writing, software
+ *         distributed under the License is distributed on an "AS IS" BASIS,
+ *         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ *         implied. See the License for the specific language governing
+ *         permissions and limitations under the License.
+ * 
  */
 
 public class TallyReporter extends desmoj.core.report.Reporter {
@@ -32,12 +36,12 @@ public class TallyReporter extends desmoj.core.report.Reporter {
 	 * reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The Tally to report about.
+	 *            desmoj.core.simulator.Reportable : The Tally to report about.
 	 */
 	public TallyReporter(desmoj.core.simulator.Reportable informationSource) {
 		super(informationSource); // make a Reporter
-
-		numColumns = 12;
+		
+		numColumns = 8;
 		columns = new String[numColumns];
 		columns[0] = "Title";
 		columns[1] = "(Re)set";
@@ -46,12 +50,8 @@ public class TallyReporter extends desmoj.core.report.Reporter {
 		columns[4] = "Std.Dv";
 		columns[5] = "Min";
 		columns[6] = "Max";
-        columns[7] = "Mean/Last";
-        columns[8] = "Std.Dv/Last";
-        columns[9] = "Min/Last";
-        columns[10] = "Max/Last";
-        columns[11] = "LastLength";
-        groupHeading = "Tallies";
+		columns[7] = "Unit";
+		groupHeading = "Tallies";
 		groupID = 1611; // see Reporter for more information about groupID
 		entries = new String[numColumns];
 	}
@@ -69,6 +69,11 @@ public class TallyReporter extends desmoj.core.report.Reporter {
 		if (source instanceof desmoj.core.statistic.Tally) {
 			// the Tally we report about (source = informationSource)
 			desmoj.core.statistic.Tally tl = (desmoj.core.statistic.Tally) source;
+			boolean _showTimeSpansInReport     = tl.getShowTimeSpansInReport();
+			desmoj.core.statistic.TallyRunning tlr = null;
+			if (tl instanceof desmoj.core.statistic.TallyRunning) {
+				tlr = (desmoj.core.statistic.TallyRunning) tl;
+			}
 
 			// Title
 			entries[0] = tl.getName();
@@ -76,64 +81,66 @@ public class TallyReporter extends desmoj.core.report.Reporter {
 			entries[1] = tl.resetAt().toString();
 			// Obs
 			entries[2] = Long.toString(tl.getObservations());
-			// Mean/Total
+			// Mean
 			// no observations made, so Mean can not be calculated
 			if (tl.getObservations() == 0) {
-				entries[3] = "insufficient data";
+				entries[3] = "Insufficient data";
 			} else // return mean value
 			{
-				entries[3] = Double.toString(tl.getMean());
+				entries[3] = this.format(_showTimeSpansInReport, tl.getMean());
+				if (tlr != null)
+					entries[3] += " (last "
+							+ tlr.getSampleSizeN()
+							+ " obs: "
+							+ this.format(_showTimeSpansInReport, tlr.getMeanLastN())
+							+ ")";
 			}
 
-			// Std.Dev/Total
+			// Std.Dev
 			// not enough observations are made, so Std.Dev can not be
 			// calculated
 			if (tl.getObservations() < 2) {
-				entries[4] = "insufficient data";
+				entries[4] = "Insufficient data";
 			} else // return standard deviation
 			{
-				entries[4] = Double.toString(tl.getStdDev());
+				entries[4] = this.format(_showTimeSpansInReport, tl.getStdDev());
+				if (tlr != null)
+					entries[4] += " (last "
+							+ tlr.getSampleSizeN()
+							+ " obs: "
+							+ this.format(_showTimeSpansInReport, tlr.getStdDevLastN())
+							+ ")";
 			}
 
-			// Min./Total
-			entries[5] = Double.toString(tl.getMinimum());
-			// Max./Total
-			entries[6] = Double.toString(tl.getMaximum());
-			
-			if (tl instanceof desmoj.core.statistic.TallyRunning) {
-			    desmoj.core.statistic.TallyRunning tlr = (desmoj.core.statistic.TallyRunning) tl;
-			    
-	            // Mean/Last n
-	            // no observations made, so Mean can not be calculated
-	            if (tl.getObservations() == 0) {
-	                entries[7] = "insufficient data";
-	            } else // return mean value
-	            {
-	                entries[7] = Double.toString(tlr.getMeanLastN());
-	            }
-
-	            // Std.Dev/Last n
-	            // not enough observations are made, so Std.Dev can not be
-	            // calculated
-	            if (tl.getObservations() < 2) {
-	                entries[8] = "insufficient data";
-	            } else // return standard deviation
-	            {
-	                entries[8] = Double.toString(tlr.getStdDevLastN());
-	            }
-
-	            // Min./Last n
-	            entries[9] = Double.toString(tlr.getMinimumLastN());
-	            // Max./Last n
-	            entries[10] = Double.toString(tlr.getMaximumLastN());            
-	            // n
-	            entries[11] = Integer.toString(tlr.getSampleSizeN());
-			    
+			// Min
+			if (tl.getObservations() == 0) {
+				entries[5] = "Insufficient data";
 			} else {
-			    
-			    entries[7] = entries[8] = entries[9] = entries[10] = entries[11] = "";
+				entries[5] = this.format(_showTimeSpansInReport, tl.getMinimum());
+				if (tlr != null)
+					entries[5] += " (last "
+							+ tlr.getSampleSizeN()
+							+ " obs: "
+							+ this.format(_showTimeSpansInReport, tlr.getMinimumLastN())
+							+ ")";
+			}
+
+			// Max
+			if (tl.getObservations() == 0) {
+				entries[6] = "Insufficient data";
+			} else {
+				entries[6] = this.format(_showTimeSpansInReport, tl.getMaximum());
+				if (tlr != null)
+					entries[6] += " (last "
+							+ tlr.getSampleSizeN()
+							+ " obs: "
+							+ this.format(_showTimeSpansInReport, tlr.getMaximumLastN())
+							+ ")";
 			}
 			
+			//cm 21.11.12  Extension for viewing unit
+            entries[7] = tl.getUnitText();
+
 		} else {
 			for (int i = 0; i < numColumns; i++) {
 				entries[i] = "Invalid source!";
@@ -142,4 +149,13 @@ public class TallyReporter extends desmoj.core.report.Reporter {
 
 		return entries;
 	}
+	
+	private String format(boolean showTimeSpans, double value){
+		String out = Double.toString(value);
+		if(showTimeSpans && value < 0.0) 					out += " (Invalid)";
+		else if(showTimeSpans && value >= Long.MAX_VALUE) 	out += " (Invalid)";
+		else if(showTimeSpans) 								out = new TimeSpan(value).toString();
+		return out;
+	}
+
 } // end class TallyReporter

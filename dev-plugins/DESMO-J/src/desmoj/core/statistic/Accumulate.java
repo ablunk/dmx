@@ -9,9 +9,9 @@ import desmoj.core.simulator.TimeSpan;
 
 /**
  * The <code>Accumulate</code> class is providing a statistic analysis about
- * one value. The mean value and the standard deviation is weighted over time.
+ * one value. The mean value and the standard deviation is weighted over time.<br />
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -31,28 +31,42 @@ import desmoj.core.simulator.TimeSpan;
 public class Accumulate extends desmoj.core.statistic.ValueStatistics {
 
     // ****** attributes ******
-
-    /**
-     * The sum of all values, multiplied with the time of their persistence
-     */
-    private double sumTotal;
-
-    /**
-     * The sum of all squared values, multiplied with the time of their
-     * persistence.
-     */
-    private double sumSquareTotal;
     
+    /**
+     * Instant at which the current pause has started (<code>null</code> if not paused at the moment) 
+     */
+    private TimeInstant _pausedSince;
+
+    /**
+     * The length of the period during which this Accumulate was paused since the last reset  
+     */
+    private TimeSpan _pausedPeriodSinceLastReset; 
+    
+    /**
+     * The time-weighted mean of all values so far
+     */
+    private double _mean;
+
+    /**
+     * The time-weighted sum of the squares of the differences from the mean of all values so far
+     */
+    private double _sumOfSquaredDevsFromMean;
+
     /**
      * This flag indicates if the accumulate's last value is
      * retained on reset (true) or nullified (false)
      */
-    private boolean retainLastValueOnReset;
+    private boolean _retainLastValueOnReset;
 
     /**
-     * The point of time this Accumulate was updated at last
+     * The point of time this Accumulate was updated first
      */
-    private TimeInstant lastTime;
+    private TimeInstant _firstValueReadAt;
+    
+    /**
+     * The point of time this Accumulate was updated last
+     */
+    private TimeInstant _lastUpdate;
 
     /**
      * Constructor for a Accumulate object that will be connected to a
@@ -82,7 +96,11 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
         // call the constructor of ValueStatistics
         super(ownerModel, name, valSup, showInReport, showInTrace);
         
-        this.retainLastValueOnReset = true;
+        this._retainLastValueOnReset = true;
+        this._pausedSince = null;
+        this._pausedPeriodSinceLastReset = new TimeSpan(0);
+        this._mean = Double.NaN;
+        this._sumOfSquaredDevsFromMean = 0;
 
         // valSup is no valid ValueSupplier
         if (valSup == null) {
@@ -134,10 +152,15 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
         // ValueSupplier
         super(ownerModel, name, showInReport, showInTrace);
         
-        this.retainLastValueOnReset = true;
+        this._retainLastValueOnReset = true;
+        this._pausedSince = null;
+        this._pausedPeriodSinceLastReset = new TimeSpan(0);
+        this._mean = Double.NaN;
+        this._sumOfSquaredDevsFromMean = 0;
+
     }
 
-    /**
+	/**
      * Returns a Reporter to produce a report about this Accumulate.
      * 
      * @return desmoj.report.Reporter : The Reporter for this Accumulate.
@@ -145,7 +168,30 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
     public desmoj.core.report.Reporter createReporter() {
         return new desmoj.core.report.AccumulateReporter(this);
     }
+    
+    /**
+     * Returns the period measured (excluding pauses).
+     * 
+     * @return TimeSpan : The period measured (excluding pauses).
+     */
+    public TimeSpan getPeriodMeasured() {
+        TimeInstant now = presentTime(); // what's the time?
 
+        // has no time passed?
+        if (_firstValueReadAt == null || getObservations() == 0) 
+        {
+            return new TimeSpan(0);
+        }
+
+        // determine overall period measured, excluding all past and current pauses
+        TimeInstant start = _firstValueReadAt;
+        TimeInstant end = (this._pausedSince == null ? this.presentTime() : this._pausedSince);
+        
+        TimeSpan period = TimeOperations.diff(start, end);
+        period = TimeOperations.diff(period, this._pausedPeriodSinceLastReset);
+        return period;
+    }    
+    
     /**
      * Returns the mean value of all the values observed so far, weighted over
      * time.
@@ -156,10 +202,8 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
     public double getMean() {
         TimeInstant now = presentTime(); // what's the time?
 
-        // how long since the last reset?
-        TimeSpan totalTimeDiff = TimeOperations.diff(now, resetAt());
         // has no time passed?
-        if (TimeSpan.isEqual(totalTimeDiff, TimeSpan.ZERO)
+        if (_firstValueReadAt == null || TimeSpan.isEqual(TimeOperations.diff(now, _firstValueReadAt), TimeSpan.ZERO)
                 || getObservations() == 0) // OR no observations are made
         {
             sendWarning(
@@ -173,13 +217,23 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
 
             return UNDEFINED; // return UNDEFINED = -1.0
         }
+        
+        // determine overall period measured, excluding all past and current pauses
+        long periodMeasured = this.getPeriodMeasured().getTimeInEpsilon();
 
-        // calculate the mean value weighted over time
-        double meanValue = (sumTotal + getLastValue()
-                * (TimeOperations.diff(now, lastTime)).getTimeInEpsilon())
-                / totalTimeDiff.getTimeInEpsilon();
+        // fetch current mean
+        double current_mean = _mean;
+        
+        // update mean to reflect the period since the last update
+        // (only necessary if not paused at the moment)
+        if (this._pausedSince == null) {
+            long periodCurrentValue = 
+                TimeOperations.diff(this.presentTime(), _lastUpdate).getTimeInEpsilon();
+            current_mean += (getLastValue() - _mean) / periodMeasured*periodCurrentValue;
+        }
+        
         // return the rounded mean value
-        return java.lang.Math.rint(PRECISION * meanValue) / PRECISION;
+        return round(current_mean);
     }
 
     /**
@@ -191,22 +245,15 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
      */
     public double getStdDev() {
         TimeInstant now = presentTime(); // what's the time?
-
-        // how long since the last update?
-        TimeSpan timeDiff = TimeOperations.diff(now, lastTime);
-
-        // how long since the last reset?
-        TimeSpan totalTimeDiff = TimeOperations.diff(now, resetAt());
-
+        
         // is totalTimeDiff less than the minimum distinguishable span of
         // time?
-        if (TimeSpan.isEqual(totalTimeDiff, TimeSpan.ZERO)
+        if (_firstValueReadAt == null || TimeSpan.isEqual(TimeOperations.diff(now, _firstValueReadAt), TimeSpan.ZERO)
                 || getObservations() < 2) // OR not enough observations are
-        // made
         {
             sendWarning(
                     "Attempt to get a standard deviation value, but there is "
-                            + "not sufficient data yet. UNDEFINED (-1.0) will be returned!",
+                            + "insufficient data yet. UNDEFINED (-1.0) will be returned!",
                     "Accumulate: " + this.getName()
                             + " Method: double getStdDev()",
                     "You can not calculate a standard deviation as long as no data is "
@@ -215,20 +262,32 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
                             + "has been collected already.");
 
             return UNDEFINED; // return UNDEFINED = -1.0
+        }      
+
+
+        // determine overall period measured, excluding all past and current pauses
+        long periodMeasured = this.getPeriodMeasured().getTimeInEpsilon();
+        double currentSumOfSquaredDevsFromMean = _sumOfSquaredDevsFromMean;
+        
+        // update mean and sum of squares of... to reflect the period since the last update
+        // (only necessary if not paused at the moment)
+        if (this._pausedSince == null) {
+            long periodCurrentValue = 
+                TimeOperations.diff(this.presentTime(), _lastUpdate).getTimeInEpsilon();
+            double old_mean = _mean;
+            double current_mean =  _mean + (getLastValue() - _mean)/periodMeasured*periodCurrentValue;
+            currentSumOfSquaredDevsFromMean += 
+                (getLastValue() - old_mean)*(getLastValue() - current_mean)*periodCurrentValue;
         }
-
-        double actVal = getLastValue(); // get the actual value
-
-        double mean = getMean(); // get the mean value
-
+        
         // calculate the standard deviation
-        double stdDev = Math.sqrt(Math.abs((sumSquareTotal + actVal * actVal
-                * timeDiff.getTimeInEpsilon())
-                / totalTimeDiff.getTimeInEpsilon() - mean * mean));
+        double stdDev = Math.sqrt(currentSumOfSquaredDevsFromMean/periodMeasured);
+                
         // return the rounded standard deviation
-        return java.lang.Math.rint(PRECISION * stdDev) / PRECISION;
-    }
+        return round(stdDev);
 
+    }
+    
     /**
      * Resets this Accumulate object by resetting all variables to 0.0.
      * If the flag retainLastValueOnReset is set to true, the last value
@@ -236,15 +295,19 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
      */
     public void reset() {
         double lastValue = this.getLastValue();
-        boolean observationsPriorToRest = (getObservations() > 0); 
+        boolean observationsPriorToReset = (getObservations() > 0); 
         
         super.reset(); // reset the ValueStatistics, too.
         
-        this.sumTotal = this.sumSquareTotal = 0.0;
+        this._mean = Double.NaN;
+        this._sumOfSquaredDevsFromMean = 0;
 
-        lastTime = presentTime();
+        _firstValueReadAt = null;
+        _lastUpdate = presentTime();
+        _pausedSince = null;
+        _pausedPeriodSinceLastReset = new TimeSpan(0);
         
-        if (doesRetainLastValueOnReset() && observationsPriorToRest) {
+        if (doesRetainLastValueOnReset() && observationsPriorToReset) {
             this.update(lastValue);
         }
     }
@@ -256,7 +319,7 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
      * @return value of the retainLastValueOnReset flag
      */
     public boolean doesRetainLastValueOnReset() {
-        return retainLastValueOnReset;
+        return _retainLastValueOnReset;
     }
     
     /**
@@ -264,7 +327,7 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
      * @param retainValue new value of the flag.
      */
     public void setRetainLastValueOnReset(boolean retainValue) {
-        this.retainLastValueOnReset = retainValue;
+        this._retainLastValueOnReset = retainValue;
     }
 
     /**
@@ -283,17 +346,16 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
         TimeInstant now = presentTime(); // what's the time?
 
         // how long since the last update or reset?
-        TimeSpan timeDiff = TimeOperations.diff(now, lastTime);
+        long periodValueValidEps = TimeOperations.diff(now, _lastUpdate).getTimeInEpsilon();
 
         // get hold of the value that was valid until now
         double untilNowVal = getLastValue();
 
-        super.update(); // call the update() method of ValueStatistics
-
-        sumTotal += untilNowVal * timeDiff.getTimeInEpsilon();
-        sumSquareTotal += untilNowVal * untilNowVal * timeDiff.getTimeInEpsilon();
-
-        lastTime = now; // update the time of the last change
+        // update the ValueStatistics
+        super.update(); 
+                
+        // process update
+        this.internalUpdate(untilNowVal, periodValueValidEps);
     }
 
     /**
@@ -308,6 +370,7 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
      *            will be updated.
      */
     public void update(double val) {
+        
         // check if the experiment is already running
         if (!getModel().getExperiment().isRunning()) {
             return; // experiment is not running, don't update, just return
@@ -316,18 +379,16 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
         TimeInstant now = presentTime(); // what's the time?
 
         // how long since the last update or reset?
-        TimeSpan timeDiff = TimeOperations.diff(now, lastTime);
+        long periodValueValidEps = TimeOperations.diff(now, _lastUpdate).getTimeInEpsilon();
 
         // get hold of the value that was valid until now
         double untilNowVal = getLastValue();
 
-        // call the update(double val) method of ValueStatistics
+        // update the ValueStatistics
         super.update(val);
-
-        sumTotal += untilNowVal * timeDiff.getTimeInEpsilon();
-        sumSquareTotal += untilNowVal * untilNowVal * timeDiff.getTimeInEpsilon();
-
-        lastTime = now; // update the time of the last change
+        
+        // process update
+        this.internalUpdate(untilNowVal, periodValueValidEps);
     }
 
     /**
@@ -349,6 +410,7 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
      *            statistics or <code>null</code>.
      */
     public void update(Observable o, Object arg) {
+        
         if (o == null) // null was passed instead of an Observable
         {
             sendWarning(
@@ -372,17 +434,109 @@ public class Accumulate extends desmoj.core.statistic.ValueStatistics {
         TimeInstant now = presentTime(); // what's the time?
 
         // how long since the last update or reset?
-        TimeSpan timeDiff = TimeOperations.diff(now, lastTime);
+        long periodValueValidEps = TimeOperations.diff(now, _lastUpdate).getTimeInEpsilon();
 
         // get hold of the value that was valid until now
         double untilNowVal = getLastValue();
 
-        super.update(o, arg); // call the update() method of ValueStatistics
-
-        sumTotal += untilNowVal * timeDiff.getTimeInEpsilon();
-        sumSquareTotal += untilNowVal * untilNowVal * timeDiff.getTimeInEpsilon();
-
-        lastTime = now; // update the time of the last change
+        // update the ValueStatistics
+        super.update(o, arg); 
+        
+        // process update
+        this.internalUpdate(untilNowVal, periodValueValidEps);
     }
-} // end class Accumulate
+    
+    /**
+     * Internal method to update the time-weighted mean and sum of the squares of the 
+     * differences from the mean of values so far with a new sample.
+     * 
+     * @param value
+     *            double : The new sample.
+     * @param periodValueValid
+     *            long : The length of the period in epsilon during which the sample was valid.
+     */
+    private void internalUpdate(double value, long periodValueValid) {
+        
+        // end of a pause?
+        if (this._pausedSince != null) {
+            
+            // determine pause duration
+            TimeSpan pauseDuration = TimeOperations.diff(_pausedSince, presentTime());
+            
+            // update total pause duration
+            _pausedPeriodSinceLastReset = TimeOperations.add(_pausedPeriodSinceLastReset, pauseDuration);
+            
+            // no longer paused
+            this._pausedSince = null;
 
+        // no pause: maybe is the first update=     
+        } else if (this._firstValueReadAt == null) {
+            
+            // just store the instant as there is no old value to apply to past period
+            this._firstValueReadAt = this.presentTime();
+        
+        // normal case: second+ call, no pause    
+        } else {
+                    
+            // ignore values valid for a zero period
+            if (periodValueValid > 0L) {
+            
+                if (Double.isNaN(this._mean)) { // First entry
+                    _mean = value;
+                    _sumOfSquaredDevsFromMean = 0.0;
+                } else { // Further entries
+                    long periodMeasured = getPeriodMeasured().getTimeInEpsilon();
+                    double _m_old = _mean;
+                    _mean += (value - _mean)/periodMeasured*periodValueValid;
+                    _sumOfSquaredDevsFromMean += (value - _m_old)*(value - _mean)*periodValueValid;
+                }
+            }
+            
+        }
+        
+        // store update instant
+        _lastUpdate = this.presentTime(); // update the time of the last change
+    }
+    
+    /**
+     * Temporarily suspend data collection to exclude a period, e.g. to disregard
+     * the night period in which a plant is closed from machine utilization statistics.
+     * Data collection will be resumed automatically on calling an update(...)-method.       
+     */
+    public void pause() {
+        
+        if (this._pausedSince != null) {
+            sendWarning(
+                    "Attempt to pause an Accumulate which is already paused."
+                            + " Method call will be ignored.",
+                    "Accumulate: " + this.getName()
+                            + " Method: pause()",
+                    "Multiple calls to pause this Accumulate.",
+                    "Make sure to call pause() only once before resuming data collection "
+                            + " by calling the appropriate update(...)-method.");
+            return;
+        }
+        
+        if (this._firstValueReadAt == null) {
+            sendWarning(
+                    "Attempt to pause an Accumulate which is not yet collecting data."
+                            + " Method call will be ignored.",
+                    "Accumulate: " + this.getName()
+                            + " Method: pause()",
+                    "Multiple calls to pause this Accumulate.",
+                    "No need to pause an Accumulate that has not yet collected any data as"
+                            + " data collection not will start before first update anyway.");
+            return;           
+        }
+        
+        // assume an Update now to reflect the period between last Update and now,
+        // unless there has already been an update at this instant.
+        if (!TimeInstant.isEqual(this._lastUpdate, this.presentTime())) {
+            this.update(this.getLastValue());
+            this.incrementObservations(-1); //...not counting as observation
+        }
+        
+        // remember instant at which the pause has started 
+        this._pausedSince = this.presentTime();
+    }   
+} // end class Accumulate

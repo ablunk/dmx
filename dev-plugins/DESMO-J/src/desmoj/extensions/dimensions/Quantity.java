@@ -6,7 +6,7 @@ import desmoj.core.simulator.Units;
  * An abstract base class for physical quantities with a unit (e.g. Length,
  * Velocity, etc.).
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nick Knaak and Ruth Meyer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,7 @@ import desmoj.core.simulator.Units;
  * permissions and limitations under the License.
  *
  */
+@Deprecated
 public abstract class Quantity implements Units, Comparable {
 
 	/** The quantity's numerical value */

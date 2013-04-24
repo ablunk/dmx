@@ -16,7 +16,7 @@ import java.io.Writer;
  * Note that each object of this class supports the creation of several files in
  * a row. You can open and close as many files as needed with one object.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -200,7 +200,7 @@ public class FileOutput {
 	 * directory will overwrite that existing file without notice! So be careful
 	 * when choosing file names and make sure to use unique names.
 	 * 
-	 * @param fileName
+	 * @param name
 	 *            java.lang.String : The name of the file to be created
 	 */
 	public void open(String name) {
@@ -331,7 +331,7 @@ public class FileOutput {
 	 */
 	public void writeln(String s) {
 
-		if ((s == null) || (s.isEmpty())) {
+		if ((s == null) || (s.length() == 0)) {
 			write(eol);
 			return;
 		}
@@ -352,7 +352,7 @@ public class FileOutput {
 	 */
 	public void writeSep(String s) {
 
-		if ((s == null) || (s.isEmpty())) {
+		if ((s == null) || (s.length() == 0)) {
 			write(sep);
 			return;
 		}

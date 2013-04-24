@@ -10,7 +10,7 @@ package desmoj.core.exception;
  * exceptions that are automatically rethrown by any Java method thus not
  * needing to be rethrown by the user, too.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,9 @@ package desmoj.core.exception;
  *
  */
 public class SimAbortedException extends DESMOJException {
-	/**
+    private static final long serialVersionUID = 1L;
+
+    /**
 	 * Creates a new SimAbortedException declaring the reason for the aborted
 	 * simulation run in the contents of the error message given as a parameter.
 	 * 

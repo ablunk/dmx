@@ -7,7 +7,7 @@ import desmoj.core.simulator.Experiment;
  * class implements the HTML formatting functionality of the deprecated class
  * desmoj.report.HTMLFileOuptut
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * @author based on HTMLFileOutput by Tim Lechler
  * 
@@ -41,7 +41,6 @@ public class HTMLTableFormatter extends AbstractTableFormatter {
 				+ Experiment.getDesmoJLicense(true)
 				+ "</FONT>");
 		out.write("</BODY></HTML>");
-
 	}
 
 	/**
@@ -52,8 +51,8 @@ public class HTMLTableFormatter extends AbstractTableFormatter {
 		if ((rowOpen) && (tableOpen)) {
 			out.writeln("</TR>");
 			rowOpen = false;
+			this._currentReporter = null;
 		}
-
 	}
 
 	/**
@@ -105,7 +104,7 @@ public class HTMLTableFormatter extends AbstractTableFormatter {
 	 * Opens a new file with the given fileName for writing a HTML table to. If
 	 * no String is given, the default filename "unnamed_DESMOJ_file" is used.
 	 * 
-	 * @param fileName
+	 * @param name
 	 *            java.lang.String : The name of the file to be created
 	 */
 	public void open(String name) {
@@ -208,15 +207,20 @@ public class HTMLTableFormatter extends AbstractTableFormatter {
 	 * 
 	 * @param s
 	 *            java.lang.String : The text to be printed into a cell
+     * @param spanning
+     *            number of cells to span             
 	 */
-	public void writeCell(String s) {
+	public void writeCell(String s, int spanning) {
 
 		if (s == null)
 			return;
 
-		if ((rowOpen) && (tableOpen))
-			out.write("<TD>" + s + "</TD>");
-
+		if (!((rowOpen) && (tableOpen))) return;
+		
+		if (spanning == 1)
+		    out.write("<TD>" + s + "</TD>");
+		else
+		    out.write("<TD colspan=\"" + spanning + "\"><i>&ensp;&ensp;&#151; " + s + "<i></TD>");
 	}
 
 	/**

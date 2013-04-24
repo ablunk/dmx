@@ -1,9 +1,11 @@
 package desmoj.core.report;
 
+import desmoj.core.simulator.ProcessQueue;
+
 /**
  * Captures all relevant information about a ProcessQueue.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @author modified by Soenke Claassen
  * 
@@ -28,7 +30,7 @@ public class ProcessQueueReporter extends Reporter {
 	 * reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The queue to report about
+	 *            desmoj.core.simulator.Reportable : The queue to report about
 	 */
 	public ProcessQueueReporter(
 			desmoj.core.simulator.Reportable informationSource) {
@@ -65,9 +67,9 @@ public class ProcessQueueReporter extends Reporter {
 	 */
 	public String[] getEntries() {
 
-		if (source instanceof desmoj.core.simulator.ProcessQueue) {
+		if (source instanceof ProcessQueue) {
 			// variable valid for block only - for faster access
-			desmoj.core.simulator.ProcessQueue q = (desmoj.core.simulator.ProcessQueue) source;
+			ProcessQueue<?> q = (ProcessQueue<?>) source;
 
 			// Title
 			entries[0] = source.getName();

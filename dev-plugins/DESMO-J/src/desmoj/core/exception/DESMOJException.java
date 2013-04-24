@@ -14,9 +14,9 @@ import desmoj.core.report.ErrorMessage;
  * <code>java.exception.RuntimeException</code> which has the special feature
  * to be re-thrown automatically by any method.
  * 
- * @see java.exception.RuntimeException
+ * @see java.lang.RuntimeException
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,12 +32,13 @@ import desmoj.core.report.ErrorMessage;
  *
  */
 public class DESMOJException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
 
 	/**
 	 * Contains the error message containing a description of the circumstances
 	 * leading to this exception being thrown.
 	 */
-	private ErrorMessage errMsg;
+	private ErrorMessage _errMsg;
 
 	/**
 	 * Constructs a standard DESMO-J exception with an error message needed to
@@ -45,7 +46,7 @@ public class DESMOJException extends RuntimeException {
 	 * could be responsible for it and what could be done to prevent this error
 	 * from occuring.
 	 * 
-	 * @param description
+	 * @param message
 	 *            desmoj.report.ErrorMessage : Describes the error leading to
 	 *            this exception
 	 */
@@ -53,9 +54,12 @@ public class DESMOJException extends RuntimeException {
 
 		// construct a simple RuntimeException with the description and probable
 		// error reason as text.
-		super(message.getDescription() + ". Probable reason: "
-				+ message.getReason());
-		errMsg = message;
+		super("DESMOJException\n"
+		        + "Description: " + message.getDescription() + "\n" 
+		        + "Location:    " + message.getLocation() + "\n" 
+		        + "Reason:      " + message.getReason() + "\n" 
+		        + "Prevention:  " + message.getPrevention());
+		_errMsg = message;
 
 	}
 
@@ -69,7 +73,7 @@ public class DESMOJException extends RuntimeException {
 	 */
 	public ErrorMessage getErrorMessage() {
 
-		return errMsg;
+		return _errMsg;
 
 	}
 }

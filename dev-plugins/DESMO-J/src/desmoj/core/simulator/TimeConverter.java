@@ -24,10 +24,7 @@ import java.util.Locale;
  * values to sim time or vice versa it has to call the appropriate methods of
  * the class <code>Experiment</code>.
  * 
- * @see desmoj.core.simulator.Experiment#toSimTime
- * @see desmoj.core.simulator.Experiment#toTrueTime
- * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Ruth Meyer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,6 +39,7 @@ import java.util.Locale;
  * permissions and limitations under the License.
  *
  */
+@Deprecated
 class TimeConverter implements Units {
 
 	/**
@@ -71,25 +69,25 @@ class TimeConverter implements Units {
 	 * default time of class <code>java.util.Date</code>(= 1.1.1970 0:00:00)
 	 * in milliseconds.
 	 */
-	private long offset;
+	private long _offset;
 
 	/**
 	 * The reference time unit as a constant defined in interface
 	 * <code>Units</code>.
 	 */
-	private int unit;
+	private int _unit;
 
 	/**
 	 * The output formatter for true time values. Uses the default pattern if no
 	 * other pattern is specified via call of the
 	 * {@link #setTimeFormat(String) setTimeFormat}method.
 	 */
-	private SimpleDateFormat outFormat;
+	private SimpleDateFormat _outFormat;
 
 	/**
 	 * The start time of the simulation as double (sim time). Default is 0.0.
 	 */
-	private double startSimTime;
+	private double _startSimTime;
 
 	/**
 	 * Default constructor for a time converter using the defined constants as
@@ -118,9 +116,9 @@ class TimeConverter implements Units {
 	public TimeConverter(String referenceTime, int referenceUnit)
 			throws ParseException {
 		// initialize instance variables
-		this.unit = referenceUnit;
-		this.outFormat = new SimpleDateFormat(DEFAULT_PATTERN, Locale.GERMANY);
-		this.startSimTime = 0.0;
+		this._unit = referenceUnit;
+		this._outFormat = new SimpleDateFormat(DEFAULT_PATTERN, Locale.GERMANY);
+		this._startSimTime = 0.0;
 		// parse parameter referenceTime
 		String completeRefTime = checkRefTime(referenceTime);
 		String pattern = constructPattern(completeRefTime);
@@ -128,7 +126,7 @@ class TimeConverter implements Units {
 				Locale.GERMANY);
 		Date ref = inFormat.parse(completeRefTime);
 		// calculate offset = millisecs since 1.1.1970 0:00:00
-		this.offset = ref.getTime();
+		this._offset = ref.getTime();
 	}
 
 	/**
@@ -227,7 +225,7 @@ class TimeConverter implements Units {
 	 *         simulation start time is specified.
 	 */
 	public String getReferenceTime() {
-		return this.outFormat.format(new Date(this.offset));
+		return this._outFormat.format(new Date(this._offset));
 	}
 
 	/**
@@ -239,7 +237,7 @@ class TimeConverter implements Units {
 	 *         time step 1.0
 	 */
 	public int getReferenceUnit() {
-		return this.unit;
+		return this._unit;
 	}
 
 	/**
@@ -249,7 +247,7 @@ class TimeConverter implements Units {
 	 * @see #DEFAULT_PATTERN
 	 */
 	public void resetTimeFormat() {
-		this.outFormat.applyPattern(DEFAULT_PATTERN);
+		this._outFormat.applyPattern(DEFAULT_PATTERN);
 	}
 
 	/**
@@ -261,7 +259,7 @@ class TimeConverter implements Units {
 	 *            <code>SimTime</code>)
 	 */
 	public void setStartSimTime(double initTime) {
-		this.startSimTime = initTime;
+		this._startSimTime = initTime;
 	}
 
 	/**
@@ -274,7 +272,7 @@ class TimeConverter implements Units {
 	 *            {@link java.text.SimpleDateFormat SimpleDateFormat}.
 	 */
 	public void setTimeFormat(String pattern) {
-		this.outFormat.applyPattern(pattern);
+		this._outFormat.applyPattern(pattern);
 	}
 
 	/**
@@ -297,7 +295,7 @@ class TimeConverter implements Units {
 		// - the given duration is in the given unit -> just has to be converted
 		// to reference unit
 		double simDuration = duration * unitFactors[unit]
-				/ unitFactors[this.unit];
+				/ unitFactors[this._unit];
 		return new SimTime(simDuration);
 	}
 
@@ -322,8 +320,8 @@ class TimeConverter implements Units {
 		// for this, subtract offset from trueDate (both are in milliseconds),
 		// convert into reference unit and then add startSimTime (is in ref
 		// unit)
-		return new SimTime(((double) (trueDate.getTime() - this.offset))
-				* unitFactors[MS] / unitFactors[this.unit] + this.startSimTime);
+		return new SimTime(((double) (trueDate.getTime() - this._offset))
+				* unitFactors[MS] / unitFactors[this._unit] + this._startSimTime);
 	}
 
 	/**
@@ -341,9 +339,9 @@ class TimeConverter implements Units {
 		// unit),
 		// convert into milliseconds and then add offset (is in milliseconds)
 		Date trueTime = new Date(
-				(long) ((simTime.getTimeValue() - this.startSimTime)
-						* unitFactors[this.unit] / unitFactors[MS] + this.offset));
-		return this.outFormat.format(trueTime);
+				(long) ((simTime.getTimeValue() - this._startSimTime)
+						* unitFactors[this._unit] / unitFactors[MS] + this._offset));
+		return this._outFormat.format(trueTime);
 	}
 	
 	/**
@@ -357,8 +355,8 @@ class TimeConverter implements Units {
 	 */
 	public Date toTrueDate(SimTime simTime) {
 		Date trueTime = new Date(
-				(long) ((simTime.getTimeValue() - this.startSimTime)
-						* unitFactors[this.unit] / unitFactors[MS] + this.offset));
+				(long) ((simTime.getTimeValue() - this._startSimTime)
+						* unitFactors[this._unit] / unitFactors[MS] + this._offset));
 		return trueTime;
 	}
 

@@ -3,16 +3,7 @@ package desmoj.extensions.applicationDomains.production;
 import java.util.Vector;
 
 import desmoj.core.report.Reporter;
-import desmoj.core.simulator.Condition;
-import desmoj.core.simulator.Model;
-import desmoj.core.simulator.ProcessQueue;
-import desmoj.core.simulator.QueueBased;
-import desmoj.core.simulator.QueueList;
-import desmoj.core.simulator.QueueListFifo;
-import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
-import desmoj.core.simulator.TimeInstant;
-import desmoj.core.simulator.TimeSpan;
+import desmoj.core.simulator.*;
 
 /**
  * A WorkStation is the place, where products (parts) are processed by a machine
@@ -22,7 +13,7 @@ import desmoj.core.simulator.TimeSpan;
  * @see desmoj.core.simulator.QueueBased
  * @see desmoj.extensions.applicationDomains.production.PartsList
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50,17 +41,17 @@ public class WorkStation extends QueueBased {
 	 * The queue, actually storing the master processes waiting for slaves to
 	 * process them
 	 */
-	protected QueueList masterQueue;
+	protected QueueList<SimProcess> masterQueue;
 
 	/**
 	 * The array containing all the different slave process queues. It depends
 	 * on the number of entries (number of different kinds of parts) in the
 	 * associated <code>PartsList</code>.
 	 */
-	protected ProcessQueue[] slaveQueues;
+	protected ProcessQueue<SimProcess>[] slaveQueues;
 
 	/**
-	 * Counter for the SimProcesses which are refused to be enqueued in the
+	 * Counter for the sim-processes which are refused to be enqueued in the
 	 * master queue, because the queue capacity is full.
 	 */
 	protected long mRefused;
@@ -86,7 +77,7 @@ public class WorkStation extends QueueBased {
 	protected String where;
 
 	/**
-	 * Constructor for a WorkStation. Actually there are two waiting queues
+	 * Constructor for a WorkStation. Actually there are two waiting-queues
 	 * constructed, one internal <code>QueueList</code> for the masters (like
 	 * <code>Worker</code> s or <code>MachineProcess</code> es) and one
 	 * separate <code>ProcessQueue</code> for the slave processes (the parts
@@ -138,87 +129,30 @@ public class WorkStation extends QueueBased {
 		// MASTER queue
 
 		// check if a valid sortOrder is given for the master queue
-		if (mSortOrder < 0) {
-			sendWarning(
-					"The given mSortOrder parameter is negative! "
-							+ "A master queue with Fifo sort order will be created "
-							+ "instead.",
-					" Constructor of " + getClass().getName() + " : "
-							+ getQuotedName() + ".",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
-			// make a Fifo queue
-			masterQueue = new QueueListFifo(); // better than nothing
-			masterQueue.setQueueBased(this);
-		} else {
-			try {
-				// determine the queueing strategy
-				Class queueListStrategy = queueingStrategy[mSortOrder];
-
-				masterQueue = (QueueList) queueListStrategy.newInstance();
-			}
-
-			catch (ArrayIndexOutOfBoundsException arrayExcept) {
-				// the given sortOrder is not valid
-				sendWarning(
-						"The given mSortOrder parameter is not valid! "
-								+ "A master queue with Fifo sort order will be created "
-								+ "instead.",
-						" Constructor of " + getClass().getName() + " : "
-								+ getQuotedName() + ".",
-						"A valid positive integer number must be provided to "
-								+ "determine the sort order of the underlying queue.",
-						"Make sure to provide a valid positive integer number "
-								+ "by using the constants in the class QueueBased, like "
-								+ "QueueBased.FIFO or QueueBased.LIFO.");
-				// make a Fifo queue
-				masterQueue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (IllegalAccessException illAccExcept) {
-				// the class to be loaded can not be found
-				sendWarning(
-						"IllegalAccessException: The class implementing the "
-								+ "mSortOrder of the queue can not be found. A master "
-								+ "queue with Fifo sort order will be created instead.",
-						" Constructor of " + getClass().getName() + " : "
-								+ getQuotedName() + ".",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the zero-argument constructor of that "
-								+ "class can not be found",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				masterQueue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (InstantiationException instExcept) {
-				// no object of the given class can be instantiated
-				sendWarning(
-						"InstantiationException: No object of the given class "
-								+ "can be instantiated! A master queue with Fifo sort "
-								+ "order will be created instead.",
-						" Constructor of " + getClass().getName() + " : "
-								+ getQuotedName() + ".",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the the class is an interface or an "
-								+ "abstract class that can not be instantiated",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				masterQueue = new QueueListFifo(); // better than nothing
-			}
-
-			// give the QueueList a reference to this QueueBased
-			masterQueue.setQueueBased(this);
-		}
+		// determine the queueing strategy
+        switch (mSortOrder) {
+        case QueueBased.FIFO :
+            masterQueue = new QueueListFifo<SimProcess>(); break;
+        case QueueBased.LIFO :
+            masterQueue = new QueueListLifo<SimProcess>(); break;
+        case QueueBased.RANDOM :
+            masterQueue = new QueueListRandom<SimProcess>(); break;
+        default :
+            sendWarning(
+                    "The given mSortOrder parameter " + mSortOrder + " is not valid! "
+                            + "A queue with Fifo sort order will be created.",
+                    " Constructor of " + getClass().getName() + " : "
+                            + getQuotedName() + ".",
+                    "A valid positive integer number must be provided to "
+                            + "determine the sort order of the queue.",
+                    "Make sure to provide a valid positive integer number "
+                            + "by using the constants in the class QueueBased, like "
+                            + "QueueBased.FIFO, QueueBased.LIFO or QueueBased.RANDOM.");
+            masterQueue = new QueueListFifo<SimProcess>(); 
+        }
+        
+        // give the QueueList a reference to this QueueBased
+        masterQueue.setQueueBased(this);
 
 		// set the capacity of the master queue
 		queueLimit = mQCapacity;
@@ -275,7 +209,7 @@ public class WorkStation extends QueueBased {
 		int slaveQSortOrder = sSortOrder;
 
 		// check if a valid sortOrder is given for the slave queues
-		if (sSortOrder < 0 || sSortOrder >= queueingStrategy.length) {
+		if (sSortOrder < 0 || sSortOrder >= 3) {
 			sendWarning(
 					"The given sSortOrder parameter is negative or too big! "
 							+ "Slave queues with Fifo sort order will be created "
@@ -322,7 +256,7 @@ public class WorkStation extends QueueBased {
 	}
 
 	/**
-	 * Constructor for a WorkStation. Actually there are two waiting queues
+	 * Constructor for a WorkStation. Actually there are two waiting-queues
 	 * constructed, one internal <code>QueueList</code> for the masters (like
 	 * <code>Worker</code> s or <code>MachineProcess</code> es) and one
 	 * separate <code>ProcessQueue</code> for the slave processes (the parts
@@ -350,7 +284,7 @@ public class WorkStation extends QueueBased {
 
 		// make an actual queue and give it a reference of this
 		// "QueueBased"-WaitQueue for the masters to wait in
-		masterQueue = new QueueListFifo();
+		masterQueue = new QueueListFifo<SimProcess>();
 		masterQueue.setQueueBased(this);
 
 		// check for a valid parts list
@@ -412,7 +346,7 @@ public class WorkStation extends QueueBased {
 			if (process.isScheduled()) // if the process is scheduled already
 			{
 				process.skipTraceNote(); // don't tell the user, that we ...
-				process.cancel(); // get the process from the EventList
+				process.cancel(); // get the process from the event-list
 			}
 
 			boolean wasBlocked = process.isBlocked();
@@ -435,12 +369,12 @@ public class WorkStation extends QueueBased {
 	} // end method
 
 	/**
-	 * Activates the first master process in the master waiting queue.
+	 * Activates the first master process in the master waiting-queue.
 	 */
 	protected void activateFirstMaster() {
 		where = "protected void activateFirstMaster()";
 
-		SimProcess mProcess = (SimProcess) masterQueue.first();
+		SimProcess mProcess = masterQueue.first();
 
 		if (mProcess != null) {
 			if (!checkProcess(mProcess, where)) // if mProcess is not valid
@@ -452,7 +386,7 @@ public class WorkStation extends QueueBased {
 			// already
 			{
 				mProcess.skipTraceNote(); // don't tell the user, that we ...
-				mProcess.cancel(); // get the process from the EventList
+				mProcess.cancel(); // get the process from the event-list
 			}
 
 			boolean wasBlocked = mProcess.isBlocked();
@@ -530,7 +464,7 @@ public class WorkStation extends QueueBased {
 			return null;
 		} // return null
 
-		for (SimProcess master = (SimProcess) masterQueue.first(); master != null; master = (SimProcess) masterQueue
+		for (SimProcess master = masterQueue.first(); master != null; master = masterQueue
 				.succ(master)) {
 			if (cond.check(master))
 				return master;
@@ -660,7 +594,7 @@ public class WorkStation extends QueueBased {
 	 * Checks whether the process trying to cooperate as a master or a slave is
 	 * a valid SimProcess.
 	 * 
-	 * @return boolean : Returns whether the SimProcess is valid or not.
+	 * @return boolean : Returns whether the sim-process is valid or not.
 	 * @param p
 	 *            SimProcess : Is this SimProcess a valid one?
 	 * @param where
@@ -684,7 +618,7 @@ public class WorkStation extends QueueBased {
 		if (!isModelCompatible(p)) // if p is not modelcompatible
 		{
 			sendWarning(
-					"The SimProcess trying to cooperate with another process at "
+					"The sim-process trying to cooperate with another process at "
 							+ "a WorkStation does not belong to this model. The attempted action is "
 							+ "ignored!", getClass().getName() + ": "
 							+ getQuotedName() + ", Method: " + where,
@@ -734,7 +668,7 @@ public class WorkStation extends QueueBased {
 	protected SimProcess[] getAllSuitableSlaves(Class[] kinds,
 			Condition[] conditions) {
 		// make a Vector to store all the parts found
-		Vector suitableSlaves = new Vector();
+		Vector<SimProcess> suitableSlaves = new Vector<SimProcess>();
 
 		// loop through the whole partsList
 		for (int i = 0; i < numOfParts; i++) {
@@ -856,7 +790,7 @@ public class WorkStation extends QueueBased {
 	 * @return ProcessQueue[] : An array of <code>ProcessQueue</code> s where
 	 *         the slaves are waiting on masters to cooperate with.
 	 */
-	public ProcessQueue[] getSlaveQueues() {
+	public ProcessQueue<SimProcess>[] getSlaveQueues() {
 		return this.slaveQueues;
 	}
 
@@ -954,7 +888,7 @@ public class WorkStation extends QueueBased {
 
 	/**
 	 * Returns the point of simulation time with the maximum number of
-	 * SimProcesses waiting inside the underlying master queue. The value is
+	 * Sim-processes waiting inside the underlying master queue. The value is
 	 * valid for the period since the last reset.
 	 * 
 	 * @return desmoj.SimTime : Point of time with maximum master queue length
@@ -1049,7 +983,7 @@ public class WorkStation extends QueueBased {
 	 * <code>Worker</code> or a <code>MachineProcess</code>. But any other
 	 * kind of <code>SimProcess</code> will do, too, but produce a warning. If
 	 * no suitable or not enough slave processes are available at the moment,
-	 * the master process will be stored in the master waiting queue, until
+	 * the master process will be stored in the master waiting-queue, until
 	 * enough suitable slaves are available. If the capacity limit of the master
 	 * queue is reached, the process will not be enqueued and <code>false</code>
 	 * returned. When enough suitable slaves are available, their
@@ -1110,7 +1044,7 @@ public class WorkStation extends QueueBased {
 			return false; // capacity limit is reached
 		}
 
-		// insert the master in its waiting queue
+		// insert the master in its waiting-queue
 		masterQueue.insert(master);
 
 		// check if the master has to wait in his queue
@@ -1118,7 +1052,7 @@ public class WorkStation extends QueueBased {
 		// be
 		// served
 		if ((!allPartsAvailable())
-				|| master != (SimProcess) masterQueue.first()) {
+				|| master != masterQueue.first()) {
 			if (currentlySendTraceNotes()) {
 				// tell in the trace where the master is waiting
 				sendTraceNote("waits in '" + this.getName() + "'");
@@ -1147,7 +1081,7 @@ public class WorkStation extends QueueBased {
 		activateFirstMaster();
 
 		// make a Vector to store all the slaves being processed now
-		Vector neededParts = new Vector();
+		Vector<SimProcess> neededParts = new Vector<SimProcess>();
 
 		// get all the slaves together
 		for (int i = 0; i < numOfParts; i++) {
@@ -1216,7 +1150,7 @@ public class WorkStation extends QueueBased {
 	 * length) which kind of parts must comply to which condition so the master
 	 * will cooperate with them. If no suitable or not enough slave processes
 	 * are available at the moment, the master process will be stored in the
-	 * master waiting queue, until enough suitable slaves are available. If the
+	 * master waiting-queue, until enough suitable slaves are available. If the
 	 * capacity limit of the master queue is reached, the process will not be
 	 * enqueued and <code>false</code> returned. When enough suitable slaves
 	 * are available, their <code>cooperate</code> method (in the class
@@ -1355,7 +1289,7 @@ public class WorkStation extends QueueBased {
 			return false; // capacity limit is reached
 		}
 
-		// insert the master in its waiting queue
+		// insert the master in its waiting-queue
 		masterQueue.insert(master);
 
 		// get the array of available and suitable slaves
@@ -1367,7 +1301,7 @@ public class WorkStation extends QueueBased {
 		// check if the master has to wait in his queue
 		// if not enough suitable parts are available OR
 		// the master is not the first to be served
-		if ((!allSuitAvail) || (master != (SimProcess) masterQueue.first())) {
+		if ((!allSuitAvail) || (master != masterQueue.first())) {
 			if (currentlySendTraceNotes()) // tell in the trace where the master is waiting
 			{ // and on what conditions
 
@@ -1400,7 +1334,7 @@ public class WorkStation extends QueueBased {
 				// successor in the
 				// master wait queue to see what he can do (pass-fill-rule?)
 				if (allPartsAvailable()) {
-					activateAsNext((SimProcess) masterQueue.succ(master));
+					activateAsNext(masterQueue.succ(master));
 				}
 			} while (true); // endless loop
 		}
@@ -1411,7 +1345,7 @@ public class WorkStation extends QueueBased {
 		// if there are enough parts available, activate the successor in the
 		// master wait queue to see what he can do, too.
 		if (allPartsAvailable()) {
-			activateAsNext((SimProcess) masterQueue.succ(master));
+			activateAsNext(masterQueue.succ(master));
 		}
 
 		// remove this master from the wait queue
@@ -1629,7 +1563,7 @@ public class WorkStation extends QueueBased {
 		}
 
 		// check if a valid sort order is given for the slave queue
-		if (sortOrder < 0 || sortOrder >= queueingStrategy.length) {
+		if (sortOrder < 0 || sortOrder >= 3) {
 			sendWarning(
 					"The given sortOrder parameter is negative or too big! "
 							+ "The sort order of the queue will remain unchanged!",
@@ -1704,7 +1638,7 @@ public class WorkStation extends QueueBased {
 
 	/**
 	 * Returns the point of simulation time with the maximum number of
-	 * SimProcesses waiting inside the slave queue indicated by the index. The
+	 * Sim-processes waiting inside the slave queue indicated by the index. The
 	 * value is valid for the period since the last reset.
 	 * 
 	 * @return TimeInstant : Point of simulation time when the indicated
@@ -1840,7 +1774,7 @@ public class WorkStation extends QueueBased {
 	}
 
 	/**
-	 * This method is called from a SimProcess (part or product) which wants to
+	 * This method is called from a sim-process (part or product) which wants to
 	 * be processed at this WorkStation as a slave. If no suitable master
 	 * process and enough other slave processes are available at the moment,
 	 * this slave process will be stored in its slave queue, until a suitable
@@ -1877,7 +1811,7 @@ public class WorkStation extends QueueBased {
 							+ "cooperation is ignored!",
 					getClass().getName() + ": " + getQuotedName()
 							+ ", Method: " + where,
-					"The slave process can not wait in more than one waiting queue.",
+					"The slave process can not wait in more than one waiting-queue.",
 					"Make sure that slave processes are only cooperaating with one master "
 							+ "at a time.");
 			return false; // ignore the second cooperation, just return false.
@@ -1906,7 +1840,7 @@ public class WorkStation extends QueueBased {
 
 		slaveQueue.insert(slave); // insert the slave process in his queue
 
-		slave.setSlaveWaitQueue(slaveQueue); // tell the SimProcess where he
+		slave.setSlaveWaitQueue(slaveQueue); // tell the sim-process where he
 		// is waiting. Will be reset in SimProcess.cooperate(), when the
 		// master is leading the slave through the cooperation.
 

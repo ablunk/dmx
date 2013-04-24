@@ -16,7 +16,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComponent;
 
-
 /**
  * A GUI component (inherited from java.awt.Canvas) which displays a chart.
  * It includes two labeled and auto-scaled axes. 
@@ -27,7 +26,7 @@ import javax.swing.JComponent;
  * histogram or a mathematical function) in a class which is inherited from
  * the interface ChartOwner.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Philip Joschko
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -189,8 +188,8 @@ public class Chart extends JComponent implements ActionListener {
 		if(max_x==min_x || max_y==min_y)
 			return;
 		
-		// sets the borders and the font size depending on the canvas size
-		borderRight = this.getWidth()-ARROW_SPACING-arrowWidth;
+		// sets the borders and the font size depending on the canvas size (yet not too small)
+		borderRight = Math.max(this.getWidth()-ARROW_SPACING-arrowWidth, 100);
 		borderTop = ARROW_SPACING+arrowWidth;;		
 		fontHeight=Math.min(this.getHeight(), this.getWidth())/25;
 		if (fontHeight>16)
@@ -198,7 +197,7 @@ public class Chart extends JComponent implements ActionListener {
 		if (fontHeight<9)
 			fontHeight=9;
 		setFont(g, fontHeight);
-		borderBottom = this.getHeight()-ARROW_SPACING-arrowWidth-(int)(2.5*fontHeight);
+		borderBottom = Math.max(this.getHeight()-ARROW_SPACING-arrowWidth-(int)(2.5*fontHeight),60);
 		
 		// this loop finds the most useful interval for the y axis
 		interval_y = 1;
@@ -231,7 +230,7 @@ public class Chart extends JComponent implements ActionListener {
 		} while( true );
 		
 		// now the y interval in pixels is known:
-		interval_in_pixels_y=(borderBottom-borderTop)/(elements-1);
+		interval_in_pixels_y= elements <= 1 ? 1 : (borderBottom-borderTop)/(elements-1);
 		
 		// search the left border of the chart, depending on the width of the y labels
 		// and saving the width of every label
@@ -346,23 +345,23 @@ public class Chart extends JComponent implements ActionListener {
 	}
 	
 	
-	/**
-	 * Calculates the x coordinate in pixels for the given x data value. 
-	 * @param x The x data value.
-	 * @return The x position in pixels, where the data value should be painted.
-	 */
-	public int calculateXPosition(double x) {
-		return (int)(x/interval_x*interval_in_pixels_x);
-	}
+    /**
+     * Calculates the x coordinate in pixels for the given x data value. 
+     * @param x The x data value.
+     * @return The x position in pixels, where the data value should be painted.
+     */
+    public int calculateXPosition(double x) {
+        return (int)((x - this.lower_x)/interval_x*interval_in_pixels_x);
+    }
 
-	/**
-	 * Calculates the y coordinate in pixels for the given y data value. 
-	 * @param y The y data value.
-	 * @return The y position in pixels, where the data value should be painted.
-	 */
-	public int calculateYPosition(double y) {
-		return (int)(y/interval_y*interval_in_pixels_y);
-	}
+    /**
+     * Calculates the y coordinate in pixels for the given y data value. 
+     * @param y The y data value.
+     * @return The y position in pixels, where the data value should be painted.
+     */
+    public int calculateYPosition(double y) {
+        return (int)((y - this.lower_y)/interval_y*interval_in_pixels_y);
+    }
 	
 	/**
 	 * Draws a line into the chart. This method automatically calls the methods calculateXPosition()

@@ -1,29 +1,34 @@
 package desmoj.core.simulator;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Represents the superclass for all entities of a model. Entities are supposed
  * to be scheduled together with a compatible event at a certain point of
  * simulation time or relative to another event in present or future simulation
  * time.
  * <p>
- * Entities typically encapsulate all information about a model's entity that is
+ * Entities typically encapsulate all information about a model entity 
  * relevant to the modeller. Events can manipulate these informations when the
  * scheduled point of simulation time is reached and thus change the state of
  * the model. When modelling different types of entities you need to derive
  * different classes from this superclass. Each carrying the specific
  * information to represent its counterpart in the system modelled. Thus a
- * simulation of i.e. a factory would require both machines and material to be
+ * simulation of e.g. a factory would require both machines and material to be
  * subclasses of class <code>Entity</code>. They can act on each other by
- * scheduling themselves or other Entities with the appropriate Events. To use
- * more than one Entity of one type, created the needed amount of instances. For
- * better identification, all instances created from a subclass of class
- * <code>NamedObjectImp</code> (just as Entity is) get an individual
+ * scheduling themselves or other Entities with the appropriate events. To use
+ * more than one entity of one type, create multiple instances of the same 
+ * <code>Entity</code> class. 
+ * For better identification, all instances created from a subclass of class
+ * <code>NamedObject</code> (just as <code>Entity</code> is) get an individual
  * identification number as a suffix to their name so there is no need to name
- * each individual different yourself.
- * <p>
- * Entities can carry a priority that can be modified after the Entity has been
- * instantiated. It is relevant for queueing Entities into any kind of Queues.
- * The entity's priority determines it's position inside the queue when entering
+ * each individual differently yourself.
+ * <p> 
+ * Entities can carry a queuing priority that can be modified after the entity 
+ * has been instantiated, applied for inserting Entities into any kind of Queues:
+ * The entity's priority determines it's position inside the queue on entering
  * it. Although within a model all attributes of an entity could be made public
  * it is advisable to support data hiding by providing methods for accessing the
  * internal attributes, as always in oo-design.
@@ -32,8 +37,8 @@ package desmoj.core.simulator;
  * @see SimProcess
  * @see NamedObject
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
- * @author Tim Lechler
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
+ * @author Tim Lechler, modified by Justin Neumann
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -48,126 +53,145 @@ package desmoj.core.simulator;
  *
  */
 public abstract class Entity extends Schedulable {
-
+	
 	/**
-	 * The priority of an entity is essential for inserting into queues.
+	 * The queuing priority of the entity.
 	 */
-	private int myPriority;
-
+	private int _myQueuingPriority;
+	
 	/**
-	 * Reference to the queue-links of this entity. They reference the places
-	 * this entity is queued in multiple queues. Implemented as a single linked
-	 * list.
+	 * The <code>Queue</code>s or other <code>QueueBased</code> objects where this Entity is queued.
 	 */
-	private QueueLink myQLink;
-
+	private ArrayList<QueueBased> _myQueues;
+	
 	/**
-	 * Constructs an entity with the given name for the given model and the
-	 * specified trace option. The default priority is zero.
-	 * 
-	 * @param name
-	 *            java.lang.String : The name of the entity
-	 * @param owner
-	 *            Model : The model this entity is associated to
-	 * @param showInTrace
-	 *            boolean : Flag for showing entity in trace-files. Set it to
-	 *            <code>true</code> if entity should show up in trace. Set it to
-	 *            <code>false</code> if entity should not be shown in trace.
+	 * The identfication number of this Entity.
 	 */
+	private long _identNumber;
+	
 	public Entity(Model owner, String name, boolean showInTrace) {
 
 		super(owner, name, showInTrace); // create Schedulable
-		myPriority = 0; // default priority
-		myQLink = null; // not queued
+		_myQueuingPriority = 0; // default queuing priority
+		_myQueues = new ArrayList<QueueBased>();
+
+		// creates and registers identifier
+		_identNumber = owner.linkWithIdentNumber(this);
 
 	}
-
+	
 	/**
-	 * Adds a reference to the queue this entity was just inserted in. The given
-	 * queue-link is an element of a single linked list that always references
-	 * to the next queue this entity is in.
+	 * @deprecated Returns the event-note associated to this Entity object. If the
+	 * Entity object is not currently scheduled, <code>null</code> will be
+	 * returned. 
 	 * 
-	 * @param newQ
-	 *            QueueLink : The queue-link referencing the queue this entity
-	 *            is inserted in
+	 * Use getEventNotes() for all Event notes scheduled.
+	 * 
+	 * @return EventNote : The event-note associated to the entity or
+	 *         <code>null</code> if Entity is not currently scheduled
 	 */
-	void addQueueLink(QueueLink newQ) {
-
-		// do nothing on null values
-		if (newQ == null)
-			return;
-
-		if (myQLink == null) { // special care for first element
-
-			myQLink = newQ; // set reference to the only queue this is in
-
-		} else { // insert at first position - saves traversing list to end
-
-			newQ.setNextQueue(myQLink); // set ref. of new link to first link in
-			// chain
-			myQLink = newQ; // set first link ref to new link
-
+	EventNote getEventNote() 
+	{
+		return getEventNotes().isEmpty() ? null : getEventNotes().get(0);
+	}
+	
+	/**
+	 * Returns a list of events associated to this Entity object. If the
+	 * Entity object is not currently scheduled, an empty list will be
+	 * returned. Remind that all different Event classes can be included.
+	 * 
+	 * @return List<EventAbstract> : The events associated to the entity
+	 */
+	public List<EventAbstract> getScheduledEvents()
+	{
+		List<EventAbstract> list = new LinkedList<EventAbstract>();
+		for (EventNote note : _schedule)
+		{
+			list.add(note.getEvent());
 		}
+		return list;
+
+	}
+	
+	/**
+	 * Returns the entity's identification number. 
+	 * 
+	 * @return Long : The entity's identification number
+	 */
+	public long getIdentNumber() {
+
+		return _identNumber; // returns the identification number
 
 	}
 
 	/**
-	 * Returns the entity's priority. Default priority of an entity is zero.
+	 * Returns the entity's queuing priority. Default priority of an entity is zero.
 	 * Higher priorities are positive, lower priorities negative.
 	 * 
 	 * @return int : The entity's priority
 	 */
-	public int getPriority() {
+	public int getQueueingPriority() {
 
-		return myPriority; // Who would have guessed that ?
+		return _myQueuingPriority;
 
 	}
+	
+    /**
+     * Returns the entity's queuing priority. Default priority of an entity is zero.
+     * Higher priorities are positive, lower priorities negative.
+     * 
+     * @return int : The entity's priority
+     * 
+     * @deprecated Replaced by <code>getQueueingPriority()</code> to avoid confusing 
+     * with the scheduling priority of an event or process.
+     */
+    public int getPriority() {
 
+        return this.getQueueingPriority();
+
+    }
+	
 	/**
-	 * Returns a reference to the QueueLink of the given QueueList if this
-	 * Entity is inside that QueueList. The Entity's single linked List of
-	 * Queues it is currently queued in is scanned for a QueueLink that contains
-	 * a reference to the given QueueList. That QueueLink is returned. It
-	 * returns <code>null</code> if the Entity is not yet queued in the given
-	 * QueueList.
+	 * @deprecated Prefer usage of getQueues() as an entity may be queued in multiple queues, call getQueueList() to obtaint the QueueList<?> objects
 	 * 
-	 * @return QueueLink : The QueueLink referencing the given QueueList this
-	 *         Entity is in or <code>null</code> if not queued in that
-	 *         particular QueueList
-	 * @param qList
-	 *            desmoj.QueueList : The QueueList this Entity's QueueLink is of
-	 *            interest
+	 * Returns the <code>QueueList</code> where this <code>Entity</code> is queued in or <code>null</code>.
+	 * 
+	 * @return QueueList : The <code>QueueList</code> or <code>null</code>.
 	 */
-	QueueLink getQueueLink(QueueList qList) {
-
-		if (myQLink == null) { // check for null values
-
-			return null;
-		}
-
-		if (qList == null) { // check for null values
-
-			return null;
-		}
-
-		// loop through all links
-		for (QueueLink i = myQLink; i != null; i = i.getNextQueue()) {
-
-			if (i.getQueueList() == qList) {
-				return i; // return link if found
-			}
-
-		}
-
-		return null; // not found
-
+	public QueueList<?> getQueue()
+	{
+	    if (!this._myQueues.isEmpty() && this._myQueues.get(0) instanceof Queue<?>)
+	        return ((Queue<?>) this._myQueues.get(0)).getQueueList();
+        if (!this._myQueues.isEmpty() && this._myQueues.get(0) instanceof ProcessQueue<?>)
+            return ((ProcessQueue<?>) this._myQueues.get(0)).getQueueList();
+	    return null;
 	}
+	
+    /**
+     * Returns a list of queues and other <code>QueueBased</code> objects where this <code>Entity</code> is queued.
+     * 
+     * @return List<QueueBased> : The <code>QueueBased</code>s containing this entity; may be empty if entity is not queued.
+     */
+    public List<QueueBased> getQueues()
+    {
+        return new ArrayList<QueueBased>(this._myQueues);
+    }
+    
+    /**
+     * Tests if this <code>Entity</code> queued in a at least one queue or other <code>QueueBased</code>.
+     * 
+     * @return boolean : Is <code>true</code> if this Entity is queued in at least one queue or other <code>QueueBased</code>,
+     * <code>false</code> otherwise.
+     */
+    public boolean isQueued() {
+        return !this._myQueues.isEmpty();
+    }
 
 	/**
 	 * Checks if the two entities have the same priority. Note that this is a
 	 * static method available through calling the entity's class i.e.
 	 * <code>Entity.isEqual(a,b)</code> where <code>a</code> and <code>b</code>
-	 * are valid entity objects.
+	 * are valid Entity objects.
 	 * 
 	 * @return boolean : Is <code>true</code> if <code>a</code> has the same
 	 *         priority as <code>b</code>,<code>/false</code> otherwise
@@ -178,7 +202,12 @@ public abstract class Entity extends Schedulable {
 	 */
 	public final static boolean isEqual(Entity a, Entity b) {
 
-		return (a.getPriority() == b.getPriority());
+		if(a == null || b == null)
+		{
+			return false;
+		}
+		
+		return (a.getQueueingPriority() == b.getQueueingPriority());
 
 	}
 
@@ -186,7 +215,7 @@ public abstract class Entity extends Schedulable {
 	 * Checks if the first of the two entities has a higher priority than the
 	 * second. Note that this is a static method available through calling the
 	 * entity's class i.e. <code>Entity.isLarger(a,b)</code> where a and b are
-	 * valid entity objects.
+	 * valid Entity objects.
 	 * 
 	 * @return boolean : Is <code>true</code> if <code>a</code> has a larger
 	 *         priority than <code>b</code>,<code>/false</code> otherwise
@@ -197,7 +226,12 @@ public abstract class Entity extends Schedulable {
 	 */
 	public final static boolean isLarger(Entity a, Entity b) {
 
-		return (a.getPriority() > b.getPriority());
+		if(a == null || b == null)
+		{
+			return false;
+		}
+		
+		return (a.getQueueingPriority() > b.getQueueingPriority());
 
 	}
 
@@ -205,7 +239,7 @@ public abstract class Entity extends Schedulable {
 	 * Checks if the first of the two entities has higher or same priority than
 	 * the second. Note that this is a static method available through calling
 	 * the entity's class i.e. <code>Entity.isLargerOrEqual(a,b)</code> where a
-	 * and b are valid entity objects.
+	 * and b are valid Entity objects.
 	 * 
 	 * @return boolean : Is <code>true</code> if <code>a</code> has a larger or
 	 *         equal priority than <code>b</code>,<code>/false</code> otherwise
@@ -216,14 +250,19 @@ public abstract class Entity extends Schedulable {
 	 */
 	public final static boolean isLargerOrEqual(Entity a, Entity b) {
 
-		return (a.getPriority() >= b.getPriority());
+		if(a == null || b == null)
+		{
+			return false;
+		}
+		
+		return (a.getQueueingPriority() >= b.getQueueingPriority());
 
 	}
 
 	/**
 	 * Checks if the first of the two entities have different priorities. Note
 	 * that this is a static method available through calling the entity's class
-	 * i.e. <code>Entity.isNotEqual(a,b)</code> where a and b are valid entity
+	 * i.e. <code>Entity.isNotEqual(a,b)</code> where a and b are valid Entity
 	 * objects.
 	 * 
 	 * @return boolean : Is <code>true</code> if <code>a</code> has a different
@@ -235,16 +274,22 @@ public abstract class Entity extends Schedulable {
 	 */
 	public final static boolean isNotEqual(Entity a, Entity b) {
 
-		return (a.getPriority() != b.getPriority());
+		if(a == null || b == null)
+		{
+			return false;
+		}
+		
+		return (a.getQueueingPriority() != b.getQueueingPriority());
 
 	}
 
+
 	/**
-	 * Tests if this entity actually is a simprocess. Although simprocesses have
-	 * an individual lifecycle, they can alsao be handled like entities and be
+	 * Tests if this Entity actually is a SimProcess. Although SimProcess have
+	 * an individual life-cycle, they can also be handled like entities and be
 	 * scheduled to be manipulated by an event.
 	 * 
-	 * @return boolean : Is <code>true</code> if this entity is an instance of
+	 * @return boolean : Is <code>true</code> if this Entity is an instance of
 	 *         class <code>SimProcess</code>,<code>false</code> otherwise
 	 */
 	public boolean isSimProcess() {
@@ -257,7 +302,7 @@ public abstract class Entity extends Schedulable {
 	 * Checks if the first of the two entities has a lower priority than the
 	 * second. Note that this is a static method available through calling the
 	 * entity's class i.e. <code>Entity.isSmaller(a,b)</code> where a and b are
-	 * valid entity objects.
+	 * valid Entity objects.
 	 * 
 	 * @return boolean : Is <code>true</code> if <code>a</code> has a lower
 	 *         priority than <code>b</code>,<code>/false</code> otherwise
@@ -266,9 +311,13 @@ public abstract class Entity extends Schedulable {
 	 * @param b
 	 *            Entity : Second comparand entity
 	 */
-	public final static boolean isSmaller(Entity a, Entity b) {
-
-		return (a.getPriority() < b.getPriority());
+	public final static boolean isSmaller(Entity a, Entity b)
+	{
+		if(a == null || b == null)
+		{
+			return false;
+		}
+		return (a.getQueueingPriority() < b.getQueueingPriority());
 
 	}
 
@@ -276,7 +325,7 @@ public abstract class Entity extends Schedulable {
 	 * Checks if the first of the two entities has lower or same priority than
 	 * the second. Note that this is a static method available through calling
 	 * the entity's class i.e. <code>Entity.isSmallerOrEqual(a,b)</code> where a
-	 * and b are valid entity objects.
+	 * and b are valid Entity objects.
 	 * 
 	 * @return boolean : Is <code>true</code> if <code>a</code> has a smaller or
 	 *         equal priority than <code>b</code>, <code>/false</code> otherwise
@@ -287,101 +336,31 @@ public abstract class Entity extends Schedulable {
 	 */
 	public final static boolean isSmallerOrEqual(Entity a, Entity b) {
 
-		return (a.getPriority() <= b.getPriority());
+		if(a == null || b == null)
+		{
+			return false;
+		}
+		
+		return (a.getQueueingPriority() <= b.getQueueingPriority());
 
 	}
 
 	/**
-	 * Returns the number of Queues this Entity is currently queued in. Note
-	 * that Entities that enter Queues for statistical reasons ("zeros") have
-	 * that Queue registered with them for a short period of time. This might
-	 * bias the value returned.
-	 * 
-	 * @return int : The number of Queues this Entity is currently queued in
-	 */
-	public int numQueues() {
-
-		int count = 0; // the counter
-
-		// Note that QueueLink.queues instead of QueueLink.next used here!
-		for (QueueLink i = myQLink; i != null; i = i.getNextQueue()) {
-			count++; // increment for each other QueueLink found
-		}
-
-		return count; // this should be the total of all queues
-
-	}
-
-	/**
-	 * Removes a reference to the Queue this Entity was just removed from. The
-	 * given QueueLink is an element of a single linked list that always
-	 * references the next queue this Entity is in.
-	 * 
-	 * @param newQ
-	 *            QueueLink : The QueueLink referencing the Queue this Entity is
-	 *            inserted in.
-	 */
-	void removeQueueLink(QueueLink removeQ) {
-
-		if (myQLink == null) {
-			sendWarning("Can't remove QueueLink!", "Entity : " + getName()
-					+ " Method: removeQueueLink(QueueLink removeQ)",
-					"The entity does not have any references to queues.",
-					"Check if this entity is queued in a eueu by calling that "
-							+ "queue's contains(entity e) method.");
-			return; // no links to queues to be removed here
-		}
-
-		if (removeQ == null) {
-			sendWarning("Can't remove QueueLink!", "Entity : " + getName()
-					+ " Method: removeQueueLink(QueueLink removeQ)",
-					"The Queuelink given as parameter is a null reference.",
-					"This is an internal error. Please report it to the "
-							+ "DESMO-J operator!");
-			return; // no proper parameter
-		}
-
-		// special care for first element
-		if (myQLink == removeQ) {
-			myQLink = removeQ.getNextQueue();
-			return;
-		}
-
-		for (QueueLink tmp = myQLink; tmp != null; tmp = tmp.getNextQueue()) {
-
-			if (tmp.getNextQueue() == removeQ) { // is remQ next?
-				tmp.setNextQueue(removeQ.getNextQueue()); // set correct
-				// references
-				return; // job done
-			}
-
-		}
-
-		sendWarning("Can't remove QueueLink!", "Entity : " + getName()
-				+ " Method: removeQueueLink(QueueLink removeQ)",
-				"The Queuelink given as parameter was not found in the "
-						+ "queuelink chain.",
-				"This is an internal error. Please report it to the "
-						+ "DESMO-J operator!");
-
-	}
-
-	/**
-	 * Schedules this entity to be manipulated by the given event at the current
+	 * Schedules this Entity to be manipulated by the given Event at the current
 	 * time plus the given offset. Method returns with a warning message if
-	 * either Entity or Event are already scheduled in the event-list.
+	 * either Entity or Event are already scheduled in the EventList.
 	 * 
 	 * @param what
-	 *            Event : The event that manipulates this entity
-	 * @param when
-	 *            TimeSpan :The offset to the current simulation time at which
+	 *            Event : The Event that manipulates this Entity
+	 * @param dt
+	 *            TimeSpan : The offset to the current simulation time at which
 	 *            the event is to be scheduled
 	 * @see SimClock
 	 */
-	public void schedule(Event what, TimeSpan dt) {
+	public void schedule(Event<?> what, TimeSpan dt) {
 		if ((dt == null)) {
 			sendWarning(
-					"Can't schedule entity!",
+					"Can't schedule Entity!",
 					"Entity : " + getName()
 							+ " Method: schedule(Event what, TimeSpan dt)",
 					"The simulation time given as parameter is a null reference.",
@@ -391,88 +370,233 @@ public abstract class Entity extends Schedulable {
 		}
 
 		if ((what == null)) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName() + " Method: schedule(Event what, TimeSpan dt)",
-					"The event given as parameter is a null reference.",
-					"Be sure to have a valid event reference for this event "
+					"The Event given as parameter is a null reference.",
+					"Be sure to have a valid Event reference for this event "
 							+ "to be scheduled with.");
 			return; // no proper parameter
 		}
 
-		if (isScheduled()) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+		if (what.isScheduled()) // Event is already scheduled
+		{
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName() + " Method: schedule(Event what, TimeSpan dt)",
-					"The entity to be scheduled is already scheduled.",
-					"Use method reSchedule(TimeSpan dt) to shift the entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
-		}
-
-		if (what.isScheduled()) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
-					+ getName() + " Method: schedule(Event what, TimeSpan dt)",
-					"The event '" + what.getName()
+					"The Event '" + what.getName()
 							+ "'to be scheduled with this "
-							+ "entity is already scheduled.",
+							+ "Entity is already scheduled.",
 					"Use method reSchedule(TimeSpan dt) to shift the entity "
 							+ "to be scheduled at some other point of time.");
 			return; // was already scheduled
 		}
 
-		if (!isModelCompatible(what)) {
+		if (!isModelCompatible(what)) // Entity and Event are part of model
+		{
 			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
 					+ getName() + " Method: schedule(Event what, TimeSpan dt)",
-					"The event to be scheduled with this entity is not "
+					"The Event to be scheduled with this Entity is not "
 							+ "modelcompatible.",
 					"Make sure to use compatible model components only.");
 			return; // was already scheduled
 		}
 
-		if (currentlySendTraceNotes()) {
-			if (this == currentEntity()) {
-				if (dt == TimeSpan.ZERO)
-					sendTraceNote("schedules '" + what.getName()
-							+ "' of itself now");
-				else
-					sendTraceNote("schedules '" + what.getName()
-							+ "' of itself at "
-							+ TimeOperations.add(presentTime(), dt).toString());
-			} else {
-				if (dt == TimeSpan.ZERO)
-					sendTraceNote("schedules '" + what.getName() + "' of '"
-							+ getName() + "' now");
-				else
-					sendTraceNote("schedules '" + what.getName() + "' of '"
-							+ getName() + "' at "
-							+ TimeOperations.add(presentTime(), dt).toString());
-			}
-		}
-
-		getModel().getExperiment().getScheduler().schedule(this, what, dt);
-
+        // generate trace
+        this.generateTraceForScheduling(what, null, null, null, null, TimeOperations.add(presentTime(), dt));
+        
+        // schedule Event
+        getModel().getExperiment().getScheduler().schedule(this, what, dt);
+		
 		if (currentlySendDebugNotes()) {
-			sendDebugNote("schedules on eventlist<br>"
+			sendDebugNote("schedules on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
+	
+	/**
+	 * Schedules this Entity to be manipulated by the given EventOf2Entities at the current
+	 * time plus the given offset. 
+	 * 
+     * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf2Entities.
+     * @param what
+     *            EventOf2Entities : The event to be scheduled
+	 * @param dt
+	 *            TimeSpan : The offset to the current simulation time at which
+	 *            the event is to be scheduled
+	 * @see SimClock
+	 */
+	public <E extends Entity> void schedule(E who2, EventOf2Entities<?, E> what, TimeSpan dt) {
+		
+		if ((who2 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName() + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeSpan dt) {",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference for this event "
+							+ "to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((dt == null)) {
+			sendWarning(
+					"Can't schedule Entity!",
+					"Entity : " + getName()
+                    + getName() + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeSpan dt) {",
+					"The simulation time given as parameter is a null reference.",
+					"Be sure to have a valid simulation time reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+	
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+	                   + getName() + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeSpan dt) {",
+					"The EventOf2Entities given as parameter is a null reference.",
+					"Be sure to have a valid EventOf2Entities reference for this event "
+							+ "to be scheduled with.");
+			return; // no proper parameter
+		}
+	
+		if (what.isScheduled()) // Event is already scheduled
+		{
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+                    + getName() + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeSpan dt) {",
+					"The EventOf2Entities '" + what.getName()
+							+ "'to be scheduled with this "
+							+ "Entity is already scheduled.",
+					"Use method reSchedule(TimeSpan dt) to shift the event "
+							+ "to be scheduled at some other point of time.");
+			return; // was already scheduled
+		}
+	
+		if (!isModelCompatible(what)) // Entity and Event are part of model
+		{
+			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
+                    + getName() + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeSpan dt) {",
+					"The EventOf2Entities to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+	
+        // generate trace
+        this.generateTraceForScheduling(what, who2, null, null, null, TimeOperations.add(presentTime(), dt));
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().schedule(this, who2, what, dt);
+		
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("schedules on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
+	
+	/**
+	 * Schedules this Entity to be manipulated by the given EventOf3Entities at the current
+	 * time plus the given offset.
+	 * 
+     * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf3Entities.
+     * @param who3
+     *            Entity : The third entity to be scheduled for the EventOf3Entities.    
+     * @param what
+     *            EventOf3Entities : The event to be scheduled
+	 * @param dt
+	 *            TimeSpan : The offset to the current simulation time at which
+	 *            the event is to be scheduled
+	 * @see SimClock
+	 */
+	public <E extends Entity, F extends Entity> void schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeSpan dt) {
+		
+		if ((who2 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName() + " Method: <E extends Entity, F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeSpan dt)",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference for this event "
+							+ "to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((who3 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+                    + getName() + " Method: <E extends Entity, F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeSpan dt)",
+					"The Entity 'who3' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference for this event "
+							+ "to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((dt == null)) {
+			sendWarning(
+					"Can't schedule Entity!",
+					"Entity : " + getName() + " Method: <E extends Entity, F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeSpan dt)",
+					"The simulation time given as parameter is a null reference.",
+					"Be sure to have a valid simulation time reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+	
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+	                   + getName() + " Method: <E extends Entity, F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeSpan dt)",
+					"The EventOf3Entities given as parameter is a null reference.",
+					"Be sure to have a valid Event reference for this event "
+							+ "to be scheduled with.");
+			return; // no proper parameter
+		}
+	
+		if (what.isScheduled()) // Event is already scheduled
+		{
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+	                   + getName() + " Method: <E extends Entity, F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeSpan dt)",
+					"The EventOf3Entities '" + what.getName()
+							+ "'to be scheduled with this "
+							+ "Entity is already scheduled.",
+					"Use method reSchedule(TimeSpan dt) to shift the event "
+							+ "to be scheduled at some other point of time.");
+			return; // was already scheduled
+		}
+	
+		if (!isModelCompatible(what)) // Entity and Event are part of model
+		{
+			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
+	                   + getName() + " Method: <E extends Entity, F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeSpan dt)",
+					"The EventOf3Entities to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+		
+        // generate trace
+        this.generateTraceForScheduling(what, who2, who3, null, null, TimeOperations.add(presentTime(), dt));
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().schedule(this, who2, who3, what, dt);
+		
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("schedules on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
 
 	/**
-	 * Schedules this entity to be manipulated by the given event at the given
+	 * Schedules this Entity to be manipulated by the given Event at the given
 	 * point of time. Method returns with a warning message if either Entity or
 	 * Event are already scheduled in the event-list.
 	 * 
 	 * @param what
-	 *            Event : The event that manipulates this entity
+	 *            Event : The Event that manipulates this Entity
 	 * @param when
 	 *            TimeInstant : The point in simulation time this event is
 	 *            scheduled to happen.
 	 * @see SimClock
 	 */
-	public void schedule(Event what, TimeInstant when) {
+	public void schedule(Event<?> what, TimeInstant when) {
 		if ((when == null)) {
 			sendWarning(
-					"Can't schedule entity!",
+					"Can't schedule Entity!",
 					"Entity : " + getName()
 							+ " Method: schedule(Event what, TimeInstant when)",
 					"The simulation time given as parameter is a null reference.",
@@ -482,32 +606,22 @@ public abstract class Entity extends Schedulable {
 		}
 
 		if ((what == null)) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName()
 					+ " Method: schedule(Event what, TimeInstant when)",
-					"The event given as parameter is a null reference.",
-					"Be sure to have a valid event reference for this event "
+					"The Event given as parameter is a null reference.",
+					"Be sure to have a valid Event reference for this event "
 							+ "to be scheduled with.");
 			return; // no proper parameter
 		}
 
-		if (isScheduled()) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
-					+ getName()
-					+ " Method: schedule(Event what, TimeInstant when)",
-					"The entity to be scheduled is already scheduled.",
-					"Use method reSchedule(TimeInstant when) to shift the entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
-		}
-
 		if (what.isScheduled()) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName()
 					+ " Method: schedule(Event what, TimeInstant when)",
-					"The event '" + what.getName()
+					"The Event '" + what.getName()
 							+ "'to be scheduled with this "
-							+ "entity is already scheduled.",
+							+ "Entity is already scheduled.",
 					"Use method reSchedule(TimeInstant when) to shift the entity "
 							+ "to be scheduled at some other point of time.");
 			return; // was already scheduled
@@ -517,42 +631,206 @@ public abstract class Entity extends Schedulable {
 			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
 					+ getName()
 					+ " Method: schedule(Event what, TimeInstant when)",
-					"The event to be scheduled with this entity is not "
+					"The Event to be scheduled with this Entity is not "
 							+ "modelcompatible.",
 					"Make sure to use compatible model components only.");
 			return; // was already scheduled
 		}
 
-		if (currentlySendTraceNotes()) {
-			if (this == currentEntity()) {
-				if (TimeInstant.isEqual(when, presentTime()))
-					sendTraceNote("schedules '" + what.getName()
-							+ "' of itself now");
-				else
-					sendTraceNote("schedules '" + what.getName()
-							+ "' of itself at " + when.toString());
-			} else {
-				if (TimeInstant.isEqual(when, presentTime()))
-					sendTraceNote("schedules '" + what.getName() + "' of '"
-							+ getName() + "' now");
-				else
-					sendTraceNote("schedules '" + what.getName() + "' of '"
-							+ getName() + "' at " + when.toString());
-			}
-		}
-
+        // generate trace
+        this.generateTraceForScheduling(what, null, null, null, null, when);
+        
+        // schedule Event
 		getModel().getExperiment().getScheduler().schedule(this, what, when);
-
+		
 		if (currentlySendDebugNotes()) {
-			sendDebugNote("schedules on eventlist<br>"
+			sendDebugNote("schedules on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
+	
+	/**
+	 * Schedules this Entity to be manipulated by the given EventOf2Entities at the given
+	 * point of time. Method returns with a warning message if either Entity or
+	 * Event are already scheduled in the event-list.
+	 * 
+     * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf2Entities.
+     * @param what
+     *            EventOf2Entities : The event to be scheduled
+	 * @param when
+	 *            TimeInstant : The point in simulation time this event is
+	 *            scheduled to happen.
+	 * @see SimClock
+	 */
+	public <E extends Entity> void schedule(E who2, EventOf2Entities<?, E> what, TimeInstant when) {
+		
+		if ((who2 == null)) {
+			sendWarning(
+					"Can't schedule Entity!",
+					"Entity : " + getName()
+					+ " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeInstant when)",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+		
+		if ((when == null)) {
+			sendWarning(
+					"Can't schedule Entity!",
+					"Entity : " + getName()
+                    + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeInstant when)",
+					"The simulation time given as parameter is a null reference.",
+					"Be sure to have a valid simulation time reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+	
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+                    + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeInstant when)",
+					"The EventOf2Entities given as parameter is a null reference.",
+					"Be sure to have a valid EventOf2Entities reference for this event "
+							+ "to be scheduled with.");
+			return; // no proper parameter
+		}
+	
+		if (what.isScheduled()) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+                    + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeInstant when)",
+					"The EventOf2Entities '" + what.getName()
+							+ "'to be scheduled with this "
+							+ "Entity is already scheduled.",
+					"Use method reSchedule(TimeInstant when) to shift the event "
+							+ "to be scheduled at some other point of time.");
+			return; // was already scheduled
+		}
+	
+		if (!isModelCompatible(what)) {
+			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
+					+ getName()
+                    + " Method: <E extends Entity> schedule(E who2, EventOf2Entities<?, E> what, TimeInstant when)",
+					"The EventOf2Entities to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+	
+        // generate trace
+        this.generateTraceForScheduling(what, who2, null, null, null, when);
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().schedule(this, who2, what, when);
+		
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("schedules on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
+	
+	/**
+	 * Schedules this Entity to be manipulated by the given EventOf3Entities at the given
+	 * point of time.
+	 * 
+	 * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf3Entities.
+     * @param who3
+     *            Entity : The third entity to be scheduled for the EventOf3Entities.	 
+     * @param what
+	 *            EventOf3Entities : The event to be scheduled
+	 * @param when
+	 *            TimeInstant : The point in simulation time the event is
+	 *            scheduled to happen.
+	 * @see SimClock
+	 */
+	public <E extends Entity,F extends Entity> void schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeInstant when) {
+		
+		if ((who2 == null)) {
+			sendWarning(
+					"Can't schedule Entity!",
+					"Entity : " + getName()
+					+ " Method: <E extends Entity,F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeInstant when) {",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+		
+		if ((who3 == null)) {
+			sendWarning(
+					"Can't schedule Entity!",
+					"Entity : " + getName()
+                    + " Method: <E extends Entity,F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeInstant when) {",
+					"The Entity 'who3' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+		
+		if ((when == null)) {
+			sendWarning(
+					"Can't schedule Entity!",
+					"Entity : " + getName()
+                    + " Method: <E extends Entity,F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeInstant when) {",
+					"The simulation time given as parameter is a null reference.",
+					"Be sure to have a valid simulation time reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+	
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+                    + " Method: <E extends Entity,F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeInstant when) {",
+					"The EventOf3Entities given as parameter is a null reference.",
+					"Be sure to have a valid EventOf3Entities reference for this event "
+							+ "to be scheduled with.");
+			return; // no proper parameter
+		}
+	
+		if (what.isScheduled()) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+                    + " Method: <E extends Entity,F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeInstant when) {",
+					"The EventOf3Entities '" + what.getName()
+							+ "'to be scheduled with this "
+							+ "Entity is already scheduled.",
+					"Use method reSchedule(TimeInstant when) to shift the event "
+							+ "to be scheduled at some other point of time.");
+			return; // was already scheduled
+		}
+	
+		if (!isModelCompatible(what)) {
+			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
+					+ getName()
+                    + " Method: <E extends Entity,F extends Entity> schedule(E who2, F who3, EventOf3Entities<?, E, F> what, TimeInstant when) {",
+					"The EventOf3Entities to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+		
+        // generate trace
+        this.generateTraceForScheduling(what, who2, who3, null, null, when);
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().schedule(this, who2, who3, what, when);
+		
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("schedules on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
 
 	/**
 	 * @deprecated Replaced by schedule(Event what,TimeSpan dt). Schedules this
-	 *             entity to be manipulated by the given event at the given
+	 *             Entity to be manipulated by the given Event at the given
 	 *             offset to the current simulation time. Note that the given
 	 *             point in simulation time is the positive offset to the
 	 *             current simulation time as displayed by the simulation clock.
@@ -560,84 +838,76 @@ public abstract class Entity extends Schedulable {
 	 *             Event are already scheduled in the event-list.
 	 * 
 	 * @param what
-	 *            Event : The event that manipulates this entity
-	 * @param when
+	 *            Event : The Event that manipulates this Entity
+	 * @param dt
 	 *            SimTime : The offset to the current time this event is
 	 *            scheduled to happen
 	 * @see SimClock
 	 */
 	@Deprecated
-	public void schedule(Event what, SimTime dt) {
+	public void schedule(Event<?> what, SimTime dt) {
 		schedule(what, SimTime.toTimeSpan(dt));
 	}
 
 	/**
-	 * Schedules this entity with the given event to occur directly after the
-	 * given schedulable that is already scheduled. Note that this event's point
-	 * of simulation time will be set to be the same as the schedulable's time.
-	 * Thus this event will occur directly after the given schedulable but the
+	 * Schedules this Entity with the given Event to occur directly after the
+	 * given Schedulable that is already scheduled. Note that this event's point
+	 * of simulation time will be set to be the same as the Schedulable's time.
+	 * Thus the event will occur directly after the given Schedulable but the
 	 * simulation clock will not change. Will return with a warning message if
-	 * the schedulable given as parameter is not scheduled.
+	 * the Schedulable given as parameter is not scheduled. If there are multiple
+     * schedules for the given Schedulable, the event will be scheduled after
+     * the last occurrence. 
 	 * 
 	 * @param after
-	 *            Schedulable : The schedulable this entity should be scheduled
+	 *            Schedulable : The Schedulable this Entity should be scheduled
 	 *            after
 	 * @param what
-	 *            Event : The event to manipulate this entity
+	 *            Event : The Event to manipulate this Entity
 	 */
-	public void scheduleAfter(Schedulable after, Event what) {
+	public void scheduleAfter(Schedulable after, Event<?> what) {
 
 		// check parameters
 		if ((what == null)) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName()
-					+ " Method: scheduleAfter(Schedulable after, Entity who)",
-					"The event given as parameter is a null reference.",
+					+ " Method: scheduleAfter(Schedulable after, Event what)",
+					"The Event given as parameter is a null reference.",
 					"Be sure to have a valid Event reference before calling "
 							+ "this method.");
 			return; // no proper parameter
 		}
 
 		if ((after == null)) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName()
-					+ " Method: scheduleAfter(Schedulable after, Entity who)",
-					"The schedulable given as parameter is a null reference.",
-					"Be sure to have a valid schedulable reference for this "
+					+ " Method: scheduleAfter(Schedulable after, Event what)",
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
 							+ "Entity to be scheduled with.");
 			return; // no proper parameter
 		}
 
 		if (!after.isScheduled()) {
 			sendWarning(
-					"Can't schedule entity! Command ignored.",
+					"Can't schedule Entity! Command ignored.",
 					"Entity : "
 							+ getName()
-							+ " Method: scheduleAfter(Schedulable after, Entity who)",
-					"The schedulable given as parameter is not scheduled, "
-							+ "thus no position can be determined for this entity.",
-					"Be sure that the schedulable given as aprameter is "
+							+ " Method: scheduleAfter(Schedulable after, Event what)",
+					"The Schedulable given as parameter is not scheduled, "
+							+ "thus no position can be determined for this Entity.",
+					"Be sure that the Schedulable given as aprameter is "
 							+ "actually scheduled. You can check that by calling its "
 							+ "method isScheduled() which returns a boolean telling"
 							+ "you whether it is scheduled or not.");
 			return; // no proper parameter
 		}
 
-		if (isScheduled()) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
-					+ getName()
-					+ " Method: scheduleAfter(Schedulable after, Entity who)",
-					"This entity is already scheduled.",
-					"Use method reSchedule(TimeSpan dt) or cancel this entity "
-							+ "first.");
-			return; // no proper parameter
-		}
-
 		if (!isModelCompatible(what)) {
 			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
 					+ getName()
-					+ " Method: scheduleAfter(Schedulable after, Entity who)",
-					"The event to be scheduled with this entity is not "
+					+ " Method: scheduleAfter(Schedulable after, Event what)",
+					"The Event to be scheduled with this Entity is not "
 							+ "modelcompatible.",
 					"Make sure to use compatible model components only.");
 			return; // was already scheduled
@@ -647,165 +917,638 @@ public abstract class Entity extends Schedulable {
 			if (this == currentEntity()) {
 				sendTraceNote("schedules '" + what.getName()
 						+ "' of itself after '" + after.getName() + "' at "
-						+ after.getEventNote().getTime().toString());
+						+ after.getEventNotes().get(after.getEventNotes().size()-1).getTime().toString());
 			} else {
 				sendTraceNote("schedules '" + what.getName() + "' of '"
 						+ getName() + "' after '" + after.getName() + "' at "
-						+ after.getEventNote().getTime().toString());
+						+ after.getEventNotes().get(after.getEventNotes().size()-1).getTime().toString());
 			}
 		}
 
+        // generate trace
+        this.generateTraceForScheduling(what, null, null, after, null, after.getEventNotes().get(after.getEventNotes().size()-1).getTime());
+        
+        // schedule Event
 		getModel().getExperiment().getScheduler().scheduleAfter(after, this,
 				what);
 
 		if (currentlySendDebugNotes()) {
 			sendDebugNote("scheduleAfter " + after.getQuotedName()
-					+ " on eventlist<br>"
+					+ " on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
+	
+	/**
+	 * Schedules this Entity with the given EventOf2Entities to occur directly after the
+	 * given Schedulable that is already scheduled. Note that the event's point
+	 * of simulation time will be set to be the same as the Schedulable's time.
+	 * Thus the event will occur directly after the given Schedulable but the
+	 * simulation clock will not change. Will return with a warning message if
+	 * the Schedulable given as parameter is not scheduled. If there are multiple
+     * schedules for the given Schedulable, the event will be scheduled after
+     * the last occurrence. 
+	 * 
+     * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf2Entities.
+     * @param what
+     *            EventOf2Entities : The event to be scheduled
+	 * @param after
+	 *            Schedulable : The Schedulable the event should be scheduled
+	 *            after
+	 */
+	public <E extends Entity> void scheduleAfter(Schedulable after, EventOf2Entities<?, E> what, E who2) {
+	
+		// check parameters
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity> scheduleAfter(Schedulable after, EventOf2Entities<?, E> what, E who2)",
+					"The EventOf2Entities given as parameter is a null reference.",
+					"Be sure to have a valid EventOf2Entities reference before calling "
+							+ "this method.");
+			return; // no proper parameter
+		}
+	
+		if ((after == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity> scheduleAfter(Schedulable after, EventOf2Entities<?, E> what, E who2)",
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
+							+ "Entity to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((who2 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity> scheduleAfter(Schedulable after, EventOf2Entities<?, E> what, E who2)",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference for this "
+							+ "Entity to be scheduled with.");
+			return; // no proper parameter
+		}
+	
+		if (!after.isScheduled()) {
+			sendWarning(
+					"Can't schedule Entity! Command ignored.",
+					"Entity : "
+							+ getName()
+							+ " Method: <E extends Entity> scheduleAfter(Schedulable after, EventOf2Entities<?, E> what, E who2)",
+					"The Schedulable given as parameter is not scheduled, "
+							+ "thus no position can be determined for this Entity.",
+					"Be sure that the Schedulable given as aprameter is "
+							+ "actually scheduled. You can check that by calling its "
+							+ "method isScheduled() which returns a boolean telling"
+							+ "you whether it is scheduled or not.");
+			return; // no proper parameter
+		}
+	
+		if (!isModelCompatible(what)) {
+			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity> scheduleAfter(Schedulable after, EventOf2Entities<?, E> what, E who2)",
+					"The Event to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+	
+        // generate trace
+        this.generateTraceForScheduling(what, who2, null, after, null, after.getEventNotes().get(after.getEventNotes().size()-1).getTime());
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().scheduleAfter(after, this, who2,
+				what);
+	
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("scheduleAfter " + after.getQuotedName()
+					+ " on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
+	
+	/**
+	 * Schedules this Entity with the given EventOf3Entities to occur directly after the
+	 * given Schedulable that is already scheduled. Note that the event's point
+	 * of simulation time will be set to be the same as the Schedulable's time.
+	 * Thus the event will occur directly after the given Schedulable but the
+	 * simulation clock will not change. Will return with a warning message if
+	 * the Schedulable given as parameter is not scheduled. If there are multiple
+     * schedules for the given Schedulable, the event will be scheduled after
+     * the last occurrence. 
+	 * 
+     * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf3Entities.
+     * @param who3
+     *            Entity : The third entity to be scheduled for the EventOf3Entities.    
+     * @param what
+     *            EventOf3Entities : The event to be scheduled
+	 * @param after
+	 *            Schedulable : The Schedulable this Entity should be scheduled
+	 *            after
+	 * @param what
+	 *            Event : The Event to manipulate this Entity
+	 */
+	public <E extends Entity, F extends Entity> void scheduleAfter(Schedulable after, EventOf3Entities<?, E, F> what, E who2, F who3) {
+	
+		// check parameters
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> scheduleAfter(Schedulable after, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The EventOf3Entities given as parameter is a null reference.",
+					"Be sure to have a valid EventOf3Entities reference before calling "
+							+ "this method.");
+			return; // no proper parameter
+		}
+	
+		if ((after == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> scheduleAfter(Schedulable after, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
+							+ "Entity to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((who2 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> scheduleAfter(Schedulable after, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference before calling "
+							+ "this method.");
+			return; // no proper parameter
+		}
+		
+		if ((who3 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> scheduleAfter(Schedulable after, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Entity 'who3' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference before calling "
+							+ "this method.");
+			return; // no proper parameter
+		}
+	
+		if (!after.isScheduled()) {
+			sendWarning(
+					"Can't schedule Entity! Command ignored.",
+					"Entity : "
+							+ getName()
+							+ " Method: <E extends Entity, F extends Entity> scheduleAfter(Schedulable after, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Schedulable given as parameter is not scheduled, "
+							+ "thus no position can be determined for this Entity.",
+					"Be sure that the Schedulable given as aprameter is "
+							+ "actually scheduled. You can check that by calling its "
+							+ "method isScheduled() which returns a boolean telling"
+							+ "you whether it is scheduled or not.");
+			return; // no proper parameter
+		}
+	
+		if (!isModelCompatible(what)) {
+			sendWarning("Can't schedule Entity! Command ignored", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> scheduleAfter(Schedulable after, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The EventOf3Entities to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+	    
+        // generate trace
+        this.generateTraceForScheduling(what, who2, who3, after, null, after.getEventNotes().get(after.getEventNotes().size()-1).getTime());
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().scheduleAfter(after, this, who2, who3,
+				what);
+	
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("scheduleAfter " + after.getQuotedName()
+					+ " on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
 
 	/**
-	 * Schedules this entity with the given event to occur directly before the
-	 * given schedulable that is scheduled. Note that this event's point of
-	 * simulation time will be set to be the same as the schedulable's time.
-	 * Thus this event will occur directly before the given schedulable but the
+	 * Schedules this Entity with the given Event to occur directly before the
+	 * given Schedulable that is scheduled. Note that this event's point of
+	 * simulation time will be set to be the same as the Schedulable's time.
+	 * Thus the event will occur directly before the given Schedulable but the
 	 * simulation clock will not change. Issues a warning message if the
-	 * schedulable given is not scheduled.
+	 * Schedulable given is not scheduled. If there are multiple
+     * schedules for the given Schedulable, the event will be scheduled before
+     * the first occurrence. 
 	 * 
 	 * @param before
-	 *            Schedulable : The schedulable this entity should be scheduled
+	 *            Schedulable : The Schedulable this Entity should be scheduled
 	 *            before
 	 * @param what
-	 *            Event : The event to manipulate this entity
+	 *            Event : The Event to manipulate this Entity
 	 */
-	public void scheduleBefore(Schedulable before, Event what) {
+	public void scheduleBefore(Schedulable before, Event<?> what) {
 
 		// check parameters
 		if ((what == null)) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName()
-					+ " Method: scheduleBefore(Schedulable before, "
-					+ "Entity who)",
-					"The event given as parameter is a null reference.",
+					+ " Method: scheduleBefore(Schedulable before, Event what)",
+					"The Event given as parameter is a null reference.",
 					"Be sure to have a valid Event reference before calling "
 							+ "this method.");
 			return; // no proper parameter
 		}
 
 		if ((before == null)) {
-			sendWarning("Can't schedule entity! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
 					+ getName()
-					+ " Method: scheduleBefore(Schedulable before, "
-					+ "Entity who)",
-					"The schedulable given as parameter is a null reference.",
-					"Be sure to have a valid schedulable reference for this "
-							+ "entity to be scheduled with.");
+					+ " Method: scheduleBefore(Schedulable before, Event what)",
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
+							+ "Entity to be scheduled with.");
 			return; // no proper parameter
 		}
 
 		if (!before.isScheduled()) {
 			sendWarning(
-					"Can't schedule entity! Command ignored.",
+					"Can't schedule Entity! Command ignored.",
 					"Entity : " + getName()
-							+ " Method: scheduleBefore(Schedulable before, "
-							+ "Entity who)",
-					"The schedulable given as parameter is not scheduled, "
-							+ "thus no position can be determined for this entity.",
-					"Be sure that the schedulable given as aprameter is "
+							+ " Method: scheduleBefore(Schedulable before, Event what)",
+					"The Schedulable given as parameter is not scheduled, "
+							+ "thus no position can be determined for this Entity.",
+					"Be sure that the Schedulable given as aprameter is "
 							+ "actually scheduled. You can check that by calling its "
 							+ "method isScheduled() which returns a boolean telling"
 							+ "you whether it is scheduled or not.");
 			return; // no proper parameter
 		}
 
-		if (isScheduled()) {
-			sendWarning(
-					"Can't schedule entity! Command ignored.",
-					"Entity : "
-							+ getName()
-							+ " Method: scheduleBefore(Schedulable before, Entity who)",
-					"This entity is already scheduled.",
-					"Use method reSchedule(TimeSpan dt) or cancel this entity "
-							+ "first.");
-			return; // no proper parameter
-		}
-
 		if (!isModelCompatible(what)) {
 			sendWarning(
-					"Can't schedule entity! Command ignored",
+					"Can't schedule Entity! Command ignored",
 					"Entity : "
 							+ getName()
-							+ " Method: scheduleBefore(Schedulable before, Entity who)",
-					"The event to be scheduled with thisentity is not "
+							+ " Method: scheduleBefore(Schedulable before, Event what)",
+					"The Event to be scheduled with thisEntity is not "
 							+ "modelcompatible.",
 					"Make sure to use compatible model components only.");
 			return; // was already scheduled
 		}
 
-		if (currentlySendTraceNotes()) {
-			if (this == currentEntity()) {
-				sendTraceNote("schedules '" + what.getName()
-						+ "' of itself before '" + before.getName() + "' at "
-						+ before.getEventNote().getTime().toString());
-			} else {
-				sendTraceNote("schedules '" + what.getName() + "' of '"
-						+ getName() + "' before '" + before.getName() + "' at "
-						+ before.getEventNote().getTime().toString());
-			}
-		}
-
+        // generate trace
+        this.generateTraceForScheduling(what, null, null, null, before, before.getEventNotes().get(0).getTime());
+        
+        // schedule Event
 		getModel().getExperiment().getScheduler().scheduleBefore(before, this,
 				what);
 
 		if (currentlySendDebugNotes()) {
 			sendDebugNote("scheduleBefore " + before.getQuotedName()
-					+ " on eventlist<br>"
+					+ " on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
+	
+	/**
+	 * Schedules this Entity with the given EventOf2Entities to occur directly before the
+	 * given Schedulable that is scheduled. Note that the event's point of
+	 * simulation time will be set to be the same as the Schedulable's time.
+	 * Thus the event will occur directly before the given Schedulable but the
+	 * simulation clock will not change. Issues a warning message if the
+	 * Schedulable given is not scheduled. If there are multiple
+     * schedules for the given Schedulable, the event will be scheduled before
+     * the first occurrence. 
+	 * 
+     * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf2Entities.
+     * @param what
+     *            EventOf2Entities : The event to be scheduled
+	 * @param before
+	 *            Schedulable : The Schedulable this Entity should be scheduled
+	 *            before
+	 */
+	public <E extends Entity> void scheduleBefore(Schedulable before, EventOf2Entities<?, E> what, E who2) {
+	
+		// check parameters
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity> void scheduleBefore(Schedulable before, EventOf2Entities<?, E> what, E who2)",
+					"The EventOf2Entities given as parameter is a null reference.",
+					"Be sure to have a valid EventOf2Entities reference before calling "
+							+ "this method.");
+			return; // no proper parameter
+		}
+	
+		if ((before == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity> void scheduleBefore(Schedulable before, EventOf2Entities<?, E> what, E who2)",
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
+							+ "Entity to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((who2 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity> void scheduleBefore(Schedulable before, EventOf2Entities<?, E> what, E who2)",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference before calling "
+							+ "this method.");
+			return; // no proper parameter
+		}
+	
+		if (!before.isScheduled()) {
+			sendWarning(
+					"Can't schedule Entity! Command ignored.",
+					"Entity : " + getName()
+							+ " Method: <E extends Entity> void scheduleBefore(Schedulable before, EventOf2Entities<?, E> what, E who2)",
+					"The Schedulable given as parameter is not scheduled, "
+							+ "thus no position can be determined for this Entity.",
+					"Be sure that the Schedulable given as aprameter is "
+							+ "actually scheduled. You can check that by calling its "
+							+ "method isScheduled() which returns a boolean telling"
+							+ "you whether it is scheduled or not.");
+			return; // no proper parameter
+		}
+	
+		if (!isModelCompatible(what)) {
+			sendWarning(
+					"Can't schedule Entity! Command ignored",
+					"Entity : "
+							+ getName()
+							+ " Method: <E extends Entity> void scheduleBefore(Schedulable before, EventOf2Entities<?, E> what, E who2)",
+					"The EventOf2Entities to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+	
+        // generate trace
+        this.generateTraceForScheduling(what, who2, null, null, before, before.getEventNotes().get(0).getTime());
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().scheduleBefore(before, this, who2,
+				what);
+	
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("scheduleBefore " + before.getQuotedName()
+					+ " on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
 
 	/**
-	 * Sets the entity's priority to a given integer value. An entity's priority
-	 * defines its position inside queues, when an entity enters any DESMO-J
-	 * construction relying on queues. The entity with highest priority is
-	 * always entered at the queue's first position. Entities with lower
-	 * priority are enqueued behind entities with higher priority. Entities with
-	 * same priority are enqueued following the FiFo strategy. Zero is default
-	 * priority. Negative priorities are lower, positive priorities are higher.
-	 * All values should be inside the range defined by Java's integral
-	 * <code>integer</code> data type. [-2147483648, +2147483648]
+	 * Schedules this Entity with the given EventOf3Entities to occur directly before the
+	 * given Schedulable that is scheduled. Note that the event's point of
+	 * simulation time will be set to be the same as the Schedulable's time.
+	 * Thus the event will occur directly before the given Schedulable but the
+	 * simulation clock will not change. Issues a warning message if the
+	 * Schedulable given is not scheduled. If there are multiple
+     * schedules for the given Schedulable, the event will be scheduled before
+     * the first occurrence. 
 	 * 
-	 * @param newPriority
-	 *            int : The new priority value
+     * @param who2
+     *            Entity : The second entity to be scheduled for the EventOf3Entities.
+     * @param who3
+     *            Entity : The third entity to be scheduled for the EventOf3Entities.    
+     * @param what
+     *            EventOf3Entities : The event to be scheduled
+	 * @param before
+	 *            Schedulable : The Schedulable this Entity should be scheduled
+	 *            before
 	 */
-	public void setPriority(int newPriority) {
-
-		// check if this Entity is already enqueued in some queue with its old
-		// priority
-		if (numQueues() > 0) {
-			sendWarning(
-					"The priority of Entity "
-							+ getQuotedName()
-							+ "is changed. "
-							+ "But this Entity is enqueued already in some queue according to its' "
-							+ "old priority.",
-					getClass().getName() + ": " + getQuotedName()
-							+ ", Method: "
-							+ "void setPriority (int newPriority)",
-					"The priority of this Entity is changing from "
-							+ myPriority
-							+ "to "
-							+ newPriority
-							+ "but not its position in the queue(s) it is enqueued.",
-					"Be aware that the position of this Entity in the queues it is already "
-							+ "enqueued in will remain unchanged. To check whether this Entity is "
-							+ "enqueued in some queue use the method <code>numQueues()</code>.");
+	public <E extends Entity, F extends Entity> void scheduleBefore(Schedulable before, EventOf3Entities<?, E, F> what, E who2, F who3) {
+	
+		// check parameters
+		if ((what == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> void scheduleBefore(Schedulable before, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Event given as parameter is a null reference.",
+					"Be sure to have a valid Event reference before calling "
+							+ "this method.");
+			return; // no proper parameter
 		}
+	
+		if ((before == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> void scheduleBefore(Schedulable before, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
+							+ "Entity to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((who2 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> void scheduleBefore(Schedulable before, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Entity 'who2' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference for this "
+							+ "Entity to be scheduled with.");
+			return; // no proper parameter
+		}
+		
+		if ((who3 == null)) {
+			sendWarning("Can't schedule Entity! Command ignored.", "Entity : "
+					+ getName()
+					+ " Method: <E extends Entity, F extends Entity> void scheduleBefore(Schedulable before, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Entity  'who3' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference for this "
+							+ "Entity to be scheduled with.");
+			return; // no proper parameter
+		}
+	
+		if (!before.isScheduled()) {
+			sendWarning(
+					"Can't schedule Entity! Command ignored.",
+					"Entity : " + getName()
+							+ " Method: <E extends Entity, F extends Entity> void scheduleBefore(Schedulable before, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The Schedulable given as parameter is not scheduled, "
+							+ "thus no position can be determined for this Entity.",
+					"Be sure that the Schedulable given as aprameter is "
+							+ "actually scheduled. You can check that by calling its "
+							+ "method isScheduled() which returns a boolean telling"
+							+ "you whether it is scheduled or not.");
+			return; // no proper parameter
+		}
+	
+		if (!isModelCompatible(what)) {
+			sendWarning(
+					"Can't schedule Entity! Command ignored",
+					"Entity : "
+							+ getName()
+							+ " Method: <E extends Entity, F extends Entity> void scheduleBefore(Schedulable before, EventOf3Entities<?, E, F> what, E who2, F who3)",
+					"The EventOf3Entities to be scheduled with this Entity is not "
+							+ "modelcompatible.",
+					"Make sure to use compatible model components only.");
+			return; // was already scheduled
+		}
+	
+        // generate trace
+        this.generateTraceForScheduling(what, who2, who3, null, before, before.getEventNotes().get(0).getTime());
+        
+        // schedule Event
+		getModel().getExperiment().getScheduler().scheduleBefore(before, this, who2, who3,
+				what);
+	
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("scheduleBefore " + before.getQuotedName()
+					+ " on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+	
+	}
+	
 
-		this.myPriority = newPriority;
+	/**
+	 * Sets the entity's queuing priority to a given integer value. The default 
+	 * priority of each entity (unless assigned otherwise) is zero. 
+     * Negative priorities are lower, positive priorities are higher.
+     * All values should be inside the range defined by Java's integral
+     * <code>integer</code> data type [-2147483648, +2147483647].
+	 * 
+	 * An entity's queuing priority can be used by the modeller to determine how 
+	 * the entity is treated by queues, though how precisely a queue will use
+	 * the priority to determine sort order is up to it's queuing strategy: 
+	 * <ul>
+     * <li><code>QueueBased.FIFO</code> sorts entities by their queuing priority,
+     * highest priority first. Entities with the same priority are 
+     * enqueued based on &quot;first in, first out&quot;.</li>
+     * <li><code>QueueBased.LIFO</code> also sorts entities by their priority,
+     * highest priority first. However, entities with the same priority are 
+     * enqueued based on &quot;last in, first out&quot;.</li>
+     * <li><code>QueueBased.Random</code> assigns a random position to each
+     * entity entering the queue, disregarding priority.</li>
+     * </ul>
+	 * Of course, the modeller is free to use the queuing priority to determine 
+	 * how entities are processed by the components he implements himself, 
+	 * whether they are queues or not. 
+     *
+	 * @param newPriority
+	 *            int : The new queuing priority value
+	 */
+	public void setQueuingPriority(int newPriority) {
+
+		this._myQueuingPriority = newPriority;
 
 	}
+	
+	/**
+     * Sets the entity's queuing priority to a given integer value. 
+     * 
+     * @param newPriority
+     *            int : The new priority value
+     *            
+     * @deprecated Replaced by <code>setQueueingPriority(int newPriority)</code> to avoid confusing 
+     *             with the scheduling priority of an event or process.
+     */
+    public void setPriority(int newPriority) {
+        this.setQueuingPriority(newPriority);
+    }
+	
+	
+	
+	/**
+	 * Informs this <code>Entity</code> to be queued in a given <code>QueueBased</code>.
+	 * 
+	 * @param q
+     *            QueueBased : The <code>QueueBased</code> where this entity is now queued.
+	 */
+	void addQueueBased(QueueBased q)
+	{
+		_myQueues.add(q);
+	}	
+	
+	/**
+     * Informs this <code>Entity</code> to be no longer queued in a given <code>QueueBased</code>.
+     * 
+     * @param q
+     *            Queue<?> : The <code>QueueBased</code> where this entity is no longer queued.
+     */
+    void removeQueueBased(QueueBased q)
+    {
+        _myQueues.remove(q);
+    }
+	
+	/**
+	 * Removes an event-note from the internal list
+	 * 
+	 * * @param note
+	 *            EventNote : The <code>EventNote to be removed</code>
+	 */
+	void removeEventNote(EventNote note) 
+	{
+		_schedule.remove(note); // only removes Event in local list
+
+	}
+	
+    /**
+     * Utility method to generate trace output for scheduling this event (internal use only).
+     *
+     * @param Event the event to be scheduled
+     * @param who1 the second entity scheduled with the event (or <code>null</code> if not applicable) 
+     * @param who2 the third entity scheduled with the event (or <code>null</code> if not applicable)
+     * @param after the Schedulable after which the event is scheduled (or <code>null</code> if not applicable)
+     * @param before the Schedulable before which the event is scheduled (or <code>null</code> if not applicable)
+     * @param at the TimeInstant at which the event is scheduled 
+     */
+    protected void generateTraceForScheduling(EventAbstract Event, Entity who1, Entity who2, Schedulable after, Schedulable before, TimeInstant at) {
+       
+        if (currentlySendTraceNotes()) {
+            
+            StringBuilder trace = new StringBuilder("schedules '" + Event.getName() + "'");
+            if (who1 != null) {
+                String who1alias = (who1 == currentEntity() ? "itself" : "'" + who1.getName() + "'");
+                trace.append(" with " + who1alias);
+                if (who2 != null) {
+                    String who2alias = (who2 == currentEntity() ? "itself" : "'" + who2.getName() + "'");
+                    trace.append(" and " + who2alias);
+                }
+            }
+            
+            if (after != null) {
+                String afterAlias = (after == currentEntity() ? "itself" : "'" + after.getName() + "'");
+                trace.append(" after " + afterAlias);
+            } else if (before != null) {
+                String beforeAlias = (before == currentEntity() ? "itself" : "'" + before.getName() + "'");
+                trace.append(" before " + beforeAlias);
+            }
+            
+            if (at == this.presentTime()) {
+                trace.append(" now.");
+            } else {
+                trace.append(" at " + at.toString() + ".");
+            }
+            
+            this.sendTraceNote(trace.toString());
+        }
+    }
+    
+    /**
+     * Creates and returns a copy of this entity.
+     * Note that subclasses have to implement the interface 
+     * </code>java.lang.Cloneable</code> to actually use this method as 
+     * otherwise, a </code>CloneNotSupportedException</code> will be thrown.
+     * 
+     * @return Entity : A copy of this entity.
+     */  
+    protected Entity clone() throws CloneNotSupportedException {
+        Entity c = (Entity) super.clone();
+        c._myQueues = new ArrayList<QueueBased>();
+        c._identNumber = this.getModel().linkWithIdentNumber(c);
+        return c;
+    }
 }

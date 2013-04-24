@@ -2,7 +2,12 @@ package desmoj.core.statistic;
 
 import java.util.Observable;
 
+import desmoj.core.report.Reporter;
 import desmoj.core.simulator.Model;
+import desmoj.core.simulator.Schedulable;
+import desmoj.core.simulator.TimeInstant;
+import desmoj.core.simulator.TimeOperations;
+import desmoj.core.simulator.TimeSpan;
 
 /**
  * The <code>Count</code> class is simply counting something during an
@@ -11,29 +16,28 @@ import desmoj.core.simulator.Model;
  * 
  * To get this <code>Count</code> object updated automatically every time a
  * <code>ValueSupplier</code> has changed, call the <code>addObserver
- * (Observer)</code>
- * -method from the <code>ValueSupplier</code> of interest, where Observer is
- * this <code>Count</code> object. <br>
+ * (Observer)</code> -method from the <code>ValueSupplier</code> of interest,
+ * where Observer is this <code>Count</code> object. <br>
  * This must be done by the user in his model! <br>
- * Consider usage of class <code>Aggregate</code> to count non-integer 
- * (i.e. double) values.
+ * Consider usage of class <code>Aggregate</code> to count non-integer (i.e.
+ * double) values.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * @author modified by Ruth Meyer
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You
- * may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- *
+ *         Licensed under the Apache License, Version 2.0 (the "License"); you
+ *         may not use this file except in compliance with the License. You may
+ *         obtain a copy of the License at
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *         Unless required by applicable law or agreed to in writing, software
+ *         distributed under the License is distributed on an "AS IS" BASIS,
+ *         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ *         implied. See the License for the specific language governing
+ *         permissions and limitations under the License.
+ * 
  */
 
 public class Count extends desmoj.core.statistic.StatisticObject {
@@ -43,21 +47,38 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 	/**
 	 * The minimum of all values so far
 	 */
-	private long min;
+	private long _min;
 
 	/**
 	 * The maximum of all values so far
 	 */
-	private long max;
+	private long _max;
 
-	/** The current counter value */
-	private long value;
+	/**
+	 * The current counter value
+	 */
+	private long _value;
 
 	/**
 	 * Flag indicating if this count will retain its value during a reset.
 	 * Default is false.
 	 */
 	private boolean isResetResistant;
+
+	/**
+	 * Flag, used to know if an inter-arrival-time Tally should be created.
+	 */
+	private boolean _interArrivalTimeActivated = false;
+
+	/**
+	 * A Tally for the timespans between calls of the update-method.
+	 */
+	private Tally _interArrivalTally = null;
+
+	/**
+	 * The last point of time, the update-method was called.
+	 */
+	private TimeInstant _lastInterArrivalTime = null;
 
 	// ****** methods ******
 
@@ -70,14 +91,14 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 	 *            java.lang.String : The name of this Count object
 	 * @param showInReport
 	 *            boolean : Flag for showing the report Set it to
-	 *            <code>true</code> if this Count should show up in report.
-	 *            Set it to <code>false</code> if this Count should not be
-	 *            shown in report.
+	 *            <code>true</code> if this Count should show up in report. Set
+	 *            it to <code>false</code> if this Count should not be shown in
+	 *            report.
 	 * @param showInTrace
 	 *            boolean : Flag for showing this Count in trace files. Set it
 	 *            to <code>true</code> if this Count should show up in trace.
-	 *            Set it to <code>false</code> if this Count should not be
-	 *            shown in trace.
+	 *            Set it to <code>false</code> if this Count should not be shown
+	 *            in trace.
 	 */
 	public Count(Model ownerModel, String name, boolean showInReport,
 			boolean showInTrace) {
@@ -93,14 +114,14 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 	 *            java.lang.String : The name of this Count object
 	 * @param showInReport
 	 *            boolean : Flag for showing the report Set it to
-	 *            <code>true</code> if this Count should show up in report.
-	 *            Set it to <code>false</code> if this Count should not be
-	 *            shown in report.
+	 *            <code>true</code> if this Count should show up in report. Set
+	 *            it to <code>false</code> if this Count should not be shown in
+	 *            report.
 	 * @param showInTrace
 	 *            boolean : Flag for showing this Count in trace files. Set it
 	 *            to <code>true</code> if this Count should show up in trace.
-	 *            Set it to <code>false</code> if this Count should not be
-	 *            shown in trace.
+	 *            Set it to <code>false</code> if this Count should not be shown
+	 *            in trace.
 	 * @param isResetResistant
 	 *            boolean : Flag for retaining the counter value during resets.
 	 *            Set it to <code>true</code> if this Count should retain its
@@ -112,9 +133,9 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 			boolean showInTrace, boolean isResetResistant) {
 		super(ownerModel, name, showInReport, showInTrace);
 
-		this.min = this.max = 0; // no minimum or maximum so far
+		this._min = this._max = 0; // no minimum or maximum so far
 
-		this.value = 0; // nothing counted so far
+		this._value = 0; // nothing counted so far
 		this.isResetResistant = isResetResistant; // set resistance flag
 	}
 
@@ -160,13 +181,22 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 		return new desmoj.core.report.CountReporter(this);
 	}
 
+	/** {@inheritDoc} */
+    @Override
+	public void setCorrespondingSchedulable(Schedulable correspondingSchedulable) {
+		super.setCorrespondingSchedulable(correspondingSchedulable);
+		
+		if (_interArrivalTally != null)
+			_interArrivalTally.setCorrespondingSchedulable(correspondingSchedulable);
+	};
+	
 	/**
 	 * Returns the maximum value observed so far.
 	 * 
 	 * @return long : The maximum value observed so far.
 	 */
 	public long getMaximum() {
-		return this.max;
+		return this._max;
 	}
 
 	/**
@@ -175,22 +205,25 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 	 * @return long : The minimum value observed so far.
 	 */
 	public long getMinimum() {
-		return this.min;
+		return this._min;
 	}
 
 	/**
 	 * Resets this Count object by resetting (nearly) all variables to zero. If
-	 * the flag <code>isResetResistant</code> is set to <code>true</code>
-	 * the counter value will NOT be changed.
+	 * the flag <code>isResetResistant</code> is set to <code>true</code> the
+	 * counter value will NOT be changed.
 	 */
 	public void reset() {
 		super.reset(); // reset the Reportable, too.
 
-		this.min = this.max = 0;
-
+		if (_interArrivalTimeActivated && _interArrivalTally != null)
+			_interArrivalTally.reset();
+		
 		// really reset the counter value?
-		if (!this.isResetResistant)
-			this.value = 0;
+		if (!this.isResetResistant) {
+			this._value = 0;
+   	        this._min = this._max = 0;
+		}
 	}
 
 	/**
@@ -209,16 +242,27 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 	 *            <code>Count</code> object.
 	 */
 	public void update(long n) {
-		incrementObservations(1); // use the method from the Reportable class
+		if (_interArrivalTimeActivated) {
+			TimeInstant t = presentTime();
 
-		this.value += n; // update current value
+			if (_lastInterArrivalTime != null) {
+				TimeSpan dt = TimeOperations.diff(_lastInterArrivalTime, t);
+				_interArrivalTally.update(dt.getTimeAsDouble());
+			}
 
-		if (this.value < min) {
-			min = this.value; // update min
+			_lastInterArrivalTime = t;
 		}
 
-		if (this.value > max) {
-			max = this.value; // update max
+		incrementObservations(1); // use the method from the Reportable class
+
+		this._value += n; // update current value
+
+		if (this._value < _min) {
+			_min = this._value; // update min
+		}
+
+		if (this._value > _max) {
+			_max = this._value; // update max
 		}
 
 		traceUpdate(); // leave a message in the trace
@@ -226,8 +270,8 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 
 	/**
 	 * Implementation of the virtual <code>update(Observable, Object)</code>
-	 * method of the <code>Observer</code> interface. This method will be
-	 * called automatically from an <code>Observable</code> object within its
+	 * method of the <code>Observer</code> interface. This method will be called
+	 * automatically from an <code>Observable</code> object within its
 	 * <code>notifyObservers()</code> method. <br>
 	 * If no Object (a<code>null</code> value) is passed as arg, the actual
 	 * value of the ValueSupplier will be fetched with the <code>value()</code>
@@ -298,6 +342,73 @@ public class Count extends desmoj.core.statistic.StatisticObject {
 	 * @return long : the current counter value.
 	 */
 	public long getValue() {
-		return this.value;
+		return this._value;
+	}
+
+	/**
+	 * Is the time between calls of the update-method be observed by a Tally?
+	 * 
+	 * @return true if the inter-arrival-time will be observed, false if not.
+	 */
+	public boolean isInterArrivalTimeTallyActivated() {
+		return _interArrivalTimeActivated;
+	}
+
+	/**
+	 * Activates the inter-arrival-time Tally to observe the timespans between
+	 * calls of the update-Method.
+	 * 
+	 * @param reporterClass
+	 *            Class<? extends Reporter> : A reporter to be used by the
+	 *            Tally.
+	 * @param showTimeSpansInReport
+	 *            boolean : Should the Reporter for the Tally use TimeSpans in
+	 *            Report?
+	 */
+	public void activateInterArrivalTimeTally(
+			Class<? extends Reporter> reporterClass,
+			boolean showTimeSpansInReport) {
+		this._interArrivalTimeActivated = true;
+
+		if (_interArrivalTally == null) {
+			_interArrivalTally = new Tally(this.getModel(), this.getName()
+					+ " Interarrivaltime", this.reportIsOn(), this.traceIsOn());
+			_interArrivalTally.setShowTimeSpansInReport(showTimeSpansInReport);
+			if (reporterClass != null)
+				_interArrivalTally.setReporter(reporterClass);
+			
+			Schedulable schedulable = getCorrespondingSchedulable();
+			
+			if (schedulable != null)
+				_interArrivalTally.setCorrespondingSchedulable(schedulable);
+		}
+	}
+
+	/**
+	 * Activates the inter-arrival-time Tally to observe the timespans between
+	 * calls of the update-Method.
+	 * 
+	 * @param showTimeSpansInReport
+	 *            boolean : Should the Reporter for the Tally use TimeSpans in
+	 *            Report?
+	 */
+	public void activateInterArrivalTimeTally(boolean showTimeSpansInReport) {
+		activateInterArrivalTimeTally(null, showTimeSpansInReport);
+	}
+
+	/**
+	 * Activates the inter-arrival-time Tally to observe the timespans between
+	 * calls of the update-Method.
+	 */
+	public void activateInterArrivalTimeTally() {
+		activateInterArrivalTimeTally(false);
+	}
+
+	/**
+	 * Deactivates the inter-arrival-time Tally to stop observing the timespans
+	 * between calls of the update-Method.
+	 */
+	public void deactivateInterArrivalTimeTally() {
+		this._interArrivalTimeActivated = false;
 	}
 } // end class

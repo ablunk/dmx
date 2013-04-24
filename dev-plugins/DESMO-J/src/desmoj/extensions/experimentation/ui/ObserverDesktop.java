@@ -8,7 +8,7 @@ import javax.swing.JInternalFrame;
 /**
  * Desktop for graphical observers in the experiment starter (a JDesktopPane).
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * @author modified by Gunnar Kiesel
  * 
@@ -48,7 +48,7 @@ public class ObserverDesktop extends JDesktopPane implements
 	 * @param o
 	 *            the new graphical observer
 	 */
-	public void add(GraphicalObserver o) {
+	public void add(IGraphicalObserver o) {
 		if (graphicalObservers == null)
 			graphicalObservers = new HashMap();
 		JInternalFrame frame = new JInternalFrame(o.getName(), true, false,
@@ -67,7 +67,7 @@ public class ObserverDesktop extends JDesktopPane implements
 	 * @param o
 	 *            the graphical observer to remove
 	 */
-	public void remove(GraphicalObserver o) {
+	public void remove(IGraphicalObserver o) {
 		JInternalFrame frame = getFrame(o);
 		if (frame != null) {
 			frame.setVisible(false);
@@ -84,7 +84,7 @@ public class ObserverDesktop extends JDesktopPane implements
 	 * @param visible
 	 *            visibility flag (true = visible).
 	 */
-	public void setVisible(GraphicalObserver o, boolean visible) {
+	public void setVisible(IGraphicalObserver o, boolean visible) {
 		JInternalFrame frame = getFrame(o);
 		if (frame != null)
 			frame.setVisible(visible);
@@ -95,11 +95,11 @@ public class ObserverDesktop extends JDesktopPane implements
 	 * 
 	 * @return registered observers as an array.
 	 */
-	public GraphicalObserver[] getChildren() {
+	public IGraphicalObserver[] getChildren() {
 		if (graphicalObservers == null)
-			return new GraphicalObserver[0];
+			return new IGraphicalObserver[0];
 		Object[] o = graphicalObservers.keySet().toArray();
-		GraphicalObserver[] children = new GraphicalObserver[o.length];
+		IGraphicalObserver[] children = new IGraphicalObserver[o.length];
 		System.arraycopy(o, 0, children, 0, children.length);
 		return children;
 	}
@@ -114,7 +114,7 @@ public class ObserverDesktop extends JDesktopPane implements
 	 * @param height
 	 *            new window height
 	 */
-	public void setSize(GraphicalObserver o, int width, int height) {
+	public void setSize(IGraphicalObserver o, int width, int height) {
 		JInternalFrame frame = getFrame(o);
 		if (frame != null)
 			frame.setSize(width, height);
@@ -130,7 +130,7 @@ public class ObserverDesktop extends JDesktopPane implements
 	 * @param yLoc
 	 *            new vertical position
 	 */
-	public void setLocation(GraphicalObserver o, int xLoc, int yLoc) {
+	public void setLocation(IGraphicalObserver o, int xLoc, int yLoc) {
 		JInternalFrame frame = getFrame(o);
 		if (frame != null)
 			frame.setLocation(xLoc, yLoc);
@@ -148,7 +148,7 @@ public class ObserverDesktop extends JDesktopPane implements
 	 * @param o
 	 *            A graphical observer registered with the desktop
 	 */
-	public void update(GraphicalObserver o) {
+	public void update(IGraphicalObserver o) {
 		
 	    //JInternalFrame f = (JInternalFrame) graphicalObservers.get(o);
 		//if (f != null) {
@@ -164,7 +164,7 @@ public class ObserverDesktop extends JDesktopPane implements
 	 *            a registered observer.
 	 * @return a JInternalFrame
 	 */
-	private JInternalFrame getFrame(GraphicalObserver o) {
+	private JInternalFrame getFrame(IGraphicalObserver o) {
 		if (graphicalObservers == null)
 			return null;
 		else

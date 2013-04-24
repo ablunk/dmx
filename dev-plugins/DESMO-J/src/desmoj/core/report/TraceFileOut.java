@@ -9,7 +9,7 @@ package desmoj.core.report;
  * <li>The point of simulation time the tracemessage was created</li>
  * <li>The entity's name responsible for sending the tracemessage or '-' in
  * case of an external event</li>
- * <li>The event associated with the entity or '-' in case of a simprocess
+ * <li>The event associated with the entity or '-' in case of a SimProcess
  * </li>
  * <li>The textual description of what has happened to the model state</li>
  * </ul>
@@ -19,7 +19,7 @@ package desmoj.core.report;
  * messages. Errors affecting the java runtime are always displayed on the
  * system's standard output printstream.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler, modified by Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +40,7 @@ public class TraceFileOut extends TableOutput implements MessageReceiver {
 	 * Buffers the last message received for formatting the HTML table to e
 	 * printed without repeating redundant information.
 	 */
-	private TraceNote lastNote;
+	private TraceNote _lastNote;
 
 	/**
 	 * Creates a TraceOut to print tracemessages into a HTML page. By opening
@@ -55,7 +55,7 @@ public class TraceFileOut extends TableOutput implements MessageReceiver {
 	public TraceFileOut(int simTimeFloatingDigits, String format) {
 
 		super(simTimeFloatingDigits, format);
-		lastNote = null;
+		_lastNote = null;
 
 	}
 
@@ -68,7 +68,7 @@ public class TraceFileOut extends TableOutput implements MessageReceiver {
 
 		formatter.closeTable();
 		super.close();
-		lastNote = null;
+		_lastNote = null;
 
 	}
 
@@ -138,44 +138,44 @@ public class TraceFileOut extends TableOutput implements MessageReceiver {
 
 		formatter.openRow();
 
-		if (lastNote == null) {
-			formatter.writeCell(tmp.getModelName());
-			formatter.writeCell(formatter.writeTime(tmp.getTime()));
-			formatter.writeCell(tmp.getEvent());
-			formatter.writeCell(tmp.getEntity());
-			formatter.writeCell(tmp.getDescription());
+		if (_lastNote == null) {
+			formatter.writeCell(tmp.getModelName(), 1);
+			formatter.writeCell(formatter.writeTime(tmp.getTime()), 1);
+			formatter.writeCell(tmp.getEvent(), 1);
+			formatter.writeCell(tmp.getEntity(), 1);
+			formatter.writeCell(tmp.getDescription(), 1);
 		} else {
 
 			// write modelname if changed
-			if (tmp.getModelName().equals(lastNote.getModelName()))
-				formatter.writeCell(" ");
+			if (tmp.getModelName().equals(_lastNote.getModelName()))
+				formatter.writeCell(" ", 1);
 			else
-				formatter.writeCell(tmp.getModelName());
+				formatter.writeCell(tmp.getModelName(), 1);
 
 			// write time if changed
-			if (tmp.getTime().equals(lastNote.getTime()))
-				formatter.writeCell(" ");
+			if (tmp.getTime().equals(_lastNote.getTime()))
+				formatter.writeCell(" ", 1);
 			else
-				formatter.writeCell(formatter.writeTime(tmp.getTime()));
+				formatter.writeCell(formatter.writeTime(tmp.getTime()), 1);
 
 			// write event if changed
-			if (tmp.getEvent().equals(lastNote.getEvent()))
-				formatter.writeCell(" ");
+			if (tmp.getEvent().equals(_lastNote.getEvent()))
+				formatter.writeCell(" ", 1);
 			else
-				formatter.writeCell(tmp.getEvent());
+				formatter.writeCell(tmp.getEvent(), 1);
 
 			// write entity if changed
-			if (tmp.getEntity() == lastNote.getEntity())
-				formatter.writeCell(" ");
+			if (tmp.getEntity().equals(_lastNote.getEntity()))
+				formatter.writeCell(" ", 1);
 			else
-				formatter.writeCell(tmp.getEntity());
+				formatter.writeCell(tmp.getEntity(), 1);
 
 			// always write the description to trace
-			formatter.writeCell(tmp.getDescription());
+			formatter.writeCell(tmp.getDescription(), 1);
 		}
 
 		// remember the last note for future formatting
-		lastNote = tmp; // set new note to be last
+		_lastNote = tmp; // set new note to be last
 
 		formatter.closeRow();
 

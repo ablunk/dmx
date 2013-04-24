@@ -1,10 +1,12 @@
 package desmoj.core.advancedModellingFeatures.report;
 
+import desmoj.core.simulator.ProcessQueue;
+
 /**
  * Captures all relevant information about the <code>Stock</code>. That means
  * from the producer and the consumer queue.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,20 +30,20 @@ public class StockReporter extends desmoj.core.report.Reporter {
 	 * this StockReporter. Entries should contain the elements in the same order
 	 * as the <code>stockEntries[]</code>.
 	 */
-	private String stockColumns[];
+	private String[] _stockColumns;
 
 	/**
 	 * The data entries of the wait queues (producer and consumer) part of this
 	 * StockReporter. The entries should contain the data elements in the same
 	 * order as defined in the <code>stockColumns[]</code> array.
 	 */
-	private String stockEntries[];
+	private String[] _stockEntries;
 
 	/**
 	 * The number of columns of the wait queues (producer and consumer) part of
 	 * this StockReporter.
 	 */
-	private int stockNumColumns;
+	private int _stockNumColumns;
 
 	// ****** methods ******
 
@@ -53,7 +55,7 @@ public class StockReporter extends desmoj.core.report.Reporter {
 	 * reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The Stock to report about
+	 *            desmoj.core.simulator.Reportable : The Stock to report about
 	 */
 	public StockReporter(desmoj.core.simulator.Reportable informationSource) {
 		super(informationSource); // make a Reporter
@@ -79,20 +81,20 @@ public class StockReporter extends desmoj.core.report.Reporter {
 
 		// *** wait queues for producers and consumers ***
 
-		stockNumColumns = 9;
-		stockColumns = new String[stockNumColumns];
-		stockColumns[0] = "Queues";
-		stockColumns[1] = "Order";
-		stockColumns[2] = "pass";
-		stockColumns[3] = "(Re)set";
-		stockColumns[4] = "Users";
-		stockColumns[5] = "avg.Wait";
-		stockColumns[6] = "QLimit";
-		stockColumns[7] = "QMaxL";
-		stockColumns[8] = "refused";
+		_stockNumColumns = 9;
+		_stockColumns = new String[_stockNumColumns];
+		_stockColumns[0] = "Queues";
+		_stockColumns[1] = "Order";
+		_stockColumns[2] = "pass";
+		_stockColumns[3] = "(Re)set";
+		_stockColumns[4] = "Users";
+		_stockColumns[5] = "avg.Wait";
+		_stockColumns[6] = "QLimit";
+		_stockColumns[7] = "QMaxL";
+		_stockColumns[8] = "refused";
 
 		// entries of producer and consumer queue
-		stockEntries = new String[stockNumColumns * 2];
+		_stockEntries = new String[_stockNumColumns * 2];
 
 	}
 
@@ -155,7 +157,7 @@ public class StockReporter extends desmoj.core.report.Reporter {
 	 */
 	public String[] getStockColumnTitles() {
 
-		return stockColumns;
+		return _stockColumns;
 	}
 
 	/**
@@ -176,69 +178,69 @@ public class StockReporter extends desmoj.core.report.Reporter {
 			desmoj.core.advancedModellingFeatures.Stock st = (desmoj.core.advancedModellingFeatures.Stock) source;
 
 			// the producer queue inside the Stock (is a ProcessQueue)
-			desmoj.core.simulator.ProcessQueue pq = st.getProducerQueue();
+			ProcessQueue<?> pq = st.getProducerQueue();
 
 			// *** stockEntries of the producers queue
 			// Title
-			stockEntries[0] = pq.getName();
+			_stockEntries[0] = pq.getName();
 			// pOrder
-			stockEntries[1] = st.getProdQueueStrategy();
+			_stockEntries[1] = st.getProdQueueStrategy();
 			// pass
 			String passProds = "no";
 			if (st.getPassByProducers()) {
 				passProds = "yes";
 			}
-			stockEntries[2] = passProds;
+			_stockEntries[2] = passProds;
 			// (Re)set
-			stockEntries[3] = pq.resetAt().toString();
+			_stockEntries[3] = pq.resetAt().toString();
 			// Users
-			stockEntries[4] = Long.toString(st.getProducers());
+			_stockEntries[4] = Long.toString(st.getProducers());
 			// avg.Wait
-			stockEntries[5] = pq.averageWaitTime().toString();
+			_stockEntries[5] = pq.averageWaitTime().toString();
 			// Qlimit
-			stockEntries[6] = Long.toString(pq.getQueueLimit());
+			_stockEntries[6] = Long.toString(pq.getQueueLimit());
 			if (pq.getQueueLimit() == Integer.MAX_VALUE) {
-				stockEntries[6] = "unlimit.";
+				_stockEntries[6] = "unlimit.";
 			}
 			// QMaxL
-			stockEntries[7] = Long.toString(pq.maxLength());
+			_stockEntries[7] = Long.toString(pq.maxLength());
 			// refused
-			stockEntries[8] = Long.toString(pq.getRefused());
+			_stockEntries[8] = Long.toString(pq.getRefused());
 
 			// *** stockEntries of the consumer queue
 			// Title
-			stockEntries[9] = (st.getName() + "_C");
+			_stockEntries[9] = (st.getName() + "_C");
 			// cOrder
-			stockEntries[10] = st.getConsQueueStrategy();
+			_stockEntries[10] = st.getConsQueueStrategy();
 			// pass
 			String passCons = "no";
 			if (st.getPassByConsumers()) {
 				passCons = "yes";
 			}
-			stockEntries[11] = passCons;
+			_stockEntries[11] = passCons;
 			// (Re)set
-			stockEntries[12] = st.resetAt().toString();
+			_stockEntries[12] = st.resetAt().toString();
 			// Users
-			stockEntries[13] = Long.toString(st.getConsumers());
+			_stockEntries[13] = Long.toString(st.getConsumers());
 			// avg.Wait
-			stockEntries[14] = st.averageWaitTime().toString();
+			_stockEntries[14] = st.averageWaitTime().toString();
 			// QLimit
-			stockEntries[15] = Long.toString(st.getQueueLimit());
+			_stockEntries[15] = Long.toString(st.getQueueLimit());
 			if (st.getQueueLimit() == Integer.MAX_VALUE) {
-				stockEntries[15] = "unlimit.";
+				_stockEntries[15] = "unlimit.";
 			}
 			// QMaxL
-			stockEntries[16] = Long.toString(st.maxLength());
+			_stockEntries[16] = Long.toString(st.maxLength());
 			// refused
-			stockEntries[17] = Long.toString(st.getRefused());
+			_stockEntries[17] = Long.toString(st.getRefused());
 
 		} else {
-			for (int i = 0; i < stockNumColumns * 2; i++) {
-				stockEntries[i] = "Invalid source!";
+			for (int i = 0; i < _stockNumColumns * 2; i++) {
+				_stockEntries[i] = "Invalid source!";
 			} // end for
 		} // end else
 
-		return stockEntries;
+		return _stockEntries;
 	}
 
 	/**
@@ -250,7 +252,7 @@ public class StockReporter extends desmoj.core.report.Reporter {
 	 */
 	public int getStockNumColumns() {
 
-		return stockNumColumns;
+		return _stockNumColumns;
 	}
 	
 	/*@TODO: Comment */

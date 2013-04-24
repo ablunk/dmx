@@ -1,9 +1,6 @@
 package desmoj.core.advancedModellingFeatures;
 
-import desmoj.core.simulator.Entity;
-import desmoj.core.simulator.Event;
 import desmoj.core.simulator.Schedulable;
-import desmoj.core.simulator.Scheduler;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.SimTime;
 import desmoj.core.simulator.TimeSpan;
@@ -24,7 +21,7 @@ import desmoj.core.simulator.TimeSpan;
  * 
  * @see desmoj.core.advancedModellingFeatures.WaitQueue
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -41,7 +38,7 @@ import desmoj.core.simulator.TimeSpan;
  * 
  */
 
-public abstract class ProcessCoop extends desmoj.core.simulator.ModelComponent {
+public abstract class ProcessCoop<M extends SimProcess, S extends SimProcess> extends desmoj.core.simulator.ModelComponent {
 
 	// ****** methods ******
 
@@ -153,7 +150,7 @@ public abstract class ProcessCoop extends desmoj.core.simulator.ModelComponent {
 	 *            SimProcess : The slave process which is lead through the
 	 *            cooperation by the master.
 	 */
-	protected abstract void cooperation(SimProcess master, SimProcess slave);
+	protected abstract void cooperation(M master, S slave);
 
 	// the user has to implement the cooperation action here...
 
@@ -179,7 +176,7 @@ public abstract class ProcessCoop extends desmoj.core.simulator.ModelComponent {
 			return 0;
 		}
 
-		return currentProcess.getPriority();
+		return currentProcess.getQueueingPriority();
 	}
 
 	/**
@@ -221,81 +218,6 @@ public abstract class ProcessCoop extends desmoj.core.simulator.ModelComponent {
 	@Deprecated
 	protected void hold(SimTime dt) {
 		hold(SimTime.toTimeSpan(dt));
-	}
-
-	/**
-	 * Returns the next scheduled Entity following the current SimProcess object
-	 * on the EventList. This method is passed through to the currently running
-	 * master process.
-	 * 
-	 * @return Entity : The next Entity following this SimProcess object on the
-	 *         EventList or <code>null</code>.
-	 * @see Scheduler
-	 */
-	protected Entity nextEntity() {
-		// get the current process
-		SimProcess currentProcess = currentSimProcess();
-
-		if (currentProcess == null) {
-			sendWarning("The current process of a cooperation is not found. "
-					+ "Null is returned as next Entity!", "ProcessCoop: "
-					+ getName() + " Method: nextEntity()",
-					"The current process is only a null pointer.",
-					"Make sure that only real SimProcesses are cooperating.");
-			return null;
-		}
-
-		return currentProcess.nextEntity();
-	}
-
-	/**
-	 * Returns the next scheduled Event following the current SimProcess object
-	 * on the EventList. This method is passed through to the currently running
-	 * master process.
-	 * 
-	 * @return Event : The next Event following this SimProcess object on the
-	 *         EventList or <code>null</code>.
-	 * @see Scheduler
-	 */
-	protected Event nextEvent() {
-		// get the current process
-		SimProcess currentProcess = currentSimProcess();
-
-		if (currentProcess == null) {
-			sendWarning("The current process of a cooperation is not found. "
-					+ "Null is returned as next Event!", "ProcessCoop: "
-					+ getName() + " Method: nextEvent()",
-					"The current process is only a null pointer.",
-					"Make sure that only real SimProcesses are cooperating.");
-			return null;
-		}
-
-		return currentProcess.nextEvent();
-	}
-
-	/**
-	 * Returns the next scheduled Schedulable (Entity or Event) following the
-	 * current SimProcess object on the EventList. This method is passed through
-	 * to the currently running master process.
-	 * 
-	 * @return Schedulable : The next Entity or Event following this SimProcess
-	 *         object on the EventList or <code>null</code>.
-	 * @see Scheduler
-	 */
-	protected Schedulable nextSchedulable() {
-		// get the current process
-		SimProcess currentProcess = currentSimProcess();
-
-		if (currentProcess == null) {
-			sendWarning("The current process of a cooperation is not found. "
-					+ "Null is returned as next Schedulable!", "ProcessCoop: "
-					+ getName() + " Method: nextSchedulable()",
-					"The current process is only a null pointer.",
-					"Make sure that only real SimProcesses are cooperating.");
-			return null;
-		}
-
-		return currentProcess.nextSchedulable();
 	}
 
 	/**
@@ -346,97 +268,11 @@ public abstract class ProcessCoop extends desmoj.core.simulator.ModelComponent {
 	}
 
 	/**
-	 * Schedules the current SimProcess for the time: now +<code>dt</code>
-	 * together with the event <code>ev</code>. This method is passed through to
-	 * the currently running master process.
-	 * 
-	 * @param dt
-	 *            desmoj.TimeSpan : The time from now when the SimProcess is
-	 *            scheduled.
-	 * @param ev
-	 *            desmoj.Event : The Event with which the SimProcess is
-	 *            scheduled.
-	 */
-	protected void schedule(Event ev, TimeSpan dt) {
-		// get the current process
-		SimProcess currentProcess = currentSimProcess();
-
-		if (currentProcess == null) {
-			sendWarning("The current process of a cooperation is not found. "
-					+ "The attempted action is ignored!", "ProcessCoop: "
-					+ getName() + " Method: schedule()",
-					"The current process is only a null pointer.",
-					"Make sure that only real SimProcesses are cooperating.");
-			return;
-		}
-
-		currentProcess.schedule(ev, dt);
-	}
-
-	/**
-	 * Schedules the current SimProcess after the Schedulable <code>after</code>
-	 * together with the event <code>ev</code>. The Schedulable
-	 * <code>after</code> must have been scheduled already. This method is
-	 * passed through to the currently running master process.
-	 * 
-	 * @param before
-	 *            desmoj.Schedulable : The Schedulable the currently running
-	 *            process should be scheduled after.
-	 * @param ev
-	 *            desmoj.Event : The Event with which the SimProcess is
-	 *            scheduled.
-	 */
-	protected void scheduleAfter(Schedulable after, Event ev) {
-		// get the current process
-		SimProcess currentProcess = currentSimProcess();
-
-		if (currentProcess == null) {
-			sendWarning("The current process of a cooperation is not found. "
-					+ "The attempted action is ignored!", "ProcessCoop: "
-					+ getName() + " Method: scheduleAfter()",
-					"The current process is only a null pointer.",
-					"Make sure that only real SimProcesses are cooperating.");
-			return;
-		}
-
-		currentProcess.scheduleAfter(after, ev);
-	}
-
-	/**
-	 * Schedules the current SimProcess before the Schedulable
-	 * <code>before</code> together with the event <code>ev</code>. The
-	 * Schedulable <code>before</code> must have been scheduled already. This
-	 * method is passed through to the currently running master process.
-	 * 
-	 * @param before
-	 *            desmoj.Schedulable : The Schedulable the currently running
-	 *            process should be scheduled before.
-	 * @param ev
-	 *            desmoj.Event : The Event with which the SimProcess is
-	 *            scheduled.
-	 */
-	protected void scheduleBefore(Schedulable before, Event ev) {
-		// get the current process
-		SimProcess currentProcess = currentSimProcess();
-
-		if (currentProcess == null) {
-			sendWarning("The current process of a cooperation is not found. "
-					+ "The attempted action is ignored!", "ProcessCoop: "
-					+ getName() + " Method: scheduleBefore()",
-					"The current process is only a null pointer.",
-					"Make sure that only real SimProcesses are cooperating.");
-			return;
-		}
-
-		currentProcess.scheduleBefore(before, ev);
-	}
-
-	/**
 	 * Sets the priority of the current SimProcess to a new integer value. Zero
 	 * is the default priority. Negative priorities are lower, positive
 	 * priorities are higher. All values should be inside the range defined by
 	 * Java's integral <code>integer</code> data type. The priority determines
-	 * the position in a waiting queue. This method is passed through to the
+	 * the position in a waiting-queue. This method is passed through to the
 	 * currently running master process.
 	 * 
 	 * @param newPriority

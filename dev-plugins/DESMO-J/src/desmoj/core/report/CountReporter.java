@@ -5,11 +5,13 @@ import desmoj.core.statistic.Count;
 
 /**
  * Captures all relevant information about the Count.
+ * Extended to show unit and description of reported object.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen based on ideas from Tim Lechler
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * @author modified by Ruth Meyer
+ * @author modified by Chr. M&uuml;ller (TH Wildau) 28.11.2012
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -36,13 +38,13 @@ public class CountReporter extends desmoj.core.report.Reporter {
 	 * reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The Count to report about
+	 *            desmoj.core.simulator.Reportable : The Count to report about
 	 */
 
 	public CountReporter(Reportable informationSource) {
 		super(informationSource); // make a Reporter
 
-		numColumns = 7;
+		numColumns = 8;
 
 		columns = new String[numColumns];
 
@@ -53,6 +55,7 @@ public class CountReporter extends desmoj.core.report.Reporter {
 		columns[4] = "Current Value";
 		columns[5] = "Min";
 		columns[6] = "Max";
+        columns[7] = "Unit";
 		groupHeading = "Counts and Aggregates";
 
 		groupID = 1311; // see Reporter for more information about groupID
@@ -88,6 +91,9 @@ public class CountReporter extends desmoj.core.report.Reporter {
 			entries[5] = Long.toString(cnt.getMinimum());
 			// Max
 			entries[6] = Long.toString(cnt.getMaximum());
+			//cm 21.11.12  Extension for viewing unit
+            entries[7] = cnt.getUnitText();
+
 		}
 
 		else {

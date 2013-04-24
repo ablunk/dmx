@@ -24,7 +24,7 @@ import javax.swing.tree.TreeSelectionModel;
  * experiment has the URLs for the outputfiles as children. By selecting a leaf
  * in the tree the coresponding URL will be opened.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

@@ -1,6 +1,6 @@
 package desmoj.extensions.applicationDomains.harbour;
 
-import desmoj.core.dist.IntDistUniform;
+import desmoj.core.dist.DiscreteDistUniform;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.ModelComponent;
 
@@ -13,7 +13,7 @@ import desmoj.core.simulator.ModelComponent;
  * @see ChooseBlockYardStrategy
  * @see ModelComponent
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,6 +30,12 @@ import desmoj.core.simulator.ModelComponent;
  */
 public class RandomBlockYardStrategy extends ModelComponent implements
 		ChooseBlockYardStrategy {
+    
+    /**
+     * Distribution to sample blocks from
+     */
+    DiscreteDistUniform rg;
+    
 	/**
 	 * Constructs the RandomBlockYardStrategy for a yard.
 	 * 
@@ -40,6 +46,8 @@ public class RandomBlockYardStrategy extends ModelComponent implements
 	public RandomBlockYardStrategy(Model owner) {
 
 		super(owner, "RandomBlockYardStrategy"); // make a ModelComponent
+		rg = new DiscreteDistUniform(getModel(), "", 0, Long.MAX_VALUE-1,
+		            false, false);
 	}
 
 	/**
@@ -61,17 +69,12 @@ public class RandomBlockYardStrategy extends ModelComponent implements
 
 		// if there's only one block
 		if (nBlocks == 1)
-
 			return blocks[0]; // return this block
 
 		else // there're some blocks
 		{
-			IntDistUniform rg = new IntDistUniform(getModel(), "", 1, nBlocks,
-					false, false);
-
-			// get random position of the block
-			int pos = (int) (rg.sample() - 1);
-
+		    // get random position of the block
+			int pos = (int) (rg.sample() % nBlocks);
 			return blocks[pos];
 		}
 	}

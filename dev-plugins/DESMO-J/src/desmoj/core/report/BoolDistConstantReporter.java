@@ -3,7 +3,7 @@ package desmoj.core.report;
 /**
  * Reports all information about a BoolDistConstant distribution.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ public class BoolDistConstantReporter extends DistributionReporter {
 	 * Creates a new BoolDistConstantReporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The BoolDistConstant distribution to
+	 *            desmoj.core.simulator.Reportable : The BoolDistConstant distribution to
 	 *            report about
 	 */
 	public BoolDistConstantReporter(
@@ -54,13 +54,15 @@ public class BoolDistConstantReporter extends DistributionReporter {
 			// Obs
 			entries[2] = Long.toString(bdc.getObservations());
 			// Type
-			entries[3] = "Bool. Constant";
+			entries[3] = "Bool Constant";
 			// param1
 			entries[4] = "" + bdc.getConstantValue() + "";
 			// param2
 			entries[5] = " ";
+            // param3
+            entries[6] = " ";
 			// seed
-			entries[6] = Long.toString(bdc.getInitialSeed());
+			entries[7] = Long.toString(bdc.getInitialSeed());
 		} else {
 			for (int i = 0; i < numColumns; i++) {
 				entries[i] = "Invalid source!";

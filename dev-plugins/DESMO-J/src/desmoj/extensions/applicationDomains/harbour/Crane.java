@@ -16,7 +16,7 @@ import desmoj.core.simulator.SimTime;
  * @see SimProcess
  * @see C_Control
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,7 +118,7 @@ public abstract class Crane extends SimProcess {
 	public Crane(Model owner, String name, int bufferCapacity, C_Control cs,
 			boolean showInTrace) {
 
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, showInTrace); // make a sim-process
 
 		// check the capacity of the buffer
 		if (bufferCapacity <= 0) {
@@ -165,7 +165,7 @@ public abstract class Crane extends SimProcess {
 	 */
 	public Crane(Model owner, String name, C_Control cs, boolean showInTrace) {
 
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, showInTrace); // make a sim-process
 
 		this.cs = cs;
 

@@ -22,7 +22,7 @@ import desmoj.extensions.applicationDomains.production.Transporter;
  * @see T_Control
  * @see Job
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -83,7 +83,7 @@ public abstract class InternalTransporter extends Transporter {
 	 * the crane (a containerbridge) which the InternalTransporter can be
 	 * assigned to
 	 */
-	private desmoj.extensions.applicationDomains.harbour.Crane crane = null;
+	private Crane crane = null;
 
 	/**
 	 * the current capacity that the InternalTransporter has at the moment

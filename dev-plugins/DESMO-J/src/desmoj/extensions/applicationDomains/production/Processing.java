@@ -1,10 +1,10 @@
 package desmoj.extensions.applicationDomains.production;
 
 import desmoj.core.advancedModellingFeatures.ProcessCoop;
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
+import desmoj.core.simulator.TimeSpan;
 
 /**
  * Processing is the object representing the processing process taking place at
@@ -32,7 +32,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see desmoj.extensions.applicationDomains.production.WorkStation
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -53,7 +53,7 @@ public class Processing extends ProcessCoop {
 	 * The random number stream determining the time it takes to process the
 	 * parts.
 	 */
-	private desmoj.core.dist.RealDist processingTimeStream;
+	private NumericalDist<?> processingTimeStream;
 
 	/**
 	 * Constructs a Processing process where a master (<code>Worker</code> or
@@ -67,13 +67,13 @@ public class Processing extends ProcessCoop {
 	 * @param name
 	 *            java.lang.String : The name of this Processing.
 	 * @param processTimeStream
-	 *            desmoj.dist.RealDist : The random number stream determining
+	 *            NumericalDist<?> : The random number stream determining
 	 *            the time it takes to process the parts.
 	 * @param showInTrace
 	 *            boolean : Flag, if this Processing should produce a trace
 	 *            output or not.
 	 */
-	public Processing(Model owner, String name, RealDist processTimeStream,
+	public Processing(Model owner, String name, NumericalDist<?> processTimeStream,
 			boolean showInTrace) {
 
 		super(owner, name, showInTrace); // make a ProcessCoop
@@ -153,9 +153,9 @@ public class Processing extends ProcessCoop {
 	 * @return desmoj.SimTime : The time it takes to process the parts with the
 	 *         worker or machineProcess.
 	 */
-	protected SimTime getProcessingTimeSample() {
+	protected TimeSpan getProcessingTimeSample() {
 
-		return new SimTime(processingTimeStream.sample());
+		return processingTimeStream.sampleTimeSpan();
 	}
 
 	/**
@@ -163,11 +163,11 @@ public class Processing extends ProcessCoop {
 	 * number stream.
 	 * 
 	 * @param newProcessingTimeStream
-	 *            desmoj.dist.RealDist : The new <code>RealDist</code> random
+	 *            NumericalDist<?> : The new <code>RealDist</code> random
 	 *            number stream determining the time it takes to process the
 	 *            parts.
 	 */
-	public void setProcessingTimeStream(RealDist newProcessingTimeStream) {
+	public void setProcessingTimeStream(NumericalDist<?> newProcessingTimeStream) {
 
 		this.processingTimeStream = newProcessingTimeStream;
 	}

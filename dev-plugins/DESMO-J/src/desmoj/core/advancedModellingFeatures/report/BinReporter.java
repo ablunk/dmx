@@ -3,7 +3,7 @@ package desmoj.core.advancedModellingFeatures.report;
 /**
  * Captures all relevant information about the Bin.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen based on ideas from Tim Lechler
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -32,7 +32,7 @@ public class BinReporter extends desmoj.core.report.Reporter {
 	 * reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The Bin to report about
+	 *            desmoj.core.simulator.Reportable : The Bin to report about
 	 */
 	public BinReporter(desmoj.core.simulator.Reportable informationSource) {
 		super(informationSource); // make a Reporter

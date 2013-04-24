@@ -5,12 +5,12 @@ import desmoj.core.advancedModellingFeatures.WaitQueue;
 import desmoj.core.simulator.Queue;
 
 /**
- * The HoldingArea is the place where <code>InternalTransporter</code> s serve
+ * The HoldingArea is the place where <code>InternalTransporter</code>s serve
  * (load/unload) <code>Truck</code> s at a container terminal. So what happens
  * at the HoldingArea is some kind of Rendezvous synchronisation, where
- * <code>InternalTransporter</code> s meet the <code>Truck</code> s to
- * load/unload them. There is one wait queue for the masters (
- * <code>InternalTransporter</code>s) and one queue for the slaves (
+ * <code>InternalTransporter</code> s meet the <code>Truck</code>s to
+ * load/unload them. There is one wait queue for the masters 
+ * (<code>InternalTransporter</code>s) and one queue for the slaves (
  * <code>Truck</code> s), where they have to wait for each other to cooperate.
  * The <code>InternalTransporter</code> s are the masters which perform the
  * loading/unloading operation. The corporate loading/unloading operation is
@@ -20,7 +20,7 @@ import desmoj.core.simulator.Queue;
  * and will be reactivated thereafter. The first sort criteria for the queues is
  * always highest priorities first, the second queueing discipline of the
  * underlying queues and the capacity limit can be determined by the user
- * (default is Fifo and unlimited capacity). HoldingArea is derived from
+ * (default is FIFO and unlimited capacity). HoldingArea is derived from
  * <code>WaitQueue</code> which in turn is derived from
  * <code>QueueBased</code>, which provides all the statistical functionality
  * for the queues.
@@ -29,7 +29,7 @@ import desmoj.core.simulator.Queue;
  * @see desmoj.core.simulator.QueueBased
  * @see desmoj.core.advancedModellingFeatures.ProcessCoop
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -59,10 +59,10 @@ public class HoldingArea extends WaitQueue {
 	/**
 	 * the queue of the lanes of this HoldingArea .
 	 */
-	private Queue laneQueue;
+	private Queue<Lane> laneQueue;
 
 	/**
-	 * Constructor for a HoldingArea. There are two waiting queues constructed,
+	 * Constructor for a HoldingArea. There are two waiting-queues constructed,
 	 * one internal <code>QueueList</code> for the
 	 * <code>InternalTransporter</code> s (masters) and one separate
 	 * <code>ProcessQueue</code> for the <code>Truck</code> s (slave)
@@ -127,7 +127,7 @@ public class HoldingArea extends WaitQueue {
 				true, false);
 
 		// make the Queue of the lanes
-		this.laneQueue = new Queue(owner, "LaneQueue", 0, nLanes, false, false);
+		this.laneQueue = new Queue<Lane>(owner, "LaneQueue", 0, nLanes, false, false);
 
 		// make lanes and insert them in the laneQueue
 		Lane lane;
@@ -138,8 +138,8 @@ public class HoldingArea extends WaitQueue {
 	} // end of constructor
 
 	/**
-	 * Gets a Line from the HoldingArea and provides it to the SimProcess to use
-	 * it. As not enough lanes are available at the moment the SimProcess has to
+	 * Gets a Line from the HoldingArea and provides it to the sim-process to use
+	 * it. As not enough lanes are available at the moment the sim-process has to
 	 * wait in a queue until a lane is available again.
 	 * 
 	 * @return <code>Lane</code>: The available lane of this HoldingArea.
@@ -151,7 +151,7 @@ public class HoldingArea extends WaitQueue {
 			return null;
 
 		// get the lane from the queue of the lanes
-		Lane lane = (Lane) this.laneQueue.first();
+		Lane lane = this.laneQueue.first();
 
 		// trace that a lane was taken from this HO
 		if (currentlySendTraceNotes())

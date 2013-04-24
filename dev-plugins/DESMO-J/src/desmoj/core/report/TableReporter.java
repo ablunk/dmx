@@ -6,7 +6,7 @@ import desmoj.core.simulator.Reportable;
  * A reporter with an arbitrary number
  * of rows and columns. 
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,7 +31,7 @@ public abstract class TableReporter extends Reporter {
 	protected String[][] entryTable;
 
 	/** The reporter's title */
-	private String title;
+	private String _title;
 
 	/**
 	 * Header table printed before the data table stored in <tt>entryTable</tt>.
@@ -50,7 +50,7 @@ public abstract class TableReporter extends Reporter {
 	 */
 	public TableReporter(Reportable is, String title) {
 		super(is);
-		this.title = title;
+		this._title = title;
 		this.groupHeading = "Data Tables";
 	}
 
@@ -100,7 +100,7 @@ public abstract class TableReporter extends Reporter {
 	 * @return the titel as a string
 	 */
 	public String getTitle() {
-		return title;
+		return _title;
 	}
 
 	/**

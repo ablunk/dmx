@@ -6,7 +6,7 @@ import desmoj.core.simulator.ProcessQueue;
  * Captures all relevant information about the <code>WorkStation</code>. That
  * means from the master and all the slave queues.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

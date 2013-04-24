@@ -1,15 +1,15 @@
 package desmoj.extensions.applicationDomains.production;
 
 import desmoj.core.advancedModellingFeatures.ProcessCoop;
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
+import desmoj.core.simulator.TimeSpan;
 
 /**
  * Transportation is the object representing the process cooperation between a
  * <code>Transporter</code> process and the goods (products represented by
- * SimProcesses) he is transporting. It is intended that that this
+ * Sim-processes) he is transporting. It is intended that that this
  * Transportation is used with the <code>TransportJunction</code> construct,
  * where a <code>Transporter</code>( as a master process) is waiting for
  * goods (slave processes) to carry them around in the manufacturing system.
@@ -24,7 +24,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see desmoj.extensions.applicationDomains.production.TransportJunction
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45,7 +45,7 @@ public class Transportation extends ProcessCoop {
 	 * The random number stream determining the time it takes to transport the
 	 * goods.
 	 */
-	private desmoj.core.dist.RealDist transportTimeStream;
+	private NumericalDist<?> transportTimeStream;
 
 	/**
 	 * Constructs a Transportation process where a master (
@@ -59,18 +59,20 @@ public class Transportation extends ProcessCoop {
 	 * @param name
 	 *            java.lang.String : the name of this Transportation.
 	 * @param transportTimeStream
-	 *            desmoj.dist.RealDist : The random number stream determining
+	 *            NumericalDist<?> : The random number stream determining
 	 *            the time it takes to transport the goods.
 	 * @param showInTrace
 	 *            boolean : Flag, if this Transportation should produce a trace
 	 *            output or not.
 	 */
 	public Transportation(Model owner, String name,
-			RealDist transportTimeStream, boolean showInTrace) {
+			NumericalDist<?> transportTimeStream, boolean showInTrace) {
 		super(owner, name, showInTrace); // make a ProcessCoop
 
 		this.transportTimeStream = transportTimeStream;
 	}
+
+
 
 	/**
 	 * The <code>cooperation()</code> method with only one master and one
@@ -88,16 +90,16 @@ public class Transportation extends ProcessCoop {
 	}
 
 	/**
-	 * Returns a <code>SimTime</code> object representing the time it takes to
+	 * Returns a <code>TimeSpan</code> object representing the time it takes to
 	 * transport the goods with the transporter. The time is taken from the
 	 * given random number stream transportTimeStream.
 	 * 
-	 * @return desmoj.SimTime : The time it takes to transport the goods with
+	 * @return TimeSpan : The time it takes to transport the goods with
 	 *         the transporter.
 	 */
-	protected SimTime getTransportTimeSample() {
+	protected TimeSpan getTransportTimeSample() {
 
-		return new SimTime(transportTimeStream.sample());
+		return transportTimeStream.sampleTimeSpan();
 	}
 
 	/**
@@ -105,11 +107,11 @@ public class Transportation extends ProcessCoop {
 	 * number stream.
 	 * 
 	 * @param newTransportTimeStream
-	 *            desmoj.dist.RealDist : The new <code>RealDist</code> random
+	 *            NumericalDist<?> : The new <code>RealDist</code> random
 	 *            number stream determining the time it takes to transport the
 	 *            goods.
 	 */
-	public void setTransportTimeStream(RealDist newTransportTimeStream) {
+	public void setTransportTimeStream(NumericalDist<?> newTransportTimeStream) {
 
 		this.transportTimeStream = newTransportTimeStream;
 	}

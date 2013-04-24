@@ -1,16 +1,14 @@
 package desmoj.extensions.applicationDomains.production;
 
 import desmoj.core.advancedModellingFeatures.Stock;
-import desmoj.core.dist.RealDist;
-import desmoj.core.simulator.Model;
-import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
+import desmoj.core.dist.NumericalDist;
+import desmoj.core.simulator.*;
 
 /**
  * RestockProcessMT is a process restocking a <code>Stock</code> up to a
  * maximum (M) inventory level on a periodic review bases (fixed Time span = T).
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +35,7 @@ public class RestockProcessMT extends SimProcess {
 	 * The fixed time span after which the inventory will be reviewed and orders
 	 * will be placed.
 	 */
-	private SimTime reviewPeriod;
+	private TimeSpan reviewSpan;
 
 	/**
 	 * The client <code>Stock</code> which will be supplied by this
@@ -50,7 +48,7 @@ public class RestockProcessMT extends SimProcess {
 	 * time between the placement and receipt of an order. If <code>null</code>
 	 * lead time is zero.
 	 */
-	private desmoj.core.dist.RealDist leadTime;
+	private NumericalDist<?> leadTime;
 
 	/**
 	 * The maximum inventory level the <code>Stock</code> should be refilled
@@ -74,12 +72,12 @@ public class RestockProcessMT extends SimProcess {
 	 *            long : The maximum inventory level the Stock will be filled up
 	 *            to with every order.
 	 * @param t
-	 *            SimTime : The time period between the inventory reviews (in
+	 *            TimeSpan : The time period between the inventory reviews (in
 	 *            this case also the placements of the orders).
 	 * @param client
 	 *            Stock : The <code>Stock</code> which will replenished.
 	 * @param lt
-	 *            desmoj.dist.RealDist : The lead time random number
+	 *            NumericalDist<?> : The lead time random number
 	 *            distribution to determine the time between placement and
 	 *            receipt of an order. If <code>null</code> the lead time is
 	 *            zero.
@@ -90,12 +88,12 @@ public class RestockProcessMT extends SimProcess {
 	 *            <code>false</code> if RestockProcessMT should not be shown
 	 *            in trace.
 	 */
-	public RestockProcessMT(Model owner, String name, long mil, SimTime t,
-			Stock client, RealDist lt, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+	public RestockProcessMT(Model owner, String name, long mil, TimeSpan t,
+			Stock client, NumericalDist<?> lt, boolean showInTrace) {
+		super(owner, name, true, showInTrace); // make a sim-process
 
 		this.maxInventoryLevel = mil;
-		this.reviewPeriod = t;
+		this.reviewSpan = t;
 		this.clientStock = client;
 		this.leadTime = lt;
 
@@ -109,7 +107,7 @@ public class RestockProcessMT extends SimProcess {
 					"RestockProcessMT : "
 							+ getName()
 							+ " Constructor: RestockProcessMT(Model owner, String name, "
-							+ "long mil, SimTime t, Stock client, RealDist lt, boolean "
+							+ "long mil, TimeSpan t, Stock client, RealDist lt, boolean "
 							+ "showInTrace)",
 					"A maximum inventory level that is zero, negative or "
 							+ "greater than the capacity does not make sense.",
@@ -129,14 +127,14 @@ public class RestockProcessMT extends SimProcess {
 					"RestockProcessMT : "
 							+ getName()
 							+ " Constructor: RestockProcessMT(Model owner, String name, "
-							+ "long mil, SimTime t, Stock client, RealDist lt, boolean "
+							+ "long mil, TimeSpan t, Stock client, RealDist lt, boolean "
 							+ "showInTrace)",
 					"A non existing review period does not make sense.",
-					"Make sure to provide a valid SimTime object as review "
+					"Make sure to provide a valid TimeSpan object as review "
 							+ "period.");
 
 			// set the review period to 100 (or 42 ?!?)
-			this.reviewPeriod = new SimTime(100); // better than nothing
+			this.reviewSpan = new TimeSpan(100); // better than nothing
 		}
 
 		// check the client Stock parameter
@@ -146,7 +144,7 @@ public class RestockProcessMT extends SimProcess {
 					"RestockProcessMT : "
 							+ getName()
 							+ " Constructor: RestockProcessMT(Model owner, String name, "
-							+ "long mil, SimTime t, Stock client, RealDist lt, boolean "
+							+ "long mil, TimeSpan t, Stock client, RealDist lt, boolean "
 							+ "showInTrace)",
 					"The RestockProcessMT does not know which Stock to replenish "
 							+ "and therefore is useless.",
@@ -155,6 +153,45 @@ public class RestockProcessMT extends SimProcess {
 
 		}
 	}
+	
+	   /**
+     * Constructs a <code>RestockProcessMT</code> which restocks a client
+     * <code>Stock</code> after a fixed time period up to a maximum inventory
+     * level. The lead time (time gap between placement and receipt of an order)
+     * will be given as a real random number distribution.
+     * 
+     * @param owner
+     *            Model : The model this <code>RestockProcessMT</code> is
+     *            associated to
+     * @param name
+     *            java.lang.String : The name of the
+     *            <code>RestockProcessMT</code>
+     * @param mil
+     *            long : The maximum inventory level the Stock will be filled up
+     *            to with every order.
+     * @param t
+     *            SimTime : The time period between the inventory reviews (in
+     *            this case also the placements of the orders).
+     * @param client
+     *            Stock : The <code>Stock</code> which will replenished.
+     * @param lt
+     *            NumericalDist<?> : The lead time random number
+     *            distribution to determine the time between placement and
+     *            receipt of an order. If <code>null</code> the lead time is
+     *            zero.
+     * @param showInTrace
+     *            boolean : Flag for showing the <code>RestockProcessMT</code>
+     *            in trace-files. Set it to <code>true</code> if
+     *            RestockProcessMT should show up in trace. Set it to
+     *            <code>false</code> if RestockProcessMT should not be shown
+     *            in trace.
+     *            
+     *  @deprecated Type of t (SimTime) to be replaced with TimeInstant.
+     */
+    public RestockProcessMT(Model owner, String name, long mil, SimTime t,
+            Stock client, NumericalDist<?> lt, boolean showInTrace) {
+        this(owner, name, mil, SimTime.toTimeSpan(t), client, lt, showInTrace);
+    }
 
 	/**
 	 * Constructs a <code>RestockProcessMT</code> which restocks a client
@@ -171,7 +208,7 @@ public class RestockProcessMT extends SimProcess {
 	 *            long : The maximum inventory level the Stock will be filled up
 	 *            to with every order.
 	 * @param t
-	 *            SimTime : The time period between the inventory reviews (in
+	 *            TimeSpan : The time period between the inventory reviews (in
 	 *            this case also the placements of the orders).
 	 * @param client
 	 *            Stock : The <code>Stock</code> which will replenished.
@@ -182,12 +219,12 @@ public class RestockProcessMT extends SimProcess {
 	 *            <code>false</code> if RestockProcessMT should not be shown
 	 *            in trace.
 	 */
-	public RestockProcessMT(Model owner, String name, long mil, SimTime t,
+	public RestockProcessMT(Model owner, String name, long mil, TimeSpan t,
 			Stock client, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, true, showInTrace); // make a sim-process
 
 		this.maxInventoryLevel = mil;
-		this.reviewPeriod = t;
+		this.reviewSpan = t;
 		this.clientStock = client;
 		this.leadTime = null;
 
@@ -201,7 +238,7 @@ public class RestockProcessMT extends SimProcess {
 					"RestockProcessMT : "
 							+ getName()
 							+ " Constructor: RestockProcessMT(Model owner, String name, "
-							+ "long mil, SimTime t, Stock client, boolean showInTrace)",
+							+ "long mil, TimeSpan t, Stock client, boolean showInTrace)",
 					"A maximum inventory level that is zero, negative or "
 							+ "greater than the capacity does not make sense.",
 					"Make sure to provide a maximum inventory level that is a "
@@ -220,13 +257,13 @@ public class RestockProcessMT extends SimProcess {
 					"RestockProcessMT : "
 							+ getName()
 							+ " Constructor: RestockProcessMT(Model owner, String name, "
-							+ "long mil, SimTime t, Stock client, boolean showInTrace)",
+							+ "long mil, TimeSpan t, Stock client, boolean showInTrace)",
 					"A non existing review period does not make sense.",
-					"Make sure to provide a valid SimTime object as review "
+					"Make sure to provide a valid TimeSpan object as review "
 							+ "period.");
 
 			// set the review period to 100 (or 42 ?!?)
-			this.reviewPeriod = new SimTime(100); // better than nothing
+			this.reviewSpan = new TimeSpan(100); // better than nothing
 		}
 
 		// check the client Stock parameter
@@ -236,7 +273,7 @@ public class RestockProcessMT extends SimProcess {
 					"RestockProcessMT : "
 							+ getName()
 							+ " Constructor: RestockProcessMT(Model owner, String name, "
-							+ "long mil, SimTime t, Stock client, boolean showInTrace)",
+							+ "long mil, TimeSpan t, Stock client, boolean showInTrace)",
 					"The RestockProcessMT does not know which Stock to replenish "
 							+ "and therefore is useless.",
 					"Make sure to provide a valid Stock object which should "
@@ -244,6 +281,41 @@ public class RestockProcessMT extends SimProcess {
 
 		}
 	}
+	
+
+
+    /**
+     * Constructs a <code>RestockProcessMT</code> which restocks a client
+     * <code>Stock</code> after a fixed time period up to a maximum inventory
+     * level. The lead time is zero.
+     * 
+     * @param owner
+     *            Model : The model this <code>RestockProcessMT</code> is
+     *            associated to
+     * @param name
+     *            java.lang.String : The name of the
+     *            <code>RestockProcessMT</code>
+     * @param mil
+     *            long : The maximum inventory level the Stock will be filled up
+     *            to with every order.
+     * @param t
+     *            SimTime : The time period between the inventory reviews (in
+     *            this case also the placements of the orders).
+     * @param client
+     *            Stock : The <code>Stock</code> which will replenished.
+     * @param showInTrace
+     *            boolean : Flag for showing the <code>RestockProcessMT</code>
+     *            in trace-files. Set it to <code>true</code> if
+     *            RestockProcessMT should show up in trace. Set it to
+     *            <code>false</code> if RestockProcessMT should not be shown
+     *            in trace.
+     *            
+     *  @deprecated Type of t (SimTime) to be replaced with TimeInstant.
+     */
+    public RestockProcessMT(Model owner, String name, long mil, SimTime t,
+            Stock client, boolean showInTrace) {
+        this(owner, name, mil, SimTime.toTimeSpan(t), client, showInTrace); 
+    }
 
 	/**
 	 * Returns the quantity (number of units) to be stored in the Stock. Changes
@@ -260,10 +332,10 @@ public class RestockProcessMT extends SimProcess {
 	 * Returns the random number distribution for the lead time (time between
 	 * placement and receipt of an order).
 	 * 
-	 * @return desmoj.dist.RealDist : The random number distribution for the
+	 * @return desmoj.core.dist.NumericalDist : The random number distribution for the
 	 *         lead time (time between placement and receipt of an order).
 	 */
-	public desmoj.core.dist.RealDist getLeadTime() {
+	public NumericalDist<?> getLeadTime() {
 		return leadTime;
 	}
 
@@ -282,12 +354,25 @@ public class RestockProcessMT extends SimProcess {
 	 * Returns the time (as a SimTime object) between every replenishment of the
 	 * Stock.
 	 * 
-	 * @return desmoj.SimTime : The time (as a SimTime object) between every
+	 * @return SimTime : The time (as a SimTime object) between every
 	 *         replenishment of the Stock.
+	 *         
+	 * @deprecated Replaced by getReviewSpan().
 	 */
 	public SimTime getReviewPeriod() {
-		return reviewPeriod;
+		return SimTime.toSimTime(reviewSpan);
 	}
+	
+    /**
+     * Returns the time span between every replenishment of the
+     * Stock.
+     * 
+     * @return TimeSpan : The time (as a SimTime object) between every
+     *         replenishment of the Stock.
+     */
+    public TimeSpan getReviewSpan() {
+        return reviewSpan;
+    }
 
 	/**
 	 * The <code>RestockProcessMT</code> replenishes the associated
@@ -295,34 +380,53 @@ public class RestockProcessMT extends SimProcess {
 	 * (T).
 	 */
 	public void lifeCycle() {
-		// endless loop
-		while (true) {
-			// determine the order quantity for this cycle
-			orderQuantity = maxInventoryLevel - clientStock.getAvail();
 
-			// check if an order has to be placed
-			if (orderQuantity > 0) {
-				// place order (and tell so in the debug file)
-				if (currentlySendTraceNotes()) {
-					sendTraceNote("places an order over " + orderQuantity
-							+ " units for " + "Stock "
-							+ clientStock.getQuotedName());
-				}
+		// determine the order quantity for this cycle
+		orderQuantity = maxInventoryLevel - clientStock.getAvail();
 
-				// wait the lead time if necessary
-				if (leadTime != null) {
-					hold(new SimTime(leadTime.sample()));
-				}
+		// check if an order has to be placed
+		if (orderQuantity > 0) {
+			// place order (and tell so in the debug file)
+			if (currentlySendTraceNotes()) {
+				sendTraceNote("places an order over " + orderQuantity
+						+ " units for " + "Stock "
+						+ clientStock.getQuotedName());
+			}
 
-				// store the ordered quantity in the Stock
-				clientStock.store(orderQuantity);
+            // wait the lead time if necessary
+            if (leadTime != null) {
+                double leadDuration = leadTime.sample().doubleValue();
+                
+                // check lead duration non-negative
+                if (leadDuration < 0) {
+                    
+                    sendWarning(
+                            "Lead duration distribution sample is negative (" + leadDuration + "). Assuming" 
+                                    + " immediate delivery instead (i.e. duration 0).",
+                            "RestockProcessMT : "
+                                    + getName()
+                                    + " lifeCycle()",
+                            "The given lead time distribution " + leadTime.getName() 
+                                    + " has returned a negative sample.",
+                            "Make sure to use a non-negativ lead time distribution."
+                                    + " Distributions potentially yielding negative values"
+                                    + " (like Normal distributions) should bet set to non-negative.");
 
-			} // end if
+                    // set lead duration to 0
+                    leadDuration = 0;
 
-			// wait until start of the next period
-			hold(reviewPeriod);
+                }
+                
+                hold(new TimeSpan(leadDuration));
+            }
 
-		} // end while
+			// store the ordered quantity in the Stock
+			clientStock.store(orderQuantity);
+
+		} // end if
+
+		// wait until start of the next period
+		hold(reviewSpan);
 
 	}
 
@@ -331,10 +435,10 @@ public class RestockProcessMT extends SimProcess {
 	 * <code>null</code> the lead time is zero.
 	 * 
 	 * @param newLeadTime
-	 *            desmoj.dist.RealDist : The new real random number distribution
+	 *            desmoj.dist.NumericalDist<Double> : The new real random number distribution
 	 *            determining the lead time.
 	 */
-	public void setLeadTime(desmoj.core.dist.RealDist newLeadTime) {
+	public void setLeadTime(desmoj.core.dist.NumericalDist<Double> newLeadTime) {
 		leadTime = newLeadTime;
 	}
 
@@ -376,23 +480,37 @@ public class RestockProcessMT extends SimProcess {
 	 *            desmoj.SimTime : The new value for the review period.
 	 *            <code>null</code> will be rejected.
 	 */
-	public void setReviewPeriod(SimTime newReviewPeriod) {
+	public void setReviewSpan(TimeSpan newReviewSpan) {
 
-		if (newReviewPeriod == null) {
+		if (newReviewSpan == null) {
 			sendWarning(
 					"The given review period parameter is only a null pointer!"
 							+ "The review period will remain unchanged!",
 					"RestockProcessMT : "
 							+ getName()
-							+ " Method: void setReviewPeriod(SimTime newReviewPeriod)",
-					"A null pointer or a time period with zero length does not "
+							+ " Method: void setReviewSpan(TimeSpan newReviewSpan)",
+					"A null pointer or a time span with zero length does not "
 							+ "make sense as a review period.",
-					"Make sure to provide a valid SimTime object as parameter "
+					"Make sure to provide a valid TimeSpan object as parameter "
 							+ "for the review period.");
 
 			return; // do nothing, just return. ignore that rubbish
 		}
 
-		reviewPeriod = newReviewPeriod;
+		reviewSpan = newReviewSpan;
 	}
+	
+	/**
+     * Sets the review period to a new value.
+     * 
+     * @param newReviewPeriod
+     *            desmoj.SimTime : The new value for the review period.
+     *            <code>null</code> will be rejected.
+     *            
+     * @deprecated Replaced by setReviewSpan(TimeSpan newReviewSpan).
+     */
+    public void setReviewPeriod(SimTime newReviewPeriod) {
+
+        this.setReviewSpan(SimTime.toTimeSpan(newReviewPeriod));
+    }
 }

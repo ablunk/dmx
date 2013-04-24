@@ -10,7 +10,7 @@ package desmoj.core.util;
  * by Ralf Bachmann (2003).
  *
  * @author Nicolas Knaak
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -29,8 +29,6 @@ public interface AccessPoint {
 	 * returns the current value of the attribute referenced by this access
 	 * point.
 	 * 
-	 * @param o
-	 *            the object whose attribute is to be accessed.
 	 * @return the attribute's value
 	 */
 	public Object getValue();

@@ -15,7 +15,7 @@ import desmoj.core.simulator.SimProcess;
  * @see Transportation
  * @see TransportJunction
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,7 +65,7 @@ public abstract class Transporter extends SimProcess {
 	 */
 	public Transporter(Model owner, String name, int minLoad, int capac,
 			boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, showInTrace); // make a sim-process
 
 		// check the minimum load parameter
 		if (minLoad < 0) {

@@ -1,12 +1,13 @@
 package desmoj.core.simulator;
 
-import desmoj.core.exception.SimFinishedException;
+import desmoj.core.exception.*;
+import desmoj.core.report.ErrorMessage;
 
 /**
  * SimThreads are used to mimic coroutine behaviour with the help of native Java
  * threads. SimThreads are attributes of SimProcesses only.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +25,7 @@ import desmoj.core.exception.SimFinishedException;
 public class SimThread extends Thread {
 
 	/**
-	 * The simprocess this simthread serves for.
+	 * The SimProcess this simthread serves for.
 	 */
 	SimProcess simProc;
 
@@ -36,8 +37,8 @@ public class SimThread extends Thread {
 	 * 
 	 * @param group
 	 *            java.lang.ThreadGroup : The SimProcess' threadgroup
-	 * @param name
-	 *            java.lang.String : The SimProcess' name
+	 * @param siPro
+	 *            SimProcess : The SimProcess
 	 */
 	SimThread(ThreadGroup group, SimProcess siPro) {
 
@@ -47,7 +48,7 @@ public class SimThread extends Thread {
 	}
 
 	/**
-	 * Returns the status of the simprocess wether it is still running active
+	 * Returns the status of the SimProcess wether it is still running active
 	 * with this simthread or not. A return value of <code>true</code> indicates
 	 * that this simthread is still alive while <code>false</code> indicates
 	 * that the simthread is not in a blocking situation any more since it has
@@ -63,12 +64,12 @@ public class SimThread extends Thread {
 
 	/**
 	 * Method is used to stop all running threads after an experient is stopped.
-	 * Calls the simprocess' <code>clearThread()<code> method to free the
+	 * Calls the SimProcess' <code>clearThread()<code> method to free the
 	 * scheduler waiting in the block.
 	 */
 	void kill() {
 
-		simProc.activate();
+		simProc.resume();
 
 	}
 
@@ -84,21 +85,42 @@ public class SimThread extends Thread {
 		// let all other threads, esp. the main thread get into the block
 		// yield();
 		// catch SimFinishedExceptions to clear this thread
-		// needed to get all simprocesses cleared up after end of simulation
+		// needed to get all SimProcesses cleared up after end of simulation
 		try {
-			simProc.lifeCycle();
+            long run = 0;
+            do {
+                run++;
+                if (simProc.currentlySendTraceNotes()) {
+                    if (simProc.isRepeating())
+                        simProc.sendTraceNote("starts (run #" + run + ")");
+                    else
+                        simProc.sendTraceNote("starts");
+                }
+                simProc.lifeCycle();
+            } while (simProc.isRepeating());
 			if (simProc.currentlySendTraceNotes()) {
-				simProc.sendTraceNote(simProc.getName() + " terminates");
+				simProc.sendTraceNote("terminates");
 			}
-		} catch (SimFinishedException sfEx) {
-			; // nothing done here, sfEx was just used to
-			// finish this simthread after end of simulation
-		}
-
+        } catch (SimFinishedException sfEx) {
+            ; // nothing done here, sfEx was just used to
+                // finish this simthread after end of simulation
+        } catch (InterruptException irqEx) {
+            throw new SimAbortedException(
+                    new ErrorMessage(
+                            simProc.getModel(),
+                            "The simulation has been aborted due to an unhandled interrupt.",
+                            "SimProcess: " + simProc.getName() + " Method: void lifeCycle()",
+                            "The current SimProcess has been interrupted by a call to its interrupt(InterruptException interruptReason) method but this interrupt hasn't been properly handled by catching the given InterruptException.",
+                            "To properly handle an interrupt triggered by an InterruptException every call to the methods hold(...) and passivate() has to be surrounded with a try-block so that the InterruptException is caught and can be handled in an adjacent catch-block.",
+                            simProc.getModel().getExperiment().getSimClock().getTime()));
+        } catch (DESMOJException dEx) {
+            simProc.getModel().getExperiment().interrupt(dEx); // transfer to experiment in main thread
+        }
+		
 		// update running status, which is now stopped concerning the model
 		simProc.setRunning(false);
 
-		// update status flag for using the simprocess' simthread
+		// update status flag for using the SimProcess' simthread
 		simProc.setTerminated(true);
 
 		// release the waiting scheduler

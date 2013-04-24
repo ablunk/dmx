@@ -296,6 +296,14 @@ public class RunAction extends Action {
 		
 		monitor.subTask("Cleaning up");
 		IProject currentProject = getCurrentProject();
+		try {
+			currentProject.refreshLocal(IResource.DEPTH_INFINITE, null);
+		}
+		catch (CoreException e1) {
+			e1.printStackTrace();
+			return;
+		}
+		
 		IPath genFolder = getJavaGenFolder(currentProject).getRawLocation();
 		cleanFolder(getTempFolder(currentProject));
 		cleanFolder(getJavaGenFolder(currentProject));

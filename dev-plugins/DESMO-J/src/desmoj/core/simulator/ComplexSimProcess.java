@@ -1,6 +1,7 @@
 package desmoj.core.simulator;
 
 import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  * A <code>ComplexSimProcess</code> is a <code>SimProcess</code> which
@@ -9,7 +10,7 @@ import java.util.Enumeration;
  * <code>ComplexSimProcess</code> is active all its contained Simprocesses are
  * passive. That means they are blocked and can not proceed in their lifeCycles.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +31,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 	 * The <code>Vector</code> holding all the SimProcesses which are
 	 * contained in this ComplexSimProcess.
 	 */
-	private java.util.Vector components;
+	private Vector<SimProcess> _components;
 
 	/**
 	 * Constructs a ComplexSimProcess.
@@ -52,7 +53,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 		super(owner, name, showInTrace); // make a SimProcess
 
 		// make a new Vector to store all the components in
-		components = new java.util.Vector();
+		_components = new Vector<SimProcess>();
 
 		// this ComplexSimProcess is not contained in any other
 		// ComplexSimProcess yet
@@ -61,9 +62,9 @@ public abstract class ComplexSimProcess extends SimProcess {
 
 	/**
 	 * Adds a SimProcess as a component to this ComplexSimProcess. The
-	 * SimProcess being added to the ComplexSimProcess will be passivated and
+	 * Sim-process being added to the ComplexSimProcess will be passivated and
 	 * blocked. Use method <code>removeComponent()</code> to remove the
-	 * SimProcess from the ComplexSimProcess again.
+	 * Sim-process from the ComplexSimProcess again.
 	 * 
 	 * @param compnt
 	 *            desmoj.SimProcess : The SimProcess to be added as a component
@@ -105,7 +106,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 		}
 
 		// the Simprocess component must not be contained twice in the container
-		if (components.contains(compnt)) {
+		if (_components.contains(compnt)) {
 			sendWarning(
 					"Attempt to add a process to a ComplexSimProcess twice. "
 							+ "The attempted action is ignored!",
@@ -148,7 +149,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 		compnt.setBlocked(true);
 
 		// add the new SimProcess component to the components Vector
-		components.addElement(compnt);
+		_components.addElement(compnt);
 
 		// trace output
 		if (currentlySendTraceNotes()) {
@@ -189,7 +190,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 	public synchronized boolean contains(SimProcess elem) {
 
 		// forward to the internal Vector
-		return components.contains(elem);
+		return _components.contains(elem);
 	}
 
 	/**
@@ -200,9 +201,9 @@ public abstract class ComplexSimProcess extends SimProcess {
 	 *         ComplexSimProcess.
 	 * @see java.util.Enumeration
 	 */
-	public synchronized java.util.Enumeration getComponents() {
+	public synchronized Enumeration<SimProcess> getComponents() {
 
-		return components.elements();
+		return _components.elements();
 	}
 
 	/**
@@ -214,7 +215,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 	public boolean hasComponents() {
 
 		// forward to the internal Vector
-		return (!components.isEmpty());
+		return (!_components.isEmpty());
 	}
 
 	/**
@@ -239,7 +240,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 	public synchronized void removeAllComponents() {
 
 		// loop through all elements
-		for (Enumeration e = getComponents(); e.hasMoreElements();) {
+		for (Enumeration<?> e = getComponents(); e.hasMoreElements();) {
 			// buffer the current element
 			SimProcess elem = (SimProcess) e.nextElement();
 
@@ -265,7 +266,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 		}
 
 		// remove the all the SimProcess elements from the components Vector
-		components.removeAllElements();
+		_components.removeAllElements();
 
 		// trace output
 		if (currentlySendTraceNotes()) {
@@ -281,7 +282,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 
 	/**
 	 * Removes a SimProcess from the elements of this ComplexSimProcess. The
-	 * SimProcess being removed from the ComplexSimProcess will be activated
+	 * Sim-process being removed from the ComplexSimProcess will be activated
 	 * after the current SimProcess so it can follow its own lifeCycle again.
 	 * 
 	 * @param elem
@@ -307,7 +308,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 		}
 
 		// the SimProcess component must be contained in the container
-		if (!components.contains(elem)) {
+		if (!_components.contains(elem)) {
 			sendWarning(
 					"Attempt to remove a process which is not an element of this "
 							+ "ComplexSimProcess. The attempted action is ignored!",
@@ -325,7 +326,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 		elem.setSupervisor(null);
 
 		// remove the SimProcess element from the components Vector
-		components.remove(elem);
+		_components.remove(elem);
 
 		// the SimProcess element is not blocked anymore
 		elem.setBlocked(false);
@@ -371,7 +372,7 @@ public abstract class ComplexSimProcess extends SimProcess {
 			stringOfElems.append("nothing else.");
 		} else {
 			// loop through all elements
-			for (Enumeration e = getComponents(); e.hasMoreElements();) {
+			for (Enumeration<?> e = getComponents(); e.hasMoreElements();) {
 				stringOfElems.append(((SimProcess) e.nextElement())
 						.getQuotedName());
 

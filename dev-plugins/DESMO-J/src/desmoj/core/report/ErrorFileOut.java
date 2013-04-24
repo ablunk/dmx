@@ -20,7 +20,7 @@ import java.io.IOException;
  * messages. Errors affecting the java runtime are always displayed on the
  * system's standard output PrintStream.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler, modified by Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,7 +41,8 @@ public class ErrorFileOut extends TableOutput implements MessageReceiver {
 	 * Buffers the last message received for formatting the HTML table to e
 	 * printed without repeating redundant information.
 	 */
-	private ErrorMessage lastNote;
+	//field was never used
+	//private ErrorMessage _lastNote;
 
 	/**
 	 * Creates an ErrorOut to print ErrorMessages into a HTML page. By opening
@@ -67,7 +68,7 @@ public class ErrorFileOut extends TableOutput implements MessageReceiver {
 	public void close() {
 
 		super.close();
-		lastNote = null;
+		//_lastNote = null;
 
 	}
 
@@ -134,28 +135,28 @@ public class ErrorFileOut extends TableOutput implements MessageReceiver {
 		// cast and buffer for easier access
 
 		formatter.openRow();
-		formatter.writeCell(tmp.getModelName());
-		formatter.writeCell(formatter.writeTime(tmp.getTime()));
-		formatter.writeCell("description");
-		formatter.writeCell(tmp.getDescription());
+		formatter.writeCell(tmp.getModelName(), 1);
+		formatter.writeCell(formatter.writeTime(tmp.getTime()), 1);
+		formatter.writeCell("description", 1);
+		formatter.writeCell(tmp.getDescription(), 1);
 		formatter.closeRow();
 		formatter.openRow();
-		formatter.writeCell(" ");
-		formatter.writeCell(" ");
-		formatter.writeCell("location");
-		formatter.writeCell(tmp.getLocation());
+		formatter.writeCell(" ", 1);
+		formatter.writeCell(" ", 1);
+		formatter.writeCell("location", 1);
+		formatter.writeCell(tmp.getLocation(), 1);
 		formatter.closeRow();
 		formatter.openRow();
-		formatter.writeCell(" ");
-		formatter.writeCell(" ");
-		formatter.writeCell("reason");
-		formatter.writeCell(tmp.getReason());
+		formatter.writeCell(" ", 1);
+		formatter.writeCell(" ", 1);
+		formatter.writeCell("reason", 1);
+		formatter.writeCell(tmp.getReason(), 1);
 		formatter.closeRow();
 		formatter.openRow();
-		formatter.writeCell(" ");
-		formatter.writeCell(" ");
-		formatter.writeCell("prevention");
-		formatter.writeCell(tmp.getPrevention());
+		formatter.writeCell(" ", 1);
+		formatter.writeCell(" ", 1);
+		formatter.writeCell("prevention", 1);
+		formatter.writeCell(tmp.getPrevention(), 1);
 		formatter.closeRow();
 		try {
 			file.flush();

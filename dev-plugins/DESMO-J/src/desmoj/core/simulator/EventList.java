@@ -12,9 +12,9 @@ package desmoj.core.simulator;
  * primarily inserting new events at the very end of the event-list, other
  * implementations of the event-list might support faster access times.
  * 
- * @see EventVector
+ * @see EventVectorList
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,98 +30,66 @@ package desmoj.core.simulator;
  *
  */
 public abstract class EventList {
-	/**
-	 * Implement this method to let the user obtain a new eventnote. This
-	 * resembles the design pattern of a factory method [Gamm95, p. 107]. The
-	 * use of a factory method here ensures that always the correct
-	 * implementation of an eventnote is used together with the current active
-	 * implementation of an event-list, since both might be tightly coupled.
-	 * (Note that this is not mandatory as proven in the default implementation)
-	 * 
-	 * @return EventNote : The new eventnote that contains all the information
-	 *         handed as parameters
-	 * @param who
-	 *            Entity : The entity that is to be changed by the event to
-	 *            happen
-	 * @param what
-	 *            Event : The type of event that is going to happen
-	 * @param when
-	 *            TimeInstant : The point of time at which the event is going to
-	 *            happen to the entity
-	 */
-	abstract EventNote createEventNote(Entity who, Event what, TimeInstant when);
 
 	/**
-	 * Returns the first eventnote in the event-list. That eventnote contains
+	 * Returns the first event-note in the event-list. That EventNote contains
 	 * information about the next event to happen and will be the next event
 	 * processed by the scheduler.
 	 * 
-	 * @return EventNote : The first eventnote in the event-list
+	 * @return EventNote : The first event-note in the event-list
 	 */
 	abstract EventNote firstNote();
 
 	/**
-	 * Inserts a new eventnote into the EventList. Eventnote are sorted by the
+	 * Inserts a new event-note into the event-list. Event notes are sorted by the
 	 * point if time they are scheduled to happen. This method ensures that the
-	 * new eventnote is inserted in the right place in the event-list, scanning
-	 * through the list whenever a new eventnote has to be inserted.
+	 * new event-note is inserted in the right place in the event-list, scanning
+	 * through the list whenever a new event-note has to be inserted.
 	 * 
 	 * @param newNote
-	 *            EventNote : The eventnote to be sorted into the event-list
+	 *            EventNote : The event-note to be sorted into the event-list
 	 */
 	abstract void insert(EventNote newNote);
 
 	/**
-	 * Inserts the new eventnote straight before the other specified eventnote.
-	 * This other eventnote must already be scheduled. Otherwise a warning will
+	 * Inserts the new event-note straight after the other specified EventNote.
+	 * This other EventNote must already be scheduled. Otherwise a warning will
 	 * be issued and the method returns without changing the event-list.
 	 * 
-	 * @param beforeNote
-	 *            EventNote : The eventnote already scheduled, that the new
-	 *            eventnote is supposed to be inserted before.
+	 * @param afterNote
+	 *            EventNote : The event-note already scheduled, that the new
+	 *            EventNote is supposed to be inserted after.
 	 * @param newNote
-	 *            EventNote : The new eventnote to be inserted before the
-	 *            specified eventnote
+	 *            EventNote : The new event-note to be inserted before the
+	 *            specified EventNote
 	 */
 	abstract void insertAfter(EventNote afterNote, EventNote newNote);
 
 	/**
-	 * Inserts the given eventnote at the first position in the event-list. The
-	 * event encapsulated in that eventnote will probably be the next event to
+	 * Inserts the given EventNote at the first position in the event-list. The
+	 * Event encapsulated in that EventNote will probably be the next event to
 	 * be processed by the scheduler (unless some other calls to this method are
 	 * made before). Note that this operation changes the scheduled time of the
-	 * given eventnote to the actual simulation time to keep the temporal order
+	 * given EventNote to the actual simulation time to keep the temporal order
 	 * of the event-list.
 	 * 
 	 * @param newNote
-	 *            EventNote : The eventnote to be inserted at the first position
+	 *            EventNote : The event-note to be inserted at the first position
 	 *            in the event-list
 	 */
 	abstract void insertAsFirst(EventNote newNote);
 
 	/**
-	 * Inserts an eventnote at the last position in the event-list. Note that
-	 * the simulation time of the given eventnote will be set to be the same as
-	 * the last eventnote in the event-list to keep the temporal order of the
-	 * evnet-list.
-	 * 
-	 * @param newNote
-	 *            EventNote : The eventnote to be inserted at the last position
-	 *            in the event-list
-	 */
-	abstract void insertAsLast(EventNote newNote);
-
-	/**
-	 * Inserts the new EventNote straight before the other specified EventNote.
-	 * This other Eventnote must already be scheduled. Otherwise the position to
+	 * Inserts the new event-note straight before the other specified EventNote.
+	 * This other EventNote must already be scheduled. Otherwise the position to
 	 * insert the given EventNote can not be determined, resulting in a
 	 * ItemNotScheduledException being thrown.
 	 * 
 	 * @param beforeNote
-	 *            EventNote : The EventNote already scheduled, that the new
+	 *            EventNote : The event-note already scheduled, that the new
 	 *            EventNote is supposed to be inserted before.
 	 * @param newNote
-	 *            EventNote : The new EventNote to be inserted before the
+	 *            EventNote : The new event-note to be inserted before the
 	 *            specified EventNote
 	 */
 	abstract void insertBefore(EventNote beforeNote, EventNote newNote);
@@ -132,54 +100,54 @@ public abstract class EventList {
 	 * is a criterium to stop the simulation, since no further action is
 	 * scheduled.
 	 * 
-	 * @return boolean : Is <code>true</code> if there are no eventnote
+	 * @return boolean : Is <code>true</code> if there are no EventNote
 	 *         contained in the event-list, <code>false</code> otherwise.
 	 */
 	abstract boolean isEmpty();
 
 	/**
-	 * Returns the last eventnote in the event-list.
+	 * Returns the last EventNote in the event-list.
 	 * 
-	 * @return EventNote : The last eventnote in the event-list
+	 * @return EventNote : The last EventNote in the event-list
 	 */
 	abstract EventNote lastNote();
 
 	/**
-	 * Returns the next eventnote in the EventList relative to the given
-	 * eventnote. If the given eventnote is not contained in the event-list or
-	 * happens to be the last eventnote in the event-list, <code>null</code>
+	 * Returns the next event-note in the event-list relative to the given
+	 * EventNote. If the given EventNote is not contained in the event-list or
+	 * happens to be the last EventNote in the event-list, <code>null</code>
 	 * will be returned.
 	 * 
-	 * @return EventNote : The eventnote following the given eventnote or
-	 *         <ocde>null</code> if the given eventnote was last or not found
+	 * @return EventNote : The event-note following the given EventNote or
+	 *         <ocde>null</code> if the given EventNote was last or not found
 	 * @param origin
-	 *            EventNote : The eventnote whose successor is wanted
+	 *            EventNote : The event-note whose successor is wanted
 	 */
 	abstract EventNote nextNote(EventNote origin);
 
 	/**
-	 * Returns the previous eventnote in the event-list relative to the given
-	 * eventnote. If the given eventnote is not contained in the event-list or
-	 * happens to be the first eventnote in the evnet-list, <code>null</code>
+	 * Returns the previous EventNote in the event-list relative to the given
+	 * EventNote. If the given EventNote is not contained in the event-list or
+	 * happens to be the first event-note in the evnet-list, <code>null</code>
 	 * will be returned.
 	 * 
-	 * @return EventNote : The eventnote following the given eventnote or
-	 *         <ocde>null</code> if the given eventnote was first or not found
+	 * @return EventNote : The event-note following the given EventNote or
+	 *         <ocde>null</code> if the given EventNote was first or not found
 	 * @param origin
-	 *            EventNote : The eventnote whose predecessor is wanted
+	 *            EventNote : The event-note whose predecessor is wanted
 	 */
 	abstract EventNote prevNote(EventNote origin);
 
 	/**
-	 * Removes the given eventnote from the event-list.
+	 * Removes the given EventNote from the event-list.
 	 * 
 	 * @param note
-	 *            EventNote . The eventnote to be removed from the event-list
+	 *            EventNote . The event-note to be removed from the event-list
 	 */
 	abstract void remove(EventNote note);
 
 	/**
-	 * Removes the first eventnote from the event-list.
+	 * Removes the first event-note from the event-list.
 	 */
 	abstract void removeFirst();
 }

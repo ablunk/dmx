@@ -9,6 +9,7 @@ import java.text.DecimalFormat;
 import java.text.Format;
 import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
@@ -24,9 +25,9 @@ import desmoj.extensions.experimentation.util.Filename;
 
 /**
  * A generic editor for elements in Swing tables. This class contains concrete
- * editors (e.g. for elements of type boolean) as subclasses.
+ * editors (e.g. for elements of type boolean) as inner classes.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -100,10 +101,16 @@ public class AttributeTableEditor extends AbstractCellEditor implements
 		// Register String editor
 		e = new StringEditor();
 		registerEditor(e, String.class);
-
-		// Register SimTimeEditor
-		e = new SimTimeEditor();
-		registerEditor(e, desmoj.core.simulator.SimTime.class);
+		
+	    // Register TimeUnit editor
+        e = new TimeUnitAttribEditor();
+        registerEditor(e, TimeUnit.MICROSECONDS.getClass());
+        registerEditor(e, TimeUnit.MILLISECONDS.getClass());
+        registerEditor(e, TimeUnit.SECONDS.getClass());
+        registerEditor(e, TimeUnit.MINUTES.getClass());
+        registerEditor(e, TimeUnit.SECONDS.getClass());
+        registerEditor(e, TimeUnit.HOURS.getClass());
+        registerEditor(e, TimeUnit.DAYS.getClass());
 
 		// Register FilenameEditor
 		e = new FilenameAttribEditor();
@@ -140,7 +147,6 @@ public class AttributeTableEditor extends AbstractCellEditor implements
 	public Component getTableCellEditorComponent(JTable table, Object value,
 			boolean selected, int row, int col) {
 		Class c = value.getClass();
-		// System.out.println("Editing attribute of type " + c);
 		currentEditor = (AttribEditor) editors.get(c);
 		if (c == null)
 			currentEditor = defaultEditor;
@@ -499,46 +505,43 @@ public class AttributeTableEditor extends AbstractCellEditor implements
 		}
 	}
 
-	/**
-	 * Editor for SimTimes. This is a floating point editor that allows no
-	 * negative values.
-	 */
-	public static class SimTimeEditor extends FloatingPointNumberEditor {
-
-		/**
-		 * Initializes the editor component with the value of object o
-		 * 
-		 * @param object
-		 *            to initialize editor with
-		 */
-		public void setValue(Object o) {
-			double d = ((desmoj.core.simulator.SimTime) o).getTimeValue();
-			c.setText(((DecimalFormat) getFormat()).format(d));
-		}
-
-		/**
-		 * Returns a SimTime object with the current floating point value of the
-		 * editor component. If the value cannot be parsed or it is negative
-		 * null is returned.
-		 * 
-		 * @return SimTime object
-		 */
-		public Object getValue() {
-			try {
-				Number num = ((DecimalFormat) getFormat()).parse(c.getText());
-				double d = num.doubleValue();
-				if (d < 0.0) {
-					JOptionPane.showMessageDialog(getComponent(),
-							"SimTime values must not be negative!");
-					return null;
-				} else
-					return new desmoj.core.simulator.SimTime(num.doubleValue());
-			} catch (java.text.ParseException ex) {
-				JOptionPane.showMessageDialog(getComponent(),
-						"Enter a valid nonnegative floating point number!");
-
-				return null;
-			}
-		}
-	}
+    /** A combo box editor component for TimeUnits */
+    public static class TimeUnitAttribEditor implements AttribEditor {
+    
+    	/** A combo box diplaying TimeUnits */
+    	JComboBox c = new JComboBox(
+    			new Object[] { TimeUnit.MICROSECONDS, TimeUnit.MILLISECONDS, TimeUnit.SECONDS,
+    			        TimeUnit.MINUTES, TimeUnit.HOURS, TimeUnit.DAYS});
+    
+    	/** @return combo box */
+    	public Component getComponent() {
+    		return c;
+    	}
+    
+    	/** @return selected item of the combo box. */
+    	public Object getValue() {
+    		return c.getSelectedItem();
+    	}
+    
+    	/**
+    	 * Sets value of the combo box to the given object.
+    	 * 
+    	 * @param o
+    	 *            a TimeUnit object. 
+    	 */
+    	public void setValue(Object o) {
+    		if      (o.equals(TimeUnit.MICROSECONDS))
+    			c.setSelectedIndex(0);
+    		else if (o.equals(TimeUnit.MILLISECONDS))
+    			c.setSelectedIndex(1);
+            else if (o.equals(TimeUnit.SECONDS))
+                c.setSelectedIndex(2);
+            else if (o.equals(TimeUnit.MINUTES))
+                c.setSelectedIndex(3);
+            else if (o.equals(TimeUnit.HOURS))
+                c.setSelectedIndex(4);
+            else if (o.equals(TimeUnit.DAYS))
+                c.setSelectedIndex(5);
+    	}
+    }
 }

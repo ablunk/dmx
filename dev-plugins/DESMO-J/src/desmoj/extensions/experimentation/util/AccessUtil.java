@@ -3,8 +3,8 @@ package desmoj.extensions.experimentation.util;
 import java.lang.reflect.Constructor;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
-import desmoj.core.simulator.SimTime;
 import desmoj.core.util.AccessPoint;
 import desmoj.core.util.MutableAccessPoint;
 
@@ -12,7 +12,7 @@ import desmoj.core.util.MutableAccessPoint;
  * Utility class for working with access points.
  * 
  * @author Nicolas Knaak
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -45,7 +45,6 @@ public class AccessUtil {
 	 */
 	public static Object getValue(String name, Map accessPoints) {
 		AccessPoint ap = (AccessPoint) accessPoints.get(name);
-		System.out.println("AP: " + ap);
 		return ap.getValue();
 	}
 
@@ -58,6 +57,16 @@ public class AccessUtil {
 	public static String getStringValue(String name, Map accessPoints) {
 		return (String) getValue(name, accessPoints);
 	}
+	
+    /**
+     * Convenience method to retrieve the TimeUnit value of an access point with a given name from the map.
+     * @param name name of an access point
+     * @param accessPoints map containing <String,AccessPoint> pairs.
+     * @return current string value of the access point
+     */
+    public static TimeUnit getTimeUnitValue(String name, Map accessPoints) {
+        return (TimeUnit) getValue(name, accessPoints);
+    }
 
 	/**
 	 * Convenience method to retrieve the boolean value of an access point with a given name from the map.
@@ -87,16 +96,6 @@ public class AccessUtil {
 	 */
 	public static double getDoubleValue(String name, Map accessPoints) {
 		return ((Double) getValue(name, accessPoints)).doubleValue();
-	}
-
-	/**
-	 * Convenience method to retrieve the SimTime value of an access point with a given name from the map.
-	 * @param name name of an access point
-	 * @param accessPoints map containing <String,AccessPoint> pairs.
-	 * @return current SimTime value of the access point
-	 */
-	public static SimTime getSimTimeValue(String name, Map accessPoints) {
-		return (SimTime) getValue(name, accessPoints);
 	}
 
 	/**
@@ -250,9 +249,6 @@ public class AccessUtil {
 			o = Float.valueOf(value);
 		else if (type.equals(Double.class))
 			o = Double.valueOf(value);
-		else if (type.equals(desmoj.core.simulator.SimTime.class))
-			o = new desmoj.core.simulator.SimTime(Double.valueOf(value)
-					.doubleValue());
 		else if (type
 				.equals(desmoj.extensions.experimentation.util.Filename.class)) {
 			boolean isDir = false;

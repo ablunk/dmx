@@ -6,6 +6,7 @@ import desmoj.core.simulator.ProcessQueue;
 import desmoj.core.simulator.QueueBased;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.SimTime;
+import desmoj.extensions.applicationDomains.production.Transporter;
 
 /**
  * A CranesSystem represents the system of the cranes that manages the queues of
@@ -14,7 +15,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see QueueBased
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -35,17 +36,17 @@ public class CranesSystem extends QueueBased {
 	 * The queue, actually storing the transporter processes waiting for cranes
 	 * to unload/load them.
 	 */
-	protected ProcessQueue transporterQueue;
+	protected ProcessQueue<SimProcess> transporterQueue;
 
 	/**
 	 * The queue, actually storing the working cranes processes.
 	 */
-	protected ProcessQueue workingCranesQueue;
+	protected ProcessQueue<Crane> workingCranesQueue;
 
 	/**
 	 * The queue, actually storing the cranes processes that are idle.
 	 */
-	protected ProcessQueue cranesQueue;
+	protected ProcessQueue<Crane> cranesQueue;
 
 	/**
 	 * Counter for the whole number of the loaded units of all the cranes of
@@ -122,7 +123,7 @@ public class CranesSystem extends QueueBased {
 		int cranesQSortOrder = cSortOrder;
 
 		// check if a valid sortOrder is given for the cranes queue
-		if (cSortOrder < 0 || cSortOrder >= queueingStrategy.length) {
+		if (cSortOrder < 0 || cSortOrder >= 3) {
 			sendWarning(
 					"The given cSortOrder parameter is negative or too big! "
 							+ "Cranes queue with Fifo sort order will be created "
@@ -155,9 +156,9 @@ public class CranesSystem extends QueueBased {
 		}
 
 		// create the queues for the cranes (idle/working cranes)
-		cranesQueue = new ProcessQueue(owner, name + "_C", cranesQSortOrder,
+		cranesQueue = new ProcessQueue<Crane>(owner, name + "_C", cranesQSortOrder,
 				cranesQLimit, false, false);
-		workingCranesQueue = new ProcessQueue(owner, name + "_WC",
+		workingCranesQueue = new ProcessQueue<Crane>(owner, name + "_WC",
 				cranesQSortOrder, cranesQLimit, false, false);
 
 		// TRANSPORTER queue (external or internal)
@@ -166,7 +167,7 @@ public class CranesSystem extends QueueBased {
 		int transQSortOrder = tSortOrder;
 
 		// check if a valid sortOrder is given for the transporter queue
-		if (tSortOrder < 0 || tSortOrder >= queueingStrategy.length) {
+		if (tSortOrder < 0 || tSortOrder >= 3) {
 			sendWarning(
 					"The given tSortOrder parameter is negative or too big! "
 							+ "Transporter queue with Fifo sort order will be created "
@@ -200,8 +201,8 @@ public class CranesSystem extends QueueBased {
 			transQLimit = Integer.MAX_VALUE;
 		}
 
-		// create the queue for the cranes (idle/working cranes)
-		transporterQueue = new ProcessQueue(owner, name + "_T",
+		// create the queue for the transporters
+		transporterQueue = new ProcessQueue<SimProcess>(owner, name + "_T",
 				transQSortOrder, transQLimit, false, false);
 
 		// reset the cranes system
@@ -269,10 +270,10 @@ public class CranesSystem extends QueueBased {
 	 * This method is used to add a crane to the cranes queue of this
 	 * CranesSystem.
 	 * 
-	 * @param t
-	 *            <code>Job</code>: The Crane that must be enqueued.
+	 * @param c
+	 *            Crane : The Crane to enqueue.
 	 */
-	public boolean addCrane(SimProcess c) {
+	public boolean addCrane(Crane c) {
 
 		where = " boolean addCrane (SimProcess c)";
 
@@ -312,7 +313,7 @@ public class CranesSystem extends QueueBased {
 	/**
 	 * Checks whether the process using the CranesSystem is a valid process.
 	 * 
-	 * @return boolean : Returns whether the SimProcess is valid or not.
+	 * @return boolean : Returns whether the sim-process is valid or not.
 	 * @param p
 	 *            SimProcess : Is this SimProcess a valid one?
 	 */
@@ -394,9 +395,9 @@ public class CranesSystem extends QueueBased {
 	/**
 	 * Returns the cranes queue of this cranes system.
 	 * 
-	 * @return <code>ProcessQueue</code>: The cranes queue.
+	 * @return <code>ProcessQueue<Crane></code>: The cranes queue.
 	 */
-	public ProcessQueue getCranesQueue() {
+	public ProcessQueue<Crane> getCranesQueue() {
 
 		return this.cranesQueue;
 	}
@@ -404,9 +405,9 @@ public class CranesSystem extends QueueBased {
 	/**
 	 * Returns the transporter queue of this cranes system.
 	 * 
-	 * @return <code>ProcessQueue</code>: The transporter queue.
+	 * @return <code>ProcessQueue<SimProcess></code>: The transporter queue.
 	 */
-	public ProcessQueue getTransporterQueue() {
+	public ProcessQueue<SimProcess> getTransporterQueue() {
 
 		return this.transporterQueue;
 	}
@@ -556,7 +557,7 @@ public class CranesSystem extends QueueBased {
 	 * 
 	 * @return <code>ProcessQueue</code>: The queue of the working cranes.
 	 */
-	public ProcessQueue getWorkingCranes() {
+	public ProcessQueue<Crane> getWorkingCranes() {
 
 		return this.workingCranesQueue;
 	}

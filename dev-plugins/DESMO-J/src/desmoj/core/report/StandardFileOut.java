@@ -11,7 +11,7 @@ import java.io.Writer;
  * message's description attribute and stores it. Other types of messages should
  * be handled by special output classes derived from this class.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ public abstract class StandardFileOut implements MessageReceiver {
 	/**
 	 * The name of the file produced by this StandardFileOut.
 	 */
-	private String name;
+	private String _name;
 
 	/**
 	 * The actual FileWriter used to wirte the messages to disc.
@@ -59,16 +59,16 @@ public abstract class StandardFileOut implements MessageReceiver {
 
 		// check for proper file suffix
 		if (!(fileName.endsWith(".html")) && !(fileName.endsWith(".HTML")))
-			name = fileName + ".html";
+			_name = fileName + ".html";
 		else
-			name = fileName;
+			_name = fileName;
 
 		// try to open a new file and use a buffered Writer for performance
 		try {
-			fileOut = new BufferedWriter(new FileWriter(name));
+			fileOut = new BufferedWriter(new FileWriter(_name));
 		} catch (IOException ioEx) {
 			System.out.println("IOException thrown : " + ioEx);
-			System.out.println("description: Can't create file " + name
+			System.out.println("description: Can't create file " + _name
 					+ ".html");
 			System.out.println("origin     : Experiment auxiliaries");
 			System.out

@@ -10,7 +10,7 @@ import desmoj.core.simulator.Model;
  * 
  * @see Entity
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +47,7 @@ public class Lane extends Entity {
 	 */
 	public Lane(Model owner, String name, int number, boolean showInTrace) {
 
-		super(owner, name, showInTrace); // make an Entity
+		super(owner, name, showInTrace); // make an entity
 
 		// check the number of the lane
 		if (number < 0) {

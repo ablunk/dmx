@@ -9,7 +9,7 @@ import java.io.File;
  * class desmoj.report.HTMLFileOut. This class is the new base class for the
  * different Desmo-J output channels (ReportFileOut, etc.)
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak edited by Gunnar Kiesel, 5.1.2004
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ public class TableOutput extends FileOutput {
 	 *            fully qualified class name of assigned TableFormatter
 	 */
 	public TableOutput(int timePrec, String format) {
-		this.setSeparator("\t");
+		TableOutput.setSeparator("\t");
 		formatter = createFormatter(format);
 		formatter.setOutput(this);
 		formatter.setTimePrecision(timePrec);
@@ -79,7 +79,7 @@ public class TableOutput extends FileOutput {
 	protected TableFormatter createFormatter(String formatter) {
 		TableFormatter t;
 		try {
-			Class formatterClass = Class.forName(formatter);
+			Class<?> formatterClass = Class.forName(formatter);
 			t = (TableFormatter) formatterClass.newInstance();
 			return t;
 		} catch (Exception e) {
@@ -101,9 +101,9 @@ public class TableOutput extends FileOutput {
 	protected String createFileName(String pathname, String name, String type) {
 
 		// check for proper path and filename
-		if ((pathname == null) || (pathname.isEmpty()))
+		if ((pathname == null) || (pathname.length() == 0))
 			pathname = System.getProperty("user.dir", ".");
-		if ((name == null) || (name.isEmpty()))
+		if ((name == null) || (name.length() == 0))
 			name = "DESMOJ";
 
 		// check for proper suffix of the filename

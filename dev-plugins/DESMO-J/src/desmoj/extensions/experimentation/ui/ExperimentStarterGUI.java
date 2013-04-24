@@ -4,7 +4,7 @@ package desmoj.extensions.experimentation.ui;
  * Interface for graphical user interfaces for the Experiment Starter. This is
  * Interface is used by {@link ExperimentStarter ExperimentStarter}
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

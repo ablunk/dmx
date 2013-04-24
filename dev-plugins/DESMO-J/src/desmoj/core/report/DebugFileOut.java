@@ -16,7 +16,7 @@ package desmoj.core.report;
  * messages. Errors affecting the java runtime are always displayed on the
  * system's standard output PrintStream.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler, modified by Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,7 +37,7 @@ public class DebugFileOut extends TableOutput implements MessageReceiver {
 	 * Buffers the last message received for formatting the HTML table to e
 	 * printed without repeating redundant information.
 	 */
-	private DebugNote lastNote;
+	private DebugNote _lastNote;
 
 	/**
 	 * Creates a DebugOut to print DebugNotes into a HTML page. By opening the
@@ -53,7 +53,7 @@ public class DebugFileOut extends TableOutput implements MessageReceiver {
 
 		super(simTimeFloatingDigits, format);
 
-		lastNote = null;
+		_lastNote = null;
 
 	}
 
@@ -65,7 +65,7 @@ public class DebugFileOut extends TableOutput implements MessageReceiver {
 	public void close() {
 
 		super.close();
-		lastNote = null;
+		_lastNote = null;
 
 	}
 
@@ -132,38 +132,38 @@ public class DebugFileOut extends TableOutput implements MessageReceiver {
 
 		formatter.openRow();
 
-		if (lastNote == null) {
+		if (_lastNote == null) {
 
-			formatter.writeCell(tmp.getModelName());
-			formatter.writeCell(formatter.writeTime(tmp.getTime()));
-			formatter.writeCell(tmp.getOrigin());
-			formatter.writeCell(tmp.getDescription());
+			formatter.writeCell(tmp.getModelName(), 1);
+			formatter.writeCell(formatter.writeTime(tmp.getTime()), 1);
+			formatter.writeCell(tmp.getOrigin(), 1);
+			formatter.writeCell(tmp.getDescription(), 1);
 		} else {
 
 			// now write the modelname to debug
-			if (tmp.getModelName().equals(lastNote.getModelName()))
-				formatter.writeCell(" ");
+			if (tmp.getModelName().equals(_lastNote.getModelName()))
+				formatter.writeCell(" ", 1);
 			else
-				formatter.writeCell(formatter.writeTime(tmp.getModelName()));
+				formatter.writeCell(formatter.writeTime(tmp.getModelName()), 1);
 
 			// now write the time to debug
-			if (tmp.getTime().equals(lastNote.getTime()))
-				formatter.writeCell(" ");
+			if (tmp.getTime().equals(_lastNote.getTime()))
+				formatter.writeCell(" ", 1);
 			else
-				formatter.writeCell(formatter.writeTime(tmp.getTime()));
+				formatter.writeCell(formatter.writeTime(tmp.getTime()), 1);
 
 			// now write the Origin to debug
-			if (tmp.getOrigin().equals(lastNote.getOrigin()))
-				formatter.writeCell(" ");
+			if (tmp.getOrigin().equals(_lastNote.getOrigin()))
+				formatter.writeCell(" ", 1);
 			else
-				formatter.writeCell(tmp.getOrigin());
+				formatter.writeCell(tmp.getOrigin(), 1);
 
 			// always write the description to debug
-			formatter.writeCell(tmp.getDescription());
+			formatter.writeCell(tmp.getDescription(), 1);
 		}
 
 		// remember the last note for future formatting
-		lastNote = tmp; // set new note to be last
+		_lastNote = tmp; // set new note to be last
 
 		formatter.closeRow();
 

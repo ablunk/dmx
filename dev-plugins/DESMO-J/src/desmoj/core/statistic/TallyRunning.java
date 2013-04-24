@@ -13,8 +13,8 @@ import desmoj.core.simulator.Model;
  * constructor.
  * 
  * @see Tally
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
- * @author Soenke Claassen, Johannes Goebel
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
+ * @author Soenke Claassen, Johannes G&ouml;bel
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -36,22 +36,22 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
     /**
      * The sum of the last n values so far
      */
-    private double sumLastN;
+    private double _sumLastN;
 
     /**
      * The sum of the last n values so far
      */
-    private double sumSquareLastN;
+    private double _sumSquareLastN;
     
     /**
      * The last n values
      */
-    private double[] valuesLastN;
+    private double[] _valuesLastN;
 
     /**
      * Number of samples to include in running statistic data   
      */
-    private int n;    
+    private int _n;    
     
     /**
      * Constructor for a TallyRunning object that is connected to a
@@ -93,8 +93,10 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
         }
 
         // initialize storage of last n values
-        this.n = n;
-        this.valuesLastN = new double[n];
+        this._n = n;
+        this._valuesLastN = new double[n];
+        this._sumLastN = 0;
+        this._sumSquareLastN = 0;
     }
 
     // ****** methods ******
@@ -135,8 +137,10 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
         }
 
         // initialize storage of last n values
-        this.n = n;
-        this.valuesLastN = new double[n];
+        this._n = n;
+        this._valuesLastN = new double[n];
+        this._sumLastN = 0;
+        this._sumSquareLastN = 0;
     }
 
     /**
@@ -169,9 +173,9 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
         }
 
         // calculate the mean value
-        double meanValue = this.sumLastN / Math.min(this.getObservations(), this.n);
+        double meanValue = this._sumLastN / Math.min(this.getObservations(), this._n);
         // return the rounded mean value
-        return java.lang.Math.rint(PRECISION * meanValue) / PRECISION;
+        return round(meanValue);
     }
 
     /**
@@ -182,7 +186,7 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
      * @return double : The standard deviation of the last <i>n</n> values observed so far.
      */
     public double getStdDevLastN() {
-        long obs = Math.min(this.getObservations(), this.n);
+        long obs = Math.min(this.getObservations(), this._n);
 
         if (obs < 2) {
             sendWarning(
@@ -198,10 +202,10 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
         }
 
         // calculate the standard deviation
-        double stdDev = Math.sqrt(Math.abs(obs * this.sumSquareLastN - this.sumLastN * this.sumLastN)
+        double stdDev = Math.sqrt(Math.abs(obs * this._sumSquareLastN - this._sumLastN * this._sumLastN)
                 / (obs * (obs - 1)));
         // return the rounded standard deviation
-        return java.lang.Math.rint(PRECISION * stdDev) / PRECISION;
+        return round(stdDev);
     }
 
     /**
@@ -210,7 +214,7 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
     public void reset() {
         super.reset(); // reset the Tally, too.
 
-        this.sumLastN = this.sumSquareLastN = 0.0;
+        this._sumLastN = this._sumSquareLastN = 0.0;
     }
 
     /**
@@ -225,13 +229,13 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
 
         long obs = getObservations();
         double lastVal = getLastValue();
-        int index = (int)((obs-1)%this.n);
+        int index = (int)((obs-1)%this._n);
         
-        this.sumLastN += lastVal - this.valuesLastN[index]; 
-        this.sumSquareLastN += lastVal * lastVal - this.valuesLastN[index] * this.valuesLastN[index];
+        this._sumLastN += lastVal - this._valuesLastN[index]; 
+        this._sumSquareLastN += lastVal * lastVal - this._valuesLastN[index] * this._valuesLastN[index];
            // note: in case obs < n, this.valuesLastN[index] will be zero
         
-        this.valuesLastN[index] = lastVal;
+        this._valuesLastN[index] = lastVal;
     }
 
     /**
@@ -251,13 +255,13 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
 
         long obs = getObservations();
         double lastVal = getLastValue();
-        int index = (int)((obs-1)%this.n);
+        int index = (int)((obs-1)%this._n);
         
-        this.sumLastN += lastVal - this.valuesLastN[index]; 
-        this.sumSquareLastN += lastVal * lastVal - this.valuesLastN[index] * this.valuesLastN[index];
+        this._sumLastN += lastVal - this._valuesLastN[index]; 
+        this._sumSquareLastN += lastVal * lastVal - this._valuesLastN[index] * this._valuesLastN[index];
            // note: in case obs < n, this.valuesLastN[index] will be zero
         
-        this.valuesLastN[index] = lastVal;
+        this._valuesLastN[index] = lastVal;
     }
 
     /**
@@ -298,13 +302,13 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
 
         long obs = getObservations();
         double lastVal = getLastValue();
-        int index = (int)((obs-1)%this.n);
+        int index = (int)((obs-1)%this._n);
         
-        this.sumLastN += lastVal - this.valuesLastN[index]; 
-        this.sumSquareLastN += lastVal * lastVal - this.valuesLastN[index] * this.valuesLastN[index];
+        this._sumLastN += lastVal - this._valuesLastN[index]; 
+        this._sumSquareLastN += lastVal * lastVal - this._valuesLastN[index] * this._valuesLastN[index];
            // note: in case obs < n, this.valuesLastN[index] will be zero
         
-        this.valuesLastN[index] = lastVal;
+        this._valuesLastN[index] = lastVal;
     }
     
     
@@ -319,12 +323,12 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
         if (obs == 0) return 0;
         
         double maximum = Double.NEGATIVE_INFINITY;
-        for (int i = 0; i < Math.min(this.n, obs); i++) {
-            if (this.valuesLastN[i] > maximum) maximum = this.valuesLastN[i];
+        for (int i = 0; i < Math.min(this._n, obs); i++) {
+            if (this._valuesLastN[i] > maximum) maximum = this._valuesLastN[i];
         }
         
         // return the rounded maximum
-        return java.lang.Math.rint(PRECISION * maximum) / PRECISION;
+        return round(maximum);
     }
 
     /**
@@ -338,11 +342,11 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
         if (obs == 0) return 0;
         
         double minimum = Double.POSITIVE_INFINITY;
-        for (int i = 0; i < Math.min(this.n, obs); i++) {
-            if (this.valuesLastN[i] < minimum) minimum = this.valuesLastN[i];
+        for (int i = 0; i < Math.min(this._n, obs); i++) {
+            if (this._valuesLastN[i] < minimum) minimum = this._valuesLastN[i];
         }
         // return the rounded minimum
-        return java.lang.Math.rint(PRECISION * minimum) / PRECISION;
+        return round(minimum);
     }
     
     /**
@@ -351,6 +355,6 @@ public class TallyRunning extends desmoj.core.statistic.Tally {
      * @return int : The sample size n.
      */
     public int getSampleSizeN() {
-        return this.n;
+        return this._n;
     }    
 } // end class TallyRunning

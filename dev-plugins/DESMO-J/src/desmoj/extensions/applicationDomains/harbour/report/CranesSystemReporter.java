@@ -1,12 +1,13 @@
 package desmoj.extensions.applicationDomains.harbour.report;
 
 import desmoj.core.advancedModellingFeatures.report.StockReporter;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Captures all relevant information about the <code>CranesSystem</code>.
  * That means from the transporter and the cranes queue.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -114,9 +115,7 @@ public class CranesSystemReporter extends StockReporter {
 			// (Re)set
 			entries[1] = cs.getTransporterQueue().resetAt().toString();
 			// Utilization
-			Double avg = new Double(
-					java.lang.Math.rint(cs.avgUsage() * 10000) / 100);
-			entries[2] = avg.toString();
+			entries[2] = Double.toString(StatisticObject.round(cs.avgUsage() * 100));
 			// Loaded Units
 			entries[3] = Long.toString(cs.getSumNumLoadedUnits());
 			// Unloaded Units

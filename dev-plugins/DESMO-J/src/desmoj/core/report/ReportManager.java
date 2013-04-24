@@ -9,7 +9,7 @@ import desmoj.core.simulator.NamedObject;
  * Controls all reports given by reportable model components used during an
  * experiment.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,7 @@ public class ReportManager extends NamedObject {
 	/**
 	 * Keeps references to all Reporters of this experiment
 	 */
-	private ArrayList<Reporter> reporters;
+	private ArrayList<Reporter> _reporters;
 
 	/**
 	 * Creates a new reportmanager with the given name.
@@ -41,7 +41,7 @@ public class ReportManager extends NamedObject {
 
 		super(name + "_ReportManager"); // create the NamedObject
 
-		reporters = new ArrayList<Reporter>(); // init list for reporters
+		_reporters = new ArrayList<Reporter>(); // init list for reporters
 
 	}
 
@@ -58,7 +58,7 @@ public class ReportManager extends NamedObject {
 		if (r == null)
 			return;
 		else
-			reporters.add(r);
+			_reporters.add(r);
 
 	}
 
@@ -78,7 +78,7 @@ public class ReportManager extends NamedObject {
 		// check parameter
 		if (rep == null)
 			return; // wrong parameters ???
-		reporters.remove(rep); // no check if contained or not
+		_reporters.remove(rep); // no check if contained or not
 		// necessary
 
 	}
@@ -92,7 +92,7 @@ public class ReportManager extends NamedObject {
 	 */
 	public List<Reporter> elements() {
 
-		return new ArrayList<Reporter>(reporters);
+		return new ArrayList<Reporter>(_reporters);
 
 	}
 
@@ -105,7 +105,7 @@ public class ReportManager extends NamedObject {
 	 */
 	public boolean isEmpty() {
 
-		return reporters.isEmpty();
+		return _reporters.isEmpty();
 
 	}
 
@@ -124,18 +124,18 @@ public class ReportManager extends NamedObject {
 		if (rep == null)
 			return; // wrong parameter
 
-		if (reporters.contains(rep))
+		if (_reporters.contains(rep))
 			return; // already listed
 
 		// register rep with special care for fist element
-		if (reporters.isEmpty())
-			reporters.add(rep);
+		if (_reporters.isEmpty())
+			_reporters.add(rep);
 		else {
 
-			for (int i = 0; i < reporters.size(); i++) {
+			for (int i = 0; i < _reporters.size(); i++) {
 
-				if (Reporter.isLarger(rep, reporters.get(i))) {
-					reporters.add(i, rep);
+				if (Reporter.isLarger(rep, _reporters.get(i))) {
+					_reporters.add(i, rep);
 					return;
 				}
 
@@ -143,7 +143,7 @@ public class ReportManager extends NamedObject {
 
 			// if come to here, it must be smaller than all other reporters in
 			// vector
-			reporters.add(rep);
+			_reporters.add(rep);
 
 		}
 

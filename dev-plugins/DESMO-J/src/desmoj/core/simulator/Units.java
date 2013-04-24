@@ -1,6 +1,9 @@
 package desmoj.core.simulator;
 
 /**
+ * @deprecated Prefer usage of Java standard classes, e.g. <code>java.util.concurrent.TimeUnit</code>
+ * for time units. 
+ * 
  * The interface Units provides constants for representing units for time,
  * length and speed. Additionally, textual representations for these units and
  * conversion factors are given.
@@ -9,7 +12,7 @@ package desmoj.core.simulator;
  * constants. It is recommended to use this interface in every class that has to
  * represent values with units.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Ruth Meyer
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,9 +27,10 @@ package desmoj.core.simulator;
  * permissions and limitations under the License.
  *
  */
+@Deprecated
 public interface Units {
 
-	// Konstanten deklarieren für Zeit-Einheiten
+	// Konstanten deklarieren fï¿½r Zeit-Einheiten
 
 	/** The time unit milliseconds. */
 	public static final int MS = 0;
@@ -40,7 +44,7 @@ public interface Units {
 	/** The time unit hours. */
 	public static final int H = 3;
 
-	// Konstanten deklarieren für Längen-Einheiten
+	// Konstanten deklarieren fï¿½r Lï¿½ngen-Einheiten
 
 	/** The length unit millimetres. */
 	public static final int MM = 4;
@@ -54,7 +58,7 @@ public interface Units {
 	/** The length unit kilometres. */
 	public static final int KM = 7;
 
-	// Konstanten deklarieren für Geschwindigkeits-Einheiten
+	// Konstanten deklarieren fï¿½r Geschwindigkeits-Einheiten
 
 	/** The speed unit metres/second. */
 	public static final int M_S = 8;
@@ -62,7 +66,7 @@ public interface Units {
 	/** The speed unit kilometres/hour. */
 	public static final int KM_H = 9;
 
-	// Konstanten für textuelle Repräsentation der Einheiten
+	// Konstanten fï¿½r textuelle Reprï¿½sentation der Einheiten
 
 	/**
 	 * Textual representations for the defined units. To get the appropriate
@@ -72,7 +76,7 @@ public interface Units {
 	public static final String[] unitStrings = { "ms", "s", "min", "h", "mm",
 			"cm", "m", "km", "m/s", "km/h" };
 
-	// Konstanten für Umrechungsfaktoren
+	// Konstanten fï¿½r Umrechungsfaktoren
 
 	/**
 	 * Conversion factors to convert between units. To get the appropriate unit

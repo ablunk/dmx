@@ -3,7 +3,7 @@ package desmoj.core.report;
 /**
  * Captures all relevant information about the Regression analysis.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen based on ideas from Tim Lechler
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -32,12 +32,12 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 	 * collected by this reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The Regression to report about.
+	 *            desmoj.core.simulator.Reportable : The Regression to report about.
 	 */
 	public RegressionReporter(desmoj.core.simulator.Reportable informationSource) {
 		super(informationSource); // make a Reporter
 
-		numColumns = 10;
+		numColumns = 11;
 		columns = new String[numColumns];
 		columns[0] = "Title";
 		columns[1] = "(Re)set";
@@ -49,6 +49,7 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 		columns[7] = "Intercept";
 		columns[8] = "St.Dev.Reg.Coeff";
 		columns[9] = "Corr.Coeff";
+		columns[10] = "Unit(s)";
 		groupHeading = "Regression";
 		groupID = 1411; // see Reporter for more information about groupID
 		entries = new String[numColumns];
@@ -80,7 +81,7 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 			// xBarMean
 			// no observations made, so xBar mean can not be calculated
 			if (rgr.getObservations() == 0) {
-				entries[3] = "insufficient data";
+				entries[3] = "Insufficient data";
 			} else // return mean value
 			{
 				entries[3] = Double.toString(rgr.getXMean());
@@ -94,7 +95,7 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 			// yBarMean
 			// no observations made, so yBar mean can not be calculated
 			if (rgr.getObservations() == 0) {
-				entries[4] = "insufficient data";
+				entries[4] = "Insufficient data";
 			} else // return mean value
 			{
 				entries[4] = Double.toString(rgr.getYMean());
@@ -109,7 +110,7 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 			// not enough observations made,
 			// so Res.Std.Dev can not be calculated
 			if (rgr.getObservations() <= 5) {
-				entries[5] = "insufficient data";
+				entries[5] = "Insufficient data";
 			} else // return residual std. dev.
 			{
 				entries[5] = Double.toString(rgr.residualStdDev());
@@ -119,7 +120,7 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 			// not enough observations made,
 			// so Reg.Coeff can not be calculated
 			if (rgr.getObservations() <= 5) {
-				entries[6] = "insufficient data";
+				entries[6] = "Insufficient data";
 			} else // return reg. coeff.
 			{
 				entries[6] = Double.toString(rgr.regCoeff());
@@ -129,7 +130,7 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 			// not enough observations made,
 			// so Intercept can not be calculated
 			if (rgr.getObservations() <= 5) {
-				entries[7] = "insufficient data";
+				entries[7] = "Insufficient data";
 			} else // return intercept
 			{
 				entries[7] = Double.toString(rgr.intercept());
@@ -139,7 +140,7 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 			// not enough observations made,
 			// so St.Dev.Reg.Coeff can not be calculated
 			if (rgr.getObservations() <= 5) {
-				entries[8] = "insufficient data";
+				entries[8] = "Insufficient data";
 			} else // return St.Dev.Reg.Coeff
 			{
 				entries[8] = Double.toString(rgr.stdDevRegCoeff());
@@ -149,11 +150,14 @@ public class RegressionReporter extends desmoj.core.report.Reporter {
 			// not enough observations made,
 			// so Corr.Coeff can not be calculated
 			if (rgr.getObservations() <= 5) {
-				entries[9] = "insufficient data";
+				entries[9] = "Insufficient data";
 			} else // return correlation coeff.
 			{
 				entries[9] = Double.toString(rgr.correlationCoeff());
 			}
+			
+	        //cm 21.11.12  Extension for viewing unit
+	        entries[10] = rgr.getUnitText();
 
 		} else {
 			for (int i = 0; i < numColumns; i++) {

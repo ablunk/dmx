@@ -3,10 +3,10 @@ package desmoj.core.report;
 /**
  * Captures all relevant information about the BoolStatistic.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen based on ideas from Tim Lechler
  * @author based on DESMO-C from Thomas Schniewind, 1998
- * @author modified by Ruth Meyer, Johannes Goebel
+ * @author modified by Ruth Meyer, Johannes G&ouml;bel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -32,7 +32,7 @@ public class BoolStatisticReporter extends desmoj.core.report.Reporter {
 	 * reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The BoolStatistic to report about.
+	 *            desmoj.core.simulator.Reportable : The BoolStatistic to report about.
 	 */
 	public BoolStatisticReporter(desmoj.core.simulator.Reportable informationSource) {
 		super(informationSource); // make a Reporter
@@ -45,7 +45,7 @@ public class BoolStatisticReporter extends desmoj.core.report.Reporter {
 		columns[3] = "ObsTrue";
 		columns[4] = "Ratio";
         groupHeading = "Boolean Statistics";
-		groupID = 1811; // see Reporter for more information about groupID
+		groupID = 1761; // see Reporter for more information about groupID
 		entries = new String[numColumns];
 	}
 
@@ -73,7 +73,7 @@ public class BoolStatisticReporter extends desmoj.core.report.Reporter {
             entries[3] = Long.toString(bs.getTrueObs());
             // True ratio
 			if (bs.getObservations() == 0) {
-				entries[4] = "n/a";
+				entries[4] = " ";
 			} else {
 				entries[4] = Double.toString(bs.getTrueRatio());
 			}

@@ -13,7 +13,7 @@ import desmoj.core.simulator.SimProcess;
  * @see SimProcess
  * @see CranesSystem
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -83,7 +83,7 @@ public class C_Control extends SimProcess {
 			int tQSortOrder, int tQCapacity, boolean showInReport,
 			boolean showInTrace) {
 
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, true, showInTrace); // make a sim-process
 
 		// make a new CranesSystem
 		this.cs = new CranesSystem(owner, "CranesSystem", cQSortOrder,
@@ -141,12 +141,15 @@ public class C_Control extends SimProcess {
 
 		// insert the crane into the cranes queue of the cranes system
 		// this.getCS().getCranesQueue().insert(currentProcess);
-		this.getCS().addCrane(currentProcess);
-		// interrupt this crane control
-		this.interrupt(this.craneIsFree);
-
-		// passivate the crane
-		currentProcess.passivate();
+		if (currentProcess instanceof Crane) {
+		    this.getCS().addCrane((Crane)currentProcess);
+    		
+    		// interrupt this crane control
+    		this.interrupt(this.craneIsFree);
+    
+    		// passivate the crane
+    		currentProcess.passivate();
+		}
 	}
 
 	/**
@@ -157,32 +160,28 @@ public class C_Control extends SimProcess {
 	 */
 	public void lifeCycle() {
 
-		// neverending cycle of a crane control
-		while (true) {
+		// wait before a transporter or crane is here
+		this.passivate();
 
-			// wait before a transporter or crane is here
-			this.passivate();
+		// if a transporter arrives
+		if (this.isInterrupted()
+				&& this.getInterruptCode() == this.transporterArrival)
 
-			// if a transporter arrives
-			if (this.isInterrupted()
-					&& this.getInterruptCode() == this.transporterArrival)
-
-			{
-				// serve the transporter
-				serveTransporter();
-				this.clearInterruptCode();
-			}
-			// if a crane is idle
-			if (this.isInterrupted()
-					&& this.getInterruptCode() == this.craneIsFree)
-
-			{
-				// serve the crane
-				serveCrane();
-				this.clearInterruptCode();
-			}
-
+		{
+			// serve the transporter
+			serveTransporter();
+			this.clearInterruptCode();
 		}
+		// if a crane is idle
+		if (this.isInterrupted()
+				&& this.getInterruptCode() == this.craneIsFree)
+
+		{
+			// serve the crane
+			serveCrane();
+			this.clearInterruptCode();
+		}
+
 
 	}
 

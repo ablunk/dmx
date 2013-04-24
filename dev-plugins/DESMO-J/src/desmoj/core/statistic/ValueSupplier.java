@@ -27,7 +27,7 @@ package desmoj.core.statistic;
  * simpler version above.</li>
  * </ol>
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @author modifications as the method:
  *         <code>notifyStatistics(Object arg)</code> by Soenke Claassen
@@ -49,7 +49,7 @@ public abstract class ValueSupplier extends java.util.Observable {
 	/*
 	 * The name of the valuesupplier as a string.
 	 */
-	private String myName;
+	private String _myName;
 
 	/**
 	 * Constructs a simple valuesupplier by giving it a name.
@@ -59,7 +59,7 @@ public abstract class ValueSupplier extends java.util.Observable {
 		super();
 
 		// get hold of the name of this ValueSupplier
-		this.myName = name;
+		this._myName = name;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public abstract class ValueSupplier extends java.util.Observable {
 	 */
 	public String getName() {
 
-		return myName;
+		return _myName;
 
 	}
 
@@ -83,7 +83,7 @@ public abstract class ValueSupplier extends java.util.Observable {
 	 */
 	public String getQuotedName() {
 
-		return "'" + myName + "'";
+		return "'" + _myName + "'";
 
 	}
 
@@ -117,7 +117,7 @@ public abstract class ValueSupplier extends java.util.Observable {
 	 */
 	public void rename(String newName) {
 
-		myName = newName;
+		_myName = newName;
 
 	}
 
@@ -129,7 +129,7 @@ public abstract class ValueSupplier extends java.util.Observable {
 	 * @return java.lang.String : The named object's name
 	 */
 	public String toString() {
-		return myName;
+		return _myName;
 	}
 
 	/**

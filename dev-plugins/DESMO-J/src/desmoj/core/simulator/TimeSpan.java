@@ -1,7 +1,6 @@
 package desmoj.core.simulator;
 
 import java.util.concurrent.TimeUnit;
-
 import static java.util.concurrent.TimeUnit.*;
 
 /**
@@ -10,7 +9,7 @@ import static java.util.concurrent.TimeUnit.*;
  * for arithmetic operations and comparison. Ensures that only valid spans of
  * time are generated.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Felix Klueckmann
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -36,7 +35,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	/**
 	 * The span of time in the unit of epsilon
 	 */
-	private final long durationInEpsilon;
+	private final long _durationInEpsilon;
 
 	/**
 	 * Constructs a TimeSpan object with the given time value in the time unit
@@ -46,12 +45,26 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * immediately if the TimeSpan is larger than Long.MAX_VALUE-1 (in the unit
 	 * of epsilon).
 	 * 
-	 * @param time
+	 * @param duration
 	 *            long : The time value of this TimeSpan 
 	 * @param unit
 	 *            TimeUnit: the TimeUnit
 	 */
 	public TimeSpan(long duration, TimeUnit unit) {
+        if (unit == null) { // no time unit given
+            throw (new desmoj.core.exception.SimAbortedException(
+                    new desmoj.core.report.ErrorMessage(
+                            null,
+                            "Can't create TimeSpan object! Simulation aborted.",
+                            "Class : TimeSpan  Constructor : TimeSpan(long, TimeUnit)",
+                            "Time unit passed is null",
+                            "Make sure to pass a non-null time unit. \nNote that before " +
+                              "connecting model and experiment, TimeSpans must explicitly\n" +
+                              "refer to a time unit as the reference unit is not yet defined," +
+                              "e.g. use \nTimeSpan(long time, TimeUnit unit) instead of" +
+                              "TimeInstant(long time).",
+                            null)));
+        } 	    
 		if (duration < 0) { // points of time must be postive
 			throw (new desmoj.core.exception.SimAbortedException(
 					new desmoj.core.report.ErrorMessage(
@@ -63,8 +76,8 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 							"Negative values for simulation time are illegal.",
 							null)));
 		}
-		durationInEpsilon = TimeOperations.getEpsilon().convert(duration, unit);
-		if (durationInEpsilon == Long.MAX_VALUE) {
+		_durationInEpsilon = TimeOperations.getEpsilon().convert(duration, unit);
+		if (_durationInEpsilon == Long.MAX_VALUE) {
 			/*The timeSpan is too big. 
 			(The method TimeUnit.convert(duration,unit)returns Long.MAX_VALUE if
 			the result of the conversion is to big*/
@@ -87,7 +100,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * the simulation immediately. The simulation will also stop immediately if
 	 * the TimeSpan is larger than Long.MAX_VALUE-1 (in the unit of epsilon).
 	 * 
-	 * @param time
+	 * @param duration
 	 *            long : The time value of this TimeSpan in the time unit of the
 	 *            reference time.
 	 */
@@ -102,15 +115,54 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * simulation immediately. The simulation will also stop immediately if the
 	 * TimeSpan is larger than Long.MAX_VALUE-1 (in the unit of epsilon).
 	 * 
-	 * @param time
+	 * @param duration
 	 *            double : The time value of this TimeSpan in the time unit of
 	 *            the reference time.
 	 * @param unit
 	 *            TimeUnit : the time unit
 	 */
 	public TimeSpan(double duration, TimeUnit unit) {
-		this((long) (duration * TimeOperations.getEpsilon().convert(1, unit)),
-				TimeOperations.getEpsilon());
+        if (unit == null) { // no time unit given
+            throw (new desmoj.core.exception.SimAbortedException(
+                    new desmoj.core.report.ErrorMessage(
+                            null,
+                            "Can't create TimeSpan object! Simulation aborted.",
+                            "Class : TimeSpan  Constructor : TimeSpan(double, TimeUnit)",
+                            "Time unit passed is null",
+                            "Make sure to pass a non-null time unit. \nNote that before " +
+                              "connecting model and experiment, TimeSpans must explicitly\n" +
+                              "refer to a time unit as the reference unit is not yet defined," +
+                              "e.g. use \nTimeSpan(double time, TimeUnit unit) instead of" +
+                              "TimeInstant(double time).",
+                            null)));
+        }         
+        _durationInEpsilon = (long) (duration * TimeOperations.getEpsilon().convert(1, unit));
+        
+        if (_durationInEpsilon < 0) { // points of time must be postive
+            throw (new desmoj.core.exception.SimAbortedException(
+                    new desmoj.core.report.ErrorMessage(
+                            null,
+                            "Can't create TimeSpan object! Simulation aborted.",
+                            "Class : TimeSpan  Constructor : TimeSpan(long, TimeUnit)",
+                            "the value passed for instantiation is negative : "
+                                    + _durationInEpsilon,
+                            "Negative values for simulation time are illegal.",
+                            null)));
+        }
+        if (_durationInEpsilon == Long.MAX_VALUE) {
+            /*The timeSpan is too big. 
+            (The method TimeUnit.convert(duration,unit)returns Long.MAX_VALUE if
+            the result of the conversion is to big*/
+            
+            throw (new desmoj.core.exception.SimAbortedException(
+                    new desmoj.core.report.ErrorMessage(
+                            null,
+                            "Can't create TimeSpan object! Simulation aborted.",
+                            "Class : TimeSpan  Constructor : TimeSpan(long,TimeUnit)",
+                            "the TimeSpan is too big. ",
+                            "Can only create TimeSpan objects which are smaller than Long.MAX_VALUE (in the TimeUnit of epsilon).",
+                            null)));
+        }
 	}
 
 	/**
@@ -120,12 +172,12 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * the simulation immediately.The simulation will also stop immediately if
 	 * the TimeSpan is larger than Long.MAX_VALUE-1 (in the unit of epsilon).
 	 * 
-	 * @param time
+	 * @param duration
 	 *            double : The time value of this TimeSpan in the time unit of
 	 *            the reference time.
 	 */
 	public TimeSpan(double duration) {
-		this(duration, TimeOperations.getReferenceUnit());
+	    this(duration, TimeOperations.getReferenceUnit());
 	}
 
 	/**
@@ -272,7 +324,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * private constructor for the Builder pattern
 	 */
 	private TimeSpan(Builder builder) {
-		durationInEpsilon = builder.durationInEpsilon;
+		_durationInEpsilon = builder.durationInEpsilon;
 	}
 
 	/**
@@ -283,7 +335,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 *         time unit of epsilon
 	 */
 	public long getTimeInEpsilon() {
-		return durationInEpsilon;
+		return _durationInEpsilon;
 	}
 
 	/**
@@ -291,7 +343,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * given as a parameter. If the parameter has a coarser granularity than
 	 * epsilon the returned value will be truncated, so lose precision.
 	 * 
-	 * @param TimeUnit
+	 * @param unit
 	 *            : the TimeUnit
 	 * 
 	 * @return long: the time value of the TimeSpan object as a long type in the
@@ -300,7 +352,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 *         positively overflow.
 	 */
 	public long getTimeTruncated(TimeUnit unit) {
-		return unit.convert(durationInEpsilon, TimeOperations.getEpsilon());
+		return unit.convert(_durationInEpsilon, TimeOperations.getEpsilon());
 	}
 	
 	/**
@@ -323,7 +375,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * given as a parameter. If the parameter has a coarser granularity than
 	 * epsilon the returned value will be rounded, so lose precision.
 	 * 
-	 * @param TimeUnit
+	 * @param unit
 	 *            : the TimeUnit
 	 * 
 	 * @return long: the time value of the TimeSpan object as a long type in the
@@ -336,7 +388,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 			//unit has a coarser granularity than epsilon
 			long halfAUnitInEpsilon = TimeOperations.getEpsilon().convert(1, unit) / 2;
 			long durationInUnitTruncated = getTimeTruncated(unit);
-			long difference = durationInEpsilon
+			long difference = _durationInEpsilon
 					- TimeOperations.getEpsilon().convert(durationInUnitTruncated,
 							unit);
 			// if the time value in the unit Epsilon is bigger than
@@ -375,7 +427,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 *         time unit given as a parameter
 	 */
 	public double getTimeAsDouble(TimeUnit unit) {
-		return durationInEpsilon
+		return _durationInEpsilon
 				/ (double) TimeOperations.getEpsilon().convert(1, unit);
 	}
 	
@@ -404,7 +456,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 *            TimeSpan : second comparand
 	 */
 	public static boolean isLonger(TimeSpan a, TimeSpan b) {
-		return (a.durationInEpsilon > b.durationInEpsilon);
+		return (a._durationInEpsilon > b._durationInEpsilon);
 	}
 
 	/**
@@ -437,7 +489,7 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 *            TimeSpan : second comparand
 	 */
 	public static boolean isShorter(TimeSpan a, TimeSpan b) {
-		return (a.durationInEpsilon < b.durationInEpsilon);
+		return (a._durationInEpsilon < b._durationInEpsilon);
 	}
 
 	/**
@@ -461,12 +513,12 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * Indicates whether TimeSpan a is equal to TimeSpan b, i.e. they are of
 	 * equal length.
 	 * 
-	 * @param: a TimeSpan: first comparand
-	 * @param: b TimeSpan: second comparand
-	 * @return: true if a is equal to b; false otherwise.
+	 * @param a TimeSpan: first comparand
+	 * @param b TimeSpan: second comparand
+	 * @return true if a is equal to b; false otherwise.
 	 */
 	public static boolean isEqual(TimeSpan a, TimeSpan b) {
-		return (a.durationInEpsilon == b.durationInEpsilon);
+		return (a._durationInEpsilon == b._durationInEpsilon);
 	}
 
 	/**
@@ -475,8 +527,8 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * TimeSpan; false otherwise. This method overrides
 	 * java.lang.Object.equals()
 	 * 
-	 * @param: object: the reference object with which to compare.
-	 * @return: true if the obj argument is a TimeSpan and is of equal length as
+	 * @param obj the reference object with which to compare.
+	 * @return true if the obj argument is a TimeSpan and is of equal length as
 	 *          this TimeSpan; false otherwise.
 	 */
 	@Override
@@ -492,20 +544,20 @@ public final class TimeSpan implements Comparable<TimeSpan> {
 	 * java.lang.Object.hashCode().The method is supported for the benefit of
 	 * hashtables such as those provided by java.util.Hashtable.
 	 * 
-	 * @return: int: a hash code value for this TimeSpan.
+	 * @return int: a hash code value for this TimeSpan.
 	 */
 	@Override
 	public int hashCode() {
-		return (int) (this.durationInEpsilon ^ (this.durationInEpsilon >>> 32));
+		return (int) (this._durationInEpsilon ^ (this._durationInEpsilon >>> 32));
 	}
 
 	/**
 	 * Compares the given TimeSpan to this TimeSpan. This method implements the
 	 * Comparable<TimeSpan> Interface
 	 * 
-	 * @param : TimeSpan : The TimeSpan to be compared to this TimeSpan
+	 * @param anotherTimeSpan The TimeSpan to be compared to this TimeSpan
 	 * 
-	 * @return: int: Returns a negative integer, zero, or a positive integer as
+	 * @return int: Returns a negative integer, zero, or a positive integer as
 	 *          this TimeSpan is shorter than, equal to, or longer than the
 	 *          given parameter.
 	 */
@@ -535,10 +587,10 @@ public final class TimeSpan implements Comparable<TimeSpan> {
      * Returns the String Representation of this TimeSpan according to the
      * TimeFormatter, truncating digits after the decimal point if necessary.
      * 
-     * @param int : Maximum number of digits after decimal point 
+     * @param digits Maximum number of digits after decimal point 
      * 
      * @see java.lang.Object#toString()
-     * @see desmoj.core.TimeFormatter
+     * @see desmoj.core.simulator.TimeFormatter
      */
     public String toString(int digits) {
         

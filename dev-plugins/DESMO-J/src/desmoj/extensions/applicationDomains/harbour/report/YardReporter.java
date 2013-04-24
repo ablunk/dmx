@@ -1,11 +1,12 @@
 package desmoj.extensions.applicationDomains.harbour.report;
 
 import desmoj.core.report.Reporter;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Captures all relevant information about the Yard.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -91,9 +92,7 @@ public class YardReporter extends Reporter {
 			// Now
 			entries[7] = Long.toString(y.getCurrentCapacity());
 			// Occup.rate
-			Double orate = new Double(java.lang.Math
-					.rint(y.OccupRate() * 10000) / 100);
-			entries[8] = orate.toString();
+			entries[8] = Double.toString(StatisticObject.round(y.OccupRate() * 100));
 
 		} else {
 			for (int i = 0; i < numColumns; i++) {

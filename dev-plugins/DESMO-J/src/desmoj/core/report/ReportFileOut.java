@@ -14,7 +14,7 @@ package desmoj.core.report;
  * Errors affecting the java runtime are always displayed on the system's
  * standard output PrintStream.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler, modified by Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +44,7 @@ public class ReportFileOut extends TableOutput implements MessageReceiver {
 	 * produced by calling the Model's method <code>report()</code> this
 	 * number is added to the report filename automatically.
 	 */
-	private int reportNumber;
+	private int _reportNumber;
 
 	/**
 	 * Creates a file to print reports into a HTML page. By opening the file,
@@ -52,7 +52,7 @@ public class ReportFileOut extends TableOutput implements MessageReceiver {
 	 * file. The parameter given should reflect the experiment that produces
 	 * this file.
 	 * 
-	 * @param simTimeFloatingDigits
+	 * @param timeFloats
 	 *            int : The number of floating point digits of the simulation
 	 *            time values to be displayed
 	 */
@@ -61,7 +61,7 @@ public class ReportFileOut extends TableOutput implements MessageReceiver {
 		super(timeFloats, formatter);
 
 		lastReporter = null;
-		reportNumber = 0; // none printed so far
+		_reportNumber = 0; // none printed so far
 
 	}
 
@@ -104,7 +104,7 @@ public class ReportFileOut extends TableOutput implements MessageReceiver {
 	 */
 	public void open(String pathname, String name) {
 
-		reportNumber++; // increment counter
+		_reportNumber++; // increment counter
 
 		super.open(createFileName(pathname, name, "report"));
 
@@ -193,7 +193,7 @@ public class ReportFileOut extends TableOutput implements MessageReceiver {
 
 		for (int i = 0; i < r.numColumns(); i++) {
 
-			formatter.writeCell(entryBuf[i]);
+			formatter.writeCell(entryBuf[i], 1);
 
 		}
 		// the row's finished now

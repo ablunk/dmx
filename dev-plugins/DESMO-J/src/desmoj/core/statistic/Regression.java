@@ -9,7 +9,7 @@ import desmoj.core.simulator.SimClock;
  * The <code>Regression</code> class is producing a linear regression for two
  * <code>ValueSupplier</code> objects called x and y.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -39,57 +39,57 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	/**
 	 * The ValueSupplier for the x-Value.
 	 */
-	private ValueSupplier xSupplier;
+	private ValueSupplier _xSupplier;
 
 	/**
 	 * The ValueSupplier for the y-Value.
 	 */
-	private ValueSupplier ySupplier;
+	private ValueSupplier _ySupplier;
 
 	/**
 	 * The name of the ValueSupplier for the x-Value
 	 */
-	private String xName;
+	private String _xName;
 
 	/**
 	 * The name of the ValueSupplier for the y-Value
 	 */
-	private String yName;
+	private String _yName;
 
 	/**
 	 * The actual value of the x-variable
 	 */
-	private double x;
+	private double _x;
 
 	/**
 	 * The actual value of the y-variable
 	 */
-	private double y;
+	private double _y;
 
 	/**
 	 * The sum of all x-values so far
 	 */
-	private double sumX;
+	private double _sumX;
 
 	/**
 	 * The sum of all y-values so far
 	 */
-	private double sumY;
+	private double _sumY;
 
 	/**
 	 * The sum of all x-squares so far
 	 */
-	private double sumSquareX;
+	private double _sumSquareX;
 
 	/**
 	 * The sum of all y-squares so far
 	 */
-	private double sumSquareY;
+	private double _sumSquareY;
 
 	/**
 	 * The sum of x times y for all the pairs of x and y values so far
 	 */
-	private double sumXtimesY;
+	private double _sumXtimesY;
 
 	// ****** methods ******
 
@@ -137,15 +137,18 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			return; // just return
 		}
 
-		this.xName = "X";
-		this.yName = "Y";
+		this._xName = "X";
+		this._yName = "Y";
 
-		this.xSupplier = xValsup;
-		this.ySupplier = yValsup;
+		this._xSupplier = xValsup;
+		this._ySupplier = yValsup;
 
 		// this Regression will observe the ValueSuppliers of the x and y values
-		xSupplier.addObserver(this);
-		ySupplier.addObserver(this);
+		_xSupplier.addObserver(this);
+		_ySupplier.addObserver(this);
+		
+        this._x = this._sumX = this._sumSquareX = 0.0;
+	    this._y = this._sumY = this._sumSquareY = this._sumXtimesY = 0.0;
 	}
 
 	/**
@@ -215,17 +218,17 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			return; // just return
 		}
 
-		this.xName = xName;
-		this.yName = yName;
+		this._xName = xName;
+		this._yName = yName;
 
-		this.xSupplier = xValsup;
-		this.ySupplier = yValsup;
+		this._xSupplier = xValsup;
+		this._ySupplier = yValsup;
 
 		// this Regression will observe the ValueSuppliers of the x and y values
-		xSupplier.addObserver(this);
-		ySupplier.addObserver(this);
+		_xSupplier.addObserver(this);
+		_ySupplier.addObserver(this);
 
-		if ((xName != null && xName.isEmpty()) || xName == null) // no proper name for x
+		if ((xName != null && xName.length() == 0) || xName == null) // no proper name for x
 		{
 			sendWarning("The x-value of a regression analysis has no name. "
 					+ "It will be named: 'X'!", "Regression: " + this.getName()
@@ -236,10 +239,10 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 					"A x-value with no name is hard to find back.",
 					"Make sure to give the x-value a useful name.");
 
-			this.xName = "X";
+			this._xName = "X";
 		}
 
-		if ((yName != null && yName.isEmpty()) || yName == null) // no proper name for y
+		if ((yName != null && yName.length() == 0) || yName == null) // no proper name for y
 		{
 			sendWarning("The y-value of a regression analysis has no name. "
 					+ "It will be named: 'Y'!", "Regression: " + this.getName()
@@ -250,8 +253,11 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 					"A y-value with no name is hard to find back.",
 					"Make sure to give the y-value a useful name.");
 
-			this.yName = "Y";
+			this._yName = "Y";
 		}
+		
+        this._x = this._sumX = this._sumSquareX = 0.0;
+	    this._y = this._sumY = this._sumSquareY = this._sumXtimesY = 0.0;
 	}
 
 	/**
@@ -276,13 +282,13 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			String yName, boolean showInReport, boolean showInTrace) {
 		super(ownerModel, name, showInReport, showInTrace); // StatisticObject
 
-		this.xName = xName;
-		this.yName = yName;
+		this._xName = xName;
+		this._yName = yName;
 
-		this.xSupplier = null;
-		this.ySupplier = null;
+		this._xSupplier = null;
+		this._ySupplier = null;
 
-		if ((xName != null && xName.isEmpty()) || xName == null) // no proper name for x
+		if ((xName != null && xName.length() == 0) || xName == null) // no proper name for x
 		{
 			sendWarning("The x-value of a regression analysis has no name. "
 					+ "It will be named: 'X'!", "Regression: " + this.getName()
@@ -292,10 +298,10 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 					"A x-value with no name is hard to find back.",
 					"Make sure to give the x-value a useful name.");
 
-			this.xName = "X";
+			this._xName = "X";
 		}
 
-		if ((yName != null && yName.isEmpty()) || yName == null) // no proper name for y
+		if ((yName != null && yName.length() == 0) || yName == null) // no proper name for y
 		{
 			sendWarning("The y-value of a regression analysis has no name. "
 					+ "It will be named: 'Y'!", "Regression: " + this.getName()
@@ -305,8 +311,11 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 					"A y-value with no name is hard to find back.",
 					"Make sure to give the y-value a useful name.");
 
-			this.yName = "Y";
+			this._yName = "Y";
 		}
+		
+	    this._x = this._sumX = this._sumSquareX = 0.0;
+	    this._y = this._sumY = this._sumSquareY = this._sumXtimesY = 0.0;
 	}
 
 	/**
@@ -321,20 +330,20 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		{
 			sendWarning(
 					"Attempt to get the correlation coefficient, but there "
-							+ "is not sufficient data yet to calculate it. UNDEFINED (-1.0) "
+							+ "is insufficient data yet to calculate it. UNDEFINED (-1.0) "
 							+ "will be returned!", "Regression: "
 							+ this.getName() + " Method: double "
 							+ "correlationCoeff().",
 					"The correlation coefficient can not be calculated, because there "
-							+ "is not sufficient data collected so far.",
+							+ "is insufficient data collected so far.",
 					"Make sure to ask for the correlation coefficient only after "
 							+ "enough data has been collected.");
 
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		double dx = Math.abs(n * sumSquareX - sumX * sumX);
-		double dy = Math.abs(n * sumSquareY - sumY * sumY);
+		double dx = Math.abs(n * _sumSquareX - _sumX * _sumX);
+		double dy = Math.abs(n * _sumSquareY - _sumY * _sumY);
 
 		if (dx < C_EPSILON || dy < C_EPSILON) // not changed considerably
 		{
@@ -351,13 +360,10 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		double squareDiff = (n * sumXtimesY - sumX * sumY);
+		double squareDiff = (n * _sumXtimesY - _sumX * _sumY);
 
 		// calculate the rounded result
-		double rndResult = java.lang.Math.rint(PRECISION
-				* Math.sqrt(squareDiff * squareDiff / (dx * dy)))
-				/ PRECISION;
-
+		double rndResult = round(squareDiff * squareDiff / (dx * dy));
 		return rndResult;
 	}
 
@@ -394,7 +400,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		}
 
 		// calculate the rounded result
-		double rndResult = java.lang.Math.rint(10000.0 * sumX / n) / 10000.0;
+		double rndResult = StatisticObject.round(_sumX / n);
 
 		return rndResult;
 	}
@@ -405,7 +411,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 * @return String : The name of the x-value.
 	 */
 	public String getXName() {
-		return this.xName;
+		return this._xName;
 	}
 
 	/**
@@ -416,7 +422,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 *         <code>ValueSupplier</code> object supplying the x-value.
 	 */
 	public double getXValue() {
-		if (xSupplier == null) // no x-Supplier observed
+		if (_xSupplier == null) // no x-Supplier observed
 		{
 			sendWarning(
 					"Attempt to get a x-value, but there is no "
@@ -431,7 +437,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		return xSupplier.value();
+		return _xSupplier.value();
 	}
 
 	/**
@@ -458,7 +464,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		}
 
 		// calculate the rounded result
-		double rndResult = java.lang.Math.rint(10000.0 * sumY / n) / 10000.0;
+		double rndResult = StatisticObject.round(_sumY / n);
 
 		return rndResult;
 	}
@@ -469,7 +475,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 * @return String : The name of the y-value.
 	 */
 	public String getYName() {
-		return this.yName;
+		return this._yName;
 	}
 
 	/**
@@ -480,7 +486,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 *         <code>ValueSupplier</code> object supplying the y-value.
 	 */
 	public double getYValue() {
-		if (ySupplier == null) // no y-Supplier observed
+		if (_ySupplier == null) // no y-Supplier observed
 		{
 			sendWarning(
 					"Attempt to get a y-value, but there is no "
@@ -495,7 +501,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		return ySupplier.value();
+		return _ySupplier.value();
 	}
 
 	/**
@@ -510,19 +516,19 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		{
 			sendWarning(
 					"Attempt to get the interception of the X-axis, but "
-							+ "there is not sufficient data yet to calculate it. UNDEFINED "
+							+ "there is insufficient data yet to calculate it. UNDEFINED "
 							+ "(-1.0) will be returned!", "Regression: "
 							+ this.getName() + " Method: double intercept()",
 					"The interception of the X-axis can not be calculated, because "
-							+ "there is not sufficient data collected so far.",
+							+ "there is insufficient data collected so far.",
 					"Make sure to ask for the interception of the X-axis only after "
 							+ "enough data has been collected.");
 
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		double dx = Math.abs(n * sumSquareX - sumX * sumX);
-		double dy = Math.abs(n * sumSquareY - sumY * sumY);
+		double dx = Math.abs(n * _sumSquareX - _sumX * _sumX);
+		double dy = Math.abs(n * _sumSquareY - _sumY * _sumY);
 
 		if (dx < C_EPSILON || dy < C_EPSILON) // not changed considerably
 		{
@@ -540,9 +546,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		}
 
 		// calculate the rounded result
-		double rndResult = java.lang.Math.rint(PRECISION
-				* (sumY * sumSquareX - sumX * sumXtimesY) / dx)
-				/ PRECISION;
+		double rndResult = round((_sumY * _sumSquareX - _sumX * _sumXtimesY) / dx);
 		return rndResult;
 	}
 
@@ -558,19 +562,19 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		{
 			sendWarning(
 					"Attempt to get the regression coefficient, but there "
-							+ "is not sufficient data yet to calculate it. UNDEFINED (-1.0) "
+							+ "is insufficient data yet to calculate it. UNDEFINED (-1.0) "
 							+ "will be returned!", "Regression: "
 							+ this.getName() + " Method: double regCoeff()",
 					"The regression coefficient can not be calculated, because there "
-							+ "is not sufficient data collected so far.",
+							+ "is insufficient data collected so far.",
 					"Make sure to ask for the regression coefficient only after "
 							+ "enough data has been collected.");
 
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		double dx = Math.abs(n * sumSquareX - sumX * sumX);
-		double dy = Math.abs(n * sumSquareY - sumY * sumY);
+		double dx = Math.abs(n * _sumSquareX - _sumX * _sumX);
+		double dy = Math.abs(n * _sumSquareY - _sumY * _sumY);
 
 		if (dx < C_EPSILON || dy < C_EPSILON) // not changed considerably
 		{
@@ -588,10 +592,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		}
 
 		// calculate the rounded result
-		double rndResult = java.lang.Math.rint(PRECISION
-				* (n * sumXtimesY - sumX * sumY) / dx)
-				/ PRECISION;
-
+		double rndResult = round((n * _sumXtimesY - _sumX * _sumY) / dx);
 		return rndResult;
 	}
 
@@ -602,8 +603,8 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	public void reset() {
 		super.reset(); // reset the StatisticObject, too.
 
-		this.x = this.sumX = this.sumSquareX = 0.0;
-		this.y = this.sumY = this.sumSquareY = this.sumXtimesY = 0.0;
+		this._x = this._sumX = this._sumSquareX = 0.0;
+		this._y = this._sumY = this._sumSquareY = this._sumXtimesY = 0.0;
 	}
 
 	/**
@@ -618,7 +619,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		{
 			sendWarning(
 					"Attempt to get the residual standard deviation, but "
-							+ "there is not sufficient data yet to calculate it. UNDEFINED "
+							+ "there is insufficient data yet to calculate it. UNDEFINED "
 							+ "(-1.0) will be returned!", "Regression: "
 							+ this.getName() + " Method: double "
 							+ "residualStdDev()",
@@ -630,8 +631,8 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		double dx = Math.abs(n * sumSquareX - sumX * sumX);
-		double dy = Math.abs(n * sumSquareY - sumY * sumY);
+		double dx = Math.abs(n * _sumSquareX - _sumX * _sumX);
+		double dy = Math.abs(n * _sumSquareY - _sumY * _sumY);
 
 		if (dx < C_EPSILON || dy < C_EPSILON) // not changed considerably
 		{
@@ -649,11 +650,10 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		}
 
 		// calculate the residual std. deviation
-		double result = Math.sqrt(Math.abs(sumSquareY - intercept() * sumY
-				- regCoeff() * sumXtimesY) / (n - 2));
+		double result = Math.sqrt(Math.abs(_sumSquareY - intercept() * _sumY
+				- regCoeff() * _sumXtimesY) / (n - 2));
 		// calculate the rounded result
-		double rndResult = java.lang.Math.rint(PRECISION * result) / PRECISION;
-
+		double rndResult = round(result);
 		return rndResult;
 	}
 
@@ -669,20 +669,20 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		{
 			sendWarning(
 					"Attempt to get the standard deviation of the "
-							+ "regression coefficients, but there is not sufficient data yet "
+							+ "regression coefficients, but there is insufficient data yet "
 							+ "to calculate it. UNDEFINED (-1.0) will be returned!",
 					"Regression: " + this.getName()
 							+ " Method: double stdDevRegCoeff()",
 					"The standard deviation of the regression coefficients can not be "
-							+ "calculated, because there is not sufficient data collected so far.",
+							+ "calculated, because there is insufficient data collected so far.",
 					"Make sure to ask for the standard deviation of the regression "
 							+ "coefficients only after enough data has been collected.");
 
 			return UNDEFINED; // return UNDEFINED = -1.0
 		}
 
-		double dx = Math.abs(n * sumSquareX - sumX * sumX);
-		double dy = Math.abs(n * sumSquareY - sumY * sumY);
+		double dx = Math.abs(n * _sumSquareX - _sumX * _sumX);
+		double dy = Math.abs(n * _sumSquareY - _sumY * _sumY);
 
 		if (dx < C_EPSILON || dy < C_EPSILON) // not changed considerably
 		{
@@ -703,8 +703,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		double result = n * residualStdDev() / Math.sqrt((n - 2) * dx);
 
 		// calculate the rounded result
-		double rndResult = java.lang.Math.rint(PRECISION * result) / PRECISION;
-
+		double rndResult = round(result);
 		return rndResult;
 	}
 
@@ -717,7 +716,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 */
 	public void update() {
 		// not connected to a x- OR y-ValueSupplier
-		if (xSupplier == null || ySupplier == null) {
+		if (_xSupplier == null || _ySupplier == null) {
 			sendWarning(
 					"Attempt to update a Regression analysis without "
 							+ "providing any x- or y-value. Which value(s) should be used to "
@@ -732,15 +731,15 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			return; // just return
 		}
 
-		this.x = xSupplier.value(); // get the x-value
+		this._x = _xSupplier.value(); // get the x-value
 
-		this.y = ySupplier.value(); // get the y-value
+		this._y = _ySupplier.value(); // get the y-value
 
-		sumX += x; // update the variables...
-		sumY += y;
-		sumSquareX += x * x;
-		sumSquareY += y * y;
-		sumXtimesY += x * y;
+		_sumX += _x; // update the variables...
+		_sumY += _y;
+		_sumSquareX += _x * _x;
+		_sumSquareY += _y * _y;
+		_sumXtimesY += _x * _y;
 
 		incrementObservations(); // increment the observations (see
 		// Reportable)
@@ -764,15 +763,15 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 */
 	public void update(double xVal, double yVal) {
 
-		this.x = xVal; // get the x-value
+		this._x = xVal; // get the x-value
 
-		this.y = yVal; // get the y-value
+		this._y = yVal; // get the y-value
 
-		sumX += x; // update the variables...
-		sumY += y;
-		sumSquareX += x * x;
-		sumSquareY += y * y;
-		sumXtimesY += x * y;
+		_sumX += _x; // update the variables...
+		_sumY += _y;
+		_sumSquareX += _x * _x;
+		_sumSquareY += _y * _y;
+		_sumXtimesY += _x * _y;
 
 		incrementObservations(); // increment the observations (see
 		// Reportable)
@@ -803,8 +802,8 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 			sendWarning(
 					"Attempt to update a Regression with no reference to "
 							+ "an Observable. The x-value of '"
-							+ xSupplier.getName() + "' and "
-							+ "the y-value of '" + ySupplier.getName()
+							+ _xSupplier.getName() + "' and "
+							+ "the y-value of '" + _ySupplier.getName()
 							+ "'will be fetched and " + "processed anyway!",
 					"Regression: " + this.getName()
 							+ " Method: update (Observable o," + " Object arg)",
@@ -815,14 +814,14 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 		}
 
 		// update was called from xSupplier
-		if (o == xSupplier) {
+		if (o == _xSupplier) {
 			if (arg == null) // notifyStatistics() was called with no arg
 			{
-				this.x = xSupplier.value(); // get the x-value
+				this._x = _xSupplier.value(); // get the x-value
 			} else {
 				if (arg instanceof Number) // actual x value passed in arg?
 				{
-					this.x = convertToDouble(arg); // get the x-value out of
+					this._x = convertToDouble(arg); // get the x-value out of
 					// the
 					// arg
 				} else {
@@ -839,18 +838,18 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 				}
 			}
 
-			this.y = ySupplier.value(); // get the y-value
+			this._y = _ySupplier.value(); // get the y-value
 		} // end update was called from xSupplier
 
 		// update was called from ySupplier
-		if (o == ySupplier) {
+		if (o == _ySupplier) {
 			if (arg == null) // notifyStatistics() was called with no arg
 			{
-				this.y = ySupplier.value(); // get the y-value
+				this._y = _ySupplier.value(); // get the y-value
 			} else {
 				if (arg instanceof Number) // actual y value passed in arg?
 				{
-					this.y = convertToDouble(arg); // get the y-value out of
+					this._y = convertToDouble(arg); // get the y-value out of
 					// the
 					// arg
 				} else {
@@ -867,22 +866,22 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 				}
 			}
 
-			this.x = xSupplier.value(); // get the x-value
+			this._x = _xSupplier.value(); // get the x-value
 		} // end update was called from ySupplier
 
 		// update was called from the SimClock
 		if (o instanceof SimClock) {
-			this.x = xSupplier.value(); // get the x-value
+			this._x = _xSupplier.value(); // get the x-value
 
-			this.y = ySupplier.value(); // get the y-value
+			this._y = _ySupplier.value(); // get the y-value
 
 		} // end update was called from SimClock
 
-		sumX += x; // update the variables...
-		sumY += y;
-		sumSquareX += x * x;
-		sumSquareY += y * y;
-		sumXtimesY += x * y;
+		_sumX += _x; // update the variables...
+		_sumY += _y;
+		_sumSquareX += _x * _x;
+		_sumSquareY += _y * _y;
+		_sumXtimesY += _x * _y;
 
 		incrementObservations(); // increment the observations (see
 		// Reportable)
@@ -899,7 +898,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 *         otherwise.
 	 */
 	public boolean xIsConstant() {
-		double dx = Math.abs(getObservations() * sumSquareX - sumX * sumX);
+		double dx = Math.abs(getObservations() * _sumSquareX - _sumX * _sumX);
 
 		return (dx < C_EPSILON);
 	}
@@ -913,7 +912,7 @@ public class Regression extends desmoj.core.statistic.StatisticObject {
 	 *         otherwise.
 	 */
 	public boolean yIsConstant() {
-		double dy = Math.abs(getObservations() * sumSquareY - sumY * sumY);
+		double dy = Math.abs(getObservations() * _sumSquareY - _sumY * _sumY);
 
 		return (dy < C_EPSILON);
 	}

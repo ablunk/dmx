@@ -7,7 +7,7 @@ package desmoj.core.report;
  * different kinds of messages, including multiple outputs of the same type of
  * message.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

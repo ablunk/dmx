@@ -20,21 +20,21 @@ import java.util.Observable;
  * 
  * @see java.util.Observable
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @author modified by Soenke Claassen
  * @author modified by Felix Klueckmann
- * 
- *         Licensed under the Apache License, Version 2.0 (the "License"); you
- *         may not use this file except in compliance with the License. You may
- *         obtain a copy of the License at
- *         http://www.apache.org/licenses/LICENSE-2.0
- * 
- *         Unless required by applicable law or agreed to in writing, software
- *         distributed under the License is distributed on an "AS IS" BASIS,
- *         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
- *         implied. See the License for the specific language governing
- *         permissions and limitations under the License.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You
+ * may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing
+ * permissions and limitations under the License.
  * 
  */
 public class SimClock extends Observable {
@@ -47,7 +47,7 @@ public class SimClock extends Observable {
 	/**
 	 * Stores internally the actual simulation time.
 	 */
-	private TimeInstant timeNow;
+	private TimeInstant _timeNow;
 
 	/**
 	 * Constructs a simulation clock with no parameters given. By default the
@@ -60,10 +60,9 @@ public class SimClock extends Observable {
 	 */
 	public SimClock(String name) {
 
-		super(); // create a NamedObject
 		this.name = name + "_clock";
 		// set the simulation clock to 0
-		timeNow = new TimeInstant(0); // the birth of time ;-)
+		_timeNow = new TimeInstant(0); // the birth of time ;-)
 
 	}
 	/**
@@ -85,7 +84,7 @@ public class SimClock extends Observable {
 	 * @return TimeInstant : The actual simulation time
 	 */
 	public TimeInstant getTime() {
-		return timeNow;
+		return _timeNow;
 	}
 
 	/**
@@ -98,10 +97,10 @@ public class SimClock extends Observable {
 	 */
 	void setTime(TimeInstant newTime) {
 		//check if newTime is in the future
-		if(TimeInstant.isBeforeOrEqual(newTime, timeNow)){
+		if(TimeInstant.isBeforeOrEqual(newTime, _timeNow)){
 			// check for legal parameter (newTime>oldTime)
-			if (TimeInstant.isBefore(newTime, timeNow)) {
-				System.out.println("Wrong Time?");
+			if (TimeInstant.isBefore(newTime, _timeNow)) {
+				//TODO Exception (Wrong Time)
 			}			
 			return;
 		}
@@ -112,21 +111,21 @@ public class SimClock extends Observable {
 
 		// tell every Observer registered the actual TimeInstant which will be
 		// changed now
-		notifyObservers(timeNow);
+		notifyObservers(_timeNow);
 		
-		timeNow = newTime; // now make the move for the next time change.
+		_timeNow = newTime; // now make the move for the next time change.
 	}
 	
 	/**
-	 * Sets the initial simulation time. Allows negative values. This method has to be
-	 * protected from user access since it must not be manipulated by anyone but
-	 * the scheduler.
+	 * Sets the initial simulation time, overriding potential previous calls 
+	 * to this method. Allows negative values. This method has to be protected 
+	 * from user access since it must not be manipulated by anyone but the scheduler.
 	 * 
-	 * @param newTime
-	 *            TimeInstant : The new simulation time
+	 * @param initTime
+	 *            TimeInstant : The initial simulation time
 	 */
 	void setInitTime(TimeInstant initTime){
-		timeNow= initTime;
+		_timeNow= initTime;
 	}
 
 	/**

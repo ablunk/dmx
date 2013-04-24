@@ -5,7 +5,7 @@ package desmoj.core.report;
  * specified operations are adapted from the deprecated class
  * demoj.report.HTMLFileOutput.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler (HTMLFileOutput), Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,7 +21,7 @@ package desmoj.core.report;
  *
  */
 public interface TableFormatter {
-
+    
 	/**
 	 * Should open a new document containing multiple tables with the given name
 	 * 
@@ -70,15 +70,17 @@ public interface TableFormatter {
 	 * 
 	 * @param s
 	 *            string to write
+	 * @param spanning
+	 *            number of cells to span 
 	 */
-	public void writeCell(String s);
+	public void writeCell(String s, int spanning);
 
 	/**
 	 * Should write the given heading of size i into a new table cell
 	 * 
 	 * @param s
 	 *            string to write
-	 * @param heading
+	 * @param i
 	 *            size (must be interpreted in a sensible way).
 	 */
 	public void writeHeading(int i, String s);

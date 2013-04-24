@@ -1,9 +1,11 @@
 package desmoj.core.advancedModellingFeatures.report;
 
+import desmoj.core.statistic.StatisticObject;
+
 /**
  * Captures all relevant information about the Res.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen based on ideas from Tim Lechler
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -32,7 +34,7 @@ public class ResourceReporter extends desmoj.core.report.Reporter {
 	 * reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The Res to report about.
+	 *            desmoj.core.simulator.Reportable : The Res to report about.
 	 */
 	public ResourceReporter(desmoj.core.simulator.Reportable informationSource) {
 		super(informationSource); // make a Reporter
@@ -96,9 +98,7 @@ public class ResourceReporter extends desmoj.core.report.Reporter {
 			entries[7] = Long.toString(rs.getAvail());
 			// Usage[%]
 			// round to percentage
-			Double avU = new Double(
-					java.lang.Math.rint(rs.avgUsage() * 10000) / 100);
-			entries[8] = avU.toString();
+			entries[8] = Double.toString(StatisticObject.round(rs.avgUsage() * 100));
 			// avg.Wait
 			entries[9] = rs.averageWaitTime().toString();
 			// Qlimit

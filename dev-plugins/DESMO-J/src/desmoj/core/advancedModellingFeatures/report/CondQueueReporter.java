@@ -3,7 +3,7 @@ package desmoj.core.advancedModellingFeatures.report;
 /**
  * Captures all relevant information about the CondQueue.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
@@ -32,7 +32,7 @@ public class CondQueueReporter extends desmoj.core.report.Reporter {
 	 * collected by this reporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The CondQueue to report about
+	 *            desmoj.core.simulator.Reportable : The CondQueue to report about
 	 */
 	public CondQueueReporter(desmoj.core.simulator.Reportable informationSource) {
 		super(informationSource); // make a Reporter

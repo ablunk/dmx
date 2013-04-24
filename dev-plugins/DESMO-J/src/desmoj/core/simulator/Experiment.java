@@ -3,13 +3,7 @@ package desmoj.core.simulator;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -24,7 +18,9 @@ import desmoj.core.report.Message;
 import desmoj.core.report.MessageDistributor;
 import desmoj.core.report.MessageReceiver;
 import desmoj.core.report.OutputType;
+import desmoj.core.report.OutputTypeEndToExport;
 import desmoj.core.report.Reporter;
+import desmoj.core.report.SimulationRunReporter;
 import desmoj.core.report.TraceNote;
 
 /**
@@ -36,7 +32,7 @@ import desmoj.core.report.TraceNote;
  * <code>connectToExperiment(Experiment e)</code> method of the model instance
  * and pass the new experiment as a parameter.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @author modified by Soenke Claassen, Ruth Meyer, Nicolas Knaak, Gunnar
  *         Kiesel,Felix Klueckmann
@@ -52,6 +48,13 @@ import desmoj.core.report.TraceNote;
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
  *
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
+ * @modifier new Example Variable _traceOutput, _reportOutput for Outputclasscollection
+ * 			 new class constructors 
+ * 			 Experiment(String , String , ArrayList<String> , ArrayList<String> ,ArrayList<String> , ArrayList<String> ) and
+ * 			 Experiment(String , String , TimeUnit ,TimeUnit , TimeFormatter ,ArrayList<String> , 
+ * 					ArrayList<String> ,ArrayList<String> ,ArrayList<String> )
+ * @author Xiufeng Li
  */
 public class Experiment extends NamedObject {
 
@@ -59,20 +62,26 @@ public class Experiment extends NamedObject {
 	 * The experiment's name catalog for ensuring uniqueness of simulation
 	 * object names within a single experiment.
 	 */
-	private NameCatalog nameCatalog = new NameCatalog();
-
-	/**
-	 * Fully qualified class name of default table formatter (the HTMLFormatter)
+	private NameCatalog _nameCatalog = new NameCatalog();
+	
+	/** 
+	 * The default report output 
 	 */
-	// public static String DEFAULT_FORMATTER =
-	// "desmoj.report.HTMLTableFormatter";
-	/** Specifies the default output format for each of the four report types */
 	public static final String DEFAULT_REPORT_OUTPUT_TYPE = "desmoj.core.report.HTMLReportOutput";
 
+	/** 
+	 * The default trace output 
+	 */
 	public static final String DEFAULT_TRACE_OUTPUT_TYPE = "desmoj.core.report.HTMLTraceOutput";
 
+	/** 
+	 * The default error output 
+	 */
 	public static final String DEFAULT_ERROR_OUTPUT_TYPE = "desmoj.core.report.HTMLErrorOutput";
 
+	/** 
+	 * The default debug output 
+	 */
 	public static final String DEFAULT_DEBUG_OUTPUT_TYPE = "desmoj.core.report.HTMLDebugOutput";
 
 	/**
@@ -136,16 +145,31 @@ public class Experiment extends NamedObject {
 	 * The class reference to messages of type desmoj.core.report.Reporter
 	 */
 	static Class<desmoj.core.report.Reporter> reporter;
+	
+    /**
+     * Flag indicating at least one error or warning has occurred.
+     */
+    private boolean _error;
 
+	/**
+     * Flag indicating to suppress notifications like 'experiment started'.
+     */
+    private boolean _silent;
+    
+    /**
+     * The description of this Experiment
+     */
+    private String _description = null;
+	
 	/**
 	 * Flag indicating if the simulation is running.
 	 */
-	private int status;
+	private int _status;
 
 	/**
 	 * The model to be run by this experiment.
 	 */
-	private Model client;
+	private Model _client;
 
 	/**
 	 * The scheduler used for this experiment.
@@ -155,103 +179,111 @@ public class Experiment extends NamedObject {
 	/**
 	 * The distribution manager for the model's distributions.
 	 */
-	private DistributionManager distMan;
+	private DistributionManager _distMan;
 
 	/**
 	 * The message manager for the model's messages.
 	 */
-	private MessageDistributor messMan;
+	private MessageDistributor _messMan;
 
 	/**
 	 * The ThreadGroup for this Experiment.
 	 */
-	private ThreadGroup expThreads;
+	private ThreadGroup _expThreads;
 
 	/**
 	 * The list to register all OutputType objects to close them after finishing
 	 * the Experiment.
 	 */
-	private java.util.ArrayList<OutputType> registryOutputType;
+	private java.util.ArrayList<OutputType> _registryOutputType;
 
 	/**
 	 * The list to register all FileOutput objects to close them after finishing
 	 * the Experiment.
 	 */
-	private java.util.ArrayList<FileOutput> registryFileOutput;
+	private java.util.ArrayList<FileOutput> _registryFileOutput;
 
 	/**
 	 * The resource database storing all resource allocations and requests. Also
 	 * needed to detect deadlocks.
 	 */
-	private ResourceDB resDB;
+	private ResourceDB _resDB;
 
 	/**
 	 * The TimeInstant when the experiment is supposed to stop. Is initially
 	 * <code>null</code> and will be set only if the user provides a time limit.
 	 */
-	private TimeInstant stopTime = null;
+	private TimeInstant _stopTime = null;
 	
    /**
-     * The Event to stop the experiment. Is initially <code>null</code> and will 
+     * The event to stop the experiment. Is initially <code>null</code> and will 
      * be set only if the user provides a time limit.
      */
-    private ExternalEventStop stopTimeEvent = null;
+    private ExternalEventStop _stopTimeEvent = null;
 	
     /**
      * A list of <code>Condition</code>s which cause the experiment to stop. The
      * user has to implement the <code>check()</code> method of the 
      * <code>Condition</code>s in order to effectively stop an experiment.
      */
-    private List<Condition> stopConditions;
+    private List<ModelCondition> _stopConditions;
 
 	/**
 	 * Flag indicating whether a progressbar for this experiment should be
 	 * displayed or not.
 	 */
-	private boolean showProgressBar;
+	private boolean _showProgressBar;
 
 	/**
 	 * Specifies an output path for the report files (Modification by Nicolas
 	 * Knaak, 02/2001)
 	 */
-	private String pathName;
+	private String _pathName;
 
 	/**
 	 * Delay between steps of the scheduler in milliseconds. Necessary for
 	 * online observation of experiments in FAMOS. (Modification by Nicolas
 	 * Knaak, 07/2001)
 	 */
-	private long delayInMillis = 0;
+	private long _delayInMillis = 0;
 
 	/**
 	 * The real time (wallclock time) start time of the simulation run.
 	 * (Modification by Felix Klueckmann, 05/2009)
 	 */
-	private long realTimeStartTime;
+	private long _realTimeStartTime;
 
 	/**
-	 * The Output classes that create the Output files (debug, report, error,
-	 * trace) *
+	 * The output types of the debug channel.
+     */
+	private ArrayList<OutputType> _debugOutput;
+	
+    /**
+     * The output types of the report channel.
+     */
+	private ArrayList<OutputType> _reportOutput;
+	
+    /**
+     * The output types of the error channel.
+     */
+	private ArrayList<OutputType> _errorOutput;
+
+    /**
+     * The output types of the trance channel.
+     */
+	private ArrayList<OutputType> _traceOutput;
+	
+	/**
+	 * A potential interruption of experiment executions (otherwise <code>null</code>).
 	 */
-	private OutputType dbg;
-
-	private OutputType rpt;
-
-	private OutputType err;
-
-	private OutputType trc;
-
+	private DESMOJException _interruptingException;
+		
 	/**
-	 * Constructs a new Experiment with the given name. This is a shortcut
-	 * constructor with just the name needed as parameter to identify the
-	 * outputfiles produced by this experiment. All other possible settings are
-	 * set to default values. These settings for an experiment without special
-	 * ExperimentOptions are:
-	 * <ol>
-	 * <li>seed = 979 : The initial seed setting for the seed-generator</li>
-	 * </ol>
-	 * The default stop condition for this experiment will never interfere,
-	 * always returning false.
+     * Constructs a new Experiment with a given name.  
+     * Data channel output (report, error, debug, trace) will either be
+     * written to HTML files in the current directory. 
+     * Epsilon (granularity of simulation) defaults to a microsecond,
+     * reference time (default time unit) to a second. 
 	 * 
 	 * @param name
 	 *            String : The name of the experiment determining the
@@ -263,16 +295,11 @@ public class Experiment extends NamedObject {
 	}
 
 	/**
-	 * Constructs a new Experiment with the given name. This is a shortcut
-	 * constructor with just an output flag and the name needed as parameter to
-	 * identify the outputfiles produced by this experiment. All other possible
-	 * settings are set to default values. These settings for an experiment
-	 * without special ExperimentOptions are:
-	 * <ol>
-	 * <li>seed = 979 : The initial seed setting for the seed-generator</li>
-	 * </ol>
-	 * The default stop condition for this experiment will never interfere,
-	 * always returning false.
+	 * Constructs a new Experiment with the given parameters. Experiment name can be specified. 
+	 * Data channel output (report, error, debug, trace) will either be
+     * suppressed or written to HTML files in the current directory. 
+     * Epsilon (granularity of simulation) defaults to a microsecond,
+     * reference time (default time unit) to a second. 
 	 * 
 	 * @param name
 	 *            String : The name of the experiment determining the
@@ -293,16 +320,10 @@ public class Experiment extends NamedObject {
 	}
 
 	/**
-	 * Constructs a new Experiment with the given name. This is the shortcut
-	 * constructor with just the name needed as parameter to identify the
-	 * outputfiles produced by this experiment. All other possible settings are
-	 * set to default values. These settings for an experiment without special
-	 * ExperimentOptions are:
-	 * <ol>
-	 * <li>seed = 979 : The initial seed setting for the seed-generator</li>
-	 * </ol>
-	 * The default stop condition for this experiment will never interfere,
-	 * always returning false.
+	 * Constructs a new Experiment with the given parameters. Experiment name and output path
+	 * can be specified. Data channel output (report, error, debug, trace) will either be
+     * written to HTML files, epsilon (granularity of simulation) defaults to a microsecond,
+     * reference time (default time unit) to a second. 
 	 * 
 	 * @param name
 	 *            String : The name of the experiment determining the
@@ -342,7 +363,7 @@ public class Experiment extends NamedObject {
 	 * @param referenceUnit
 	 *            java.util.concurrent.TimeUnit : In statements without an
 	 *            explicit declaration of a TimeUnit the reference unit is used.
-	 * @param TimeFormatter
+	 * @param formatter
 	 *            desmoj.core.simulator.TimeFormatter: Defines how time values
 	 *            will be formatted in the output files.
 	 * 
@@ -357,21 +378,11 @@ public class Experiment extends NamedObject {
 
 	}
 	
-	   /**
-     * Constructs a new Experiment with the given settings. This is a shortcut
-     * constructor. The granularity of simulation time, the reference unit and
-     * the time formatter are set to default values. These settings for an
-     * experiment without special ExperimentOptions are:
-     * <ol>
-     * <li>epsilon = MICROSECONDS : The granularity of simulation time</li>
-     * <li>reference time = SECONDS : This unit is used in statements without an
-     * explicit declaration of a TimeUnit.</li>
-     * <li>TimeFormatter =
-     * SingleUnitTimeFormatter(TimeUnit.MICROSECONDS,false,false):</li>
-     * <li>seed = 979 : The initial seed setting for the seed-generator</li>
-     * </ol>
-     * The default stop condition for this experiment will never interfere,
-     * always returning false.
+    /**
+     * Constructs a new Experiment with the given parameters. Experiment name, output path 
+     * and a single file type per output channel can be specified.
+     * Epsilon (granularity of simulation) defaults to a microsecond,
+     * reference time (default time unit) to a second. 
      * 
      * @param name
      *            String : The name of the experiment determining the
@@ -394,12 +405,8 @@ public class Experiment extends NamedObject {
     }
 
 	/**
-	 * Constructs a new Experiment with the given parameters. This is the most
-	 * special constructor. The shortcut constructors call this constructor to
-	 * create an experiment object. Sets the seed for the seed-generator to the
-	 * default value 979. Use setSeedGenerator to set a different value. The
-	 * default stop condition for this experiment will never interfere, always
-	 * returning false.
+     * Constructs a new Experiment with the given parameters. Experiment name, output path, epsilon, reference time unit, time format, 
+     * can be specified. Same holds for file output channels, though this constructor assumes a single file type per output channel.  
 	 * 
 	 * @param name
 	 *            String : The name of the experiment determining the
@@ -413,177 +420,295 @@ public class Experiment extends NamedObject {
 	 * @param referenceUnit
 	 *            java.util.concurrent.TimeUnit : In statements without an
 	 *            explicit declaration of a TimeUnit the reference unit is used.
-	 * @param TimeFormatter
+	 * @param formatter
 	 *            desmoj.core.simulator.TimeFormatter: Defines how time values
 	 *            will be formatted in the output files.
 	 * 
 	 * @see java.util.concurrent.TimeUnit
 	 */
-	@SuppressWarnings("unchecked")
 	public Experiment(String name, String pathName, TimeUnit epsilon,
 			TimeUnit referenceUnit, TimeFormatter formatter,
 			String reportOutputType, String traceOutputType,
 			String errorOutputType, String debugOutputType) {
 		super(name); // create a NamedObject with an attitude ;-)
-
-		// initialize variables
-		status = NOT_INITIALIZED;
-		stopConditions = new ArrayList<Condition>(); // empty, i.e. no Stopper can be set at instantiation time
-		expThreads = new ThreadGroup(name);
-		registryFileOutput = new ArrayList<FileOutput>();
-		registryOutputType = new ArrayList<OutputType>();
-		lastSuffix = 0; // no batches have run so far ;-)
-		showProgressBar = true; // display a progress bar for this experiment
-
-		// Check and set output path
-		if (pathName == null
-				|| (pathName != null && (pathName.isEmpty() || pathName
-						.equals("."))))
-			this.pathName = System.getProperty("user.dir", ".");
-		else
-			this.pathName = pathName;
-
-		// set class variables for basic messagetypes
-		try {
-			tracenote = (Class<TraceNote>) Class
-					.forName("desmoj.core.report.TraceNote");
-			debugnote = (Class<DebugNote>) Class
-					.forName("desmoj.core.report.DebugNote");
-			errormessage = (Class<ErrorMessage>) Class
-					.forName("desmoj.core.report.ErrorMessage");
-			reporter = (Class<Reporter>) Class
-					.forName("desmoj.core.report.Reporter");
-		} catch (ClassNotFoundException cnfEx) {
-			System.out.println("Can not create Experiment!");
-			System.out.println("Constructor of desmoj.Experiment.");
-			System.out.println("Classes are probably not installed correctly.");
-			System.out.println("Check your CLASSPATH setting.");
-			System.out.println("Exception caught : " + cnfEx);
-		}
-
-		// create output system first
-		messMan = new MessageDistributor();
-
-		// create and register the debug output
-
-		try {
-			Class<OutputType> debugOType = (Class<OutputType>) Class
-					.forName((debugOutputType != null) ? debugOutputType
-							: DEFAULT_DEBUG_OUTPUT_TYPE);
-			dbg = debugOType.newInstance();
-			if (debugOutputType != null)
-				dbg.open(pathName, name);
-			messMan.register(dbg, debugnote);
-			messMan.switchOff(debugnote);
-			register(dbg);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-
-		// create and register the report output
-
-		try {
-			Class<OutputType> reportOType = (Class<OutputType>) Class
-					.forName((reportOutputType != null) ? reportOutputType
-							: DEFAULT_REPORT_OUTPUT_TYPE);
-			rpt = reportOType.newInstance();
-			if (reportOutputType != null)
-				rpt.open(pathName, name);
-			messMan.register(rpt, reporter);
-			register(rpt);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-
-		// create and register the error output
-
-		try {
-			Class<OutputType> errorOType = (Class<OutputType>) Class
-					.forName((errorOutputType != null) ? errorOutputType
-							: DEFAULT_ERROR_OUTPUT_TYPE);
-			err = errorOType.newInstance();
-			// err.setTimeFloats(timeFloats);
-			if (errorOutputType != null)
-				err.open(pathName, name);
-			messMan.register(err, errormessage);
-			register(err);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-
-		// create and register the trace output
-
-		try {
-			Class<OutputType> traceOType = (Class<OutputType>) Class
-					.forName((traceOutputType != null) ? traceOutputType
-							: DEFAULT_TRACE_OUTPUT_TYPE);
-			trc = traceOType.newInstance();
-			if (traceOutputType != null)
-				trc.open(pathName, name);
-			messMan.register(trc, tracenote);
-			messMan.switchOff(tracenote);
-			register(trc);
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-
-		// create the distributionmanager to register distributions at
-		distMan = new DistributionManager(name, 979);
-
-		// now create the simulation runtime accessories
-		client = null; // no object connected
-
-		// check for null reference
-		if (epsilon == null) {
-			// set to default unit
-			epsilon = TimeUnit.MICROSECONDS;
-		}
-		if (referenceUnit == null) {
-			// set to default unit
-			referenceUnit = TimeUnit.SECONDS;
-		}
-		// interchange epsilon and reference unit if the reference unit has a
-		// finer granularity than epsilon
-		if (referenceUnit.compareTo(epsilon) < 0) {
-			TimeUnit buffer = referenceUnit;
-			referenceUnit = epsilon;
-			epsilon = buffer;
-		}
-		// set epsilon and referenceUnit
-		TimeOperations.setEpsilon(epsilon);
-		TimeOperations.setReferenceUnit(referenceUnit);
-
-		// check for null reference
-		if (formatter == null) {
-			formatter = new SingleUnitTimeFormatter(referenceUnit,
-			        epsilon, 4, false);
-		}
-		TimeOperations.setTimeFormatter(formatter);
-
-		// building the scheduler: prepare event list...
-		// (for efficiency reasons, we use the TreeList-basd implementation)
-		EventList eventList = new EventTreeList();
-
-		// create the scheduler (and clock)
-		clientScheduler = createScheduler(name, eventList);
-
-		// create a resource database and tell it that it belongs to this
-		// experiment
-		resDB = new ResourceDB(this);
-
-		// set status to first valid value - initialized, but not connected
-		status = INITIALIZED;
+		
+		ArrayList<String> reportOutputs = new ArrayList<String>(); if (reportOutputType!=null) reportOutputs.add(reportOutputType);
+		ArrayList<String> traceOutputs = new ArrayList<String>();  if (traceOutputType!=null)  traceOutputs.add(traceOutputType);
+		ArrayList<String> errorOutputs = new ArrayList<String>();  if (errorOutputType!=null)  errorOutputs.add(errorOutputType);
+		ArrayList<String> debugOutputs = new ArrayList<String>();  if (debugOutputType!=null)  debugOutputs.add(debugOutputType);
+		
+		setupExperiment(name, pathName, epsilon, referenceUnit, formatter, reportOutputs, traceOutputs, errorOutputs, debugOutputs);
 	}
+	
+	/**
+	 * Constructs a new Experiment with the given parameters. This is the most
+	 * flexible constructor. Experiment name, output path, epsilon, reference time unit, time format, 
+	 * and multiple file types per output channel can be specified.   
+	 * 
+	 * @param name
+	 *            String : The name of the experiment determining the
+	 *            outputfile's names, too. So please avoid characters that your
+	 *            local filesystem does not support in filenames.
+	 * @param outputPath
+	 *            java.lang.String : The output path for report files
+	 * @param epsilon
+	 *            java.util.concurrent.TimeUnit: The granularity of simulation
+	 *            time.
+	 * @param referenceUnit
+	 *            java.util.concurrent.TimeUnit : In statements without an
+	 *            explicit declaration of a TimeUnit the reference unit is used.
+	 * @param formatter
+	 *            desmoj.core.simulator.TimeFormatter: Defines how time values
+	 *            will be formatted in the output files.
+	 * 
+	 * @see java.util.concurrent.TimeUnit
+	 */
+	public Experiment(String name, String outputPath, TimeUnit epsilon,
+			TimeUnit referenceUnit, TimeFormatter formatter,
+			ArrayList<String> reportOutputs, ArrayList<String> traceOutputs,
+			ArrayList<String> errorOutputs, ArrayList<String> debugOutputs)
+	{
+		super(name);
+		setupExperiment(name, outputPath, epsilon, referenceUnit, formatter, reportOutputs, traceOutputs, errorOutputs, debugOutputs);
+	}
+	/**
+     * Constructs a new Experiment with the given parameters. Experiment name, output path 
+     * and a multiple file type per output channel can be specified.
+     * Epsilon (granularity of simulation) defaults to a microsecond,
+     * reference time (default time unit) to a second. 
+	 * 
+	 * @param name
+	 *            String : The name of the experiment determining the
+	 *            outputfile's names, too. So please avoid characters that your
+	 *            local filesystem does not support in filenames.
+	 * @param outputPath
+	 *            java.lang.String : The output path for report files
+	 * @see desmoj.core.simulator.Units
+	 */
+	public Experiment(String name, String outputPath,
+			ArrayList<String> reportOutputs, ArrayList<String> traceOutputs,
+			ArrayList<String> errorOutputs, ArrayList<String> debugOutputs) {
+        this(name, outputPath, TimeUnit.MICROSECONDS, TimeUnit.SECONDS, null,
+                reportOutputs, traceOutputs, errorOutputs,
+                debugOutputs);
+	}
+	
+	
+	/**
+     * Private helper method to initialize the experiment; should be called
+     * from all constructors.
+     * 
+     * @param name
+     *            String : The name of the experiment determining the
+     *            outputfile's names, too. So please avoid characters that your
+     *            local filesystem does not support in filenames.
+     * @param outputPath
+     *            java.lang.String : The output path for report files
+     * @param epsilon
+     *            java.util.concurrent.TimeUnit: The granularity of simulation
+     *            time.
+     * @param referenceUnit
+     *            java.util.concurrent.TimeUnit : In statements without an
+     *            explicit declaration of a TimeUnit the reference unit is used.
+     * @param formatter
+     *            desmoj.core.simulator.TimeFormatter: Defines how time values
+     *            will be formatted in the output files.
+     * 
+     * @see java.util.concurrent.TimeUnit
+     */
+    private void setupExperiment(String name, String outputPath, TimeUnit epsilon,
+            TimeUnit referenceUnit, TimeFormatter formatter,
+            ArrayList<String> reportOutputs, ArrayList<String> traceOutputs,
+            ArrayList<String> errorOutputs, ArrayList<String> debugOutputs)
+    {
+        // initialize variables
+        _traceOutput = new ArrayList<OutputType>();
+        _debugOutput = new ArrayList<OutputType>();
+        _errorOutput = new ArrayList<OutputType>();
+        _reportOutput = new ArrayList<OutputType>();
+        _status = NOT_INITIALIZED;
+        _stopConditions = new ArrayList<ModelCondition>(); // empty, i.e. no Stopper
+                                                        // can be set at
+                                                        // instantiation time
+        _expThreads = new ThreadGroup(name);
+        _registryFileOutput = new ArrayList<FileOutput>();
+        _registryOutputType = new ArrayList<OutputType>();
+        lastSuffix = 0; // no batches have run so far ;-)
+        _showProgressBar = true; // display a progress bar for this experiment
+        _error = false; // no error or warning so far ;-)
+        _silent = false; // notify the user about what is going on
+        _interruptingException = null; // no interruption yet
 
+        // Check and set output path
+//      if (pathName == null
+//              || (pathName != null && (pathName.isEmpty() || pathName
+//                      .equals("."))))
+//          this.pathName = System.getProperty("user.dir", ".");
+//      else
+            this._pathName = outputPath;
+
+        // set class variables for basic messagetypes
+        try
+        {
+            tracenote = (Class<TraceNote>) Class
+                    .forName("desmoj.core.report.TraceNote");
+            debugnote = (Class<DebugNote>) Class
+                    .forName("desmoj.core.report.DebugNote");
+            errormessage = (Class<ErrorMessage>) Class
+                    .forName("desmoj.core.report.ErrorMessage");
+            reporter = (Class<Reporter>) Class
+                    .forName("desmoj.core.report.Reporter");
+        } catch (ClassNotFoundException cnfEx)
+        {
+            System.err.println("Can not create Experiment!");
+            System.err.println("Constructor of desmoj.core.Experiment.");
+            System.err.println("Classes are probably not installed correctly.");
+            System.err.println("Check your CLASSPATH setting.");
+            System.err.println("Exception caught : " + cnfEx);
+        }
+
+        // create output system first
+        _messMan = new MessageDistributor();
+
+        // create and register the debug output
+        for (String debugOutputType : debugOutputs)
+        {
+            try
+            {
+                Class<OutputType> debugOType = (Class<OutputType>) Class
+                        .forName((debugOutputType != null) ? debugOutputType
+                                : DEFAULT_DEBUG_OUTPUT_TYPE);
+                OutputType dbg = debugOType.newInstance();
+                _debugOutput.add(dbg);
+                if (debugOutputType != null)
+                    dbg.open(_pathName, name);
+                _messMan.register(dbg, debugnote);
+                _messMan.switchOff(debugnote);
+                register(dbg);
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+        }
+
+        // create and register the report output
+        for (String reportOutputType : reportOutputs)
+        {
+            try
+            {
+                Class<OutputType> reportOType = (Class<OutputType>) Class
+                        .forName((reportOutputType != null) ? reportOutputType
+                                : DEFAULT_REPORT_OUTPUT_TYPE);
+                OutputType rpt = reportOType.newInstance();
+                _reportOutput.add(rpt);
+                if (reportOutputType != null)
+                    rpt.open(_pathName, name);
+                _messMan.register(rpt, reporter);
+                register(rpt);
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+        }
+
+        // create and register the error output
+        for (String errorOutputType : errorOutputs)
+        {
+            try
+            {
+                Class<OutputType> errorOType = (Class<OutputType>) Class
+                        .forName((errorOutputType != null) ? errorOutputType
+                                : DEFAULT_ERROR_OUTPUT_TYPE);
+                OutputType err = errorOType.newInstance();
+                _errorOutput.add(err);
+                // err.setTimeFloats(timeFloats);
+                if (errorOutputType != null)
+                    err.open(_pathName, name);
+                _messMan.register(err, errormessage);
+                register(err);
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+        }
+        // create and register the trace output
+        for (String traceOutputType : traceOutputs)
+        {
+            try
+            {
+
+                Class<OutputType> traceOType = (Class<OutputType>) Class
+                        .forName((traceOutputType != null) ? traceOutputType
+                                : DEFAULT_TRACE_OUTPUT_TYPE);
+                OutputType trc = traceOType.newInstance();
+                _traceOutput.add(trc);
+                if (traceOutputType != null)
+                    trc.open(_pathName, name);
+                _messMan.register(trc, tracenote);
+                _messMan.switchOff(tracenote);
+                register(trc);
+            } catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
+        }
+
+        // create the distributionmanager to register distributions at
+        _distMan = new DistributionManager(name, 979);
+
+        // now create the simulation runtime accessories
+        _client = null; // no object connected
+
+        // check for null reference
+        if (epsilon == null)
+        {
+            // set to default unit
+            epsilon = TimeOperations.getEpsilon();
+        }
+        if (referenceUnit == null)
+        {
+            // set to default unit
+            referenceUnit = TimeOperations.getReferenceUnit();
+        }
+        
+        // swap epsilon and reference unit if the reference unit has a
+        // finer granularity than epsilon
+        if (referenceUnit.compareTo(epsilon) < 0)
+        {
+            TimeUnit buffer = referenceUnit;
+            referenceUnit = epsilon;
+            epsilon = buffer;
+        }
+        // set epsilon and referenceUnit
+        TimeOperations.setEpsilon(epsilon);
+        TimeOperations.setReferenceUnit(referenceUnit);
+
+        // set time formatter (use default if null passed)
+        if (formatter == null)
+            TimeOperations.setTimeFormatter(TimeOperations.getDefaultTimeFormatter(), false);
+        else   
+            TimeOperations.setTimeFormatter(formatter, true);
+
+        // building the scheduler: prepare event list...
+        // (for efficiency reasons, we use the TreeList-based implementation)
+        EventList eventList = new EventTreeList();
+
+        // create the scheduler (and clock)
+        clientScheduler = createScheduler(name, eventList);
+
+        // create a resource database and tell it that it belongs to this
+        // experiment
+        _resDB = new ResourceDB(this);
+
+        // set status to first valid value - initialized, but not connected
+        _status = INITIALIZED;
+    }
+	
 	/**
 	 * Creates a scheduler for this experiment.
 	 * 
-	 * @param exp
-	 *            the experiment
 	 * @param name
 	 *            experiment name
-	 * @param epsilon
-	 *            smallest sim time unit
 	 * @return a new scheduler
 	 */
 	protected Scheduler createScheduler(String name, EventList evl) {
@@ -614,7 +739,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.register(trcRec, debugnote);
+		_messMan.register(trcRec, debugnote);
 
 	}
 
@@ -641,7 +766,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.register(trcRec, errormessage);
+		_messMan.register(trcRec, errormessage);
 
 	}
 
@@ -650,7 +775,7 @@ public class Experiment extends NamedObject {
 	 * simulation objects within a single experiment.
 	 */
 	NameCatalog getNameCatalog() {
-		return nameCatalog;
+		return _nameCatalog;
 	}
 
 	/**
@@ -665,7 +790,7 @@ public class Experiment extends NamedObject {
 	 *            Class : The type of message to be sent to the given
 	 *            messagereceiver
 	 */
-	public void addReceiver(MessageReceiver trcRec, Class messageType) {
+	public void addReceiver(MessageReceiver trcRec, Class<?> messageType) {
 
 		if (trcRec == null) {
 			sendWarning("Can not add receiver to experiment! Command ignored.",
@@ -689,7 +814,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.register(trcRec, messageType);
+		_messMan.register(trcRec, messageType);
 
 	}
 
@@ -716,7 +841,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.register(trcRec, tracenote);
+		_messMan.register(trcRec, tracenote);
 
 	}
 
@@ -730,14 +855,14 @@ public class Experiment extends NamedObject {
 	 */
 	public boolean debugIsOn() {
 
-		return messMan.isOn(debugnote);
+		return _messMan.isOn(debugnote);
 
 	}
 
 	/**
 	 * Switches the debug output off at the given point of simulation time.
 	 * 
-	 * @param duration
+	 * @param stopTime
 	 *            TimeInstant : The point in simulation time to switch off debug
 	 */
 	public void debugOff(TimeInstant stopTime) {
@@ -766,7 +891,7 @@ public class Experiment extends NamedObject {
 			stopTime = clientScheduler.presentTime();
 		}
 
-		ExternalEvent debugOff = new ExternalEventDebugOff(client, true);
+		ExternalEvent debugOff = new ExternalEventDebugOff(_client, true);
 
 		debugOff.schedule(stopTime);
 
@@ -785,7 +910,7 @@ public class Experiment extends NamedObject {
 	/**
 	 * Switches the debug output on at the given point of simulation time.
 	 * 
-	 * @param duration
+	 * @param startTime
 	 *            TimeInstant : The point in simulation time to switch on debug
 	 */
 	public void debugOn(TimeInstant startTime) {
@@ -814,9 +939,16 @@ public class Experiment extends NamedObject {
 			startTime = clientScheduler.presentTime();
 		}
 
-		ExternalEvent debugOn = new ExternalEventDebugOn(client, true);
-
-		debugOn.schedule(startTime);
+        // if parameter equals current time, set trace on immediately, e.g. 
+        // to include initial scheduling
+        if (TimeInstant.isEqual(clientScheduler.presentTime(), startTime)) {
+            this.getMessageManager().switchOn(Experiment.debugnote);
+            _client.sendTraceNote("Debug switched on");
+        // Otherwise schedule an appropriate event    
+        } else {
+            ExternalEvent debugOn = new ExternalEventDebugOn(_client, true);
+            debugOn.schedule(startTime);
+        }
 
 	}
     
@@ -836,9 +968,9 @@ public class Experiment extends NamedObject {
 	 * they will be swapped automatically. Same parameters will result in no
 	 * debug output at all!
 	 * 
-	 * @param duration
+	 * @param startTime
 	 *            TimeInstant : The point in simulation time to switch debug on
-	 * @param duration
+	 * @param stopTime
 	 *            TimeInstant : The point in simulation time to switch debug off
 	 */
 	public void debugPeriod(TimeInstant startTime, TimeInstant stopTime) {
@@ -914,9 +1046,9 @@ public class Experiment extends NamedObject {
 	 *             parameter (on), they will be swapped automatically. Same
 	 *             parameters will result in no debug output at all!
 	 * 
-	 * @param duration
+	 * @param startTime
 	 *            SimTime : The point in simulation time to switch debug on
-	 * @param duration
+	 * @param stopTime
 	 *            SimTime : The point in simulation time to switch debug off
 	 */
 	@Deprecated
@@ -946,7 +1078,7 @@ public class Experiment extends NamedObject {
 			return;
 		}
 
-		registryFileOutput.remove(file);
+		_registryFileOutput.remove(file);
 		// remove whether it was inside or not
 
 	}
@@ -958,24 +1090,54 @@ public class Experiment extends NamedObject {
 	public void finish() {
 
 		// check if experiment has not been aborted before
-		if (status >= ABORTED) {
+		if (_status >= ABORTED)	{
 			return;
 		}
 
+		if (_traceOutput != null)		{
+			for (OutputType trc : _traceOutput)			
+			{
+				if (trc instanceof OutputTypeEndToExport)				{
+					((OutputTypeEndToExport) trc).export(_pathName, getName());
+				}
+			}
+		}
+		if (_debugOutput != null) {
+			for (OutputType dbg : _debugOutput)	{
+				if (dbg instanceof OutputTypeEndToExport) {
+					((OutputTypeEndToExport) dbg).export(_pathName, getName());
+				}
+			}
+		}
+		if (_errorOutput != null) {
+			for (OutputType err : _errorOutput) {
+				if (err instanceof OutputTypeEndToExport) {
+					((OutputTypeEndToExport) err).export(_pathName, getName());
+				}
+			}
+		}
+		if (_reportOutput != null){
+			for (OutputType rpt : _reportOutput) {
+				if (rpt instanceof OutputTypeEndToExport){
+					((OutputTypeEndToExport) rpt).export(_pathName, getName());
+				}
+			}
+		}
+
 		// set status to let all simthreads be killed
-		status = ABORTED;
+		_status = ABORTED;
 
 		// close all files still open
-		for (OutputType o : registryOutputType)
+		for (OutputType o : _registryOutputType)
 			o.close();
-		for (FileOutput f : registryFileOutput)
+		for (FileOutput f : _registryFileOutput)
 			f.close();
 
 		// kill all SimThreads still active
-		Thread[] survivors = new Thread[expThreads.activeCount()];
-		expThreads.enumerate(survivors);
+		Thread[] survivors = new Thread[_expThreads.activeCount()];
+		_expThreads.enumerate(survivors);
 
-		for (int i = 0; i < survivors.length; i++) {
+		for (int i = 0; i < survivors.length; i++)		{
 
 			// print existing threads for controlling purposes only
 			// System.out.println(survivors[i]);
@@ -984,13 +1146,13 @@ public class Experiment extends NamedObject {
 			// might not have made it until here and die in between
 			// so an occasional NullPointerException is perfectly
 			// alright and no reason to worry -> we just dump it.
-		    if (survivors[i] instanceof SimThread) { 
-    			try {
-    				((SimThread) survivors[i]).kill();
-    			} catch (NullPointerException e) {
-    				; // forget it anyway...
-    			}
-		    }
+			if (survivors[i] instanceof SimThread)			{
+				try				{
+					((SimThread) survivors[i]).kill();
+				} catch (NullPointerException e)				{
+					; // forget it anyway...
+				}
+			}
 		}
 
 	}
@@ -1005,7 +1167,7 @@ public class Experiment extends NamedObject {
 	 */
 	public DistributionManager getDistributionManager() {
 
-		return distMan;
+		return _distMan;
 
 	}
 
@@ -1013,6 +1175,7 @@ public class Experiment extends NamedObject {
 	 * Returns the epsilon value representing the granularity 
 	 * of simulation time for this experiment. So far, Hour, Minute,
 	 * Second and Millisecond are supported.
+	 * Default (unless set explicitly) is TimeUnit.MICROSECONDS.
 	 * 
 	 * @return TimeUnit : The Granularity of the simulation time
 	 */	
@@ -1053,7 +1216,7 @@ public class Experiment extends NamedObject {
 	 */
 	public MessageDistributor getMessageManager() {
 
-		return messMan;
+		return _messMan;
 
 	}
 	
@@ -1066,7 +1229,7 @@ public class Experiment extends NamedObject {
 	 */
 	public Model getModel() {
 
-		return client;
+		return _client;
 
 	}
 
@@ -1077,23 +1240,49 @@ public class Experiment extends NamedObject {
 	 * @return String the experiment's output path
 	 */
 	public String getOutputPath() {
-		return new File(pathName).getAbsolutePath();
+		return new File(_pathName).getAbsolutePath();
 	}
 
-	public String[] getOutputAppendixes() {
-		String[] Appendixes = { dbg.getAppendix(), trc.getAppendix(),
-				err.getAppendix(), rpt.getAppendix() };
-		return Appendixes;
+	public List<List<String>> getOutputAppendixes() {
+	    
+	    List<List<String>> appendixes = new ArrayList<List<String>>();
+	    
+	    ArrayList<String> debugAppendixes = new ArrayList<String>(); 
+	    for (OutputType o : this._debugOutput) {
+	        debugAppendixes.add(o.getAppendix());
+	    }
+	    appendixes.add(debugAppendixes);
+	    
+        ArrayList<String> traceAppendixes = new ArrayList<String>(); 
+        for (OutputType o : this._debugOutput) {
+            traceAppendixes.add(o.getAppendix());
+        }
+        appendixes.add(traceAppendixes);
+        
+        ArrayList<String> errorAppendixes = new ArrayList<String>(); 
+        for (OutputType o : this._debugOutput) {
+            errorAppendixes.add(o.getAppendix());
+        }
+        appendixes.add(errorAppendixes);
+        
+        ArrayList<String> reportAppendixes = new ArrayList<String>(); 
+        for (OutputType o : this._debugOutput) {
+            reportAppendixes.add(o.getAppendix());
+        }
+        appendixes.add(reportAppendixes);
+	    
+		return appendixes;
 	}
 
 	public long getRealTimeStartTime() {
-		return realTimeStartTime;
+		return _realTimeStartTime;
 	}
 
 	/**
 	 * Returns the reference unit for this experiment. This is the time unit
 	 * mapped to a time step of 1.0 in simulation time. So far, Hour, Minute,
-	 * Second and Millisecond are supported.
+	 * Second and Millisecond are supported. 
+	 * Default (unless set explicitly) is TimeUnit.SECONDS.
 	 * 
 	 * @return TimeUnit : The reference unit.
 	 */
@@ -1112,7 +1301,7 @@ public class Experiment extends NamedObject {
 	 */
 	public ResourceDB getResourceDB() {
 
-		return resDB;
+		return _resDB;
 	}
 
 	/**
@@ -1144,13 +1333,32 @@ public class Experiment extends NamedObject {
 	/**
 	 * Returns the TimeInstant when the experiment is expected to stop running.
 	 * 
-	 * @return desmoj.TimeInstant : The time, the experiment is expected to stop
-	 *         running.
+	 * @return TimeInstant : The time at which the experiment is expected to stop running.
 	 */
 	public TimeInstant getStopTime() {
 
-		return stopTime;
+		return _stopTime;
 	}
+	
+    /**
+     * Returns the Conditions which can cause an experiment to stop.
+     * May be empty if there are no such Conditions.
+     *
+     * @return Condition
+     * @author Tim Janz
+     */
+     public List<ModelCondition> getStopConditions() {
+     
+            return new java.util.ArrayList<ModelCondition>(this._stopConditions);
+     }
+     
+     /**
+      * Removes all conditions set to stop the experiment.
+      */
+      public void removeStopConditions() {
+      
+             this._stopConditions.clear();
+      }
 
 	/**
 	 * Returns the threadgroup associated to this experiment. All Threads are
@@ -1162,7 +1370,7 @@ public class Experiment extends NamedObject {
 	 */
 	ThreadGroup getThreadGroup() {
 
-		return expThreads;
+		return _expThreads;
 
 	}
 	
@@ -1177,7 +1385,7 @@ public class Experiment extends NamedObject {
     public int getTimeFloats() {
         
         if (TimeOperations.getTimeFormatter() instanceof SingleUnitTimeFormatter) {
-            return (int) ((SingleUnitTimeFormatter)TimeOperations.getTimeFormatter()).floats;
+            return (int) ((SingleUnitTimeFormatter)TimeOperations.getTimeFormatter())._floats;
         } else 
             return 0;
     }
@@ -1192,7 +1400,7 @@ public class Experiment extends NamedObject {
 	 */
 	public boolean isAborted() {
 
-		return (status >= ABORTED);
+		return (_status >= ABORTED);
 
 	}
 
@@ -1204,15 +1412,27 @@ public class Experiment extends NamedObject {
 	 */
 	public boolean isConnected() {
 
-		return (status >= CONNECTED); // model connected
+		return (_status >= CONNECTED); // model connected
 
 	}
-
+	
 	/**
-	 * Returns if the event list processes concurrent events in random order or
+     * Shows if this experiment has not run yet.
+     * 
+     * @return boolean : Is <code>true</code>, if experiment is not running yet, 
+     * <code>false</code> otherwise
+     */
+    public boolean isPreparing() {
+
+        return (_status < RUNNING);
+
+    }
+    
+	/**
+	 * Returns if the event-list processes concurrent Events in random order or
 	 * not. Default is not.
 	 * 
-	 * @return boolean: <code>true</code> if concurrent events are randomized,
+	 * @return boolean: <code>true</code> if concurrent Events are randomized,
 	 *         <code>false</code> otherwise
 	 * @author Ruth Meyer
 	 */
@@ -1229,7 +1449,7 @@ public class Experiment extends NamedObject {
 	 */
 	public boolean isRunning() {
 
-		return (status == RUNNING);
+		return (_status == RUNNING);
 
 	}
 
@@ -1241,7 +1461,7 @@ public class Experiment extends NamedObject {
 	 */
 	public boolean isShowProgressBar() {
 
-		return showProgressBar;
+		return _showProgressBar;
 	}
 
 	/**
@@ -1253,20 +1473,66 @@ public class Experiment extends NamedObject {
 	 */
 	public boolean isStopped() {
 
-		return (status == STOPPED); // model stopped
+		return (_status == STOPPED); // model stopped
 
 	}
+	
+	/**
+     * Determines whether or not an error or warning has yet occurred during 
+     * this experiment.
+     * 
+     * @return boolean : <code>True</code> if at least one error has occurred
+     *    in the model connected to this experiment or one of its submodels,
+     *        <code>false</code> otherwise
+     */
+    public boolean hasError() {
+        
+        return _error; 
+        
+    }
+    
+    /**
+     * Interrupts experiment execution in case a fatal problem prevents
+     * the experiment from being continued.
+     * 
+     * @param e
+     *            DESMOJException : The exception that caused the interrupt
+     */
+    protected void interrupt(DESMOJException e) {
+        
+        if (_status != RUNNING) {
+            sendWarning(
+                    "Can not interrupt Experiment! Command ignored.",
+                    "Experiment: " + getName() + " Method: void interrupt(Exception e).",
+                    "The Experiment is not running.",
+                    "Only Experiments that are running can be interruped.");
+            return;
+        }
+        
+        if (e == null) {
+            sendWarning(
+                    "Can not interrupt Experiment! Command ignored.",
+                    "Experiment: " + getName() + " Method: void interrupt(Exception e).",
+                    "No exception (i.e. <code>null</code>) has been passed.",
+                    "Submit a <code>DESMOJException</code> object describing why "
+                       + "the experiment has to be terminated immediately.");
+            return;
+        }
+        
+        // Interrupt proceeding
+        this._interruptingException = e;
+    }
 
 	/**
 	 * Proceeds with a stopped experiment. An experiment can be stopped, if
 	 * either its status is changed from <code>RUNNING</code> to some other
 	 * state, the scheduler runs out of scheduled events or if the
 	 * <code>check()</code> method of the given stop <code>Condition</code>
-	 * returns <code>true</code> after an Event has been processed.
+	 * returns <code>true</code> after an event has been processed.
 	 */
 	public void proceed() {
 
-		if (status < STARTED) {
+		if (_status < STARTED) {
 			sendWarning(
 					"Can not proceed with Experiment! Command ignored.",
 					"Experiment: " + getName() + " Method: void proceed().",
@@ -1276,27 +1542,27 @@ public class Experiment extends NamedObject {
 			return;
 		}
 
-		if (status > STOPPED) {
+		if (_status > STOPPED) {
 			sendWarning("Can not proceed with Experiment! Command ignored.",
 					"Experiment " + getName() + " Method: void proceed().",
 					"The Experiment has already been aborted.",
 					"Use method 'proceed()' only on stopped experiments.");
 			return;
 		}
-		if (status == STARTED) {
+		if (_status == STARTED) {
 			// print status message to calm users waiting long, long, long
 			// hours...
-			System.out.println("***** DESMO-J version " + getDesmoJVersion()
+			if (!_silent) System.out.println("***** DESMO-J version " + getDesmoJVersion()
 					+ " ***** \n" + getName() + " starts at simulation time "
-					+ getScheduler().presentTime() + "\n ...please wait...");
+					+ getScheduler().presentTime() + ".\n ...please wait...");
 		}
 		else{
-			System.out.println(getName() + " resumes at simulation time "
-					+ getScheduler().presentTime() + "\n ...please wait...");
+		    if (!_silent) System.out.println(getName() + " resumes at simulation time "
+					+ getScheduler().presentTime() + ".\n ...please wait...");
 		}
 		// display a progress bar if stop time is known and showProgressBar is
 		// true
-		if (stopTime != null && showProgressBar) {
+		if (_stopTime != null && _showProgressBar) {
 			JFrame frame = new ExpProgressBar(this);
 
 			frame.addWindowListener(new WindowAdapter() {
@@ -1310,52 +1576,59 @@ public class Experiment extends NamedObject {
 			frame.setVisible(true);
 		}
 
-		status = RUNNING; // now checked to run
+		_status = RUNNING; // now checked to run
 		boolean gotEvent = false; // buffer to check if scheduler works
 
 		try {
 
-			while (status == RUNNING) {
-				// infinite loop until condition/time expired
+			while (_status == RUNNING) {
+
+			    // infinite loop until condition/time expired
 				gotEvent = clientScheduler.processNextEventNote();
-				if (gotEvent == false) {
-					status = STOPPED;
-				}
+				
+				// exception set, e.g. by a process thread? If so, throw it!
+				if (_interruptingException != null) throw _interruptingException;
+				
+				// out of events?
+                if (gotEvent == false) {
+                    _status = STOPPED;
+                }
 
 				// check potential stop conditions
-				if (!stopConditions.isEmpty()) {
-				    for (Condition c : stopConditions) {
+				if (!_stopConditions.isEmpty()) {
+				    for (ModelCondition c : _stopConditions) {
     					if (c.check()) {
-    						status = STOPPED;
+    						_status = STOPPED;
     						break;
     					}
 				    }
 				}
 
 				// Sleep a while (modified by N. Knaak)
-				if (status == RUNNING && delayInMillis != 0)
-					Thread.sleep(delayInMillis);
+				if (_status == RUNNING && _delayInMillis != 0)
+					Thread.sleep(_delayInMillis);
 			}
 		} catch (DESMOJException e) {
-			System.out.println("desaster recovery");
-			// this is the desaster recovery routine to stop simulation and save
+			System.err.println("disaster recovery");
+			// this is the disaster recovery routine to stop simulation and save
 			// the report to disc before exiting the faulty experiment
-			messMan.receive(e.getErrorMessage());
+			_messMan.receive(e.getErrorMessage());
 			report();
 			finish();
-			status = ABORTED;
+			_status = ABORTED;
 			e.printStackTrace();
 		} catch (java.lang.InterruptedException e) {
-			System.out.println("desaster recovery");
+			System.err.println("disaster recovery");
 			// this is the disaster recovery routine to stop simulation and save
 			// the report to disc before exiting the faulty experiment
 			// messMan.receive(e.getMessage());
 			report();
 			finish();
-			status = ABORTED;
+			_status = ABORTED;
+	        e.printStackTrace();
 		}
 
-		// give warning if reason for stopping was empty eventlist
+		// give warning if reason for stopping was empty EventList
 		if (gotEvent == false) {
 			sendWarning("No more events scheduled! Experiment is stopped.",
 					"Experiment '" + getName() + "' method void proceed().",
@@ -1365,9 +1638,18 @@ public class Experiment extends NamedObject {
 		}
 
 		// print status message to user...
-		System.out.println(getName() + " stopped at simulation time "
-				+ getScheduler().presentTime());
-
+		if (!_silent) { 
+		    System.out.println(getName() + " stopped at simulation time "
+				+ getScheduler().presentTime() + ".");
+		    if (hasError()) {
+		        System.out.println("At least one error or warning has occurred.");
+                if (_errorOutput.isEmpty()) {
+                    System.out.println("Please re-run the siumulation with error output enabled.");
+                } else {
+                    System.out.println("Please refer to the error output for details.");
+                }
+		    }
+	    }
 	}
 
 	/**
@@ -1377,9 +1659,8 @@ public class Experiment extends NamedObject {
 	 *            : Delay time in milliseconds as a long value
 	 * @author Nicolas Knaak
 	 */
-	// TODO: wohl auch nicht mehr nötig
 	public void setDelayInMillis(long delay) {
-		delayInMillis = delay;
+		_delayInMillis = delay;
 	}
 
 	/**
@@ -1389,9 +1670,8 @@ public class Experiment extends NamedObject {
 	 * @author Nicolas Knaak
 	 * 
 	 */
-	// TODO:wohl auch nicht mehr nötig
 	public long getDelayInMillis() {
-		return delayInMillis;
+		return _delayInMillis;
 	}
 
 
@@ -1417,10 +1697,10 @@ public class Experiment extends NamedObject {
 			return;
 		}
 
-		if (registryOutputType.contains(file))
+		if (_registryOutputType.contains(file))
 			return; // file already registered
 
-		registryOutputType.add(file);
+		_registryOutputType.add(file);
 
 	}
 
@@ -1446,10 +1726,10 @@ public class Experiment extends NamedObject {
 			return;
 		}
 
-		if (registryFileOutput.contains(file))
+		if (_registryFileOutput.contains(file))
 			return; // file already registered
 
-		registryFileOutput.add(file);
+		_registryFileOutput.add(file);
 
 	}
 
@@ -1488,14 +1768,14 @@ public class Experiment extends NamedObject {
 					"Experiment '" + getName()
 							+ "', Method 'void registerModel(Model mainModel)'",
 					"This experiment is already connected to model : "
-							+ client.getName(),
+							+ _client.getName(),
 					"An experiment may only be connected to one main model at a time.");
 			return; // no connection possible.
 		}
 
-		status = CONNECTED;
-		client = mainModel;
-		client.setMain();
+		_status = CONNECTED;
+		_client = mainModel;
+		_client.setMain();
 
 	}
 
@@ -1508,7 +1788,7 @@ public class Experiment extends NamedObject {
 	 * <code>removeReceiverAll(MessageReceiver msgRec)</code> to remove a
 	 * messagereceiver from all types of messages.
 	 * 
-	 * @param trcRec
+	 * @param msgRec
 	 *            desmoj.report.MessageReceiver : The new messagereceiver to be
 	 *            removed from the messagedistributor's list for the given
 	 *            messagetype
@@ -1527,7 +1807,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.deRegister(msgRec, debugnote);
+		_messMan.deRegister(msgRec, debugnote);
 
 	}
 
@@ -1540,7 +1820,7 @@ public class Experiment extends NamedObject {
 	 * <code>removeReceiverAll(MessageReceiver msgRec)</code> to remove a
 	 * messagereceiver from all types of messages.
 	 * 
-	 * @param trcRec
+	 * @param msgRec
 	 *            desmoj.report.MessageReceiver : The new messagereceiver to be
 	 *            removed from the vessagedistributor's list for the given
 	 *            messagetype
@@ -1559,7 +1839,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.deRegister(msgRec, errormessage);
+		_messMan.deRegister(msgRec, errormessage);
 
 	}
 
@@ -1570,7 +1850,7 @@ public class Experiment extends NamedObject {
 	 * messageType)</code> to remove the messagereceiver from one type of
 	 * messages only.
 	 * 
-	 * @param trcRec
+	 * @param msgRec
 	 *            desmoj.report.MessageReceiver : The new messagereceiver to be
 	 *            removed from the messagedistributor's list for the given
 	 *            messagetype
@@ -1589,7 +1869,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.deRegister(msgRec);
+		_messMan.deRegister(msgRec);
 
 	}
 
@@ -1602,7 +1882,7 @@ public class Experiment extends NamedObject {
 	 * <code>removeReceiverAll(MessageReceiver msgRec)</code> to remove a
 	 * messagereceiver from all types of messages.
 	 * 
-	 * @param trcRec
+	 * @param msgRec
 	 *            desmoj.report.MessageReceiver : The new messagereceiver to be
 	 *            removed from the messagedistributor's list for the given
 	 *            messagetype
@@ -1610,7 +1890,7 @@ public class Experiment extends NamedObject {
 	 *            Class : The type of message not to be sent to the given
 	 *            messagereceiver
 	 */
-	public void removeReceiver(MessageReceiver msgRec, Class messageType) {
+	public void removeReceiver(MessageReceiver msgRec, Class<?> messageType) {
 
 		if (msgRec == null) {
 			sendWarning(
@@ -1636,7 +1916,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.deRegister(msgRec, messageType);
+		_messMan.deRegister(msgRec, messageType);
 
 	}
 
@@ -1649,7 +1929,7 @@ public class Experiment extends NamedObject {
 	 * <code>removeReceiverAll(MessageReceiver msgRec)</code> to remove a
 	 * messagereceiver from all types of messages.
 	 * 
-	 * @param trcRec
+	 * @param msgRec
 	 *            desmoj.report.MessageReceiver : The new messagereceiver to be
 	 *            removed from the messagedistributor's list for the given
 	 *            messagetype
@@ -1668,7 +1948,7 @@ public class Experiment extends NamedObject {
 			return; // do nothing
 		}
 
-		messMan.deRegister(msgRec, tracenote);
+		_messMan.deRegister(msgRec, tracenote);
 
 	}
 
@@ -1700,7 +1980,7 @@ public class Experiment extends NamedObject {
 	public void report() {
 
 		// just pass on the call with main model as parameter
-		report(client);
+		report(_client);
 
 	}
 
@@ -1719,7 +1999,7 @@ public class Experiment extends NamedObject {
 		List<Reporter> reporters;
 		// buffer for the reportmanager returned by client
 
-		if (status < CONNECTED) {
+		if (_status < CONNECTED) {
 			sendWarning(
 					"Can not produce report! Command ignored.",
 					"Experiment: " + getName()
@@ -1730,7 +2010,7 @@ public class Experiment extends NamedObject {
 			return; // no client there to be reported
 		}
 
-		if (status >= ABORTED) {
+		if (_status >= ABORTED) {
 			// do nothing since experiment has already been aborted and all
 			// output channels are already shut down
 			return; // Experiment aborted
@@ -1765,7 +2045,7 @@ public class Experiment extends NamedObject {
 		// registered at the experiment's messagemanager
 		for (Reporter r : reporters) {
 
-			messMan.receive(r);
+			_messMan.receive(r);
 
 		}
 	}
@@ -1779,14 +2059,6 @@ public class Experiment extends NamedObject {
 	 * 
 	 * @param description
 	 *            java.lang.String : The description of the error that occured
-	 * @param location
-	 *            java.lang.String : The class and method the error occured in
-	 * @param reason
-	 *            java.lang.String : The reason most probably responsible for
-	 *            the error to occur
-	 * @param prevention
-	 *            java.lang.String : The measures a user should take to prevent
-	 *            this warning to be issued again
 	 */
 	void sendDebugNote(String component, String description) {
 
@@ -1815,9 +2087,12 @@ public class Experiment extends NamedObject {
 					"Be sure to have a valid Message reference.");
 			return; // no proper parameter
 		}
+		
+		if (!_error && m instanceof ErrorMessage) {
+		    _error = true;
+		}		    
 
-		messMan.receive(m);
-
+		_messMan.receive(m);
 	}
 
 	/**
@@ -1850,22 +2125,24 @@ public class Experiment extends NamedObject {
 	}
 
 	/**
-	 * Sets the TimeFormatter to be used for output of time Strings.
+	 * Sets the <code>TimeFormatter</code> to be used for output of time strings.
+	 * Observe that if this method is called <i>before</i> creating an <code>Experiment</code> 
+	 * object, a non-null <code>TimeFormatter</code> passed to the <code>Experiment</code>'s 
+	 * constructor will overwrite the setting of this method-  
 	 * 
-	 * @param pattern
+	 * @param format
 	 *            TimeFormatter : the formatter to be used for formatting time
 	 *            Strings.
-	 * 
 	 */
-	public void setTimeFormatter(TimeFormatter format) {
-		TimeOperations.setTimeFormatter(format);
+	public static void setTimeFormatter(TimeFormatter format) {
+		TimeOperations.setTimeFormatter(format, true);
 	}
 
 	/**
-	 * Determines if the event list processes concurrent events in random order
+	 * Determines if the event-list processes concurrent Events in random order
 	 * or not. Default is not, i.e. when a new experiment is constructed, the
-	 * event list is set to "linear" order. Note: If you want the event list to
-	 * randomize concurrent events you should call this method BEFORE scheduling
+	 * event-list is set to "linear" order. Note: If you want the event-list to
+	 * randomize concurrent Events you should call this method BEFORE scheduling
 	 * any events. Otherwise any connections between events established via
 	 * scheduleBefore() or scheduleAfter() are lost. So it's a good idea to call
 	 * this method only once and right after constructing the experiment.
@@ -1904,7 +2181,7 @@ public class Experiment extends NamedObject {
 	 */
 	public void setSeedGenerator(long seed) {
 
-		distMan.setSeed(seed);
+		_distMan.setSeed(seed);
 
 	}
 
@@ -1914,8 +2191,8 @@ public class Experiment extends NamedObject {
 	 * LinearCongruentialRandomGenerator; any other generator to be used must
 	 * implement the interface UniformRandomGenerator.
 	 * 
-	 * @see desmoj.desmoj.core.dist.LinearCongruentialRandomGenerator
-	 * @see desmoj.desmoj.core.dist.UniformRandomGenerator
+	 * @see desmoj.core.dist.LinearCongruentialRandomGenerator
+	 * @see desmoj.core.dist.UniformRandomGenerator
 	 * 
 	 * @param randomNumberGenerator
 	 *            Class : The random number generator class to be used
@@ -1944,7 +2221,7 @@ public class Experiment extends NamedObject {
 		// Update the random number generator...
 		if (classValid) {
 
-			this.distMan.setRandomNumberGenerator(randomNumberGenerator);
+			this._distMan.setRandomNumberGenerator(randomNumberGenerator);
 
 			// ...or otherwise return an error
 		} else {
@@ -1975,8 +2252,22 @@ public class Experiment extends NamedObject {
 	 */
 	public void setShowProgressBar(boolean newShowProgressBar) {
 
-		this.showProgressBar = newShowProgressBar;
+		this._showProgressBar = newShowProgressBar;
 	}
+	
+	/**
+     * Sets the new value for displaying basic experiment notifications like
+     * 'experiment started', 'experiment stopped' oder 'experiment resumed'
+     * at the system output.
+     * 
+     * @param silent
+     *            boolean : set it to <code>true</code> to suppress notifications
+     *            or <code>false</code> to print them.
+     */
+    public void setSilent(boolean silent) {
+
+        this._silent = silent;
+    }
 
 	/**
 	 * Sets the experiment's status to the given integer value. The value must
@@ -1996,7 +2287,7 @@ public class Experiment extends NamedObject {
 							+ "this experiment.");
 			return;
 		} else
-			status = newStatus;
+			_status = newStatus;
 
 	}
 
@@ -2010,7 +2301,7 @@ public class Experiment extends NamedObject {
 
 		// this allows us to use start() in loops for multiple experiment runs
 		// in other words, this is a shortcut for the lazy programmer
-		if (status == STOPPED)
+		if (_status == STOPPED)
 			proceed();
 
 		// here's what start was supposed to be at first
@@ -2034,7 +2325,7 @@ public class Experiment extends NamedObject {
 	 */
 	public void start(TimeInstant initTime) {
 
-		if (status < CONNECTED) {
+		if (_status < CONNECTED) {
 			sendWarning(
 					"Can not start experiment! Command ignored.",
 					"Experiment: " + getName()
@@ -2044,7 +2335,7 @@ public class Experiment extends NamedObject {
 							+ "connectToExperiment(Experiment exp).");
 			return;
 		}
-		if (status > CONNECTED) {
+		if (_status > CONNECTED) {
 			sendWarning(
 					"Can not start experiment! Command ignored.",
 					"Experiment: " + getName()
@@ -2059,7 +2350,7 @@ public class Experiment extends NamedObject {
 		if (initTime != null) {
 			clientScheduler.getSimClock().setInitTime(initTime);
 			if(!TimeInstant.isEqual(initTime,new TimeInstant(0))){
-			client.reset();
+			_client.reset();
 			}
 		} else {
 			clientScheduler.getSimClock().setTime(new TimeInstant(0));
@@ -2074,12 +2365,13 @@ public class Experiment extends NamedObject {
 		}
 
 		// client.init(); already done in connectToExperiment
-		client.doInitialSchedules();
-		client.doSubmodelSchedules();
+		_client.doInitialSchedules();
+		_client.doSubmodelSchedules();
 		TimeOperations.setStartTime(initTime);
+		_client.register(new SimulationRunReporter.SimulationRunReporterProvider(_client));
 		// now everything is set up, go on and process events
-		status = STARTED;
-		this.realTimeStartTime = System.nanoTime();
+		_status = STARTED;
+		this._realTimeStartTime = System.nanoTime();
 
 		proceed();
 
@@ -2093,7 +2385,7 @@ public class Experiment extends NamedObject {
      * time, the <code>stop</code> method has to be called first.
      * <code>StopCondition</code> s can be given alternatively.
      * 
-     * @param SimTime
+     * @param initTime
      *            TimeInstant : The starting time instant
      */
     public void start(SimTime initTime) {
@@ -2101,7 +2393,7 @@ public class Experiment extends NamedObject {
     }
 
 	/**
-	 * Specifies a condition to stop the simulation. Note that this methode can
+	 * Specifies a ModelCondition to stop the simulation. Note that this methode can
 	 * be called muliple times, defining alternative conditions to terminate the 
 	 * simulation. Once at least one of the conditions passed using this method 
 	 * returns true, the experiment will stop. 
@@ -2111,10 +2403,10 @@ public class Experiment extends NamedObject {
 	 * run of the simulation!
 	 * 
 	 * @param stopCond
-	 *            Condition : A condition to stop the simulation when
-	 *            returning true.
+	 *            ModelCondition : A condition to stop the simulation once
+     *            it's check() methode returns true.
 	 */
-	public void stop(Condition stopCond) {
+	public void stop(ModelCondition stopCond) {
 
 		if (stopCond == null) {
 			sendWarning("Can not set stop-condition! Command ignored.",
@@ -2125,10 +2417,36 @@ public class Experiment extends NamedObject {
 					"Make sure to provide a valid stop Condition for "
 							+ "this experiment.");
 		} else {
-			this.stopConditions.add(stopCond);
+			this._stopConditions.add(stopCond);
 		}
 
 	}
+	
+	@Deprecated
+    /**
+     * @deprecated Replaced by <code>stop(ModelCondition stopCond)</code>
+     * 
+     * Specifies a Condition to stop the simulation. 
+     * 
+     * @param stopCond
+     *            Condition<?> : A condition to stop the simulation once
+     *            it's check() methode returns true.
+     */
+    public void stop(Condition<?> stopCond) {
+
+        if (stopCond == null) {
+            sendWarning("Can not set stop-condition! Command ignored.",
+                    "Experiment '" + getName()
+                            + "', Method 'stop(Condition stopCond)'",
+                    "The parameter passed was either null or a not initialized "
+                            + "Condition reference.",
+                    "Make sure to provide a valid stop Condition for "
+                            + "this experiment.");
+        } else {
+            this.stop(new ModelCondition.ConditionWrapper(this.getModel(), stopCond));
+        }
+
+    }
 
 	/**
 	 * Stops the simulation at the given point of simulation time. If no valid
@@ -2150,17 +2468,17 @@ public class Experiment extends NamedObject {
 							+ "TimeInstance reference.",
 					"Pass an initialized TimeInstant object as stop time.");
 
-			ExternalEvent stopper = new ExternalEventStop(client,
+			ExternalEventStop stopper = new ExternalEventStop(_client,
 					"Simulation stopped", true);
 			stopper.schedule(new TimeInstant(0));
 
 		} else {
 
-			this.stopTime = stopTime;
-			if (this.stopTimeEvent != null) this.stopTimeEvent.cancel();
+			this._stopTime = stopTime;
+			if (this._stopTimeEvent != null) this._stopTimeEvent.cancel();
 
-			this.stopTimeEvent = new ExternalEventStop(client, "Simulation stopped", true);
-			stopTimeEvent.schedule(stopTime);
+			this._stopTimeEvent = new ExternalEventStop(_client, "Simulation stopped", true);
+			_stopTimeEvent.schedule(stopTime);
 		}
 	}
 
@@ -2197,14 +2515,14 @@ public class Experiment extends NamedObject {
 	 */
 	public boolean traceIsOn() {
 
-		return messMan.isOn(tracenote);
+		return _messMan.isOn(tracenote);
 
 	}
 
 	/**
 	 * Switches the trace output off at the given point of simulation time.
 	 * 
-	 * @param duration
+	 * @param stopTime
 	 *            TimeInstant : The point in simulation time to switch trace off
 	 */
 	public void traceOff(TimeInstant stopTime) {
@@ -2233,7 +2551,7 @@ public class Experiment extends NamedObject {
 			stopTime = clientScheduler.presentTime();
 		}
 
-		ExternalEvent traceOff = new ExternalEventTraceOff(client, true);
+		ExternalEvent traceOff = new ExternalEventTraceOff(_client, true);
 		traceOff.schedule(stopTime);
 	}
 	
@@ -2279,8 +2597,16 @@ public class Experiment extends NamedObject {
 			startTime = clientScheduler.presentTime();
 		}
 
-		ExternalEvent traceOn = new ExternalEventTraceOn(client, true);
-		traceOn.schedule(startTime);
+        // if parameter equals current time, set trace on immediately, e.g. 
+        // to include initial scheduling
+        if (TimeInstant.isEqual(clientScheduler.presentTime(), startTime)) {
+            this.getMessageManager().switchOn(Experiment.tracenote);
+            _client.sendTraceNote("Trace switched on");
+        // Otherwise schedule an appropriate event    
+        } else {
+            ExternalEvent traceOn = new ExternalEventTraceOn(_client, true);
+            traceOn.schedule(startTime);
+        }
 
 	}
 	
@@ -2378,9 +2704,9 @@ public class Experiment extends NamedObject {
 	 *             automatically. Same parameters will result in no trace output
 	 *             at all.
 	 * 
-	 * @param duration
+	 * @param startTime
 	 *            SimTime : The point in simulation time to switch trace on
-	 * @param duration
+	 * @param stopTime
 	 *            SimTime : The point in simulation time to switch trace off
 	 */
 	@Deprecated
@@ -2411,7 +2737,7 @@ public class Experiment extends NamedObject {
 		String nameBuffer = null;
 
 		// now flush and close all files and reopen with new names
-		for (FileOutput f : registryFileOutput) {
+		for (FileOutput f : _registryFileOutput) {
 
 			// remember the name the file had
 			nameBuffer = f.getFileName();
@@ -2446,13 +2772,13 @@ public class Experiment extends NamedObject {
 			suffix = "";
 
 		// write report data about main model
-		report(client);
+		report(_client);
 
 		// buffer used for storing the filename in
 		String nameBuffer = null;
 
 		// now flush and close all files and reopen with new names
-		for (FileOutput f : registryFileOutput) {
+		for (FileOutput f : _registryFileOutput) {
 
 			// remember the name the file had
 			nameBuffer = f.getFileName();
@@ -2478,10 +2804,10 @@ public class Experiment extends NamedObject {
 	/**
 	 * Returns the current DESMO-J version
 	 * 
-	 * @return The string "2.2.0".
+	 * @return The string "2.3.5".
 	 */
 	public static String getDesmoJVersion() {
-		return "2.2.0";
+		return "2.3.5";
 	}
 
 	/**
@@ -2498,4 +2824,12 @@ public class Experiment extends NamedObject {
 		return html ? "<A HREF=http://www.apache.org/licenses/LICENSE-2.0>Apache License, Version 2.0</A>"
 				: "Apache License, Version 2.0";
 	}
+	
+    public void setDescription(String description) {
+        this._description = description;
+    }
+
+    public String getDescription() {
+        return _description;
+    }
 }

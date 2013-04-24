@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.xerces.util.DOMUtil;
@@ -32,7 +33,7 @@ import desmoj.extensions.xml.util.XMLHelper;
  * These GUI's must implement the Interface
  * {@link ExperimentStarterGUI ExperimentStarterGUI}.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak, Ruth Meyer, Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -61,6 +62,9 @@ public class ExperimentStarter
 
 	/** current model class */
 	Class modelClass;
+	
+	/** Model constants, e.g. passed from the command line */
+	private String[] modelConstants;
 
 	/** TableModel for model parameters */
 	private AccessPointTableModel modelAccessPoints;
@@ -100,7 +104,7 @@ public class ExperimentStarter
 	 *            ExperimentStarter
 	 */
 	public ExperimentStarter(ExperimentStarterGUI gui) {
-		this(gui, null, null);
+		this(gui, null, null, null);
 	}
 
 	/**
@@ -119,25 +123,49 @@ public class ExperimentStarter
 	 */
 	public ExperimentStarter(ExperimentStarterGUI gui, Class modelClass,
 			Class expRunnerClass) {
-		// Modified by Nick Knaak (3.11.2004)
-		// Reason: NullPointerException when starting ExperimentStarter without
-		// passing model class
-		if (modelClass != null && expRunnerClass != null) {
-			experimentGUI = gui;
-			if (!Model.class.isAssignableFrom(modelClass))
-				throw new RuntimeException(
-						"Model class passed to launcher is no subclass of desmoj.core.simulator.Model");
-			else if (!ExperimentRunner.class.isAssignableFrom(expRunnerClass))
-				throw new RuntimeException(
-						"Experiment runner class passed to launcher is no subclass of desmoj.util.ExperimentRunner");
-			else {
-				this.modelClass = modelClass;
-				this.expRunnerClass = expRunnerClass;
-				// resetModel();
-			}
-		}
-
+		this(gui, modelClass, expRunnerClass, null);
 	}
+	
+    /**
+     * Creates a new Launcher and sets the current ModelFactory
+     * such a command line parameters are passed to the model.
+     * 
+     * @param gui
+     *            ExperimentStarterGUI: the GUI to be used with the
+     *            ExperimentStarter
+     * @param modelClass
+     *            Class: The Class the contains the Model to be run with the
+     *            ExperimentStarter. Must be a subclass of
+     *            {@link desmoj.core.simulator.Model Model}
+     * @param expRunnerClass
+     *            Class: Must refer to the RunnerClass that belongs to
+     *            modelClass
+     * @param args
+     *            String[]: Command line parameters to pass to the model;
+     *            will be made available to the model via its parameter manager
+     *            as <code>cmdparam</code>
+     */
+    public ExperimentStarter(ExperimentStarterGUI gui, Class modelClass,
+            Class expRunnerClass, String[] args) {
+        // Modified by Nick Knaak (3.11.2004)
+        // Reason: NullPointerException when starting ExperimentStarter without
+        // passing model class
+        if (modelClass != null && expRunnerClass != null) {
+            experimentGUI = gui;
+            if (!Model.class.isAssignableFrom(modelClass))
+                throw new RuntimeException(
+                        "Model class passed to launcher is no subclass of desmoj.core.simulator.Model");
+            else if (!ExperimentRunner.class.isAssignableFrom(expRunnerClass))
+                throw new RuntimeException(
+                        "Experiment runner class passed to launcher is no subclass of desmoj.util.ExperimentRunner");
+            else {
+                this.modelClass = modelClass;
+                this.expRunnerClass = expRunnerClass;
+                // resetModel();
+            }
+        }
+        this.modelConstants = args;      
+    }	
 
 	/**
 	 * Creates Launcher with an experiment- or batchfile
@@ -191,10 +219,14 @@ public class ExperimentStarter
 	 * connected to model parameter and experiment setting access points.
 	 */
 	void initNewExperimentRun() {
-		try {
+	    
+    	try {
 			if (expRunnerClass != null && modelClass != null) {
 
 				model = (Model) modelClass.newInstance();
+				if (this.modelConstants != null) { 
+				    model.getParameterManager().initializeModelParameter(String[].class, "cmdparam", this.modelConstants);
+				}
 				expRunner = (ExperimentRunner) expRunnerClass.newInstance();
 				expRunner.setModel(model);
 
@@ -494,9 +526,13 @@ public class ExperimentStarter
 		String experimentValues = expvalues[AccessUtil.getIndexof("name", expMap)]
 				.toString();
 		String outputPath = exp.getOutputPath();
-		String[] Appendixes = exp.getOutputAppendixes();
+		List<List<String>> appendixes = exp.getOutputAppendixes();
+		String[] appendixesUsed = {appendixes.get(0).get(0), 
+		        appendixes.get(1).get(0),
+		        appendixes.get(2).get(0),
+		        appendixes.get(3).get(0)};  // only use the first one (GUI can only set one output file type per channel)
 		experimentGUI.setStopped(currentTime, startTime, experimentValues,
-				outputPath, Appendixes);
+				outputPath, appendixesUsed);
 	}
 
 	/** Called when experiment is paused. Implemented for ExperimentListener */

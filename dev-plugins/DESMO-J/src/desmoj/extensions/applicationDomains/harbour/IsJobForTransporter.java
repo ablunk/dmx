@@ -1,7 +1,6 @@
 package desmoj.extensions.applicationDomains.harbour;
 
 import desmoj.core.simulator.Condition;
-import desmoj.core.simulator.Entity;
 import desmoj.core.simulator.Model;
 
 /**
@@ -14,7 +13,7 @@ import desmoj.core.simulator.Model;
  * @see FixedVCtoCBAssignment_Strategy
  * @see TransportStrategy
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +28,7 @@ import desmoj.core.simulator.Model;
  * permissions and limitations under the License.
  *
  */
-public class IsJobForTransporter extends Condition {
+public class IsJobForTransporter extends Condition<Job> {
 
 	/**
 	 * the crane (a containerbridge) which the VC that must be checked is
@@ -56,26 +55,6 @@ public class IsJobForTransporter extends Condition {
 	}
 
 	/**
-	 * Returns false and warning because one should use the check (Entity e)
-	 * method to test whether the job for the VC has as the origin or
-	 * destination the Crane which that VC is assigned to.
-	 * 
-	 * @return boolean :<code>false</code>.
-	 */
-	public boolean check() {
-
-		sendWarning(
-				"Attempt to check whether the job for the transporter (VC) has as the origin or destination the Crane which that VC is assigned to "
-						+ "empty or not without reference to that entity."
-						+ "False will be returned!", "IsJobForTransporter:"
-						+ this.getName() + " Method: boolean " + "check(). ",
-				"There is no entity given which could be checked.",
-				"Make sure to use the other check (Entity e)-method and to pass "
-						+ "a suitable entity.");
-		return false;
-	}
-
-	/**
 	 * Returns a boolean showing whether the job for the VC has as the origin or
 	 * destination the Crane which that VC is assigned to.
 	 * 
@@ -85,23 +64,20 @@ public class IsJobForTransporter extends Condition {
 	 * @param e
 	 *            Entity : The entity (Job) to test.
 	 */
-	public boolean check(Entity e) {
+	public boolean check(Job j) {
 
-		if (e == null) {
+		if (j == null) {
 			sendWarning(
 					"Attempt to check whether the job for the internal transporter (VC) has as the origin or destination the Crane which that VC is assigned to "
 							+ "empty or with a null reference to that entity."
 							+ "False will be returned!",
 					"IsJobForTransporter:" + this.getName()
-							+ " Method: boolean " + "check(Entity e). ",
+							+ " Method: boolean " + "check(Job j). ",
 					"There is only a null pointer given which could not be checked.",
 					"Make sure to pass "
-							+ "a suitable entity instead of a null pointer.");
+							+ "a suitable job instead of a null pointer.");
 			return false;
 		}
-
-		// cast a Job
-		Job j = (Job) e;
 
 		return (((j.getType() == 1) && ((Crane) j.getOrigin()).equals(this
 				.getCrane())) || ((j.getType() == 0) && ((Crane) j

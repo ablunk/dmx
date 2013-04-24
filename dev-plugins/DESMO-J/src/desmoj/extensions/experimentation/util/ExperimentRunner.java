@@ -12,7 +12,8 @@ import desmoj.core.report.Reporter;
 import desmoj.core.simulator.Experiment;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.Reportable;
-import desmoj.core.simulator.SimTime;
+import desmoj.core.simulator.TimeInstant;
+import desmoj.core.util.AccessPoint;
 import desmoj.core.util.ExperimentListener;
 import desmoj.core.util.ExperimentParameter;
 import desmoj.core.util.Parameterizable;
@@ -30,7 +31,7 @@ import desmoj.extensions.experimentation.ui.GraphicalObserverContext;
  * @author Nicolas Knaak
  * @author edited 6.1.2004 by Gunnar Kiesel (seperate output classes for all
  *         output Types)
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -78,6 +79,33 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 			notifyAll();
 		}
 	}
+	
+	/**
+	 * An implementation of Java.util.Comparator&lt;String&gt; for comparing
+	 * experiment parameter names. The only difference from the default
+	 * String comparison is that output types are always considered larger
+	 * than non-output types so that they appear as group after all other 
+	 * parameters in the experiment parameter panel. 
+	 *  
+	 */
+	private static class ExperimentParameterComparator implements java.util.Comparator<String> {
+        public int compare(String o1, String o2) {
+            
+            boolean o1IsOutType = o1.equals(EXP_R_OUTTYPE) || o1.equals(EXP_T_OUTTYPE)
+                || o1.equals(EXP_D_OUTTYPE) || o1.equals(EXP_E_OUTTYPE);
+            boolean o2IsOutType = o2.equals(EXP_R_OUTTYPE) || o2.equals(EXP_T_OUTTYPE)
+                || o2.equals(EXP_D_OUTTYPE) || o2.equals(EXP_E_OUTTYPE);
+            
+            // exactly one of the Strings is an output type parameter:
+            // consider the output type parameter larger 
+            if (o1IsOutType  && !o2IsOutType) return 1;
+            if (!o1IsOutType &&  o2IsOutType) return -1;
+            
+            // neither of them or both of them are output type parameter: 
+            // use default String comparison
+            return o1.compareTo(o2);
+        }
+	}
 
 	/** Status: model not connected to experiment */
 	public static final int CREATED = 0;
@@ -99,9 +127,6 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 
 	/** Experiment setting "outputPath" */
 	public final static String EXP_OUTPUT_PATH = "outputPath";
-
-	/** Experiment setting "isTimed" */
-	public final static String EXP_IS_TIMED = "isTimed";
 
 	/** Experiment setting "referenceTime" */
 	public final static String EXP_REF_TIME = "referenceTime";
@@ -142,10 +167,10 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 	public final static String EXP_D_OUTTYPE = "debugOutputType";
 
 	/** The start time for the experiment running in this thread */
-	private SimTime startTime;
+	private TimeInstant startTime;
 
 	/** The stop time specified in the experiment options */
-	private SimTime stopTime;
+	private TimeInstant stopTime;
 
 	/** The experiment to be run */
 	private Experiment experiment;
@@ -187,10 +212,10 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 	private Thread myThread;
 
 	/** Model parameters */
-	private Map modelParams;
+	private Map<String,AccessPoint> modelParams;
 
 	/** Experiment parameter names and values */
-	private Map expSettings;
+	private Map<String,AccessPoint> expSettings;
 
 	/** SimRunEvent sent to all listeners of current experiment */
 	private SimRunEvent simRunEvent;
@@ -236,7 +261,7 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 			if (model instanceof Parameterizable) {
 				modelParams = ((Parameterizable) model).createParameters();
 			} else
-				modelParams = new TreeMap();
+				modelParams = new TreeMap<String,AccessPoint>();
 
 			expSettings = createParameters();
 		}
@@ -262,7 +287,7 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 		if (model instanceof Parameterizable) {
 			modelParams = ((Parameterizable) model).createParameters();
 		} else
-			modelParams = new TreeMap();
+			modelParams = new TreeMap<String,AccessPoint>();
 		expSettings = createParameters();
 	}
 
@@ -290,7 +315,7 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 	 * @param modelParamMap
 	 *            map of model parameters
 	 */
-	public void initParameters(Map expSettingsMap, Map modelParamMap) {
+	public void initParameters(Map<String,AccessPoint> expSettingsMap, Map<String,AccessPoint> modelParamMap) {
 		AccessUtil.init(modelParams, modelParamMap);
 		AccessUtil.init(expSettings, expSettingsMap);
 	}
@@ -301,12 +326,12 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 	}
 
 	/** @return the SimTime the current experiment starts at */
-	public SimTime getStartTime() {
+	public TimeInstant getStartTime() {
 		return startTime;
 	}
 
 	/** @return the time the current experiment will finally stop */
-	public SimTime getStopTime() {
+	public TimeInstant getStopTime() {
 		return stopTime;
 	}
 
@@ -342,8 +367,8 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 		while (status != STOPPED) {
 			lock.acquire();
 			lock.release();
-			SimTime currentTime = experiment.getModel().currentTime();
-			if (currentTime.getTimeValue() >= stopTime.getTimeValue() - model.epsilon().getTimeValue()
+			TimeInstant currentTime = experiment.getModel().presentTime();
+			if (currentTime.getTimeInEpsilon() >= stopTime.getTimeInEpsilon()
 					|| experiment.isAborted()) {
 				setStatus(STOPPED);
 			} else
@@ -537,11 +562,11 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 		return ep;
 	}
 
-	public Map getModelParameters() {
+	public Map<String,AccessPoint> getModelParameters() {
 		return this.modelParams;
 	}
 
-	public Map getExperimentSettings() {
+	public Map<String,AccessPoint> getExperimentSettings() {
 		return this.expSettings;
 	}
 
@@ -555,67 +580,60 @@ public class ExperimentRunner implements Observer, Runnable, Parameterizable {
 	 */
 	protected Experiment createExperiment() {
 		Experiment e = null;
-		System.out.println("ExpSettings: " + expSettings);
-		String name = AccessUtil.getStringValue("name", expSettings);
-		String outputPath = ((Filename) AccessUtil.getValue("outputPath",
+		//System.out.println("ExpSettings: " + expSettings);
+		String name = AccessUtil.getStringValue(EXP_NAME, expSettings);
+		String outputPath = ((Filename) AccessUtil.getValue(EXP_OUTPUT_PATH,
 				expSettings)).toString();
-		String reportOutputType = AccessUtil.getStringValue("reportOutputType",
+		String reportOutputType = AccessUtil.getStringValue(EXP_R_OUTTYPE,
 				expSettings);
-		String traceOutputType = AccessUtil.getStringValue("traceOutputType",
+		String traceOutputType = AccessUtil.getStringValue(EXP_T_OUTTYPE,
 				expSettings);
-		String errorOutputType = AccessUtil.getStringValue("errorOutputType",
+		String errorOutputType = AccessUtil.getStringValue(EXP_E_OUTTYPE,
 				expSettings);
-		String debugOutputType = AccessUtil.getStringValue("debugOutputType",
+		String debugOutputType = AccessUtil.getStringValue(EXP_D_OUTTYPE,
 				expSettings);
-		if (AccessUtil.getBooleanValue("isTimed", expSettings)) {
-			e = new Experiment(name, outputPath, null,
-			        TimeUnit.valueOf(AccessUtil.getStringValue(
-					"referenceUnit", expSettings)), null, reportOutputType,
-					traceOutputType, errorOutputType, debugOutputType);
-		} else {
-			e = new Experiment(name, outputPath, reportOutputType,
-					traceOutputType, errorOutputType, debugOutputType);
-		}
+		
+		e = new Experiment(name, outputPath, null,
+		        AccessUtil.getTimeUnitValue(EXP_REF_UNIT, expSettings), null, reportOutputType,
+				traceOutputType, errorOutputType, debugOutputType);
 		model.connectToExperiment(e);
+		
 		if (AccessUtil
-				.getBooleanValue("randomizeConcurrentEvents", expSettings)) {
+				.getBooleanValue(EXP_RAND_EVENTS, expSettings)) {
 			e.randomizeConcurrentEvents(true);
 		}
-		e.setShowProgressBar(AccessUtil.getBooleanValue("showProgressBar",
+		e.setShowProgressBar(AccessUtil.getBooleanValue(EXP_SHOW_PROG_BAR,
 				expSettings));
-		e.traceOn(AccessUtil.getSimTimeValue("traceStartTime", expSettings));
-		e.traceOff(AccessUtil.getSimTimeValue("traceStopTime", expSettings));
-		SimTime t = AccessUtil.getSimTimeValue("stopTime", expSettings);
-		stopTime = t;
-		e.stop(t);
-		startTime = AccessUtil.getSimTimeValue("startTime", expSettings);
+		e.traceOn(new TimeInstant(AccessUtil.getDoubleValue(EXP_TRACE_START, expSettings)));
+		e.traceOff(new TimeInstant(AccessUtil.getDoubleValue(EXP_TRACE_STOP, expSettings)));
+		stopTime = new TimeInstant(AccessUtil.getDoubleValue(EXP_STOP_TIME, expSettings));
+		startTime = new TimeInstant(AccessUtil.getDoubleValue(EXP_START_TIME, expSettings));
+        e.stop(stopTime);
 		return e;
 	}
 
 	/** @return a map of experiment parameters */
-	public Map createParameters() {
-		Map xp = new TreeMap();
+	public Map<String,AccessPoint> createParameters() {
+		Map<String,AccessPoint> xp = new TreeMap<String,AccessPoint>(new ExperimentParameterComparator());
 		// Default-Werte fuer die wichtigsten Experiment-Parameter erzeugen
 		xp.put(EXP_NAME, new ExperimentParameter(EXP_NAME, model.getName()
 				+ "Experiment"));
 		xp.put(EXP_OUTPUT_PATH, new ExperimentParameter(EXP_OUTPUT_PATH,
 				new Filename("./", true)));
-		xp.put(EXP_IS_TIMED, new ExperimentParameter(EXP_IS_TIMED,
-		        Boolean.valueOf(false)));
 //		xp.put(EXP_REF_TIME, new ExperimentParameter(EXP_REF_TIME,
 //				"1.1.1970 00:00:00"));
 		xp.put(EXP_REF_UNIT, new ExperimentParameter(EXP_REF_UNIT, 
-		        Integer.valueOf(desmoj.core.simulator.Units.S)));
+		        TimeUnit.SECONDS));
 		xp.put(EXP_START_TIME, new ExperimentParameter(EXP_START_TIME,
-				new SimTime(0.0)));
+				new Double(0.0)));
 		xp.put(EXP_STOP_TIME, new ExperimentParameter(EXP_STOP_TIME,
-				new SimTime(0.0)));
+				new Double(0.0)));
 		xp.put(EXP_SHOW_PROG_BAR, new ExperimentParameter(EXP_SHOW_PROG_BAR,
 				Boolean.valueOf(false)));
 		xp.put(EXP_TRACE_START, new ExperimentParameter(EXP_TRACE_START,
-				new SimTime(0.0)));
+				new Double(0.0)));
 		xp.put(EXP_TRACE_STOP, new ExperimentParameter(EXP_TRACE_STOP,
-				new SimTime(0.0)));
+				new Double(0.0)));
 		xp.put(EXP_RAND_EVENTS, new ExperimentParameter(EXP_RAND_EVENTS,
 		        Boolean.valueOf(false)));
 		xp.put(EXP_R_OUTTYPE, new ExperimentParameter(EXP_R_OUTTYPE,

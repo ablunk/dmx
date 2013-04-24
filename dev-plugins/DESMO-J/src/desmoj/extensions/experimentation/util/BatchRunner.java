@@ -18,7 +18,7 @@ import desmoj.extensions.xml.util.DocumentReader;
  * from the Run class. Furthermore an arbitrary number of runs (specified by a
  * <run>tag) containing the variable settings can be embedded.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

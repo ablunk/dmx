@@ -9,6 +9,7 @@ import desmoj.core.simulator.Queue;
 import desmoj.core.simulator.QueueBased;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.SimTime;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * A TransporterSystem represents the system of the transporters that manages
@@ -17,7 +18,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see QueueBased
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -135,7 +136,7 @@ public class TransporterSystem extends QueueBased {
 		int transporterQSortOrder = jSortOrder;
 
 		// check if a valid sortOrder is given for the transporter queue
-		if (tSortOrder < 0 || tSortOrder >= queueingStrategy.length) {
+		if (tSortOrder < 0 || tSortOrder >= 3) {
 			sendWarning(
 					"The given tSortOrder parameter is negative! "
 							+ "A transporter queue with Fifo sort order will be created "
@@ -180,7 +181,7 @@ public class TransporterSystem extends QueueBased {
 		int jobsQSortOrder = jSortOrder;
 
 		// check if a valid sortOrder is given for the slave queues
-		if (jSortOrder < 0 || jSortOrder >= queueingStrategy.length) {
+		if (jSortOrder < 0 || jSortOrder >= 3) {
 			sendWarning(
 					"The given jSortOrder parameter is negative or too big! "
 							+ "Jobs queue with Fifo sort order will be created "
@@ -324,7 +325,7 @@ public class TransporterSystem extends QueueBased {
 	 * Checks whether the process using the TransporterSystem is a valid
 	 * process.
 	 * 
-	 * @return boolean : Returns whether the SimProcess is valid or not.
+	 * @return boolean : Returns whether the sim-process is valid or not.
 	 * @param p
 	 *            SimProcess : Is this SimProcess a valid one?
 	 */
@@ -423,7 +424,7 @@ public class TransporterSystem extends QueueBased {
 	 */
 	public double getSumTimeEmptyDrives() {
 
-		return java.lang.Math.rint(this.SumTimeEmptyDrives * 10000) / 10000;
+		return StatisticObject.round(this.SumTimeEmptyDrives);
 	}
 
 	/**
@@ -446,7 +447,7 @@ public class TransporterSystem extends QueueBased {
 	 */
 	public double getSumDistanceEmptyDrives() {
 
-		return java.lang.Math.rint(this.SumDistanceEmptyDrives * 10000) / 10000;
+		return StatisticObject.round(this.SumDistanceEmptyDrives);
 	}
 
 	/**
@@ -469,7 +470,7 @@ public class TransporterSystem extends QueueBased {
 	 */
 	public double getSumDistanceLoadedDrives() {
 
-		return java.lang.Math.rint(this.SumDistanceLoadDrives * 10000) / 10000;
+		return StatisticObject.round(this.SumDistanceLoadDrives);
 	}
 
 	/**
@@ -515,7 +516,7 @@ public class TransporterSystem extends QueueBased {
 	 */
 	public double getSumTimeLoadedDrives() {
 
-		return java.lang.Math.rint(this.SumTimeLoadedDrives * 10000) / 10000;
+		return StatisticObject.round(this.SumTimeLoadedDrives);
 	}
 
 	/**

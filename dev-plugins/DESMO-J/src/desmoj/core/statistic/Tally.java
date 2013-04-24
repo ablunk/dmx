@@ -2,29 +2,30 @@ package desmoj.core.statistic;
 
 import java.util.Observable;
 
+import desmoj.core.report.TallyReporter;
 import desmoj.core.simulator.Model;
 
 /**
  * The <code>Tally</code> class is providing a statistic analysis about one
  * value. The mean value and the standard deviation is calculated on basis of
- * the total number of observations.
+ * the total number of observations. <br />
  * 
  * @see TallyRunning
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You
- * may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- *
+ *         Licensed under the Apache License, Version 2.0 (the "License"); you
+ *         may not use this file except in compliance with the License. You may
+ *         obtain a copy of the License at
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *         Unless required by applicable law or agreed to in writing, software
+ *         distributed under the License is distributed on an "AS IS" BASIS,
+ *         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ *         implied. See the License for the specific language governing
+ *         permissions and limitations under the License.
+ * 
  */
 
 public class Tally extends desmoj.core.statistic.ValueStatistics {
@@ -32,15 +33,15 @@ public class Tally extends desmoj.core.statistic.ValueStatistics {
 	// ****** attributes ******
 
 	/**
-	 * The sum of all values so far
+	 * The mean of all values so far
 	 */
-	private double sum;
+	private double _mean;
 
 	/**
-	 * The sum of all squared values so far
+	 * The sum of the squares of the differences from the mean of all values so far
 	 */
-	private double sumSquare;
-
+    private double _sumOfSquaredDevsFromMean;
+    
 	/**
 	 * Constructor for a Tally object that is connected to a
 	 * <code>ValueSupplier</code>.
@@ -76,6 +77,8 @@ public class Tally extends desmoj.core.statistic.ValueStatistics {
 
 			return; // just return
 		}
+		
+	    this._mean = this._sumOfSquaredDevsFromMean = 0.0;
 	}
 
 	// ****** methods ******
@@ -97,77 +100,78 @@ public class Tally extends desmoj.core.statistic.ValueStatistics {
 			boolean showInTrace) {
 		// call the constructor of ValueStatistics
 		super(ownerModel, name, showInReport, showInTrace);
+		
+        this._mean = this._sumOfSquaredDevsFromMean = 0.0;
 	}
-
+	
 	/**
 	 * Returns a Reporter to produce a report about this Tally.
 	 * 
 	 * @return desmoj.report.Reporter : The Reporter for this Tally.
 	 */
 	public desmoj.core.report.Reporter createReporter() {
-		return new desmoj.core.report.TallyReporter(this);
+		TallyReporter result = new TallyReporter(this);
+		return result;
 	}
+	
+    /**
+     * Returns the mean value of all the values observed so far.
+     * 
+     * @return double : The mean value of all the values observed so far.
+     */
+    public double getMean() {
+        if (getObservations() == 0) {
+            sendWarning(
+                    "Attempt to get a mean value, but there is not "
+                            + "sufficient data yet. UNDEFINED (-1.0) will be returned!",
+                    "Tally: " + this.getName() + " Method: double getMean()",
+                    "You can not calculate a mean value as long as no data is collected.",
+                    "Make sure to ask for the mean value only after some data has been "
+                            + "collected already.");
 
-	/**
-	 * Returns the mean value of all the values observed so far.
-	 * 
-	 * @return double : The mean value of all the values observed so far.
-	 */
-	public double getMean() {
-		if (getObservations() == 0) {
-			sendWarning(
-					"Attempt to get a mean value, but there is not "
-							+ "sufficient data yet. UNDEFINED (-1.0) will be returned!",
-					"Tally: " + this.getName() + " Method: double getMean()",
-					"You can not calculate a mean value as long as no data is collected.",
-					"Make sure to ask for the mean value only after some data has been "
-							+ "collected already.");
+            return UNDEFINED; // return UNDEFINED = -1.0
+        }
+        
+        // return the rounded mean value
+        return round(_mean);
+    }
 
-			return UNDEFINED; // return UNDEFINED = -1.0
-		}
+	
+    /**
+     * Returns the standard deviation of all the values observed so far.
+     * 
+     * @return double : The standard deviation of all the values observed so
+     *         far.
+     */
+    public double getStdDev() {
+        long n = getObservations();
 
-		// calculate the mean value
-		double meanValue = sum / getObservations();
-		// return the rounded mean value
-		return java.lang.Math.rint(PRECISION * meanValue) / PRECISION;		
-	}
+        if (n < 2) {
+            sendWarning(
+                    "Attempt to get a standard deviation, but there is not "
+                            + "sufficient data yet. UNDEFINED (-1.0) will be returned!",
+                    "Tally: " + this.getName() + " Method: double getStdDev()",
+                    "A standard deviation can not be calculated as long as no data is "
+                            + "collected.",
+                    "Make sure to ask for the standard deviation only after some data "
+                            + "has been collected already.");
 
-	/**
-	 * Returns the standard deviation of all the values observed so far.
-	 * 
-	 * @return double : The standard deviation of all the values observed so
-	 *         far.
-	 */
-	public double getStdDev() {
-		long n = getObservations();
+            return UNDEFINED; // return UNDEFINED = -1.0
+        }
 
-		if (n < 2) {
-			sendWarning(
-					"Attempt to get a standard deviation, but there is not "
-							+ "sufficient data yet. UNDEFINED (-1.0) will be returned!",
-					"Tally: " + this.getName() + " Method: double getStdDev()",
-					"A standard deviation can not be calculated as long as no data is "
-							+ "collected.",
-					"Make sure to ask for the standard deviation only after some data "
-							+ "has been collected already.");
-
-			return UNDEFINED; // return UNDEFINED = -1.0
-		}
-
-		// calculate the standard deviation
-		double stdDev = Math.sqrt(Math.abs(n * sumSquare - sum * sum)
-				/ (n * (n - 1)));
-		// return the rounded standard deviation
-		return java.lang.Math.rint(PRECISION * stdDev) / PRECISION;
-	}
+        // calculate the standard deviation
+        double stdDev = Math.sqrt(_sumOfSquaredDevsFromMean/(n-1));
+                
+        // return the rounded standard deviation
+        return round(stdDev);
+    }
 
 	/**
 	 * Resets this Tally object by resetting all variables to 0.0 .
 	 */
 	public void reset() {
 		super.reset(); // reset the ValueStatistics, too.
-
-		this.sum = this.sumSquare = 0.0;
+		this._mean = this._sumOfSquaredDevsFromMean = 0.0;
 	}
 
 	/**
@@ -181,9 +185,7 @@ public class Tally extends desmoj.core.statistic.ValueStatistics {
 		super.update(); // call the update() method of ValueStatistics
 
 		double lastVal = getLastValue();
-
-		sum += lastVal;
-		sumSquare += lastVal * lastVal;
+		this.internalUpdate(lastVal);
 	}
 
 	/**
@@ -194,21 +196,19 @@ public class Tally extends desmoj.core.statistic.ValueStatistics {
 	 * <code>ValueSupplier</code>.
 	 * 
 	 * @param val
-	 *            double : The value with which this <code>Tally</code> will
-	 *            be updated.
+	 *            double : The value with which this <code>Tally</code> will be
+	 *            updated.
 	 */
 	public void update(double val) {
 		// call the update(double val) method of ValueStatistics
 		super.update(val);
-
-		sum += val;
-		sumSquare += val * val;
+		this.internalUpdate(val);
 	}
 
 	/**
 	 * Implementation of the virtual <code>update(Observable, Object)</code>
-	 * method of the <code>Observer</code> interface. This method will be
-	 * called automatically from an <code>Observable</code> object within its
+	 * method of the <code>Observer</code> interface. This method will be called
+	 * automatically from an <code>Observable</code> object within its
 	 * <code>notifyObservers()</code> method. <br>
 	 * If no Object (a<code>null</code> value) is passed as arg, the actual
 	 * value of the ValueSupplier will be fetched with the <code>value()</code>
@@ -240,10 +240,25 @@ public class Tally extends desmoj.core.statistic.ValueStatistics {
 		}
 
 		super.update(o, arg); // call the update() method of ValueStatistics
-
-		double lastVal = getLastValue();
-
-		sum += lastVal;
-		sumSquare += lastVal * lastVal;
+		this.internalUpdate(getLastValue());
 	}
+		
+    /**
+     * Internal method to update the mean and sum of the squares of the 
+     * differences from the mean of values so far with a new sample.
+     * 
+     * @param value
+     *            double : The new sample.
+     */
+	private void internalUpdate(double value) {
+	    if (this.getObservations() == 1) { // First entry
+            _mean = value;
+	        _sumOfSquaredDevsFromMean = 0.0;
+	    } else { // Further entries
+	        double _m_old = _mean;
+	        _mean += (value - _mean)/this.getObservations();
+            _sumOfSquaredDevsFromMean += (value - _m_old)*(value - _mean);
+	    }
+	}
+
 } // end class Tally

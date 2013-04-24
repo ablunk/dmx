@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * An interface for objects with parameters provided via access points
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,5 +26,5 @@ public interface Parameterizable {
 	 * Creates a map of parameters
 	 * @return a map of key-value pairs where the key is a String and the value is an access point
 	 */
-	public Map createParameters(); 
+	public Map<String, AccessPoint> createParameters(); 
 }

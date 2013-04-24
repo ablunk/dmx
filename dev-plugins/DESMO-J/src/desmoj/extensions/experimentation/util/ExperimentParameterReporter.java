@@ -8,7 +8,7 @@ import desmoj.core.report.TableReporter;
  * experimentRunner.getReporter(). The groupID of experiment reporters is 10
  * which makes the appear in the report as one of the last elements.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,7 +44,7 @@ public class ExperimentParameterReporter extends TableReporter {
 		modelRows = ep.getExperimentRunner().getModelParameterArray()[0].length;
 		numRows = expRows + modelRows + 1;
 		this.columns = new String[] { "Parameter", "Value" };
-		this.groupHeading = "Parameter Settings";
+		this.groupHeading = "ExeperimentRunner Parameter Settings";
 
 		groupID = 10000; // see desmoj.Reporter for details
 		// groupHeading = "Experiment Parameters";

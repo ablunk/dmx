@@ -3,12 +3,14 @@ package desmoj.extensions.dimensions;
 import desmoj.core.simulator.Units;
 
 /**
+ * @deprecated Replaced by desmoj.core.simulator.TimeSpan
+ * 
  * This class represents durations (time spans). Each duration consists of a
  * numerical value and a time unit. Only the time units specified in the
  * {@link desmoj.core.simulator.Units Units}interface are supported. The value
  * may not be negative.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Ruth Meyer, Nick Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,6 +25,7 @@ import desmoj.core.simulator.Units;
  * permissions and limitations under the License.
  *
  */
+@Deprecated
 public class Duration extends Quantity {
 
 	/**

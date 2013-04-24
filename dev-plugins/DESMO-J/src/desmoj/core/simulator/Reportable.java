@@ -1,5 +1,6 @@
 package desmoj.core.simulator;
 
+import java.lang.reflect.Constructor;
 import desmoj.core.report.Reporter;
 import desmoj.core.report.StandardReporter;
 
@@ -8,8 +9,8 @@ import desmoj.core.report.StandardReporter;
  * in order to provide the necessary functions to represent their information in
  * reports.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
- * @author Tim Lechler
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
+ * @author Tim Lechler, modified by Chr. M&uuml;ller (TH Wildau) 28.11.2012
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -28,18 +29,39 @@ public abstract class Reportable extends ModelComponent {
     /**
      * Flag indicating if this reportable should produce a report.
      */
-    private boolean reportMode;
+    private boolean _reportMode;
 
     /**
      * The number of observations that this reportable can report about
      */
-    private long observations;
+    private long _observations;
 
     /**
      * stores the last time that this reportable object was reset.
      */
-    private TimeInstant lastReset;
+    private TimeInstant _lastReset;
 
+    /**
+     * schedulable (e.g. entity) corresponding to this reportable
+     * maybe null if no schedulable corresponds to this reportable  
+     */
+    private Schedulable _correspondingSchedulable = null;
+
+    /**
+     * A description (optional) / 21.11.12 extended bx cm
+     */
+	private	String description;
+
+    /**
+     * A class to instantiate a custom reporter from
+     */
+    private Class<? extends Reporter> _reporter = null;
+    
+    /**
+     * This Reportable's Reporter
+     */
+    private Reporter _myReporter = null;
+    
     /**
      * Creates a reportable object with all parameters required. The reportable
      * registers itself at the given model
@@ -63,53 +85,142 @@ public abstract class Reportable extends ModelComponent {
             boolean showInTrace) {
 
         super(owner, name, showInTrace); // create the ModelComponent
-        reportMode = showInReport; // set report flag
-        observations = 0; // reset observations counter
+        _reportMode = showInReport; // set report flag
+        _observations = 0; // reset observations counter
 
-        // check for non-null before registering. 
         // Registration even if showInReport=false! 
-        // Otherwise such reportables are not reseted at the start of the experiment run! //TODO
         if ((owner != null)) {
             owner.register(this);
         }
         
-        // reset in case experiment running
-        // (for not yet running experiments, this happens automatically
-        // when the experiment is started)
+        // register current time as reset
+        // in case experiment running
         if (owner != null && owner.getExperiment() != null && owner.getExperiment().isRunning()) { 
-            this.reset();
+            _lastReset = presentTime(); 
         }   
     }
 
     /**
-     * Override this method to return the appropriate reporter to the reportable
-     * object. To ensure that always the appropriate reporter is used, it has to
-     * be obtained from the reportable object that is of interest. All
-     * reportable objects in desmoj that want to deliver special repoters have
-     * to implement this method to hand back the correct reporter. The default
-     * implementation returns an object of type <code>StandardReporter</code>
-     * If you want to extend the framework by new concepts, you have to make
-     * sure, that classes inheriting direct or indirect from reportable have to
-     * implement this method correctly, especially by implementing an
-     * appropriate reporter first and give a reference to it back through this
-     * method.
+     * This method provides a reporter to generate report data about this
+     * reportable.
      * 
-     * @return desmoj.report.Reporter : A specific reporter for this reportable
+     * @depreated Use <code>createDefaultReporter()</code> instead.
+     * 
+     * @return desmoj.core.report.Reporter : A specific reporter for this reportable
      */
+    @Deprecated
     public Reporter createReporter() {
 
-        return new StandardReporter(this);
+        return createDefaultReporter();
 
     }
+    
+    /**
+     * This method provides a reporter to generate report data about this
+     * reportable. In this general implementation, a <code>StandardReporter</code>
+     * is returned. Lacking further knowledge about a specific reportable,
+     * the <code>StandardReporter</code> is only able to read out the 
+     * reportable's name, number of observations and time of last reset.<br/> 
+     * 
+     * Thus, it is highly recommended that subclasses override this method
+     * to return an appropriate default reporter for the specific reportable
+     * object. All reportable objects in DESMO-J like <code>Accumulate</code>, 
+     * <code>Tally</code>, <code>Count</code>, <code>Queue</code>, and many
+     * others provide such reporters. <br/>
+     * 
+     * If you want to extend the framework with new reportable objects, 
+     * provide a suitable reporter as well and override this method to return
+     * an instance of the reporter. <br/>
+     * 
+     * If you just need to replace the reporter used by an existing reportable
+     * (while not requiring any changes to the reportable itself),
+     * there is no need to create a subclass of the reportable: Instead of 
+     * overriding this method, just call <code>setReporter()</code> to have
+     * this reportable use a custom reporter instead of the default reporter.
+     * 
+     * @return desmoj.core.report.Reporter : A specific reporter for this reportable
+     */
+    protected Reporter createDefaultReporter() {
+    	
+    	return new StandardReporter(this);
+    }
+    
+    /**
+     * Returns an instance of a reporter for this reportable. Note that every reportable 
+     * has to provide a default reporter, see method <code>createDefaultReporter()</code>. 
+     * The reporter returned by this method is such a default reporter, unless the user
+     * has called <code>setReporter()</code> to specify a custom reporter class to use 
+     * to instantiate a Reporter from instead of the default reporter.
+     * 
+     * @return desmoj.core.report.Reporter : A reporter for this reportable
+     */
+public final Reporter getReporter() {
+        
+        if (_myReporter != null)
+            return _myReporter;
+        
+        if (_reporter == null)
+        {
+            _myReporter = createDefaultReporter();
+            
+            // createDefaultReporter() is probably not overridden. Try the old
+            // createReporter() method for compatibility issues.
+            if (_myReporter.getClass().equals(StandardReporter.class))
+                _myReporter = createReporter();
+            
+            return _myReporter;
+        }
+        
+        try
+        {
+            Constructor<?> constructor
+                = _reporter.getConstructor(new Class[] {Reportable.class});
+            constructor.setAccessible(true);
+            _myReporter = (Reporter) constructor.newInstance(new Object[] {this});
+            
+        }
+        catch (Exception e)
+        {
+             this.sendWarning(
+                "Instanciating the user-specified reporter for this reportable caused an exception. Using the default reporter instead.", 
+                "Reportable : " + getName() + " Method: Reporter getReporter()", 
+                "User-specified class is not accessible or constructor cannot be invoked.", 
+                "Make sure provide an appropriate reporter class if you want to replace the default reporter. "
+                   + "Such a reporter has to provide a constructor requiring a reference to this reportable as only parameter"
+                );
+             _myReporter = createDefaultReporter();
+                
+             // createDefaultReporter() is probably not overridden. Try the old
+             // createReporter() method for compatibility issues.
+             if (_myReporter.getClass().equals(StandardReporter.class))
+                 _myReporter = createReporter();
+        }       
+        return _myReporter;
+    }
 
+    /**
+     * Specifies a Reporter-Class to be used as reporter by this reportable.
+     * Note that such a Reporter has to provide a constructor requiring 
+     * a reference to this object (i.e. the reportable to report about) as
+     * only parameter.<br/>  
+     * If this method is never called, a default reporter as obtained 
+     * from <code>createDefaultReporter()</code> will be used.
+     * 
+     * @param reporterClass the reporter's class
+     */
+    public void setReporter(Class<? extends Reporter> reporterClass)
+    {
+    	_reporter = reporterClass;
+    }
+    
     /**
      * Returns the number of observations made by the reportable object.
      * 
      * @return long : The number of observations made by the reportable object.
      */
-    public long getObservations() {
+	public long getObservations() {
 
-        return observations;
+        return _observations;
 
     }
 
@@ -118,7 +229,7 @@ public abstract class Reportable extends ModelComponent {
      */
     public void incrementObservations() {
 
-        observations++;
+        _observations++;
 
     }
 
@@ -130,7 +241,7 @@ public abstract class Reportable extends ModelComponent {
      */
     public void incrementObservations(long multiObservations) {
 
-        observations += multiObservations;
+        _observations += multiObservations;
 
     }
 
@@ -141,7 +252,7 @@ public abstract class Reportable extends ModelComponent {
      */
     public boolean reportIsOn() {
 
-        return reportMode;
+        return _reportMode;
 
     }
 
@@ -150,7 +261,7 @@ public abstract class Reportable extends ModelComponent {
      */
     public void reportOff() {
 
-        reportMode = false;
+        _reportMode = false;
 
     }
 
@@ -159,7 +270,7 @@ public abstract class Reportable extends ModelComponent {
      */
     public void reportOn() {
 
-        reportMode = true;
+        _reportMode = true;
 
     }
 
@@ -170,8 +281,8 @@ public abstract class Reportable extends ModelComponent {
      */
     public void reset() {
 
-        observations = 0; // reset observations
-        lastReset = presentTime(); // register the reset time
+        _observations = 0; // reset observations
+        _lastReset = presentTime(); // register the reset time
     }
 
     /**
@@ -182,7 +293,71 @@ public abstract class Reportable extends ModelComponent {
      */
     public TimeInstant resetAt() {
 
-        return lastReset;
-
+        return _lastReset;
     }
+
+    /**
+     * Gets the schedulable (e.g. entity) corresponding to this reportable;
+     * may be null if no schedulable corresponds to this reportable.  
+     * 
+     * @return Schedulable : The schedulable (e.g. entity) corresponding 
+     * to this reportable (may be null if no schedulable corresponds to this reportable!)
+     */
+	public Schedulable getCorrespondingSchedulable() {
+		return _correspondingSchedulable;
+	}
+
+    /**
+     * Sets the schedulable (e.g. entity) corresponding to this Reportable.
+     * May be null if no schedulable corresponds to this reportable.  
+     * If set, the schedulable must have the same model as this reportable!
+     * A model may not have a corresponding schedulable.
+     *
+     * @param correspondingSchedulable
+     *            Schedulable : The Schedulable corresponding to this Reportable.
+     */
+	public void setCorrespondingSchedulable(Schedulable correspondingSchedulable) {
+
+	   if (this instanceof Model){
+            this.sendWarning(
+               "A Model may not have a corresponding schedulable. Method call ignored.", 
+               "Reportable.setCorrespondingSchedulable(Schedulable)", 
+               "A Model may not have a corresponding schedulable, because Model contains many corresponding schedulables.", 
+               "Do not set corresponding schedulable to a model!"
+            );
+            return;
+        };         
+	
+		if(correspondingSchedulable!=null && this.getModel()!=correspondingSchedulable.getModel()) {			
+		    this.sendWarning(
+		       "Schedulable to correspond to this Reportable must belong to the same model!", 
+		       "Reportable.setCorrespondingSchedulable(Schedulable)", 
+		       "Model of Reportable and corresponding schedulable must be identical.", 
+		       "Do not set a corresponding schedulable to another model's Schedulable.");			
+		    return;
+		}
+        this._correspondingSchedulable = correspondingSchedulable;
+	} 
+	
+	//   Extension by Chr. M&uuml;ller (TH Wildau) 28.11.12 -------------------------------------
+	   
+    /**
+	 * Set an optional description of reported value. Default is null.
+	 * This value is shown in description reports, only when set.
+     * @param description
+     */
+    public void setDescription(String description){
+    	this.description 	= description;
+    }
+    
+    /**
+	 * Get an optional description of reported value. Default is null.
+	 * This value is shown in description reports, only when set.
+     * @return
+     */
+    public String getDescription(){
+    	return this.description;
+    }
+    
+
 }

@@ -5,13 +5,8 @@ import java.util.Vector;
 
 import desmoj.core.advancedModellingFeatures.Bin;
 import desmoj.core.report.Reporter;
-import desmoj.core.simulator.Condition;
-import desmoj.core.simulator.Model;
-import desmoj.core.simulator.QueueBased;
-import desmoj.core.simulator.QueueList;
-import desmoj.core.simulator.QueueListFifo;
-import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
+import desmoj.core.simulator.*;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Entrepot is some kind of storage where products (in the form of
@@ -36,7 +31,7 @@ import desmoj.core.simulator.SimTime;
  * available the costumers have to wait in a queue until new products are stored
  * in the Entrepot. The first sort criteria of the customer queue is always
  * highest priorities first. The second queueing discipline and the capacity
- * limit of the customer queue can be determined by the user (default is Fifo
+ * limit of the customer queue can be determined by the user (default is FIFO
  * and unlimited capacity). As long as the products (SimProcesses) are stored in
  * the Entrepot they are passivated and blocked. Entrepot is derived from
  * QueueBased, which provides all the statistical functionality for the customer
@@ -45,7 +40,7 @@ import desmoj.core.simulator.SimTime;
  * @see QueueBased
  * @see Bin
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -67,12 +62,12 @@ public class Entrepot extends QueueBased {
 	/**
 	 * The Vector holding all the products stored in this Entrepot
 	 */
-	private java.util.Vector products;
+	private java.util.Vector<SimProcess> products;
 
 	/**
 	 * The queue actually storing the processes waiting for products
 	 */
-	private QueueList queue;
+	private QueueList<SimProcess> queue;
 
 	/**
 	 * The maximum number of products in the Entrepot
@@ -98,7 +93,7 @@ public class Entrepot extends QueueBased {
 	/**
 	 * The last time the Entrepot has been used
 	 */
-	private SimTime lastUsage;
+	private TimeInstant lastUsage;
 
 	/**
 	 * Indicates the method where something has gone wrong. Is passed as a
@@ -107,7 +102,7 @@ public class Entrepot extends QueueBased {
 	private String where;
 
 	/**
-	 * Counter for the SimProcesses which are refused to be enqueued, because
+	 * Counter for the sim-processes which are refused to be enqueued, because
 	 * the queue capacity is full.
 	 */
 	private long refused;
@@ -148,97 +143,38 @@ public class Entrepot extends QueueBased {
 		super(owner, name, showInReport, showInTrace); // make a QueueBased
 
 		// make a Vector to store all the products (SimProcesses)
-		products = new Vector();
+		products = new Vector<SimProcess>();
 
 		reset();
 
 		// check if a valid sortOrder is given
-		if (sortOrder < 0) {
-			sendWarning(
-					"The given sortOrder parameter is negative! "
-							+ "A queue with Fifo sort order will be created.",
-					"Entrepot : "
-							+ getName()
-							+ " Constructor: Entrepot (desmoj.Model owner, String name, "
-							+ "int sortOrder, long qCapacity, "
-							+ "boolean showInReport, boolean showInTrace)",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
-			// make a Fifo queue
-			queue = new QueueListFifo(); // better than nothing
-			queue.setQueueBased(this);
-		} else {
-			try {
-				// determine the queueing strategy
-				Class queueListStrategy = queueingStrategy[sortOrder];
-				queue = (QueueList) queueListStrategy.newInstance();
-			} catch (ArrayIndexOutOfBoundsException arrayExcept) {
-				// the given sortOrder is not valid
-				sendWarning(
-						"The given sortOrder parameter is not valid! "
-								+ "A queue with Fifo sort order will be created.",
-						"Entrepot : "
-								+ getName()
-								+ " Constructor: Entrepot (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, "
-								+ "boolean showInReport, boolean showInTrace)",
-						"A valid positive integer number must be provided to "
-								+ "determine the sort order of the underlying queue.",
-						"Make sure to provide a valid positive integer number "
-								+ "by using the constants in the class QueueBased, like "
-								+ "QueueBased.FIFO or QueueBased.LIFO.");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			} catch (IllegalAccessException illAccExcept) {
-				// the class to be loaded can not be found
-				sendWarning(
-						"IllegalAccessException: The class implementing the "
-								+ "sortOrder of the queue can not be found. A queue with "
-								+ "Fifo sort order will be created instead.",
-						"Entrepot : "
-								+ getName()
-								+ " Constructor: Entrepot (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, "
-								+ "boolean showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the zero-argument constructor of that "
-								+ "class can not be found",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
+        switch (sortOrder) {
+        case QueueBased.FIFO :
+            queue = new QueueListFifo<SimProcess>(); break;
+        case QueueBased.LIFO :
+            queue = new QueueListLifo<SimProcess>(); break;
+        case QueueBased.RANDOM :
+            queue = new QueueListRandom<SimProcess>(); break;
+        default :
+            sendWarning(
+                    "The given sortOrder parameter " + sortOrder + " is not valid! "
+                            + "A queue with Fifo sort order will be created.",
+                    "Entrepot : "
+                            + getName()
+                            + " Constructor: Entrepot (desmoj.Model owner, String name, "
+                            + "int sortOrder, long qCapacity, "
+                            + "boolean showInReport, boolean showInTrace)",
+    	            "A valid positive integer number must be provided to "
+                            + "determine the sort order of the queue.",
+                    "Make sure to provide a valid positive integer number "
+                            + "by using the constants in the class QueueBased, like "
+                            + "QueueBased.FIFO, QueueBased.LIFO or QueueBased.RANDOM.");
+            queue = new QueueListFifo<SimProcess>(); 
+        }
+        
+        // give the QueueList a reference to this QueueBased
+        queue.setQueueBased(this);
 
-			catch (InstantiationException instExcept) {
-				// no object of the given class can be instantiated
-				sendWarning(
-						"InstantiationException: No object of the given class "
-								+ "can be instantiated! A queue with Fifo sort order will "
-								+ "be created instead.",
-						"Entrepot : "
-								+ getName()
-								+ " Constructor: Entrepot (desmoj.Model owner, String name, "
-								+ "int sortOrder, long qCapacity, "
-								+ "boolean showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the the class is an interface or an "
-								+ "abstract class that can not be instantiated",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			// give the QueueList a reference to this QueueBased
-			queue.setQueueBased(this);
-		}
 
 		// set the capacity of the queue
 		queueLimit = qCapacity;
@@ -288,18 +224,18 @@ public class Entrepot extends QueueBased {
 		super(owner, name, showInReport, showInTrace); // make a QueueBased
 
 		// make a Vector to store all the products (SimProcesses)
-		products = new Vector();
+		products = new Vector<SimProcess>();
 
 		reset();
 
-		queue = new QueueListFifo(); // make an actual queue and give it a
+		queue = new QueueListFifo<SimProcess>(); // make an actual queue and give it a
 		queue.setQueueBased(this); // reference of this "QueueBased"-Entrepot
 
 	}
 
 	/**
-	 * Activates the SimProcess <code>process</code>, given as a parameter of
-	 * this method, as the next process. This process should be a SimProcess
+	 * Activates the sim-process <code>process</code>, given as a parameter of
+	 * this method, as the next process. This process should be a sim-process
 	 * waiting in the queue for some products.
 	 * 
 	 * @param process
@@ -314,10 +250,10 @@ public class Entrepot extends QueueBased {
 				return;
 			}
 
-			// if the process is scheduled (on the event list) already
+			// if the process is scheduled (on the event-list) already
 			if (process.isScheduled()) {
 				process.skipTraceNote(); // don't tell the user, that we ...
-				process.cancel(); // get the process from the EventList
+				process.cancel(); // get the process from the event-list
 			}
 
 			// remember if the process is blocked at the moment
@@ -347,7 +283,7 @@ public class Entrepot extends QueueBased {
 	 * process which was trying to get products, but it could not get any
 	 * because there were not enough products for it or another process was
 	 * first in the queue to be served. This method is called every time new
-	 * products have arrived in the Entrepot or a customer in the waiting queue
+	 * products have arrived in the Entrepot or a customer in the waiting-queue
 	 * is satisfied.
 	 */
 	protected void activateFirst() {
@@ -355,7 +291,7 @@ public class Entrepot extends QueueBased {
 
 		// first is the first process in the queue (or null if none is in the
 		// queue)
-		SimProcess first = (SimProcess) queue.first();
+		SimProcess first = queue.first();
 
 		if (first != null) {
 			// if first is not modelcompatible just return
@@ -363,10 +299,10 @@ public class Entrepot extends QueueBased {
 				return;
 			}
 
-			// if first is scheduled (on the event list) already
+			// if first is scheduled (on the event-list) already
 			if (first.isScheduled()) {
 				first.skipTraceNote(); // don't tell the user, that we ...
-				first.cancel(); // get the process from the Eventlist
+				first.cancel(); // get the process from the event-list
 			}
 
 			// remember if first is blocked at the moment
@@ -397,19 +333,18 @@ public class Entrepot extends QueueBased {
 	 *         over the time since the last reset of the Entrepot.
 	 */
 	public double avgAvail() {
-		SimTime now = currentTime(); // what is the time?
+		TimeInstant now = presentTime(); // what is the time?
 		// how long since the last reset
-		double diff = now.getTimeValue() - resetAt().getTimeValue();
+		double diff = now.getTimeAsDouble() - resetAt().getTimeAsDouble();
 
 		// the number of available products at the moment
 		int avail = getAvail();
 
 		// update the weighted sum of available products
 		double wSumAvl = wSumAvail
-				+ ((double) avail * (now.getTimeValue() - lastUsage
-						.getTimeValue()));
+				+ (avail * (now.getTimeAsDouble() - lastUsage.getTimeAsDouble()));
 
-		if (diff < epsilon().getTimeValue()) // diff is not long enough
+		if (diff < TimeOperations.getEpsilonSpan().getTimeAsDouble()) // diff is not long enough
 		{
 			sendWarning("A Division-by-Zero error occured in a calculation. "
 					+ "The UNDEFINED Value: -1.0 is returned as result.",
@@ -419,11 +354,11 @@ public class Entrepot extends QueueBased {
 			return UNDEFINED; // see QueueBased: UNDEFINED = -1
 		}
 		// return the rounded average
-		return java.lang.Math.rint(100000 * (wSumAvl / diff)) / 100000;
+		return StatisticObject.round(wSumAvl / diff);
 	}
 
 	/**
-	 * Checks whether the SimProcess using the Entrepot is a valid process.
+	 * Checks whether the sim-process using the Entrepot is a valid process.
 	 * 
 	 * @return boolean :<code>true</code> if and only if the given SimProcess
 	 *         is valid and model compatible; <code>false</code> otherwise.
@@ -687,7 +622,7 @@ public class Entrepot extends QueueBased {
 				// note)
 				rmvdProdBuff.append(nextSP.getQuotedName() + " ");
 
-				// the SimProcess (product) is not blocked (anymore)
+				// the sim-process (product) is not blocked (anymore)
 				nextSP.setBlocked(false);
 
 				// activate the removed SimProcess (if it is not terminated yet)
@@ -792,7 +727,7 @@ public class Entrepot extends QueueBased {
 					// note)
 					rmvdProdBuff.append(nextSP.getQuotedName() + " ");
 
-					// the SimProcess (product) is not blocked (anymore)
+					// the sim-process (product) is not blocked (anymore)
 					nextSP.setBlocked(false);
 
 					// activate the removed SimProcess (if it is not terminated
@@ -882,7 +817,7 @@ public class Entrepot extends QueueBased {
 			if (currentlySendDebugNotes())
 				sendDebugNote("refuses to insert "
 						+ currentProcess.getQuotedName()
-						+ " in waiting queue, because the capacity limit is reached. ");
+						+ " in waiting-queue, because the capacity limit is reached. ");
 
 			if (currentlySendTraceNotes())
 					sendTraceNote("is refused to be enqueued in "
@@ -980,9 +915,9 @@ public class Entrepot extends QueueBased {
 
 		// we left the do while loop because we can get the product desired
 		// remove the first SimProcess (product) from the Vector
-		SimProcess rmvdProduct = (SimProcess) products.remove(0);
+		SimProcess rmvdProduct = products.remove(0);
 
-		// the SimProcess (product) is not blocked (anymore)
+		// the sim-process (product) is not blocked (anymore)
 		rmvdProduct.setBlocked(false);
 
 		// activate the removed SimProcess (if it is not terminated yet)
@@ -1024,7 +959,7 @@ public class Entrepot extends QueueBased {
 	 * <code>contains()</code>. The products will be retrieved in a kind of
 	 * FIFO order that means the product which arrived first in the Entrepot is
 	 * the first to be removed. Users of this method will not be enqueued in the
-	 * waiting queue, because no one can ensure that the requested SimProcess
+	 * waiting-queue, because no one can ensure that the requested SimProcess
 	 * will ever arrive in this Entrepot.
 	 * 
 	 * @param product
@@ -1044,8 +979,8 @@ public class Entrepot extends QueueBased {
 			return;
 		} // is not valid: just return
 
-		// check the SimProcess to be removed
-		if (!checkProcess(product, where)) // if the SimProcess to be removed
+		// check the sim-process to be removed
+		if (!checkProcess(product, where)) // if the sim-process to be removed
 		{
 			return;
 		} // is not valid: just return
@@ -1068,10 +1003,10 @@ public class Entrepot extends QueueBased {
 		// statistic reasons
 		queue.remove(currentProcess); // get the process out of the queue
 
-		// remove the SimProcess (product) from the Vector
+		// remove the sim-process (product) from the Vector
 		products.remove(product);
 
-		// the SimProcess (product) is not blocked (anymore)
+		// the sim-process (product) is not blocked (anymore)
 		product.setBlocked(false);
 
 		// activate the removed SimProcess (if it is not terminated yet)
@@ -1103,7 +1038,7 @@ public class Entrepot extends QueueBased {
 	 * products are available at the moment the requesting SimProcess will be
 	 * enqueued in the wait queue until enough products become available. In
 	 * case the capacity limit of the wait queue is reached the current
-	 * SimProcess will be rejected and not get any products (<code>null</code>
+	 * Sim-process will be rejected and not get any products (<code>null</code>
 	 * will be returned). The products will be retrieved in a kind of FIFO
 	 * order, that means the product which arrived first in the Entrepot is the
 	 * first to be removed.
@@ -1117,9 +1052,9 @@ public class Entrepot extends QueueBased {
 	 * @param n
 	 *            int : The number of products to be removed from the Entrepot.
 	 */
-	public SimProcess[] removeProducts(int n) {
+	public SimProcess[] removeProducts(long n) {
 
-		where = "SimProcess[] removeProducts(int n)";
+		where = "SimProcess[] removeProducts(long n)";
 
 		SimProcess currentProcess = currentSimProcess();
 
@@ -1145,7 +1080,7 @@ public class Entrepot extends QueueBased {
 			if (currentlySendDebugNotes())
 				sendDebugNote("refuses to insert "
 					+ currentProcess.getQuotedName()
-					+ " in waiting queue, because the capacity limit is reached. ");
+					+ " in waiting-queue, because the capacity limit is reached. ");
 
 			if (currentlySendTraceNotes())
 				sendTraceNote("is refused to be enqueued in "
@@ -1252,11 +1187,11 @@ public class Entrepot extends QueueBased {
 		// Entrepot
 		StringBuffer rmvdProdBuff = new StringBuffer();
 		// make the array of removed products
-		SimProcess[] removedProducts = new SimProcess[n];
+		SimProcess[] removedProducts = new SimProcess[(int)n];
 		// and fill it
 		for (int i = 0; i < n; i++) {
 			// remove the first SimProcess (product) from the Vector
-			SimProcess rmvdProduct = (SimProcess) products.remove(0);
+			SimProcess rmvdProduct = products.remove(0);
 
 			// add the removed product (SimProcess) to the array to be returned
 			removedProducts[i] = rmvdProduct;
@@ -1267,7 +1202,7 @@ public class Entrepot extends QueueBased {
 				rmvdProdBuff.append(", ");
 			}
 
-			// the SimProcess (product) is not blocked (anymore)
+			// the sim-process (product) is not blocked (anymore)
 			rmvdProduct.setBlocked(false);
 
 			// activate the removed SimProcess (if it is not terminated yet)
@@ -1304,7 +1239,7 @@ public class Entrepot extends QueueBased {
 	 * as long as the lifeCycles of the products (SimProcesses) leaving the
 	 * Entrepot are not terminated they will automatically be activated after
 	 * the current SimProcess! If not enough products are available at the
-	 * moment the requesting SimProcess will be enqueued in the waiting queue
+	 * moment the requesting SimProcess will be enqueued in the waiting-queue
 	 * until enough products become available. In case the capacity limit of the
 	 * wait queue is reached the current SimProcess will be rejected and not get
 	 * any products (<code>null</code> will be returned). The products will
@@ -1317,7 +1252,7 @@ public class Entrepot extends QueueBased {
 	 *         with the given condition and are removed from the Entrepot. The
 	 *         lifeCycles of their SimProcesses will be activated as long as
 	 *         they are not terminated. Is <code>null</code> if the capacity
-	 *         limit of the wait queue is reached and therefore the SimProcess
+	 *         limit of the wait queue is reached and therefore the sim-process
 	 *         is refused to be serviced or another failure has occured.
 	 * @param n
 	 *            int : The number of products (which are in compliance with the
@@ -1354,7 +1289,7 @@ public class Entrepot extends QueueBased {
 			if (currentlySendDebugNotes())
 				sendDebugNote("refuses to insert "
 						+ currentProcess.getQuotedName()
-						+ " in waiting queue, because the capacity limit is reached. ");
+						+ " in waiting-queue, because the capacity limit is reached. ");
 
 			if (currentlySendTraceNotes())
 				sendTraceNote("is refused to be enqueued in "
@@ -1502,7 +1437,7 @@ public class Entrepot extends QueueBased {
 				// note)
 				rmvdProdBuff.append(nextSP.getQuotedName() + " ");
 
-				// the SimProcess (product) is not blocked (anymore)
+				// the sim-process (product) is not blocked (anymore)
 				nextSP.setBlocked(false);
 
 				// activate the removed SimProcess (if it is not terminated yet)
@@ -1555,7 +1490,7 @@ public class Entrepot extends QueueBased {
 		customers = 0;
 		soldProducts = 0;
 		wSumAvail = 0.0;
-		lastUsage = currentTime();
+		lastUsage = presentTime();
 		refused = 0;
 	}
 
@@ -1576,14 +1511,14 @@ public class Entrepot extends QueueBased {
 	}
 
 	/**
-	 * Stores a SimProcess as a product in the Entrepot. As there is no capacity
+	 * Stores a sim-process as a product in the Entrepot. As there is no capacity
 	 * limit for the Entrepot, SimProcesses can always be stored. The products
 	 * will be kept in a Vector and retrieved in a kind of FIFO order (as long
 	 * as no other conditions for retrieval have to be met). As long as the
-	 * SimProcess is kept in the Entrepot it is passivated and blocked.
+	 * Sim-process is kept in the Entrepot it is passivated and blocked.
 	 * 
 	 * @param product
-	 *            desmoj.SimProcess : The SimProcess (product) to be stored in
+	 *            desmoj.SimProcess : The sim-process (product) to be stored in
 	 *            the Entrepot.
 	 */
 	public void storeProduct(SimProcess product) {
@@ -1597,8 +1532,8 @@ public class Entrepot extends QueueBased {
 			return;
 		} // is not valid: just return
 
-		// check the SimProcess to be stored
-		if (!checkProcess(product, where)) // if the SimProcess to be stored
+		// check the sim-process to be stored
+		if (!checkProcess(product, where)) // if the sim-process to be stored
 		{
 			return;
 		} // is not valid: just return
@@ -1614,26 +1549,26 @@ public class Entrepot extends QueueBased {
 			return;
 		}
 
-		// the SimProcess to be stored in this Entrepot should be active or
+		// the sim-process to be stored in this Entrepot should be active or
 		// passivated but not scheduled. Just in case it is scheduled, ignore
 		// this
-		// attempt to store the SimProcess
+		// attempt to store the sim-process
 		if (product.isScheduled()) {
 			sendWarning(
-					"The SimProcess to be stored in an Entrepot is scheduled! "
-							+ "The attempt to store the SimProcess is ignored! ",
+					"The sim-process to be stored in an Entrepot is scheduled! "
+							+ "The attempt to store the sim-process is ignored! ",
 					"Entrepot: " + getName() + " Method: " + where,
-					"A SimProcess which is scheduled is currently busy with "
+					"A sim-process which is scheduled is currently busy with "
 							+ "something and therefore should not be stored in an Entrepot.",
-					"Make sure that the SimProcess is either storing itself in "
-							+ "an Entrepot or that the SimProcess is passive.");
+					"Make sure that the sim-process is either storing itself in "
+							+ "an Entrepot or that the sim-process is passive.");
 			return;
 		}
 
-		// make sure the SimProcess to be stored is passive and blocked
+		// make sure the sim-process to be stored is passive and blocked
 		product.setBlocked(true); // the product process is blocked
 
-		// put the SimProcess (product) in the Vector
+		// put the sim-process (product) in the Vector
 		products.add(product);
 
 		// tell in the trace which product is stored in the Entrepot
@@ -1652,7 +1587,7 @@ public class Entrepot extends QueueBased {
 		// see if someone is in the queue waiting for products
 		activateFirst();
 
-		// either the SimProcess is storing itself to the Entrepot
+		// either the sim-process is storing itself to the Entrepot
 		// or it is passive (or terminated) already
 		if (currentProcess == product) // adds itself to the Entrepot
 		{
@@ -1667,9 +1602,9 @@ public class Entrepot extends QueueBased {
 	 * that the current SimProcess is not in the array of products to be stored.
 	 * Because when the current SimProcess gets passivated the execution of this
 	 * method will stop! As there is no capacity limit for the Entrepot,
-	 * SimProcesses can always be stored. The products will be kept in a Vector
+	 * Sim-processes can always be stored. The products will be kept in a Vector
 	 * and retrieved in a kind of FIFO order (as long as no other conditions for
-	 * retrieval have to be met). As long as the SimProcesses are kept in the
+	 * retrieval have to be met). As long as the sim-processes are kept in the
 	 * Entrepot they are passivated and blocked.
 	 * 
 	 * @param finishedProds
@@ -1698,7 +1633,7 @@ public class Entrepot extends QueueBased {
 			// flag if this product is okay to be stored
 			boolean productIsOkay = true;
 
-			// check if the SimProcess to be stored is valid
+			// check if the sim-process to be stored is valid
 			if (!checkProcess(finishedProds[i], where)) {
 				productIsOkay = false;
 			}
@@ -1718,30 +1653,30 @@ public class Entrepot extends QueueBased {
 				productIsOkay = false;
 			}
 
-			// the SimProcess to be stored in this Entrepot should be active or
+			// the sim-process to be stored in this Entrepot should be active or
 			// passivated but not scheduled. Just in case it is scheduled,
 			// ignore this
-			// attempt to store the SimProcess
+			// attempt to store the sim-process
 			if (finishedProds[i].isScheduled()) {
 				sendWarning(
-						"The SimProcess to be stored in an Entrepot is scheduled! "
-								+ "The attempt to store the SimProcess is ignored! ",
+						"The sim-process to be stored in an Entrepot is scheduled! "
+								+ "The attempt to store the sim-process is ignored! ",
 						"Entrepot: " + getName() + " Method: " + where,
-						"A SimProcess which is scheduled is currently busy with "
+						"A sim-process which is scheduled is currently busy with "
 								+ "something and therefore should not be stored in an Entrepot.",
-						"Make sure that the SimProcess is either storing itself in "
-								+ "an Entrepot or that the SimProcess is passive.");
+						"Make sure that the sim-process is either storing itself in "
+								+ "an Entrepot or that the sim-process is passive.");
 
 				productIsOkay = false;
 			}
 
 			// store the product if it is okay
 			if (productIsOkay) {
-				// make sure the SimProcess to be stored is passive and blocked
+				// make sure the sim-process to be stored is passive and blocked
 				finishedProds[i].setBlocked(true); // the product process is
 				// blocked
 
-				// put the SimProcess (product) in the Vector
+				// put the sim-process (product) in the Vector
 				products.add(finishedProds[i]);
 
 				// add the product to the Stringbuffer (needed for the trace
@@ -1754,7 +1689,7 @@ public class Entrepot extends QueueBased {
 				// update the number of stored products
 				n++;
 
-				// either the SimProcess is storing itself to the Entrepot
+				// either the sim-process is storing itself to the Entrepot
 				// or it is passive (or terminated) already
 				if (currentProcess == finishedProds[i]) // adds itself to the
 				// Entrepot
@@ -1788,18 +1723,17 @@ public class Entrepot extends QueueBased {
 	 * Entrepot or removed from the Entrepot.
 	 * 
 	 * @param n
-	 *            int : The number of products stored in or removed from the
+	 *            long : The number of products stored in or removed from the
 	 *            Entrepot. Is positive when products are stored in the Entrepot
 	 *            and negative when products are removed from the Entrepot.
 	 */
-	protected void updateStatistics(int n) {
+	protected void updateStatistics(long n) {
 		// get the current time
-		SimTime now = currentTime();
+		TimeInstant now = presentTime();
 
 		// update the weighted sum of available products
 		wSumAvail = wSumAvail
-				+ (((double) (getAvail() - n)) * (now.getTimeValue() - lastUsage
-						.getTimeValue()));
+				+ (((getAvail() - n)) * (now.getTimeAsDouble() - lastUsage.getTimeAsDouble()));
 
 		// update the last usage of this Entrepot
 		lastUsage = now;

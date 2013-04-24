@@ -1,46 +1,32 @@
 package desmoj.core.simulator;
 
+import desmoj.core.dist.NumericalDist;
+
 /**
- * Provides the superclass for user defined events to change an entity's
+ * Provides the class for user defined events to change <b>a single</b> entity's
  * internal state. The state of a discrete model is changed by events that occur
- * at distinct points of simulation time.
- * <p>
- * An event only acts on one entity, changing its state according to the
- * entity's reaction to the specific event in the system under inspection. So
- * each type of event acting on one certain type of entity requires a new
- * subclass to be derived from this class. Since events are associated to a
- * single Entity, the method executing the changes of state of a specific entity
- * gets that entity passed as a parameter. The scheduler takes care that this is
- * done at the specified point of simulation time.
+ * at distinct points of simulation time.<p>
+ * For events changing the state of <b>two</b> or <b>three</b> entities,
+ * refer to <code>EventOf2Entities</code> and <code>EventOf3Entities</code>.
+ * Events not associated to a specific entity are based on <code>ExternalEvent</code>.
  * <p>
  * For type safety it is recommended to generically assign the entity type an
- * event operates on by using the generic type
- * <code>Event&lt;EntityOperatingOn&gt;</code> where
- * <code>EntityOperatingOn</code> is derived from <code>Entity</code>.
+ * Event operates on by using the generic type
+ * <code>Event&lt;E&gt;</code> where
+ * <code>E</code> is derived from <code>Entity</code>.
  * <p>
- * Events should be used one time only. They are created to be scheduled
- * together with a specific entity, change that entity's state at the scheduled
- * point of simulation time and are destroyed by Java's garbage collector after
- * use. They could be reused but at a certain risk of inconsistent states. Since
- * each object of a class that is derived from the class
- * <code>Schedulable</code> has its unique identification number added as a
- * suffix to its name, reusing Event objects would make one Event responsible
- * for several distinct changes in a model at different simulation times. This
- * comes with the danger of of confusing the model's trace and making it more
- * difficult to debug a faulty model implementation. Each type of Event needed
- * for a model requires a new subclass of Event to be derived by the user.
- * <p>
- * Embed the changes of state for the specific entity associated with this event
- * by overriding the abstract method <code>eventRoutine(Entity e)</code>. Events
- * that do not manipulate a single entity but act on the model's state on a more
- * general matter are defined by external events, a subclass of this class.
+ * All event object should be used only once. Implement the changes of state for the 
+ * specific entity associated with this event by overriding the abstract method 
+ * <code>eventRoutine(E who)</code>.
  * 
  * @see Entity
  * @see ExternalEvent
+ * @see EventOf2Entities
+ * @see EventOf3Entities
  * @see TimeInstant
  * @see TimeSpan
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -55,15 +41,8 @@ package desmoj.core.simulator;
  * permissions and limitations under the License.
  *
  */
-public abstract class Event<E extends Entity> extends Schedulable {
+public abstract class Event<E extends Entity> extends EventAbstract {
 
-	/**
-	 * The realTime deadline for this event in nanoseconds. In case of a
-	 * real-time execution (i. e. the execution speed rate is set to a positive
-	 * value) the Scheduler will produce a warning message if a deadline is
-	 * missed.
-	 */
-	private long realTimeConstraint;
 
 	/**
 	 * Creates a new event of the given model, with the given name and trace
@@ -81,16 +60,21 @@ public abstract class Event<E extends Entity> extends Schedulable {
 	public Event(Model owner, String name, boolean showInTrace) {
 
 		super(owner, name, showInTrace);
+		this.numberOfEntities = 1;
 
 	}
 
 	/**
 	 * Implement this abstract method to express the changes of state this event
 	 * does to a single entity. This event is related to the entity it has been
-	 * scheduled with. That entity is given note that since class
+	 * scheduled with. That Entity is given note that since class
 	 * <code>SimProcess</code> inherits from class <code>Entity</code>, an event
 	 * can also be given a process to operate on. In this case, the process is
 	 * scheduled and manipulated by this event just like an entity.
+	 * 
+	 * Implement this abstract method to express the changes of state this event
+     * does to an entity (as <code>SimProcess</code> is a subclass of 
+     * <code>Entity</code>, a process can be passed as well).
 	 * <p>
 	 * For type safety, it is recommended to derive your events from the generic
 	 * type <code>Event&lt;EntityOperatingOn&gt;</code> where
@@ -100,61 +84,30 @@ public abstract class Event<E extends Entity> extends Schedulable {
 	 * <p>
 	 * Should you decide to derive your event from the raw type
 	 * <code>Event</code> (which is not recommended), please take extra care in
-	 * checking the given entity parameter to your special eventRoutine since
-	 * any subtype of entity will be accepted! If your model uses several
+	 * checking the given Entity parameter to your special eventRoutine since
+	 * any subtype of Entity will be accepted! If your model uses several
 	 * different entity types, chances are that while developing the model,
-	 * wrong entity types might be passed. If your IDE does not support
-	 * debugging, use following lines at the beginning of each
-	 * <code>EventRoutine</code> to check for proper types. Checking types in
-	 * java is easily done by using the <code>instanceof</code> operator as i.e.
-	 * in :
-	 * <p>
-	 * 
-	 * <pre>
-	 * &lt;code&gt;
-	 * if (!(who instanceof MySpecialEntityClass)) {
-	 * 	return; // not correct type, so this method won't do anything about it
-	 * }
-	 * &lt;/code&gt;
-	 * </pre>
+	 * wrong entity types might be passed. 
 	 * 
 	 * @param who
-	 *            Entity : The entity associated to this event. In case you have
-	 *            derived a subclass from the raw class Event, do not forget to
-	 *            cast its type when accessing special attributes of derived
-	 *            entities.
+	 *            Entity : The Entity associated to this event.
 	 */
 	public abstract void eventRoutine(E who);
 
-	/**Returns the realTime deadline for this event (in nanoseconds). In case of a
-	 * real-time execution (i. e. the execution speed rate is set to a positive
-	 * value) the Scheduler will produce a warning message if a deadline is
-	 * missed.
-	 * 
-	 * @return the realTimeConstraint in nanoseconds
-	 */
-	public long getRealTimeConstraint() {
-		return realTimeConstraint;
-	}
-	
-	/**
-	 * Tests if this event actually is an external event which is not used for
-	 * modelling but to control the experiment to act at certain points of
-	 * simulation time. External events must not be connected to an entity.
-	 * 
-	 * @return boolean : Is <code>true</code> if this is an instance of class
-	 *         <code>ExternalEvent</code>,<code>false</code> otherwise
-	 */
-	public boolean isExternal() {
-
-		return (this instanceof ExternalEvent);
-
-	}
-
+    /**
+     * Schedules this event to act on the given entity at a certain point in 
+     * simulation time.
+     * 
+     * @param who
+     *            E : The first entity to be manipulated by this event
+     * @param instant
+     *            TimeInstant : The point in simulation time this event is
+     *            scheduled to happen.
+     */
 	public void schedule(E who, TimeInstant instant) {
 
 		if ((instant == null)) {
-			sendWarning("Can't schedule event!", "Event : " + getName()
+			sendWarning("Can't schedule Event!", "Event : " + getName()
 					+ " Method: schedule(Entity who, TimeInstant instant)",
 					"The TimeInstant given as parameter is a null reference.",
 					"Be sure to have a valid TimeInstant reference before calling "
@@ -163,7 +116,7 @@ public abstract class Event<E extends Entity> extends Schedulable {
 		}
 
 		if ((who == null)) {
-			sendWarning("Can't schedule event!", "Event : " + getName()
+			sendWarning("Can't schedule Event!", "Event : " + getName()
 					+ " Method: schedule(Entity who, TimeInstant instant)",
 					"The Entity given as parameter is a null reference.",
 					"Be sure to have a valid Entity reference for this event to "
@@ -172,7 +125,7 @@ public abstract class Event<E extends Entity> extends Schedulable {
 		}
 
 		if (isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName()
 					+ " Method: schedule(Entity wo, TimeInstant instant)",
 					"The event to be scheduled is already scheduled.",
@@ -181,20 +134,8 @@ public abstract class Event<E extends Entity> extends Schedulable {
 			return; // was already scheduled
 		}
 
-		if (who.isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Entity : "
-					+ getName()
-					+ " Method: schedule(Entity who, TimeInstant instant)",
-					"The Entity '" + who.getName()
-							+ "'to be scheduled with this "
-							+ "event is already scheduled.",
-					"Use method reSchedule(TimeInstant instant) to shift the Entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
-		}
-
 		if (!isModelCompatible(who)) {
-			sendWarning("Can't schedule event! Command ignored", "Entity : "
+			sendWarning("Can't schedule Event! Command ignored", "Entity : "
 					+ getName()
 					+ " Method: schedule(Entity who, TimeInstant instant)",
 					"The Entity to be scheduled with this event is not "
@@ -202,49 +143,35 @@ public abstract class Event<E extends Entity> extends Schedulable {
 					"Make sure to use compatible model components only.");
 			return; // is not compatible
 		}
-
-		if (currentlySendTraceNotes()) {
-			if (who == currentEntity()) {
-				if (TimeInstant.isEqual(instant, presentTime()))
-					sendTraceNote("schedules '" + getName() + "' of itself now");
-				else
-					sendTraceNote("schedules '" + getName() + "' of itself at "
-							+ instant.toString());
-
-			} else {
-				if (TimeInstant.isEqual(instant, presentTime()))
-					sendTraceNote("schedules '" + getName() + "' of '"
-							+ who.getName() + "' now");
-				else
-					sendTraceNote("schedules '" + getName() + "' of '"
-							+ who.getName() + "' at " + instant.toString());
-			}
-		}
-
+		
+		// generate trace
+		this.generateTraceForScheduling(who, null, null, null, null, instant, null);
+		
+		// schedule Event
 		getModel().getExperiment().getScheduler().schedule(who, this, instant);
 
 		if (currentlySendDebugNotes()) {
-			sendDebugNote("schedules on eventlist<br>"
+			sendDebugNote("schedules on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
 
 	/**
-	 * Schedules this event to act on the given entity at the specified point in
+	 * Schedules this event to act on the given Entity at the specified point in
 	 * simulation time. The point of time is given as an offset to the current
 	 * simulation time as displayed by the simulation clock.
 	 * 
 	 * @param who
-	 *            Entity : The entity this event happens to
+	 *            E : The Entity this event happens to
 	 * @param dt
 	 *            TimeSpan : The offset to the current simulation time this
-	 *            event is to happen
+	 *            Event is to happen
 	 * @see SimClock
 	 */
 	public void schedule(E who, TimeSpan dt) {
 		if ((dt == null)) {
-			sendWarning("Can't schedule event!", "Event : " + getName()
+			sendWarning("Can't schedule Event!", "Event : " + getName()
 					+ " Method: schedule(Entity who, TimeSpan dt)",
 					"The TimeSpan given as parameter is a null reference.",
 					"Be sure to have a valid TimeSpan reference before calling "
@@ -253,7 +180,7 @@ public abstract class Event<E extends Entity> extends Schedulable {
 		}
 
 		if ((who == null)) {
-			sendWarning("Can't schedule event!", "Event : " + getName()
+			sendWarning("Can't schedule Event!", "Event : " + getName()
 					+ " Method: schedule(Entity who, TimeSpan dt)",
 					"The Entity given as parameter is a null reference.",
 					"Be sure to have a valid Entity reference for this event to "
@@ -262,7 +189,7 @@ public abstract class Event<E extends Entity> extends Schedulable {
 		}
 
 		if (isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName() + " Method: schedule(Entity wo, TimeSpan dt)",
 					"The event to be scheduled is already scheduled.",
 					"Use method events only once, do not use them multiple "
@@ -270,63 +197,104 @@ public abstract class Event<E extends Entity> extends Schedulable {
 			return; // was already scheduled
 		}
 
-		if (who.isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Entity : "
-					+ getName() + " Method: schedule(Entity who, TimeSpan dt)",
-					"The Entity '" + who.getName()
-							+ "'to be scheduled with this "
-							+ "event is already scheduled.",
-					"Use method reSchedule(TimeSpan dt) to shift the Entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
-		}
-
 		if (!isModelCompatible(who)) {
-			sendWarning("Can't schedule event! Command ignored", "Entity : "
+			sendWarning("Can't schedule Event! Command ignored", "Entity : "
 					+ getName() + " Method: schedule(Entity who, TimeSpan dt)",
 					"The Entity to be scheduled with this event is not "
 							+ "modelcompatible.",
 					"Make sure to use compatible model components only.");
 			return; // is not compatible
 		}
-
-		if (currentlySendTraceNotes()) {
-			if (who == currentEntity()) {
-				if (dt == TimeSpan.ZERO)
-					sendTraceNote("schedules '" + getName() + "' of itself now");
-				else
-					sendTraceNote("schedules '" + getName() + "' of itself at "
-							+ TimeOperations.add(presentTime(), dt).toString());
-
-			} else {
-				if (dt == TimeSpan.ZERO)
-					sendTraceNote("schedules '" + getName() + "' of '"
-							+ who.getName() + "' now");
-				else
-					sendTraceNote("schedules '" + getName() + "' of '"
-							+ who.getName() + "' at "
-							+ TimeOperations.add(presentTime(), dt).toString());
-			}
-		}
-
+		
+	    // generate trace
+        this.generateTraceForScheduling(who, null, null, null, null, TimeOperations.add(presentTime(), dt), null);
+        
+        // schedule Event
 		getModel().getExperiment().getScheduler().schedule(who, this, dt);
 
 		if (currentlySendDebugNotes()) {
-			sendDebugNote("schedules on eventlist<br>"
+			sendDebugNote("schedules on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
+	
+    /**
+     * Schedules this event to act on the given Entity at a point in
+     * simulation time determined by a sample from the distribution provided
+     * to the method. The sample is interpreted as offset from the the present 
+     * time in the reference time unit.
+     * 
+     * @param who
+     *            E : The Entity this event happens to
+     * @param dist
+     *            NumericalDist<?> : Numerical distribution to sample the 
+     *            offset to the current simulation time from
+     * @see SimClock
+     */
+    public void schedule(E who, NumericalDist<?> dist) {
+        
+        if ((dist == null)) {
+            sendWarning("Can't schedule Event!", "Event : " + getName()
+                    + " Method: schedule(Entity who, NumericalDist<?> dist)",
+                    "The NumericalDist given as parameter is a null reference.",
+                    "Be sure to have a valid NumericalDist reference before calling "
+                            + "this method.");
+            return; // no proper parameter
+        }
+
+        if ((who == null)) {
+            sendWarning("Can't schedule Event!", "Event : " + getName()
+                    + " Method: schedule(Entity who, NumericalDist<?> dist)",
+                    "The Entity given as parameter is a null reference.",
+                    "Be sure to have a valid Entity reference for this event to "
+                            + "be scheduled with.");
+            return; // no proper parameter
+        }
+
+        if (isScheduled()) {
+            sendWarning("Can't schedule Event! Command ignored.", "Event : "
+                    + getName() + " Method: schedule(Entity wo, NumericalDist<?> dist)",
+                    "The event to be scheduled is already scheduled.",
+                    "Use method events only once, do not use them multiple "
+                            + "times.");
+            return; // was already scheduled
+        }
+
+        if (!isModelCompatible(who)) {
+            sendWarning("Can't schedule Event! Command ignored", "Entity : "
+                    + getName() + " Method: schedule(Entity who, NumericalDist<?> dist)",
+                    "The Entity to be scheduled with this event is not "
+                            + "modelcompatible.",
+                    "Make sure to use compatible model components only.");
+            return; // is not compatible
+        }
+        
+        // determine time span
+        TimeSpan dt = dist.sampleTimeSpan();
+        
+        // generate trace
+        this.generateTraceForScheduling(who, null, null, null, null, TimeOperations.add(presentTime(), dt), " Sampled from " + dist.getQuotedName() + ".");
+        
+        // schedule Event
+        getModel().getExperiment().getScheduler().schedule(who, this, dt);
+
+        if (currentlySendDebugNotes()) {
+            sendDebugNote("schedules on EventList<br>"
+                    + getModel().getExperiment().getScheduler().toString());
+        }
+
+    }
 
 	/**
 	 * @deprecated Replaced by schedule(E who,TimeSpan dt). Schedules this event
-	 *             to act on the given entity at the specified point in
+	 *             to act on the given Entity at the specified point in
 	 *             simulation time. The point of time is given as an offset to
 	 *             the current simulation time as displayed by the simulation
 	 *             clock.
 	 * 
 	 * @param who
-	 *            Entity : The entity this event happens to
+	 *            E : The Entity this event happens to
 	 * @param dt
 	 *            SimTime : The offset to the current simulation time this event
 	 *            is to happen
@@ -338,43 +306,43 @@ public abstract class Event<E extends Entity> extends Schedulable {
 	}
 
 	/**
-	 * Schedules this event to act on the given entity directly after the given
-	 * schedulable is already set to be activated. Note that this event's point
-	 * of simulation time will be set to be the same as the schedulable's time.
-	 * Thus this event will occur directly after the given schedulable but the
-	 * simulation clock will not change. Make sure that the schedulable given as
+	 * Schedules this event to act on the given Entity directly after the given
+	 * Schedulable is already set to be activated. Note that this event's point
+	 * of simulation time will be set to be the same as the Schedulable's time.
+	 * Thus this event will occur directly after the given Schedulable but the
+	 * simulation clock will not change. Make sure that the Schedulable given as
 	 * parameter is actually scheduled.
 	 * 
-	 * @param before
-	 *            Schedulable : The schedulable this entity should be scheduled
+	 * @param after
+	 *            Schedulable : The Schedulable this entity should be scheduled
 	 *            after
-	 * @param what
-	 *            Entity : The entity to be manipulated by this event
+	 * @param who
+	 *            E : The Entity to be manipulated by this event
 	 */
 	public void scheduleAfter(Schedulable after, E who) {
 
 		if (who == null) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName() + " Method: scheduleAfter(Schedulable after, "
 					+ "Entity who)",
-					"The entity 'who' given as parameter is a null reference.",
-					"Be sure to have a valid entity reference before calling "
+					"The Entity 'who' given as parameter is a null reference.",
+					"Be sure to have a valid Entity reference before calling "
 							+ "this method.");
 			return; // no proper parameter
 		}
 
 		if (after == null) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName() + " Method: scheduleAfter(Schedulable after, "
 					+ "Entity who)",
-					"The schedulable given as parameter is a null reference.",
-					"Be sure to have a valid schedulable reference for this "
-							+ "event to be scheduled with.");
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
+							+ "Event to be scheduled with.");
 			return; // no proper parameter
 		}
 
 		if (isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName() + " Method: scheduleAfter(Schedulable after, "
 					+ "Entity who)",
 					"The event to be scheduled is already scheduled.",
@@ -384,101 +352,92 @@ public abstract class Event<E extends Entity> extends Schedulable {
 		}
 
 		if (who.isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Entity : "
+			sendWarning("Can't schedule Event! Command ignored.", "Entity : "
 					+ getName() + " Method: scheduleAfter(Schedulable after, "
-					+ "Entity who)", "The entity '" + who.getName()
+					+ "Entity who)", "The Entity '" + who.getName()
 					+ "'to be scheduled with this "
-					+ "event is already scheduled.",
-					"Use method reSchedule(TimeSpan dt) to shift the Entity "
+					+ "Event is already scheduled.",
+					"Use method reSchedule(TimeSpan dt) to shift the entity "
 							+ "to be scheduled at some other point of time.");
 			return; // was already scheduled
 		}
 
 		if (!after.isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName() + " Method: scheduleAfter(Schedulable after, "
-					+ "Entity who)", "The schedulable '" + who.getName()
+					+ "Entity who)", "The Schedulable '" + after.getName()
 					+ "' given as a positioning "
 					+ "reference has to be already scheduled but is not.",
-					"Use method isScheduled() of any schedulable to find out "
+					"Use method isScheduled() of any Schedulable to find out "
 							+ "if it is already scheduled.");
 			return; // was not scheduled
 		}
 
 		if (!isModelCompatible(who)) {
-			sendWarning("Can't schedule event! Command ignored", "Entity : "
+			sendWarning("Can't schedule Event! Command ignored", "Entity : "
 					+ getName() + " Method: scheduleAfter(Schedulable after, "
 					+ "Entity who)",
-					"The entity to be scheduled with this event is not "
+					"The Entity to be scheduled with this event is not "
 							+ "modelcompatible.",
 					"Make sure to use compatible model components only.");
 			return; // is not compatible
 		}
-
-		if (currentlySendTraceNotes()) {
-			if (who == currentEntity()) {
-				sendTraceNote("schedules '" + getName() + "' of itself after '"
-						+ after.getName() + "' at "
-						+ after.getEventNote().getTime().toString());
-
-			} else {
-				sendTraceNote("schedules '" + getName() + "' of '"
-						+ who.getName() + "' after '" + after.getName()
-						+ "' at " + after.getEventNote().getTime().toString());
-			}
-		}
-
+		
+        // generate trace
+        this.generateTraceForScheduling(who, null, null, after, null, after.getEventNotes().get(after.getEventNotes().size()-1).getTime(), null);
+        
+        // schedule Event
 		getModel().getExperiment().getScheduler().scheduleAfter(after, who,
 				this);
 
 		if (currentlySendDebugNotes()) {
 			sendDebugNote("scheduleAfter " + after.getQuotedName()
-					+ " on eventlist<br>"
+					+ " on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
 
 	/**
-	 * Schedules this event to act on the given entity directly before the given
-	 * schedulable is already set to be activated. Note that this event's point
-	 * of simulation time will be set to be the same as the schedulable's time.
-	 * Thus this event will occur directly before the given schedulable but the
-	 * simulation clock will not change. Make sure that the schedulable given as
+	 * Schedules this event to act on the given Entity directly before the given
+	 * Schedulable is already set to be activated. Note that this event's point
+	 * of simulation time will be set to be the same as the Schedulable's time.
+	 * Thus this event will occur directly before the given Schedulable but the
+	 * simulation clock will not change. Make sure that the Schedulable given as
 	 * parameter is actually scheduled.
 	 * 
 	 * @param before
-	 *            Schedulable : The schedulable this entity should be scheduled
+	 *            Schedulable : The Schedulable this entity should be scheduled
 	 *            before
-	 * @param what
-	 *            Entity : The entity to be manipulated by this event
+	 * @param who
+	 *            E : The Entity to be manipulated by this event
 	 */
 	public void scheduleBefore(Schedulable before, E who) {
 
 		if ((who == null)) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName()
 					+ " Method: scheduleBefore(Schedulable before, "
 					+ "Entity who)",
-					"The entity given as parameter is a null reference.",
+					"The Entity given as parameter is a null reference.",
 					"Be sure to have a valid Entity reference before calling "
 							+ "this method.");
 			return; // no proper parameter
 		}
 
 		if ((before == null)) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName()
 					+ " Method: scheduleBefore(Schedulable before, "
 					+ "Entity who)",
-					"The schedulable given as parameter is a null reference.",
-					"Be sure to have a valid schedulable reference for this "
-							+ "event to be scheduled with.");
+					"The Schedulable given as parameter is a null reference.",
+					"Be sure to have a valid Schedulable reference for this "
+							+ "Event to be scheduled with.");
 			return; // no proper parameter
 		}
 
 		if (isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName()
 					+ " Method: scheduleBefore(Schedulable before, "
 					+ "Entity who)",
@@ -489,71 +448,65 @@ public abstract class Event<E extends Entity> extends Schedulable {
 		}
 
 		if (who.isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName()
 					+ " Method: scheduleBefore(Schedulable before, "
-					+ "Entity who)", "The entity '" + who.getName()
+					+ "Entity who)", "The Entity '" + who.getName()
 					+ "'to be scheduled with this "
-					+ "event is already scheduled.",
+					+ "Event is already scheduled.",
 					"Use method reSchedule(TimeSpan dt) to shift the entity "
 							+ "to be scheduled at some other point of time.");
 			return; // was already scheduled
 		}
 
 		if (!before.isScheduled()) {
-			sendWarning("Can't schedule event! Command ignored.", "Event : "
+			sendWarning("Can't schedule Event! Command ignored.", "Event : "
 					+ getName() + " Method: scheduleBefore(Schedulable after, "
-					+ "Entity who)", "The schedulable '" + before.getName()
+					+ "Entity who)", "The Schedulable '" + before.getName()
 					+ "' given as a "
 					+ "positioning reference has to be already scheduled but "
 					+ "is not.",
-					"Use method isScheduled() of any schedulable to find out "
+					"Use method isScheduled() of any Schedulable to find out "
 							+ "if it is already scheduled.");
 			return; // was not scheduled
 		}
 
 		if (!isModelCompatible(who)) {
-			sendWarning("Can't schedule event! Command ignored", "Event : "
+			sendWarning("Can't schedule Event! Command ignored", "Event : "
 					+ getName()
 					+ " Method: scheduleBeforer(Schedulable before, "
 					+ "Entity who)",
-					"The entity to be scheduled with this event is not "
+					"The Entity to be scheduled with this event is not "
 							+ "modelcompatible.",
 					"Make sure to use compatible model components only.");
 			return; // is not compatible
 		}
 
-		if (currentlySendTraceNotes()) {
-			if (who == currentEntity()) {
-				sendTraceNote("schedules '" + getName()
-						+ "' of itself before '" + before.getName() + "' at "
-						+ before.getEventNote().getTime().toString());
-			} else {
-				sendTraceNote("schedules '" + getName() + "' of '"
-						+ who.getName() + "' before '" + before.getName()
-						+ "' at " + before.getEventNote().getTime().toString());
-			}
-		}
-
+        // generate trace
+        this.generateTraceForScheduling(who, null, null, null, before, before.getEventNotes().get(0).getTime(), null);
+        
+        // schedule Event
 		getModel().getExperiment().getScheduler().scheduleBefore(before, who,
 				this);
 
 		if (currentlySendDebugNotes()) {
 			sendDebugNote("scheduleBefore " + before.getQuotedName()
-					+ " on eventlist<br>"
+					+ " on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
 	
-	/**Sets the realTime deadline for this event (in nanoseconds). In case of a
-	 * real-time execution (i. e. the execution speed rate is set to a positive
-	 * value) the Scheduler will produce a warning message if a deadline is
-	 * missed.
-	 * 
-	 * @param realTimeConstraint the realTimeConstraint in nanoseconds to set
-	 */
-	public void setRealTimeConstraint(long realTimeConstraint) {
-		this.realTimeConstraint = realTimeConstraint;
-	}
+    /**
+     * Creates and returns a copy of this event.
+     * Note that subclasses have to implement the interface 
+     * </code>java.lang.Cloneable</code> to actually use this method as 
+     * otherwise, a </code>CloneNotSupportedException</code> will be thrown.
+     * 
+     * @return Event<E> : A copy of this event.
+     */  
+	@SuppressWarnings("unchecked")
+    public Event<E> clone() throws CloneNotSupportedException {
+	    return (Event<E>) super.clone();
+	}	
 }

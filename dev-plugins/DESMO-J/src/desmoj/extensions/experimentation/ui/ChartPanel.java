@@ -36,7 +36,7 @@ import java.lang.Math;
  * GraphicalObserver which contains this object as a private field "myGUI"
  * and a method drawChart(Graphics) for implementing the drawing of the data.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Philip Joschko
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

@@ -26,7 +26,7 @@ import desmoj.extensions.experimentation.util.XMLFilter;
  * </p>
  * based on the ExperimentStarterApplication by Nicolas Knaack.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -387,7 +387,7 @@ public class ExperimentStarterApplet extends JApplet implements
 			text += " - " + modelName;
 
 		// Clean observer desktop
-		GraphicalObserver[] observers = observerDesktop.getChildren();
+		IGraphicalObserver[] observers = observerDesktop.getChildren();
 		for (int i = 0; i < observers.length; i++) {
 			observers[i].deregister();
 		}

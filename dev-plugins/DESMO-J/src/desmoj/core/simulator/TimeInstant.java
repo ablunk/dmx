@@ -3,9 +3,9 @@ package desmoj.core.simulator;
 import static java.util.concurrent.TimeUnit.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
-
-
 
 /**
  * Represents points in simulation time. Is used to indicate points in
@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
  * simulation time is represented by an individual object of this class and
  * offers its own methods for arithmetic operations.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Felix Klueckmann
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -30,9 +30,21 @@ import java.util.concurrent.TimeUnit;
  */
 
 public final class TimeInstant implements Comparable<TimeInstant> {
+    
+    /**
+     * A short cut to the default time zone (thanks to Marcin Kawelski).  
+     */ 
+    private final static TimeZone DEFAULT_PREFERRED_TIMEZONE = TimeZone.getTimeZone("UTC");
 
+    /**
+     * The number of epsilons since the start of the epoch (January 1, 1970, 00:00:00 GMT).  
+     */	
+	private final long _timeInEpsilon;
 	
-	private final long timeInEpsilon;
+	/**
+	 * The preferred time zone for printing this time instant.
+	 */
+	private TimeZone _preferredTimeZone;
 
 	/**
 	 * Constructs a TimeInstant object with the given time value in the time
@@ -48,6 +60,20 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 *            TimeUnit: the TimeUnit
 	 */
 	public TimeInstant(long time, TimeUnit unit) {
+        if (unit == null) { // no time unit given
+            throw (new desmoj.core.exception.SimAbortedException(
+                    new desmoj.core.report.ErrorMessage(
+                            null,
+                            "Can't create TimeInstant object! Simulation aborted.",
+                            "Class : TimeInstant  Constructor : TimeInstant(long, TimeUnit)",
+                            "Time unit passed is null",
+                            "Make sure to pass a non-null time unit. \nNote that before " +
+                              "connecting model and experiment, TimeInstants must explicitly\n" +
+                              "refer to a time unit as the reference unit is not yet defined," +
+                              "e.g. use \nTimeInstant(long time, TimeUnit unit) instead of" +
+                              "TimeInstant(long time).",
+                            null)));
+        }      
 		// System.out.println(time + " " + unit);
 		// System.out.println("Format: "
 		// + new SimpleDateFormat().format(new Date(time)));
@@ -71,8 +97,8 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 				}
 			}
 		}
-		this.timeInEpsilon = TimeOperations.getEpsilon().convert(time, unit);
-		if (timeInEpsilon == Long.MAX_VALUE) {
+		this._timeInEpsilon = TimeOperations.getEpsilon().convert(time, unit);
+		if (_timeInEpsilon == Long.MAX_VALUE) {
 			/*The timeInstant is too big. 
 			(The method TimeUnit.convert(duration,unit)returns Long.MAX_VALUE if
 			the result of the conversion is to big*/
@@ -86,6 +112,8 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 							"Can only create TimeInstant objects which are smaller than Long.MAX_VALUE (in the TimeUnit of epsilon).",
 							null)));
 		}
+		
+		this._preferredTimeZone = DEFAULT_PREFERRED_TIMEZONE;
 	}
 
 	/**
@@ -93,7 +121,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 * unit of the reference time. It represents a time Instant in simulation
 	 * time.
 	 * 
-	 * @param time
+	 * @param timeInReferenceUnit
 	 *            long : The time value of this TimeInstant in the time unit of
 	 *            the reference time.
 	 */
@@ -103,31 +131,114 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	
     /**
      * Constructs a TimeInstant object with the given time value in the time
-     * unit of the reference time. It represents a time Instant in simulation
+     * unit given as second parameter. It represents a time Instant in simulation
      * time.
      * 
      * @param time
      *            double : The time value of this TimeInstant in the time unit of
      *            the reference time.
+     *            
+     * @param unit
+     *            TimeUnit : the time unit
+     */
+    public TimeInstant(double time, TimeUnit unit) {
+        if (unit == null) { // no time unit given
+            throw (new desmoj.core.exception.SimAbortedException(
+                    new desmoj.core.report.ErrorMessage(
+                            null,
+                            "Can't create TimeInstant object! Simulation aborted.",
+                            "Class : TimeInstant  Constructor : TimeInstant(double, TimeUnit)",
+                            "Time unit passed is null",
+                            "Make sure to pass a non-null time unit. \nNote that before " +
+                              "connecting model and experiment, TimeInstants must explicitly\n" +
+                              "refer to a time unit as the reference unit is not yet defined," +
+                              "e.g. use \nTimeInstant(double time, TimeUnit unit) instead of" +
+                              "TimeInstant(double time).",
+                            null)));
+        }   
+        // System.out.println(time + " " + unit);
+        // System.out.println("Format: "
+        // + new SimpleDateFormat().format(new Date(time)));
+        if (unit.compareTo(TimeOperations.getEpsilon()) < 0) {
+            // unit is a finer granularity than epsilon
+            if (TimeOperations.getStartTime() != null) {// Start time has been
+                // set
+                System.out.println("Starttime: "
+                        + TimeOperations.getStartTime());
+                double timeSinceStart = time // time since start...?
+                        - unit.convert(TimeOperations.getStartTime()// Achtung-negative
+                                // werden
+                                // positiv
+                                .getTimeInEpsilon(), TimeOperations
+                                .getEpsilon());
+                System.out.println("TimeSinceStart: " + timeSinceStart);
+                if (timeSinceStart != 0) {
+                    time = time
+                            - (timeSinceStart % unit.convert(1, TimeOperations
+                                    .getEpsilon()));
+                }
+            }
+        }
+        this._timeInEpsilon = (long) (TimeOperations.getEpsilon().convert(1, unit) * time);
+        if (_timeInEpsilon == Long.MAX_VALUE) {
+            /*The timeInstant is too big. 
+            (The method TimeUnit.convert(duration,unit)returns Long.MAX_VALUE if
+            the result of the conversion is to big*/
+            
+            throw (new desmoj.core.exception.SimAbortedException(
+                    new desmoj.core.report.ErrorMessage(
+                            null,
+                            "Can't create TimeInstant object! Simulation aborted.",
+                            "Class : TimeInstant  Constructor : TimeInstant(long,TimeUnit)",
+                            "the TimeInstant is too big. ",
+                            "Can only create TimeInstant objects which are smaller than Long.MAX_VALUE (in the TimeUnit of epsilon).",
+                            null)));
+        }
+        
+        this._preferredTimeZone = DEFAULT_PREFERRED_TIMEZONE;
+    }
+    
+    /**
+     * Constructs a TimeInstant object with the given time value in the time
+     * unit of the reference time. It represents a time Instant in simulation
+     * time.
+     * 
+     * @param timeInReferenceUnit
+     *            double : The time value of this TimeInstant in the time unit of
+     *            the reference time.
      */
     public TimeInstant(double timeInReferenceUnit) {
-        this((long) (timeInReferenceUnit
-                * TimeOperations.getEpsilon().convert(1,
-                        TimeOperations.getReferenceUnit())),
-                TimeOperations.getEpsilon());
+        this(timeInReferenceUnit, TimeOperations.getReferenceUnit());
     }
 
 	/**
 	 * Constructs a TimeInstant object that represents the given instant of time
-	 * specified by the Calendar object.
+	 * specified by the Calendar object. The preferred time zone for output will 
+	 * can either be adopted from the Calendar object or not be set.
 	 * 
 	 * @param calendar
 	 *            Calendar : the instant of time that is represented by this TimeIstant
-	 * @see java.until.Calendar
+	 * @param applyPrefferdTimeZoneFromCalendar
+	 *            boolean : Use the time zone as set in calendar for output (true)
+	 *            or use UTC as default time zone for output (false)  
+	 *                         
+	 * @see java.util.Calendar
 	 */
-	public TimeInstant(Calendar calendar) {
+	public TimeInstant(Calendar calendar, boolean applyPrefferdTimeZoneFromCalendar) {
 		this(calendar.getTimeInMillis(), MILLISECONDS);
+		if (applyPrefferdTimeZoneFromCalendar) 
+		    this._preferredTimeZone = calendar.getTimeZone();
 	}
+	
+	/**
+     * Constructs a TimeInstant object that represents the given instant of time
+     * specified by the Calendar object. UTC will be used as default time zone for output.
+     *                         
+     * @see java.util.Calendar
+     */
+    public TimeInstant(Calendar calendar) {
+        this(calendar, false);
+    }
 
 	/**
 	 * Constructs a TimeInstant object that represents the given instant of time
@@ -135,7 +246,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 * 
 	 * @param date
 	 *            Date : the instant of time that is represented by this TimeInstant
-	 * @see java.until.Date
+	 * @see java.util.Date
 	 */
 	public TimeInstant(Date date) {
 		this(date.getTime(), MILLISECONDS);
@@ -149,7 +260,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 *         the time unit of epsilon
 	 */
 	public long getTimeInEpsilon() {
-		return timeInEpsilon;
+		return _timeInEpsilon;
 	}
 
 	/**
@@ -164,7 +275,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 *         would positively overflow.
 	 */
 	public long getTimeTruncated(TimeUnit unit) {
-		return unit.convert(timeInEpsilon, TimeOperations.getEpsilon());
+		return unit.convert(_timeInEpsilon, TimeOperations.getEpsilon());
 	}
 
 	/**
@@ -187,8 +298,8 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 * unit given as a parameter. If the parameter has a coarser granularity
 	 * than epsilon the returned value will be rounded, so lose precision.
 	 * 
-	 * @param TimeUnit
-	 *            : the TimeUnit
+	 * @param unit
+	 *            the TimeUnit
 	 * 
 	 * @return long: the time value of the TimeInstant object as a long type in
 	 *         the time unit given as a parameter or Long.MIN_VALUE if
@@ -201,7 +312,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 			long halfAUnitInEpsilon = TimeOperations.getEpsilon().convert(1,
 					unit) / 2;
 			long durationInUnitTruncated = getTimeTruncated(unit);
-			long difference = timeInEpsilon
+			long difference = _timeInEpsilon
 					- TimeOperations.getEpsilon().convert(
 							durationInUnitTruncated, unit);
 			// if the time value in the unit Epsilon is bigger than
@@ -230,6 +341,30 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	public long getTimeRounded() {
 		return getTimeRounded(TimeOperations.getReferenceUnit());
 	}
+	
+   /**
+     * Returns the value of this TimeInstant object as a Calender object.
+     * Note that the TimeZone of the Calender object returend is set 
+     * to this TimeInstant's preferred TimeZone (which defaults to UTC
+     * unless set differently).
+     * 
+     * @return Calendar: a Calendar representation of this TimeInstant
+     */
+    public Calendar getTimeAsCalender() {
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.setTimeInMillis(this.getTimeRounded(TimeUnit.MILLISECONDS));
+        cal.setTimeZone(this._preferredTimeZone);
+        return cal;
+    }
+    
+    /**
+     * Returns the value of this TimeInstant object as a Date object.
+     * 
+     * @return Date: a Date representation of this TimeInstant
+     */
+    public Date getTimeAsDate() {
+        return new Date(this.getTimeRounded(TimeUnit.MILLISECONDS));
+    }	
 
 	/**
 	 * Returns the value of this TimeInstant object as a double type in the time
@@ -239,7 +374,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 *         in the time unit given as a parameter
 	 */
 	public double getTimeAsDouble(TimeUnit unit) {
-		return timeInEpsilon
+		return _timeInEpsilon
 				/ (double) TimeOperations.getEpsilon().convert(1, unit);
 	}
 
@@ -265,8 +400,33 @@ public final class TimeInstant implements Comparable<TimeInstant> {
     public double getTimeValue() {
         return getTimeAsDouble();
     }
+    
+    /**
+     * The preferred time zone for printing this time instant.
+     * 
+     * @return TimeZone: the time zone to use for printing this TimeInstant.
+     */
+    public TimeZone getPreferredTimeZone() {
+        return this._preferredTimeZone;
+    }
 
-	/**
+    /**
+     * Sets the preferred time zone for printing this time instant.
+     * Note that this time zone does not affect the internal representation
+     * of this TimeInstant (stored as multiple of Experiment's epsilon
+     * since the start of the epoch, i.e. January 1, 1970, 00:00:00 GMT);
+     * the preferred TimeZone just servers TimeFormatters generating a
+     * convenient output.  
+     * 
+     * @param preferredTimeZone
+     *            java.util.TimeZone : The time value of this TimeInstant in the time unit of
+     *            the reference time.
+     */
+    public void setPreferredTimeZone(TimeZone preferredTimeZone) {
+        this._preferredTimeZone = preferredTimeZone;
+    }
+
+    /**
 	 * Checks if the first of two points of simulation time is before the
 	 * second. Before means, that the time value of TimeInstant a is smaller and
 	 * hence "earlier" than TimeInstant b. Note that this is a static method
@@ -281,7 +441,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 *            TimeInstant : second comparand
 	 */
 	public static boolean isBefore(TimeInstant a, TimeInstant b) {
-		return (a.timeInEpsilon < b.timeInEpsilon);
+		return (a._timeInEpsilon < b._timeInEpsilon);
 	}
 
 	/**
@@ -299,7 +459,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 *            TimeInstant : second comparand
 	 */
 	public static boolean isAfter(TimeInstant a, TimeInstant b) {
-		return (a.timeInEpsilon > b.timeInEpsilon);
+		return (a._timeInEpsilon > b._timeInEpsilon);
 	}
 
 	/**
@@ -337,7 +497,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 *            TimeInstant : second comparand
 	 */
 	public static boolean isEqual(TimeInstant a, TimeInstant b) {
-		return (a.timeInEpsilon == b.timeInEpsilon);
+		return (a._timeInEpsilon == b._timeInEpsilon);
 	}
 
 	/**
@@ -359,17 +519,57 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	public static boolean isBeforeOrEqual(TimeInstant a, TimeInstant b) {
 		return (isBefore(a, b) || isEqual(a, b));
 	}
+	
+    /**
+     * Determines that last instant prior to this instant at which 
+     * a new period of the unit provided "begins", which means smaller
+     * units are zero. <br/>
+     * Examples: Assume this TimeInstant is 28.12.2011 11:23:45:678. <br\>
+     * Calling <code>getBeginOf(TimeUnit.TimeUnit.DAYS)</code> yields
+     * 28.12.2011 00:00:00:000 (begin of current hour).<br\>
+     * Calling <code>getBeginOf(TimeUnit.TimeUnit.MINUTES)</code> yields
+     * 28.12.2011 11:23:00:000 (begin of current day).<br\>
+     * Note that days are interpreted with respect to this instant's
+     * preferred time zone.     
+     *
+     * @param smallestUnit
+     *            TimeUnit : the unit to begin (i.e. smaller units set to zero);
+     *            must be TimeUnit.DAYS, TimeUnit.HOURS, TimeUnit.MINUTES, TimeUnit.SECONDS or TimeUnit.MILLISECONDS.
+     * 
+     * @return TimeInstant: The TimeInstant at which the day/hour/minute/second/millisecond
+     *            of the this TimeInstant has begun.
+     */
+    public TimeInstant getBeginOf(TimeUnit smallestUnit){
+        
+        Calendar cal = GregorianCalendar.getInstance(this._preferredTimeZone);
+        cal.setTimeInMillis(this.getTimeTruncated(TimeUnit.MILLISECONDS));
+        
+        switch (smallestUnit) {
+            case DAYS:
+                cal.set(Calendar.HOUR_OF_DAY, 0);            
+            case HOURS:
+                cal.set(Calendar.MINUTE, 0);
+            case MINUTES:
+                cal.set(Calendar.SECOND, 0);
+            case SECONDS: 
+                cal.set(Calendar.MILLISECOND, 0);
+            case MILLISECONDS:
+            default:
+                // nothing to as units smaller than milliseconds are truncated above    
+        }
+        return new TimeInstant(cal, true);
+    }
 
-	/**
-	 * Returns a hash code value for the object. This methode overides
-	 * java.lang.Object.hashCode().The method is supported for the benefit of
-	 * hashtables such as those provided by java.util.Hashtable.
-	 * 
-	 * @return: int: a hash code value for this TimeInstant.
-	 */
+    /**
+     * Returns a hash code value for the object. This method overrides
+     * java.lang.Object.hashCode() to support efficient treatment in
+     * HashMaps.
+     * 
+     * @return: int: A hash code value for this TimeInstant.
+     */
 	@Override
 	public int hashCode() {
-		return (int) (this.timeInEpsilon ^ (this.timeInEpsilon >>> 32));
+		return (int) (this._timeInEpsilon ^ (this._timeInEpsilon >>> 32));
 	}
 
 	/**
@@ -378,7 +578,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 * point of time as this TimeInstant; false otherwise. This method overrides
 	 * java.lang.Object.equals()
 	 * 
-	 * @param: object: the reference object with which to compare.
+	 * @param o the reference object with which to compare.
 	 * @return: true if the obj argument is a TimeInstant and represents the
 	 *          same point of time as this TimeInstant; false otherwise.
 	 */
@@ -394,7 +594,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 * Compares the given TimeInstant to this TimeInstant. This method
 	 * implements the Comparable<TimeInstant> Interface
 	 * 
-	 * @param : TimeSpan : The TimeInstant to be compared to this TimeInstant
+	 * @param anotherInstant : The TimeInstant to be compared to this TimeInstant
 	 * 
 	 * @return: int: Returns a negative integer, zero, or a positive integer as
 	 *          this TimeInstant is before, at the same time, or after the given
@@ -415,7 +615,7 @@ public final class TimeInstant implements Comparable<TimeInstant> {
 	 * TimeFormatter.
 	 * 
 	 * @see java.lang.Object#toString()
-	 * @see desmoj.core.TimeFormatter
+	 * @see desmoj.core.simulator.TimeFormatter
 	 */
 	public String toString() {
 		return TimeOperations.formatTimeInstant(this);
@@ -425,10 +625,10 @@ public final class TimeInstant implements Comparable<TimeInstant> {
      * Returns the String Representation of this TimeInstant according to the
      * TimeFormatter, truncating digits after the decimal point if necessary.
      * 
-     * @param int : Maximum number of digits after decimal point 
+     * @param digits Maximum number of digits after decimal point 
      * 
      * @see java.lang.Object#toString()
-     * @see desmoj.core.TimeFormatter
+     * @see desmoj.core.simulator.TimeFormatter
      */
     public String toString(int digits) {
         

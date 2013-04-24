@@ -15,7 +15,7 @@ import desmoj.core.simulator.SimProcess;
  * 
  * @see SimProcess
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,7 +68,7 @@ public abstract class ExternalTransporter extends SimProcess {
 	 */
 	public ExternalTransporter(Model owner, String name, long nImportGoods,
 			long nExportGoods, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, showInTrace); // make a sim-process
 
 		// check the number of import goods
 		if (nImportGoods < 0) {

@@ -1,12 +1,11 @@
 package desmoj.extensions.applicationDomains.production;
 
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Condition;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.ModelComponent;
 import desmoj.core.simulator.QueueBased;
 import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
 
 /**
  * A TransportTerminal is a place where a number of transporters (default are
@@ -19,7 +18,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see SimpleTransporter
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -52,7 +51,7 @@ public class TransportTerminal extends ModelComponent {
 	private int capacity = 1;
 
 	/**
-	 * The maximum number of transporters in the waiting queue.
+	 * The maximum number of transporters in the waiting-queue.
 	 */
 	private int transporterQCapac;
 
@@ -60,13 +59,13 @@ public class TransportTerminal extends ModelComponent {
 	 * The random number stream determining the time it takes to transport the
 	 * goods.
 	 */
-	private desmoj.core.dist.RealDist transportTimeStream;
+	private NumericalDist<?> transportTimeStream;
 
 	/**
 	 * The random number stream determining the time it takes the transporters
 	 * to return to their TransportTerminal.
 	 */
-	private desmoj.core.dist.RealDist returnTimeStream;
+	private NumericalDist<?> returnTimeStream;
 
 	/**
 	 * The <code>TransportJunction</code> terminal the transporters are
@@ -105,28 +104,28 @@ public class TransportTerminal extends ModelComponent {
 	 *            int : The minimum number of goods the transporters will carry
 	 *            around.
 	 * @param transportTimeStream
-	 *            desmoj.dist.RealDist : The random number stream determining
+	 *            NumericalDist<?> : The random number stream determining
 	 *            the time it takes to transport the goods.
 	 * @param returnTime
-	 *            desmoj.dist.RealDist : The time it takes the transporters to
+	 *            NumericalDist<?> : The time it takes the transporters to
 	 *            return to their TransportTerminal after carrying the goods to
 	 *            their destination.
 	 * @param mSortOrder
-	 *            int : The sort order of the transporters waiting queue. Choose
+	 *            int : The sort order of the transporters waiting-queue. Choose
 	 *            a constant from <code>QueueBased</code> like
 	 *            <code>QueueBased.FIFO</code> or <code>QueueBased.LIFO</code>
 	 *            or ...
 	 * @param mQCapacity
-	 *            int : The capacity of the transporters waiting queue, that is
+	 *            int : The capacity of the transporters waiting-queue, that is
 	 *            how many transporters can be enqueued. Zero (0) means
 	 *            unlimited capacity.
 	 * @param sSortOrder
-	 *            int : The sort order of the goods waiting queue. Choose a
+	 *            int : The sort order of the goods waiting-queue. Choose a
 	 *            constant from <code>QueueBased</code> like
 	 *            <code>QueueBased.FIFO</code> or <code>QueueBased.LIFO</code>
 	 *            or ...
 	 * @param sQCapacity
-	 *            int : The capacity of the goods waiting queue, that is how
+	 *            int : The capacity of the goods waiting-queue, that is how
 	 *            many goods processes can be enqueued. Zero (0) means unlimited
 	 *            capacity.
 	 * @param transportation
@@ -140,8 +139,8 @@ public class TransportTerminal extends ModelComponent {
 	 *            should be displayed in the trace file.
 	 */
 	public TransportTerminal(Model owner, String name, int numOfTransp,
-			int capac, int minLoad, RealDist transportTimeStream,
-			RealDist returnTime, int mSortOrder, int mQCapacity,
+			int capac, int minLoad, NumericalDist<?> transportTimeStream,
+			NumericalDist<?> returnTime, int mSortOrder, int mQCapacity,
 			int sSortOrder, int sQCapacity, Transportation transportation,
 			boolean showInReport, boolean showInTrace) {
 
@@ -262,7 +261,7 @@ public class TransportTerminal extends ModelComponent {
 			SimpleTransporter smpTrans = new SimpleTransporter(owner,
 					"smplTransporter", minLoad, capacity, transportation,
 					homeTerminal, returnTimeStream, showInTrace);
-			smpTrans.activate(new SimTime(0.0));
+			smpTrans.activate();
 		}
 
 	}
@@ -289,10 +288,10 @@ public class TransportTerminal extends ModelComponent {
 	 *            int : The maximum number of goods the SimpleTransporters can
 	 *            carry around.
 	 * @param transportTimeStream
-	 *            desmoj.dist.RealDist : The random number stream determining
+	 *            NumericalDist<?> : The random number stream determining
 	 *            the time it takes to transport the goods.
 	 * @param returnTime
-	 *            desmoj.dist.RealDist : The time it takes the
+	 *            NumericalDist<?> : The time it takes the
 	 *            SimpleTransporters to return to their TransportTerminal after
 	 *            carrying the goods to their destination.
 	 * @param showInReport
@@ -303,7 +302,7 @@ public class TransportTerminal extends ModelComponent {
 	 *            should be displayed in the trace file.
 	 */
 	public TransportTerminal(Model owner, String name, int numOfTransp,
-			int capac, RealDist transportTimeStream, RealDist returnTime,
+			int capac, NumericalDist<?> transportTimeStream, NumericalDist<?> returnTime,
 			boolean showInReport, boolean showInTrace) {
 		// create a TransportTerminal with the given parameters and ...
 		this(owner, name, numOfTransp, capac, 1, // a minimum load of one for
@@ -331,7 +330,7 @@ public class TransportTerminal extends ModelComponent {
 	 *         which comply to the given condition. If no suitable SimProcess is
 	 *         available <code>null</code> will be returned.
 	 * @param cond
-	 *            desmoj.Condition : The condition to which the SimProcesses we
+	 *            desmoj.Condition : The condition to which the sim-processes we
 	 *            are looking for must comply.
 	 */
 	public synchronized SimProcess[] availableSet(Condition cond) {
@@ -375,7 +374,7 @@ public class TransportTerminal extends ModelComponent {
 	 * This method is to be called from a <code>Transporter</code> which wants
 	 * to transport goods. If not enough suitable goods (slave processes) are
 	 * available at the moment, the transporter process will be stored in a
-	 * waiting queue, until enough suitable slaves are available. If the
+	 * waiting-queue, until enough suitable slaves are available. If the
 	 * capacity limit of the queue is reached, the transporter will not be
 	 * enqueued and <code>false</code> will be returned. When enough suitable
 	 * slaves are available their <code>cooperate</code> method (in the class
@@ -406,7 +405,7 @@ public class TransportTerminal extends ModelComponent {
 	 * must be specified in the method <code>check()</code> in a class derived
 	 * from <code>Condition</code>. If not enough suitable goods (slave
 	 * processes) are available at the moment, the transporter process will be
-	 * stored in the waiting queue, until enough suitable slaves are available.
+	 * stored in the waiting-queue, until enough suitable slaves are available.
 	 * If the capacity limit of the queue is reached, the transporter will not
 	 * be enqueued and <code>false</code> returned. When enough suitable
 	 * slaves are available their <code>cooperate</code> method (in the class
@@ -436,7 +435,7 @@ public class TransportTerminal extends ModelComponent {
 	}
 
 	/**
-	 * This method is called from a SimProcess which wants to be transported as
+	 * This method is called from a sim-process which wants to be transported as
 	 * a slave. If no suitable master process (transporter) is available at the
 	 * moment, the slave process will be stored in the slave queue, until a
 	 * suitable transporter is available. If the capacity limit of the slave

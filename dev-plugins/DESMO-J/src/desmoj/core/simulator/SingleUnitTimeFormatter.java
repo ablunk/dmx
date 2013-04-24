@@ -1,6 +1,7 @@
 package desmoj.core.simulator;
 
 import java.util.EnumMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -9,7 +10,7 @@ import java.util.concurrent.TimeUnit;
  * TimeInstant objects like in the following examples: 5.1 , 5.1 SECONDS,
  * 12.035, 12.035 MINUTES.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Felix Klueckmann
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -23,6 +24,10 @@ import java.util.concurrent.TimeUnit;
  *         implied. See the License for the specific language governing
  *         permissions and limitations under the License.
  * 
+ */
+/**
+ * @author goebel
+ *
  */
 public class SingleUnitTimeFormatter implements TimeFormatter {
 	private static Map<TimeUnit, Map<TimeUnit, Long>> timeConstants = new EnumMap<TimeUnit, Map<TimeUnit, Long>>(
@@ -75,31 +80,31 @@ public class SingleUnitTimeFormatter implements TimeFormatter {
 	/**
 	 * The TimeUnit that is used in this TimeFormatter
 	 */
-	private final TimeUnit myTimeUnit;
+	private final TimeUnit _myTimeUnit;
 	/**
 	 * the value of epsilon used in this TimeFormatter
 	 */
-	private final TimeUnit epsilon;
+	private final TimeUnit _epsilon;
 	/**
 	 * A Factor used for unit conversion
 	 */
-	private final long myFactor;
+	private final long _myFactor;
 	/**
 	 * The number of digits after the decimal point which will be displayed for
 	 * the time values.
 	 */
-	protected final long floats;
+	protected final long _floats;
 	
 	/**
 	 * 
 	 */
-	private final long precisionFactor;
+	private final long _precisionFactor;
 
 	/**
 	 * Flag that indicates if the time unit will be included in the time String.
 	 * 
 	 */
-	private final boolean writeUnit;
+	private final boolean _writeUnit;
 
 	/**
 	 * Constructs a DecimalTimeFormatter.
@@ -114,12 +119,12 @@ public class SingleUnitTimeFormatter implements TimeFormatter {
 	 *            time String.
 	 */
 	public SingleUnitTimeFormatter(TimeUnit unit, TimeUnit epsilon, int floats, boolean writeUnit) {
-		this.myTimeUnit = unit;
-		this.epsilon=epsilon;
-		this.floats = floats;
-		this.precisionFactor=(long)java.lang.Math.pow(10, floats);
-		this.writeUnit = writeUnit;
-		this.myFactor=epsilon.convert(1,myTimeUnit);
+		this._myTimeUnit = unit;
+		this._epsilon=epsilon;
+		this._floats = floats;
+		this._precisionFactor=(long)java.lang.Math.pow(10, floats);
+		this._writeUnit = writeUnit;
+		this._myFactor=epsilon.convert(1,_myTimeUnit);
 	}
 	
 	/**Returns the String-Representation of the given TimeInstant
@@ -142,30 +147,37 @@ public class SingleUnitTimeFormatter implements TimeFormatter {
 	private String buildSingleUnitTimeString(long timeValue){
 		StringBuffer timeStringBuffer = new StringBuffer();
 		
-		if (myTimeUnit.compareTo(epsilon) > 0) {
+		if (_myTimeUnit.compareTo(_epsilon) > 0) {
 			// unit is a coarser granularity than epsilon
 			timeStringBuffer.append('.');
 			//append seperator
-			long fractionTime = myTimeUnit.convert((timeValue
-					% myFactor)*precisionFactor,
-					epsilon);
+			long fractionTime = _myTimeUnit.convert((timeValue
+					% _myFactor)*_precisionFactor,
+					_epsilon);
 			
 			String fractionTimeString= Long.toString(fractionTime);
 			char zero = '0';
 			//append as many zeros as needed
-			for (int i = fractionTimeString.length(); i <floats; i++) {
+			for (int i = fractionTimeString.length(); i <_floats; i++) {
 				timeStringBuffer.append(zero);
 			}
 			
 			timeStringBuffer.append(fractionTimeString);
 			
 		}
-		timeStringBuffer.insert(0,Long.toString(myTimeUnit.convert(timeValue,epsilon)));
-		if (writeUnit) {
+		timeStringBuffer.insert(0,Long.toString(_myTimeUnit.convert(timeValue,_epsilon)));
+		if (_writeUnit) {
 			//append the name of the time unit
 			timeStringBuffer.append(' ');
-			timeStringBuffer.append(myTimeUnit.name());
+			timeStringBuffer.append(_myTimeUnit.name());
 		}
 		return timeStringBuffer.toString();
 	}
+
+    /* (non-Javadoc)
+     * @see desmoj.core.simulator.TimeFormatter#usesOnlySingleUnit()
+     */
+	public String getUnit() {
+        return _myTimeUnit.toString().toLowerCase(Locale.ENGLISH);
+    }
 }

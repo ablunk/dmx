@@ -3,6 +3,7 @@ package desmoj.core.statistic;
 import java.util.Observable;
 
 import desmoj.core.simulator.Model;
+import desmoj.core.simulator.TimeSpan;
 
 /**
  * The <code>Aggregate</code> class is simply counting (aggregating) a continuous (i.e. double)
@@ -16,10 +17,10 @@ import desmoj.core.simulator.Model;
  * This must be done by the user in his model! <br>
  * Consider usage of class <code>Count</code> to aggregate integer values. 
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
- * @author modified by Ruth Meyer, Johannes Goebel
+ * @author modified by Ruth Meyer, Johannes G&ouml;bel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -34,30 +35,30 @@ import desmoj.core.simulator.Model;
  *
  */
 
-public class Aggregate extends desmoj.core.statistic.StatisticObject {
+public class Aggregate extends desmoj.core.statistic.StatisticObjectSupportingTimeSpans {
 
 	// ****** attributes ******
 
 	/**
 	 * The minimum of all values so far
 	 */
-	private double min;
+	private double _min;
 
 	/**
 	 * The maximum of all values so far
 	 */
-	private double max;
+	private double _max;
 
 	/** 
 	 * The current value of the aggregate
 	 */
-	private double value;
+	private double _value;
 
 	/**
 	 * Flag indicating if this aggregate will retain its value during a reset.
 	 * Default is false.
 	 */
-	private boolean isResetResistant;
+	private boolean _isResetResistant;
 
 	// ****** methods ******
 
@@ -112,10 +113,10 @@ public class Aggregate extends desmoj.core.statistic.StatisticObject {
 			boolean showInTrace, boolean isResetResistant) {
 		super(ownerModel, name, showInReport, showInTrace);
 
-		this.min = this.max = 0; // no minimum or maximum so far
+		this._min = this._max = 0; // no minimum or maximum so far
 
-		this.value = 0; // nothing aggregated so far
-		this.isResetResistant = isResetResistant; // set resistance flag
+		this._value = 0; // nothing aggregated so far
+		this._isResetResistant = isResetResistant; // set resistance flag
 	}
 
 	/**
@@ -133,7 +134,7 @@ public class Aggregate extends desmoj.core.statistic.StatisticObject {
 	 * @return double : The maximum value observed so far.
 	 */
 	public double getMaximum() {
-		return this.max;
+		return this._max;
 	}
 
 	/**
@@ -142,7 +143,7 @@ public class Aggregate extends desmoj.core.statistic.StatisticObject {
 	 * @return double : The minimum value observed so far.
 	 */
 	public double getMinimum() {
-		return this.min;
+		return this._min;
 	}
 
 	/**
@@ -153,12 +154,21 @@ public class Aggregate extends desmoj.core.statistic.StatisticObject {
 	public void reset() {
 		super.reset(); // reset the Reportable, too.
 
-		this.min = this.max = 0;
-
 		// really reset the value of the aggregate?
-		if (!this.isResetResistant)
-			this.value = 0;
+		if (!this._isResetResistant) {
+		    this._min = this._max = 0;
+			this._value = 0;
+		}
 	}
+	
+    @Override
+    /**
+     * {@inheritDoc}
+     */
+    public void update(TimeSpan t) {
+        this.setShowTimeSpansInReport(true);
+        this.update(t.getTimeAsDouble());
+    }
 
 	/**
 	 * Increments the value of this <code>Aggregate</code> object by the value
@@ -171,14 +181,14 @@ public class Aggregate extends desmoj.core.statistic.StatisticObject {
 	public void update(double n) {
 		incrementObservations(1); // use the method from the Reportable class
 
-		this.value += n; // update current value
+		this._value += n; // update current value
 
-		if (this.value < min) {
-			min = this.value; // update min
+		if (this._value < _min) {
+			_min = this._value; // update min
 		}
 
-		if (this.value > max) {
-			max = this.value; // update max
+		if (this._value > _max) {
+			_max = this._value; // update max
 		}
 
 		traceUpdate(); // leave a message in the trace
@@ -253,6 +263,6 @@ public class Aggregate extends desmoj.core.statistic.StatisticObject {
 	 * @return double : the current value of the aggregate.
 	 */
 	public double getValue() {
-		return this.value;
+		return this._value;
 	}
 } // end class

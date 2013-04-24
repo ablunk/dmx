@@ -10,7 +10,7 @@ import desmoj.core.advancedModellingFeatures.Res;
  * belongs to a certain resource category (resource pool) and has the status
  * ready (can be used) or <code>outOfOrder</code> if it is broken down.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ public class Resource extends ModelComponent {
 	/**
 	 * The reference to the resource pool this resource belongs to.
 	 */
-	private Res resPool;
+	private Res _resPool;
 
 	/**
 	 * The number identifying a Resource. Because it is a class variable each
@@ -43,13 +43,13 @@ public class Resource extends ModelComponent {
 	/**
 	 * The ID number of this Resource object.
 	 */
-	private long idNumber;
+	private long _idNumber;
 
 	/**
 	 * Indicating if this resource is out of order (broken down) and therefore
 	 * can not be used at the moment.
 	 */
-	private boolean outOfOrder;
+	private boolean _outOfOrder;
 
 	// ****** methods ******
 
@@ -59,7 +59,7 @@ public class Resource extends ModelComponent {
 	 * created after the corresponding model object has been instantiated. The
 	 * default preset for the showInTrace option is <code>false</code>.
 	 * 
-	 * @param owner
+	 * @param ownerModel
 	 *            Model : The model this resource is associated to.
 	 * @param name
 	 *            java.lang.String : The name of the resource.
@@ -74,11 +74,11 @@ public class Resource extends ModelComponent {
 	public Resource(Model ownerModel, String name, Res resPool,
 			boolean showInTrace) {
 		super(ownerModel, name, showInTrace); // create the ModelComponent
-		idNumber = resourceNumber++; // increment the ID number
-		rename(name + " resource No. " + idNumber); // set the name
-		this.resPool = resPool; // set the reference to the resource pool
+		_idNumber = resourceNumber++; // increment the ID number
+		rename(name + " resource No. " + _idNumber); // set the name
+		this._resPool = resPool; // set the reference to the resource pool
 		// this resource belongs to
-		this.outOfOrder = false; // this resource can be used
+		this._outOfOrder = false; // this resource can be used
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class Resource extends ModelComponent {
 	 * @return long : The ID number of this resource object.
 	 */
 	public long getidNumber() {
-		return idNumber;
+		return _idNumber;
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class Resource extends ModelComponent {
 	 * @return Res : The resource pool (Res) this resource belongs to.
 	 */
 	public Res getResPool() {
-		return resPool;
+		return _resPool;
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class Resource extends ModelComponent {
 	 * @return boolean : Is this resource out of order at the moment?
 	 */
 	public boolean isOutOfOrder() {
-		return outOfOrder;
+		return _outOfOrder;
 	}
 
 	/**
@@ -120,6 +120,6 @@ public class Resource extends ModelComponent {
 	 *            <code>false</code> if the resource is ready to use.
 	 */
 	public void setOutOfOrder(boolean brokenDown) {
-		outOfOrder = brokenDown;
+		_outOfOrder = brokenDown;
 	}
 }

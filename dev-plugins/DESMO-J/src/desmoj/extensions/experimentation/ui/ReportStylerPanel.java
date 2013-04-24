@@ -49,7 +49,7 @@ import desmoj.extensions.xml.util.XMLHelper;
  * report output shall be shown.
  * </p>
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel, modified by Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -463,19 +463,19 @@ public class ReportStylerPanel extends JPanel {
 			stopTimeField.setValue(stopTime);
 			tabbedTracePane.add(startTimeField, "min. Time");
 			tabbedTracePane.add(stopTimeField, "max. Time");
-			Vector eventList = new Vector();
+			Vector EventList = new Vector();
 			list = root.getElementsByTagName("event");
 			for (int i = 0; i < list.getLength(); i++) {
 				Element current = (Element) list.item(i);
 				Node text = (Text) current.getFirstChild();
 				String currentValue = text.getNodeValue();
-				if (!eventList.contains(currentValue)) {
-					eventList.addElement(currentValue);
+				if (!EventList.contains(currentValue)) {
+					EventList.addElement(currentValue);
 					eventBox.addItem(currentValue);
 				}
 			}
-			eventList.removeAllElements();
-			tabbedTracePane.add(eventBox, "Events");
+			EventList.removeAllElements();
+			tabbedTracePane.add(eventBox, "events");
 			Vector entityList = new Vector();
 			list = root.getElementsByTagName("entity");
 			for (int i = 0; i < list.getLength(); i++) {

@@ -5,7 +5,7 @@ package desmoj.core.report;
  * output about a special distribution have to extend this reporter to add the
  * special values to its report.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,14 +25,14 @@ public class DistributionReporter extends Reporter {
 	 * DistributionReporter - Konstruktorkommentar.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable
+	 *            desmoj.core.simulator.Reportable
 	 */
 	public DistributionReporter(
 			desmoj.core.simulator.Reportable informationSource) {
 
 		super(informationSource);
 
-		numColumns = 7;
+		numColumns = 8;
 		columns = new String[numColumns];
 		entries = new String[numColumns];
 		groupID = 100; // low groupID, so always last in order
@@ -43,7 +43,8 @@ public class DistributionReporter extends Reporter {
 		columns[3] = "Type";
 		columns[4] = "Parameter 1";
 		columns[5] = "Parameter 2";
-		columns[6] = "Seed";
+		columns[6] = "Parameter 3";
+		columns[7] = "Seed";
 		groupHeading = "Distributions";
 
 	}
@@ -67,11 +68,13 @@ public class DistributionReporter extends Reporter {
 			// Type
 			entries[3] = "unnamed distribution";
 			// param1
-			entries[4] = "none";
+			entries[4] = " ";
 			// param2
-			entries[5] = "none";
+			entries[5] = " ";
+			// param3
+			entries[6] = " ";
 			// seed
-			entries[6] = Long.toString(((desmoj.core.dist.Distribution) source)
+			entries[7] = Long.toString(((desmoj.core.dist.Distribution) source)
 					.getInitialSeed());
 
 		} else {

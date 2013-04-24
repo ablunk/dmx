@@ -1,11 +1,11 @@
 package desmoj.core.simulator;
 
 /**
- * External event switching off the debug output for the experiment. The
+ * external event switching off the debug output for the experiment. The
  * messagemanager's channel for debugnotes is switched off to stop forwarding
  * debugnotes to the configured Output.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,4 +48,5 @@ public class ExternalEventDebugOff extends ExternalEvent {
 		ex.getMessageManager().switchOff(Experiment.debugnote);
 
 	}
+
 }

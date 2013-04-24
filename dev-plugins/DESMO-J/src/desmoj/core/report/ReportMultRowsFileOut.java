@@ -1,6 +1,8 @@
 package desmoj.core.report;
 
-//import desmoj.extensions.applicationDomains.production.report.WorkStationReporter;
+import desmoj.core.advancedModellingFeatures.report.StockReporter;
+import desmoj.core.report.HistogramReporter;
+
 
 /**
  * ReportMultRowsFileOut is used to create a file to let the reporters write
@@ -21,9 +23,9 @@ package desmoj.core.report;
  * this type of messages. Errors affecting the java runtime are always displayed
  * on the system's standard output PrintStream.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author of ReportFileOut class : Tim Lechler, modified by Soenke Claassen and
- *         Nicolas Knaak
+ *         Nicolas Knaak, modified by Chr. M&uuml;ller (TH Wildau) 28.11.2012
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -38,6 +40,12 @@ package desmoj.core.report;
  *
  */
 public class ReportMultRowsFileOut extends ReportFileOut {
+    
+    /**
+     * Flag to shift nested reporter descriptions one column if set to 
+     * <code>true</code>.
+     */
+    private static boolean offsetDescriptionsOneColumn = false;
 	
 	/**
 	 * Creates a file to print reports into a HTML page. By opening the file,
@@ -95,10 +103,14 @@ public class ReportMultRowsFileOut extends ReportFileOut {
 			// WorkStationReporter
 			// or two TransportReporter will be written one after the other
 			// @modified by Nick Knaak 6.2.06: Condition 1: isContinuingReporter
-				
+			/*	
 			if (r.isContinuingReporter() && lastReporter.isContinuingReporter()
 					&& (r.getClass().isAssignableFrom(lastReporter.getClass())
 							|| lastReporter.getClass().isAssignableFrom(r.getClass()))) { 
+			*/
+			// modified if condition by Chr. M&uuml;ller (TH Wildau) 28.11.2012
+			if (r.isContinuingReporter() && lastReporter.isContinuingReporter()
+					&& Reporter.isSameGroup(r, lastReporter)) { 
 				formatter.closeTable();
 				// open new table for new XYReporter with no special header
 				formatter.openTable(" ");
@@ -138,20 +150,30 @@ public class ReportMultRowsFileOut extends ReportFileOut {
 		// @modified: Condition 2 - isTwoRowReporter
 		// by Nick Knaak 6.2.06
 		if (r.isTwoRowReporter()) {
-			formatter.openRow(); // open the row for the master queue data
+			 // open the row for the master queue data
+			if(formatter instanceof AbstractTableFormatter) {
+				((AbstractTableFormatter)formatter).openRow(r);			
+			} else {
+				formatter.openRow(); 
+			}
 
 			// write all data of the master queue in this row
 			for (int i = 0; i < r.numColumns(); i++) {
-				formatter.writeCell(entryBuf[i]);
+			    formatter.writeCell(entryBuf[i], 1);
 			}
 
 			formatter.closeRow(); // close the row for the master queue data
 
-			formatter.openRow(); // open the row for the slave queue data
-
+			// open the row for the slave queue data
+			if(formatter instanceof AbstractTableFormatter) {
+				((AbstractTableFormatter)formatter).openRow(r);			
+			} else {
+				formatter.openRow(); 
+			}
+			
 			// write all data of the slave queue in this row
 			for (int i = r.numColumns(); i < (r.numColumns() * 2); i++) {
-				formatter.writeCell(entryBuf[i]);
+                formatter.writeCell(entryBuf[i], 1);
 			}
 
 			formatter.closeRow(); // close the row for the slave queue data
@@ -163,127 +185,126 @@ public class ReportMultRowsFileOut extends ReportFileOut {
 
 				// write all the slave queue rows
 				for (int j = 1; j < numberSlaveQueues; j++) {
-					formatter.openRow();
+					if(formatter instanceof AbstractTableFormatter) {
+						((AbstractTableFormatter)formatter).openRow(r);			
+					} else {
+						formatter.openRow(); 
+					}
 					// open the row for the slave queue data
 
 					// write all data of the slave queue in this row
-					for (int i = (r.numColumns() * (j + 1)); i < (r
-							.numColumns() * (j + 2)); i++) {
-						formatter.writeCell(entryBuf[i]);
+					for (int i = (r.numColumns() * (j + 1)); i < (r.numColumns() * (j + 2)); i++) {
+	                    formatter.writeCell(entryBuf[i], 1);
 					}
 
 					formatter.closeRow();
 					// close the row for the slave queue data
 				}
-			}
+			
+			} else {
+			    
+			    //other overlong Reporters containing more than two rows
+			    int rows = entryBuf.length / r.numColumns;
+			    for (int row = 2; row < rows; row++) {
+			        
+			        // skip if all cells are empty
+			        boolean empty = true;
+                    for (int i = row * r.numColumns(); i < r.numColumns()*(row+1); i++) {
+                        if (entryBuf[i] != null && entryBuf[i].length() > 0) {
+                            empty = false;
+                            break;
+                        }
+                    }
+                    if (empty) continue;  // row empty 
+                        
+     	            // at least one cell non-empty --> continue with output: open new row
+		            if(formatter instanceof AbstractTableFormatter) {
+		                ((AbstractTableFormatter)formatter).openRow(r);         
+		            } else {
+		                formatter.openRow(); 
+		            }
+		            
+		            // write row data 
+		            for (int i = row * r.numColumns(); i < r.numColumns()*(row+1); i++) {
+	                    formatter.writeCell(entryBuf[i], 1);
+		            }
 
-		}
+		            formatter.closeRow(); // close the row 
+			    }
+			    
+			}
+		} // end of two row reporter
 		// --- Modification by N. Knaak (27.11.01): TableReporters are
 		// completely handled below.
 		else if (!(r instanceof TableReporter))
 		// normal handling of all other Reporters
 		{
 			// always write the reporter's content into a table row
-			formatter.openRow();
+			if(formatter instanceof AbstractTableFormatter) {
+				((AbstractTableFormatter)formatter).openRow(r);			
+			} else {
+				formatter.openRow(); 
+			}
 
 			for (int i = 0; i < r.numColumns(); i++) {
-				formatter.writeCell(entryBuf[i]);
+                formatter.writeCell(entryBuf[i], 1);
 			}
 
 			// the row's finished now
 			formatter.closeRow();
+		} // end of single row and no table reporter
+		
+		
+		// ---------- description row, if set -------------------------------
+		
+		if (r.getDescription() != null && r.getDescription().length() > 0) {
+		
+            if(formatter instanceof AbstractTableFormatter) {
+                ((AbstractTableFormatter)formatter).openRow(r);         
+            } else {
+                formatter.openRow(); 
+            }
+            if (offsetDescriptionsOneColumn) {
+                formatter.writeCell("", 1);
+                formatter.writeCell(r.getDescription(), r.numColumns() - 1);
+            } else {
+                formatter.writeCell(r.getDescription(), r.numColumns());
+            }
+    		formatter.closeRow(); // close the row
 		}
+        
+		// ---------- inner reporter ----------------------------------------
 
 		// the HistogramReporter produces a special histogram table
 		if (r instanceof desmoj.core.report.HistogramReporter) {
 			// "Type-Cast"
 			desmoj.core.report.HistogramReporter hr = (desmoj.core.report.HistogramReporter) r;
+			this.innerReport(hr);
+		}
 
-			// copy values in buffer variables for faster access
-			String[] histTitleBuf = hr.getHistColumnTitles();
-			String[][] histEntryBuf = hr.getHistEntries();
+		// extended by Chr. M&uuml;ller (TH Wildau) 28.11.12
+		// the HistogramAccumulateReporter produces a special histogram table
+		if (r instanceof desmoj.core.report.HistogramAccumulateReporter) {
+			// "Type-Cast"
+			desmoj.core.report.HistogramAccumulateReporter har = (desmoj.core.report.HistogramAccumulateReporter) r;
+			this.innerReport(har);
+		}
 
-			formatter.closeTableNoTopTag();
-			// close the normal (Tally-like) Histogram table
-			formatter.openTable(" ");
-			// open table for histogram part with no special header
-			formatter.openRow(); // open header row
-
-			// in case there is not enough data collected
-			if (hr.getObservations() < 3) {
-				formatter
-						.writeCell("not sufficient data for displaying histogram statistics");
-
-				formatter.closeRow();
-			} else // enough data collected to display histogram part
-			{
-				for (int i = 0; i < hr.getHistNumColumns(); i++) {
-					formatter.writeHeadingCell(histTitleBuf[i]);
-				}
-
-				formatter.closeRow();
-
-				// write the HistrogramReporter's content into a table
-
-				// loop through all cells
-				for (int j = 0; j < hr.getNoOfCells() + 2; j++) {
-					formatter.openRow();
-
-					for (int i = 0; i < hr.getHistNumColumns(); i++) {
-						formatter.writeCell(histEntryBuf[j][i]);
-					}
-
-					// the row is finished now
-					formatter.closeRow();
-				}
-			}
+		// the TextHistogramReporter produces a special histogram table
+		if (r instanceof desmoj.core.report.TextHistogramReporter) {
+			// "Type-Cast"
+			desmoj.core.report.TextHistogramReporter thr = (desmoj.core.report.TextHistogramReporter) r;
+			this.innerReport(thr);
 		}
 
 		// the StockReporter produces a special stock report about the two
-		// queues
-		// for the producers and consumers
+		// queues for the producers and consumers
 		// @TODO: Cond 3: isStockReporter
 		if (r instanceof desmoj.core.advancedModellingFeatures.report.StockReporter) {
 			// "Type-Cast"
 			desmoj.core.advancedModellingFeatures.report.StockReporter sr = (desmoj.core.advancedModellingFeatures.report.StockReporter) r;
-
-			// copy values in buffer variables for faster access
-			String[] stockTitleBuf = sr.getStockColumnTitles();
-			String[] stockEntryBuf = sr.getStockEntries();
-
-			formatter.closeTableNoTopTag();
-			// close the normal Stock table (stock part)
-			formatter.openTable(" ");
-			// open table for queues part with no special header
-			formatter.openRow(); // write header row
-
-			// write queues heading
-			for (int i = 0; i < sr.getStockNumColumns(); i++) {
-				formatter.writeHeadingCell(stockTitleBuf[i]);
-			}
-
-			formatter.closeRow();
-
-			// write the producer queue's content into a table
-			formatter.openRow(); // open the row for the producer queue data
-
-			// write all data of the producer queue in this row
-			for (int i = 0; i < sr.getStockNumColumns(); i++) {
-				formatter.writeCell(stockEntryBuf[i]);
-			}
-
-			formatter.closeRow(); // close the row for the producer queue data
-
-			formatter.openRow(); // open the row for the consumer queue data
-
-			// write all data of the consumer queue in this row
-			for (int i = sr.getStockNumColumns(); i < (sr.getStockNumColumns() * 2); i++) {
-				formatter.writeCell(stockEntryBuf[i]);
-			}
-
-			formatter.closeRow(); // close the row for the consumer queue data
-
-		} // end if StockReporter
+			this.innerReport(sr);
+		} 
 
 		// --- The table reporter produces a table of arbitrary length.
 		// (Modification: Nicolas Knaak 27.11.2001)
@@ -292,6 +313,179 @@ public class ReportMultRowsFileOut extends ReportFileOut {
 
 		// remember the last reporter
 		lastReporter = r;
+	}
+	
+	private void innerReport(HistogramReporter hr){
+		// copy values in buffer variables for faster access
+		String[] histTitleBuf = hr.getHistColumnTitles();
+		String[][] histEntryBuf = hr.getHistEntries();
+
+		formatter.closeTableNoTopTag();
+		// close the normal (Tally-like) Histogram table
+		formatter.openTable(" ");
+		// open table for histogram part with no special header
+		formatter.openRow(); // open header row
+
+		// in case there is not enough data collected
+		if (hr.getObservations() < 3) {
+			formatter.writeCell("Insufficient data for displaying histogram statistics", 1);
+			formatter.closeRow();
+		} else // enough data collected to display histogram part
+		{
+			for (int i = 0; i < hr.getHistNumColumns(); i++) {
+				formatter.writeHeadingCell(histTitleBuf[i]);
+			}
+
+			formatter.closeRow();
+
+			// write the HistrogramReporter's content into a table
+
+			// loop through all cells
+			for (int j = 0; j < hr.getNoOfCells() + 2; j++) {
+				if(formatter instanceof AbstractTableFormatter) {
+					((AbstractTableFormatter)formatter).openRow(hr);			
+				} else {
+					formatter.openRow(); 
+				}
+
+				for (int i = 0; i < hr.getHistNumColumns(); i++) {
+					formatter.writeCell(histEntryBuf[j][i], 1);
+				}
+
+				// the row is finished now
+				formatter.closeRow();
+			}
+		}
+
+	}
+
+	private void innerReport(HistogramAccumulateReporter hr){
+		// copy values in buffer variables for faster access
+		String[] histTitleBuf = hr.getHistColumnTitles();
+		String[][] histEntryBuf = hr.getHistEntries();
+
+		formatter.closeTableNoTopTag();
+		// close the normal (Tally-like) Histogram table
+		formatter.openTable(" ");
+		// open table for histogram part with no special header
+		formatter.openRow(); // open header row
+
+		// in case there is not enough data collected
+		if (hr.getObservations() < 3) {
+			formatter.writeCell("Insufficient data for displaying histogram statistics", 1);
+			formatter.closeRow();
+		} else // enough data collected to display histogram part
+		{
+			for (int i = 0; i < hr.getHistNumColumns(); i++) {
+				formatter.writeHeadingCell(histTitleBuf[i]);
+			}
+
+			formatter.closeRow();
+
+			// write the HistrogramReporter's content into a table
+
+			// loop through all cells
+			for (int j = 0; j < hr.getNoOfCells() + 2; j++) {
+				if(formatter instanceof AbstractTableFormatter) {
+					((AbstractTableFormatter)formatter).openRow(hr);			
+				} else {
+					formatter.openRow(); 
+				}
+
+				for (int i = 0; i < hr.getHistNumColumns(); i++) {
+					formatter.writeCell(histEntryBuf[j][i], 1);
+				}
+
+				// the row is finished now
+				formatter.closeRow();
+			}
+		}
+	}
+
+	private void innerReport(TextHistogramReporter thr){
+		// copy values in buffer variables for faster access
+		String[] textHistTitleBuf = thr.getTextHistColumnTitles();
+		String[][] histEntryBuf = thr.getTextHistEntries();
+
+		formatter.closeTableNoTopTag();
+		// close the normal TextHistogram table
+		formatter.openTable(" ");
+		// open table for histogram part with no special header
+		formatter.openRow(); // open header row
+
+		// in case there is not enough data collected
+		if (thr.getObservations() < 3) {
+			formatter
+					.writeCell("Insufficient data for displaying histogram statistics", 1);
+
+			formatter.closeRow();
+		} 
+		else // enough data collected to display histogram part
+		{
+			for (int i = 0; i < thr.getTextHistNumColumns(); i++) {
+				formatter.writeHeadingCell(textHistTitleBuf[i]);
+			}
+
+			formatter.closeRow();
+
+			// write the TextHistrogramReporter's content into a table
+
+			// loop through all observed Strings
+			for (int j = 0; j < thr.getNoOfStrings(); j++) {
+				if(formatter instanceof AbstractTableFormatter) {
+					((AbstractTableFormatter)formatter).openRow(thr);			
+				} else {
+					formatter.openRow(); 
+				}
+
+				for (int i = 0; i < thr.getTextHistNumColumns(); i++) {
+					formatter.writeCell(histEntryBuf[j][i], 1);
+				}
+
+				// the row is finished now
+				formatter.closeRow();
+			}
+		}
+
+	}
+	
+	private void innerReport(StockReporter sr){
+		// copy values in buffer variables for faster access
+		String[] stockTitleBuf = sr.getStockColumnTitles();
+		String[] stockEntryBuf = sr.getStockEntries();
+
+		formatter.closeTableNoTopTag();
+		// close the normal Stock table (stock part)
+		formatter.openTable(" ");
+		// open table for queues part with no special header
+		formatter.openRow(); // write header row
+
+		// write queues heading
+		for (int i = 0; i < sr.getStockNumColumns(); i++) {
+			formatter.writeHeadingCell(stockTitleBuf[i]);
+		}
+
+		formatter.closeRow();
+
+		// write the producer queue's content into a table
+		formatter.openRow(); // open the row for the producer queue data
+
+		// write all data of the producer queue in this row
+		for (int i = 0; i < sr.getStockNumColumns(); i++) {
+			formatter.writeCell(stockEntryBuf[i], 1);
+		}
+
+		formatter.closeRow(); // close the row for the producer queue data
+
+		formatter.openRow(); // open the row for the consumer queue data
+
+		// write all data of the consumer queue in this row
+		for (int i = sr.getStockNumColumns(); i < (sr.getStockNumColumns() * 2); i++) {
+			formatter.writeCell(stockEntryBuf[i], 1);
+		}
+
+		formatter.closeRow(); // close the row for the consumer queue data
+
 	}
 
 	/** Writes a table reporter */
@@ -312,12 +506,12 @@ public class ReportMultRowsFileOut extends ReportFileOut {
 			for (int i = 0; i < header.length; i++) {
 				formatter.openRow();
 				for (int j = 0; j < header[i].length; j++) {
-					formatter.writeCell(header[i][j]);
+					formatter.writeCell(header[i][j], 1);
 				}
 				formatter.closeRow();
 			}
 			formatter.openRow();
-			formatter.writeCell("___");
+			formatter.writeCell("___", 1);
 			formatter.closeRow();
 		}
 
@@ -335,10 +529,20 @@ public class ReportMultRowsFileOut extends ReportFileOut {
 		for (int i = 0; i < rows; i++) {
 			formatter.openRow();
 			for (int j = 0; j < cols; j++) {
-				formatter.writeCell(entryTable[i][j]);
+				formatter.writeCell(entryTable[i][j], 1);
 			}
 			formatter.closeRow();
 		}
 		formatter.closeTable();
 	}
+	
+	
+    /**
+     * Set report output such that nested Reporter descriptions 
+     * are offset by one column, thus improving readability at the expense
+     * of space.
+     */
+    public static void offsetDescriptionsOneColumn() {
+        offsetDescriptionsOneColumn = true;
+    }
 } // end class ReportMultRowsFileOut

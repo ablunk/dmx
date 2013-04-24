@@ -27,7 +27,7 @@ import desmoj.core.simulator.TimeInstant;
  * In contrast to <code>Exceptions</code> and fatal errors, an ErrorMessage
  * does not stop the simulation run or exit the Java runtime.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49,19 +49,19 @@ public class ErrorMessage extends Message {
 	 * circumstances leading to the warning. Use not more than one short
 	 * sentence.
 	 */
-	private String errReason;
+	private String _errReason;
 
 	/*
 	 * Describes in a few sentences how the warning can be prevented in the
 	 * future.
 	 */
-	private String errPrevention;
+	private String _errPrevention;
 
 	/**
 	 * The location that this message was created as a String consisting of
 	 * "Classname.Methodname".
 	 */
-	private String errLocation;
+	private String _errLocation;
 
 	/**
 	 * Creates an errormessage setting its parameters with the given values.
@@ -86,9 +86,9 @@ public class ErrorMessage extends Message {
 		super(origin, errorDescription, errorTime);
 
 		// set the new attributes
-		errLocation = errorLocation;
-		errReason = errorReason;
-		errPrevention = errorPrevention;
+		_errLocation = errorLocation;
+		_errReason = errorReason;
+		_errPrevention = errorPrevention;
 
 	}
 
@@ -100,7 +100,7 @@ public class ErrorMessage extends Message {
 	 */
 	public String getLocation() {
 
-		return errLocation;
+		return _errLocation;
 
 	}
 
@@ -113,7 +113,7 @@ public class ErrorMessage extends Message {
 	 */
 	public String getPrevention() {
 
-		return errPrevention;
+		return _errPrevention;
 
 	}
 
@@ -128,7 +128,7 @@ public class ErrorMessage extends Message {
 	 */
 	public String getReason() {
 
-		return errReason;
+		return _errReason;
 
 	}
 }

@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * following examples: 59 Minutes, 28 Seconds, and 548 Milliseconds could be formatted like
  * O:59:28:548 or 59:28 or 59:28:548:000:000 or 0.59.28.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Felix Klueckmann
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -28,10 +28,11 @@ import java.util.concurrent.TimeUnit;
  */
 public class MultiUnitTimeFormatter implements TimeFormatter {
 
-	private EnumSet<TimeUnit> unitSet;
-	private char separator;
+	private EnumSet<TimeUnit> _unitSet;
+	private char _separator;
 	private static Map<TimeUnit, Integer> numberOfDigits = new EnumMap<TimeUnit, Integer>(
 			TimeUnit.class);
+	private String unit;
 
 	static {
 		numberOfDigits.put(TimeUnit.HOURS, 2);
@@ -57,7 +58,7 @@ public class MultiUnitTimeFormatter implements TimeFormatter {
 	 * and the finest TimeUnit is MILLISECONDS. It would be 30:05 if the coarsest TimeUnit
 	 * is MINUTES and the finest is SECONDS
 	 * 
-	 * @param coarsetUnit
+	 * @param coarsestUnit
 	 * 					TimeUnit: The coarsest TimeUnit
 	 * 
 	 * @param finestUnit
@@ -74,7 +75,7 @@ public class MultiUnitTimeFormatter implements TimeFormatter {
 	 * and the finest TimeUnit is MILLISECONDS. It would be 30:05 if the coarsest TimeUnit
 	 * is MINUTES and the finest is SECONDS. 
 	 * 
-	 * @param coarsetUnit
+	 * @param coarsestUnit
 	 * 					TimeUnit: The coarsest TimeUnit
 	 * 
 	 * @param finestUnit
@@ -83,14 +84,59 @@ public class MultiUnitTimeFormatter implements TimeFormatter {
 	 * 					char: The separator used to separate the TimeUnits.
 	 */
 	public MultiUnitTimeFormatter(TimeUnit coarsestUnit,TimeUnit finestUnit, char separator){
-		if (coarsestUnit.compareTo(finestUnit) < 0) {
-			TimeUnit bufferUnit = coarsestUnit;
-			coarsestUnit = finestUnit;
-			finestUnit = bufferUnit;
-		}
-		this.unitSet = EnumSet.range(finestUnit, coarsestUnit);
-		this.separator=separator;
+		this(coarsestUnit, finestUnit, separator, null);
 	}
+	
+	/**
+     * Use this constructor for a MultiUnitTimeFormatter to choose a different separator than the
+     * default separator ':'.
+     * 30 Minutes and 5 Seconds would be 0:30:05:000 if the coarsest TimeUnit is HOURS
+     * and the finest TimeUnit is MILLISECONDS. It would be 30:05 if the coarsest TimeUnit
+     * is MINUTES and the finest is SECONDS. 
+     * 
+     * @param coarsestUnit
+     *                  TimeUnit: The coarsest TimeUnit
+     * 
+     * @param finestUnit
+     *                  TimeUnit: The finest TimeUnit
+     * @param separator
+     *                  char: The separator used to separate the TimeUnits.
+     * @param unitString
+     *                  String: The String representing the time units in a custom way (will be built if set to <code>null</code>)                   
+     */
+    public MultiUnitTimeFormatter(TimeUnit coarsestUnit,TimeUnit finestUnit, char separator, String unitString){
+        if (coarsestUnit.compareTo(finestUnit) < 0) {
+            TimeUnit bufferUnit = coarsestUnit;
+            coarsestUnit = finestUnit;
+            finestUnit = bufferUnit;
+        }
+        this._unitSet = EnumSet.range(finestUnit, coarsestUnit);
+        this._separator=separator;
+
+        // Build unit string if needed
+        if (unitString != null) {
+            unit = unitString;
+        } else {
+            boolean first = true;
+            StringBuilder unit_buffer = new StringBuilder();
+            for (TimeUnit u : _unitSet) {
+                if (!first) 
+                    unit_buffer.insert(0,_separator); 
+                else
+                    first = false;
+                //changed by Chr. Mueller for case u == Days
+                if(u.equals(TimeUnit.DAYS)){
+                    unit_buffer.insert(0,u.toString().toLowerCase().charAt(0));
+                    unit_buffer.insert(0,u.toString().toLowerCase().charAt(0));
+                }else{
+                    for (int i = 0; i < numberOfDigits.get(u); i++) {
+                        unit_buffer.insert(0,u.toString().toLowerCase().charAt(0));
+                    }
+                }
+            }
+            unit = unit_buffer.toString();
+        }
+    }
 	
 	/**Returns the String-Representation of the given TimeInstant.
 	 *  
@@ -111,9 +157,9 @@ public class MultiUnitTimeFormatter implements TimeFormatter {
 		StringBuffer timeStringBuffer = new StringBuffer();
 		TimeUnit eps = TimeOperations.getEpsilon();
 		//The Iterator BiggerUnit is used to 
-		Iterator<TimeUnit> iteratorBiggerUnit = unitSet.iterator();
+		Iterator<TimeUnit> iteratorBiggerUnit = _unitSet.iterator();
 		iteratorBiggerUnit.next();
-		for (Iterator<TimeUnit> iteratorUnit = unitSet.iterator(); iteratorUnit
+		for (Iterator<TimeUnit> iteratorUnit = _unitSet.iterator(); iteratorUnit
 				.hasNext();) {
 			TimeUnit currentUnit = iteratorUnit.next();
 			long timeCurrentUnit = currentUnit.convert(timeValue, eps);
@@ -125,7 +171,7 @@ public class MultiUnitTimeFormatter implements TimeFormatter {
 						biggerUnit);
 				timeCurrentUnit = timeCurrentUnit % aBiggerUnitAsCurrentUnit;
 				StringBuffer unitStringBuffer = new StringBuffer();
-				unitStringBuffer.append(separator);
+				unitStringBuffer.append(_separator);
 				String unitString=Long.toString(timeCurrentUnit);
 				char zero = '0';
 				//append as many zeros as needed
@@ -143,4 +189,11 @@ public class MultiUnitTimeFormatter implements TimeFormatter {
 
 		return timeStringBuffer.toString();
 	}
+	
+    /* (non-Javadoc)
+     * @see desmoj.core.simulator.TimeFormatter#usesOnlySingleUnit()
+     */
+    public String getUnit() {
+        return unit;
+    }
 }

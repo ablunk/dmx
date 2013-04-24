@@ -9,7 +9,7 @@ import desmoj.core.util.SimRunListener;
  * observer can display itself inside a graphical observer context (e.g. a
  * JDesktop component).
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,7 +24,7 @@ import desmoj.core.util.SimRunListener;
  * permissions and limitations under the License.
  *
  */
-public abstract class GraphicalObserver implements SimRunListener {
+public abstract class GraphicalObserver implements SimRunListener, IGraphicalObserver {
 
 	/** Context to display this graphical observer in */
 	private GraphicalObserverContext context;
@@ -46,72 +46,62 @@ public abstract class GraphicalObserver implements SimRunListener {
 		this.context = c;
 	}
 
-	/**
-	 * Returns the context this observer is displayed in
-	 * 
-	 * @return The context (e.g. a JDesktop component).
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#getContext()
 	 */
 	public GraphicalObserverContext getContext() {
 		return context;
 	}
 
-	/**
-	 * Should return the graphical observer's main GUI component
-	 * 
-	 * @return an AWT or Swing component.
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#getGUI()
 	 */
 	public abstract Component getGUI();
 
-	/** Registers the observer with the context */
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#register()
+	 */
 	public void register() {
 		context.add(this);
 	}
 
-	/** Deregisters the observer from the context */
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#deregister()
+	 */
 	public void deregister() {
 		context.remove(this);
 	}
 
-	/** Sets the observer visible withing the context */
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#setVisible(boolean)
+	 */
 	public void setVisible(boolean visible) {
 		context.setVisible(this, visible);
 	}
 
-	/**
-	 * Sets the observer's main window's size.
-	 * 
-	 * @param width
-	 *            window width
-	 * @param height
-	 *            window height
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#setSize(int, int)
 	 */
 	public void setSize(int width, int height) {
 		context.setSize(this, width, height);
 	}
 
-	/**
-	 * Sets the position of the observer's main window's upper left edge.
-	 * 
-	 * @param x
-	 *            horizontal position
-	 * @param y
-	 *            vertical position
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#setLocation(int, int)
 	 */
 	public void setLocation(int x, int y) {
 		context.setLocation(this, x, y);
 	}
 
-	/**
-	 * Returns the observer's name
-	 * 
-	 * @return name
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#getName()
 	 */
 	public String getName() {
 		return name;
 	}
 
-	/**
-	 * Requests an update of the observer's display from the context.
+	/* (non-Javadoc)
+	 * @see desmoj.extensions.experimentation.ui.IGraphicalObserver#update()
 	 */
 	public void update() {
 		context.update(this);

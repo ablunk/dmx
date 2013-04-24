@@ -7,12 +7,12 @@ import desmoj.core.report.ErrorMessage;
 
 /**
  * Alternative Implementation of the interface <code>EventList</code> using a
- * tree-based list as a container for the EventNotes, yielding both access and
- * removal of event list entries in O(log n) time.
+ * tree-based list as a container for the event-notes, yielding both access and
+ * removal of event-list entries in O(log n) time.
  * 
  * Disadvantages compared to <code>EventVector</code> include
- * non-thread-safeness (however, discrete event simulation should never attempt
- * concurrent modifications of the event list) und the slightly higher memory
+ * non-thread-safeness (however, discrete Event simulation should never attempt
+ * concurrent modifications of the event-list) and the slightly higher memory
  * requirement.
  * 
  * The internal tree-based list is provided by the class
@@ -25,11 +25,11 @@ import desmoj.core.report.ErrorMessage;
  * the root directory of this distribtuon).
  * 
  * @see org.apache.commons.collections.list.TreeList
- * @see EventVector
+ * @see EventVectorList
  * @see EventNote
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
- * @author Tim Lechler, Ruth Meyer, modified by Johannes Göbel
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
+ * @author Tim Lechler, Ruth Meyer, modified by Johannes GÃ¶bel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -46,9 +46,9 @@ import desmoj.core.report.ErrorMessage;
 public class EventTreeList extends EventList {
 
 	/**
-	 * The tree list container used to store the EventNotes.
+	 * The tree list container used to store the event-notes.
 	 */
-	TreeList eTreeList; // The tree list containing all EventNotes.
+	TreeList eTreeList; // The tree list containing all Event notes.
 
 	/**
 	 * Constructs an empty event-list.
@@ -59,39 +59,14 @@ public class EventTreeList extends EventList {
 		eTreeList = new TreeList();
 
 	}
-
+	
 	/**
-	 * Creates a new eventnote with the initial values given as parameters. This
-	 * resembles the factory method design pattern described in [Gamm95] p. 107.
-	 * This design pattern is used to ensure that always the appropriate
-	 * implementation of eventnotes is used together with an individual
-	 * implementation of an event-list. EventTreeList does not need any special
-	 * implementation of eventnotes and thus simply passes the construction
-	 * through to the default implementation of eventnote.
-	 * 
-	 * @param who
-	 *            Entity : the entity or Process associated with the eventnote
-	 * @param what
-	 *            Event : the event or external event associated with the
-	 *            eventnote
-	 * @param when
-	 *            TimeInstant : the point in simulation time associated with the
-	 *            eventnote
-	 * @see EventNote
-	 */
-	EventNote createEventNote(Entity who, Event what, TimeInstant when) {
-
-		return new EventNote(who, what, when);
-
-	}
-
-	/**
-	 * Returns the first eventnote in the event-list. It is the eventnote with
+	 * Returns the first event-note in the event-list. It is the event-note with
 	 * the lowest (nearest) associated point of simulation time of all
-	 * eventnotes contained in the evnet-list. Note that the eventnote is not
+	 * Event notes contained in the evnet-list. Note that the event-note is not
 	 * removed from the event-list.
 	 * 
-	 * @return EventNote : the eventnote to be processed next in the order of
+	 * @return EventNote : the event-note to be processed next in the order of
 	 *         time. Returns <code>null</code> if the event-list is empty.
 	 */
 	EventNote firstNote() {
@@ -102,17 +77,43 @@ public class EventTreeList extends EventList {
 			return (EventNote) eTreeList.get(0); // return but not remove
 
 	}
+	
 
 	/**
-	 * Inserts the new eventnote preserving the temporal order of the eventnotes
+	 * Inserts the new event-note preserving the temporal order of the event-notes
 	 * contained in the event-list. It uses binary search to determine the
-	 * position where to insert the new eventnote to increase performance.
+	 * position where to insert the new event-note to increase performance.
 	 * 
 	 * @param newNote
 	 *            EventNote : the new note to be inserted in the event-list
 	 *            keeping the temporal order
 	 */
 	void insert(EventNote newNote) {
+	    
+        // code for adding EventNote to all possible entities
+        
+        Entity who1 = newNote.getEntity1();
+        if (who1 != null)
+        {
+            who1.addEventNote(newNote);
+        }
+        
+        Entity who2 = newNote.getEntity2();
+        if (who2 != null)
+        {
+            who2.addEventNote(newNote);
+        }
+        
+        Entity who3 = newNote.getEntity3();
+        if (who3 != null)
+        {
+            who3.addEventNote(newNote);
+        }
+        
+        EventAbstract Event = newNote.getEvent();
+        if (Event != null) {
+            Event.addEventNote(newNote);
+        }
 
 		if (isEmpty()) { // no worry about order if it's first
 			eTreeList.add(newNote); // easy if empty ;-)
@@ -124,17 +125,28 @@ public class EventTreeList extends EventList {
 												// partition
 			int index = 0; // current position in tree list
 			TimeInstant refTime = newNote.getTime();
+			long refPrio = newNote.getPriority();
 			// shortcut for call to newNote
 
 			do {
 				index = (left + right) / 2; // center on searchable partition
 				// check if EventNote at index has smaller or equal time
-				if (TimeInstant.isBeforeOrEqual(((EventNote) eTreeList
-						.get(index)).getTime(), refTime)) {
+				
+				if (TimeInstant.isBefore(((EventNote) eTreeList
+						.get(index)).getTime(), refTime) ||
+						(TimeInstant.isEqual(((EventNote) eTreeList
+		                        .get(index)).getTime(), refTime) &&
+		                        ((EventNote) eTreeList
+		                                .get(index)).getPriority() >= refPrio)) {
 					if (index < (eTreeList.size() - 1)) {
 						// is there a note to the right
 						if (TimeInstant.isAfter(((EventNote) eTreeList
-								.get(index + 1)).getTime(), refTime)) {
+								.get(index + 1)).getTime(), refTime) || 
+								(TimeInstant.isEqual(((EventNote) eTreeList
+		                                .get(index + 1)).getTime(), refTime) &&	
+		                                ((EventNote) eTreeList
+		                                        .get(index)).getPriority() < refPrio)						        
+						        ) {
 							// if note to the right is larger
 							eTreeList.add(index + 1, newNote);
 							// found position
@@ -143,15 +155,21 @@ public class EventTreeList extends EventList {
 							left = index + 1;
 							// no hit, so set new boundaries and go on
 						}
-					} // no EventNotes right of the index, so all
+					} // no Event notes right of the index, so all
 					else { // notes are smaller, thus append to end
 						eTreeList.add(newNote);
 						return; // everything done, get out of here fast!
 					}
 				} else { // EventNote at index has larger time
 					if (index > 0) { // is there a note left of the index?
-						if (TimeInstant.isBeforeOrEqual(((EventNote) eTreeList
-								.get(index - 1)).getTime(), refTime)) {
+						if (TimeInstant.isBefore(((EventNote) eTreeList
+								.get(index - 1)).getTime(), refTime) ||
+								(TimeInstant.isEqual(((EventNote) eTreeList
+		                                .get(index - 1)).getTime(), refTime)
+								&&
+			                    ((EventNote) eTreeList
+                                        .get(index - 1)).getPriority() >= refPrio)
+						        ) {
 							// if note to the left is smallerOrEqual
 							eTreeList.add(index, newNote);
 							// found position
@@ -160,46 +178,69 @@ public class EventTreeList extends EventList {
 							right = index - 1;
 							// no hit, so set new boundaries and go on
 						}
-					} // no EventNotes left of the index, so all
+					} // no Event notes left of the index, so all
 					else { // notes are larger, thus insert at pos. 0
 						eTreeList.add(0, newNote);
 						return; // everything done, get out of here!
 					}
 				}
 			} while ((left <= right));
-
 			eTreeList.add(newNote);
 		}
-
 	}
 
 	/**
-	 * Inserts a new eventnote after another eventnote specified. Note that to
+	 * Inserts a new event-note after another EventNote specified. Note that to
 	 * keep the temporal order of the event-list, the scheduled time will be set
 	 * to the same time as the referred "afterNote". Note also, that afterNote
 	 * must be contained in the event-list. If the referred "where" is not
 	 * contained in the event-list, there is no chance to determine the time
-	 * that the new note is intended to be scheduled at. Thus the new eventnote
+	 * that the new note is intended to be scheduled at. Thus the new event-note
 	 * will not be inserted and a <code>EventNotScheduledException</code> will
 	 * be thrown, stopping the simulation.
 	 * 
 	 * @param where
-	 *            EventNote : The eventnote containing the event after which the
+	 *            EventNote : The event-note containing the event after which the
 	 *            new note is supposed to be inserted into the event-list.
 	 * @param newNote
-	 *            EventNote : The new eventnote to be inserted after the
-	 *            specified eventnote in the EventList.
-	 * @exception ItemNotScheduledException
-	 *                : if referred eventnote is not contained in the event-list
+	 *            EventNote : The new event-note to be inserted after the
+	 *            specified EventNote in the event-list.
+	 * @throws SimAbortedException
+	 *                : if referred EventNote is not contained in the event-list
 	 */
 	void insertAfter(EventNote where, EventNote newNote) {
+	    
+        // code for adding EventNote to all possible entities
+        
+        Entity who1 = newNote.getEntity1();
+        if (who1 != null)
+        {
+            who1.addEventNote(newNote);
+        }
+        
+        Entity who2 = newNote.getEntity2();
+        if (who2 != null)
+        {
+            who2.addEventNote(newNote);
+        }
+        
+        Entity who3 = newNote.getEntity3();
+        if (who3 != null)
+        {
+            who3.addEventNote(newNote);
+        }
+        
+        EventAbstract Event = newNote.getEvent();
+        if (Event != null) {
+            Event.addEventNote(newNote);
+        }
 
 		int i = eTreeList.indexOf(where);
 
 		if (i < 0) { // negative index means, that where is not contained
 			Model mBuffer = null; // buffer current model
-			if (newNote.getEntity() != null) {
-				mBuffer = newNote.getEntity().getModel();
+			if (newNote.getEntity1() != null) {
+				mBuffer = newNote.getEntity1().getModel();
 			}
 			if (newNote.getEvent() != null) {
 				mBuffer = newNote.getEvent().getModel();
@@ -207,11 +248,11 @@ public class EventTreeList extends EventList {
 			throw new SimAbortedException(
 					new ErrorMessage(
 							mBuffer,
-							"Can not insert new eventnote after given eventnote! "
+							"Can not insert new event-note after given EventNote! "
 									+ "Simulation aborted",
 							"Internal DESMO-J class : EventTreeList Method : "
 									+ "insertAfter(EventNote where, EventNote newNote)",
-							"The eventnote to insert the new note after is not contained "
+							"The event-note to insert the new note after is not contained "
 									+ "in the event tree list.",
 							"This is a fatal error. Contact DESMOJ support",
 							newNote.getTime()));
@@ -221,70 +262,105 @@ public class EventTreeList extends EventList {
 			eTreeList.add(i + 1, newNote);
 			// everything fine, exit...
 		}
-
 	}
 
 	/**
-	 * Inserts the given eventnote at the first position in the event-list. The
-	 * event encapsulated in that eventnote will probably be the next event to
+	 * Inserts the given EventNote at the first position in the event-list. The
+	 * Event encapsulated in that EventNote will probably be the next event to
 	 * be processed by the scheduler (unless some other calls to this method are
-	 * made before). Note that the time of the new eventnote is set to the
-	 * actual simulation time.
+	 * made before). Note that for consistency the time of the new event-note 
+	 * is set to the time of the next entry, if the time of the next entry is earlier. 
 	 * 
 	 * @param newNote
-	 *            EventNote : The eventnote to be inserted at the first position
+	 *            EventNote : The event-note to be inserted at the first position
 	 *            in the event-list.
 	 */
 	void insertAsFirst(EventNote newNote) {
 
-		eTreeList.add(0, newNote);
+        if (!isEmpty()) { // if notes in EventList, ensure time is not later than second node
+	       TimeInstant next = ((EventNote) eTreeList.get(0)).getTime();
+	       if (TimeInstant.isBefore(next, newNote.getTime())) {
+	           newNote.setTime(next);
+	       }
+	    }
+
+        eTreeList.add(0, newNote);
+		
+		// code for adding EventNote to all possible entities
+		
+		Entity who1 = newNote.getEntity1();
+		if (who1 != null)
+		{
+				who1.addEventNote(newNote);
+		}
+		
+		Entity who2 = newNote.getEntity2();
+		if (who2 != null)
+		{
+			who2.addEventNote(newNote);
+		}
+		
+		Entity who3 = newNote.getEntity3();
+		if (who3 != null)
+		{
+			who3.addEventNote(newNote);
+		}
+		
+        EventAbstract Event = newNote.getEvent();
+        if (Event != null) {
+            Event.addEventNote(newNote);
+        }
 
 	}
 
 	/**
-	 * Inserts an eventnote at the last position in the event-list. Also adapts
-	 * the new eventnote's scheduled point of time to the same time as the last
-	 * elment in the event-list. Time is not changed, if the event-list is
-	 * empty.
-	 * 
-	 * @param newNote
-	 *            EventNote : The eventnote to be inserted at the last position
-	 *            in the event-list.
-	 */
-	void insertAsLast(EventNote newNote) {
-
-		if (!isEmpty()) // if notes in eventlist, set time to time of last note
-			newNote.setTime(((EventNote) eTreeList.get(eTreeList.size() - 1))
-					.getTime());
-
-		eTreeList.add(newNote); // always append note to end of
-		// eventlist
-
-	}
-
-	/**
-	 * Inserts a new eventnote before another eventnote specified. Note that
+	 * Inserts a new event-note before another EventNote specified. Note that
 	 * this could disturb the temporal order of the event-list. So this method
-	 * should only be used carefully. Note also, that eventnote 'where' must be
+	 * should only be used carefully. Note also, that EventNote 'where' must be
 	 * contained in the event-list or otherwise an exception will be thrown.
 	 * 
 	 * @param where
-	 *            EventNote : The eventnote containing the event before which
+	 *            EventNote : The event-note containing the event before which
 	 *            the newNote is supposed to be inserted into the event-list.
 	 * @param newNote
-	 *            EventNote : The new eventnote to be inserted before the
-	 *            specified eventnote in the event-list
-	 * @exception ItemNotScheduledException
-	 *                : if referred eventnote is not contained in the event-list
+	 *            EventNote : The new event-note to be inserted before the
+	 *            specified EventNote in the event-list
+	 * @throws SimAbortedException
+	 *                : if referred EventNote is not contained in the event-list
 	 */
 	void insertBefore(EventNote where, EventNote newNote) {
+	    
+        // code for adding EventNote to all possible entities
+        
+        Entity who1 = newNote.getEntity1();
+        if (who1 != null)
+        {
+            who1.addEventNote(newNote);
+        }
+        
+        Entity who2 = newNote.getEntity2();
+        if (who2 != null)
+        {
+            who2.addEventNote(newNote);
+        }
+        
+        Entity who3 = newNote.getEntity3();
+        if (who3 != null)
+        {
+            who3.addEventNote(newNote);
+        }
+        
+        EventAbstract Event = newNote.getEvent();
+        if (Event != null) {
+            Event.addEventNote(newNote);
+        }
 
 		int i = eTreeList.indexOf(where);
 
 		if (i < 0) {
 			Model mBuffer = null; // buffer current model
-			if (newNote.getEntity() != null) {
-				mBuffer = newNote.getEntity().getModel();
+			if (newNote.getEntity1() != null) {
+				mBuffer = newNote.getEntity1().getModel();
 			}
 			if (newNote.getEvent() != null) {
 				mBuffer = newNote.getEvent().getModel();
@@ -292,11 +368,11 @@ public class EventTreeList extends EventList {
 			throw new SimAbortedException(
 					new ErrorMessage(
 							mBuffer,
-							"Can not insert new eventnote before given eventnote! "
+							"Can not insert new event-note before given EventNote! "
 									+ "Simulation aborted",
 							"Internal DESMO-J class : EventTreeList Method : "
 									+ "insertBefore(EventNote where, EventNote newNote)",
-							"The eventnote to insert the new note before is not contained "
+							"The event-note to insert the new note before is not contained "
 									+ "in the event tree list.",
 							"This is a fatal error. Contact DESMOJ support",
 							newNote.getTime()));
@@ -305,6 +381,12 @@ public class EventTreeList extends EventList {
 			// synchronize times to keep order
 			eTreeList.add(i, newNote);
 			// insert newN. & push afterN. one up
+			
+			// code for adding EventNote to Entity
+			//variable was not used
+			//Entity who = newNote.getEntity1();
+			//variable was not used
+			//Object o = who;
 		}
 
 	}
@@ -315,7 +397,7 @@ public class EventTreeList extends EventList {
 	 * is a criterium to stop the simulation, since no further action is
 	 * scheduled.
 	 * 
-	 * @return boolean : True if there are no eventnotes contained in the
+	 * @return boolean : True if there are no Event notes contained in the
 	 *         event-list, false otherwise.
 	 */
 	boolean isEmpty() {
@@ -326,10 +408,10 @@ public class EventTreeList extends EventList {
 	}
 
 	/**
-	 * Returns the last eventnote in the event-list. If the event-list is empty,
+	 * Returns the last EventNote in the event-list. If the event-list is empty,
 	 * <code>null</code> will be returned.
 	 * 
-	 * @return EventNote : the last eventnote in the event-list, null if the
+	 * @return EventNote : the last EventNote in the event-list, null if the
 	 *         event-list is empty
 	 */
 	EventNote lastNote() {
@@ -343,15 +425,15 @@ public class EventTreeList extends EventList {
 	}
 
 	/**
-	 * Returns the next eventnote in the event-list relative to the given
-	 * eventnote. If the given eventnote is not contained in the event-list or
-	 * happens to be the last eventnote in the event-list, null will be
+	 * Returns the next event-note in the event-list relative to the given
+	 * EventNote. If the given EventNote is not contained in the event-list or
+	 * happens to be the last EventNote in the event-list, null will be
 	 * returned.
 	 * 
-	 * @return EventNote : The EventNote following the given eventnote or
-	 *         <ocde>null</code> if the given eventnote was last or not found
+	 * @return EventNote : The event-note following the given EventNote or
+	 *         <ocde>null</code> if the given EventNote was last or not found
 	 * @param origin
-	 *            EventNote : The eventnote whose successor is wanted
+	 *            EventNote : The event-note whose successor is wanted
 	 */
 	EventNote nextNote(EventNote origin) {
 
@@ -366,15 +448,15 @@ public class EventTreeList extends EventList {
 	}
 
 	/**
-	 * Returns the previous eventnote in the event-list relative to the given
-	 * eventnote. If the given eventnote is not contained in the event-list or
-	 * happens to be the first eventnote in the event-list, null will be
+	 * Returns the previous EventNote in the event-list relative to the given
+	 * EventNote. If the given EventNote is not contained in the event-list or
+	 * happens to be the first event-note in the event-list, null will be
 	 * returned.
 	 * 
-	 * @return EventNote : The eventnote following the given EventNote or
-	 *         <ocde>null</code> if the given eventnote was first or not found
+	 * @return EventNote : The event-note following the given EventNote or
+	 *         <ocde>null</code> if the given EventNote was first or not found
 	 * @param origin
-	 *            EventNote : The eventnote whose predecessor is wanted
+	 *            EventNote : The event-note whose predecessor is wanted
 	 */
 	EventNote prevNote(EventNote origin) {
 
@@ -389,41 +471,92 @@ public class EventTreeList extends EventList {
 	}
 
 	/**
-	 * Removes the given eventnote from the event-list.
+	 * Removes the given EventNote from the event-list.
+	 * 
+	 * Warning: Make sure to tell the entity of the event-note to delete
+	 * the Note from its List as well.
+	 * 
+	 * Warning: Make sure to tell the entity of the event-note to delete
+	 * the Note from its List as well.
 	 * 
 	 * @param note
-	 *            EventNote : The eventnote to be removed from the event-list
+	 *            EventNote : The event-note to be removed from the event-list
 	 */
 	void remove(EventNote note) {
 
 		if (!eTreeList.contains(note))
 			return; // do nothing if it doesn't exist
 		else
+		{
 			eTreeList.remove(note); // go ahead and crunch it!
+
+			if (note.getEntity1() != null) // if an entity exists (no external event)
+			{
+				note.getEntity1().removeEventNote(note); // removes list entry in Entity!
+			}
+			
+			if (note.getEntity2() != null) // if an entity exists (no external event)
+			{
+				note.getEntity2().removeEventNote(note); // removes list entry in Entity!
+			}
+			
+			if (note.getEntity3() != null) // if an entity exists (no external event)
+			{
+				note.getEntity3().removeEventNote(note); // removes list entry in Entity!
+			}
+			
+			if (note.getEvent() != null)   // if an event exists
+			{
+			    note.getEvent().removeEventNote(note);      // remove EventNote
+			}
+		}
 
 	}
 
 	/**
-	 * Removes the first eventnote from the event-list. Does nothing if the
+	 * Removes the first event-note from the event-list. Does nothing if the
 	 * event-list is already empty.
 	 */
 	void removeFirst() {
 
 		if (!eTreeList.isEmpty())
+		{
+			EventNote note = firstNote();
+			
 			eTreeList.remove(0); // no comment ;-)
-
+			
+			if (note.getEntity1() != null) // if an entity exists (no external event)
+			{
+				note.getEntity1().removeEventNote(note); // removes list entry in Entity!
+			}
+			
+			if (note.getEntity2() != null) // if an entity exists (no external event)
+			{
+				note.getEntity2().removeEventNote(note); // removes list entry in Entity!
+			}
+			
+			if (note.getEntity3() != null) // if an entity exists (no external event)
+			{
+				note.getEntity3().removeEventNote(note); // removes list entry in Entity!
+			}
+			
+	        if (note.getEvent() != null)   // if an event exists
+	        {
+	            note.getEvent().removeEventNote(note);      // remove EventNote
+	        }
+		}
 	}
 
 	/**
 	 * Returns a string representing the entries of this tree list in a row. The
-	 * resulting string includes all eventnotes in ascending order as they are
+	 * resulting string includes all Event notes in ascending order as they are
 	 * placed inside the event tree list.
 	 */
 	public String toString() {
 
 		StringBuffer textBuffer = new StringBuffer();
 		// faster than String and '+'
-		Iterator notes = eTreeList.iterator(); // get all elements
+		Iterator<?> notes = eTreeList.iterator(); // get all elements
 
 		while (notes.hasNext()) { // loop through all elements
 			textBuffer.append("[");
@@ -435,4 +568,5 @@ public class EventTreeList extends EventList {
 		// return String representation of StringBuffer
 
 	}
+
 }

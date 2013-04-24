@@ -13,7 +13,7 @@ import desmoj.core.simulator.SimProcess;
  * @see TransportStrategy
  * @see TransporterSystem
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -80,7 +80,7 @@ public class T_Control extends SimProcess {
 	public T_Control(Model owner, String name, int tSortOrder, int tQCapacity,
 			int jSortOrder, int jQCapacity, TransportStrategy s,
 			boolean showInReport, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+		super(owner, name, true, showInTrace); // make a sim-process
 
 		// make a new TransportSystem
 		this.ts = new TransporterSystem(owner, "TransporterSystem", tSortOrder,
@@ -138,42 +138,39 @@ public class T_Control extends SimProcess {
 	 */
 	public void lifeCycle() {
 
-		// neverending cycle of a transporter control
-		while (true) {
-			// if there's jobs and transporters
-			if ((this.ts.getJobs().length() > 0)
-					&& (this.ts.getTransporter().length() > 0)) {
-				// get from the strategy all the TransporterJobs
-				TransporterJob[] jobs = s.getJobs(this.ts.getTransporter(),
-						this.ts.getJobs());
+		// if there's jobs and transporters
+		if ((this.ts.getJobs().length() > 0)
+				&& (this.ts.getTransporter().length() > 0)) {
+			// get from the strategy all the TransporterJobs
+			TransporterJob[] jobs = s.getJobs(this.ts.getTransporter(),
+					this.ts.getJobs());
 
-				// for every TransporterJob
-				for (int i = 0; i < jobs.length; i++) {
-					// get the job
-					Job j = jobs[i].getJob();
+			// for every TransporterJob
+			for (int i = 0; i < jobs.length; i++) {
+				// get the job
+				Job j = jobs[i].getJob();
 
-					// get the transporter
-					InternalTransporter t = jobs[i].getTransporter();
+				// get the transporter
+				InternalTransporter t = jobs[i].getTransporter();
 
-					// remove the job from the jobs queue
-					this.ts.getJobs().remove(j);
+				// remove the job from the jobs queue
+				this.ts.getJobs().remove(j);
 
-					// remove the transporter from the transporter queue
-					this.ts.getTransporter().remove(t);
+				// remove the transporter from the transporter queue
+				this.ts.getTransporter().remove(t);
 
-					// assign the the job to the transporter
-					t.setJob(j);
+				// assign the the job to the transporter
+				t.setJob(j);
 
-					// activate the transporter after the transport control
-					t.activateAfter(this);
+				// activate the transporter after the transport control
+				t.activateAfter(this);
 
-				}
+			}
 
-			} // end of if
+		} // end of if
 
-			passivate(); // passivate itself
+		passivate(); // passivate itself
 
-		}
 
 	}
 

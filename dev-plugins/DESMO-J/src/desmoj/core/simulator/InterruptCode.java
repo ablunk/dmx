@@ -1,7 +1,7 @@
 package desmoj.core.simulator;
 
 /**
- * Represents a code to be passed to interrupted simprocesses to give
+ * Represents a code to be passed to interrupted SimProcesses to give
  * information about the reason for the interruption. Each new interrupt code
  * instantiated will carry an individual internal integer codenumber to help
  * identify different interrupt code objects. These can be checked using the
@@ -12,7 +12,7 @@ package desmoj.core.simulator;
  * cloned as a parameter. That constructor will return a clone of the given
  * interrupt code.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@ public class InterruptCode extends NamedObject {
 	/**
 	 * The internal unique number to identify different interrupt codes.
 	 */
-	private int irqCode;
+	private int _irqCode;
 
 	/**
 	 * Constructs a new interrupt code to be an identical clone of the given
@@ -53,7 +53,7 @@ public class InterruptCode extends NamedObject {
 	public InterruptCode(InterruptCode cloneMe) {
 
 		super(cloneMe.getName());
-		irqCode = cloneMe.getCodeNumber();
+		_irqCode = cloneMe.getCodeNumber();
 
 	}
 
@@ -68,7 +68,7 @@ public class InterruptCode extends NamedObject {
 
 		super(name);
 
-		irqCode = ++irqCounter; // increment counter and set code
+		_irqCode = ++irqCounter; // increment counter and set code
 
 	}
 
@@ -98,6 +98,6 @@ public class InterruptCode extends NamedObject {
 	 * @return int : The internal unique number of the interrupt code
 	 */
 	public int getCodeNumber() {
-		return irqCode;
+		return _irqCode;
 	}
 }

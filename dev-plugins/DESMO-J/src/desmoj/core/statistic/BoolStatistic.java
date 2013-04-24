@@ -6,10 +6,10 @@ import desmoj.core.simulator.Model;
  * The <code>BoolStatistic</code> class is providing a statistic analysis about 
  * a boolean value. Statistics include <code>true</code>-ratio and total number of observations.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based on DESMO-C from Thomas Schniewind, 1998
- * @author modified by Ruth Meyer, Johannes Goebel
+ * @author modified by Ruth Meyer, Johannes G&ouml;bel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -31,7 +31,7 @@ public class BoolStatistic extends desmoj.core.simulator.Reportable {
 	/**
 	 * Number of <code>true</code>s observed
 	 */
-	private long freq_true;
+	private long _freq_true;
 
 	/**
 	 * Constructor for a BoolStatistic object. No connection to a
@@ -50,6 +50,7 @@ public class BoolStatistic extends desmoj.core.simulator.Reportable {
 			boolean showInTrace) {
 		// call the constructor of ValueStatistics
 		super(ownerModel, name, showInReport, showInTrace);
+		this._freq_true = 0;
 	}
 	
     // ****** methods ******
@@ -69,7 +70,7 @@ public class BoolStatistic extends desmoj.core.simulator.Reportable {
      * @return long : The number of <code>true</code>s observed so far.
      */
 	public long getTrueObs() {
-	    return this.freq_true;	    
+	    return this._freq_true;	    
 	}
 
 
@@ -94,7 +95,7 @@ public class BoolStatistic extends desmoj.core.simulator.Reportable {
 		// calculate the mean value
 		double ratio = 1.0 * this.getTrueObs() / getObservations();
 		// return the rounded mean value
-		return java.lang.Math.rint(StatisticObject.PRECISION * ratio) / StatisticObject.PRECISION;
+		return desmoj.core.statistic.ValueStatistics.round(ratio);
 	}
 
 	/**
@@ -102,7 +103,7 @@ public class BoolStatistic extends desmoj.core.simulator.Reportable {
 	 */
 	public void reset() {
 		super.reset(); // reset the StatisticObject, too.
-		this.freq_true = 0;
+		this._freq_true = 0;
 	}
 
 	/**
@@ -115,7 +116,7 @@ public class BoolStatistic extends desmoj.core.simulator.Reportable {
 	 */
 	public void update(boolean val) {
 	    
-	    if (val == true) this.freq_true++;
+	    if (val == true) this._freq_true++;
 	    this.incrementObservations();
 	}
 } // end class BoolStatistic

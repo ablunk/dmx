@@ -7,7 +7,7 @@ package desmoj.core.util;
  * becomes notified when the assigned simulation experiment is (Re)started,
  * paused or finally stopped.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

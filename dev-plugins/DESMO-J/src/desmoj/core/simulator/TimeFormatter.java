@@ -3,7 +3,7 @@ package desmoj.core.simulator;
 /**
  * An object that formats TimeInstant and TimeString objects.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Felix Klueckmann
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -37,5 +37,11 @@ public interface TimeFormatter {
 	 * @return String: the String representation of the given timeSpan.
 	 */
 	public String buildTimeString(TimeSpan span);
-
+	
+	/**
+     * The units used to format time span and time instants.
+     * 
+     * @return String: The description of the smallest time unit or all time units.
+     */
+    public String getUnit();
 }

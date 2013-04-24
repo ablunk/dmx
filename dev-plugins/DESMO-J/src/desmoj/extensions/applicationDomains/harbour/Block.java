@@ -5,6 +5,7 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.Reportable;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.SimTime;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Block is the place where containers (or other kind of goods) can be stored by
@@ -24,7 +25,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see Reportable
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -475,7 +476,7 @@ public class Block extends Reportable {
 			return -1;
 		}
 		// return the rounded average
-		return java.lang.Math.rint(100000 * (wSumAvl / diff)) / 100000;
+		return StatisticObject.round(wSumAvl / diff);
 	}
 
 	/**
@@ -768,7 +769,7 @@ public class Block extends Reportable {
 	/**
 	 * Checks whether the entity using the bin is a valid process.
 	 * 
-	 * @return boolean : Returns whether the SimProcess is valid or not.
+	 * @return boolean : Returns whether the sim-process is valid or not.
 	 * @param p
 	 *            SimProcess : Is this SimProcess a valid one?
 	 * @param where

@@ -1,6 +1,6 @@
 package desmoj.core.simulator;
 
-import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import desmoj.core.report.DebugNote;
 import desmoj.core.report.ErrorMessage;
@@ -11,11 +11,11 @@ import desmoj.core.report.TraceNote;
  * Encapsulates all information relevant to each component of a model. Its basic
  * intention is to connect each modelcomponent to a single Model object as the
  * owner of this modelcomponent. Through this connection all relevant
- * information about hat Model can be retrieved. It is part of the composite
+ * information about that Model can be retrieved. It is part of the composite
  * design pattern as described in [Gamm97] page 163 in which it represents the
  * component class.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -35,19 +35,19 @@ public class ModelComponent extends NamedObject {
 	/**
 	 * The reference to the model that this modelcomponent belongs to.
 	 */
-	private Model owner;
+	private Model _owner;
 
 	/**
 	 * Flag indicating if this modelcomponent should be listed in the trace
 	 * output file.
 	 */
-	private boolean traceMode;
+	private boolean _traceMode;
 
 	/**
 	 * Flag indicating if this modelcomponent should be listed in the debug
 	 * output file.
 	 */
-	private boolean debugMode;
+	private boolean _debugMode;
 
 	/**
 	 * Constructs a modelcomponent with the given String as name and the given
@@ -57,7 +57,7 @@ public class ModelComponent extends NamedObject {
 	 * 
 	 * @param name
 	 *            java.lang.String : The name of the component
-	 * @param owner
+	 * @param ownerModel
 	 *            Model : The model this component is associated to.
 	 */
 	public ModelComponent(Model ownerModel, String name) {
@@ -73,7 +73,7 @@ public class ModelComponent extends NamedObject {
 	 * 
 	 * @param name
 	 *            java.lang.String : The name of the component
-	 * @param owner
+	 * @param ownerModel
 	 *            Model : The model this component is associated to
 	 * @param showInTrace
 	 *            boolean : Flag for showing component in trace-files. Set it to
@@ -84,55 +84,70 @@ public class ModelComponent extends NamedObject {
 	public ModelComponent(Model ownerModel, String name, boolean showInTrace) {
 
 		super(name); // create the namedObject with given name
-		owner = ownerModel; // set the owner of this component
-		traceMode = showInTrace; // set the tracemode for this component
+		_owner = ownerModel; // set the owner of this component
+		_traceMode = showInTrace; // set the tracemode for this component
 
 	}
 
 	/**
-	 * Returns the currently active schedulable object that is handled by the
+	 * Returns the currently active Schedulable object that is handled by the
 	 * scheduler.
 	 * 
-	 * @return Schedulable : The current schedulable object.
+	 * @return Schedulable : The current Schedulable object.
 	 */
 	public Schedulable current() {
 
-		return owner.getExperiment().getScheduler().getCurrentSchedulable();
+		return _owner.getExperiment().getScheduler().getCurrentSchedulable();
 
 	}
 
 	/**
-	 * Returns the currently active entity that is handled by the scheduler. It
-	 * returns <code>null</code> if an external event is the current active
-	 * schedulable, thus no entity is active.
-	 * 
-	 * @return Entity : The current active entity or <code>null</code> if the
-	 *         current active schedulable is an external event.
-	 * 
-	 */
+     * Returns the currently active Entity. Returns <code>null</code> if the current
+     * Schedulable happens to be an external event or a SimProcess.
+     * Note that in case the current Event refers to more than one entity
+     * (<code>EventTwoEntitties</code>, <code>EventThreeEntitties</code>),
+     * only the first entity is returned; to obtain all such entities,
+     * use <code>getAllCurrentEntities()</code> instead.
+     * 
+     * @return Entity : The currently active Entity or
+     *         <code>null</code> in case of an external event or a SimProcess
+     *         being the currently active Schedulable
+     */
 	public Entity currentEntity() {
 
-		return owner.getExperiment().getScheduler().getCurrentEntity();
+		return _owner.getExperiment().getScheduler().getCurrentEntity();
 
 	}
+	
+    /**
+     * Returns the currently active entities. Returns an empty list 
+     * if the current Schedulable happens to be an external event or a SimProcess.
+     * 
+     * @return List<Entity> : A list containing the currently active entities
+     */
+    public List<Entity> currentEntityAll() {
+
+        return _owner.getExperiment().getScheduler().getAllCurrentEntities();
+
+    }
 
 	/**
-	 * Returns the currently active event that is handled by the scheduler. It
-	 * returns <code>null</code> if a process event is the current active
-	 * schedulable, thus no event is active.
+	 * Returns the currently active Event that is handled by the scheduler. It
+	 * returns <code>null</code> if a process Event is the current active
+	 * Schedulable, thus no Event is active.
 	 * 
-	 * @return Event : The current active event or <code>null</code> if the
-	 *         current active schedulable is a process
+	 * @return Event : The current active Event or <code>null</code> if the
+	 *         current active Schedulable is a process
 	 * 
 	 */
-	public Event<?> currentEvent() {
+	public EventAbstract currentEvent() {
 
-		return owner.getExperiment().getScheduler().getCurrentEvent();
+		return _owner.getExperiment().getScheduler().getCurrentEvent();
 
 	}
 
 	/**
-	 * Returns the model that the currently active event or entity handled by
+	 * Returns the model that the currently active Event or Entity handled by
 	 * the scheduler belongs to or the main model connected to the experiment,
 	 * if no model can be returned by the scheduler.
 	 * 
@@ -141,23 +156,23 @@ public class ModelComponent extends NamedObject {
 	 */
 	public Model currentModel() {
 
-		Model mBuff = owner.getExperiment().getScheduler().getCurrentModel();
+		Model mBuff = _owner.getExperiment().getScheduler().getCurrentModel();
 
 		if (mBuff != null)
 			return mBuff;
 		else
-			return owner.getExperiment().getModel();
+			return _owner.getExperiment().getModel();
 
 	}
 
 	/**
-	 * Returns the currently active simprocess that is handled by the scheduler.
+	 * Returns the currently active SimProcess that is handled by the scheduler.
 	 * 
-	 * @return SimProcess : The current active simprocess.
+	 * @return SimProcess : The current active SimProcess.
 	 */
 	public SimProcess currentSimProcess() {
 
-		return owner.getExperiment().getScheduler().getCurrentSimProcess();
+		return _owner.getExperiment().getScheduler().getCurrentSimProcess();
 
 	}
 
@@ -170,7 +185,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	@Deprecated
 	public SimTime currentTime() {
-		return SimTime.toSimTime(owner.getExperiment().getSimClock()
+		return SimTime.toSimTime(_owner.getExperiment().getSimClock()
 				.getTime());
 	}
 
@@ -181,7 +196,7 @@ public class ModelComponent extends NamedObject {
 	 * @return TimeInstant : The current point of simulation time
 	 */
 	public TimeInstant presentTime() {
-		return owner.getExperiment().getSimClock().getTime();
+		return _owner.getExperiment().getSimClock().getTime();
 	}
 
 	/**
@@ -191,7 +206,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	public boolean debugIsOn() {
 
-		return debugMode; // has anybody ever returned from a debugMode...
+		return _debugMode; // has anybody ever returned from a debugMode...
 
 	}
 
@@ -201,7 +216,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	public void debugOff() {
 
-		debugMode = false; // yep, that's it!
+		_debugMode = false; // yep, that's it!
 
 	}
 
@@ -211,7 +226,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	public void debugOn() {
 
-		debugMode = true; // yep, that's true!
+		_debugMode = true; // yep, that's true!
 
 	}
 	
@@ -235,7 +250,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	public Model getModel() {
 
-		return owner; // "Make all things as simple as possible : but not
+		return _owner; // "Make all things as simple as possible : but not
 		// simpler!"
 		// Albert Einstein
 
@@ -255,7 +270,7 @@ public class ModelComponent extends NamedObject {
 
 		// Checks if this modelcomponent has same experiment as other
 		// modelcomponent
-		return (owner.getExperiment() == other.getModel().getExperiment());
+		return (_owner.getExperiment() == other.getModel().getExperiment());
 
 	}
 
@@ -274,7 +289,7 @@ public class ModelComponent extends NamedObject {
 
 		// since checking for compatibility is the models's responsibility,
 		// we just pass checking on to our owner.
-		return owner.checkCompatibility(other);
+		return _owner.checkCompatibility(other);
 
 	}
 
@@ -346,9 +361,9 @@ public class ModelComponent extends NamedObject {
 			return; // no proper parameter
 		}
 
-		if (owner != null) { // is modelcomponent connected to model?
+		if (_owner != null) { // is modelcomponent connected to model?
 
-			if (owner.getExperiment() != null) { // is model connected to
+			if (_owner.getExperiment() != null) { // is model connected to
 				// Experiment?
 
 				getModel().getExperiment().getMessageManager().receive(m);
@@ -374,9 +389,15 @@ public class ModelComponent extends NamedObject {
 		// send trace message only if trace mode of this model component
 		// and trace output is activated
 		// This bugfix was contributed by Heine Kolltveit
+	    
+	    String mode = ""; // no special mode
+	    
+	    if (currentModel().isConnected() && currentModel().getExperiment().isPreparing())
+	        mode = "initially ";
+	    
 		if (currentlySendTraceNotes()) {
-			sendMessage(new TraceNote(currentModel(), description,
-					presentTime(), currentEntity(), currentEvent()));
+			sendMessage(new TraceNote(currentModel(), mode + description,
+					presentTime(), currentEntityAll(), currentEvent()));
 		}
 	}
 
@@ -429,7 +450,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	void setOwner(Model newOwner) {
 
-		owner = newOwner;
+		_owner = newOwner;
 
 	}
 
@@ -459,6 +480,9 @@ public class ModelComponent extends NamedObject {
 
 		if (numSkipped < 1)
 			return; // nothing to do or negative (illegal) param.
+		
+		if (!currentlySendTraceNotes())
+		    return; // not sending trance notes anyway
 
 		try {
 			getModel().getExperiment().getMessageManager().skip(
@@ -487,7 +511,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	public boolean traceIsOn() {
 
-		return traceMode;
+		return _traceMode;
 
 	}
 
@@ -497,7 +521,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	public void traceOff() {
 
-		traceMode = false; // yep, that's it!
+		_traceMode = false; // yep, that's it!
 
 	}
 
@@ -507,7 +531,7 @@ public class ModelComponent extends NamedObject {
 	 */
 	public void traceOn() {
 
-		traceMode = true; // yep, that's it!
+		_traceMode = true; // yep, that's it!
 
 	}
 }

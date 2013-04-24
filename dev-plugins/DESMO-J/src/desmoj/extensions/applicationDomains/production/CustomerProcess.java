@@ -18,7 +18,7 @@ import desmoj.core.simulator.SimProcess;
  * 
  * @see DemandProcess
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,7 +38,7 @@ public class CustomerProcess extends SimProcess {
 	/**
 	 * The number of demanded products.
 	 */
-	private int demand;
+	private long demand;
 
 	/**
 	 * The <code>Entrepot</code> supplying the products this CustomerProcess
@@ -59,15 +59,15 @@ public class CustomerProcess extends SimProcess {
 	 *            desmoj.Entrepot : The <code>Entrepot</code> supplying the
 	 *            products this CustomerProcess is buying.
 	 * @param quantity
-	 *            int : The number of products this CustomerProcess is fetching
+	 *            long : The number of products this CustomerProcess is fetching
 	 *            from the <code>Entrepot</code>.
 	 * @param showInTrace
 	 *            boolean : Flag, if this CustomerProcess should produce a trace
 	 *            output or not.
 	 */
 	public CustomerProcess(Model owner, String name, Entrepot supplier,
-			int quantity, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+			long quantity, boolean showInTrace) {
+		super(owner, name, showInTrace); // make a sim-process
 
 		// save the parameters
 		this.entrepot = supplier;
@@ -80,7 +80,7 @@ public class CustomerProcess extends SimProcess {
 	 * available at the moment this CustomerProcess has to wait in a queue in
 	 * the <code>Entrepot</code>. The obtained products are consumed (used
 	 * up), that means all references to them are released and the product
-	 * SimProcess is activated (as the process is not terminated yet), to end
+	 * Sim-process is activated (as the process is not terminated yet), to end
 	 * its lifeCycle and terminate by itself. Then the garbage collector can
 	 * delete it. Therefore the <code>ComplexSimProcess</code> es are
 	 * disassembled automatically.

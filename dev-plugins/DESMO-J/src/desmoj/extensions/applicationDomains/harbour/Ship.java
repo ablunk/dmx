@@ -9,14 +9,14 @@ import desmoj.core.simulator.Model;
  * can leave a container terminal. The both numbers must be not negative. It
  * also has a certain length that he needs to take from a berth for his berthing
  * and a ceratin number of cranes (containerbridges) that he needs for his
- * unloading and /or loading. The ship can leave the terminal after his whole
+ * unloading and/or loading. The ship can leave the terminal after his whole
  * unloading and/or loading. These both parameters must be not negative or zero.
  * Ship is derived from ExternalTrasnporter. Its <code>lifeCycle()</code> must
  * be implemented by the user in order to specify the behavior of the Ship.
  * 
  * @see ExternalTransporter
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

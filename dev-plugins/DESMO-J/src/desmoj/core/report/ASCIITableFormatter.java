@@ -6,7 +6,7 @@ import desmoj.core.simulator.Experiment;
  * A table formatter class for writing simulation output to tab delimited ASCII
  * (e.g. for import into statistics tools or spreadsheet software).
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,6 +31,7 @@ public class ASCIITableFormatter extends AbstractTableFormatter {
 	public void closeRow() {
 		rowOpen = false;
 		out.writeln("");
+		this._currentReporter = null;
 	}
 
 	/**
@@ -78,9 +79,11 @@ public class ASCIITableFormatter extends AbstractTableFormatter {
 	 * 
 	 * @param s
 	 *            string to write
+     * @param spanning
+     *            number of cells to span (ignored)
 	 * @see desmoj.core.report.TableFormatter#writeCell(java.lang.String)
 	 */
-	public void writeCell(String s) {
+	public void writeCell(String s, int spanning) {
 		out.writeSep(s);
 	}
 

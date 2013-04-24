@@ -1,11 +1,12 @@
 package desmoj.extensions.applicationDomains.harbour.report;
 
 import desmoj.core.report.Reporter;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Captures all relevant information about the Block.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,9 +112,8 @@ public class BlockReporter extends Reporter {
 			// Average
 			entries[10] = Double.toString(b.avgCapacity());
 			// Occup.rate
-			Double orate = new Double(java.lang.Math
-					.rint(b.OccupRate() * 10000) / 100);
-			entries[11] = orate.toString();
+			entries[11] = Double.toString(StatisticObject.round(b.OccupRate() * 100));
+			
 
 		} else {
 			for (int i = 0; i < numColumns; i++) {

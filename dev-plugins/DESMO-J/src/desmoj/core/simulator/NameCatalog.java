@@ -3,14 +3,14 @@ package desmoj.core.simulator;
 import java.util.HashMap;
 
 /**
- * Keeps track of the names given for schedulables within an experiment. To help
- * identify individual entities, events and all other types of schedulables,
+ * Keeps track of the names given for Schedulables within an experiment. To help
+ * identify individual entities, events and all other types of Schedulables,
  * this class registers all names given to these objects. If an object is
  * created with the same name as some other object before, a number is added to
  * the object's name as a suffix. The number represents the amount of objects
  * already created with that name.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,21 +28,21 @@ import java.util.HashMap;
 public class NameCatalog {
 
 	/**
-	 * Stores the names of all schedulables within an experiment. The names are
+	 * Stores the names of all Schedulables within an experiment. The names are
 	 * used as the indexing value via the string's method to produce a hashing
 	 * key value. The numbers for each individual name are stored as objects of
 	 * their wrapper class.
 	 */
-	private HashMap<String,Integer> catalog;
+	private HashMap<String,Integer> _catalog;
 
 	/**
-	 * Constructs a single namecatalog for registering names of all schedulables
+	 * Constructs a single namecatalog for registering names of all Schedulables
 	 * within an experiment.
 	 */
 	NameCatalog() {
 
 		super();
-		catalog = new HashMap<String,Integer>();
+		_catalog = new HashMap<String,Integer>();
 
 	}
 
@@ -55,24 +55,38 @@ public class NameCatalog {
 	 * @return java.lang.String : The registered name including the number if
 	 *         necessary
 	 * @param name
-	 *            java.lang.String : The name for a new schedulable
+	 *            java.lang.String : The name for a new Schedulable
 	 */
 	String registeredName(String name) {
 
 		if (name == null)
 			name = "unnamed";
 
-		Integer number = catalog.get(name);
+		Integer number = _catalog.get(name);
 
 		if (number != null) {
 			int i = number.intValue();
 			i++;
-			catalog.put(name, i);
+			_catalog.put(name, i);
 			return name + "#" + i;
 		} else {
-			catalog.put(name, 1);
+			_catalog.put(name, 1);
 			return name + "#1";
 		}
 
+	}
+	
+    /**
+     * Returns the first part of name without added number as suffix. 
+     * 
+     * @return java.lang.String : The first part of the name without number suffix
+     * @param name
+     *            java.lang.String : The name obtain the first part from.
+     */
+	String getNameWithoutSuffix(String name) {
+	    if (name == null || name.equals("unnamed") || name.indexOf("#") == -1)
+	        return name; // no suffix to remove
+	    else
+	        return name.substring(0, name.lastIndexOf("#"));
 	}
 }

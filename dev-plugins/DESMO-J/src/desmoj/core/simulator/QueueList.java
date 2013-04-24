@@ -1,26 +1,29 @@
 package desmoj.core.simulator;
 
 import java.beans.PropertyChangeListener;
+import java.util.Iterator;
 
 import desmoj.core.exception.SimAbortedException;
 import desmoj.core.report.ErrorMessage;
+import desmoj.core.simulator.Entity;
+import desmoj.core.simulator.QueueBased;
 
 /**
  * Is the abstract superclass for all the classes implementing different
- * queueing strategies for a waiting queue. It provides all the basic methods
+ * queueing strategies for a waiting-queue. It provides all the basic methods
  * for inserting objects in a queue, retrieving objects from a queue and getting
  * basic informations about the queue. It is used in many kinds of queue
- * implementations i.e. in classes <code>QueueListFifo</code> and
- * <code>QueueListLifo</code>.
+ * implementations where collective functionalities are implemented by
+ * <code>QueueListStandard</code> and are specified e.g. in <code>QueueListFifo</code>
+ * or <code>QueueListLifo</code>.
  * 
- * @see QueueLink
  * @see QueueBased
  * @see Queue
  * @see ProcessQueue
  * @see QueueListFifo
  * @see QueueListLifo
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author based upon ideas from Tim Lechler
  * 
@@ -36,12 +39,17 @@ import desmoj.core.report.ErrorMessage;
  * permissions and limitations under the License.
  *
  */
-public abstract class QueueList implements PropertyChangeListener {
+public abstract class QueueList<E extends Entity> implements PropertyChangeListener, Iterable<E> {
 
 	/**
-	 * The queuebased object this queuelist serves as a container for.
+	 * The QueueBased object this queuelist serves as a container for.
 	 */
 	protected QueueBased clientQ;
+	
+	/**
+	 * Uses the java.util.WeakHashMap functionalities to link entities with their entry time.
+	 */
+	protected java.util.HashMap<E,TimeInstant> timemap;
 
 	/**
 	 * Should return <code>true</code> if the given <code>Entity</code> is
@@ -51,17 +59,34 @@ public abstract class QueueList implements PropertyChangeListener {
 	 *         <code>Entity</code> is contained in the queue;
 	 *         <code>false</code> otherwise.
 	 * @param e
-	 *            desmoj.Entity : The <code>Entity</code> we are looking for
+	 *            E : The <code>Entity</code> we are looking for
 	 *            in the queue.
 	 */
-	abstract boolean contains(Entity e);
+	public abstract boolean contains(E e);
 
 	/**
 	 * Should return the first entity in the queue.
 	 * 
-	 * @return desmoj.Entity : The first entity in the queue
+	 * @return E : The first entity in the queue
 	 */
-	public abstract Entity first();
+	public abstract E first();
+	
+	/**
+	 * Returns the <code>Entity</code> queued at the named position.
+	 * The first position is 0, the last one size()-1.
+	 * 
+	 * @return E : The <code>Entity</code> at the position of
+	 *         <code>int</code> or <code>null</code> if no such position exists.
+	 */
+	public abstract E get(int index);
+	
+	/**
+	 * Returns the position of the named <code>Entity</code>.
+	 * The first position is 0, the last one size()-1.
+	 * 
+	 * @return : The position of the <code>Entity</code> or <code>-1</code> if no such exists.
+	 */
+	public abstract int get(E element);
 
 	/**
 	 * Should return an abbreviation as a String to identify the sort of
@@ -77,7 +102,7 @@ public abstract class QueueList implements PropertyChangeListener {
 	 * Returns the <code>QueueBased</code> object this <code>QueueList</code>
 	 * serves as a queue implementation for.
 	 * 
-	 * @return desmoj.QueueBased : The <code>QueueBased</code> object this
+	 * @return QueueBased : The <code>QueueBased</code> object this
 	 *         <code>QueueList</code> serves as a container for.
 	 */
 	QueueBased getQueueBased() {
@@ -85,13 +110,13 @@ public abstract class QueueList implements PropertyChangeListener {
 	}
 
 	/**
-	 * Should add a new entity to the queue.
+	 * Should add a new Entity to the queue.
 	 * 
 	 * @param e
-	 *            desmoj.Entity : The entity which will be added to the queue
+	 *            E : The Entity which will be added to the queue
 	 */
-	public abstract void insert(Entity e);
-
+	public abstract void insert(E e);
+	
 	/**
 	 * Should insert the <code>Entity</code> "e" right after the position of
 	 * <code>Entity</code> "which" in the queue. Should return
@@ -101,14 +126,14 @@ public abstract class QueueList implements PropertyChangeListener {
 	 * @return boolean : Is <code>true</code> if insertion was successfull,
 	 *         <code>false</code> otherwise.
 	 * @param e
-	 *            desmoj.Entity : The <code>Entity</code> which will be
+	 *            E : The <code>Entity</code> which will be
 	 *            inserted.
 	 * @param which
-	 *            desmoj.Entity : The <code>Entity</code> determining the
+	 *            E : The <code>Entity</code> determining the
 	 *            position after which the <code>Entity</code> "e" will be
 	 *            inserted in the queue.
 	 */
-	abstract boolean insertAfter(Entity e, Entity which);
+	abstract boolean insertAfter(E e, E which);
 
 	/**
 	 * Should insert the <code>Entity</code> "e" right before the position of
@@ -119,14 +144,14 @@ public abstract class QueueList implements PropertyChangeListener {
 	 * @return boolean : Is <code>true</code> if insertion was successfull,
 	 *         <code>false</code> otherwise.
 	 * @param e
-	 *            desmoj.Entity : The <code>Entity</code> which will be
+	 *            E : The <code>Entity</code> which will be
 	 *            inserted.
 	 * @param which
-	 *            desmoj.Entity : The <code>Entity</code> determining the
+	 *            E : The <code>Entity</code> determining the
 	 *            position before which the <code>Entity</code> "e" will be
 	 *            inserted in the queue.
 	 */
-	abstract boolean insertBefore(Entity e, Entity which);
+	abstract boolean insertBefore(E e, E which);
 
 	/**
 	 * Should return <code>true</code> if no entities are stored in the queue
@@ -140,21 +165,21 @@ public abstract class QueueList implements PropertyChangeListener {
 	/**
 	 * Should return the last <code>Entity</code> in the queue.
 	 * 
-	 * @return desmoj.Entity : The last <code>Entity</code> in the queue.
+	 * @return E : The last <code>Entity</code> in the queue.
 	 */
-	abstract Entity last();
+	public abstract E last();
 
 	/**
 	 * Should return the predecessor of the given <code>Entity</code> "e" in
 	 * the queue.
 	 * 
-	 * @return desmoj.Entity : The <code>Entity</code> before the given
+	 * @return E : The <code>Entity</code> before the given
 	 *         <code>Entity</code> "e" in the queue.
 	 * @param e
-	 *            desmoj.Entity : The predecessor of this <code>Entity</code>
+	 *            E : The predecessor of this <code>Entity</code>
 	 *            will be returned.
 	 */
-	abstract Entity pred(Entity e);
+	abstract E pred(E e);
 
 	/**
 	 * Should remove the given <code>Entity</code> "e" from the queue. If this
@@ -164,10 +189,19 @@ public abstract class QueueList implements PropertyChangeListener {
 	 * @return boolean : Is <code>true</code> if the given <code>Entity</code>
 	 *         is removed successfully, <code>false</code> otherwise.
 	 * @param e
-	 *            desmoj.Entity : The <code>Entity</code> which is to be
+	 *            E : The <code>Entity</code> which is to be
 	 *            removed from the queue.
 	 */
-	public abstract boolean remove(Entity e);
+	public abstract boolean remove(E e);
+	
+	/**
+	 * Removes the <code>Entity</code> queued at the named position.
+	 * * The first position is 0, the last one size()-1.
+	 * 
+	 * @return : The method returns <code>true</code> as the <code>Entity</code>
+	 * 			 exists or <code>false></code> if otherwise.
+	 */
+	public abstract boolean remove(int index);
 
 	/**
 	 * Should remove the first <code>Entity</code> in the queue and returns
@@ -213,7 +247,7 @@ public abstract class QueueList implements PropertyChangeListener {
 	 * Sets the client queue for which the entities are stored. Is needed,
 	 * because this can not be done in the no-arg constructor.
 	 * 
-	 * @param clientQ
+	 * @param queueBase
 	 *            desmoj.QueueBased : The QueueBased using this queueing system.
 	 */
 	public void setQueueBased(QueueBased queueBase) {
@@ -221,8 +255,8 @@ public abstract class QueueList implements PropertyChangeListener {
 		// DOA if no real QueueBased object is given
 		if (queueBase == null) {
 			throw (new SimAbortedException(new ErrorMessage(null,
-					"Can not create queuelistfifo! Simulation aborted.",
-					"Class : QueueListFifo / Method : setClientQueue"
+					"Can not create QueueListStandardFifo! Simulation aborted.",
+					"Class : QueueListStandardFifo / Method : setClientQueue"
 							+ "(QueueBased queueBase) ",
 					"The reference to the QueueBased object needed is a null "
 							+ "reference.",
@@ -233,23 +267,94 @@ public abstract class QueueList implements PropertyChangeListener {
 		// container
 
 	}
+	
+	/**
+	 * Returns the actual size of the QueueList.
+	 * 
+	 * @return : The method returns the size as an <code>int</code>.
+	 * 			 The value is 0 if no Entity is in line.
+	 */
+	public int size()
+	{
+		return clientQ.length();
+	}
+	
+	/**
+	 * This method is used for statistical data in the class QueueBased.
+	 * 
+	 */
+	void statisticalInsert(E e)
+	{
+		
+		timemap.put(e, clientQ.presentTime()); // saves time of insertion
+	
+		clientQ.addItem(); // update statistics
+	}
+	
+	/**
+	 * This method is used for statistical data in the class QueueBased.
+	 * 
+	 */
+	void statisticalRemove(E e)
+	{
+		clientQ.deleteItem(timemap.get(e)); // tell QueueBased the entry time for update
+		// statistics
+		
+		timemap.remove(e); // removes the entity from timemap
+	}
 
 	/**
 	 * Should return the successor of the given <code>Entity</code> "e" in the
 	 * queue.
 	 * 
-	 * @return desmoj.Entity : The <code>Entity</code> after the given
+	 * @return E : The <code>Entity</code> after the given
 	 *         <code>Entity</code> "e" in the queue.
 	 * @param e
-	 *            desmoj.Entity : The successor of this <code>Entity</code>
+	 *            E : The successor of this <code>Entity</code>
 	 *            will be returned.
 	 */
-	public abstract Entity succ(Entity e);
-
+	public abstract E succ(E e);
+	
 	/**
 	 * Should return a string representation of the queue.
 	 * 
-	 * @return java.lang.String : The string representation of the queue.
+	 * @return String : The string representation of the queue.
 	 */
 	public abstract String toString();
+	
+	/**
+     * Returns an iterator over the entities enqueued.
+     *
+     * @return java.lang.Iterator&lt;E&gt; : An iterator over the entities enqueued.
+     */
+    public Iterator<E> iterator() {
+        return new QueueListIterator(this);
+    }
+
+    /**
+     * Private queue list iterator, e.g. required for processing all queue elements in a 
+     * for-each-loop.
+     */
+    private class QueueListIterator implements Iterator<E> {
+        
+        QueueList<E> clientQ; 
+        E next, lastReturned;
+        
+        public QueueListIterator(QueueList<E> clientQ) {
+            this.clientQ = clientQ;
+            next = clientQ.first();
+            lastReturned = null;
+        }
+        public boolean hasNext() {
+            return next != null;
+        }
+        public E next() {
+            lastReturned = next;
+            next = clientQ.succ(next);
+            return lastReturned;
+        }
+        public void remove() {
+            clientQ.remove(lastReturned);
+        }
+    }
 }

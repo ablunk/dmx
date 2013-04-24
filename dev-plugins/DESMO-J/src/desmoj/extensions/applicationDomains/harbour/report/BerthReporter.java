@@ -1,11 +1,12 @@
 package desmoj.extensions.applicationDomains.harbour.report;
 
 import desmoj.core.report.Reporter;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Captures all relevant information about the Berth.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -83,13 +84,9 @@ public class BerthReporter extends Reporter {
 			// Users
 			entries[3] = Long.toString(b.getUsers());
 			// Utilization round to percentage
-			Double avU = new Double(
-					java.lang.Math.rint(b.avgUsage() * 10000) / 100);
-			entries[4] = avU.toString();
+			entries[4] = Double.toString(StatisticObject.round(b.avgUsage() * 100));
 			// Avg. berth time
-			Double avBT = new Double(java.lang.Math
-					.rint(b.avgServTime() * 100000) / 100000);
-			entries[5] = avBT.toString();
+			entries[5] = Double.toString(StatisticObject.round(b.avgServTime()));
 			// QLimit
 			entries[6] = Long.toString(b.getQueueLimit());
 			if (b.getQueueLimit() == Integer.MAX_VALUE) {

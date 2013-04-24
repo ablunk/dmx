@@ -1,27 +1,27 @@
 package desmoj.core.simulator;
 
 import java.util.Enumeration;
-import java.util.Vector; //TODO: oder dem Anwender überlassen...?
+import java.util.Vector;
 
 import desmoj.core.advancedModellingFeatures.Res;
+import desmoj.core.dist.NumericalDist;
+import desmoj.core.exception.DelayedInterruptException;
+import desmoj.core.exception.InterruptException;
 import desmoj.core.report.ErrorMessage;
 
 /**
  * SimProcess represents entities with an own active lifecycle. Since
- * simprocesses are in fact special entities with extended capabilities ( esp.
- * the method lifeCycle() ), they inherit from entity and thus can also be used
- * in conjunction with events. So they can be handled in both ways, event- and
- * process-oriented. Clients are supposed to implement the lifeCycle() method to
- * specify the individual behaviour of a special simprocess subclass. Since
- * implementing activity- and transaction-oriented synchronization mechanisms
- * requires significant changes in this class, methods that have been
- * implemented by Soenke Claassen have been marked.
+ * SimProcesses are in fact special entities with extended capabilities (esp.
+ * the method <code>lifeCycle()</code>), they inherit from Entity and thus can also
+ * be used in conjunction with events. So they can be handled in both ways,
+ * event- and process-oriented. Clients are supposed to implement the
+ * <code>lifeCycle()</code> method to specify the individual behaviour of a special
+ * SimProcess subclass. Since implementing activity- and transaction-oriented
+ * synchronization mechanisms requires significant changes in this class,
+ * methods that have been implemented by Soenke Claassen have been marked.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
- * @author Tim Lechler.
- * @author Methods: canCooperate, clearInterruptCode, cooperate,
- *         getInterruptCode, getMaster, getSlaveWaitQueue, IsInterrupted,
- *         resetMaster and setSlaveWaitQueue by Soenke Claassen
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
+ * @author Tim Lechler, Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -33,60 +33,81 @@ import desmoj.core.report.ErrorMessage;
  * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
- *
+ * 
  */
 public abstract class SimProcess extends Entity {
 
 	/**
 	 * The Thread needed for implementing coroutine behaviour.
 	 */
-	private Thread myThread;
+	private Thread _myThread;
+	
+	/**
+     * The scheduling priority of the process.
+     */
+    private int _mySchedulingPriority;
 
 	/**
-	 * Displays the current blocked status of this simprocess. A simprocess is
+	 * Displays the current blocked status of this SimProcess. A SimProcess is
 	 * blocked whenever it has to wait inside a queue or synchronization object.
 	 */
-	private boolean isBlocked;
+	protected boolean _isBlocked;
 
 	/**
-	 * Displays the current status of this simprocess. Is <code>true</code> if
+	 * Displays the current status of this SimProcess. Is <code>true</code> if
 	 * lifeCycle method has finished, <code>false</code> if it is still running
 	 * or has not been started yet
 	 */
-	private boolean isTerminated;
+	protected boolean _isTerminated;
 
 	/**
-	 * Displays if the thread in of control of this simprocess is already the
+	 * Displays if the thread in of control of this SimProcess is already the
 	 * associated simthread. Is <code>true</code> if the simthread is active and
 	 * is carrying on its lifeCycle. Is <code>false</code> if it has not started
 	 * its lifeCycle yet or is terminated already.
 	 */
-	private boolean isRunning;
+	protected boolean _isRunning;
+	
+    /**
+     * Determines whether or not the life cycle of this process will start
+     * again after finishing. Default is <code>false</code>, i.e. the lifecycle
+     * will only by executed once.
+     */ 
+    private boolean _isRepeating;
 
 	/**
-	 * If this simprocess is cooperating as a slave with a master process, it
+	 * If this SimProcess is cooperating as a slave with a master process, it
 	 * keeps a reference to its master here. Master is set in the
 	 * <code>cooperate()</code> -method, when the slave cooperates with his
 	 * master and deleted every time the slave process is activated.
 	 * 
 	 * @author Soenke Claassen
 	 */
-	private SimProcess master;
+	private SimProcess _master;
 
 	/**
-	 * If this simprocess is cooperating as a slave it has to wait in this
+	 * If this SimProcess is cooperating as a slave it has to wait in this
 	 * waitQueue until a master is cooperating with it.
 	 * 
 	 * @author Soenke Claassen
 	 */
-	private ProcessQueue slaveWaitQueue;
+	private ProcessQueue<? extends SimProcess> _slaveWaitQueue;
 
 	/**
-	 * The <code>InterruptCode</code> with which this simprocess is interrupted.
+	 * The <code>InterruptCode</code> with which this SimProcess is interrupted.
 	 * 
 	 * @author Soenke Claassen
 	 */
-	private InterruptCode irqCode;
+
+	private InterruptCode _irqCode;
+
+	/**
+	 * The <code>InterruptException</code> with which this SimProcess is
+	 * interrupted.
+	 * 
+	 * @author Soenke Claassen
+	 */
+	private InterruptException _irqException;
 
 	/**
 	 * The <code>Vector</code> holding all the resources this SimProcess is
@@ -94,7 +115,7 @@ public abstract class SimProcess extends Entity {
 	 * 
 	 * @author Soenke Claassen
 	 */
-	private java.util.Vector usedResources;
+	private final Vector<Resource> _usedResources;
 
 	/**
 	 * A reference to the container this SimProcess belongs to. Is
@@ -103,225 +124,172 @@ public abstract class SimProcess extends Entity {
 	 * 
 	 * @author Soenke Claassen
 	 */
-	private ComplexSimProcess supervisor;
-	
+	private ComplexSimProcess _supervisor;
+
 	/**
 	 * The realTime deadline for this SimProcess in nanoseconds. In case of a
 	 * real-time execution (i. e. the execution speed rate is set to a positive
 	 * value) the Scheduler will produce a warning message if a deadline is
 	 * missed.
 	 */
-	private long realTimeConstraint;
+	private long _realTimeConstraint;
 
 	/**
-	 * Constructs a SimProcess.
+	 * The Event which will interrupt the current SimProcess at a given point in
+	 * simulation time if it is not removed from the event list before that time
+	 * instant.
+	 */
+	private ExternalEvent _currentlyScheduledDelayedInterruptEvent;
+	
+    /**
+     * The last Schedulable that has activated this process.
+     */	
+	private Schedulable _activatedBy;
+	
+	/**
+	 * The most general constructor of a SimProcess.
 	 * 
 	 * @param name
-	 *            java.lang.String : The name of the simprocess
+	 *            String : The name of the SimProcess
 	 * @param owner
-	 *            Model : The model this simprocess is associated to
+	 *            Model : The model this SimProcess is associated to
+     * @param repeating
+     *            boolean : Flag to set the SimProcess' repeating behaviour:
+     *            If set to <code>true</code>, the lifeCycle will be executed 
+     *            again after completion, while <code>false</code> will
+     *            create a process whose lifeCycle is executed only once.   
 	 * @param showInTrace
-	 *            boolean : Flag for showing simprocess in trace-files. Set it
-	 *            to <code>true</code> if simprocess should show up in trace.
-	 *            Set it to <code>false</code> if simprocess should not be shown
+	 *            boolean : Flag for showing SimProcess in trace-files. Set it
+	 *            to <code>true</code> if SimProcess should show up in trace.
+	 *            Set it to <code>false</code> if SimProcess should not be shown
 	 *            in trace.
 	 */
-	public SimProcess(Model owner, String name, boolean showInTrace) {
+	public SimProcess(Model owner, String name, boolean repeating, boolean showInTrace) {
 
 		super(owner, name, showInTrace);
 
 		// init variables
-		isBlocked = false; // not waiting in queue so far
-		isRunning = false; // not running so far
-		isTerminated = false; // not terminated either
-		master = null; // this SimProcess has no master, so far
-		slaveWaitQueue = null; // this SimProcess is not waiting in any queue
-		irqCode = null; // this is not interrupted
-
-		// set up simthread
-		myThread = new SimThread(getModel().getExperiment().getThreadGroup(),
-				this);
+		_mySchedulingPriority = 0;
+		_isBlocked = false; // not waiting in queue so far
+		_isRunning = false; // not running so far
+		_isTerminated = false; // not terminated either
+		_master = null; // this SimProcess has no master, so far
+		_slaveWaitQueue = null; // this SimProcess is not waiting in any queue
+		_irqCode = null; // this is not interrupted
+		_irqException = null; // this is not interrupted
+		_isRepeating = repeating;
 
 		// set up the Vector holding the used Resources
-		usedResources = new java.util.Vector();
+		_usedResources = new Vector<Resource>();
 
 		// this SimProcess is not contained in any ComplexSimProcess yet
-		supervisor = null;
-
+		_supervisor = null;
 	}
+	
+	/**
+     * Short-cut constructor of a SimProcess whose <code>lifeCycle()</code> is only
+     * executed once.
+     * 
+     * @param name
+     *            String : The name of the SimProcess
+     * @param owner
+     *            Model : The model this SimProcess is associated to
+     * @param showInTrace
+     *            boolean : Flag for showing SimProcess in trace-files. Set it
+     *            to <code>true</code> if SimProcess should show up in trace.
+     *            Set it to <code>false</code> if SimProcess should not be shown
+     *            in trace.
+     */
+    public SimProcess(Model owner, String name, boolean showInTrace) {
+
+        this(owner, name, false, showInTrace);
+    }
 
 	/**
-	 * Used to synchronize the change of control between scheduler and
-	 * simprocesses. This method must only be called by the scheduler resp. the
-	 * experiment's main thread in order to prevent multiple simprocess' threads
-	 * running in parallel which has to be avoided.
+	 * Schedules the SimProcess to be activated at the present point in
+	 * simulation time, yielding the same result as calling
+	 * <code>activate(new TimeSpan(0))</code>. The process will continue
+	 * executing its <code>lifeCycle</code> method.
 	 */
-	synchronized void activate() {
-
-		// check that the SimThread has not finished yet
-		if (isTerminated) {
-			sendWarning(
-					"Can't activate simprocess! Command ignored.",
-					"SimProcess : " + getName() + " Method: void activate()",
-					"The simprocess' lifeCycle method has already terminated.",
-					"Be sure to check the simprocess' status before activating."
-							+ " Use method isTerminated() to check the current status");
-			return;
-		}
-
-		// wake up the SimThread waiting in a block for the SimProcess' lock
-		// to be released
-		notify();
-
-		// now go wait until the next notification by the SimThread
-		// of this SimProcess
-		try {
-			wait();
-		} catch (InterruptedException irqEx) { // must be caught when using
-			// wait
-			// create eror message
-			ErrorMessage errmsg = new ErrorMessage(getModel(),
-					"Simulation stopped!",
-					"InterruptedException thrown by Java VM : " + irqEx,
-					"Thread conflict assumed.", "Check Java VM.", presentTime());
-			// throw it back to Experiment's start routine
-			throw (new desmoj.core.exception.DESMOJException(errmsg));
-		}
-
-	}
-
-	/**
-	 * Schedules the SimProcess to be activated at the specified point in
-	 * simulation time. The point of time is given as an offset to the current
-	 * simulation time. This will allow a SimProcess to continue executing its
-	 * <code>lifeCycle</code> method. Thus in contrast to the entity, no event
-	 * is needed for scheduling here.
-	 * 
-	 * @param dt
-	 *            TimeSpan : The offset to the current simulation time this
-	 *            process is to be activated
-	 */
-	public void activate(TimeSpan dt) {
+	public void activate() {
 		if (isBlocked()) {
 			sendWarning(
-					"Can't activate simprocess! Command ignored.",
-					"SimProcess : " + getName()
-							+ " Method: activate(TimeSpan dt)",
-					"The simprocess to be activated is blocked inside "
+					"Can't activate SimProcess! Command ignored.",
+					"SimProcess : " + getName() + " Method: activate()",
+					"The SimProcess to be activated is blocked inside "
 							+ "a higher level synchronization object.",
 					"Simprocesses waiting inside higher synchronization "
-							+ "constructs can not be activated by other simprocesses or "
+							+ "constructs can not be activated by other SimProcesses or "
 							+ "events!");
 			return; // is blocked in some synch construction
 		}
 
-		if (isScheduled()) {
-			sendWarning("Can't activate simprocess! Command ignored.",
-					"SimProcess : " + getName()
-							+ " Method: activate(TimeSpan dt)",
-					"The simprocess to be activated is already scheduled to be "
-							+ "activated at " + getEventNote().getTime() + ".",
-					"Use method reActivate(TimeSpan dt) to shift the entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
-		}
-
-		if (dt == null) {
-			sendWarning(
-					"Can't activate simprocess! Command ignored.",
-					"SimProcess : " + getName() + " Method:  void activate"
-							+ "(TimeSpan dt)",
-					"The simulation time given as parameter is a null reference",
-					"Be sure to have a valid simulation time reference before "
-							+ "calling this method");
-			return; // no proper parameter
-		}
 		// tell in the trace when the SimProcess will be activated
 		if (currentlySendTraceNotes()) {
 			if (this == currentSimProcess()) {
-				if (dt == TimeSpan.ZERO) {
-					sendTraceNote("activates itself immediately (NOW)");
-				} else {
-					if (TimeSpan.isEqual(dt, TimeSpan.ZERO)) {
-						sendTraceNote("activates itself now");
-					} else {
-						sendTraceNote("activates itself at "
-								+ TimeOperations.add(presentTime(), dt)
-										.toString());
-					}
-				}
+				sendTraceNote("activates itself now");
 			} else { // this is not the currently running SimProcess
-
-				if (dt == TimeSpan.ZERO) {
-					sendTraceNote("activates " + getQuotedName()
-							+ " immediately (NOW)");
-				} else {
-					if (TimeSpan.isEqual(dt, TimeSpan.ZERO)) {
-						sendTraceNote("activates " + getQuotedName() + " now");
-					} else {
-						sendTraceNote("activates "
-								+ getQuotedName()
-								+ " at "
-								+ TimeOperations.add(presentTime(), dt)
-										.toString());
-					}
-				}
+				sendTraceNote("activates " + getQuotedName() + " now");
 			}
 		}
-
+		
 		// schedule this SimProcess
-		getModel().getExperiment().getScheduler().schedule(this, null, dt);
+		getModel().getExperiment().getScheduler()
+				.schedule(this, null, new TimeSpan(0));
 
 		// debug output
 		if (currentlySendDebugNotes()) {
-			sendDebugNote("is activated on eventlist<br>"
+			sendDebugNote("is activated on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 		resetMaster(); // if activate(TimeSpan dt) is called for this
 		// SimProcess,
 		// there is no Master anymore controlling it.
+	}
+
+	/**
+	 * @deprecated Replaced by activate(TimeSpan dt). Schedules the SimProcess
+	 *             to be activated at the given time offset to the current
+	 *             simulation time. This will allow a SimProcess to continue
+	 *             executing its <code>lifeCycle</code> method.
+	 * 
+	 * @param dt
+	 *            SimTime : The offset to the current simulation time that this
+	 *            SimProcess is due to be activated
+	 */
+	@Deprecated
+	public void activate(SimTime dt) {
+		activate(SimTime.toTimeSpan(dt));
 
 	}
 
 	/**
-	 * Schedules the SimProcess to be activated at the given point in simulation
-	 * time. This will allow a SimProcess to continue executing its
-	 * <code>lifeCycle</code> method. Thus in contrast to the entity, no event
-	 * is needed for scheduling here.
+	 * Schedules the SimProcess to be activated at the given point in
+	 * simulation time. This will allow a SimProcess to continue executing its
+	 * <code>lifeCycle</code> method.
 	 * 
-	 * @param dt
+	 * @param when
 	 *            TimeInstant : The point in simulation time this process is to
 	 *            be activated.
 	 */
 	public void activate(TimeInstant when) {
 		if (isBlocked()) {
 			sendWarning(
-					"Can't activate simprocess! Command ignored.",
+					"Can't activate SimProcess! Command ignored.",
 					"SimProcess : " + getName()
 							+ " Method: activate(TimeInstant when)",
-					"The simprocess to be activated is blocked inside "
+					"The SimProcess to be activated is blocked inside "
 							+ "a higher level synchronization object.",
 					"Simprocesses waiting inside higher synchronization "
-							+ "constructs can not be activated by other simprocesses or "
+							+ "constructs can not be activated by other SimProcesses or "
 							+ "events!");
 			return; // is blocked in some synch construction
 		}
 
-		if (isScheduled()) {
-			sendWarning("Can't activate simprocess! Command ignored.",
-					"SimProcess : " + getName()
-							+ " Method: activate(TimeInstant when)",
-					"The simprocess to be activated is already scheduled to be "
-							+ "activated at " + getEventNote().getTime() + ".",
-					"Use method reActivate(TimeInstant when) to shift the entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
-		}
-
 		if (when == null) {
 			sendWarning(
-					"Can't activate simprocess! Command ignored.",
+					"Can't activate SimProcess! Command ignored.",
 					"SimProcess : " + getName() + " Method:  void activate"
 							+ "(TimeInstant when)",
 					"The simulation time given as parameter is a null reference",
@@ -358,13 +326,13 @@ public abstract class SimProcess extends Entity {
 				}
 			}
 		}
-
-		// schedule this SimProcess
+		  
+        // schedule this SimProcess
 		getModel().getExperiment().getScheduler().schedule(this, null, when);
 
 		// debug output
 		if (currentlySendDebugNotes()) {
-			sendDebugNote("is activated on eventlist<br>"
+			sendDebugNote("is activated on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
@@ -374,44 +342,110 @@ public abstract class SimProcess extends Entity {
 	}
 
 	/**
-	 * @deprecated Replaced by activate(TimeSpan dt). Schedules the SimProcess
-	 *             to be activated at the given time offset to the current
-	 *             simulation time. This will allow a SimProcess to continue
-	 *             executing its <code>lifeCycle</code> method. Thus in contrast
-	 *             to the entity, no event is needed for scheduling here.
+	 * Schedules the SimProcess to be activated at the specified point in
+	 * simulation time. The point of time is given as an offset to the current
+	 * simulation time. This will allow a SimProcess to continue executing its
+	 * <code>lifeCycle</code> method. Thus in contrast to the entity, no Event
+	 * is needed for scheduling here.
 	 * 
 	 * @param dt
-	 *            SimTime : The offset to the current simulation time that this
-	 *            SimProcess is due to be activated
+	 *            TimeSpan : The offset to the current simulation time this
+	 *            process is to be activated
 	 */
-	@Deprecated
-	public void activate(SimTime dt) {
-		activate(SimTime.toTimeSpan(dt));
+	public void activate(TimeSpan dt) {
+		if (isBlocked()) {
+			sendWarning(
+					"Can't activate SimProcess! Command ignored.",
+					"SimProcess : " + getName()
+							+ " Method: activate(TimeSpan dt)",
+					"The SimProcess to be activated is blocked inside "
+							+ "a higher level synchronization object.",
+					"Simprocesses waiting inside higher synchronization "
+							+ "constructs can not be activated by other SimProcesses or "
+							+ "events!");
+			return; // is blocked in some synch construction
+		}
+
+		if (dt == null) {
+			sendWarning(
+					"Can't activate SimProcess! Command ignored.",
+					"SimProcess : " + getName() + " Method:  void activate"
+							+ "(TimeSpan dt)",
+					"The simulation time given as parameter is a null reference",
+					"Be sure to have a valid simulation time reference before "
+							+ "calling this method");
+			return; // no proper parameter
+		}
+		// tell in the trace when the SimProcess will be activated
+		if (currentlySendTraceNotes()) {
+			if (this == currentSimProcess()) {
+				if (dt == TimeSpan.ZERO) {
+					sendTraceNote("activates itself immediately");
+				} else {
+					if (TimeSpan.isEqual(dt, TimeSpan.ZERO)) {
+						sendTraceNote("activates itself now");
+					} else {
+						sendTraceNote("activates itself at "
+								+ TimeOperations.add(presentTime(), dt)
+										.toString());
+					}
+				}
+			} else { // this is not the currently running SimProcess
+
+				if (dt == TimeSpan.ZERO) {
+					sendTraceNote("activates " + getQuotedName()
+							+ " immediately");
+				} else {
+					if (TimeSpan.isEqual(dt, TimeSpan.ZERO)) {
+						sendTraceNote("activates " + getQuotedName() + " now");
+					} else {
+						sendTraceNote("activates "
+								+ getQuotedName()
+								+ " at "
+								+ TimeOperations.add(presentTime(), dt)
+										.toString());
+					}
+				}
+			}
+		}
+		
+        // schedule this SimProcess
+		getModel().getExperiment().getScheduler().schedule(this, null, dt);
+
+		// debug output
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("is activated on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+
+		resetMaster(); // if activate(TimeSpan dt) is called for this
+		// SimProcess,
+		// there is no Master anymore controlling it.
 
 	}
 
 	/**
-	 * Schedules this simprocess to be activated directly after the given
+	 * Schedules this SimProcess to be activated directly after the given
 	 * Schedulable, which itself is already scheduled. Note that this
-	 * simprocess' point of simulation time will be set to be the same as the
-	 * schedulable's time. Thus this simprocess will continue to execute its
-	 * <code>lifeCycle</code> method directly after the given schedulable but
+	 * SimProcess' point of simulation time will be set to be the same as the
+	 * Schedulable's time. Thus this SimProcess will continue to execute its
+	 * <code>lifeCycle</code> method directly after the given Schedulable but
 	 * the simulation clock will not change. Please make sure that the
 	 * Schedulable given as parameter is actually scheduled.
 	 * 
 	 * @param after
-	 *            Schedulable : The schedulable this simprocess should be
+	 *            Schedulable : The Schedulable this SimProcess should be
 	 *            scheduled after
 	 */
 	public void activateAfter(Schedulable after) {
 
 		if (after == null) {
 			sendWarning(
-					"Can't activate this simprocess after the given simprocess "
+					"Can't activate this SimProcess after the given SimProcess "
 							+ "parameter! Command ignored.", "SimProcess : "
 							+ getName() + " Method: void "
 							+ "activateAfter(Schedulable after)",
-					"The schedulable given as parameter is a null reference",
+					"The Schedulable given as parameter is a null reference",
 					"Be sure to have a valid Schedulable reference before "
 							+ "calling this method");
 			return; // no proper parameter
@@ -419,26 +453,15 @@ public abstract class SimProcess extends Entity {
 
 		if (isBlocked()) {
 			sendWarning(
-					"Can't activate simprocess! Command ignored.",
+					"Can't activate SimProcess! Command ignored.",
 					"SimProcess : " + getName()
 							+ " Method: void activateAfter(Schedulable after)",
-					"The simprocess to be activated is blocked inside "
+					"The SimProcess to be activated is blocked inside "
 							+ "a higher level synchronization object.",
 					"Simprocesses waiting inside higher synchronization "
-							+ "constructs can not be activated by other simprocesses or "
+							+ "constructs can not be activated by other SimProcesses or "
 							+ "events!");
 			return; // is blocked in some synch construction
-		}
-
-		if (isScheduled()) {
-			sendWarning("Can't activate simprocess! Command ignored.",
-					"SimProcess : " + getName()
-							+ " Method: void activateAfter(Schedulable after)",
-					"The simprocess to be activated is already scheduled to be "
-							+ "activated at " + getEventNote().getTime() + ".",
-					"Use method reActivate(TimeSpan dt) to shift the entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
 		}
 
 		if (currentlySendTraceNotes()) {
@@ -449,37 +472,37 @@ public abstract class SimProcess extends Entity {
 						+ after.getQuotedName());
 			}
 		}
-
-		// schedule this simprocess
-		getModel().getExperiment().getScheduler().scheduleAfter(after, this,
-				null);
+	      
+        // schedule this SimProcess
+		getModel().getExperiment().getScheduler()
+				.scheduleAfter(after, this, null);
 
 		if (currentlySendDebugNotes()) {
 			sendDebugNote("is activated after " + after.getQuotedName()
-					+ " on eventlist<br>"
+					+ " on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 	}
 
 	/**
-	 * Schedules this simprocess to be activated directly before the given
-	 * schedulable, which itself is already scheduled. Note that this
-	 * simprocess' point of simulation time will be set to be the same as the
-	 * schedulable's time. Thus this simprocess will continue to execute its
-	 * <code>lifeCycle</code> method directly before the given schedulable but
+	 * Schedules this SimProcess to be activated directly before the given
+	 * Schedulable, which itself is already scheduled. Note that this
+	 * SimProcess' point of simulation time will be set to be the same as the
+	 * Schedulable's time. Thus this SimProcess will continue to execute its
+	 * <code>lifeCycle</code> method directly before the given Schedulable but
 	 * the simulation clock will not change. Please make sure that the
-	 * schedulable given as parameter is actually scheduled.
+	 * Schedulable given as parameter is actually scheduled.
 	 * 
 	 * @param before
-	 *            Schedulable : The schedulable this simprocess should be
+	 *            Schedulable : The Schedulable this SimProcess should be
 	 *            scheduled before
 	 */
 	public void activateBefore(Schedulable before) {
 
 		if (before == null) {
-			sendWarning("Can't activate this simprocess before the given "
-					+ "simprocess parameter", "SimProcess : " + getName()
+			sendWarning("Can't activate this SimProcess before the given "
+					+ "SimProcess parameter", "SimProcess : " + getName()
 					+ " Method: void activateBefore" + "(Schedulable before)",
 					"The Schedulable given as parameter is a null reference",
 					"Be sure to have a valid Schedulable reference before "
@@ -489,29 +512,16 @@ public abstract class SimProcess extends Entity {
 
 		if (isBlocked()) {
 			sendWarning(
-					"Can't activate simprocess! Command ignored.",
+					"Can't activate SimProcess! Command ignored.",
 					"SimProcess : "
 							+ getName()
 							+ " Method: void activateBefore(Schedulable before)",
-					"The simprocess to be activated is blocked inside "
+					"The SimProcess to be activated is blocked inside "
 							+ "a higher level synchronization object.",
 					"Simprocesses waiting inside higher synchronization "
-							+ "constructs can not be activated by other simprocesses or "
+							+ "constructs can not be activated by other SimProcesses or "
 							+ "events!");
 			return; // is blocked in some synch construction
-		}
-
-		if (isScheduled()) {
-			sendWarning(
-					"Can't activate simprocess! Command ignored.",
-					"SimProcess : "
-							+ getName()
-							+ " Method: void activateBefore(Schedulable before)",
-					"The simprocess to be activated is already scheduled to be "
-							+ "activated at " + getEventNote().getTime() + ".",
-					"Use method reActivate(TimeSpan dt) to shift the entity "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
 		}
 
 		if (currentlySendTraceNotes()) {
@@ -523,24 +533,54 @@ public abstract class SimProcess extends Entity {
 						+ before.getQuotedName());
 			}
 		}
-
-		// schedule this simprocess
-		getModel().getExperiment().getScheduler().scheduleBefore(before, this,
-				null);
+		
+        // schedule this SimProcess
+		getModel().getExperiment().getScheduler()
+				.scheduleBefore(before, this, null);
 
 		if (currentlySendDebugNotes()) {
 			sendDebugNote("activateBefore " + before.getQuotedName()
-					+ " on eventlist<br>"
+					+ " on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
-
+		
 		// hand control over to scheduler only if this is
-		// a running thread of simprocess
+		// a running thread of SimProcess
 		// if ( isRunning ) passivate();
 
-		resetMaster(); // if activateBefore() is called for this simprocess,
+		resetMaster(); // if activateBefore() is called for this SimProcess,
 		// there is no Master anymore controlling it.
 
+	}
+
+	/**
+	 * 
+	 * Clears the currently scheduled delayed interrupt so that it wont be
+	 * performed. This Method should be called to cancel a previously scheduled
+	 * delayed interrupt. This is typically the case if all steps to be covered
+	 * by the delayed interrupt have been performed in time (before the delayed
+	 * interrupt could be executed).
+	 * 
+	 */
+	public void cancelInterruptDelayed() {
+
+		if (isDelayedInterruptScheduled()) {
+			sendTraceNote("canceling delayed interrupt scheduled at "
+					+ _currentlyScheduledDelayedInterruptEvent.scheduledNext());
+			_currentlyScheduledDelayedInterruptEvent.cancel();
+			_currentlyScheduledDelayedInterruptEvent = null;
+		} else {
+			sendWarning(
+					"Cannot cancel a delayed interrupt because no delayed interrupt is scheduled. Action ignored.",
+					"SimProcess " + getName()
+							+ " Method: cancelInterruptDelayed()",
+					"No delayed interrupt has been scheduled.",
+					"You can use the Method isDelayedInterruptScheduled() on a SimProcess to test whether a delayed interrupt has been scheduled for it.");
+		}
+	}
+
+	public boolean isDelayedInterruptScheduled() {
+		return _currentlyScheduledDelayedInterruptEvent != null;
 	}
 
 	/**
@@ -553,7 +593,7 @@ public abstract class SimProcess extends Entity {
 	 * @author Soenke Claassen
 	 */
 	public boolean canCooperate() {
-		return master == null; // if the master is not set yet this SimProcess
+		return _master == null; // if the master is not set yet this SimProcess
 		// can cooperate with another SimProcess
 	}
 
@@ -566,7 +606,18 @@ public abstract class SimProcess extends Entity {
 	 * @author Soenke Claassen
 	 */
 	public void clearInterruptCode() {
-		this.irqCode = null;
+		_irqCode = null;
+	}
+
+	/**
+	 * As there is no generally applicable means of cloning a SimProcess (which
+	 * would require cloning the execution state as well), this method returns a
+	 * </code>CloneNotSupportedException</code>.
+	 * 
+	 * @return SimProcess : A copy of this process.
+	 */
+	protected SimProcess clone() throws CloneNotSupportedException {
+		throw new CloneNotSupportedException();
 	}
 
 	/**
@@ -581,20 +632,20 @@ public abstract class SimProcess extends Entity {
 		// this is the slave and current the master
 
 		// check if this slave already has a master
-		if (this.master != null) {
+		if (_master != null) {
 			sendWarning(
 					"Slaves can not cooperate with more than one master at a "
 							+ "time! The attempted cooperation is ignored.",
 					"SimProcess : " + getName() + " Method: cooperate () ",
 					"This slave process is already cooperating with another "
-							+ "master: " + master.getName(),
+							+ "master: " + _master.getName(),
 					"Be sure to have finished one cooperation before starting "
 							+ "the next one.");
 			return; // this process has a master already
 		}
 
 		// check if this slave is not terminated yet
-		if (this.isTerminated) {
+		if (_isTerminated) {
 			sendWarning(
 					"Attempt to cooperate with a terminated slave process! "
 							+ "The attempted cooperation is ignored.",
@@ -629,7 +680,7 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// the slave must be waiting in a WaitQueue
-		if (slaveWaitQueue == null) {
+		if (_slaveWaitQueue == null) {
 			sendWarning(
 					"Attempt to cooperate with a slave process, that is not "
 							+ "waiting in a WaitQueue. The attempted cooperation is ignored!",
@@ -641,21 +692,21 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// now prepare for the real cooperation
-		this.master = currentMaster; // set the master for this slave process
+		_master = currentMaster; // set the master for this slave process
 
 		// leave a note in the trace
-		if (master.currentlySendTraceNotes()) {
+		if (_master.currentlySendTraceNotes()) {
 			// trace note for a cooperation without any special conditions
 			sendTraceNote("cooperates " + this.getQuotedName() + " from "
-					+ slaveWaitQueue.getQuotedName());
+					+ _slaveWaitQueue.getQuotedName());
 		}
 
 		// get this slave out of his slaveWaitQueue
-		slaveWaitQueue.remove(this);
+		_slaveWaitQueue.remove(this);
 		// this slave process is not waiting in any slaveWaitingQueue anymore
-		slaveWaitQueue = null;
+		_slaveWaitQueue = null;
 		// and therefore this slave process is not blocked anymore
-		this.isBlocked = false;
+		_isBlocked = false;
 
 	}
 
@@ -676,7 +727,11 @@ public abstract class SimProcess extends Entity {
 	 * @author Soenke Claassen
 	 */
 	public InterruptCode getInterruptCode() {
-		return irqCode;
+		return _irqCode;
+	}
+
+	public InterruptException getInterruptException() {
+		return _irqException;
 	}
 
 	/**
@@ -689,40 +744,40 @@ public abstract class SimProcess extends Entity {
 	 * @author Soenke Claassen
 	 */
 	public SimProcess getMaster() {
-		return master;
+		return _master;
 	}
 
-
-	/**Returns the realTime deadline for this SimProcess (in nanoseconds). In case of a
-	 * real-time execution (i. e. the execution speed rate is set to a positive
-	 * value) the Scheduler will produce a warning message if a deadline is
-	 * missed.
+	/**
+	 * Returns the realTime deadline for this SimProcess (in nanoseconds). In
+	 * case of a real-time execution (i. e. the execution speed rate is set to a
+	 * positive value) the Scheduler will produce a warning message if a
+	 * deadline is missed.
 	 * 
 	 * @return the realTimeConstraint in nanoseconds
 	 */
 	public long getRealTimeConstraint() {
-		return realTimeConstraint;
+		return _realTimeConstraint;
 	}
-	
+
 	/**
-	 * Returns the waiting queue in which this SimProcess is waiting as a slave
+	 * Returns the waiting-queue in which this SimProcess is waiting as a slave
 	 * to cooperate with a master. If this method is called on a SimProcess
 	 * which is not a slave <code>null</code> is returned.
 	 * 
-	 * @return ProcessQueue : The waiting queue in which this SimProcess is
+	 * @return ProcessQueue : The waiting-queue in which this SimProcess is
 	 *         waiting as a slave or <code>null</code> if this SimProcess is not
 	 *         waiting as a slave for cooperation.
 	 * @author Soenke Claassen
 	 */
-	public ProcessQueue getSlaveWaitQueue() {
-		return slaveWaitQueue;
+	public ProcessQueue<? extends SimProcess> getSlaveWaitQueue() {
+		return _slaveWaitQueue;
 	}
 
 	/**
 	 * Returns the supervising <code>ComplexSimProcess</code> this SimProcess is
 	 * contained in.
 	 * 
-	 * @return desmoj.ComplexSimProcess : The supervising
+	 * @return ComplexSimProcess : The supervising
 	 *         <code>ComplexSimProcess</code> this SimProcess is contained in.
 	 *         Is <code>null</code> if this SimProcess is not contained in any
 	 *         <code>ComplexSimProcess</code>.
@@ -730,8 +785,38 @@ public abstract class SimProcess extends Entity {
 	 */
 	public ComplexSimProcess getSupervisor() {
 
-		return supervisor;
+		return _supervisor;
 	}
+	
+    /**
+     * Returns the last <code>Schedulable</code> that did cause the last
+     * activation (or interruption) of this SimProcess.
+     * 
+     * @return Schedulable : The Schedulable (e.g. other SimProcess, Event...)
+     *         that has caused the last activation of this SimProcess.
+     *         As processes may activate themselves, e.g. though a <code>hold(TimeSpan t)</code>
+     *         or an <code>activate(TimeSpan t)</code>, this method may return 
+     *         a reference to this process. The method returns <code>null</code> if
+     *         this process has not yet been activated.
+     */
+    public Schedulable getActivatedBy() {
+
+        return _activatedBy;
+    }
+    
+    /**
+     * Sets the last <code>Schedulable</code> which has (re)activated or 
+     * interrupted this SimProcess.
+     * 
+     * @param by
+     *            Schedulable : The Schedulable that has (re)activated or 
+     *            interrupted this SimProcess or <code>null</code> to un-set
+     *            this information. 
+     */
+    void setActivatedBy(Schedulable by) {
+
+        _activatedBy = by;
+    }
 
 	/**
 	 * Returns a clone of the internal <code>Vector</code> containing all the
@@ -742,27 +827,125 @@ public abstract class SimProcess extends Entity {
 	 *         the moment.
 	 * @author Soenke Claassen
 	 */
-	protected Vector getUsedResources() {
+	protected Vector<Resource> getUsedResources() {
 
 		// clone the internal Vector
-		Vector usedRes = (Vector) usedResources.clone();
+		@SuppressWarnings("unchecked")
+		Vector<Resource> usedRes = (Vector<Resource>) _usedResources.clone();
 
 		// return the cloned Vector
 		return usedRes;
 	}
 
 	/**
-	 * Passivates a simprocess for the given span of time. The simthread of this
-	 * simprocess is put into a lock and the scheduler, resp. the experiment's
-	 * main thread is released from its block and continues with the next
-	 * eventnote to be processed.
+	 * @deprecated Replaced by hold(TimeSpan dt). Passivates a SimProcess for
+	 *             the time given. The simthread of this SimProcess is put into
+	 *             a lock and the scheduler, resp. the experiment's main thread
+	 *             is released from its block and continues with the next
+	 *             EventNote to be processed.
 	 * 
-	 * @param duration
-	 *            TimeSpan : The duration of the simprocess' passivation
+	 * @param dt
+	 *            desmoj.SimTime : The duration of the SimProcess' passivation
 	 */
-	public void hold(TimeSpan dt) {
+	@Deprecated
+	public void hold(SimTime dt) throws DelayedInterruptException,
+			InterruptException {
+		hold(SimTime.toTimeSpan(dt));
+
+	}
+
+	/**
+	 * Passivates a SimProcess until the given point in simulation time. The
+	 * simthread of this SimProcess is put into a lock and the scheduler, resp.
+	 * the experiment's main thread is released from its block and continues
+	 * with the next event-note to be processed.
+	 * 
+	 * @param until
+	 *            TimeInstant : The point in simulation time when the
+	 *            SimProcess' passivation ends.
+	 * 
+	 */
+	public void hold(TimeInstant until) throws DelayedInterruptException,
+			InterruptException {
+		if ((until == null)) {
+			sendWarning("Can't schedule SimProcess! Command ignored.",
+					"SimProcess : " + getName()
+							+ " Method: void hold(TimeInstant until)",
+					"The TimeInstant given as parameter is a null reference.",
+					"Be sure to have a valid TimeInstant reference before calling this method.");
+			return; // no proper parameter
+		}
+
+		if (isBlocked()) {
+			sendWarning(
+					"Can't activate SimProcess! Command ignored.",
+					"SimProcess : " + getName()
+							+ " Method: hold(TimeInstant until)",
+					"The SimProcess to be activated is blocked inside "
+							+ "a higher level synchronization object.",
+					"Simprocesses waiting inside higher synchronization "
+							+ "constructs can not be set to be activated by other "
+							+ "SimProcesses or events!");
+			return; // is blocked in some synch construction
+		}
+
+		if (isScheduled()) {
+			sendWarning("Can't schedule SimProcess! Command ignored.",
+					"SimProcess : " + getName()
+							+ " Method: void hold(TimeInstant until)",
+					"The SimProcess to be scheduled is already scheduled.",
+					"Use method reActivate(TimeInstant when) to shift the SimProcess "
+							+ "to be scheduled at some other point of time.");
+			return; // was already scheduled
+		}
+
+		if (TimeInstant.isBefore(until, presentTime())) {
+			sendWarning("Can't schedule SimProcess! Command ignored.",
+					"SimProcess : " + getName()
+							+ " Method: void hold(TimeInstant until)",
+					"The instant given is in the past.",
+					"To hold a SimProcess, use a TimeInstant no earlier than the present time. "
+							+ "The present time can be obtained using the "
+							+ "presentTime() method.");
+			return; // do not hold
+		}
+
+		if (currentlySendTraceNotes()) {
+			if (this == currentSimProcess()) {
+				sendTraceNote("holds until " + until.toString());
+			} else {
+				sendTraceNote("holds " + getQuotedName() + "until "
+						+ until.toString());
+			}
+			skipTraceNote(); // skip passivate message
+		}
+
+		// schedule to be reactivated at the point of simulation time "until"
+		getModel().getExperiment().getScheduler().schedule(this, null, until);
+		
+        if (currentlySendDebugNotes()) {
+			sendDebugNote("holds on EventList<br>"
+					+ getModel().getExperiment().getScheduler().toString());
+		}
+
+		// hand control over to scheduler only if this is
+		// a running thread of SimProcess
+		passivate();
+	}
+
+	/**
+	 * Passivates a SimProcess for the given span of time. The simthread of
+	 * this SimProcess is put into a lock and the scheduler, resp. the
+	 * experiment's main thread is released from its block and continues with
+	 * the next EventNote to be processed.
+	 * 
+	 * @param dt
+	 *            TimeSpan : The duration of the SimProcess' passivation
+	 */
+	public void hold(TimeSpan dt) throws DelayedInterruptException,
+			InterruptException {
 		if ((dt == null)) {
-			sendWarning("Can't schedule simprocess! Command ignored.",
+			sendWarning("Can't schedule SimProcess! Command ignored.",
 					"SimProcess : " + getName()
 							+ " Method: void hold(TimeSpan dt)",
 					"The TimeSpan given as parameter is a null reference.",
@@ -772,22 +955,22 @@ public abstract class SimProcess extends Entity {
 
 		if (isBlocked()) {
 			sendWarning(
-					"Can't activate simprocess! Command ignored.",
+					"Can't activate SimProcess! Command ignored.",
 					"SimProcess : " + getName() + " Method: hold(TimeSpan dt)",
-					"The simprocess to be activated is blocked inside "
+					"The SimProcess to be activated is blocked inside "
 							+ "a higher level synchronization object.",
 					"Simprocesses waiting inside higher synchronization "
 							+ "constructs can not be set to be activated by other "
-							+ "simprocesses or events!");
+							+ "SimProcesses or events!");
 			return; // is blocked in some synch construction
 		}
 
 		if (isScheduled()) {
-			sendWarning("Can't schedule simprocess! Command ignored.",
+			sendWarning("Can't schedule SimProcess! Command ignored.",
 					"SimProcess : " + getName()
 							+ " Method: void hold(TimeSpan dt)",
-					"The simprocess to be scheduled is already scheduled.",
-					"Use method reActivate(TimeSpan dt) to shift the simprocess "
+					"The SimProcess to be scheduled is already scheduled.",
+					"Use method reActivate(TimeSpan dt) to shift the SimProcess "
 							+ "to be scheduled at some other point of time.");
 			return; // was already scheduled
 		}
@@ -801,116 +984,94 @@ public abstract class SimProcess extends Entity {
 						+ dt.toString() + " until "
 						+ TimeOperations.add(presentTime(), dt).toString());
 			}
+			skipTraceNote(); // skip passivate message
 		}
 
 		// schedule to be reactivated in dt
 		getModel().getExperiment().getScheduler().schedule(this, null, dt);
-
-		if (currentlySendDebugNotes()) {
-			sendDebugNote("holds on eventlist<br>"
+		
+        if (currentlySendDebugNotes()) {
+			sendDebugNote("holds on EventList<br>"
 					+ getModel().getExperiment().getScheduler().toString());
 		}
 
 		// hand control over to scheduler only if this is
-		// a running thread of simprocess
-		skipTraceNote();
+		// a running thread of SimProcess
 		passivate();
-
 	}
-
+	
 	/**
-	 * Passivates a simprocess until the given point in simulation time. The
-	 * simthread of this simprocess is put into a lock and the scheduler, resp.
-	 * the experiment's main thread is released from its block and continues
-	 * with the next eventnote to be processed.
-	 * 
-	 * @param until
-	 *            TimeInstant : The point in simulation time when the
-	 *            simprocess' passivation ends.
-	 * 
-	 */
-	public void hold(TimeInstant until) {
-		if ((until == null)) {
-			sendWarning("Can't schedule simprocess! Command ignored.",
-					"SimProcess : " + getName()
-							+ " Method: void hold(TimeInstant until)",
-					"The TimeInstant given as parameter is a null reference.",
-					"Be sure to have a valid TimeInstant reference before calling this method.");
-			return; // no proper parameter
-		}
-
-		if (isBlocked()) {
-			sendWarning(
-					"Can't activate simprocess! Command ignored.",
-					"SimProcess : " + getName()
-							+ " Method: hold(TimeInstant until)",
-					"The simprocess to be activated is blocked inside "
-							+ "a higher level synchronization object.",
-					"Simprocesses waiting inside higher synchronization "
-							+ "constructs can not be set to be activated by other "
-							+ "simprocesses or events!");
-			return; // is blocked in some synch construction
-		}
-
-		if (isScheduled()) {
-			sendWarning("Can't schedule simprocess! Command ignored.",
-					"SimProcess : " + getName()
-							+ " Method: void hold(TimeInstant until)",
-					"The simprocess to be scheduled is already scheduled.",
-					"Use method reActivate(TimeInstant when) to shift the simprocess "
-							+ "to be scheduled at some other point of time.");
-			return; // was already scheduled
-		}
-		
-        if (TimeInstant.isBefore(until, presentTime())) {
-            sendWarning("Can't schedule simprocess! Command ignored.",
+     * Passivates a SimProcess for span of time sampled from the distribution
+     * provided to the method. The sample is interpreted in the reference time 
+     * unit. The SimThread of this SimProcess is put into a lock and the scheduler, resp. the
+     * experiment's main thread is released from its block and continues with
+     * the next EventNote to be processed.
+     * 
+     * @param dist
+     *            NumericalDist<?> : Numerical distribution to sample the 
+     *            duration of the SimProcess' passivation from
+     */
+    public void hold(NumericalDist<?> dist) throws DelayedInterruptException,
+            InterruptException {
+        
+        if ((dist == null)) {
+            sendWarning("Can't schedule SimProcess! Command ignored.",
                     "SimProcess : " + getName()
-                            + " Method: void hold(TimeInstant until)",
-                    "The instant given is in the past.",
-                    "To hold a SimProcess, use a TimeInstant no earlier than the present time. "
-                            + "The present time can be obtained using the "
-                            + "presentTime() method.");
-            return; // do not hold
+                            + " Method: void hold(NumericalDist<?> dist)",
+                    "The NumericalDist given as parameter is a null reference.",
+                    "Be sure to have a valid NumericalDist reference before calling this method.");
+            return; // no proper parameter
         }
 
-		if (currentlySendTraceNotes()) {
-			if (this == currentSimProcess()) {
-				sendTraceNote("holds until " + until.toString());
-			} else {
-				sendTraceNote("holds " + getQuotedName() + "until "
-						+ until.toString());
-			}
-		}
+        if (isBlocked()) {
+            sendWarning(
+                    "Can't activate SimProcess! Command ignored.",
+                    "SimProcess : " + getName() + " Method: hold(NumericalDist<?> dist)",
+                    "The SimProcess to be activated is blocked inside "
+                            + "a higher level synchronization object.",
+                    "Simprocesses waiting inside higher synchronization "
+                            + "constructs can not be set to be activated by other "
+                            + "SimProcesses or events!");
+            return; // is blocked in some synch construction
+        }
 
-		// schedule to be reactivated at the point of simulation time "until"
-		getModel().getExperiment().getScheduler().schedule(this, null, until);
+        if (isScheduled()) {
+            sendWarning("Can't schedule SimProcess! Command ignored.",
+                    "SimProcess : " + getName()
+                            + " Method: void hold(NumericalDist<?> dist)",
+                    "The SimProcess to be scheduled is already scheduled.",
+                    "Use method reActivate(TimeSpan dt) to shift the SimProcess "
+                            + "to be scheduled at some other point of time.");
+            return; // was already scheduled
+        }
+                
+        // determine time span
+        TimeSpan dt = dist.sampleTimeSpan();
 
-		if (currentlySendDebugNotes()) {
-			sendDebugNote("holds on eventlist<br>"
-					+ getModel().getExperiment().getScheduler().toString());
-		}
+        if (currentlySendTraceNotes()) {
+            if (this == currentSimProcess()) {
+                sendTraceNote("holds for " + dt.toString() + " until "
+                        + TimeOperations.add(presentTime(), dt).toString() + " as sampled from " + dist.getQuotedName());
+            } else {
+                sendTraceNote("holds " + getQuotedName() + "for "
+                        + dt.toString() + " until "
+                        + TimeOperations.add(presentTime(), dt).toString() + " as sampled from " + dist.getQuotedName());
+            }
+            skipTraceNote(); // skip passivate message
+        }
 
-		// hand control over to scheduler only if this is
-		// a running thread of simprocess
-		skipTraceNote();
-		passivate();
-	}
+        // schedule to be reactivated in dt
+        getModel().getExperiment().getScheduler().schedule(this, null, dt);
+        
+        if (currentlySendDebugNotes()) {
+            sendDebugNote("holds on EventList<br>"
+                    + getModel().getExperiment().getScheduler().toString());
+        }
 
-	/**
-	 * @deprecated Replaced by hold(TimeSpan dt). Passivates a simprocess for
-	 *             the time given. The simthread of this simprocess is put into
-	 *             a lock and the scheduler, resp. the experiment's main thread
-	 *             is released from its block and continues with the next
-	 *             eventnote to be processed.
-	 * 
-	 * @param dt
-	 *            desmoj.SimTime : The duration of the simprocess' passivation
-	 */
-	@Deprecated
-	public void hold(SimTime dt) {
-		hold(SimTime.toTimeSpan(dt));
-
-	}
+        // hand control over to scheduler only if this is
+        // a running thread of SimProcess
+        passivate();
+    }
 
 	/**
 	 * Interrupts the SimProcess setting the given InterruptCode as the reason
@@ -926,7 +1087,7 @@ public abstract class SimProcess extends Entity {
 
 		if (interruptReason == null) {
 			sendWarning(
-					"Can't interrupt simprocess! Command ignored",
+					"Can't interrupt SimProcess! Command ignored",
 					"SimProcess : " + getName() + " Method: void "
 							+ "interrupt(InterruptCode interruptReason)",
 					"The InterruptCode given as parameter is a null reference.",
@@ -936,17 +1097,17 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// if the SimProcess is cooperating as a slave
-		if (master != null) {
+		if (_master != null) {
 			if (currentlySendTraceNotes()) {
 				sendTraceNote("interrupts '" + this.getName() + "' , who ...");
 			}
 
 			// interrupt the master, too. (with the same reason/InterruptCode)
-			master.interrupt(interruptReason);
+			_master.interrupt(interruptReason);
 		}
 
 		if (isBlocked()) {
-			sendWarning("Can't interrupt simprocess! Command ignored",
+			sendWarning("Can't interrupt SimProcess! Command ignored",
 					"SimProcess : " + getName() + " Method: void "
 							+ "interrupt(InterruptCode interruptReason)",
 					"Blocked SimProcesses can not be interrupted.",
@@ -956,7 +1117,7 @@ public abstract class SimProcess extends Entity {
 		}
 
 		if (isTerminated()) {
-			sendWarning("Can't interrupt simprocess! Command ignored",
+			sendWarning("Can't interrupt SimProcess! Command ignored",
 					"SimProcess : " + getName() + " Method: void "
 							+ "interrupt(InterruptCode interruptReason)",
 					"Terminated SimProcesses can not be interrupted.",
@@ -965,22 +1126,16 @@ public abstract class SimProcess extends Entity {
 			return; // is Terminated
 		}
 
-		if (irqCode != null) {
-			sendWarning(
-					"Can't interrupt simprocess! Command ignored",
-					"SimProcess : " + getName() + " Method: void "
-							+ "interrupt(InterruptCode interruptReason)",
-					"SimProcesses has already a InterruptCode set :"
-							+ irqCode.getName(),
-					"SimProcesses may only be interrupted if no other "
-							+ "InterruptCode is set on that SimProcess. You can check "
-							+ "on that using mehtod getInterruptCode, which must return "
-							+ "null if no other InterruptCode is set.");
-			return; // is Interrupted
+		if (isInterrupted()) {
+			sendAWarningThatTheCurrentSimProcessHasAlreadyBeenInterrupted("SimProcess : "
+					+ getName()
+					+ " Method: void "
+					+ "interrupt(InterruptCode interruptReason)");
+			return;
 		}
 
 		if (this == currentSimProcess()) {
-			sendWarning("Can't interrupt simprocess! Command ignored",
+			sendWarning("Can't interrupt SimProcess! Command ignored",
 					"SimProcess : " + getName() + " Method: void "
 							+ "interrupt(InterruptCode interruptReason)",
 					"SimProcess is the currently active SimProcess.",
@@ -994,10 +1149,10 @@ public abstract class SimProcess extends Entity {
 					+ interruptReason.getName() + " ["
 					+ interruptReason.getCodeNumber() + "]");
 		}
+		
+        _irqCode = interruptReason; // set the InterruptCode
 
-		irqCode = interruptReason; // set the InterruptCode
-
-		// if on eventlist, remove first ...
+		// if on EventList, remove first ...
 		if (isScheduled()) {
 			skipTraceNote(2);
 			cancel();
@@ -1009,18 +1164,214 @@ public abstract class SimProcess extends Entity {
 	}
 
 	/**
-	 * Returns the current block-status of the simprocess. If a simprocess is
+	 * Interrupts the SimProcess by throwing the given InterruptException in
+	 * it's lifeCylce() method. The InterruptException contains an InterruptCode
+	 * as the reason for the interruption. Blocked, terminated or already
+	 * interrupted SimProcesses can not be interrupted. In this case a warning
+	 * message will be produced and the interrupt will be ignord. If the
+	 * SimProcess is cooperating as a slave the interrupt will be passed to the
+	 * master.
+	 * 
+	 * @param interruptReason
+	 *            desmoj.InterruptException
+	 */
+	public void interrupt(InterruptException interruptReason) {
+		if (interruptReason == null
+				|| interruptReason.getInterruptCode() == null) {
+			sendWarning(
+					"Can't interrupt SimProcess! Command ignored",
+					"SimProcess : " + getName() + " Method: void "
+							+ "interrupt(InterruptException interruptReason)",
+					"Either the InterruptException given as parameter or the InterruptCode contained in that Exception is a null reference.",
+					"Be sure to have a valid InterruptCode reference before "
+							+ "calling this method.");
+			return; // no proper parameter
+		}
+
+		// if the SimProcess is cooperating as a slave
+		if (_master != null) {
+			if (currentlySendTraceNotes()) {
+				sendTraceNote("interrupts '" + this.getName() + "' , who ...");
+			}
+
+			// interrupt the master, too. (with the same reason/InterruptCode)
+			_master.interrupt(interruptReason);
+		}
+
+		if (isBlocked()) {
+			sendWarning("Can't interrupt SimProcess! Command ignored",
+					"SimProcess : " + getName() + " Method: void "
+							+ "interrupt(InterruptCode interruptReason)",
+					"Blocked SimProcesses can not be interrupted.",
+					"You can check if a SimProcess is blocked using method "
+							+ "isBlocked().");
+			return; // is Blocked
+		}
+
+		if (isTerminated()) {
+			sendWarning("Can't interrupt SimProcess! Command ignored",
+					"SimProcess : " + getName() + " Method: void "
+							+ "interrupt(InterruptException interruptReason)",
+					"Terminated SimProcesses can not be interrupted.",
+					"You can check if a SimProcess is terminated using method "
+							+ "isTerminated().");
+			return; // is Terminated
+		}
+
+		if (isInterrupted()) {
+			sendAWarningThatTheCurrentSimProcessHasAlreadyBeenInterrupted("SimProcess : "
+					+ getName()
+					+ " Method: void "
+					+ "interrupt(InterruptException interruptReason)");
+			return;
+		}
+
+		if (this == currentSimProcess()) {
+			sendWarning("Can't interrupt SimProcess! Command ignored",
+					"SimProcess : " + getName() + " Method: void "
+							+ "interrupt(InterruptException interruptReason)",
+					"SimProcess is the currently active SimProcess.",
+					"Make sure not to interrupt the currently active "
+							+ "SimProcess.");
+			return; // is currentSimProcess
+		}
+
+		if (currentlySendTraceNotes()) {
+			sendTraceNote("interrupts '" + this.getName() + "', with reason "
+					+ interruptReason.getInterruptCode().getName() + " ["
+					+ interruptReason.getInterruptCode().getCodeNumber() + "]");
+		}
+
+		_irqException = interruptReason; // set the InterruptException
+		
+        // if on EventList, remove first ...
+		if (isScheduled()) {
+			skipTraceNote(2);
+			cancel();
+		} else {
+			skipTraceNote();
+		}
+		// ... then activate after the one interrupting this SimProcess
+		activateAfter(current());
+	}
+
+	/**
+	 * Schedules this process to be interrupted at the given point in simulation
+	 * time. Only one delayed interrupt can be scheduled at a time. If a delayed
+	 * interrupt is scheduled after another delayed interrupt has already been
+	 * scheduled a warning message will be produced and the new delayed
+	 * interrupt will not be scheduled.
+	 * 
+	 * A delayed Interrupt must be cleared manually by calling
+	 * clearInterruptDelayed() on the SimProcess if it wasn't performed.
+	 * 
+	 * @param when
+	 *            The Point in time when the interrupt is to be performed.
+	 * 
+	 * @return The event which will (at the given point in time) triger the
+	 *         interrupt of this process
+	 */
+	public ExternalEvent interruptDelayed(TimeInstant when) {
+		ExternalEvent delayedInterruptEvent;
+
+		// when prï¿½fen
+
+		if (_currentlyScheduledDelayedInterruptEvent != null) {
+			sendWarning(
+					"Can't schedule a delayed interrupt of this SimProcess! CommandIgnored",
+					"SimProcess: "
+							+ getName()
+							+ " method: void interruptDelayed(TimeInstant when)",
+					"Another delayed interrupt has already been scheduled.",
+					"A delayed interrupt may only be scheduled if no other delayed interrupt has been scheduled on that SimProcess."
+							+ " Did you maybe forget to clear the last delayed interrupt. Delyaed interrupts aren't cleared automatically but must be cleared manually by a call to the method "
+							+ "SimProcess#clearInterruptDelayed().");
+			return null;
+		}
+
+		delayedInterruptEvent = new ExternalEvent(getModel(),
+				"DelayedInterruptEvent", true) {
+
+			@Override
+			public void eventRoutine() {
+				// Interrupt the SimProcess
+				SimProcess.this.interrupt(new DelayedInterruptException(
+						new InterruptCode("InternalDelayedInterrupt")));
+				// Unset the _currentlyScheduledDelayedInterruptEvent so the
+				// user is free to schedule another delyed interrupt.
+				_currentlyScheduledDelayedInterruptEvent = null;
+			}
+		};
+		if (currentlySendTraceNotes()) {
+			sendTraceNote("scheduling a delayed interrupt at " + when);
+		}
+		skipTraceNote();
+		delayedInterruptEvent.schedule(when);
+
+		if (delayedInterruptEvent.isScheduled()) {
+			// If the delayed interrupt event has been scheduled auccessfully
+			// save it to an instance variable so it may be unscheduled if
+			// necessary.
+			_currentlyScheduledDelayedInterruptEvent = delayedInterruptEvent;
+		} else {
+			// For some reason the delayed interrupt event wasn't scheduled. A
+			// warning should already haven been sent. So do nothing.
+		}
+
+		return _currentlyScheduledDelayedInterruptEvent;
+	}
+
+	/**
+	 * Schedules this process to be interrupted after the given delay. Only one
+	 * delayed interrupt can be scheduled at a time. If a delayed interrupt is
+	 * scheduled after another delayed interrupt has already been scheduled a
+	 * warning message will be produced and the delayed interrupt will not be
+	 * scheduled.
+	 * 
+	 * A delayed Interrupt must be cleared manually by calling
+	 * clearInterruptDelayed() on the SimProcess if it wasn't performed.
+	 * 
+	 * @param delay
+	 *            The delay after which the interrupt is to be performed.
+	 * 
+	 * @return The event which will (after the given delay) triger the interrupt
+	 *         of this process
+	 */
+	public ExternalEvent interruptDelayed(TimeSpan delay) {
+		TimeInstant when;
+
+		when = TimeOperations.add(presentTime(), delay);
+
+		return interruptDelayed(when);
+	}
+
+	/**
+	 * Returns the current block-status of the SimProcess. If a SimProcess is
 	 * blocked, it is waiting inside a queue or synchronization block for it's
 	 * release.
 	 * 
-	 * @return boolean : Is <code>true</code> if simprocess is blocked,
+	 * @return boolean : Is <code>true</code> if SimProcess is blocked,
 	 *         <code>false</code> otherwise
 	 */
 	public boolean isBlocked() {
 
-		return isBlocked;
+		return _isBlocked;
 
 	}
+	
+	/**
+     * Returns the current repeating-status of the SimProcess. If a SimProcess is
+     * repeating, the lifeCycle will be executed again after finishing.
+     * 
+     * @return boolean : Is <code>true</code> if the lifeCycle of the process
+     *         will be repeated finishing, while <code>false</code> indicates
+     *         the process will terminate after the lifeCycle is completed. 
+     */
+    public boolean isRepeating() {
+
+        return _isRepeating;
+
+    }
 
 	/**
 	 * Returns the current component status of this SimProcess. If a SimProcess
@@ -1036,7 +1387,7 @@ public abstract class SimProcess extends Entity {
 	 */
 	public boolean isComponent() {
 
-		return (supervisor != null);
+		return (_supervisor != null);
 	}
 
 	/**
@@ -1049,45 +1400,46 @@ public abstract class SimProcess extends Entity {
 	 * @author Soenke Claassen
 	 */
 	public boolean isInterrupted() {
-		return (irqCode != null);
+		return (_irqCode != null || _irqException != null);
 	}
 
 	/**
-	 * Returns the current running status of the simprocess. If a simprocess is
-	 * not ready, it has already finished its <code>lifeCycle()</code> method
-	 * and can not further be used as a simprocess. A terminated simprocess can
-	 * still be used like any other entity which it is derived from.
+	 * Returns the current running status of the SimProcess. If a SimProcess
+	 * is not ready, it has already finished its <code>lifeCycle()</code> method
+	 * and can not further be used as a SimProcess. A terminated SimProcess can
+	 * still be used like any other Entity which it is derived from.
 	 * 
-	 * @return boolean : Is <code>true</code> if the simprocess is terminated,
+	 * @return boolean : Is <code>true</code> if the SimProcess is terminated,
 	 *         <code>false</code> otherwise
 	 * @see Entity
 	 */
 	boolean isReady() {
 
-		return isRunning;
+		return _isRunning;
 
 	}
 
 	/**
-	 * Returns the current status of the simprocess. If a simprocess is
+	 * Returns the current status of the SimProcess. If a SimProcess is
 	 * terminated, it has already finished its <code>lifeCycle()</code> method
-	 * and can not further be used as a simprocess. A terminated simprocess can
-	 * still be used like any other entity which it is derived from.
+	 * and can not further be used as a SimProcess. A terminated SimProcess can
+	 * still be used like any other Entity which it is derived from.
 	 * 
-	 * @return boolean : Is <code>true</code> if the simprocess is terminated,
+	 * @return boolean : Is <code>true</code> if the SimProcess is terminated,
 	 *         <code>false</code> otherwise
 	 * @see Entity
 	 */
 	public boolean isTerminated() {
 
-		return isTerminated;
+		return _isTerminated;
 
 	}
 
 	/**
-	 * Override this method in a subclass of simprocess to implement that
-	 * simprocess' specific behaviour. This method starts after a simprocess has
-	 * been created and activated by the scheduler.
+	 * Override this method in a subclass of SimProcess to implement the
+	 * specific behaviour of this SimProcess. This method starts after a SimProcess
+	 * has been created and activated. Note that this method will be executed once 
+	 * or repeatedly, depending on the repeating status of the SimProcess.  
 	 */
 	public abstract void lifeCycle();
 
@@ -1113,8 +1465,8 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// put all the obtained resources in the Vector of used resources
-		for (int i = 0; i < obtainedResources.length; i++) {
-			usedResources.addElement(obtainedResources[i]);
+		for (Resource obtainedResource : obtainedResources) {
+			_usedResources.addElement(obtainedResource);
 		}
 
 		// for debugging purposes
@@ -1122,8 +1474,8 @@ public abstract class SimProcess extends Entity {
 			// make a string of all resources used by this SimProcess
 			String t = "uses: ";
 
-			for (Enumeration e = usedResources.elements(); e.hasMoreElements();) {
-				t += "<br>" + ((Resource) e.nextElement()).getName();
+			for (Resource resource : _usedResources) {
+				t += "<br>" + (resource).getName();
 			}
 
 			sendDebugNote(t);
@@ -1131,11 +1483,12 @@ public abstract class SimProcess extends Entity {
 	}
 
 	/**
-	 * Passivates the simprocess for an indefinite time. This method must be
-	 * called by the simprocess' own Thread only. The simprocess can only be
-	 * reactivated by another simprocess or entity.
+	 * Passivates the SimProcess for an indefinite time. This method must be
+	 * called by the SimProcess' own Thread only. The SimProcess can only be
+	 * reactivated by another SimProcess or Entity.
 	 */
-	public synchronized void passivate() {
+	public synchronized void passivate() throws DelayedInterruptException,
+			InterruptException {
 
 		if (currentlySendTraceNotes()) {
 			if (this == currentSimProcess()) {
@@ -1144,7 +1497,7 @@ public abstract class SimProcess extends Entity {
 				sendTraceNote("passivates " + getQuotedName());
 			}
 		}
-
+		
 		notify(); // frees the scheduler after wait()
 
 		try {
@@ -1166,6 +1519,22 @@ public abstract class SimProcess extends Entity {
 					getName(), presentTime()));
 		}
 
+		if (_irqException != null) {
+			// The SimProcess has been interrupted. First reset the
+			// _irqException, then throw the exception so that it can be caught
+			// in the lifeCycle() method of this SimProcess.
+
+			if (currentlySendTraceNotes()) {
+				sendTraceNote("throwing "
+						+ _irqException.getClass().getSimpleName()
+						+ " to interrupt the process");
+			}
+
+			InterruptException tmpIrqException = _irqException;
+			_irqException = null;
+
+			throw tmpIrqException;
+		}
 	}
 
 	/**
@@ -1180,21 +1549,21 @@ public abstract class SimProcess extends Entity {
 		// this is the slave and current the master
 
 		// check if this slave already has a master
-		if (this.master != null) {
+		if (_master != null) {
 			sendWarning(
 					"Slaves can not be transported from more than one master at "
 							+ "a time! The attempted transport is ignored.",
 					"SimProcess : " + getName()
 							+ " Method: prepareTransport () ",
 					"This slave process is already transported by another "
-							+ "master: " + master.getName(),
+							+ "master: " + _master.getName(),
 					"Be sure to have finished one transportation before starting "
 							+ "the next one.");
 			return; // this process has a master already
 		}
 
 		// check if this slave is not terminated yet
-		if (this.isTerminated) {
+		if (_isTerminated) {
 			sendWarning("Attempt to transport a terminated slave process! "
 					+ "The attempted transport is ignored.", "SimProcess : "
 					+ getName() + " Method: prepareTransport () ",
@@ -1231,7 +1600,7 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// the slave must be waiting in a WaitQueue
-		if (slaveWaitQueue == null) {
+		if (_slaveWaitQueue == null) {
 			sendWarning(
 					"Attempt to transport a slave process, that is not "
 							+ "waiting in a TransportJunction. The attempted transport is ignored!",
@@ -1245,27 +1614,27 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// now prepare for the real cooperation
-		this.master = currentMaster; // set the master for this slave process
+		_master = currentMaster; // set the master for this slave process
 
 		// leave a note in the trace
-		if (master.currentlySendTraceNotes()) {
+		if (_master.currentlySendTraceNotes()) {
 			// trace note for a transport without any special conditions
 			sendTraceNote("transports " + this.getQuotedName() + " from "
-					+ slaveWaitQueue.getQuotedName());
+					+ _slaveWaitQueue.getQuotedName());
 		}
 
 		// get this slave out of his slaveWaitQueue
-		slaveWaitQueue.remove(this);
+		_slaveWaitQueue.remove(this);
 		// this slave process is not waiting in any slaveWaitingQueue anymore
-		slaveWaitQueue = null;
+		_slaveWaitQueue = null;
 		// and therefore this slave process is not blocked anymore
-		this.isBlocked = false;
+		_isBlocked = false;
 
 	}
 
 	/**
 	 * Re-schedules the SimProcess to be activated at the given TimeSpan offset
-	 * to the current simulation time. The Simprocess has already been scheduled
+	 * to the current simulation time. The SimProcess has already been scheduled
 	 * but is now supposed to be reactivated at some other point of simulation
 	 * time.
 	 * 
@@ -1276,30 +1645,30 @@ public abstract class SimProcess extends Entity {
 	public void reActivate(TimeSpan dt) {
 		if (isBlocked()) {
 			sendWarning(
-					"Can't reactivate simprocess! Command ignored.",
+					"Can't reactivate SimProcess! Command ignored.",
 					"SimProcess : " + getName()
 							+ " Method: reActivate(TimeSpan dt)",
-					"The simprocess to be activated is blocked inside "
+					"The SimProcess to be activated is blocked inside "
 							+ "a higher level synchronization object.",
 					"Simprocesses waiting inside higher synchronization "
-							+ "constructs can not be activated by other simprocesses or "
+							+ "constructs can not be activated by other SimProcesses or "
 							+ "events!");
 			return; // is blocked in some synch construction
 		}
 
 		if (!isScheduled()) {
-			sendWarning("Can't reactivate simprocess! Command ignored.",
+			sendWarning("Can't reactivate SimProcess! Command ignored.",
 					"SimProcess : " + getName()
 							+ " Method: reActivate(TimeSpan dt)",
-					"The simprocess to be reactivated is not scheduled.",
-					"Use method activate(TimeSpan dt) to activate a simprocess"
+					"The SimProcess to be reactivated is not scheduled.",
+					"Use method activate(TimeSpan dt) to activate a SimProcess"
 							+ "that is not scheduled yet.");
 			return; // was already scheduled
 		}
 
 		if (dt == null) {
 			sendWarning(
-					"Can't reactivate simprocess! Command ignored.",
+					"Can't reactivate SimProcess! Command ignored.",
 					"SimProcess : " + getName() + " Method:  void reActivate"
 							+ "(TimeSpan dt)",
 					"The simulation time given as parameter is a null reference",
@@ -1307,20 +1676,22 @@ public abstract class SimProcess extends Entity {
 							+ "calling this method");
 			return; // no proper parameter
 		}
-
-		if (currentlySendTraceNotes()) {
+		
+        if (currentlySendTraceNotes()) {
 			if (this == currentSimProcess()) {
-				if (dt == TimeSpan.ZERO)
+				if (dt == TimeSpan.ZERO) {
 					sendTraceNote("reactivates itself now");
-				else
+				} else {
 					sendTraceNote("reactivates itself at "
 							+ TimeOperations.add(presentTime(), dt));
+				}
 			} else {
-				if (dt == TimeSpan.ZERO)
+				if (dt == TimeSpan.ZERO) {
 					sendTraceNote("reactivates " + getQuotedName() + " now");
-				else
+				} else {
 					sendTraceNote("reactivates " + getQuotedName() + " at "
 							+ TimeOperations.add(presentTime(), dt));
+				}
 			}
 		}
 
@@ -1335,14 +1706,56 @@ public abstract class SimProcess extends Entity {
 	 * Gets the InterruptCode from the master and resets the master to
 	 * <code>null</code>.
 	 * 
+	 * 
 	 * @author Soenke Claassen
 	 */
 	public void resetMaster() {
-		if (this.master != null) {
-			irqCode = master.getInterruptCode();
+		if (_master != null) {
+			_irqCode = _master.getInterruptCode();
+			_irqException = _master.getInterruptException();
 		}
 
-		this.master = null;
+		_master = null;
+	}
+
+	/**
+	 * Used to synchronize the change of control between scheduler and
+	 * SimProcesses. This method must only be called by the scheduler resp. the
+	 * experiment's main thread in order to prevent multiple SimProcess' threads
+	 * running in parallel which has to be avoided.
+	 */
+	synchronized void resume() {
+
+		// check that the SimThread has not finished yet
+		if (_isTerminated) {
+			sendWarning(
+					"Can't activate SimProcess! Command ignored.",
+					"SimProcess : " + getName() + " Method: void resume()",
+					"The SimProcess' lifeCycle method has already terminated.",
+					"Be sure to check the SimProcess' status before resuming."
+							+ " Use method isTerminated() to check the current status");
+			return;
+		}
+
+		// wake up the SimThread waiting in a block for the SimProcess' lock
+		// to be released
+		notify();
+
+		// now go wait until the next notification by the SimThread
+		// of this SimProcess
+		try {
+			wait();
+		} catch (InterruptedException irqEx) { // must be caught when using
+			// wait
+			// create eror message
+			ErrorMessage errmsg = new ErrorMessage(getModel(),
+					"Simulation stopped!",
+					"InterruptedException thrown by Java VM : " + irqEx,
+					"Thread conflict assumed.", "Check Java VM.", presentTime());
+			// throw it back to Experiment's start routine
+			throw (new desmoj.core.exception.DESMOJException(errmsg));
+		}
+
 	}
 
 	/**
@@ -1354,7 +1767,7 @@ public abstract class SimProcess extends Entity {
 	 */
 	public void returnAllResources() {
 		// check if something can be returned
-		if (usedResources.isEmpty()) {
+		if (_usedResources.isEmpty()) {
 			sendWarning(
 					"Attempt to return all resources, but the "
 							+ "SimProcess does not hold any resources! Command ignored!",
@@ -1368,10 +1781,9 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// repeat while vector of usedResources is not empty
-		while (!usedResources.isEmpty()) {
+		while (!_usedResources.isEmpty()) {
 			// get the first resource and check the Res pool it belongs to
-			Res crntResPool = ((Resource) usedResources.firstElement())
-					.getResPool();
+			Res crntResPool = _usedResources.firstElement().getResPool();
 
 			// counter how many resources of that res pool are used
 			int n = 1;
@@ -1379,9 +1791,9 @@ public abstract class SimProcess extends Entity {
 			// search the whole vector of usedResources for resources of the
 			// current
 			// Res pool
-			for (int i = 1; i < usedResources.size(); i++) {
+			for (int i = 1; i < _usedResources.size(); i++) {
 				// is the resource of the desired Res pool?
-				if (((Resource) usedResources.elementAt(i)).getResPool() == crntResPool) {
+				if (_usedResources.elementAt(i).getResPool() == crntResPool) {
 					n++; // increase the counter
 				}
 			} // end for-loop
@@ -1393,15 +1805,16 @@ public abstract class SimProcess extends Entity {
 			int k = 0;
 
 			// collect all the resources from the Vector of usedResources
-			for (int j = 0; j < usedResources.size(); j++) {
+			for (int j = 0; j < _usedResources.size(); j++) {
 				// is the resource of the desired Res pool?
-				if (((Resource) usedResources.elementAt(j)).getResPool() == crntResPool) {
+				if ((_usedResources.elementAt(j)).getResPool() == crntResPool) {
 					// put res in array
-					returningRes[k] = (Resource) usedResources.elementAt(j);
+					returningRes[k] = _usedResources.elementAt(j);
 					k++; // increase counter of array
 				}
-				if (k == n) // array is full
+				if (k == n) {
 					break; // stop the for-loop
+				}
 			}
 
 			// return the array of resources to the Res pool they belong to
@@ -1413,7 +1826,7 @@ public abstract class SimProcess extends Entity {
 			{
 				// remove each resource that is in the array of
 				// returningResources
-				usedResources.removeElement(returningRes[m]);
+				_usedResources.removeElement(returningRes[m]);
 			}
 
 		} // end while
@@ -1423,12 +1836,13 @@ public abstract class SimProcess extends Entity {
 			// make a string including all elements of the vector usedResources
 			String s = "All resources returned! Contents of vector usedResources: ";
 
-			if (usedResources.isEmpty()) // anything left ?
+			if (_usedResources.isEmpty()) // anything left ?
 			{
 				s += "<br>none";
 			}
 
-			for (Enumeration e = usedResources.elements(); e.hasMoreElements();) {
+			for (Enumeration<Resource> e = _usedResources.elements(); e
+					.hasMoreElements();) {
 				s += e.nextElement();
 			}
 
@@ -1467,7 +1881,7 @@ public abstract class SimProcess extends Entity {
 		}
 
 		// check if nothing can be returned
-		if (usedResources.isEmpty()) {
+		if (_usedResources.isEmpty()) {
 			sendWarning(
 					"Attempt to return a number of resources, but the "
 							+ "SimProcess does not hold any resources! Command ignored!",
@@ -1487,15 +1901,16 @@ public abstract class SimProcess extends Entity {
 		int j = 0;
 
 		// collect all the resources from the Vector of usedResources
-		for (int i = 0; i < usedResources.size(); i++) {
+		for (int i = 0; i < _usedResources.size(); i++) {
 			// is the resource of the desired kind?
-			if (((Resource) usedResources.elementAt(i)).getResPool() == resPool) {
+			if ((_usedResources.elementAt(i)).getResPool() == resPool) {
 				// put res in array
-				returningRes[j] = (Resource) usedResources.elementAt(i);
+				returningRes[j] = _usedResources.elementAt(i);
 				j++; // increase counter of array
 			}
-			if (j == n) // array is full
+			if (j == n) {
 				break; // stop the for-loop
+			}
 		}
 
 		// for debugging: make a string of all returning resources
@@ -1506,7 +1921,7 @@ public abstract class SimProcess extends Entity {
 		// returningResources
 		{
 			// remove each resource that is in the array of returningResources
-			usedResources.removeElement(returningRes[m]);
+			_usedResources.removeElement(returningRes[m]);
 
 			// add them to string of returning resources
 			s += "<br>" + returningRes[m].getName();
@@ -1534,13 +1949,13 @@ public abstract class SimProcess extends Entity {
 			// make a string of all resources still held by this SimProcess
 			String t = "still holds: ";
 
-			if (usedResources.isEmpty()) // anything left ?
+			if (_usedResources.isEmpty()) // anything left ?
 			{
 				t += "<br>none";
 			}
 
-			for (Enumeration e = usedResources.elements(); e.hasMoreElements();) {
-				t += "<br>" + ((Resource) e.nextElement()).getName();
+			for (Resource resource : _usedResources) {
+				t += "<br>" + (resource).getName();
 			}
 
 			sendDebugNote(t);
@@ -1549,8 +1964,35 @@ public abstract class SimProcess extends Entity {
 		return returningRes; // return the array of resources
 	}
 
+	private void sendAWarningThatTheCurrentSimProcessHasAlreadyBeenInterrupted(
+			String location) {
+		String reason;
+
+		if (_irqCode != null) {
+			reason = "The SimProcess already has an InterruptCode set: "
+					+ _irqCode.getName();
+		} else if (_irqException != null) {
+			reason = "The SimProcess already has an InterruptException set which contains the following InterruptCode: "
+					+ _irqException.getInterruptCode().getName();
+		} else {
+			throw new RuntimeException(
+					"Apparently this method has been called although the current process hasn't been interrupted.");
+			// This should never happen.
+		}
+
+		// is Interrupted
+		sendWarning(
+				"Can't interrupt SimProcess! Command ignored",
+				location,
+				reason,
+				"SimProcesses may only be interrupted if no other "
+						+ "InterruptCode or InterruptException is set on that SimProcess. You can check "
+						+ "on that using the mehtod isInterrupted(), which must return "
+						+ "false if no other InterruptCode or InterruptException is set.");
+	}
+
 	/**
-	 * Sets the simprocess' blocked status to the boolean value given. This is
+	 * Sets the SimProcess' blocked status to the boolean value given. This is
 	 * necessary for some operations in conjunction with some synchronization
 	 * classes.
 	 * 
@@ -1559,23 +2001,50 @@ public abstract class SimProcess extends Entity {
 	 */
 	public void setBlocked(boolean blockStatus) {
 
-		isBlocked = blockStatus;
+		_isBlocked = blockStatus;
 
 	}
 	
-	/**Sets the realTime deadline for this SimProcess (in nanoseconds). In case of a
-	 * real-time execution (i. e. the execution speed rate is set to a positive
-	 * value) the Scheduler will produce a warning message if a deadline is
-	 * missed.
+    /**
+     * Sets the SimProcess' repeating status to the boolean value given, permitting
+     * the process' lifeCycle to either start again (<code>true</code>) or terminate
+     * (<code>false</code>) after the current cycle is completed. Note that setting
+     * setting this property to <code>true</code> <i>after</i> the the process has
+     * terinated has no effect.  
+     * 
+     * @param repeatingStatus
+     *            boolean : The new value for the repeating status
+     */
+    public void setRepeating(boolean repeatingStatus) {
+
+        _isRepeating = repeatingStatus;
+
+    }	
+	
+    /**
+     * Returns the current repeating-status of the SimProcess. If a SimProcess is
+     * repeating, the lifeCycle will be executed again after finishing.
+     * 
+     * @return boolean : Is <code>true</code> if the lifeCycle of the process
+     *         will be repeated finishing, while <code>false</code> indicates
+     *         the process will terminate after the lifeCycle is completed. 
+     */
+
+	/**
+	 * Sets the realTime deadline for this SimProcess (in nanoseconds). In case
+	 * of a real-time execution (i. e. the execution speed rate is set to a
+	 * positive value) the Scheduler will produce a warning message if a
+	 * deadline is missed.
 	 * 
-	 * @param realTimeConstraint the realTimeConstraint in nanoseconds to set
+	 * @param realTimeConstraint
+	 *            the realTimeConstraint in nanoseconds to set
 	 */
 	public void setRealTimeConstraint(long realTimeConstraint) {
-		this.realTimeConstraint = realTimeConstraint;
+		_realTimeConstraint = realTimeConstraint;
 	}
-	
+
 	/**
-	 * Sets the simprocess' running status to the boolean value given. This is
+	 * Sets the SimProcess' running status to the boolean value given. This is
 	 * necessary for some operations in conjunction with synchronization
 	 * classes.
 	 * 
@@ -1584,21 +2053,22 @@ public abstract class SimProcess extends Entity {
 	 */
 	void setRunning(boolean runStatus) {
 
-		isRunning = runStatus;
+		_isRunning = runStatus;
 
 	}
 
 	/**
-	 * Sets the simprocess' slaveWaitQueue variable to the ProcessQueue in which
-	 * this SimProcess is waiting as a slave to cooperate with a master.
+	 * Sets the SimProcess' slaveWaitQueue variable to the ProcessQueue in
+	 * which this SimProcess is waiting as a slave to cooperate with a master.
 	 * 
 	 * @param slvWaitQueue
-	 *            ProcessQueue : The waiting queue in which this SimProcess is
+	 *            ProcessQueue : The waiting-queue in which this SimProcess is
 	 *            waiting as a slave to cooperate with a master.
 	 * @author Soenke Claassen
 	 */
-	public void setSlaveWaitQueue(ProcessQueue slvWaitQueue) {
-		slaveWaitQueue = slvWaitQueue;
+	public void setSlaveWaitQueue(
+			ProcessQueue<? extends SimProcess> slvWaitQueue) {
+		_slaveWaitQueue = slvWaitQueue;
 	}
 
 	/**
@@ -1614,11 +2084,11 @@ public abstract class SimProcess extends Entity {
 	 */
 	protected void setSupervisor(ComplexSimProcess complexProcess) {
 
-		this.supervisor = complexProcess;
+		_supervisor = complexProcess;
 	}
 
 	/**
-	 * Sets the attribute indicating that this simprocess' simthread has
+	 * Sets the attribute indicating that this SimProcess' simthread has
 	 * finished to the given value. This method is used by class
 	 * <code>SimThread<code> only.
 	 * 
@@ -1628,23 +2098,62 @@ public abstract class SimProcess extends Entity {
 	 */
 	void setTerminated(boolean termValue) {
 
-		isTerminated = termValue; // Hasta la vista, baby!
+		_isTerminated = termValue; // Hasta la vista, baby!
 
 	}
+	
+    /**
+     * Returns the process' scheduling priority. The scheduling priority is used
+     * to determine which process to execute first if two or more processes are activated
+     * at the same instant. The default priority is zero.
+     * Higher priorities are positive, lower priorities negative.
+     * 
+     * @return int : The process' priority
+     */
+    public int getSchedulingPriority() {
 
+        return _mySchedulingPriority;
+
+    }
+
+    /**
+     * Sets the process' scheduling priority to a given integer value. The default 
+     * priority (unless assigned otherwise) is zero. 
+     * Negative priorities are lower, positive priorities are higher.
+     * All values should be inside the range defined by Java's integral
+     * <code>integer</code> data type [-2147483648, +2147483647].
+     * 
+     * An process' scheduling priority it used to determine which process is 
+     * executed first if activated at the same time instant.
+     * Should the priority be the same, order of event execution depends on the 
+     * <code>EventList</code> in use, e.g. activated first is executed 
+     * first (<code>EventTreeList</code>) or random (<code>RandomizingEventTreeList</code>). 
+     *
+     * @param newPriority
+     *            int : The new scheduling priority value
+     */
+    public void setSchedulingPriority(int newPriority) {
+
+        this._mySchedulingPriority = newPriority;
+
+    }
+    
 	/**
-	 * Starts the simthread associated with this simprocess. This is method must
-	 * be called the first time a simprocess is supposed to start processing its
-	 * <code>lifeCycle()</code> method.
+	 * Starts the simthread associated with this SimProcess. This is method must
+	 * be called the first time a SimProcess is supposed to start processing
+	 * its <code>lifeCycle()</code> method.
 	 */
 	synchronized void start() {
+	    
+        // set up simthread
+        _myThread = new SimThread(getModel().getExperiment().getThreadGroup(), this);
 
 		// setting this flag shows that the simthread is now ready to take over
 		// control from the scheduler's thread
-		isRunning = true;
+		_isRunning = true;
 
 		// start thread and let it run into the block
-		myThread.start();
+		_myThread.start();
 
 		// put thread in to a wait for synchronization
 		try {

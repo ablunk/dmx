@@ -7,7 +7,7 @@ package desmoj.core.simulator;
  *             of this class and offers its own methods for arithmetic
  *             operations. Ensures that only valid points of time are generated.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @author modified by Felix Klueckmann
  * 
@@ -42,7 +42,7 @@ public class SimTime {
 	 * Stores the point of simulation time as double value for each SimTime
 	 * object.
 	 */
-	private final double myTime;
+	private final double _myTime;
 
 	/**
 	 * Constructs a simtime object with the given initial time value. It
@@ -68,7 +68,7 @@ public class SimTime {
 							null)));
 		}
 
-		myTime = time;
+		_myTime = time;
 
 	}
 
@@ -83,7 +83,7 @@ public class SimTime {
 	 */
 	public SimTime(SimTime time) {
 
-		myTime = time.getTimeValue();
+		_myTime = time.getTimeValue();
 
 	}
 
@@ -141,7 +141,7 @@ public class SimTime {
 	 */
 	public double getTimeValue() {
 
-		return myTime; // not much else to do
+		return _myTime; // not much else to do
 
 	}
 
@@ -273,7 +273,9 @@ public class SimTime {
 	 * event-list.
 	 * 
 	 * @return desmoj.SimTime : The special simtime object used to indicate
-	 *         immediate scheduling, preempting a current simprocess
+	 *         immediate scheduling, preempting a current SimProcess
+	 * 
+	 * @sharpen.ignore
 	 */
 	public static final SimTime now() {
 
@@ -289,7 +291,10 @@ public class SimTime {
 	public String toString() {
 
 		// convert time value to string
-		String s = Double.toString(myTime);
+		
+		//changed for sharpen:
+		//String s = Double.toString(_myTime);
+		String s = ((Double) _myTime).toString();
 		return s;
 
 	}
@@ -305,12 +310,12 @@ public class SimTime {
 	public String toString(int floats) {
 
 		// convert time value to String
-		String s = Double.toString(myTime);
+		String s = Double.toString(_myTime);
 
 		// is the value larger than 10E7, <- that format is used giving the
 		// decimal
 		// point quite a different meaning
-		if (myTime > 10E7)
+		if (_myTime > 10E7)
 			return s; // so return the whole number
 
 		// get position of decimal point if available
@@ -341,19 +346,19 @@ public class SimTime {
 	 * @return SimTime : The resulting SimTime from the conversion
 	 * @author Felix Klueckmann (07/09)
 	 */
-	static SimTime toSimTime(TimeInstant instant) {
+	public static SimTime toSimTime(TimeInstant instant) {
 		return new SimTime(instant.getTimeAsDouble());
 	}
 	
-	   /**
-     * Converts the given TimeInstant object to a SimTime object.
+	/**
+     * Converts the given TimeSpan object to a SimTime object.
      * 
-     * @param instant
-     *            TimeInstant : The TimeInstant to be converted
+     * @param span
+     *            TimeSpan : The TimeSpan to be converted
      * @return SimTime : The resulting SimTime from the conversion
      * @author Felix Klueckmann (07/09)
      */
-    static SimTime toSimTime(TimeSpan span) {
+    public static SimTime toSimTime(TimeSpan span) {
         return new SimTime(span.getTimeAsDouble());
     }
 

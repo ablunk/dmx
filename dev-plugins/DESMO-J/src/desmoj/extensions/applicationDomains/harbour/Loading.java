@@ -1,7 +1,7 @@
 package desmoj.extensions.applicationDomains.harbour;
 
 import desmoj.core.advancedModellingFeatures.ProcessCoop;
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.SimTime;
@@ -21,7 +21,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see desmoj.core.advancedModellingFeatures.ProcessCoop
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ public class Loading extends ProcessCoop {
 	 * The random number stream determining the time it takes to load a truck or
 	 * an internal transporter.
 	 */
-	private RealDist loadTimeStream;
+	private NumericalDist<?> loadTimeStream;
 
 	/**
 	 * Constructs a Loading process where a master (
@@ -56,13 +56,13 @@ public class Loading extends ProcessCoop {
 	 * @param name
 	 *            java.lang.String : the name of this Loading.
 	 * @param loadTimeStream
-	 *            desmoj.dist.RealDist : The random number stream determining
+	 *            NumericalDist<?> : The random number stream determining
 	 *            the time it takes to load the containers.
 	 * @param showInTrace
 	 *            boolean : Flag, if this Loading should produce a trace output
 	 *            or not.
 	 */
-	public Loading(Model owner, String name, RealDist loadTimeStream,
+	public Loading(Model owner, String name, NumericalDist<?> loadTimeStream,
 			boolean showInTrace) {
 		super(owner, name, showInTrace); // make a ProcessCoop
 
@@ -141,7 +141,7 @@ public class Loading extends ProcessCoop {
 	 */
 	protected SimTime getLoadTimeSample() {
 
-		return new SimTime(loadTimeStream.sample());
+		return new SimTime(loadTimeStream.sample().doubleValue());
 	}
 
 	/**
@@ -149,11 +149,11 @@ public class Loading extends ProcessCoop {
 	 * stream.
 	 * 
 	 * @param loadTimeStream
-	 *            desmoj.dist.RealDist : The new <code>RealDist</code> random
+	 *            NumericalDist<?> : The new <code>RealDist</code> random
 	 *            number stream determining the time it takes to load the
 	 *            containers (goods).
 	 */
-	public void setLoadTimeStream(RealDist loadTimeStream) {
+	public void setLoadTimeStream(NumericalDist<?> loadTimeStream) {
 
 		this.loadTimeStream = loadTimeStream;
 	}

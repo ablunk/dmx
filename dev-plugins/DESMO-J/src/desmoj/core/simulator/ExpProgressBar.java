@@ -14,7 +14,7 @@ import javax.swing.Timer;
 /**
  * The progress bar to display the progress of the experiment.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,7 +27,9 @@ import javax.swing.Timer;
  * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing
  * permissions and limitations under the License.
- *
+ * 
+ * @sharpen.ignore
+ * 
  */
 public class ExpProgressBar extends JFrame {
 
@@ -42,17 +44,17 @@ public class ExpProgressBar extends JFrame {
 	/**
 	 * The experiment this ExpProgressBar is connected to.
 	 */
-	private Experiment myExperiment;
+	private Experiment _myExperiment;
 
 	/**
 	 * The ProgressBar displaying the progress of the experiment.
 	 */
-	private JProgressBar progressBar;
+	private JProgressBar _progressBar;
 
 	/**
 	 * The timer timing the update of the progress bar.
 	 */
-	private Timer timer;
+	private Timer _timer;
 
 	/**
 	 * Constructs an ExpProgressBar for an <code>Experiment</code> to display
@@ -66,39 +68,40 @@ public class ExpProgressBar extends JFrame {
 
 		super("Progress of the experiment"); // make a JFrame
 
-		this.myExperiment = experiment;
+		this._myExperiment = experiment;
 
-		setTitle("Progress of " + myExperiment.getName());
+		setTitle("Progress of " + _myExperiment.getName());
 
 		// create the UI
-		progressBar = new JProgressBar(0, 100);
-		progressBar.setValue(0);
-		progressBar.setStringPainted(true);
+		_progressBar = new JProgressBar(0, 100);
+		_progressBar.setValue(0);
+		_progressBar.setStringPainted(true);
 		// set the preferred size
-		progressBar.setPreferredSize(new java.awt.Dimension(320, 22));
+		_progressBar.setPreferredSize(new java.awt.Dimension(320, 22));
 
 		JPanel contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout());
-		contentPane.add(progressBar, BorderLayout.CENTER);
+		contentPane.add(_progressBar, BorderLayout.CENTER);
 		contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		setContentPane(contentPane);
 
 		// Create a timer.
-		timer = new Timer(HALF_A_SECOND, new ActionListener() {
+		_timer = new Timer(HALF_A_SECOND, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
-				long crntTime = myExperiment.getSimClock().getTime().getTimeInEpsilon();
-		        long stop = myExperiment.getStopTime().getTimeInEpsilon();
-				int progress = (int) (100.0D * crntTime / stop);
-				progressBar.setValue(progress);
-				if (myExperiment.isAborted()) {
+				long crntTime = _myExperiment.getSimClock().getTime().getTimeInEpsilon();
+		        long start = TimeOperations.getStartTime().getTimeInEpsilon();
+				long stop = _myExperiment.getStopTime().getTimeInEpsilon();
+		        int progress = (int) (100.0D * (crntTime - start) / (stop - start));
+				_progressBar.setValue(progress);
+				if (_myExperiment.isAborted()) {
 					Toolkit.getDefaultToolkit().beep();
-					timer.stop();
+					_timer.stop();
 				}
 			}
 		});
 
 		// start the timer
-		timer.start();
+		_timer.start();
 	}
 
 	/**
@@ -109,6 +112,6 @@ public class ExpProgressBar extends JFrame {
 	 */
 	public Experiment getExperiment() {
 
-		return myExperiment;
+		return _myExperiment;
 	}
 }

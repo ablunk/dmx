@@ -9,12 +9,15 @@ import desmoj.core.simulator.Model;
 import desmoj.core.simulator.QueueBased;
 import desmoj.core.simulator.QueueList;
 import desmoj.core.simulator.QueueListFifo;
+import desmoj.core.simulator.QueueListLifo;
+import desmoj.core.simulator.QueueListRandom;
 import desmoj.core.simulator.Resource;
 import desmoj.core.simulator.ResourceDB;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.TimeInstant;
 import desmoj.core.simulator.TimeOperations;
 import desmoj.core.simulator.TimeSpan;
+import desmoj.core.statistic.StatisticObject;
 
 /**
  * Res is the place where resources are stored in a pool. Processes can come by
@@ -28,15 +31,15 @@ import desmoj.core.simulator.TimeSpan;
  * not get the number of resources needed, it has to wait in a queue until
  * enough resources are released by other processes. A process can release its
  * resources anytime. After the resourcepool has <code>"takenBack"()</code> the
- * used resources the waiting queue is checked for processes waiting for them.
+ * used resources the waiting-queue is checked for processes waiting for them.
  * The first sort criteria of the queue is always highest priorities first, the
  * second queueing discipline of the underlying queue and the capacity limit can
- * be determined by the user (default is Fifo and unlimited capacity). Under
+ * be determined by the user (default is FIFO and unlimited capacity). Under
  * certain circumstances a deadlock might block some waiting
  * 
  * @see QueueBased
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -65,99 +68,99 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	/**
 	 * The ID number of this <code>Res</code> object.
 	 */
-	private long idNumber;
+	private long _idNumber;
 
 	/**
 	 * The queue, actually storing the processes waiting for resources
 	 */
-	private QueueList queue;
+	protected QueueList<SimProcess> _queue;
 
 	/**
 	 * The vector holding all the pairs (used resources of this Res, the
-	 * SimProcess which holds the resources at the moment). See: inner class
+	 * Sim-process which holds the resources at the moment). See: inner class
 	 * UsedResources
 	 */
-	private java.util.Vector arrayOfUsedResources;
+	private Vector<UsedResources> _arrayOfUsedResources;
 
 	/**
 	 * The vector holding all the resources of this resource pool not used at
 	 * the moment.
 	 */
-	private java.util.Vector unUsedResources;
+	private Vector<Resource> _unUsedResources;
 
 	/**
 	 * The resource database keeping track of which SimProcesses holding which
 	 * resources and SimPorcesses requesting resources.
 	 */
-	private ResourceDB resourceDB;
+	private ResourceDB _resourceDB;
 
 	/**
 	 * To indicate whether the check for deadlocks is active or not. Default is
 	 * <code>true</code>= deadlock check enabled.
 	 */
-	private boolean deadlockCheck = true;
+	private boolean _deadlockCheck = true;
 
 	/**
 	 * Is set to <code>true</code> if a deadlock is detected where this Res is
 	 * involved in. Otherwise it remains <code>false</code>. Default is
 	 * <code>false</code>.
 	 */
-	private boolean deadlockDetected = false;
+	private boolean _deadlockDetected = false;
 
 	/**
 	 * The number of resources in the Res (capacity)
 	 */
-	private int limit;
+	private int _limit;
 
 	/**
 	 * The minimum number of resources being available
 	 */
-	private int minimum;
+	private int _minimum;
 
 	/**
 	 * Number of resources available at the moment
 	 */
-	private int avail;
+	private int _avail;
 
 	/**
 	 * Number of processes having acquired and released one or more resources
 	 */
-	private long users;
+	private long _users;
 
 	/**
 	 * Weighted sum of available resources (in the Res over the time)
 	 */
-	private double wSumAvail;
+	private double _wSumAvail;
 
 	/**
 	 * The last time the Res has been used
 	 */
-	private TimeInstant lastUsage;
+	private TimeInstant _lastUsage;
 
 	/**
 	 * Counter for the SimProcesses which are refused to be enqueued, because
 	 * the queue capacity is full.
 	 */
-	private long refused;
+	private long _refused;
 
 	/**
 	 * Indicates the method where something has gone wrong. Is passed as a
 	 * parameter to the method <code>checkProcess()</code>.
 	 */
-	private String where;
+	private String _where;
 
 	/**
 	 * Flag to indicate whether an entity can pass by other entities in the
 	 * queue which are enqueued before that entity in the queue. Is
 	 * <code>false</code> as default value.
 	 */
-	private boolean passBy = false;
+	private boolean _passBy = false;
 
 	// ****** inner class ******
 
 	/**
 	 * UsedResources is an inner class of Res to encapsulate the pairs of:
-	 * SimProcess and an array of resources it holds. These pairs are stored in
+	 * Sim-process and an array of resources it holds. These pairs are stored in
 	 * the vector <code>arrayOfUsedResources</code>.
 	 */
 	private static class UsedResources extends java.lang.Object {
@@ -174,7 +177,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		 * is a java.util.Vector because one does not know how many resources
 		 * the SimProcess holds and the number of held resources might vary.
 		 */
-		private java.util.Vector occupiedResources;
+		private Vector<Resource> occupiedResources;
 
 		// ****** methods of inner class ******
 
@@ -187,7 +190,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		 *            java.util.Vector : The resources occupied by the
 		 *            SimProcess.
 		 */
-		protected UsedResources(SimProcess sProc, java.util.Vector occupiedRes) {
+		protected UsedResources(SimProcess sProc, Vector<Resource> occupiedRes) {
 			// init variables
 			this.process = sProc;
 			this.occupiedResources = occupiedRes;
@@ -209,7 +212,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		 * @return java.util.Vector : The array of resources occupied by the
 		 *         SimProcess.
 		 */
-		protected java.util.Vector getOccupiedResources() {
+		protected Vector<Resource> getOccupiedResources() {
 			return this.occupiedResources;
 		}
 
@@ -221,7 +224,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		 *            Vector : The new array of resources held by the
 		 *            SimProcess.
 		 */
-		protected void setOccupiedResources(Vector newArrayOfOccupiedResources) {
+		protected void setOccupiedResources(Vector<Resource> newArrayOfOccupiedResources) {
 			this.occupiedResources = newArrayOfOccupiedResources;
 		}
 
@@ -256,101 +259,36 @@ public class Res extends desmoj.core.simulator.QueueBased {
 			int capacity, boolean showInReport, boolean showInTrace) {
 		super(owner, name, showInReport, showInTrace); // construct QueueBased
 
-		idNumber = resNumber++; // increment the resNumber and get it as
+		_idNumber = resNumber++; // increment the resNumber and get it as
 		// IDNumber
 
-		// check if a valid sortOrder is given
-		if (sortOrder < 0) {
-			sendWarning(
-					"The given sortOrder parameter is negative! "
-							+ "A queue with Fifo sort order will be created.",
-					"Res : "
-							+ getName()
-							+ " Constructor: Res (Model owner, String name, int "
-							+ "sortOrder, long qCapacity, int capacity,	boolean "
-							+ "showInReport, boolean showInTrace)",
-					"A valid positive integer number must be provided to "
-							+ "determine the sort order of the underlying queue.",
-					"Make sure to provide a valid positive integer number "
-							+ "by using the constants in the class QueueBased, like "
-							+ "QueueBased.FIFO or QueueBased.LIFO.");
-			// make a Fifo queue
-			queue = new QueueListFifo(); // better than nothing
-			queue.setQueueBased(this);
-		} else {
-			try {
-				// determine the queueing strategy
-				Class queueListStrategy = queueingStrategy[sortOrder];
-
-				queue = (QueueList) queueListStrategy.newInstance();
-			}
-
-			catch (ArrayIndexOutOfBoundsException arrayExcept) {
-				// the given sortOrder is not valid
-				sendWarning(
-						"The given sortOrder parameter is not valid! "
-								+ "A queue with Fifo sort order will be created.",
-						"Res : "
-								+ getName()
-								+ " Constructor: Res (Model owner, String name, int "
-								+ "sortOrder, long qCapacity, int capacity,	boolean "
-								+ "showInReport, boolean showInTrace)",
-						"A valid positive integer number must be provided to "
-								+ "determine the sort order of the underlying queue.",
-						"Make sure to provide a valid positive integer number "
-								+ "by using the constants in the class QueueBased, like "
-								+ "QueueBased.FIFO or QueueBased.LIFO.");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (IllegalAccessException illAccExcept) {
-				// the class to be loaded can not be found
-				sendWarning(
-						"IllegalAccessException: The class implementing the "
-								+ "sortOrder of the queue can not be found. A queue with "
-								+ "Fifo sort order will be created instead.",
-						"Res : "
-								+ getName()
-								+ " Constructor: Res (Model owner, String name, int "
-								+ "sortOrder, long qCapacity, int capacity,	boolean "
-								+ "showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the zero-argument constructor of that "
-								+ "class can not be found",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			catch (InstantiationException instExcept) {
-				// no object of the given class can be instantiated
-				sendWarning(
-						"InstantiationException: No object of the given class "
-								+ "can be instantiated! A queue with Fifo sort order will "
-								+ "be created instead.",
-						"Res : "
-								+ getName()
-								+ " Constructor: Res (Model owner, String name, int "
-								+ "sortOrder, long qCapacity, int capacity,	boolean "
-								+ "showInReport, boolean showInTrace)",
-						"Programm error when trying to create an instance of a "
-								+ "class. Maybe the the class is an interface or an "
-								+ "abstract class that can not be instantiated",
-						"Make sure to provide a valid positive integer number "
-								+ "for the sort order by using the constants in the class "
-								+ "QueueBased, like QueueBased.FIFO or QueueBased.LIFO. "
-								+ "Contact one of the developers of DESMO-J!");
-				// make a Fifo queue
-				queue = new QueueListFifo(); // better than nothing
-			}
-
-			// give the QueueList a reference to this QueueBased
-			queue.setQueueBased(this);
-		}
+        // determine the queueing strategy
+        switch (sortOrder) {
+        case QueueBased.FIFO :
+            _queue = new QueueListFifo<SimProcess>(); break;
+        case QueueBased.LIFO :
+            _queue = new QueueListLifo<SimProcess>(); break;
+        case QueueBased.RANDOM :
+            _queue = new QueueListRandom<SimProcess>(); break;
+        default :
+            sendWarning(
+                    "The given sortOrder parameter " + sortOrder + " is not valid! "
+                            + "A queue with Fifo sort order will be created.",
+                    "Res : "
+                            + getName()
+                            + " Constructor: Res (Model owner, String name, int "
+                            + "sortOrder, long qCapacity, int capacity, boolean "
+                            + "showInReport, boolean showInTrace)",
+                    "A valid positive integer number must be provided to "
+                            + "determine the sort order of the queue.",
+                    "Make sure to provide a valid positive integer number "
+                            + "by using the constants in the class QueueBased, like "
+                            + "QueueBased.FIFO, QueueBased.LIFO or QueueBased.RANDOM.");
+            _queue = new QueueListFifo<SimProcess>(); 
+        }
+        
+        // give the QueueList a reference to this QueueBased
+        _queue.setQueueBased(this);
 
 		// set the capacity of the queue
 		queueLimit = qCapacity;
@@ -379,21 +317,21 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		}
 
 		// construct a vector to hold all the UnUsedResources at the moment
-		unUsedResources = new java.util.Vector();
+		_unUsedResources = new Vector<Resource>();
 
 		// construct a vector to hold the UsedResources (see the inner class)
-		arrayOfUsedResources = new java.util.Vector();
+		_arrayOfUsedResources = new Vector<UsedResources>();
 
 		// get a reference to the resource database
-		resourceDB = owner.getExperiment().getResourceDB();
+		_resourceDB = owner.getExperiment().getResourceDB();
 
-		this.limit = capacity;
-		this.minimum = capacity;
-		this.avail = capacity;
-		this.users = 0;
-		this.wSumAvail = 0.0;
-		this.refused = 0;
-		this.lastUsage = presentTime();
+		this._limit = capacity;
+		this._minimum = capacity;
+		this._avail = capacity;
+		this._users = 0;
+		this._wSumAvail = 0.0;
+		this._refused = 0;
+		this._lastUsage = presentTime();
 
 		if (capacity <= 0) // nothing or less in the resource pool, you fool!
 		{
@@ -409,7 +347,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 					"Make sure to initialize the capacity of a Res always with"
 							+ " a positive number of resources.");
 
-			limit = minimum = avail = 1; // set it to 1, that makes more
+			_limit = _minimum = _avail = 1; // set it to 1, that makes more
 			// sense
 		}
 
@@ -419,7 +357,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 			// make the resources and give them the name of the Res pool
 			Resource aResource = new Resource(owner, name, this, true);
 
-			unUsedResources.addElement(aResource);
+			_unUsedResources.addElement(aResource);
 		}
 	}
 
@@ -445,29 +383,29 @@ public class Res extends desmoj.core.simulator.QueueBased {
 			boolean showInTrace) {
 		super(owner, name, showInReport, showInTrace); // construct QueueBased
 
-		idNumber = resNumber++; // increment the resNumber and get it as
+		_idNumber = resNumber++; // increment the resNumber and get it as
 		// IDNumber
 
 		// make an actual queue and give it a reference of this "QueueBased"-Res
-		queue = new QueueListFifo();
-		queue.setQueueBased(this);
+		_queue = new QueueListFifo<SimProcess>();
+		_queue.setQueueBased(this);
 
 		// construct a vector to hold all the UnUsedResources at the moment
-		unUsedResources = new java.util.Vector();
+		_unUsedResources = new Vector<Resource>();
 
 		// construct a vector to hold the UsedResources (see the inner class)
-		arrayOfUsedResources = new java.util.Vector();
+		_arrayOfUsedResources = new Vector<UsedResources>();
 
 		// get a reference to the resource database
-		resourceDB = owner.getExperiment().getResourceDB();
+		_resourceDB = owner.getExperiment().getResourceDB();
 
-		this.limit = capacity;
-		this.minimum = capacity;
-		this.avail = capacity;
-		this.users = 0;
-		this.wSumAvail = 0.0;
-		this.refused = 0;
-		this.lastUsage = presentTime();
+		this._limit = capacity;
+		this._minimum = capacity;
+		this._avail = capacity;
+		this._users = 0;
+		this._wSumAvail = 0.0;
+		this._refused = 0;
+		this._lastUsage = presentTime();
 
 		if (capacity <= 0) // nothing or less in the resource pool, you fool!
 		{
@@ -482,7 +420,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 					"Make sure to initialize the capacity of a Res always with"
 							+ " a positive number of resources.");
 
-			limit = minimum = avail = 1; // set it to 1, that makes more
+			_limit = _minimum = _avail = 1; // set it to 1, that makes more
 			// sense
 		}
 
@@ -492,7 +430,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 			// make the resources and give them the name of the Res pool
 			Resource aResource = new Resource(owner, name, this, true);
 
-			unUsedResources.addElement(aResource);
+			_unUsedResources.addElement(aResource);
 		}
 	}
 
@@ -505,18 +443,18 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *            SimProcess : The process that is to be activated as next.
 	 */
 	protected void activateAsNext(SimProcess process) {
-		where = "protected void activateAsNext(SimProcess process)";
+		_where = "protected void activateAsNext(SimProcess process)";
 
 		if (process != null) {
 			// if the given process is not valid just return
-			if (!checkProcess(process, where)) {
+			if (!checkProcess(process, _where)) {
 				return;
 			}
 
-			// if the process is scheduled (on the event list) already
+			// if the process is scheduled (on the event-list) already
 			if (process.isScheduled()) {
 				process.skipTraceNote(); // don't tell the user, that we ...
-				process.cancel(); // get the process from the EventList
+				process.cancel(); // get the process from the event-list
 			}
 
 			// remember if the process is blocked at the moment
@@ -546,25 +484,25 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 * was trying to acquire resources, but there were not enough left in the
 	 * Res. Or another process was first in the queue to be served. This method
 	 * is called every time a process returns resources or when a process in the
-	 * waiting queue is satisfied.
+	 * waiting-queue is satisfied.
 	 */
 	protected void activateFirst() {
-		where = "protected void activateFirst()";
+		_where = "protected void activateFirst()";
 
 		// first is the first process in the queue (or null if none is in the
 		// queue)
-		SimProcess first = (SimProcess) queue.first();
+		SimProcess first = _queue.first();
 
 		if (first != null) {
 			// if first is not modelcompatible just return
-			if (!checkProcess(first, where)) {
+			if (!checkProcess(first, _where)) {
 				return;
 			}
 
-			// if first is scheduled (on the event list) already
+			// if first is scheduled (on the event-list) already
 			if (first.isScheduled()) {
 				first.skipTraceNote(); // don't tell the user, that we ...
-				first.cancel(); // get the process from the Eventlist
+				first.cancel(); // get the process from the event-list
 			}
 
 			// remember if first is blocked at the moment
@@ -599,8 +537,8 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		// how long since the last reset
 		TimeSpan diff = TimeOperations.diff(now, resetAt());
 
-		double wSumAvl = wSumAvail
-				+ ((double) avail * TimeOperations.diff(now, lastUsage)
+		double wSumAvl = _wSumAvail
+				+ ((double) _avail * TimeOperations.diff(now, _lastUsage)
 						.getTimeInEpsilon());
 		if (TimeSpan.isEqual(diff, TimeSpan.ZERO)) // just reseted
 		{
@@ -615,9 +553,9 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		}
 
 		// calculate the average usage
-		double avgUsg = 1.0 - ((wSumAvl / diff.getTimeInEpsilon()) / limit);
+		double avgUsg = 1.0 - ((wSumAvl / diff.getTimeInEpsilon()) / _limit);
 		// return the rounded average usage
-		return java.lang.Math.rint(100000.0 * avgUsg) / 100000.0;
+		return StatisticObject.round(avgUsg);
 	}
 
 	/**
@@ -630,7 +568,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *            int : The new limit (capacity) of the Res. Must be positive.
 	 */
 	public void changeLimit(int m) {
-		if (limit != minimum || users != 0) // if Res is already used
+		if (_limit != _minimum || _users != 0) // if Res is already used
 		{
 			sendWarning(
 					"Attempt to change the limit of a Res already"
@@ -662,23 +600,23 @@ public class Res extends desmoj.core.simulator.QueueBased {
 
 		// adjust the number of resources stored in the array of unused
 		// resources
-		if (m > limit) // the limit is increasing
+		if (m > _limit) // the limit is increasing
 		{
-			for (int i = limit; i < m; i++) {
+			for (int i = _limit; i < m; i++) {
 				// make the resources and give them the name of the Res pool
 				Resource aResource = new Resource(getModel(), getName(), this,
 						true);
-				unUsedResources.addElement(aResource);
+				_unUsedResources.addElement(aResource);
 			}
 		}
 
-		if (m < limit) // the limit is decreasing
-			for (int i = m; i < limit; i++) {
-				unUsedResources.removeElementAt(i);
+		if (m < _limit) // the limit is decreasing
+			for (int i = m; i < _limit; i++) {
+				_unUsedResources.removeElementAt(i);
 			}
 
 		// set the limit and the minimum to the new value
-		limit = minimum = avail = m;
+		_limit = _minimum = _avail = m;
 
 	}
 
@@ -732,10 +670,10 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 */
 	public void deadlockCheckOff() {
 
-		deadlockCheck = false; // that's all
+		_deadlockCheck = false; // that's all
 
 		// send a warning if the resource pool has been used already
-		if (limit != minimum || users != 0) // if Res is already used
+		if (_limit != _minimum || _users != 0) // if Res is already used
 		{
 			sendWarning(
 					"The deadlock check for the resource pool: "
@@ -762,10 +700,10 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 */
 	public void deadlockCheckOn() {
 
-		deadlockCheck = true; // that's all
+		_deadlockCheck = true; // that's all
 
 		// send a warning if the resource pool has been used already
-		if (limit != minimum || users != 0) // if Res is already used
+		if (_limit != _minimum || _users != 0) // if Res is already used
 		{
 			sendWarning(
 					"The deadlock check for the resource pool: "
@@ -809,9 +747,9 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		// fill the array of resources
 		for (int i = 0; i < n; i++) {
 			// put first res in array
-			resArray[i] = (Resource) unUsedResources.firstElement();
+			resArray[i] = _unUsedResources.firstElement();
 			// delete first res
-			unUsedResources.removeElement(unUsedResources.firstElement());
+			_unUsedResources.removeElement(_unUsedResources.firstElement());
 		}
 
 		// note which SimProcess is holding how many Resources
@@ -821,29 +759,30 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		if (currentlySendDebugNotes()) {
 			// make a string including all elements of the array of provided
 			// res.
-			String s = "delivers to SimProcess '" + currentProcess.getName()
-					+ "': ";
+			StringBuilder s = new StringBuilder();
+			s.append("delivers to SimProcess '" + currentProcess.getName() + "': ");
 
 			for (int j = 0; j < n; j++) {
-				s += "<br>" + resArray[j].getName();
+				s.append("<br>" + resArray[j].getName());
 			}
 
-			sendDebugNote(s);
+			sendDebugNote(s.toString());
 
 			// make a string including all the resource that are left in the Res
-			String t = "In this Res pool are left: ";
+			StringBuilder t = new StringBuilder();
+			t.append("In this Res pool are left: ");
 
-			if (unUsedResources.isEmpty()) // anything left ?
+			if (_unUsedResources.isEmpty()) // anything left ?
 			{
-				t += "<br>none";
+				t.append("<br>none");
 			}
 
-			for (Enumeration e = unUsedResources.elements(); e
+			for (Enumeration<Resource> e = _unUsedResources.elements(); e
 					.hasMoreElements();) {
-				t += "<br>" + ((Resource) e.nextElement()).getName();
+				t.append("<br>" + e.nextElement().getName());
 			}
 
-			sendDebugNote(t);
+			sendDebugNote(t.toString());
 		}
 
 		return resArray; // return the array of resources
@@ -855,7 +794,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 * @return int : The number of resources available at the moment.
 	 */
 	public int getAvail() {
-		return this.avail;
+		return this._avail;
 	}
 
 	/**
@@ -867,7 +806,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 */
 	public boolean getDeadlockCheck() {
 
-		return deadlockCheck; // that's all
+		return _deadlockCheck; // that's all
 	}
 
 	/**
@@ -876,7 +815,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 * @return long : The ID number of this <code>Res</code> object.
 	 */
 	public long getidNumber() {
-		return idNumber;
+		return _idNumber;
 	}
 
 	/**
@@ -886,7 +825,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *         beginning.
 	 */
 	public int getLimit() {
-		return this.limit;
+		return this._limit;
 	}
 
 	/**
@@ -895,7 +834,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 * @return int : The minimum number of resources in the Res.
 	 */
 	public int getMinimum() {
-		return this.minimum;
+		return this._minimum;
 	}
 
 	/**
@@ -906,7 +845,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *         which are enqueued before them in the queue.
 	 */
 	public boolean getPassBy() {
-		return passBy;
+		return _passBy;
 	}
 
 	/**
@@ -916,9 +855,9 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 * @return desmoj.QueueList : the queue actually storing the
 	 *         <code>SimProcesses</code> waiting for resources.
 	 */
-	public QueueList getQueue() {
+	public QueueList<SimProcess> getQueue() {
 
-		return queue; // that's it
+		return _queue; // that's it
 	}
 
 	/**
@@ -929,7 +868,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 */
 	public String getQueueStrategy() {
 
-		return queue.getAbbreviation(); // that's it
+		return _queue.getAbbreviation(); // that's it
 
 	}
 
@@ -942,7 +881,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 */
 	public long getRefused() {
 
-		return refused; // that's it
+		return _refused; // that's it
 	}
 
 	/**
@@ -952,7 +891,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *         and released resources.
 	 */
 	public long getUsers() {
-		return this.users;
+		return this._users;
 	}
 
 	/**
@@ -968,11 +907,10 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	protected int heldResources(SimProcess sProc) {
 		int j = 0; // to count the resources held
 
-		for (int i = 0; i < arrayOfUsedResources.size(); i++) {
+		for (int i = 0; i < _arrayOfUsedResources.size(); i++) {
 			// get hold of the UsedResources pair (SimProcess/number of
 			// resources)
-			UsedResources procHoldRes = (UsedResources) arrayOfUsedResources
-					.elementAt(i);
+			UsedResources procHoldRes = _arrayOfUsedResources.elementAt(i);
 
 			if (procHoldRes.getProcess() == sProc) {
 				j += procHoldRes.getOccupiedResources().size();
@@ -991,12 +929,12 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 */
 	public boolean isDeadlockDetected() {
 
-		return deadlockDetected; // that's it
+		return _deadlockDetected; // that's it
 	}
 
 	/**
 	 * Gets a number of n resources from the Res pool and provides them to the
-	 * SimProcess to use them. Hint for developers: calls the private method
+	 * Sim-process to use them. Hint for developers: calls the private method
 	 * <code>deliver()</code>. As not enough resources are available at the
 	 * moment the SimProcess has to wait in a queue until enough products are
 	 * available again.
@@ -1010,11 +948,11 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *            to the SimProcess.
 	 */
 	public boolean provide(int n) {
-		where = " boolean provide (int n)";
+		_where = " boolean provide (int n)";
 
 		SimProcess currentProcess = currentSimProcess();
 
-		if (!checkProcess(currentProcess, where)) // if the current process
+		if (!checkProcess(currentProcess, _where)) // if the current process
 		{
 			return false;
 		} // is not valid: return
@@ -1036,7 +974,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		// SimProcess
 		int total = n + heldResources(currentProcess);
 
-		if (total > limit) // trying to provide (in total) more than the
+		if (total > _limit) // trying to provide (in total) more than the
 		{ // capacity of the Res
 			sendWarning(
 					"Attempt from a Res to provide more resources than its "
@@ -1044,7 +982,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 					"Res: " + getName() + " Method: provide (int n)",
 					"The requested resources [" + total
 							+ "] could never be provided by the Res"
-							+ ", because the capacity of this Res [" + limit
+							+ ", because the capacity of this Res [" + _limit
 							+ "] is not that big. <br>"
 							+ "Therefore the process '"
 							+ currentProcess.getName() + "' might be blocked "
@@ -1060,7 +998,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 			if (currentlySendDebugNotes()) {
 				sendDebugNote("refuses to insert "
 						+ currentProcess.getQuotedName()
-						+ " in waiting queue, because the capacity limit is reached. ");
+						+ " in waiting-queue, because the capacity limit is reached. ");
 			}
 
 			if (currentlySendTraceNotes()) {
@@ -1069,20 +1007,20 @@ public class Res extends desmoj.core.simulator.QueueBased {
 						+ getQueueLimit() + ") of the " + "queue is reached");
 			}
 
-			refused++; // count the refused ones
+			_refused++; // count the refused ones
 
 			return false; // capacity limit is reached
 		}
 
 		// insert every process in the queue for statistical reasons
-		queue.insert(currentProcess);
+		_queue.insert(currentProcess);
 
 		// is it possible for this process to pass by?
-		if (passBy == false) {
+		if (_passBy == false) {
 			// see if the SimProcess can be satisfied or has to wait in the
 			// queue
-			if (n > avail || // not enough resources available OR
-					currentProcess != queue.first()) // other process is
+			if (n > _avail || // not enough resources available OR
+					currentProcess != _queue.first()) // other process is
 			// first
 			// in the q
 			{
@@ -1103,11 +1041,11 @@ public class Res extends desmoj.core.simulator.QueueBased {
 				if (getDeadlockCheck()) {
 					// update the resourceDB: this SimProcess is requesting
 					// resources
-					resourceDB.noteResourceRequest(currentProcess, this, n);
+					_resourceDB.noteResourceRequest(currentProcess, this, n);
 
 					// check if this unsatisfied resource request has caused a
 					// deadlock
-					deadlockDetected = resourceDB
+					_deadlockDetected = _resourceDB
 							.checkForDeadlock(currentProcess);
 				}
 
@@ -1118,14 +1056,14 @@ public class Res extends desmoj.core.simulator.QueueBased {
 					currentProcess.skipTraceNote(); // don't tell the user, that
 					// we ...
 					currentProcess.passivate(); // passivate the current process
-				} while (n > avail || // not enough resources available OR
-						currentProcess != queue.first()); // other process is
+				} while (n > _avail || // not enough resources available OR
+						currentProcess != _queue.first()); // other process is
 				// first
 
 				// check for deadlock?
 				if (getDeadlockCheck()) {
 					// delete the request of the resources in the resourceDB
-					resourceDB.deleteResRequest(currentProcess, this, n);
+					_resourceDB.deleteResRequest(currentProcess, this, n);
 				}
 
 			} // end if
@@ -1133,13 +1071,13 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		// =
 		// true
 		{
-			if (n > avail || // not enough resources available OR
-					currentProcess != queue.first()) // other process is
+			if (n > _avail || // not enough resources available OR
+					currentProcess != _queue.first()) // other process is
 			// first
 			// in the q
 			{
 				// is the current process the first in the queue?
-				if (currentProcess != queue.first()) // no it's not the first
+				if (currentProcess != _queue.first()) // no it's not the first
 				{
 					// we have to make sure that no other process in front of
 					// this current
@@ -1154,7 +1092,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 
 				// only if not enough units are available the process has to
 				// wait
-				if (n > avail) {
+				if (n > _avail) {
 					// tell in the trace what the process is waiting for
 					if (currentlySendTraceNotes()) {
 						sendTraceNote("awaits " + n + " of ' " + this.getName()
@@ -1174,11 +1112,11 @@ public class Res extends desmoj.core.simulator.QueueBased {
 				if (getDeadlockCheck()) {
 					// update the resourceDB: this SimProcess is requesting
 					// resources
-					resourceDB.noteResourceRequest(currentProcess, this, n);
+					_resourceDB.noteResourceRequest(currentProcess, this, n);
 
 					// check if this unsatisfied resource request has caused a
 					// deadlock
-					deadlockDetected = resourceDB
+					_deadlockDetected = _resourceDB
 							.checkForDeadlock(currentProcess);
 				}
 
@@ -1192,13 +1130,13 @@ public class Res extends desmoj.core.simulator.QueueBased {
 
 					// activate the next process in the queue to see what he can
 					// do
-					activateAsNext((SimProcess) queue.succ(currentProcess));
-				} while (n > avail); // not enough resources available
+					activateAsNext(_queue.succ(currentProcess));
+				} while (n > _avail); // not enough resources available
 
 				// check for deadlock?
 				if (getDeadlockCheck()) {
 					// delete the request of the resources in the resourceDB
-					resourceDB.deleteResRequest(currentProcess, this, n);
+					_resourceDB.deleteResRequest(currentProcess, this, n);
 				}
 
 			}
@@ -1207,7 +1145,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		// the current process has got the resources he wanted ...
 
 		// the Res provides all the resources the SimProcess wants
-		queue.remove(currentProcess); // get the process out of the queue
+		_queue.remove(currentProcess); // get the process out of the queue
 		currentProcess.setBlocked(false); // we are not blocked (anymore),
 		// yeah!
 
@@ -1223,7 +1161,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		if (getDeadlockCheck()) {
 			// update the resourceDB: resources are assigned to the SimProcess
 			// now
-			resourceDB.noteResourceAllocation(this, currentProcess, n);
+			_resourceDB.noteResourceAllocation(this, currentProcess, n);
 		}
 
 		if (currentlySendTraceNotes()) {
@@ -1245,11 +1183,11 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	public void reset() {
 		super.reset(); // reset the QueueBased also
 
-		minimum = limit; // not quite correct, but needed for changeLimit()
-		users = 0;
-		wSumAvail = 0.0;
-		refused = 0;
-		lastUsage = presentTime();
+		_minimum = _limit; // not quite correct, but needed for changeLimit()
+		_users = 0;
+		_wSumAvail = 0.0;
+		_refused = 0;
+		_lastUsage = presentTime();
 	}
 
 	/**
@@ -1266,7 +1204,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 */
 	public void setDeadlockDetected(boolean dlDetected) {
 
-		deadlockDetected = dlDetected; // that's all
+		_deadlockDetected = dlDetected; // that's all
 	}
 
 	/**
@@ -1282,7 +1220,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *            other entities in the queue.
 	 */
 	public void setPassBy(boolean newPassBy) {
-		this.passBy = newPassBy; // that's all!
+		this._passBy = newPassBy; // that's all!
 	}
 
 	/**
@@ -1298,11 +1236,11 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *            acquired!
 	 */
 	public void takeBack(Resource[] returnedRes) {
-		where = "void takeBack (Resource[] returnedRes)	";
+		_where = "void takeBack (Resource[] returnedRes)	";
 
 		SimProcess currentProcess = currentSimProcess();
 
-		if (!checkProcess(currentProcess, where)) // check the current process
+		if (!checkProcess(currentProcess, _where)) // check the current process
 		{
 			return;
 		} // if it is not valid just return
@@ -1337,18 +1275,18 @@ public class Res extends desmoj.core.simulator.QueueBased {
 
 		// put the used resources back in the unused resources pool
 		for (int i = 0; i < returnedRes.length; i++) {
-			unUsedResources.addElement(returnedRes[i]);
+			_unUsedResources.addElement(returnedRes[i]);
 		}
 
 		// update which SimProcess is holding which Resources
 		updateTakenBackRes(currentProcess, returnedRes);
 
 		updateStatistics(returnedRes.length); // statistics will be updated
-		users++; // update users
+		_users++; // update users
 
 		// update the resource database / check for deadlock?
 		if (getDeadlockCheck()) {
-			resourceDB.deleteResAllocation(this, currentProcess,
+			_resourceDB.deleteResAllocation(this, currentProcess,
 					returnedRes.length);
 		}
 
@@ -1362,14 +1300,14 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		if (currentlySendDebugNotes()) {
 			// make a string including all elements of the array of returned
 			// res.
-			String s = "SimProcess '" + currentProcess.getName()
-					+ "' <b>returns</b>: ";
+			StringBuilder s = new StringBuilder();
+			s.append("SimProcess '" + currentProcess.getName() + "' <b>returns</b>: ");
 
 			for (int j = 0; j < returnedRes.length; j++) {
-				s += "<br>" + returnedRes[j].getName();
+				s.append("<br>" + returnedRes[j].getName());
 			}
 
-			sendDebugNote(s);
+			sendDebugNote(s.toString());
 		}
 
 		activateFirst(); // give the new first process in the queue a chance
@@ -1388,11 +1326,11 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 *            Res pool. Can't be more than once were acquired!
 	 */
 	public void takeBack(int n) {
-		where = "void takeBack (int n) ";
+		_where = "void takeBack (int n) ";
 
 		SimProcess currentProcess = currentSimProcess();
 
-		if (!checkProcess(currentProcess, where)) // check the current process
+		if (!checkProcess(currentProcess, _where)) // check the current process
 		{
 			return;
 		} // if it is not valid just return
@@ -1429,18 +1367,18 @@ public class Res extends desmoj.core.simulator.QueueBased {
 
 		// put the used resources back in the unused resources pool
 		for (int i = 0; i < n; i++) {
-			unUsedResources.addElement(returnedRes[i]);
+			_unUsedResources.addElement(returnedRes[i]);
 		}
 
 		// update which SimProcess is holding which Resources
 		updateTakenBackRes(currentProcess, returnedRes);
 
 		updateStatistics(n); // statistics will be updated
-		users++; // update users
+		_users++; // update users
 
 		// update the resource database / check for deadlock?
 		if (getDeadlockCheck()) {
-			resourceDB.deleteResAllocation(this, currentProcess, n);
+			_resourceDB.deleteResAllocation(this, currentProcess, n);
 		}
 
 		// tell in the trace what the process is returning to the Res pool
@@ -1452,14 +1390,14 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		if (currentlySendDebugNotes()) {
 			// make a string including all elements of the array of returned
 			// res.
-			String s = "SimProcess '" + currentProcess.getName()
-					+ "' <b>returns</b>: ";
+		    StringBuilder s = new StringBuilder();
+			s.append("SimProcess '" + currentProcess.getName() + "' <b>returns</b>: ");
 
 			for (int j = 0; j < returnedRes.length; j++) {
-				s += "<br>" + returnedRes[j].getName();
+			    s.append("<br>" + returnedRes[j].getName());
 			}
 
-			sendDebugNote(s);
+			sendDebugNote(s.toString());
 		}
 
 		activateFirst(); // give the new first process in the queue a chance
@@ -1481,7 +1419,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	 * 
 	 * int n = 0; // how many resources will be taken back
 	 * 
-	 * SimProcess currentProcess = currentSimProcess();
+	 * Sim-process currentProcess = currentSimProcess();
 	 * 
 	 * if (!checkProcess(currentProcess, where)) //check the current process {
 	 * return; } // if it is not valid just return // delete the entry of the
@@ -1521,11 +1459,10 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		boolean holdsResources = false; // not yet
 
 		// search the whole vector
-		for (int i = 0; i < arrayOfUsedResources.size(); i++) {
+		for (int i = 0; i < _arrayOfUsedResources.size(); i++) {
 			// get hold of the UsedResources pair (SimProcess/number of
 			// resources)
-			UsedResources procHoldRes = (UsedResources) arrayOfUsedResources
-					.elementAt(i);
+			UsedResources procHoldRes = _arrayOfUsedResources.elementAt(i);
 
 			// is the SimProcess already holding resources?
 			if (procHoldRes.getProcess() == crntProcess) {
@@ -1543,7 +1480,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 		if (!holdsResources) // the process does not hold any resources yet
 		{
 			// make a new Vector
-			java.util.Vector occupiedRes = new Vector();
+			Vector<Resource> occupiedRes = new Vector<Resource>();
 
 			// copy all elements of the array to the Vector
 			for (int i = 0; i < providedRes.length; i++) {
@@ -1554,7 +1491,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 			UsedResources ur = new UsedResources(crntProcess, occupiedRes);
 
 			// put ur in the arrayOfUsedResources
-			arrayOfUsedResources.addElement(ur);
+			_arrayOfUsedResources.addElement(ur);
 		}
 	}
 
@@ -1570,16 +1507,16 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	protected void updateStatistics(int n) {
 		TimeInstant now = presentTime();
 
-		wSumAvail = wSumAvail
-				+ ((double) avail * TimeOperations.diff(now, lastUsage)
+		_wSumAvail = _wSumAvail
+				+ ((double) _avail * TimeOperations.diff(now, _lastUsage)
 						.getTimeInEpsilon());
-		lastUsage = now;
+		_lastUsage = now;
 
-		avail += n; // n can be positive or negative (remember ?!)
+		_avail += n; // n can be positive or negative (remember ?!)
 
-		if (avail < minimum) // update minimum, if necessary
+		if (_avail < _minimum) // update minimum, if necessary
 		{
-			minimum = avail;
+			_minimum = _avail;
 		}
 	}
 
@@ -1596,11 +1533,10 @@ public class Res extends desmoj.core.simulator.QueueBased {
 	protected void updateTakenBackRes(SimProcess crntProcess,
 			Resource[] returnedRes) {
 		// search the whole vector
-		for (int i = 0; i < arrayOfUsedResources.size(); i++) {
+		for (int i = 0; i < _arrayOfUsedResources.size(); i++) {
 			// get hold of the UsedResources pair (SimProcess/number of
 			// resources)
-			UsedResources procHoldRes = (UsedResources) arrayOfUsedResources
-					.elementAt(i);
+			UsedResources procHoldRes = _arrayOfUsedResources.elementAt(i);
 
 			if (procHoldRes.getProcess() == crntProcess) {
 				// remove the resources from the Vector of used resources
@@ -1611,7 +1547,7 @@ public class Res extends desmoj.core.simulator.QueueBased {
 
 				// are all resources from this SimProcess taken back
 				if (procHoldRes.getOccupiedResources().isEmpty()) {
-					arrayOfUsedResources.removeElementAt(i);
+					_arrayOfUsedResources.removeElementAt(i);
 				}
 			} // end if
 		} // end for

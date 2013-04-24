@@ -1,7 +1,7 @@
 package desmoj.extensions.applicationDomains.harbour;
 
 import desmoj.core.advancedModellingFeatures.ProcessCoop;
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
 import desmoj.core.simulator.SimTime;
@@ -21,7 +21,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see desmoj.core.advancedModellingFeatures.ProcessCoop
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42,7 +42,7 @@ public class Unloading extends ProcessCoop {
 	 * The random number stream determining the time it takes to unload a truck
 	 * or an internal transporter.
 	 */
-	private RealDist unloadTimeStream;
+	private NumericalDist<?> unloadTimeStream;
 
 	/**
 	 * Constructs an Unloading process where a master (
@@ -56,13 +56,13 @@ public class Unloading extends ProcessCoop {
 	 * @param name
 	 *            java.lang.String : the name of this Unloading.
 	 * @param unloadTimeStream
-	 *            desmoj.dist.RealDist : The random number stream determining
+	 *            NumericalDist<?> : The random number stream determining
 	 *            the time it takes to unload the containers.
 	 * @param showInTrace
 	 *            boolean : Flag, if this Unloading should produce a trace
 	 *            output or not.
 	 */
-	public Unloading(Model owner, String name, RealDist unloadTimeStream,
+	public Unloading(Model owner, String name, NumericalDist<?> unloadTimeStream,
 			boolean showInTrace) {
 
 		super(owner, name, showInTrace); // make a ProcessCoop
@@ -144,7 +144,7 @@ public class Unloading extends ProcessCoop {
 	 */
 	protected SimTime getUnloadTimeSample() {
 
-		return new SimTime(unloadTimeStream.sample());
+		return new SimTime(unloadTimeStream.sample().doubleValue());
 	}
 
 	/**
@@ -152,11 +152,10 @@ public class Unloading extends ProcessCoop {
 	 * stream.
 	 * 
 	 * @param unloadTimeStream
-	 *            desmoj.dist.RealDist : The new <code>RealDist</code> random
-	 *            number stream determining the time it takes to unload the
-	 *            containers (goods).
+	 *            NumericalDist<?> : The new random	number stream determining
+	 *            the time it takes to unload the containers (goods).
 	 */
-	public void setUnloadTimeStream(RealDist unloadTimeStream) {
+	public void setUnloadTimeStream(NumericalDist<?> unloadTimeStream) {
 
 		this.unloadTimeStream = unloadTimeStream;
 	}

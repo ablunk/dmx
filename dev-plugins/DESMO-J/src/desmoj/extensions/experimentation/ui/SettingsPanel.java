@@ -13,7 +13,7 @@ import javax.swing.JTable;
 /**
  * A GUI panel containing 2 tables for model and experiment parameters.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -94,6 +94,8 @@ public class SettingsPanel extends JPanel {
 		expPanel.add(expScrollPane, BorderLayout.CENTER);
 		expScrollPane.getViewport().add(expTable, null);
 		modelTable.setDefaultEditor(Object.class, new AttributeTableEditor());
+		modelTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 		expTable.setDefaultEditor(Object.class, new AttributeTableEditor());
+		expTable.putClientProperty("terminateEditOnFocusLost", Boolean.TRUE);
 	}
 }

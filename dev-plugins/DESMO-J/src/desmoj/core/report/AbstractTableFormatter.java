@@ -4,7 +4,7 @@ package desmoj.core.report;
  * A basic implementation of the TableFormatter interface realizing common
  * properties of table formatters.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,11 +28,14 @@ public abstract class AbstractTableFormatter implements TableFormatter {
 	protected boolean rowOpen = false;
 
 	/** Precision of time values printed to table */
-	private int timeFloats = 0;
+	private int _timeFloats = 0;
 
 	/** The FileOutput this table writer writes to. */
 	protected FileOutput out = null;
 
+	/** The Reporter displayed in current row. */
+	protected Reporter _currentReporter = null;
+	
 	/**
 	 * Sets tableOpen flag to true. Should always be called from subclass
 	 * implementations of this method.
@@ -63,7 +66,7 @@ public abstract class AbstractTableFormatter implements TableFormatter {
 	public String writeTime(String t) {
 	    /*
 		if (t == null)
-			return "none";
+			return "None";
 
 		if (t.lastIndexOf(".") == -1)
 			return t; // no decimal point -> just print it
@@ -86,26 +89,48 @@ public abstract class AbstractTableFormatter implements TableFormatter {
 	 * @see desmoj.core.report.TableFormatter#timePrecision()
 	 */
 	public int timePrecision() {
-		return timeFloats;
+		return _timeFloats;
 	}
 
 	/**
 	 * Sets an output file to write the table to
 	 * 
-	 * @param a
+	 * @param out
 	 *            desmoj.report.FileOutput
 	 */
 	public void setOutput(FileOutput out) {
 		this.out = out;
-	}
-
+	}	
+	
 	/**
 	 * Sets the time precision
 	 * 
-	 * @param the
+	 * @param tf
 	 *            time precision
 	 */
 	public void setTimePrecision(int tf) {
-		this.timeFloats = tf;
+		this._timeFloats = tf;
+	}
+	
+	/**
+	 * Opens a new row. Calls openRow() and saves reference on
+	 * reporter which will we displayed in that row.
+	 * Reference on reporter is not necessary for getting content of reporter!!!
+	 * But maybe its useful for some kind of extended reports.
+	 * 
+	 * @param rep Reporter which will be displayed in new row
+	 */
+	public void openRow(Reporter rep) {
+		this._currentReporter = rep;
+		this.openRow();
+	}
+	
+	/**
+	 * Returns the reporter which is displayed in current row.
+	 * Maybe null, if openRow() insted of openRow(Reporter) was called.
+	 * @return the reporter which is displayed in current row.
+	 */
+	protected Reporter getReporterForCurrentRow() {
+		return _currentReporter;
 	}
 }

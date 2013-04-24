@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * the reportable's reporters ordered by group-ID. It also takes care to
  * retrieve the submodel's reporters recursively.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,7 +32,7 @@ public class ModelReporter extends desmoj.core.report.Reporter {
 	/**
 	 * The list containing the reportable's reporters ordered by group-ID.
 	 */
-	private ArrayList<Reporter> reporters;
+	private ArrayList<Reporter> _reporters;
 
 	/**
 	 * Creates a reporter for the given model. This special reporter retrieves
@@ -48,7 +48,7 @@ public class ModelReporter extends desmoj.core.report.Reporter {
 		super(model);
 		List<Reportable> reportables = model.getReportables();
 
-		reporters = new ArrayList<Reporter>();
+		_reporters = new ArrayList<Reporter>();
 		groupID = 2147483647; // highest groupID possible, so always first in
 		// order
 		groupHeading = "Model " + source.getName();
@@ -70,19 +70,21 @@ public class ModelReporter extends desmoj.core.report.Reporter {
 
 			if (r != null) {
 
-				repoBuff = r.createReporter();
-
+				//repoBuff = r.createReporter();
+				repoBuff = r.getReporter();
+				
 				if (repoBuff != null) {
 
 					// insert according to group-ID
-					if (reporters.isEmpty()) {
-						reporters.add(repoBuff);
+					if (_reporters.isEmpty()) {
+						_reporters.add(repoBuff);
 					} else { // now sort until pos. found
 
-						for (int k = 0; k < reporters.size(); k++) {
+						for (int k = 0; k < _reporters.size(); k++) {
 
-							if (Reporter.isLarger(reporters.get(k), repoBuff)) {
-								reporters.add(k + 1, repoBuff);
+							if (Reporter.isLarger(_reporters.get(k), repoBuff)) {
+								_reporters.add(k + 1, repoBuff);
+								break;
 							} // endif pos. found
 
 						} // endfor search position
@@ -98,20 +100,14 @@ public class ModelReporter extends desmoj.core.report.Reporter {
 	}
 
 	/**
-	 * Returns an array of strings each containing the data for the
-	 * corresponding column in array <code>columns[]</code>. The
-	 * modelreporter returns the description and the last reset time for the
-	 * associated model.
+	 * The ModelReporter returns the description of the model.
 	 * 
 	 * @return java.lang.String[] : Array containing the data for reporting
 	 */
 	public String[] getEntries() {
-
-		entries[0] = ((Model) source).description()
-				+ " Report drawn at "
-				+ ((Model) source).presentTime()
-				+ ". Last reset at "
-				+ source.resetAt().toString() + ".";
+	    
+	    Model m = (Model) source;
+		entries[0] = m.description();  
 
 		return entries;
 
@@ -124,9 +120,9 @@ public class ModelReporter extends desmoj.core.report.Reporter {
 	 * @return java.util.List<Reporter> : The vector containing the reporters associated
 	 *         to the modelreporter
 	 */
-	List<Reporter> getReporters() {
+	public List<Reporter> getReporters() {
 
-		return new ArrayList<Reporter>(reporters);
+		return new ArrayList<Reporter>(_reporters);
 
 	}
 }

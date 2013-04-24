@@ -1,11 +1,14 @@
 package desmoj.core.statistic;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
-import java.util.Vector;
 
 import desmoj.core.report.FileOutput;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimTime;
+import desmoj.core.simulator.TimeInstant;
+import desmoj.core.simulator.TimeSpan;
 
 /**
  * The <code>TimeSeries</code> class is recording data from a
@@ -33,7 +36,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see desmoj.core.report.FileOutput
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * @author modified by Philip Joschko
  * @author based on DESMO-C from Thomas Schniewind, 1998
@@ -51,7 +54,7 @@ import desmoj.core.simulator.SimTime;
  *
  */
 
-public class TimeSeries extends desmoj.core.statistic.StatisticObject{
+public class TimeSeries extends desmoj.core.statistic.StatisticObjectSupportingTimeSpans {
 
     // ****** attributes ******
 
@@ -59,7 +62,7 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      * The name of the file where all the data will be saved to.
      * Empty if no file output is wanted.
      */
-    private String fileName;
+    private String _fileName;
 
     /**
      * Boolean indicating whether to write data to file or not.
@@ -82,49 +85,105 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
     /**
      * List for saving the time values in the memory, needed for the GraphicalObserver.
      */
-    Vector timeValues=null;
+    ArrayList<Double> timeValues=null;
     
     /**
      * List for saving the data values in the memory, needed for the GraphicalObserver.
      */
-    Vector dataValues=null;
-    
+    ArrayList<Double> dataValues=null;
     
     /**
      * The ValueSupplier which values will be recorded and saved in the file.
      */
-    private ValueSupplier valSuppl;
+    private ValueSupplier _valSuppl;
 
     /**
-     * From this SimTime on the TimeSeries will start to save the data in the
+     * From this TimeInstant on the TimeSeries will start to save the data in the
      * file.
      */
-    private SimTime start;
+    private TimeInstant _start;
 
     /**
-     * From this SimTime on the TimeSeries will stop to save the data in the
+     * From this TimeInstant on the TimeSeries will stop to save the data in the
      * file.
      */
-    private SimTime end;
+    private TimeInstant _end;
 
     /**
      * Save the actual value of the ValueSupplier at every tick of the SimClock?
      */
-    private boolean automatic;
+    private boolean _automatic;
 
     /**
      * Save the actual values of the ValueSupplier for all the time the
      * simulation is running? ( Is end <= start ?)
      */
-    private boolean always;
+    private boolean _always;
 
     /**
      * The file where all the data will be saved to.
      */
-    private FileOutput file;
+    private FileOutput _file;
+
+    /**
+	 * Flag, used to know if values should be printed as TimeSpans in report.
+	 */
+    private boolean _showTimeSpansInReport = false;
 
     // ****** methods ******
+    
+    /**
+     * Constructor for a TimeSeries object that has NO connection to a
+     * <code>ValueSupplier</code> but will write data to the given file.
+     * 
+     * @param ownerModel
+     *            Model : The model this TimeSeries object is associated to
+     * @param name
+     *            java.lang.String : The name of this TimeSeries object
+     * @param fileName
+     *            java.lang.String : The name of the file the values will be
+     *            saved to. Must comply to the naming rules of the underlying
+     *            Operating System. This name will be saved in the first line of
+     *            the file.
+     * @param start
+     *            TimeInstant : The instant at which this TimeSeries will start to
+     *            save the values to the file.
+     * @param end
+     *            TimeInstant : The instant at which this TimeSeries will stop to
+     *            save the values to the file. Choose an end time that lies
+     *            before the start time to record the values for all the time.
+     * @param showInTrace
+     *            boolean : Flag for showing this TimeSeries in trace files. Set
+     *            it to <code>true</code> if TimeSeries should show up in
+     *            trace. Set it to <code>false</code> if TimeSeries should not
+     *            be shown in trace.
+     */
+    public TimeSeries(Model ownerModel, String name, String fileName,
+            TimeInstant start, TimeInstant end, boolean showInTrace) {
+        this(ownerModel, name, start, end, showInTrace);
+        
+        this._fileName = fileName; // get hold of the file name      
+        this._file = new FileOutput();
+        hasToWriteToFile=true;
+        hasToRecordValues=false;
+        // fileName contains no proper name
+        if (fileName == null) {
+            sendWarning(
+                    "Attempt to write to a file which has no name. "
+                            + "The file will be named: 'unnamed_TimeSeries_File'!",
+                    "TimeSeries: "
+                            + this.getName()
+                            + " Constructor: TimeSeries(Model "
+                            + "ownerModel, String name, String fileName, ValueSupplier valSup,"
+                            + " SimTime start, SimTime end, boolean automatic, boolean "
+                            + "showInTrace)",
+                    "A file with no name will be lost in deep space of your harddisk.",
+                    "Make sure to give output files a useful name.");
 
+            this._fileName = "unnamed_TimeSeries_File";
+        }
+    }
+    
     /**
      * Constructor for a TimeSeries object that has NO connection to a
      * <code>ValueSupplier</code> but will write data to the given file.
@@ -150,17 +209,60 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      *            it to <code>true</code> if TimeSeries should show up in
      *            trace. Set it to <code>false</code> if TimeSeries should not
      *            be shown in trace.
+     *            
+     *  @deprecated Types of start and end (SimTime) to be replaced with TimeInstant.
      */
     public TimeSeries(Model ownerModel, String name, String fileName,
             SimTime start, SimTime end, boolean showInTrace) {
-        this(ownerModel, name, start, end, showInTrace);
+        this(ownerModel, name, fileName,
+            SimTime.toTimeInstant(start), SimTime.toTimeInstant(end), showInTrace);
+    }
+
+    /**
+     * Constructor for a TimeSeries object that will observe a
+     * <code>ValueSupplier</code> and write data to the given file.
+     * 
+     * @param ownerModel
+     *            Model : The model this TimeSeries object is associated to
+     * @param name
+     *            java.lang.String : The name of this TimeSeries object
+     * @param fileName
+     *            java.lang.String : The name of the file the values will be
+     *            saved to. Must comply to the naming rules of the underlying
+     *            Operating System. This name will be saved in the first line of
+     *            the file.
+     * @param valSup
+     *            ValueSupplier : The values from this ValueSupplier will be
+     *            recorded and saved in the file. The given ValueSupplier will
+     *            be observed by this TimeSeries object.
+     * @param start
+     *            TimeInstant : The instant at which this TimeSeries will start to
+     *            save the values to the file.
+     * @param end
+     *            TimeInstant : The instant at which this TimeSeries will stop to
+     *            save the values to the file. Choose an end time that lies
+     *            before the start time to record the values for all the time.
+     * @param automatic
+     *            boolean : Shall the values be recorded automatically at every
+     *            tick of the SimClock?
+     * @param showInTrace
+     *            boolean : Flag for showing this TimeSeries in trace files. Set
+     *            it to <code>true</code> if TimeSeries should show up in
+     *            trace. Set it to <code>false</code> if TimeSeries should not
+     *            be shown in trace.
+     */
+    public TimeSeries(Model ownerModel, String name, String fileName,
+            ValueSupplier valSup, TimeInstant start, TimeInstant end,
+            boolean automatic, boolean showInTrace) {
+        this(ownerModel, name, valSup, start, end, automatic, showInTrace);
         
-        this.fileName = fileName; // get hold of the file name      
-        this.file = new FileOutput();
+        this._fileName = fileName; // get hold of the file name      
+        this._file = new FileOutput();
         hasToWriteToFile=true;
         hasToRecordValues=false;
+        
         // fileName contains no proper name
-        if (fileName == null) {
+        if (fileName.equals("") || fileName == null) {
             sendWarning(
                     "Attempt to write to a file which has no name. "
                             + "The file will be named: 'unnamed_TimeSeries_File'!",
@@ -173,10 +275,11 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
                     "A file with no name will be lost in deep space of your harddisk.",
                     "Make sure to give output files a useful name.");
 
-            this.fileName = "unnamed_TimeSeries_File";
+            this._fileName = "unnamed_TimeSeries_File";
         }
-    }
 
+    }
+    
     /**
      * Constructor for a TimeSeries object that will observe a
      * <code>ValueSupplier</code> and write data to the given file.
@@ -209,36 +312,55 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      *            it to <code>true</code> if TimeSeries should show up in
      *            trace. Set it to <code>false</code> if TimeSeries should not
      *            be shown in trace.
+     *            
+     *  @deprecated Types of start and end (SimTime) to be replaced with TimeInstant.
+     *              
      */
     public TimeSeries(Model ownerModel, String name, String fileName,
             ValueSupplier valSup, SimTime start, SimTime end,
             boolean automatic, boolean showInTrace) {
-        this(ownerModel, name, valSup, start, end, automatic, showInTrace);
-        
-        this.fileName = fileName; // get hold of the file name      
-        this.file = new FileOutput();
-        hasToWriteToFile=true;
-        hasToRecordValues=false;
-        
-        // fileName contains no proper name
-        if (fileName == "" || fileName == null) {
-            sendWarning(
-                    "Attempt to write to a file which has no name. "
-                            + "The file will be named: 'unnamed_TimeSeries_File'!",
-                    "TimeSeries: "
-                            + this.getName()
-                            + " Constructor: TimeSeries(Model "
-                            + "ownerModel, String name, String fileName, ValueSupplier valSup,"
-                            + " SimTime start, SimTime end, boolean automatic, boolean "
-                            + "showInTrace)",
-                    "A file with no name will be lost in deep space of your harddisk.",
-                    "Make sure to give output files a useful name.");
-
-            this.fileName = "unnamed_TimeSeries_File";
-        }
-
+        this(ownerModel, name, fileName,
+                valSup, SimTime.toTimeInstant(start), SimTime.toTimeInstant(end),
+                automatic, showInTrace);
     }
+    
+    /**
+     * Constructor for a TimeSeries object that has NO connection to a
+     * <code>ValueSupplier</code> and will NOT write data into a file.
+     * If you will not connect this object to a TimeSeriesPlotter after
+     * using this constructor, it will be useless.
+     * Choose another constructor for writing data to file.
+     * 
+     * @param ownerModel
+     *            Model : The model this TimeSeries object is associated to
+     * @param name
+     *            java.lang.String : The name of this TimeSeries object
+     * @param start
+     *            TimeInstant : The instant at which this TimeSeries will start to
+     *            save the values to the file.
+     * @param end
+     *            TimeInstant : The instant at which this TimeSeries will stop to
+     *            save the values to the file. Choose an end time that lies
+     *            before the start time to record the values for all the time.
+     * @param showInTrace
+     *            boolean : Flag for showing this TimeSeries in trace files. Set
+     *            it to <code>true</code> if TimeSeries should show up in
+     *            trace. Set it to <code>false</code> if TimeSeries should not
+     *            be shown in trace.
+     */
+    public TimeSeries(Model ownerModel, String name, TimeInstant start, TimeInstant end, boolean showInTrace) {
+        super(ownerModel, name, false, showInTrace);
 
+        this._valSuppl = null; // there is no ValueSupplier to observe
+        this._start = start;
+        this._end = end;
+        this._automatic = false; // the values can not be recorded automatically
+
+        this._always = TimeInstant.isBefore(end, start);
+        
+        hasToWriteToFile=false;
+        hasToRecordValues=false;
+    }
     
     /**
      * Constructor for a TimeSeries object that has NO connection to a
@@ -263,21 +385,87 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      *            it to <code>true</code> if TimeSeries should show up in
      *            trace. Set it to <code>false</code> if TimeSeries should not
      *            be shown in trace.
+     *            
+     *  @deprecated Types of start and end (SimTime) to be replaced with TimeInstant.
      */
     public TimeSeries(Model ownerModel, String name, SimTime start, SimTime end, boolean showInTrace) {
-        super(ownerModel, name, false, showInTrace);
-
-        this.valSuppl = null; // there is no ValueSupplier to observe
-        this.start = start;
-        this.end = end;
-        this.automatic = false; // the values can not be recorded automatically
-
-        this.always = SimTime.isSmallerOrEqual(end, start);
-        
-        hasToWriteToFile=false;
-        hasToRecordValues=false;
+        this(ownerModel, name, SimTime.toTimeInstant(start), SimTime.toTimeInstant(end), showInTrace);    
     }
 
+    /**
+     * Constructor for a TimeSeries object that will observe a
+     * <code>ValueSupplier</code> but will NOT write data into a file.
+     * If you will not connect this object to a TimeSeriesPlotter after
+     * using this constructor, it will be useless! 
+     * Choose another constructor for writing data to file.
+     * 
+     * @param ownerModel
+     *            Model : The model this TimeSeries object is associated to
+     * @param name
+     *            java.lang.String : The name of this TimeSeries object
+     * @param valSup
+     *            ValueSupplier : The values from this ValueSupplier will be
+     *            recorded and saved in the file. The given ValueSupplier will
+     *            be observed by this TimeSeries object.
+     * @param start
+     *            TimeInstant : The point of SimTime this TimeSeries will start to
+     *            save the values to the file.
+     * @param end
+     *            TimeInstant : The point of SimTime this TimeSeries will stop to
+     *            save the values to the file. Choose an end time that lies
+     *            before the start time to record the values for all the time.
+     * @param automatic
+     *            boolean : Shall the values be recorded automatically at every
+     *            tick of the SimClock?
+     * @param showInTrace
+     *            boolean : Flag for showing this TimeSeries in trace files. Set
+     *            it to <code>true</code> if TimeSeries should show up in
+     *            trace. Set it to <code>false</code> if TimeSeries should not
+     *            be shown in trace.
+     */
+    public TimeSeries(Model ownerModel, String name, 
+            ValueSupplier valSup, TimeInstant start, TimeInstant end,
+            boolean automatic, boolean showInTrace) {
+        super(ownerModel, name, false, showInTrace);
+
+        // valSup is no valid ValueSupplier
+        if (valSup == null) {
+            sendWarning(
+                    "Attempt to produce a TimeSeries about a non existing "
+                            + "ValueSupplier. The command will be ignored!",
+                    "TimeSeries: "
+                            + this.getName()
+                            + " Constructor: TimeSeries(Model "
+                            + "ownerModel, String name, String fileName, ValueSupplier valSup,"
+                            + " SimTime start, SimTime end, boolean automatic, boolean "
+                            + "showInTrace)",
+                    "The given ValueSupplier: valSup is only a null pointer.",
+                    "Make sure to pass a valid ValueSupplier when constructing a new "
+                            + "TimeSeries object.");
+
+            return; // just return
+        }
+
+        this._valSuppl = valSup;
+        this._start = start;
+        this._end = end;
+        this._automatic = automatic;
+
+        this._always = TimeInstant.isBefore(end, start);
+
+        hasToWriteToFile=false;
+        hasToRecordValues=false;
+        
+        if (automatic) // update at every tick of the SimClock?
+        {
+            Observable simClock = this.getModel().getExperiment().getSimClock();
+
+            simClock.addObserver(this); // observe the SimClock
+        } else {
+            _valSuppl.addObserver(this); // observe the valSuppl
+        }
+    }
+    
     /**
      * Constructor for a TimeSeries object that will observe a
      * <code>ValueSupplier</code> but will NOT write data into a file.
@@ -308,56 +496,22 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      *            it to <code>true</code> if TimeSeries should show up in
      *            trace. Set it to <code>false</code> if TimeSeries should not
      *            be shown in trace.
+     *            
+     * @deprecated Types of start and end (SimTime) to be replaced with TimeInstant.
+     * 
      */
     public TimeSeries(Model ownerModel, String name, 
             ValueSupplier valSup, SimTime start, SimTime end,
             boolean automatic, boolean showInTrace) {
-        super(ownerModel, name, false, showInTrace);
-
-        // valSup is no valid ValueSupplier
-        if (valSup == null) {
-            sendWarning(
-                    "Attempt to produce a TimeSeries about a non existing "
-                            + "ValueSupplier. The command will be ignored!",
-                    "TimeSeries: "
-                            + this.getName()
-                            + " Constructor: TimeSeries(Model "
-                            + "ownerModel, String name, String fileName, ValueSupplier valSup,"
-                            + " SimTime start, SimTime end, boolean automatic, boolean "
-                            + "showInTrace)",
-                    "The given ValueSupplier: valSup is only a null pointer.",
-                    "Make sure to pass a valid ValueSupplier when constructing a new "
-                            + "TimeSeries object.");
-
-            return; // just return
-        }
-
-        this.valSuppl = valSup;
-        this.start = start;
-        this.end = end;
-        this.automatic = automatic;
-
-        this.always = SimTime.isSmallerOrEqual(end, start);
-
-        hasToWriteToFile=false;
-        hasToRecordValues=false;
-        
-        if (automatic) // update at every tick of the SimClock?
-        {
-            Observable simClock = this.getModel().getExperiment().getSimClock();
-
-            simClock.addObserver(this); // observe the SimClock
-        } else {
-            valSuppl.addObserver(this); // observe the valSuppl
-        }
+        this(ownerModel, name, 
+                valSup, SimTime.toTimeInstant(start), SimTime.toTimeInstant(end),
+                automatic, showInTrace);
     }
-
     
-    
-    /**
+	/**
      * Returns a null pointer and no Reporter! All the data (values) will be
      * saved in a file or displayed in the GraphicalObserver, so no extra report is needed. <br>
-     * Overrides the method: createReporter() from desmoj.Reportable.
+     * Overrides the method: createReporter() from desmoj.core.simulator.Reportable.
      * 
      * @return desmoj.report.Reporter :<code>null</code> will be returned
      */
@@ -374,7 +528,7 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      */
     public double getValue() {
         // there is no valid ValueSupplier
-        if (valSuppl == null) {
+        if (_valSuppl == null) {
             sendWarning("Attempt to get a value for a TimeSeries from a non "
                     + "existing ValueSupplier. UNDEFINED will be returned!",
                     "TimeSeries: " + this.getName() + " Method: getValue() ",
@@ -387,10 +541,10 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
         }
 
         // get the value from the ValueSupplier
-        double value = valSuppl.value();
+        double value = _valSuppl.value();
 
         // return the rounded value
-        return java.lang.Math.rint(PRECISION * value) / PRECISION;
+        return round(value);
     }
 
     /**
@@ -401,11 +555,26 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
     public void reset() {
         super.reset(); // reset the Reportable, too.
 
-        if(hasToWriteToFile) {
-            file.close();
-            file.open(fileName); // this will overwrite the already existing file
+        if (hasToWriteToFile) {
+            if (_file.isOpen()) _file.close();
+            // register the FileOutput object at the experiment, so it will be
+            // closed properly when the experiment is over
+            this.getModel().getExperiment().registerFileOutput(_file);
+            _file.open(_fileName); // this will overwrite the already
+            // existing file
             // with the file name: fileName.
+            // write the fileName in the first line of the file
+            _file.writeln(_fileName);
         }
+    }
+    
+    @Override
+    /**
+     * {@inheritDoc}
+     */
+    public void update(TimeSpan t) {
+        this.setShowTimeSpansInReport(true);
+        this.update(t.getTimeAsDouble());
     }
 
     /**
@@ -417,33 +586,33 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      */
     public void update() {
         if(hasToWriteToFile) {
-            if (!file.isOpen()) // the file is opened for the first time
+            if (!_file.isOpen()) // the file is opened for the first time
             {
                 // register the FileOutput object at the experiment, so it will be
                 // closed properly when the experiment is over
-                this.getModel().getExperiment().registerFileOutput(file);
+                this.getModel().getExperiment().registerFileOutput(_file);
     
                 // open the file to write data to it and give it a name
-                file.open(fileName);
+                _file.open(_fileName);
     
                 // write the fileName in the first line of the file
-                file.writeln(fileName);
+                _file.writeln(_fileName);
             }
         }
         
-        SimTime actualTime = currentTime(); // get hold of the current time
+        TimeInstant actualTime = presentTime(); // get hold of the current time
 
-        if (!always) // if not always
+        if (!_always) // if not always
         { // check boundaries of interval (start - end)
 
             // start of interval is not reached yet
-            if (SimTime.isSmaller(actualTime, start)) {
+            if (TimeInstant.isBefore(actualTime, _start)) {
                 return;
             } // do nothing, just return
 
             // already beyond end of interval
-            if (SimTime.isSmaller(end, actualTime)) {
-                if (automatic) // is the SimClock observed?
+            if (TimeInstant.isBefore(_end, actualTime)) {
+                if (_automatic) // is the SimClock observed?
                 {
                     Observable simClock = this.getModel().getExperiment()
                             .getSimClock();
@@ -459,7 +628,7 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
         } // end always
 
         // there is no valid ValueSupplier
-        if (valSuppl == null) {
+        if (_valSuppl == null) {
             sendWarning(
                     "Attempt to update a TimeSeries with a non existing "
                             + "ValueSupplier. Which value should be written to the file? "
@@ -475,30 +644,26 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
         // get the value from the ValueSupplier
         double actualValue = getValue();
 
-        // round the time reasonably
-        double actTime = java.lang.Math.rint(1000000 * (actualTime
-                .getTimeValue())) / 1000000;
-
+        // get double representation of current time (rounding!)
+        double actTime = actualTime.getTimeAsDouble();
         
         if(hasToWriteToFile) {
             // make the string which will be saved in the file
-            String record = actTime + file.getSeparator() + actualValue;
-            file.writeln(record); // write the String: record to the file
+            String record = actTime + FileOutput.getSeparator() + actualValue;
+            _file.writeln(record); // write the String: record to the file
         }
         
         if(hasToRecordValues) {
             if(timeValues==null)
-                timeValues=new Vector();
+                timeValues=new ArrayList<Double>();
             if(dataValues==null)
-                dataValues=new Vector();
-            dataValues.add(new Double(actualValue));
-            timeValues.add(new Double(actTime));
+                dataValues=new ArrayList<Double>();
+            dataValues.add(actualValue);
+            timeValues.add(actTime);
             if (plotter != null) plotter.update(null, null);
         }
         
-        incrementObservations(); // increment the observations (see
-        // Reportable)
-
+        incrementObservations(); // increment the observations (see Reportable)
         traceUpdate(); // leave a message in the trace
     }
 
@@ -515,33 +680,33 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      */
     public void update(double val) {
         if(hasToWriteToFile) {
-            if (!file.isOpen()) // the file is opened for the first time
+            if (!_file.isOpen()) // the file is opened for the first time
             {
                 // register the FileOutput object at the experiment, so it will be
                 // closed properly when the experiment is over
-                this.getModel().getExperiment().registerFileOutput(file);
+                this.getModel().getExperiment().registerFileOutput(_file);
     
                 // open the file to write data to it and give it a name
-                file.open(fileName);
+                _file.open(_fileName);
     
                 // write the fileName in the first line of the file
-                file.writeln(fileName);
+                _file.writeln(_fileName);
             }
         }
         
-        SimTime actualTime = currentTime(); // get hold of the current time
+        TimeInstant actualTime = presentTime(); // get hold of the current time
 
-        if (!always) // if not always
+        if (!_always) // if not always
         { // check boundaries of interval (start - end)
 
             // start of interval is not reached yet
-            if (SimTime.isSmaller(actualTime, start)) {
+            if (TimeInstant.isBefore(actualTime, _start)) {
                 return;
             } // do nothing, just return
 
             // already beyond end of interval
-            if (SimTime.isSmaller(end, actualTime)) {
-                if (automatic) // is the SimClock observed?
+            if (TimeInstant.isBefore(_end, actualTime)) {
+                if (_automatic) // is the SimClock observed?
                 {
                     Observable simClock = this.getModel().getExperiment()
                             .getSimClock();
@@ -556,30 +721,26 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
 
         } // end always
 
-        // round the time reasonably
-        double actTime = java.lang.Math.rint(1000000 * (actualTime
-                .getTimeValue())) / 1000000;
+        // get double representation of current time (rounding!)
+        double actTime = round(actualTime.getTimeAsDouble());
 
         if(hasToWriteToFile) {
             // make the string which will be saved in the file
-            String record = actTime + file.getSeparator() + val;
-            file.writeln(record); // write the String: record to the file
+            String record = actTime + FileOutput.getSeparator() + val;
+            _file.writeln(record); // write the String: record to the file
         }
         
         if(hasToRecordValues) {
             if(timeValues==null)
-                timeValues=new Vector();
+                timeValues=new ArrayList<Double>();
             if(dataValues==null)
-                dataValues=new Vector();
+                dataValues=new ArrayList<Double>();
             dataValues.add(new Double(val));
             timeValues.add(new Double(actTime));
             if (plotter != null) plotter.update(null, null);
         }
         
-        
-        incrementObservations(); // increment the observations (see
-        // Reportable)
-
+        incrementObservations(); // increment the observations (see Reportable)
         traceUpdate(); // leave a message in the trace
     }
 
@@ -601,7 +762,7 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
         {
             sendWarning(
                     "Attempt to update a TimeSeries with no reference to an "
-                            + "Observable. The value of '" + valSuppl.getName()
+                            + "Observable. The value of '" + _valSuppl.getName()
                             + "' will be "
                             + "recorded and saved in the file anyway.",
                     "TimeSeries: " + this.getName()
@@ -612,34 +773,34 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
                             + " the work?");
         }
         if(hasToWriteToFile) {
-            if (!file.isOpen()) // the file is opened for the first time
+            if (!_file.isOpen()) // the file is opened for the first time
             {
                 // register the FileOutput object at the experiment, so it will be
                 // closed properly when the experiment is over
-                this.getModel().getExperiment().registerFileOutput(file);
+                this.getModel().getExperiment().registerFileOutput(_file);
 
                 // open the file to write data to it and give it a name
-                file.open(fileName);
+                _file.open(_fileName);
     
                 // write the fileName in the first line of the file
-                file.writeln(fileName);
+                _file.writeln(_fileName);
             }
         }
 
         // get hold of the current time
-        SimTime actualTime = currentTime();
+        TimeInstant actualTime = presentTime(); // get hold of the current time
 
-        if (!always) // if not always
+        if (!_always) // if not always
         { // check boundaries of interval (start - end)
 
             // start of interval is not reached yet
-            if (SimTime.isSmaller(actualTime, start)) {
+            if (TimeInstant.isBefore(actualTime, _start)) {
                 return;
             } // do nothing, just return
 
             // already beyond end of interval
-            if (SimTime.isSmaller(end, actualTime)) {
-                if (automatic) // is the SimClock observed?
+            if (TimeInstant.isBefore(_end, actualTime)) {
+                if (_automatic) // is the SimClock observed?
                 {
                     Observable simClock = this.getModel().getExperiment()
                             .getSimClock();
@@ -668,17 +829,25 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
                 double actVal = convertToDouble(arg);
 
                 // round the value
-                actualValue = java.lang.Math.rint(PRECISION * actVal)
-                        / PRECISION;
+                actualValue = round(actVal);
             } else {
                 // notified by the SimClock
-                if (arg instanceof SimTime) // the SimClock was ticking
+                if (arg instanceof TimeInstant) // time instant passed
+                {
+                    // get the value from the ValueSupplier
+                    actualValue = getValue();
+
+                    // get the time provided by an instant
+                    actualTime = (TimeInstant) arg;
+                    
+                } else if (arg instanceof SimTime) // the SimClock was ticking
                 {
                     // get the value from the ValueSupplier
                     actualValue = getValue();
 
                     // get the time provided by the SimClock
-                    actualTime = (SimTime) arg;
+                    actualTime = SimTime.toTimeInstant((SimTime) arg);
+                    
                 } else {
                     sendWarning(
                             "Attempt to update a TimeSeries with an argument arg, "
@@ -687,7 +856,7 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
                                     + " Method: update (Observable o, "
                                     + "Object arg)",
                             "The passed Object in the argument arg could not be recognized.",
-                            "Make sure to pass null, a SimTime or a Number object as the arg "
+                            "Make sure to pass null, an TimeInstant, a SimTime or a Number object as the arg "
                                     + "argument.");
 
                     return; // do nothing, just return
@@ -696,30 +865,25 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
         }
 
         // round the time reasonably
-        double actTime = java.lang.Math.rint(1000000 * (actualTime
-                .getTimeValue())) / 1000000;
-
+        double actTime = round(actualTime.getTimeAsDouble());
         
         if(hasToWriteToFile) {
             // make the string which will be saved in the file
-            String record = actTime + file.getSeparator() + actualValue;
-            file.writeln(record); // write the String: record to the file
+            String record = actTime + FileOutput.getSeparator() + actualValue;
+            _file.writeln(record); // write the String: record to the file
         }
             
         if(hasToRecordValues) {
             if(timeValues==null)
-                timeValues=new Vector();
+                timeValues=new ArrayList<Double>();
             if(dataValues==null)
-                dataValues=new Vector();
+                dataValues=new ArrayList<Double>();
             dataValues.add(new Double(actualValue));
             timeValues.add(new Double(actTime));
             if (plotter != null) plotter.update(null, null);
         }
         
-        
-        incrementObservations(); // increment the observations (see
-        // Reportable)
-
+        incrementObservations(); // increment the observations (see Reportable)
         traceUpdate(); // leave a message in the trace
     }
 
@@ -750,7 +914,7 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      * Gets the list of data values.
      * @return The list with all the data values.
      */
-    public Vector getDataValues() {
+    public List<Double> getDataValues() {
         return dataValues;
     }
 
@@ -758,8 +922,8 @@ public class TimeSeries extends desmoj.core.statistic.StatisticObject{
      * Gets the list of time values.
      * @return The list of all the time values.
      */
-    public Vector getTimeValues() {
+    public List<Double> getTimeValues() {
         return timeValues;
     }
-        
+    
 } // end class TimeSeries

@@ -10,9 +10,9 @@ import desmoj.core.simulator.Reportable;
  * from this class to implement the reporter for the specific
  * <code>Reportable</code> class.
  * 
- * @see desmoj.core.report.Reportable
+ * @see desmoj.core.simulator.Reportable
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,7 @@ import desmoj.core.simulator.Reportable;
  * permissions and limitations under the License.
  *
  */
+
 public abstract class Reporter {
 
 	/**
@@ -54,6 +55,11 @@ public abstract class Reporter {
 	 * the main model report.</TD>
 	 * </TR>
 	 * <TR>
+     * <TD>2000000000</TD>
+     * <TD>SimulationrunReporter, including Experiment duration and other important 
+     * information referring to the experiment as whole.</TD>
+     * </TR>
+	 * <TR>
 	 * <TD>1800 +</TD>
 	 * <TD>Free for additional Reporters of new constructs that will be listed
 	 * before the <code>StatisticObjects</code> used in a <code>Model</code>.
@@ -62,7 +68,7 @@ public abstract class Reporter {
 	 * <TR>
 	 * <TD>1300 - 1799</TD>
 	 * <TD>Reporters for <code>StatisticObjects</code> as the
-	 * <code>Accumulate, Tally, Histogram, Regression</code> and
+	 * <code>Accumulate, Tally, TextHistogram, Histogram, Regression</code> and
 	 * <code>Count</code>, which will be listed before the process
 	 * synchronisation constructs used in the <code>Model</code>.</TD>
 	 * </TR>
@@ -101,7 +107,7 @@ public abstract class Reporter {
 	 * have the same column headings. Entries should contain in the elements in
 	 * the same order as the <code>entries[]</code>.
 	 */
-	protected String columns[];
+	protected String[] columns;
 
 	/**
 	 * The data entries of this reporter. Reporters of the same group always
@@ -109,7 +115,7 @@ public abstract class Reporter {
 	 * elements in the same order as defined in the <code>columns[]</code>
 	 * array.
 	 */
-	protected String entries[];
+	protected String[] entries;
 
 	/**
 	 * The group's heading of this class of reporters. The String containe here
@@ -206,7 +212,7 @@ public abstract class Reporter {
 	 * Returns the reportable object that this reporter contains informations
 	 * about.
 	 * 
-	 * @return desmoj.Reportable : The reportable this reporter carries
+	 * @return desmoj.core.simulator.Reportable : The reportable this reporter carries
 	 *         information about
 	 */
 	public Reportable getReportable() {
@@ -266,7 +272,7 @@ public abstract class Reporter {
 	 */
 	public static boolean isOtherGroup(Reporter a, Reporter b) {
 
-		return (a.getGroupID() / 100 != b.getGroupID() / 100);
+		return !isSameGroup(a, b);
 
 	}
 
@@ -284,9 +290,23 @@ public abstract class Reporter {
 	 *            desmoj.report.Reporter : comparand b
 	 */
 	public static boolean isSameGroup(Reporter a, Reporter b) {
+	    
+	    // Different submodels always to be written into different groups
+	    if (a.getModel() != b.getModel())
+	        return false;
+	    
+	    // Otherwise, consider group IDs	    
+	    int groupStep = 100;
+	    
+        // Since 2.3.0: To provide additional groups for new
+        // statistics objects (BooleanStatistic, ConfidenceCalculator...),
+        // groups between 1300 and 1799 are considered different based on
+        // steps of 50 instead of 100 (default).
+	    if (a.groupID >= 1300 && a.groupID < 1800 && b.groupID >= 1300 && b.groupID < 1800) {
+	        groupStep = 50;
+	    }
 
-		return (a.getGroupID() / 100 == b.getGroupID() / 100);
-
+		return (a.getGroupID() / groupStep == b.getGroupID() / groupStep);
 	}
 
 	/**
@@ -299,6 +319,16 @@ public abstract class Reporter {
 		return numColumns;
 
 	}
+	
+    /**
+     * Get an optional description of this Reporter's Reportable to be 
+     * included in the report. Default is null.
+     * @return String : Description
+     */
+    public String getDescription(){
+        return this.source.getDescription();
+    }
+    
 	
 	/*@TODO: Comment */
 	public boolean isContinuingReporter() {

@@ -14,7 +14,7 @@ import desmoj.extensions.xml.util.XMLHelper;
 /**
  * Class to receive information from reporters and create an xml file out of it.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel
  * @author modified by Nicolas Knaak (1.2.06)
  * 
@@ -55,12 +55,12 @@ public class XMLReportOutput extends XMLOutput implements OutputType {
 	 **************************************************************************/
 	public void receive(Reporter r) {
 
-		System.out.println("Reporter: " + r);
+		//System.out.println("Reporter: " + r);
 		
 		String[] titleBuf = r.getColumnTitles();
 		String[] entryBuf = r.getEntries();
 		
-		System.out.println("--- Entry Buffer: ");
+		//System.out.println("--- Entry Buffer: ");
 		for (int i = 0; i < entryBuf.length; i++) {
 			System.out.println(entryBuf[i]);
 		}

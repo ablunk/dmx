@@ -21,20 +21,20 @@ import desmoj.core.simulator.Model;
  * @see desmoj.core.dist.UniformRandomGenerator
  * @see desmoj.core.dist.LinearCongruentialRandomGenerator
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You
- * may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- *
+ *         Licensed under the Apache License, Version 2.0 (the "License"); you
+ *         may not use this file except in compliance with the License. You may
+ *         obtain a copy of the License at
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *         Unless required by applicable law or agreed to in writing, software
+ *         distributed under the License is distributed on an "AS IS" BASIS,
+ *         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ *         implied. See the License for the specific language governing
+ *         permissions and limitations under the License.
+ * 
  */
 public abstract class Distribution extends desmoj.core.simulator.Reportable {
 
@@ -64,34 +64,35 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 
 	/**
 	 * The seed of the underlying pseudorandom generator. The seed value is
-	 * passed on to the underlying <code>UniformRandomGenerator</code> but
-	 * since those generators are not supposed to keep track of their initial
-	 * seed value it is stored here to make sure they are not lost.
+	 * passed on to the underlying <code>UniformRandomGenerator</code> but since
+	 * those generators are not supposed to keep track of their initial seed
+	 * value it is stored here to make sure they are not lost.
 	 */
 	protected long initialSeed;
 
 	/**
 	 * This flag shows, if a distribution may produce negative samples or not.
 	 * This is important, if the value of a distribution's sample is to be used
-	 * for creating a TimeSpan object, which allows positive values only. If this
-	 * switch is set to <code>true</code>, the distribution will only return
-	 * positive samples. If a negative sample is drawn, it will be dismissed and
-	 * new samples will be drawn until a positive is produced, which will be
-	 * returned.
+	 * for creating a TimeSpan object, which allows positive values only. If
+	 * this switch is set to <code>true</code>, the distribution will only
+	 * return positive samples. If a negative sample is drawn, it will be
+	 * dismissed and new samples will be drawn until a positive is produced,
+	 * which will be returned.
 	 */
 	protected boolean nonNegative;
 
 	/**
 	 * Creates a RandomDistribution object which gets its initial seed from the
-	 * experiment's seedgenerator. The <code>LinearCongruentialRandomGenerator</code> is
-	 * used as the underlying uniform pseudo random number generator for all
-	 * pseudo random distribution .
+	 * experiment's seedgenerator. The
+	 * <code>LinearCongruentialRandomGenerator</code> is used as the underlying
+	 * uniform pseudo random number generator for all pseudo random distribution
+	 * .
 	 * 
 	 * @param owner
 	 *            Model : The distribution's owner
 	 * @param name
 	 *            java.lang.String : The distribution's name
-	 * @param showInreport
+	 * @param showInReport
 	 *            boolean : Flag to show distribution in report
 	 * @param showInTrace
 	 *            boolean : Flag to show distribution in trace
@@ -99,24 +100,27 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 	public Distribution(Model owner, String name, boolean showInReport,
 			boolean showInTrace) {
 
-		super(owner, name, showInReport, showInTrace); // construct the reportable
-		if (randomGenerator == null)  {
+		super(owner, name, showInReport, showInTrace); // construct the
+														// reportable
+		if (randomGenerator == null) {
 			try {
-	            randomGenerator = owner.getExperiment().getDistributionManager().getRandomNumberGenerator().newInstance(); // default RandomGenerator            
-	        } catch(InstantiationException e) {
-	            randomGenerator = new LinearCongruentialRandomGenerator();
-	        } catch(IllegalAccessException e) {
-	            randomGenerator = new LinearCongruentialRandomGenerator();
-	        }
+				randomGenerator = owner.getExperiment()
+						.getDistributionManager().getRandomNumberGenerator()
+						.newInstance(); // default RandomGenerator
+			} catch (InstantiationException e) {
+				randomGenerator = new LinearCongruentialRandomGenerator();
+			} catch (IllegalAccessException e) {
+				randomGenerator = new LinearCongruentialRandomGenerator();
+			}
 		}
-		owner.getExperiment().getDistributionManager().register(this); 
-		
+		owner.getExperiment().getDistributionManager().register(this);
+
 		// set seed in case experiment running
 		// (for not yet running experiments, this happens automatically
 		// when the experiment is started)
-		if (owner.getExperiment().isRunning()) { 
+		if (owner.getExperiment().isRunning()) {
 			randomGenerator.setSeed(initialSeed);
-		}	
+		}
 	}
 
 	/**
@@ -133,17 +137,17 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 	 *            distributions
 	 */
 	public void changeRandomGenerator(
-			desmoj.core.dist.UniformRandomGenerator newUniformRandomGenerator) {
+			desmoj.core.dist.UniformRandomGenerator randomGenerator) {
 
-		this.randomGenerator = newUniformRandomGenerator;
+		this.randomGenerator = randomGenerator;
 		reset();
 
 	}
 
 	/**
 	 * Creates the default reporter associated with this distribution. The basic
-	 * <code>DistributionReporter</code> returned as a default implementation
-	 * of this method simply reports the distribution's name, number of
+	 * <code>DistributionReporter</code> returned as a default implementation of
+	 * this method simply reports the distribution's name, number of
 	 * observations (samples given), seed and point of simulation time of the
 	 * last reset.
 	 * 
@@ -201,7 +205,7 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 	 * 
 	 * @return boolean : The status of antithetic pseudo random number
 	 *         generation
-	 * @see desmoj.core.dist.RandomDistribution#setAntithetic
+	 * @see desmoj.core.dist.Distribution#setAntithetic
 	 */
 	public boolean isAntithetic() {
 
@@ -215,15 +219,17 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 	 * reset.
 	 */
 	public void reset() {
-		
-		if (randomGenerator == null)  {
+
+		if (randomGenerator == null) {
 			try {
-	            randomGenerator = this.getModel().getExperiment().getDistributionManager().getRandomNumberGenerator().newInstance(); // default RandomGenerator            
-	        } catch(InstantiationException e) {
-	            randomGenerator = new LinearCongruentialRandomGenerator();
-	        } catch(IllegalAccessException e) {
-	            randomGenerator = new LinearCongruentialRandomGenerator();
-	        }
+				randomGenerator = this.getModel().getExperiment()
+						.getDistributionManager().getRandomNumberGenerator()
+						.newInstance(); // default RandomGenerator
+			} catch (InstantiationException e) {
+				randomGenerator = new LinearCongruentialRandomGenerator();
+			} catch (IllegalAccessException e) {
+				randomGenerator = new LinearCongruentialRandomGenerator();
+			}
 		}
 
 		// sets seed to the seed specified in constructor or by call to
@@ -243,8 +249,8 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 	/**
 	 * Resets the pseudo random generator's seed to the value passed, the number
 	 * of samples given to zero and sets antithetic to false for this
-	 * distribution. Acts the same as a call of method <code>reset()</code>
-	 * and a consecutive call to <code>setSeed(long)</code>.
+	 * distribution. Acts the same as a call of method <code>reset()</code> and
+	 * a consecutive call to <code>setSeed(long)</code>.
 	 * 
 	 * @param newSeed
 	 *            long : new seed to be used by underlying random number
@@ -265,6 +271,16 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 		super.reset(); // reset the Reportable, too.
 
 	}
+	
+    /**
+     * Convenience method to return the distribution's sample as <code>Object</code>.
+     * For type safety, method <code>sample()</code> should be preferred. However, 
+     * this method is useful for environments requiring a non-genetic access point 
+     * to obtain samples from any distribution. 
+     * 
+     * @return Object : A sample from this this distribution wrapped as <code>Object</code>.
+     */
+    public abstract Object sampleObject();
 
 	/**
 	 * Switches this distribution to produce antithetic samples. To obtain
@@ -277,8 +293,8 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 	 * simulation. See [Page91, p.139].
 	 * 
 	 * @param newAntiStatus
-	 *            boolean : Parameter <code>true</code> switches antithetic
-	 *            mode on, <code>false</code> switches antithetic mode off
+	 *            boolean : Parameter <code>true</code> switches antithetic mode
+	 *            on, <code>false</code> switches antithetic mode off
 	 */
 	public void setAntithetic(boolean newAntiStatus) {
 
@@ -323,17 +339,18 @@ public abstract class Distribution extends desmoj.core.simulator.Reportable {
 		// set
 
 	}
-	
+
 	/**
-     * Generates the trace output of each sample. This method is called by 
-     * sample(). 
-     * 
-     * @param sample
-     *            String : The last sample, converted to a String
-     */
-    protected void traceLastSample(String sample) {
+	 * Generates the trace output of each sample. This method is called by
+	 * sample().
+	 * 
+	 * @param sample
+	 *            String : The last sample, converted to a String
+	 */
+	protected void traceLastSample(String sample) {
 
-        if (this.currentlySendTraceNotes()) this.sendTraceNote("samples " + sample + " from " + this.getName());
+		if (this.currentlySendTraceNotes())
+			this.sendTraceNote("samples " + sample + " from " + this.getName());
 
-    }
+	}
 }

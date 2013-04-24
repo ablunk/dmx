@@ -3,7 +3,7 @@ package desmoj.core.simulator;
 /**
  * An external event to reset the statistic counters of the model.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Kristof Hamann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,6 @@ public class ExternalEventReset extends ExternalEvent {
 	/**
 	 * Creates an external event to reset the statistic counters of the model.
 	 * @param owner The external event's model
-	 * @param name The external event's name
 	 * @param showInTrace Flag for showing this external event in tracemessages
 	 */
 	public ExternalEventReset(Model owner, boolean showInTrace) {

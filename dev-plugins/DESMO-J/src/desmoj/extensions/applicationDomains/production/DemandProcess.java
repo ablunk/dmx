@@ -1,10 +1,8 @@
 package desmoj.extensions.applicationDomains.production;
 
-import desmoj.core.dist.IntDist;
-import desmoj.core.dist.RealDist;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Model;
 import desmoj.core.simulator.SimProcess;
-import desmoj.core.simulator.SimTime;
 
 /**
  * DemandProcess is a kind of process representing the demand in a manufacturing
@@ -23,7 +21,7 @@ import desmoj.core.simulator.SimTime;
  * products from the <code>Entrepot</code>. But this is done automatically,
  * so the user does not have to care about it.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44,13 +42,13 @@ public class DemandProcess extends SimProcess {
 	 * The random number distribution determining the quantity of demanded
 	 * products.
 	 */
-	private desmoj.core.dist.IntDist demandQuantity;
+	private NumericalDist<Long> demandQuantity;
 
 	/**
 	 * The random number distribution determining the intervals in which the
 	 * demand occurs.
 	 */
-	private desmoj.core.dist.RealDist demandInterval;
+	private NumericalDist<?> demandInterval;
 
 	/**
 	 * The <code>Entrepot</code> supplying the products this DemandProcess is
@@ -71,22 +69,22 @@ public class DemandProcess extends SimProcess {
 	 *            desmoj.Entrepot : The <code>Entrepot</code> supplying the
 	 *            products this DemandProcess is buying.
 	 * @param quantity
-	 *            desmoj.dist.IntDist : The random number distribution
+	 *            NumericalDist<Long> : The random number distribution
 	 *            determining the demand (quantity) of this DemandProcess. Use
-	 *            <code>desmoj.dist.IntDistConstant</code> to simulate a
+	 *            <code>desmoj.dist.DiscreteDistConstant<Long></code> to simulate a
 	 *            constant demand.
 	 * @param interval
-	 *            desmoj.dist.RealDist : The random number distribution
-	 *            determining the intervals in which the demand occurs. Use
-	 *            <code>desmoj.dist.RealDistConstant</code> to simulate
-	 *            constant intervals.
+	 *            NumericalDist<?> : The random number distribution
+	 *            determining the intervals in which the demand occurs. Use e.g.
+	 *            <code>desmoj.dist.DiscreteDistConstant</code> to simulate
+	 *            fixed intervals.
 	 * @param showInTrace
 	 *            boolean : Flag, if this DemandProcess should produce a trace
 	 *            output or not.
 	 */
 	public DemandProcess(Model owner, String name, Entrepot supplier,
-			IntDist quantity, RealDist interval, boolean showInTrace) {
-		super(owner, name, showInTrace); // make a SimProcess
+			NumericalDist<Long> quantity, NumericalDist<?> interval, boolean showInTrace) {
+		super(owner, name, true, showInTrace); // make a sim-process
 
 		// save the parameters
 		this.entrepot = supplier;
@@ -98,10 +96,10 @@ public class DemandProcess extends SimProcess {
 	 * Returns the random number distribution determining the intervals in which
 	 * the demand occurs.
 	 * 
-	 * @return desmoj.dist.RealDist : The random number distribution determining
+	 * @return NumericalDist<?> : The random number distribution determining
 	 *         the intervals in which the demand occurs.
 	 */
-	public desmoj.core.dist.RealDist getDemandInterval() {
+	public NumericalDist<?> getDemandInterval() {
 
 		return demandInterval;
 	}
@@ -109,10 +107,10 @@ public class DemandProcess extends SimProcess {
 	/**
 	 * Returns the random number distribution determining the demand (quantity).
 	 * 
-	 * @return desmoj.dist.IntDist : The random number distribution determining
+	 * @return NumericalDist<Long> : The random number distribution determining
 	 *         the demand (quantity).
 	 */
-	public desmoj.core.dist.IntDist getDemandQuantity() {
+	public NumericalDist<Long> getDemandQuantity() {
 
 		return demandQuantity;
 	}
@@ -121,7 +119,7 @@ public class DemandProcess extends SimProcess {
 	 * Returns the <code>Entrepot</code> supplying the products this
 	 * DemandProcess is demanding.
 	 * 
-	 * @return desmoj.Entrepot : The <code>Entrepot</code> supplying the
+	 * @return Entrepot : The <code>Entrepot</code> supplying the
 	 *         products this DemandProcess is demanding.
 	 */
 	public Entrepot getEntrepot() {
@@ -139,26 +137,23 @@ public class DemandProcess extends SimProcess {
 	 */
 	public void lifeCycle() {
 
-		while (true) // a never ending hunger for products ;-)
-		{
-			// wait until it is time to fetch the next products
-			hold(new SimTime(demandInterval.sample()));
+		// wait until it is time to fetch the next products
+		hold(demandInterval.sampleTimeSpan());
 
-			// determine the quantity of demanded products
-			int qty = (int) demandQuantity.sample();
+		// determine the quantity of demanded products
+		long qty = demandQuantity.sample();
 
-			// create and activate a CustomerProcess to let him fetch the
-			// products
-			CustomerProcess cp = new CustomerProcess(getModel(),
-					"anonymous customer", entrepot, qty, traceIsOn());
-			cp.activate(new SimTime(0.0));
+		// create and activate a CustomerProcess to let him fetch the
+		// products
+		CustomerProcess cp = new CustomerProcess(getModel(),
+				"anonymous customer", entrepot, qty, traceIsOn());
+		cp.activate();
 
-			// debug out
-			if (currentlySendDebugNotes()) {
-				sendDebugNote("demands " + qty + " products from "
-						+ entrepot.getQuotedName());
-			}
-		} // end while loop
+		// debug out
+		if (currentlySendDebugNotes()) {
+			sendDebugNote("demands " + qty + " products from "
+					+ entrepot.getQuotedName());
+		}
 	}
 
 	/**
@@ -167,10 +162,10 @@ public class DemandProcess extends SimProcess {
 	 * simulate constant intervals.
 	 * 
 	 * @param newDemandInterval
-	 *            desmoj.dist.RealDist : The new random number distribution
+	 *            NumericalDist<?> : The new random number distribution
 	 *            determining the intervals in which the demand occurs.
 	 */
-	public void setDemandInterval(desmoj.core.dist.RealDist newDemandInterval) {
+	public void setDemandInterval(NumericalDist<?> newDemandInterval) {
 
 		this.demandInterval = newDemandInterval;
 	}
@@ -181,10 +176,10 @@ public class DemandProcess extends SimProcess {
 	 * demand.
 	 * 
 	 * @param newDemandQuantity
-	 *            desmoj.dist.IntDist : The new random number distribution
+	 *            NumericalDist<Long> : The new random number distribution
 	 *            determining the demand (quantity).
 	 */
-	public void setDemandQuantity(desmoj.core.dist.IntDist newDemandQuantity) {
+	public void setDemandQuantity(NumericalDist<Long> newDemandQuantity) {
 
 		this.demandQuantity = newDemandQuantity;
 	}

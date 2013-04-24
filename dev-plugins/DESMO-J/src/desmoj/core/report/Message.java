@@ -13,7 +13,7 @@ import desmoj.core.simulator.TimeInstant;
  * <code>null</code> references given as parameters, the String "----" is taken
  * instead.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * @author modified by Ruth Meyer
  * 
@@ -34,19 +34,19 @@ public class Message {
 	/**
 	 * The name of the model that produced this message.
 	 */
-	private String modName;
+	private String _modName;
 
 	/**
 	 * The textual message to be published by a messagereceiver.
 	 */
-	private String msgDescription;
+	private String _msgDescription;
 
 	/**
 	 * The point of simulation time that this message was created.
 	 */
-	private desmoj.core.simulator.TimeInstant msgTime;
+	private desmoj.core.simulator.TimeInstant _msgTime;
 
-	private String expName;
+	private String _expName;
 
 	/**
 	 * Constructs a message with the given parameters.
@@ -55,7 +55,7 @@ public class Message {
 	 *            Model : The model that produced this message
 	 * @param description
 	 *            java.lang.String : The actual message text
-	 * @param messageTime
+	 * @param time
 	 *            TimeInstant : The point in simulation time this message was
 	 *            created
 	 */
@@ -70,20 +70,20 @@ public class Message {
 		// querying the experiment name also fails. I have therefore
 		// added an empty experiment name similar to the empty model name.
 		if (origin == null) {
-			modName = "----";
-			expName = "----";
+			_modName = "----";
+			_expName = "----";
 		} else {
-			modName = origin.getName();
-			expName = origin.getExperiment().getName();
+			_modName = origin.getName();
+			_expName = origin.getExperiment().getName();
 		}
 
 		if (description == null)
-			msgDescription = "----";
+			_msgDescription = "----";
 		else
-			msgDescription = description;
+			_msgDescription = description;
 
 		// save the simulation time the message was created at
-		msgTime = time;
+		_msgTime = time;
 
 	}
 
@@ -94,7 +94,7 @@ public class Message {
 	 */
 	public String getDescription() {
 
-		return msgDescription;
+		return _msgDescription;
 
 	}
 
@@ -106,12 +106,12 @@ public class Message {
 	 */
 	public String getModelName() {
 
-		return modName;
+		return _modName;
 
 	}
 
 	public String getExperimentName() {
-		return expName;
+		return _expName;
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class Message {
 	 */
 	public TimeInstant getSendTime() {
 
-		return msgTime;
+		return _msgTime;
 	}
 
 	/**
@@ -134,10 +134,10 @@ public class Message {
 	 */
 	public String getTime() {
 
-		if (msgTime == null)
+		if (_msgTime == null)
 			return "----";
 		else
-			return msgTime.toString();
+			return _msgTime.toString();
 
 	}
 
@@ -149,7 +149,7 @@ public class Message {
 	 */
 	public String toString() {
 
-		return msgDescription;
+		return _msgDescription;
 
 	}
 }

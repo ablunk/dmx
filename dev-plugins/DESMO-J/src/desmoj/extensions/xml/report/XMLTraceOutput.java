@@ -10,7 +10,7 @@ import desmoj.core.report.TraceNote;
 /**
  * Use this class to produce simulation traces in xml-format.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

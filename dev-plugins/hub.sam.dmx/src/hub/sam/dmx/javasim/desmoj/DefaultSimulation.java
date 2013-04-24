@@ -9,7 +9,7 @@ import desmoj.core.simulator.TimeInstant;
 
 @SuppressWarnings("all")
 public class DefaultSimulation extends Model {
-	public static DefaultSimulation DEFAULT = new DefaultSimulation(false, false, false, true);
+	public static DefaultSimulation DEFAULT = new DefaultSimulation(false, false, false, false);
 
 	public final boolean showInReport;
 	public final boolean showIntrace;

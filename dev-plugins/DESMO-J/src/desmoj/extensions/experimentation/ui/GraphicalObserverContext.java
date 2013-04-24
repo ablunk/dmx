@@ -3,7 +3,7 @@ package desmoj.extensions.experimentation.ui;
 /**
  * Represents an arbitrary context (e.g. a JDesktop) for graphical observers.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -26,7 +26,7 @@ public interface GraphicalObserverContext {
 	 * @param o
 	 *            the graphical observer to add
 	 */
-	public void add(GraphicalObserver o);
+	public void add(IGraphicalObserver o);
 
 	/**
 	 * Should remove a graphical observer from the context.
@@ -34,7 +34,7 @@ public interface GraphicalObserverContext {
 	 * @param o
 	 *            the graphical observer to remove
 	 */
-	public void remove(GraphicalObserver o);
+	public void remove(IGraphicalObserver o);
 
 	/**
 	 * Should set the given graphical observer (in)visible
@@ -44,14 +44,14 @@ public interface GraphicalObserverContext {
 	 * @param visible
 	 *            ...to see or not to see... ;-)
 	 */
-	public void setVisible(GraphicalObserver o, boolean visible);
+	public void setVisible(IGraphicalObserver o, boolean visible);
 
 	/**
 	 * Should returns all observers in this context.
 	 * 
 	 * @return Graphical observer array
 	 */
-	public GraphicalObserver[] getChildren();
+	public IGraphicalObserver[] getChildren();
 
 	/**
 	 * Should set the given observer's window size
@@ -63,7 +63,7 @@ public interface GraphicalObserverContext {
 	 * @param height
 	 *            window height
 	 */
-	public void setSize(GraphicalObserver o, int width, int height);
+	public void setSize(IGraphicalObserver o, int width, int height);
 
 	/**
 	 * Should set the given observer's window position
@@ -75,7 +75,7 @@ public interface GraphicalObserverContext {
 	 * @param y
 	 *            vertical coordinate of upper left edge
 	 */
-	public void setLocation(GraphicalObserver o, int x, int y);
+	public void setLocation(IGraphicalObserver o, int x, int y);
 
 	/**
 	 * Should update the given graphical observer's display
@@ -83,5 +83,5 @@ public interface GraphicalObserverContext {
 	 * @param graphical
 	 *            observer to update
 	 */
-	public void update(GraphicalObserver o);
+	public void update(IGraphicalObserver o);
 }

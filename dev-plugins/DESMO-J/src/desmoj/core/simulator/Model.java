@@ -1,8 +1,11 @@
 package desmoj.core.simulator;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import org.apache.commons.collections.map.ReferenceMap;
 
+import desmoj.core.report.ModelReporter;
 import desmoj.core.report.ReportManager;
 import desmoj.core.report.Reporter;
 
@@ -26,7 +29,7 @@ import desmoj.core.report.Reporter;
  * implicitly calls the <code>init()</code> method after receiving the valid
  * reference to an experiment.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46,23 +49,38 @@ public abstract class Model extends Reportable {
     /**
      * The experiment this model is connected to.
      */
-    private Experiment myExperiment;
+    private Experiment _myExperiment;
+    
+    /**
+     * The map with all entities and their identifiers.
+     */
+    private ReferenceMap _entityMap;
     
     /**
      * True if this is the main model (not a submodel to another model), false 
      * for submodels.
      */
     boolean isMainModel;
+    
+    /**
+	 * The current number of the created entities.
+	 */
+	private long _numberOfEntitiesCreated;
 
     /**
      * Dynamic List containing all associated submodels.
      */
-    private ArrayList<Model> subModels;
+    private ArrayList<Model> _subModels;
 
     /**
      * Dynamic List containing all reportable components of this model.
      */
-    private ArrayList<Reportable> reportables;
+    private ArrayList<Reportable> _reportables;
+
+    /**
+     * The parameter manager
+     */
+    private ModelParameterManager _paramManager;
 
     /**
      * Constructs a model, with the given name and parameters for report and
@@ -78,13 +96,13 @@ public abstract class Model extends Reportable {
      *            <code>false</code> if model should not be shown in trace.
      */
     public Model(Model owner, String name, boolean showInReport,
-            boolean showIntrace) {
+            boolean showInTrace) {
 
-        super(owner, name, showInReport, showIntrace); // create a reportable
+        super(owner, name, showInReport, showInTrace); // create a reportable
 
         // init data structures
-        subModels = new ArrayList<Model>(); // create empty Vector for subModels
-        reportables = new ArrayList<Reportable>(); // create empty Vector for reportables
+        _subModels = new ArrayList<Model>(); // create empty Vector for subModels
+        _reportables = new ArrayList<Reportable>(); // create empty Vector for reportables
 
         if (owner != null) { // check if this is a submodel
             this.isMainModel = false;
@@ -93,7 +111,12 @@ public abstract class Model extends Reportable {
         } else {
             this.isMainModel = true;
         }
-
+        
+        _paramManager = new ParameterManager(); // create ParameterManager
+        
+        _numberOfEntitiesCreated = 0L;
+        
+        _entityMap = new ReferenceMap(ReferenceMap.HARD, ReferenceMap.WEAK);
     }
 
     /**
@@ -155,26 +178,26 @@ public abstract class Model extends Reportable {
             return; // no connection possible.
         }
 
-        if (myExperiment != null) {
+        if (_myExperiment != null) {
             sendWarning("Can not connect to Experiment " + exp.getName() + "! "
                     + "Command ignored.", "Model : " + getName()
                     + " Method: void connectToExperiment" + "(Experiment exp)",
                     "The model is already connected to Experiment : "
-                            + myExperiment.getName() + "!",
+                            + _myExperiment.getName() + "!",
                     "A model can only be connected to just one Experiment.");
             return;
         }
 
         // set the experiment reference
-        myExperiment = exp;
+        _myExperiment = exp;
 
         // register at Experiment
-        myExperiment.registerModel(this);
+        _myExperiment.registerModel(this);
 
         // set the Experiment parameter at all submodels if necessary
-        if (!subModels.isEmpty()) {
+        if (!_subModels.isEmpty()) {
 
-            for (Model m : subModels) {
+            for (Model m : _subModels) {
                 m.setConnectedExperiment(exp);
             }
 
@@ -200,22 +223,11 @@ public abstract class Model extends Reportable {
      * 
      * @return Reportable : The reporter associated with this model
      */
-    public Reporter createReporter() {
+    public ModelReporter createReporter() {
 
         // has to be the special reporter designed for this model
         return new desmoj.core.report.ModelReporter(this);
 
-    }
-    
-    /**
-     * Returns a copy of the dynamic list containing all reportable 
-     * components of this model.
-     * 
-     * @return reportables : A list containing all reportable 
-     * components of this model.
-     */
-    public List<Reportable> getReportables() {
-        return new ArrayList<Reportable>(this.reportables);
     }
 
     /**
@@ -250,7 +262,7 @@ public abstract class Model extends Reportable {
             return; // no submodels registered here
         else {
             
-            for (Model m : subModels) { // loop submodels
+            for (Model m : _subModels) { // loop submodels
                 m.init(); // init submodel
                 m.doSubmodelInit(); // init submodels of submodels
             }
@@ -269,12 +281,45 @@ public abstract class Model extends Reportable {
             return; // no submodels registered here
         else {
             
-            for (Model m : subModels) { // loop submodels
+            for (Model m : _subModels) { // loop submodels
                 m.doInitialSchedules(); // initial schedules for the submodel
                 m.doSubmodelSchedules(); // initial schedules for potential submodels of the submodel
             }
 
         }
+    }
+	
+    /**
+     * Returns the entity to the belonging identifier.
+     * @return Entity : The class will return the
+     * <code>Entity</code> or null if no such exists.
+     */
+    public Entity getEntity(long ident)
+    {
+        return (Entity) _entityMap.get(Long.valueOf(ident));
+    }
+	
+    /**
+     * Returns a list of this model's entities.
+     * 
+     * @param includeSubmodels
+     *      boolean : Do include (true) or exclude (false) submodels' entities in the list.
+     * 
+     * @return List<Entity> : The class will return a list of all existing objects of
+     * <code>Entity</code> or null if no list exists.
+     */
+    public List<Entity> getEntities(boolean includeSubmodels)
+    {
+        List<Entity> list = new LinkedList<Entity>();
+       	list.addAll(_entityMap.values());
+        
+        if (includeSubmodels) {
+            for (Model submodel : this._subModels) {
+                list.addAll(submodel.getEntities(true));
+            }
+        }
+
+        return list;
     }
 
     /**
@@ -288,13 +333,34 @@ public abstract class Model extends Reportable {
                 
         if (this.isMainModel()) {
 
-            return myExperiment;
+            return _myExperiment;
         
         } else {
             
             return this.getModel().getExperiment();
             
         }
+    }
+    
+    /**
+     * Returns a copy of the dynamic list containing all reportable 
+     * components of this model.
+     * 
+     * @return reportables : A list containing all reportable 
+     * components of this model.
+     */
+    public List<Reportable> getReportables() {
+        return new ArrayList<Reportable>(this._reportables);
+    }
+
+    /**
+     * Returns the Model's viewpoint of the ParameterManager
+     * 
+     * @return ModelParameterManager : The ParameterManager
+     */
+    public ModelParameterManager getParameterManager()
+    {
+        return _paramManager;
     }
 
     /**
@@ -305,7 +371,7 @@ public abstract class Model extends Reportable {
      */
     public boolean hasSubModels() {
 
-        return !subModels.isEmpty(); // checks for some submodels in vector
+        return !_subModels.isEmpty(); // checks for some submodels in vector
 
     }
 
@@ -323,7 +389,7 @@ public abstract class Model extends Reportable {
      * initialization and instantiation work into this method. Do not use this
      * method to do the initial schedules needed for the scheduler to start
      * with. Use method <code>doInitialSchedules()</code> instead. If there
-     * are no events scheduled in the eventList, the scheduler will stop the
+     * are no events scheduled in the event-list, the scheduler will stop the
      * simulation immediately because there is nothing for him to do. If you are
      * using submodels, take care that each of the submodels has its own
      * <code>init</code> method properly set up.
@@ -360,7 +426,7 @@ public abstract class Model extends Reportable {
      */
     public boolean isConnected() {
 
-        return (myExperiment != null); // no experiment connected
+        return (_myExperiment != null); // no experiment connected
 
     }
 
@@ -388,20 +454,35 @@ public abstract class Model extends Reportable {
 
         return !this.isMainModel;
     }
+    
+    /**
+     * Links an entity with an unique identification number.
+     * 
+     * @param e
+     *         Entity : The new Entity to link with an unique identification number.
+     * 
+     * @return long : Unique identification number.
+     */
+	long linkWithIdentNumber(Entity e)
+	{
+		_numberOfEntitiesCreated++;
+		_entityMap.put(_numberOfEntitiesCreated, e);
+		return _numberOfEntitiesCreated;
+	}
 
     /**
      * Registers a reportable at this model. Reports can only be drawn, if the
      * reportbale is registered at his model.
      * 
      * @param r
-     *            desmoj.Reportable : The reportable to be registered
+     *            desmoj.core.simulator.Reportable : The reportable to be registered
      */
     void register(Reportable r) {
 
         if (r == null)
             return; // do not accept null values
         else
-            reportables.add(r);
+            _reportables.add(r);
 
     }
 
@@ -422,7 +503,7 @@ public abstract class Model extends Reportable {
             return; // exit
         }
 
-        subModels.add(subModel);
+        _subModels.add(subModel);
 
     }
 
@@ -450,16 +531,16 @@ public abstract class Model extends Reportable {
 
         // register all modelcomponent's reporters
         // in case they are set to produce a report output
-        for (Reportable r : reportables) { // loop reportables
+        for (Reportable r : _reportables) { // loop reportables
             if (r.reportIsOn())
-                repMan.register(r.createReporter());
+                repMan.register(r.getReporter());
         }
 
         // register all submodel's reporters
         List<Reporter> subReporters;
         // buffer for submodel-reportmanagers returned
 
-        for (Model m : subModels) { // loop submodels
+        for (Model m : _subModels) { // loop submodels
 
             subReporters = m.report();
 
@@ -484,11 +565,11 @@ public abstract class Model extends Reportable {
         super.reset(); // reset the own obs & resetAt variables
 
         // reset all reportables registered here
-        if (reportables.isEmpty())
+        if (_reportables.isEmpty())
             return; // no reportables registered
         else {
 
-            for (Reportable r : reportables) { // loop reportables
+            for (Reportable r : _reportables) { // loop reportables
                 r.reset();
                 // reset each registered
             }
@@ -496,11 +577,11 @@ public abstract class Model extends Reportable {
         }
 
         // reset all registered submodels
-        if (subModels.isEmpty())
+        if (_subModels.isEmpty())
             return; // no reportables registered
         else {
 
-            for (Model m : subModels) { // loop submodels
+            for (Model m : _subModels) { // loop submodels
                 m.reset();
                 // reset each registered
             }
@@ -529,7 +610,7 @@ public abstract class Model extends Reportable {
         }
 
         if (isSubModel()) { // this is a submodel
-            myExperiment = e;
+            _myExperiment = e;
             return;
         } else { // this is no submodel
             sendWarning("Can not connect to experiment! Command ignored.",
@@ -553,6 +634,5 @@ public abstract class Model extends Reportable {
         setOwner(this);
 
     }
-
     
 }

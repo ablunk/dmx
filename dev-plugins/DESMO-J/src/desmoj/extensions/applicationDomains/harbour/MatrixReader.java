@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * from a file of characters The lines of the file are the lines of the matrix.
  * Between the elements in every line must be " " as char.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Eugenia Neufeld
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");

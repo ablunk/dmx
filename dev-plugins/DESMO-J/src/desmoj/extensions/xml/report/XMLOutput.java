@@ -11,7 +11,7 @@ import desmoj.extensions.xml.util.XMLHelper;
 /**
  * Class to receive information from reporters and create an xml file out of it.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Gunnar Kiesel
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,9 @@ import desmoj.extensions.xml.util.XMLHelper;
 
 public abstract class XMLOutput extends FileOutput implements OutputType {
 
-	protected int timeFloats = 0;
+	private int timeFloats = 0;
+
+	private int reportNumber;
 
 	/** A dummy document for XML output */
 	protected Document document = XMLHelper.createDocument();
@@ -48,9 +50,9 @@ public abstract class XMLOutput extends FileOutput implements OutputType {
 	protected String createFileName(String pathname, String name, String type) {
 
 		// check for proper path and filename
-		if ((pathname == null) || (pathname.isEmpty()))
+		if ((pathname == null) || (pathname.length() == 0))
 			pathname = System.getProperty("user.dir", ".");
-		if ((name == null) || (name != null && name.isEmpty()))
+		if ((name == null) || (name != null && name.length() == 0))
 			name = "DESMOJ";
 
 		// check for proper suffix of the filename
@@ -61,8 +63,8 @@ public abstract class XMLOutput extends FileOutput implements OutputType {
 	}
 
 	/** Call the super method to close the file and flush the buffers* */
-	public void close() {
-		XMLHelper.serializeDocument(document, file);
+ 	public void close() {
+		XMLHelper.serializeDocument(document, file); //%TODO Commented out by Diehl
 		super.close();
 	}
 

@@ -3,7 +3,7 @@ package desmoj.core.advancedModellingFeatures;
 /**
  * The bean information class for desmoj.Stock.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You
@@ -37,7 +37,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getAvail",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -90,7 +90,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("avgAvail", aParameterTypes);
 			} catch (Throwable exception) {
 				/* Since getMethod failed, call findMethod. */
@@ -147,7 +147,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getCapacity",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -204,7 +204,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getConsumers",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -257,7 +257,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("createReporter",
 						aParameterTypes);
 			} catch (Throwable exception) {
@@ -308,7 +308,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 	 * @param parameterCount
 	 *            int
 	 */
-	public static java.lang.reflect.Method findMethod(java.lang.Class aClass,
+	public static java.lang.reflect.Method findMethod(Class<?> aClass,
 			java.lang.String methodName, int parameterCount) {
 		try {
 			/*
@@ -337,7 +337,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 	 * @return java.beans.BeanInfo[]
 	 */
 	public java.beans.BeanInfo[] getAdditionalBeanInfo() {
-		java.lang.Class superClass;
+		Class<?> superClass;
 		java.beans.BeanInfo superBeanInfo = null;
 
 		try {
@@ -364,7 +364,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 	 * 
 	 * @return java.lang.Class
 	 */
-	public static java.lang.Class getBeanClass() {
+	public static java.lang.Class<Stock> getBeanClass() {
 		return desmoj.core.advancedModellingFeatures.Stock.class;
 	}
 
@@ -407,7 +407,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("getConsQueueStrategy",
 						aParameterTypes);
 			} catch (Throwable exception) {
@@ -461,7 +461,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("getConsRefused",
 						aParameterTypes);
 			} catch (Throwable exception) {
@@ -556,7 +556,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("getProdQueueStrategy",
 						aParameterTypes);
 			} catch (Throwable exception) {
@@ -610,7 +610,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("getProdRefused",
 						aParameterTypes);
 			} catch (Throwable exception) {
@@ -664,7 +664,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("getProducerQueue",
 						aParameterTypes);
 			} catch (Throwable exception) {
@@ -755,7 +755,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getInitial",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -812,7 +812,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getMaximum",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -869,7 +869,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getMinimum",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -926,7 +926,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getProducers",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -983,7 +983,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 					 * Attempt to find the method using getMethod with parameter
 					 * types.
 					 */
-					java.lang.Class aGetMethodParameterTypes[] = {};
+					Class<?> aGetMethodParameterTypes[] = {};
 					aGetMethod = getBeanClass().getMethod("getRefused",
 							aGetMethodParameterTypes);
 				} catch (Throwable exception) {
@@ -1036,7 +1036,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = {};
+				Class<?> aParameterTypes[] = {};
 				aMethod = getBeanClass().getMethod("reset", aParameterTypes);
 			} catch (Throwable exception) {
 				/* Since getMethod failed, call findMethod. */
@@ -1089,7 +1089,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = { long.class };
+				Class<?> aParameterTypes[] = { long.class };
 				aMethod = getBeanClass().getMethod("retrieve", aParameterTypes);
 			} catch (Throwable exception) {
 				/* Since getMethod failed, call findMethod. */
@@ -1145,7 +1145,7 @@ public class StockBeanInfo extends java.beans.SimpleBeanInfo {
 				 * Attempt to find the method using getMethod with parameter
 				 * types.
 				 */
-				java.lang.Class aParameterTypes[] = { long.class };
+				Class<?> aParameterTypes[] = { long.class };
 				aMethod = getBeanClass().getMethod("store", aParameterTypes);
 			} catch (Throwable exception) {
 				/* Since getMethod failed, call findMethod. */

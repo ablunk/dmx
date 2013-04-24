@@ -3,7 +3,7 @@ package desmoj.extensions.applicationDomains.production.report;
 /**
  * Captures all relevant information about the Entrepot.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen based on ideas from Tim Lechler
  * @author based on DESMO-C from Thomas Schniewind, 1998
  * 

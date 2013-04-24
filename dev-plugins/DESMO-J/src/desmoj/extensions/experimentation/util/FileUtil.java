@@ -4,7 +4,7 @@ package desmoj.extensions.experimentation.util;
  * Utilities to handle files & jar-archives
  * 
  * @author Gunnar Kiesel
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You

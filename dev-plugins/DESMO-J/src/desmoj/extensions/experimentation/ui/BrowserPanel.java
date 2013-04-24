@@ -16,7 +16,7 @@ import javax.swing.event.HyperlinkListener;
  * A simple HTML Browser for displaying experiment reports, traces, error- and
  * debug-files.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * @author edited by Gunnar Kiesel
  * 

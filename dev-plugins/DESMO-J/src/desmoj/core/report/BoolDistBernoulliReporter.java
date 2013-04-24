@@ -3,7 +3,7 @@ package desmoj.core.report;
 /**
  * Reports all information about a BoolDistBernoulli distribution.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +23,7 @@ public class BoolDistBernoulliReporter extends DistributionReporter {
 	 * Creates a new BoolDistBernoulliReporter.
 	 * 
 	 * @param informationSource
-	 *            desmoj.Reportable : The BoolDistBernoulli distribution to
+	 *            desmoj.core.simulator.Reportable : The BoolDistBernoulli distribution to
 	 *            report about
 	 */
 	public BoolDistBernoulliReporter(
@@ -54,13 +54,15 @@ public class BoolDistBernoulliReporter extends DistributionReporter {
 			// Obs
 			entries[2] = Long.toString(bdb.getObservations());
 			// Type
-			entries[3] = "Bernoulli";
+			entries[3] = "Bool Bernoulli";
 			// param1
 			entries[4] = Double.toString(bdb.getProbability());
 			// param2
 			entries[5] = " ";
 			// seed
-			entries[6] = Long.toString(bdb.getInitialSeed());
+			entries[6] = " ";
+            // seed
+            entries[7] = Long.toString(bdb.getInitialSeed());
 		} else {
 			for (int i = 0; i < numColumns; i++) {
 				entries[i] = "Invalid source!";

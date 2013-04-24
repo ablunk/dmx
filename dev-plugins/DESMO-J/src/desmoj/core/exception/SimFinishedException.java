@@ -13,7 +13,7 @@ import desmoj.core.simulator.TimeInstant;
  * isthe root for a tree of exceptions that are automatically rethrown by any
  * Java method thus not needing to be rethrown by the user, too.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,9 @@ import desmoj.core.simulator.TimeInstant;
  *
  */
 public class SimFinishedException extends DESMOJException {
-	/**
+    private static final long serialVersionUID = 1L;
+
+    /**
 	 * Constructs a SimFinishedException inserting the given position String and
 	 * the given simulation time in the ErrorMessage documenting this exception.
 	 * 

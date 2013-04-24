@@ -17,7 +17,7 @@ import java.util.Vector;
  * run as an Applet thus having no or restricted disk access and using multiple
  * scrollable windows instead.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,12 +38,12 @@ public class MessageDistributor implements MessageReceiver {
 	 * The special class for reporters to send all reporters to the experiment's
 	 * standard report ouput.
 	 */
-	private static Class reporters;
+	private static Class<?> reporters;
 
 	/**
 	 * The first item of the list of registered message types.
 	 */
-	private MLink head;
+	private MLink _head;
 
 	/**
 	 * The inner class messagelink keeps track of the types of messages and
@@ -62,13 +62,13 @@ public class MessageDistributor implements MessageReceiver {
 		/**
 		 * The type of message that a messagereceiver object is registered with.
 		 */
-		Class msgType;
+		Class<?> msgType;
 
 		/**
 		 * The Vector filled with messagereceivers registered to receive
 		 * messages of the attached type.
 		 */
-		Vector clients;
+		Vector<MessageReceiver> clients;
 
 		/**
 		 * Flag to state whether the current type of message is being
@@ -88,13 +88,13 @@ public class MessageDistributor implements MessageReceiver {
 		 * Constructs a link with the given parameters. This is just a
 		 * convenient shorthand for setting up the parameters each at a time.
 		 */
-		MLink(MLink nextLink, Class messageType, boolean showing) {
+		MLink(MLink nextLink, Class<?> messageType, boolean showing) {
 			isOn = showing; // switches output to receivers on (true) or off
 			// (false)
 			next = nextLink; // ref to next messageType
 			skipCount = 0; // no messages to be skipped now
 			msgType = messageType; // the class of the MessageType
-			clients = new Vector(3); // max. number of standard clients are
+			clients = new Vector<MessageReceiver>(3); // max. number of standard clients are
 			// 2,
 			// so we have one spare for each type
 
@@ -140,18 +140,18 @@ public class MessageDistributor implements MessageReceiver {
 		if (out == null)
 			return; // invalid param, so just return
 
-		if (head == null)
+		if (_head == null)
 			return; // nobody registered yet
 
 		// now scan through all queues and issue removal
-		for (MLink tmp = head; tmp != null; tmp = tmp.next) {
+		for (MLink tmp = _head; tmp != null; tmp = tmp.next) {
 
 			tmp.clients.removeElement(out);
 			if (tmp.clients.isEmpty()) { // if last is taken, trash
 				// messagelink
 
-				if (tmp == head) {
-					head = head.next; // special care for first element in
+				if (tmp == _head) {
+					_head = _head.next; // special care for first element in
 					// list
 					return; // there can't be any more left to check
 				} else {
@@ -179,7 +179,7 @@ public class MessageDistributor implements MessageReceiver {
 	 *            java.lang.Class : The type of messages the messagereceiver
 	 *            should be deregistered from
 	 */
-	public void deRegister(MessageReceiver out, Class messageType) {
+	public void deRegister(MessageReceiver out, Class<?> messageType) {
 
 		// check parameters
 		if (out == null)
@@ -199,8 +199,8 @@ public class MessageDistributor implements MessageReceiver {
 
 		if (tmp.clients.isEmpty()) { // if last is taken, trash messagelink
 
-			if (tmp == head) {
-				head = head.next; // special care for first element in list
+			if (tmp == _head) {
+				_head = _head.next; // special care for first element in list
 			} else {
 				tmp = tmp.next; // remove MessageLink
 			}
@@ -218,8 +218,8 @@ public class MessageDistributor implements MessageReceiver {
 	 * 
 	 * @param out
 	 *            MessageReceiver : The messagereceiver to be de-registered
-	 * @param messageType
-	 *            java.lang.Class : The type of messages the messagereceiver
+	 * @param className
+	 *            String : The type of messages the messagereceiver
 	 *            should be deregistered from
 	 */
 	public void deRegister(MessageReceiver out, String className) {
@@ -231,7 +231,7 @@ public class MessageDistributor implements MessageReceiver {
 			return; // invalid params
 
 		// get the type
-		Class messageType = null;
+		Class<?> messageType = null;
 
 		try {
 			messageType = Class.forName(className);
@@ -249,8 +249,8 @@ public class MessageDistributor implements MessageReceiver {
 
 		if (tmp.clients.isEmpty()) { // if last is taken, trash messagelink
 
-			if (tmp == head) {
-				head = head.next; // special care for first element in list
+			if (tmp == _head) {
+				_head = _head.next; // special care for first element in list
 			} else {
 				tmp = tmp.next; // remove MessageLink
 			}
@@ -268,7 +268,7 @@ public class MessageDistributor implements MessageReceiver {
 	 *         distributed <code>false</code> if not or messagetype is not
 	 *         registered here
 	 */
-	public boolean isOn(Class messageType) {
+	public boolean isOn(Class<?> messageType) {
 
 		if (messageType == null)
 			return false;
@@ -291,7 +291,7 @@ public class MessageDistributor implements MessageReceiver {
 	 * @return boolean : Is <code>true</code> if the messagetype is
 	 *         registered, <code>false</code> if not
 	 */
-	public boolean isRegistered(Class messageType) {
+	public boolean isRegistered(Class<?> messageType) {
 
 		if (messageType == null)
 			return false;
@@ -311,16 +311,16 @@ public class MessageDistributor implements MessageReceiver {
 	 * 
 	 * @return MessageLink : The messagelink for the given class or
 	 *         <code>null</code> if the given class is not registered yet
-	 * @param msgType
+	 * @param messageType
 	 *            java.lang.Class : The class that the link is needed for
 	 */
-	private MLink linkOf(Class messageType) {
+	private MLink linkOf(Class<?> messageType) {
 
-		if (head == null)
+		if (_head == null)
 			return null;
 		else {
 
-			for (MLink tmp = head; tmp != null; tmp = tmp.next) {
+			for (MLink tmp = _head; tmp != null; tmp = tmp.next) {
 				if (tmp.msgType == messageType)
 					return tmp;
 			}
@@ -364,7 +364,7 @@ public class MessageDistributor implements MessageReceiver {
 
 		// loop + send to all receivers
 		for (int i = 0; i < tmp.clients.size(); i++) {
-			((MessageReceiver) tmp.clients.elementAt(i)).receive(m);
+			tmp.clients.elementAt(i).receive(m);
 		}
 
 	}
@@ -402,7 +402,7 @@ public class MessageDistributor implements MessageReceiver {
 	 *            java.lang.Class : The type of messages the messagereceiver is
 	 *            registered with
 	 */
-	public void register(MessageReceiver out, Class messageType) {
+	public void register(MessageReceiver out, Class<?> messageType) {
 
 		// check parameters
 		if (out == null)
@@ -425,8 +425,8 @@ public class MessageDistributor implements MessageReceiver {
 
 		} else { // messageType not registered here, so do it now
 			// create the new link. New Links are added at first position
-			head = new MLink(head, messageType, true);
-			head.clients.addElement(out); // add the output
+			_head = new MLink(_head, messageType, true);
+			_head.clients.addElement(out); // add the output
 		}
 
 	}
@@ -436,7 +436,7 @@ public class MessageDistributor implements MessageReceiver {
 	 * 
 	 * @param out
 	 *            MessageReceiver : The messagereceiver to be registered
-	 * @param messageType
+	 * @param className
 	 *            java.lang.String : The name of the type of messages the
 	 *            messagereceiver is registered with
 	 */
@@ -445,11 +445,11 @@ public class MessageDistributor implements MessageReceiver {
 		// check parameters
 		if (out == null)
 			return; // invalid param
-		if ((className == null) || (className.isEmpty()))
+		if ((className == null) || (className.length() == 0))
 			return; // invalid param
 
 		// identify the corresponding link
-		Class messageType = null;
+		Class<?> messageType = null;
 
 		try {
 			messageType = Class.forName(className);
@@ -472,8 +472,8 @@ public class MessageDistributor implements MessageReceiver {
 
 		} else { // messageType not registered here, so do it now
 			// create the new link. New Links are added at first position
-			head = new MLink(head, messageType, true);
-			head.clients.addElement(out); // add the output
+			_head = new MLink(_head, messageType, true);
+			_head.clients.addElement(out); // add the output
 		}
 
 	}
@@ -483,7 +483,7 @@ public class MessageDistributor implements MessageReceiver {
 	 * by one. This is necessary to blend out any activities managed by the
 	 * framework that would otherwise confuse the modeller.
 	 */
-	public void skip(Class messageType) {
+	public void skip(Class<?> messageType) {
 
 		if (messageType == null)
 			return; // no good parameter
@@ -506,7 +506,7 @@ public class MessageDistributor implements MessageReceiver {
 	 * @param skipNumber
 	 *            int : The number of messages to skip
 	 */
-	public void skip(Class messageType, int skipNumber) {
+	public void skip(Class<?> messageType, int skipNumber) {
 
 		if (skipNumber < 1)
 			return; // check parameters for correctness
@@ -530,7 +530,7 @@ public class MessageDistributor implements MessageReceiver {
 	 * @param messageType
 	 *            Class : The type of messages to be switched off
 	 */
-	public void switchOff(Class messageType) {
+	public void switchOff(Class<?> messageType) {
 
 		if (messageType == null)
 			return; // no good parameter
@@ -551,7 +551,7 @@ public class MessageDistributor implements MessageReceiver {
 	 * @param messageType
 	 *            Class : The type of messages to be switched on
 	 */
-	public void switchOn(Class messageType) {
+	public void switchOn(Class<?> messageType) {
 
 		if (messageType == null)
 			return; // no good parameter

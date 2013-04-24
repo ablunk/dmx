@@ -11,20 +11,20 @@ import desmoj.core.simulator.Model;
  * values will be interpreted as 1 (always return "true"). Negative values will
  * be interpreted as 0 (always return "false").
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You
- * may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- *
+ *         Licensed under the Apache License, Version 2.0 (the "License"); you
+ *         may not use this file except in compliance with the License. You may
+ *         obtain a copy of the License at
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ *         Unless required by applicable law or agreed to in writing, software
+ *         distributed under the License is distributed on an "AS IS" BASIS,
+ *         WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+ *         implied. See the License for the specific language governing
+ *         permissions and limitations under the License.
+ * 
  */
 public class BoolDistBernoulli extends BoolDist {
 
@@ -72,8 +72,8 @@ public class BoolDistBernoulli extends BoolDist {
 	}
 
 	/**
-	 * Returns the probability for <code>true</code> values. The value
-	 * returned is passed through the constructor.
+	 * Returns the probability for <code>true</code> values. The value returned
+	 * is passed through the constructor.
 	 * 
 	 * @return double : the probability of a <code>true</code> value being
 	 *         returned
@@ -95,15 +95,17 @@ public class BoolDistBernoulli extends BoolDist {
 
 		incrementObservations(); // increase count of samples
 
-        // direct mapping between probability [0,1] and sample from
-        // randomgenerator [0,1]
-        // probability indicates level when to return "true".
+		// direct mapping between probability [0,1] and sample from
+		// randomgenerator [0,1]
+		// probability indicates level when to return "true".
 		boolean newSample = randomGenerator.nextDouble() < trueProbability;
-		if (antithetic) newSample = !newSample;
-		
-        if (this.currentlySendTraceNotes()) this.traceLastSample(Boolean.toString(newSample));
-	        
-        return newSample;
-        
+		if (antithetic)
+			newSample = !newSample;
+
+		if (this.currentlySendTraceNotes())
+			this.traceLastSample(Boolean.toString(newSample));
+
+		return newSample;
+
 	}
 }

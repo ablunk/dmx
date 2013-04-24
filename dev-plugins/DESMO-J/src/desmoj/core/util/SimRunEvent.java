@@ -10,7 +10,7 @@ import desmoj.core.simulator.TimeInstant;
 /**
  * Base class for AWT events occurring while a simulation runs.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Nicolas Knaak
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -33,8 +33,8 @@ public class SimRunEvent extends EventObject {
 	/**
 	 * Creates a new sim run event
 	 * 
-	 * @param the
-	 *            experiment the SimRunEvent is assigned to
+	 * @param source
+	 * 			 the experiment the SimRunEvent is assigned to
 	 */
 	public SimRunEvent(Experiment source) {
 		super(source);

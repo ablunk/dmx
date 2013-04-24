@@ -1,9 +1,8 @@
 package desmoj.extensions.applicationDomains.production;
 
-import desmoj.core.dist.RealDist;
-import desmoj.core.dist.RealDistConstant;
+import desmoj.core.dist.NumericalDist;
 import desmoj.core.simulator.Model;
-import desmoj.core.simulator.SimTime;
+import desmoj.core.simulator.TimeSpan;
 
 /**
  * A SimpleTransporter is a simple transporter (vehicle) associated to a
@@ -26,7 +25,7 @@ import desmoj.core.simulator.SimTime;
  * 
  * @see Transporter
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Soenke Claassen
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47,7 +46,7 @@ public class SimpleTransporter extends Transporter {
 	 * The random number stream determining the time it takes this
 	 * SimpleTransporter to return to its <code>TransportJunction</code>.
 	 */
-	private desmoj.core.dist.RealDist returnTimeStream;
+	private NumericalDist<?> returnTimeStream;
 
 	/**
 	 * The <code>TransportJunction</code> this SimpleTransporter is associated
@@ -96,7 +95,7 @@ public class SimpleTransporter extends Transporter {
 	 *            TransportJunction : The home base of this SimpleTransporter;
 	 *            where he comes from and where he returns to.
 	 * @param returnTime
-	 *            RealDist : The time it takes the SimpleTransporter to return
+	 *            NumericalDist<?> : The time it takes the SimpleTransporter to return
 	 *            to his home base after transporting the goods to a certain
 	 *            place.
 	 * @param showInTrace
@@ -105,7 +104,7 @@ public class SimpleTransporter extends Transporter {
 	 */
 	public SimpleTransporter(Model owner, String name, int minLoad, int capac,
 			Transportation transport, TransportJunction homeBase,
-			RealDist returnTime, boolean showInTrace) {
+			NumericalDist<?> returnTime, boolean showInTrace) {
 		super(owner, name, minLoad, capac, showInTrace); // make a
 		// Transporter
 		// the minLoad and the capacity parameter will be checked there
@@ -174,7 +173,7 @@ public class SimpleTransporter extends Transporter {
 							+ "number stream as the return time for the SimpleTransporter "
 							+ "to be constructed.");
 			// set the return time to zero
-			this.returnTimeStream = new RealDistConstant(owner,
+			this.returnTimeStream = new desmoj.core.dist.DiscreteDistConstant<Double>(owner,
 					"simpleTransReturnTime", 0.0, true, false);
 		} else {
 			this.returnTimeStream = returnTime;
@@ -210,7 +209,7 @@ public class SimpleTransporter extends Transporter {
 	 *            TransportJunction : The home base of this SimpleTransporter;
 	 *            where he comes from and where he returns to.
 	 * @param returnTime
-	 *            RealDist : The time it takes the SimpleTransporter to return
+	 *            NumericalDist<?> : The time it takes the SimpleTransporter to return
 	 *            to his home base after transporting the goods to a certain
 	 *            place.
 	 * @param showInTrace
@@ -219,7 +218,7 @@ public class SimpleTransporter extends Transporter {
 	 */
 	public SimpleTransporter(Model owner, String name, int capac,
 			Transportation transport, TransportJunction homeBase,
-			RealDist returnTime, boolean showInTrace) {
+			NumericalDist<?> returnTime, boolean showInTrace) {
 		// construct a SimpleTransporter with a minimum load of one
 		this(owner, name, 1, capac, transport, homeBase, returnTime,
 				showInTrace);
@@ -239,19 +238,19 @@ public class SimpleTransporter extends Transporter {
 	}
 
 	/**
-	 * Returns a <code>SimTime</code> object representing the time it takes
+	 * Returns a <code>TimeSpan</code> object representing the time it takes
 	 * the SimpleTransporter to return to his home base (
 	 * <code>TransportJunction</code>) after having transported the goods to
 	 * some place. The time is taken from the given random number stream
 	 * returnTimeStream.
 	 * 
-	 * @return desmoj.SimTime : The time it takes the SimpleTransporter to
+	 * @return TimeSpan : The time it takes the SimpleTransporter to
 	 *         return to his home base (<code>TransportJunction</code>)
 	 *         after having transported the goods to some place.
 	 */
-	public SimTime getReturnTimeSample() {
+	public TimeSpan getReturnTimeSample() {
 
-		return new SimTime(returnTimeStream.sample());
+		return returnTimeStream.sampleTimeSpan();
 	}
 
 	/**

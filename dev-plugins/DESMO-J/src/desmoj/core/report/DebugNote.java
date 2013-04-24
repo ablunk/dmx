@@ -14,7 +14,7 @@ import desmoj.core.simulator.TimeInstant;
  * <li>The textual debug information produced by that ModelComponent</li>
  * </ul>
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Tim Lechler
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,7 +34,7 @@ public class DebugNote extends Message {
 	/**
 	 * The ModelComponent that produced this DebugNote.
 	 */
-	private String dbgComponent;
+	private String _dbgComponent;
 
 	/**
 	 * Constructs a debugnote with the given parameters.
@@ -55,7 +55,7 @@ public class DebugNote extends Message {
 			String description) {
 
 		super(origin, description, time);
-		dbgComponent = componentName;
+		_dbgComponent = componentName;
 
 	}
 
@@ -66,7 +66,7 @@ public class DebugNote extends Message {
 	 */
 	public String getOrigin() {
 
-		return dbgComponent;
+		return _dbgComponent;
 
 	}
 }

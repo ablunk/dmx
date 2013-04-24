@@ -2,15 +2,16 @@ package desmoj.core.simulator;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * @deprecated Replaced by PatternBasedTimeFormatter.
+ * 
  * Use this class to format TimeInstant objects using a java.text.DateFormat object.
  * The UTCTimeFormatter uses a MultiUnitTimeFormatter to format TimeSpans.
  * 
- * @version DESMO-J, Ver. 2.2.0 copyright (c) 2010
+ * @version DESMO-J, Ver. 2.3.5 copyright (c) 2013
  * @author Felix Klueckmann
  * 
  *         Licensed under the Apache License, Version 2.0 (the "License"); you
@@ -25,19 +26,15 @@ import java.util.concurrent.TimeUnit;
  *         permissions and limitations under the License.
  * 
  */
-public class UTCTimeFormatter implements TimeFormatter {
-	/**
-	 * The DateFormat used by this TimeFormatter
-	 */
-	private DateFormat myDateFormat;
-	private MultiUnitTimeFormatter myMultiUnitTimeFormatter;
+@Deprecated
+public class UTCTimeFormatter extends PatternBasedTimeFormatter {
 
 	/**
 	 * Constructor for a UTCTimeFormatter. This shortcut constructor uses the
 	 * pattern "dd.MM.yyyy HH:mm:ss:SSS". Default Locale is Germany.
 	 */
 	public UTCTimeFormatter() {
-		this(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss:SSS",Locale.GERMANY),TimeUnit.DAYS,TimeUnit.MILLISECONDS);
+		super(new SimpleDateFormat("dd.MM.yyyy HH:mm:ss:SSS",Locale.GERMANY),TimeUnit.DAYS,TimeUnit.MILLISECONDS);
 	}
 
 	/**
@@ -51,8 +48,7 @@ public class UTCTimeFormatter implements TimeFormatter {
 	 *   				TimeUnit: The finest Unit for the TimeSpan
 	 */
 	public UTCTimeFormatter(DateFormat dateFormat, TimeUnit coarsestUnit, TimeUnit finestUnit ) {
-		this.myDateFormat = dateFormat;
-		this.myMultiUnitTimeFormatter= new MultiUnitTimeFormatter(coarsestUnit, finestUnit);
+		super(dateFormat, coarsestUnit, finestUnit);
 	}
 
 	/**
@@ -60,7 +56,9 @@ public class UTCTimeFormatter implements TimeFormatter {
 	 * 
 	 * @param pattern
 	 *            String : the pattern used by this UTCTimeFormatter to format
-	 *            TimeSpan and TimeInstant objects.
+	 *            TimeSpan and TimeInstant objects. See 
+	 *            http://download.oracle.com/javase/1.5.0/docs/api/java/text/SimpleDateFormat.html
+	 *            for a description of the syntax of such patterns. 
 	 *             @param coarsestUnit
 	 *          		TimeUnit: The coarsest Unit for the TimeSpan
 	 * @param finestUnit
@@ -69,20 +67,4 @@ public class UTCTimeFormatter implements TimeFormatter {
 	public UTCTimeFormatter(String pattern,TimeUnit coarsestUnit, TimeUnit finestUnit ) {
 		this(new SimpleDateFormat(pattern,Locale.GERMANY),coarsestUnit, finestUnit);
 	}
-	
-	/**Returns the String-Representation of the given TimeInstant.
-	 *  
-	 */
-	public String buildTimeString(TimeInstant instant) {
-
-		return myDateFormat.format(new Date(instant.getTimeTruncated(TimeUnit.MILLISECONDS)));
-	}
-	
-	/**Returns the String-Representation of the given TimeSpan.
-	 *  
-	 */
-	public String buildTimeString(TimeSpan span) {
-		return myMultiUnitTimeFormatter.buildTimeString(span);
-	}
-
 }
