@@ -101,7 +101,7 @@
     </variables>
     <variables name="limit">
       <primitiveType xsi:type="dbl:IntType"/>
-      <initialValue xsi:type="dbl:IntLiteral" value="100000"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="400000"/>
     </variables>
   </modules>
 </dbl:Model>

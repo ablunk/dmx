@@ -45,6 +45,10 @@
     invoke('hub.sam.dmx.TransformationProperties', 'getSimLib()', Sequence {})
 /]
 
+[query private getNextTransformationUniqueNumber() : String = 
+    invoke('hub.sam.dmx.TransformationProperties', 'getNextTransformationUniqueNumber()', Sequence {})
+/]
+
 [template public genSimLibUnknownFile(fileName : String)]
 	[file (fileName + '.java', false, 'UTF-8')]
 		<!-- Simulation library '[getSimLib()/]' is unknown. -->
@@ -896,11 +900,21 @@ import hub.sam.dmx.javasim.jdisco.*;
 
 [template public genStatement(stm : Reactivate, extensionSemantics : Boolean)
 		? (getSimLib() = 'jist')]
-	((GenericEntity) ([genExpression(stm.objectAccess)/])
-		[if (not stm.objectAccess.oclIsTypeOf(ActiveLiteral))]
-			.getEntity()
-		[/if]
-	).reactivate();
+	[let objVar : String = 'obj_'.concat(getNextTransformationUniqueNumber())]
+		Object [objVar/] = [genExpression(stm.objectAccess)/];
+		if ([objVar/] instanceof GenericEntity || [objVar/] instanceof EntityRef) {
+			GenericEntity ge_[objVar/] = (GenericEntity) [objVar/];
+			ge_[objVar/].reactivate();
+		}
+		else if ([objVar/] instanceof IProcess) {
+			IProcess process_[objVar/] = (IProcess) [objVar/];
+			process_[objVar/].getEntity().reactivate();
+		}
+		else {
+			System.out.println("ERROR: cannot reactivate non-process object.");
+			JistAPI.end();
+		}
+	[/let]
 [/template]
 
 [template public genStatement(stm : Advance, extensionSemantics : Boolean)

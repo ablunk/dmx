@@ -25,4 +25,11 @@ public class TransformationProperties {
 		return currentTargetLanguage;
 	}
 	
+	private static Integer uniqueNumber = 0;
+	
+	public static String getNextTransformationUniqueNumber() {
+		uniqueNumber++;
+		return uniqueNumber.toString();
+	}
+	
 }

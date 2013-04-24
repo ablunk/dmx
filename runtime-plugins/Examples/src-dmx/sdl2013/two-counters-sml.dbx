@@ -56,6 +56,8 @@ module sml_application {
 
 		send new Start to c1;
 		send new Start to c2;
+		
+		advance c1.limit+1;
 	}
 	
 }

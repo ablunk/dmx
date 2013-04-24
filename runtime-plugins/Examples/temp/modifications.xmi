@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<modifications:ModificationsRecord xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modifications="http://www.informatik.hu-berlin.de/sam/modifications">
-  <modifications xsi:type="modifications:Substitution" sourceEObjectUri="//@modules.0/@procedures.0/@statements.2/@whileBlock/@statements.0/@outputs.0/@op1" replacementText="myde.sample()"/>
-  <modifications xsi:type="modifications:Substitution" sourceEObjectUri="//@modules.0/@procedures.0/@statements.0" replacementText="EmpiricalInt myde = new EmpiricalInt(&quot;myde&quot;);myde.addEntry(450,10 / 100.0);myde.addEntry(750,29 / 100.0);myde.addEntry(1000,61 / 100.0);myde.addEntry(500,85 / 100.0);myde.addEntry(3000,100 / 100.0);"/>
-</modifications:ModificationsRecord>

@@ -4,35 +4,43 @@
     <model href="for-loop.xmi#/"/>
   </imports>
   <modules name="forLoopUse">
-    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;list(int) is;&#xA;&#x9;&#x9;int i;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;place 15 into is;&#xA;&#x9;&#x9;place 42 into is;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;for (i in is with i > 0) {&#xA;&#x9;&#x9;&#x9;print i + &quot;\n&quot;;&#xA;&#x9;&#x9;}&#xA;&#xA;&#x9;}">
+    <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="is" isList="true" concreteSyntax="list(int) is">
+      <statements xsi:type="dbl:Variable" name="is" isList="true">
         <primitiveType xsi:type="dbl:IntType"/>
       </statements>
-      <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i">
+      <statements xsi:type="dbl:Variable" name="i">
         <primitiveType xsi:type="dbl:IntType"/>
       </statements>
-      <statements xsi:type="dbl:AddToSet" concreteSyntax="place 15 into is">
-        <object xsi:type="dbl:IntLiteral" concreteSyntax="15" value="15"/>
-        <set xsi:type="dbl:IdExpr" concreteSyntax="is" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="15"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
       </statements>
-      <statements xsi:type="dbl:AddToSet" concreteSyntax="place 42 into is">
-        <object xsi:type="dbl:IntLiteral" concreteSyntax="42" value="42"/>
-        <set xsi:type="dbl:IdExpr" concreteSyntax="is" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="42"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
       </statements>
-      <statements xsi:type="dbl:ForLoop" concreteSyntax="for (i in is with i > 0) {&#xA;&#x9;&#x9;&#x9;print i + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
-        <it concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
-        <set xsi:type="dbl:IdExpr" concreteSyntax="is" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-        <condition xsi:type="dbl:Greater" concreteSyntax="i > 0">
-          <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
-          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
-        </condition>
-        <statements xsi:type="dbl:Print" concreteSyntax="print i + &quot;\n&quot;">
-          <outputs xsi:type="dbl:Plus" concreteSyntax="i + &quot;\n&quot;">
-            <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
-            <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
-          </outputs>
-        </statements>
+      <statements xsi:type="dbl:ForEachStatement">
+        <iteratorVariableReference>
+          <idExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+        </iteratorVariableReference>
+        <iterableExpression xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+        <forBlock>
+          <statements xsi:type="dbl:IfStatement">
+            <condition xsi:type="dbl:Greater">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+              <op2 xsi:type="dbl:IntLiteral"/>
+            </condition>
+            <ifCaseBlock>
+              <statements xsi:type="dbl:Print">
+                <outputs xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+                </outputs>
+              </statements>
+            </ifCaseBlock>
+          </statements>
+        </forBlock>
       </statements>
     </procedures>
   </modules>

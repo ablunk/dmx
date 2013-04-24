@@ -145,7 +145,7 @@
         <primitiveType xsi:type="dbl:StringType"/>
       </parameters>
     </procedures>
-    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;Counter c1 = new Counter;&#xA;&#x9;&#x9;activate c1;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Counter c2 = new Counter;&#xA;&#x9;&#x9;activate c2;&#xA;&#xA;&#x9;&#x9;send new Start to c1;&#xA;&#x9;&#x9;send new Start to c2;&#xA;&#x9;}">
+    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;Counter c1 = new Counter;&#xA;&#x9;&#x9;activate c1;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Counter c2 = new Counter;&#xA;&#x9;&#x9;activate c2;&#xA;&#xA;&#x9;&#x9;send new Start to c1;&#xA;&#x9;&#x9;send new Start to c2;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;advance c1.limit+10;&#xA;&#x9;}">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="c1" concreteSyntax="Counter c1 = new Counter">
         <classifierTypeExpr concreteSyntax="Counter" referencedElement="//@modules.0/@classifiers.4"/>
@@ -176,6 +176,14 @@
           <classifierTypeExpr concreteSyntax="Start" referencedElement="//@modules.0/@classifiers.0"/>
         </signal>
         <target xsi:type="dbl:IdExpr" concreteSyntax="c2" referencedElement="//@modules.0/@procedures.1/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance c1.limit+10">
+        <time xsi:type="dbl:Plus" concreteSyntax="c1.limit+10">
+          <op1 xsi:type="dbl:IdExpr" concreteSyntax="c1.limit" referencedElement="//@modules.0/@classifiers.4/@attributes.1">
+            <parentIdExpr concreteSyntax="c1" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+          </op1>
+          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+        </time>
       </statements>
     </procedures>
     <variables name="debug" concreteSyntax="boolean debug = true">

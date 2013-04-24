@@ -10,7 +10,7 @@ module TwoCountersAdvance {
 		}
 	}
 	
-	int limit = 400000;
+	int limit = 10;
 
 	active class Counter {
 		int count = 0;		
