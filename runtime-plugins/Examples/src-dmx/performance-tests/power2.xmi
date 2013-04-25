@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../base">
+    <model href="../base.xmi#/"/>
+  </imports>
+  <modules name="powerExtensionDef">
+    <extensionDefs name="PowerExpr">
+      <textualSyntaxDef>
+        <extensionRule name="L1Expr">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="PowerExpr">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="factor">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.61"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="^"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="power">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.61"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="r"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="s">
+          <classifierTypeExpr>
+            <referencedElement href="../base.xmi#//@modules.0/@classifiers.35"/>
+          </classifierTypeExpr>
+          <initialValue xsi:type="dbl:NullLiteral"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="c">
+          <classifierTypeExpr>
+            <referencedElement href="../base.xmi#//@modules.0/@classifiers.1"/>
+          </classifierTypeExpr>
+          <initialValue xsi:type="dbl:IdExpr">
+            <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.0"/>
+            <referencedElement href="../base.xmi#//@modules.0/@classifiers.1/@methods.0"/>
+            <arguments/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:Equal">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+            <op2 xsi:type="dbl:NullLiteral"/>
+          </condition>
+          <whileBlock>
+            <statements xsi:type="dbl:IfStatement">
+              <condition xsi:type="dbl:InstanceOf">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
+                <op2 xsi:type="dbl:TypeAccess">
+                  <idExpr>
+                    <referencedElement href="../base.xmi#//@modules.0/@classifiers.35"/>
+                  </idExpr>
+                </op2>
+              </condition>
+              <ifCaseBlock>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+                  </variable>
+                  <value xsi:type="dbl:Cast">
+                    <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
+                    <classifierTypeExpr>
+                      <referencedElement href="../base.xmi#//@modules.0/@classifiers.35"/>
+                    </classifierTypeExpr>
+                  </value>
+                </statements>
+              </ifCaseBlock>
+              <elseCaseBlock>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
+                  </variable>
+                  <value xsi:type="dbl:IdExpr">
+                    <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
+                    <referencedElement href="../base.xmi#//@modules.0/@classifiers.1/@methods.0"/>
+                    <arguments/>
+                  </value>
+                </statements>
+              </elseCaseBlock>
+            </statements>
+          </whileBlock>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+        </statements>
+        <statements xsi:type="dbl:SetGenContextStatement">
+          <context xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="int p="/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.2"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="int r="/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.0"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="while (p > 1) { r=r*"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.0"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="; p=p-1; }"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

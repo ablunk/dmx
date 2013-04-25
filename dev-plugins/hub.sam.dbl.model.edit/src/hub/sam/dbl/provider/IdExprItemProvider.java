@@ -35,7 +35,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class IdExprItemProvider
-	extends ExpressionItemProvider
+	extends L1ExprItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

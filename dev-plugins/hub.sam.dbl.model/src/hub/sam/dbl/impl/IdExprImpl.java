@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class IdExprImpl extends ExpressionImpl implements IdExpr {
+public class IdExprImpl extends L1ExprImpl implements IdExpr {
 	/**
 	 * The cached value of the '{@link #getParentIdExpr() <em>Parent Id Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->

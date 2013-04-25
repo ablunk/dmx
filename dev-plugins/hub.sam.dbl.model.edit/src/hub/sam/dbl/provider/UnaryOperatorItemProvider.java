@@ -153,36 +153,6 @@ public class UnaryOperatorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.UNARY_OPERATOR__OP,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -228,17 +198,47 @@ public class UnaryOperatorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -254,11 +254,6 @@ public class UnaryOperatorItemProvider
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -284,6 +279,11 @@ public class UnaryOperatorItemProvider
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

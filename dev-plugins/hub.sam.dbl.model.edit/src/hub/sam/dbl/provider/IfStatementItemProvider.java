@@ -172,36 +172,6 @@ public class IfStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -247,17 +217,47 @@ public class IfStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -273,11 +273,6 @@ public class IfStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -303,6 +298,11 @@ public class IfStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -372,36 +372,6 @@ public class IfStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -447,17 +417,47 @@ public class IfStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -473,11 +473,6 @@ public class IfStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -503,6 +498,11 @@ public class IfStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

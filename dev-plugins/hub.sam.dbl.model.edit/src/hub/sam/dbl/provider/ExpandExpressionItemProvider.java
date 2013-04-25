@@ -223,36 +223,6 @@ public class ExpandExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -298,17 +268,47 @@ public class ExpandExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -324,11 +324,6 @@ public class ExpandExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -354,6 +349,11 @@ public class ExpandExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

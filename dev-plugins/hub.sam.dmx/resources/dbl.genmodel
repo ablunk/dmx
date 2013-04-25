@@ -197,12 +197,6 @@
     <genClasses image="false" ecoreClass="dbl.ecore#//UnaryOperator">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//UnaryOperator/op"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//Plus"/>
-    <genClasses ecoreClass="dbl.ecore#//Minus"/>
-    <genClasses ecoreClass="dbl.ecore#//Mul"/>
-    <genClasses ecoreClass="dbl.ecore#//Mod"/>
-    <genClasses ecoreClass="dbl.ecore#//Div"/>
-    <genClasses ecoreClass="dbl.ecore#//Neg"/>
     <genClasses ecoreClass="dbl.ecore#//And"/>
     <genClasses ecoreClass="dbl.ecore#//Or"/>
     <genClasses ecoreClass="dbl.ecore#//Greater"/>
@@ -212,12 +206,29 @@
     <genClasses ecoreClass="dbl.ecore#//NotEqual"/>
     <genClasses ecoreClass="dbl.ecore#//Equal"/>
     <genClasses ecoreClass="dbl.ecore#//InstanceOf"/>
+    <genClasses ecoreClass="dbl.ecore#//Plus"/>
+    <genClasses ecoreClass="dbl.ecore#//Minus"/>
+    <genClasses ecoreClass="dbl.ecore#//Mul"/>
+    <genClasses ecoreClass="dbl.ecore#//Mod"/>
+    <genClasses ecoreClass="dbl.ecore#//Div"/>
+    <genClasses ecoreClass="dbl.ecore#//Neg"/>
     <genClasses ecoreClass="dbl.ecore#//Not"/>
-    <genClasses ecoreClass="dbl.ecore#//CreateObject"/>
     <genClasses ecoreClass="dbl.ecore#//Cast"/>
+    <genClasses ecoreClass="dbl.ecore#//CreateObject"/>
     <genClasses ecoreClass="dbl.ecore#//NullLiteral"/>
     <genClasses ecoreClass="dbl.ecore#//TimeLiteral"/>
     <genClasses ecoreClass="dbl.ecore#//ActiveLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//IntLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//IntLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//TrueLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//FalseLiteral"/>
+    <genClasses ecoreClass="dbl.ecore#//DoubleLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//DoubleLiteral/value"/>
+    </genClasses>
     <genClasses ecoreClass="dbl.ecore#//EvalExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//EvalExpr/expr"/>
     </genClasses>
@@ -236,17 +247,6 @@
     <genClasses ecoreClass="dbl.ecore#//ObjectAt"/>
     <genClasses ecoreClass="dbl.ecore#//BeforeInSet"/>
     <genClasses ecoreClass="dbl.ecore#//AfterInSet"/>
-    <genClasses ecoreClass="dbl.ecore#//StringLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//StringLiteral/value"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//IntLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//IntLiteral/value"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//TrueLiteral"/>
-    <genClasses ecoreClass="dbl.ecore#//FalseLiteral"/>
-    <genClasses ecoreClass="dbl.ecore#//DoubleLiteral">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//DoubleLiteral/value"/>
-    </genClasses>
     <genClasses image="false" ecoreClass="dbl.ecore#//DepIdentifiableElement"/>
     <genClasses ecoreClass="dbl.ecore#//PredefinedId"/>
     <genClasses ecoreClass="dbl.ecore#//IdExpr">

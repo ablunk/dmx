@@ -155,36 +155,6 @@ public class SetStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__OBJECT,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -230,17 +200,47 @@ public class SetStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__OBJECT,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__OBJECT,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__OBJECT,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__OBJECT,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__OBJECT,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__OBJECT,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__OBJECT,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -256,11 +256,6 @@ public class SetStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__OBJECT,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__OBJECT,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -286,6 +281,11 @@ public class SetStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__OBJECT,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__OBJECT,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -335,36 +335,6 @@ public class SetStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__SET,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -410,17 +380,47 @@ public class SetStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__SET,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__SET,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__SET,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__SET,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__SET,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__SET,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__SET,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -436,11 +436,6 @@ public class SetStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__SET,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_STATEMENT__SET,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -466,6 +461,11 @@ public class SetStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.SET_STATEMENT__SET,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_STATEMENT__SET,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

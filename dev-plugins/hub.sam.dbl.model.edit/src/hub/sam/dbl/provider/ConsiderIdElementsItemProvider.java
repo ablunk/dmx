@@ -164,36 +164,6 @@ public class ConsiderIdElementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -239,17 +209,47 @@ public class ConsiderIdElementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -265,11 +265,6 @@ public class ConsiderIdElementsItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -295,6 +290,11 @@ public class ConsiderIdElementsItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

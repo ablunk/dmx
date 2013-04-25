@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class CreateObjectImpl extends ExpressionImpl implements CreateObject {
+public class CreateObjectImpl extends L1ExprImpl implements CreateObject {
 	/**
 	 * The cached value of the '{@link #getPrimitiveType() <em>Primitive Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->

@@ -29,7 +29,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
  * @generated
  */
 public class FalseLiteralItemProvider
-	extends ExpressionItemProvider
+	extends L1ExprItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

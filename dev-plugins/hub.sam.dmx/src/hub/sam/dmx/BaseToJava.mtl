@@ -360,7 +360,7 @@
 [/template]
 
 [template public genExpression(expr : Minus, extensionSemantics : Boolean)]
-	[genExpression(expr.op1, extensionSemantics)/] - [genExpression(expr.op2, extensionSemantics)/])
+	([genExpression(expr.op1, extensionSemantics)/] - [genExpression(expr.op2, extensionSemantics)/])
 [/template]
 
 [template public genExpression(expr : Mul, extensionSemantics : Boolean)]

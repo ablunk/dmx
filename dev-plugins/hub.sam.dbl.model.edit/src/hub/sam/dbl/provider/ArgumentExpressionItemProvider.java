@@ -166,36 +166,6 @@ public class ArgumentExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -241,17 +211,47 @@ public class ArgumentExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -267,11 +267,6 @@ public class ArgumentExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -297,6 +292,11 @@ public class ArgumentExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARGUMENT_EXPRESSION__ARGUMENTS,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

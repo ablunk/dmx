@@ -4480,18 +4480,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		unaryOperatorEClass = createEClass(UNARY_OPERATOR);
 		createEReference(unaryOperatorEClass, UNARY_OPERATOR__OP);
 
-		plusEClass = createEClass(PLUS);
-
-		minusEClass = createEClass(MINUS);
-
-		mulEClass = createEClass(MUL);
-
-		modEClass = createEClass(MOD);
-
-		divEClass = createEClass(DIV);
-
-		negEClass = createEClass(NEG);
-
 		andEClass = createEClass(AND);
 
 		orEClass = createEClass(OR);
@@ -4510,17 +4498,42 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		instanceOfEClass = createEClass(INSTANCE_OF);
 
+		plusEClass = createEClass(PLUS);
+
+		minusEClass = createEClass(MINUS);
+
+		mulEClass = createEClass(MUL);
+
+		modEClass = createEClass(MOD);
+
+		divEClass = createEClass(DIV);
+
+		negEClass = createEClass(NEG);
+
 		notEClass = createEClass(NOT);
 
-		createObjectEClass = createEClass(CREATE_OBJECT);
-
 		castEClass = createEClass(CAST);
+
+		createObjectEClass = createEClass(CREATE_OBJECT);
 
 		nullLiteralEClass = createEClass(NULL_LITERAL);
 
 		timeLiteralEClass = createEClass(TIME_LITERAL);
 
 		activeLiteralEClass = createEClass(ACTIVE_LITERAL);
+
+		stringLiteralEClass = createEClass(STRING_LITERAL);
+		createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
+
+		intLiteralEClass = createEClass(INT_LITERAL);
+		createEAttribute(intLiteralEClass, INT_LITERAL__VALUE);
+
+		trueLiteralEClass = createEClass(TRUE_LITERAL);
+
+		falseLiteralEClass = createEClass(FALSE_LITERAL);
+
+		doubleLiteralEClass = createEClass(DOUBLE_LITERAL);
+		createEAttribute(doubleLiteralEClass, DOUBLE_LITERAL__VALUE);
 
 		evalExprEClass = createEClass(EVAL_EXPR);
 		createEReference(evalExprEClass, EVAL_EXPR__EXPR);
@@ -4551,19 +4564,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		beforeInSetEClass = createEClass(BEFORE_IN_SET);
 
 		afterInSetEClass = createEClass(AFTER_IN_SET);
-
-		stringLiteralEClass = createEClass(STRING_LITERAL);
-		createEAttribute(stringLiteralEClass, STRING_LITERAL__VALUE);
-
-		intLiteralEClass = createEClass(INT_LITERAL);
-		createEAttribute(intLiteralEClass, INT_LITERAL__VALUE);
-
-		trueLiteralEClass = createEClass(TRUE_LITERAL);
-
-		falseLiteralEClass = createEClass(FALSE_LITERAL);
-
-		doubleLiteralEClass = createEClass(DOUBLE_LITERAL);
-		createEAttribute(doubleLiteralEClass, DOUBLE_LITERAL__VALUE);
 
 		depIdentifiableElementEClass = createEClass(DEP_IDENTIFIABLE_ELEMENT);
 
@@ -4848,12 +4848,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		l1ExprEClass.getESuperTypes().add(this.getExpression());
 		binaryOperatorEClass.getESuperTypes().add(this.getExpression());
 		unaryOperatorEClass.getESuperTypes().add(this.getExpression());
-		plusEClass.getESuperTypes().add(this.getBinaryOperator());
-		minusEClass.getESuperTypes().add(this.getBinaryOperator());
-		mulEClass.getESuperTypes().add(this.getBinaryOperator());
-		modEClass.getESuperTypes().add(this.getBinaryOperator());
-		divEClass.getESuperTypes().add(this.getBinaryOperator());
-		negEClass.getESuperTypes().add(this.getUnaryOperator());
 		andEClass.getESuperTypes().add(this.getBinaryOperator());
 		orEClass.getESuperTypes().add(this.getBinaryOperator());
 		greaterEClass.getESuperTypes().add(this.getBinaryOperator());
@@ -4863,14 +4857,25 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		notEqualEClass.getESuperTypes().add(this.getBinaryOperator());
 		equalEClass.getESuperTypes().add(this.getBinaryOperator());
 		instanceOfEClass.getESuperTypes().add(this.getBinaryOperator());
+		plusEClass.getESuperTypes().add(this.getBinaryOperator());
+		minusEClass.getESuperTypes().add(this.getBinaryOperator());
+		mulEClass.getESuperTypes().add(this.getBinaryOperator());
+		modEClass.getESuperTypes().add(this.getBinaryOperator());
+		divEClass.getESuperTypes().add(this.getBinaryOperator());
+		negEClass.getESuperTypes().add(this.getUnaryOperator());
 		notEClass.getESuperTypes().add(this.getUnaryOperator());
-		createObjectEClass.getESuperTypes().add(this.getExpression());
-		createObjectEClass.getESuperTypes().add(this.getTypedElement());
 		castEClass.getESuperTypes().add(this.getUnaryOperator());
 		castEClass.getESuperTypes().add(this.getTypedElement());
-		nullLiteralEClass.getESuperTypes().add(this.getExpression());
-		timeLiteralEClass.getESuperTypes().add(this.getExpression());
-		activeLiteralEClass.getESuperTypes().add(this.getExpression());
+		createObjectEClass.getESuperTypes().add(this.getL1Expr());
+		createObjectEClass.getESuperTypes().add(this.getTypedElement());
+		nullLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		timeLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		activeLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		stringLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		intLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		trueLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		falseLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		doubleLiteralEClass.getESuperTypes().add(this.getL1Expr());
 		evalExprEClass.getESuperTypes().add(this.getExpression());
 		meLiteralEClass.getESuperTypes().add(this.getPredefinedId());
 		superLiteralEClass.getESuperTypes().add(this.getPredefinedId());
@@ -4885,12 +4890,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		objectAtEClass.getESuperTypes().add(this.getSetOp());
 		beforeInSetEClass.getESuperTypes().add(this.getSetOp());
 		afterInSetEClass.getESuperTypes().add(this.getSetOp());
-		stringLiteralEClass.getESuperTypes().add(this.getExpression());
-		intLiteralEClass.getESuperTypes().add(this.getExpression());
-		trueLiteralEClass.getESuperTypes().add(this.getExpression());
-		falseLiteralEClass.getESuperTypes().add(this.getExpression());
-		doubleLiteralEClass.getESuperTypes().add(this.getExpression());
-		idExprEClass.getESuperTypes().add(this.getExpression());
+		idExprEClass.getESuperTypes().add(this.getL1Expr());
 		elementAccessEClass.getESuperTypes().add(this.getExpression());
 		variableAccessEClass.getESuperTypes().add(this.getElementAccess());
 		variableAccessEClass.getESuperTypes().add(this.getExpandableElement());
@@ -5156,18 +5156,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(unaryOperatorEClass, UnaryOperator.class, "UnaryOperator", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getUnaryOperator_Op(), this.getExpression(), null, "op", null, 1, 1, UnaryOperator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
-		initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(minusEClass, Minus.class, "Minus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(mulEClass, Mul.class, "Mul", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(modEClass, Mod.class, "Mod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(divEClass, Div.class, "Div", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(negEClass, Neg.class, "Neg", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(andEClass, And.class, "And", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(orEClass, Or.class, "Or", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5186,17 +5174,42 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(instanceOfEClass, InstanceOf.class, "InstanceOf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(plusEClass, Plus.class, "Plus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(minusEClass, Minus.class, "Minus", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(mulEClass, Mul.class, "Mul", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(modEClass, Mod.class, "Mod", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(divEClass, Div.class, "Div", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(negEClass, Neg.class, "Neg", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(notEClass, Not.class, "Not", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(createObjectEClass, CreateObject.class, "CreateObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(castEClass, Cast.class, "Cast", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(createObjectEClass, CreateObject.class, "CreateObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(nullLiteralEClass, NullLiteral.class, "NullLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(timeLiteralEClass, TimeLiteral.class, "TimeLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(activeLiteralEClass, ActiveLiteral.class, "ActiveLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStringLiteral_Value(), ecorePackage.getEString(), "value", null, 1, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(intLiteralEClass, IntLiteral.class, "IntLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getIntLiteral_Value(), ecorePackage.getEInt(), "value", null, 1, 1, IntLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(trueLiteralEClass, TrueLiteral.class, "TrueLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(falseLiteralEClass, FalseLiteral.class, "FalseLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(doubleLiteralEClass, DoubleLiteral.class, "DoubleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDoubleLiteral_Value(), ecorePackage.getEDouble(), "value", null, 1, 1, DoubleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(evalExprEClass, EvalExpr.class, "EvalExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEvalExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, EvalExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -5227,19 +5240,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(beforeInSetEClass, BeforeInSet.class, "BeforeInSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(afterInSetEClass, AfterInSet.class, "AfterInSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(stringLiteralEClass, StringLiteral.class, "StringLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStringLiteral_Value(), ecorePackage.getEString(), "value", null, 1, 1, StringLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(intLiteralEClass, IntLiteral.class, "IntLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getIntLiteral_Value(), ecorePackage.getEInt(), "value", null, 1, 1, IntLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(trueLiteralEClass, TrueLiteral.class, "TrueLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(falseLiteralEClass, FalseLiteral.class, "FalseLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(doubleLiteralEClass, DoubleLiteral.class, "DoubleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getDoubleLiteral_Value(), ecorePackage.getEDouble(), "value", null, 1, 1, DoubleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(depIdentifiableElementEClass, DepIdentifiableElement.class, "DepIdentifiableElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -320,30 +320,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createUnaryOperatorAdapter();
 			}
 			@Override
-			public Adapter casePlus(Plus object) {
-				return createPlusAdapter();
-			}
-			@Override
-			public Adapter caseMinus(Minus object) {
-				return createMinusAdapter();
-			}
-			@Override
-			public Adapter caseMul(Mul object) {
-				return createMulAdapter();
-			}
-			@Override
-			public Adapter caseMod(Mod object) {
-				return createModAdapter();
-			}
-			@Override
-			public Adapter caseDiv(Div object) {
-				return createDivAdapter();
-			}
-			@Override
-			public Adapter caseNeg(Neg object) {
-				return createNegAdapter();
-			}
-			@Override
 			public Adapter caseAnd(And object) {
 				return createAndAdapter();
 			}
@@ -380,16 +356,40 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createInstanceOfAdapter();
 			}
 			@Override
+			public Adapter casePlus(Plus object) {
+				return createPlusAdapter();
+			}
+			@Override
+			public Adapter caseMinus(Minus object) {
+				return createMinusAdapter();
+			}
+			@Override
+			public Adapter caseMul(Mul object) {
+				return createMulAdapter();
+			}
+			@Override
+			public Adapter caseMod(Mod object) {
+				return createModAdapter();
+			}
+			@Override
+			public Adapter caseDiv(Div object) {
+				return createDivAdapter();
+			}
+			@Override
+			public Adapter caseNeg(Neg object) {
+				return createNegAdapter();
+			}
+			@Override
 			public Adapter caseNot(Not object) {
 				return createNotAdapter();
 			}
 			@Override
-			public Adapter caseCreateObject(CreateObject object) {
-				return createCreateObjectAdapter();
-			}
-			@Override
 			public Adapter caseCast(Cast object) {
 				return createCastAdapter();
+			}
+			@Override
+			public Adapter caseCreateObject(CreateObject object) {
+				return createCreateObjectAdapter();
 			}
 			@Override
 			public Adapter caseNullLiteral(NullLiteral object) {
@@ -402,6 +402,26 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseActiveLiteral(ActiveLiteral object) {
 				return createActiveLiteralAdapter();
+			}
+			@Override
+			public Adapter caseStringLiteral(StringLiteral object) {
+				return createStringLiteralAdapter();
+			}
+			@Override
+			public Adapter caseIntLiteral(IntLiteral object) {
+				return createIntLiteralAdapter();
+			}
+			@Override
+			public Adapter caseTrueLiteral(TrueLiteral object) {
+				return createTrueLiteralAdapter();
+			}
+			@Override
+			public Adapter caseFalseLiteral(FalseLiteral object) {
+				return createFalseLiteralAdapter();
+			}
+			@Override
+			public Adapter caseDoubleLiteral(DoubleLiteral object) {
+				return createDoubleLiteralAdapter();
 			}
 			@Override
 			public Adapter caseEvalExpr(EvalExpr object) {
@@ -458,26 +478,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseAfterInSet(AfterInSet object) {
 				return createAfterInSetAdapter();
-			}
-			@Override
-			public Adapter caseStringLiteral(StringLiteral object) {
-				return createStringLiteralAdapter();
-			}
-			@Override
-			public Adapter caseIntLiteral(IntLiteral object) {
-				return createIntLiteralAdapter();
-			}
-			@Override
-			public Adapter caseTrueLiteral(TrueLiteral object) {
-				return createTrueLiteralAdapter();
-			}
-			@Override
-			public Adapter caseFalseLiteral(FalseLiteral object) {
-				return createFalseLiteralAdapter();
-			}
-			@Override
-			public Adapter caseDoubleLiteral(DoubleLiteral object) {
-				return createDoubleLiteralAdapter();
 			}
 			@Override
 			public Adapter caseDepIdentifiableElement(DepIdentifiableElement object) {

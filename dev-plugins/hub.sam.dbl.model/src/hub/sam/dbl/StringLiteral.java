@@ -23,7 +23,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface StringLiteral extends Expression {
+public interface StringLiteral extends L1Expr {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->

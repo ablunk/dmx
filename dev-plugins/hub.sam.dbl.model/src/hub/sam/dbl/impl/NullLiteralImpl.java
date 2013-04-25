@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class NullLiteralImpl extends ExpressionImpl implements NullLiteral {
+public class NullLiteralImpl extends L1ExprImpl implements NullLiteral {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

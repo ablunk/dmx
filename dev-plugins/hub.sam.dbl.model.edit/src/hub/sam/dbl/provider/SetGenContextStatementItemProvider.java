@@ -192,36 +192,6 @@ public class SetGenContextStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -267,17 +237,47 @@ public class SetGenContextStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -293,11 +293,6 @@ public class SetGenContextStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -323,6 +318,11 @@ public class SetGenContextStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_GEN_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

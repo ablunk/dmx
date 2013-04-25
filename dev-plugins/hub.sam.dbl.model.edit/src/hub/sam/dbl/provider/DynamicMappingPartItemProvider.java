@@ -161,36 +161,6 @@ public class DynamicMappingPartItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -236,17 +206,47 @@ public class DynamicMappingPartItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -262,11 +262,6 @@ public class DynamicMappingPartItemProvider
 			(createChildParameter
 				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -292,6 +287,11 @@ public class DynamicMappingPartItemProvider
 			(createChildParameter
 				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

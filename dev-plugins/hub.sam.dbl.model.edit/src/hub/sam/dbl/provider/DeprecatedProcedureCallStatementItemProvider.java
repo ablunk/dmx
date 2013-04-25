@@ -164,36 +164,6 @@ public class DeprecatedProcedureCallStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -239,17 +209,47 @@ public class DeprecatedProcedureCallStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -265,11 +265,6 @@ public class DeprecatedProcedureCallStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -295,6 +290,11 @@ public class DeprecatedProcedureCallStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

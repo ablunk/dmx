@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface FalseLiteral extends Expression {
+public interface FalseLiteral extends L1Expr {
 } // FalseLiteral

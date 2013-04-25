@@ -26,7 +26,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface IdExpr extends Expression {
+public interface IdExpr extends L1Expr {
 	/**
 	 * Returns the value of the '<em><b>Parent Id Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

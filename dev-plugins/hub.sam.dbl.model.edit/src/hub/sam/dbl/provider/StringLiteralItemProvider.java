@@ -33,7 +33,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class StringLiteralItemProvider
-	extends ExpressionItemProvider
+	extends L1ExprItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

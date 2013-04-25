@@ -192,36 +192,6 @@ public class ActivateObjectItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -267,17 +237,47 @@ public class ActivateObjectItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -293,11 +293,6 @@ public class ActivateObjectItemProvider
 			(createChildParameter
 				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -323,6 +318,11 @@ public class ActivateObjectItemProvider
 			(createChildParameter
 				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ACTIVATE_OBJECT__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

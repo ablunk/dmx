@@ -1,0 +1,30 @@
+#import "../base"
+
+module powerExtensionDef {
+
+	extension PowerExpr {
+		L1Expr -> PowerExpr;
+		PowerExpr -> factor:L1Expr "^" power:L1Expr;
+	}
+	semantics {
+		gen "r";
+		
+		Statement s = null;
+		EObject c = factor.eContainer();
+		while (s == null) {
+			if (c instanceof Statement) {
+				s = c as Statement;
+			}
+			else {
+				c = c.eContainer();
+			}
+		}
+		print s;
+	
+		setGenContext before s;
+		gen "int p=" power ";";
+		gen "int r=" factor ";";
+		gen "while (p > 1) { r=r*" factor "; p=p-1; }";
+	}
+
+}

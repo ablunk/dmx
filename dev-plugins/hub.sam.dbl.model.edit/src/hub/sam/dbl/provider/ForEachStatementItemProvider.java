@@ -185,36 +185,6 @@ public class ForEachStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -260,17 +230,47 @@ public class ForEachStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -286,11 +286,6 @@ public class ForEachStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -316,6 +311,11 @@ public class ForEachStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_EACH_STATEMENT__ITERABLE_EXPRESSION,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

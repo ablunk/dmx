@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface TrueLiteral extends Expression {
+public interface TrueLiteral extends L1Expr {
 } // TrueLiteral

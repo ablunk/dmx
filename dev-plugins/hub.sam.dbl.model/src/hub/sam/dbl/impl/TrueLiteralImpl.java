@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class TrueLiteralImpl extends ExpressionImpl implements TrueLiteral {
+public class TrueLiteralImpl extends L1ExprImpl implements TrueLiteral {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

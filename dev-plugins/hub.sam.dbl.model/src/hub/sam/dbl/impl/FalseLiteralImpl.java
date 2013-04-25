@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class FalseLiteralImpl extends ExpressionImpl implements FalseLiteral {
+public class FalseLiteralImpl extends L1ExprImpl implements FalseLiteral {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

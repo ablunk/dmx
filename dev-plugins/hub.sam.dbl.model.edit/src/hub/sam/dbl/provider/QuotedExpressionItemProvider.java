@@ -161,36 +161,6 @@ public class QuotedExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
@@ -236,17 +206,47 @@ public class QuotedExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createCast()));
+				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -262,11 +262,6 @@ public class QuotedExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -292,6 +287,11 @@ public class QuotedExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createEvalExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

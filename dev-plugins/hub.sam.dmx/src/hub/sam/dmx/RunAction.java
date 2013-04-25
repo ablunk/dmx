@@ -245,7 +245,7 @@ public class RunAction extends Action {
 		System.out.println("Finished generating.");
 		
 		// 1.4. Compile generated EMF code
-		IProject emfProject = currentProject.getWorkspace().getRoot().getProject("hub.sam.dmx.model");
+		IProject emfProject = currentProject.getWorkspace().getRoot().getProject("hub.sam.dbl.model");
 		compileJavaFiles(emfProject, emfProject.getFolder("src"));
 	}
 	
@@ -377,7 +377,18 @@ public class RunAction extends Action {
 		System.out.println("Target: Java/" + TransformationProperties.getSimLib());
 
 		String modelFile = workingCopyXmiRawLocation.toString();
-		BaseToJava.main(new String[] { modelFile, genFolder.toString() });
+		
+		//BaseToJava.main(new String[] { modelFile, genFolder.toString() });
+		
+		IPath workingDirectory = currentProject.getLocation();
+		IJavaProject currentJavaProject = JavaCore.create(currentProject);
+		try {
+			launchJavaProgram(true, currentJavaProject, workingDirectory, "hub.sam.dmx.BaseToJava", new String[] { modelFile, genFolder.toString() });
+		}
+		catch (CoreException e1) {
+			e1.printStackTrace();
+			return;
+		}
 		
 		monitor.worked(10); // 90%
 
@@ -396,12 +407,8 @@ public class RunAction extends Action {
 
 		if (compileOk) {
 			try {
-				monitor.subTask("Executing target language program");
-				
-				IJavaProject currentJavaProject = JavaCore.create(currentProject);
-				IPath workingDirectory = currentProject.getLocation();
+				monitor.subTask("Executing target language program");				
 				launchJavaProgram(true, currentJavaProject, workingDirectory, "JavaMain", null);
-				
 				monitor.worked(5); // 100%
 			}
 			catch (CoreException e) {
@@ -451,7 +458,10 @@ public class RunAction extends Action {
 			
 			IProject currentProject = getCurrentProject();
 			IPath genFolder = getJavaGenFolder(currentProject).getRawLocation();
-	
+
+			IPath workingDirectory = currentProject.getLocation();
+			IJavaProject currentJavaProject = JavaCore.create(currentProject);
+
 			// generate all ExtensionSemantics classes by executing ExtensionsToJava.mtl
 			System.out.println("Generating Java files for executing semantics definitions (ExtensionsToJava.mtl) ...");
 			
@@ -459,7 +469,14 @@ public class RunAction extends Action {
 			//      needs to create objects of non-existent extension meta-classes, e.g. Unless. We worked around this
 			//      problem by manually adapting the metamodel factory in DblFactoryImpl.create(...).
 			//      -> changed default case to: return DbxModelCreationContext.createObjectOfParentClass(eClass);
-			ExtensionsToJava.main(new String[] { workingCopyXmiFile.toString(), genFolder.toString() });		
+			//ExtensionsToJava.main(new String[] { workingCopyXmiFile.toString(), genFolder.toString() });
+			try {
+				launchJavaProgram(true, currentJavaProject, workingDirectory, "hub.sam.dmx.ExtensionsToJava", new String[] { workingCopyXmiFile.toString(), genFolder.toString() });
+			}
+			catch (CoreException e1) {
+				e1.printStackTrace();
+				return;
+			}
 			System.out.println("Finished.");
 			
 			monitor.worked(10); // 65%
@@ -468,7 +485,6 @@ public class RunAction extends Action {
 			
 			// execute the generated Java code and remember its execution result as the substitution text for step 3 below
 			compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
-			IPath workingDirectory = currentProject.getLocation();
 			
 			monitor.worked(5); // 70%
 			
@@ -480,7 +496,6 @@ public class RunAction extends Action {
 				String extensionDef = extensionInstance.eClass().getName();
 				
 				try {
-					IJavaProject currentJavaProject = JavaCore.create(currentProject);
 					launchJavaProgram(true, currentJavaProject, workingDirectory, extensionDef+"Semantics",
 							new String[] { workingCopyXmiFile.toString(), AbstractExtensionSemantics.getEmfUriFragment(extensionInstance) });
 				}

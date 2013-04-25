@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface CreateObject extends Expression, TypedElement {
+public interface CreateObject extends L1Expr, TypedElement {
 } // CreateObject

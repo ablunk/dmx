@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class DoubleLiteralImpl extends ExpressionImpl implements DoubleLiteral {
+public class DoubleLiteralImpl extends L1ExprImpl implements DoubleLiteral {
 	/**
 	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
 	 * <!-- begin-user-doc -->

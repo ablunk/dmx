@@ -1,0 +1,13 @@
+#import "../base"
+
+module powerExtensionDef {
+
+	extension PowerExpr {
+		L1Expr -> PowerExpr;
+		PowerExpr -> factor:L1Expr "^" power:L1Expr;
+	}
+	semantics {
+		gen "" power "";
+	}
+
+}

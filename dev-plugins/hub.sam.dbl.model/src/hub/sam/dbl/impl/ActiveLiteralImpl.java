@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class ActiveLiteralImpl extends ExpressionImpl implements ActiveLiteral {
+public class ActiveLiteralImpl extends L1ExprImpl implements ActiveLiteral {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

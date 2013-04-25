@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="power2">
+    <model href="power2.xmi#/"/>
+  </imports>
+  <modules name="testFunctionCallPerformance">
+    <procedures name="f4">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="j">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement">
+        <condition xsi:type="dbl:Greater">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          <op2 xsi:type="dbl:IntLiteral"/>
+        </condition>
+        <whileBlock>
+          <statements xsi:type="dbl:ExpressionStatement">
+            <expression xsi:type="dbl:ProcedureCall">
+              <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1">
+                <arguments/>
+              </procedureAccess>
+            </expression>
+          </statements>
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+            </variable>
+            <value xsi:type="dbl:Minus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+              <op2 xsi:type="dbl:IntLiteral" value="1"/>
+            </value>
+          </statements>
+        </whileBlock>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+      <parameters name="p1">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </parameters>
+    </procedures>
+    <procedures name="f5">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.0"/>
+        </variable>
+        <value xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+          <op2 xsi:type="dbl:IntLiteral" value="1"/>
+        </value>
+      </statements>
+    </procedures>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:ExpressionStatement">
+        <expression xsi:type="dbl:ProcedureCall">
+          <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
+            <arguments>
+              <arguments xsi:type="dbl:IntLiteral" value="1000000000"/>
+            </arguments>
+          </procedureAccess>
+        </expression>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="2"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="p">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="9"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="r">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="10"/>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement">
+        <condition xsi:type="dbl:Greater">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.2/@statements.2"/>
+          <op2 xsi:type="dbl:IntLiteral" value="1"/>
+        </condition>
+        <whileBlock>
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@procedures.2/@statements.3"/>
+            </variable>
+            <value xsi:type="dbl:Mul">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.2/@statements.3"/>
+              <op2 xsi:type="dbl:IntLiteral" value="10"/>
+            </value>
+          </statements>
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@procedures.2/@statements.2"/>
+            </variable>
+            <value xsi:type="dbl:Minus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.2/@statements.2"/>
+              <op2 xsi:type="dbl:IntLiteral" value="1"/>
+            </value>
+          </statements>
+        </whileBlock>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.2/@statements.3"/>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+    </procedures>
+    <variables name="g1">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral"/>
+    </variables>
+  </modules>
+</dbl:Model>

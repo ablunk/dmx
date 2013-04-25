@@ -3517,61 +3517,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPlus()
 	 * @generated
 	 */
-	int PLUS = 62;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__NAME = BINARY_OPERATOR__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__OP1 = BINARY_OPERATOR__OP1;
-
-	/**
-	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__OP2 = BINARY_OPERATOR__OP2;
-
-	/**
-	 * The number of structural features of the '<em>Plus</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+	int PLUS = 71;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.MinusImpl <em>Minus</em>}' class.
@@ -3581,61 +3527,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMinus()
 	 * @generated
 	 */
-	int MINUS = 63;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__NAME = BINARY_OPERATOR__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__OP1 = BINARY_OPERATOR__OP1;
-
-	/**
-	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__OP2 = BINARY_OPERATOR__OP2;
-
-	/**
-	 * The number of structural features of the '<em>Minus</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+	int MINUS = 72;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.MulImpl <em>Mul</em>}' class.
@@ -3645,61 +3537,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMul()
 	 * @generated
 	 */
-	int MUL = 64;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__NAME = BINARY_OPERATOR__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__OP1 = BINARY_OPERATOR__OP1;
-
-	/**
-	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__OP2 = BINARY_OPERATOR__OP2;
-
-	/**
-	 * The number of structural features of the '<em>Mul</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+	int MUL = 73;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ModImpl <em>Mod</em>}' class.
@@ -3709,61 +3547,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMod()
 	 * @generated
 	 */
-	int MOD = 65;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__NAME = BINARY_OPERATOR__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__OP1 = BINARY_OPERATOR__OP1;
-
-	/**
-	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__OP2 = BINARY_OPERATOR__OP2;
-
-	/**
-	 * The number of structural features of the '<em>Mod</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+	int MOD = 74;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.DivImpl <em>Div</em>}' class.
@@ -3773,61 +3557,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDiv()
 	 * @generated
 	 */
-	int DIV = 66;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__NAME = BINARY_OPERATOR__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__OP1 = BINARY_OPERATOR__OP1;
-
-	/**
-	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__OP2 = BINARY_OPERATOR__OP2;
-
-	/**
-	 * The number of structural features of the '<em>Div</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+	int DIV = 75;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NegImpl <em>Neg</em>}' class.
@@ -3837,52 +3567,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNeg()
 	 * @generated
 	 */
-	int NEG = 67;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__EXPAND_EXPRESSION = UNARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__NAME = UNARY_OPERATOR__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__CONCRETE_SYNTAX = UNARY_OPERATOR__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Op</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__OP = UNARY_OPERATOR__OP;
-
-	/**
-	 * The number of structural features of the '<em>Neg</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG_FEATURE_COUNT = UNARY_OPERATOR_FEATURE_COUNT + 0;
+	int NEG = 76;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.AndImpl <em>And</em>}' class.
@@ -3892,7 +3577,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnd()
 	 * @generated
 	 */
-	int AND = 68;
+	int AND = 62;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -3956,7 +3641,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getOr()
 	 * @generated
 	 */
-	int OR = 69;
+	int OR = 63;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4020,7 +3705,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getGreater()
 	 * @generated
 	 */
-	int GREATER = 70;
+	int GREATER = 64;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4084,7 +3769,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getGreaterEqual()
 	 * @generated
 	 */
-	int GREATER_EQUAL = 71;
+	int GREATER_EQUAL = 65;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4148,7 +3833,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLess()
 	 * @generated
 	 */
-	int LESS = 72;
+	int LESS = 66;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4212,7 +3897,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLessEqual()
 	 * @generated
 	 */
-	int LESS_EQUAL = 73;
+	int LESS_EQUAL = 67;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4276,7 +3961,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNotEqual()
 	 * @generated
 	 */
-	int NOT_EQUAL = 74;
+	int NOT_EQUAL = 68;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4340,7 +4025,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getEqual()
 	 * @generated
 	 */
-	int EQUAL = 75;
+	int EQUAL = 69;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4404,7 +4089,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getInstanceOf()
 	 * @generated
 	 */
-	int INSTANCE_OF = 76;
+	int INSTANCE_OF = 70;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4459,6 +4144,321 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int INSTANCE_OF_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__NAME = BINARY_OPERATOR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__OP1 = BINARY_OPERATOR__OP1;
+
+	/**
+	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__OP2 = BINARY_OPERATOR__OP2;
+
+	/**
+	 * The number of structural features of the '<em>Plus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__NAME = BINARY_OPERATOR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__OP1 = BINARY_OPERATOR__OP1;
+
+	/**
+	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__OP2 = BINARY_OPERATOR__OP2;
+
+	/**
+	 * The number of structural features of the '<em>Minus</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUL__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUL__NAME = BINARY_OPERATOR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUL__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUL__OP1 = BINARY_OPERATOR__OP1;
+
+	/**
+	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUL__OP2 = BINARY_OPERATOR__OP2;
+
+	/**
+	 * The number of structural features of the '<em>Mul</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUL_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOD__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOD__NAME = BINARY_OPERATOR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOD__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOD__OP1 = BINARY_OPERATOR__OP1;
+
+	/**
+	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOD__OP2 = BINARY_OPERATOR__OP2;
+
+	/**
+	 * The number of structural features of the '<em>Mod</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOD_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__NAME = BINARY_OPERATOR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__OP1 = BINARY_OPERATOR__OP1;
+
+	/**
+	 * The feature id for the '<em><b>Op2</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__OP2 = BINARY_OPERATOR__OP2;
+
+	/**
+	 * The number of structural features of the '<em>Div</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEG__EXPAND_EXPRESSION = UNARY_OPERATOR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEG__NAME = UNARY_OPERATOR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEG__CONCRETE_SYNTAX = UNARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Op</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEG__OP = UNARY_OPERATOR__OP;
+
+	/**
+	 * The number of structural features of the '<em>Neg</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEG_FEATURE_COUNT = UNARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NotImpl <em>Not</em>}' class.
@@ -4523,70 +4523,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCreateObject()
 	 * @generated
 	 */
-	int CREATE_OBJECT = 78;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__NAME = EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PRIMITIVE_TYPE = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__IS_LIST = EXPRESSION_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__CLASSIFIER_TYPE_EXPR = EXPRESSION_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Create Object</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 3;
+	int CREATE_OBJECT = 79;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.CastImpl <em>Cast</em>}' class.
@@ -4596,7 +4533,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCast()
 	 * @generated
 	 */
-	int CAST = 79;
+	int CAST = 78;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4671,6 +4608,69 @@ public interface DblPackage extends EPackage {
 	int CAST_FEATURE_COUNT = UNARY_OPERATOR_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__NAME = L1_EXPR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__PRIMITIVE_TYPE = L1_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Is List</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__IS_LIST = L1_EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__CLASSIFIER_TYPE_EXPR = L1_EXPR_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Create Object</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 3;
+
+	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NullLiteralImpl <em>Null Literal</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4687,7 +4687,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NULL_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int NULL_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4696,7 +4696,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NULL_LITERAL__NAME = EXPRESSION__NAME;
+	int NULL_LITERAL__NAME = L1_EXPR__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -4705,7 +4705,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NULL_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+	int NULL_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
 	 * The number of structural features of the '<em>Null Literal</em>' class.
@@ -4714,7 +4714,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int NULL_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+	int NULL_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TimeLiteralImpl <em>Time Literal</em>}' class.
@@ -4733,7 +4733,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIME_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int TIME_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4742,7 +4742,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIME_LITERAL__NAME = EXPRESSION__NAME;
+	int TIME_LITERAL__NAME = L1_EXPR__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -4751,7 +4751,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIME_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+	int TIME_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
 	 * The number of structural features of the '<em>Time Literal</em>' class.
@@ -4760,7 +4760,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TIME_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+	int TIME_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ActiveLiteralImpl <em>Active Literal</em>}' class.
@@ -4779,7 +4779,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVE_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int ACTIVE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4788,7 +4788,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVE_LITERAL__NAME = EXPRESSION__NAME;
+	int ACTIVE_LITERAL__NAME = L1_EXPR__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -4797,7 +4797,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVE_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+	int ACTIVE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
 	 * The number of structural features of the '<em>Active Literal</em>' class.
@@ -4806,7 +4806,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVE_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
+	int ACTIVE_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.EvalExprImpl <em>Eval Expr</em>}' class.
@@ -4816,7 +4816,404 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getEvalExpr()
 	 * @generated
 	 */
-	int EVAL_EXPR = 83;
+	int EVAL_EXPR = 88;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.PredefinedIdImpl <em>Predefined Id</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.PredefinedIdImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getPredefinedId()
+	 * @generated
+	 */
+	int PREDEFINED_ID = 103;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.MeLiteralImpl <em>Me Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.MeLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getMeLiteral()
+	 * @generated
+	 */
+	int ME_LITERAL = 89;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SuperLiteralImpl <em>Super Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.SuperLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSuperLiteral()
+	 * @generated
+	 */
+	int SUPER_LITERAL = 90;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.MetaLiteralImpl <em>Meta Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.MetaLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaLiteral()
+	 * @generated
+	 */
+	int META_LITERAL = 91;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.TypeLiteralImpl <em>Type Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.TypeLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getTypeLiteral()
+	 * @generated
+	 */
+	int TYPE_LITERAL = 92;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SetOpImpl <em>Set Op</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.SetOpImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSetOp()
+	 * @generated
+	 */
+	int SET_OP = 93;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SizeOfSetImpl <em>Size Of Set</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.SizeOfSetImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSizeOfSet()
+	 * @generated
+	 */
+	int SIZE_OF_SET = 94;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.FirstInSetImpl <em>First In Set</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.FirstInSetImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getFirstInSet()
+	 * @generated
+	 */
+	int FIRST_IN_SET = 95;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.LastInSetImpl <em>Last In Set</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.LastInSetImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getLastInSet()
+	 * @generated
+	 */
+	int LAST_IN_SET = 96;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ContainsImpl <em>Contains</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.ContainsImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getContains()
+	 * @generated
+	 */
+	int CONTAINS = 97;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.IndexOfImpl <em>Index Of</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.IndexOfImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getIndexOf()
+	 * @generated
+	 */
+	int INDEX_OF = 98;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ObjectAtImpl <em>Object At</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.ObjectAtImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getObjectAt()
+	 * @generated
+	 */
+	int OBJECT_AT = 99;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.BeforeInSetImpl <em>Before In Set</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.BeforeInSetImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getBeforeInSet()
+	 * @generated
+	 */
+	int BEFORE_IN_SET = 100;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.AfterInSetImpl <em>After In Set</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.AfterInSetImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getAfterInSet()
+	 * @generated
+	 */
+	int AFTER_IN_SET = 101;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.StringLiteralImpl <em>String Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.StringLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringLiteral()
+	 * @generated
+	 */
+	int STRING_LITERAL = 83;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__NAME = L1_EXPR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__VALUE = L1_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>String Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.IntLiteralImpl <em>Int Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.IntLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntLiteral()
+	 * @generated
+	 */
+	int INT_LITERAL = 84;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_LITERAL__NAME = L1_EXPR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_LITERAL__VALUE = L1_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Int Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.TrueLiteralImpl <em>True Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.TrueLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getTrueLiteral()
+	 * @generated
+	 */
+	int TRUE_LITERAL = 85;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_LITERAL__NAME = L1_EXPR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The number of structural features of the '<em>True Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.FalseLiteralImpl <em>False Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.FalseLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getFalseLiteral()
+	 * @generated
+	 */
+	int FALSE_LITERAL = 86;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_LITERAL__NAME = L1_EXPR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The number of structural features of the '<em>False Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.DoubleLiteralImpl <em>Double Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.DoubleLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getDoubleLiteral()
+	 * @generated
+	 */
+	int DOUBLE_LITERAL = 87;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_LITERAL__NAME = L1_EXPR__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_LITERAL__VALUE = L1_EXPR_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Double Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
@@ -4864,16 +5261,6 @@ public interface DblPackage extends EPackage {
 	int EVAL_EXPR_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.PredefinedIdImpl <em>Predefined Id</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.PredefinedIdImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getPredefinedId()
-	 * @generated
-	 */
-	int PREDEFINED_ID = 103;
-
-	/**
 	 * The number of structural features of the '<em>Predefined Id</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4881,16 +5268,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int PREDEFINED_ID_FEATURE_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.MeLiteralImpl <em>Me Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.MeLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getMeLiteral()
-	 * @generated
-	 */
-	int ME_LITERAL = 84;
 
 	/**
 	 * The number of structural features of the '<em>Me Literal</em>' class.
@@ -4902,16 +5279,6 @@ public interface DblPackage extends EPackage {
 	int ME_LITERAL_FEATURE_COUNT = PREDEFINED_ID_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.SuperLiteralImpl <em>Super Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.SuperLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getSuperLiteral()
-	 * @generated
-	 */
-	int SUPER_LITERAL = 85;
-
-	/**
 	 * The number of structural features of the '<em>Super Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4919,16 +5286,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int SUPER_LITERAL_FEATURE_COUNT = PREDEFINED_ID_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.MetaLiteralImpl <em>Meta Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.MetaLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaLiteral()
-	 * @generated
-	 */
-	int META_LITERAL = 86;
 
 	/**
 	 * The number of structural features of the '<em>Meta Literal</em>' class.
@@ -4940,16 +5297,6 @@ public interface DblPackage extends EPackage {
 	int META_LITERAL_FEATURE_COUNT = PREDEFINED_ID_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.TypeLiteralImpl <em>Type Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.TypeLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getTypeLiteral()
-	 * @generated
-	 */
-	int TYPE_LITERAL = 87;
-
-	/**
 	 * The number of structural features of the '<em>Type Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4957,16 +5304,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE_LITERAL_FEATURE_COUNT = PREDEFINED_ID_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.SetOpImpl <em>Set Op</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.SetOpImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getSetOp()
-	 * @generated
-	 */
-	int SET_OP = 88;
 
 	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
@@ -4987,16 +5324,6 @@ public interface DblPackage extends EPackage {
 	int SET_OP_FEATURE_COUNT = PREDEFINED_ID_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.SizeOfSetImpl <em>Size Of Set</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.SizeOfSetImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getSizeOfSet()
-	 * @generated
-	 */
-	int SIZE_OF_SET = 89;
-
-	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5013,16 +5340,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int SIZE_OF_SET_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.FirstInSetImpl <em>First In Set</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.FirstInSetImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getFirstInSet()
-	 * @generated
-	 */
-	int FIRST_IN_SET = 90;
 
 	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
@@ -5043,16 +5360,6 @@ public interface DblPackage extends EPackage {
 	int FIRST_IN_SET_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.LastInSetImpl <em>Last In Set</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.LastInSetImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getLastInSet()
-	 * @generated
-	 */
-	int LAST_IN_SET = 91;
-
-	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5069,16 +5376,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int LAST_IN_SET_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ContainsImpl <em>Contains</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ContainsImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getContains()
-	 * @generated
-	 */
-	int CONTAINS = 92;
 
 	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
@@ -5099,16 +5396,6 @@ public interface DblPackage extends EPackage {
 	int CONTAINS_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.IndexOfImpl <em>Index Of</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.IndexOfImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getIndexOf()
-	 * @generated
-	 */
-	int INDEX_OF = 93;
-
-	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5125,16 +5412,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int INDEX_OF_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ObjectAtImpl <em>Object At</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ObjectAtImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getObjectAt()
-	 * @generated
-	 */
-	int OBJECT_AT = 94;
 
 	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
@@ -5155,16 +5432,6 @@ public interface DblPackage extends EPackage {
 	int OBJECT_AT_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.BeforeInSetImpl <em>Before In Set</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.BeforeInSetImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getBeforeInSet()
-	 * @generated
-	 */
-	int BEFORE_IN_SET = 95;
-
-	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5183,16 +5450,6 @@ public interface DblPackage extends EPackage {
 	int BEFORE_IN_SET_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.AfterInSetImpl <em>After In Set</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.AfterInSetImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getAfterInSet()
-	 * @generated
-	 */
-	int AFTER_IN_SET = 96;
-
-	/**
 	 * The feature id for the '<em><b>Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5209,263 +5466,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int AFTER_IN_SET_FEATURE_COUNT = SET_OP_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.StringLiteralImpl <em>String Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.StringLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringLiteral()
-	 * @generated
-	 */
-	int STRING_LITERAL = 97;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__NAME = EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__VALUE = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>String Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.IntLiteralImpl <em>Int Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.IntLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntLiteral()
-	 * @generated
-	 */
-	int INT_LITERAL = 98;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__NAME = EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__VALUE = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Int Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.TrueLiteralImpl <em>True Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.TrueLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getTrueLiteral()
-	 * @generated
-	 */
-	int TRUE_LITERAL = 99;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__NAME = EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
-
-	/**
-	 * The number of structural features of the '<em>True Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.FalseLiteralImpl <em>False Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.FalseLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getFalseLiteral()
-	 * @generated
-	 */
-	int FALSE_LITERAL = 100;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__NAME = EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
-
-	/**
-	 * The number of structural features of the '<em>False Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.DoubleLiteralImpl <em>Double Literal</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.DoubleLiteralImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getDoubleLiteral()
-	 * @generated
-	 */
-	int DOUBLE_LITERAL = 101;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__NAME = EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__VALUE = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Double Literal</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.DepIdentifiableElementImpl <em>Dep Identifiable Element</em>}' class.
@@ -5503,7 +5503,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int ID_EXPR__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5512,7 +5512,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR__NAME = EXPRESSION__NAME;
+	int ID_EXPR__NAME = L1_EXPR__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -5521,7 +5521,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+	int ID_EXPR__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Parent Id Expr</b></em>' containment reference.
@@ -5530,7 +5530,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR__PARENT_ID_EXPR = EXPRESSION_FEATURE_COUNT + 0;
+	int ID_EXPR__PARENT_ID_EXPR = L1_EXPR_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Referenced Element</b></em>' reference.
@@ -5539,7 +5539,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR__REFERENCED_ELEMENT = EXPRESSION_FEATURE_COUNT + 1;
+	int ID_EXPR__REFERENCED_ELEMENT = L1_EXPR_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Predefined Id</b></em>' containment reference.
@@ -5548,7 +5548,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR__PREDEFINED_ID = EXPRESSION_FEATURE_COUNT + 2;
+	int ID_EXPR__PREDEFINED_ID = L1_EXPR_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference.
@@ -5557,7 +5557,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR__ARGUMENTS = EXPRESSION_FEATURE_COUNT + 3;
+	int ID_EXPR__ARGUMENTS = L1_EXPR_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Id Expr</em>' class.
@@ -5566,7 +5566,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ID_EXPR_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 4;
+	int ID_EXPR_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ArgumentExpressionImpl <em>Argument Expression</em>}' class.

@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class TimeLiteralImpl extends ExpressionImpl implements TimeLiteral {
+public class TimeLiteralImpl extends L1ExprImpl implements TimeLiteral {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

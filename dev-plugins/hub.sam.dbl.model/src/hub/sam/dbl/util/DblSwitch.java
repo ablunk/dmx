@@ -707,84 +707,6 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.PLUS: {
-				Plus plus = (Plus)theEObject;
-				T result = casePlus(plus);
-				if (result == null) result = caseBinaryOperator(plus);
-				if (result == null) result = caseExpression(plus);
-				if (result == null) result = caseConstruct(plus);
-				if (result == null) result = caseNamedExtension(plus);
-				if (result == null) result = caseExtension(plus);
-				if (result == null) result = caseNamedElement(plus);
-				if (result == null) result = caseExpandableElement(plus);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.MINUS: {
-				Minus minus = (Minus)theEObject;
-				T result = caseMinus(minus);
-				if (result == null) result = caseBinaryOperator(minus);
-				if (result == null) result = caseExpression(minus);
-				if (result == null) result = caseConstruct(minus);
-				if (result == null) result = caseNamedExtension(minus);
-				if (result == null) result = caseExtension(minus);
-				if (result == null) result = caseNamedElement(minus);
-				if (result == null) result = caseExpandableElement(minus);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.MUL: {
-				Mul mul = (Mul)theEObject;
-				T result = caseMul(mul);
-				if (result == null) result = caseBinaryOperator(mul);
-				if (result == null) result = caseExpression(mul);
-				if (result == null) result = caseConstruct(mul);
-				if (result == null) result = caseNamedExtension(mul);
-				if (result == null) result = caseExtension(mul);
-				if (result == null) result = caseNamedElement(mul);
-				if (result == null) result = caseExpandableElement(mul);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.MOD: {
-				Mod mod = (Mod)theEObject;
-				T result = caseMod(mod);
-				if (result == null) result = caseBinaryOperator(mod);
-				if (result == null) result = caseExpression(mod);
-				if (result == null) result = caseConstruct(mod);
-				if (result == null) result = caseNamedExtension(mod);
-				if (result == null) result = caseExtension(mod);
-				if (result == null) result = caseNamedElement(mod);
-				if (result == null) result = caseExpandableElement(mod);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.DIV: {
-				Div div = (Div)theEObject;
-				T result = caseDiv(div);
-				if (result == null) result = caseBinaryOperator(div);
-				if (result == null) result = caseExpression(div);
-				if (result == null) result = caseConstruct(div);
-				if (result == null) result = caseNamedExtension(div);
-				if (result == null) result = caseExtension(div);
-				if (result == null) result = caseNamedElement(div);
-				if (result == null) result = caseExpandableElement(div);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.NEG: {
-				Neg neg = (Neg)theEObject;
-				T result = caseNeg(neg);
-				if (result == null) result = caseUnaryOperator(neg);
-				if (result == null) result = caseExpression(neg);
-				if (result == null) result = caseConstruct(neg);
-				if (result == null) result = caseNamedExtension(neg);
-				if (result == null) result = caseExtension(neg);
-				if (result == null) result = caseNamedElement(neg);
-				if (result == null) result = caseExpandableElement(neg);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DblPackage.AND: {
 				And and = (And)theEObject;
 				T result = caseAnd(and);
@@ -902,6 +824,84 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.PLUS: {
+				Plus plus = (Plus)theEObject;
+				T result = casePlus(plus);
+				if (result == null) result = caseBinaryOperator(plus);
+				if (result == null) result = caseExpression(plus);
+				if (result == null) result = caseConstruct(plus);
+				if (result == null) result = caseNamedExtension(plus);
+				if (result == null) result = caseExtension(plus);
+				if (result == null) result = caseNamedElement(plus);
+				if (result == null) result = caseExpandableElement(plus);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.MINUS: {
+				Minus minus = (Minus)theEObject;
+				T result = caseMinus(minus);
+				if (result == null) result = caseBinaryOperator(minus);
+				if (result == null) result = caseExpression(minus);
+				if (result == null) result = caseConstruct(minus);
+				if (result == null) result = caseNamedExtension(minus);
+				if (result == null) result = caseExtension(minus);
+				if (result == null) result = caseNamedElement(minus);
+				if (result == null) result = caseExpandableElement(minus);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.MUL: {
+				Mul mul = (Mul)theEObject;
+				T result = caseMul(mul);
+				if (result == null) result = caseBinaryOperator(mul);
+				if (result == null) result = caseExpression(mul);
+				if (result == null) result = caseConstruct(mul);
+				if (result == null) result = caseNamedExtension(mul);
+				if (result == null) result = caseExtension(mul);
+				if (result == null) result = caseNamedElement(mul);
+				if (result == null) result = caseExpandableElement(mul);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.MOD: {
+				Mod mod = (Mod)theEObject;
+				T result = caseMod(mod);
+				if (result == null) result = caseBinaryOperator(mod);
+				if (result == null) result = caseExpression(mod);
+				if (result == null) result = caseConstruct(mod);
+				if (result == null) result = caseNamedExtension(mod);
+				if (result == null) result = caseExtension(mod);
+				if (result == null) result = caseNamedElement(mod);
+				if (result == null) result = caseExpandableElement(mod);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.DIV: {
+				Div div = (Div)theEObject;
+				T result = caseDiv(div);
+				if (result == null) result = caseBinaryOperator(div);
+				if (result == null) result = caseExpression(div);
+				if (result == null) result = caseConstruct(div);
+				if (result == null) result = caseNamedExtension(div);
+				if (result == null) result = caseExtension(div);
+				if (result == null) result = caseNamedElement(div);
+				if (result == null) result = caseExpandableElement(div);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.NEG: {
+				Neg neg = (Neg)theEObject;
+				T result = caseNeg(neg);
+				if (result == null) result = caseUnaryOperator(neg);
+				if (result == null) result = caseExpression(neg);
+				if (result == null) result = caseConstruct(neg);
+				if (result == null) result = caseNamedExtension(neg);
+				if (result == null) result = caseExtension(neg);
+				if (result == null) result = caseNamedElement(neg);
+				if (result == null) result = caseExpandableElement(neg);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.NOT: {
 				Not not = (Not)theEObject;
 				T result = caseNot(not);
@@ -912,19 +912,6 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseExtension(not);
 				if (result == null) result = caseNamedElement(not);
 				if (result == null) result = caseExpandableElement(not);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.CREATE_OBJECT: {
-				CreateObject createObject = (CreateObject)theEObject;
-				T result = caseCreateObject(createObject);
-				if (result == null) result = caseExpression(createObject);
-				if (result == null) result = caseTypedElement(createObject);
-				if (result == null) result = caseConstruct(createObject);
-				if (result == null) result = caseNamedExtension(createObject);
-				if (result == null) result = caseExtension(createObject);
-				if (result == null) result = caseNamedElement(createObject);
-				if (result == null) result = caseExpandableElement(createObject);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -942,9 +929,24 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.CREATE_OBJECT: {
+				CreateObject createObject = (CreateObject)theEObject;
+				T result = caseCreateObject(createObject);
+				if (result == null) result = caseL1Expr(createObject);
+				if (result == null) result = caseTypedElement(createObject);
+				if (result == null) result = caseExpression(createObject);
+				if (result == null) result = caseConstruct(createObject);
+				if (result == null) result = caseNamedExtension(createObject);
+				if (result == null) result = caseExtension(createObject);
+				if (result == null) result = caseNamedElement(createObject);
+				if (result == null) result = caseExpandableElement(createObject);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.NULL_LITERAL: {
 				NullLiteral nullLiteral = (NullLiteral)theEObject;
 				T result = caseNullLiteral(nullLiteral);
+				if (result == null) result = caseL1Expr(nullLiteral);
 				if (result == null) result = caseExpression(nullLiteral);
 				if (result == null) result = caseConstruct(nullLiteral);
 				if (result == null) result = caseNamedExtension(nullLiteral);
@@ -957,6 +959,7 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.TIME_LITERAL: {
 				TimeLiteral timeLiteral = (TimeLiteral)theEObject;
 				T result = caseTimeLiteral(timeLiteral);
+				if (result == null) result = caseL1Expr(timeLiteral);
 				if (result == null) result = caseExpression(timeLiteral);
 				if (result == null) result = caseConstruct(timeLiteral);
 				if (result == null) result = caseNamedExtension(timeLiteral);
@@ -969,12 +972,78 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.ACTIVE_LITERAL: {
 				ActiveLiteral activeLiteral = (ActiveLiteral)theEObject;
 				T result = caseActiveLiteral(activeLiteral);
+				if (result == null) result = caseL1Expr(activeLiteral);
 				if (result == null) result = caseExpression(activeLiteral);
 				if (result == null) result = caseConstruct(activeLiteral);
 				if (result == null) result = caseNamedExtension(activeLiteral);
 				if (result == null) result = caseExtension(activeLiteral);
 				if (result == null) result = caseNamedElement(activeLiteral);
 				if (result == null) result = caseExpandableElement(activeLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.STRING_LITERAL: {
+				StringLiteral stringLiteral = (StringLiteral)theEObject;
+				T result = caseStringLiteral(stringLiteral);
+				if (result == null) result = caseL1Expr(stringLiteral);
+				if (result == null) result = caseExpression(stringLiteral);
+				if (result == null) result = caseConstruct(stringLiteral);
+				if (result == null) result = caseNamedExtension(stringLiteral);
+				if (result == null) result = caseExtension(stringLiteral);
+				if (result == null) result = caseNamedElement(stringLiteral);
+				if (result == null) result = caseExpandableElement(stringLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.INT_LITERAL: {
+				IntLiteral intLiteral = (IntLiteral)theEObject;
+				T result = caseIntLiteral(intLiteral);
+				if (result == null) result = caseL1Expr(intLiteral);
+				if (result == null) result = caseExpression(intLiteral);
+				if (result == null) result = caseConstruct(intLiteral);
+				if (result == null) result = caseNamedExtension(intLiteral);
+				if (result == null) result = caseExtension(intLiteral);
+				if (result == null) result = caseNamedElement(intLiteral);
+				if (result == null) result = caseExpandableElement(intLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.TRUE_LITERAL: {
+				TrueLiteral trueLiteral = (TrueLiteral)theEObject;
+				T result = caseTrueLiteral(trueLiteral);
+				if (result == null) result = caseL1Expr(trueLiteral);
+				if (result == null) result = caseExpression(trueLiteral);
+				if (result == null) result = caseConstruct(trueLiteral);
+				if (result == null) result = caseNamedExtension(trueLiteral);
+				if (result == null) result = caseExtension(trueLiteral);
+				if (result == null) result = caseNamedElement(trueLiteral);
+				if (result == null) result = caseExpandableElement(trueLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.FALSE_LITERAL: {
+				FalseLiteral falseLiteral = (FalseLiteral)theEObject;
+				T result = caseFalseLiteral(falseLiteral);
+				if (result == null) result = caseL1Expr(falseLiteral);
+				if (result == null) result = caseExpression(falseLiteral);
+				if (result == null) result = caseConstruct(falseLiteral);
+				if (result == null) result = caseNamedExtension(falseLiteral);
+				if (result == null) result = caseExtension(falseLiteral);
+				if (result == null) result = caseNamedElement(falseLiteral);
+				if (result == null) result = caseExpandableElement(falseLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.DOUBLE_LITERAL: {
+				DoubleLiteral doubleLiteral = (DoubleLiteral)theEObject;
+				T result = caseDoubleLiteral(doubleLiteral);
+				if (result == null) result = caseL1Expr(doubleLiteral);
+				if (result == null) result = caseExpression(doubleLiteral);
+				if (result == null) result = caseConstruct(doubleLiteral);
+				if (result == null) result = caseNamedExtension(doubleLiteral);
+				if (result == null) result = caseExtension(doubleLiteral);
+				if (result == null) result = caseNamedElement(doubleLiteral);
+				if (result == null) result = caseExpandableElement(doubleLiteral);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1089,66 +1158,6 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.STRING_LITERAL: {
-				StringLiteral stringLiteral = (StringLiteral)theEObject;
-				T result = caseStringLiteral(stringLiteral);
-				if (result == null) result = caseExpression(stringLiteral);
-				if (result == null) result = caseConstruct(stringLiteral);
-				if (result == null) result = caseNamedExtension(stringLiteral);
-				if (result == null) result = caseExtension(stringLiteral);
-				if (result == null) result = caseNamedElement(stringLiteral);
-				if (result == null) result = caseExpandableElement(stringLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.INT_LITERAL: {
-				IntLiteral intLiteral = (IntLiteral)theEObject;
-				T result = caseIntLiteral(intLiteral);
-				if (result == null) result = caseExpression(intLiteral);
-				if (result == null) result = caseConstruct(intLiteral);
-				if (result == null) result = caseNamedExtension(intLiteral);
-				if (result == null) result = caseExtension(intLiteral);
-				if (result == null) result = caseNamedElement(intLiteral);
-				if (result == null) result = caseExpandableElement(intLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.TRUE_LITERAL: {
-				TrueLiteral trueLiteral = (TrueLiteral)theEObject;
-				T result = caseTrueLiteral(trueLiteral);
-				if (result == null) result = caseExpression(trueLiteral);
-				if (result == null) result = caseConstruct(trueLiteral);
-				if (result == null) result = caseNamedExtension(trueLiteral);
-				if (result == null) result = caseExtension(trueLiteral);
-				if (result == null) result = caseNamedElement(trueLiteral);
-				if (result == null) result = caseExpandableElement(trueLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.FALSE_LITERAL: {
-				FalseLiteral falseLiteral = (FalseLiteral)theEObject;
-				T result = caseFalseLiteral(falseLiteral);
-				if (result == null) result = caseExpression(falseLiteral);
-				if (result == null) result = caseConstruct(falseLiteral);
-				if (result == null) result = caseNamedExtension(falseLiteral);
-				if (result == null) result = caseExtension(falseLiteral);
-				if (result == null) result = caseNamedElement(falseLiteral);
-				if (result == null) result = caseExpandableElement(falseLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.DOUBLE_LITERAL: {
-				DoubleLiteral doubleLiteral = (DoubleLiteral)theEObject;
-				T result = caseDoubleLiteral(doubleLiteral);
-				if (result == null) result = caseExpression(doubleLiteral);
-				if (result == null) result = caseConstruct(doubleLiteral);
-				if (result == null) result = caseNamedExtension(doubleLiteral);
-				if (result == null) result = caseExtension(doubleLiteral);
-				if (result == null) result = caseNamedElement(doubleLiteral);
-				if (result == null) result = caseExpandableElement(doubleLiteral);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DblPackage.DEP_IDENTIFIABLE_ELEMENT: {
 				DepIdentifiableElement depIdentifiableElement = (DepIdentifiableElement)theEObject;
 				T result = caseDepIdentifiableElement(depIdentifiableElement);
@@ -1164,6 +1173,7 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.ID_EXPR: {
 				IdExpr idExpr = (IdExpr)theEObject;
 				T result = caseIdExpr(idExpr);
+				if (result == null) result = caseL1Expr(idExpr);
 				if (result == null) result = caseExpression(idExpr);
 				if (result == null) result = caseConstruct(idExpr);
 				if (result == null) result = caseNamedExtension(idExpr);

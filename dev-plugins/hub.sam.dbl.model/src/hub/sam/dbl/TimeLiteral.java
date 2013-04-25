@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface TimeLiteral extends Expression {
+public interface TimeLiteral extends L1Expr {
 } // TimeLiteral
