@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="testdef">
+    <model href="testdef.xmi#/"/>
+  </imports>
+  <modules name="test2use">
+    <classifiers xsi:type="dbl:Clazz" name="X">
+      <extensions xsi:type="dbl:Foo" name="a">
+        <baz xsi:type="dbl:RBaz" name="q"/>
+        <baz xsi:type="dbl:RBaz" name="t"/>
+      </extensions>
+      <extensions xsi:type="dbl:Foo" name="b">
+        <baz xsi:type="dbl:RBaz" name="p" otherBaz="//@modules.0/@classifiers.0/@extensions.0/@baz.0"/>
+      </extensions>
+      <extensions xsi:type="dbl:Foo" name="c">
+        <baz xsi:type="dbl:IBaz" name="h" otherBaz="//@modules.0/@classifiers.0/@extensions.0/@baz.0"/>
+      </extensions>
+      <extensions xsi:type="dbl:Foo" name="d">
+        <baz xsi:type="dbl:IBaz" name="h" num="3"/>
+      </extensions>
+    </classifiers>
+    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;bar b;&#xA;&#x9;&#x9;bar a (r b i 2);&#xA;&#x9;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Bar" name="b" concreteSyntax="bar b;"/>
+      <statements xsi:type="dbl:Bar" name="a" concreteSyntax="bar a (r b i 2);">
+        <buz concreteSyntax="r b" barRef="//@modules.0/@procedures.0/@statements.0"/>
+        <buz concreteSyntax="i 2" i="2"/>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

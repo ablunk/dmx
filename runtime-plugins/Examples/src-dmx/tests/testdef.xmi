@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../base">
+    <model href="../base.xmi#/"/>
+  </imports>
+  <modules name="testDef">
+    <extensionDefs name="Bar">
+      <textualSyntaxDef>
+        <extensionRule name="Statement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="Bar">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="bar"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="A">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="A">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.3"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
+          </rhs>
+        </newRules>
+        <newRules name="BuzList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="buz">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.7" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.4"/>
+          </rhs>
+        </newRules>
+        <newRules name="BuzListOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="BuzListOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.3"/>
+          </rhs>
+        </newRules>
+        <newRules name="Buz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="r"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="barRef">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="Buz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="i"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="i">
+              <propertyType xsi:type="dbl:IntPropertyType"/>
+            </sequence>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+    </extensionDefs>
+    <extensionDefs name="Foo">
+      <textualSyntaxDef>
+        <extensionRule name="ClassContentExtension">
+          <firstNewRule rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="Foo">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="foo"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.1"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="OptionalBaz">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="OptionalBaz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="baz">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.4" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.1"/>
+          </rhs>
+        </newRules>
+        <newRules name="Baz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.6"/>
+          </rhs>
+        </newRules>
+        <newRules name="Baz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.5"/>
+          </rhs>
+        </newRules>
+        <newRules name="IBaz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ibaz"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.7"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.10"/>
+          </rhs>
+        </newRules>
+        <newRules name="RBaz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="baz"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.7"/>
+          </rhs>
+        </newRules>
+        <newRules name="OptionalToBaz">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="OptionalToBaz">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="otherBaz">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.4" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="OptionalPart">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="OptionalPart">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="num">
+              <propertyType xsi:type="dbl:IntPropertyType"/>
+            </sequence>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef/>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

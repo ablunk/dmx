@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../base">
+    <model href="../base.xmi#/"/>
+  </imports>
+  <modules name="units">
+    <classifiers xsi:type="dbl:Interface" name="L1Expr"/>
+    <classifiers xsi:type="dbl:Interface" name="L2Expr"/>
+    <extensionDefs name="UnitExpr">
+      <textualSyntaxDef>
+        <extensionRule name="L1Expr">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="UnitExpr">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="op">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@classifiers.0"/>
+            </sequence>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="unit">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.2"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="Unit">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ft"/>
+          </rhs>
+        </newRules>
+        <newRules name="Unit">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef/>
+    </extensionDefs>
+    <extensionDefs name="Feet">
+      <textualSyntaxDef>
+        <extensionRule name="L1Expr">
+          <firstNewRule rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="Feet">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ft"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+    </extensionDefs>
+    <extensionDefs name="Inch">
+      <textualSyntaxDef>
+        <extensionRule name="L1Expr">
+          <firstNewRule rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="Inch">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef/>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

@@ -248,10 +248,13 @@ public class DbxTextEditor extends DblTextEditor {
 			processAllRulesWithSameName(newRule.getName(), metaClass, ruleStack);
 		}
 		
+		private Collection<TsRule> completelyProcessedRules = new HashSet<TsRule>();
+		
 		private void processAllRulesWithSameName(String ruleName, EClass metaClass, Stack<TsRule> ruleStack) {
 			for (TsRule otherRule: extensionDefinition.getTextualSyntaxDef().getNewRules()) {
-				if (otherRule.getName().equals(ruleName)) {
+				if (otherRule.getName().equals(ruleName) && !completelyProcessedRules.contains(otherRule)) {
 					processSingleRule(otherRule, metaClass, ruleStack);
+					completelyProcessedRules.add(otherRule);
 				}
 			}
 		}
@@ -389,6 +392,7 @@ public class DbxTextEditor extends DblTextEditor {
 												dupOfOtherRule = EcoreUtil.copy(otherRule);
 												dupOfOtherRule.setName(metaClass.getName() + "_" + ruleName);
 												duplicatedRules.rules.add(dupOfOtherRule);
+												processedRules.add(dupOfOtherRule);
 												System.out.println("created duplicate rule: " + dupOfOtherRule.getName());
 											}
 										}

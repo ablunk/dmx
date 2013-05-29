@@ -1,0 +1,91 @@
+#import "../base"
+
+module conveyorDsl {
+
+	interface L1Expr {}
+	interface L2Expr {}
+	
+	extension UnitExpr {
+		L1Expr -> UnitExpr;
+		UnitExpr -> op:L1Expr unit:Unit;
+		Unit -> "ft";
+		Unit -> "in";
+		Unit -> "m";
+		Unit -> "cm";
+		
+		Unit -> "s";
+		
+		Unit -> "fps";
+	}
+	semantics {
+		
+	}
+
+	extension ConveyorSystem {
+		Statement -> ConveyorSystem;
+		ConveyorSystem -> "system" "{" ConveyorTypes Conveyors LoadKinds "}";
+		
+		ConveyorTypes -> ;
+		ConveyorTypes -> conveyorTypess:list(ConveyorType) ConveyorTypes;
+		ConveyorType -> "conveyorType" name:ID "{" ConvContent BehaviorOptional "}";
+		
+		BehaviorOptional -> ;
+		BehaviorOptional -> "behavior" behavior:CodeBlock;
+		
+		Conveyors -> ;
+		Conveyors -> conveyors:list(Conveyor) Conveyors;
+		
+		Conveyor -> "conveyor" name:ID ConveyorTypeOptional "{" ConvContent "}";
+		
+		ConvContent -> 
+			ConvOptionalLength
+			ConvOptionalSpeed
+			ConvFromOptional
+			ConvToOptional
+			ConveyorKind
+			SensorOptional
+			;
+		//ConveyorType -> ;
+		//ConveyorType -> "type";
+		
+		ConvOptionalLength -> ;
+		ConvOptionalLength -> "length" "=" length:Expression;
+		
+		ConvOptionalSpeed -> ;
+		ConvOptionalSpeed -> "speed" "=" speed:Expression;
+		
+		ConveyorTypeOptional -> ;
+		ConveyorTypeOptional -> "ofType" convType:$$ConveyorType;
+					
+		ConvFromOptional -> ;
+		ConvFromOptional -> "from" fromConv:ConvList;
+		ConvToOptional -> ;
+		ConvToOptional -> "to" toConv:ConvList;
+
+		ConvList -> convRefs:list(ConvRef) ConvListOptional;
+		ConvListOptional -> ;
+		ConvListOptional -> convRefs:list(ConvRef) ConvListOptional; 
+		ConvRef -> conv:$$Conveyor;
+
+		ConveyorKind -> ;
+		ConveyorKind -> "kind" "=" ConveyorBehavior;
+		ConveyorBehavior -> "accumulating";
+		ConveyorBehavior -> "withSlippage";
+		ConveyorBehavior -> "circular";
+		ConveyorBehavior -> segments:INT "segments";
+		
+		SensorOptional -> ;
+		SensorOptional -> sensors:list(Sensor) SensorOptional;
+		Sensor -> "sensor" name:ID SensorPos;
+		SensorPos -> "at" atPos:Expression;
+		SensorPos -> "from" fromPos:Expression "to" toPos:Expression;
+		
+		LoadKinds -> ;
+		LoadKinds -> loadKinds:list(LoadKind) LoadKinds;
+		
+		//LoadKind -> "loadClass" name:ID "length" "=" length:Expression;
+		LoadKind -> "load" loadClass:Classifier;
+		// for each load class an attribute length is generated as part of its runtime structure
+	}
+
+}
