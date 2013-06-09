@@ -11,6 +11,8 @@ module NativeTest {
 	}
 
 	void main() {
+	EmpiricalInt x = new EmpiricalInt;
+	x.sample();
 		discreteEmpirical myde {
 			10  : 450,
 			29  : 750,
@@ -18,7 +20,6 @@ module NativeTest {
 			85  : 500,
 			100 : 3000
 		}
-		
 		int i=0;
 		while (i < 8) {
 			print sample of myde + "\n";

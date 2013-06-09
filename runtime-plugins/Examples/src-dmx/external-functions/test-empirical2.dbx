@@ -1,0 +1,148 @@
+//#import "empirical2"
+
+module NativeTest {
+
+	class ContVar(string name) {
+		bindings {
+			"jdisco" -> "hub.sam.dmx.javasim.jdisco.Variable"
+					}
+		double state;
+		double rate;
+		void start() {}
+		void stop() {}
+		
+	}
+
+
+	class Continuous(string name) {
+		bindings {
+			"jdisco" -> "hub.sam.dmx.javasim.jdisco.Continuous"
+					}
+		//abstract void derivates() {}
+		Continuous start() {}
+		void stop() {}
+	}
+
+	
+	interface Object {}
+	
+
+	double dtMin = 0.25;
+	double dtMax = 0.25;
+	
+	
+	
+	
+	boolean debug = true;
+
+	void main() {
+		HouseOnFire houseonfire = new HouseOnFire;
+		activate houseonfire;
+		advance 1;
+	}
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+
+
+	active class HouseOnFire {	
+		double c;
+		ContVar s;
+		ContVar d;
+		Burning fire;
+		
+		actions {
+			c = 2;		
+			
+			s = new ContVar(1);
+			d = new ContVar(1);
+
+			d.start();
+			s.start();
+			//a_start of s ;
+			//a_start of d;
+			 
+		//	ConditionA cond = new ConditionA;
+		//	cond.s =s;
+		//	cond.d =d;
+			
+	
+			fire = new Burning();
+			fire.setSize(self);
+			fire.setDamage(self);
+			fire.start();
+			//start of fire;
+			//	cont fire ;
+	
+
+
+		//	wait until (cond);
+			
+
+
+			advance (1);
+					
+			//stop of fire;	
+			fire.stop();
+	
+			//a_stop of s;
+			//a_stop of d;
+		}
+	}
+	
+	 class Burning extends Continuous {
+	//	bindings {
+	//		"jdisco" -> "hub.sam.dmx.javasim.jdisco.Continuous"
+	//				}
+	//	void stop() {}	 
+	// 	Continuous start(){}
+	 
+		HouseOnFire house;
+		ContVar s;
+		ContVar d;		
+		
+		void setSize(HouseOnFire h)
+		{
+			s = h.s;
+		}
+		void setDamage(HouseOnFire h)
+		{
+			d = h.d;
+		}	
+
+		
+		void derivatives() {
+			house.s.rate = house.s.state * house.c  ;
+		//	der(s) = der(s) + 5;
+			print("\n 		house.size.state    :  " );
+			print( 		house.s.state    );
+
+			house.d.rate = house.s.state;		
+		}
+
+		
+	}
+	
+	
+
+
+ //  interface Condition{
+//		bindings {
+//			"jdisco" -> "hub.sam.dmx.javasim.jdisco.Condition"
+//		}	
+	
+//		boolean test() {}
+//	}	
+
+//	class ConditionA implements Condition{
+//		ContVar s;
+//		ContVar d;
+	
+//		boolean test() {return d.state > 10;}
+//	}	
+
+}

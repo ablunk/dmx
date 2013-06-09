@@ -1,0 +1,43 @@
+#import "../base"
+
+module EmpiricalDef {
+
+
+	extension Cont {
+		Assignment -> Cont;
+		Cont -> "cont" 
+			name:ID  ;
+	}
+	semantics {
+		gen "" name ".start();";
+
+	}
+
+
+	extension DerVariable {
+		IdExpr -> DerVariable;
+		DerVariable -> "der("name:ID ")";
+	}
+	semantics {
+		gen "" name ".rate";
+	}
+	
+
+	extension StartVariable {
+		ExpressionStatement -> StartVariable;
+		StartVariable -> "a_start" "of" name:ID;
+	}
+	semantics {
+		gen "" name ".start()";
+	}
+	
+	extension StopVariable {
+		ExpressionStatement -> StopVariable;
+		StopVariable -> "a_stop" "of"  name:ID;
+	}
+	semantics {
+		gen "" name ".stop()";
+	}
+	
+
+}

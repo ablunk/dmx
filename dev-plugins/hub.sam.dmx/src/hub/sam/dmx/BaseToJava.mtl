@@ -664,7 +664,10 @@
 	public class [clazz.name.toUpperFirst()/]
 		[if (clazz.active)]
 			extends SimulationProcess
-		[/if]
+		[elseif (clazz.superClass.name.size()> 0)]
+			extends [clazz.superClass.name.toUpperFirst()/]
+		[/if] 		
+
 	{
 		
 		public [clazz.name.toUpperFirst()/]() {
@@ -813,8 +816,13 @@ import hub.sam.dmx.javasim.jdisco.Process;
 import hub.sam.dmx.javasim.jdisco.*;
 
 	// JDisco
-	public class [clazz.name.toUpperFirst()/] extends Process {
-		
+	public class [clazz.name.toUpperFirst()/] 		
+		[if (clazz.active)]
+			extends Process
+		[elseif (clazz.superClass.name.size()> 0)]
+			extends [clazz.superClass.name.toUpperFirst()/]
+		[/if]  {
+
 		public [clazz.name.toUpperFirst()/]() {
 
 			[if (not clazz.initialBlock.oclIsUndefined())]
@@ -870,6 +878,18 @@ import hub.sam.dmx.javasim.jdisco.*;
 [template public genStatement(stm : Wait, extensionSemantics : Boolean)
 		? (getSimLib() = 'jdisco')]
 	current().passivate();
+[/template]
+
+
+
+[template public genStatement(stm : WaitUntil, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	waitUntil(new Condition() {
+		public boolean test() {
+	return ([genExpression(stm.condition)/]);
+}
+});
+
 [/template]
 
 
@@ -945,6 +965,8 @@ import hub.sam.dmx.javasim.jdisco.*;
 	public class [clazz.name.toUpperFirst()/]
 		[if (clazz.active)]
 			implements Timeless, IProcess
+		[elseif (clazz.superClass.name.size()> 0)]
+			extends [clazz.superClass.name.toUpperFirst()/]
 		[/if]
 	{
 		[if (clazz.active)]
