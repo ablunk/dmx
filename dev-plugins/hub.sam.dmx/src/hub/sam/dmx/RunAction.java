@@ -378,17 +378,17 @@ public class RunAction extends Action {
 
 		String modelFile = workingCopyXmiRawLocation.toString();
 		
-		//BaseToJava.main(new String[] { modelFile, genFolder.toString() });
+		BaseToJava.main(new String[] { modelFile, genFolder.toString() });
 		
 		IPath workingDirectory = currentProject.getLocation();
 		IJavaProject currentJavaProject = JavaCore.create(currentProject);
-		try {
-			launchJavaProgram(true, currentJavaProject, workingDirectory, "hub.sam.dmx.BaseToJava", new String[] { modelFile, genFolder.toString() });
-		}
-		catch (CoreException e1) {
-			e1.printStackTrace();
-			return;
-		}
+//		try {
+//			launchJavaProgram(true, currentJavaProject, workingDirectory, "hub.sam.dmx.BaseToJava", new String[] { modelFile, genFolder.toString() });
+//		}
+//		catch (CoreException e1) {
+//			e1.printStackTrace();
+//			return;
+//		}
 		
 		monitor.worked(10); // 90%
 
