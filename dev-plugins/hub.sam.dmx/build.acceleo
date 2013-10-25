@@ -18,7 +18,7 @@
         <acceleoCompiler 
             sourceFolder="${target.folder}"
             outputFolder="${target.folder}"
-            dependencies="${target.folder}/../../hub.sam.tef;${target.folder}/../../hub.sam.tef.rcc;${target.folder}/../../DESMO-J;${target.folder}/../../JiST-SWANS-Pro;${target.folder}/../../hub.sam.dbl.model;${target.folder}/../../hub.sam.dbl.model.edit;${target.folder}/../../hub.sam.dmx.modifications;${target.folder}/../../hub.sam.dmx.modifications.edit;"
+            dependencies="${target.folder}/../../hub.sam.tef;${target.folder}/../../hub.sam.tef.rcc;${target.folder}/../../DESMO-J;${target.folder}/../../JiST-Pro;${target.folder}/../../hub.sam.dbl.model;${target.folder}/../../hub.sam.dbl.model.edit;${target.folder}/../../hub.sam.dmx.modifications;${target.folder}/../../hub.sam.dmx.modifications.edit;"
             binaryResource="false"
             packagesToRegister="">
         </acceleoCompiler>

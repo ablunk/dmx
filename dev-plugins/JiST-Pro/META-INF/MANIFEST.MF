@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: JiST-SWANS with Processes
-Bundle-SymbolicName: JiST-SWANS-Pro
+Bundle-SymbolicName: JiST-Pro
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: jist_swans.Activator
 Require-Bundle: org.eclipse.core.runtime
