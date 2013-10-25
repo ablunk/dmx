@@ -55,6 +55,11 @@ public class Counter implements Timeless, IProcess {
 			GenericEntity ge = (GenericEntity) eref;
 			myEntity = getActiveEntity();
 			
+			log("before yield");
+			getEntity().yield(); // only works after second yield :-|
+			log("after yield");
+			
+			/*
 			getEntity().advance(1); // equals "advance 1;"
 
 			// reactivate other counter
@@ -67,6 +72,7 @@ public class Counter implements Timeless, IProcess {
 			log("wait");
 			getEntity().simWait(); // equals "wait;"
 			log("awakened, count="+count);
+			*/
 		}
 	}
 

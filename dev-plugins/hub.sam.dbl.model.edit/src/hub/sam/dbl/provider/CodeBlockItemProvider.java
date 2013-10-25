@@ -204,6 +204,11 @@ public class CodeBlockItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add

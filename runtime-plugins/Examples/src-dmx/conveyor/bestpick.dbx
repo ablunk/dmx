@@ -21,80 +21,100 @@ class Conveyor {
 	list(Sensor) sensors;
 }
 
+class Box {
+	Conveyor destination; // references the language element class
+	double len; // gets generated
+			
+	initial {
+		double r; // = rv_uniform(...);
+		if (r <= 1/3) {
+			len = 11:in;
+		}
+		elseif (r <= 2/3) {
+			len = 17:in;
+		}
+		else {
+			len = 23:in;
+		}
+	}
+}
+		
+active class LoadingDock {
+	//LDock dock; // -> reference DSL types
+
+	actions {
+		Conveyor loop; // = dock.loop;
+			
+		Sensor ldN = loop.sensors.first;
+		while (true) {
+			wait until ldN.currentLoad != null;
+		}
+	}
+}
+
+Conveyor belt = new Conveyor;
+
+active class Picker {
+	actions {
+		forever {
+			double pickPoint; // ...
+			//Object load;
+			Box b = new Box;
+			advance 10;
+			// enqueue pickerQ;
+			place b asLoad load on belt at pickPoint ifZoneEmpty from pickPoint-0.5+b.len to pickPoint+0.5;
+			// depart pickerQ;
+			send load;
+		}
+	}
+}
+
 void main() {
-	double beltLength = 110.0 ft;
-	double accumLength = 30.0 ft;
+	double beltLength = 110.0:ft;
+	double accumLength = 30.0:ft;
 
 	system {
 		conveyorType LDock {
-			length = 20 ft
-			speed = 1.0 fps
+			length = 20:ft
+			speed = 1.0:fps
 			from loop
-			behavior {
-				Conveyor loop; // this variable is actually inferred form the conveyorType, it is automatically visible here
-					
-				Sensor ldN = loop.sensors.first;
-				while (true) {
-					wait until ldN.currentLoad != null;
-				}
-			}
 		}
 		conveyor belt {
 			length = beltLength
-			speed = 1.0 ft / 1.0 s
+			speed = 1.0:ft / 1.0:s
 			to accum
 			sensor beltEnd at beltLength
 		}
 		conveyor accum {
 			length = accumLength
-			speed = 1.0 fps
+			speed = 1.0:fps
 			from belt
 			to loop
 			kind = accumulating
 			sensor accumEnd at accumLength
-			sensor accumFull at 15.0 ft
+			sensor accumFull at 15.0:ft
 		}
 		conveyor loop {
-			length = 454.2477 ft
-			speed = 2.0 fps
+			length = 454.2477:ft
+			speed = 2.0:fps
 			from accum
 			to dock1 dock2 dock3 dock4
 			kind = circular
-			sensor ld1 at 147.124 ft
-			sensor ld2 at 187.124 ft
-			sensor ld2 at 227.124 ft
-			sensor ld3 at 267.124 ft
+			sensor ld1 at 147.124:ft
+			sensor ld2 at 187.124:ft
+			sensor ld2 at 227.124:ft
+			sensor ld3 at 267.124:ft
 		}
 		// the class LoadingDock is augmented with attributes length, speed, from
 		// "loop" should be an attribute of LoadingDock !
 		// how should type and instances be distinguised?
-		conveyor dock1 ofType LDock {
-		}
-		conveyor dock2 ofType LDock {
-		}
-		conveyor dock3 ofType LDock {
-		}
-		conveyor dock4 ofType LDock {
-		}
+		conveyor dock1 ofType LDock {}
+		conveyor dock2 ofType LDock {}
+		conveyor dock3 ofType LDock {}
+		conveyor dock4 ofType LDock {}
 		
 		// unites LoadClass from SLX Conveyor DSL and Box from PickBest Appl.
-		load class Box {
-			//Conveyor destination; // references the language element class
-			double length; // gets generated
-			
-			initial {
-				double r; // = rv_uniform(...);
-				if (r <= 1/3) {
-					length = 11 in;
-				}
-				elseif (r <= 2/3) {
-					length = 17 in;
-				}
-				else {
-					length = 23 in;
-				}
-			}
-		}
+		loadType Box;
 	}
 }
 

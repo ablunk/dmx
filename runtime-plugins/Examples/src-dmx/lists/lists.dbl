@@ -1,0 +1,30 @@
+module lists {
+
+	void main() {
+		list(int) l1;
+		place 99 into l1;
+		
+		list(int=3) l2;
+		place 98 into l2 at 1;
+		
+		list(int=3,int=4) l3;
+		place 99 into l3 at 1,2;
+		
+		list(string=2) l4;
+		place "bla" into l4 at "blub";
+
+		list(string=2,2) l6;
+		place "bla" into l6 at "bling","blub";
+		
+		list(string=2,2,int) l5;
+		place 99 into l5 at "bla","blub";
+		
+		int i = l5.last; // ? meaning
+		i = l5.at("bla","blub");
+		
+		if (l5.contains(99)) {
+			print "99!";
+		}
+	}
+
+}

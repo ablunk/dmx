@@ -104,6 +104,7 @@ public class AbstractVariableItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
 		}
 		return childrenFeatures;
@@ -152,6 +153,7 @@ public class AbstractVariableItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
+			case DblPackage.ABSTRACT_VARIABLE__LIST_DIMS:
 			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -194,6 +196,11 @@ public class AbstractVariableItemProvider
 			(createChildParameter
 				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
 				 DblFactory.eINSTANCE.createStringType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS,
+				 DblFactory.eINSTANCE.createListDimension()));
 
 		newChildDescriptors.add
 			(createChildParameter

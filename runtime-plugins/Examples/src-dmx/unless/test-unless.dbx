@@ -6,7 +6,14 @@ module TestUnless {
 		int i=0;
 		print "i equals " + i + ".\n";
 		
-		unless (i >= 10) {
+		// @..@ is an annotation for unambiously selecting a concept.
+		// the editor could be enhanced to hide the annotation and to leave a visual remark that a certain concept was chosen here
+		// is this all which is necessary to resolve conflicts in composed extension languages? 
+		@UnlessA@ unless (i >= 10) {
+			print "i is less than 10.\n";
+		}
+
+		@UnlessB@ unless (i >= 10) {
 			print "i is less than 10.\n";
 		}
 	}

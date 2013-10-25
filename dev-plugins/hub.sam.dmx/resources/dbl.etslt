@@ -132,11 +132,18 @@ syntax(Model) "resources/dbl.ecore" {
 	ClassVariable:constant("true":EBoolean) -> "static";
 	
 	TypeRule -> Type;
-	TypeRule -> IsListType:composite(isList) "(" Type ")";
+	TypeRule -> IsListType:composite(isList)
+		"(" ListDimension1:composite(listDims) ("," ListDimension2:composite(listDims))* ")";
 	//   -- allows duplicate elements i.e. nonUnique, ordered
 	//   -- basically a list in BL is like an array in other languages
 	
 	IsListType:constant("true":EBoolean) -> "list";
+	
+	ListDimension1:element(ListDimension) -> Type ("=" INTEGER:composite(size))?;
+	ListDimension2 -> ListDimension2a;
+	ListDimension2 -> ListDimension2b;
+	ListDimension2a:element(ListDimension) -> Type ("=" INTEGER:composite(size))?;
+	ListDimension2b:element(ListDimension) -> INTEGER:composite(size);
 	
 	//Type -> ClassifierRef:reference(classifierType);
 	Type -> BareIdExpr:composite(classifierTypeExpr);
@@ -171,6 +178,7 @@ syntax(Model) "resources/dbl.ecore" {
 	SimpleStatement -> Return ";";
 	SimpleStatement -> Advance ";";
 	SimpleStatement -> Terminate ";";
+	SimpleStatement -> Yield ";";
 	SimpleStatement -> Wait ";";
 	SimpleStatement -> Reactivate ";";
 	SimpleStatement -> ActivateObject ";";
@@ -187,12 +195,13 @@ syntax(Model) "resources/dbl.ecore" {
 	Return:element(Return) -> "return" Expression:composite(value);
 	Advance:element(Advance) -> "advance" Expression:composite(time);
 	Terminate:element(Terminate) -> "terminate";
+	Yield:element(Yield) -> "yield";
 	Wait:element(Wait) -> "wait";
 	Reactivate:element(Reactivate) -> "reactivate" Expression:composite(objectAccess);
 	ActivateObject:element(ActivateObject) -> "activate" Expression:composite(objectAccess) ("priority" INTEGER:composite(priority))?;
 	WaitUntil:element(WaitUntil) -> "wait" "until" Expression:composite(condition);
 	Print:element(Print) -> "print" Expression:composite(outputs) ("," Expression:composite(outputs))*;
-	AddToSet:element(AddToSet) -> "place" Expression:composite(object) "into" Expression:composite(set) ("at" Expression:composite(atIndex))?;
+	AddToSet:element(AddToSet) -> "place" Expression:composite(object) "into" Expression:composite(set) ("at" ArgumentExpression:composite(atIndex))?;
 	RemoveFromSet:element(RemoveFromSet) -> "remove" Expression:composite(object) "from" Expression:composite(set);
 	EmptySet:element(EmptySet) -> "empty" Expression:composite(set);
 	BreakStatement:element(BreakStatement) -> "break";

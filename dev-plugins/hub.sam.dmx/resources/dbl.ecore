@@ -50,8 +50,14 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="isList" ordered="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="listDims" upperBound="-1"
+        eType="#//ListDimension" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifierTypeExpr" eType="#//IdExpr"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ListDimension" eSuperTypes="#//TypedElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="size" ordered="false" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveType" abstract="true" eSuperTypes="#//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="VoidType" eSuperTypes="#//PrimitiveType"/>
@@ -196,6 +202,7 @@
         lowerBound="1" eType="#//Expression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Terminate" eSuperTypes="#//SimpleStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Yield" eSuperTypes="#//SimpleStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Wait" eSuperTypes="#//SimpleStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Reactivate" eSuperTypes="#//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="objectAccess" ordered="false"
@@ -225,7 +232,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="RemoveFromSet" eSuperTypes="#//SetStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AddToSet" eSuperTypes="#//SetStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="atIndex" ordered="false"
-        eType="#//Expression" containment="true"/>
+        eType="#//ArgumentExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EmptySet" eSuperTypes="#//SetStatement"/>
   <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//CompositeStatement">

@@ -2,9 +2,17 @@
 
 module unless {
 
-	extension Unless {
-		Statement -> Unless;
-		Unless -> "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
+	extension UnlessA {
+		Statement -> UnlessA;
+		UnlessA -> "@UnlessA@" "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
+	}
+	semantics {
+		gen "if (!(" condition ")) " codeBlock "";
+	}
+
+	extension UnlessB {
+		Statement -> UnlessB;
+		UnlessB -> "@UnlessB@" "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
 	}
 	semantics {
 		gen "if (!(" condition ")) " codeBlock "";

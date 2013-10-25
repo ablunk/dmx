@@ -168,6 +168,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ListDimension} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ListDimensionItemProvider listDimensionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.ListDimension}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createListDimensionAdapter() {
+		if (listDimensionItemProvider == null) {
+			listDimensionItemProvider = new ListDimensionItemProvider(this);
+		}
+
+		return listDimensionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.VoidType} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -878,6 +901,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		}
 
 		return terminateItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Yield} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected YieldItemProvider yieldItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.Yield}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createYieldAdapter() {
+		if (yieldItemProvider == null) {
+			yieldItemProvider = new YieldItemProvider(this);
+		}
+
+		return yieldItemProvider;
 	}
 
 	/**
@@ -3536,6 +3582,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (modelItemProvider != null) modelItemProvider.dispose();
 		if (importItemProvider != null) importItemProvider.dispose();
 		if (moduleItemProvider != null) moduleItemProvider.dispose();
+		if (listDimensionItemProvider != null) listDimensionItemProvider.dispose();
 		if (voidTypeItemProvider != null) voidTypeItemProvider.dispose();
 		if (intTypeItemProvider != null) intTypeItemProvider.dispose();
 		if (boolTypeItemProvider != null) boolTypeItemProvider.dispose();
@@ -3567,6 +3614,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (returnItemProvider != null) returnItemProvider.dispose();
 		if (waitUntilItemProvider != null) waitUntilItemProvider.dispose();
 		if (terminateItemProvider != null) terminateItemProvider.dispose();
+		if (yieldItemProvider != null) yieldItemProvider.dispose();
 		if (waitItemProvider != null) waitItemProvider.dispose();
 		if (reactivateItemProvider != null) reactivateItemProvider.dispose();
 		if (activateObjectItemProvider != null) activateObjectItemProvider.dispose();

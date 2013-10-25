@@ -208,6 +208,8 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.FIND_CONTAINER: return createFindContainer();
 			case DblPackage.CONSIDER_ID_ELEMENTS: return createConsiderIdElements();
 			case DblPackage.INCLUDE_PATTERN: return createIncludePattern();
+			case DblPackage.YIELD: return createYield();
+			case DblPackage.LIST_DIMENSION: return createListDimension();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -282,6 +284,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Module createModule() {
 		ModuleImpl module = new ModuleImpl();
 		return module;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ListDimension createListDimension() {
+		ListDimensionImpl listDimension = new ListDimensionImpl();
+		return listDimension;
 	}
 
 	/**
@@ -592,6 +604,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Terminate createTerminate() {
 		TerminateImpl terminate = new TerminateImpl();
 		return terminate;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Yield createYield() {
+		YieldImpl yield = new YieldImpl();
+		return yield;
 	}
 
 	/**

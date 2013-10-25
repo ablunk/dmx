@@ -62,6 +62,15 @@ public interface DblFactory extends EFactory {
 	Module createModule();
 
 	/**
+	 * Returns a new object of class '<em>List Dimension</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>List Dimension</em>'.
+	 * @generated
+	 */
+	ListDimension createListDimension();
+
+	/**
 	 * Returns a new object of class '<em>Void Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -339,6 +348,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	Terminate createTerminate();
+
+	/**
+	 * Returns a new object of class '<em>Yield</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Yield</em>'.
+	 * @generated
+	 */
+	Yield createYield();
 
 	/**
 	 * Returns a new object of class '<em>Wait</em>'.

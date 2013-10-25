@@ -1,0 +1,10 @@
+module lists {
+
+	void main() {
+		list(int) l1;
+		place 99 into l1;
+		print l1.at(1);
+		print "\n";
+	}
+
+}

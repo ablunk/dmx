@@ -24,6 +24,10 @@
 				long ms = estimatedTime / (1000 * 1000);
 				System.out.println("Execution time: " + ms / 1000.0 + " seconds");
 
+				Runtime runtime = Runtime.getRuntime();
+				long memory = runtime.totalMemory() - runtime.freeMemory();
+				System.out.println("Memory Usage: " +  memory/1024.0/1024 + " MB");
+
 				System.exit(0);
 			}
 		}
@@ -157,7 +161,15 @@
 	[if (not stm.initialValue.oclIsUndefined())]
 		= [genExpression(stm.initialValue, extensionSemantics)/]
 	[elseif (stm.isList)]
-		= new java.util.ArrayList<[genSimpleType(stm)/]>()
+		[if (stm.listDims->size() = 1)]
+			[let ldim1 : ListDimension = stm.listDims->at(1)]
+				[if (ldim1.size > 0)]
+					= new [genTypeNoWrapOfListPrimitives(ldim1)/]['['/][ldim1.size/][']'/] 
+				[else]
+					= new java.util.ArrayList<[genTypeWrapListPrimitives(ldim1)/]>()	
+				[/if]
+			[/let]
+		[/if]
 	[elseif (not stm.classifierTypeExpr.oclIsUndefined())]
 		= null;
 	[/if]
@@ -176,7 +188,7 @@
 		[let it : String = genExpression(stm.iterableExpression, extensionSemantics).toString().trim().concat('_it')]
 			java.util.Iterator<
 				[if (stm.iterableExpression.oclIsTypeOf(IdExpr))]
-					[genSimpleType(stm.iterableExpression.oclAsType(IdExpr).referencedElement.oclAsType(TypedElement))/]
+					[genTypeWrapListPrimitives(stm.iterableExpression.oclAsType(IdExpr).referencedElement.oclAsType(TypedElement))/]
 				[/if]
 				> 
 				[it/] = [genExpression(stm.iterableExpression, extensionSemantics)/].iterator();
@@ -227,19 +239,32 @@
 
 [template public genType(typedElement : TypedElement)]
 	[if (typedElement.isList)]
-		java.util.List<[genSimpleType(typedElement)/]>
+		[if (typedElement.listDims->size() = 1)]
+			[let ldim1 : ListDimension = typedElement.listDims->at(1)]
+				[if (ldim1.size > 0)]
+					[comment map to array when the size is given /]
+					[genTypeNoWrapOfListPrimitives(ldim1)/]['['/][']'/]
+				[else]
+					java.util.List<[genTypeWrapListPrimitives(ldim1)/]>
+				[/if]
+			[/let]
+		[/if]
 	[else]
-		[genSimpleType(typedElement)/]
+		[genTypeNoWrapOfListPrimitives(typedElement)/]
 	[/if]
 [/template]
 
-[template public genSimpleType(typedElement : TypedElement)]
+[template public genTypeNoWrapOfListPrimitives(typedElement : TypedElement)]
 	[if (not typedElement.primitiveType.oclIsUndefined())]
-		[if (not typedElement.isList)]
-			[genType(typedElement.primitiveType)/]
-		[else]
-			[genWrappedType(typedElement.primitiveType)/]
-		[/if]
+		[genType(typedElement.primitiveType)/]
+	[else]
+		[genClassifierTypeExpr(typedElement.classifierTypeExpr)/]
+	[/if]
+[/template]
+
+[template public genTypeWrapListPrimitives(typedElement : TypedElement)]
+	[if (not typedElement.primitiveType.oclIsUndefined())]
+		[genWrappedType(typedElement.primitiveType)/]
 	[else]
 		[genClassifierTypeExpr(typedElement.classifierTypeExpr)/]
 	[/if]
@@ -275,6 +300,14 @@
 
 [template public genWrappedType(type : IntType)]
 	Long
+[/template]
+
+[template public genWrappedType(type : VoidType)]
+	void
+[/template]
+
+[template public genWrappedType(type : StringType)]
+	String
 [/template]
 
 [template public genWrappedType(type : BoolType)]
@@ -538,7 +571,7 @@
 [/template]
 
 [template public genIdExprPredefinedId(idExpr : IdExpr, extensionSemantics : Boolean, predefinedId : ObjectAt)]
-	get([genExpression(idExpr.arguments, extensionSemantics)/] - 1)
+	get((int) [genExpression(idExpr.arguments, extensionSemantics)/] - 1)
 [/template]
 
 [template public genIdExprPredefinedId(idExpr : IdExpr, extensionSemantics : Boolean, predefinedId : AfterInSet)]
@@ -612,6 +645,11 @@
 [template public genStartSimulationStatement(model : Model)
 		? (getSimLib() = 'desmoj')]
 	[model.modules->first().name.toUpperFirst()/].startMain();
+[/template]
+
+[template public genStatement(stm : Yield, extensionSemantics : Boolean)
+		? (getSimLib() = 'desmoj')]
+	DefaultSimulation.DEFAULT.getCurrentProcess().base_yield();
 [/template]
 
 [template public genStatement(stm : Wait, extensionSemantics : Boolean)
@@ -880,6 +918,10 @@ import hub.sam.dmx.javasim.jdisco.*;
 	current().passivate();
 [/template]
 
+[template public genStatement(stm : Yield, extensionSemantics : Boolean)
+		? (getSimLib() = 'jdisco')]
+	hold(0);
+[/template]
 
 
 [template public genStatement(stm : WaitUntil, extensionSemantics : Boolean)
@@ -904,13 +946,21 @@ import hub.sam.dmx.javasim.jdisco.*;
 
 [template public genStartSimulationStatement(model : Model)
 		? (getSimLib() = 'jist')]
-	hub.sam.dmx.javasim.jist.RunJistSimulation.main(new String['['/][']'/] {
-		"[model.modules->first().name.toUpperFirst()/]"});
+	java.util.List<String> argsList = new java.util.ArrayList<String>();
+	argsList.add("[model.modules->first().name.toUpperFirst()/]");
+	argsList.addAll(Arrays.asList(args));
+
+	hub.sam.dmx.javasim.jist.RunJistSimulation.main(argsList.toArray(new String['['/][']'/] {}));
 [/template]
 
 [template public genStatement(stm : Wait, extensionSemantics : Boolean)
 		? (getSimLib() = 'jist')]
 	getActiveEntity().simWait();
+[/template]
+
+[template public genStatement(stm : Yield, extensionSemantics : Boolean)
+		? (getSimLib() = 'jist')]
+	GlobalSimulationPrimitives.getActiveEntity().yield();
 [/template]
 
 [template public genStatement(stm : ActivateObject, extensionSemantics : Boolean)

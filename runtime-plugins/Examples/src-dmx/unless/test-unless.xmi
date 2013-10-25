@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="unless">
+    <model href="unless.xmi#/"/>
+  </imports>
+  <modules name="TestUnless">
+    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;int i=0;&#xA;&#x9;&#x9;print &quot;i equals &quot; + i + &quot;.\n&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// @..@ is an annotation for unambiously selecting a concept.&#xA;&#x9;&#x9;// the editor could be enhanced to hide the annotation and to leave a visual remark that a certain concept was chosen here&#xA;&#x9;&#x9;// is this all which is necessary to resolve conflicts in composed extensions? &#xA;&#x9;&#x9;@UnlessA@ unless (i >= 10) {&#xA;&#x9;&#x9;&#x9;print &quot;i is less than 10.\n&quot;;&#xA;&#x9;&#x9;}&#xA;&#xA;&#x9;&#x9;@UnlessB@ unless (i >= 10) {&#xA;&#x9;&#x9;&#x9;print &quot;i is less than 10.\n&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i=0">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;i equals &quot; + i + &quot;.\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;i equals &quot; + i + &quot;.\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;i equals &quot; + i">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i equals &quot;" value="i equals "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;.\n&quot;" value=".\n"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:UnlessA" concreteSyntax="@UnlessA@ unless (i >= 10) {&#xA;&#x9;&#x9;&#x9;print &quot;i is less than 10.\n&quot;;&#xA;&#x9;&#x9;}">
+        <condition xsi:type="dbl:GreaterEqual" concreteSyntax="i >= 10">
+          <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+        </condition>
+        <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print &quot;i is less than 10.\n&quot;;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print &quot;i is less than 10.\n&quot;">
+            <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is less than 10.\n&quot;" value="i is less than 10.\n"/>
+          </statements>
+        </codeBlock>
+      </statements>
+      <statements xsi:type="dbl:UnlessB" concreteSyntax="@UnlessB@ unless (i >= 10) {&#xA;&#x9;&#x9;&#x9;print &quot;i is less than 10.\n&quot;;&#xA;&#x9;&#x9;}">
+        <condition xsi:type="dbl:GreaterEqual" concreteSyntax="i >= 10">
+          <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+        </condition>
+        <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print &quot;i is less than 10.\n&quot;;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print &quot;i is less than 10.\n&quot;">
+            <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is less than 10.\n&quot;" value="i is less than 10.\n"/>
+          </statements>
+        </codeBlock>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

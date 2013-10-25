@@ -1,0 +1,32 @@
+module switch {
+
+	void log(string msg) {
+		print "pid-" + active + ": " + msg + "\n";
+	}	
+
+	int count = 5;
+	
+	active class Counter {
+		actions {
+			while (count > 0) {
+				count = count - 1;
+				log("count = " + count);
+				yield;
+			}
+		}
+	}
+
+	void main() {
+		Counter p = new Counter;
+		activate p;
+		
+		print "initial count = " + count + "\n";
+		while (count > 0) {
+			count = count - 1;
+			log("count = " + count);
+			yield;
+		}
+		print "final count = " + count + "\n";
+	}
+
+}

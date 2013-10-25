@@ -104,6 +104,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createTypedElementAdapter();
 			}
 			@Override
+			public Adapter caseListDimension(ListDimension object) {
+				return createListDimensionAdapter();
+			}
+			@Override
 			public Adapter casePrimitiveType(PrimitiveType object) {
 				return createPrimitiveTypeAdapter();
 			}
@@ -246,6 +250,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTerminate(Terminate object) {
 				return createTerminateAdapter();
+			}
+			@Override
+			public Adapter caseYield(Yield object) {
+				return createYieldAdapter();
 			}
 			@Override
 			public Adapter caseWait(Wait object) {
@@ -864,6 +872,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ListDimension <em>List Dimension</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.ListDimension
+	 * @generated
+	 */
+	public Adapter createListDimensionAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.PrimitiveType <em>Primitive Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1364,6 +1386,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTerminateAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Yield <em>Yield</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.Yield
+	 * @generated
+	 */
+	public Adapter createYieldAdapter() {
 		return null;
 	}
 

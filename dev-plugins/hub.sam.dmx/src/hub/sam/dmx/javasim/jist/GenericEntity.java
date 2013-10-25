@@ -51,6 +51,19 @@ public class GenericEntity implements Entity {
 		process.actions();
 	}
 	
+	public void yield() throws Continuation {
+		log("yield");
+		
+		Controller c = Controller.getActiveController();
+		continuationEvent = c.getCurrentEvent();
+		continuationEvent.time = c.getSimulationTime();
+		continuationEvent.waiting = false;
+
+		c.addEvent(continuationEvent.cont.caller);
+		c.currentCaller = null;
+		c.callbackState = null;
+	}
+	
 	public void simWait() throws Continuation {
 		log("simWait");
 		Controller c = Controller.getActiveController();

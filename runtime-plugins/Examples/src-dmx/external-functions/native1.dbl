@@ -22,8 +22,15 @@ module NativeTest {
 		double sample() {}
 	}
 	
+	class ExpDist(string name, double mean) {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.ExpDist"
+		}
+		double sample() {}
+	}
+
 	void main() {
-		UniformReal ui = new UniformReal("arrival1", 12.0, 18.0);		
+		ExpDist ui = new ExpDist("arrival1", 1.0);		
 		int i=0;
 		while (i < 20) {
 			print ui.sample() + "\n";

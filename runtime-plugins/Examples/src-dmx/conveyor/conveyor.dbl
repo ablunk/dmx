@@ -2,12 +2,17 @@
 
 module conveyorDsl {
 
+	extension Forever {
+		Statement -> Forever;
+		Forever -> "forever" code:CodeBlock;
+	}
+
 	interface L1Expr {}
 	interface L2Expr {}
 	
 	extension UnitExpr {
 		L1Expr -> UnitExpr;
-		UnitExpr -> op:L1Expr unit:Unit;
+		UnitExpr -> op:L1Expr ":" unit:Unit;
 		Unit -> "ft";
 		Unit -> "in";
 		Unit -> "m";
@@ -19,6 +24,22 @@ module conveyorDsl {
 	}
 	semantics {
 		
+	}
+
+	extension ConvPlace {
+		Statement -> ConvPlace;
+		// problem: place Expression as ... conflicts with cast-expression
+		ConvPlace -> "place" item:Expression "asLoad" varName:ID "on" conv:Expression ConvPlaceOptionalOffset
+			ConvPlaceOptionalZone ";";
+		ConvPlaceOptionalZone -> ;
+		ConvPlaceOptionalZone -> "ifZoneEmpty" "from" zoneFrom:Expression "to" zoneTo:Expression;
+		ConvPlaceOptionalOffset -> ;
+		ConvPlaceOptionalOffset -> "at" offset:Expression;
+	}
+
+	extension ConvSend {
+		Statement -> ConvSend;
+		ConvSend -> "send" item:$$Statement ";";
 	}
 
 	extension ConveyorSystem {
@@ -84,7 +105,7 @@ module conveyorDsl {
 		LoadKinds -> loadKinds:list(LoadKind) LoadKinds;
 		
 		//LoadKind -> "loadClass" name:ID "length" "=" length:Expression;
-		LoadKind -> "load" loadClass:Classifier;
+		LoadKind -> "loadType" loadClass:$Classifier ";";
 		// for each load class an attribute length is generated as part of its runtime structure
 	}
 

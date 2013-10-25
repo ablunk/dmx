@@ -37,213 +37,264 @@
         <classifierTypeExpr concreteSyntax="Sensor" referencedElement="//@modules.0/@classifiers.0"/>
       </attributes>
     </classifiers>
-    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;double beltLength = 110.0 ft;&#xA;&#x9;double accumLength = 30.0 ft;&#xA;&#xA;&#x9;system {&#xA;&#x9;&#x9;conveyorType LDock {&#xA;&#x9;&#x9;&#x9;length = 20 ft&#xA;&#x9;&#x9;&#x9;speed = 1.0 fps&#xA;&#x9;&#x9;&#x9;from loop&#xA;&#x9;&#x9;&#x9;behavior {&#xA;&#x9;&#x9;&#x9;&#x9;Conveyor loop; // this variable is actually inferred form the conveyorType&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Sensor ldN = loop.sensors.first;&#xA;&#x9;&#x9;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor belt {&#xA;&#x9;&#x9;&#x9;length = beltLength&#xA;&#x9;&#x9;&#x9;speed = 1.0 ft / 1.0 s&#xA;&#x9;&#x9;&#x9;to accum&#xA;&#x9;&#x9;&#x9;sensor beltEnd at beltLength&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor accum {&#xA;&#x9;&#x9;&#x9;length = accumLength&#xA;&#x9;&#x9;&#x9;speed = 1.0 fps&#xA;&#x9;&#x9;&#x9;from belt&#xA;&#x9;&#x9;&#x9;to loop&#xA;&#x9;&#x9;&#x9;kind = accumulating&#xA;&#x9;&#x9;&#x9;sensor accumEnd at accumLength&#xA;&#x9;&#x9;&#x9;sensor accumFull at 15.0 ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor loop {&#xA;&#x9;&#x9;&#x9;length = 454.2477 ft&#xA;&#x9;&#x9;&#x9;speed = 2.0 fps&#xA;&#x9;&#x9;&#x9;from accum&#xA;&#x9;&#x9;&#x9;to dock1 dock2 dock3 dock4&#xA;&#x9;&#x9;&#x9;kind = circular&#xA;&#x9;&#x9;&#x9;sensor ld1 at 147.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 187.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 227.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld3 at 267.124 ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;// the class LoadingDock is augmented with attributes length, speed, from&#xA;&#x9;&#x9;// &quot;loop&quot; should be an attribute of LoadingDock !&#xA;&#x9;&#x9;// how should type and instances be distinguised?&#xA;&#x9;&#x9;conveyor dock1 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor dock2 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor dock3 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor dock4 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// unites LoadClass from SLX Conveyor DSL and Box from PickBest Appl.&#xA;&#x9;&#x9;load class Box {&#xA;&#x9;&#x9;&#x9;//Conveyor destination; // references the language element class&#xA;&#x9;&#x9;&#x9;double length; // gets generated&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;initial {&#xA;&#x9;&#x9;&#x9;&#x9;double r; // = rv_uniform(...);&#xA;&#x9;&#x9;&#x9;&#x9;if (r &lt;= 1/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 11 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;elseif (r &lt;= 2/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 17 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 23 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}">
-      <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="beltLength" concreteSyntax="double beltLength = 110.0 ft">
+    <classifiers xsi:type="dbl:Clazz" name="Box">
+      <attributes name="destination" concreteSyntax="Conveyor destination">
+        <classifierTypeExpr concreteSyntax="Conveyor" referencedElement="//@modules.0/@classifiers.1"/>
+      </attributes>
+      <attributes name="len" concreteSyntax="double len">
         <primitiveType xsi:type="dbl:DoubleType"/>
-        <initialValue xsi:type="dbl:UnitExpr" concreteSyntax="110.0 ft">
+      </attributes>
+      <initialBlock concreteSyntax="{&#xA;&#x9;&#x9;double r; // = rv_uniform(...);&#xA;&#x9;&#x9;if (r &lt;= 1/3) {&#xA;&#x9;&#x9;&#x9;len = 11:in;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;elseif (r &lt;= 2/3) {&#xA;&#x9;&#x9;&#x9;len = 17:in;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;len = 23:in;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+        <statements xsi:type="dbl:Variable" name="r" concreteSyntax="double r">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (r &lt;= 1/3) {&#xA;&#x9;&#x9;&#x9;len = 11:in;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;elseif (r &lt;= 2/3) {&#xA;&#x9;&#x9;&#x9;len = 17:in;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;len = 23:in;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:LessEqual" concreteSyntax="r &lt;= 1/3">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="r" referencedElement="//@modules.0/@classifiers.2/@initialBlock/@statements.0"/>
+            <op2 xsi:type="dbl:Div" concreteSyntax="1/3">
+              <op1 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
+            </op2>
+          </condition>
+          <ifCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;len = 11:in;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Assignment" concreteSyntax="len = 11:in">
+              <variable concreteSyntax="len">
+                <idExpr concreteSyntax="len" referencedElement="//@modules.0/@classifiers.2/@attributes.1"/>
+              </variable>
+              <value xsi:type="dbl:UnitExpr" concreteSyntax="11:in">
+                <op xsi:type="dbl:IntLiteral" concreteSyntax="11" value="11"/>
+                <unit concreteSyntax="in"/>
+              </value>
+            </statements>
+          </ifCaseBlock>
+          <elifCondition xsi:type="dbl:LessEqual" concreteSyntax="r &lt;= 2/3">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="r" referencedElement="//@modules.0/@classifiers.2/@initialBlock/@statements.0"/>
+            <op2 xsi:type="dbl:Div" concreteSyntax="2/3">
+              <op1 xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
+            </op2>
+          </elifCondition>
+          <elifCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;len = 17:in;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Assignment" concreteSyntax="len = 17:in">
+              <variable concreteSyntax="len">
+                <idExpr concreteSyntax="len" referencedElement="//@modules.0/@classifiers.2/@attributes.1"/>
+              </variable>
+              <value xsi:type="dbl:UnitExpr" concreteSyntax="17:in">
+                <op xsi:type="dbl:IntLiteral" concreteSyntax="17" value="17"/>
+                <unit concreteSyntax="in"/>
+              </value>
+            </statements>
+          </elifCaseBlock>
+          <elseCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;len = 23:in;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Assignment" concreteSyntax="len = 23:in">
+              <variable concreteSyntax="len">
+                <idExpr concreteSyntax="len" referencedElement="//@modules.0/@classifiers.2/@attributes.1"/>
+              </variable>
+              <value xsi:type="dbl:UnitExpr" concreteSyntax="23:in">
+                <op xsi:type="dbl:IntLiteral" concreteSyntax="23" value="23"/>
+                <unit concreteSyntax="in"/>
+              </value>
+            </statements>
+          </elseCaseBlock>
+        </statements>
+      </initialBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="LoadingDock" active="true">
+      <actionsBlock concreteSyntax="{&#xA;&#x9;&#x9;Conveyor loop; // = dock.loop;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;Sensor ldN = loop.sensors.first;&#xA;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+        <statements xsi:type="dbl:Variable" name="loop" concreteSyntax="Conveyor loop">
+          <classifierTypeExpr concreteSyntax="Conveyor" referencedElement="//@modules.0/@classifiers.1"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="ldN" concreteSyntax="Sensor ldN = loop.sensors.first">
+          <classifierTypeExpr concreteSyntax="Sensor" referencedElement="//@modules.0/@classifiers.0"/>
+          <initialValue xsi:type="dbl:IdExpr" concreteSyntax="loop.sensors.first">
+            <parentIdExpr concreteSyntax="loop.sensors" referencedElement="//@modules.0/@classifiers.1/@attributes.4">
+              <parentIdExpr concreteSyntax="loop" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0"/>
+            </parentIdExpr>
+            <predefinedId xsi:type="dbl:FirstInSet"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (true) {&#xA;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+          <whileBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:WaitUntil" concreteSyntax="wait until ldN.currentLoad != null">
+              <condition xsi:type="dbl:NotEqual" concreteSyntax="ldN.currentLoad != null">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="ldN.currentLoad" referencedElement="//@modules.0/@classifiers.0/@attributes.3">
+                  <parentIdExpr concreteSyntax="ldN" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.1"/>
+                </op1>
+                <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+              </condition>
+            </statements>
+          </whileBlock>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Picker" active="true">
+      <actionsBlock concreteSyntax="{&#xA;&#x9;&#x9;forever {&#xA;&#x9;&#x9;&#x9;double pickPoint; // ...&#xA;&#x9;&#x9;&#x9;//Object load;&#xA;&#x9;&#x9;&#x9;Box b = new Box;&#xA;&#x9;&#x9;&#x9;advance 10;&#xA;&#x9;&#x9;&#x9;// enqueue pickerQ;&#xA;&#x9;&#x9;&#x9;place b asLoad load on belt at pickPoint ifZoneEmpty from pickPoint-0.5+b.len to pickPoint+0.5;&#xA;&#x9;&#x9;&#x9;// depart pickerQ;&#xA;&#x9;&#x9;&#x9;send load;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+        <statements xsi:type="dbl:Forever" concreteSyntax="forever {&#xA;&#x9;&#x9;&#x9;double pickPoint; // ...&#xA;&#x9;&#x9;&#x9;//Object load;&#xA;&#x9;&#x9;&#x9;Box b = new Box;&#xA;&#x9;&#x9;&#x9;advance 10;&#xA;&#x9;&#x9;&#x9;// enqueue pickerQ;&#xA;&#x9;&#x9;&#x9;place b asLoad load on belt at pickPoint ifZoneEmpty from pickPoint-0.5+b.len to pickPoint+0.5;&#xA;&#x9;&#x9;&#x9;// depart pickerQ;&#xA;&#x9;&#x9;&#x9;send load;&#xA;&#x9;&#x9;}">
+          <code concreteSyntax="{&#xA;&#x9;&#x9;&#x9;double pickPoint; // ...&#xA;&#x9;&#x9;&#x9;//Object load;&#xA;&#x9;&#x9;&#x9;Box b = new Box;&#xA;&#x9;&#x9;&#x9;advance 10;&#xA;&#x9;&#x9;&#x9;// enqueue pickerQ;&#xA;&#x9;&#x9;&#x9;place b asLoad load on belt at pickPoint ifZoneEmpty from pickPoint-0.5+b.len to pickPoint+0.5;&#xA;&#x9;&#x9;&#x9;// depart pickerQ;&#xA;&#x9;&#x9;&#x9;send load;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Variable" name="pickPoint" concreteSyntax="double pickPoint">
+              <primitiveType xsi:type="dbl:DoubleType"/>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="b" concreteSyntax="Box b = new Box">
+              <classifierTypeExpr concreteSyntax="Box" referencedElement="//@modules.0/@classifiers.2"/>
+              <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Box">
+                <classifierTypeExpr concreteSyntax="Box" referencedElement="//@modules.0/@classifiers.2"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
+              <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+            </statements>
+            <statements xsi:type="dbl:ConvPlace" name="load" concreteSyntax="place b asLoad load on belt at pickPoint ifZoneEmpty from pickPoint-0.5+b.len to pickPoint+0.5;">
+              <item xsi:type="dbl:IdExpr" concreteSyntax="b" referencedElement="//@modules.0/@classifiers.4/@actionsBlock/@statements.0/@code/@statements.1"/>
+              <conv xsi:type="dbl:IdExpr" concreteSyntax="belt" referencedElement="//@modules.0/@variables.0"/>
+              <zoneFrom xsi:type="dbl:Plus" concreteSyntax="pickPoint-0.5+b.len">
+                <op1 xsi:type="dbl:Minus" concreteSyntax="pickPoint-0.5">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="pickPoint" referencedElement="//@modules.0/@classifiers.4/@actionsBlock/@statements.0/@code/@statements.0"/>
+                  <op2 xsi:type="dbl:DoubleLiteral" concreteSyntax="0.5" value="0.5"/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="b.len" referencedElement="//@modules.0/@classifiers.2/@attributes.1">
+                  <parentIdExpr concreteSyntax="b" referencedElement="//@modules.0/@classifiers.4/@actionsBlock/@statements.0/@code/@statements.1"/>
+                </op2>
+              </zoneFrom>
+              <zoneTo xsi:type="dbl:Plus" concreteSyntax="pickPoint+0.5">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="pickPoint" referencedElement="//@modules.0/@classifiers.4/@actionsBlock/@statements.0/@code/@statements.0"/>
+                <op2 xsi:type="dbl:DoubleLiteral" concreteSyntax="0.5" value="0.5"/>
+              </zoneTo>
+              <offset xsi:type="dbl:IdExpr" concreteSyntax="pickPoint" referencedElement="//@modules.0/@classifiers.4/@actionsBlock/@statements.0/@code/@statements.0"/>
+            </statements>
+            <statements xsi:type="dbl:ConvSend" concreteSyntax="send load;" item="//@modules.0/@classifiers.4/@actionsBlock/@statements.0/@code/@statements.3"/>
+          </code>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;double beltLength = 110.0:ft;&#xA;&#x9;double accumLength = 30.0:ft;&#xA;&#xA;&#x9;system {&#xA;&#x9;&#x9;conveyorType LDock {&#xA;&#x9;&#x9;&#x9;length = 20:ft&#xA;&#x9;&#x9;&#x9;speed = 1.0:fps&#xA;&#x9;&#x9;&#x9;from loop&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor belt {&#xA;&#x9;&#x9;&#x9;length = beltLength&#xA;&#x9;&#x9;&#x9;speed = 1.0:ft / 1.0:s&#xA;&#x9;&#x9;&#x9;to accum&#xA;&#x9;&#x9;&#x9;sensor beltEnd at beltLength&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor accum {&#xA;&#x9;&#x9;&#x9;length = accumLength&#xA;&#x9;&#x9;&#x9;speed = 1.0:fps&#xA;&#x9;&#x9;&#x9;from belt&#xA;&#x9;&#x9;&#x9;to loop&#xA;&#x9;&#x9;&#x9;kind = accumulating&#xA;&#x9;&#x9;&#x9;sensor accumEnd at accumLength&#xA;&#x9;&#x9;&#x9;sensor accumFull at 15.0:ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor loop {&#xA;&#x9;&#x9;&#x9;length = 454.2477:ft&#xA;&#x9;&#x9;&#x9;speed = 2.0:fps&#xA;&#x9;&#x9;&#x9;from accum&#xA;&#x9;&#x9;&#x9;to dock1 dock2 dock3 dock4&#xA;&#x9;&#x9;&#x9;kind = circular&#xA;&#x9;&#x9;&#x9;sensor ld1 at 147.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 187.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 227.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld3 at 267.124:ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;// the class LoadingDock is augmented with attributes length, speed, from&#xA;&#x9;&#x9;// &quot;loop&quot; should be an attribute of LoadingDock !&#xA;&#x9;&#x9;// how should type and instances be distinguised?&#xA;&#x9;&#x9;conveyor dock1 ofType LDock {}&#xA;&#x9;&#x9;conveyor dock2 ofType LDock {}&#xA;&#x9;&#x9;conveyor dock3 ofType LDock {}&#xA;&#x9;&#x9;conveyor dock4 ofType LDock {}&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// unites LoadClass from SLX Conveyor DSL and Box from PickBest Appl.&#xA;&#x9;&#x9;loadType Box;&#xA;&#x9;}&#xA;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="beltLength" concreteSyntax="double beltLength = 110.0:ft">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+        <initialValue xsi:type="dbl:UnitExpr" concreteSyntax="110.0:ft">
           <op xsi:type="dbl:DoubleLiteral" concreteSyntax="110.0" value="110.0"/>
           <unit concreteSyntax="ft"/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:Variable" name="accumLength" concreteSyntax="double accumLength = 30.0 ft">
+      <statements xsi:type="dbl:Variable" name="accumLength" concreteSyntax="double accumLength = 30.0:ft">
         <primitiveType xsi:type="dbl:DoubleType"/>
-        <initialValue xsi:type="dbl:UnitExpr" concreteSyntax="30.0 ft">
+        <initialValue xsi:type="dbl:UnitExpr" concreteSyntax="30.0:ft">
           <op xsi:type="dbl:DoubleLiteral" concreteSyntax="30.0" value="30.0"/>
           <unit concreteSyntax="ft"/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:ConveyorSystem" concreteSyntax="system {&#xA;&#x9;&#x9;conveyorType LDock {&#xA;&#x9;&#x9;&#x9;length = 20 ft&#xA;&#x9;&#x9;&#x9;speed = 1.0 fps&#xA;&#x9;&#x9;&#x9;from loop&#xA;&#x9;&#x9;&#x9;behavior {&#xA;&#x9;&#x9;&#x9;&#x9;Conveyor loop; // this variable is actually inferred form the conveyorType&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Sensor ldN = loop.sensors.first;&#xA;&#x9;&#x9;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor belt {&#xA;&#x9;&#x9;&#x9;length = beltLength&#xA;&#x9;&#x9;&#x9;speed = 1.0 ft / 1.0 s&#xA;&#x9;&#x9;&#x9;to accum&#xA;&#x9;&#x9;&#x9;sensor beltEnd at beltLength&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor accum {&#xA;&#x9;&#x9;&#x9;length = accumLength&#xA;&#x9;&#x9;&#x9;speed = 1.0 fps&#xA;&#x9;&#x9;&#x9;from belt&#xA;&#x9;&#x9;&#x9;to loop&#xA;&#x9;&#x9;&#x9;kind = accumulating&#xA;&#x9;&#x9;&#x9;sensor accumEnd at accumLength&#xA;&#x9;&#x9;&#x9;sensor accumFull at 15.0 ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor loop {&#xA;&#x9;&#x9;&#x9;length = 454.2477 ft&#xA;&#x9;&#x9;&#x9;speed = 2.0 fps&#xA;&#x9;&#x9;&#x9;from accum&#xA;&#x9;&#x9;&#x9;to dock1 dock2 dock3 dock4&#xA;&#x9;&#x9;&#x9;kind = circular&#xA;&#x9;&#x9;&#x9;sensor ld1 at 147.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 187.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 227.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld3 at 267.124 ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;// the class LoadingDock is augmented with attributes length, speed, from&#xA;&#x9;&#x9;// &quot;loop&quot; should be an attribute of LoadingDock !&#xA;&#x9;&#x9;// how should type and instances be distinguised?&#xA;&#x9;&#x9;conveyor dock1 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor dock2 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor dock3 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor dock4 ofType LDock {&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// unites LoadClass from SLX Conveyor DSL and Box from PickBest Appl.&#xA;&#x9;&#x9;load class Box {&#xA;&#x9;&#x9;&#x9;//Conveyor destination; // references the language element class&#xA;&#x9;&#x9;&#x9;double length; // gets generated&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;initial {&#xA;&#x9;&#x9;&#x9;&#x9;double r; // = rv_uniform(...);&#xA;&#x9;&#x9;&#x9;&#x9;if (r &lt;= 1/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 11 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;elseif (r &lt;= 2/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 17 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 23 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}">
-        <conveyorTypess name="LDock" concreteSyntax="conveyorType LDock {&#xA;&#x9;&#x9;&#x9;length = 20 ft&#xA;&#x9;&#x9;&#x9;speed = 1.0 fps&#xA;&#x9;&#x9;&#x9;from loop&#xA;&#x9;&#x9;&#x9;behavior {&#xA;&#x9;&#x9;&#x9;&#x9;Conveyor loop; // this variable is actually inferred form the conveyorType&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Sensor ldN = loop.sensors.first;&#xA;&#x9;&#x9;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}">
-          <length xsi:type="dbl:UnitExpr" concreteSyntax="20 ft">
+      <statements xsi:type="dbl:ConveyorSystem" concreteSyntax="system {&#xA;&#x9;&#x9;conveyorType LDock {&#xA;&#x9;&#x9;&#x9;length = 20:ft&#xA;&#x9;&#x9;&#x9;speed = 1.0:fps&#xA;&#x9;&#x9;&#x9;from loop&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor belt {&#xA;&#x9;&#x9;&#x9;length = beltLength&#xA;&#x9;&#x9;&#x9;speed = 1.0:ft / 1.0:s&#xA;&#x9;&#x9;&#x9;to accum&#xA;&#x9;&#x9;&#x9;sensor beltEnd at beltLength&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor accum {&#xA;&#x9;&#x9;&#x9;length = accumLength&#xA;&#x9;&#x9;&#x9;speed = 1.0:fps&#xA;&#x9;&#x9;&#x9;from belt&#xA;&#x9;&#x9;&#x9;to loop&#xA;&#x9;&#x9;&#x9;kind = accumulating&#xA;&#x9;&#x9;&#x9;sensor accumEnd at accumLength&#xA;&#x9;&#x9;&#x9;sensor accumFull at 15.0:ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;conveyor loop {&#xA;&#x9;&#x9;&#x9;length = 454.2477:ft&#xA;&#x9;&#x9;&#x9;speed = 2.0:fps&#xA;&#x9;&#x9;&#x9;from accum&#xA;&#x9;&#x9;&#x9;to dock1 dock2 dock3 dock4&#xA;&#x9;&#x9;&#x9;kind = circular&#xA;&#x9;&#x9;&#x9;sensor ld1 at 147.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 187.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 227.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld3 at 267.124:ft&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;// the class LoadingDock is augmented with attributes length, speed, from&#xA;&#x9;&#x9;// &quot;loop&quot; should be an attribute of LoadingDock !&#xA;&#x9;&#x9;// how should type and instances be distinguised?&#xA;&#x9;&#x9;conveyor dock1 ofType LDock {}&#xA;&#x9;&#x9;conveyor dock2 ofType LDock {}&#xA;&#x9;&#x9;conveyor dock3 ofType LDock {}&#xA;&#x9;&#x9;conveyor dock4 ofType LDock {}&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// unites LoadClass from SLX Conveyor DSL and Box from PickBest Appl.&#xA;&#x9;&#x9;loadType Box;&#xA;&#x9;}">
+        <conveyorTypess name="LDock" concreteSyntax="conveyorType LDock {&#xA;&#x9;&#x9;&#x9;length = 20:ft&#xA;&#x9;&#x9;&#x9;speed = 1.0:fps&#xA;&#x9;&#x9;&#x9;from loop&#xA;&#x9;&#x9;}">
+          <length xsi:type="dbl:UnitExpr" concreteSyntax="20:ft">
             <op xsi:type="dbl:IntLiteral" concreteSyntax="20" value="20"/>
             <unit concreteSyntax="ft"/>
           </length>
-          <speed xsi:type="dbl:UnitExpr" concreteSyntax="1.0 fps">
+          <speed xsi:type="dbl:UnitExpr" concreteSyntax="1.0:fps">
             <op xsi:type="dbl:DoubleLiteral" concreteSyntax="1.0" value="1.0"/>
             <unit concreteSyntax="fps"/>
           </speed>
           <fromConv concreteSyntax="loop">
             <convRefs concreteSyntax="loop" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.2"/>
           </fromConv>
-          <behavior concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Conveyor loop; // this variable is actually inferred form the conveyorType&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Sensor ldN = loop.sensors.first;&#xA;&#x9;&#x9;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}">
-            <statements xsi:type="dbl:Variable" name="loop" concreteSyntax="Conveyor loop">
-              <classifierTypeExpr concreteSyntax="Conveyor" referencedElement="//@modules.0/@classifiers.1"/>
-            </statements>
-            <statements xsi:type="dbl:Variable" name="ldN" concreteSyntax="Sensor ldN = loop.sensors.first">
-              <classifierTypeExpr concreteSyntax="Sensor" referencedElement="//@modules.0/@classifiers.0"/>
-              <initialValue xsi:type="dbl:IdExpr" concreteSyntax="loop.sensors.first">
-                <parentIdExpr concreteSyntax="loop.sensors" referencedElement="//@modules.0/@classifiers.1/@attributes.4">
-                  <parentIdExpr concreteSyntax="loop" referencedElement="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0/@behavior/@statements.0"/>
-                </parentIdExpr>
-                <predefinedId xsi:type="dbl:FirstInSet"/>
-              </initialValue>
-            </statements>
-            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (true) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;&#x9;&#x9;}">
-              <condition xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
-              <whileBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait until ldN.currentLoad != null;&#xA;&#x9;&#x9;&#x9;&#x9;}">
-                <statements xsi:type="dbl:WaitUntil" concreteSyntax="wait until ldN.currentLoad != null">
-                  <condition xsi:type="dbl:NotEqual" concreteSyntax="ldN.currentLoad != null">
-                    <op1 xsi:type="dbl:IdExpr" concreteSyntax="ldN.currentLoad" referencedElement="//@modules.0/@classifiers.0/@attributes.3">
-                      <parentIdExpr concreteSyntax="ldN" referencedElement="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0/@behavior/@statements.1"/>
-                    </op1>
-                    <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
-                  </condition>
-                </statements>
-              </whileBlock>
-            </statements>
-          </behavior>
         </conveyorTypess>
-        <conveyors name="belt" concreteSyntax="conveyor belt {&#xA;&#x9;&#x9;&#x9;length = beltLength&#xA;&#x9;&#x9;&#x9;speed = 1.0 ft / 1.0 s&#xA;&#x9;&#x9;&#x9;to accum&#xA;&#x9;&#x9;&#x9;sensor beltEnd at beltLength&#xA;&#x9;&#x9;}">
-          <length xsi:type="dbl:IdExpr" concreteSyntax="beltLength" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-          <speed xsi:type="dbl:Div" concreteSyntax="1.0 ft / 1.0 s">
-            <op1 xsi:type="dbl:UnitExpr" concreteSyntax="1.0 ft">
-              <op xsi:type="dbl:DoubleLiteral" concreteSyntax="1.0" value="1.0"/>
-              <unit concreteSyntax="ft"/>
-            </op1>
-            <op2 xsi:type="dbl:UnitExpr" concreteSyntax="1.0 s">
-              <op xsi:type="dbl:DoubleLiteral" concreteSyntax="1.0" value="1.0"/>
-              <unit concreteSyntax="s"/>
-            </op2>
-          </speed>
+        <conveyors name="belt" concreteSyntax="conveyor belt {&#xA;&#x9;&#x9;&#x9;length = beltLength&#xA;&#x9;&#x9;&#x9;speed = 1.0:ft / 1.0:s&#xA;&#x9;&#x9;&#x9;to accum&#xA;&#x9;&#x9;&#x9;sensor beltEnd at beltLength&#xA;&#x9;&#x9;}">
           <toConv concreteSyntax="accum">
             <convRefs concreteSyntax="accum" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.1"/>
           </toConv>
           <sensors name="beltEnd" concreteSyntax="sensor beltEnd at beltLength">
             <atPos xsi:type="dbl:IdExpr" concreteSyntax="beltLength" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
           </sensors>
-        </conveyors>
-        <conveyors name="accum" concreteSyntax="conveyor accum {&#xA;&#x9;&#x9;&#x9;length = accumLength&#xA;&#x9;&#x9;&#x9;speed = 1.0 fps&#xA;&#x9;&#x9;&#x9;from belt&#xA;&#x9;&#x9;&#x9;to loop&#xA;&#x9;&#x9;&#x9;kind = accumulating&#xA;&#x9;&#x9;&#x9;sensor accumEnd at accumLength&#xA;&#x9;&#x9;&#x9;sensor accumFull at 15.0 ft&#xA;&#x9;&#x9;}">
-          <length xsi:type="dbl:IdExpr" concreteSyntax="accumLength" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
-          <speed xsi:type="dbl:UnitExpr" concreteSyntax="1.0 fps">
-            <op xsi:type="dbl:DoubleLiteral" concreteSyntax="1.0" value="1.0"/>
-            <unit concreteSyntax="fps"/>
+          <length xsi:type="dbl:IdExpr" concreteSyntax="beltLength" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          <speed xsi:type="dbl:Div" concreteSyntax="1.0:ft / 1.0:s">
+            <op1 xsi:type="dbl:UnitExpr" concreteSyntax="1.0:ft">
+              <op xsi:type="dbl:DoubleLiteral" concreteSyntax="1.0" value="1.0"/>
+              <unit concreteSyntax="ft"/>
+            </op1>
+            <op2 xsi:type="dbl:UnitExpr" concreteSyntax="1.0:s">
+              <op xsi:type="dbl:DoubleLiteral" concreteSyntax="1.0" value="1.0"/>
+              <unit concreteSyntax="s"/>
+            </op2>
           </speed>
-          <fromConv concreteSyntax="belt">
-            <convRefs concreteSyntax="belt" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.0"/>
-          </fromConv>
+        </conveyors>
+        <conveyors name="accum" concreteSyntax="conveyor accum {&#xA;&#x9;&#x9;&#x9;length = accumLength&#xA;&#x9;&#x9;&#x9;speed = 1.0:fps&#xA;&#x9;&#x9;&#x9;from belt&#xA;&#x9;&#x9;&#x9;to loop&#xA;&#x9;&#x9;&#x9;kind = accumulating&#xA;&#x9;&#x9;&#x9;sensor accumEnd at accumLength&#xA;&#x9;&#x9;&#x9;sensor accumFull at 15.0:ft&#xA;&#x9;&#x9;}">
           <toConv concreteSyntax="loop">
             <convRefs concreteSyntax="loop" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.2"/>
           </toConv>
           <sensors name="accumEnd" concreteSyntax="sensor accumEnd at accumLength">
             <atPos xsi:type="dbl:IdExpr" concreteSyntax="accumLength" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
           </sensors>
-          <sensors name="accumFull" concreteSyntax="sensor accumFull at 15.0 ft">
-            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="15.0 ft">
+          <sensors name="accumFull" concreteSyntax="sensor accumFull at 15.0:ft">
+            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="15.0:ft">
               <op xsi:type="dbl:DoubleLiteral" concreteSyntax="15.0" value="15.0"/>
               <unit concreteSyntax="ft"/>
             </atPos>
           </sensors>
-        </conveyors>
-        <conveyors name="loop" concreteSyntax="conveyor loop {&#xA;&#x9;&#x9;&#x9;length = 454.2477 ft&#xA;&#x9;&#x9;&#x9;speed = 2.0 fps&#xA;&#x9;&#x9;&#x9;from accum&#xA;&#x9;&#x9;&#x9;to dock1 dock2 dock3 dock4&#xA;&#x9;&#x9;&#x9;kind = circular&#xA;&#x9;&#x9;&#x9;sensor ld1 at 147.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 187.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 227.124 ft&#xA;&#x9;&#x9;&#x9;sensor ld3 at 267.124 ft&#xA;&#x9;&#x9;}">
-          <length xsi:type="dbl:UnitExpr" concreteSyntax="454.2477 ft">
-            <op xsi:type="dbl:DoubleLiteral" concreteSyntax="454.2477" value="454.2477"/>
-            <unit concreteSyntax="ft"/>
-          </length>
-          <speed xsi:type="dbl:UnitExpr" concreteSyntax="2.0 fps">
-            <op xsi:type="dbl:DoubleLiteral" concreteSyntax="2.0" value="2.0"/>
+          <length xsi:type="dbl:IdExpr" concreteSyntax="accumLength" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+          <speed xsi:type="dbl:UnitExpr" concreteSyntax="1.0:fps">
+            <op xsi:type="dbl:DoubleLiteral" concreteSyntax="1.0" value="1.0"/>
             <unit concreteSyntax="fps"/>
           </speed>
-          <fromConv concreteSyntax="accum">
-            <convRefs concreteSyntax="accum" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.1"/>
+          <fromConv concreteSyntax="belt">
+            <convRefs concreteSyntax="belt" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.0"/>
           </fromConv>
+        </conveyors>
+        <conveyors name="loop" concreteSyntax="conveyor loop {&#xA;&#x9;&#x9;&#x9;length = 454.2477:ft&#xA;&#x9;&#x9;&#x9;speed = 2.0:fps&#xA;&#x9;&#x9;&#x9;from accum&#xA;&#x9;&#x9;&#x9;to dock1 dock2 dock3 dock4&#xA;&#x9;&#x9;&#x9;kind = circular&#xA;&#x9;&#x9;&#x9;sensor ld1 at 147.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 187.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld2 at 227.124:ft&#xA;&#x9;&#x9;&#x9;sensor ld3 at 267.124:ft&#xA;&#x9;&#x9;}">
           <toConv concreteSyntax="dock1 dock2 dock3 dock4">
             <convRefs concreteSyntax="dock1" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.3"/>
             <convRefs concreteSyntax="dock2" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.4"/>
             <convRefs concreteSyntax="dock3" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.5"/>
             <convRefs concreteSyntax="dock4" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.6"/>
           </toConv>
-          <sensors name="ld1" concreteSyntax="sensor ld1 at 147.124 ft">
-            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="147.124 ft">
+          <sensors name="ld1" concreteSyntax="sensor ld1 at 147.124:ft">
+            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="147.124:ft">
               <op xsi:type="dbl:DoubleLiteral" concreteSyntax="147.124" value="147.124"/>
               <unit concreteSyntax="ft"/>
             </atPos>
           </sensors>
-          <sensors name="ld2" concreteSyntax="sensor ld2 at 187.124 ft">
-            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="187.124 ft">
+          <sensors name="ld2" concreteSyntax="sensor ld2 at 187.124:ft">
+            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="187.124:ft">
               <op xsi:type="dbl:DoubleLiteral" concreteSyntax="187.124" value="187.124"/>
               <unit concreteSyntax="ft"/>
             </atPos>
           </sensors>
-          <sensors name="ld2" concreteSyntax="sensor ld2 at 227.124 ft">
-            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="227.124 ft">
+          <sensors name="ld2" concreteSyntax="sensor ld2 at 227.124:ft">
+            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="227.124:ft">
               <op xsi:type="dbl:DoubleLiteral" concreteSyntax="227.124" value="227.124"/>
               <unit concreteSyntax="ft"/>
             </atPos>
           </sensors>
-          <sensors name="ld3" concreteSyntax="sensor ld3 at 267.124 ft">
-            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="267.124 ft">
+          <sensors name="ld3" concreteSyntax="sensor ld3 at 267.124:ft">
+            <atPos xsi:type="dbl:UnitExpr" concreteSyntax="267.124:ft">
               <op xsi:type="dbl:DoubleLiteral" concreteSyntax="267.124" value="267.124"/>
               <unit concreteSyntax="ft"/>
             </atPos>
           </sensors>
+          <length xsi:type="dbl:UnitExpr" concreteSyntax="454.2477:ft">
+            <op xsi:type="dbl:DoubleLiteral" concreteSyntax="454.2477" value="454.2477"/>
+            <unit concreteSyntax="ft"/>
+          </length>
+          <speed xsi:type="dbl:UnitExpr" concreteSyntax="2.0:fps">
+            <op xsi:type="dbl:DoubleLiteral" concreteSyntax="2.0" value="2.0"/>
+            <unit concreteSyntax="fps"/>
+          </speed>
+          <fromConv concreteSyntax="accum">
+            <convRefs concreteSyntax="accum" conv="//@modules.0/@procedures.0/@statements.2/@conveyors.1"/>
+          </fromConv>
         </conveyors>
-        <conveyors name="dock1" concreteSyntax="conveyor dock1 ofType LDock {&#xA;&#x9;&#x9;}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
-        <conveyors name="dock2" concreteSyntax="conveyor dock2 ofType LDock {&#xA;&#x9;&#x9;}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
-        <conveyors name="dock3" concreteSyntax="conveyor dock3 ofType LDock {&#xA;&#x9;&#x9;}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
-        <conveyors name="dock4" concreteSyntax="conveyor dock4 ofType LDock {&#xA;&#x9;&#x9;}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
-        <loadKinds concreteSyntax="load class Box {&#xA;&#x9;&#x9;&#x9;//Conveyor destination; // references the language element class&#xA;&#x9;&#x9;&#x9;double length; // gets generated&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;initial {&#xA;&#x9;&#x9;&#x9;&#x9;double r; // = rv_uniform(...);&#xA;&#x9;&#x9;&#x9;&#x9;if (r &lt;= 1/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 11 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;elseif (r &lt;= 2/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 17 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 23 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}">
-          <loadClass xsi:type="dbl:Clazz" name="Box">
-            <attributes name="length" concreteSyntax="double length">
-              <primitiveType xsi:type="dbl:DoubleType"/>
-            </attributes>
-            <initialBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;double r; // = rv_uniform(...);&#xA;&#x9;&#x9;&#x9;&#x9;if (r &lt;= 1/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 11 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;elseif (r &lt;= 2/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 17 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 23 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}">
-              <statements xsi:type="dbl:Variable" name="r" concreteSyntax="double r">
-                <primitiveType xsi:type="dbl:DoubleType"/>
-              </statements>
-              <statements xsi:type="dbl:IfStatement" concreteSyntax="if (r &lt;= 1/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 11 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;elseif (r &lt;= 2/3) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 17 in;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 23 in;&#xA;&#x9;&#x9;&#x9;&#x9;}">
-                <condition xsi:type="dbl:LessEqual" concreteSyntax="r &lt;= 1/3">
-                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="r" referencedElement="//@modules.0/@procedures.0/@statements.2/@loadKinds.0/@loadClass/@initialBlock/@statements.0"/>
-                  <op2 xsi:type="dbl:Div" concreteSyntax="1/3">
-                    <op1 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
-                    <op2 xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
-                  </op2>
-                </condition>
-                <ifCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 11 in;&#xA;&#x9;&#x9;&#x9;&#x9;}">
-                  <statements xsi:type="dbl:Assignment" concreteSyntax="length = 11 in">
-                    <variable concreteSyntax="length">
-                      <idExpr concreteSyntax="length" referencedElement="//@modules.0/@procedures.0/@statements.2/@loadKinds.0/@loadClass/@attributes.0"/>
-                    </variable>
-                    <value xsi:type="dbl:UnitExpr" concreteSyntax="11 in">
-                      <op xsi:type="dbl:IntLiteral" concreteSyntax="11" value="11"/>
-                      <unit concreteSyntax="in"/>
-                    </value>
-                  </statements>
-                </ifCaseBlock>
-                <elifCondition xsi:type="dbl:LessEqual" concreteSyntax="r &lt;= 2/3">
-                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="r" referencedElement="//@modules.0/@procedures.0/@statements.2/@loadKinds.0/@loadClass/@initialBlock/@statements.0"/>
-                  <op2 xsi:type="dbl:Div" concreteSyntax="2/3">
-                    <op1 xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
-                    <op2 xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
-                  </op2>
-                </elifCondition>
-                <elifCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 17 in;&#xA;&#x9;&#x9;&#x9;&#x9;}">
-                  <statements xsi:type="dbl:Assignment" concreteSyntax="length = 17 in">
-                    <variable concreteSyntax="length">
-                      <idExpr concreteSyntax="length" referencedElement="//@modules.0/@procedures.0/@statements.2/@loadKinds.0/@loadClass/@attributes.0"/>
-                    </variable>
-                    <value xsi:type="dbl:UnitExpr" concreteSyntax="17 in">
-                      <op xsi:type="dbl:IntLiteral" concreteSyntax="17" value="17"/>
-                      <unit concreteSyntax="in"/>
-                    </value>
-                  </statements>
-                </elifCaseBlock>
-                <elseCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;length = 23 in;&#xA;&#x9;&#x9;&#x9;&#x9;}">
-                  <statements xsi:type="dbl:Assignment" concreteSyntax="length = 23 in">
-                    <variable concreteSyntax="length">
-                      <idExpr concreteSyntax="length" referencedElement="//@modules.0/@procedures.0/@statements.2/@loadKinds.0/@loadClass/@attributes.0"/>
-                    </variable>
-                    <value xsi:type="dbl:UnitExpr" concreteSyntax="23 in">
-                      <op xsi:type="dbl:IntLiteral" concreteSyntax="23" value="23"/>
-                      <unit concreteSyntax="in"/>
-                    </value>
-                  </statements>
-                </elseCaseBlock>
-              </statements>
-            </initialBlock>
-          </loadClass>
+        <conveyors name="dock1" concreteSyntax="conveyor dock1 ofType LDock {}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
+        <conveyors name="dock2" concreteSyntax="conveyor dock2 ofType LDock {}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
+        <conveyors name="dock3" concreteSyntax="conveyor dock3 ofType LDock {}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
+        <conveyors name="dock4" concreteSyntax="conveyor dock4 ofType LDock {}" convType="//@modules.0/@procedures.0/@statements.2/@conveyorTypess.0"/>
+        <loadKinds concreteSyntax="loadType Box;">
+          <loadClass concreteSyntax="Box" referencedElement="//@modules.0/@classifiers.2"/>
         </loadKinds>
       </statements>
     </procedures>
+    <variables name="belt" concreteSyntax="Conveyor belt = new Conveyor">
+      <classifierTypeExpr concreteSyntax="Conveyor" referencedElement="//@modules.0/@classifiers.1"/>
+      <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Conveyor">
+        <classifierTypeExpr concreteSyntax="Conveyor" referencedElement="//@modules.0/@classifiers.1"/>
+      </initialValue>
+    </variables>
   </modules>
 </dbl:Model>

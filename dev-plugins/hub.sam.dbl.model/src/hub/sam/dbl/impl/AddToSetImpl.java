@@ -7,6 +7,7 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.AddToSet;
+import hub.sam.dbl.ArgumentExpression;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 
@@ -40,7 +41,7 @@ public class AddToSetImpl extends SetStatementImpl implements AddToSet {
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression atIndex;
+	protected ArgumentExpression atIndex;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -66,7 +67,7 @@ public class AddToSetImpl extends SetStatementImpl implements AddToSet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getAtIndex() {
+	public ArgumentExpression getAtIndex() {
 		return atIndex;
 	}
 
@@ -75,8 +76,8 @@ public class AddToSetImpl extends SetStatementImpl implements AddToSet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetAtIndex(Expression newAtIndex, NotificationChain msgs) {
-		Expression oldAtIndex = atIndex;
+	public NotificationChain basicSetAtIndex(ArgumentExpression newAtIndex, NotificationChain msgs) {
+		ArgumentExpression oldAtIndex = atIndex;
 		atIndex = newAtIndex;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.ADD_TO_SET__AT_INDEX, oldAtIndex, newAtIndex);
@@ -90,7 +91,7 @@ public class AddToSetImpl extends SetStatementImpl implements AddToSet {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAtIndex(Expression newAtIndex) {
+	public void setAtIndex(ArgumentExpression newAtIndex) {
 		if (newAtIndex != atIndex) {
 			NotificationChain msgs = null;
 			if (atIndex != null)
@@ -141,7 +142,7 @@ public class AddToSetImpl extends SetStatementImpl implements AddToSet {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DblPackage.ADD_TO_SET__AT_INDEX:
-				setAtIndex((Expression)newValue);
+				setAtIndex((ArgumentExpression)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -156,7 +157,7 @@ public class AddToSetImpl extends SetStatementImpl implements AddToSet {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case DblPackage.ADD_TO_SET__AT_INDEX:
-				setAtIndex((Expression)null);
+				setAtIndex((ArgumentExpression)null);
 				return;
 		}
 		super.eUnset(featureID);

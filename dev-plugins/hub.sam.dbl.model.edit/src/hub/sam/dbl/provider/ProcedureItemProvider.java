@@ -150,6 +150,7 @@ public class ProcedureItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
 			childrenFeatures.add(DblPackage.Literals.CODE_BLOCK__STATEMENTS);
 			childrenFeatures.add(DblPackage.Literals.ANNOTATABLE_ELEMENT__ANNOTATION_APPLICATIONS);
@@ -215,6 +216,7 @@ public class ProcedureItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
+			case DblPackage.PROCEDURE__LIST_DIMS:
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 			case DblPackage.PROCEDURE__STATEMENTS:
 			case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS:
@@ -261,6 +263,11 @@ public class ProcedureItemProvider
 			(createChildParameter
 				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
 				 DblFactory.eINSTANCE.createStringType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS,
+				 DblFactory.eINSTANCE.createListDimension()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -316,6 +323,11 @@ public class ProcedureItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createTerminate()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				 DblFactory.eINSTANCE.createYield()));
 
 		newChildDescriptors.add
 			(createChildParameter

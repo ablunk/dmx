@@ -201,6 +201,11 @@ public class QuotedStatementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
+				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add

@@ -6,6 +6,7 @@
  */
 package hub.sam.dbl;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link hub.sam.dbl.TypedElement#getPrimitiveType <em>Primitive Type</em>}</li>
  *   <li>{@link hub.sam.dbl.TypedElement#isIsList <em>Is List</em>}</li>
+ *   <li>{@link hub.sam.dbl.TypedElement#getListDims <em>List Dims</em>}</li>
  *   <li>{@link hub.sam.dbl.TypedElement#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
  * </ul>
  * </p>
@@ -79,6 +81,22 @@ public interface TypedElement extends EObject {
 	 * @generated
 	 */
 	void setIsList(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>List Dims</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.ListDimension}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>List Dims</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>List Dims</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getTypedElement_ListDims()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ListDimension> getListDims();
 
 	/**
 	 * Returns the value of the '<em><b>Classifier Type Expr</b></em>' containment reference.

@@ -125,6 +125,13 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.LIST_DIMENSION: {
+				ListDimension listDimension = (ListDimension)theEObject;
+				T result = caseListDimension(listDimension);
+				if (result == null) result = caseTypedElement(listDimension);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.PRIMITIVE_TYPE: {
 				PrimitiveType primitiveType = (PrimitiveType)theEObject;
 				T result = casePrimitiveType(primitiveType);
@@ -472,6 +479,19 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseExtension(terminate);
 				if (result == null) result = caseNamedElement(terminate);
 				if (result == null) result = caseExpandableElement(terminate);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.YIELD: {
+				Yield yield = (Yield)theEObject;
+				T result = caseYield(yield);
+				if (result == null) result = caseSimpleStatement(yield);
+				if (result == null) result = caseStatement(yield);
+				if (result == null) result = caseConstruct(yield);
+				if (result == null) result = caseNamedExtension(yield);
+				if (result == null) result = caseExtension(yield);
+				if (result == null) result = caseNamedElement(yield);
+				if (result == null) result = caseExpandableElement(yield);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1859,6 +1879,21 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>List Dimension</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>List Dimension</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseListDimension(ListDimension object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Primitive Type</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2395,6 +2430,21 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTerminate(Terminate object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Yield</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Yield</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseYield(Yield object) {
 		return null;
 	}
 

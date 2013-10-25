@@ -4,5 +4,7 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen-src"/>
+	<classpathentry kind="src" path="jist-tn-recursive"/>
+	<classpathentry kind="src" path="jist-switch"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

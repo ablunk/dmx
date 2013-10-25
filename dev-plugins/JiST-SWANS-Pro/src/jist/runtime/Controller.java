@@ -176,8 +176,8 @@ public final class Controller implements ControllerRemote, Runnable
   /**
    * Queue of simulation events.
    */
-  private final Scheduler.Heap events = new Scheduler.Heap();
-  //private final Scheduler.Calendar events = new Scheduler.Calendar(1000000000, 1000);
+  //private final Scheduler.Heap events = new Scheduler.Heap();
+  private final Scheduler.Calendar events = new Scheduler.Calendar(1000000000, 1000);
 
 
   /**

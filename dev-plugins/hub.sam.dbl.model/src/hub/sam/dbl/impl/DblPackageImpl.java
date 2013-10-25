@@ -89,6 +89,7 @@ import hub.sam.dbl.L1Expr;
 import hub.sam.dbl.LastInSet;
 import hub.sam.dbl.Less;
 import hub.sam.dbl.LessEqual;
+import hub.sam.dbl.ListDimension;
 import hub.sam.dbl.Mapping;
 import hub.sam.dbl.MappingPart;
 import hub.sam.dbl.MappingStatement;
@@ -175,6 +176,7 @@ import hub.sam.dbl.Wait;
 import hub.sam.dbl.WaitUntil;
 import hub.sam.dbl.WhileStatement;
 
+import hub.sam.dbl.Yield;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
@@ -245,6 +247,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass typedElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass listDimensionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -497,6 +506,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass terminateEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass yieldEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1634,8 +1650,35 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypedElement_ClassifierTypeExpr() {
+	public EReference getTypedElement_ListDims() {
 		return (EReference)typedElementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTypedElement_ClassifierTypeExpr() {
+		return (EReference)typedElementEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getListDimension() {
+		return listDimensionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getListDimension_Size() {
+		return (EAttribute)listDimensionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2329,6 +2372,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EClass getTerminate() {
 		return terminateEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getYield() {
+		return yieldEClass;
 	}
 
 	/**
@@ -4307,7 +4359,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		typedElementEClass = createEClass(TYPED_ELEMENT);
 		createEReference(typedElementEClass, TYPED_ELEMENT__PRIMITIVE_TYPE);
 		createEAttribute(typedElementEClass, TYPED_ELEMENT__IS_LIST);
+		createEReference(typedElementEClass, TYPED_ELEMENT__LIST_DIMS);
 		createEReference(typedElementEClass, TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
+
+		listDimensionEClass = createEClass(LIST_DIMENSION);
+		createEAttribute(listDimensionEClass, LIST_DIMENSION__SIZE);
 
 		primitiveTypeEClass = createEClass(PRIMITIVE_TYPE);
 
@@ -4421,6 +4477,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEReference(waitUntilEClass, WAIT_UNTIL__CONDITION);
 
 		terminateEClass = createEClass(TERMINATE);
+
+		yieldEClass = createEClass(YIELD);
 
 		waitEClass = createEClass(WAIT);
 
@@ -4790,6 +4848,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		constructEClass.getESuperTypes().add(this.getNamedExtension());
 		moduleEClass.getESuperTypes().add(this.getNamedElement());
 		moduleEClass.getESuperTypes().add(this.getEmbeddableExtensionsContainer());
+		listDimensionEClass.getESuperTypes().add(this.getTypedElement());
 		primitiveTypeEClass.getESuperTypes().add(this.getType());
 		voidTypeEClass.getESuperTypes().add(this.getPrimitiveType());
 		intTypeEClass.getESuperTypes().add(this.getPrimitiveType());
@@ -4830,6 +4889,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		returnEClass.getESuperTypes().add(this.getSimpleStatement());
 		waitUntilEClass.getESuperTypes().add(this.getSimpleStatement());
 		terminateEClass.getESuperTypes().add(this.getSimpleStatement());
+		yieldEClass.getESuperTypes().add(this.getSimpleStatement());
 		waitEClass.getESuperTypes().add(this.getSimpleStatement());
 		reactivateEClass.getESuperTypes().add(this.getSimpleStatement());
 		activateObjectEClass.getESuperTypes().add(this.getSimpleStatement());
@@ -4983,7 +5043,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(typedElementEClass, TypedElement.class, "TypedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedElement_PrimitiveType(), this.getPrimitiveType(), null, "primitiveType", null, 0, 1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getTypedElement_IsList(), ecorePackage.getEBoolean(), "isList", "false", 1, 1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getTypedElement_ListDims(), this.getListDimension(), null, "listDims", null, 0, -1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTypedElement_ClassifierTypeExpr(), this.getIdExpr(), null, "classifierTypeExpr", null, 0, 1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(listDimensionEClass, ListDimension.class, "ListDimension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getListDimension_Size(), ecorePackage.getEInt(), "size", null, 1, 1, ListDimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(primitiveTypeEClass, PrimitiveType.class, "PrimitiveType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -5098,6 +5162,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(terminateEClass, Terminate.class, "Terminate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+		initEClass(yieldEClass, Yield.class, "Yield", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(waitEClass, Wait.class, "Wait", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(reactivateEClass, Reactivate.class, "Reactivate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -5120,7 +5186,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(removeFromSetEClass, RemoveFromSet.class, "RemoveFromSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(addToSetEClass, AddToSet.class, "AddToSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAddToSet_AtIndex(), this.getExpression(), null, "atIndex", null, 0, 1, AddToSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getAddToSet_AtIndex(), this.getArgumentExpression(), null, "atIndex", null, 0, 1, AddToSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(emptySetEClass, EmptySet.class, "EmptySet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

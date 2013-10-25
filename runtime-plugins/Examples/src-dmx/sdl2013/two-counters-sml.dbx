@@ -52,7 +52,7 @@ module sml_application {
 		activate c1;
 		
 		Counter c2 = new Counter;
-		activate c2;
+		activate c2 priority 2;
 
 		send new Start to c1;
 		send new Start to c2;

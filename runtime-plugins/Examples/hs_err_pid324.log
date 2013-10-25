@@ -1,0 +1,166 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00000000, pid=324, tid=416
+#
+# JRE version:  (7.0_40-b43) (build )
+# Java VM: Java HotSpot(TM) Client VM (24.0-b56 mixed mode windows-x86 )
+# Problematic frame:
+# C  0x00000000
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x003bb000):  JavaThread "main" [_thread_in_Java, id=416, stack(0x008c0000,0x108c0000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x00000000
+
+Registers:
+EAX=0x00100000, EBX=0x52a5d2c0, ECX=0x12a50da0, EDX=0x00500001
+ESP=0x108bf410, EBP=0x108bf438, ESI=0x108bf414, EDI=0x108bf43c
+EIP=0x00000000, EFLAGS=0x00010216
+
+Top of Stack: (sp=0x108bf410)
+0x108bf410:   108d347b 12a50da0 108bf418 52a669ab
+0x108bf420:   108bf43c 52ab9670 00000000 52a669e8
+0x108bf430:   108bf414 108bf440 108bf45c 108d03d7
+0x108bf440:   108bf490 108bf46c 6e8ae6e2 00001f80
+0x108bf450:   108d0372 003bb000 52a669e8 108bf4dc
+0x108bf460:   6e8aee1a 108bf490 108bf564 0000000a
+0x108bf470:   52a669e8 108d97f0 108bf574 00000000
+0x108bf480:   003bb000 003bb000 003bb000 00000004 
+
+Instructions: (pc=0x00000000)
+0xffffffe0:   
+
+
+Register to memory mapping:
+
+EAX=0x00100000 is an unknown value
+EBX=0x52a5d2c0 is an oop
+{method} 
+ - klass: {other class}
+ECX=0x12a50da0 is an oop
+java.lang.Class 
+ - klass: 'java/lang/Class'
+EDX=0x00500001 is an unknown value
+ESP=0x108bf410 is pointing into the stack for thread: 0x003bb000
+EBP=0x108bf438 is pointing into the stack for thread: 0x003bb000
+ESI=0x108bf414 is pointing into the stack for thread: 0x003bb000
+EDI=0x108bf43c is pointing into the stack for thread: 0x003bb000
+
+
+Stack: [0x008c0000,0x108c0000],  sp=0x108bf410,  free space=262141k
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x12a40000 JavaThread "Reference Handler" daemon [_thread_blocked, id=1640, stack(0x58c60000,0x68c60000)]
+=>0x003bb000 JavaThread "main" [_thread_in_Java, id=416, stack(0x008c0000,0x108c0000)]
+
+Other Threads:
+  0x12a3e400 VMThread [stack: 0x58c10000,0x58c60000] [id=460]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4928K, used 88K [0x12a50000, 0x12fa0000, 0x27fa0000)
+  eden space 4416K,   2% used [0x12a50000, 0x12a661b8, 0x12ea0000)
+  from space 512K,   0% used [0x12ea0000, 0x12ea0000, 0x12f20000)
+  to   space 512K,   0% used [0x12f20000, 0x12f20000, 0x12fa0000)
+ tenured generation   total 10944K, used 0K [0x27fa0000, 0x28a50000, 0x52a50000)
+   the space 10944K,   0% used [0x27fa0000, 0x27fa0000, 0x27fa0200, 0x28a50000)
+ compacting perm gen  total 12288K, used 506K [0x52a50000, 0x53650000, 0x56a50000)
+   the space 12288K,   4% used [0x52a50000, 0x52ace900, 0x52acea00, 0x53650000)
+No shared spaces configured.
+
+Card table byte_map: [0x58850000,0x58a80000] byte_map_base: 0x587bad80
+
+Polling page: 0x003e0000
+
+Code Cache  [0x108d0000, 0x10918000, 0x128d0000)
+ total_blobs=39 nmethods=0 adapters=18 free_code_cache=32499Kb largest_free_block=33278912
+
+Compilation events (0 events):
+No events
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (10 events):
+Event: 0.120 loading class 0x12978410 done
+Event: 0.120 Thread 0x12a40000 Thread added: 0x12a40000
+Event: 0.121 loading class 0x12978448
+Event: 0.121 loading class 0x12978448 done
+Event: 0.121 loading class 0x1298b588
+Event: 0.121 loading class 0x1298b588 done
+Event: 0.121 loading class 0x1298b558
+Event: 0.121 loading class 0x1298b558 done
+Event: 0.121 loading class 0x129788c0
+Event: 0.121 loading class 0x129788c0 done
+
+
+Dynamic libraries:
+0x00400000 - 0x0042f000 	C:\Programme\Java\jre7\bin\javaw.exe
+0x7c910000 - 0x7c9c9000 	C:\WINDOWS\system32\ntdll.dll
+0x7c800000 - 0x7c907000 	C:\WINDOWS\system32\kernel32.dll
+0x77da0000 - 0x77e4a000 	C:\WINDOWS\system32\ADVAPI32.dll
+0x77e50000 - 0x77ee2000 	C:\WINDOWS\system32\RPCRT4.dll
+0x77fc0000 - 0x77fd1000 	C:\WINDOWS\system32\Secur32.dll
+0x77d10000 - 0x77da0000 	C:\WINDOWS\system32\USER32.dll
+0x77ef0000 - 0x77f38000 	C:\WINDOWS\system32\GDI32.dll
+0x773a0000 - 0x774a2000 	C:\WINDOWS\WinSxS\x86_Microsoft.Windows.Common-Controls_6595b64144ccf1df_6.0.2600.2180_x-ww_a84f1ff9\COMCTL32.dll
+0x77be0000 - 0x77c38000 	C:\WINDOWS\system32\msvcrt.dll
+0x77f40000 - 0x77fb6000 	C:\WINDOWS\system32\SHLWAPI.dll
+0x78aa0000 - 0x78b5e000 	C:\Programme\Java\jre7\bin\msvcr100.dll
+0x6e770000 - 0x6eaf0000 	C:\Programme\Java\jre7\bin\client\jvm.dll
+0x71a30000 - 0x71a3a000 	C:\WINDOWS\system32\WSOCK32.dll
+0x71a10000 - 0x71a27000 	C:\WINDOWS\system32\WS2_32.dll
+0x71a00000 - 0x71a08000 	C:\WINDOWS\system32\WS2HELP.dll
+0x76af0000 - 0x76b1e000 	C:\WINDOWS\system32\WINMM.dll
+0x76bb0000 - 0x76bbb000 	C:\WINDOWS\system32\PSAPI.DLL
+0x6e6c0000 - 0x6e6cc000 	C:\Programme\Java\jre7\bin\verify.dll
+0x6d490000 - 0x6d4b0000 	C:\Programme\Java\jre7\bin\java.dll
+0x6e750000 - 0x6e763000 	C:\Programme\Java\jre7\bin\zip.dll
+0x68c60000 - 0x68d01000 	C:\WINDOWS\system32\dbghelp.dll
+0x77bd0000 - 0x77bd8000 	C:\WINDOWS\system32\VERSION.dll
+
+VM Arguments:
+jvm_args: -Xss256m -Xmx1024m -Dfile.encoding=Cp1252 
+java_command: JavaMainTnRecursive 100000000
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:/Programme/Java/jre7/bin/client;C:/Programme/Java/jre7/bin;C:/Programme/Java/jre7/lib/i386;C:\Programme\Parallels\Parallels Tools\Applications;C:\Programme\Rockwell Software\RSCommon;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\PROGRA~1\CINDER~1\CINDER~1\Program;C:\Programme\gnuplot\bin;C:\Programme\Dr. Memory\bin;C:\RTDS\bin;C:\MinGW\bin;C:\Programme\CMake 2.8\bin;Z:\Projekte\Sawmill\eclipse-workspace-windows\Stahlwerk-SAP\resources;C:\Programme\Java\jdk1.7.0_40\bin;C:\eclipse-3.7;
+USERNAME=Administrator
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 58 Stepping 9, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows XP Build 2600 Service Pack 2
+
+CPU:total 1 (1 cores per cpu, 1 threads per core) family 6 model 58 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, aes, erms, tsc, tscinvbit, tscinv
+
+Memory: 4k page, physical 2096624k(1336912k free), swap 2725836k(2058356k free)
+
+vm_info: Java HotSpot(TM) Client VM (24.0-b56) for windows-x86 JRE (1.7.0_40-b43), built on Aug 26 2013 22:34:40 by "java_re" with unknown MS VC++:1600
+
+time: Wed Oct 16 21:30:13 2013
+elapsed time: 0 seconds
+

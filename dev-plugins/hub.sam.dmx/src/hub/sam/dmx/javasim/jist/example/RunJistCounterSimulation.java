@@ -4,7 +4,7 @@ public class RunJistCounterSimulation {
 
 	public static void main(String[] args) {
 		hub.sam.dmx.javasim.jist.RunJistSimulation.main(new String[] {
-			"hub.sam.dmx.javasim.jist.example.CounterSimulation"});
+			"hub.sam.dmx.javasim.jist.example.CounterSimulation","a1"});
 	}
 
 }

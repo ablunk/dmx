@@ -13,6 +13,7 @@ import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Extension;
 import hub.sam.dbl.IdExpr;
+import hub.sam.dbl.ListDimension;
 import hub.sam.dbl.NamedExtension;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.PrimitiveType;
@@ -45,6 +46,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getPrimitiveType <em>Primitive Type</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isIsList <em>Is List</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getListDims <em>List Dims</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getStatements <em>Statements</em>}</li>
@@ -87,6 +89,16 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * @ordered
 	 */
 	protected boolean isList = IS_LIST_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getListDims() <em>List Dims</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getListDims()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ListDimension> listDims;
 
 	/**
 	 * The cached value of the '{@link #getClassifierTypeExpr() <em>Classifier Type Expr</em>}' containment reference.
@@ -266,6 +278,18 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ListDimension> getListDims() {
+		if (listDims == null) {
+			listDims = new EObjectContainmentEList<ListDimension>(ListDimension.class, this, DblPackage.PROCEDURE__LIST_DIMS);
+		}
+		return listDims;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public IdExpr getClassifierTypeExpr() {
 		return classifierTypeExpr;
 	}
@@ -404,6 +428,8 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		switch (featureID) {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				return basicSetPrimitiveType(null, msgs);
+			case DblPackage.PROCEDURE__LIST_DIMS:
+				return ((InternalEList<?>)getListDims()).basicRemove(otherEnd, msgs);
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return basicSetClassifierTypeExpr(null, msgs);
 			case DblPackage.PROCEDURE__STATEMENTS:
@@ -430,6 +456,8 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				return getPrimitiveType();
 			case DblPackage.PROCEDURE__IS_LIST:
 				return isIsList();
+			case DblPackage.PROCEDURE__LIST_DIMS:
+				return getListDims();
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return getClassifierTypeExpr();
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
@@ -462,6 +490,10 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				return;
 			case DblPackage.PROCEDURE__IS_LIST:
 				setIsList((Boolean)newValue);
+				return;
+			case DblPackage.PROCEDURE__LIST_DIMS:
+				getListDims().clear();
+				getListDims().addAll((Collection<? extends ListDimension>)newValue);
 				return;
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)newValue);
@@ -506,6 +538,9 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			case DblPackage.PROCEDURE__IS_LIST:
 				setIsList(IS_LIST_EDEFAULT);
 				return;
+			case DblPackage.PROCEDURE__LIST_DIMS:
+				getListDims().clear();
+				return;
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)null);
 				return;
@@ -543,6 +578,8 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				return primitiveType != null;
 			case DblPackage.PROCEDURE__IS_LIST:
 				return isList != IS_LIST_EDEFAULT;
+			case DblPackage.PROCEDURE__LIST_DIMS:
+				return listDims != null && !listDims.isEmpty();
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return classifierTypeExpr != null;
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
@@ -572,6 +609,7 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			switch (derivedFeatureID) {
 				case DblPackage.PROCEDURE__PRIMITIVE_TYPE: return DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE;
 				case DblPackage.PROCEDURE__IS_LIST: return DblPackage.TYPED_ELEMENT__IS_LIST;
+				case DblPackage.PROCEDURE__LIST_DIMS: return DblPackage.TYPED_ELEMENT__LIST_DIMS;
 				case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR: return DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR;
 				default: return -1;
 			}
@@ -619,6 +657,7 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			switch (baseFeatureID) {
 				case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE: return DblPackage.PROCEDURE__PRIMITIVE_TYPE;
 				case DblPackage.TYPED_ELEMENT__IS_LIST: return DblPackage.PROCEDURE__IS_LIST;
+				case DblPackage.TYPED_ELEMENT__LIST_DIMS: return DblPackage.PROCEDURE__LIST_DIMS;
 				case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR: return DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR;
 				default: return -1;
 			}

@@ -6,18 +6,36 @@
   <modules name="conveyorDsl">
     <classifiers xsi:type="dbl:Interface" name="L1Expr"/>
     <classifiers xsi:type="dbl:Interface" name="L2Expr"/>
+    <extensionDefs name="Forever">
+      <textualSyntaxDef>
+        <extensionRule name="Statement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="Forever">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="forever"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="code">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.34"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+    </extensionDefs>
     <extensionDefs name="UnitExpr">
       <textualSyntaxDef>
         <extensionRule name="L1Expr">
-          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+          <firstNewRule rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0"/>
         </extensionRule>
         <newRules name="UnitExpr">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="op">
               <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@classifiers.0"/>
             </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=":"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="unit">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.4"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.4"/>
             </sequence>
           </rhs>
         </newRules>
@@ -54,18 +72,99 @@
       </textualSyntaxDef>
       <mappingDef/>
     </extensionDefs>
+    <extensionDefs name="ConvPlace">
+      <textualSyntaxDef>
+        <extensionRule name="Statement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="ConvPlace">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="place"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="item">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="asLoad"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="varName">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="on"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="conv">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.4"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="ConvPlaceOptionalZone">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="ConvPlaceOptionalZone">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ifZoneEmpty"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="from"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="zoneFrom">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="zoneTo">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="ConvPlaceOptionalOffset">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="ConvPlaceOptionalOffset">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="at"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="offset">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+    </extensionDefs>
+    <extensionDefs name="ConvSend">
+      <textualSyntaxDef>
+        <extensionRule name="Statement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.3/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="ConvSend">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="send"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="item">
+              <propertyType xsi:type="dbl:ReferencePropertyType" rawReference="true">
+                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.35"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+    </extensionDefs>
     <extensionDefs name="ConveyorSystem">
       <textualSyntaxDef>
         <extensionRule name="Statement">
-          <firstNewRule rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0"/>
+          <firstNewRule rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.0"/>
         </extensionRule>
         <newRules name="ConveyorSystem">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="system"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.1"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.6"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.36"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.1"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.7"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.35"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
           </rhs>
         </newRules>
@@ -75,9 +174,9 @@
         <newRules name="ConveyorTypes">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="conveyorTypess">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.3" list="true"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.3" list="true"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.1"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.1"/>
           </rhs>
         </newRules>
         <newRules name="ConveyorType">
@@ -87,8 +186,8 @@
               <propertyType xsi:type="dbl:IdPropertyType"/>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.9"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.4"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.9"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.4"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
           </rhs>
         </newRules>
@@ -111,9 +210,9 @@
         <newRules name="Conveyors">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="conveyors">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.8" list="true"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.8" list="true"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.6"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.7"/>
           </rhs>
         </newRules>
         <newRules name="Conveyor">
@@ -122,20 +221,20 @@
             <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
               <propertyType xsi:type="dbl:IdPropertyType"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.15"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.15"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.9"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.9"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
           </rhs>
         </newRules>
         <newRules name="ConvContent">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.10"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.13"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.17"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.19"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.24"/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.31"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.10"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.12"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.17"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.19"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.24"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.31"/>
           </rhs>
         </newRules>
         <newRules name="ConvOptionalLength">
@@ -173,7 +272,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="ofType"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="convType">
-              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.3" rawReference="true"/>
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.3" rawReference="true"/>
             </sequence>
           </rhs>
         </newRules>
@@ -184,7 +283,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="from"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="fromConv">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.20"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.20"/>
             </sequence>
           </rhs>
         </newRules>
@@ -195,16 +294,16 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="toConv">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.20"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.20"/>
             </sequence>
           </rhs>
         </newRules>
         <newRules name="ConvList">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="convRefs">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.23" list="true"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.23" list="true"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.21"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.22"/>
           </rhs>
         </newRules>
         <newRules name="ConvListOptional">
@@ -213,15 +312,15 @@
         <newRules name="ConvListOptional">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="convRefs">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.23" list="true"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.23" list="true"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.21"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.22"/>
           </rhs>
         </newRules>
         <newRules name="ConvRef">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="conv">
-              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.8" rawReference="true"/>
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.8" rawReference="true"/>
             </sequence>
           </rhs>
         </newRules>
@@ -232,7 +331,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="kind"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.26"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.26"/>
           </rhs>
         </newRules>
         <newRules name="ConveyorBehavior">
@@ -264,9 +363,9 @@
         <newRules name="SensorOptional">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="sensors">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.32" list="true"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.32" list="true"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.31"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.31"/>
           </rhs>
         </newRules>
         <newRules name="Sensor">
@@ -275,7 +374,7 @@
             <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
               <propertyType xsi:type="dbl:IdPropertyType"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.34"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.34"/>
           </rhs>
         </newRules>
         <newRules name="SensorPos">
@@ -310,19 +409,20 @@
         <newRules name="LoadKinds">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="loadKinds">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.37" list="true"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.37" list="true"/>
             </sequence>
-            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.36"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@newRules.35"/>
           </rhs>
         </newRules>
         <newRules name="LoadKind">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="load"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="loadType"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="loadClass">
-              <propertyType xsi:type="dbl:CompositePropertyType">
+              <propertyType xsi:type="dbl:ReferencePropertyType">
                 <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.22"/>
               </propertyType>
             </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>
         </newRules>
       </textualSyntaxDef>

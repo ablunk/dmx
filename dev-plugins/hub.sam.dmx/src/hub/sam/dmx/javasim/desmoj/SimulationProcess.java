@@ -14,6 +14,10 @@ public abstract class SimulationProcess extends SimProcess {
 	public SimulationProcess(final Model owner, final String name, final boolean showInTrace) {
 		super(owner, name, showInTrace);
 	}
+	
+	public void base_yield() {
+		this.hold(new TimeSpan(0));
+	}
 
 	public void base_wait() {
 		this.passivate();

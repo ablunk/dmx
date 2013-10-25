@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="switch">
+    <classifiers xsi:type="dbl:Clazz" name="Counter" active="true">
+      <actionsBlock>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:Greater">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+            <op2 xsi:type="dbl:IntLiteral"/>
+          </condition>
+          <whileBlock>
+            <statements xsi:type="dbl:Assignment">
+              <variable>
+                <idExpr referencedElement="//@modules.0/@variables.0"/>
+              </variable>
+              <value xsi:type="dbl:Minus">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+                <op2 xsi:type="dbl:IntLiteral" value="1"/>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:ExpressionStatement">
+              <expression xsi:type="dbl:ProcedureCall">
+                <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
+                  <arguments>
+                    <arguments xsi:type="dbl:Plus">
+                      <op1 xsi:type="dbl:StringLiteral" value="count = "/>
+                      <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+                    </arguments>
+                  </arguments>
+                </procedureAccess>
+              </expression>
+            </statements>
+            <statements xsi:type="dbl:Yield"/>
+          </whileBlock>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <procedures name="log">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:StringLiteral" value="pid-"/>
+                <op2 xsi:type="dbl:ActiveLiteral"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" value=": "/>
+            </op1>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </procedures>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="p">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.0"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="initial count = "/>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement">
+        <condition xsi:type="dbl:Greater">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+          <op2 xsi:type="dbl:IntLiteral"/>
+        </condition>
+        <whileBlock>
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@variables.0"/>
+            </variable>
+            <value xsi:type="dbl:Minus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+              <op2 xsi:type="dbl:IntLiteral" value="1"/>
+            </value>
+          </statements>
+          <statements xsi:type="dbl:ExpressionStatement">
+            <expression xsi:type="dbl:ProcedureCall">
+              <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
+                <arguments>
+                  <arguments xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="count = "/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+                  </arguments>
+                </arguments>
+              </procedureAccess>
+            </expression>
+          </statements>
+          <statements xsi:type="dbl:Yield"/>
+        </whileBlock>
+      </statements>
+      <statements xsi:type="dbl:Yield"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="final count = "/>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+    </procedures>
+    <variables name="count">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="5"/>
+    </variables>
+  </modules>
+</dbl:Model>
