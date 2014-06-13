@@ -1,0 +1,119 @@
+module RealTimeTaskBaseOnlyApplication1 {
+
+	interface Object {}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+	class DblComparable {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.DblComparable"
+		}
+		int dblCompareTo(Object o) {}
+	}
+	
+	class MinHeap {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.MinHeap"
+		}
+		void insert(Object o) {}
+		void clear() {}
+		Object pick() {}
+		int size() {}
+	}
+	
+	class Signal extends DblComparable {
+		string name;
+		int taskPrio;
+		Object responsibleProcess;
+	
+		int dblCompareTo(Object o) {
+			Signal s = o as Signal;
+			if (taskPrio > s.taskPrio) {
+				return -1;
+			}
+			elseif (taskPrio < s.taskPrio) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
+	
+	void sendSignal(string sigName, int prio, P target) {
+		trace("sending " + sigName + ".");
+		
+		Signal sig = new Signal();
+		sig.name = sigName;
+		sig.taskPrio = prio;
+		sig.responsibleProcess = target;
+		
+		MinHeap pool = target.pool;
+		pool.insert(sig);
+		
+		RttSdlScheduler sched = scheduler;
+		pool = sched.allSignals;
+		pool.insert(sig);
+	}
+	
+	RttSdlScheduler scheduler;
+	
+	active class RttSdlScheduler {
+		MinHeap allSignals = new MinHeap();
+		
+		actions {
+			while (allSignals.size > 0) {
+				Signal highest = allSignals.pick() as Signal;
+				reactivate highest.responsibleProcess;
+				wait;
+			}
+		}
+	}
+	
+	active class P {
+		MinHeap pool = new MinHeap();
+		
+		actions {
+			wait;
+			
+			while (true) {
+				if (pool.size > 0) {
+					Signal sig = pool.pick() as Signal;
+					trace("received " + sig.name + ", processing ...");
+					advance 10;
+					trace("finished " + sig.name + ".");
+				}
+				reactivate scheduler;
+				wait;
+			}
+		}
+	}
+	
+	void main() {
+		P p1 = new P();
+		activate p1;
+		P p2 = new P();
+		activate p2;
+		
+		yield;
+	
+		scheduler = new RttSdlScheduler();
+		activate scheduler;
+		
+		sendSignal("A", 1, p1);
+		sendSignal("B", 2, p1);
+		sendSignal("C", 3, p1);
+		
+		advance 5;
+		sendSignal("D", 4, p2);
+		
+		advance 100;
+	}
+
+}

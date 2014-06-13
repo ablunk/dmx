@@ -1,0 +1,205 @@
+module RealTimeTaskBaseOnlyApplicationAcc {
+
+	// this is the Adaptive Cruise Control RTT application defined in pure DBL and with regular State Machines (FCFS signal semantics)
+	
+	interface Object {}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+	class DblComparable {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.DblComparable"
+		}
+		int dblCompareTo(Object o) {}
+	}
+	
+	class MinHeap {
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.MinHeap"
+		}
+		void insert(Object o) {}
+		void clear() {}
+		Object pick() {}
+		int size() {}
+	}
+	
+	class Signal extends DblComparable {
+		string name;
+		int taskPrio = 0;
+		Object responsibleProcess;
+	
+		int dblCompareTo(Object o) {
+			Signal s = o as Signal;
+			if (taskPrio > s.taskPrio) {
+				return -1;
+			}
+			elseif (taskPrio < s.taskPrio) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
+
+	void send(Signal sig, int prio, RuntimeStateMachine target) {
+		trace("sending " + sig.name + ".");
+		
+		sig.taskPrio = prio;
+		sig.responsibleProcess = target;
+		
+		MinHeap pool = target.eventPool;
+		pool.insert(sig);
+		
+		RttSdlScheduler sched = scheduler;
+		pool = sched.allSignals;
+		pool.insert(sig);
+	}
+	
+	void sendSignal(string sigName, int prio, RuntimeStateMachine target) {
+		trace("sending " + sigName + ".");
+		
+		Signal sig = new Signal();
+		sig.name = sigName;
+		sig.taskPrio = prio;
+		sig.responsibleProcess = target;
+		
+		MinHeap pool = target.eventPool;
+		pool.insert(sig);
+		
+		RttSdlScheduler sched = scheduler;
+		pool = sched.allSignals;
+		pool.insert(sig);
+	}
+	
+	RttSdlScheduler scheduler;
+	
+	active class RttSdlScheduler {
+		MinHeap allSignals = new MinHeap();
+		
+		actions {
+			while (allSignals.size > 0) {
+				Signal highest = allSignals.pick() as Signal;
+				reactivate highest.responsibleProcess;
+				wait;
+			}
+		}
+	}
+	
+	active class Timer extends Signal {
+		int delay;
+		boolean stopped = false;
+		RuntimeStateMachine rsm; // classes in a module with extension may refer to meta-classes defined by an extension
+
+		actions {
+			advance delay;
+			if (!stopped) {
+				rsm.timerExpired(self);
+			}
+		}
+	}
+	
+	class StateMachine {
+		string name;
+		InitialState initialState;
+		list(State) states;
+	}
+
+	class RuntimeStateMachine {
+		StateMachine syntax;
+	
+		Object extensionContext;
+	
+		MinHeap eventPool = new MinHeap();
+		RuntimeState currentState;
+		
+		void timerExpired(Timer t) {
+			place t into eventPool;
+			reactivate extensionContext; // reactivates the object in which this extension is placed in
+		}
+	}
+	
+	class InitialState {
+	}
+	
+	class State {
+		string name;
+		list(Transition) outgoing;
+	}
+	
+	class RuntimeState {
+	}
+	
+	class Transition {
+		Trigger trigger;
+	}
+	
+	class Trigger {
+		Object signalEventType;
+		TimeEvent timeEvent;
+	}
+	
+	class TimeEvent {
+		// TODO delay is of type expression. each TimeEvent instance has to be mapped to a method which is executable in the extension context.
+	}
+	
+	active class RttRuntimeStateMachine extends RuntimeStateMachine {
+		actions {
+			wait;
+			
+			while (true) {
+				if (eventPool.size > 0) {
+					Signal sig = eventPool.pick() as Signal;
+					trace("received " + sig.name + ", processing ...");
+					advance 10;
+					trace("finished " + sig.name + ".");
+				}
+				reactivate scheduler;
+				wait;
+			}
+		}
+	}
+	
+	// counter app
+	
+	class Start {}
+	class Pause {}
+	class Resume {}
+	class Reset {}
+	
+	active class Counter {
+		int step = 1;
+		
+		actions {
+		}
+		
+		double sml_timeEvent1_delay() {
+			return step;
+		}
+	}
+	
+	void main() {
+		Counter c = new Counter;
+		activate c;
+		
+		scheduler = new RttSdlScheduler();
+		activate scheduler;
+
+		send(new Start, 0, c);
+
+		advance 2;
+		send(new Pause, 3, c);
+		
+		advance 2;
+		send(new Resume, 0, c);
+
+		advance 10;
+	}
+
+}

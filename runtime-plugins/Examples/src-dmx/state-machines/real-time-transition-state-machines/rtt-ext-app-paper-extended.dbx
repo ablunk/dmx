@@ -1,0 +1,78 @@
+#import "rtt-sml-draft"
+
+module sml_application {
+
+	// application of RTT based on the abstract example (Fig. 1) in the montreal paper
+	// the example was extended.
+
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+
+	//signal T;
+	//signal Sig;
+	class T {}
+	class Sig {}
+
+	active class P0 {
+		int step = 1;
+		P1 p1;
+		
+		stateMachine P0Behavior {
+			initial
+			-> P0_Idle;
+
+			state P0_Idle (
+				T / {
+					send new Sig to p1 newTask priority = 0;
+				}
+				-> P0_Idle
+			);
+		}
+	}
+	
+	active class P1 {
+		P0 p0;
+		
+		stateMachine P1Behavior {
+			initial
+			-> P1_Idle;
+
+			state P1_Idle (
+				Sig / {
+					send new Sig to p0 continueTask priority = taskPriority + 1;
+				}
+				-> P1_Idle,
+				
+				Sig / {
+					send new Sig to p0 continueTask;
+				}
+				-> P1_Idle,
+				
+				Sig
+				-> P1_Idle
+			);
+		}
+	}
+	
+	void main() {
+		P0 p0 = new P0;
+		activate p0;
+
+		P1 p1 = new P1;
+		activate p1;
+		
+		p0.p1 = p1;
+		p1.p0 = p0;
+			
+		send new T to p0;
+		
+		advance 10;
+	}
+	
+}
+

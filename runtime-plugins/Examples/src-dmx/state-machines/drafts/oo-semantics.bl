@@ -1,3 +1,6 @@
+// DEPRECATED
+
+
 #import "../base"
 
 module sml {
@@ -36,27 +39,45 @@ semantics {
 - extension keyword for accessing an extension instance as object repr. which is automatically injected
 - a BL statement for directly using identifiers defined in another context
 
+// debugger concepts:
+- for state: debug modifier for variables which should be displayed by the debugger
+  - are there situations in which the state needs to be displayed in a different way, i.e. transformed to some other object structure?
+  - in general, DSL-specific views should be describable. For a GPL there are traditionally the
+    following views: processes/threads, variables/values.
+    for a DSL, there might be other views in addition.
+- step { ... } statement for defining the statements which make up a step
+- step { ... } may be nested in order to define a step-into
+- step-over means executing all statements until the next step { ...Ê} on the same level is reached
+- step-return?
+- breakpoints?
+  - traditional GPL: a) program location, b) expression becomes true
+  - DSL: a) program locations change when the value of an instruction pointer variable changes. the runtime system
+  of an executable DSL introduces a similar variable, which when changed, updates the current execution point.
+  In SML, this change takes place in the attribute currentState of RuntimeStateMachine objects. Breakpoints
+  should be set at the corresponding syntax elements of class RuntimeState (the type of attribute currentState).
+
 extension StateMachine {
 	ClassContentExtension -> StateMachine;
 	
 	StateMachine -> "stateMachine" name:ID "{" initialState:InitialState StateListOptional "}"
 	{
-		// runtime data
+		// runtime data, i.e. part of derived class RuntimeStateMachine
 		
 		list(Object) eventPool;
-		runtime State currentState;
+		runtime State currentState; // actual type is the derived type RuntimeState
 		
 		void run(Object ctx) {
 			runtime StateMachine rsm = self;
-			rsm.currentState = new runtime state for initialState.target;
+			rsm.currentState = new runtime State for initialState.target;
+			
 			while (true) {
-				wait; // wait for events
 				while (rsm.eventPool.size > 0 and rsm.currentState != null) {
 					Object ev = rsm.eventPool.first;
 					remove ev from rsm.eventPool;
 					State nextState = rsm.currentState.handleEvent(ev, ctx);
 					rsm.currentState = nextState;
 				}
+				wait; // wait for new events, may be replaced by wait until eventPool.size > 0
 			}
 		}
 	};
@@ -70,7 +91,7 @@ extension StateMachine {
 		State handleEvent(Object ev, Object ctx) {
 			for (Transition t: outgoing) {
 				#{for (Transition t: outgoing)}
-					if (t.signalEvent instanceof #{t.signalEvent}) {
+					if (ev instanceof #{t.signalEvent}) {
 						runtime Transition rt = new runtime Transition for t; // runtime is a special keyword that creates a runtime instance
 						return rt.fire(ctx);
 					}
@@ -79,7 +100,7 @@ extension StateMachine {
 				// variant ...
 				compile {
 					for (Transition t: outgoing) {
-						gen "if (t.signalEvent instanceof " t.signalEvent ") {";
+						gen "if (ev instanceof " t.signalEvent ") {";
 						gen "	runtime Transition rt = new runtime Transition for t;";
 						gen "	return rt.fire(ctx);";
 						gen "}"
@@ -92,7 +113,7 @@ extension StateMachine {
 		
 	// problem, dass immer wieder auftritt: der kontext in dem man ein statement oder eine expression
 	// geschrieben hat muss an einer ganz anderen stellen verfŸgbar und aufrufbar sein.
-	// daher kšnnte man statements und expressions generell in automatisch erzeugt kontextfunktionen
+	// daher kšnnte man statements und expressions generell in automatisch erzeugte kontextfunktionen
 	// auslagern und aufrufbar machen.
 	
 	TransitionsOptional -> ;
@@ -160,17 +181,18 @@ semantics {
 }
 
 extension StateMachineWithGuards extends StateMachine {
-	redefines Transition -> GuardedTransition; // only redefines notation, abstract syntax remains intact
+	redefines Transition -> GuardedTransition;
 
 	GuardedTransition -> signalEvent:$Clazz GuardOptional EffectsOptional TargetStateOptional
 	{
 		State fire(Object ctx) {
 			context = ctx;
 			#{if (condition != null)}
-				if(#{condition})
+				if(#{condition}) { super.fire(ctx); }
+			#{else}
+				super.fire(ctx);
 			#{endif}
-					super.fire(ctx);
-					
+			
 			// variant ...
 			compile {
 				if (condition != null) {
@@ -185,47 +207,51 @@ extension StateMachineWithGuards extends StateMachine {
 	GuardOptional -> "[" condition:Expression "]";
 }
 
-extension StateMachineWithSignalPriorities extends StateMachine {
-	extends StateMachine -> "priority" sm:StateMachine
-	{
-		void run(Object ctx) {
-			runtime StateMachine rsm = self;
-			rsm.currentState = new runtime state for initialState.target;
-			while (true) {
-				wait; // wait for events
-				while (rsm.eventPool.size > 0 and rsm.currentState != null) {
-					Object ev = rsm.eventPool.first;
-					remove ev from rsm.eventPool;
-					State nextState = rsm.currentState.handleEvent(ev, ctx);
-					rsm.currentState = nextState;
-				}
-			}
-		}
-	};
-	
-	redefines Transition -> PrioTransition; // only redefines notation, abstract syntax remains intact
+extension StateMachineWithTransitionPriorities extends StateMachine {
 
+	redefines Transition -> PrioTransition;
 	PrioTransition -> signalEvent:$Clazz priority:int EffectsOptional TargetStateOptional
+		// no changes made to semantics
+	;
+	
+	redefines State -> // no changes made to notation
 	{
-		State fire(Object ctx) {
-			context = ctx;
-			#{if (condition != null)}
-				if(#{condition})
-			#{endif}
-					super.fire(ctx);
-					
-			// variant ...
-			compile {
-				if (condition != null) {
-					gen "if (" condition ")"; 
+		State handleEvent(Object ev, Object ctx) {
+			runtime Transition rtSelected = null;
+			for (Transition t: outgoing) {
+				#{for (Transition t: outgoing)}
+					if (ev instanceof #{t.signalEvent}) {
+						if (rtSelected == null) {
+							rtSelected = new runtime Transition for t; // runtime is a special keyword that creates a runtime instance
+						}
+						else {
+							if (t.priority > rtSelected.syntax.priority) {
+								rtSelected = new runtime Transition for t;
+							}
+						}
+					}
+				#{endfor}
+				
+				// variant ...
+				compile {
+					for (Transition t: outgoing) {
+						gen "if (t.signalEvent instanceof " t.signalEvent ") {";
+						gen "	runtime Transition rt = new runtime Transition for t;";
+						gen "	return rt.fire(ctx);";
+						gen "}"
+					}
 				}
-			}
-			super.fire(ctx);
-		}
-	}
+			} // end for
 
-	GuardOptional -> ;
-	GuardOptional -> "[" condition:Expression "]";
+			if (rtSelected != null) {
+				return rtSelected.fire(ctx);
+			}
+			else {
+				return self;
+			}
+				
+		} // end handleEvent
+	};
 }
 
 extension Forever {

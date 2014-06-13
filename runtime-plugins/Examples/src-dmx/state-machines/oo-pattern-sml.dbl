@@ -39,7 +39,7 @@ module SmlPattern {
 					return null;
 				}
 			}
-			elif (ev.name == "Pause") {
+			elseif (ev.name == "Pause") {
 				return ctx.a_state;
 			}
 			return self;

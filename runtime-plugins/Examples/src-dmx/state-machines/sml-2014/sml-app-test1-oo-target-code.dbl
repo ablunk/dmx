@@ -1,0 +1,320 @@
+module SmlExampleTargetCode {
+
+	interface Object {}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+	class M1 {
+	}
+	
+	active class P {
+		int i;
+		int step;
+	
+		StateMachine extensionInstance1;
+		
+		initial {
+			extensionInstance1 = new StateMachine;
+			extensionInstance1.name = "PBehavior";
+			
+			InitialState is;
+			State s;
+			Transition t;
+
+			is = new InitialState_NoName1;
+			is.extensionContext = self;
+			extensionInstance1.initialState = is;			
+			
+			s = new State;
+			s.name = "B";
+			t =  new PBehavior_B_AfterStep_Transition;
+			t.extensionContext = self;
+			place t into s.outgoing;
+			t.target = s;
+		}
+		
+		actions {
+			extensionInstance1.run();
+		}
+	}
+
+	active class Timer {
+		double delay;
+		boolean stopped = false;
+		StateMachine sm;
+		
+		actions {
+			advance delay;
+			if (!stopped) {
+				sm.timerExpired(self);
+			}
+		}
+	}
+
+	class StateMachine {
+		string name;
+		InitialState initialState;
+		list(State) states;
+		
+		P extensionContext;
+
+		list(Object) eventPool;
+		State currentState;
+
+		// operation which is executed in the context of a StateMachine object
+		void run() {
+            initialState.executeEffect();
+
+			currentState = initialState.target;
+			currentState.enter();
+
+			while (true) {
+				while (eventPool.size > 0 and currentState != null) {
+					Object event = eventPool.first;
+					remove event from eventPool;
+					State nextState = currentState.handleEvent(event);
+
+					// handle completion event of entered state until a state without completion events is reached
+					while (nextState != null) {
+						currentState = nextState;
+						nextState = currentState.enter();
+					}
+				}
+
+                wait; // wait for new events, may be replaced by wait until eventPool.size > 0 in future
+			}
+		}
+
+		void timerExpired(Timer t) {
+			place t into eventPool;
+			reactivate extensionContext; // reactivates the object in which this extension is placed in
+		}
+		
+	}
+	
+	class InitialState {
+		State target;
+		
+		P extensionContext;
+		
+		// abstract
+		void executeEffect() {}
+	}
+	
+	class InitialState_NoName1 extends InitialState {
+		// concrete
+		void executeEffect() {
+			trace("init");
+			extensionContext.i=0;
+			extensionContext.step=1;
+		}
+	}
+
+	class State {
+		string name;
+		list(Transition) outgoing;
+		
+		State enter() {
+			for (Transition t: outgoing) {
+				State completionTarget = t.handleCompletion();
+				if (completionTarget != self) {
+					return completionTarget;
+				}
+			}
+		
+			for(Transition t: outgoing) {
+				t.startTimer();
+			}
+			
+			return self;
+		}
+		
+		State handleEvent(Object event) {
+			State target;
+			for (Transition t: outgoing) {
+				if (t.isEnabled(event)) { // take first enabled transition
+					target = t.fire();
+                    break;
+				}
+			}
+			if (target != null) {
+				if (target != self) {
+                    // if the active state is left, all running timers are disabled. 
+                    // if the active state is re-entered, all running timers remain intact and no changes are made.
+                    // this is, in our opinion, useful interpretation of the execution semantics of UML state machine
+                    // regarding time events.
+
+					for (Transition t: outgoing) {
+						t.stopTimer();
+					}
+				}
+				return target;
+			}
+			else {
+				return self;
+			}
+		}
+		
+	}
+	
+	class Transition {
+		Trigger trigger;
+		State target;
+	
+		P extensionContext;
+	
+		Timer runningTimer;
+		
+		// by default empty for specilizations 
+		double eval_expr1_delay() {
+		}
+		
+		// abstract -> concrete implementations based on concrete syntax part values
+		State handleCompletion() {}
+		
+		// abstract
+		State fire() {}
+		
+		// abstract
+		boolean isEnabled(Object event) {}
+		
+		void startTimer() {
+			runningTimer = new Timer;
+			runningTimer.delay = eval_expr1_delay();
+			activate runningTimer;
+		}
+		
+		void stopTimer() {
+        	if (runningTimer != null) {
+    			runningTimer.stopped = true;
+            }
+		}
+	}
+	
+	class PBehavior_B_Guard_i_eq_0 extends Transition {
+		State handleCompletion() {
+			return fire();
+		}
+		
+		State fire() {
+			trace("i is zero");
+			return target;
+		}
+		
+		// conrete
+		boolean isEnabled(Object event) {
+			return false;
+		}
+	}
+	
+	class PBehavior_B_Guard_i_gr_0 extends Transition {
+		State handleCompletion() {
+			return fire();
+		}
+
+		State fire() {
+			trace("i is greater zero");
+			return target;
+		}
+
+		// conrete
+		boolean isEnabled(Object event) {
+			return false;
+		}
+	}
+	
+	class PBehavior_B_AfterStep_Transition extends Transition {
+		State handleCompletion() {
+			return null;
+		}
+		
+		State fire() {
+			trace("1 time unit passed.");
+			return target;
+		}
+		
+		// conrete
+		boolean isEnabled(Object event) {
+			return event instanceof Timer;
+		}
+	
+		double eval_expr1_delay() {
+			double result;
+			result = extensionContext.step;
+			return result;
+		}
+	}
+
+	class PBehavior_B_AfterStep10_Transition extends Transition {
+		State handleCompletion() {
+			return null;
+		}
+	
+		State fire() {
+			trace("10 time units passed.");
+			extensionContext.i = extensionContext.i + 1;
+			return target;
+		}
+		
+		// conrete
+		boolean isEnabled(Object event) {
+			return event instanceof Timer;
+		}
+
+		double eval_expr1_delay() {
+			double result;
+			result = extensionContext.step * 10;
+			return result;
+		}
+	}
+	
+	class PBehavior_B_M1_Transition extends Transition {
+		State handleCompletion() {
+			return null;
+		}
+	
+		State fire() {
+			trace("M1 received");
+			trace("i=" + extensionContext.i);
+			return target;
+		}
+		
+		// conrete
+		boolean isEnabled(Object event) {
+			return event instanceof M1;
+		}
+	}
+	
+	class Trigger {
+		TimeEvent timeEvent;
+		Object signalEvent;
+	}
+
+	class TimeEvent {
+		boolean hasDelayValue;
+	}	
+
+	void main() {
+		P p = new P;
+		activate p;
+		
+		place new M1 into p.extensionInstance1.eventPool;
+		reactivate p;
+		advance 3;
+		
+		place new M1 into p.extensionInstance1.eventPool;
+		reactivate p;
+		advance 1;
+		
+		place new M1 into p.extensionInstance1.eventPool;
+		reactivate p;
+		advance 8;
+	}
+
+}

@@ -1,0 +1,58 @@
+#import "sml"
+
+module sml_application {
+
+	class M1 {
+	}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+	active class P {
+		int i;
+		int step;
+		
+		stateMachine PBehavior {
+			initial / { trace("init"); i=0; step=1; } -> A;
+			
+			// state A has transition which is triggered by a completion event (equiv. to SDL cont. signal) 
+			state A ( -> B );
+			
+			state B (
+				[i == 0] / { trace("i is zero"); }	-> B,
+				[i > 0] / { trace("i is greater zero"); }	-> B,
+				M1 / { trace("M1 received"); trace("i=" + i); } -> B,
+				after(step) / { trace("1 time unit passed."); i = i + 1; } -> B,
+				after(10*step) / { trace("10 time units passed."); } -> B
+			);
+		}
+	}
+	
+	active class Q {
+		stateMachine QBehavior {
+			initial -> K;
+			state K (
+				after(5) / { send M1 to p; } -> K
+			);
+		}
+	}
+	
+	P p;
+	
+	void main() {
+		p = new P;
+		activate p;
+		
+		Q q = new Q;
+		activate q;
+		
+		advance 20;
+	}
+	
+}
+

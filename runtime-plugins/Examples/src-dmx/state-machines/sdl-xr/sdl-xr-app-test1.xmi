@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="sdl-xr">
+    <model href="sdl-xr.xmi#/"/>
+  </imports>
+  <modules name="sml_application">
+    <extensions xsi:type="dbl:System" name="X">
+      <entities xsi:type="dbl:SignalDefinition" name="M1" concreteSyntax="signal M1;"/>
+      <entities xsi:type="dbl:ProcessDefinition" name="P" concreteSyntax="process P;&#xA;&#x9;&#x9;&#x9;dcl int i=0, int step=1;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;timer T1;&#xA;&#x9;&#x9;&#x9;timer T2;&#xA;&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state A;&#xA;&#x9;&#x9;&#x9;&#x9;input none;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(step,T1); // PARSE PROBLEM: set(T1) not supported, use set(,T1) instead if needed&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(10*step,T2);&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;endstate A;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state A_t; // state A with Timers running&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i == 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i > 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input signal M1; // PARSE PROBLEM: added keyword signal to distingiush signal and timer&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T2;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;endstate A_t;&#x9;&#xA;&#x9;&#x9;endprocess P;" endNameRef="//@modules.0/@extensions.0/@entities.1">
+        <entities xsi:type="dbl:VariableDefinition">
+          <variables name="i" concreteSyntax="int i=0">
+            <primitiveType xsi:type="dbl:IntType"/>
+            <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </variables>
+          <variables name="step" concreteSyntax="int step=1">
+            <primitiveType xsi:type="dbl:IntType"/>
+            <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </variables>
+        </entities>
+        <entities xsi:type="dbl:TimerDefinition" name="T1"/>
+        <entities xsi:type="dbl:TimerDefinition" name="T2"/>
+        <start nextState="//@modules.0/@extensions.0/@entities.1/@states.0"/>
+        <states name="A" endNameRef="//@modules.0/@extensions.0/@entities.1/@states.0">
+          <events xsi:type="dbl:InputPart" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus/>
+            <actions xsi:type="dbl:TimerSet" timer="//@modules.0/@extensions.0/@entities.1/@entities.1">
+              <timeExpr xsi:type="dbl:IdExpr" concreteSyntax="step" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.1"/>
+            </actions>
+            <actions xsi:type="dbl:TimerSet" timer="//@modules.0/@extensions.0/@entities.1/@entities.2">
+              <timeExpr xsi:type="dbl:Mul" concreteSyntax="10*step">
+                <op1 xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="step" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.1"/>
+              </timeExpr>
+            </actions>
+          </events>
+        </states>
+        <states name="A_t" endNameRef="//@modules.0/@extensions.0/@entities.1/@states.1">
+          <events xsi:type="dbl:InputPart" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus>
+              <enablingCondition xsi:type="dbl:Equal" concreteSyntax="i == 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </enablingCondition>
+            </stimulus>
+            <actions xsi:type="dbl:Task">
+              <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;i is zero&quot;)">
+                  <expression xsi:type="dbl:ProcedureCall">
+                    <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;i is zero&quot;)" referencedElement="//@modules.0/@procedures.0">
+                      <arguments>
+                        <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is zero&quot;" value="i is zero"/>
+                      </arguments>
+                    </procedureAccess>
+                  </expression>
+                </statements>
+              </codeBlock>
+            </actions>
+          </events>
+          <events xsi:type="dbl:InputPart" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus>
+              <enablingCondition xsi:type="dbl:Greater" concreteSyntax="i > 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </enablingCondition>
+            </stimulus>
+            <actions xsi:type="dbl:Task">
+              <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;i is greater zero&quot;)">
+                  <expression xsi:type="dbl:ProcedureCall">
+                    <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;i is greater zero&quot;)" referencedElement="//@modules.0/@procedures.0">
+                      <arguments>
+                        <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is greater zero&quot;" value="i is greater zero"/>
+                      </arguments>
+                    </procedureAccess>
+                  </expression>
+                </statements>
+              </codeBlock>
+            </actions>
+          </events>
+          <events xsi:type="dbl:InputPart" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus signal="//@modules.0/@extensions.0/@entities.0"/>
+            <actions xsi:type="dbl:Task">
+              <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;M1 received&quot;)">
+                  <expression xsi:type="dbl:ProcedureCall">
+                    <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;M1 received&quot;)" referencedElement="//@modules.0/@procedures.0">
+                      <arguments>
+                        <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;M1 received&quot;" value="M1 received"/>
+                      </arguments>
+                    </procedureAccess>
+                  </expression>
+                </statements>
+                <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;i=&quot; + i)">
+                  <expression xsi:type="dbl:ProcedureCall">
+                    <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;i=&quot; + i)" referencedElement="//@modules.0/@procedures.0">
+                      <arguments>
+                        <arguments xsi:type="dbl:Plus" concreteSyntax="&quot;i=&quot; + i">
+                          <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i=&quot;" value="i="/>
+                          <op2 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                        </arguments>
+                      </arguments>
+                    </procedureAccess>
+                  </expression>
+                </statements>
+              </codeBlock>
+            </actions>
+          </events>
+          <events xsi:type="dbl:InputPart" nextState="//@modules.0/@extensions.0/@entities.1/@states.0">
+            <stimulus timer="//@modules.0/@extensions.0/@entities.1/@entities.1"/>
+            <actions xsi:type="dbl:Task">
+              <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;1 time unit passed.&quot;)">
+                  <expression xsi:type="dbl:ProcedureCall">
+                    <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;1 time unit passed.&quot;)" referencedElement="//@modules.0/@procedures.0">
+                      <arguments>
+                        <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;1 time unit passed.&quot;" value="1 time unit passed."/>
+                      </arguments>
+                    </procedureAccess>
+                  </expression>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="i = i + 1">
+                  <variable concreteSyntax="i">
+                    <idExpr concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                  </variable>
+                  <value xsi:type="dbl:Plus" concreteSyntax="i + 1">
+                    <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                    <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                  </value>
+                </statements>
+              </codeBlock>
+            </actions>
+          </events>
+          <events xsi:type="dbl:InputPart" nextState="//@modules.0/@extensions.0/@entities.1/@states.0">
+            <stimulus timer="//@modules.0/@extensions.0/@entities.1/@entities.2"/>
+            <actions xsi:type="dbl:Task">
+              <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;10 time units passed.&quot;)">
+                  <expression xsi:type="dbl:ProcedureCall">
+                    <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;10 time units passed.&quot;)" referencedElement="//@modules.0/@procedures.0">
+                      <arguments>
+                        <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;10 time units passed.&quot;" value="10 time units passed."/>
+                      </arguments>
+                    </procedureAccess>
+                  </expression>
+                </statements>
+              </codeBlock>
+            </actions>
+          </events>
+        </states>
+      </entities>
+      <entities xsi:type="dbl:ProcessDefinition" name="Q" concreteSyntax="process Q;&#xA;&#x9;&#x9;&#x9;timer T3;&#xA;&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;&#x9;set(5,T3);&#xA;&#x9;&#x9;&#x9;nextState K;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state K;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T3;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;output M1 to pset P;&#xA;&#x9;&#x9;&#x9;&#x9;nextState K;&#xA;&#x9;&#x9;&#x9;endstate K;&#xA;&#x9;&#x9;endprocess Q;" endNameRef="//@modules.0/@extensions.0/@entities.2">
+        <entities xsi:type="dbl:TimerDefinition" name="T3"/>
+        <start nextState="//@modules.0/@extensions.0/@entities.2/@states.0">
+          <actions xsi:type="dbl:TimerSet" timer="//@modules.0/@extensions.0/@entities.2/@entities.0">
+            <timeExpr xsi:type="dbl:IntLiteral" concreteSyntax="5" value="5"/>
+          </actions>
+        </start>
+        <states name="K" endNameRef="//@modules.0/@extensions.0/@entities.2/@states.0">
+          <events xsi:type="dbl:InputPart" nextState="//@modules.0/@extensions.0/@entities.2/@states.0">
+            <stimulus timer="//@modules.0/@extensions.0/@entities.2/@entities.0"/>
+            <actions xsi:type="dbl:Output" signal="//@modules.0/@extensions.0/@entities.0" targetProcess="//@modules.0/@extensions.0/@entities.1"/>
+          </events>
+        </states>
+      </entities>
+      <entities xsi:type="dbl:SemaphoreDefinition" name="SEM">
+        <kind xsi:type="dbl:SemBinary">
+          <policy xsi:type="dbl:SemFIFO"/>
+          <initState xsi:type="dbl:SemFull"/>
+        </kind>
+      </entities>
+      <entities xsi:type="dbl:ProcessDefinition" name="ST" concreteSyntax="process ST;&#xA;&#x9;&#x9;&#x9;dcl int i2=0;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;&#x9;take SEM with NO_WAIT;&#xA;&#x9;&#x9;&#x9;&#x9;take SEM with NO_WAIT,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;on OK {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;task { trace(&quot;take SEM OK&quot;); }&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;give SEM;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;},&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;on ERROR {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;task { trace(&quot;take SEM ERROR&quot;); }&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;give SEM;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;;&#xA;&#x9;&#x9;&#x9;&#x9;take SEM with timeout=10;&#xA;&#x9;&#x9;&#x9;&#x9;take SEM with timeout=10,&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;on ERROR {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;;&#xA;&#x9;&#x9;&#x9;&#x9;take SEM FOREVER;&#xA;&#x9;&#x9;&#x9;&#x9;give SEM;&#xA;&#x9;&#x9;&#x9;stop;&#xA;&#x9;&#x9;endprocess ST;" endNameRef="//@modules.0/@extensions.0/@entities.4">
+        <entities xsi:type="dbl:VariableDefinition">
+          <variables name="i2" concreteSyntax="int i2=0">
+            <primitiveType xsi:type="dbl:IntType"/>
+            <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </variables>
+        </entities>
+        <start>
+          <actions xsi:type="dbl:SemaphoreTake" semaphore="//@modules.0/@extensions.0/@entities.3">
+            <timeout xsi:type="dbl:SemTimeoutNoWait"/>
+          </actions>
+          <actions xsi:type="dbl:SemaphoreTake" semaphore="//@modules.0/@extensions.0/@entities.3">
+            <timeout xsi:type="dbl:SemTimeoutNoWait">
+              <semAction xsi:type="dbl:SemActionOK">
+                <actions xsi:type="dbl:Task">
+                  <codeBlock concreteSyntax="{ trace(&quot;take SEM OK&quot;); }">
+                    <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;take SEM OK&quot;)">
+                      <expression xsi:type="dbl:ProcedureCall">
+                        <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;take SEM OK&quot;)" referencedElement="//@modules.0/@procedures.0">
+                          <arguments>
+                            <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;take SEM OK&quot;" value="take SEM OK"/>
+                          </arguments>
+                        </procedureAccess>
+                      </expression>
+                    </statements>
+                  </codeBlock>
+                </actions>
+                <actions xsi:type="dbl:SemaphoreGive" semaphore="//@modules.0/@extensions.0/@entities.3"/>
+              </semAction>
+              <semAction xsi:type="dbl:SemActionError">
+                <actions xsi:type="dbl:Task">
+                  <codeBlock concreteSyntax="{ trace(&quot;take SEM ERROR&quot;); }">
+                    <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;take SEM ERROR&quot;)">
+                      <expression xsi:type="dbl:ProcedureCall">
+                        <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;take SEM ERROR&quot;)" referencedElement="//@modules.0/@procedures.0">
+                          <arguments>
+                            <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;take SEM ERROR&quot;" value="take SEM ERROR"/>
+                          </arguments>
+                        </procedureAccess>
+                      </expression>
+                    </statements>
+                  </codeBlock>
+                </actions>
+                <actions xsi:type="dbl:SemaphoreGive" semaphore="//@modules.0/@extensions.0/@entities.3"/>
+              </semAction>
+            </timeout>
+          </actions>
+          <actions xsi:type="dbl:SemaphoreTake" semaphore="//@modules.0/@extensions.0/@entities.3">
+            <timeout xsi:type="dbl:SemTimeoutTime">
+              <timeExpr xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+            </timeout>
+          </actions>
+          <actions xsi:type="dbl:SemaphoreTake" semaphore="//@modules.0/@extensions.0/@entities.3">
+            <timeout xsi:type="dbl:SemTimeoutTime">
+              <timeExpr xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+              <semAction xsi:type="dbl:SemActionError"/>
+            </timeout>
+          </actions>
+          <actions xsi:type="dbl:SemaphoreTake" semaphore="//@modules.0/@extensions.0/@entities.3">
+            <timeout xsi:type="dbl:SemTimeoutForever"/>
+          </actions>
+          <actions xsi:type="dbl:SemaphoreGive" semaphore="//@modules.0/@extensions.0/@entities.3"/>
+        </start>
+      </entities>
+    </extensions>
+    <extensions xsi:type="dbl:Env">
+      <codeBlock concreteSyntax="{&#xA;&#x9;&#x9;trace(&quot;begin&quot;);&#xA;&#x9;&#x9;advance 12;&#xA;&#x9;&#x9;trace(&quot;after 12 time units&quot;);&#xA;&#x9;&#x9;send M1 to pset P;&#xA;&#x9;&#x9;advance 10;&#xA;&#x9;}">
+        <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;begin&quot;)">
+          <expression xsi:type="dbl:ProcedureCall">
+            <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;begin&quot;)" referencedElement="//@modules.0/@procedures.0">
+              <arguments>
+                <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;begin&quot;" value="begin"/>
+              </arguments>
+            </procedureAccess>
+          </expression>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 12">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="12" value="12"/>
+        </statements>
+        <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;after 12 time units&quot;)">
+          <expression xsi:type="dbl:ProcedureCall">
+            <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;after 12 time units&quot;)" referencedElement="//@modules.0/@procedures.0">
+              <arguments>
+                <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;after 12 time units&quot;" value="after 12 time units"/>
+              </arguments>
+            </procedureAccess>
+          </expression>
+        </statements>
+        <statements xsi:type="dbl:EnvSendStatement" concreteSyntax="send M1 to pset P;" signal="//@modules.0/@extensions.0/@entities.0" targetSet="//@modules.0/@extensions.0/@entities.1"/>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+        </statements>
+      </codeBlock>
+    </extensions>
+    <procedures name="trace" concreteSyntax="void trace(string msg) {&#xA;&#x9;&#x9;if (debug) {&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (debug) {&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="debug" referencedElement="//@modules.0/@variables.0"/>
+        <ifCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot;">
+                  <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot;">
+                      <op1 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+                      <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; - &quot;" value=" - "/>
+                    </op1>
+                    <op2 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;: &quot;" value=": "/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="msg" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </outputs>
+          </statements>
+        </ifCaseBlock>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </procedures>
+    <variables name="debug" concreteSyntax="boolean debug = true">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+    </variables>
+  </modules>
+</dbl:Model>

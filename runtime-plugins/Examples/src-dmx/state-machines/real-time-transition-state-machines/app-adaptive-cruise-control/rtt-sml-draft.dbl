@@ -1,0 +1,76 @@
+#import "../../base"
+
+module sml {
+
+extension Signal {
+	ModuleContentExtension -> Signal;
+	Signal -> "signal" name:ID ";";
+}
+semantics {
+}
+
+extension SendStatement {
+	Statement -> SendStatement;
+	SendStatement -> "send" signal:Expression "to" target:Expression RtTaskOptional ";";
+	RtTaskOptional -> ;
+	RtTaskOptional -> "newTask" newTask:NewRtTask;
+	RtTaskOptional -> "continueTask" contTask:ContRtTask;
+	NewRtTask -> "priority" "=" prio:Expression;
+	ContRtTask -> ;
+	ContRtTask -> PriorityOptional;
+	PriorityOptional -> ;
+	PriorityOptional -> Priority;
+	Priority -> "priority" "=" prio:Expression;
+}
+semantics {
+}
+
+extension TaskPriorityExpression {
+	Factor:instantiates(Expression) -> TaskPriorityExpression;
+	TaskPriorityExpression -> "taskPriority";
+}
+
+extension TaskTypeExpression {
+	Factor:instantiates(Expression) -> TaskTypeExpression;
+	TaskTypeExpression -> "taskType";
+}
+
+extension StateMachine {
+	ClassContentExtension -> StateMachine;
+	
+	StateMachine -> "stateMachine" name:ID "{" initialState:InitialState StateListOptional "}";
+	
+	StateListOptional -> ;
+	StateListOptional -> states:list(State) StateListOptional;
+	
+	InitialState -> "initial" EffectsOptional "->" target:$$State ";";
+	State -> "state" name:ID TransitionsOptional ";";
+	
+	TransitionsOptional -> ;
+	TransitionsOptional -> "(" OutgoingList ")";
+	
+	OutgoingList -> outgoing:list(Transition) OutgoingListOptional;
+	OutgoingListOptional -> ;
+	OutgoingListOptional -> "," OutgoingList;
+
+	Transition -> trigger:Trigger GuardOptional EffectsOptional TargetStateOptional;
+	
+	Trigger -> ;
+	Trigger -> signalEvent:$Clazz;
+	Trigger -> "after" timeEvent:TimeEvent;
+	TimeEvent -> "(" delay:Expression ")"; 
+	
+	GuardOptional -> ;
+	GuardOptional -> "[" condition:Expression "]";
+	
+	EffectsOptional -> ;
+	EffectsOptional -> "/" effect:CodeBlock;
+	
+	//TargetStateOptional -> ;
+	TargetStateOptional -> "->" target:$$State;
+	TargetStateOptional -> "->" "final";
+}
+semantics {
+}
+
+}

@@ -1,0 +1,56 @@
+#import "../../base"
+
+module sml {
+
+extension Signal {
+	ModuleContentExtension -> Signal;
+	Signal -> "signal" name:ID ";";
+}
+semantics {
+}
+
+extension SendStatement {
+	Statement -> SendStatement;
+	SendStatement -> "send" signal:Expression "to" target:Expression ";";
+}
+semantics {
+}
+
+extension StateMachine {
+	ClassContentExtension -> StateMachine;
+	
+	StateMachine -> "stateMachine" name:ID "{" initialState:InitialState StateListOptional "}";
+	
+	StateListOptional -> ;
+	StateListOptional -> states:list(State) StateListOptional;
+	
+	InitialState -> "initial" EffectsOptional "->" target:$$State ";";
+	State -> "state" name:ID TransitionsOptional ";";
+	
+	TransitionsOptional -> ;
+	TransitionsOptional -> "(" OutgoingList ")";
+	
+	OutgoingList -> outgoing:list(Transition) OutgoingListOptional;
+	OutgoingListOptional -> ;
+	OutgoingListOptional -> "," OutgoingList;
+
+	Transition -> trigger:Trigger GuardOptional EffectsOptional TargetState;
+	
+	Trigger -> ;
+	Trigger -> signalEvent:$Clazz;
+	Trigger -> "after" timeEvent:TimeEvent;
+	TimeEvent -> "(" delay:Expression ")"; 
+	
+	GuardOptional -> ;
+	GuardOptional -> "[" condition:Expression "]";
+	
+	EffectsOptional -> ;
+	EffectsOptional -> "/" effect:CodeBlock;
+	
+	TargetState -> "->" target:$$State;
+	TargetState -> "->" "final";
+}
+semantics {
+}
+
+}

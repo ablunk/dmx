@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="sml">
+    <model href="sml.xmi#/"/>
+  </imports>
+  <modules name="sml_application">
+    <classifiers xsi:type="dbl:Clazz" name="M1"/>
+    <classifiers xsi:type="dbl:Clazz" name="P" active="true">
+      <extensions xsi:type="dbl:StateMachine" name="PBehavior">
+        <initialState target="//@modules.0/@classifiers.1/@extensions.0/@states.0">
+          <effect concreteSyntax="{ trace(&quot;init&quot;); i=0; step=1; }">
+            <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;init&quot;)">
+              <expression xsi:type="dbl:ProcedureCall">
+                <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;init&quot;)" referencedElement="//@modules.0/@procedures.0">
+                  <arguments>
+                    <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;init&quot;" value="init"/>
+                  </arguments>
+                </procedureAccess>
+              </expression>
+            </statements>
+            <statements xsi:type="dbl:Assignment" concreteSyntax="i=0">
+              <variable concreteSyntax="i">
+                <idExpr concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+              </variable>
+              <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+            </statements>
+            <statements xsi:type="dbl:Assignment" concreteSyntax="step=1">
+              <variable concreteSyntax="step">
+                <idExpr concreteSyntax="step" referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+              </variable>
+              <value xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </statements>
+          </effect>
+        </initialState>
+        <states name="A">
+          <outgoing target="//@modules.0/@classifiers.1/@extensions.0/@states.1">
+            <trigger/>
+          </outgoing>
+        </states>
+        <states name="B">
+          <outgoing target="//@modules.0/@classifiers.1/@extensions.0/@states.1">
+            <trigger/>
+            <condition xsi:type="dbl:Equal" concreteSyntax="i == 0">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+            </condition>
+            <effect concreteSyntax="{ trace(&quot;i is zero&quot;); }">
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;i is zero&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;i is zero&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is zero&quot;" value="i is zero"/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.1/@extensions.0/@states.1">
+            <trigger/>
+            <condition xsi:type="dbl:Greater" concreteSyntax="i > 0">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+            </condition>
+            <effect concreteSyntax="{ trace(&quot;i is greater zero&quot;); }">
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;i is greater zero&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;i is greater zero&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is greater zero&quot;" value="i is greater zero"/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.1/@extensions.0/@states.1">
+            <trigger>
+              <signalEvent concreteSyntax="M1" referencedElement="//@modules.0/@classifiers.0"/>
+            </trigger>
+            <effect concreteSyntax="{ trace(&quot;M1 received&quot;); trace(&quot;i=&quot; + i); }">
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;M1 received&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;M1 received&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;M1 received&quot;" value="M1 received"/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;i=&quot; + i)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;i=&quot; + i)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:Plus" concreteSyntax="&quot;i=&quot; + i">
+                        <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i=&quot;" value="i="/>
+                        <op2 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+                      </arguments>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.1/@extensions.0/@states.1">
+            <trigger>
+              <timeEvent>
+                <delay xsi:type="dbl:IdExpr" concreteSyntax="step" referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+              </timeEvent>
+            </trigger>
+            <effect concreteSyntax="{ trace(&quot;1 time unit passed.&quot;); i = i + 1; }">
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;1 time unit passed.&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;1 time unit passed.&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;1 time unit passed.&quot;" value="1 time unit passed."/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+              <statements xsi:type="dbl:Assignment" concreteSyntax="i = i + 1">
+                <variable concreteSyntax="i">
+                  <idExpr concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+                </variable>
+                <value xsi:type="dbl:Plus" concreteSyntax="i + 1">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+                  <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </value>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.1/@extensions.0/@states.1">
+            <trigger>
+              <timeEvent>
+                <delay xsi:type="dbl:Mul" concreteSyntax="10*step">
+                  <op1 xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="step" referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+                </delay>
+              </timeEvent>
+            </trigger>
+            <effect concreteSyntax="{ trace(&quot;10 time units passed.&quot;); }">
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;10 time units passed.&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;10 time units passed.&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;10 time units passed.&quot;" value="10 time units passed."/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+        </states>
+      </extensions>
+      <attributes name="i" concreteSyntax="int i">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="step" concreteSyntax="int step">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Q" active="true">
+      <extensions xsi:type="dbl:StateMachine" name="QBehavior">
+        <initialState target="//@modules.0/@classifiers.2/@extensions.0/@states.0"/>
+        <states name="K">
+          <outgoing target="//@modules.0/@classifiers.2/@extensions.0/@states.0">
+            <trigger>
+              <timeEvent>
+                <delay xsi:type="dbl:IntLiteral" concreteSyntax="5" value="5"/>
+              </timeEvent>
+            </trigger>
+            <effect concreteSyntax="{ send M1 to p; }">
+              <statements xsi:type="dbl:SendStatement" concreteSyntax="send M1 to p;">
+                <signal xsi:type="dbl:IdExpr" concreteSyntax="M1" referencedElement="//@modules.0/@classifiers.0"/>
+                <target xsi:type="dbl:IdExpr" concreteSyntax="p" referencedElement="//@modules.0/@variables.1"/>
+              </statements>
+            </effect>
+          </outgoing>
+        </states>
+      </extensions>
+    </classifiers>
+    <procedures name="trace" concreteSyntax="void trace(string msg) {&#xA;&#x9;&#x9;if (debug) {&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (debug) {&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="debug" referencedElement="//@modules.0/@variables.0"/>
+        <ifCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot;">
+                  <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot;">
+                      <op1 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+                      <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; - &quot;" value=" - "/>
+                    </op1>
+                    <op2 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;: &quot;" value=": "/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="msg" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </outputs>
+          </statements>
+        </ifCaseBlock>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </procedures>
+    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;p = new P;&#xA;&#x9;&#x9;activate p;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Q q = new Q;&#xA;&#x9;&#x9;activate q;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;advance 20;&#xA;&#x9;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="p = new P">
+        <variable concreteSyntax="p">
+          <idExpr concreteSyntax="p" referencedElement="//@modules.0/@variables.1"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject" concreteSyntax="new P">
+          <classifierTypeExpr concreteSyntax="P" referencedElement="//@modules.0/@classifiers.1"/>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate p">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="p" referencedElement="//@modules.0/@variables.1"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="q" concreteSyntax="Q q = new Q">
+        <classifierTypeExpr concreteSyntax="Q" referencedElement="//@modules.0/@classifiers.2"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Q">
+          <classifierTypeExpr concreteSyntax="Q" referencedElement="//@modules.0/@classifiers.2"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate q">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="q" referencedElement="//@modules.0/@procedures.1/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 20">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="20" value="20"/>
+      </statements>
+    </procedures>
+    <variables name="debug" concreteSyntax="boolean debug = true">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+    </variables>
+    <variables name="p" concreteSyntax="P p">
+      <classifierTypeExpr concreteSyntax="P" referencedElement="//@modules.0/@classifiers.1"/>
+    </variables>
+  </modules>
+</dbl:Model>

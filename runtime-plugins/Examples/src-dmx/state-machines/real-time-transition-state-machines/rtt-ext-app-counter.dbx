@@ -1,0 +1,90 @@
+#import "rtt-sml-draft"
+
+module sml_application {
+
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+
+	//signal Start;
+	//signal Pause;
+	//signal Resume;
+	//signal Reset;
+	class Start {}
+	class Pause {}
+	class Resume {}
+	class Reset {}
+
+	active class Counter {
+		int count;
+		int limit = 10;
+		int step = 1;
+		
+		stateMachine CounterBehavior {
+			initial
+			-> StandBy;
+
+			state StandBy (
+				Start / {
+					count=0;
+				}
+				-> Active,
+				
+				Resume
+				-> Active,
+				
+				Reset / {
+					count=0;
+					trace("StandBy.Reset");
+				}
+				-> Active
+			);
+
+			state Active (
+				[count >= limit] / {
+					trace("Finished.");
+				}
+				-> final,
+				
+				after(step) [count < limit] / {
+					count=count+1;
+					trace("Tick " + count);
+				}
+				-> Active,
+				
+				Pause / {
+					send new Resume to self continueTask priority = taskPriority + 1;
+					send new Reset to self;
+				}
+				-> StandBy,
+				
+				Reset / {
+					count=0;
+					trace("Active.Reset");
+				}
+				-> Active
+			);
+		}
+	}
+	
+	void main() {
+		Counter c = new Counter;
+		activate c;
+		
+		send new Start to c;
+		
+		advance 2;
+		send new Pause to c newTask priority = 3;
+		
+		advance 2;
+		send new Resume to c;
+		
+		advance 10;
+	}
+	
+}
+

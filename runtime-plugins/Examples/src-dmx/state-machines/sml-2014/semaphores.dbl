@@ -1,0 +1,18 @@
+module semaphore_app {
+
+interface Object {}
+
+active class FifoSemaphore(int initCount) {
+	int count = 1;
+	list(Object) fifoList;
+	Object next;
+	
+	void take() {
+		while (count == 0 and next != self) {
+			wait;
+		}
+		next = fifoList.first;
+	}
+}
+
+}

@@ -1,0 +1,136 @@
+module RealTimeTaskBaseOnlyApplication1 {
+
+	interface Object {}
+	
+	boolean debug = true;
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+	class Comparable {
+		int compareTo(Object o) {
+			return 0;
+		}
+	}
+	
+	class Signal extends Comparable {
+		string name;
+		int taskPrio;
+	
+		int compareTo(Object o) {
+			Signal s = o as Signal;
+			if (taskPrio < s.taskPrio) {
+				return -1;
+			}
+			elseif (taskPrio > s.taskPrio) {
+				return 1;
+			}
+			else {
+				return 0;
+			}
+		}
+	}
+	
+	class MinHeap {
+		list(Comparable) elements;
+		
+		void add(Comparable o) {
+			place o into elements;
+			int lastIndex = elements.size - 1;
+			shiftLeft(lastIndex);
+		}
+		
+		boolean isLess(Comparable c1, Comparable c2) {
+			return c1.compareTo(c2) == -1;
+		}
+		
+		void shiftLeft(int fromIndex) {
+			int currentIndex = fromIndex;
+			while (currentIndex > 0) {
+				int parentIndex = (currentIndex - 1) / 2;
+				
+				if (isLess(elements.at(currentIndex), elements.at(parentIndex))) { // is less than
+					Comparable tmp = elements.at(currentIndex);
+					place elements.at(parentIndex) into elements at currentIndex;
+					place tmp into elements at parentIndex;
+					currentIndex = parentIndex;
+				}
+				else {
+					break;
+				}
+			}
+		}
+		
+		void shiftRight(int fromIndex) {
+			int current = fromIndex;
+			int lastIndex = elements.size - 1;
+			
+			while (true) {
+				int min = fromIndex;
+				int left = min*2 + 1;
+				int right = left + 1;
+				if (left <= lastIndex and isLess(elements.at(left), elements.at(min)) ) {
+					min = left;
+				}
+				if (right <= lastIndex and isLess(elements.at(right), elements.at(min)) ) {
+					min = right;
+				}
+				if (min == current) {
+					break;
+				}
+				
+				// swap
+				Comparable tmp = elements.at(current);
+				place elements.at(min) into elements at current;
+				place tmp into elements at min;
+				
+				current = min;
+			}
+		}
+		
+		void clear() {
+			empty elements;
+		}
+		
+		Comparable pick() {
+			Comparable f = elements.first;
+			Comparable l = elements.last;
+			remove l from elements;
+			place l into elements at 0;
+			shiftRight(0);
+			return f;
+		}
+		
+		int size() {
+			return elements.size;
+		}
+	}
+	
+	void main() {
+		MinHeap mh = new MinHeap();
+		
+		Signal s = new Signal();
+		s.name = "C";
+		s.taskPrio = 3;
+		mh.add(s);
+		
+		s = new Signal();
+		s.name = "A";
+		s.taskPrio = 1;
+		mh.add(s);
+		
+		s = new Signal();
+		s.name = "B";
+		s.taskPrio = 2;
+		mh.add(s);
+		
+		while (mh.size() > 0) {
+			Signal topSig = mh.pick() as Signal;
+			trace(topSig.name);
+		}
+	}
+
+}

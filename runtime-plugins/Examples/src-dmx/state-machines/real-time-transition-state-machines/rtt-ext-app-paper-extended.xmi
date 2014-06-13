@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="rtt-sml-draft">
+    <model href="rtt-sml-draft.xmi#/"/>
+  </imports>
+  <modules name="sml_application">
+    <classifiers xsi:type="dbl:Clazz" name="Start"/>
+    <classifiers xsi:type="dbl:Clazz" name="Pause"/>
+    <classifiers xsi:type="dbl:Clazz" name="Resume"/>
+    <classifiers xsi:type="dbl:Clazz" name="Reset"/>
+    <classifiers xsi:type="dbl:Clazz" name="Counter" active="true">
+      <extensions xsi:type="dbl:StateMachine" name="CounterBehavior">
+        <initialState target="//@modules.0/@classifiers.4/@extensions.0/@states.0"/>
+        <states name="StandBy">
+          <outgoing target="//@modules.0/@classifiers.4/@extensions.0/@states.1">
+            <trigger>
+              <signalEvent concreteSyntax="Start" referencedElement="//@modules.0/@classifiers.0"/>
+            </trigger>
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;count=0;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Assignment" concreteSyntax="count=0">
+                <variable concreteSyntax="count">
+                  <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+                </variable>
+                <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.4/@extensions.0/@states.1">
+            <trigger>
+              <signalEvent concreteSyntax="Resume" referencedElement="//@modules.0/@classifiers.2"/>
+            </trigger>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.4/@extensions.0/@states.1">
+            <trigger>
+              <signalEvent concreteSyntax="Reset" referencedElement="//@modules.0/@classifiers.3"/>
+            </trigger>
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;count=0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;StandBy.Reset&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Assignment" concreteSyntax="count=0">
+                <variable concreteSyntax="count">
+                  <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+                </variable>
+                <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </statements>
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;StandBy.Reset&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;StandBy.Reset&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;StandBy.Reset&quot;" value="StandBy.Reset"/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+        </states>
+        <states name="Active">
+          <outgoing>
+            <trigger/>
+            <condition xsi:type="dbl:GreaterEqual" concreteSyntax="count >= limit">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="limit" referencedElement="//@modules.0/@classifiers.4/@attributes.1"/>
+            </condition>
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;Finished.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;Finished.&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;Finished.&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Finished.&quot;" value="Finished."/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.4/@extensions.0/@states.1">
+            <trigger>
+              <timeEvent>
+                <delay xsi:type="dbl:IdExpr" concreteSyntax="step" referencedElement="//@modules.0/@classifiers.4/@attributes.2"/>
+              </timeEvent>
+            </trigger>
+            <condition xsi:type="dbl:Less" concreteSyntax="count &lt; limit">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="limit" referencedElement="//@modules.0/@classifiers.4/@attributes.1"/>
+            </condition>
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;count=count+1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;Tick &quot; + count);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Assignment" concreteSyntax="count=count+1">
+                <variable concreteSyntax="count">
+                  <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+                </variable>
+                <value xsi:type="dbl:Plus" concreteSyntax="count+1">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+                  <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </value>
+              </statements>
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;Tick &quot; + count)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;Tick &quot; + count)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:Plus" concreteSyntax="&quot;Tick &quot; + count">
+                        <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Tick &quot;" value="Tick "/>
+                        <op2 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+                      </arguments>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.4/@extensions.0/@states.0">
+            <trigger>
+              <signalEvent concreteSyntax="Pause" referencedElement="//@modules.0/@classifiers.1"/>
+            </trigger>
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send new Resume to self continueTask priority = taskPriority + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send new Reset to self;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:SendStatement" concreteSyntax="send new Resume to self continueTask priority = taskPriority + 1;">
+                <signal xsi:type="dbl:CreateObject" concreteSyntax="new Resume">
+                  <classifierTypeExpr concreteSyntax="Resume" referencedElement="//@modules.0/@classifiers.2"/>
+                </signal>
+                <target xsi:type="dbl:IdExpr" concreteSyntax="self">
+                  <predefinedId xsi:type="dbl:MeLiteral"/>
+                </target>
+                <contTask xsi:type="dbl:Priority" concreteSyntax="priority = taskPriority + 1">
+                  <prio xsi:type="dbl:Plus" concreteSyntax="taskPriority + 1">
+                    <op1 xsi:type="dbl:TaskPriorityExpression" concreteSyntax="taskPriority"/>
+                    <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                  </prio>
+                </contTask>
+              </statements>
+              <statements xsi:type="dbl:SendStatement" concreteSyntax="send new Reset to self;">
+                <signal xsi:type="dbl:CreateObject" concreteSyntax="new Reset">
+                  <classifierTypeExpr concreteSyntax="Reset" referencedElement="//@modules.0/@classifiers.3"/>
+                </signal>
+                <target xsi:type="dbl:IdExpr" concreteSyntax="self">
+                  <predefinedId xsi:type="dbl:MeLiteral"/>
+                </target>
+              </statements>
+            </effect>
+          </outgoing>
+          <outgoing target="//@modules.0/@classifiers.4/@extensions.0/@states.1">
+            <trigger>
+              <signalEvent concreteSyntax="Reset" referencedElement="//@modules.0/@classifiers.3"/>
+            </trigger>
+            <effect concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;count=0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;Active.Reset&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Assignment" concreteSyntax="count=0">
+                <variable concreteSyntax="count">
+                  <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.4/@attributes.0"/>
+                </variable>
+                <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </statements>
+              <statements xsi:type="dbl:ExpressionStatement" concreteSyntax="trace(&quot;Active.Reset&quot;)">
+                <expression xsi:type="dbl:ProcedureCall">
+                  <procedureAccess xsi:type="dbl:IdExpr" concreteSyntax="trace(&quot;Active.Reset&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <arguments>
+                      <arguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Active.Reset&quot;" value="Active.Reset"/>
+                    </arguments>
+                  </procedureAccess>
+                </expression>
+              </statements>
+            </effect>
+          </outgoing>
+        </states>
+      </extensions>
+      <attributes name="count" concreteSyntax="int count">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="limit" concreteSyntax="int limit = 10">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+      </attributes>
+      <attributes name="step" concreteSyntax="int step = 1">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+      </attributes>
+    </classifiers>
+    <procedures name="trace" concreteSyntax="void trace(string msg) {&#xA;&#x9;&#x9;if (debug) {&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (debug) {&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="debug" referencedElement="//@modules.0/@variables.0"/>
+        <ifCaseBlock concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot;">
+                  <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot;">
+                      <op1 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+                      <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; - &quot;" value=" - "/>
+                    </op1>
+                    <op2 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;: &quot;" value=": "/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="msg" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </outputs>
+          </statements>
+        </ifCaseBlock>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </procedures>
+    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;Counter c = new Counter;&#xA;&#x9;&#x9;activate c;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;send new Start to c;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;advance 2;&#xA;&#x9;&#x9;send new Pause to c newTask priority = 3;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;advance 2;&#xA;&#x9;&#x9;send new Resume to c;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;advance 10;&#xA;&#x9;}">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="c" concreteSyntax="Counter c = new Counter">
+        <classifierTypeExpr concreteSyntax="Counter" referencedElement="//@modules.0/@classifiers.4"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Counter">
+          <classifierTypeExpr concreteSyntax="Counter" referencedElement="//@modules.0/@classifiers.4"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate c">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="c" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:SendStatement" concreteSyntax="send new Start to c;">
+        <signal xsi:type="dbl:CreateObject" concreteSyntax="new Start">
+          <classifierTypeExpr concreteSyntax="Start" referencedElement="//@modules.0/@classifiers.0"/>
+        </signal>
+        <target xsi:type="dbl:IdExpr" concreteSyntax="c" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 2">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+      </statements>
+      <statements xsi:type="dbl:SendStatement" concreteSyntax="send new Pause to c newTask priority = 3;">
+        <signal xsi:type="dbl:CreateObject" concreteSyntax="new Pause">
+          <classifierTypeExpr concreteSyntax="Pause" referencedElement="//@modules.0/@classifiers.1"/>
+        </signal>
+        <target xsi:type="dbl:IdExpr" concreteSyntax="c" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+        <newTask concreteSyntax="priority = 3">
+          <prio xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
+        </newTask>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 2">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+      </statements>
+      <statements xsi:type="dbl:SendStatement" concreteSyntax="send new Resume to c;">
+        <signal xsi:type="dbl:CreateObject" concreteSyntax="new Resume">
+          <classifierTypeExpr concreteSyntax="Resume" referencedElement="//@modules.0/@classifiers.2"/>
+        </signal>
+        <target xsi:type="dbl:IdExpr" concreteSyntax="c" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+      </statements>
+    </procedures>
+    <variables name="debug" concreteSyntax="boolean debug = true">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+    </variables>
+  </modules>
+</dbl:Model>
