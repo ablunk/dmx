@@ -134,7 +134,7 @@
 [template public genStatement(stm : AddToSet, extensionSemantics : Boolean)]
 	[genExpression(stm.set, extensionSemantics)/].add(
 		[if (not stm.atIndex.oclIsUndefined())]
-			[genExpression(stm.atIndex, extensionSemantics)/],
+			(int) [genExpression(stm.atIndex, extensionSemantics)/],
 		[/if]
 		[genExpression(stm.object, extensionSemantics)/]
 	);
@@ -567,11 +567,11 @@
 [/template]
 
 [template public genIdExprPredefinedId(idExpr : IdExpr, extensionSemantics : Boolean, predefinedId : IndexOf)]
-	indexOf([genExpression(idExpr.arguments, extensionSemantics)/]) + 1)
+	indexOf([genExpression(idExpr.arguments, extensionSemantics)/]))
 [/template]
 
 [template public genIdExprPredefinedId(idExpr : IdExpr, extensionSemantics : Boolean, predefinedId : ObjectAt)]
-	get((int) [genExpression(idExpr.arguments, extensionSemantics)/] - 1)
+	get((int) [genExpression(idExpr.arguments, extensionSemantics)/])
 [/template]
 
 [template public genIdExprPredefinedId(idExpr : IdExpr, extensionSemantics : Boolean, predefinedId : AfterInSet)]
@@ -703,7 +703,7 @@
 		[if (clazz.active)]
 			extends SimulationProcess
 		[elseif (clazz.superClass.name.size()> 0)]
-			extends [clazz.superClass.name.toUpperFirst()/]
+			extends [genType(clazz.superClass)/]
 		[/if] 		
 
 	{

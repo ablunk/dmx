@@ -9,6 +9,7 @@ import hub.sam.dbl.Clazz;
 import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.CompositePropertyType;
 import hub.sam.dbl.Expression;
+import hub.sam.dbl.Extension;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.FindContainer;
 import hub.sam.dbl.FirstInSet;
@@ -23,6 +24,7 @@ import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaLiteral;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
+import hub.sam.dbl.ModuleContentExtension;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.NamedExtension;
 import hub.sam.dbl.DblPackage;
@@ -58,6 +60,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 
 public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	
@@ -273,7 +276,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						// idres ...
 						addIdsForIdResolution(idExpr, namedElementId, allIds);
 						
-						// extensions
+						// extension definitions
 						ExtensionDefinition extDef = getContainerObjectOfType(idExpr, ExtensionDefinition.class);
 						if (!otherIdsHidden && extDef != null) {
 							TsRule firstRule = extDef.getTextualSyntaxDef().getNewRules().get(0);
@@ -295,6 +298,12 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 									addId(namedElementId, directReductionTarget, allIds);
 								}
 							}
+						}
+						
+						// identifiers used in extensions are provided at a global scope by default
+						Extension ext = getContainerObjectOfType(idExpr, Extension.class);
+						if (ext != null) {
+							addPlainNames(namedElementId.getName(), context, allIds);
 						}
 						
 						// imported types

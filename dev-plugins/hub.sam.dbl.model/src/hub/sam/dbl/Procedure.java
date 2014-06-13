@@ -37,7 +37,7 @@ public interface Procedure extends NamedElement, TypedElement, CodeBlock, Annota
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Parameters</em>' containment reference list.
 	 * @see hub.sam.dbl.DblPackage#getProcedure_Parameters()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<Parameter> getParameters();
