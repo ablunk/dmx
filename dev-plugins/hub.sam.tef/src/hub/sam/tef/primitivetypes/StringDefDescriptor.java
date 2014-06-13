@@ -83,7 +83,7 @@ public class StringDefDescriptor extends PrimitiveTypeDescriptor {
 	@Override
 	public IRule getHighlightRule() {
 		return new SingleLineRule("\"", "\"", new Token(new TextAttribute(
-				new Color(Display.getCurrent(), new RGB(42,0,255)), 
+				new Color(Display.getCurrent(), new RGB(255,0,0)), 
 				null, SWT.ITALIC)), '\\' );
 	}
 }
