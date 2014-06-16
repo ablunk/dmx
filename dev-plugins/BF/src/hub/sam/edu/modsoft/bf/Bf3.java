@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-public class Bf2 {
+public class Bf3 {
 
 	public static void main(String[] args) {
 		ResourceSet resourceSet = new ResourceSetImpl();
