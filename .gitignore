@@ -1,5 +1,6 @@
 *.class
 *.bak
+*._trace
 .DS_Store
 bin/
 runtime-plugins/**/gen-src/*
