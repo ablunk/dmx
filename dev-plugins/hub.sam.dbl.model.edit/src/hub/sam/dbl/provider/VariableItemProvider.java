@@ -64,11 +64,34 @@ public class VariableItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addObjectIsExtensionInstancePropertyDescriptor(object);
 			addConcreteSyntaxPropertyDescriptor(object);
 			addControlPropertyDescriptor(object);
 			addClazzPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Object Is Extension Instance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addObjectIsExtensionInstancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_objectIsExtensionInstance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_objectIsExtensionInstance_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -205,6 +228,7 @@ public class VariableItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Variable.class)) {
+			case DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE:
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 			case DblPackage.VARIABLE__CONTROL:
 			case DblPackage.VARIABLE__CLAZZ:
@@ -232,12 +256,12 @@ public class VariableItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createExtension()));
+				 DblFactory.eINSTANCE.createExtensibleElement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtension()));
+				 DblFactory.eINSTANCE.createNamedExtensible()));
 
 		newChildDescriptors.add
 			(createChildParameter

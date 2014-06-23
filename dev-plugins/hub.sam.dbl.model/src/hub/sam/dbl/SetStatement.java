@@ -36,7 +36,7 @@ public interface SetStatement extends SimpleStatement {
 	 * @return the value of the '<em>Object</em>' containment reference.
 	 * @see #setObject(Expression)
 	 * @see hub.sam.dbl.DblPackage#getSetStatement_Object()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getObject();
@@ -62,7 +62,7 @@ public interface SetStatement extends SimpleStatement {
 	 * @return the value of the '<em>Set</em>' containment reference.
 	 * @see #setSet(Expression)
 	 * @see hub.sam.dbl.DblPackage#getSetStatement_Set()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getSet();

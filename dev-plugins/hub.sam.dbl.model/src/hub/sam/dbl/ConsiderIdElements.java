@@ -35,7 +35,7 @@ public interface ConsiderIdElements extends Statement {
 	 * @return the value of the '<em>Elements Query</em>' containment reference.
 	 * @see #setElementsQuery(Expression)
 	 * @see hub.sam.dbl.DblPackage#getConsiderIdElements_ElementsQuery()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getElementsQuery();

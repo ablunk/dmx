@@ -35,7 +35,7 @@ public interface ResumeGenStatement extends SimpleStatement {
 	 * @return the value of the '<em>Variable</em>' containment reference.
 	 * @see #setVariable(Expression)
 	 * @see hub.sam.dbl.DblPackage#getResumeGenStatement_Variable()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getVariable();

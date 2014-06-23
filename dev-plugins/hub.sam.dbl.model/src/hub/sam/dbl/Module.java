@@ -138,7 +138,7 @@ public interface Module extends NamedElement, EmbeddableExtensionsContainer {
 	 * @return the value of the '<em>Id Res</em>' containment reference.
 	 * @see #setIdRes(IdResolution)
 	 * @see hub.sam.dbl.DblPackage#getModule_IdRes()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	IdResolution getIdRes();

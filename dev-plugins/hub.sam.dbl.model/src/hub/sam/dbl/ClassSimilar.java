@@ -76,7 +76,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @return the value of the '<em>Super Class</em>' reference.
 	 * @see #setSuperClass(Clazz)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_SuperClass()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	Clazz getSuperClass();
@@ -118,7 +118,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @return the value of the '<em>Initial Block</em>' containment reference.
 	 * @see #setInitialBlock(StartCodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_InitialBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	StartCodeBlock getInitialBlock();
@@ -144,7 +144,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @return the value of the '<em>Final Block</em>' containment reference.
 	 * @see #setFinalBlock(StartCodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_FinalBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	StartCodeBlock getFinalBlock();
@@ -170,7 +170,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @return the value of the '<em>Actions Block</em>' containment reference.
 	 * @see #setActionsBlock(StartCodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_ActionsBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	StartCodeBlock getActionsBlock();
@@ -196,7 +196,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @return the value of the '<em>Report Block</em>' containment reference.
 	 * @see #setReportBlock(StartCodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_ReportBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	StartCodeBlock getReportBlock();
@@ -222,7 +222,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @return the value of the '<em>Clear Block</em>' containment reference.
 	 * @see #setClearBlock(StartCodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_ClearBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	StartCodeBlock getClearBlock();

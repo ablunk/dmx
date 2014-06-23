@@ -520,12 +520,12 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createTypeAccessAdapter();
 			}
 			@Override
-			public Adapter caseExtension(Extension object) {
-				return createExtensionAdapter();
+			public Adapter caseExtensibleElement(ExtensibleElement object) {
+				return createExtensibleElementAdapter();
 			}
 			@Override
-			public Adapter caseNamedExtension(NamedExtension object) {
-				return createNamedExtensionAdapter();
+			public Adapter caseNamedExtensible(NamedExtensible object) {
+				return createNamedExtensibleAdapter();
 			}
 			@Override
 			public Adapter caseClassContentExtension(ClassContentExtension object) {
@@ -2328,30 +2328,30 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Extension <em>Extension</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ExtensibleElement <em>Extensible Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.Extension
+	 * @see hub.sam.dbl.ExtensibleElement
 	 * @generated
 	 */
-	public Adapter createExtensionAdapter() {
+	public Adapter createExtensibleElementAdapter() {
 		return null;
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.NamedExtension <em>Named Extension</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.NamedExtensible <em>Named Extensible</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.NamedExtension
+	 * @see hub.sam.dbl.NamedExtensible
 	 * @generated
 	 */
-	public Adapter createNamedExtensionAdapter() {
+	public Adapter createNamedExtensibleAdapter() {
 		return null;
 	}
 

@@ -1,10 +1,9 @@
 package hub.sam.dmx;
 
+import hub.sam.dbl.Construct;
+import hub.sam.dbl.util.DblUtil;
 import hub.sam.tef.modelcreating.ModelCreatingException;
 import hub.sam.tef.modelcreating.ParseTreeRuleNode;
-import hub.sam.dbl.Construct;
-import hub.sam.dbl.Extension;
-import hub.sam.dbl.util.DblUtil;
 import hub.sam.tef.semantics.ISemanticsProvider;
 
 import org.eclipse.emf.ecore.EClass;
@@ -37,11 +36,11 @@ public class DbxModelCreationContext extends DblModelCreationContext {
 						construct.setConcreteSyntax(node.getNodeText());
 					}
 					
-					if (result instanceof Extension) {
-						Extension extensionInstance = (Extension) result;
-						//extensionInstance.setExtensionInstanceUri(result.eResource().getURIFragment(result));
-						// TODO not in resource here
-					}
+//					if (result instanceof Extension) {
+//						Extension extensionInstance = (Extension) result;
+//						//extensionInstance.setExtensionInstanceUri(result.eResource().getURIFragment(result));
+//						// TODO not in resource here
+//					}
 					
 					return result;
 				}

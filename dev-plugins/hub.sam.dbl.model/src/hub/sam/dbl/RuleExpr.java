@@ -35,7 +35,7 @@ public interface RuleExpr extends RhsExpression {
 	 * @return the value of the '<em>Rule</em>' reference.
 	 * @see #setRule(TsRule)
 	 * @see hub.sam.dbl.DblPackage#getRuleExpr_Rule()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	TsRule getRule();

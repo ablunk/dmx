@@ -11,7 +11,7 @@ import hub.sam.dbl.ClassAugment;
 import hub.sam.dbl.Classifier;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdResolution;
 import hub.sam.dbl.Module;
@@ -22,14 +22,10 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -62,7 +58,7 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Extension> extensions;
+	protected EList<ExtensibleElement> extensions;
 
 	/**
 	 * The cached value of the '{@link #getClassifiers() <em>Classifiers</em>}' containment reference list.
@@ -158,9 +154,9 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Extension> getExtensions() {
+	public EList<ExtensibleElement> getExtensions() {
 		if (extensions == null) {
-			extensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.MODULE__EXTENSIONS);
+			extensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.MODULE__EXTENSIONS);
 		}
 		return extensions;
 	}
@@ -347,7 +343,7 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 		switch (featureID) {
 			case DblPackage.MODULE__EXTENSIONS:
 				getExtensions().clear();
-				getExtensions().addAll((Collection<? extends Extension>)newValue);
+				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
 				return;
 			case DblPackage.MODULE__CLASSIFIERS:
 				getClassifiers().clear();

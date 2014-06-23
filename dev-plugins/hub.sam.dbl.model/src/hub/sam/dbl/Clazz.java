@@ -39,7 +39,7 @@ public interface Clazz extends Classifier, ClassSimilar {
 	 * @return the value of the '<em>Active</em>' attribute.
 	 * @see #setActive(boolean)
 	 * @see hub.sam.dbl.DblPackage#getClazz_Active()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isActive();
@@ -65,7 +65,7 @@ public interface Clazz extends Classifier, ClassSimilar {
 	 * @return the value of the '<em>Constructor</em>' containment reference.
 	 * @see #setConstructor(Constructor)
 	 * @see hub.sam.dbl.DblPackage#getClazz_Constructor()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	Constructor getConstructor();

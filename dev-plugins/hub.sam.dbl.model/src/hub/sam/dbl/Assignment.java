@@ -36,7 +36,7 @@ public interface Assignment extends SimpleStatement {
 	 * @return the value of the '<em>Variable</em>' containment reference.
 	 * @see #setVariable(VariableAccess)
 	 * @see hub.sam.dbl.DblPackage#getAssignment_Variable()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	VariableAccess getVariable();
@@ -62,7 +62,7 @@ public interface Assignment extends SimpleStatement {
 	 * @return the value of the '<em>Value</em>' containment reference.
 	 * @see #setValue(Expression)
 	 * @see hub.sam.dbl.DblPackage#getAssignment_Value()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getValue();

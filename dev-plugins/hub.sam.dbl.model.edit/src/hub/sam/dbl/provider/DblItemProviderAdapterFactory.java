@@ -2307,49 +2307,49 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Extension} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensibleElement} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ExtensionItemProvider extensionItemProvider;
+	protected ExtensibleElementItemProvider extensibleElementItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.Extension}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ExtensibleElement}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createExtensionAdapter() {
-		if (extensionItemProvider == null) {
-			extensionItemProvider = new ExtensionItemProvider(this);
+	public Adapter createExtensibleElementAdapter() {
+		if (extensibleElementItemProvider == null) {
+			extensibleElementItemProvider = new ExtensibleElementItemProvider(this);
 		}
 
-		return extensionItemProvider;
+		return extensibleElementItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.NamedExtension} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.NamedExtensible} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected NamedExtensionItemProvider namedExtensionItemProvider;
+	protected NamedExtensibleItemProvider namedExtensibleItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.NamedExtension}.
+	 * This creates an adapter for a {@link hub.sam.dbl.NamedExtensible}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createNamedExtensionAdapter() {
-		if (namedExtensionItemProvider == null) {
-			namedExtensionItemProvider = new NamedExtensionItemProvider(this);
+	public Adapter createNamedExtensibleAdapter() {
+		if (namedExtensibleItemProvider == null) {
+			namedExtensibleItemProvider = new NamedExtensibleItemProvider(this);
 		}
 
-		return namedExtensionItemProvider;
+		return namedExtensibleItemProvider;
 	}
 
 	/**
@@ -3675,8 +3675,8 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (variableAccessItemProvider != null) variableAccessItemProvider.dispose();
 		if (metaAccessItemProvider != null) metaAccessItemProvider.dispose();
 		if (typeAccessItemProvider != null) typeAccessItemProvider.dispose();
-		if (extensionItemProvider != null) extensionItemProvider.dispose();
-		if (namedExtensionItemProvider != null) namedExtensionItemProvider.dispose();
+		if (extensibleElementItemProvider != null) extensibleElementItemProvider.dispose();
+		if (namedExtensibleItemProvider != null) namedExtensibleItemProvider.dispose();
 		if (classContentExtensionItemProvider != null) classContentExtensionItemProvider.dispose();
 		if (moduleContentExtensionItemProvider != null) moduleContentExtensionItemProvider.dispose();
 		if (extensionDefinitionItemProvider != null) extensionDefinitionItemProvider.dispose();

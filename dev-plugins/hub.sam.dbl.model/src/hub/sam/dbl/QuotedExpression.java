@@ -35,7 +35,7 @@ public interface QuotedExpression extends QuotedCode {
 	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(Expression)
 	 * @see hub.sam.dbl.DblPackage#getQuotedExpression_Expression()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getExpression();

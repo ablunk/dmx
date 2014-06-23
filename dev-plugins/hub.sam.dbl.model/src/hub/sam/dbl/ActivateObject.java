@@ -36,7 +36,7 @@ public interface ActivateObject extends SimpleStatement {
 	 * @return the value of the '<em>Object Access</em>' containment reference.
 	 * @see #setObjectAccess(Expression)
 	 * @see hub.sam.dbl.DblPackage#getActivateObject_ObjectAccess()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getObjectAccess();
@@ -63,7 +63,7 @@ public interface ActivateObject extends SimpleStatement {
 	 * @return the value of the '<em>Priority</em>' attribute.
 	 * @see #setPriority(int)
 	 * @see hub.sam.dbl.DblPackage#getActivateObject_Priority()
-	 * @model default="0" required="true" ordered="false"
+	 * @model default="0" required="true"
 	 * @generated
 	 */
 	int getPriority();

@@ -35,7 +35,7 @@ public interface StringLiteral extends L1Expr {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
 	 * @see hub.sam.dbl.DblPackage#getStringLiteral_Value()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getValue();

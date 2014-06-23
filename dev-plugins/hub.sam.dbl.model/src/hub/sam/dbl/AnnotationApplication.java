@@ -39,7 +39,7 @@ public interface AnnotationApplication extends EObject {
 	 * @return the value of the '<em>Annotation Def</em>' reference.
 	 * @see #setAnnotationDef(Annotation)
 	 * @see hub.sam.dbl.DblPackage#getAnnotationApplication_AnnotationDef()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	Annotation getAnnotationDef();

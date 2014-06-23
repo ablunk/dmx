@@ -36,7 +36,7 @@ public interface BinaryOperator extends Expression {
 	 * @return the value of the '<em>Op1</em>' containment reference.
 	 * @see #setOp1(Expression)
 	 * @see hub.sam.dbl.DblPackage#getBinaryOperator_Op1()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getOp1();
@@ -62,7 +62,7 @@ public interface BinaryOperator extends Expression {
 	 * @return the value of the '<em>Op2</em>' containment reference.
 	 * @see #setOp2(Expression)
 	 * @see hub.sam.dbl.DblPackage#getBinaryOperator_Op2()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getOp2();

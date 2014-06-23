@@ -36,7 +36,7 @@ public interface ListDimension extends TypedElement {
 	 * @return the value of the '<em>Size</em>' attribute.
 	 * @see #setSize(int)
 	 * @see hub.sam.dbl.DblPackage#getListDimension_Size()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	int getSize();

@@ -36,7 +36,7 @@ public interface ExpandableElement extends EObject {
 	 * @return the value of the '<em>Expand Expression</em>' containment reference.
 	 * @see #setExpandExpression(ExpandExpression)
 	 * @see hub.sam.dbl.DblPackage#getExpandableElement_ExpandExpression()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	ExpandExpression getExpandExpression();

@@ -38,7 +38,7 @@ public interface IdExpr extends L1Expr {
 	 * @return the value of the '<em>Parent Id Expr</em>' containment reference.
 	 * @see #setParentIdExpr(IdExpr)
 	 * @see hub.sam.dbl.DblPackage#getIdExpr_ParentIdExpr()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	IdExpr getParentIdExpr();
@@ -64,7 +64,7 @@ public interface IdExpr extends L1Expr {
 	 * @return the value of the '<em>Referenced Element</em>' reference.
 	 * @see #setReferencedElement(NamedElement)
 	 * @see hub.sam.dbl.DblPackage#getIdExpr_ReferencedElement()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	NamedElement getReferencedElement();
@@ -90,7 +90,7 @@ public interface IdExpr extends L1Expr {
 	 * @return the value of the '<em>Predefined Id</em>' containment reference.
 	 * @see #setPredefinedId(PredefinedId)
 	 * @see hub.sam.dbl.DblPackage#getIdExpr_PredefinedId()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	PredefinedId getPredefinedId();
@@ -116,7 +116,7 @@ public interface IdExpr extends L1Expr {
 	 * @return the value of the '<em>Arguments</em>' containment reference.
 	 * @see #setArguments(ArgumentExpression)
 	 * @see hub.sam.dbl.DblPackage#getIdExpr_Arguments()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	ArgumentExpression getArguments();

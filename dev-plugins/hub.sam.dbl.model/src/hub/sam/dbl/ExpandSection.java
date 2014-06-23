@@ -35,7 +35,7 @@ public interface ExpandSection extends CompositeStatement {
 	 * @return the value of the '<em>Code Block</em>' containment reference.
 	 * @see #setCodeBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getExpandSection_CodeBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	CodeBlock getCodeBlock();

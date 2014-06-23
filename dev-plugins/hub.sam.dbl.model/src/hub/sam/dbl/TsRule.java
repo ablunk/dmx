@@ -36,7 +36,7 @@ public interface TsRule extends NamedElement, ReferableRhsType {
 	 * @return the value of the '<em>Meta Class Name</em>' attribute.
 	 * @see #setMetaClassName(String)
 	 * @see hub.sam.dbl.DblPackage#getTsRule_MetaClassName()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	String getMetaClassName();

@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class ConstructImpl extends NamedExtensionImpl implements Construct {
+public class ConstructImpl extends NamedExtensibleImpl implements Construct {
 	/**
 	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
 	 * <!-- begin-user-doc -->

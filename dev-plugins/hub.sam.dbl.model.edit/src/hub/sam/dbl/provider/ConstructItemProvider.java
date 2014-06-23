@@ -33,7 +33,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class ConstructItemProvider
-	extends NamedExtensionItemProvider
+	extends NamedExtensibleItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

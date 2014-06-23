@@ -9,9 +9,9 @@ package hub.sam.dbl.impl;
 import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ModifierExtensionsContainer;
-import hub.sam.dbl.NamedExtension;
+import hub.sam.dbl.NamedExtensible;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.Variable;
 
@@ -19,14 +19,10 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -37,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link hub.sam.dbl.impl.VariableImpl#isObjectIsExtensionInstance <em>Object Is Extension Instance</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#getModifierExtensions <em>Modifier Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#isControl <em>Control</em>}</li>
@@ -48,6 +45,26 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class VariableImpl extends AbstractVariableImpl implements Variable {
+	/**
+	 * The default value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isObjectIsExtensionInstance()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isObjectIsExtensionInstance()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean objectIsExtensionInstance = OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
+
 	/**
 	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -76,7 +93,7 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Extension> modifierExtensions;
+	protected EList<ExtensibleElement> modifierExtensions;
 
 	/**
 	 * The default value of the '{@link #isControl() <em>Control</em>}' attribute.
@@ -152,6 +169,27 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isObjectIsExtensionInstance() {
+		return objectIsExtensionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setObjectIsExtensionInstance(boolean newObjectIsExtensionInstance) {
+		boolean oldObjectIsExtensionInstance = objectIsExtensionInstance;
+		objectIsExtensionInstance = newObjectIsExtensionInstance;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE, oldObjectIsExtensionInstance, objectIsExtensionInstance));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getConcreteSyntax() {
 		return concreteSyntax;
 	}
@@ -173,9 +211,9 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Extension> getModifierExtensions() {
+	public EList<ExtensibleElement> getModifierExtensions() {
 		if (modifierExtensions == null) {
-			modifierExtensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.VARIABLE__MODIFIER_EXTENSIONS);
+			modifierExtensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.VARIABLE__MODIFIER_EXTENSIONS);
 		}
 		return modifierExtensions;
 	}
@@ -289,6 +327,8 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE:
+				return isObjectIsExtensionInstance();
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				return getConcreteSyntax();
 			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
@@ -312,12 +352,15 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE:
+				setObjectIsExtensionInstance((Boolean)newValue);
+				return;
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				setConcreteSyntax((String)newValue);
 				return;
 			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
 				getModifierExtensions().clear();
-				getModifierExtensions().addAll((Collection<? extends Extension>)newValue);
+				getModifierExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
 				return;
 			case DblPackage.VARIABLE__CONTROL:
 				setControl((Boolean)newValue);
@@ -340,6 +383,9 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE:
+				setObjectIsExtensionInstance(OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT);
+				return;
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
 				return;
@@ -367,6 +413,8 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE:
+				return objectIsExtensionInstance != OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
 			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
@@ -388,12 +436,13 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == Extension.class) {
+		if (baseClass == ExtensibleElement.class) {
 			switch (derivedFeatureID) {
+				case DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE;
 				default: return -1;
 			}
 		}
-		if (baseClass == NamedExtension.class) {
+		if (baseClass == NamedExtensible.class) {
 			switch (derivedFeatureID) {
 				default: return -1;
 			}
@@ -425,12 +474,13 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == Extension.class) {
+		if (baseClass == ExtensibleElement.class) {
 			switch (baseFeatureID) {
+				case DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE;
 				default: return -1;
 			}
 		}
-		if (baseClass == NamedExtension.class) {
+		if (baseClass == NamedExtensible.class) {
 			switch (baseFeatureID) {
 				default: return -1;
 			}
@@ -465,7 +515,9 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (concreteSyntax: ");
+		result.append(" (objectIsExtensionInstance: ");
+		result.append(objectIsExtensionInstance);
+		result.append(", concreteSyntax: ");
 		result.append(concreteSyntax);
 		result.append(", control: ");
 		result.append(control);

@@ -35,7 +35,7 @@ public interface ExpandExpression extends StatementExpression, Expression {
 	 * @return the value of the '<em>Meta Object</em>' containment reference.
 	 * @see #setMetaObject(Expression)
 	 * @see hub.sam.dbl.DblPackage#getExpandExpression_MetaObject()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getMetaObject();

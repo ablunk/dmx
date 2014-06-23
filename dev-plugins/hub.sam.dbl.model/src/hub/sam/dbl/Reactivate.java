@@ -35,7 +35,7 @@ public interface Reactivate extends SimpleStatement {
 	 * @return the value of the '<em>Object Access</em>' containment reference.
 	 * @see #setObjectAccess(Expression)
 	 * @see hub.sam.dbl.DblPackage#getReactivate_ObjectAccess()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getObjectAccess();

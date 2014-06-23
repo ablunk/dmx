@@ -36,7 +36,7 @@ public interface WhileStatement extends CompositeStatement {
 	 * @return the value of the '<em>Condition</em>' containment reference.
 	 * @see #setCondition(Expression)
 	 * @see hub.sam.dbl.DblPackage#getWhileStatement_Condition()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getCondition();
@@ -62,7 +62,7 @@ public interface WhileStatement extends CompositeStatement {
 	 * @return the value of the '<em>While Block</em>' containment reference.
 	 * @see #setWhileBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getWhileStatement_WhileBlock()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	CodeBlock getWhileBlock();

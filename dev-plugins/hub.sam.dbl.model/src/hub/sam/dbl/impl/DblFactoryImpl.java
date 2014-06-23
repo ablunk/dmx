@@ -13,9 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
@@ -33,7 +31,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 */
 	public static DblFactory init() {
 		try {
-			DblFactory theDblFactory = (DblFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.informatik.hu-berlin.de/sam/dbl"); 
+			DblFactory theDblFactory = (DblFactory)EPackage.Registry.INSTANCE.getEFactory(DblPackage.eNS_URI);
 			if (theDblFactory != null) {
 				return theDblFactory;
 			}
@@ -157,8 +155,8 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.VARIABLE_ACCESS: return createVariableAccess();
 			case DblPackage.META_ACCESS: return createMetaAccess();
 			case DblPackage.TYPE_ACCESS: return createTypeAccess();
-			case DblPackage.EXTENSION: return createExtension();
-			case DblPackage.NAMED_EXTENSION: return createNamedExtension();
+			case DblPackage.EXTENSIBLE_ELEMENT: return createExtensibleElement();
+			case DblPackage.NAMED_EXTENSIBLE: return createNamedExtensible();
 			case DblPackage.CLASS_CONTENT_EXTENSION: return createClassContentExtension();
 			case DblPackage.MODULE_CONTENT_EXTENSION: return createModuleContentExtension();
 			case DblPackage.EXTENSION_DEFINITION: return createExtensionDefinition();
@@ -1221,9 +1219,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Extension createExtension() {
-		ExtensionImpl extension = new ExtensionImpl();
-		return extension;
+	public ExtensibleElement createExtensibleElement() {
+		ExtensibleElementImpl extensibleElement = new ExtensibleElementImpl();
+		return extensibleElement;
 	}
 
 	/**
@@ -1231,9 +1229,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedExtension createNamedExtension() {
-		NamedExtensionImpl namedExtension = new NamedExtensionImpl();
-		return namedExtension;
+	public NamedExtensible createNamedExtensible() {
+		NamedExtensibleImpl namedExtensible = new NamedExtensibleImpl();
+		return namedExtensible;
 	}
 
 	/**

@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface EmbeddableExtensionsContainer extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Extensions</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.Extension}.
+	 * The list contents are of type {@link hub.sam.dbl.ExtensibleElement}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Extensions</em>' containment reference list isn't clear,
@@ -41,6 +41,6 @@ public interface EmbeddableExtensionsContainer extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Extension> getExtensions();
+	EList<ExtensibleElement> getExtensions();
 
 } // EmbeddableExtensionsContainer

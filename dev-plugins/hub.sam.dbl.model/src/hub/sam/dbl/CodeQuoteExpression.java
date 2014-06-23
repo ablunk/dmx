@@ -35,7 +35,7 @@ public interface CodeQuoteExpression extends Expression {
 	 * @return the value of the '<em>Quoted Code</em>' containment reference.
 	 * @see #setQuotedCode(QuotedCode)
 	 * @see hub.sam.dbl.DblPackage#getCodeQuoteExpression_QuotedCode()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	QuotedCode getQuotedCode();

@@ -40,7 +40,7 @@ public interface IfStatement extends CompositeStatement {
 	 * @return the value of the '<em>Condition</em>' containment reference.
 	 * @see #setCondition(Expression)
 	 * @see hub.sam.dbl.DblPackage#getIfStatement_Condition()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getCondition();
@@ -66,7 +66,7 @@ public interface IfStatement extends CompositeStatement {
 	 * @return the value of the '<em>If Case Block</em>' containment reference.
 	 * @see #setIfCaseBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getIfStatement_IfCaseBlock()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	CodeBlock getIfCaseBlock();
@@ -124,7 +124,7 @@ public interface IfStatement extends CompositeStatement {
 	 * @return the value of the '<em>Else Case Block</em>' containment reference.
 	 * @see #setElseCaseBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getIfStatement_ElseCaseBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	CodeBlock getElseCaseBlock();

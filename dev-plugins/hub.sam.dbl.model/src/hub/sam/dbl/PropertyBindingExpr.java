@@ -36,7 +36,7 @@ public interface PropertyBindingExpr extends NamedElement, RhsExpression {
 	 * @return the value of the '<em>Property Type</em>' containment reference.
 	 * @see #setPropertyType(PropertyType)
 	 * @see hub.sam.dbl.DblPackage#getPropertyBindingExpr_PropertyType()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	PropertyType getPropertyType();
@@ -64,7 +64,7 @@ public interface PropertyBindingExpr extends NamedElement, RhsExpression {
 	 * @see hub.sam.dbl.BindingExprOpKind
 	 * @see #setOperator(BindingExprOpKind)
 	 * @see hub.sam.dbl.DblPackage#getPropertyBindingExpr_Operator()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	BindingExprOpKind getOperator();

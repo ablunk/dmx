@@ -35,7 +35,7 @@ public interface IntLiteral extends L1Expr {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(int)
 	 * @see hub.sam.dbl.DblPackage#getIntLiteral_Value()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	int getValue();

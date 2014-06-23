@@ -7,20 +7,16 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ModifierExtensionsContainer;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -46,7 +42,7 @@ public abstract class ModifierExtensionsContainerImpl extends EObjectImpl implem
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Extension> modifierExtensions;
+	protected EList<ExtensibleElement> modifierExtensions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -72,9 +68,9 @@ public abstract class ModifierExtensionsContainerImpl extends EObjectImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Extension> getModifierExtensions() {
+	public EList<ExtensibleElement> getModifierExtensions() {
 		if (modifierExtensions == null) {
-			modifierExtensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS);
+			modifierExtensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS);
 		}
 		return modifierExtensions;
 	}
@@ -118,7 +114,7 @@ public abstract class ModifierExtensionsContainerImpl extends EObjectImpl implem
 		switch (featureID) {
 			case DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS:
 				getModifierExtensions().clear();
-				getModifierExtensions().addAll((Collection<? extends Extension>)newValue);
+				getModifierExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

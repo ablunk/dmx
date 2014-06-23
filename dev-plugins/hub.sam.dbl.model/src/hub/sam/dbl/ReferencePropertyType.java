@@ -36,7 +36,7 @@ public interface ReferencePropertyType extends StructuredPropertyType {
 	 * @return the value of the '<em>Id Resolution Pattern</em>' reference.
 	 * @see #setIdResolutionPattern(Pattern)
 	 * @see hub.sam.dbl.DblPackage#getReferencePropertyType_IdResolutionPattern()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	Pattern getIdResolutionPattern();
@@ -63,7 +63,7 @@ public interface ReferencePropertyType extends StructuredPropertyType {
 	 * @return the value of the '<em>Raw Reference</em>' attribute.
 	 * @see #setRawReference(boolean)
 	 * @see hub.sam.dbl.DblPackage#getReferencePropertyType_RawReference()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isRawReference();

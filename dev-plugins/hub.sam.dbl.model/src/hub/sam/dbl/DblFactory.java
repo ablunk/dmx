@@ -899,22 +899,22 @@ public interface DblFactory extends EFactory {
 	TypeAccess createTypeAccess();
 
 	/**
-	 * Returns a new object of class '<em>Extension</em>'.
+	 * Returns a new object of class '<em>Extensible Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Extension</em>'.
+	 * @return a new object of class '<em>Extensible Element</em>'.
 	 * @generated
 	 */
-	Extension createExtension();
+	ExtensibleElement createExtensibleElement();
 
 	/**
-	 * Returns a new object of class '<em>Named Extension</em>'.
+	 * Returns a new object of class '<em>Named Extensible</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Named Extension</em>'.
+	 * @return a new object of class '<em>Named Extensible</em>'.
 	 * @generated
 	 */
-	NamedExtension createNamedExtension();
+	NamedExtensible createNamedExtensible();
 
 	/**
 	 * Returns a new object of class '<em>Class Content Extension</em>'.

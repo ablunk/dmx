@@ -35,7 +35,7 @@ public interface Return extends SimpleStatement {
 	 * @return the value of the '<em>Value</em>' containment reference.
 	 * @see #setValue(Expression)
 	 * @see hub.sam.dbl.DblPackage#getReturn_Value()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getValue();

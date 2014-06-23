@@ -2,12 +2,10 @@ package hub.sam.dmx;
 
 import hub.sam.tef.editor.text.ITefEditorStatusListener;
 import hub.sam.tef.editor.text.TextEditor;
-import hub.sam.dbl.Extension;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,9 +14,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.texteditor.ResourceAction;

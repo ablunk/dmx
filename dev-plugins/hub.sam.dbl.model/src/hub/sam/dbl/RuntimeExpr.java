@@ -35,7 +35,7 @@ public interface RuntimeExpr extends RhsExpression {
 	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(RhsExpression)
 	 * @see hub.sam.dbl.DblPackage#getRuntimeExpr_Expression()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	RhsExpression getExpression();

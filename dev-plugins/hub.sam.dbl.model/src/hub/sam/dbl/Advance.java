@@ -35,7 +35,7 @@ public interface Advance extends SimpleStatement {
 	 * @return the value of the '<em>Time</em>' containment reference.
 	 * @see #setTime(Expression)
 	 * @see hub.sam.dbl.DblPackage#getAdvance_Time()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getTime();

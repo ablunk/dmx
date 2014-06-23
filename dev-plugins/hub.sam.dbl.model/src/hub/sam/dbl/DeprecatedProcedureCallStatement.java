@@ -35,7 +35,7 @@ public interface DeprecatedProcedureCallStatement extends ExpressionStatement {
 	 * @return the value of the '<em>Procedure Call</em>' containment reference.
 	 * @see #setProcedureCall(Expression)
 	 * @see hub.sam.dbl.DblPackage#getDeprecatedProcedureCallStatement_ProcedureCall()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getProcedureCall();

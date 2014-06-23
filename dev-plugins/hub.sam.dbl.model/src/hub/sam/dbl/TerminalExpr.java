@@ -35,7 +35,7 @@ public interface TerminalExpr extends RhsExpression {
 	 * @return the value of the '<em>Terminal</em>' attribute.
 	 * @see #setTerminal(String)
 	 * @see hub.sam.dbl.DblPackage#getTerminalExpr_Terminal()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getTerminal();

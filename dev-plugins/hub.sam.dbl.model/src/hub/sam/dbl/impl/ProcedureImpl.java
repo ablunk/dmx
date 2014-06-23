@@ -11,10 +11,10 @@ import hub.sam.dbl.AnnotationApplication;
 import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.ListDimension;
-import hub.sam.dbl.NamedExtension;
+import hub.sam.dbl.NamedExtensible;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.Procedure;
@@ -26,14 +26,10 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -48,6 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isIsList <em>Is List</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getListDims <em>List Dims</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isObjectIsExtensionInstance <em>Object Is Extension Instance</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getAnnotationApplications <em>Annotation Applications</em>}</li>
@@ -109,6 +106,26 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * @ordered
 	 */
 	protected IdExpr classifierTypeExpr;
+
+	/**
+	 * The default value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isObjectIsExtensionInstance()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isObjectIsExtensionInstance()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean objectIsExtensionInstance = OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
@@ -333,6 +350,27 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isObjectIsExtensionInstance() {
+		return objectIsExtensionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setObjectIsExtensionInstance(boolean newObjectIsExtensionInstance) {
+		boolean oldObjectIsExtensionInstance = objectIsExtensionInstance;
+		objectIsExtensionInstance = newObjectIsExtensionInstance;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE, oldObjectIsExtensionInstance, objectIsExtensionInstance));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getConcreteSyntax() {
 		return concreteSyntax;
 	}
@@ -460,6 +498,8 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				return getListDims();
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return getClassifierTypeExpr();
+			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
+				return isObjectIsExtensionInstance();
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				return getConcreteSyntax();
 			case DblPackage.PROCEDURE__STATEMENTS:
@@ -497,6 +537,9 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				return;
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)newValue);
+				return;
+			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
+				setObjectIsExtensionInstance((Boolean)newValue);
 				return;
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				setConcreteSyntax((String)newValue);
@@ -544,6 +587,9 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)null);
 				return;
+			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
+				setObjectIsExtensionInstance(OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT);
+				return;
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
 				return;
@@ -582,6 +628,8 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				return listDims != null && !listDims.isEmpty();
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return classifierTypeExpr != null;
+			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
+				return objectIsExtensionInstance != OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
 			case DblPackage.PROCEDURE__STATEMENTS:
@@ -614,12 +662,13 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				default: return -1;
 			}
 		}
-		if (baseClass == Extension.class) {
+		if (baseClass == ExtensibleElement.class) {
 			switch (derivedFeatureID) {
+				case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE;
 				default: return -1;
 			}
 		}
-		if (baseClass == NamedExtension.class) {
+		if (baseClass == NamedExtensible.class) {
 			switch (derivedFeatureID) {
 				default: return -1;
 			}
@@ -662,12 +711,13 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				default: return -1;
 			}
 		}
-		if (baseClass == Extension.class) {
+		if (baseClass == ExtensibleElement.class) {
 			switch (baseFeatureID) {
+				case DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE;
 				default: return -1;
 			}
 		}
-		if (baseClass == NamedExtension.class) {
+		if (baseClass == NamedExtensible.class) {
 			switch (baseFeatureID) {
 				default: return -1;
 			}
@@ -706,6 +756,8 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (isList: ");
 		result.append(isList);
+		result.append(", objectIsExtensionInstance: ");
+		result.append(objectIsExtensionInstance);
 		result.append(", concreteSyntax: ");
 		result.append(concreteSyntax);
 		result.append(", clazz: ");

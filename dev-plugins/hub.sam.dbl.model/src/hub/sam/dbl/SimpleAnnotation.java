@@ -35,7 +35,7 @@ public interface SimpleAnnotation extends NamedElement {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(String)
 	 * @see hub.sam.dbl.DblPackage#getSimpleAnnotation_Value()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getValue();

@@ -38,7 +38,7 @@ public interface Pattern extends NamedElement {
 	 * @return the value of the '<em>Top</em>' attribute.
 	 * @see #setTop(boolean)
 	 * @see hub.sam.dbl.DblPackage#getPattern_Top()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isTop();
@@ -64,7 +64,7 @@ public interface Pattern extends NamedElement {
 	 * @return the value of the '<em>Context</em>' containment reference.
 	 * @see #setContext(Parameter)
 	 * @see hub.sam.dbl.DblPackage#getPattern_Context()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Parameter getContext();
@@ -90,7 +90,7 @@ public interface Pattern extends NamedElement {
 	 * @return the value of the '<em>Code Block</em>' containment reference.
 	 * @see #setCodeBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getPattern_CodeBlock()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	CodeBlock getCodeBlock();

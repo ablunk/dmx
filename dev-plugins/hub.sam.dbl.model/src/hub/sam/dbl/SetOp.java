@@ -35,7 +35,7 @@ public interface SetOp extends PredefinedId {
 	 * @return the value of the '<em>Set</em>' containment reference.
 	 * @see #setSet(Expression)
 	 * @see hub.sam.dbl.DblPackage#getSetOp_Set()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getSet();

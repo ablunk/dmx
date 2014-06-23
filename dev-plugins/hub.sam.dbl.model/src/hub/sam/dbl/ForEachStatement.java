@@ -38,7 +38,7 @@ public interface ForEachStatement extends CompositeStatement {
 	 * @return the value of the '<em>Iterator Variable Definition</em>' containment reference.
 	 * @see #setIteratorVariableDefinition(Variable)
 	 * @see hub.sam.dbl.DblPackage#getForEachStatement_IteratorVariableDefinition()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	Variable getIteratorVariableDefinition();
@@ -64,7 +64,7 @@ public interface ForEachStatement extends CompositeStatement {
 	 * @return the value of the '<em>Iterator Variable Reference</em>' containment reference.
 	 * @see #setIteratorVariableReference(VariableAccess)
 	 * @see hub.sam.dbl.DblPackage#getForEachStatement_IteratorVariableReference()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	VariableAccess getIteratorVariableReference();
@@ -90,7 +90,7 @@ public interface ForEachStatement extends CompositeStatement {
 	 * @return the value of the '<em>Iterable Expression</em>' containment reference.
 	 * @see #setIterableExpression(Expression)
 	 * @see hub.sam.dbl.DblPackage#getForEachStatement_IterableExpression()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getIterableExpression();
@@ -116,7 +116,7 @@ public interface ForEachStatement extends CompositeStatement {
 	 * @return the value of the '<em>For Block</em>' containment reference.
 	 * @see #setForBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getForEachStatement_ForBlock()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	CodeBlock getForBlock();

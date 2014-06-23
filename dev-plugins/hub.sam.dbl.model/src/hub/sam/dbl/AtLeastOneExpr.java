@@ -35,7 +35,7 @@ public interface AtLeastOneExpr extends RhsExpression {
 	 * @return the value of the '<em>Expression</em>' containment reference.
 	 * @see #setExpression(RhsExpression)
 	 * @see hub.sam.dbl.DblPackage#getAtLeastOneExpr_Expression()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	RhsExpression getExpression();

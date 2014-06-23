@@ -35,7 +35,7 @@ public interface MetaExpr extends Expression {
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(Expression)
 	 * @see hub.sam.dbl.DblPackage#getMetaExpr_Expr()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getExpr();

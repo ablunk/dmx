@@ -37,7 +37,7 @@ syntax(Model) "resources/dbl.ecore" {
 	ClazzWithExtendedModifiers -> ClazzTail;
 	
 	ClazzModifier -> EmptyClazzModifier;
-	EmptyClazzModifier:element(Extension) -> "void743859743453";
+	EmptyClazzModifier:element(ExtensibleElement) -> "void743859743453";
 	
 	ClazzTail ->
 		"class" ws(space) NamedElementName ws(empty)
@@ -86,7 +86,7 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	ModuleContentExtension -> EmptyExtension;
 	ClassContentExtension -> EmptyExtension;
-	EmptyExtension:element(Extension) -> "void743859743451";
+	EmptyExtension:element(ExtensibleElement) -> "void743859743451";
 	
 	ClassAugment:element(ClassAugment) -> "augment" ClassRef:reference(augmentedClass)
 		ws(space) "{"
@@ -123,7 +123,7 @@ syntax(Model) "resources/dbl.ecore" {
 	Variable3 -> VariableTail;
 		
 	VariableModifier -> EmptyVariableModifier;
-	EmptyVariableModifier:element(Extension) -> "void743859743452";
+	EmptyVariableModifier:element(ExtensibleElement) -> "void743859743452";
 		
 	VariableTail -> TypeRule ws(space) IDENTIFIER:composite(name)
 		("=" Expression:composite(initialValue))? ;

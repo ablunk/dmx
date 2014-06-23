@@ -37,7 +37,7 @@ public interface KeyValuePair extends EObject {
 	 * @return the value of the '<em>Key</em>' containment reference.
 	 * @see #setKey(VariableAccess)
 	 * @see hub.sam.dbl.DblPackage#getKeyValuePair_Key()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	VariableAccess getKey();
@@ -63,7 +63,7 @@ public interface KeyValuePair extends EObject {
 	 * @return the value of the '<em>Value</em>' containment reference.
 	 * @see #setValue(Expression)
 	 * @see hub.sam.dbl.DblPackage#getKeyValuePair_Value()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getValue();

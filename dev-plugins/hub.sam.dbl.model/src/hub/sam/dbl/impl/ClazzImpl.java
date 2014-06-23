@@ -12,7 +12,7 @@ import hub.sam.dbl.Constructor;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
 import hub.sam.dbl.Expression;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.Interface;
 import hub.sam.dbl.ModifierExtensionsContainer;
 import hub.sam.dbl.Procedure;
@@ -23,14 +23,10 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -70,7 +66,7 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Extension> extensions;
+	protected EList<ExtensibleElement> extensions;
 
 	/**
 	 * The cached value of the '{@link #getModifierExtensions() <em>Modifier Extensions</em>}' containment reference list.
@@ -80,7 +76,7 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Extension> modifierExtensions;
+	protected EList<ExtensibleElement> modifierExtensions;
 
 	/**
 	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
@@ -236,9 +232,9 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Extension> getExtensions() {
+	public EList<ExtensibleElement> getExtensions() {
 		if (extensions == null) {
-			extensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.CLAZZ__EXTENSIONS);
+			extensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.CLAZZ__EXTENSIONS);
 		}
 		return extensions;
 	}
@@ -248,9 +244,9 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Extension> getModifierExtensions() {
+	public EList<ExtensibleElement> getModifierExtensions() {
 		if (modifierExtensions == null) {
-			modifierExtensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.CLAZZ__MODIFIER_EXTENSIONS);
+			modifierExtensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.CLAZZ__MODIFIER_EXTENSIONS);
 		}
 		return modifierExtensions;
 	}
@@ -706,11 +702,11 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 		switch (featureID) {
 			case DblPackage.CLAZZ__EXTENSIONS:
 				getExtensions().clear();
-				getExtensions().addAll((Collection<? extends Extension>)newValue);
+				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
 				return;
 			case DblPackage.CLAZZ__MODIFIER_EXTENSIONS:
 				getModifierExtensions().clear();
-				getModifierExtensions().addAll((Collection<? extends Extension>)newValue);
+				getModifierExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
 				return;
 			case DblPackage.CLAZZ__ATTRIBUTES:
 				getAttributes().clear();

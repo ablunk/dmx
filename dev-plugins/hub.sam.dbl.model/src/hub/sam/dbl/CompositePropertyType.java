@@ -36,7 +36,7 @@ public interface CompositePropertyType extends StructuredPropertyType {
 	 * @return the value of the '<em>List</em>' attribute.
 	 * @see #setList(boolean)
 	 * @see hub.sam.dbl.DblPackage#getCompositePropertyType_List()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isList();

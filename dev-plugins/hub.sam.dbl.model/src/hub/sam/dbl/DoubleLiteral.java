@@ -35,7 +35,7 @@ public interface DoubleLiteral extends L1Expr {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(double)
 	 * @see hub.sam.dbl.DblPackage#getDoubleLiteral_Value()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	double getValue();

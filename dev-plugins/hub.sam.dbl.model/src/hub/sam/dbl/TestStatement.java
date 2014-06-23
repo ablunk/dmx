@@ -36,7 +36,7 @@ public interface TestStatement extends Statement {
 	 * @return the value of the '<em>Value</em>' attribute.
 	 * @see #setValue(BigInteger)
 	 * @see hub.sam.dbl.DblPackage#getTestStatement_Value()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	BigInteger getValue();

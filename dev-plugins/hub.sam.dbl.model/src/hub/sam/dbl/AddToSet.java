@@ -35,7 +35,7 @@ public interface AddToSet extends SetStatement {
 	 * @return the value of the '<em>At Index</em>' containment reference.
 	 * @see #setAtIndex(ArgumentExpression)
 	 * @see hub.sam.dbl.DblPackage#getAddToSet_AtIndex()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	ArgumentExpression getAtIndex();

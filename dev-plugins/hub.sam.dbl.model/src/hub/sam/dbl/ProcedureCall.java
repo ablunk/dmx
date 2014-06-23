@@ -35,7 +35,7 @@ public interface ProcedureCall extends StatementExpression {
 	 * @return the value of the '<em>Procedure Access</em>' containment reference.
 	 * @see #setProcedureAccess(Expression)
 	 * @see hub.sam.dbl.DblPackage#getProcedureCall_ProcedureAccess()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getProcedureAccess();

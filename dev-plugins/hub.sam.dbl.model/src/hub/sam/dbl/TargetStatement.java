@@ -35,7 +35,7 @@ public interface TargetStatement extends Statement {
 	 * @return the value of the '<em>Code Block</em>' containment reference.
 	 * @see #setCodeBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getTargetStatement_CodeBlock()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	CodeBlock getCodeBlock();

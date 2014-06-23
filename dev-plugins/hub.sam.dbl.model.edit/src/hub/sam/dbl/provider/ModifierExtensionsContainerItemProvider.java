@@ -145,12 +145,12 @@ public class ModifierExtensionsContainerItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createExtension()));
+				 DblFactory.eINSTANCE.createExtensibleElement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtension()));
+				 DblFactory.eINSTANCE.createNamedExtensible()));
 
 		newChildDescriptors.add
 			(createChildParameter

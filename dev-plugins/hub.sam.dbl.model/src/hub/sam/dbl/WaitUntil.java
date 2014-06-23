@@ -35,7 +35,7 @@ public interface WaitUntil extends SimpleStatement {
 	 * @return the value of the '<em>Condition</em>' containment reference.
 	 * @see #setCondition(Expression)
 	 * @see hub.sam.dbl.DblPackage#getWaitUntil_Condition()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getCondition();

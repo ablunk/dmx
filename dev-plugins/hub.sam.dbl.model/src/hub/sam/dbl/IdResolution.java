@@ -39,7 +39,7 @@ public interface IdResolution extends EObject {
 	 * @return the value of the '<em>Meta Model Platform URI</em>' attribute.
 	 * @see #setMetaModelPlatformURI(String)
 	 * @see hub.sam.dbl.DblPackage#getIdResolution_MetaModelPlatformURI()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getMetaModelPlatformURI();

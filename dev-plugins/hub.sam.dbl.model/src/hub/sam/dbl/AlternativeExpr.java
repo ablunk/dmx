@@ -36,7 +36,7 @@ public interface AlternativeExpr extends RhsExpression {
 	 * @return the value of the '<em>Left</em>' containment reference.
 	 * @see #setLeft(RhsExpression)
 	 * @see hub.sam.dbl.DblPackage#getAlternativeExpr_Left()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	RhsExpression getLeft();
@@ -62,7 +62,7 @@ public interface AlternativeExpr extends RhsExpression {
 	 * @return the value of the '<em>Right</em>' containment reference.
 	 * @see #setRight(RhsExpression)
 	 * @see hub.sam.dbl.DblPackage#getAlternativeExpr_Right()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	RhsExpression getRight();

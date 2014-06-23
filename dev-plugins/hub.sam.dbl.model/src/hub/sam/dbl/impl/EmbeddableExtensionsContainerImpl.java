@@ -8,19 +8,15 @@ package hub.sam.dbl.impl;
 
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -46,7 +42,7 @@ public abstract class EmbeddableExtensionsContainerImpl extends EObjectImpl impl
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Extension> extensions;
+	protected EList<ExtensibleElement> extensions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -72,9 +68,9 @@ public abstract class EmbeddableExtensionsContainerImpl extends EObjectImpl impl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Extension> getExtensions() {
+	public EList<ExtensibleElement> getExtensions() {
 		if (extensions == null) {
-			extensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS);
+			extensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS);
 		}
 		return extensions;
 	}
@@ -118,7 +114,7 @@ public abstract class EmbeddableExtensionsContainerImpl extends EObjectImpl impl
 		switch (featureID) {
 			case DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS:
 				getExtensions().clear();
-				getExtensions().addAll((Collection<? extends Extension>)newValue);
+				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

@@ -13,7 +13,7 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
 import hub.sam.dbl.ExpandExpression;
 import hub.sam.dbl.ExpandableElement;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdResolution;
 import hub.sam.dbl.Module;
@@ -26,14 +26,10 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -98,7 +94,7 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Extension> extensions;
+	protected EList<ExtensibleElement> extensions;
 
 	/**
 	 * The cached value of the '{@link #getClassifiers() <em>Classifiers</em>}' containment reference list.
@@ -258,9 +254,9 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Extension> getExtensions() {
+	public EList<ExtensibleElement> getExtensions() {
 		if (extensions == null) {
-			extensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS);
+			extensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS);
 		}
 		return extensions;
 	}
@@ -459,7 +455,7 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				return;
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
 				getExtensions().clear();
-				getExtensions().addAll((Collection<? extends Extension>)newValue);
+				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
 				return;
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS:
 				getClassifiers().clear();

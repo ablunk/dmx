@@ -23,7 +23,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Construct extends NamedExtension {
+public interface Construct extends NamedExtensible {
 	/**
 	 * Returns the value of the '<em><b>Concrete Syntax</b></em>' attribute.
 	 * <!-- begin-user-doc -->
@@ -35,7 +35,7 @@ public interface Construct extends NamedExtension {
 	 * @return the value of the '<em>Concrete Syntax</em>' attribute.
 	 * @see #setConcreteSyntax(String)
 	 * @see hub.sam.dbl.DblPackage#getConstruct_ConcreteSyntax()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	String getConcreteSyntax();

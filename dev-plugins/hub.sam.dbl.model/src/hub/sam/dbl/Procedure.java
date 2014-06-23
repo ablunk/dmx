@@ -54,7 +54,7 @@ public interface Procedure extends NamedElement, TypedElement, CodeBlock, Annota
 	 * @return the value of the '<em>Clazz</em>' attribute.
 	 * @see #setClazz(boolean)
 	 * @see hub.sam.dbl.DblPackage#getProcedure_Clazz()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isClazz();

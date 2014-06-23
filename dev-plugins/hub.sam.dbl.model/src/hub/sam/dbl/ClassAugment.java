@@ -35,7 +35,7 @@ public interface ClassAugment extends ClassSimilar {
 	 * @return the value of the '<em>Augmented Class</em>' reference.
 	 * @see #setAugmentedClass(Clazz)
 	 * @see hub.sam.dbl.DblPackage#getClassAugment_AugmentedClass()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	Clazz getAugmentedClass();

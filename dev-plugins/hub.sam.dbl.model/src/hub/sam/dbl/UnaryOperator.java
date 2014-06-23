@@ -35,7 +35,7 @@ public interface UnaryOperator extends Expression {
 	 * @return the value of the '<em>Op</em>' containment reference.
 	 * @see #setOp(Expression)
 	 * @see hub.sam.dbl.DblPackage#getUnaryOperator_Op()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getOp();

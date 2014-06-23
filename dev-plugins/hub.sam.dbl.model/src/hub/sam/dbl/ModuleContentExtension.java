@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface ModuleContentExtension extends NamedExtension {
+public interface ModuleContentExtension extends NamedExtensible {
 } // ModuleContentExtension

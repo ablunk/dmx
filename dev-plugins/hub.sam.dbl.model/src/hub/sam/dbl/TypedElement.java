@@ -40,7 +40,7 @@ public interface TypedElement extends EObject {
 	 * @return the value of the '<em>Primitive Type</em>' containment reference.
 	 * @see #setPrimitiveType(PrimitiveType)
 	 * @see hub.sam.dbl.DblPackage#getTypedElement_PrimitiveType()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	PrimitiveType getPrimitiveType();
@@ -67,7 +67,7 @@ public interface TypedElement extends EObject {
 	 * @return the value of the '<em>Is List</em>' attribute.
 	 * @see #setIsList(boolean)
 	 * @see hub.sam.dbl.DblPackage#getTypedElement_IsList()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isIsList();

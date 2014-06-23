@@ -35,7 +35,7 @@ public interface ElementAccess extends Expression {
 	 * @return the value of the '<em>Id Expr</em>' containment reference.
 	 * @see #setIdExpr(IdExpr)
 	 * @see hub.sam.dbl.DblPackage#getElementAccess_IdExpr()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	IdExpr getIdExpr();

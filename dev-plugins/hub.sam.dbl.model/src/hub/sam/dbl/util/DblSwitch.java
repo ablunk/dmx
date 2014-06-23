@@ -73,8 +73,8 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.CONSTRUCT: {
 				Construct construct = (Construct)theEObject;
 				T result = caseConstruct(construct);
-				if (result == null) result = caseNamedExtension(construct);
-				if (result == null) result = caseExtension(construct);
+				if (result == null) result = caseNamedExtensible(construct);
+				if (result == null) result = caseExtensibleElement(construct);
 				if (result == null) result = caseNamedElement(construct);
 				if (result == null) result = caseExpandableElement(construct);
 				if (result == null) result = defaultCase(theEObject);
@@ -187,9 +187,9 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAnnotatableElement(procedure);
 				if (result == null) result = caseExpandableElement(procedure);
 				if (result == null) result = caseConstruct(procedure);
-				if (result == null) result = caseNamedExtension(procedure);
+				if (result == null) result = caseNamedExtensible(procedure);
 				if (result == null) result = caseNamedElement(procedure);
-				if (result == null) result = caseExtension(procedure);
+				if (result == null) result = caseExtensibleElement(procedure);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -256,8 +256,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseStartCodeBlock(startCodeBlock);
 				if (result == null) result = caseCodeBlock(startCodeBlock);
 				if (result == null) result = caseConstruct(startCodeBlock);
-				if (result == null) result = caseNamedExtension(startCodeBlock);
-				if (result == null) result = caseExtension(startCodeBlock);
+				if (result == null) result = caseNamedExtensible(startCodeBlock);
+				if (result == null) result = caseExtensibleElement(startCodeBlock);
 				if (result == null) result = caseNamedElement(startCodeBlock);
 				if (result == null) result = caseExpandableElement(startCodeBlock);
 				if (result == null) result = defaultCase(theEObject);
@@ -321,9 +321,9 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseTypedElement(variable);
 				if (result == null) result = caseConstruct(variable);
 				if (result == null) result = caseExpandableElement(variable);
-				if (result == null) result = caseNamedExtension(variable);
+				if (result == null) result = caseNamedExtensible(variable);
 				if (result == null) result = caseNamedElement(variable);
-				if (result == null) result = caseExtension(variable);
+				if (result == null) result = caseExtensibleElement(variable);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -348,8 +348,8 @@ public class DblSwitch<T> extends Switch<T> {
 				CodeBlock codeBlock = (CodeBlock)theEObject;
 				T result = caseCodeBlock(codeBlock);
 				if (result == null) result = caseConstruct(codeBlock);
-				if (result == null) result = caseNamedExtension(codeBlock);
-				if (result == null) result = caseExtension(codeBlock);
+				if (result == null) result = caseNamedExtensible(codeBlock);
+				if (result == null) result = caseExtensibleElement(codeBlock);
 				if (result == null) result = caseNamedElement(codeBlock);
 				if (result == null) result = caseExpandableElement(codeBlock);
 				if (result == null) result = defaultCase(theEObject);
@@ -359,8 +359,8 @@ public class DblSwitch<T> extends Switch<T> {
 				Statement statement = (Statement)theEObject;
 				T result = caseStatement(statement);
 				if (result == null) result = caseConstruct(statement);
-				if (result == null) result = caseNamedExtension(statement);
-				if (result == null) result = caseExtension(statement);
+				if (result == null) result = caseNamedExtensible(statement);
+				if (result == null) result = caseExtensibleElement(statement);
 				if (result == null) result = caseNamedElement(statement);
 				if (result == null) result = caseExpandableElement(statement);
 				if (result == null) result = defaultCase(theEObject);
@@ -371,8 +371,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseCompositeStatement(compositeStatement);
 				if (result == null) result = caseStatement(compositeStatement);
 				if (result == null) result = caseConstruct(compositeStatement);
-				if (result == null) result = caseNamedExtension(compositeStatement);
-				if (result == null) result = caseExtension(compositeStatement);
+				if (result == null) result = caseNamedExtensible(compositeStatement);
+				if (result == null) result = caseExtensibleElement(compositeStatement);
 				if (result == null) result = caseNamedElement(compositeStatement);
 				if (result == null) result = caseExpandableElement(compositeStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -383,8 +383,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseSimpleStatement(simpleStatement);
 				if (result == null) result = caseStatement(simpleStatement);
 				if (result == null) result = caseConstruct(simpleStatement);
-				if (result == null) result = caseNamedExtension(simpleStatement);
-				if (result == null) result = caseExtension(simpleStatement);
+				if (result == null) result = caseNamedExtensible(simpleStatement);
+				if (result == null) result = caseExtensibleElement(simpleStatement);
 				if (result == null) result = caseNamedElement(simpleStatement);
 				if (result == null) result = caseExpandableElement(simpleStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -396,8 +396,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(expressionStatement);
 				if (result == null) result = caseStatement(expressionStatement);
 				if (result == null) result = caseConstruct(expressionStatement);
-				if (result == null) result = caseNamedExtension(expressionStatement);
-				if (result == null) result = caseExtension(expressionStatement);
+				if (result == null) result = caseNamedExtensible(expressionStatement);
+				if (result == null) result = caseExtensibleElement(expressionStatement);
 				if (result == null) result = caseNamedElement(expressionStatement);
 				if (result == null) result = caseExpandableElement(expressionStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -415,8 +415,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(assignment);
 				if (result == null) result = caseStatement(assignment);
 				if (result == null) result = caseConstruct(assignment);
-				if (result == null) result = caseNamedExtension(assignment);
-				if (result == null) result = caseExtension(assignment);
+				if (result == null) result = caseNamedExtensible(assignment);
+				if (result == null) result = caseExtensibleElement(assignment);
 				if (result == null) result = caseNamedElement(assignment);
 				if (result == null) result = caseExpandableElement(assignment);
 				if (result == null) result = defaultCase(theEObject);
@@ -429,8 +429,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(deprecatedProcedureCallStatement);
 				if (result == null) result = caseStatement(deprecatedProcedureCallStatement);
 				if (result == null) result = caseConstruct(deprecatedProcedureCallStatement);
-				if (result == null) result = caseNamedExtension(deprecatedProcedureCallStatement);
-				if (result == null) result = caseExtension(deprecatedProcedureCallStatement);
+				if (result == null) result = caseNamedExtensible(deprecatedProcedureCallStatement);
+				if (result == null) result = caseExtensibleElement(deprecatedProcedureCallStatement);
 				if (result == null) result = caseNamedElement(deprecatedProcedureCallStatement);
 				if (result == null) result = caseExpandableElement(deprecatedProcedureCallStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -449,8 +449,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(return_);
 				if (result == null) result = caseStatement(return_);
 				if (result == null) result = caseConstruct(return_);
-				if (result == null) result = caseNamedExtension(return_);
-				if (result == null) result = caseExtension(return_);
+				if (result == null) result = caseNamedExtensible(return_);
+				if (result == null) result = caseExtensibleElement(return_);
 				if (result == null) result = caseNamedElement(return_);
 				if (result == null) result = caseExpandableElement(return_);
 				if (result == null) result = defaultCase(theEObject);
@@ -462,8 +462,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(waitUntil);
 				if (result == null) result = caseStatement(waitUntil);
 				if (result == null) result = caseConstruct(waitUntil);
-				if (result == null) result = caseNamedExtension(waitUntil);
-				if (result == null) result = caseExtension(waitUntil);
+				if (result == null) result = caseNamedExtensible(waitUntil);
+				if (result == null) result = caseExtensibleElement(waitUntil);
 				if (result == null) result = caseNamedElement(waitUntil);
 				if (result == null) result = caseExpandableElement(waitUntil);
 				if (result == null) result = defaultCase(theEObject);
@@ -475,8 +475,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(terminate);
 				if (result == null) result = caseStatement(terminate);
 				if (result == null) result = caseConstruct(terminate);
-				if (result == null) result = caseNamedExtension(terminate);
-				if (result == null) result = caseExtension(terminate);
+				if (result == null) result = caseNamedExtensible(terminate);
+				if (result == null) result = caseExtensibleElement(terminate);
 				if (result == null) result = caseNamedElement(terminate);
 				if (result == null) result = caseExpandableElement(terminate);
 				if (result == null) result = defaultCase(theEObject);
@@ -488,8 +488,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(yield);
 				if (result == null) result = caseStatement(yield);
 				if (result == null) result = caseConstruct(yield);
-				if (result == null) result = caseNamedExtension(yield);
-				if (result == null) result = caseExtension(yield);
+				if (result == null) result = caseNamedExtensible(yield);
+				if (result == null) result = caseExtensibleElement(yield);
 				if (result == null) result = caseNamedElement(yield);
 				if (result == null) result = caseExpandableElement(yield);
 				if (result == null) result = defaultCase(theEObject);
@@ -501,8 +501,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(wait);
 				if (result == null) result = caseStatement(wait);
 				if (result == null) result = caseConstruct(wait);
-				if (result == null) result = caseNamedExtension(wait);
-				if (result == null) result = caseExtension(wait);
+				if (result == null) result = caseNamedExtensible(wait);
+				if (result == null) result = caseExtensibleElement(wait);
 				if (result == null) result = caseNamedElement(wait);
 				if (result == null) result = caseExpandableElement(wait);
 				if (result == null) result = defaultCase(theEObject);
@@ -514,8 +514,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(reactivate);
 				if (result == null) result = caseStatement(reactivate);
 				if (result == null) result = caseConstruct(reactivate);
-				if (result == null) result = caseNamedExtension(reactivate);
-				if (result == null) result = caseExtension(reactivate);
+				if (result == null) result = caseNamedExtensible(reactivate);
+				if (result == null) result = caseExtensibleElement(reactivate);
 				if (result == null) result = caseNamedElement(reactivate);
 				if (result == null) result = caseExpandableElement(reactivate);
 				if (result == null) result = defaultCase(theEObject);
@@ -527,8 +527,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(activateObject);
 				if (result == null) result = caseStatement(activateObject);
 				if (result == null) result = caseConstruct(activateObject);
-				if (result == null) result = caseNamedExtension(activateObject);
-				if (result == null) result = caseExtension(activateObject);
+				if (result == null) result = caseNamedExtensible(activateObject);
+				if (result == null) result = caseExtensibleElement(activateObject);
 				if (result == null) result = caseNamedElement(activateObject);
 				if (result == null) result = caseExpandableElement(activateObject);
 				if (result == null) result = defaultCase(theEObject);
@@ -540,8 +540,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(advance);
 				if (result == null) result = caseStatement(advance);
 				if (result == null) result = caseConstruct(advance);
-				if (result == null) result = caseNamedExtension(advance);
-				if (result == null) result = caseExtension(advance);
+				if (result == null) result = caseNamedExtensible(advance);
+				if (result == null) result = caseExtensibleElement(advance);
 				if (result == null) result = caseNamedElement(advance);
 				if (result == null) result = caseExpandableElement(advance);
 				if (result == null) result = defaultCase(theEObject);
@@ -553,8 +553,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(print);
 				if (result == null) result = caseStatement(print);
 				if (result == null) result = caseConstruct(print);
-				if (result == null) result = caseNamedExtension(print);
-				if (result == null) result = caseExtension(print);
+				if (result == null) result = caseNamedExtensible(print);
+				if (result == null) result = caseExtensibleElement(print);
 				if (result == null) result = caseNamedElement(print);
 				if (result == null) result = caseExpandableElement(print);
 				if (result == null) result = defaultCase(theEObject);
@@ -566,8 +566,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(setStatement);
 				if (result == null) result = caseStatement(setStatement);
 				if (result == null) result = caseConstruct(setStatement);
-				if (result == null) result = caseNamedExtension(setStatement);
-				if (result == null) result = caseExtension(setStatement);
+				if (result == null) result = caseNamedExtensible(setStatement);
+				if (result == null) result = caseExtensibleElement(setStatement);
 				if (result == null) result = caseNamedElement(setStatement);
 				if (result == null) result = caseExpandableElement(setStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -580,8 +580,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(removeFromSet);
 				if (result == null) result = caseStatement(removeFromSet);
 				if (result == null) result = caseConstruct(removeFromSet);
-				if (result == null) result = caseNamedExtension(removeFromSet);
-				if (result == null) result = caseExtension(removeFromSet);
+				if (result == null) result = caseNamedExtensible(removeFromSet);
+				if (result == null) result = caseExtensibleElement(removeFromSet);
 				if (result == null) result = caseNamedElement(removeFromSet);
 				if (result == null) result = caseExpandableElement(removeFromSet);
 				if (result == null) result = defaultCase(theEObject);
@@ -594,8 +594,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(addToSet);
 				if (result == null) result = caseStatement(addToSet);
 				if (result == null) result = caseConstruct(addToSet);
-				if (result == null) result = caseNamedExtension(addToSet);
-				if (result == null) result = caseExtension(addToSet);
+				if (result == null) result = caseNamedExtensible(addToSet);
+				if (result == null) result = caseExtensibleElement(addToSet);
 				if (result == null) result = caseNamedElement(addToSet);
 				if (result == null) result = caseExpandableElement(addToSet);
 				if (result == null) result = defaultCase(theEObject);
@@ -608,8 +608,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(emptySet);
 				if (result == null) result = caseStatement(emptySet);
 				if (result == null) result = caseConstruct(emptySet);
-				if (result == null) result = caseNamedExtension(emptySet);
-				if (result == null) result = caseExtension(emptySet);
+				if (result == null) result = caseNamedExtensible(emptySet);
+				if (result == null) result = caseExtensibleElement(emptySet);
 				if (result == null) result = caseNamedElement(emptySet);
 				if (result == null) result = caseExpandableElement(emptySet);
 				if (result == null) result = defaultCase(theEObject);
@@ -621,8 +621,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseCompositeStatement(ifStatement);
 				if (result == null) result = caseStatement(ifStatement);
 				if (result == null) result = caseConstruct(ifStatement);
-				if (result == null) result = caseNamedExtension(ifStatement);
-				if (result == null) result = caseExtension(ifStatement);
+				if (result == null) result = caseNamedExtensible(ifStatement);
+				if (result == null) result = caseExtensibleElement(ifStatement);
 				if (result == null) result = caseNamedElement(ifStatement);
 				if (result == null) result = caseExpandableElement(ifStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -634,8 +634,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseCompositeStatement(whileStatement);
 				if (result == null) result = caseStatement(whileStatement);
 				if (result == null) result = caseConstruct(whileStatement);
-				if (result == null) result = caseNamedExtension(whileStatement);
-				if (result == null) result = caseExtension(whileStatement);
+				if (result == null) result = caseNamedExtensible(whileStatement);
+				if (result == null) result = caseExtensibleElement(whileStatement);
 				if (result == null) result = caseNamedElement(whileStatement);
 				if (result == null) result = caseExpandableElement(whileStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -647,8 +647,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(breakStatement);
 				if (result == null) result = caseStatement(breakStatement);
 				if (result == null) result = caseConstruct(breakStatement);
-				if (result == null) result = caseNamedExtension(breakStatement);
-				if (result == null) result = caseExtension(breakStatement);
+				if (result == null) result = caseNamedExtensible(breakStatement);
+				if (result == null) result = caseExtensibleElement(breakStatement);
 				if (result == null) result = caseNamedElement(breakStatement);
 				if (result == null) result = caseExpandableElement(breakStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -660,8 +660,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(continueStatement);
 				if (result == null) result = caseStatement(continueStatement);
 				if (result == null) result = caseConstruct(continueStatement);
-				if (result == null) result = caseNamedExtension(continueStatement);
-				if (result == null) result = caseExtension(continueStatement);
+				if (result == null) result = caseNamedExtensible(continueStatement);
+				if (result == null) result = caseExtensibleElement(continueStatement);
 				if (result == null) result = caseNamedElement(continueStatement);
 				if (result == null) result = caseExpandableElement(continueStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -673,8 +673,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseCompositeStatement(forEachStatement);
 				if (result == null) result = caseStatement(forEachStatement);
 				if (result == null) result = caseConstruct(forEachStatement);
-				if (result == null) result = caseNamedExtension(forEachStatement);
-				if (result == null) result = caseExtension(forEachStatement);
+				if (result == null) result = caseNamedExtensible(forEachStatement);
+				if (result == null) result = caseExtensibleElement(forEachStatement);
 				if (result == null) result = caseNamedElement(forEachStatement);
 				if (result == null) result = caseExpandableElement(forEachStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -684,8 +684,8 @@ public class DblSwitch<T> extends Switch<T> {
 				Expression expression = (Expression)theEObject;
 				T result = caseExpression(expression);
 				if (result == null) result = caseConstruct(expression);
-				if (result == null) result = caseNamedExtension(expression);
-				if (result == null) result = caseExtension(expression);
+				if (result == null) result = caseNamedExtensible(expression);
+				if (result == null) result = caseExtensibleElement(expression);
 				if (result == null) result = caseNamedElement(expression);
 				if (result == null) result = caseExpandableElement(expression);
 				if (result == null) result = defaultCase(theEObject);
@@ -696,8 +696,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseL1Expr(l1Expr);
 				if (result == null) result = caseExpression(l1Expr);
 				if (result == null) result = caseConstruct(l1Expr);
-				if (result == null) result = caseNamedExtension(l1Expr);
-				if (result == null) result = caseExtension(l1Expr);
+				if (result == null) result = caseNamedExtensible(l1Expr);
+				if (result == null) result = caseExtensibleElement(l1Expr);
 				if (result == null) result = caseNamedElement(l1Expr);
 				if (result == null) result = caseExpandableElement(l1Expr);
 				if (result == null) result = defaultCase(theEObject);
@@ -708,8 +708,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseBinaryOperator(binaryOperator);
 				if (result == null) result = caseExpression(binaryOperator);
 				if (result == null) result = caseConstruct(binaryOperator);
-				if (result == null) result = caseNamedExtension(binaryOperator);
-				if (result == null) result = caseExtension(binaryOperator);
+				if (result == null) result = caseNamedExtensible(binaryOperator);
+				if (result == null) result = caseExtensibleElement(binaryOperator);
 				if (result == null) result = caseNamedElement(binaryOperator);
 				if (result == null) result = caseExpandableElement(binaryOperator);
 				if (result == null) result = defaultCase(theEObject);
@@ -720,8 +720,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseUnaryOperator(unaryOperator);
 				if (result == null) result = caseExpression(unaryOperator);
 				if (result == null) result = caseConstruct(unaryOperator);
-				if (result == null) result = caseNamedExtension(unaryOperator);
-				if (result == null) result = caseExtension(unaryOperator);
+				if (result == null) result = caseNamedExtensible(unaryOperator);
+				if (result == null) result = caseExtensibleElement(unaryOperator);
 				if (result == null) result = caseNamedElement(unaryOperator);
 				if (result == null) result = caseExpandableElement(unaryOperator);
 				if (result == null) result = defaultCase(theEObject);
@@ -733,8 +733,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(and);
 				if (result == null) result = caseExpression(and);
 				if (result == null) result = caseConstruct(and);
-				if (result == null) result = caseNamedExtension(and);
-				if (result == null) result = caseExtension(and);
+				if (result == null) result = caseNamedExtensible(and);
+				if (result == null) result = caseExtensibleElement(and);
 				if (result == null) result = caseNamedElement(and);
 				if (result == null) result = caseExpandableElement(and);
 				if (result == null) result = defaultCase(theEObject);
@@ -746,8 +746,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(or);
 				if (result == null) result = caseExpression(or);
 				if (result == null) result = caseConstruct(or);
-				if (result == null) result = caseNamedExtension(or);
-				if (result == null) result = caseExtension(or);
+				if (result == null) result = caseNamedExtensible(or);
+				if (result == null) result = caseExtensibleElement(or);
 				if (result == null) result = caseNamedElement(or);
 				if (result == null) result = caseExpandableElement(or);
 				if (result == null) result = defaultCase(theEObject);
@@ -759,8 +759,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(greater);
 				if (result == null) result = caseExpression(greater);
 				if (result == null) result = caseConstruct(greater);
-				if (result == null) result = caseNamedExtension(greater);
-				if (result == null) result = caseExtension(greater);
+				if (result == null) result = caseNamedExtensible(greater);
+				if (result == null) result = caseExtensibleElement(greater);
 				if (result == null) result = caseNamedElement(greater);
 				if (result == null) result = caseExpandableElement(greater);
 				if (result == null) result = defaultCase(theEObject);
@@ -772,8 +772,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(greaterEqual);
 				if (result == null) result = caseExpression(greaterEqual);
 				if (result == null) result = caseConstruct(greaterEqual);
-				if (result == null) result = caseNamedExtension(greaterEqual);
-				if (result == null) result = caseExtension(greaterEqual);
+				if (result == null) result = caseNamedExtensible(greaterEqual);
+				if (result == null) result = caseExtensibleElement(greaterEqual);
 				if (result == null) result = caseNamedElement(greaterEqual);
 				if (result == null) result = caseExpandableElement(greaterEqual);
 				if (result == null) result = defaultCase(theEObject);
@@ -785,8 +785,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(less);
 				if (result == null) result = caseExpression(less);
 				if (result == null) result = caseConstruct(less);
-				if (result == null) result = caseNamedExtension(less);
-				if (result == null) result = caseExtension(less);
+				if (result == null) result = caseNamedExtensible(less);
+				if (result == null) result = caseExtensibleElement(less);
 				if (result == null) result = caseNamedElement(less);
 				if (result == null) result = caseExpandableElement(less);
 				if (result == null) result = defaultCase(theEObject);
@@ -798,8 +798,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(lessEqual);
 				if (result == null) result = caseExpression(lessEqual);
 				if (result == null) result = caseConstruct(lessEqual);
-				if (result == null) result = caseNamedExtension(lessEqual);
-				if (result == null) result = caseExtension(lessEqual);
+				if (result == null) result = caseNamedExtensible(lessEqual);
+				if (result == null) result = caseExtensibleElement(lessEqual);
 				if (result == null) result = caseNamedElement(lessEqual);
 				if (result == null) result = caseExpandableElement(lessEqual);
 				if (result == null) result = defaultCase(theEObject);
@@ -811,8 +811,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(notEqual);
 				if (result == null) result = caseExpression(notEqual);
 				if (result == null) result = caseConstruct(notEqual);
-				if (result == null) result = caseNamedExtension(notEqual);
-				if (result == null) result = caseExtension(notEqual);
+				if (result == null) result = caseNamedExtensible(notEqual);
+				if (result == null) result = caseExtensibleElement(notEqual);
 				if (result == null) result = caseNamedElement(notEqual);
 				if (result == null) result = caseExpandableElement(notEqual);
 				if (result == null) result = defaultCase(theEObject);
@@ -824,8 +824,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(equal);
 				if (result == null) result = caseExpression(equal);
 				if (result == null) result = caseConstruct(equal);
-				if (result == null) result = caseNamedExtension(equal);
-				if (result == null) result = caseExtension(equal);
+				if (result == null) result = caseNamedExtensible(equal);
+				if (result == null) result = caseExtensibleElement(equal);
 				if (result == null) result = caseNamedElement(equal);
 				if (result == null) result = caseExpandableElement(equal);
 				if (result == null) result = defaultCase(theEObject);
@@ -837,8 +837,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(instanceOf);
 				if (result == null) result = caseExpression(instanceOf);
 				if (result == null) result = caseConstruct(instanceOf);
-				if (result == null) result = caseNamedExtension(instanceOf);
-				if (result == null) result = caseExtension(instanceOf);
+				if (result == null) result = caseNamedExtensible(instanceOf);
+				if (result == null) result = caseExtensibleElement(instanceOf);
 				if (result == null) result = caseNamedElement(instanceOf);
 				if (result == null) result = caseExpandableElement(instanceOf);
 				if (result == null) result = defaultCase(theEObject);
@@ -850,8 +850,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(plus);
 				if (result == null) result = caseExpression(plus);
 				if (result == null) result = caseConstruct(plus);
-				if (result == null) result = caseNamedExtension(plus);
-				if (result == null) result = caseExtension(plus);
+				if (result == null) result = caseNamedExtensible(plus);
+				if (result == null) result = caseExtensibleElement(plus);
 				if (result == null) result = caseNamedElement(plus);
 				if (result == null) result = caseExpandableElement(plus);
 				if (result == null) result = defaultCase(theEObject);
@@ -863,8 +863,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(minus);
 				if (result == null) result = caseExpression(minus);
 				if (result == null) result = caseConstruct(minus);
-				if (result == null) result = caseNamedExtension(minus);
-				if (result == null) result = caseExtension(minus);
+				if (result == null) result = caseNamedExtensible(minus);
+				if (result == null) result = caseExtensibleElement(minus);
 				if (result == null) result = caseNamedElement(minus);
 				if (result == null) result = caseExpandableElement(minus);
 				if (result == null) result = defaultCase(theEObject);
@@ -876,8 +876,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(mul);
 				if (result == null) result = caseExpression(mul);
 				if (result == null) result = caseConstruct(mul);
-				if (result == null) result = caseNamedExtension(mul);
-				if (result == null) result = caseExtension(mul);
+				if (result == null) result = caseNamedExtensible(mul);
+				if (result == null) result = caseExtensibleElement(mul);
 				if (result == null) result = caseNamedElement(mul);
 				if (result == null) result = caseExpandableElement(mul);
 				if (result == null) result = defaultCase(theEObject);
@@ -889,8 +889,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(mod);
 				if (result == null) result = caseExpression(mod);
 				if (result == null) result = caseConstruct(mod);
-				if (result == null) result = caseNamedExtension(mod);
-				if (result == null) result = caseExtension(mod);
+				if (result == null) result = caseNamedExtensible(mod);
+				if (result == null) result = caseExtensibleElement(mod);
 				if (result == null) result = caseNamedElement(mod);
 				if (result == null) result = caseExpandableElement(mod);
 				if (result == null) result = defaultCase(theEObject);
@@ -902,8 +902,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseBinaryOperator(div);
 				if (result == null) result = caseExpression(div);
 				if (result == null) result = caseConstruct(div);
-				if (result == null) result = caseNamedExtension(div);
-				if (result == null) result = caseExtension(div);
+				if (result == null) result = caseNamedExtensible(div);
+				if (result == null) result = caseExtensibleElement(div);
 				if (result == null) result = caseNamedElement(div);
 				if (result == null) result = caseExpandableElement(div);
 				if (result == null) result = defaultCase(theEObject);
@@ -915,8 +915,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseUnaryOperator(neg);
 				if (result == null) result = caseExpression(neg);
 				if (result == null) result = caseConstruct(neg);
-				if (result == null) result = caseNamedExtension(neg);
-				if (result == null) result = caseExtension(neg);
+				if (result == null) result = caseNamedExtensible(neg);
+				if (result == null) result = caseExtensibleElement(neg);
 				if (result == null) result = caseNamedElement(neg);
 				if (result == null) result = caseExpandableElement(neg);
 				if (result == null) result = defaultCase(theEObject);
@@ -928,8 +928,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseUnaryOperator(not);
 				if (result == null) result = caseExpression(not);
 				if (result == null) result = caseConstruct(not);
-				if (result == null) result = caseNamedExtension(not);
-				if (result == null) result = caseExtension(not);
+				if (result == null) result = caseNamedExtensible(not);
+				if (result == null) result = caseExtensibleElement(not);
 				if (result == null) result = caseNamedElement(not);
 				if (result == null) result = caseExpandableElement(not);
 				if (result == null) result = defaultCase(theEObject);
@@ -942,8 +942,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseTypedElement(cast);
 				if (result == null) result = caseExpression(cast);
 				if (result == null) result = caseConstruct(cast);
-				if (result == null) result = caseNamedExtension(cast);
-				if (result == null) result = caseExtension(cast);
+				if (result == null) result = caseNamedExtensible(cast);
+				if (result == null) result = caseExtensibleElement(cast);
 				if (result == null) result = caseNamedElement(cast);
 				if (result == null) result = caseExpandableElement(cast);
 				if (result == null) result = defaultCase(theEObject);
@@ -956,8 +956,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseTypedElement(createObject);
 				if (result == null) result = caseExpression(createObject);
 				if (result == null) result = caseConstruct(createObject);
-				if (result == null) result = caseNamedExtension(createObject);
-				if (result == null) result = caseExtension(createObject);
+				if (result == null) result = caseNamedExtensible(createObject);
+				if (result == null) result = caseExtensibleElement(createObject);
 				if (result == null) result = caseNamedElement(createObject);
 				if (result == null) result = caseExpandableElement(createObject);
 				if (result == null) result = defaultCase(theEObject);
@@ -969,8 +969,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(nullLiteral);
 				if (result == null) result = caseExpression(nullLiteral);
 				if (result == null) result = caseConstruct(nullLiteral);
-				if (result == null) result = caseNamedExtension(nullLiteral);
-				if (result == null) result = caseExtension(nullLiteral);
+				if (result == null) result = caseNamedExtensible(nullLiteral);
+				if (result == null) result = caseExtensibleElement(nullLiteral);
 				if (result == null) result = caseNamedElement(nullLiteral);
 				if (result == null) result = caseExpandableElement(nullLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -982,8 +982,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(timeLiteral);
 				if (result == null) result = caseExpression(timeLiteral);
 				if (result == null) result = caseConstruct(timeLiteral);
-				if (result == null) result = caseNamedExtension(timeLiteral);
-				if (result == null) result = caseExtension(timeLiteral);
+				if (result == null) result = caseNamedExtensible(timeLiteral);
+				if (result == null) result = caseExtensibleElement(timeLiteral);
 				if (result == null) result = caseNamedElement(timeLiteral);
 				if (result == null) result = caseExpandableElement(timeLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -995,8 +995,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(activeLiteral);
 				if (result == null) result = caseExpression(activeLiteral);
 				if (result == null) result = caseConstruct(activeLiteral);
-				if (result == null) result = caseNamedExtension(activeLiteral);
-				if (result == null) result = caseExtension(activeLiteral);
+				if (result == null) result = caseNamedExtensible(activeLiteral);
+				if (result == null) result = caseExtensibleElement(activeLiteral);
 				if (result == null) result = caseNamedElement(activeLiteral);
 				if (result == null) result = caseExpandableElement(activeLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -1008,8 +1008,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(stringLiteral);
 				if (result == null) result = caseExpression(stringLiteral);
 				if (result == null) result = caseConstruct(stringLiteral);
-				if (result == null) result = caseNamedExtension(stringLiteral);
-				if (result == null) result = caseExtension(stringLiteral);
+				if (result == null) result = caseNamedExtensible(stringLiteral);
+				if (result == null) result = caseExtensibleElement(stringLiteral);
 				if (result == null) result = caseNamedElement(stringLiteral);
 				if (result == null) result = caseExpandableElement(stringLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -1021,8 +1021,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(intLiteral);
 				if (result == null) result = caseExpression(intLiteral);
 				if (result == null) result = caseConstruct(intLiteral);
-				if (result == null) result = caseNamedExtension(intLiteral);
-				if (result == null) result = caseExtension(intLiteral);
+				if (result == null) result = caseNamedExtensible(intLiteral);
+				if (result == null) result = caseExtensibleElement(intLiteral);
 				if (result == null) result = caseNamedElement(intLiteral);
 				if (result == null) result = caseExpandableElement(intLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -1034,8 +1034,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(trueLiteral);
 				if (result == null) result = caseExpression(trueLiteral);
 				if (result == null) result = caseConstruct(trueLiteral);
-				if (result == null) result = caseNamedExtension(trueLiteral);
-				if (result == null) result = caseExtension(trueLiteral);
+				if (result == null) result = caseNamedExtensible(trueLiteral);
+				if (result == null) result = caseExtensibleElement(trueLiteral);
 				if (result == null) result = caseNamedElement(trueLiteral);
 				if (result == null) result = caseExpandableElement(trueLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -1047,8 +1047,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(falseLiteral);
 				if (result == null) result = caseExpression(falseLiteral);
 				if (result == null) result = caseConstruct(falseLiteral);
-				if (result == null) result = caseNamedExtension(falseLiteral);
-				if (result == null) result = caseExtension(falseLiteral);
+				if (result == null) result = caseNamedExtensible(falseLiteral);
+				if (result == null) result = caseExtensibleElement(falseLiteral);
 				if (result == null) result = caseNamedElement(falseLiteral);
 				if (result == null) result = caseExpandableElement(falseLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -1060,8 +1060,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(doubleLiteral);
 				if (result == null) result = caseExpression(doubleLiteral);
 				if (result == null) result = caseConstruct(doubleLiteral);
-				if (result == null) result = caseNamedExtension(doubleLiteral);
-				if (result == null) result = caseExtension(doubleLiteral);
+				if (result == null) result = caseNamedExtensible(doubleLiteral);
+				if (result == null) result = caseExtensibleElement(doubleLiteral);
 				if (result == null) result = caseNamedElement(doubleLiteral);
 				if (result == null) result = caseExpandableElement(doubleLiteral);
 				if (result == null) result = defaultCase(theEObject);
@@ -1072,8 +1072,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseEvalExpr(evalExpr);
 				if (result == null) result = caseExpression(evalExpr);
 				if (result == null) result = caseConstruct(evalExpr);
-				if (result == null) result = caseNamedExtension(evalExpr);
-				if (result == null) result = caseExtension(evalExpr);
+				if (result == null) result = caseNamedExtensible(evalExpr);
+				if (result == null) result = caseExtensibleElement(evalExpr);
 				if (result == null) result = caseNamedElement(evalExpr);
 				if (result == null) result = caseExpandableElement(evalExpr);
 				if (result == null) result = defaultCase(theEObject);
@@ -1196,8 +1196,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseL1Expr(idExpr);
 				if (result == null) result = caseExpression(idExpr);
 				if (result == null) result = caseConstruct(idExpr);
-				if (result == null) result = caseNamedExtension(idExpr);
-				if (result == null) result = caseExtension(idExpr);
+				if (result == null) result = caseNamedExtensible(idExpr);
+				if (result == null) result = caseExtensibleElement(idExpr);
 				if (result == null) result = caseNamedElement(idExpr);
 				if (result == null) result = caseExpandableElement(idExpr);
 				if (result == null) result = defaultCase(theEObject);
@@ -1214,8 +1214,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseElementAccess(elementAccess);
 				if (result == null) result = caseExpression(elementAccess);
 				if (result == null) result = caseConstruct(elementAccess);
-				if (result == null) result = caseNamedExtension(elementAccess);
-				if (result == null) result = caseExtension(elementAccess);
+				if (result == null) result = caseNamedExtensible(elementAccess);
+				if (result == null) result = caseExtensibleElement(elementAccess);
 				if (result == null) result = caseNamedElement(elementAccess);
 				if (result == null) result = caseExpandableElement(elementAccess);
 				if (result == null) result = defaultCase(theEObject);
@@ -1227,8 +1227,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseElementAccess(variableAccess);
 				if (result == null) result = caseExpression(variableAccess);
 				if (result == null) result = caseConstruct(variableAccess);
-				if (result == null) result = caseNamedExtension(variableAccess);
-				if (result == null) result = caseExtension(variableAccess);
+				if (result == null) result = caseNamedExtensible(variableAccess);
+				if (result == null) result = caseExtensibleElement(variableAccess);
 				if (result == null) result = caseNamedElement(variableAccess);
 				if (result == null) result = caseExpandableElement(variableAccess);
 				if (result == null) result = defaultCase(theEObject);
@@ -1241,8 +1241,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseElementAccess(metaAccess);
 				if (result == null) result = caseExpression(metaAccess);
 				if (result == null) result = caseConstruct(metaAccess);
-				if (result == null) result = caseNamedExtension(metaAccess);
-				if (result == null) result = caseExtension(metaAccess);
+				if (result == null) result = caseNamedExtensible(metaAccess);
+				if (result == null) result = caseExtensibleElement(metaAccess);
 				if (result == null) result = caseNamedElement(metaAccess);
 				if (result == null) result = caseExpandableElement(metaAccess);
 				if (result == null) result = defaultCase(theEObject);
@@ -1254,33 +1254,33 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseElementAccess(typeAccess);
 				if (result == null) result = caseExpression(typeAccess);
 				if (result == null) result = caseConstruct(typeAccess);
-				if (result == null) result = caseNamedExtension(typeAccess);
-				if (result == null) result = caseExtension(typeAccess);
+				if (result == null) result = caseNamedExtensible(typeAccess);
+				if (result == null) result = caseExtensibleElement(typeAccess);
 				if (result == null) result = caseNamedElement(typeAccess);
 				if (result == null) result = caseExpandableElement(typeAccess);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.EXTENSION: {
-				Extension extension = (Extension)theEObject;
-				T result = caseExtension(extension);
+			case DblPackage.EXTENSIBLE_ELEMENT: {
+				ExtensibleElement extensibleElement = (ExtensibleElement)theEObject;
+				T result = caseExtensibleElement(extensibleElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.NAMED_EXTENSION: {
-				NamedExtension namedExtension = (NamedExtension)theEObject;
-				T result = caseNamedExtension(namedExtension);
-				if (result == null) result = caseExtension(namedExtension);
-				if (result == null) result = caseNamedElement(namedExtension);
-				if (result == null) result = caseExpandableElement(namedExtension);
+			case DblPackage.NAMED_EXTENSIBLE: {
+				NamedExtensible namedExtensible = (NamedExtensible)theEObject;
+				T result = caseNamedExtensible(namedExtensible);
+				if (result == null) result = caseExtensibleElement(namedExtensible);
+				if (result == null) result = caseNamedElement(namedExtensible);
+				if (result == null) result = caseExpandableElement(namedExtensible);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DblPackage.CLASS_CONTENT_EXTENSION: {
 				ClassContentExtension classContentExtension = (ClassContentExtension)theEObject;
 				T result = caseClassContentExtension(classContentExtension);
-				if (result == null) result = caseNamedExtension(classContentExtension);
-				if (result == null) result = caseExtension(classContentExtension);
+				if (result == null) result = caseNamedExtensible(classContentExtension);
+				if (result == null) result = caseExtensibleElement(classContentExtension);
 				if (result == null) result = caseNamedElement(classContentExtension);
 				if (result == null) result = caseExpandableElement(classContentExtension);
 				if (result == null) result = defaultCase(theEObject);
@@ -1289,8 +1289,8 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.MODULE_CONTENT_EXTENSION: {
 				ModuleContentExtension moduleContentExtension = (ModuleContentExtension)theEObject;
 				T result = caseModuleContentExtension(moduleContentExtension);
-				if (result == null) result = caseNamedExtension(moduleContentExtension);
-				if (result == null) result = caseExtension(moduleContentExtension);
+				if (result == null) result = caseNamedExtensible(moduleContentExtension);
+				if (result == null) result = caseExtensibleElement(moduleContentExtension);
 				if (result == null) result = caseNamedElement(moduleContentExtension);
 				if (result == null) result = caseExpandableElement(moduleContentExtension);
 				if (result == null) result = defaultCase(theEObject);
@@ -1468,8 +1468,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseMapping(mapping);
 				if (result == null) result = caseCodeBlock(mapping);
 				if (result == null) result = caseConstruct(mapping);
-				if (result == null) result = caseNamedExtension(mapping);
-				if (result == null) result = caseExtension(mapping);
+				if (result == null) result = caseNamedExtensible(mapping);
+				if (result == null) result = caseExtensibleElement(mapping);
 				if (result == null) result = caseNamedElement(mapping);
 				if (result == null) result = caseExpandableElement(mapping);
 				if (result == null) result = defaultCase(theEObject);
@@ -1486,8 +1486,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseMetaExpr(metaExpr);
 				if (result == null) result = caseExpression(metaExpr);
 				if (result == null) result = caseConstruct(metaExpr);
-				if (result == null) result = caseNamedExtension(metaExpr);
-				if (result == null) result = caseExtension(metaExpr);
+				if (result == null) result = caseNamedExtensible(metaExpr);
+				if (result == null) result = caseExtensibleElement(metaExpr);
 				if (result == null) result = caseNamedElement(metaExpr);
 				if (result == null) result = caseExpandableElement(metaExpr);
 				if (result == null) result = defaultCase(theEObject);
@@ -1498,8 +1498,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseTargetStatement(targetStatement);
 				if (result == null) result = caseStatement(targetStatement);
 				if (result == null) result = caseConstruct(targetStatement);
-				if (result == null) result = caseNamedExtension(targetStatement);
-				if (result == null) result = caseExtension(targetStatement);
+				if (result == null) result = caseNamedExtensible(targetStatement);
+				if (result == null) result = caseExtensibleElement(targetStatement);
 				if (result == null) result = caseNamedElement(targetStatement);
 				if (result == null) result = caseExpandableElement(targetStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1510,8 +1510,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseMappingStatement(mappingStatement);
 				if (result == null) result = caseStatement(mappingStatement);
 				if (result == null) result = caseConstruct(mappingStatement);
-				if (result == null) result = caseNamedExtension(mappingStatement);
-				if (result == null) result = caseExtension(mappingStatement);
+				if (result == null) result = caseNamedExtensible(mappingStatement);
+				if (result == null) result = caseExtensibleElement(mappingStatement);
 				if (result == null) result = caseNamedElement(mappingStatement);
 				if (result == null) result = caseExpandableElement(mappingStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1523,8 +1523,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(setGenContextStatement);
 				if (result == null) result = caseStatement(setGenContextStatement);
 				if (result == null) result = caseConstruct(setGenContextStatement);
-				if (result == null) result = caseNamedExtension(setGenContextStatement);
-				if (result == null) result = caseExtension(setGenContextStatement);
+				if (result == null) result = caseNamedExtensible(setGenContextStatement);
+				if (result == null) result = caseExtensibleElement(setGenContextStatement);
 				if (result == null) result = caseNamedElement(setGenContextStatement);
 				if (result == null) result = caseExpandableElement(setGenContextStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1536,8 +1536,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(resetGenContextStatement);
 				if (result == null) result = caseStatement(resetGenContextStatement);
 				if (result == null) result = caseConstruct(resetGenContextStatement);
-				if (result == null) result = caseNamedExtension(resetGenContextStatement);
-				if (result == null) result = caseExtension(resetGenContextStatement);
+				if (result == null) result = caseNamedExtensible(resetGenContextStatement);
+				if (result == null) result = caseExtensibleElement(resetGenContextStatement);
 				if (result == null) result = caseNamedElement(resetGenContextStatement);
 				if (result == null) result = caseExpandableElement(resetGenContextStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1549,8 +1549,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(saveGenStatement);
 				if (result == null) result = caseStatement(saveGenStatement);
 				if (result == null) result = caseConstruct(saveGenStatement);
-				if (result == null) result = caseNamedExtension(saveGenStatement);
-				if (result == null) result = caseExtension(saveGenStatement);
+				if (result == null) result = caseNamedExtensible(saveGenStatement);
+				if (result == null) result = caseExtensibleElement(saveGenStatement);
 				if (result == null) result = caseNamedElement(saveGenStatement);
 				if (result == null) result = caseExpandableElement(saveGenStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1562,8 +1562,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseSimpleStatement(resumeGenStatement);
 				if (result == null) result = caseStatement(resumeGenStatement);
 				if (result == null) result = caseConstruct(resumeGenStatement);
-				if (result == null) result = caseNamedExtension(resumeGenStatement);
-				if (result == null) result = caseExtension(resumeGenStatement);
+				if (result == null) result = caseNamedExtensible(resumeGenStatement);
+				if (result == null) result = caseExtensibleElement(resumeGenStatement);
 				if (result == null) result = caseNamedElement(resumeGenStatement);
 				if (result == null) result = caseExpandableElement(resumeGenStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1589,8 +1589,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseStatementExpression(expandExpression);
 				if (result == null) result = caseExpression(expandExpression);
 				if (result == null) result = caseConstruct(expandExpression);
-				if (result == null) result = caseNamedExtension(expandExpression);
-				if (result == null) result = caseExtension(expandExpression);
+				if (result == null) result = caseNamedExtensible(expandExpression);
+				if (result == null) result = caseExtensibleElement(expandExpression);
 				if (result == null) result = caseNamedElement(expandExpression);
 				if (result == null) result = caseExpandableElement(expandExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -1601,8 +1601,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseExpandStatement(expandStatement);
 				if (result == null) result = caseStatement(expandStatement);
 				if (result == null) result = caseConstruct(expandStatement);
-				if (result == null) result = caseNamedExtension(expandStatement);
-				if (result == null) result = caseExtension(expandStatement);
+				if (result == null) result = caseNamedExtensible(expandStatement);
+				if (result == null) result = caseExtensibleElement(expandStatement);
 				if (result == null) result = caseNamedElement(expandStatement);
 				if (result == null) result = caseExpandableElement(expandStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1614,8 +1614,8 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseCompositeStatement(expandSection);
 				if (result == null) result = caseStatement(expandSection);
 				if (result == null) result = caseConstruct(expandSection);
-				if (result == null) result = caseNamedExtension(expandSection);
-				if (result == null) result = caseExtension(expandSection);
+				if (result == null) result = caseNamedExtensible(expandSection);
+				if (result == null) result = caseExtensibleElement(expandSection);
 				if (result == null) result = caseNamedElement(expandSection);
 				if (result == null) result = caseExpandableElement(expandSection);
 				if (result == null) result = defaultCase(theEObject);
@@ -1626,8 +1626,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseCodeQuoteExpression(codeQuoteExpression);
 				if (result == null) result = caseExpression(codeQuoteExpression);
 				if (result == null) result = caseConstruct(codeQuoteExpression);
-				if (result == null) result = caseNamedExtension(codeQuoteExpression);
-				if (result == null) result = caseExtension(codeQuoteExpression);
+				if (result == null) result = caseNamedExtensible(codeQuoteExpression);
+				if (result == null) result = caseExtensibleElement(codeQuoteExpression);
 				if (result == null) result = caseNamedElement(codeQuoteExpression);
 				if (result == null) result = caseExpandableElement(codeQuoteExpression);
 				if (result == null) result = defaultCase(theEObject);
@@ -1685,8 +1685,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseTestStatement(testStatement);
 				if (result == null) result = caseStatement(testStatement);
 				if (result == null) result = caseConstruct(testStatement);
-				if (result == null) result = caseNamedExtension(testStatement);
-				if (result == null) result = caseExtension(testStatement);
+				if (result == null) result = caseNamedExtensible(testStatement);
+				if (result == null) result = caseExtensibleElement(testStatement);
 				if (result == null) result = caseNamedElement(testStatement);
 				if (result == null) result = caseExpandableElement(testStatement);
 				if (result == null) result = defaultCase(theEObject);
@@ -1711,8 +1711,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = casePotentiallyHiddenIdElements(potentiallyHiddenIdElements);
 				if (result == null) result = caseStatement(potentiallyHiddenIdElements);
 				if (result == null) result = caseConstruct(potentiallyHiddenIdElements);
-				if (result == null) result = caseNamedExtension(potentiallyHiddenIdElements);
-				if (result == null) result = caseExtension(potentiallyHiddenIdElements);
+				if (result == null) result = caseNamedExtensible(potentiallyHiddenIdElements);
+				if (result == null) result = caseExtensibleElement(potentiallyHiddenIdElements);
 				if (result == null) result = caseNamedElement(potentiallyHiddenIdElements);
 				if (result == null) result = caseExpandableElement(potentiallyHiddenIdElements);
 				if (result == null) result = defaultCase(theEObject);
@@ -1723,8 +1723,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseFindContainer(findContainer);
 				if (result == null) result = caseStatement(findContainer);
 				if (result == null) result = caseConstruct(findContainer);
-				if (result == null) result = caseNamedExtension(findContainer);
-				if (result == null) result = caseExtension(findContainer);
+				if (result == null) result = caseNamedExtensible(findContainer);
+				if (result == null) result = caseExtensibleElement(findContainer);
 				if (result == null) result = caseNamedElement(findContainer);
 				if (result == null) result = caseExpandableElement(findContainer);
 				if (result == null) result = defaultCase(theEObject);
@@ -1735,8 +1735,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseConsiderIdElements(considerIdElements);
 				if (result == null) result = caseStatement(considerIdElements);
 				if (result == null) result = caseConstruct(considerIdElements);
-				if (result == null) result = caseNamedExtension(considerIdElements);
-				if (result == null) result = caseExtension(considerIdElements);
+				if (result == null) result = caseNamedExtensible(considerIdElements);
+				if (result == null) result = caseExtensibleElement(considerIdElements);
 				if (result == null) result = caseNamedElement(considerIdElements);
 				if (result == null) result = caseExpandableElement(considerIdElements);
 				if (result == null) result = defaultCase(theEObject);
@@ -1747,8 +1747,8 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseIncludePattern(includePattern);
 				if (result == null) result = caseStatement(includePattern);
 				if (result == null) result = caseConstruct(includePattern);
-				if (result == null) result = caseNamedExtension(includePattern);
-				if (result == null) result = caseExtension(includePattern);
+				if (result == null) result = caseNamedExtensible(includePattern);
+				if (result == null) result = caseExtensibleElement(includePattern);
 				if (result == null) result = caseNamedElement(includePattern);
 				if (result == null) result = caseExpandableElement(includePattern);
 				if (result == null) result = defaultCase(theEObject);
@@ -3439,32 +3439,32 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Extension</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Extensible Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Extension</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Extensible Element</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseExtension(Extension object) {
+	public T caseExtensibleElement(ExtensibleElement object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Named Extension</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Named Extensible</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Named Extension</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Named Extensible</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseNamedExtension(NamedExtension object) {
+	public T caseNamedExtensible(NamedExtensible object) {
 		return null;
 	}
 

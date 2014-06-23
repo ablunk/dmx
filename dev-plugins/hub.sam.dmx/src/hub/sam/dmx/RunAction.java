@@ -1,21 +1,19 @@
 package hub.sam.dmx;
 
-import hub.sam.tef.modelcreating.HeadlessEclipseParser;
-import hub.sam.tef.modelcreating.IModelCreatingContext;
-import hub.sam.tef.modelcreating.ModelCreatingException;
+import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.ExtensibleElement;
+import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.Import;
+import hub.sam.dbl.Model;
+import hub.sam.dbl.Module;
 import hub.sam.dmx.modifications.Addition;
 import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.ModificationsPackage;
 import hub.sam.dmx.modifications.ModificationsRecord;
 import hub.sam.dmx.modifications.Substitution;
-import hub.sam.dbl.Extension;
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.Import;
-import hub.sam.dbl.Model;
-import hub.sam.dbl.Module;
-import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.Procedure;
-import hub.sam.dbl.SimpleAnnotation;
+import hub.sam.tef.modelcreating.HeadlessEclipseParser;
+import hub.sam.tef.modelcreating.IModelCreatingContext;
+import hub.sam.tef.modelcreating.ModelCreatingException;
 import hub.sam.tef.semantics.AbstractError;
 
 import java.io.BufferedReader;
@@ -47,11 +45,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.IStreamListener;
@@ -86,7 +81,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.IOConsoleOutputStream;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
@@ -434,15 +428,16 @@ public class RunAction extends Action {
 			}
 		}
 		
-		Collection<Extension> extensionInstances = new HashSet<Extension>();
+		Collection<ExtensibleElement> extensionInstances = new HashSet<ExtensibleElement>();
 		TreeIterator<EObject> allContents = originalResource.getAllContents();
 		while (allContents.hasNext()) {
 			EObject eObject = allContents.next();
-			if (eObject instanceof Extension) {
-				// NOTE All extension meta-classes have to extend the meta-class Extension. This is necessary in order to find them in the model.
-				// For example, a Statement extension must instantiate StatementExtension: Statement:instantiates(StatementExtension) -> ... ;
+			if (eObject instanceof ExtensibleElement && ((ExtensibleElement) eObject).isObjectIsExtensionInstance()) {
+				// NOTE All extension meta-classes have to extend the meta-class ExtensibleElement.
+				// Instances of meta-classes added by extension, have to set their attribute objectIsExtensionInstance to true.
+				// This is necessary in order to find them in the model.
 				
-				Extension extensionInstance = (Extension) eObject;
+				ExtensibleElement extensionInstance = (ExtensibleElement) eObject;
 				if (importedExtensionDefinitionNames.contains(extensionInstance.eClass().getName())) {
 					extensionInstances.add(extensionInstance);
 					System.out.println("Found an extension instance of class " + extensionInstance.eClass().getName());
@@ -492,7 +487,7 @@ public class RunAction extends Action {
 			
 			createEmptyModificationsXmi(currentProject);
 			
-			for (Extension extensionInstance: extensionInstances) {
+			for (ExtensibleElement extensionInstance: extensionInstances) {
 				String extensionDef = extensionInstance.eClass().getName();
 				
 				try {
@@ -611,18 +606,6 @@ public class RunAction extends Action {
 				file.delete();
 			}
 		}
-	}
-
-	private Collection<Extension> getExtensionInstances(Resource resource) {
-		Collection<Extension> instances = new HashSet<Extension>();
-		TreeIterator<EObject> allContents = resource.getAllContents();
-		while (allContents.hasNext()) {
-			EObject eObject = allContents.next();
-			if (eObject instanceof Extension) {
-				instances.add((Extension) eObject);
-			}
-		}
-		return instances;
 	}
 	
 	private boolean compileJavaFiles(IProject project, IFolder folder) {

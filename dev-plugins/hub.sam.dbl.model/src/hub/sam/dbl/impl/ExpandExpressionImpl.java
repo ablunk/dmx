@@ -11,16 +11,14 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExpandExpression;
 import hub.sam.dbl.ExpandableElement;
 import hub.sam.dbl.Expression;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.NamedElement;
-import hub.sam.dbl.NamedExtension;
+import hub.sam.dbl.NamedExtensible;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -30,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link hub.sam.dbl.impl.ExpandExpressionImpl#isObjectIsExtensionInstance <em>Object Is Extension Instance</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExpandExpressionImpl#getExpandExpression <em>Expand Expression</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExpandExpressionImpl#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExpandExpressionImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
@@ -40,6 +39,26 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class ExpandExpressionImpl extends StatementExpressionImpl implements ExpandExpression {
+	/**
+	 * The default value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isObjectIsExtensionInstance()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isObjectIsExtensionInstance()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean objectIsExtensionInstance = OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
+
 	/**
 	 * The cached value of the '{@link #getExpandExpression() <em>Expand Expression</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -117,6 +136,27 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 	@Override
 	protected EClass eStaticClass() {
 		return DblPackage.Literals.EXPAND_EXPRESSION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isObjectIsExtensionInstance() {
+		return objectIsExtensionInstance;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setObjectIsExtensionInstance(boolean newObjectIsExtensionInstance) {
+		boolean oldObjectIsExtensionInstance = objectIsExtensionInstance;
+		objectIsExtensionInstance = newObjectIsExtensionInstance;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE, oldObjectIsExtensionInstance, objectIsExtensionInstance));
 	}
 
 	/**
@@ -271,6 +311,8 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE:
+				return isObjectIsExtensionInstance();
 			case DblPackage.EXPAND_EXPRESSION__EXPAND_EXPRESSION:
 				return getExpandExpression();
 			case DblPackage.EXPAND_EXPRESSION__NAME:
@@ -291,6 +333,9 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE:
+				setObjectIsExtensionInstance((Boolean)newValue);
+				return;
 			case DblPackage.EXPAND_EXPRESSION__EXPAND_EXPRESSION:
 				setExpandExpression((ExpandExpression)newValue);
 				return;
@@ -315,6 +360,9 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE:
+				setObjectIsExtensionInstance(OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT);
+				return;
 			case DblPackage.EXPAND_EXPRESSION__EXPAND_EXPRESSION:
 				setExpandExpression((ExpandExpression)null);
 				return;
@@ -339,6 +387,8 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE:
+				return objectIsExtensionInstance != OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
 			case DblPackage.EXPAND_EXPRESSION__EXPAND_EXPRESSION:
 				return expandExpression != null;
 			case DblPackage.EXPAND_EXPRESSION__NAME:
@@ -358,8 +408,9 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == Extension.class) {
+		if (baseClass == ExtensibleElement.class) {
 			switch (derivedFeatureID) {
+				case DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE;
 				default: return -1;
 			}
 		}
@@ -375,7 +426,7 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 				default: return -1;
 			}
 		}
-		if (baseClass == NamedExtension.class) {
+		if (baseClass == NamedExtensible.class) {
 			switch (derivedFeatureID) {
 				default: return -1;
 			}
@@ -401,8 +452,9 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == Extension.class) {
+		if (baseClass == ExtensibleElement.class) {
 			switch (baseFeatureID) {
+				case DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
 				default: return -1;
 			}
 		}
@@ -418,7 +470,7 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 				default: return -1;
 			}
 		}
-		if (baseClass == NamedExtension.class) {
+		if (baseClass == NamedExtensible.class) {
 			switch (baseFeatureID) {
 				default: return -1;
 			}
@@ -447,7 +499,9 @@ public class ExpandExpressionImpl extends StatementExpressionImpl implements Exp
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
+		result.append(" (objectIsExtensionInstance: ");
+		result.append(objectIsExtensionInstance);
+		result.append(", name: ");
 		result.append(name);
 		result.append(", concreteSyntax: ");
 		result.append(concreteSyntax);

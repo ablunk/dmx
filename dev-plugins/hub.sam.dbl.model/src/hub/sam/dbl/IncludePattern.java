@@ -36,7 +36,7 @@ public interface IncludePattern extends Statement {
 	 * @return the value of the '<em>Pattern</em>' reference.
 	 * @see #setPattern(Pattern)
 	 * @see hub.sam.dbl.DblPackage#getIncludePattern_Pattern()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	Pattern getPattern();
@@ -62,7 +62,7 @@ public interface IncludePattern extends Statement {
 	 * @return the value of the '<em>Context</em>' containment reference.
 	 * @see #setContext(Expression)
 	 * @see hub.sam.dbl.DblPackage#getIncludePattern_Context()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getContext();

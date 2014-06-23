@@ -39,7 +39,7 @@ public interface TextualSyntaxDef extends EObject {
 	 * @return the value of the '<em>Extension Rule</em>' containment reference.
 	 * @see #setExtensionRule(ExtensionRule)
 	 * @see hub.sam.dbl.DblPackage#getTextualSyntaxDef_ExtensionRule()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	ExtensionRule getExtensionRule();

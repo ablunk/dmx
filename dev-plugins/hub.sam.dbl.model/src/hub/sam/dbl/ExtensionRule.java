@@ -36,7 +36,7 @@ public interface ExtensionRule extends NamedElement {
 	 * @return the value of the '<em>Instantiable Meta Class</em>' reference.
 	 * @see #setInstantiableMetaClass(Classifier)
 	 * @see hub.sam.dbl.DblPackage#getExtensionRule_InstantiableMetaClass()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	Classifier getInstantiableMetaClass();
@@ -62,7 +62,7 @@ public interface ExtensionRule extends NamedElement {
 	 * @return the value of the '<em>First New Rule</em>' containment reference.
 	 * @see #setFirstNewRule(RuleExpr)
 	 * @see hub.sam.dbl.DblPackage#getExtensionRule_FirstNewRule()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	RuleExpr getFirstNewRule();

@@ -37,7 +37,7 @@ public interface NativeBinding extends EObject {
 	 * @return the value of the '<em>Target Language</em>' attribute.
 	 * @see #setTargetLanguage(String)
 	 * @see hub.sam.dbl.DblPackage#getNativeBinding_TargetLanguage()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getTargetLanguage();
@@ -63,7 +63,7 @@ public interface NativeBinding extends EObject {
 	 * @return the value of the '<em>Target Type</em>' attribute.
 	 * @see #setTargetType(String)
 	 * @see hub.sam.dbl.DblPackage#getNativeBinding_TargetType()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getTargetType();

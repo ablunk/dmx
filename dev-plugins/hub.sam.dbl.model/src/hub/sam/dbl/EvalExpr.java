@@ -35,7 +35,7 @@ public interface EvalExpr extends Expression {
 	 * @return the value of the '<em>Expr</em>' containment reference.
 	 * @see #setExpr(Expression)
 	 * @see hub.sam.dbl.DblPackage#getEvalExpr_Expr()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getExpr();

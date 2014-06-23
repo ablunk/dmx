@@ -53,7 +53,7 @@ public interface Mapping extends CodeBlock {
 	 * @return the value of the '<em>Meta Object</em>' containment reference.
 	 * @see #setMetaObject(Expression)
 	 * @see hub.sam.dbl.DblPackage#getMapping_MetaObject()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getMetaObject();

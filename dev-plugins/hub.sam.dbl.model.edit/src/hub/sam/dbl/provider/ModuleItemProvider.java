@@ -168,12 +168,12 @@ public class ModuleItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExtension()));
+				 DblFactory.eINSTANCE.createExtensibleElement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtension()));
+				 DblFactory.eINSTANCE.createNamedExtensible()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -35,7 +35,7 @@ public interface FixedMappingPart extends MappingPart {
 	 * @return the value of the '<em>Code</em>' attribute.
 	 * @see #setCode(String)
 	 * @see hub.sam.dbl.DblPackage#getFixedMappingPart_Code()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getCode();

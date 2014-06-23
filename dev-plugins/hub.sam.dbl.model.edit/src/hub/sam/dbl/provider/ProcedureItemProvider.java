@@ -65,6 +65,7 @@ public class ProcedureItemProvider
 			super.getPropertyDescriptors(object);
 
 			addIsListPropertyDescriptor(object);
+			addObjectIsExtensionInstancePropertyDescriptor(object);
 			addConcreteSyntaxPropertyDescriptor(object);
 			addClazzPropertyDescriptor(object);
 		}
@@ -85,6 +86,28 @@ public class ProcedureItemProvider
 				 getString("_UI_TypedElement_isList_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_TypedElement_isList_feature", "_UI_TypedElement_type"),
 				 DblPackage.Literals.TYPED_ELEMENT__IS_LIST,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Object Is Extension Instance feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addObjectIsExtensionInstancePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_objectIsExtensionInstance_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_objectIsExtensionInstance_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE,
 				 true,
 				 false,
 				 false,
@@ -211,6 +234,7 @@ public class ProcedureItemProvider
 
 		switch (notification.getFeatureID(Procedure.class)) {
 			case DblPackage.PROCEDURE__IS_LIST:
+			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 			case DblPackage.PROCEDURE__CLAZZ:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

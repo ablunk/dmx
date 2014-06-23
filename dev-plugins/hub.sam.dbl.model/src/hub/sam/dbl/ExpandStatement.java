@@ -36,7 +36,7 @@ public interface ExpandStatement extends Statement {
 	 * @return the value of the '<em>Meta Object</em>' containment reference.
 	 * @see #setMetaObject(Expression)
 	 * @see hub.sam.dbl.DblPackage#getExpandStatement_MetaObject()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getMetaObject();
@@ -62,7 +62,7 @@ public interface ExpandStatement extends Statement {
 	 * @return the value of the '<em>Location</em>' containment reference.
 	 * @see #setLocation(Expression)
 	 * @see hub.sam.dbl.DblPackage#getExpandStatement_Location()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getLocation();

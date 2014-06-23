@@ -35,7 +35,7 @@ public interface BooleanPropertyType extends PropertyType {
 	 * @return the value of the '<em>Terminal</em>' attribute.
 	 * @see #setTerminal(String)
 	 * @see hub.sam.dbl.DblPackage#getBooleanPropertyType_Terminal()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getTerminal();

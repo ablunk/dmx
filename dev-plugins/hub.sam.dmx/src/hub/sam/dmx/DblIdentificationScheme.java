@@ -8,8 +8,9 @@ import hub.sam.dbl.Classifier;
 import hub.sam.dbl.Clazz;
 import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.CompositePropertyType;
+import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
-import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.FindContainer;
 import hub.sam.dbl.FirstInSet;
@@ -24,10 +25,8 @@ import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaLiteral;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
-import hub.sam.dbl.ModuleContentExtension;
 import hub.sam.dbl.NamedElement;
-import hub.sam.dbl.NamedExtension;
-import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.NamedExtensible;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.Pattern;
 import hub.sam.dbl.PredefinedId;
@@ -60,7 +59,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 
 public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	
@@ -301,8 +299,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						}
 						
 						// identifiers used in extensions are provided at a global scope by default
-						Extension ext = getContainerObjectOfType(idExpr, Extension.class);
-						if (ext != null) {
+						if (checkIfUsedInsideExtensionInstance(idExpr)) {
 							addPlainNames(namedElementId.getName(), context, allIds);
 						}
 						
@@ -418,7 +415,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				// TODO just for making the SML example work
 				addPlainNames(namedElementId.getName(), context, allIds);
 			}
-			else if (context instanceof NamedExtension) {
+			else if (context instanceof NamedExtensible) {
 				addPlainNames(namedElementId.getName(), context, allIds);
 			}
 
@@ -986,6 +983,12 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		if (obj.eClass().equals(type) || obj.eClass().getEAllSuperTypes().contains(type)) return obj;
 		else if (obj.eContainer() == null) return null;
 		else return getContainerObjectOfType(obj.eContainer(), type);
+	}
+	
+	private boolean checkIfUsedInsideExtensionInstance(EObject object) {
+		if (object instanceof ExtensibleElement && ((ExtensibleElement) object).isObjectIsExtensionInstance()) return true;
+		else if (object.eContainer() != null) return checkIfUsedInsideExtensionInstance(object.eContainer());
+		else return false;
 	}
 	
 	private <T> T getContainerObjectOfType(EObject object, Class<T> type) {

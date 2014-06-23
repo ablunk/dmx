@@ -37,7 +37,7 @@ public interface FindContainer extends Statement {
 	 * @return the value of the '<em>Variable Binding</em>' containment reference.
 	 * @see #setVariableBinding(Parameter)
 	 * @see hub.sam.dbl.DblPackage#getFindContainer_VariableBinding()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Parameter getVariableBinding();
@@ -63,7 +63,7 @@ public interface FindContainer extends Statement {
 	 * @return the value of the '<em>Container Block</em>' containment reference.
 	 * @see #setContainerBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getFindContainer_ContainerBlock()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	CodeBlock getContainerBlock();
@@ -89,7 +89,7 @@ public interface FindContainer extends Statement {
 	 * @return the value of the '<em>Else Block</em>' containment reference.
 	 * @see #setElseBlock(CodeBlock)
 	 * @see hub.sam.dbl.DblPackage#getFindContainer_ElseBlock()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	CodeBlock getElseBlock();

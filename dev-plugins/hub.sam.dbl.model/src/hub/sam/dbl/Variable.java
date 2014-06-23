@@ -38,7 +38,7 @@ public interface Variable extends AbstractVariable, Statement, ModifierExtension
 	 * @return the value of the '<em>Control</em>' attribute.
 	 * @see #setControl(boolean)
 	 * @see hub.sam.dbl.DblPackage#getVariable_Control()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isControl();
@@ -65,7 +65,7 @@ public interface Variable extends AbstractVariable, Statement, ModifierExtension
 	 * @return the value of the '<em>Clazz</em>' attribute.
 	 * @see #setClazz(boolean)
 	 * @see hub.sam.dbl.DblPackage#getVariable_Clazz()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isClazz();
@@ -91,7 +91,7 @@ public interface Variable extends AbstractVariable, Statement, ModifierExtension
 	 * @return the value of the '<em>Initial Value</em>' containment reference.
 	 * @see #setInitialValue(Expression)
 	 * @see hub.sam.dbl.DblPackage#getVariable_InitialValue()
-	 * @model containment="true" ordered="false"
+	 * @model containment="true"
 	 * @generated
 	 */
 	Expression getInitialValue();

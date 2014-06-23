@@ -36,7 +36,7 @@ public interface SetGenContextStatement extends SimpleStatement {
 	 * @return the value of the '<em>Context</em>' containment reference.
 	 * @see #setContext(Expression)
 	 * @see hub.sam.dbl.DblPackage#getSetGenContextStatement_Context()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" required="true"
 	 * @generated
 	 */
 	Expression getContext();
@@ -63,7 +63,7 @@ public interface SetGenContextStatement extends SimpleStatement {
 	 * @return the value of the '<em>Add After Context</em>' attribute.
 	 * @see #setAddAfterContext(boolean)
 	 * @see hub.sam.dbl.DblPackage#getSetGenContextStatement_AddAfterContext()
-	 * @model default="false" required="true" ordered="false"
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isAddAfterContext();

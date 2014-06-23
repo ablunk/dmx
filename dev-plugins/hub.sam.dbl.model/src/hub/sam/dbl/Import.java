@@ -37,7 +37,7 @@ public interface Import extends EObject {
 	 * @return the value of the '<em>File</em>' attribute.
 	 * @see #setFile(String)
 	 * @see hub.sam.dbl.DblPackage#getImport_File()
-	 * @model required="true" ordered="false"
+	 * @model required="true"
 	 * @generated
 	 */
 	String getFile();
@@ -63,7 +63,7 @@ public interface Import extends EObject {
 	 * @return the value of the '<em>Model</em>' reference.
 	 * @see #setModel(Model)
 	 * @see hub.sam.dbl.DblPackage#getImport_Model()
-	 * @model ordered="false"
+	 * @model
 	 * @generated
 	 */
 	Model getModel();
