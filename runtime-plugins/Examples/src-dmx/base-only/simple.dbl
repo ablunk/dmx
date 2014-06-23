@@ -1,4 +1,4 @@
-#import "native1"
+//#import "native1"
 
 module hello {
 
@@ -18,7 +18,7 @@ module hello {
 		//a = new B();
 		a.sayHello();
 		
-		UniformInt ui;
+		//UniformInt ui;
 		// = new UniformInt("arrival1", 10, 20);
 	}
 	

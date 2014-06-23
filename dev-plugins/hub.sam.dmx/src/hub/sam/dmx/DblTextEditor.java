@@ -15,6 +15,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IPartListener2;
@@ -25,7 +26,7 @@ import org.osgi.framework.Bundle;
 public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	
 	private SaveXmiAction saveXmiAction;
-	private List<RunAction> runActions = new ArrayList<RunAction>();
+	private List<Action> runActions = new ArrayList<Action>();
 	
 	protected DblPreProcessor preProcessor = new DblPreProcessor();
 	
@@ -109,7 +110,7 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	protected void editorContextMenuAboutToShow(IMenuManager menu) {
 		MenuManager runMenu = new MenuManager("Compile && Run", RUN_MENU_ID);
 		menu.add(runMenu);
-		for (RunAction runAction: runActions) {
+		for (Action runAction: runActions) {
 			runMenu.add(runAction);
 		}
 		menu.add(saveXmiAction);
@@ -123,10 +124,15 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		saveXmiAction = new SaveXmiAction(this);
 		setAction(SaveXmiAction.ACTION_DEFINITION_ID, saveXmiAction);
 		
-		addRunAction("DESMO-J", "desmoj");
-		addRunAction("JiST-Pro (by SAM)", "jist");
-		addRunAction("jDisco", "jdisco");
-		
+		addRunAction("DESMO-J (using Acceleo)", "desmoj");
+		addRunAction("JiST-Pro (using Acceleo)", "jist");
+		addRunAction("jDisco (using Acceleo)", "jdisco");
+
+		XtendRunAction runAction = new XtendRunAction(this);
+		runAction.setTargetSimLib("desmoj");
+		runAction.setText("DESMO-J (using Xtend)");
+		setAction("hub.sam.dmx.action.run." + "desmoj", runAction);
+		runActions.add(runAction);		
 	}
 	
 	private void addRunAction(String name, String targetSimLib) {

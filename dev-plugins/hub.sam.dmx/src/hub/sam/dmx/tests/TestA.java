@@ -21,4 +21,8 @@ public class TestA {
 				a.p();
 			}
 		}
+		
+		public static void main() {
+			
+		}
 }

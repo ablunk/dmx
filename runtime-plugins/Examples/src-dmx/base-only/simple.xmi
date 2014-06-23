@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="hello">
+    <classifiers xsi:type="dbl:Clazz" name="A">
+      <attributes name="s">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:StringLiteral" value="hello\n"/>
+      </attributes>
+      <methods name="sayHello">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+        </statements>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="B" active="true"/>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a">
+        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.0"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ExpressionStatement">
+        <expression xsi:type="dbl:ProcedureCall">
+          <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0">
+            <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+            <arguments/>
+          </procedureAccess>
+        </expression>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>
