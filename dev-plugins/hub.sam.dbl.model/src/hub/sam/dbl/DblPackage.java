@@ -69,126 +69,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensibleElement()
 	 * @generated
 	 */
-	int EXTENSIBLE_ELEMENT = 112;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE = 0;
-
-	/**
-	 * The number of structural features of the '<em>Extensible Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT_FEATURE_COUNT = 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.NamedExtensibleImpl <em>Named Extensible</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.NamedExtensibleImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getNamedExtensible()
-	 * @generated
-	 */
-	int NAMED_EXTENSIBLE = 113;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMED_EXTENSIBLE__OBJECT_IS_EXTENSION_INSTANCE = EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMED_EXTENSIBLE__EXPAND_EXPRESSION = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMED_EXTENSIBLE__NAME = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Named Extensible</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMED_EXTENSIBLE_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ConstructImpl <em>Construct</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ConstructImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getConstruct()
-	 * @generated
-	 */
-	int CONSTRUCT = 0;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCT__OBJECT_IS_EXTENSION_INSTANCE = NAMED_EXTENSIBLE__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCT__EXPAND_EXPRESSION = NAMED_EXTENSIBLE__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCT__NAME = NAMED_EXTENSIBLE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCT__CONCRETE_SYNTAX = NAMED_EXTENSIBLE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Construct</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCT_FEATURE_COUNT = NAMED_EXTENSIBLE_FEATURE_COUNT + 1;
+	int EXTENSIBLE_ELEMENT = 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ModelImpl <em>Model</em>}' class.
@@ -199,6 +80,80 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	int MODEL = 1;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ImportImpl <em>Import</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.ImportImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getImport()
+	 * @generated
+	 */
+	int IMPORT = 2;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.NamedElementImpl <em>Named Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.NamedElementImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getNamedElement()
+	 * @generated
+	 */
+	int NAMED_ELEMENT = 27;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_ELEMENT__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Named Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_ELEMENT_FEATURE_COUNT = 1;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSIBLE_ELEMENT__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Extensible Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSIBLE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Imports</b></em>' containment reference list.
@@ -228,16 +183,6 @@ public interface DblPackage extends EPackage {
 	int MODEL_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ImportImpl <em>Import</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ImportImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getImport()
-	 * @generated
-	 */
-	int IMPORT = 2;
-
-	/**
 	 * The feature id for the '<em><b>File</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -265,71 +210,6 @@ public interface DblPackage extends EPackage {
 	int IMPORT_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ExpandableElementImpl <em>Expandable Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ExpandableElementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandableElement()
-	 * @generated
-	 */
-	int EXPANDABLE_ELEMENT = 159;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANDABLE_ELEMENT__EXPAND_EXPRESSION = 0;
-
-	/**
-	 * The number of structural features of the '<em>Expandable Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANDABLE_ELEMENT_FEATURE_COUNT = 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.NamedElementImpl <em>Named Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.NamedElementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getNamedElement()
-	 * @generated
-	 */
-	int NAMED_ELEMENT = 32;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMED_ELEMENT__EXPAND_EXPRESSION = EXPANDABLE_ELEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMED_ELEMENT__NAME = EXPANDABLE_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Named Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NAMED_ELEMENT_FEATURE_COUNT = EXPANDABLE_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ModuleImpl <em>Module</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -338,15 +218,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	int MODULE = 3;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -394,22 +265,13 @@ public interface DblPackage extends EPackage {
 	int MODULE__EXTENSION_DEFS = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Annotation Defs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE__ANNOTATION_DEFS = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
 	 * The feature id for the '<em><b>Procedures</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE__PROCEDURES = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int MODULE__PROCEDURES = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Variables</b></em>' containment reference list.
@@ -418,16 +280,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE__VARIABLES = NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Id Res</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE__ID_RES = NAMED_ELEMENT_FEATURE_COUNT + 7;
+	int MODULE__VARIABLES = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Module</em>' class.
@@ -436,7 +289,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 8;
+	int MODULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.EmbeddableExtensionsContainerImpl <em>Embeddable Extensions Container</em>}' class.
@@ -505,13 +358,22 @@ public interface DblPackage extends EPackage {
 	int TYPE = 6;
 
 	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE__ARRAY_DIMENSIONS = 0;
+
+	/**
 	 * The number of structural features of the '<em>Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPE_FEATURE_COUNT = 0;
+	int TYPE_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TypedElementImpl <em>Typed Element</em>}' class.
@@ -533,31 +395,22 @@ public interface DblPackage extends EPackage {
 	int TYPED_ELEMENT__PRIMITIVE_TYPE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPED_ELEMENT__IS_LIST = 1;
-
-	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPED_ELEMENT__LIST_DIMS = 2;
-
-	/**
 	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR = 3;
+	int TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR = 1;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPED_ELEMENT__ARRAY_DIMENSIONS = 2;
 
 	/**
 	 * The number of structural features of the '<em>Typed Element</em>' class.
@@ -566,71 +419,35 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TYPED_ELEMENT_FEATURE_COUNT = 4;
+	int TYPED_ELEMENT_FEATURE_COUNT = 3;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ListDimensionImpl <em>List Dimension</em>}' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ArrayDimensionImpl <em>Array Dimension</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ListDimensionImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getListDimension()
+	 * @see hub.sam.dbl.impl.ArrayDimensionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getArrayDimension()
 	 * @generated
 	 */
-	int LIST_DIMENSION = 8;
+	int ARRAY_DIMENSION = 8;
 
 	/**
-	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIST_DIMENSION__PRIMITIVE_TYPE = TYPED_ELEMENT__PRIMITIVE_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
+	 * The feature id for the '<em><b>Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_DIMENSION__IS_LIST = TYPED_ELEMENT__IS_LIST;
+	int ARRAY_DIMENSION__SIZE = 0;
 
 	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
+	 * The number of structural features of the '<em>Array Dimension</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LIST_DIMENSION__LIST_DIMS = TYPED_ELEMENT__LIST_DIMS;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIST_DIMENSION__CLASSIFIER_TYPE_EXPR = TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR;
-
-	/**
-	 * The feature id for the '<em><b>Size</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIST_DIMENSION__SIZE = TYPED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>List Dimension</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LIST_DIMENSION_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 1;
+	int ARRAY_DIMENSION_FEATURE_COUNT = 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
@@ -641,6 +458,15 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	int PRIMITIVE_TYPE = 9;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMITIVE_TYPE__ARRAY_DIMENSIONS = TYPE__ARRAY_DIMENSIONS;
 
 	/**
 	 * The number of structural features of the '<em>Primitive Type</em>' class.
@@ -662,6 +488,15 @@ public interface DblPackage extends EPackage {
 	int VOID_TYPE = 10;
 
 	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VOID_TYPE__ARRAY_DIMENSIONS = PRIMITIVE_TYPE__ARRAY_DIMENSIONS;
+
+	/**
 	 * The number of structural features of the '<em>Void Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -679,6 +514,15 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	int INT_TYPE = 11;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_TYPE__ARRAY_DIMENSIONS = PRIMITIVE_TYPE__ARRAY_DIMENSIONS;
 
 	/**
 	 * The number of structural features of the '<em>Int Type</em>' class.
@@ -700,6 +544,15 @@ public interface DblPackage extends EPackage {
 	int BOOL_TYPE = 12;
 
 	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOOL_TYPE__ARRAY_DIMENSIONS = PRIMITIVE_TYPE__ARRAY_DIMENSIONS;
+
+	/**
 	 * The number of structural features of the '<em>Bool Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -717,6 +570,15 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	int DOUBLE_TYPE = 13;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_TYPE__ARRAY_DIMENSIONS = PRIMITIVE_TYPE__ARRAY_DIMENSIONS;
 
 	/**
 	 * The number of structural features of the '<em>Double Type</em>' class.
@@ -738,6 +600,15 @@ public interface DblPackage extends EPackage {
 	int STRING_TYPE = 14;
 
 	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_TYPE__ARRAY_DIMENSIONS = PRIMITIVE_TYPE__ARRAY_DIMENSIONS;
+
+	/**
 	 * The number of structural features of the '<em>String Type</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -755,15 +626,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	int PROCEDURE = 15;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -784,40 +646,22 @@ public interface DblPackage extends EPackage {
 	int PROCEDURE__PRIMITIVE_TYPE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__IS_LIST = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__LIST_DIMS = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE__CLASSIFIER_TYPE_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int PROCEDURE__CLASSIFIER_TYPE_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int PROCEDURE__ARRAY_DIMENSIONS = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -826,7 +670,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int PROCEDURE__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -835,25 +688,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE__STATEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Annotation Applications</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__ANNOTATION_APPLICATIONS = NAMED_ELEMENT_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Simple Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROCEDURE__SIMPLE_ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 8;
+	int PROCEDURE__STATEMENTS = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -862,7 +697,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE__PARAMETERS = NAMED_ELEMENT_FEATURE_COUNT + 9;
+	int PROCEDURE__PARAMETERS = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Clazz</b></em>' attribute.
@@ -871,7 +706,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE__CLAZZ = NAMED_ELEMENT_FEATURE_COUNT + 10;
+	int PROCEDURE__CLAZZ = NAMED_ELEMENT_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Abstract</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROCEDURE__ABSTRACT = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Procedure</em>' class.
@@ -880,210 +724,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROCEDURE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 11;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.SimpleAnnotationImpl <em>Simple Annotation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.SimpleAnnotationImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getSimpleAnnotation()
-	 * @generated
-	 */
-	int SIMPLE_ANNOTATION = 16;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_ANNOTATION__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_ANNOTATION__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_ANNOTATION__VALUE = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Simple Annotation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_ANNOTATION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.AnnotationImpl <em>Annotation</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.AnnotationImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotation()
-	 * @generated
-	 */
-	int ANNOTATION = 17;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Keys</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION__KEYS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Annotation</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.AnnotationApplicationImpl <em>Annotation Application</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.AnnotationApplicationImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotationApplication()
-	 * @generated
-	 */
-	int ANNOTATION_APPLICATION = 18;
-
-	/**
-	 * The feature id for the '<em><b>Annotation Def</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION_APPLICATION__ANNOTATION_DEF = 0;
-
-	/**
-	 * The feature id for the '<em><b>Key Value Pairs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION_APPLICATION__KEY_VALUE_PAIRS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Annotation Application</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATION_APPLICATION_FEATURE_COUNT = 2;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.KeyValuePairImpl <em>Key Value Pair</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.KeyValuePairImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getKeyValuePair()
-	 * @generated
-	 */
-	int KEY_VALUE_PAIR = 19;
-
-	/**
-	 * The feature id for the '<em><b>Key</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int KEY_VALUE_PAIR__KEY = 0;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int KEY_VALUE_PAIR__VALUE = 1;
-
-	/**
-	 * The number of structural features of the '<em>Key Value Pair</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int KEY_VALUE_PAIR_FEATURE_COUNT = 2;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.AnnotatableElementImpl <em>Annotatable Element</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.AnnotatableElementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotatableElement()
-	 * @generated
-	 */
-	int ANNOTATABLE_ELEMENT = 20;
-
-	/**
-	 * The feature id for the '<em><b>Annotation Applications</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATABLE_ELEMENT__ANNOTATION_APPLICATIONS = 0;
-
-	/**
-	 * The feature id for the '<em><b>Simple Annotations</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATABLE_ELEMENT__SIMPLE_ANNOTATIONS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Annotatable Element</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ANNOTATABLE_ELEMENT_FEATURE_COUNT = 2;
+	int PROCEDURE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ClassifierImpl <em>Classifier</em>}' class.
@@ -1093,16 +734,16 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getClassifier()
 	 * @generated
 	 */
-	int CLASSIFIER = 21;
+	int CLASSIFIER = 16;
 
 	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__EXPAND_EXPRESSION = TYPE_FEATURE_COUNT + 0;
+	int CLASSIFIER__ARRAY_DIMENSIONS = TYPE__ARRAY_DIMENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1111,7 +752,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__NAME = TYPE_FEATURE_COUNT + 1;
+	int CLASSIFIER__NAME = TYPE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
@@ -1120,7 +761,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__BINDINGS = TYPE_FEATURE_COUNT + 2;
+	int CLASSIFIER__BINDINGS = TYPE_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Classifier</em>' class.
@@ -1129,7 +770,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_FEATURE_COUNT = TYPE_FEATURE_COUNT + 3;
+	int CLASSIFIER_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NativeBindingImpl <em>Native Binding</em>}' class.
@@ -1139,7 +780,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNativeBinding()
 	 * @generated
 	 */
-	int NATIVE_BINDING = 22;
+	int NATIVE_BINDING = 17;
 
 	/**
 	 * The feature id for the '<em><b>Target Language</b></em>' attribute.
@@ -1176,7 +817,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getClassSimilar()
 	 * @generated
 	 */
-	int CLASS_SIMILAR = 23;
+	int CLASS_SIMILAR = 18;
 
 	/**
 	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
@@ -1215,22 +856,13 @@ public interface DblPackage extends EPackage {
 	int CLASS_SIMILAR__METHODS = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Super Class</b></em>' reference.
+	 * The feature id for the '<em><b>Super Classes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_SIMILAR__SUPER_CLASS = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Implemented Interfaces</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_SIMILAR__IMPLEMENTED_INTERFACES = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 4;
+	int CLASS_SIMILAR__SUPER_CLASSES = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Initial Block</b></em>' containment reference.
@@ -1239,7 +871,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_SIMILAR__INITIAL_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 5;
+	int CLASS_SIMILAR__INITIAL_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Final Block</b></em>' containment reference.
@@ -1248,7 +880,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_SIMILAR__FINAL_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 6;
+	int CLASS_SIMILAR__FINAL_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Actions Block</b></em>' containment reference.
@@ -1257,7 +889,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_SIMILAR__ACTIONS_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 7;
+	int CLASS_SIMILAR__ACTIONS_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Report Block</b></em>' containment reference.
@@ -1266,7 +898,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_SIMILAR__REPORT_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 8;
+	int CLASS_SIMILAR__REPORT_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Clear Block</b></em>' containment reference.
@@ -1275,7 +907,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_SIMILAR__CLEAR_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 9;
+	int CLASS_SIMILAR__CLEAR_BLOCK = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Class Similar</em>' class.
@@ -1284,7 +916,44 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_SIMILAR_FEATURE_COUNT = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 10;
+	int CLASS_SIMILAR_FEATURE_COUNT = EMBEDDABLE_EXTENSIONS_CONTAINER_FEATURE_COUNT + 9;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SuperClassSpecificationImpl <em>Super Class Specification</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.SuperClassSpecificationImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSuperClassSpecification()
+	 * @generated
+	 */
+	int SUPER_CLASS_SPECIFICATION = 19;
+
+	/**
+	 * The feature id for the '<em><b>Clazz</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUPER_CLASS_SPECIFICATION__CLAZZ = 0;
+
+	/**
+	 * The feature id for the '<em><b>Constructor Arguments</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Super Class Specification</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUPER_CLASS_SPECIFICATION_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.CodeBlockImpl <em>Code Block</em>}' class.
@@ -1294,25 +963,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCodeBlock()
 	 * @generated
 	 */
-	int CODE_BLOCK = 33;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_BLOCK__OBJECT_IS_EXTENSION_INSTANCE = CONSTRUCT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_BLOCK__EXPAND_EXPRESSION = CONSTRUCT__EXPAND_EXPRESSION;
+	int CODE_BLOCK = 28;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1321,7 +972,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK__NAME = CONSTRUCT__NAME;
+	int CODE_BLOCK__NAME = EXTENSIBLE_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -1330,7 +981,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK__CONCRETE_SYNTAX = CONSTRUCT__CONCRETE_SYNTAX;
+	int CODE_BLOCK__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CODE_BLOCK__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1339,7 +999,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK__STATEMENTS = CONSTRUCT_FEATURE_COUNT + 0;
+	int CODE_BLOCK__STATEMENTS = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Code Block</em>' class.
@@ -1348,7 +1008,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CODE_BLOCK_FEATURE_COUNT = CONSTRUCT_FEATURE_COUNT + 1;
+	int CODE_BLOCK_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.StartCodeBlockImpl <em>Start Code Block</em>}' class.
@@ -1358,25 +1018,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStartCodeBlock()
 	 * @generated
 	 */
-	int START_CODE_BLOCK = 24;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CODE_BLOCK__OBJECT_IS_EXTENSION_INSTANCE = CODE_BLOCK__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int START_CODE_BLOCK__EXPAND_EXPRESSION = CODE_BLOCK__EXPAND_EXPRESSION;
+	int START_CODE_BLOCK = 20;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1395,6 +1037,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int START_CODE_BLOCK__CONCRETE_SYNTAX = CODE_BLOCK__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int START_CODE_BLOCK__INSTANCE_OF_EXTENSION_DEFINITION = CODE_BLOCK__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1422,16 +1073,16 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getClazz()
 	 * @generated
 	 */
-	int CLAZZ = 25;
+	int CLAZZ = 21;
 
 	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__EXPAND_EXPRESSION = CLASSIFIER__EXPAND_EXPRESSION;
+	int CLAZZ__ARRAY_DIMENSIONS = CLASSIFIER__ARRAY_DIMENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1488,22 +1139,13 @@ public interface DblPackage extends EPackage {
 	int CLAZZ__METHODS = CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Super Class</b></em>' reference.
+	 * The feature id for the '<em><b>Super Classes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__SUPER_CLASS = CLASSIFIER_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Implemented Interfaces</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLAZZ__IMPLEMENTED_INTERFACES = CLASSIFIER_FEATURE_COUNT + 5;
+	int CLAZZ__SUPER_CLASSES = CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Initial Block</b></em>' containment reference.
@@ -1512,7 +1154,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__INITIAL_BLOCK = CLASSIFIER_FEATURE_COUNT + 6;
+	int CLAZZ__INITIAL_BLOCK = CLASSIFIER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Final Block</b></em>' containment reference.
@@ -1521,7 +1163,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__FINAL_BLOCK = CLASSIFIER_FEATURE_COUNT + 7;
+	int CLAZZ__FINAL_BLOCK = CLASSIFIER_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Actions Block</b></em>' containment reference.
@@ -1530,7 +1172,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__ACTIONS_BLOCK = CLASSIFIER_FEATURE_COUNT + 8;
+	int CLAZZ__ACTIONS_BLOCK = CLASSIFIER_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Report Block</b></em>' containment reference.
@@ -1539,7 +1181,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__REPORT_BLOCK = CLASSIFIER_FEATURE_COUNT + 9;
+	int CLAZZ__REPORT_BLOCK = CLASSIFIER_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Clear Block</b></em>' containment reference.
@@ -1548,7 +1190,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__CLEAR_BLOCK = CLASSIFIER_FEATURE_COUNT + 10;
+	int CLAZZ__CLEAR_BLOCK = CLASSIFIER_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -1557,7 +1199,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__ACTIVE = CLASSIFIER_FEATURE_COUNT + 11;
+	int CLAZZ__ACTIVE = CLASSIFIER_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Constructor</b></em>' containment reference.
@@ -1566,16 +1208,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__CONSTRUCTOR = CLASSIFIER_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Base Constructor Arguments</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS = CLASSIFIER_FEATURE_COUNT + 13;
+	int CLAZZ__CONSTRUCTOR = CLASSIFIER_FEATURE_COUNT + 11;
 
 	/**
 	 * The number of structural features of the '<em>Clazz</em>' class.
@@ -1584,7 +1217,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 14;
+	int CLAZZ_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ConstructorImpl <em>Constructor</em>}' class.
@@ -1594,7 +1227,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getConstructor()
 	 * @generated
 	 */
-	int CONSTRUCTOR = 26;
+	int CONSTRUCTOR = 22;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -1622,7 +1255,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getClassAugment()
 	 * @generated
 	 */
-	int CLASS_AUGMENT = 27;
+	int CLASS_AUGMENT = 23;
 
 	/**
 	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
@@ -1661,22 +1294,13 @@ public interface DblPackage extends EPackage {
 	int CLASS_AUGMENT__METHODS = CLASS_SIMILAR__METHODS;
 
 	/**
-	 * The feature id for the '<em><b>Super Class</b></em>' reference.
+	 * The feature id for the '<em><b>Super Classes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_AUGMENT__SUPER_CLASS = CLASS_SIMILAR__SUPER_CLASS;
-
-	/**
-	 * The feature id for the '<em><b>Implemented Interfaces</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_AUGMENT__IMPLEMENTED_INTERFACES = CLASS_SIMILAR__IMPLEMENTED_INTERFACES;
+	int CLASS_AUGMENT__SUPER_CLASSES = CLASS_SIMILAR__SUPER_CLASSES;
 
 	/**
 	 * The feature id for the '<em><b>Initial Block</b></em>' containment reference.
@@ -1742,70 +1366,6 @@ public interface DblPackage extends EPackage {
 	int CLASS_AUGMENT_FEATURE_COUNT = CLASS_SIMILAR_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.InterfaceImpl <em>Interface</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.InterfaceImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getInterface()
-	 * @generated
-	 */
-	int INTERFACE = 28;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTERFACE__EXPAND_EXPRESSION = CLASSIFIER__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTERFACE__NAME = CLASSIFIER__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTERFACE__BINDINGS = CLASSIFIER__BINDINGS;
-
-	/**
-	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTERFACE__METHODS = CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Super Interfaces</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTERFACE__SUPER_INTERFACES = CLASSIFIER_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Interface</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INTERFACE_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 2;
-
-	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.AbstractVariableImpl <em>Abstract Variable</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1813,16 +1373,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAbstractVariable()
 	 * @generated
 	 */
-	int ABSTRACT_VARIABLE = 29;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_VARIABLE__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
+	int ABSTRACT_VARIABLE = 24;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1843,31 +1394,22 @@ public interface DblPackage extends EPackage {
 	int ABSTRACT_VARIABLE__PRIMITIVE_TYPE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_VARIABLE__IS_LIST = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ABSTRACT_VARIABLE__LIST_DIMS = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_VARIABLE__ARRAY_DIMENSIONS = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Abstract Variable</em>' class.
@@ -1876,7 +1418,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_VARIABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int ABSTRACT_VARIABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.VariableImpl <em>Variable</em>}' class.
@@ -1886,16 +1428,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getVariable()
 	 * @generated
 	 */
-	int VARIABLE = 30;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__EXPAND_EXPRESSION = ABSTRACT_VARIABLE__EXPAND_EXPRESSION;
+	int VARIABLE = 25;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1916,24 +1449,6 @@ public interface DblPackage extends EPackage {
 	int VARIABLE__PRIMITIVE_TYPE = ABSTRACT_VARIABLE__PRIMITIVE_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__IS_LIST = ABSTRACT_VARIABLE__IS_LIST;
-
-	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__LIST_DIMS = ABSTRACT_VARIABLE__LIST_DIMS;
-
-	/**
 	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1943,13 +1458,13 @@ public interface DblPackage extends EPackage {
 	int VARIABLE__CLASSIFIER_TYPE_EXPR = ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__OBJECT_IS_EXTENSION_INSTANCE = ABSTRACT_VARIABLE_FEATURE_COUNT + 0;
+	int VARIABLE__ARRAY_DIMENSIONS = ABSTRACT_VARIABLE__ARRAY_DIMENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -1958,7 +1473,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__CONCRETE_SYNTAX = ABSTRACT_VARIABLE_FEATURE_COUNT + 1;
+	int VARIABLE__CONCRETE_SYNTAX = ABSTRACT_VARIABLE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION = ABSTRACT_VARIABLE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Modifier Extensions</b></em>' containment reference list.
@@ -2013,16 +1537,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 31;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__EXPAND_EXPRESSION = ABSTRACT_VARIABLE__EXPAND_EXPRESSION;
+	int PARAMETER = 26;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2043,24 +1558,6 @@ public interface DblPackage extends EPackage {
 	int PARAMETER__PRIMITIVE_TYPE = ABSTRACT_VARIABLE__PRIMITIVE_TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__IS_LIST = ABSTRACT_VARIABLE__IS_LIST;
-
-	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARAMETER__LIST_DIMS = ABSTRACT_VARIABLE__LIST_DIMS;
-
-	/**
 	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2068,6 +1565,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int PARAMETER__CLASSIFIER_TYPE_EXPR = ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__ARRAY_DIMENSIONS = ABSTRACT_VARIABLE__ARRAY_DIMENSIONS;
 
 	/**
 	 * The number of structural features of the '<em>Parameter</em>' class.
@@ -2086,25 +1592,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStatement()
 	 * @generated
 	 */
-	int STATEMENT = 34;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = CONSTRUCT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__EXPAND_EXPRESSION = CONSTRUCT__EXPAND_EXPRESSION;
+	int STATEMENT = 29;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2113,7 +1601,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMENT__NAME = CONSTRUCT__NAME;
+	int STATEMENT__NAME = EXTENSIBLE_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -2122,7 +1610,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMENT__CONCRETE_SYNTAX = CONSTRUCT__CONCRETE_SYNTAX;
+	int STATEMENT__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The number of structural features of the '<em>Statement</em>' class.
@@ -2131,7 +1628,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMENT_FEATURE_COUNT = CONSTRUCT_FEATURE_COUNT + 0;
+	int STATEMENT_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.CompositeStatementImpl <em>Composite Statement</em>}' class.
@@ -2141,25 +1638,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCompositeStatement()
 	 * @generated
 	 */
-	int COMPOSITE_STATEMENT = 35;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPOSITE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPOSITE_STATEMENT__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
+	int COMPOSITE_STATEMENT = 30;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2180,6 +1659,15 @@ public interface DblPackage extends EPackage {
 	int COMPOSITE_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPOSITE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Composite Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2196,25 +1684,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSimpleStatement()
 	 * @generated
 	 */
-	int SIMPLE_STATEMENT = 36;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
+	int SIMPLE_STATEMENT = 31;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2235,6 +1705,15 @@ public interface DblPackage extends EPackage {
 	int SIMPLE_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Simple Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2251,25 +1730,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpressionStatement()
 	 * @generated
 	 */
-	int EXPRESSION_STATEMENT = 37;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int EXPRESSION_STATEMENT = 32;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2288,6 +1749,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXPRESSION_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -2315,7 +1785,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStatementExpression()
 	 * @generated
 	 */
-	int STATEMENT_EXPRESSION = 38;
+	int STATEMENT_EXPRESSION = 33;
 
 	/**
 	 * The number of structural features of the '<em>Statement Expression</em>' class.
@@ -2334,25 +1804,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAssignment()
 	 * @generated
 	 */
-	int ASSIGNMENT = 39;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int ASSIGNMENT = 34;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2371,6 +1823,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int ASSIGNMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSIGNMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -2400,79 +1861,6 @@ public interface DblPackage extends EPackage {
 	int ASSIGNMENT_FEATURE_COUNT = SIMPLE_STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.DeprecatedProcedureCallStatementImpl <em>Deprecated Procedure Call Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.DeprecatedProcedureCallStatementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getDeprecatedProcedureCallStatement()
-	 * @generated
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT = 40;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT__EXPAND_EXPRESSION = EXPRESSION_STATEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT__NAME = EXPRESSION_STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT__CONCRETE_SYNTAX = EXPRESSION_STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT__EXPRESSION = EXPRESSION_STATEMENT__EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Procedure Call</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL = EXPRESSION_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Deprecated Procedure Call Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DEPRECATED_PROCEDURE_CALL_STATEMENT_FEATURE_COUNT = EXPRESSION_STATEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ProcedureCallImpl <em>Procedure Call</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2480,7 +1868,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getProcedureCall()
 	 * @generated
 	 */
-	int PROCEDURE_CALL = 41;
+	int PROCEDURE_CALL = 35;
 
 	/**
 	 * The feature id for the '<em><b>Procedure Access</b></em>' containment reference.
@@ -2508,25 +1896,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getReturn()
 	 * @generated
 	 */
-	int RETURN = 42;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int RETURN = 36;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2545,6 +1915,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int RETURN__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETURN__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -2572,25 +1951,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getWaitUntil()
 	 * @generated
 	 */
-	int WAIT_UNTIL = 43;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int WAIT_UNTIL = 37;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2609,6 +1970,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int WAIT_UNTIL__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WAIT_UNTIL__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -2636,25 +2006,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTerminate()
 	 * @generated
 	 */
-	int TERMINATE = 44;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int TERMINATE = 38;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2675,6 +2027,15 @@ public interface DblPackage extends EPackage {
 	int TERMINATE__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TERMINATE__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Terminate</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2691,25 +2052,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getYield()
 	 * @generated
 	 */
-	int YIELD = 45;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int YIELD = 39;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2730,6 +2073,15 @@ public interface DblPackage extends EPackage {
 	int YIELD__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int YIELD__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Yield</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2746,25 +2098,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getWait()
 	 * @generated
 	 */
-	int WAIT = 46;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int WAIT = 40;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2785,6 +2119,15 @@ public interface DblPackage extends EPackage {
 	int WAIT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WAIT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Wait</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2801,25 +2144,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getReactivate()
 	 * @generated
 	 */
-	int REACTIVATE = 47;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int REACTIVATE = 41;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2838,6 +2163,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int REACTIVATE__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REACTIVATE__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Object Access</b></em>' containment reference.
@@ -2865,25 +2199,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getActivateObject()
 	 * @generated
 	 */
-	int ACTIVATE_OBJECT = 48;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int ACTIVATE_OBJECT = 42;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2902,6 +2218,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int ACTIVATE_OBJECT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVATE_OBJECT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Object Access</b></em>' containment reference.
@@ -2938,25 +2263,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAdvance()
 	 * @generated
 	 */
-	int ADVANCE = 49;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int ADVANCE = 43;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2975,6 +2282,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int ADVANCE__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADVANCE__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Time</b></em>' containment reference.
@@ -3002,25 +2318,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPrint()
 	 * @generated
 	 */
-	int PRINT = 50;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int PRINT = 44;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3039,6 +2337,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int PRINT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRINT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
@@ -3066,25 +2373,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSetStatement()
 	 * @generated
 	 */
-	int SET_STATEMENT = 51;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int SET_STATEMENT = 45;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3103,6 +2392,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int SET_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SET_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' containment reference.
@@ -3139,25 +2437,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getRemoveFromSet()
 	 * @generated
 	 */
-	int REMOVE_FROM_SET = 52;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_SET__OBJECT_IS_EXTENSION_INSTANCE = SET_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REMOVE_FROM_SET__EXPAND_EXPRESSION = SET_STATEMENT__EXPAND_EXPRESSION;
+	int REMOVE_FROM_SET = 46;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3176,6 +2456,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int REMOVE_FROM_SET__CONCRETE_SYNTAX = SET_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int REMOVE_FROM_SET__INSTANCE_OF_EXTENSION_DEFINITION = SET_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' containment reference.
@@ -3212,25 +2501,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAddToSet()
 	 * @generated
 	 */
-	int ADD_TO_SET = 53;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_SET__OBJECT_IS_EXTENSION_INSTANCE = SET_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADD_TO_SET__EXPAND_EXPRESSION = SET_STATEMENT__EXPAND_EXPRESSION;
+	int ADD_TO_SET = 47;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3249,6 +2520,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int ADD_TO_SET__CONCRETE_SYNTAX = SET_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ADD_TO_SET__INSTANCE_OF_EXTENSION_DEFINITION = SET_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' containment reference.
@@ -3294,25 +2574,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getEmptySet()
 	 * @generated
 	 */
-	int EMPTY_SET = 54;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EMPTY_SET__OBJECT_IS_EXTENSION_INSTANCE = SET_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EMPTY_SET__EXPAND_EXPRESSION = SET_STATEMENT__EXPAND_EXPRESSION;
+	int EMPTY_SET = 48;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3331,6 +2593,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int EMPTY_SET__CONCRETE_SYNTAX = SET_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EMPTY_SET__INSTANCE_OF_EXTENSION_DEFINITION = SET_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Object</b></em>' containment reference.
@@ -3367,25 +2638,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIfStatement()
 	 * @generated
 	 */
-	int IF_STATEMENT = 55;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = COMPOSITE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__EXPAND_EXPRESSION = COMPOSITE_STATEMENT__EXPAND_EXPRESSION;
+	int IF_STATEMENT = 49;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3404,6 +2657,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int IF_STATEMENT__CONCRETE_SYNTAX = COMPOSITE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int IF_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = COMPOSITE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -3460,6 +2722,116 @@ public interface DblPackage extends EPackage {
 	int IF_STATEMENT_FEATURE_COUNT = COMPOSITE_STATEMENT_FEATURE_COUNT + 5;
 
 	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SwitchStatementImpl <em>Switch Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.SwitchStatementImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSwitchStatement()
+	 * @generated
+	 */
+	int SWITCH_STATEMENT = 50;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_STATEMENT__NAME = COMPOSITE_STATEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_STATEMENT__CONCRETE_SYNTAX = COMPOSITE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = COMPOSITE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
+	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_STATEMENT__VARIABLE = COMPOSITE_STATEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Cases</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_STATEMENT__CASES = COMPOSITE_STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Default Case</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_STATEMENT__DEFAULT_CASE = COMPOSITE_STATEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Switch Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_STATEMENT_FEATURE_COUNT = COMPOSITE_STATEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SwitchCaseImpl <em>Switch Case</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.SwitchCaseImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSwitchCase()
+	 * @generated
+	 */
+	int SWITCH_CASE = 51;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_CASE__VALUE = 0;
+
+	/**
+	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_CASE__STATEMENTS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Switch Case</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SWITCH_CASE_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.WhileStatementImpl <em>While Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3467,25 +2839,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getWhileStatement()
 	 * @generated
 	 */
-	int WHILE_STATEMENT = 56;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = COMPOSITE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__EXPAND_EXPRESSION = COMPOSITE_STATEMENT__EXPAND_EXPRESSION;
+	int WHILE_STATEMENT = 52;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3504,6 +2858,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int WHILE_STATEMENT__CONCRETE_SYNTAX = COMPOSITE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int WHILE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = COMPOSITE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -3540,25 +2903,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBreakStatement()
 	 * @generated
 	 */
-	int BREAK_STATEMENT = 57;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int BREAK_STATEMENT = 53;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3579,6 +2924,15 @@ public interface DblPackage extends EPackage {
 	int BREAK_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BREAK_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Break Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3595,25 +2949,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getContinueStatement()
 	 * @generated
 	 */
-	int CONTINUE_STATEMENT = 58;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int CONTINUE_STATEMENT = 54;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3634,6 +2970,15 @@ public interface DblPackage extends EPackage {
 	int CONTINUE_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONTINUE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Continue Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3643,32 +2988,14 @@ public interface DblPackage extends EPackage {
 	int CONTINUE_STATEMENT_FEATURE_COUNT = SIMPLE_STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ForEachStatementImpl <em>For Each Statement</em>}' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ForStatementImpl <em>For Statement</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ForEachStatementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getForEachStatement()
+	 * @see hub.sam.dbl.impl.ForStatementImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getForStatement()
 	 * @generated
 	 */
-	int FOR_EACH_STATEMENT = 59;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_EACH_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = COMPOSITE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_EACH_STATEMENT__EXPAND_EXPRESSION = COMPOSITE_STATEMENT__EXPAND_EXPRESSION;
+	int FOR_STATEMENT = 55;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3677,7 +3004,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_STATEMENT__NAME = COMPOSITE_STATEMENT__NAME;
+	int FOR_STATEMENT__NAME = COMPOSITE_STATEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -3686,52 +3013,70 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_STATEMENT__CONCRETE_SYNTAX = COMPOSITE_STATEMENT__CONCRETE_SYNTAX;
+	int FOR_STATEMENT__CONCRETE_SYNTAX = COMPOSITE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
-	 * The feature id for the '<em><b>Iterator Variable Definition</b></em>' containment reference.
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_STATEMENT__ITERATOR_VARIABLE_DEFINITION = COMPOSITE_STATEMENT_FEATURE_COUNT + 0;
+	int FOR_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = COMPOSITE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Iterator Variable Reference</b></em>' containment reference.
+	 * The feature id for the '<em><b>Count Variable Definition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_STATEMENT__ITERATOR_VARIABLE_REFERENCE = COMPOSITE_STATEMENT_FEATURE_COUNT + 1;
+	int FOR_STATEMENT__COUNT_VARIABLE_DEFINITION = COMPOSITE_STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Iterable Expression</b></em>' containment reference.
+	 * The feature id for the '<em><b>Count Variable Reference</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_STATEMENT__ITERABLE_EXPRESSION = COMPOSITE_STATEMENT_FEATURE_COUNT + 2;
+	int FOR_STATEMENT__COUNT_VARIABLE_REFERENCE = COMPOSITE_STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>For Block</b></em>' containment reference.
+	 * The feature id for the '<em><b>Termination</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_STATEMENT__FOR_BLOCK = COMPOSITE_STATEMENT_FEATURE_COUNT + 3;
+	int FOR_STATEMENT__TERMINATION = COMPOSITE_STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The number of structural features of the '<em>For Each Statement</em>' class.
+	 * The feature id for the '<em><b>Increment</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_EACH_STATEMENT_FEATURE_COUNT = COMPOSITE_STATEMENT_FEATURE_COUNT + 4;
+	int FOR_STATEMENT__INCREMENT = COMPOSITE_STATEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Body</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOR_STATEMENT__BODY = COMPOSITE_STATEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The number of structural features of the '<em>For Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FOR_STATEMENT_FEATURE_COUNT = COMPOSITE_STATEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -3741,25 +3086,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpression()
 	 * @generated
 	 */
-	int EXPRESSION = 60;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE = CONSTRUCT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__EXPAND_EXPRESSION = CONSTRUCT__EXPAND_EXPRESSION;
+	int EXPRESSION = 56;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3768,7 +3095,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION__NAME = CONSTRUCT__NAME;
+	int EXPRESSION__NAME = EXTENSIBLE_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -3777,7 +3104,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION__CONCRETE_SYNTAX = CONSTRUCT__CONCRETE_SYNTAX;
+	int EXPRESSION__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The number of structural features of the '<em>Expression</em>' class.
@@ -3786,7 +3122,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_FEATURE_COUNT = CONSTRUCT_FEATURE_COUNT + 0;
+	int EXPRESSION_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.L1ExprImpl <em>L1 Expr</em>}' class.
@@ -3796,25 +3132,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL1Expr()
 	 * @generated
 	 */
-	int L1_EXPR = 61;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int L1_EXPR = 57;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3835,6 +3153,15 @@ public interface DblPackage extends EPackage {
 	int L1_EXPR__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>L1 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3851,25 +3178,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBinaryOperator()
 	 * @generated
 	 */
-	int BINARY_OPERATOR = 62;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int BINARY_OPERATOR = 58;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3888,6 +3197,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int BINARY_OPERATOR__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -3924,25 +3242,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getUnaryOperator()
 	 * @generated
 	 */
-	int UNARY_OPERATOR = 63;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int UNARY_OPERATOR = 59;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3961,6 +3261,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int UNARY_OPERATOR__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
@@ -3988,7 +3297,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPlus()
 	 * @generated
 	 */
-	int PLUS = 73;
+	int PLUS = 69;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.MinusImpl <em>Minus</em>}' class.
@@ -3998,7 +3307,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMinus()
 	 * @generated
 	 */
-	int MINUS = 74;
+	int MINUS = 70;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.MulImpl <em>Mul</em>}' class.
@@ -4008,7 +3317,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMul()
 	 * @generated
 	 */
-	int MUL = 75;
+	int MUL = 71;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ModImpl <em>Mod</em>}' class.
@@ -4018,7 +3327,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMod()
 	 * @generated
 	 */
-	int MOD = 76;
+	int MOD = 72;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.DivImpl <em>Div</em>}' class.
@@ -4028,7 +3337,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDiv()
 	 * @generated
 	 */
-	int DIV = 77;
+	int DIV = 73;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NegImpl <em>Neg</em>}' class.
@@ -4038,7 +3347,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNeg()
 	 * @generated
 	 */
-	int NEG = 78;
+	int NEG = 74;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.AndImpl <em>And</em>}' class.
@@ -4048,25 +3357,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnd()
 	 * @generated
 	 */
-	int AND = 64;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int AND = 60;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4085,6 +3376,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int AND__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int AND__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4121,25 +3421,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getOr()
 	 * @generated
 	 */
-	int OR = 65;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int OR = 61;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4158,6 +3440,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int OR__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OR__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4194,25 +3485,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getGreater()
 	 * @generated
 	 */
-	int GREATER = 66;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int GREATER = 62;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4231,6 +3504,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int GREATER__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GREATER__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4267,25 +3549,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getGreaterEqual()
 	 * @generated
 	 */
-	int GREATER_EQUAL = 67;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int GREATER_EQUAL = 63;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4304,6 +3568,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int GREATER_EQUAL__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int GREATER_EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4340,25 +3613,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLess()
 	 * @generated
 	 */
-	int LESS = 68;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int LESS = 64;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4377,6 +3632,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int LESS__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4413,25 +3677,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLessEqual()
 	 * @generated
 	 */
-	int LESS_EQUAL = 69;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int LESS_EQUAL = 65;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4450,6 +3696,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int LESS_EQUAL__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LESS_EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4486,25 +3741,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNotEqual()
 	 * @generated
 	 */
-	int NOT_EQUAL = 70;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int NOT_EQUAL = 66;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4523,6 +3760,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int NOT_EQUAL__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT_EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4559,25 +3805,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getEqual()
 	 * @generated
 	 */
-	int EQUAL = 71;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int EQUAL = 67;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4596,6 +3824,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int EQUAL__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4632,25 +3869,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getInstanceOf()
 	 * @generated
 	 */
-	int INSTANCE_OF = 72;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
+	int INSTANCE_OF = 68;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4669,6 +3888,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int INSTANCE_OF__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INSTANCE_OF__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4698,24 +3926,6 @@ public interface DblPackage extends EPackage {
 	int INSTANCE_OF_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4732,6 +3942,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int PLUS__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLUS__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4761,24 +3980,6 @@ public interface DblPackage extends EPackage {
 	int PLUS_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4795,6 +3996,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int MINUS__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MINUS__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4824,24 +4034,6 @@ public interface DblPackage extends EPackage {
 	int MINUS_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4858,6 +4050,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int MUL__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MUL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4887,24 +4088,6 @@ public interface DblPackage extends EPackage {
 	int MUL_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4921,6 +4104,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int MOD__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MOD__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -4950,24 +4142,6 @@ public interface DblPackage extends EPackage {
 	int MOD_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__OBJECT_IS_EXTENSION_INSTANCE = BINARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__EXPAND_EXPRESSION = BINARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -4984,6 +4158,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int DIV__CONCRETE_SYNTAX = BINARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DIV__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -5013,24 +4196,6 @@ public interface DblPackage extends EPackage {
 	int DIV_FEATURE_COUNT = BINARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__OBJECT_IS_EXTENSION_INSTANCE = UNARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__EXPAND_EXPRESSION = UNARY_OPERATOR__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5047,6 +4212,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int NEG__CONCRETE_SYNTAX = UNARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NEG__INSTANCE_OF_EXTENSION_DEFINITION = UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
@@ -5074,25 +4248,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNot()
 	 * @generated
 	 */
-	int NOT = 79;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__OBJECT_IS_EXTENSION_INSTANCE = UNARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__EXPAND_EXPRESSION = UNARY_OPERATOR__EXPAND_EXPRESSION;
+	int NOT = 75;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5111,6 +4267,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int NOT__CONCRETE_SYNTAX = UNARY_OPERATOR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NOT__INSTANCE_OF_EXTENSION_DEFINITION = UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
@@ -5138,7 +4303,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCreateObject()
 	 * @generated
 	 */
-	int CREATE_OBJECT = 81;
+	int CREATE_OBJECT = 77;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.CastImpl <em>Cast</em>}' class.
@@ -5148,25 +4313,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCast()
 	 * @generated
 	 */
-	int CAST = 80;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__OBJECT_IS_EXTENSION_INSTANCE = UNARY_OPERATOR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__EXPAND_EXPRESSION = UNARY_OPERATOR__EXPAND_EXPRESSION;
+	int CAST = 76;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5187,6 +4334,15 @@ public interface DblPackage extends EPackage {
 	int CAST__CONCRETE_SYNTAX = UNARY_OPERATOR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAST__INSTANCE_OF_EXTENSION_DEFINITION = UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5205,31 +4361,22 @@ public interface DblPackage extends EPackage {
 	int CAST__PRIMITIVE_TYPE = UNARY_OPERATOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__IS_LIST = UNARY_OPERATOR_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__LIST_DIMS = UNARY_OPERATOR_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CAST__CLASSIFIER_TYPE_EXPR = UNARY_OPERATOR_FEATURE_COUNT + 3;
+	int CAST__CLASSIFIER_TYPE_EXPR = UNARY_OPERATOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CAST__ARRAY_DIMENSIONS = UNARY_OPERATOR_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Cast</em>' class.
@@ -5238,25 +4385,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CAST_FEATURE_COUNT = UNARY_OPERATOR_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int CAST_FEATURE_COUNT = UNARY_OPERATOR_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5277,6 +4406,15 @@ public interface DblPackage extends EPackage {
 	int CREATE_OBJECT__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5286,31 +4424,22 @@ public interface DblPackage extends EPackage {
 	int CREATE_OBJECT__PRIMITIVE_TYPE = L1_EXPR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Is List</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__IS_LIST = L1_EXPR_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>List Dims</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__LIST_DIMS = L1_EXPR_FEATURE_COUNT + 2;
-
-	/**
 	 * The feature id for the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREATE_OBJECT__CLASSIFIER_TYPE_EXPR = L1_EXPR_FEATURE_COUNT + 3;
+	int CREATE_OBJECT__CLASSIFIER_TYPE_EXPR = L1_EXPR_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_OBJECT__ARRAY_DIMENSIONS = L1_EXPR_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Create Object</em>' class.
@@ -5319,7 +4448,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CREATE_OBJECT_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 4;
+	int CREATE_OBJECT_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NullLiteralImpl <em>Null Literal</em>}' class.
@@ -5329,25 +4458,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNullLiteral()
 	 * @generated
 	 */
-	int NULL_LITERAL = 82;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int NULL_LITERAL = 78;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5368,6 +4479,15 @@ public interface DblPackage extends EPackage {
 	int NULL_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NULL_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Null Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5384,25 +4504,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTimeLiteral()
 	 * @generated
 	 */
-	int TIME_LITERAL = 83;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int TIME_LITERAL = 79;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5423,6 +4525,15 @@ public interface DblPackage extends EPackage {
 	int TIME_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TIME_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Time Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5439,25 +4550,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getActiveLiteral()
 	 * @generated
 	 */
-	int ACTIVE_LITERAL = 84;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int ACTIVE_LITERAL = 80;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5478,6 +4571,15 @@ public interface DblPackage extends EPackage {
 	int ACTIVE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ACTIVE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Active Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5494,7 +4596,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getEvalExpr()
 	 * @generated
 	 */
-	int EVAL_EXPR = 90;
+	int EVAL_EXPR = 86;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.PredefinedIdImpl <em>Predefined Id</em>}' class.
@@ -5504,7 +4606,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPredefinedId()
 	 * @generated
 	 */
-	int PREDEFINED_ID = 105;
+	int PREDEFINED_ID = 101;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.MeLiteralImpl <em>Me Literal</em>}' class.
@@ -5514,7 +4616,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMeLiteral()
 	 * @generated
 	 */
-	int ME_LITERAL = 91;
+	int ME_LITERAL = 87;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.SuperLiteralImpl <em>Super Literal</em>}' class.
@@ -5524,7 +4626,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSuperLiteral()
 	 * @generated
 	 */
-	int SUPER_LITERAL = 92;
+	int SUPER_LITERAL = 88;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.MetaLiteralImpl <em>Meta Literal</em>}' class.
@@ -5534,7 +4636,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaLiteral()
 	 * @generated
 	 */
-	int META_LITERAL = 93;
+	int META_LITERAL = 89;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TypeLiteralImpl <em>Type Literal</em>}' class.
@@ -5544,7 +4646,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTypeLiteral()
 	 * @generated
 	 */
-	int TYPE_LITERAL = 94;
+	int TYPE_LITERAL = 90;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.SetOpImpl <em>Set Op</em>}' class.
@@ -5554,7 +4656,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSetOp()
 	 * @generated
 	 */
-	int SET_OP = 95;
+	int SET_OP = 91;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.SizeOfSetImpl <em>Size Of Set</em>}' class.
@@ -5564,7 +4666,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSizeOfSet()
 	 * @generated
 	 */
-	int SIZE_OF_SET = 96;
+	int SIZE_OF_SET = 92;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.FirstInSetImpl <em>First In Set</em>}' class.
@@ -5574,7 +4676,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getFirstInSet()
 	 * @generated
 	 */
-	int FIRST_IN_SET = 97;
+	int FIRST_IN_SET = 93;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.LastInSetImpl <em>Last In Set</em>}' class.
@@ -5584,7 +4686,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLastInSet()
 	 * @generated
 	 */
-	int LAST_IN_SET = 98;
+	int LAST_IN_SET = 94;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ContainsImpl <em>Contains</em>}' class.
@@ -5594,7 +4696,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getContains()
 	 * @generated
 	 */
-	int CONTAINS = 99;
+	int CONTAINS = 95;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.IndexOfImpl <em>Index Of</em>}' class.
@@ -5604,7 +4706,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIndexOf()
 	 * @generated
 	 */
-	int INDEX_OF = 100;
+	int INDEX_OF = 96;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ObjectAtImpl <em>Object At</em>}' class.
@@ -5614,7 +4716,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getObjectAt()
 	 * @generated
 	 */
-	int OBJECT_AT = 101;
+	int OBJECT_AT = 97;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.BeforeInSetImpl <em>Before In Set</em>}' class.
@@ -5624,7 +4726,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBeforeInSet()
 	 * @generated
 	 */
-	int BEFORE_IN_SET = 102;
+	int BEFORE_IN_SET = 98;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.AfterInSetImpl <em>After In Set</em>}' class.
@@ -5634,7 +4736,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAfterInSet()
 	 * @generated
 	 */
-	int AFTER_IN_SET = 103;
+	int AFTER_IN_SET = 99;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.StringLiteralImpl <em>String Literal</em>}' class.
@@ -5644,25 +4746,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringLiteral()
 	 * @generated
 	 */
-	int STRING_LITERAL = 85;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int STRING_LITERAL = 81;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5681,6 +4765,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int STRING_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -5708,25 +4801,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntLiteral()
 	 * @generated
 	 */
-	int INT_LITERAL = 86;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int INT_LITERAL = 82;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5745,6 +4820,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int INT_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -5772,25 +4856,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTrueLiteral()
 	 * @generated
 	 */
-	int TRUE_LITERAL = 87;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int TRUE_LITERAL = 83;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5811,6 +4877,15 @@ public interface DblPackage extends EPackage {
 	int TRUE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TRUE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>True Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5827,25 +4902,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getFalseLiteral()
 	 * @generated
 	 */
-	int FALSE_LITERAL = 88;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int FALSE_LITERAL = 84;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5866,6 +4923,15 @@ public interface DblPackage extends EPackage {
 	int FALSE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FALSE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>False Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5882,25 +4948,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDoubleLiteral()
 	 * @generated
 	 */
-	int DOUBLE_LITERAL = 89;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int DOUBLE_LITERAL = 85;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -5921,6 +4969,15 @@ public interface DblPackage extends EPackage {
 	int DOUBLE_LITERAL__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int DOUBLE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5939,24 +4996,6 @@ public interface DblPackage extends EPackage {
 	int DOUBLE_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVAL_EXPR__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EVAL_EXPR__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5973,6 +5012,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int EVAL_EXPR__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVAL_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -6207,7 +5255,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDepIdentifiableElement()
 	 * @generated
 	 */
-	int DEP_IDENTIFIABLE_ELEMENT = 104;
+	int DEP_IDENTIFIABLE_ELEMENT = 100;
 
 	/**
 	 * The number of structural features of the '<em>Dep Identifiable Element</em>' class.
@@ -6226,25 +5274,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIdExpr()
 	 * @generated
 	 */
-	int ID_EXPR = 106;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__OBJECT_IS_EXTENSION_INSTANCE = L1_EXPR__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__EXPAND_EXPRESSION = L1_EXPR__EXPAND_EXPRESSION;
+	int ID_EXPR = 102;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6263,6 +5293,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int ID_EXPR__CONCRETE_SYNTAX = L1_EXPR__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ID_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Parent Id Expr</b></em>' containment reference.
@@ -6317,7 +5356,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getArgumentExpression()
 	 * @generated
 	 */
-	int ARGUMENT_EXPRESSION = 107;
+	int ARGUMENT_EXPRESSION = 103;
 
 	/**
 	 * The feature id for the '<em><b>Arguments</b></em>' containment reference list.
@@ -6345,25 +5384,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getElementAccess()
 	 * @generated
 	 */
-	int ELEMENT_ACCESS = 108;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int ELEMENT_ACCESS = 104;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6382,6 +5403,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int ELEMENT_ACCESS__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENT_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
@@ -6409,25 +5439,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getVariableAccess()
 	 * @generated
 	 */
-	int VARIABLE_ACCESS = 109;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__OBJECT_IS_EXTENSION_INSTANCE = ELEMENT_ACCESS__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__EXPAND_EXPRESSION = ELEMENT_ACCESS__EXPAND_EXPRESSION;
+	int VARIABLE_ACCESS = 105;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6446,6 +5458,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int VARIABLE_ACCESS__CONCRETE_SYNTAX = ELEMENT_ACCESS__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENT_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
@@ -6473,25 +5494,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaAccess()
 	 * @generated
 	 */
-	int META_ACCESS = 110;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__OBJECT_IS_EXTENSION_INSTANCE = VARIABLE_ACCESS__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__EXPAND_EXPRESSION = VARIABLE_ACCESS__EXPAND_EXPRESSION;
+	int META_ACCESS = 106;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6510,6 +5513,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int META_ACCESS__CONCRETE_SYNTAX = VARIABLE_ACCESS__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int META_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = VARIABLE_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
@@ -6537,25 +5549,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTypeAccess()
 	 * @generated
 	 */
-	int TYPE_ACCESS = 111;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__OBJECT_IS_EXTENSION_INSTANCE = ELEMENT_ACCESS__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__EXPAND_EXPRESSION = ELEMENT_ACCESS__EXPAND_EXPRESSION;
+	int TYPE_ACCESS = 107;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6574,6 +5568,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int TYPE_ACCESS__CONCRETE_SYNTAX = ELEMENT_ACCESS__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TYPE_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENT_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
@@ -6601,25 +5604,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getClassContentExtension()
 	 * @generated
 	 */
-	int CLASS_CONTENT_EXTENSION = 114;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT_EXTENSION__OBJECT_IS_EXTENSION_INSTANCE = NAMED_EXTENSIBLE__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT_EXTENSION__EXPAND_EXPRESSION = NAMED_EXTENSIBLE__EXPAND_EXPRESSION;
+	int CLASS_CONTENT_EXTENSION = 108;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6628,7 +5613,25 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_CONTENT_EXTENSION__NAME = NAMED_EXTENSIBLE__NAME;
+	int CLASS_CONTENT_EXTENSION__NAME = EXTENSIBLE_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_CONTENT_EXTENSION__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLASS_CONTENT_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The number of structural features of the '<em>Class Content Extension</em>' class.
@@ -6637,7 +5640,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_CONTENT_EXTENSION_FEATURE_COUNT = NAMED_EXTENSIBLE_FEATURE_COUNT + 0;
+	int CLASS_CONTENT_EXTENSION_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ModuleContentExtensionImpl <em>Module Content Extension</em>}' class.
@@ -6647,25 +5650,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getModuleContentExtension()
 	 * @generated
 	 */
-	int MODULE_CONTENT_EXTENSION = 115;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT_EXTENSION__OBJECT_IS_EXTENSION_INSTANCE = NAMED_EXTENSIBLE__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT_EXTENSION__EXPAND_EXPRESSION = NAMED_EXTENSIBLE__EXPAND_EXPRESSION;
+	int MODULE_CONTENT_EXTENSION = 109;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6674,7 +5659,25 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_CONTENT_EXTENSION__NAME = NAMED_EXTENSIBLE__NAME;
+	int MODULE_CONTENT_EXTENSION__NAME = EXTENSIBLE_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODULE_CONTENT_EXTENSION__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODULE_CONTENT_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The number of structural features of the '<em>Module Content Extension</em>' class.
@@ -6683,7 +5686,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_CONTENT_EXTENSION_FEATURE_COUNT = NAMED_EXTENSIBLE_FEATURE_COUNT + 0;
+	int MODULE_CONTENT_EXTENSION_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExtensionDefinitionImpl <em>Extension Definition</em>}' class.
@@ -6693,16 +5696,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionDefinition()
 	 * @generated
 	 */
-	int EXTENSION_DEFINITION = 116;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
+	int EXTENSION_DEFINITION = 110;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6757,7 +5751,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTextualSyntaxDef()
 	 * @generated
 	 */
-	int TEXTUAL_SYNTAX_DEF = 117;
+	int TEXTUAL_SYNTAX_DEF = 111;
 
 	/**
 	 * The feature id for the '<em><b>Extension Rule</b></em>' containment reference.
@@ -6794,16 +5788,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getReferableRhsType()
 	 * @generated
 	 */
-	int REFERABLE_RHS_TYPE = 118;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERABLE_RHS_TYPE__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
+	int REFERABLE_RHS_TYPE = 112;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6831,16 +5816,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTsRule()
 	 * @generated
 	 */
-	int TS_RULE = 119;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
+	int TS_RULE = 113;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6886,16 +5862,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionRule()
 	 * @generated
 	 */
-	int EXTENSION_RULE = 120;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_RULE__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
+	int EXTENSION_RULE = 114;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6941,7 +5908,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getRhsExpression()
 	 * @generated
 	 */
-	int RHS_EXPRESSION = 121;
+	int RHS_EXPRESSION = 115;
 
 	/**
 	 * The number of structural features of the '<em>Rhs Expression</em>' class.
@@ -6960,7 +5927,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSequenceExpr()
 	 * @generated
 	 */
-	int SEQUENCE_EXPR = 122;
+	int SEQUENCE_EXPR = 116;
 
 	/**
 	 * The feature id for the '<em><b>Sequence</b></em>' containment reference list.
@@ -6988,7 +5955,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getOptionalExpr()
 	 * @generated
 	 */
-	int OPTIONAL_EXPR = 123;
+	int OPTIONAL_EXPR = 117;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -7016,7 +5983,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getRuntimeExpr()
 	 * @generated
 	 */
-	int RUNTIME_EXPR = 124;
+	int RUNTIME_EXPR = 118;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -7044,7 +6011,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAtLeastOneExpr()
 	 * @generated
 	 */
-	int AT_LEAST_ONE_EXPR = 125;
+	int AT_LEAST_ONE_EXPR = 119;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -7072,7 +6039,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getArbitraryExpr()
 	 * @generated
 	 */
-	int ARBITRARY_EXPR = 126;
+	int ARBITRARY_EXPR = 120;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -7100,7 +6067,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAlternativeExpr()
 	 * @generated
 	 */
-	int ALTERNATIVE_EXPR = 127;
+	int ALTERNATIVE_EXPR = 121;
 
 	/**
 	 * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -7137,7 +6104,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTerminalExpr()
 	 * @generated
 	 */
-	int TERMINAL_EXPR = 128;
+	int TERMINAL_EXPR = 122;
 
 	/**
 	 * The feature id for the '<em><b>Terminal</b></em>' attribute.
@@ -7165,16 +6132,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPropertyBindingExpr()
 	 * @generated
 	 */
-	int PROPERTY_BINDING_EXPR = 129;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_BINDING_EXPR__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
+	int PROPERTY_BINDING_EXPR = 123;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7220,7 +6178,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getRuleExpr()
 	 * @generated
 	 */
-	int RULE_EXPR = 130;
+	int RULE_EXPR = 124;
 
 	/**
 	 * The feature id for the '<em><b>Rule</b></em>' reference.
@@ -7248,7 +6206,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPropertyType()
 	 * @generated
 	 */
-	int PROPERTY_TYPE = 131;
+	int PROPERTY_TYPE = 125;
 
 	/**
 	 * The number of structural features of the '<em>Property Type</em>' class.
@@ -7267,7 +6225,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIdPropertyType()
 	 * @generated
 	 */
-	int ID_PROPERTY_TYPE = 132;
+	int ID_PROPERTY_TYPE = 126;
 
 	/**
 	 * The number of structural features of the '<em>Id Property Type</em>' class.
@@ -7286,7 +6244,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntPropertyType()
 	 * @generated
 	 */
-	int INT_PROPERTY_TYPE = 133;
+	int INT_PROPERTY_TYPE = 127;
 
 	/**
 	 * The number of structural features of the '<em>Int Property Type</em>' class.
@@ -7305,7 +6263,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringPropertyType()
 	 * @generated
 	 */
-	int STRING_PROPERTY_TYPE = 134;
+	int STRING_PROPERTY_TYPE = 128;
 
 	/**
 	 * The number of structural features of the '<em>String Property Type</em>' class.
@@ -7324,7 +6282,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBooleanPropertyType()
 	 * @generated
 	 */
-	int BOOLEAN_PROPERTY_TYPE = 135;
+	int BOOLEAN_PROPERTY_TYPE = 129;
 
 	/**
 	 * The feature id for the '<em><b>Terminal</b></em>' attribute.
@@ -7352,7 +6310,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStructuredPropertyType()
 	 * @generated
 	 */
-	int STRUCTURED_PROPERTY_TYPE = 136;
+	int STRUCTURED_PROPERTY_TYPE = 130;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -7380,7 +6338,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCompositePropertyType()
 	 * @generated
 	 */
-	int COMPOSITE_PROPERTY_TYPE = 137;
+	int COMPOSITE_PROPERTY_TYPE = 131;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -7417,7 +6375,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getReferencePropertyType()
 	 * @generated
 	 */
-	int REFERENCE_PROPERTY_TYPE = 138;
+	int REFERENCE_PROPERTY_TYPE = 132;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' reference.
@@ -7463,25 +6421,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMapping()
 	 * @generated
 	 */
-	int MAPPING = 139;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAPPING__OBJECT_IS_EXTENSION_INSTANCE = CODE_BLOCK__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAPPING__EXPAND_EXPRESSION = CODE_BLOCK__EXPAND_EXPRESSION;
+	int MAPPING = 133;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7500,6 +6440,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int MAPPING__CONCRETE_SYNTAX = CODE_BLOCK__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAPPING__INSTANCE_OF_EXTENSION_DEFINITION = CODE_BLOCK__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -7545,7 +6494,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMappingPart()
 	 * @generated
 	 */
-	int MAPPING_PART = 140;
+	int MAPPING_PART = 134;
 
 	/**
 	 * The number of structural features of the '<em>Mapping Part</em>' class.
@@ -7564,25 +6513,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaExpr()
 	 * @generated
 	 */
-	int META_EXPR = 141;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int META_EXPR = 135;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7601,6 +6532,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int META_EXPR__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int META_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -7628,25 +6568,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTargetStatement()
 	 * @generated
 	 */
-	int TARGET_STATEMENT = 142;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
+	int TARGET_STATEMENT = 136;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7665,6 +6587,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int TARGET_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TARGET_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Code Block</b></em>' containment reference.
@@ -7692,25 +6623,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMappingStatement()
 	 * @generated
 	 */
-	int MAPPING_STATEMENT = 143;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAPPING_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MAPPING_STATEMENT__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
+	int MAPPING_STATEMENT = 137;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7729,6 +6642,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int MAPPING_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MAPPING_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Parts</b></em>' containment reference list.
@@ -7765,25 +6687,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSetGenContextStatement()
 	 * @generated
 	 */
-	int SET_GEN_CONTEXT_STATEMENT = 144;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_GEN_CONTEXT_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_GEN_CONTEXT_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int SET_GEN_CONTEXT_STATEMENT = 138;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7802,6 +6706,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int SET_GEN_CONTEXT_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SET_GEN_CONTEXT_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Context</b></em>' containment reference.
@@ -7838,25 +6751,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getResetGenContextStatement()
 	 * @generated
 	 */
-	int RESET_GEN_CONTEXT_STATEMENT = 145;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESET_GEN_CONTEXT_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESET_GEN_CONTEXT_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int RESET_GEN_CONTEXT_STATEMENT = 139;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7877,6 +6772,15 @@ public interface DblPackage extends EPackage {
 	int RESET_GEN_CONTEXT_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESET_GEN_CONTEXT_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The number of structural features of the '<em>Reset Gen Context Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7893,25 +6797,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSaveGenStatement()
 	 * @generated
 	 */
-	int SAVE_GEN_STATEMENT = 146;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int SAVE_GEN_STATEMENT = 140;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7930,6 +6816,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int SAVE_GEN_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SAVE_GEN_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -7957,25 +6852,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getResumeGenStatement()
 	 * @generated
 	 */
-	int RESUME_GEN_STATEMENT = 147;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = SIMPLE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__EXPAND_EXPRESSION = SIMPLE_STATEMENT__EXPAND_EXPRESSION;
+	int RESUME_GEN_STATEMENT = 141;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -7994,6 +6871,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int RESUME_GEN_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RESUME_GEN_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -8021,7 +6907,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getFixedMappingPart()
 	 * @generated
 	 */
-	int FIXED_MAPPING_PART = 148;
+	int FIXED_MAPPING_PART = 142;
 
 	/**
 	 * The feature id for the '<em><b>Code</b></em>' attribute.
@@ -8049,7 +6935,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDynamicMappingPart()
 	 * @generated
 	 */
-	int DYNAMIC_MAPPING_PART = 149;
+	int DYNAMIC_MAPPING_PART = 143;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -8077,25 +6963,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandExpression()
 	 * @generated
 	 */
-	int EXPAND_EXPRESSION = 150;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__EXPAND_EXPRESSION = STATEMENT_EXPRESSION_FEATURE_COUNT + 1;
+	int EXPAND_EXPRESSION = 144;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8104,7 +6972,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPAND_EXPRESSION__NAME = STATEMENT_EXPRESSION_FEATURE_COUNT + 2;
+	int EXPAND_EXPRESSION__NAME = STATEMENT_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -8113,7 +6981,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPAND_EXPRESSION__CONCRETE_SYNTAX = STATEMENT_EXPRESSION_FEATURE_COUNT + 3;
+	int EXPAND_EXPRESSION__CONCRETE_SYNTAX = STATEMENT_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPAND_EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT_EXPRESSION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Meta Object</b></em>' containment reference.
@@ -8122,7 +6999,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPAND_EXPRESSION__META_OBJECT = STATEMENT_EXPRESSION_FEATURE_COUNT + 4;
+	int EXPAND_EXPRESSION__META_OBJECT = STATEMENT_EXPRESSION_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Expand Expression</em>' class.
@@ -8131,7 +7008,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPAND_EXPRESSION_FEATURE_COUNT = STATEMENT_EXPRESSION_FEATURE_COUNT + 5;
+	int EXPAND_EXPRESSION_FEATURE_COUNT = STATEMENT_EXPRESSION_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExpandStatementImpl <em>Expand Statement</em>}' class.
@@ -8141,25 +7018,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandStatement()
 	 * @generated
 	 */
-	int EXPAND_STATEMENT = 151;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
+	int EXPAND_STATEMENT = 145;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8178,6 +7037,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXPAND_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPAND_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Meta Object</b></em>' containment reference.
@@ -8214,25 +7082,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandSection()
 	 * @generated
 	 */
-	int EXPAND_SECTION = 152;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_SECTION__OBJECT_IS_EXTENSION_INSTANCE = COMPOSITE_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_SECTION__EXPAND_EXPRESSION = COMPOSITE_STATEMENT__EXPAND_EXPRESSION;
+	int EXPAND_SECTION = 146;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8251,6 +7101,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int EXPAND_SECTION__CONCRETE_SYNTAX = COMPOSITE_STATEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXPAND_SECTION__INSTANCE_OF_EXTENSION_DEFINITION = COMPOSITE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Code Block</b></em>' containment reference.
@@ -8278,25 +7137,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCodeQuoteExpression()
 	 * @generated
 	 */
-	int CODE_QUOTE_EXPRESSION = 153;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE = EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__EXPAND_EXPRESSION = EXPRESSION__EXPAND_EXPRESSION;
+	int CODE_QUOTE_EXPRESSION = 147;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8315,6 +7156,15 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int CODE_QUOTE_EXPRESSION__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CODE_QUOTE_EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Quoted Code</b></em>' containment reference.
@@ -8342,7 +7192,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedCode()
 	 * @generated
 	 */
-	int QUOTED_CODE = 154;
+	int QUOTED_CODE = 148;
 
 	/**
 	 * The number of structural features of the '<em>Quoted Code</em>' class.
@@ -8361,7 +7211,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedExpression()
 	 * @generated
 	 */
-	int QUOTED_EXPRESSION = 155;
+	int QUOTED_EXPRESSION = 149;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -8389,7 +7239,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedStatements()
 	 * @generated
 	 */
-	int QUOTED_STATEMENTS = 156;
+	int QUOTED_STATEMENTS = 150;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -8417,7 +7267,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedClassContent()
 	 * @generated
 	 */
-	int QUOTED_CLASS_CONTENT = 157;
+	int QUOTED_CLASS_CONTENT = 151;
 
 	/**
 	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
@@ -8456,22 +7306,13 @@ public interface DblPackage extends EPackage {
 	int QUOTED_CLASS_CONTENT__METHODS = QUOTED_CODE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Super Class</b></em>' reference.
+	 * The feature id for the '<em><b>Super Classes</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__SUPER_CLASS = QUOTED_CODE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Implemented Interfaces</b></em>' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES = QUOTED_CODE_FEATURE_COUNT + 5;
+	int QUOTED_CLASS_CONTENT__SUPER_CLASSES = QUOTED_CODE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Initial Block</b></em>' containment reference.
@@ -8480,7 +7321,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__INITIAL_BLOCK = QUOTED_CODE_FEATURE_COUNT + 6;
+	int QUOTED_CLASS_CONTENT__INITIAL_BLOCK = QUOTED_CODE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Final Block</b></em>' containment reference.
@@ -8489,7 +7330,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__FINAL_BLOCK = QUOTED_CODE_FEATURE_COUNT + 7;
+	int QUOTED_CLASS_CONTENT__FINAL_BLOCK = QUOTED_CODE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Actions Block</b></em>' containment reference.
@@ -8498,7 +7339,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__ACTIONS_BLOCK = QUOTED_CODE_FEATURE_COUNT + 8;
+	int QUOTED_CLASS_CONTENT__ACTIONS_BLOCK = QUOTED_CODE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Report Block</b></em>' containment reference.
@@ -8507,7 +7348,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__REPORT_BLOCK = QUOTED_CODE_FEATURE_COUNT + 9;
+	int QUOTED_CLASS_CONTENT__REPORT_BLOCK = QUOTED_CODE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Clear Block</b></em>' containment reference.
@@ -8516,7 +7357,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__CLEAR_BLOCK = QUOTED_CODE_FEATURE_COUNT + 10;
+	int QUOTED_CLASS_CONTENT__CLEAR_BLOCK = QUOTED_CODE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of structural features of the '<em>Quoted Class Content</em>' class.
@@ -8525,7 +7366,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT_FEATURE_COUNT = QUOTED_CODE_FEATURE_COUNT + 11;
+	int QUOTED_CLASS_CONTENT_FEATURE_COUNT = QUOTED_CODE_FEATURE_COUNT + 10;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.QuotedModuleContentImpl <em>Quoted Module Content</em>}' class.
@@ -8535,16 +7376,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedModuleContent()
 	 * @generated
 	 */
-	int QUOTED_MODULE_CONTENT = 158;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_MODULE_CONTENT__EXPAND_EXPRESSION = QUOTED_CODE_FEATURE_COUNT + 0;
+	int QUOTED_MODULE_CONTENT = 152;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8553,7 +7385,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__NAME = QUOTED_CODE_FEATURE_COUNT + 1;
+	int QUOTED_MODULE_CONTENT__NAME = QUOTED_CODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
@@ -8562,7 +7394,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__EXTENSIONS = QUOTED_CODE_FEATURE_COUNT + 2;
+	int QUOTED_MODULE_CONTENT__EXTENSIONS = QUOTED_CODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Classifiers</b></em>' containment reference list.
@@ -8571,7 +7403,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__CLASSIFIERS = QUOTED_CODE_FEATURE_COUNT + 3;
+	int QUOTED_MODULE_CONTENT__CLASSIFIERS = QUOTED_CODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Class Augments</b></em>' containment reference list.
@@ -8580,7 +7412,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__CLASS_AUGMENTS = QUOTED_CODE_FEATURE_COUNT + 4;
+	int QUOTED_MODULE_CONTENT__CLASS_AUGMENTS = QUOTED_CODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Extension Defs</b></em>' containment reference list.
@@ -8589,16 +7421,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__EXTENSION_DEFS = QUOTED_CODE_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Annotation Defs</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_MODULE_CONTENT__ANNOTATION_DEFS = QUOTED_CODE_FEATURE_COUNT + 6;
+	int QUOTED_MODULE_CONTENT__EXTENSION_DEFS = QUOTED_CODE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Procedures</b></em>' containment reference list.
@@ -8607,7 +7430,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__PROCEDURES = QUOTED_CODE_FEATURE_COUNT + 7;
+	int QUOTED_MODULE_CONTENT__PROCEDURES = QUOTED_CODE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Variables</b></em>' containment reference list.
@@ -8616,16 +7439,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__VARIABLES = QUOTED_CODE_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Id Res</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_MODULE_CONTENT__ID_RES = QUOTED_CODE_FEATURE_COUNT + 9;
+	int QUOTED_MODULE_CONTENT__VARIABLES = QUOTED_CODE_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Quoted Module Content</em>' class.
@@ -8634,7 +7448,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT_FEATURE_COUNT = QUOTED_CODE_FEATURE_COUNT + 10;
+	int QUOTED_MODULE_CONTENT_FEATURE_COUNT = QUOTED_CODE_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TestStatementImpl <em>Test Statement</em>}' class.
@@ -8644,98 +7458,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTestStatement()
 	 * @generated
 	 */
-	int TEST_STATEMENT = 160;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__NAME = STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Value</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Test Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.IdResolutionImpl <em>Id Resolution</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.IdResolutionImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getIdResolution()
-	 * @generated
-	 */
-	int ID_RESOLUTION = 161;
-
-	/**
-	 * The feature id for the '<em><b>Meta Model Platform URI</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_RESOLUTION__META_MODEL_PLATFORM_URI = 0;
-
-	/**
-	 * The feature id for the '<em><b>Patterns</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_RESOLUTION__PATTERNS = 1;
-
-	/**
-	 * The number of structural features of the '<em>Id Resolution</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_RESOLUTION_FEATURE_COUNT = 2;
+	int TEST_STATEMENT = 154;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.PatternImpl <em>Pattern</em>}' class.
@@ -8745,16 +7468,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPattern()
 	 * @generated
 	 */
-	int PATTERN = 162;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PATTERN__EXPAND_EXPRESSION = NAMED_ELEMENT__EXPAND_EXPRESSION;
+	int PATTERN = 153;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -8802,41 +7516,13 @@ public interface DblPackage extends EPackage {
 	int PATTERN_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.PotentiallyHiddenIdElementsImpl <em>Potentially Hidden Id Elements</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.PotentiallyHiddenIdElementsImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getPotentiallyHiddenIdElements()
-	 * @generated
-	 */
-	int POTENTIALLY_HIDDEN_ID_ELEMENTS = 163;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POTENTIALLY_HIDDEN_ID_ELEMENTS__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int POTENTIALLY_HIDDEN_ID_ELEMENTS__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POTENTIALLY_HIDDEN_ID_ELEMENTS__NAME = STATEMENT__NAME;
+	int TEST_STATEMENT__NAME = STATEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -8845,244 +7531,34 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int POTENTIALLY_HIDDEN_ID_ELEMENTS__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
+	int TEST_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
 
 	/**
-	 * The feature id for the '<em><b>Code Block</b></em>' containment reference.
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POTENTIALLY_HIDDEN_ID_ELEMENTS__CODE_BLOCK = STATEMENT_FEATURE_COUNT + 0;
+	int TEST_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The number of structural features of the '<em>Potentially Hidden Id Elements</em>' class.
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int POTENTIALLY_HIDDEN_ID_ELEMENTS_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+	int TEST_STATEMENT__VALUE = STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.FindContainerImpl <em>Find Container</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.FindContainerImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getFindContainer()
-	 * @generated
-	 */
-	int FIND_CONTAINER = 164;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
+	 * The number of structural features of the '<em>Test Statement</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FIND_CONTAINER__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIND_CONTAINER__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIND_CONTAINER__NAME = STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIND_CONTAINER__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Variable Binding</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIND_CONTAINER__VARIABLE_BINDING = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Container Block</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIND_CONTAINER__CONTAINER_BLOCK = STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Else Block</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIND_CONTAINER__ELSE_BLOCK = STATEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Find Container</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FIND_CONTAINER_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ConsiderIdElementsImpl <em>Consider Id Elements</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ConsiderIdElementsImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getConsiderIdElements()
-	 * @generated
-	 */
-	int CONSIDER_ID_ELEMENTS = 165;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSIDER_ID_ELEMENTS__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSIDER_ID_ELEMENTS__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSIDER_ID_ELEMENTS__NAME = STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSIDER_ID_ELEMENTS__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Elements Query</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Consider Id Elements</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSIDER_ID_ELEMENTS_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.IncludePatternImpl <em>Include Pattern</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.IncludePatternImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getIncludePattern()
-	 * @generated
-	 */
-	int INCLUDE_PATTERN = 166;
-
-	/**
-	 * The feature id for the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INCLUDE_PATTERN__OBJECT_IS_EXTENSION_INSTANCE = STATEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expression</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INCLUDE_PATTERN__EXPAND_EXPRESSION = STATEMENT__EXPAND_EXPRESSION;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INCLUDE_PATTERN__NAME = STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INCLUDE_PATTERN__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Pattern</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INCLUDE_PATTERN__PATTERN = STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Context</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INCLUDE_PATTERN__CONTEXT = STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Include Pattern</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INCLUDE_PATTERN_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+	int TEST_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.BindingExprOpKind <em>Binding Expr Op Kind</em>}' enum.
@@ -9092,29 +7568,8 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBindingExprOpKind()
 	 * @generated
 	 */
-	int BINDING_EXPR_OP_KIND = 167;
+	int BINDING_EXPR_OP_KIND = 155;
 
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.Construct <em>Construct</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Construct</em>'.
-	 * @see hub.sam.dbl.Construct
-	 * @generated
-	 */
-	EClass getConstruct();
-
-	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.Construct#getConcreteSyntax <em>Concrete Syntax</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Concrete Syntax</em>'.
-	 * @see hub.sam.dbl.Construct#getConcreteSyntax()
-	 * @see #getConstruct()
-	 * @generated
-	 */
-	EAttribute getConstruct_ConcreteSyntax();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Model <em>Model</em>}'.
@@ -9224,17 +7679,6 @@ public interface DblPackage extends EPackage {
 	EReference getModule_ExtensionDefs();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Module#getAnnotationDefs <em>Annotation Defs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Annotation Defs</em>'.
-	 * @see hub.sam.dbl.Module#getAnnotationDefs()
-	 * @see #getModule()
-	 * @generated
-	 */
-	EReference getModule_AnnotationDefs();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Module#getProcedures <em>Procedures</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9255,17 +7699,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getModule_Variables();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.Module#getIdRes <em>Id Res</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Id Res</em>'.
-	 * @see hub.sam.dbl.Module#getIdRes()
-	 * @see #getModule()
-	 * @generated
-	 */
-	EReference getModule_IdRes();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.EmbeddableExtensionsContainer <em>Embeddable Extensions Container</em>}'.
@@ -9320,6 +7753,17 @@ public interface DblPackage extends EPackage {
 	EClass getType();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Type#getArrayDimensions <em>Array Dimensions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Array Dimensions</em>'.
+	 * @see hub.sam.dbl.Type#getArrayDimensions()
+	 * @see #getType()
+	 * @generated
+	 */
+	EReference getType_ArrayDimensions();
+
+	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.TypedElement <em>Typed Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9341,28 +7785,6 @@ public interface DblPackage extends EPackage {
 	EReference getTypedElement_PrimitiveType();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.TypedElement#isIsList <em>Is List</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Is List</em>'.
-	 * @see hub.sam.dbl.TypedElement#isIsList()
-	 * @see #getTypedElement()
-	 * @generated
-	 */
-	EAttribute getTypedElement_IsList();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.TypedElement#getListDims <em>List Dims</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>List Dims</em>'.
-	 * @see hub.sam.dbl.TypedElement#getListDims()
-	 * @see #getTypedElement()
-	 * @generated
-	 */
-	EReference getTypedElement_ListDims();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.TypedElement#getClassifierTypeExpr <em>Classifier Type Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9374,25 +7796,36 @@ public interface DblPackage extends EPackage {
 	EReference getTypedElement_ClassifierTypeExpr();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ListDimension <em>List Dimension</em>}'.
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.TypedElement#getArrayDimensions <em>Array Dimensions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>List Dimension</em>'.
-	 * @see hub.sam.dbl.ListDimension
+	 * @return the meta object for the containment reference list '<em>Array Dimensions</em>'.
+	 * @see hub.sam.dbl.TypedElement#getArrayDimensions()
+	 * @see #getTypedElement()
 	 * @generated
 	 */
-	EClass getListDimension();
+	EReference getTypedElement_ArrayDimensions();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ListDimension#getSize <em>Size</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.ArrayDimension <em>Array Dimension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Size</em>'.
-	 * @see hub.sam.dbl.ListDimension#getSize()
-	 * @see #getListDimension()
+	 * @return the meta object for class '<em>Array Dimension</em>'.
+	 * @see hub.sam.dbl.ArrayDimension
 	 * @generated
 	 */
-	EAttribute getListDimension_Size();
+	EClass getArrayDimension();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ArrayDimension#getSize <em>Size</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Size</em>'.
+	 * @see hub.sam.dbl.ArrayDimension#getSize()
+	 * @see #getArrayDimension()
+	 * @generated
+	 */
+	EReference getArrayDimension_Size();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.PrimitiveType <em>Primitive Type</em>}'.
@@ -9487,142 +7920,15 @@ public interface DblPackage extends EPackage {
 	EAttribute getProcedure_Clazz();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.SimpleAnnotation <em>Simple Annotation</em>}'.
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.Procedure#isAbstract <em>Abstract</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Simple Annotation</em>'.
-	 * @see hub.sam.dbl.SimpleAnnotation
+	 * @return the meta object for the attribute '<em>Abstract</em>'.
+	 * @see hub.sam.dbl.Procedure#isAbstract()
+	 * @see #getProcedure()
 	 * @generated
 	 */
-	EClass getSimpleAnnotation();
-
-	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.SimpleAnnotation#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Value</em>'.
-	 * @see hub.sam.dbl.SimpleAnnotation#getValue()
-	 * @see #getSimpleAnnotation()
-	 * @generated
-	 */
-	EAttribute getSimpleAnnotation_Value();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.Annotation <em>Annotation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Annotation</em>'.
-	 * @see hub.sam.dbl.Annotation
-	 * @generated
-	 */
-	EClass getAnnotation();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Annotation#getKeys <em>Keys</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Keys</em>'.
-	 * @see hub.sam.dbl.Annotation#getKeys()
-	 * @see #getAnnotation()
-	 * @generated
-	 */
-	EReference getAnnotation_Keys();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.AnnotationApplication <em>Annotation Application</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Annotation Application</em>'.
-	 * @see hub.sam.dbl.AnnotationApplication
-	 * @generated
-	 */
-	EClass getAnnotationApplication();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.AnnotationApplication#getAnnotationDef <em>Annotation Def</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Annotation Def</em>'.
-	 * @see hub.sam.dbl.AnnotationApplication#getAnnotationDef()
-	 * @see #getAnnotationApplication()
-	 * @generated
-	 */
-	EReference getAnnotationApplication_AnnotationDef();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.AnnotationApplication#getKeyValuePairs <em>Key Value Pairs</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Key Value Pairs</em>'.
-	 * @see hub.sam.dbl.AnnotationApplication#getKeyValuePairs()
-	 * @see #getAnnotationApplication()
-	 * @generated
-	 */
-	EReference getAnnotationApplication_KeyValuePairs();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.KeyValuePair <em>Key Value Pair</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Key Value Pair</em>'.
-	 * @see hub.sam.dbl.KeyValuePair
-	 * @generated
-	 */
-	EClass getKeyValuePair();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.KeyValuePair#getKey <em>Key</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Key</em>'.
-	 * @see hub.sam.dbl.KeyValuePair#getKey()
-	 * @see #getKeyValuePair()
-	 * @generated
-	 */
-	EReference getKeyValuePair_Key();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.KeyValuePair#getValue <em>Value</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Value</em>'.
-	 * @see hub.sam.dbl.KeyValuePair#getValue()
-	 * @see #getKeyValuePair()
-	 * @generated
-	 */
-	EReference getKeyValuePair_Value();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.AnnotatableElement <em>Annotatable Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Annotatable Element</em>'.
-	 * @see hub.sam.dbl.AnnotatableElement
-	 * @generated
-	 */
-	EClass getAnnotatableElement();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.AnnotatableElement#getAnnotationApplications <em>Annotation Applications</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Annotation Applications</em>'.
-	 * @see hub.sam.dbl.AnnotatableElement#getAnnotationApplications()
-	 * @see #getAnnotatableElement()
-	 * @generated
-	 */
-	EReference getAnnotatableElement_AnnotationApplications();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.AnnotatableElement#getSimpleAnnotations <em>Simple Annotations</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Simple Annotations</em>'.
-	 * @see hub.sam.dbl.AnnotatableElement#getSimpleAnnotations()
-	 * @see #getAnnotatableElement()
-	 * @generated
-	 */
-	EReference getAnnotatableElement_SimpleAnnotations();
+	EAttribute getProcedure_Abstract();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Classifier <em>Classifier</em>}'.
@@ -9710,26 +8016,15 @@ public interface DblPackage extends EPackage {
 	EReference getClassSimilar_Methods();
 
 	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ClassSimilar#getSuperClass <em>Super Class</em>}'.
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.ClassSimilar#getSuperClasses <em>Super Classes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Super Class</em>'.
-	 * @see hub.sam.dbl.ClassSimilar#getSuperClass()
+	 * @return the meta object for the containment reference list '<em>Super Classes</em>'.
+	 * @see hub.sam.dbl.ClassSimilar#getSuperClasses()
 	 * @see #getClassSimilar()
 	 * @generated
 	 */
-	EReference getClassSimilar_SuperClass();
-
-	/**
-	 * Returns the meta object for the reference list '{@link hub.sam.dbl.ClassSimilar#getImplementedInterfaces <em>Implemented Interfaces</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Implemented Interfaces</em>'.
-	 * @see hub.sam.dbl.ClassSimilar#getImplementedInterfaces()
-	 * @see #getClassSimilar()
-	 * @generated
-	 */
-	EReference getClassSimilar_ImplementedInterfaces();
+	EReference getClassSimilar_SuperClasses();
 
 	/**
 	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ClassSimilar#getInitialBlock <em>Initial Block</em>}'.
@@ -9787,6 +8082,38 @@ public interface DblPackage extends EPackage {
 	EReference getClassSimilar_ClearBlock();
 
 	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.SuperClassSpecification <em>Super Class Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Super Class Specification</em>'.
+	 * @see hub.sam.dbl.SuperClassSpecification
+	 * @generated
+	 */
+	EClass getSuperClassSpecification();
+
+	/**
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.SuperClassSpecification#getClazz <em>Clazz</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Clazz</em>'.
+	 * @see hub.sam.dbl.SuperClassSpecification#getClazz()
+	 * @see #getSuperClassSpecification()
+	 * @generated
+	 */
+	EReference getSuperClassSpecification_Clazz();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.SuperClassSpecification#getConstructorArguments <em>Constructor Arguments</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Constructor Arguments</em>'.
+	 * @see hub.sam.dbl.SuperClassSpecification#getConstructorArguments()
+	 * @see #getSuperClassSpecification()
+	 * @generated
+	 */
+	EReference getSuperClassSpecification_ConstructorArguments();
+
+	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.StartCodeBlock <em>Start Code Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9829,17 +8156,6 @@ public interface DblPackage extends EPackage {
 	EReference getClazz_Constructor();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Clazz#getBaseConstructorArguments <em>Base Constructor Arguments</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Base Constructor Arguments</em>'.
-	 * @see hub.sam.dbl.Clazz#getBaseConstructorArguments()
-	 * @see #getClazz()
-	 * @generated
-	 */
-	EReference getClazz_BaseConstructorArguments();
-
-	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Constructor <em>Constructor</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9880,38 +8196,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getClassAugment_AugmentedClass();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.Interface <em>Interface</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Interface</em>'.
-	 * @see hub.sam.dbl.Interface
-	 * @generated
-	 */
-	EClass getInterface();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Interface#getMethods <em>Methods</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Methods</em>'.
-	 * @see hub.sam.dbl.Interface#getMethods()
-	 * @see #getInterface()
-	 * @generated
-	 */
-	EReference getInterface_Methods();
-
-	/**
-	 * Returns the meta object for the reference list '{@link hub.sam.dbl.Interface#getSuperInterfaces <em>Super Interfaces</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Super Interfaces</em>'.
-	 * @see hub.sam.dbl.Interface#getSuperInterfaces()
-	 * @see #getInterface()
-	 * @generated
-	 */
-	EReference getInterface_SuperInterfaces();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.AbstractVariable <em>Abstract Variable</em>}'.
@@ -10110,27 +8394,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getAssignment_Value();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.DeprecatedProcedureCallStatement <em>Deprecated Procedure Call Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Deprecated Procedure Call Statement</em>'.
-	 * @see hub.sam.dbl.DeprecatedProcedureCallStatement
-	 * @generated
-	 */
-	EClass getDeprecatedProcedureCallStatement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.DeprecatedProcedureCallStatement#getProcedureCall <em>Procedure Call</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Procedure Call</em>'.
-	 * @see hub.sam.dbl.DeprecatedProcedureCallStatement#getProcedureCall()
-	 * @see #getDeprecatedProcedureCallStatement()
-	 * @generated
-	 */
-	EReference getDeprecatedProcedureCallStatement_ProcedureCall();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.ProcedureCall <em>Procedure Call</em>}'.
@@ -10459,6 +8722,81 @@ public interface DblPackage extends EPackage {
 	EReference getIfStatement_ElseCaseBlock();
 
 	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.SwitchStatement <em>Switch Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Switch Statement</em>'.
+	 * @see hub.sam.dbl.SwitchStatement
+	 * @generated
+	 */
+	EClass getSwitchStatement();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.SwitchStatement#getVariable <em>Variable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Variable</em>'.
+	 * @see hub.sam.dbl.SwitchStatement#getVariable()
+	 * @see #getSwitchStatement()
+	 * @generated
+	 */
+	EReference getSwitchStatement_Variable();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.SwitchStatement#getCases <em>Cases</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Cases</em>'.
+	 * @see hub.sam.dbl.SwitchStatement#getCases()
+	 * @see #getSwitchStatement()
+	 * @generated
+	 */
+	EReference getSwitchStatement_Cases();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.SwitchStatement#getDefaultCase <em>Default Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Default Case</em>'.
+	 * @see hub.sam.dbl.SwitchStatement#getDefaultCase()
+	 * @see #getSwitchStatement()
+	 * @generated
+	 */
+	EReference getSwitchStatement_DefaultCase();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.SwitchCase <em>Switch Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Switch Case</em>'.
+	 * @see hub.sam.dbl.SwitchCase
+	 * @generated
+	 */
+	EClass getSwitchCase();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.SwitchCase#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Value</em>'.
+	 * @see hub.sam.dbl.SwitchCase#getValue()
+	 * @see #getSwitchCase()
+	 * @generated
+	 */
+	EReference getSwitchCase_Value();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.SwitchCase#getStatements <em>Statements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Statements</em>'.
+	 * @see hub.sam.dbl.SwitchCase#getStatements()
+	 * @see #getSwitchCase()
+	 * @generated
+	 */
+	EReference getSwitchCase_Statements();
+
+	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.WhileStatement <em>While Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10511,58 +8849,69 @@ public interface DblPackage extends EPackage {
 	EClass getContinueStatement();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ForEachStatement <em>For Each Statement</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.ForStatement <em>For Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>For Each Statement</em>'.
-	 * @see hub.sam.dbl.ForEachStatement
+	 * @return the meta object for class '<em>For Statement</em>'.
+	 * @see hub.sam.dbl.ForStatement
 	 * @generated
 	 */
-	EClass getForEachStatement();
+	EClass getForStatement();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForEachStatement#getIteratorVariableDefinition <em>Iterator Variable Definition</em>}'.
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getCountVariableDefinition <em>Count Variable Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Iterator Variable Definition</em>'.
-	 * @see hub.sam.dbl.ForEachStatement#getIteratorVariableDefinition()
-	 * @see #getForEachStatement()
+	 * @return the meta object for the containment reference '<em>Count Variable Definition</em>'.
+	 * @see hub.sam.dbl.ForStatement#getCountVariableDefinition()
+	 * @see #getForStatement()
 	 * @generated
 	 */
-	EReference getForEachStatement_IteratorVariableDefinition();
+	EReference getForStatement_CountVariableDefinition();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForEachStatement#getIteratorVariableReference <em>Iterator Variable Reference</em>}'.
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getCountVariableReference <em>Count Variable Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Iterator Variable Reference</em>'.
-	 * @see hub.sam.dbl.ForEachStatement#getIteratorVariableReference()
-	 * @see #getForEachStatement()
+	 * @return the meta object for the containment reference '<em>Count Variable Reference</em>'.
+	 * @see hub.sam.dbl.ForStatement#getCountVariableReference()
+	 * @see #getForStatement()
 	 * @generated
 	 */
-	EReference getForEachStatement_IteratorVariableReference();
+	EReference getForStatement_CountVariableReference();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForEachStatement#getIterableExpression <em>Iterable Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getTermination <em>Termination</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Iterable Expression</em>'.
-	 * @see hub.sam.dbl.ForEachStatement#getIterableExpression()
-	 * @see #getForEachStatement()
+	 * @return the meta object for the containment reference '<em>Termination</em>'.
+	 * @see hub.sam.dbl.ForStatement#getTermination()
+	 * @see #getForStatement()
 	 * @generated
 	 */
-	EReference getForEachStatement_IterableExpression();
+	EReference getForStatement_Termination();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForEachStatement#getForBlock <em>For Block</em>}'.
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getIncrement <em>Increment</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>For Block</em>'.
-	 * @see hub.sam.dbl.ForEachStatement#getForBlock()
-	 * @see #getForEachStatement()
+	 * @return the meta object for the containment reference '<em>Increment</em>'.
+	 * @see hub.sam.dbl.ForStatement#getIncrement()
+	 * @see #getForStatement()
 	 * @generated
 	 */
-	EReference getForEachStatement_ForBlock();
+	EReference getForStatement_Increment();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getBody <em>Body</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Body</em>'.
+	 * @see hub.sam.dbl.ForStatement#getBody()
+	 * @see #getForStatement()
+	 * @generated
+	 */
+	EReference getForStatement_Body();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Expression <em>Expression</em>}'.
@@ -11249,25 +9598,26 @@ public interface DblPackage extends EPackage {
 	EClass getExtensibleElement();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ExtensibleElement#isObjectIsExtensionInstance <em>Object Is Extension Instance</em>}'.
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ExtensibleElement#getConcreteSyntax <em>Concrete Syntax</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Object Is Extension Instance</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#isObjectIsExtensionInstance()
+	 * @return the meta object for the attribute '<em>Concrete Syntax</em>'.
+	 * @see hub.sam.dbl.ExtensibleElement#getConcreteSyntax()
 	 * @see #getExtensibleElement()
 	 * @generated
 	 */
-	EAttribute getExtensibleElement_ObjectIsExtensionInstance();
+	EAttribute getExtensibleElement_ConcreteSyntax();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.NamedExtensible <em>Named Extensible</em>}'.
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ExtensibleElement#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Named Extensible</em>'.
-	 * @see hub.sam.dbl.NamedExtensible
+	 * @return the meta object for the attribute '<em>Instance Of Extension Definition</em>'.
+	 * @see hub.sam.dbl.ExtensibleElement#isInstanceOfExtensionDefinition()
+	 * @see #getExtensibleElement()
 	 * @generated
 	 */
-	EClass getNamedExtensible();
+	EAttribute getExtensibleElement_InstanceOfExtensionDefinition();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.ClassContentExtension <em>Class Content Extension</em>}'.
@@ -12204,27 +10554,6 @@ public interface DblPackage extends EPackage {
 	EClass getQuotedModuleContent();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ExpandableElement <em>Expandable Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Expandable Element</em>'.
-	 * @see hub.sam.dbl.ExpandableElement
-	 * @generated
-	 */
-	EClass getExpandableElement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ExpandableElement#getExpandExpression <em>Expand Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Expand Expression</em>'.
-	 * @see hub.sam.dbl.ExpandableElement#getExpandExpression()
-	 * @see #getExpandableElement()
-	 * @generated
-	 */
-	EReference getExpandableElement_ExpandExpression();
-
-	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.TestStatement <em>Test Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12244,38 +10573,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getTestStatement_Value();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.IdResolution <em>Id Resolution</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Id Resolution</em>'.
-	 * @see hub.sam.dbl.IdResolution
-	 * @generated
-	 */
-	EClass getIdResolution();
-
-	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.IdResolution#getMetaModelPlatformURI <em>Meta Model Platform URI</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Meta Model Platform URI</em>'.
-	 * @see hub.sam.dbl.IdResolution#getMetaModelPlatformURI()
-	 * @see #getIdResolution()
-	 * @generated
-	 */
-	EAttribute getIdResolution_MetaModelPlatformURI();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.IdResolution#getPatterns <em>Patterns</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Patterns</em>'.
-	 * @see hub.sam.dbl.IdResolution#getPatterns()
-	 * @see #getIdResolution()
-	 * @generated
-	 */
-	EReference getIdResolution_Patterns();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Pattern <em>Pattern</em>}'.
@@ -12321,123 +10618,6 @@ public interface DblPackage extends EPackage {
 	EReference getPattern_CodeBlock();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.PotentiallyHiddenIdElements <em>Potentially Hidden Id Elements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Potentially Hidden Id Elements</em>'.
-	 * @see hub.sam.dbl.PotentiallyHiddenIdElements
-	 * @generated
-	 */
-	EClass getPotentiallyHiddenIdElements();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.PotentiallyHiddenIdElements#getCodeBlock <em>Code Block</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Code Block</em>'.
-	 * @see hub.sam.dbl.PotentiallyHiddenIdElements#getCodeBlock()
-	 * @see #getPotentiallyHiddenIdElements()
-	 * @generated
-	 */
-	EReference getPotentiallyHiddenIdElements_CodeBlock();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.FindContainer <em>Find Container</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Find Container</em>'.
-	 * @see hub.sam.dbl.FindContainer
-	 * @generated
-	 */
-	EClass getFindContainer();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.FindContainer#getVariableBinding <em>Variable Binding</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Variable Binding</em>'.
-	 * @see hub.sam.dbl.FindContainer#getVariableBinding()
-	 * @see #getFindContainer()
-	 * @generated
-	 */
-	EReference getFindContainer_VariableBinding();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.FindContainer#getContainerBlock <em>Container Block</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Container Block</em>'.
-	 * @see hub.sam.dbl.FindContainer#getContainerBlock()
-	 * @see #getFindContainer()
-	 * @generated
-	 */
-	EReference getFindContainer_ContainerBlock();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.FindContainer#getElseBlock <em>Else Block</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Else Block</em>'.
-	 * @see hub.sam.dbl.FindContainer#getElseBlock()
-	 * @see #getFindContainer()
-	 * @generated
-	 */
-	EReference getFindContainer_ElseBlock();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ConsiderIdElements <em>Consider Id Elements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Consider Id Elements</em>'.
-	 * @see hub.sam.dbl.ConsiderIdElements
-	 * @generated
-	 */
-	EClass getConsiderIdElements();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ConsiderIdElements#getElementsQuery <em>Elements Query</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Elements Query</em>'.
-	 * @see hub.sam.dbl.ConsiderIdElements#getElementsQuery()
-	 * @see #getConsiderIdElements()
-	 * @generated
-	 */
-	EReference getConsiderIdElements_ElementsQuery();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.IncludePattern <em>Include Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Include Pattern</em>'.
-	 * @see hub.sam.dbl.IncludePattern
-	 * @generated
-	 */
-	EClass getIncludePattern();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.IncludePattern#getPattern <em>Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Pattern</em>'.
-	 * @see hub.sam.dbl.IncludePattern#getPattern()
-	 * @see #getIncludePattern()
-	 * @generated
-	 */
-	EReference getIncludePattern_Pattern();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.IncludePattern#getContext <em>Context</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Context</em>'.
-	 * @see hub.sam.dbl.IncludePattern#getContext()
-	 * @see #getIncludePattern()
-	 * @generated
-	 */
-	EReference getIncludePattern_Context();
-
-	/**
 	 * Returns the meta object for enum '{@link hub.sam.dbl.BindingExprOpKind <em>Binding Expr Op Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12469,24 +10649,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	interface Literals {
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ConstructImpl <em>Construct</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ConstructImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getConstruct()
-		 * @generated
-		 */
-		EClass CONSTRUCT = eINSTANCE.getConstruct();
-
-		/**
-		 * The meta object literal for the '<em><b>Concrete Syntax</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute CONSTRUCT__CONCRETE_SYNTAX = eINSTANCE.getConstruct_ConcreteSyntax();
-
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ModelImpl <em>Model</em>}' class.
 		 * <!-- begin-user-doc -->
@@ -12574,14 +10736,6 @@ public interface DblPackage extends EPackage {
 		EReference MODULE__EXTENSION_DEFS = eINSTANCE.getModule_ExtensionDefs();
 
 		/**
-		 * The meta object literal for the '<em><b>Annotation Defs</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MODULE__ANNOTATION_DEFS = eINSTANCE.getModule_AnnotationDefs();
-
-		/**
 		 * The meta object literal for the '<em><b>Procedures</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -12596,14 +10750,6 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MODULE__VARIABLES = eINSTANCE.getModule_Variables();
-
-		/**
-		 * The meta object literal for the '<em><b>Id Res</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference MODULE__ID_RES = eINSTANCE.getModule_IdRes();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.EmbeddableExtensionsContainerImpl <em>Embeddable Extensions Container</em>}' class.
@@ -12652,6 +10798,14 @@ public interface DblPackage extends EPackage {
 		EClass TYPE = eINSTANCE.getType();
 
 		/**
+		 * The meta object literal for the '<em><b>Array Dimensions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TYPE__ARRAY_DIMENSIONS = eINSTANCE.getType_ArrayDimensions();
+
+		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.TypedElementImpl <em>Typed Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -12670,22 +10824,6 @@ public interface DblPackage extends EPackage {
 		EReference TYPED_ELEMENT__PRIMITIVE_TYPE = eINSTANCE.getTypedElement_PrimitiveType();
 
 		/**
-		 * The meta object literal for the '<em><b>Is List</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TYPED_ELEMENT__IS_LIST = eINSTANCE.getTypedElement_IsList();
-
-		/**
-		 * The meta object literal for the '<em><b>List Dims</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TYPED_ELEMENT__LIST_DIMS = eINSTANCE.getTypedElement_ListDims();
-
-		/**
 		 * The meta object literal for the '<em><b>Classifier Type Expr</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -12694,22 +10832,30 @@ public interface DblPackage extends EPackage {
 		EReference TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR = eINSTANCE.getTypedElement_ClassifierTypeExpr();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ListDimensionImpl <em>List Dimension</em>}' class.
+		 * The meta object literal for the '<em><b>Array Dimensions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ListDimensionImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getListDimension()
 		 * @generated
 		 */
-		EClass LIST_DIMENSION = eINSTANCE.getListDimension();
+		EReference TYPED_ELEMENT__ARRAY_DIMENSIONS = eINSTANCE.getTypedElement_ArrayDimensions();
 
 		/**
-		 * The meta object literal for the '<em><b>Size</b></em>' attribute feature.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ArrayDimensionImpl <em>Array Dimension</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.ArrayDimensionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getArrayDimension()
+		 * @generated
+		 */
+		EClass ARRAY_DIMENSION = eINSTANCE.getArrayDimension();
+
+		/**
+		 * The meta object literal for the '<em><b>Size</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute LIST_DIMENSION__SIZE = eINSTANCE.getListDimension_Size();
+		EReference ARRAY_DIMENSION__SIZE = eINSTANCE.getArrayDimension_Size();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.PrimitiveTypeImpl <em>Primitive Type</em>}' class.
@@ -12798,118 +10944,12 @@ public interface DblPackage extends EPackage {
 		EAttribute PROCEDURE__CLAZZ = eINSTANCE.getProcedure_Clazz();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.SimpleAnnotationImpl <em>Simple Annotation</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.SimpleAnnotationImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getSimpleAnnotation()
-		 * @generated
-		 */
-		EClass SIMPLE_ANNOTATION = eINSTANCE.getSimpleAnnotation();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute SIMPLE_ANNOTATION__VALUE = eINSTANCE.getSimpleAnnotation_Value();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.AnnotationImpl <em>Annotation</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.AnnotationImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotation()
-		 * @generated
-		 */
-		EClass ANNOTATION = eINSTANCE.getAnnotation();
-
-		/**
-		 * The meta object literal for the '<em><b>Keys</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANNOTATION__KEYS = eINSTANCE.getAnnotation_Keys();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.AnnotationApplicationImpl <em>Annotation Application</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.AnnotationApplicationImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotationApplication()
-		 * @generated
-		 */
-		EClass ANNOTATION_APPLICATION = eINSTANCE.getAnnotationApplication();
-
-		/**
-		 * The meta object literal for the '<em><b>Annotation Def</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANNOTATION_APPLICATION__ANNOTATION_DEF = eINSTANCE.getAnnotationApplication_AnnotationDef();
-
-		/**
-		 * The meta object literal for the '<em><b>Key Value Pairs</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANNOTATION_APPLICATION__KEY_VALUE_PAIRS = eINSTANCE.getAnnotationApplication_KeyValuePairs();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.KeyValuePairImpl <em>Key Value Pair</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.KeyValuePairImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getKeyValuePair()
-		 * @generated
-		 */
-		EClass KEY_VALUE_PAIR = eINSTANCE.getKeyValuePair();
-
-		/**
-		 * The meta object literal for the '<em><b>Key</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference KEY_VALUE_PAIR__KEY = eINSTANCE.getKeyValuePair_Key();
-
-		/**
-		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference KEY_VALUE_PAIR__VALUE = eINSTANCE.getKeyValuePair_Value();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.AnnotatableElementImpl <em>Annotatable Element</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.AnnotatableElementImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotatableElement()
-		 * @generated
-		 */
-		EClass ANNOTATABLE_ELEMENT = eINSTANCE.getAnnotatableElement();
-
-		/**
-		 * The meta object literal for the '<em><b>Annotation Applications</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANNOTATABLE_ELEMENT__ANNOTATION_APPLICATIONS = eINSTANCE.getAnnotatableElement_AnnotationApplications();
-
-		/**
-		 * The meta object literal for the '<em><b>Simple Annotations</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ANNOTATABLE_ELEMENT__SIMPLE_ANNOTATIONS = eINSTANCE.getAnnotatableElement_SimpleAnnotations();
+		EAttribute PROCEDURE__ABSTRACT = eINSTANCE.getProcedure_Abstract();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ClassifierImpl <em>Classifier</em>}' class.
@@ -12982,20 +11022,12 @@ public interface DblPackage extends EPackage {
 		EReference CLASS_SIMILAR__METHODS = eINSTANCE.getClassSimilar_Methods();
 
 		/**
-		 * The meta object literal for the '<em><b>Super Class</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Super Classes</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CLASS_SIMILAR__SUPER_CLASS = eINSTANCE.getClassSimilar_SuperClass();
-
-		/**
-		 * The meta object literal for the '<em><b>Implemented Interfaces</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CLASS_SIMILAR__IMPLEMENTED_INTERFACES = eINSTANCE.getClassSimilar_ImplementedInterfaces();
+		EReference CLASS_SIMILAR__SUPER_CLASSES = eINSTANCE.getClassSimilar_SuperClasses();
 
 		/**
 		 * The meta object literal for the '<em><b>Initial Block</b></em>' containment reference feature.
@@ -13038,6 +11070,32 @@ public interface DblPackage extends EPackage {
 		EReference CLASS_SIMILAR__CLEAR_BLOCK = eINSTANCE.getClassSimilar_ClearBlock();
 
 		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.SuperClassSpecificationImpl <em>Super Class Specification</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.SuperClassSpecificationImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getSuperClassSpecification()
+		 * @generated
+		 */
+		EClass SUPER_CLASS_SPECIFICATION = eINSTANCE.getSuperClassSpecification();
+
+		/**
+		 * The meta object literal for the '<em><b>Clazz</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SUPER_CLASS_SPECIFICATION__CLAZZ = eINSTANCE.getSuperClassSpecification_Clazz();
+
+		/**
+		 * The meta object literal for the '<em><b>Constructor Arguments</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS = eINSTANCE.getSuperClassSpecification_ConstructorArguments();
+
+		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.StartCodeBlockImpl <em>Start Code Block</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -13074,14 +11132,6 @@ public interface DblPackage extends EPackage {
 		EReference CLAZZ__CONSTRUCTOR = eINSTANCE.getClazz_Constructor();
 
 		/**
-		 * The meta object literal for the '<em><b>Base Constructor Arguments</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS = eINSTANCE.getClazz_BaseConstructorArguments();
-
-		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ConstructorImpl <em>Constructor</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -13116,32 +11166,6 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CLASS_AUGMENT__AUGMENTED_CLASS = eINSTANCE.getClassAugment_AugmentedClass();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.InterfaceImpl <em>Interface</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.InterfaceImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getInterface()
-		 * @generated
-		 */
-		EClass INTERFACE = eINSTANCE.getInterface();
-
-		/**
-		 * The meta object literal for the '<em><b>Methods</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference INTERFACE__METHODS = eINSTANCE.getInterface_Methods();
-
-		/**
-		 * The meta object literal for the '<em><b>Super Interfaces</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference INTERFACE__SUPER_INTERFACES = eINSTANCE.getInterface_SuperInterfaces();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.AbstractVariableImpl <em>Abstract Variable</em>}' class.
@@ -13316,24 +11340,6 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EReference ASSIGNMENT__VALUE = eINSTANCE.getAssignment_Value();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.DeprecatedProcedureCallStatementImpl <em>Deprecated Procedure Call Statement</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.DeprecatedProcedureCallStatementImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getDeprecatedProcedureCallStatement()
-		 * @generated
-		 */
-		EClass DEPRECATED_PROCEDURE_CALL_STATEMENT = eINSTANCE.getDeprecatedProcedureCallStatement();
-
-		/**
-		 * The meta object literal for the '<em><b>Procedure Call</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference DEPRECATED_PROCEDURE_CALL_STATEMENT__PROCEDURE_CALL = eINSTANCE.getDeprecatedProcedureCallStatement_ProcedureCall();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ProcedureCallImpl <em>Procedure Call</em>}' class.
@@ -13614,6 +11620,66 @@ public interface DblPackage extends EPackage {
 		EReference IF_STATEMENT__ELSE_CASE_BLOCK = eINSTANCE.getIfStatement_ElseCaseBlock();
 
 		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.SwitchStatementImpl <em>Switch Statement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.SwitchStatementImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getSwitchStatement()
+		 * @generated
+		 */
+		EClass SWITCH_STATEMENT = eINSTANCE.getSwitchStatement();
+
+		/**
+		 * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH_STATEMENT__VARIABLE = eINSTANCE.getSwitchStatement_Variable();
+
+		/**
+		 * The meta object literal for the '<em><b>Cases</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH_STATEMENT__CASES = eINSTANCE.getSwitchStatement_Cases();
+
+		/**
+		 * The meta object literal for the '<em><b>Default Case</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH_STATEMENT__DEFAULT_CASE = eINSTANCE.getSwitchStatement_DefaultCase();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.SwitchCaseImpl <em>Switch Case</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.SwitchCaseImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getSwitchCase()
+		 * @generated
+		 */
+		EClass SWITCH_CASE = eINSTANCE.getSwitchCase();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH_CASE__VALUE = eINSTANCE.getSwitchCase_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Statements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference SWITCH_CASE__STATEMENTS = eINSTANCE.getSwitchCase_Statements();
+
+		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.WhileStatementImpl <em>While Statement</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -13660,46 +11726,54 @@ public interface DblPackage extends EPackage {
 		EClass CONTINUE_STATEMENT = eINSTANCE.getContinueStatement();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ForEachStatementImpl <em>For Each Statement</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ForStatementImpl <em>For Statement</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ForEachStatementImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getForEachStatement()
+		 * @see hub.sam.dbl.impl.ForStatementImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getForStatement()
 		 * @generated
 		 */
-		EClass FOR_EACH_STATEMENT = eINSTANCE.getForEachStatement();
+		EClass FOR_STATEMENT = eINSTANCE.getForStatement();
 
 		/**
-		 * The meta object literal for the '<em><b>Iterator Variable Definition</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Count Variable Definition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FOR_EACH_STATEMENT__ITERATOR_VARIABLE_DEFINITION = eINSTANCE.getForEachStatement_IteratorVariableDefinition();
+		EReference FOR_STATEMENT__COUNT_VARIABLE_DEFINITION = eINSTANCE.getForStatement_CountVariableDefinition();
 
 		/**
-		 * The meta object literal for the '<em><b>Iterator Variable Reference</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Count Variable Reference</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FOR_EACH_STATEMENT__ITERATOR_VARIABLE_REFERENCE = eINSTANCE.getForEachStatement_IteratorVariableReference();
+		EReference FOR_STATEMENT__COUNT_VARIABLE_REFERENCE = eINSTANCE.getForStatement_CountVariableReference();
 
 		/**
-		 * The meta object literal for the '<em><b>Iterable Expression</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Termination</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FOR_EACH_STATEMENT__ITERABLE_EXPRESSION = eINSTANCE.getForEachStatement_IterableExpression();
+		EReference FOR_STATEMENT__TERMINATION = eINSTANCE.getForStatement_Termination();
 
 		/**
-		 * The meta object literal for the '<em><b>For Block</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Increment</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FOR_EACH_STATEMENT__FOR_BLOCK = eINSTANCE.getForEachStatement_ForBlock();
+		EReference FOR_STATEMENT__INCREMENT = eINSTANCE.getForStatement_Increment();
+
+		/**
+		 * The meta object literal for the '<em><b>Body</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FOR_STATEMENT__BODY = eINSTANCE.getForStatement_Body();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExpressionImpl <em>Expression</em>}' class.
@@ -14344,22 +12418,20 @@ public interface DblPackage extends EPackage {
 		EClass EXTENSIBLE_ELEMENT = eINSTANCE.getExtensibleElement();
 
 		/**
-		 * The meta object literal for the '<em><b>Object Is Extension Instance</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Concrete Syntax</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE = eINSTANCE.getExtensibleElement_ObjectIsExtensionInstance();
+		EAttribute EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX = eINSTANCE.getExtensibleElement_ConcreteSyntax();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.NamedExtensibleImpl <em>Named Extensible</em>}' class.
+		 * The meta object literal for the '<em><b>Instance Of Extension Definition</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.NamedExtensibleImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getNamedExtensible()
 		 * @generated
 		 */
-		EClass NAMED_EXTENSIBLE = eINSTANCE.getNamedExtensible();
+		EAttribute EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION = eINSTANCE.getExtensibleElement_InstanceOfExtensionDefinition();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ClassContentExtensionImpl <em>Class Content Extension</em>}' class.
@@ -15164,24 +13236,6 @@ public interface DblPackage extends EPackage {
 		EClass QUOTED_MODULE_CONTENT = eINSTANCE.getQuotedModuleContent();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExpandableElementImpl <em>Expandable Element</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ExpandableElementImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandableElement()
-		 * @generated
-		 */
-		EClass EXPANDABLE_ELEMENT = eINSTANCE.getExpandableElement();
-
-		/**
-		 * The meta object literal for the '<em><b>Expand Expression</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXPANDABLE_ELEMENT__EXPAND_EXPRESSION = eINSTANCE.getExpandableElement_ExpandExpression();
-
-		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.TestStatementImpl <em>Test Statement</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -15198,32 +13252,6 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute TEST_STATEMENT__VALUE = eINSTANCE.getTestStatement_Value();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.IdResolutionImpl <em>Id Resolution</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.IdResolutionImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getIdResolution()
-		 * @generated
-		 */
-		EClass ID_RESOLUTION = eINSTANCE.getIdResolution();
-
-		/**
-		 * The meta object literal for the '<em><b>Meta Model Platform URI</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute ID_RESOLUTION__META_MODEL_PLATFORM_URI = eINSTANCE.getIdResolution_MetaModelPlatformURI();
-
-		/**
-		 * The meta object literal for the '<em><b>Patterns</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference ID_RESOLUTION__PATTERNS = eINSTANCE.getIdResolution_Patterns();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.PatternImpl <em>Pattern</em>}' class.
@@ -15258,102 +13286,6 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PATTERN__CODE_BLOCK = eINSTANCE.getPattern_CodeBlock();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.PotentiallyHiddenIdElementsImpl <em>Potentially Hidden Id Elements</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.PotentiallyHiddenIdElementsImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getPotentiallyHiddenIdElements()
-		 * @generated
-		 */
-		EClass POTENTIALLY_HIDDEN_ID_ELEMENTS = eINSTANCE.getPotentiallyHiddenIdElements();
-
-		/**
-		 * The meta object literal for the '<em><b>Code Block</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference POTENTIALLY_HIDDEN_ID_ELEMENTS__CODE_BLOCK = eINSTANCE.getPotentiallyHiddenIdElements_CodeBlock();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.FindContainerImpl <em>Find Container</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.FindContainerImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getFindContainer()
-		 * @generated
-		 */
-		EClass FIND_CONTAINER = eINSTANCE.getFindContainer();
-
-		/**
-		 * The meta object literal for the '<em><b>Variable Binding</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FIND_CONTAINER__VARIABLE_BINDING = eINSTANCE.getFindContainer_VariableBinding();
-
-		/**
-		 * The meta object literal for the '<em><b>Container Block</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FIND_CONTAINER__CONTAINER_BLOCK = eINSTANCE.getFindContainer_ContainerBlock();
-
-		/**
-		 * The meta object literal for the '<em><b>Else Block</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FIND_CONTAINER__ELSE_BLOCK = eINSTANCE.getFindContainer_ElseBlock();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ConsiderIdElementsImpl <em>Consider Id Elements</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ConsiderIdElementsImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getConsiderIdElements()
-		 * @generated
-		 */
-		EClass CONSIDER_ID_ELEMENTS = eINSTANCE.getConsiderIdElements();
-
-		/**
-		 * The meta object literal for the '<em><b>Elements Query</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CONSIDER_ID_ELEMENTS__ELEMENTS_QUERY = eINSTANCE.getConsiderIdElements_ElementsQuery();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.IncludePatternImpl <em>Include Pattern</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.IncludePatternImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getIncludePattern()
-		 * @generated
-		 */
-		EClass INCLUDE_PATTERN = eINSTANCE.getIncludePattern();
-
-		/**
-		 * The meta object literal for the '<em><b>Pattern</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference INCLUDE_PATTERN__PATTERN = eINSTANCE.getIncludePattern_Pattern();
-
-		/**
-		 * The meta object literal for the '<em><b>Context</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference INCLUDE_PATTERN__CONTEXT = eINSTANCE.getIncludePattern_Context();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.BindingExprOpKind <em>Binding Expr Op Kind</em>}' enum.

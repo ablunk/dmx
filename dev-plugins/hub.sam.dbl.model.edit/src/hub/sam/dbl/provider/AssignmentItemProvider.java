@@ -356,9 +356,8 @@ public class AssignmentItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
-			childFeature == DblPackage.Literals.ASSIGNMENT__VALUE ||
-			childFeature == DblPackage.Literals.ASSIGNMENT__VARIABLE;
+			childFeature == DblPackage.Literals.ASSIGNMENT__VARIABLE ||
+			childFeature == DblPackage.Literals.ASSIGNMENT__VALUE;
 
 		if (qualify) {
 			return getString

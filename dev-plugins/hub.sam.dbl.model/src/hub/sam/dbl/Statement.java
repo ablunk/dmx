@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Statement extends Construct {
+public interface Statement extends ExtensibleElement {
 } // Statement

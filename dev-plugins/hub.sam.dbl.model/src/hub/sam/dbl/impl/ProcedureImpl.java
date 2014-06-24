@@ -6,19 +6,15 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.AnnotatableElement;
-import hub.sam.dbl.AnnotationApplication;
+import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.CodeBlock;
-import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.IdExpr;
-import hub.sam.dbl.ListDimension;
-import hub.sam.dbl.NamedExtensible;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.Procedure;
-import hub.sam.dbl.SimpleAnnotation;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.TypedElement;
 
@@ -41,16 +37,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getPrimitiveType <em>Primitive Type</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isIsList <em>Is List</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getListDims <em>List Dims</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isObjectIsExtensionInstance <em>Object Is Extension Instance</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getArrayDimensions <em>Array Dimensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getStatements <em>Statements</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getAnnotationApplications <em>Annotation Applications</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getSimpleAnnotations <em>Simple Annotations</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isClazz <em>Clazz</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isAbstract <em>Abstract</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,36 +62,6 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	protected PrimitiveType primitiveType;
 
 	/**
-	 * The default value of the '{@link #isIsList() <em>Is List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isIsList()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean IS_LIST_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isIsList() <em>Is List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isIsList()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean isList = IS_LIST_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getListDims() <em>List Dims</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getListDims()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ListDimension> listDims;
-
-	/**
 	 * The cached value of the '{@link #getClassifierTypeExpr() <em>Classifier Type Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,24 +72,14 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	protected IdExpr classifierTypeExpr;
 
 	/**
-	 * The default value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
+	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isObjectIsExtensionInstance()
+	 * @see #getArrayDimensions()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isObjectIsExtensionInstance() <em>Object Is Extension Instance</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isObjectIsExtensionInstance()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean objectIsExtensionInstance = OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
+	protected EList<ArrayDimension> arrayDimensions;
 
 	/**
 	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
@@ -148,6 +102,26 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	protected String concreteSyntax = CONCRETE_SYNTAX_EDEFAULT;
 
 	/**
+	 * The default value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInstanceOfExtensionDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInstanceOfExtensionDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean instanceOfExtensionDefinition = INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
+
+	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -156,26 +130,6 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * @ordered
 	 */
 	protected EList<Statement> statements;
-
-	/**
-	 * The cached value of the '{@link #getAnnotationApplications() <em>Annotation Applications</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAnnotationApplications()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<AnnotationApplication> annotationApplications;
-
-	/**
-	 * The cached value of the '{@link #getSimpleAnnotations() <em>Simple Annotations</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSimpleAnnotations()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<SimpleAnnotation> simpleAnnotations;
 
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
@@ -206,6 +160,26 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * @ordered
 	 */
 	protected boolean clazz = CLAZZ_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAbstract()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ABSTRACT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isAbstract()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean abstract_ = ABSTRACT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -274,39 +248,6 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsList() {
-		return isList;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIsList(boolean newIsList) {
-		boolean oldIsList = isList;
-		isList = newIsList;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__IS_LIST, oldIsList, isList));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ListDimension> getListDims() {
-		if (listDims == null) {
-			listDims = new EObjectContainmentEList<ListDimension>(ListDimension.class, this, DblPackage.PROCEDURE__LIST_DIMS);
-		}
-		return listDims;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public IdExpr getClassifierTypeExpr() {
 		return classifierTypeExpr;
 	}
@@ -350,20 +291,11 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isObjectIsExtensionInstance() {
-		return objectIsExtensionInstance;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setObjectIsExtensionInstance(boolean newObjectIsExtensionInstance) {
-		boolean oldObjectIsExtensionInstance = objectIsExtensionInstance;
-		objectIsExtensionInstance = newObjectIsExtensionInstance;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE, oldObjectIsExtensionInstance, objectIsExtensionInstance));
+	public EList<ArrayDimension> getArrayDimensions() {
+		if (arrayDimensions == null) {
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, DblPackage.PROCEDURE__ARRAY_DIMENSIONS);
+		}
+		return arrayDimensions;
 	}
 
 	/**
@@ -392,35 +324,32 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isInstanceOfExtensionDefinition() {
+		return instanceOfExtensionDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInstanceOfExtensionDefinition(boolean newInstanceOfExtensionDefinition) {
+		boolean oldInstanceOfExtensionDefinition = instanceOfExtensionDefinition;
+		instanceOfExtensionDefinition = newInstanceOfExtensionDefinition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION, oldInstanceOfExtensionDefinition, instanceOfExtensionDefinition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Statement> getStatements() {
 		if (statements == null) {
 			statements = new EObjectContainmentEList<Statement>(Statement.class, this, DblPackage.PROCEDURE__STATEMENTS);
 		}
 		return statements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<AnnotationApplication> getAnnotationApplications() {
-		if (annotationApplications == null) {
-			annotationApplications = new EObjectContainmentEList<AnnotationApplication>(AnnotationApplication.class, this, DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS);
-		}
-		return annotationApplications;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<SimpleAnnotation> getSimpleAnnotations() {
-		if (simpleAnnotations == null) {
-			simpleAnnotations = new EObjectContainmentEList<SimpleAnnotation>(SimpleAnnotation.class, this, DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS);
-		}
-		return simpleAnnotations;
 	}
 
 	/**
@@ -461,21 +390,38 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isAbstract() {
+		return abstract_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstract(boolean newAbstract) {
+		boolean oldAbstract = abstract_;
+		abstract_ = newAbstract;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__ABSTRACT, oldAbstract, abstract_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				return basicSetPrimitiveType(null, msgs);
-			case DblPackage.PROCEDURE__LIST_DIMS:
-				return ((InternalEList<?>)getListDims()).basicRemove(otherEnd, msgs);
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return basicSetClassifierTypeExpr(null, msgs);
+			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
+				return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
 			case DblPackage.PROCEDURE__STATEMENTS:
 				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
-			case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS:
-				return ((InternalEList<?>)getAnnotationApplications()).basicRemove(otherEnd, msgs);
-			case DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS:
-				return ((InternalEList<?>)getSimpleAnnotations()).basicRemove(otherEnd, msgs);
 			case DblPackage.PROCEDURE__PARAMETERS:
 				return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
 		}
@@ -492,26 +438,22 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		switch (featureID) {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				return getPrimitiveType();
-			case DblPackage.PROCEDURE__IS_LIST:
-				return isIsList();
-			case DblPackage.PROCEDURE__LIST_DIMS:
-				return getListDims();
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return getClassifierTypeExpr();
-			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
-				return isObjectIsExtensionInstance();
+			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
+				return getArrayDimensions();
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				return getConcreteSyntax();
+			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
+				return isInstanceOfExtensionDefinition();
 			case DblPackage.PROCEDURE__STATEMENTS:
 				return getStatements();
-			case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS:
-				return getAnnotationApplications();
-			case DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS:
-				return getSimpleAnnotations();
 			case DblPackage.PROCEDURE__PARAMETERS:
 				return getParameters();
 			case DblPackage.PROCEDURE__CLAZZ:
 				return isClazz();
+			case DblPackage.PROCEDURE__ABSTRACT:
+				return isAbstract();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -528,33 +470,22 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)newValue);
 				return;
-			case DblPackage.PROCEDURE__IS_LIST:
-				setIsList((Boolean)newValue);
-				return;
-			case DblPackage.PROCEDURE__LIST_DIMS:
-				getListDims().clear();
-				getListDims().addAll((Collection<? extends ListDimension>)newValue);
-				return;
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)newValue);
 				return;
-			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
-				setObjectIsExtensionInstance((Boolean)newValue);
+			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
+				getArrayDimensions().clear();
+				getArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
 				return;
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				setConcreteSyntax((String)newValue);
 				return;
+			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
+				setInstanceOfExtensionDefinition((Boolean)newValue);
+				return;
 			case DblPackage.PROCEDURE__STATEMENTS:
 				getStatements().clear();
 				getStatements().addAll((Collection<? extends Statement>)newValue);
-				return;
-			case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS:
-				getAnnotationApplications().clear();
-				getAnnotationApplications().addAll((Collection<? extends AnnotationApplication>)newValue);
-				return;
-			case DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS:
-				getSimpleAnnotations().clear();
-				getSimpleAnnotations().addAll((Collection<? extends SimpleAnnotation>)newValue);
 				return;
 			case DblPackage.PROCEDURE__PARAMETERS:
 				getParameters().clear();
@@ -562,6 +493,9 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 				return;
 			case DblPackage.PROCEDURE__CLAZZ:
 				setClazz((Boolean)newValue);
+				return;
+			case DblPackage.PROCEDURE__ABSTRACT:
+				setAbstract((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -578,35 +512,29 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)null);
 				return;
-			case DblPackage.PROCEDURE__IS_LIST:
-				setIsList(IS_LIST_EDEFAULT);
-				return;
-			case DblPackage.PROCEDURE__LIST_DIMS:
-				getListDims().clear();
-				return;
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)null);
 				return;
-			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
-				setObjectIsExtensionInstance(OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT);
+			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
+				getArrayDimensions().clear();
 				return;
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
 				return;
+			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
+				setInstanceOfExtensionDefinition(INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT);
+				return;
 			case DblPackage.PROCEDURE__STATEMENTS:
 				getStatements().clear();
-				return;
-			case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS:
-				getAnnotationApplications().clear();
-				return;
-			case DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS:
-				getSimpleAnnotations().clear();
 				return;
 			case DblPackage.PROCEDURE__PARAMETERS:
 				getParameters().clear();
 				return;
 			case DblPackage.PROCEDURE__CLAZZ:
 				setClazz(CLAZZ_EDEFAULT);
+				return;
+			case DblPackage.PROCEDURE__ABSTRACT:
+				setAbstract(ABSTRACT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -622,26 +550,22 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		switch (featureID) {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				return primitiveType != null;
-			case DblPackage.PROCEDURE__IS_LIST:
-				return isList != IS_LIST_EDEFAULT;
-			case DblPackage.PROCEDURE__LIST_DIMS:
-				return listDims != null && !listDims.isEmpty();
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
 				return classifierTypeExpr != null;
-			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
-				return objectIsExtensionInstance != OBJECT_IS_EXTENSION_INSTANCE_EDEFAULT;
+			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
+				return arrayDimensions != null && !arrayDimensions.isEmpty();
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
 				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
+			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
+				return instanceOfExtensionDefinition != INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
 			case DblPackage.PROCEDURE__STATEMENTS:
 				return statements != null && !statements.isEmpty();
-			case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS:
-				return annotationApplications != null && !annotationApplications.isEmpty();
-			case DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS:
-				return simpleAnnotations != null && !simpleAnnotations.isEmpty();
 			case DblPackage.PROCEDURE__PARAMETERS:
 				return parameters != null && !parameters.isEmpty();
 			case DblPackage.PROCEDURE__CLAZZ:
 				return clazz != CLAZZ_EDEFAULT;
+			case DblPackage.PROCEDURE__ABSTRACT:
+				return abstract_ != ABSTRACT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -656,39 +580,21 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		if (baseClass == TypedElement.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.PROCEDURE__PRIMITIVE_TYPE: return DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE;
-				case DblPackage.PROCEDURE__IS_LIST: return DblPackage.TYPED_ELEMENT__IS_LIST;
-				case DblPackage.PROCEDURE__LIST_DIMS: return DblPackage.TYPED_ELEMENT__LIST_DIMS;
 				case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR: return DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR;
+				case DblPackage.PROCEDURE__ARRAY_DIMENSIONS: return DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS;
 				default: return -1;
 			}
 		}
 		if (baseClass == ExtensibleElement.class) {
 			switch (derivedFeatureID) {
-				case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE;
-				default: return -1;
-			}
-		}
-		if (baseClass == NamedExtensible.class) {
-			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == Construct.class) {
-			switch (derivedFeatureID) {
-				case DblPackage.PROCEDURE__CONCRETE_SYNTAX: return DblPackage.CONSTRUCT__CONCRETE_SYNTAX;
+				case DblPackage.PROCEDURE__CONCRETE_SYNTAX: return DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+				case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 				default: return -1;
 			}
 		}
 		if (baseClass == CodeBlock.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.PROCEDURE__STATEMENTS: return DblPackage.CODE_BLOCK__STATEMENTS;
-				default: return -1;
-			}
-		}
-		if (baseClass == AnnotatableElement.class) {
-			switch (derivedFeatureID) {
-				case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS: return DblPackage.ANNOTATABLE_ELEMENT__ANNOTATION_APPLICATIONS;
-				case DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS: return DblPackage.ANNOTATABLE_ELEMENT__SIMPLE_ANNOTATIONS;
 				default: return -1;
 			}
 		}
@@ -705,39 +611,21 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		if (baseClass == TypedElement.class) {
 			switch (baseFeatureID) {
 				case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE: return DblPackage.PROCEDURE__PRIMITIVE_TYPE;
-				case DblPackage.TYPED_ELEMENT__IS_LIST: return DblPackage.PROCEDURE__IS_LIST;
-				case DblPackage.TYPED_ELEMENT__LIST_DIMS: return DblPackage.PROCEDURE__LIST_DIMS;
 				case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR: return DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR;
+				case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS: return DblPackage.PROCEDURE__ARRAY_DIMENSIONS;
 				default: return -1;
 			}
 		}
 		if (baseClass == ExtensibleElement.class) {
 			switch (baseFeatureID) {
-				case DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE: return DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE;
-				default: return -1;
-			}
-		}
-		if (baseClass == NamedExtensible.class) {
-			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == Construct.class) {
-			switch (baseFeatureID) {
-				case DblPackage.CONSTRUCT__CONCRETE_SYNTAX: return DblPackage.PROCEDURE__CONCRETE_SYNTAX;
+				case DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX: return DblPackage.PROCEDURE__CONCRETE_SYNTAX;
+				case DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION;
 				default: return -1;
 			}
 		}
 		if (baseClass == CodeBlock.class) {
 			switch (baseFeatureID) {
 				case DblPackage.CODE_BLOCK__STATEMENTS: return DblPackage.PROCEDURE__STATEMENTS;
-				default: return -1;
-			}
-		}
-		if (baseClass == AnnotatableElement.class) {
-			switch (baseFeatureID) {
-				case DblPackage.ANNOTATABLE_ELEMENT__ANNOTATION_APPLICATIONS: return DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS;
-				case DblPackage.ANNOTATABLE_ELEMENT__SIMPLE_ANNOTATIONS: return DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS;
 				default: return -1;
 			}
 		}
@@ -754,14 +642,14 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isList: ");
-		result.append(isList);
-		result.append(", objectIsExtensionInstance: ");
-		result.append(objectIsExtensionInstance);
-		result.append(", concreteSyntax: ");
+		result.append(" (concreteSyntax: ");
 		result.append(concreteSyntax);
+		result.append(", instanceOfExtensionDefinition: ");
+		result.append(instanceOfExtensionDefinition);
 		result.append(", clazz: ");
 		result.append(clazz);
+		result.append(", abstract: ");
+		result.append(abstract_);
 		result.append(')');
 		return result.toString();
 	}

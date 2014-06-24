@@ -33,7 +33,7 @@ public abstract class AbstractExtensionSemantics {
 	protected EObject extensionInstance;
 	protected String extensionInstanceUri;
 	
-	private static EStructuralFeature concreteSyntaxProperty = DblPackage.Literals.CONSTRUCT__CONCRETE_SYNTAX;
+	private static EStructuralFeature concreteSyntaxProperty = DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
 	
 	protected abstract void doGenerate(EObject extensionInstance);
 	

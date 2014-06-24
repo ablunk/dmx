@@ -39,7 +39,7 @@ public class TestStatementImpl extends StatementImpl implements TestStatement {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final BigInteger VALUE_EDEFAULT = null;
+	protected static final int VALUE_EDEFAULT = 0;
 
 	/**
 	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
@@ -49,7 +49,7 @@ public class TestStatementImpl extends StatementImpl implements TestStatement {
 	 * @generated
 	 * @ordered
 	 */
-	protected BigInteger value = VALUE_EDEFAULT;
+	protected int value = VALUE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -75,7 +75,7 @@ public class TestStatementImpl extends StatementImpl implements TestStatement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BigInteger getValue() {
+	public int getValue() {
 		return value;
 	}
 
@@ -84,8 +84,8 @@ public class TestStatementImpl extends StatementImpl implements TestStatement {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setValue(BigInteger newValue) {
-		BigInteger oldValue = value;
+	public void setValue(int newValue) {
+		int oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.TEST_STATEMENT__VALUE, oldValue, value));
@@ -114,7 +114,7 @@ public class TestStatementImpl extends StatementImpl implements TestStatement {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DblPackage.TEST_STATEMENT__VALUE:
-				setValue((BigInteger)newValue);
+				setValue((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -144,7 +144,7 @@ public class TestStatementImpl extends StatementImpl implements TestStatement {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case DblPackage.TEST_STATEMENT__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+				return value != VALUE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}

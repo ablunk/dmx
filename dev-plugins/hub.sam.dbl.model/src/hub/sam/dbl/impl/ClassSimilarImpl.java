@@ -7,13 +7,12 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ClassSimilar;
-import hub.sam.dbl.Clazz;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.Interface;
 import hub.sam.dbl.ModifierExtensionsContainer;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.StartCodeBlock;
+import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.Variable;
 
 import java.util.Collection;
@@ -25,7 +24,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -38,8 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getModifierExtensions <em>Modifier Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getMethods <em>Methods</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getImplementedInterfaces <em>Implemented Interfaces</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getSuperClasses <em>Super Classes</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getInitialBlock <em>Initial Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getFinalBlock <em>Final Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassSimilarImpl#getActionsBlock <em>Actions Block</em>}</li>
@@ -82,24 +79,14 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	protected EList<Procedure> methods;
 
 	/**
-	 * The cached value of the '{@link #getSuperClass() <em>Super Class</em>}' reference.
+	 * The cached value of the '{@link #getSuperClasses() <em>Super Classes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSuperClass()
+	 * @see #getSuperClasses()
 	 * @generated
 	 * @ordered
 	 */
-	protected Clazz superClass;
-
-	/**
-	 * The cached value of the '{@link #getImplementedInterfaces() <em>Implemented Interfaces</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getImplementedInterfaces()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Interface> implementedInterfaces;
+	protected EList<SuperClassSpecification> superClasses;
 
 	/**
 	 * The cached value of the '{@link #getInitialBlock() <em>Initial Block</em>}' containment reference.
@@ -211,49 +198,11 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Clazz getSuperClass() {
-		if (superClass != null && superClass.eIsProxy()) {
-			InternalEObject oldSuperClass = (InternalEObject)superClass;
-			superClass = (Clazz)eResolveProxy(oldSuperClass);
-			if (superClass != oldSuperClass) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.CLASS_SIMILAR__SUPER_CLASS, oldSuperClass, superClass));
-			}
+	public EList<SuperClassSpecification> getSuperClasses() {
+		if (superClasses == null) {
+			superClasses = new EObjectContainmentEList<SuperClassSpecification>(SuperClassSpecification.class, this, DblPackage.CLASS_SIMILAR__SUPER_CLASSES);
 		}
-		return superClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Clazz basicGetSuperClass() {
-		return superClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSuperClass(Clazz newSuperClass) {
-		Clazz oldSuperClass = superClass;
-		superClass = newSuperClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.CLASS_SIMILAR__SUPER_CLASS, oldSuperClass, superClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Interface> getImplementedInterfaces() {
-		if (implementedInterfaces == null) {
-			implementedInterfaces = new EObjectResolvingEList<Interface>(Interface.class, this, DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES);
-		}
-		return implementedInterfaces;
+		return superClasses;
 	}
 
 	/**
@@ -485,6 +434,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 			case DblPackage.CLASS_SIMILAR__METHODS:
 				return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
+			case DblPackage.CLASS_SIMILAR__SUPER_CLASSES:
+				return ((InternalEList<?>)getSuperClasses()).basicRemove(otherEnd, msgs);
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
 				return basicSetInitialBlock(null, msgs);
 			case DblPackage.CLASS_SIMILAR__FINAL_BLOCK:
@@ -513,11 +464,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 				return getAttributes();
 			case DblPackage.CLASS_SIMILAR__METHODS:
 				return getMethods();
-			case DblPackage.CLASS_SIMILAR__SUPER_CLASS:
-				if (resolve) return getSuperClass();
-				return basicGetSuperClass();
-			case DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES:
-				return getImplementedInterfaces();
+			case DblPackage.CLASS_SIMILAR__SUPER_CLASSES:
+				return getSuperClasses();
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
 				return getInitialBlock();
 			case DblPackage.CLASS_SIMILAR__FINAL_BLOCK:
@@ -553,12 +501,9 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 				getMethods().clear();
 				getMethods().addAll((Collection<? extends Procedure>)newValue);
 				return;
-			case DblPackage.CLASS_SIMILAR__SUPER_CLASS:
-				setSuperClass((Clazz)newValue);
-				return;
-			case DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES:
-				getImplementedInterfaces().clear();
-				getImplementedInterfaces().addAll((Collection<? extends Interface>)newValue);
+			case DblPackage.CLASS_SIMILAR__SUPER_CLASSES:
+				getSuperClasses().clear();
+				getSuperClasses().addAll((Collection<? extends SuperClassSpecification>)newValue);
 				return;
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
 				setInitialBlock((StartCodeBlock)newValue);
@@ -596,11 +541,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 			case DblPackage.CLASS_SIMILAR__METHODS:
 				getMethods().clear();
 				return;
-			case DblPackage.CLASS_SIMILAR__SUPER_CLASS:
-				setSuperClass((Clazz)null);
-				return;
-			case DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES:
-				getImplementedInterfaces().clear();
+			case DblPackage.CLASS_SIMILAR__SUPER_CLASSES:
+				getSuperClasses().clear();
 				return;
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
 				setInitialBlock((StartCodeBlock)null);
@@ -635,10 +577,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 				return attributes != null && !attributes.isEmpty();
 			case DblPackage.CLASS_SIMILAR__METHODS:
 				return methods != null && !methods.isEmpty();
-			case DblPackage.CLASS_SIMILAR__SUPER_CLASS:
-				return superClass != null;
-			case DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES:
-				return implementedInterfaces != null && !implementedInterfaces.isEmpty();
+			case DblPackage.CLASS_SIMILAR__SUPER_CLASSES:
+				return superClasses != null && !superClasses.isEmpty();
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
 				return initialBlock != null;
 			case DblPackage.CLASS_SIMILAR__FINAL_BLOCK:

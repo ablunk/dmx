@@ -18,9 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link hub.sam.dbl.TypedElement#getPrimitiveType <em>Primitive Type</em>}</li>
- *   <li>{@link hub.sam.dbl.TypedElement#isIsList <em>Is List</em>}</li>
- *   <li>{@link hub.sam.dbl.TypedElement#getListDims <em>List Dims</em>}</li>
  *   <li>{@link hub.sam.dbl.TypedElement#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
+ *   <li>{@link hub.sam.dbl.TypedElement#getArrayDimensions <em>Array Dimensions</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,49 +55,6 @@ public interface TypedElement extends EObject {
 	void setPrimitiveType(PrimitiveType value);
 
 	/**
-	 * Returns the value of the '<em><b>Is List</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Is List</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Is List</em>' attribute.
-	 * @see #setIsList(boolean)
-	 * @see hub.sam.dbl.DblPackage#getTypedElement_IsList()
-	 * @model default="false" required="true"
-	 * @generated
-	 */
-	boolean isIsList();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.TypedElement#isIsList <em>Is List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Is List</em>' attribute.
-	 * @see #isIsList()
-	 * @generated
-	 */
-	void setIsList(boolean value);
-
-	/**
-	 * Returns the value of the '<em><b>List Dims</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.ListDimension}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>List Dims</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>List Dims</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getTypedElement_ListDims()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<ListDimension> getListDims();
-
-	/**
 	 * Returns the value of the '<em><b>Classifier Type Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -123,5 +79,21 @@ public interface TypedElement extends EObject {
 	 * @generated
 	 */
 	void setClassifierTypeExpr(IdExpr value);
+
+	/**
+	 * Returns the value of the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.ArrayDimension}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Array Dimensions</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Array Dimensions</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getTypedElement_ArrayDimensions()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<ArrayDimension> getArrayDimensions();
 
 } // TypedElement

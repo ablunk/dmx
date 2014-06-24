@@ -124,7 +124,6 @@ public class RemoveFromSetItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
 			childFeature == DblPackage.Literals.SET_STATEMENT__OBJECT ||
 			childFeature == DblPackage.Literals.SET_STATEMENT__SET;
 

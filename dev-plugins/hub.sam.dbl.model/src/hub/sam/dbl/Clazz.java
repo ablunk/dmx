@@ -18,7 +18,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link hub.sam.dbl.Clazz#isActive <em>Active</em>}</li>
  *   <li>{@link hub.sam.dbl.Clazz#getConstructor <em>Constructor</em>}</li>
- *   <li>{@link hub.sam.dbl.Clazz#getBaseConstructorArguments <em>Base Constructor Arguments</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,21 +78,5 @@ public interface Clazz extends Classifier, ClassSimilar {
 	 * @generated
 	 */
 	void setConstructor(Constructor value);
-
-	/**
-	 * Returns the value of the '<em><b>Base Constructor Arguments</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.Expression}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Base Constructor Arguments</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Base Constructor Arguments</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getClazz_BaseConstructorArguments()
-	 * @model containment="true" ordered="false"
-	 * @generated
-	 */
-	EList<Expression> getBaseConstructorArguments();
 
 } // Clazz

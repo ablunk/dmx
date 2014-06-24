@@ -34,12 +34,12 @@ public interface TestStatement extends Statement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Value</em>' attribute.
-	 * @see #setValue(BigInteger)
+	 * @see #setValue(int)
 	 * @see hub.sam.dbl.DblPackage#getTestStatement_Value()
-	 * @model
+	 * @model required="true"
 	 * @generated
 	 */
-	BigInteger getValue();
+	int getValue();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.TestStatement#getValue <em>Value</em>}' attribute.
@@ -49,6 +49,6 @@ public interface TestStatement extends Statement {
 	 * @see #getValue()
 	 * @generated
 	 */
-	void setValue(BigInteger value);
+	void setValue(int value);
 
 } // TestStatement

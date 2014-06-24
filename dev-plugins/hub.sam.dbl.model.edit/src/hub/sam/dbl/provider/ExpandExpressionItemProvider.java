@@ -64,33 +64,11 @@ public class ExpandExpressionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addObjectIsExtensionInstancePropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 			addConcreteSyntaxPropertyDescriptor(object);
+			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Object Is Extension Instance feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addObjectIsExtensionInstancePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_objectIsExtensionInstance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_objectIsExtensionInstance_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -126,13 +104,35 @@ public class ExpandExpressionItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Construct_concreteSyntax_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Construct_concreteSyntax_feature", "_UI_Construct_type"),
-				 DblPackage.Literals.CONSTRUCT__CONCRETE_SYNTAX,
+				 getString("_UI_ExtensibleElement_concreteSyntax_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_concreteSyntax_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Instance Of Extension Definition feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInstanceOfExtensionDefinitionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_instanceOfExtensionDefinition_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_instanceOfExtensionDefinition_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -149,7 +149,6 @@ public class ExpandExpressionItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION);
 			childrenFeatures.add(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT);
 		}
 		return childrenFeatures;
@@ -205,12 +204,11 @@ public class ExpandExpressionItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ExpandExpression.class)) {
-			case DblPackage.EXPAND_EXPRESSION__OBJECT_IS_EXTENSION_INSTANCE:
 			case DblPackage.EXPAND_EXPRESSION__NAME:
 			case DblPackage.EXPAND_EXPRESSION__CONCRETE_SYNTAX:
+			case DblPackage.EXPAND_EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case DblPackage.EXPAND_EXPRESSION__EXPAND_EXPRESSION:
 			case DblPackage.EXPAND_EXPRESSION__META_OBJECT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -228,11 +226,6 @@ public class ExpandExpressionItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION,
-				 DblFactory.eINSTANCE.createExpandExpression()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -413,29 +406,6 @@ public class ExpandExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
-	}
-
-	/**
-	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-		Object childFeature = feature;
-		Object childObject = child;
-
-		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
-			childFeature == DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT;
-
-		if (qualify) {
-			return getString
-				("_UI_CreateChild_text2",
-				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-		}
-		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

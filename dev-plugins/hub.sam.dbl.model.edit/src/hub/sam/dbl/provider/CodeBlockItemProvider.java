@@ -34,7 +34,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class CodeBlockItemProvider
-	extends ConstructItemProvider
+	extends ExtensibleElementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -184,11 +184,6 @@ public class CodeBlockItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createDeprecatedProcedureCallStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createReturn()));
 
 		newChildDescriptors.add
@@ -254,6 +249,11 @@ public class CodeBlockItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
@@ -269,7 +269,7 @@ public class CodeBlockItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createForEachStatement()));
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -315,26 +315,6 @@ public class CodeBlockItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createTestStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createPotentiallyHiddenIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createFindContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createConsiderIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createIncludePattern()));
 	}
 
 }

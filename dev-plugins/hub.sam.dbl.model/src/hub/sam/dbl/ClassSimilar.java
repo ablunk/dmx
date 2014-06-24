@@ -18,8 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link hub.sam.dbl.ClassSimilar#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link hub.sam.dbl.ClassSimilar#getMethods <em>Methods</em>}</li>
- *   <li>{@link hub.sam.dbl.ClassSimilar#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link hub.sam.dbl.ClassSimilar#getImplementedInterfaces <em>Implemented Interfaces</em>}</li>
+ *   <li>{@link hub.sam.dbl.ClassSimilar#getSuperClasses <em>Super Classes</em>}</li>
  *   <li>{@link hub.sam.dbl.ClassSimilar#getInitialBlock <em>Initial Block</em>}</li>
  *   <li>{@link hub.sam.dbl.ClassSimilar#getFinalBlock <em>Final Block</em>}</li>
  *   <li>{@link hub.sam.dbl.ClassSimilar#getActionsBlock <em>Actions Block</em>}</li>
@@ -66,46 +65,20 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	EList<Procedure> getMethods();
 
 	/**
-	 * Returns the value of the '<em><b>Super Class</b></em>' reference.
+	 * Returns the value of the '<em><b>Super Classes</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.SuperClassSpecification}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Super Class</em>' reference isn't clear,
+	 * If the meaning of the '<em>Super Classes</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Super Class</em>' reference.
-	 * @see #setSuperClass(Clazz)
-	 * @see hub.sam.dbl.DblPackage#getClassSimilar_SuperClass()
-	 * @model
+	 * @return the value of the '<em>Super Classes</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getClassSimilar_SuperClasses()
+	 * @model containment="true"
 	 * @generated
 	 */
-	Clazz getSuperClass();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.ClassSimilar#getSuperClass <em>Super Class</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Super Class</em>' reference.
-	 * @see #getSuperClass()
-	 * @generated
-	 */
-	void setSuperClass(Clazz value);
-
-	/**
-	 * Returns the value of the '<em><b>Implemented Interfaces</b></em>' reference list.
-	 * The list contents are of type {@link hub.sam.dbl.Interface}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Implemented Interfaces</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Implemented Interfaces</em>' reference list.
-	 * @see hub.sam.dbl.DblPackage#getClassSimilar_ImplementedInterfaces()
-	 * @model ordered="false"
-	 * @generated
-	 */
-	EList<Interface> getImplementedInterfaces();
+	EList<SuperClassSpecification> getSuperClasses();
 
 	/**
 	 * Returns the value of the '<em><b>Initial Block</b></em>' containment reference.

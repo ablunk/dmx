@@ -432,7 +432,7 @@ public class RunAction extends Action {
 		TreeIterator<EObject> allContents = originalResource.getAllContents();
 		while (allContents.hasNext()) {
 			EObject eObject = allContents.next();
-			if (eObject instanceof ExtensibleElement && ((ExtensibleElement) eObject).isObjectIsExtensionInstance()) {
+			if (eObject instanceof ExtensibleElement && ((ExtensibleElement) eObject).isInstanceOfExtensionDefinition()) {
 				// NOTE All extension meta-classes have to extend the meta-class ExtensibleElement.
 				// Instances of meta-classes added by extension, have to set their attribute objectIsExtensionInstance to true.
 				// This is necessary in order to find them in the model.

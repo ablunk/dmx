@@ -11,22 +11,7 @@ syntax(Model) "resources/dbl.ecore" {
 	ModuleContent -> Classifier:composite(classifiers);
 	ModuleContent -> ClassAugment:composite(classAugments);
 	ModuleContent -> extensionDef:composite(extensionDefs);
-	//ModuleContent -> Annotation:composite(annotationDefs);
-	ModuleContent -> IdResolution:composite(idRes);
 	ModuleContent -> ModuleContentExtension:composite(extensions);
-	
-	//Annotation:element(Annotation) -> "annotation" NamedElementName "{"
-	//	(Variable:composite(keys) ";")*
-	//"}";
-
-	//AnnotationApplication:element(AnnotationApplication) -> "@" AnnotationRef:reference(annotationDef)
-	//	("(" KeyValuePair:composite(keyValuePairs) ("," KeyValuePair:composite(keyValuePairs))* ")")?;
-	
-	SimpleAnnotation:element(SimpleAnnotation) -> "@" NamedElementName "=" STRINGDEF:composite(value);
-	
-	//AnnotationRef:element(Annotation) -> IDENTIFIER:composite(name);
-	
-	//KeyValuePair:element(KeyValuePair) -> VariableAccess:composite(key) "=" Expression:composite(value);
 	
 	Classifier:element(Clazz) -> ClazzWithPredefinedModifiers;
 	
@@ -42,25 +27,16 @@ syntax(Model) "resources/dbl.ecore" {
 	ClazzTail ->
 		"class" ws(space) NamedElementName ws(empty)
 			(Constructor:composite(constructor))?
-			(ws(space) "extends" ws(space) ClassRef:reference(superClass)
-				("(" Expression:composite(baseConstructorArguments)
-					("," Expression:composite(baseConstructorArguments))* ")")?
-				)? ws(space) 
-			(ws(space) "implements" ws(space) InterfaceRef:reference(implementedInterfaces)
-				("," InterfaceRef:reference(implementedInterfaces))*)? "{"
-			(ClassContent)*
-		"}";
+			(ws(space) "extends" ws(space) SuperClass:composite(superClasses) ("," SuperClass:composite(superClasses) )*)? ws(space)
+			"{"
+				(ClassContent)*
+			"}";
+		
+	SuperClass:element(SuperClassSpecification) -> ClassRef:reference(clazz)
+					("(" Expression:composite(constructorArguments)	("," Expression:composite(constructorArguments))* ")")?;
 	
 	NamedElementName -> IDENTIFIER:composite(name) ;
-	NamedElementName -> ExpandableElement;
-	
-	Classifier:element(Interface) -> "interface" ws(space) IDENTIFIER:composite(name) ws(empty)
-			("extends" ws(space) InterfaceRef:reference(superInterfaces) ("," InterfaceRef:reference(superInterfaces))*)? ws(space) "{"
-			(ProcedureSignature:composite(methods))*
-		"}";
 		
-	InterfaceRef:element(Interface) -> IDENTIFIER:composite(name);
-
 	Constructor:element(Constructor) -> "(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")";
 	
 	IsActiveClass:constant("true":EBoolean) -> "active";
@@ -95,25 +71,25 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	Procedure:element(Procedure) -> TypeRule NamedElementName
 		"(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
-		(ClassVariable:composite(clazz))?
-		(SimpleAnnotation:composite(simpleAnnotations))*
-		//(AnnotationApplication:composite(annotationApplications))?
-		"{" (Statement:composite(statements))* "}";
+		(ClassElement:composite(clazz))?
+		(AbstractProcedure:composite(abstract))?
+		ProcedureBody;
+		
+	ProcedureBody -> "{" (Statement:composite(statements))* "}";
+	ProcedureBody ->  ";";
 	
+	AbstractProcedure:constant("true":EBoolean) -> "abstract";
+
 	//Procedure:element(Procedure) -> (ClassVariable:composite(clazz))? "procedure" IDENTIFIER:composite(name)
 	//	("(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")")?
 	//	("returning" TypeRule)?
 	//	"{" (Statement:composite(statements))* "}";
 	
-	ProcedureSignature:element(Procedure) -> TypeRule IDENTIFIER:composite(name)
-		("(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")")?
-		(ClassVariable:composite(clazz))? ";";
-	
 	Parameter:element(Parameter) -> TypeRule ws(space) IDENTIFIER:composite(name);
 
 	Variable:element(Variable) -> Variable1;
 	
-	Variable1 -> ClassVariable:composite(clazz) Variable2 ;
+	Variable1 -> ClassElement:composite(clazz) Variable2 ;
 	Variable1 -> Variable2;
 
 	Variable2 -> ControlVariable:composite(control) Variable3;
@@ -129,25 +105,16 @@ syntax(Model) "resources/dbl.ecore" {
 		("=" Expression:composite(initialValue))? ;
 
 	ControlVariable:constant("true":EBoolean) -> "control";
-	ClassVariable:constant("true":EBoolean) -> "static";
+	ClassElement:constant("true":EBoolean) -> "static";
 	
-	TypeRule -> Type;
-	TypeRule -> IsListType:composite(isList)
-		"(" ListDimension1:composite(listDims) ("," ListDimension2:composite(listDims))* ")";
-	//   -- allows duplicate elements i.e. nonUnique, ordered
-	//   -- basically a list in BL is like an array in other languages
-	
-	IsListType:constant("true":EBoolean) -> "list";
-	
-	ListDimension1:element(ListDimension) -> Type ("=" INTEGER:composite(size))?;
-	ListDimension2 -> ListDimension2a;
-	ListDimension2 -> ListDimension2b;
-	ListDimension2a:element(ListDimension) -> Type ("=" INTEGER:composite(size))?;
-	ListDimension2b:element(ListDimension) -> INTEGER:composite(size);
+	TypeRule -> Type (ArrayDimensionEmpty:composite(arrayDimensions))*;
 	
 	//Type -> ClassifierRef:reference(classifierType);
 	Type -> BareIdExpr:composite(classifierTypeExpr);
 	Type -> PrimitiveType:composite(primitiveType);
+
+	ArrayDimension:element(ArrayDimension) -> "[" Expression:composite(size) "]";
+	ArrayDimensionEmpty:element(ArrayDimension) -> "[" "]";
 	
 	ClassRef:element(Clazz) -> IDENTIFIER:composite(name);
 	ClassifierRef:element(Classifier) -> IDENTIFIER:composite(name);
@@ -211,7 +178,8 @@ syntax(Model) "resources/dbl.ecore" {
 	CompoundStatement -> IfElseStatement;
 	CompoundStatement -> IfElifElseStatement;
 	CompoundStatement -> WhileStatement;
-	CompoundStatement -> ForEachStatement;
+	CompoundStatement -> SwitchStatement;
+	CompoundStatement -> ForStatement;
 	CompoundStatement -> ExpandSection;
 	
 	IfStatement:element(IfStatement) -> "if" "(" Expression:composite(condition) ")" CodeBlock:composite(ifCaseBlock);
@@ -224,11 +192,29 @@ syntax(Model) "resources/dbl.ecore" {
 		("elseif" "(" Expression:composite(elifCondition) ")" CodeBlock:composite(elifCaseBlock))*
 		("else" CodeBlock:composite(elseCaseBlock))?;
 		
+	SwitchStatement:element(SwitchStatement) -> "switch" "(" VariableAccess:composite(variable) ")"
+		"{"
+			(SwitchCase:composite(cases))*
+			(DefaultSwitchCase:composite(defaultCase))?
+		"}";
+	
+	SwitchCase:element(SwitchCase) -> "case" Expression:composite(value) ":"
+		(Statement:composite(statements))*;
+		
+	DefaultSwitchCase:element(SwitchCase) -> "default" ":"
+		(Statement:composite(statements))*;
+
 	WhileStatement:element(WhileStatement) -> "while" "(" Expression:composite(condition) ")" CodeBlock:composite(whileBlock);
 
-	ForEachStatement:element(ForEachStatement) -> "for" "(" VariableDefOrReference ":" Expression:composite(iterableExpression) ")" CodeBlock:composite(forBlock);
-	VariableDefOrReference -> Variable:composite(iteratorVariableDefinition);
-	VariableDefOrReference -> VariableAccess:composite(iteratorVariableReference);
+	ForStatement:element(ForStatement) -> "for" "("
+			(VariableDefOrReference)? ";"
+			Expression:composite(termination) ";"
+			Assignment:composite(increment)
+		")"
+		CodeBlock:composite(body);
+		
+	VariableDefOrReference -> Variable:composite(countVariableDefinition);
+	VariableDefOrReference -> Assignment:composite(countVariableReference);
 
 	//Expression -> LogicalOr;
 	Expression -> L9Expr;
@@ -322,7 +308,10 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	//CreateObject:element(CreateObject) -> "new" ws(space) TypeRule
 	//	("(" Expression:composite(arguments) ("," Expression:composite(arguments))* ")")?;
-	CreateObject:element(CreateObject) -> "new" ws(space) IdExpr:composite(classifierTypeExpr);
+	CreateObject:element(CreateObject) -> "new" ws(space) CreateObjectType;
+
+	CreateObjectType -> IdExpr:composite(classifierTypeExpr) (ArrayDimension:composite(arrayDimensions))*;
+	CreateObjectType -> PrimitiveType:composite(primitiveType) (ArrayDimension:composite(arrayDimensions))*;	
 		
 	IdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleIdExpr;
 	IdExpr:element(IdExpr) -> SimpleIdExpr;
@@ -337,13 +326,9 @@ syntax(Model) "resources/dbl.ecore" {
 	ArgumentExpression:element(ArgumentExpression) -> (Expression:composite(arguments) ("," Expression:composite(arguments))*)?;
 	
 	VariableAccess:element(VariableAccess) -> IdExpr:composite(idExpr);
-	VariableAccess:element(VariableAccess) -> ExpandableElement;
 	
 	TypeAccess:element(TypeAccess) -> IdExpr:composite(idExpr);
-	TypeAccess:element(TypeAccess) -> ExpandableElement;
-	
-	ExpandableElement -> ExpandExpression:composite(expandExpression);
-	
+		
 	ProcedureCall:element(ProcedureCall) -> ProcedureCallIdExpr:composite(procedureAccess);
 	
 	ProcedureCallIdExpr:element(IdExpr) -> SimpleProcedureCall;
@@ -368,28 +353,6 @@ syntax(Model) "resources/dbl.ecore" {
 	PredefinedId:element(AfterInSet) -> "after";
 	
 	NamedElementRef:element(NamedElement) -> IDENTIFIER:composite(name);
-	
-	// ID RESOLUTION
-	
-	IdResolution:element(IdResolution) -> "idr" STRINGDEF:composite(metaModelPlatformURI) "{" (Pattern:composite(patterns))* "}";
-	
-	Pattern:element(Pattern) -> (IsTopPattern:composite(top))? "pattern" IDENTIFIER:composite(name)
-		"context" Parameter:composite(context) CodeBlock:composite(codeBlock);
-		
-	IsTopPattern:constant("true":EBoolean) -> "top";
-	
-	Statement -> Hidden;
-	Statement -> Container;
-	Statement -> Consider;
-	Statement -> Include;
-	
-	Hidden:element(PotentiallyHiddenIdElements) -> "hidden" CodeBlock:composite(codeBlock);
-	Container:element(FindContainer) -> "container" Parameter:composite(variableBinding) CodeBlock:composite(containerBlock)
-		("else" CodeBlock:composite(elseBlock))?;
-	Consider:element(ConsiderIdElements) -> "consider" Expression:composite(elementsQuery) ";";
-	Include:element(IncludePattern) -> "include" PatternRef:reference(pattern) "in" Expression:composite(context) ";";
-	
-	PatternRef:element(Pattern) -> IDENTIFIER:composite(name);
 	
 	// EXTENSIONS
 	
@@ -497,11 +460,11 @@ syntax(Model) "resources/dbl.ecore" {
 	BooleanPropertyType:element(BooleanPropertyType) -> STRINGDEF:composite(terminal);
 
 	// raw -> variable=$$Variable	
-	ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? ReferableRhsTypeRef:reference(type)
-		("{" ("idr" "=" PatternRef:reference(idResolutionPattern))? "}")?;
+	ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? ReferableRhsTypeRef:reference(type);
 	CompositePropertyType:element(CompositePropertyType) -> IsListType:composite(list) "(" ReferableRhsTypeRef:reference(type) ")";
 	CompositePropertyType:element(CompositePropertyType) -> ReferableRhsTypeRef:reference(type);
 
+	IsListType:constant("true":EBoolean) -> "list";
 	IsRawReference:constant("true":EBoolean) -> "$";
 	
 	ReferableRhsTypeRef:element(ReferableRhsType) -> IDENTIFIER:composite(name);

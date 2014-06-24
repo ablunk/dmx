@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class StatementImpl extends ConstructImpl implements Statement {
+public class StatementImpl extends ExtensibleElementImpl implements Statement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

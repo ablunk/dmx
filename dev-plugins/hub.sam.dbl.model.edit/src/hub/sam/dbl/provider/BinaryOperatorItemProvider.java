@@ -515,7 +515,6 @@ public class BinaryOperatorItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
 			childFeature == DblPackage.Literals.BINARY_OPERATOR__OP1 ||
 			childFeature == DblPackage.Literals.BINARY_OPERATOR__OP2;
 

@@ -11,12 +11,11 @@ import hub.sam.dbl.Clazz;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
-import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.Interface;
 import hub.sam.dbl.ModifierExtensionsContainer;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.StartCodeBlock;
+import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.Variable;
 
 import java.util.Collection;
@@ -28,7 +27,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -42,8 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getModifierExtensions <em>Modifier Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getMethods <em>Methods</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getImplementedInterfaces <em>Implemented Interfaces</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getSuperClasses <em>Super Classes</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getInitialBlock <em>Initial Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getFinalBlock <em>Final Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getActionsBlock <em>Actions Block</em>}</li>
@@ -51,7 +48,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getClearBlock <em>Clear Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#isActive <em>Active</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getConstructor <em>Constructor</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getBaseConstructorArguments <em>Base Constructor Arguments</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,24 +95,14 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	protected EList<Procedure> methods;
 
 	/**
-	 * The cached value of the '{@link #getSuperClass() <em>Super Class</em>}' reference.
+	 * The cached value of the '{@link #getSuperClasses() <em>Super Classes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSuperClass()
+	 * @see #getSuperClasses()
 	 * @generated
 	 * @ordered
 	 */
-	protected Clazz superClass;
-
-	/**
-	 * The cached value of the '{@link #getImplementedInterfaces() <em>Implemented Interfaces</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getImplementedInterfaces()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Interface> implementedInterfaces;
+	protected EList<SuperClassSpecification> superClasses;
 
 	/**
 	 * The cached value of the '{@link #getInitialBlock() <em>Initial Block</em>}' containment reference.
@@ -199,16 +185,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	protected Constructor constructor;
 
 	/**
-	 * The cached value of the '{@link #getBaseConstructorArguments() <em>Base Constructor Arguments</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBaseConstructorArguments()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Expression> baseConstructorArguments;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -280,49 +256,11 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Clazz getSuperClass() {
-		if (superClass != null && superClass.eIsProxy()) {
-			InternalEObject oldSuperClass = (InternalEObject)superClass;
-			superClass = (Clazz)eResolveProxy(oldSuperClass);
-			if (superClass != oldSuperClass) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.CLAZZ__SUPER_CLASS, oldSuperClass, superClass));
-			}
+	public EList<SuperClassSpecification> getSuperClasses() {
+		if (superClasses == null) {
+			superClasses = new EObjectContainmentEList<SuperClassSpecification>(SuperClassSpecification.class, this, DblPackage.CLAZZ__SUPER_CLASSES);
 		}
-		return superClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Clazz basicGetSuperClass() {
-		return superClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSuperClass(Clazz newSuperClass) {
-		Clazz oldSuperClass = superClass;
-		superClass = newSuperClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.CLAZZ__SUPER_CLASS, oldSuperClass, superClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Interface> getImplementedInterfaces() {
-		if (implementedInterfaces == null) {
-			implementedInterfaces = new EObjectResolvingEList<Interface>(Interface.class, this, DblPackage.CLAZZ__IMPLEMENTED_INTERFACES);
-		}
-		return implementedInterfaces;
+		return superClasses;
 	}
 
 	/**
@@ -609,18 +547,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Expression> getBaseConstructorArguments() {
-		if (baseConstructorArguments == null) {
-			baseConstructorArguments = new EObjectContainmentEList<Expression>(Expression.class, this, DblPackage.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS);
-		}
-		return baseConstructorArguments;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -632,6 +558,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 			case DblPackage.CLAZZ__METHODS:
 				return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
+			case DblPackage.CLAZZ__SUPER_CLASSES:
+				return ((InternalEList<?>)getSuperClasses()).basicRemove(otherEnd, msgs);
 			case DblPackage.CLAZZ__INITIAL_BLOCK:
 				return basicSetInitialBlock(null, msgs);
 			case DblPackage.CLAZZ__FINAL_BLOCK:
@@ -644,8 +572,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return basicSetClearBlock(null, msgs);
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				return basicSetConstructor(null, msgs);
-			case DblPackage.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS:
-				return ((InternalEList<?>)getBaseConstructorArguments()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -666,11 +592,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return getAttributes();
 			case DblPackage.CLAZZ__METHODS:
 				return getMethods();
-			case DblPackage.CLAZZ__SUPER_CLASS:
-				if (resolve) return getSuperClass();
-				return basicGetSuperClass();
-			case DblPackage.CLAZZ__IMPLEMENTED_INTERFACES:
-				return getImplementedInterfaces();
+			case DblPackage.CLAZZ__SUPER_CLASSES:
+				return getSuperClasses();
 			case DblPackage.CLAZZ__INITIAL_BLOCK:
 				return getInitialBlock();
 			case DblPackage.CLAZZ__FINAL_BLOCK:
@@ -685,8 +608,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return isActive();
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				return getConstructor();
-			case DblPackage.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS:
-				return getBaseConstructorArguments();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -716,12 +637,9 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				getMethods().clear();
 				getMethods().addAll((Collection<? extends Procedure>)newValue);
 				return;
-			case DblPackage.CLAZZ__SUPER_CLASS:
-				setSuperClass((Clazz)newValue);
-				return;
-			case DblPackage.CLAZZ__IMPLEMENTED_INTERFACES:
-				getImplementedInterfaces().clear();
-				getImplementedInterfaces().addAll((Collection<? extends Interface>)newValue);
+			case DblPackage.CLAZZ__SUPER_CLASSES:
+				getSuperClasses().clear();
+				getSuperClasses().addAll((Collection<? extends SuperClassSpecification>)newValue);
 				return;
 			case DblPackage.CLAZZ__INITIAL_BLOCK:
 				setInitialBlock((StartCodeBlock)newValue);
@@ -743,10 +661,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return;
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				setConstructor((Constructor)newValue);
-				return;
-			case DblPackage.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS:
-				getBaseConstructorArguments().clear();
-				getBaseConstructorArguments().addAll((Collection<? extends Expression>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -772,11 +686,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__METHODS:
 				getMethods().clear();
 				return;
-			case DblPackage.CLAZZ__SUPER_CLASS:
-				setSuperClass((Clazz)null);
-				return;
-			case DblPackage.CLAZZ__IMPLEMENTED_INTERFACES:
-				getImplementedInterfaces().clear();
+			case DblPackage.CLAZZ__SUPER_CLASSES:
+				getSuperClasses().clear();
 				return;
 			case DblPackage.CLAZZ__INITIAL_BLOCK:
 				setInitialBlock((StartCodeBlock)null);
@@ -799,9 +710,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				setConstructor((Constructor)null);
 				return;
-			case DblPackage.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS:
-				getBaseConstructorArguments().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -822,10 +730,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return attributes != null && !attributes.isEmpty();
 			case DblPackage.CLAZZ__METHODS:
 				return methods != null && !methods.isEmpty();
-			case DblPackage.CLAZZ__SUPER_CLASS:
-				return superClass != null;
-			case DblPackage.CLAZZ__IMPLEMENTED_INTERFACES:
-				return implementedInterfaces != null && !implementedInterfaces.isEmpty();
+			case DblPackage.CLAZZ__SUPER_CLASSES:
+				return superClasses != null && !superClasses.isEmpty();
 			case DblPackage.CLAZZ__INITIAL_BLOCK:
 				return initialBlock != null;
 			case DblPackage.CLAZZ__FINAL_BLOCK:
@@ -840,8 +746,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return active != ACTIVE_EDEFAULT;
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				return constructor != null;
-			case DblPackage.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS:
-				return baseConstructorArguments != null && !baseConstructorArguments.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -869,8 +773,7 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			switch (derivedFeatureID) {
 				case DblPackage.CLAZZ__ATTRIBUTES: return DblPackage.CLASS_SIMILAR__ATTRIBUTES;
 				case DblPackage.CLAZZ__METHODS: return DblPackage.CLASS_SIMILAR__METHODS;
-				case DblPackage.CLAZZ__SUPER_CLASS: return DblPackage.CLASS_SIMILAR__SUPER_CLASS;
-				case DblPackage.CLAZZ__IMPLEMENTED_INTERFACES: return DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES;
+				case DblPackage.CLAZZ__SUPER_CLASSES: return DblPackage.CLASS_SIMILAR__SUPER_CLASSES;
 				case DblPackage.CLAZZ__INITIAL_BLOCK: return DblPackage.CLASS_SIMILAR__INITIAL_BLOCK;
 				case DblPackage.CLAZZ__FINAL_BLOCK: return DblPackage.CLASS_SIMILAR__FINAL_BLOCK;
 				case DblPackage.CLAZZ__ACTIONS_BLOCK: return DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK;
@@ -905,8 +808,7 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			switch (baseFeatureID) {
 				case DblPackage.CLASS_SIMILAR__ATTRIBUTES: return DblPackage.CLAZZ__ATTRIBUTES;
 				case DblPackage.CLASS_SIMILAR__METHODS: return DblPackage.CLAZZ__METHODS;
-				case DblPackage.CLASS_SIMILAR__SUPER_CLASS: return DblPackage.CLAZZ__SUPER_CLASS;
-				case DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES: return DblPackage.CLAZZ__IMPLEMENTED_INTERFACES;
+				case DblPackage.CLASS_SIMILAR__SUPER_CLASSES: return DblPackage.CLAZZ__SUPER_CLASSES;
 				case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK: return DblPackage.CLAZZ__INITIAL_BLOCK;
 				case DblPackage.CLASS_SIMILAR__FINAL_BLOCK: return DblPackage.CLAZZ__FINAL_BLOCK;
 				case DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK: return DblPackage.CLAZZ__ACTIONS_BLOCK;

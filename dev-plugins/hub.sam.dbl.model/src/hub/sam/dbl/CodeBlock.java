@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface CodeBlock extends Construct {
+public interface CodeBlock extends ExtensibleElement {
 	/**
 	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Statement}.

@@ -60,7 +60,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case DblPackage.CONSTRUCT: return createConstruct();
 			case DblPackage.MODEL: return createModel();
 			case DblPackage.IMPORT: return createImport();
 			case DblPackage.MODULE: return createModule();
@@ -70,16 +69,12 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.DOUBLE_TYPE: return createDoubleType();
 			case DblPackage.STRING_TYPE: return createStringType();
 			case DblPackage.PROCEDURE: return createProcedure();
-			case DblPackage.SIMPLE_ANNOTATION: return createSimpleAnnotation();
-			case DblPackage.ANNOTATION: return createAnnotation();
-			case DblPackage.ANNOTATION_APPLICATION: return createAnnotationApplication();
-			case DblPackage.KEY_VALUE_PAIR: return createKeyValuePair();
+			case DblPackage.FOR_STATEMENT: return createForStatement();
 			case DblPackage.NATIVE_BINDING: return createNativeBinding();
 			case DblPackage.START_CODE_BLOCK: return createStartCodeBlock();
 			case DblPackage.CLAZZ: return createClazz();
 			case DblPackage.CONSTRUCTOR: return createConstructor();
 			case DblPackage.CLASS_AUGMENT: return createClassAugment();
-			case DblPackage.INTERFACE: return createInterface();
 			case DblPackage.VARIABLE: return createVariable();
 			case DblPackage.PARAMETER: return createParameter();
 			case DblPackage.NAMED_ELEMENT: return createNamedElement();
@@ -90,7 +85,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.EXPRESSION_STATEMENT: return createExpressionStatement();
 			case DblPackage.STATEMENT_EXPRESSION: return createStatementExpression();
 			case DblPackage.ASSIGNMENT: return createAssignment();
-			case DblPackage.DEPRECATED_PROCEDURE_CALL_STATEMENT: return createDeprecatedProcedureCallStatement();
 			case DblPackage.PROCEDURE_CALL: return createProcedureCall();
 			case DblPackage.RETURN: return createReturn();
 			case DblPackage.WAIT_UNTIL: return createWaitUntil();
@@ -107,7 +101,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.WHILE_STATEMENT: return createWhileStatement();
 			case DblPackage.BREAK_STATEMENT: return createBreakStatement();
 			case DblPackage.CONTINUE_STATEMENT: return createContinueStatement();
-			case DblPackage.FOR_EACH_STATEMENT: return createForEachStatement();
 			case DblPackage.EXPRESSION: return createExpression();
 			case DblPackage.L1_EXPR: return createL1Expr();
 			case DblPackage.PLUS: return createPlus();
@@ -156,7 +149,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.META_ACCESS: return createMetaAccess();
 			case DblPackage.TYPE_ACCESS: return createTypeAccess();
 			case DblPackage.EXTENSIBLE_ELEMENT: return createExtensibleElement();
-			case DblPackage.NAMED_EXTENSIBLE: return createNamedExtensible();
 			case DblPackage.CLASS_CONTENT_EXTENSION: return createClassContentExtension();
 			case DblPackage.MODULE_CONTENT_EXTENSION: return createModuleContentExtension();
 			case DblPackage.EXTENSION_DEFINITION: return createExtensionDefinition();
@@ -198,16 +190,13 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.QUOTED_STATEMENTS: return createQuotedStatements();
 			case DblPackage.QUOTED_CLASS_CONTENT: return createQuotedClassContent();
 			case DblPackage.QUOTED_MODULE_CONTENT: return createQuotedModuleContent();
-			case DblPackage.EXPANDABLE_ELEMENT: return createExpandableElement();
 			case DblPackage.TEST_STATEMENT: return createTestStatement();
-			case DblPackage.ID_RESOLUTION: return createIdResolution();
 			case DblPackage.PATTERN: return createPattern();
-			case DblPackage.POTENTIALLY_HIDDEN_ID_ELEMENTS: return createPotentiallyHiddenIdElements();
-			case DblPackage.FIND_CONTAINER: return createFindContainer();
-			case DblPackage.CONSIDER_ID_ELEMENTS: return createConsiderIdElements();
-			case DblPackage.INCLUDE_PATTERN: return createIncludePattern();
 			case DblPackage.YIELD: return createYield();
-			case DblPackage.LIST_DIMENSION: return createListDimension();
+			case DblPackage.SUPER_CLASS_SPECIFICATION: return createSuperClassSpecification();
+			case DblPackage.ARRAY_DIMENSION: return createArrayDimension();
+			case DblPackage.SWITCH_CASE: return createSwitchCase();
+			case DblPackage.SWITCH_STATEMENT: return createSwitchStatement();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -249,16 +238,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Construct createConstruct() {
-		ConstructImpl construct = new ConstructImpl();
-		return construct;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Model createModel() {
 		ModelImpl model = new ModelImpl();
 		return model;
@@ -289,9 +268,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ListDimension createListDimension() {
-		ListDimensionImpl listDimension = new ListDimensionImpl();
-		return listDimension;
+	public ArrayDimension createArrayDimension() {
+		ArrayDimensionImpl arrayDimension = new ArrayDimensionImpl();
+		return arrayDimension;
 	}
 
 	/**
@@ -359,49 +338,19 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SimpleAnnotation createSimpleAnnotation() {
-		SimpleAnnotationImpl simpleAnnotation = new SimpleAnnotationImpl();
-		return simpleAnnotation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Annotation createAnnotation() {
-		AnnotationImpl annotation = new AnnotationImpl();
-		return annotation;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AnnotationApplication createAnnotationApplication() {
-		AnnotationApplicationImpl annotationApplication = new AnnotationApplicationImpl();
-		return annotationApplication;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public KeyValuePair createKeyValuePair() {
-		KeyValuePairImpl keyValuePair = new KeyValuePairImpl();
-		return keyValuePair;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public NativeBinding createNativeBinding() {
 		NativeBindingImpl nativeBinding = new NativeBindingImpl();
 		return nativeBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SuperClassSpecification createSuperClassSpecification() {
+		SuperClassSpecificationImpl superClassSpecification = new SuperClassSpecificationImpl();
+		return superClassSpecification;
 	}
 
 	/**
@@ -442,16 +391,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public ClassAugment createClassAugment() {
 		ClassAugmentImpl classAugment = new ClassAugmentImpl();
 		return classAugment;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Interface createInterface() {
-		InterfaceImpl interface_ = new InterfaceImpl();
-		return interface_;
 	}
 
 	/**
@@ -552,16 +491,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Assignment createAssignment() {
 		AssignmentImpl assignment = new AssignmentImpl();
 		return assignment;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DeprecatedProcedureCallStatement createDeprecatedProcedureCallStatement() {
-		DeprecatedProcedureCallStatementImpl deprecatedProcedureCallStatement = new DeprecatedProcedureCallStatementImpl();
-		return deprecatedProcedureCallStatement;
 	}
 
 	/**
@@ -709,6 +638,26 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public SwitchStatement createSwitchStatement() {
+		SwitchStatementImpl switchStatement = new SwitchStatementImpl();
+		return switchStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SwitchCase createSwitchCase() {
+		SwitchCaseImpl switchCase = new SwitchCaseImpl();
+		return switchCase;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public WhileStatement createWhileStatement() {
 		WhileStatementImpl whileStatement = new WhileStatementImpl();
 		return whileStatement;
@@ -739,9 +688,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ForEachStatement createForEachStatement() {
-		ForEachStatementImpl forEachStatement = new ForEachStatementImpl();
-		return forEachStatement;
+	public ForStatement createForStatement() {
+		ForStatementImpl forStatement = new ForStatementImpl();
+		return forStatement;
 	}
 
 	/**
@@ -1229,16 +1178,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedExtensible createNamedExtensible() {
-		NamedExtensibleImpl namedExtensible = new NamedExtensibleImpl();
-		return namedExtensible;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ClassContentExtension createClassContentExtension() {
 		ClassContentExtensionImpl classContentExtension = new ClassContentExtensionImpl();
 		return classContentExtension;
@@ -1649,16 +1588,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExpandableElement createExpandableElement() {
-		ExpandableElementImpl expandableElement = new ExpandableElementImpl();
-		return expandableElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public TestStatement createTestStatement() {
 		TestStatementImpl testStatement = new TestStatementImpl();
 		return testStatement;
@@ -1669,59 +1598,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IdResolution createIdResolution() {
-		IdResolutionImpl idResolution = new IdResolutionImpl();
-		return idResolution;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public Pattern createPattern() {
 		PatternImpl pattern = new PatternImpl();
 		return pattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PotentiallyHiddenIdElements createPotentiallyHiddenIdElements() {
-		PotentiallyHiddenIdElementsImpl potentiallyHiddenIdElements = new PotentiallyHiddenIdElementsImpl();
-		return potentiallyHiddenIdElements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FindContainer createFindContainer() {
-		FindContainerImpl findContainer = new FindContainerImpl();
-		return findContainer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ConsiderIdElements createConsiderIdElements() {
-		ConsiderIdElementsImpl considerIdElements = new ConsiderIdElementsImpl();
-		return considerIdElements;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IncludePattern createIncludePattern() {
-		IncludePatternImpl includePattern = new IncludePatternImpl();
-		return includePattern;
 	}
 
 	/**

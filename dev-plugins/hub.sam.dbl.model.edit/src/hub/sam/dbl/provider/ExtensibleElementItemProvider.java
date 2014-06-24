@@ -34,7 +34,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class ExtensibleElementItemProvider
-	extends ItemProviderAdapter
+	extends NamedElementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -62,25 +62,48 @@ public class ExtensibleElementItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addObjectIsExtensionInstancePropertyDescriptor(object);
+			addConcreteSyntaxPropertyDescriptor(object);
+			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Object Is Extension Instance feature.
+	 * This adds a property descriptor for the Concrete Syntax feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addObjectIsExtensionInstancePropertyDescriptor(Object object) {
+	protected void addConcreteSyntaxPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_objectIsExtensionInstance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_objectIsExtensionInstance_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE,
+				 getString("_UI_ExtensibleElement_concreteSyntax_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_concreteSyntax_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Instance Of Extension Definition feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInstanceOfExtensionDefinitionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_instanceOfExtensionDefinition_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_instanceOfExtensionDefinition_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION,
 				 true,
 				 false,
 				 false,
@@ -108,8 +131,10 @@ public class ExtensibleElementItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		ExtensibleElement extensibleElement = (ExtensibleElement)object;
-		return getString("_UI_ExtensibleElement_type") + " " + extensibleElement.isObjectIsExtensionInstance();
+		String label = ((ExtensibleElement)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ExtensibleElement_type") :
+			getString("_UI_ExtensibleElement_type") + " " + label;
 	}
 
 	/**
@@ -124,7 +149,8 @@ public class ExtensibleElementItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ExtensibleElement.class)) {
-			case DblPackage.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE:
+			case DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX:
+			case DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
@@ -141,17 +167,6 @@ public class ExtensibleElementItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return dblEditPlugin.INSTANCE;
 	}
 
 }

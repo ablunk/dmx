@@ -26,15 +26,6 @@ public interface DblFactory extends EFactory {
 	DblFactory eINSTANCE = hub.sam.dbl.impl.DblFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Construct</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Construct</em>'.
-	 * @generated
-	 */
-	Construct createConstruct();
-
-	/**
 	 * Returns a new object of class '<em>Model</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -62,13 +53,13 @@ public interface DblFactory extends EFactory {
 	Module createModule();
 
 	/**
-	 * Returns a new object of class '<em>List Dimension</em>'.
+	 * Returns a new object of class '<em>Array Dimension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>List Dimension</em>'.
+	 * @return a new object of class '<em>Array Dimension</em>'.
 	 * @generated
 	 */
-	ListDimension createListDimension();
+	ArrayDimension createArrayDimension();
 
 	/**
 	 * Returns a new object of class '<em>Void Type</em>'.
@@ -125,42 +116,6 @@ public interface DblFactory extends EFactory {
 	Procedure createProcedure();
 
 	/**
-	 * Returns a new object of class '<em>Simple Annotation</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Simple Annotation</em>'.
-	 * @generated
-	 */
-	SimpleAnnotation createSimpleAnnotation();
-
-	/**
-	 * Returns a new object of class '<em>Annotation</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Annotation</em>'.
-	 * @generated
-	 */
-	Annotation createAnnotation();
-
-	/**
-	 * Returns a new object of class '<em>Annotation Application</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Annotation Application</em>'.
-	 * @generated
-	 */
-	AnnotationApplication createAnnotationApplication();
-
-	/**
-	 * Returns a new object of class '<em>Key Value Pair</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Key Value Pair</em>'.
-	 * @generated
-	 */
-	KeyValuePair createKeyValuePair();
-
-	/**
 	 * Returns a new object of class '<em>Native Binding</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -168,6 +123,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	NativeBinding createNativeBinding();
+
+	/**
+	 * Returns a new object of class '<em>Super Class Specification</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Super Class Specification</em>'.
+	 * @generated
+	 */
+	SuperClassSpecification createSuperClassSpecification();
 
 	/**
 	 * Returns a new object of class '<em>Start Code Block</em>'.
@@ -204,15 +168,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	ClassAugment createClassAugment();
-
-	/**
-	 * Returns a new object of class '<em>Interface</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Interface</em>'.
-	 * @generated
-	 */
-	Interface createInterface();
 
 	/**
 	 * Returns a new object of class '<em>Variable</em>'.
@@ -303,15 +258,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	Assignment createAssignment();
-
-	/**
-	 * Returns a new object of class '<em>Deprecated Procedure Call Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Deprecated Procedure Call Statement</em>'.
-	 * @generated
-	 */
-	DeprecatedProcedureCallStatement createDeprecatedProcedureCallStatement();
 
 	/**
 	 * Returns a new object of class '<em>Procedure Call</em>'.
@@ -440,6 +386,24 @@ public interface DblFactory extends EFactory {
 	IfStatement createIfStatement();
 
 	/**
+	 * Returns a new object of class '<em>Switch Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Switch Statement</em>'.
+	 * @generated
+	 */
+	SwitchStatement createSwitchStatement();
+
+	/**
+	 * Returns a new object of class '<em>Switch Case</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Switch Case</em>'.
+	 * @generated
+	 */
+	SwitchCase createSwitchCase();
+
+	/**
 	 * Returns a new object of class '<em>While Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -467,13 +431,13 @@ public interface DblFactory extends EFactory {
 	ContinueStatement createContinueStatement();
 
 	/**
-	 * Returns a new object of class '<em>For Each Statement</em>'.
+	 * Returns a new object of class '<em>For Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>For Each Statement</em>'.
+	 * @return a new object of class '<em>For Statement</em>'.
 	 * @generated
 	 */
-	ForEachStatement createForEachStatement();
+	ForStatement createForStatement();
 
 	/**
 	 * Returns a new object of class '<em>Expression</em>'.
@@ -908,15 +872,6 @@ public interface DblFactory extends EFactory {
 	ExtensibleElement createExtensibleElement();
 
 	/**
-	 * Returns a new object of class '<em>Named Extensible</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Named Extensible</em>'.
-	 * @generated
-	 */
-	NamedExtensible createNamedExtensible();
-
-	/**
 	 * Returns a new object of class '<em>Class Content Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1286,15 +1241,6 @@ public interface DblFactory extends EFactory {
 	QuotedModuleContent createQuotedModuleContent();
 
 	/**
-	 * Returns a new object of class '<em>Expandable Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Expandable Element</em>'.
-	 * @generated
-	 */
-	ExpandableElement createExpandableElement();
-
-	/**
 	 * Returns a new object of class '<em>Test Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1304,15 +1250,6 @@ public interface DblFactory extends EFactory {
 	TestStatement createTestStatement();
 
 	/**
-	 * Returns a new object of class '<em>Id Resolution</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Id Resolution</em>'.
-	 * @generated
-	 */
-	IdResolution createIdResolution();
-
-	/**
 	 * Returns a new object of class '<em>Pattern</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1320,42 +1257,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	Pattern createPattern();
-
-	/**
-	 * Returns a new object of class '<em>Potentially Hidden Id Elements</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Potentially Hidden Id Elements</em>'.
-	 * @generated
-	 */
-	PotentiallyHiddenIdElements createPotentiallyHiddenIdElements();
-
-	/**
-	 * Returns a new object of class '<em>Find Container</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Find Container</em>'.
-	 * @generated
-	 */
-	FindContainer createFindContainer();
-
-	/**
-	 * Returns a new object of class '<em>Consider Id Elements</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Consider Id Elements</em>'.
-	 * @generated
-	 */
-	ConsiderIdElements createConsiderIdElements();
-
-	/**
-	 * Returns a new object of class '<em>Include Pattern</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Include Pattern</em>'.
-	 * @generated
-	 */
-	IncludePattern createIncludePattern();
 
 	/**
 	 * Returns the package supported by this factory.

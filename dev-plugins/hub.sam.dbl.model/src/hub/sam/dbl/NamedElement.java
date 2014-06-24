@@ -6,6 +6,8 @@
  */
 package hub.sam.dbl;
 
+import org.eclipse.emf.ecore.EObject;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -23,7 +25,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface NamedElement extends ExpandableElement {
+public interface NamedElement extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

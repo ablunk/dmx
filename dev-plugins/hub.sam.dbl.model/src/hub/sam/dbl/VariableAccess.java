@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface VariableAccess extends ElementAccess, ExpandableElement {
+public interface VariableAccess extends ElementAccess {
 } // VariableAccess

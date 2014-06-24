@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.ClassifierImpl#getExpandExpression <em>Expand Expression</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassifierImpl#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassifierImpl#getBindings <em>Bindings</em>}</li>
  * </ul>
@@ -45,16 +44,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public abstract class ClassifierImpl extends TypeImpl implements Classifier {
-	/**
-	 * The cached value of the '{@link #getExpandExpression() <em>Expand Expression</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getExpandExpression()
-	 * @generated
-	 * @ordered
-	 */
-	protected ExpandExpression expandExpression;
-
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -109,49 +98,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExpandExpression getExpandExpression() {
-		return expandExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetExpandExpression(ExpandExpression newExpandExpression, NotificationChain msgs) {
-		ExpandExpression oldExpandExpression = expandExpression;
-		expandExpression = newExpandExpression;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CLASSIFIER__EXPAND_EXPRESSION, oldExpandExpression, newExpandExpression);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setExpandExpression(ExpandExpression newExpandExpression) {
-		if (newExpandExpression != expandExpression) {
-			NotificationChain msgs = null;
-			if (expandExpression != null)
-				msgs = ((InternalEObject)expandExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.CLASSIFIER__EXPAND_EXPRESSION, null, msgs);
-			if (newExpandExpression != null)
-				msgs = ((InternalEObject)newExpandExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.CLASSIFIER__EXPAND_EXPRESSION, null, msgs);
-			msgs = basicSetExpandExpression(newExpandExpression, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.CLASSIFIER__EXPAND_EXPRESSION, newExpandExpression, newExpandExpression));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public String getName() {
 		return name;
 	}
@@ -188,8 +134,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.CLASSIFIER__EXPAND_EXPRESSION:
-				return basicSetExpandExpression(null, msgs);
 			case DblPackage.CLASSIFIER__BINDINGS:
 				return ((InternalEList<?>)getBindings()).basicRemove(otherEnd, msgs);
 		}
@@ -204,8 +148,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.CLASSIFIER__EXPAND_EXPRESSION:
-				return getExpandExpression();
 			case DblPackage.CLASSIFIER__NAME:
 				return getName();
 			case DblPackage.CLASSIFIER__BINDINGS:
@@ -223,9 +165,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.CLASSIFIER__EXPAND_EXPRESSION:
-				setExpandExpression((ExpandExpression)newValue);
-				return;
 			case DblPackage.CLASSIFIER__NAME:
 				setName((String)newValue);
 				return;
@@ -245,9 +184,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.CLASSIFIER__EXPAND_EXPRESSION:
-				setExpandExpression((ExpandExpression)null);
-				return;
 			case DblPackage.CLASSIFIER__NAME:
 				setName(NAME_EDEFAULT);
 				return;
@@ -266,8 +202,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.CLASSIFIER__EXPAND_EXPRESSION:
-				return expandExpression != null;
 			case DblPackage.CLASSIFIER__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case DblPackage.CLASSIFIER__BINDINGS:
@@ -283,12 +217,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == ExpandableElement.class) {
-			switch (derivedFeatureID) {
-				case DblPackage.CLASSIFIER__EXPAND_EXPRESSION: return DblPackage.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION;
-				default: return -1;
-			}
-		}
 		if (baseClass == NamedElement.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.CLASSIFIER__NAME: return DblPackage.NAMED_ELEMENT__NAME;
@@ -310,12 +238,6 @@ public abstract class ClassifierImpl extends TypeImpl implements Classifier {
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == ExpandableElement.class) {
-			switch (baseFeatureID) {
-				case DblPackage.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION: return DblPackage.CLASSIFIER__EXPAND_EXPRESSION;
-				default: return -1;
-			}
-		}
 		if (baseClass == NamedElement.class) {
 			switch (baseFeatureID) {
 				case DblPackage.NAMED_ELEMENT__NAME: return DblPackage.CLASSIFIER__NAME;

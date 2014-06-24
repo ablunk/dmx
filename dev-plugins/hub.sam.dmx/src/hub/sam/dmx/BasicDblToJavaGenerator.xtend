@@ -1,59 +1,84 @@
 package hub.sam.dmx
 
+import hub.sam.dbl.ActivateObject
+import hub.sam.dbl.ActiveLiteral
 import hub.sam.dbl.AddToSet
+import hub.sam.dbl.Advance
+import hub.sam.dbl.AfterInSet
 import hub.sam.dbl.And
 import hub.sam.dbl.ArgumentExpression
 import hub.sam.dbl.Assignment
+import hub.sam.dbl.BeforeInSet
 import hub.sam.dbl.BinaryOperator
 import hub.sam.dbl.BoolType
 import hub.sam.dbl.BreakStatement
 import hub.sam.dbl.Cast
 import hub.sam.dbl.Classifier
 import hub.sam.dbl.Clazz
+import hub.sam.dbl.Contains
 import hub.sam.dbl.ContinueStatement
 import hub.sam.dbl.CreateObject
 import hub.sam.dbl.Div
+import hub.sam.dbl.DoubleLiteral
 import hub.sam.dbl.DoubleType
 import hub.sam.dbl.EmptySet
 import hub.sam.dbl.Equal
 import hub.sam.dbl.Expression
-import hub.sam.dbl.ForEachStatement
+import hub.sam.dbl.FalseLiteral
+import hub.sam.dbl.FirstInSet
+import hub.sam.dbl.ForStatement
 import hub.sam.dbl.Greater
 import hub.sam.dbl.GreaterEqual
 import hub.sam.dbl.IdExpr
 import hub.sam.dbl.IfStatement
+import hub.sam.dbl.IndexOf
+import hub.sam.dbl.IntLiteral
 import hub.sam.dbl.IntType
+import hub.sam.dbl.LastInSet
 import hub.sam.dbl.Less
 import hub.sam.dbl.LessEqual
-import hub.sam.dbl.ListDimension
 import hub.sam.dbl.MappingStatement
+import hub.sam.dbl.MeLiteral
 import hub.sam.dbl.Minus
 import hub.sam.dbl.Mod
 import hub.sam.dbl.Model
 import hub.sam.dbl.Module
 import hub.sam.dbl.Mul
+import hub.sam.dbl.NamedElement
 import hub.sam.dbl.Neg
 import hub.sam.dbl.Not
 import hub.sam.dbl.NotEqual
+import hub.sam.dbl.NullLiteral
+import hub.sam.dbl.ObjectAt
 import hub.sam.dbl.Or
 import hub.sam.dbl.Plus
+import hub.sam.dbl.PredefinedId
 import hub.sam.dbl.Print
 import hub.sam.dbl.Procedure
 import hub.sam.dbl.ProcedureCall
+import hub.sam.dbl.PropertyBindingExpr
+import hub.sam.dbl.Reactivate
 import hub.sam.dbl.ReferableRhsType
 import hub.sam.dbl.RemoveFromSet
 import hub.sam.dbl.ResetGenContextStatement
 import hub.sam.dbl.Return
 import hub.sam.dbl.SetGenContextStatement
+import hub.sam.dbl.SizeOfSet
 import hub.sam.dbl.Statement
+import hub.sam.dbl.StringLiteral
 import hub.sam.dbl.StringType
+import hub.sam.dbl.SuperLiteral
+import hub.sam.dbl.TimeLiteral
+import hub.sam.dbl.TrueLiteral
 import hub.sam.dbl.Type
 import hub.sam.dbl.TypeAccess
 import hub.sam.dbl.TypedElement
 import hub.sam.dbl.Variable
 import hub.sam.dbl.VariableAccess
 import hub.sam.dbl.VoidType
+import hub.sam.dbl.Wait
 import hub.sam.dbl.WhileStatement
+import hub.sam.dbl.Yield
 import java.io.BufferedWriter
 import java.io.File
 import java.io.FileWriter
@@ -61,35 +86,8 @@ import java.io.Writer
 import java.util.List
 import java.util.regex.Matcher
 import org.eclipse.core.runtime.IPath
-import org.eclipse.emf.ecore.resource.Resource
-import hub.sam.dbl.StringLiteral
-import hub.sam.dbl.IntLiteral
-import hub.sam.dbl.TrueLiteral
-import hub.sam.dbl.FalseLiteral
-import hub.sam.dbl.DoubleLiteral
-import hub.sam.dbl.NullLiteral
-import hub.sam.dbl.Yield
-import hub.sam.dbl.Wait
-import hub.sam.dbl.ActivateObject
-import hub.sam.dbl.Reactivate
-import hub.sam.dbl.Advance
-import hub.sam.dbl.TimeLiteral
-import hub.sam.dbl.ActiveLiteral
-import hub.sam.dbl.PropertyBindingExpr
-import hub.sam.dbl.Interface
 import org.eclipse.emf.ecore.EObject
-import hub.sam.dbl.IndexOf
-import hub.sam.dbl.NamedElement
-import hub.sam.dbl.PredefinedId
-import hub.sam.dbl.MeLiteral
-import hub.sam.dbl.SuperLiteral
-import hub.sam.dbl.SizeOfSet
-import hub.sam.dbl.FirstInSet
-import hub.sam.dbl.LastInSet
-import hub.sam.dbl.Contains
-import hub.sam.dbl.ObjectAt
-import hub.sam.dbl.AfterInSet
-import hub.sam.dbl.BeforeInSet
+import org.eclipse.emf.ecore.resource.Resource
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -149,8 +147,10 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 		import hub.sam.dmx.javasim.desmoj.DefaultSimulation;
 			
 		public class «name»
-		«IF superClass != null»
-			extends «superClass.genType»
+		«IF superClasses.size > 1»
+			<! multiple inheritance is not supported for Java as a target language at the moment !>
+		«ELSEIF superClasses.size == 1»
+			extends «superClasses.head.clazz.genType»
 		«ELSEIF active»
 			extends SimulationProcess
 		«ENDIF»
@@ -163,7 +163,7 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 				«ENDFOR»
 			«ENDIF»
 			) {
-				«IF active && superClass == null»
+				«IF active && superClasses.empty»
 					super("«name»");
 				«ENDIF»
 			
@@ -431,8 +431,15 @@ class BasicDblToJavaGenerator {
 	}
 	
 	def dispatch String genStatement(Assignment stm) {
+		stm.genAssignment(true)
+	}
+	
+	def String genAssignment(Assignment stm, boolean genSemicolon) {
 		val it = stm
-		'''«variable.genExpr» = «value.genExpr»;'''
+		'''
+		«variable.genExpr» = «value.genExpr»
+		«IF genSemicolon»;«ENDIF»
+		'''
 	}
 	
 	def dispatch String genStatement(Return stm) {
@@ -467,13 +474,25 @@ class BasicDblToJavaGenerator {
 		'continue;'
 	}
 
-	def dispatch String genStatement(ForEachStatement stm) {
-		val it = stm
-		''''''
-		// remove foreach and add for as a basic statement.
-		// define foreach as an extension by using for.
+	def dispatch String genStatement(ForStatement stm) {
 		// it is better to provide for as a basic statement as GPL compilers
 		// provide optimizations for it.
+		val it = stm
+		'''
+		for (
+			«IF countVariableDefinition != null»
+				«countVariableDefinition.genType» «countVariableDefinition.name»
+			«ELSEIF countVariableReference != null»
+				«countVariableReference.genAssignment(false)»
+			«ENDIF»
+			;
+			«termination.genExpr»
+			;
+			«increment.genAssignment(false)»
+		) {
+			«body.statements.gen»
+		}
+		'''
 	}
 
 	def dispatch String genStatement(WhileStatement stm) {
@@ -501,20 +520,20 @@ class BasicDblToJavaGenerator {
 
 	def dispatch String genStatement(Variable variable) {
 		val it = variable
-		val ListDimension ldim1 = if (isList && listDims.size() == 1) listDims.get(1) else null;
+		//val ListDimension ldim1 = if (isList && listDims.size() == 1) listDims.get(1) else null;
 		
 		'''
 		«genType» «name»
 		«IF initialValue != null»
 			= «initialValue.genExpr»
-		«ELSEIF isList»
-			«IF ldim1 != null»
-				«IF ldim1.size > 0»
-					= new «ldim1.genTypeNoWrapOfListPrimitives»[«ldim1.size»]
-				«ELSE»
-					= new java.util.ArrayList<«ldim1.genTypeWrapListPrimitives»>()
-				«ENDIF»
-			«ENDIF»
+		«ELSEIF !arrayDimensions.empty»
+«««			«IF ldim1 != null»
+«««				«IF ldim1.size > 0»
+«««					= new «ldim1.genTypeNoWrapOfListPrimitives»[«ldim1.size»]
+«««				«ELSE»
+«««					= new java.util.ArrayList<«ldim1.genTypeWrapListPrimitives»>()
+«««				«ENDIF»
+«««			«ENDIF»
 		«ELSEIF classifierTypeExpr != null»
 			= null
 		«ENDIF»
@@ -769,19 +788,20 @@ class BasicDblToJavaGenerator {
 	
 	def dispatch String genType(TypedElement typedElement) {
 		val it = typedElement
-		if (!isList) {
+		if (arrayDimensions.empty) {
 			genTypeNoWrapOfListPrimitives
 		}
 		else {
-			if (listDims.size == 1) {
-				val ldim1 = listDims.get(0)
-				if (ldim1.size > 0) {
-					ldim1.genTypeNoWrapOfListPrimitives + '[]'
-				}
-				else {
-					'java.util.List<' + ldim1.genTypeWrapListPrimitives + '>'
-				}
-			}
+			// TODO
+//			if (listDims.size == 1) {
+//				val ldim1 = listDims.get(0)
+//				if (ldim1.size > 0) {
+//					ldim1.genTypeNoWrapOfListPrimitives + '[]'
+//				}
+//				else {
+//					'java.util.List<' + ldim1.genTypeWrapListPrimitives + '>'
+//				}
+//			}
 		}
 	}
 	
@@ -904,8 +924,10 @@ class BasicDblToJavaGenerator {
 		package «javaPackagePrefix»;
 		
 		public class «name»
-		«IF superClass != null»
-			extends «superClass.genType»
+		«IF superClasses.size > 1»
+			<! multiple inheritance is not supported for Java as a target language at the moment !>
+		«ELSEIF superClasses.size == 1»
+			extends «superClasses.head.clazz.genType»
 		«ENDIF»
 		{
 
@@ -924,10 +946,6 @@ class BasicDblToJavaGenerator {
 			public «methods.genProcedures(false)»
 		}
 		'''
-	}
-	
-	def dispatch String gen(Interface iface) {
-		// empty at the moment
 	}
 	
 	private def Writer beginTargetFile(IPath folder, String fileName) {

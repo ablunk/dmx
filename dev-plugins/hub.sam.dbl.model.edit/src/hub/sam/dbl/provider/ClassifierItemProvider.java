@@ -103,7 +103,6 @@ public class ClassifierItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION);
 			childrenFeatures.add(DblPackage.Literals.CLASSIFIER__BINDINGS);
 		}
 		return childrenFeatures;
@@ -151,7 +150,6 @@ public class ClassifierItemProvider
 			case DblPackage.CLASSIFIER__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case DblPackage.CLASSIFIER__EXPAND_EXPRESSION:
 			case DblPackage.CLASSIFIER__BINDINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -169,11 +167,6 @@ public class ClassifierItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION,
-				 DblFactory.eINSTANCE.createExpandExpression()));
 
 		newChildDescriptors.add
 			(createChildParameter

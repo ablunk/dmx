@@ -72,8 +72,8 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	protected DblSwitch<Adapter> modelSwitch =
 		new DblSwitch<Adapter>() {
 			@Override
-			public Adapter caseConstruct(Construct object) {
-				return createConstructAdapter();
+			public Adapter caseExtensibleElement(ExtensibleElement object) {
+				return createExtensibleElementAdapter();
 			}
 			@Override
 			public Adapter caseModel(Model object) {
@@ -104,8 +104,8 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createTypedElementAdapter();
 			}
 			@Override
-			public Adapter caseListDimension(ListDimension object) {
-				return createListDimensionAdapter();
+			public Adapter caseArrayDimension(ArrayDimension object) {
+				return createArrayDimensionAdapter();
 			}
 			@Override
 			public Adapter casePrimitiveType(PrimitiveType object) {
@@ -136,26 +136,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createProcedureAdapter();
 			}
 			@Override
-			public Adapter caseSimpleAnnotation(SimpleAnnotation object) {
-				return createSimpleAnnotationAdapter();
-			}
-			@Override
-			public Adapter caseAnnotation(Annotation object) {
-				return createAnnotationAdapter();
-			}
-			@Override
-			public Adapter caseAnnotationApplication(AnnotationApplication object) {
-				return createAnnotationApplicationAdapter();
-			}
-			@Override
-			public Adapter caseKeyValuePair(KeyValuePair object) {
-				return createKeyValuePairAdapter();
-			}
-			@Override
-			public Adapter caseAnnotatableElement(AnnotatableElement object) {
-				return createAnnotatableElementAdapter();
-			}
-			@Override
 			public Adapter caseClassifier(Classifier object) {
 				return createClassifierAdapter();
 			}
@@ -166,6 +146,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseClassSimilar(ClassSimilar object) {
 				return createClassSimilarAdapter();
+			}
+			@Override
+			public Adapter caseSuperClassSpecification(SuperClassSpecification object) {
+				return createSuperClassSpecificationAdapter();
 			}
 			@Override
 			public Adapter caseStartCodeBlock(StartCodeBlock object) {
@@ -182,10 +166,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseClassAugment(ClassAugment object) {
 				return createClassAugmentAdapter();
-			}
-			@Override
-			public Adapter caseInterface(Interface object) {
-				return createInterfaceAdapter();
 			}
 			@Override
 			public Adapter caseAbstractVariable(AbstractVariable object) {
@@ -230,10 +210,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseAssignment(Assignment object) {
 				return createAssignmentAdapter();
-			}
-			@Override
-			public Adapter caseDeprecatedProcedureCallStatement(DeprecatedProcedureCallStatement object) {
-				return createDeprecatedProcedureCallStatementAdapter();
 			}
 			@Override
 			public Adapter caseProcedureCall(ProcedureCall object) {
@@ -296,6 +272,14 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createIfStatementAdapter();
 			}
 			@Override
+			public Adapter caseSwitchStatement(SwitchStatement object) {
+				return createSwitchStatementAdapter();
+			}
+			@Override
+			public Adapter caseSwitchCase(SwitchCase object) {
+				return createSwitchCaseAdapter();
+			}
+			@Override
 			public Adapter caseWhileStatement(WhileStatement object) {
 				return createWhileStatementAdapter();
 			}
@@ -308,8 +292,8 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createContinueStatementAdapter();
 			}
 			@Override
-			public Adapter caseForEachStatement(ForEachStatement object) {
-				return createForEachStatementAdapter();
+			public Adapter caseForStatement(ForStatement object) {
+				return createForStatementAdapter();
 			}
 			@Override
 			public Adapter caseExpression(Expression object) {
@@ -520,14 +504,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createTypeAccessAdapter();
 			}
 			@Override
-			public Adapter caseExtensibleElement(ExtensibleElement object) {
-				return createExtensibleElementAdapter();
-			}
-			@Override
-			public Adapter caseNamedExtensible(NamedExtensible object) {
-				return createNamedExtensibleAdapter();
-			}
-			@Override
 			public Adapter caseClassContentExtension(ClassContentExtension object) {
 				return createClassContentExtensionAdapter();
 			}
@@ -708,36 +684,12 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createQuotedModuleContentAdapter();
 			}
 			@Override
-			public Adapter caseExpandableElement(ExpandableElement object) {
-				return createExpandableElementAdapter();
-			}
-			@Override
-			public Adapter caseTestStatement(TestStatement object) {
-				return createTestStatementAdapter();
-			}
-			@Override
-			public Adapter caseIdResolution(IdResolution object) {
-				return createIdResolutionAdapter();
-			}
-			@Override
 			public Adapter casePattern(Pattern object) {
 				return createPatternAdapter();
 			}
 			@Override
-			public Adapter casePotentiallyHiddenIdElements(PotentiallyHiddenIdElements object) {
-				return createPotentiallyHiddenIdElementsAdapter();
-			}
-			@Override
-			public Adapter caseFindContainer(FindContainer object) {
-				return createFindContainerAdapter();
-			}
-			@Override
-			public Adapter caseConsiderIdElements(ConsiderIdElements object) {
-				return createConsiderIdElementsAdapter();
-			}
-			@Override
-			public Adapter caseIncludePattern(IncludePattern object) {
-				return createIncludePatternAdapter();
+			public Adapter caseTestStatement(TestStatement object) {
+				return createTestStatementAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -758,20 +710,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Construct <em>Construct</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.Construct
-	 * @generated
-	 */
-	public Adapter createConstructAdapter() {
-		return null;
-	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Model <em>Model</em>}'.
@@ -872,16 +810,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ListDimension <em>List Dimension</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ArrayDimension <em>Array Dimension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.ListDimension
+	 * @see hub.sam.dbl.ArrayDimension
 	 * @generated
 	 */
-	public Adapter createListDimensionAdapter() {
+	public Adapter createArrayDimensionAdapter() {
 		return null;
 	}
 
@@ -984,76 +922,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SimpleAnnotation <em>Simple Annotation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.SimpleAnnotation
-	 * @generated
-	 */
-	public Adapter createSimpleAnnotationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Annotation <em>Annotation</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.Annotation
-	 * @generated
-	 */
-	public Adapter createAnnotationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.AnnotationApplication <em>Annotation Application</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.AnnotationApplication
-	 * @generated
-	 */
-	public Adapter createAnnotationApplicationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.KeyValuePair <em>Key Value Pair</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.KeyValuePair
-	 * @generated
-	 */
-	public Adapter createKeyValuePairAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.AnnotatableElement <em>Annotatable Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.AnnotatableElement
-	 * @generated
-	 */
-	public Adapter createAnnotatableElementAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Classifier <em>Classifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1092,6 +960,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createClassSimilarAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SuperClassSpecification <em>Super Class Specification</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.SuperClassSpecification
+	 * @generated
+	 */
+	public Adapter createSuperClassSpecificationAdapter() {
 		return null;
 	}
 
@@ -1148,20 +1030,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createClassAugmentAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Interface <em>Interface</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.Interface
-	 * @generated
-	 */
-	public Adapter createInterfaceAdapter() {
 		return null;
 	}
 
@@ -1316,20 +1184,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAssignmentAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.DeprecatedProcedureCallStatement <em>Deprecated Procedure Call Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.DeprecatedProcedureCallStatement
-	 * @generated
-	 */
-	public Adapter createDeprecatedProcedureCallStatementAdapter() {
 		return null;
 	}
 
@@ -1544,6 +1398,34 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SwitchStatement <em>Switch Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.SwitchStatement
+	 * @generated
+	 */
+	public Adapter createSwitchStatementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SwitchCase <em>Switch Case</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.SwitchCase
+	 * @generated
+	 */
+	public Adapter createSwitchCaseAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.WhileStatement <em>While Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1586,16 +1468,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ForEachStatement <em>For Each Statement</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ForStatement <em>For Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.ForEachStatement
+	 * @see hub.sam.dbl.ForStatement
 	 * @generated
 	 */
-	public Adapter createForEachStatementAdapter() {
+	public Adapter createForStatementAdapter() {
 		return null;
 	}
 
@@ -2342,20 +2224,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.NamedExtensible <em>Named Extensible</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.NamedExtensible
-	 * @generated
-	 */
-	public Adapter createNamedExtensibleAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ClassContentExtension <em>Class Content Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2986,20 +2854,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ExpandableElement <em>Expandable Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ExpandableElement
-	 * @generated
-	 */
-	public Adapter createExpandableElementAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.TestStatement <em>Test Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -3014,20 +2868,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.IdResolution <em>Id Resolution</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.IdResolution
-	 * @generated
-	 */
-	public Adapter createIdResolutionAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Pattern <em>Pattern</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -3038,62 +2878,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createPatternAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.PotentiallyHiddenIdElements <em>Potentially Hidden Id Elements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.PotentiallyHiddenIdElements
-	 * @generated
-	 */
-	public Adapter createPotentiallyHiddenIdElementsAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.FindContainer <em>Find Container</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.FindContainer
-	 * @generated
-	 */
-	public Adapter createFindContainerAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ConsiderIdElements <em>Consider Id Elements</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ConsiderIdElements
-	 * @generated
-	 */
-	public Adapter createConsiderIdElementsAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.IncludePattern <em>Include Pattern</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.IncludePattern
-	 * @generated
-	 */
-	public Adapter createIncludePatternAdapter() {
 		return null;
 	}
 

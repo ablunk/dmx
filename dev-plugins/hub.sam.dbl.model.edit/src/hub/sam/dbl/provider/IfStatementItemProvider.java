@@ -592,7 +592,6 @@ public class IfStatementItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
 			childFeature == DblPackage.Literals.IF_STATEMENT__CONDITION ||
 			childFeature == DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION ||
 			childFeature == DblPackage.Literals.IF_STATEMENT__IF_CASE_BLOCK ||

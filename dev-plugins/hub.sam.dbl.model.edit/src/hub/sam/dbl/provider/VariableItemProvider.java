@@ -64,34 +64,12 @@ public class VariableItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addObjectIsExtensionInstancePropertyDescriptor(object);
 			addConcreteSyntaxPropertyDescriptor(object);
+			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
 			addControlPropertyDescriptor(object);
 			addClazzPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Object Is Extension Instance feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addObjectIsExtensionInstancePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_objectIsExtensionInstance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_objectIsExtensionInstance_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -105,13 +83,35 @@ public class VariableItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Construct_concreteSyntax_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Construct_concreteSyntax_feature", "_UI_Construct_type"),
-				 DblPackage.Literals.CONSTRUCT__CONCRETE_SYNTAX,
+				 getString("_UI_ExtensibleElement_concreteSyntax_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_concreteSyntax_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Instance Of Extension Definition feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInstanceOfExtensionDefinitionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_instanceOfExtensionDefinition_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_instanceOfExtensionDefinition_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -228,8 +228,8 @@ public class VariableItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Variable.class)) {
-			case DblPackage.VARIABLE__OBJECT_IS_EXTENSION_INSTANCE:
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
+			case DblPackage.VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION:
 			case DblPackage.VARIABLE__CONTROL:
 			case DblPackage.VARIABLE__CLAZZ:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
@@ -257,16 +257,6 @@ public class VariableItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createExtensibleElement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtensible()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createConstruct()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -312,11 +302,6 @@ public class VariableItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createDeprecatedProcedureCallStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -386,6 +371,11 @@ public class VariableItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
@@ -401,7 +391,7 @@ public class VariableItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createForEachStatement()));
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -645,26 +635,6 @@ public class VariableItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createPotentiallyHiddenIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createFindContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createConsiderIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createIncludePattern()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(DblPackage.Literals.VARIABLE__INITIAL_VALUE,
 				 DblFactory.eINSTANCE.createExpression()));
 
@@ -856,10 +826,9 @@ public class VariableItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
+			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR ||
 			childFeature == DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS ||
-			childFeature == DblPackage.Literals.VARIABLE__INITIAL_VALUE ||
-			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR;
+			childFeature == DblPackage.Literals.VARIABLE__INITIAL_VALUE;
 
 		if (qualify) {
 			return getString

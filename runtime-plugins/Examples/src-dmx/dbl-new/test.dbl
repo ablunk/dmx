@@ -1,0 +1,13 @@
+module test {
+
+class X {}
+
+void main() {
+	int[] a = new X(3)[3];
+	
+	int i;
+	for (i=0; i<10; i=i+1) {
+	}
+}
+
+}

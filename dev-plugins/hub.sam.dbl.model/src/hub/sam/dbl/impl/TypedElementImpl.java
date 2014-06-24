@@ -6,7 +6,9 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Expression;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.ListDimension;
 import hub.sam.dbl.PrimitiveType;
@@ -33,9 +35,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#getPrimitiveType <em>Primitive Type</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#isIsList <em>Is List</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#getListDims <em>List Dims</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#getArrayDimensions <em>Array Dimensions</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,36 +54,6 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 	protected PrimitiveType primitiveType;
 
 	/**
-	 * The default value of the '{@link #isIsList() <em>Is List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isIsList()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean IS_LIST_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isIsList() <em>Is List</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isIsList()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean isList = IS_LIST_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getListDims() <em>List Dims</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getListDims()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ListDimension> listDims;
-
-	/**
 	 * The cached value of the '{@link #getClassifierTypeExpr() <em>Classifier Type Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -91,6 +62,16 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 	 * @ordered
 	 */
 	protected IdExpr classifierTypeExpr;
+
+	/**
+	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimensions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArrayDimensions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ArrayDimension> arrayDimensions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -159,39 +140,6 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isIsList() {
-		return isList;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIsList(boolean newIsList) {
-		boolean oldIsList = isList;
-		isList = newIsList;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.TYPED_ELEMENT__IS_LIST, oldIsList, isList));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ListDimension> getListDims() {
-		if (listDims == null) {
-			listDims = new EObjectContainmentEList<ListDimension>(ListDimension.class, this, DblPackage.TYPED_ELEMENT__LIST_DIMS);
-		}
-		return listDims;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public IdExpr getClassifierTypeExpr() {
 		return classifierTypeExpr;
 	}
@@ -235,15 +183,27 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ArrayDimension> getArrayDimensions() {
+		if (arrayDimensions == null) {
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS);
+		}
+		return arrayDimensions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE:
 				return basicSetPrimitiveType(null, msgs);
-			case DblPackage.TYPED_ELEMENT__LIST_DIMS:
-				return ((InternalEList<?>)getListDims()).basicRemove(otherEnd, msgs);
 			case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR:
 				return basicSetClassifierTypeExpr(null, msgs);
+			case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS:
+				return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -258,12 +218,10 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 		switch (featureID) {
 			case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE:
 				return getPrimitiveType();
-			case DblPackage.TYPED_ELEMENT__IS_LIST:
-				return isIsList();
-			case DblPackage.TYPED_ELEMENT__LIST_DIMS:
-				return getListDims();
 			case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR:
 				return getClassifierTypeExpr();
+			case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS:
+				return getArrayDimensions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -280,15 +238,12 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 			case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)newValue);
 				return;
-			case DblPackage.TYPED_ELEMENT__IS_LIST:
-				setIsList((Boolean)newValue);
-				return;
-			case DblPackage.TYPED_ELEMENT__LIST_DIMS:
-				getListDims().clear();
-				getListDims().addAll((Collection<? extends ListDimension>)newValue);
-				return;
 			case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)newValue);
+				return;
+			case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS:
+				getArrayDimensions().clear();
+				getArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -305,14 +260,11 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 			case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)null);
 				return;
-			case DblPackage.TYPED_ELEMENT__IS_LIST:
-				setIsList(IS_LIST_EDEFAULT);
-				return;
-			case DblPackage.TYPED_ELEMENT__LIST_DIMS:
-				getListDims().clear();
-				return;
 			case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR:
 				setClassifierTypeExpr((IdExpr)null);
+				return;
+			case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS:
+				getArrayDimensions().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -328,30 +280,12 @@ public abstract class TypedElementImpl extends EObjectImpl implements TypedEleme
 		switch (featureID) {
 			case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE:
 				return primitiveType != null;
-			case DblPackage.TYPED_ELEMENT__IS_LIST:
-				return isList != IS_LIST_EDEFAULT;
-			case DblPackage.TYPED_ELEMENT__LIST_DIMS:
-				return listDims != null && !listDims.isEmpty();
 			case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR:
 				return classifierTypeExpr != null;
+			case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS:
+				return arrayDimensions != null && !arrayDimensions.isEmpty();
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (isList: ");
-		result.append(isList);
-		result.append(')');
-		return result.toString();
 	}
 
 } //TypedElementImpl

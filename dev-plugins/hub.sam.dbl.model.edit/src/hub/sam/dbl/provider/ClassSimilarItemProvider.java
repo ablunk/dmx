@@ -63,54 +63,8 @@ public class ClassSimilarItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSuperClassPropertyDescriptor(object);
-			addImplementedInterfacesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Super Class feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSuperClassPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ClassSimilar_superClass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ClassSimilar_superClass_feature", "_UI_ClassSimilar_type"),
-				 DblPackage.Literals.CLASS_SIMILAR__SUPER_CLASS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Implemented Interfaces feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addImplementedInterfacesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ClassSimilar_implementedInterfaces_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ClassSimilar_implementedInterfaces_feature", "_UI_ClassSimilar_type"),
-				 DblPackage.Literals.CLASS_SIMILAR__IMPLEMENTED_INTERFACES,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -128,6 +82,7 @@ public class ClassSimilarItemProvider
 			childrenFeatures.add(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__METHODS);
+			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__SUPER_CLASSES);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__INITIAL_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__FINAL_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__ACTIONS_BLOCK);
@@ -176,6 +131,7 @@ public class ClassSimilarItemProvider
 			case DblPackage.CLASS_SIMILAR__MODIFIER_EXTENSIONS:
 			case DblPackage.CLASS_SIMILAR__ATTRIBUTES:
 			case DblPackage.CLASS_SIMILAR__METHODS:
+			case DblPackage.CLASS_SIMILAR__SUPER_CLASSES:
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
 			case DblPackage.CLASS_SIMILAR__FINAL_BLOCK:
 			case DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK:
@@ -202,16 +158,6 @@ public class ClassSimilarItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createExtensibleElement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtensible()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createConstruct()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -257,11 +203,6 @@ public class ClassSimilarItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createDeprecatedProcedureCallStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -331,6 +272,11 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
@@ -346,7 +292,7 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createForEachStatement()));
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -590,26 +536,6 @@ public class ClassSimilarItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createPotentiallyHiddenIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createFindContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createConsiderIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createIncludePattern()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES,
 				 DblFactory.eINSTANCE.createVariable()));
 
@@ -617,6 +543,11 @@ public class ClassSimilarItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__METHODS,
 				 DblFactory.eINSTANCE.createProcedure()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CLASS_SIMILAR__SUPER_CLASSES,
+				 DblFactory.eINSTANCE.createSuperClassSpecification()));
 
 		newChildDescriptors.add
 			(createChildParameter

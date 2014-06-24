@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface TypeAccess extends ElementAccess, ExpandableElement {
+public interface TypeAccess extends ElementAccess {
 } // TypeAccess

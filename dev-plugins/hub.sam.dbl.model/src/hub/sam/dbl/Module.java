@@ -19,10 +19,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link hub.sam.dbl.Module#getClassifiers <em>Classifiers</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getClassAugments <em>Class Augments</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getExtensionDefs <em>Extension Defs</em>}</li>
- *   <li>{@link hub.sam.dbl.Module#getAnnotationDefs <em>Annotation Defs</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getProcedures <em>Procedures</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getVariables <em>Variables</em>}</li>
- *   <li>{@link hub.sam.dbl.Module#getIdRes <em>Id Res</em>}</li>
  * </ul>
  * </p>
  *
@@ -80,22 +78,6 @@ public interface Module extends NamedElement, EmbeddableExtensionsContainer {
 	EList<ExtensionDefinition> getExtensionDefs();
 
 	/**
-	 * Returns the value of the '<em><b>Annotation Defs</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.Annotation}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Annotation Defs</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Annotation Defs</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getModule_AnnotationDefs()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<Annotation> getAnnotationDefs();
-
-	/**
 	 * Returns the value of the '<em><b>Procedures</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Procedure}.
 	 * <!-- begin-user-doc -->
@@ -126,31 +108,5 @@ public interface Module extends NamedElement, EmbeddableExtensionsContainer {
 	 * @generated
 	 */
 	EList<Variable> getVariables();
-
-	/**
-	 * Returns the value of the '<em><b>Id Res</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Id Res</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id Res</em>' containment reference.
-	 * @see #setIdRes(IdResolution)
-	 * @see hub.sam.dbl.DblPackage#getModule_IdRes()
-	 * @model containment="true"
-	 * @generated
-	 */
-	IdResolution getIdRes();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.Module#getIdRes <em>Id Res</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id Res</em>' containment reference.
-	 * @see #getIdRes()
-	 * @generated
-	 */
-	void setIdRes(IdResolution value);
 
 } // Module

@@ -12,7 +12,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link hub.sam.dbl.ExtensibleElement#isObjectIsExtensionInstance <em>Object Is Extension Instance</em>}</li>
+ *   <li>{@link hub.sam.dbl.ExtensibleElement#getConcreteSyntax <em>Concrete Syntax</em>}</li>
+ *   <li>{@link hub.sam.dbl.ExtensibleElement#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
  * </ul>
  * </p>
  *
@@ -20,32 +21,58 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface ExtensibleElement extends EObject {
+public interface ExtensibleElement extends NamedElement {
 	/**
-	 * Returns the value of the '<em><b>Object Is Extension Instance</b></em>' attribute.
-	 * The default value is <code>"false"</code>.
+	 * Returns the value of the '<em><b>Concrete Syntax</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Object Is Extension Instance</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Concrete Syntax</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Object Is Extension Instance</em>' attribute.
-	 * @see #setObjectIsExtensionInstance(boolean)
-	 * @see hub.sam.dbl.DblPackage#getExtensibleElement_ObjectIsExtensionInstance()
+	 * @return the value of the '<em>Concrete Syntax</em>' attribute.
+	 * @see #setConcreteSyntax(String)
+	 * @see hub.sam.dbl.DblPackage#getExtensibleElement_ConcreteSyntax()
+	 * @model
+	 * @generated
+	 */
+	String getConcreteSyntax();
+
+	/**
+	 * Sets the value of the '{@link hub.sam.dbl.ExtensibleElement#getConcreteSyntax <em>Concrete Syntax</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Concrete Syntax</em>' attribute.
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 */
+	void setConcreteSyntax(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Instance Of Extension Definition</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Instance Of Extension Definition</em>' attribute.
+	 * @see #setInstanceOfExtensionDefinition(boolean)
+	 * @see hub.sam.dbl.DblPackage#getExtensibleElement_InstanceOfExtensionDefinition()
 	 * @model default="false" required="true"
 	 * @generated
 	 */
-	boolean isObjectIsExtensionInstance();
+	boolean isInstanceOfExtensionDefinition();
 
 	/**
-	 * Sets the value of the '{@link hub.sam.dbl.ExtensibleElement#isObjectIsExtensionInstance <em>Object Is Extension Instance</em>}' attribute.
+	 * Sets the value of the '{@link hub.sam.dbl.ExtensibleElement#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Object Is Extension Instance</em>' attribute.
-	 * @see #isObjectIsExtensionInstance()
+	 * @param value the new value of the '<em>Instance Of Extension Definition</em>' attribute.
+	 * @see #isInstanceOfExtensionDefinition()
 	 * @generated
 	 */
-	void setObjectIsExtensionInstance(boolean value);
+	void setInstanceOfExtensionDefinition(boolean value);
 
 } // ExtensibleElement

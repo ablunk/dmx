@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="test">
+    <classifiers xsi:type="dbl:Clazz" name="X"/>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <arrayDimensions/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.0">
+            <arguments>
+              <arguments xsi:type="dbl:IntLiteral" value="3"/>
+            </arguments>
+          </classifierTypeExpr>
+          <arrayDimensions>
+            <size xsi:type="dbl:IntLiteral" value="3"/>
+          </arrayDimensions>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="i">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </statements>
+      <statements xsi:type="dbl:ForStatement">
+        <countVariableReference>
+          <variable>
+            <idExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+          </variable>
+          <value xsi:type="dbl:IntLiteral"/>
+        </countVariableReference>
+        <termination xsi:type="dbl:Less">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+          <op2 xsi:type="dbl:IntLiteral" value="10"/>
+        </termination>
+        <increment>
+          <variable>
+            <idExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+          </variable>
+          <value xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+            <op2 xsi:type="dbl:IntLiteral" value="1"/>
+          </value>
+        </increment>
+        <body/>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class CodeBlockImpl extends ConstructImpl implements CodeBlock {
+public class CodeBlockImpl extends ExtensibleElementImpl implements CodeBlock {
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

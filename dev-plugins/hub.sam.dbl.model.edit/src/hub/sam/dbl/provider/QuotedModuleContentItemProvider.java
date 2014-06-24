@@ -103,15 +103,12 @@ public class QuotedModuleContentItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION);
 			childrenFeatures.add(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__CLASSIFIERS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__CLASS_AUGMENTS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_DEFS);
-			childrenFeatures.add(DblPackage.Literals.MODULE__ANNOTATION_DEFS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__PROCEDURES);
 			childrenFeatures.add(DblPackage.Literals.MODULE__VARIABLES);
-			childrenFeatures.add(DblPackage.Literals.MODULE__ID_RES);
 		}
 		return childrenFeatures;
 	}
@@ -169,15 +166,12 @@ public class QuotedModuleContentItemProvider
 			case DblPackage.QUOTED_MODULE_CONTENT__NAME:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
-			case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPRESSION:
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS:
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASS_AUGMENTS:
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFS:
-			case DblPackage.QUOTED_MODULE_CONTENT__ANNOTATION_DEFS:
 			case DblPackage.QUOTED_MODULE_CONTENT__PROCEDURES:
 			case DblPackage.QUOTED_MODULE_CONTENT__VARIABLES:
-			case DblPackage.QUOTED_MODULE_CONTENT__ID_RES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -197,23 +191,8 @@ public class QuotedModuleContentItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION,
-				 DblFactory.eINSTANCE.createExpandExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createExtensibleElement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtensible()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createConstruct()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -259,11 +238,6 @@ public class QuotedModuleContentItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createDeprecatedProcedureCallStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -333,6 +307,11 @@ public class QuotedModuleContentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
@@ -348,7 +327,7 @@ public class QuotedModuleContentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createForEachStatement()));
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -592,33 +571,8 @@ public class QuotedModuleContentItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createPotentiallyHiddenIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createFindContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createConsiderIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createIncludePattern()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(DblPackage.Literals.MODULE__CLASSIFIERS,
 				 DblFactory.eINSTANCE.createClazz()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODULE__CLASSIFIERS,
-				 DblFactory.eINSTANCE.createInterface()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -632,11 +586,6 @@ public class QuotedModuleContentItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__ANNOTATION_DEFS,
-				 DblFactory.eINSTANCE.createAnnotation()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(DblPackage.Literals.MODULE__PROCEDURES,
 				 DblFactory.eINSTANCE.createProcedure()));
 
@@ -644,11 +593,6 @@ public class QuotedModuleContentItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODULE__VARIABLES,
 				 DblFactory.eINSTANCE.createVariable()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODULE__ID_RES,
-				 DblFactory.eINSTANCE.createIdResolution()));
 	}
 
 	/**
@@ -663,7 +607,6 @@ public class QuotedModuleContentItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
 			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
 			childFeature == DblPackage.Literals.MODULE__PROCEDURES ||
 			childFeature == DblPackage.Literals.MODULE__VARIABLES;

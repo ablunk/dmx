@@ -13,6 +13,7 @@ import hub.sam.dbl.Procedure;
 import hub.sam.dbl.Reactivate;
 import hub.sam.dbl.StartCodeBlock;
 import hub.sam.dbl.Statement;
+import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.TimeLiteral;
 import hub.sam.dbl.Variable;
 import hub.sam.dbl.Wait;
@@ -181,19 +182,30 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.append(_name, "");
       _builder.newLineIfNotEmpty();
       {
-        Clazz _superClass = it.getSuperClass();
-        boolean _notEquals = (!Objects.equal(_superClass, null));
-        if (_notEquals) {
-          _builder.append("extends ");
-          Clazz _superClass_1 = it.getSuperClass();
-          String _genType = this.genType(_superClass_1);
-          _builder.append(_genType, "");
-          _builder.newLineIfNotEmpty();
+        EList<SuperClassSpecification> _superClasses = it.getSuperClasses();
+        int _size = _superClasses.size();
+        boolean _greaterThan = (_size > 1);
+        if (_greaterThan) {
+          _builder.append("<! multiple inheritance is not supported for Java as a target language at the moment !>");
+          _builder.newLine();
         } else {
-          boolean _isActive = it.isActive();
-          if (_isActive) {
-            _builder.append("extends SimulationProcess");
-            _builder.newLine();
+          EList<SuperClassSpecification> _superClasses_1 = it.getSuperClasses();
+          int _size_1 = _superClasses_1.size();
+          boolean _equals = (_size_1 == 1);
+          if (_equals) {
+            _builder.append("extends ");
+            EList<SuperClassSpecification> _superClasses_2 = it.getSuperClasses();
+            SuperClassSpecification _head = IterableExtensions.<SuperClassSpecification>head(_superClasses_2);
+            Clazz _clazz = _head.getClazz();
+            String _genType = this.genType(_clazz);
+            _builder.append(_genType, "");
+            _builder.newLineIfNotEmpty();
+          } else {
+            boolean _isActive = it.isActive();
+            if (_isActive) {
+              _builder.append("extends SimulationProcess");
+              _builder.newLine();
+            }
           }
         }
       }
@@ -208,8 +220,8 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.newLineIfNotEmpty();
       {
         Constructor _constructor = it.getConstructor();
-        boolean _notEquals_1 = (!Objects.equal(_constructor, null));
-        if (_notEquals_1) {
+        boolean _notEquals = (!Objects.equal(_constructor, null));
+        if (_notEquals) {
           {
             Constructor _constructor_1 = it.getConstructor();
             EList<Parameter> _parameters = _constructor_1.getParameters();
@@ -237,9 +249,9 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
         if (!_isActive_1) {
           _and = false;
         } else {
-          Clazz _superClass_2 = it.getSuperClass();
-          boolean _equals = Objects.equal(_superClass_2, null);
-          _and = (_isActive_1 && _equals);
+          EList<SuperClassSpecification> _superClasses_3 = it.getSuperClasses();
+          boolean _isEmpty = _superClasses_3.isEmpty();
+          _and = (_isActive_1 && _isEmpty);
         }
         if (_and) {
           _builder.append("\t\t");
@@ -274,8 +286,8 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
           _builder.newLine();
           {
             StartCodeBlock _actionsBlock = it.getActionsBlock();
-            boolean _notEquals_2 = (!Objects.equal(_actionsBlock, null));
-            if (_notEquals_2) {
+            boolean _notEquals_1 = (!Objects.equal(_actionsBlock, null));
+            if (_notEquals_1) {
               _builder.append("\t");
               _builder.append("\t");
               StartCodeBlock _actionsBlock_1 = it.getActionsBlock();

@@ -7,15 +7,14 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ClassSimilar;
-import hub.sam.dbl.Clazz;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.Interface;
 import hub.sam.dbl.ModifierExtensionsContainer;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.QuotedClassContent;
 import hub.sam.dbl.StartCodeBlock;
+import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.Variable;
 
 import java.util.Collection;
@@ -27,7 +26,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -41,8 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getModifierExtensions <em>Modifier Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getMethods <em>Methods</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getSuperClass <em>Super Class</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getImplementedInterfaces <em>Implemented Interfaces</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getSuperClasses <em>Super Classes</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getInitialBlock <em>Initial Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getFinalBlock <em>Final Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getActionsBlock <em>Actions Block</em>}</li>
@@ -95,24 +92,14 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	protected EList<Procedure> methods;
 
 	/**
-	 * The cached value of the '{@link #getSuperClass() <em>Super Class</em>}' reference.
+	 * The cached value of the '{@link #getSuperClasses() <em>Super Classes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getSuperClass()
+	 * @see #getSuperClasses()
 	 * @generated
 	 * @ordered
 	 */
-	protected Clazz superClass;
-
-	/**
-	 * The cached value of the '{@link #getImplementedInterfaces() <em>Implemented Interfaces</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getImplementedInterfaces()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Interface> implementedInterfaces;
+	protected EList<SuperClassSpecification> superClasses;
 
 	/**
 	 * The cached value of the '{@link #getInitialBlock() <em>Initial Block</em>}' containment reference.
@@ -236,49 +223,11 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Clazz getSuperClass() {
-		if (superClass != null && superClass.eIsProxy()) {
-			InternalEObject oldSuperClass = (InternalEObject)superClass;
-			superClass = (Clazz)eResolveProxy(oldSuperClass);
-			if (superClass != oldSuperClass) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS, oldSuperClass, superClass));
-			}
+	public EList<SuperClassSpecification> getSuperClasses() {
+		if (superClasses == null) {
+			superClasses = new EObjectContainmentEList<SuperClassSpecification>(SuperClassSpecification.class, this, DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES);
 		}
-		return superClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Clazz basicGetSuperClass() {
-		return superClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSuperClass(Clazz newSuperClass) {
-		Clazz oldSuperClass = superClass;
-		superClass = newSuperClass;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS, oldSuperClass, superClass));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<Interface> getImplementedInterfaces() {
-		if (implementedInterfaces == null) {
-			implementedInterfaces = new EObjectResolvingEList<Interface>(Interface.class, this, DblPackage.QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES);
-		}
-		return implementedInterfaces;
+		return superClasses;
 	}
 
 	/**
@@ -512,6 +461,8 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				return ((InternalEList<?>)getSuperClasses()).basicRemove(otherEnd, msgs);
 			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
 				return basicSetInitialBlock(null, msgs);
 			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
@@ -542,11 +493,8 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 				return getAttributes();
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				return getMethods();
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS:
-				if (resolve) return getSuperClass();
-				return basicGetSuperClass();
-			case DblPackage.QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES:
-				return getImplementedInterfaces();
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				return getSuperClasses();
 			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
 				return getInitialBlock();
 			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
@@ -586,12 +534,9 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 				getMethods().clear();
 				getMethods().addAll((Collection<? extends Procedure>)newValue);
 				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS:
-				setSuperClass((Clazz)newValue);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES:
-				getImplementedInterfaces().clear();
-				getImplementedInterfaces().addAll((Collection<? extends Interface>)newValue);
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				getSuperClasses().clear();
+				getSuperClasses().addAll((Collection<? extends SuperClassSpecification>)newValue);
 				return;
 			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
 				setInitialBlock((StartCodeBlock)newValue);
@@ -632,11 +577,8 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				getMethods().clear();
 				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS:
-				setSuperClass((Clazz)null);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES:
-				getImplementedInterfaces().clear();
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				getSuperClasses().clear();
 				return;
 			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
 				setInitialBlock((StartCodeBlock)null);
@@ -673,10 +615,8 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 				return attributes != null && !attributes.isEmpty();
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				return methods != null && !methods.isEmpty();
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS:
-				return superClass != null;
-			case DblPackage.QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES:
-				return implementedInterfaces != null && !implementedInterfaces.isEmpty();
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				return superClasses != null && !superClasses.isEmpty();
 			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
 				return initialBlock != null;
 			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
@@ -714,8 +654,7 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 			switch (derivedFeatureID) {
 				case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES: return DblPackage.CLASS_SIMILAR__ATTRIBUTES;
 				case DblPackage.QUOTED_CLASS_CONTENT__METHODS: return DblPackage.CLASS_SIMILAR__METHODS;
-				case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS: return DblPackage.CLASS_SIMILAR__SUPER_CLASS;
-				case DblPackage.QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES: return DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES;
+				case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES: return DblPackage.CLASS_SIMILAR__SUPER_CLASSES;
 				case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK: return DblPackage.CLASS_SIMILAR__INITIAL_BLOCK;
 				case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK: return DblPackage.CLASS_SIMILAR__FINAL_BLOCK;
 				case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK: return DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK;
@@ -750,8 +689,7 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 			switch (baseFeatureID) {
 				case DblPackage.CLASS_SIMILAR__ATTRIBUTES: return DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES;
 				case DblPackage.CLASS_SIMILAR__METHODS: return DblPackage.QUOTED_CLASS_CONTENT__METHODS;
-				case DblPackage.CLASS_SIMILAR__SUPER_CLASS: return DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASS;
-				case DblPackage.CLASS_SIMILAR__IMPLEMENTED_INTERFACES: return DblPackage.QUOTED_CLASS_CONTENT__IMPLEMENTED_INTERFACES;
+				case DblPackage.CLASS_SIMILAR__SUPER_CLASSES: return DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES;
 				case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK;
 				case DblPackage.CLASS_SIMILAR__FINAL_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK;
 				case DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK;

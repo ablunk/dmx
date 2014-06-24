@@ -526,7 +526,6 @@ public class ExpandStatementItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
 			childFeature == DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT ||
 			childFeature == DblPackage.Literals.EXPAND_STATEMENT__LOCATION;
 

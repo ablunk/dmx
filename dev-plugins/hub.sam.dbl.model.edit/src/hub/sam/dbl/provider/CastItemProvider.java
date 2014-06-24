@@ -64,31 +64,8 @@ public class CastItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addIsListPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Is List feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addIsListPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TypedElement_isList_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TypedElement_isList_feature", "_UI_TypedElement_type"),
-				 DblPackage.Literals.TYPED_ELEMENT__IS_LIST,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -104,8 +81,8 @@ public class CastItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS);
 		}
 		return childrenFeatures;
 	}
@@ -160,12 +137,9 @@ public class CastItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Cast.class)) {
-			case DblPackage.CAST__IS_LIST:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case DblPackage.CAST__PRIMITIVE_TYPE:
-			case DblPackage.CAST__LIST_DIMS:
 			case DblPackage.CAST__CLASSIFIER_TYPE_EXPR:
+			case DblPackage.CAST__ARRAY_DIMENSIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -210,13 +184,13 @@ public class CastItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS,
-				 DblFactory.eINSTANCE.createListDimension()));
+				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR,
+				 DblFactory.eINSTANCE.createIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR,
-				 DblFactory.eINSTANCE.createIdExpr()));
+				(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS,
+				 DblFactory.eINSTANCE.createArrayDimension()));
 	}
 
 	/**
@@ -231,7 +205,6 @@ public class CastItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
 			childFeature == DblPackage.Literals.UNARY_OPERATOR__OP ||
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR;
 

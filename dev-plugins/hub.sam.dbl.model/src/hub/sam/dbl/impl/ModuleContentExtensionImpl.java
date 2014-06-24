@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class ModuleContentExtensionImpl extends NamedExtensibleImpl implements ModuleContentExtension {
+public class ModuleContentExtensionImpl extends ExtensibleElementImpl implements ModuleContentExtension {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface ClassContentExtension extends NamedExtensible {
+public interface ClassContentExtension extends ExtensibleElement {
 } // ClassContentExtension

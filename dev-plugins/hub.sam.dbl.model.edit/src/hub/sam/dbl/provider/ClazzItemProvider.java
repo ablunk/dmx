@@ -64,55 +64,9 @@ public class ClazzItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addSuperClassPropertyDescriptor(object);
-			addImplementedInterfacesPropertyDescriptor(object);
 			addActivePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Super Class feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addSuperClassPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ClassSimilar_superClass_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ClassSimilar_superClass_feature", "_UI_ClassSimilar_type"),
-				 DblPackage.Literals.CLASS_SIMILAR__SUPER_CLASS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Implemented Interfaces feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addImplementedInterfacesPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ClassSimilar_implementedInterfaces_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ClassSimilar_implementedInterfaces_feature", "_UI_ClassSimilar_type"),
-				 DblPackage.Literals.CLASS_SIMILAR__IMPLEMENTED_INTERFACES,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -153,13 +107,13 @@ public class ClazzItemProvider
 			childrenFeatures.add(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__METHODS);
+			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__SUPER_CLASSES);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__INITIAL_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__FINAL_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__ACTIONS_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__REPORT_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLAZZ__CONSTRUCTOR);
-			childrenFeatures.add(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS);
 		}
 		return childrenFeatures;
 	}
@@ -221,13 +175,13 @@ public class ClazzItemProvider
 			case DblPackage.CLAZZ__MODIFIER_EXTENSIONS:
 			case DblPackage.CLAZZ__ATTRIBUTES:
 			case DblPackage.CLAZZ__METHODS:
+			case DblPackage.CLAZZ__SUPER_CLASSES:
 			case DblPackage.CLAZZ__INITIAL_BLOCK:
 			case DblPackage.CLAZZ__FINAL_BLOCK:
 			case DblPackage.CLAZZ__ACTIONS_BLOCK:
 			case DblPackage.CLAZZ__REPORT_BLOCK:
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
 			case DblPackage.CLAZZ__CONSTRUCTOR:
-			case DblPackage.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -253,16 +207,6 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtensible()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createConstruct()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createProcedure()));
 
 		newChildDescriptors.add
@@ -304,11 +248,6 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createDeprecatedProcedureCallStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -378,6 +317,11 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
@@ -393,7 +337,7 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createForEachStatement()));
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -634,26 +578,6 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createTestStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createPotentiallyHiddenIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createFindContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createConsiderIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createIncludePattern()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -663,16 +587,6 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createNamedExtensible()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createConstruct()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createProcedure()));
 
 		newChildDescriptors.add
@@ -714,11 +628,6 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createDeprecatedProcedureCallStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -788,6 +697,11 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
@@ -803,7 +717,7 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createForEachStatement()));
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -1044,26 +958,6 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createTestStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createPotentiallyHiddenIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createFindContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createConsiderIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createIncludePattern()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -1074,6 +968,11 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__METHODS,
 				 DblFactory.eINSTANCE.createProcedure()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CLASS_SIMILAR__SUPER_CLASSES,
+				 DblFactory.eINSTANCE.createSuperClassSpecification()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -1104,186 +1003,6 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CLAZZ__CONSTRUCTOR,
 				 DblFactory.eINSTANCE.createConstructor()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createL1Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createAnd()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createOr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createGreater()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createGreaterEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createLess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createInstanceOf()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createNot()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createCast()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createCreateObject()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createNullLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createTimeLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createStringLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createIntLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createTrueLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createFalseLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createDoubleLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createVariableAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createMetaAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createTypeAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createMetaExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createExpandExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
 	}
 
 	/**
@@ -1298,10 +1017,8 @@ public class ClazzItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.EXPANDABLE_ELEMENT__EXPAND_EXPRESSION ||
 			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
 			childFeature == DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS ||
-			childFeature == DblPackage.Literals.CLAZZ__BASE_CONSTRUCTOR_ARGUMENTS ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__METHODS ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__INITIAL_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__FINAL_BLOCK ||

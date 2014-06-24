@@ -64,56 +64,12 @@ public class ProcedureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addIsListPropertyDescriptor(object);
-			addObjectIsExtensionInstancePropertyDescriptor(object);
 			addConcreteSyntaxPropertyDescriptor(object);
+			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
 			addClazzPropertyDescriptor(object);
+			addAbstractPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Is List feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addIsListPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TypedElement_isList_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TypedElement_isList_feature", "_UI_TypedElement_type"),
-				 DblPackage.Literals.TYPED_ELEMENT__IS_LIST,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Object Is Extension Instance feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addObjectIsExtensionInstancePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_objectIsExtensionInstance_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_objectIsExtensionInstance_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__OBJECT_IS_EXTENSION_INSTANCE,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -127,13 +83,35 @@ public class ProcedureItemProvider
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_Construct_concreteSyntax_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Construct_concreteSyntax_feature", "_UI_Construct_type"),
-				 DblPackage.Literals.CONSTRUCT__CONCRETE_SYNTAX,
+				 getString("_UI_ExtensibleElement_concreteSyntax_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_concreteSyntax_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX,
 				 true,
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Instance Of Extension Definition feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInstanceOfExtensionDefinitionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_instanceOfExtensionDefinition_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_instanceOfExtensionDefinition_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -161,6 +139,28 @@ public class ProcedureItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Abstract feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addAbstractPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Procedure_abstract_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Procedure_abstract_feature", "_UI_Procedure_type"),
+				 DblPackage.Literals.PROCEDURE__ABSTRACT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
 	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
 	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -173,11 +173,9 @@ public class ProcedureItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CODE_BLOCK__STATEMENTS);
-			childrenFeatures.add(DblPackage.Literals.ANNOTATABLE_ELEMENT__ANNOTATION_APPLICATIONS);
-			childrenFeatures.add(DblPackage.Literals.ANNOTATABLE_ELEMENT__SIMPLE_ANNOTATIONS);
 			childrenFeatures.add(DblPackage.Literals.PROCEDURE__PARAMETERS);
 		}
 		return childrenFeatures;
@@ -233,18 +231,16 @@ public class ProcedureItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Procedure.class)) {
-			case DblPackage.PROCEDURE__IS_LIST:
-			case DblPackage.PROCEDURE__OBJECT_IS_EXTENSION_INSTANCE:
 			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
+			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
 			case DblPackage.PROCEDURE__CLAZZ:
+			case DblPackage.PROCEDURE__ABSTRACT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
-			case DblPackage.PROCEDURE__LIST_DIMS:
 			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
+			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
 			case DblPackage.PROCEDURE__STATEMENTS:
-			case DblPackage.PROCEDURE__ANNOTATION_APPLICATIONS:
-			case DblPackage.PROCEDURE__SIMPLE_ANNOTATIONS:
 			case DblPackage.PROCEDURE__PARAMETERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -290,13 +286,13 @@ public class ProcedureItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__LIST_DIMS,
-				 DblFactory.eINSTANCE.createListDimension()));
+				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR,
+				 DblFactory.eINSTANCE.createIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR,
-				 DblFactory.eINSTANCE.createIdExpr()));
+				(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS,
+				 DblFactory.eINSTANCE.createArrayDimension()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -327,11 +323,6 @@ public class ProcedureItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createDeprecatedProcedureCallStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -401,6 +392,11 @@ public class ProcedureItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
@@ -416,7 +412,7 @@ public class ProcedureItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createForEachStatement()));
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -462,36 +458,6 @@ public class ProcedureItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
 				 DblFactory.eINSTANCE.createTestStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createPotentiallyHiddenIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createFindContainer()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createConsiderIdElements()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createIncludePattern()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ANNOTATABLE_ELEMENT__ANNOTATION_APPLICATIONS,
-				 DblFactory.eINSTANCE.createAnnotationApplication()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ANNOTATABLE_ELEMENT__SIMPLE_ANNOTATIONS,
-				 DblFactory.eINSTANCE.createSimpleAnnotation()));
 
 		newChildDescriptors.add
 			(createChildParameter

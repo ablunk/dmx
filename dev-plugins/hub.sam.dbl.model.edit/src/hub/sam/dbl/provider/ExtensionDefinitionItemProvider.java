@@ -151,11 +151,6 @@ public class ExtensionDefinitionItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF,
-				 DblFactory.eINSTANCE.createInterface()));
-
-		newChildDescriptors.add
-			(createChildParameter
 				(DblPackage.Literals.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF,
 				 DblFactory.eINSTANCE.createTextualSyntaxDef()));
 
