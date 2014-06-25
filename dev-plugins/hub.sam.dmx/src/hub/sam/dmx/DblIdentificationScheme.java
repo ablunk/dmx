@@ -1,25 +1,19 @@
 package hub.sam.dmx;
 
 import hub.sam.dbl.AbstractVariable;
-import hub.sam.dbl.AfterInSet;
-import hub.sam.dbl.BeforeInSet;
 import hub.sam.dbl.ClassAugment;
+import hub.sam.dbl.ClassPart;
 import hub.sam.dbl.Classifier;
 import hub.sam.dbl.Clazz;
-import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.CompositePropertyType;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.FindContainer;
-import hub.sam.dbl.FirstInSet;
 import hub.sam.dbl.ForStatement;
 import hub.sam.dbl.IdExpr;
-import hub.sam.dbl.IdResolution;
 import hub.sam.dbl.Import;
-import hub.sam.dbl.IncludePattern;
-import hub.sam.dbl.LastInSet;
+import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaLiteral;
 import hub.sam.dbl.Model;
@@ -27,7 +21,6 @@ import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.NamedExtensible;
 import hub.sam.dbl.Parameter;
-import hub.sam.dbl.Pattern;
 import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.PropertyBindingExpr;
@@ -37,7 +30,6 @@ import hub.sam.dbl.ReferencePropertyType;
 import hub.sam.dbl.RhsExpression;
 import hub.sam.dbl.RuleExpr;
 import hub.sam.dbl.SequenceExpr;
-import hub.sam.dbl.StartCodeBlock;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.StructuredPropertyType;
 import hub.sam.dbl.SuperClassSpecification;
@@ -83,7 +75,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				Clazz containerClass = getContainerObjectOfType(context, Clazz.class);
 				Module containerModule = (Module) getContainerObjectOfType(context, DblPackage.Literals.MODULE);
 				
-				if (idExpr.getArguments() != null) {
+				if (idExpr.getCallArguments().size() > 0) {
 					// procedure or type in create object expression ...
 					
 					if (idExpr.getParentIdExpr() == null) {
@@ -167,8 +159,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 							if (referencedParentElement instanceof AbstractVariable
 									|| referencedParentElement instanceof Procedure) {
 								TypedElement referencedParentTypedElement = (TypedElement) referencedParentElement;
-								if (referencedParentTypedElement.getArrayDimensions().size() == 0) {
-									addIdsForMethods(referencedParentTypedElement.getClassifierTypeExpr(), namedElementId, allIds);
+								if (referencedParentTypedElement.getTypeArrayDimensions().size() == 0) {
+									addIdsForMethods(referencedParentTypedElement.getClassifierType(), namedElementId, allIds);
 								}
 							}
 							else if (referencedParentElement instanceof Classifier) {
@@ -201,18 +193,18 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						// predefinedMember, e.g. xs.first.a
 						PredefinedId predefinedId = parentIdExpr.getPredefinedId();
 						if (predefinedId != null) {
-							if (predefinedId instanceof BeforeInSet || predefinedId instanceof AfterInSet
-									|| predefinedId instanceof FirstInSet || predefinedId instanceof LastInSet) {
-								// the type of the set operators parent determines what IDs are accessible
-								IdExpr parentOfPredefined = idExpr.getParentIdExpr().getParentIdExpr();
-								if (parentOfPredefined.getReferencedElement() != null) {
-									NamedElement element = parentOfPredefined.getReferencedElement();
-									if (element instanceof TypedElement) {
-										TypedElement typedElement = (TypedElement) element;
-										addIdsForMethods(typedElement.getClassifierTypeExpr(), namedElementId, allIds);
-									}
-								}
-							}
+//							if (predefinedId instanceof BeforeInSet || predefinedId instanceof AfterInSet
+//									|| predefinedId instanceof FirstInSet || predefinedId instanceof LastInSet) {
+//								// the type of the set operators parent determines what IDs are accessible
+//								IdExpr parentOfPredefined = idExpr.getParentIdExpr().getParentIdExpr();
+//								if (parentOfPredefined.getReferencedElement() != null) {
+//									NamedElement element = parentOfPredefined.getReferencedElement();
+//									if (element instanceof TypedElement) {
+//										TypedElement typedElement = (TypedElement) element;
+//										addIdsForMethods(typedElement.getClassifierType(), namedElementId, allIds);
+//									}
+//								}
+//							}
 						}
 					}
 				}
@@ -234,9 +226,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						}
 						
 						// add constructor parameters for initial parts
-						StartCodeBlock startCodeBlock = getContainerObjectOfType(context, StartCodeBlock.class);
-						if (startCodeBlock != null && containerClass != null && containerClass.getInitialBlock() != null
-								&& containerClass.getInitialBlock().equals(startCodeBlock)
+						ClassPart outerClassPart = getContainerObjectOfType(context, ClassPart.class);
+						if (outerClassPart != null && containerClass != null && containerClass.getInitialBlock() != null
+								&& containerClass.getInitialBlock().equals(outerClassPart)
 								&& containerClass.getConstructor() != null) {
 							otherIdsHidden |= addIds(namedElementId, containerClass.getConstructor().getParameters(), allIds);
 						}
@@ -273,7 +265,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						}
 						
 						// idres ...
-						addIdsForIdResolution(idExpr, namedElementId, allIds);
+//						addIdsForIdResolution(idExpr, namedElementId, allIds);
 						
 						// extension definitions
 						ExtensionDefinition extDef = getContainerObjectOfType(idExpr, ExtensionDefinition.class);
@@ -360,17 +352,17 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						// parent is a predefinedMember, e.g. xs.first.a
 						PredefinedId predefinedMember = parentIdExpr.getPredefinedId();
 						if (predefinedMember != null) {
-							if (predefinedMember instanceof FirstInSet || predefinedMember instanceof LastInSet) {
-								// the type of the set operators parent determines what IDs are accessible
-								IdExpr parentOfPredefined = idExpr.getParentIdExpr().getParentIdExpr();
-								if (parentOfPredefined.getReferencedElement() != null) {
-									NamedElement element = parentOfPredefined.getReferencedElement();
-									if (element instanceof TypedElement) {
-										TypedElement typedElement = (TypedElement) element;
-										addIdsForPropertiesOfTypedElementType(typedElement, namedElementId, allIds);
-									}
-								}
-							}
+//							if (predefinedMember instanceof FirstInSet || predefinedMember instanceof LastInSet) {
+//								// the type of the set operators parent determines what IDs are accessible
+//								IdExpr parentOfPredefined = idExpr.getParentIdExpr().getParentIdExpr();
+//								if (parentOfPredefined.getReferencedElement() != null) {
+//									NamedElement element = parentOfPredefined.getReferencedElement();
+//									if (element instanceof TypedElement) {
+//										TypedElement typedElement = (TypedElement) element;
+//										addIdsForPropertiesOfTypedElementType(typedElement, namedElementId, allIds);
+//									}
+//								}
+//							}
 						}
 					}
 							
@@ -390,9 +382,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			else if (context instanceof RuleExpr) {
 				addIdsForTsRules(context, namedElementId.getName(), allIds);
 			}
-			else if (identifier instanceof Pattern) {
-				addIdsForIdResolution(context, namedElementId, allIds);
-			}
+//			else if (identifier instanceof Pattern) {
+//				addIdsForIdResolution(context, namedElementId, allIds);
+//			}
 			else if (identifier instanceof Classifier) {
 				addIdsForClassifiers(context, namedElementId.getName(), allIds);
 			}
@@ -462,9 +454,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	}
 
 	private void addIdsForPropertiesOfTypedElementType(TypedElement typedElement, NamedElement namedElementId, Collection<Object> allIds) {
-		if (typedElement.getArrayDimensions().isEmpty()) {
-			if (typedElement.getClassifierTypeExpr() != null) {
-				NamedElement type = typedElement.getClassifierTypeExpr().getReferencedElement();
+		if (typedElement.getTypeArrayDimensions().isEmpty()) {
+			if (typedElement.getClassifierType() != null) {
+				NamedElement type = typedElement.getClassifierType().getReferencedElement();
 				if (type instanceof ReferableRhsType) { // includes Classifiers and TsRules
 					ReferableRhsType parentElementReferableRhsType = (ReferableRhsType) type;
 					addIdsForPropertiesOfReferableRhsType(parentElementReferableRhsType, namedElementId, allIds);
@@ -588,22 +580,22 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		}
 	}
 	
-	private void addIdsForIdResolution(EObject context, NamedElement identifier, Collection<Object> allIds) {
-		IdResolution idRes = getContainerObjectOfType(context, IdResolution.class);
-		if (idRes != null) {
-			Pattern pattern = getContainerObjectOfType(context, Pattern.class);
-			if (pattern != null) {
-				addId(identifier, pattern.getContext(), allIds);
-			}
-			
-			addIdsForParentContainers(context, identifier, allIds);
-			
-			IncludePattern include = getContainerObjectOfType(context, IncludePattern.class);
-			if (include != null) {
-				addIds(identifier, idRes.getPatterns(), allIds);
-			}
-		}		
-	}
+//	private void addIdsForIdResolution(EObject context, NamedElement identifier, Collection<Object> allIds) {
+//		IdResolution idRes = getContainerObjectOfType(context, IdResolution.class);
+//		if (idRes != null) {
+//			Pattern pattern = getContainerObjectOfType(context, Pattern.class);
+//			if (pattern != null) {
+//				addId(identifier, pattern.getContext(), allIds);
+//			}
+//			
+//			addIdsForParentContainers(context, identifier, allIds);
+//			
+//			IncludePattern include = getContainerObjectOfType(context, IncludePattern.class);
+//			if (include != null) {
+//				addIds(identifier, idRes.getPatterns(), allIds);
+//			}
+//		}		
+//	}
 
 	private void addIdsForTsRules(EObject context, String identifier, Collection<Object> allIds) {
 		ExtensionDefinition extensionDef = getContainerObjectOfType(context, ExtensionDefinition.class);
@@ -696,17 +688,17 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		}
 	}
 
-	private boolean addIdsForParentContainers(EObject context, NamedElement eObjectId, Collection allIds) {
-		if (context != null) {
-			FindContainer container = getContainerObjectOfType(context.eContainer(), FindContainer.class);
-			if (container != null) {
-				boolean idsAdded = addId(eObjectId, container.getVariableBinding(), allIds);
-				idsAdded |= addIdsForParentContainers(container.eContainer(), eObjectId, allIds);
-				return idsAdded;
-			}
-		}
-		return false;
-	}
+//	private boolean addIdsForParentContainers(EObject context, NamedElement eObjectId, Collection allIds) {
+//		if (context != null) {
+//			FindContainer container = getContainerObjectOfType(context.eContainer(), FindContainer.class);
+//			if (container != null) {
+//				boolean idsAdded = addId(eObjectId, container.getVariableBinding(), allIds);
+//				idsAdded |= addIdsForParentContainers(container.eContainer(), eObjectId, allIds);
+//				return idsAdded;
+//			}
+//		}
+//		return false;
+//	}
 
 	private boolean addIdsForLocalVariables(Expression expr, NamedElement eObjectId, Collection allIds) {
 		Statement stm = getContainerObjectOfType(expr, Statement.class);
@@ -719,19 +711,25 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private boolean addIdsForLocalVariables(Statement contextStatement, NamedElement eObjectId, Collection allIds) {
 		boolean idsAdded = false;
 		
-		CodeBlock codeBlock = getContainerObjectOfType(contextStatement, CodeBlock.class);		
-		if (codeBlock != null) {
-			for (Statement statement: codeBlock.getStatements()) {
-				if (statement == contextStatement) {
-					break;
-				}
+		LocalScope outerLocalScope = getContainerObjectOfType(contextStatement, LocalScope.class);		
+		if (outerLocalScope != null) {
+			for (Statement statement: outerLocalScope.getStatements()) {
+//				if (statement == contextStatement) {
+//					break;
+//				}
 				if (statement instanceof Variable) {
 					Variable localVariable = (Variable) statement;
 					idsAdded |= addId(eObjectId, localVariable, allIds);
 				}
+				else if (statement instanceof ForStatement) {
+					ForStatement forStm = (ForStatement) statement;
+					if (forStm.getCountVariableDefinition() != null) {
+						idsAdded |= addId(eObjectId, forStm.getCountVariableDefinition(), allIds);
+					}
+				}
 			}
 	
-			EObject codeBlockContainer = codeBlock.eContainer();
+			EObject codeBlockContainer = outerLocalScope.eContainer();
 			if (codeBlockContainer instanceof ForStatement) {
 				ForStatement forStm = (ForStatement) codeBlockContainer;
 				if (forStm.getCountVariableDefinition() != null) {
@@ -743,7 +741,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				idsAdded |= addIdsForLocalVariables(forStm, eObjectId, allIds);
 			}
 			else {
-				Statement parentStatement = getContainerObjectOfType(codeBlock, Statement.class);
+				Statement parentStatement = getContainerObjectOfType(outerLocalScope, Statement.class);
 				if (parentStatement != null) {
 					idsAdded |= addIdsForLocalVariables(parentStatement, eObjectId, allIds);
 				}

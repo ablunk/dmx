@@ -30,7 +30,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class SwitchStatementItemProvider
-	extends CompositeStatementItemProvider
+	extends SimpleStatementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

@@ -3,6 +3,7 @@
 *._trace
 .DS_Store
 bin/
+dev-plugins/hub.sam.dbl.model.edit/icons/
 runtime-plugins/**/gen-src/*
 runtime-plugins/hub.*
 runtime-plugins/**/*.html

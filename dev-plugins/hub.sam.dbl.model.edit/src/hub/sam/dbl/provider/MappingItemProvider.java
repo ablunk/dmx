@@ -34,7 +34,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class MappingItemProvider
-	extends CodeBlockItemProvider
+	extends LocalScopeStatementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,

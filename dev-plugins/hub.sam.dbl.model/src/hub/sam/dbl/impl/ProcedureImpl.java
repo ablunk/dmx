@@ -7,11 +7,9 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ArrayDimension;
-import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.Expression;
-import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.IdExpr;
+import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.Procedure;
@@ -37,10 +35,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getPrimitiveType <em>Primitive Type</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getArrayDimensions <em>Array Dimensions</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getTypeArrayDimensions <em>Type Array Dimensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getClassifierType <em>Classifier Type</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ProcedureImpl#isClazz <em>Clazz</em>}</li>
@@ -62,64 +58,24 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	protected PrimitiveType primitiveType;
 
 	/**
-	 * The cached value of the '{@link #getClassifierTypeExpr() <em>Classifier Type Expr</em>}' containment reference.
+	 * The cached value of the '{@link #getTypeArrayDimensions() <em>Type Array Dimensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getClassifierTypeExpr()
+	 * @see #getTypeArrayDimensions()
 	 * @generated
 	 * @ordered
 	 */
-	protected IdExpr classifierTypeExpr;
+	protected EList<ArrayDimension> typeArrayDimensions;
 
 	/**
-	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimensions</em>}' containment reference list.
+	 * The cached value of the '{@link #getClassifierType() <em>Classifier Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArrayDimensions()
+	 * @see #getClassifierType()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ArrayDimension> arrayDimensions;
-
-	/**
-	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getConcreteSyntax()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String CONCRETE_SYNTAX_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getConcreteSyntax()
-	 * @generated
-	 * @ordered
-	 */
-	protected String concreteSyntax = CONCRETE_SYNTAX_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isInstanceOfExtensionDefinition()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isInstanceOfExtensionDefinition()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean instanceOfExtensionDefinition = INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
+	protected IdExpr classifierType;
 
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
@@ -248,8 +204,11 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IdExpr getClassifierTypeExpr() {
-		return classifierTypeExpr;
+	public EList<ArrayDimension> getTypeArrayDimensions() {
+		if (typeArrayDimensions == null) {
+			typeArrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS);
+		}
+		return typeArrayDimensions;
 	}
 
 	/**
@@ -257,11 +216,20 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetClassifierTypeExpr(IdExpr newClassifierTypeExpr, NotificationChain msgs) {
-		IdExpr oldClassifierTypeExpr = classifierTypeExpr;
-		classifierTypeExpr = newClassifierTypeExpr;
+	public IdExpr getClassifierType() {
+		return classifierType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetClassifierType(IdExpr newClassifierType, NotificationChain msgs) {
+		IdExpr oldClassifierType = classifierType;
+		classifierType = newClassifierType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR, oldClassifierTypeExpr, newClassifierTypeExpr);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__CLASSIFIER_TYPE, oldClassifierType, newClassifierType);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -272,72 +240,18 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setClassifierTypeExpr(IdExpr newClassifierTypeExpr) {
-		if (newClassifierTypeExpr != classifierTypeExpr) {
+	public void setClassifierType(IdExpr newClassifierType) {
+		if (newClassifierType != classifierType) {
 			NotificationChain msgs = null;
-			if (classifierTypeExpr != null)
-				msgs = ((InternalEObject)classifierTypeExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR, null, msgs);
-			if (newClassifierTypeExpr != null)
-				msgs = ((InternalEObject)newClassifierTypeExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR, null, msgs);
-			msgs = basicSetClassifierTypeExpr(newClassifierTypeExpr, msgs);
+			if (classifierType != null)
+				msgs = ((InternalEObject)classifierType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE__CLASSIFIER_TYPE, null, msgs);
+			if (newClassifierType != null)
+				msgs = ((InternalEObject)newClassifierType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE__CLASSIFIER_TYPE, null, msgs);
+			msgs = basicSetClassifierType(newClassifierType, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR, newClassifierTypeExpr, newClassifierTypeExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ArrayDimension> getArrayDimensions() {
-		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, DblPackage.PROCEDURE__ARRAY_DIMENSIONS);
-		}
-		return arrayDimensions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getConcreteSyntax() {
-		return concreteSyntax;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setConcreteSyntax(String newConcreteSyntax) {
-		String oldConcreteSyntax = concreteSyntax;
-		concreteSyntax = newConcreteSyntax;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__CONCRETE_SYNTAX, oldConcreteSyntax, concreteSyntax));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isInstanceOfExtensionDefinition() {
-		return instanceOfExtensionDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setInstanceOfExtensionDefinition(boolean newInstanceOfExtensionDefinition) {
-		boolean oldInstanceOfExtensionDefinition = instanceOfExtensionDefinition;
-		instanceOfExtensionDefinition = newInstanceOfExtensionDefinition;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION, oldInstanceOfExtensionDefinition, instanceOfExtensionDefinition));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE__CLASSIFIER_TYPE, newClassifierType, newClassifierType));
 	}
 
 	/**
@@ -416,10 +330,10 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		switch (featureID) {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				return basicSetPrimitiveType(null, msgs);
-			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
-				return basicSetClassifierTypeExpr(null, msgs);
-			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
-				return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS:
+				return ((InternalEList<?>)getTypeArrayDimensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.PROCEDURE__CLASSIFIER_TYPE:
+				return basicSetClassifierType(null, msgs);
 			case DblPackage.PROCEDURE__STATEMENTS:
 				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
 			case DblPackage.PROCEDURE__PARAMETERS:
@@ -438,14 +352,10 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		switch (featureID) {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				return getPrimitiveType();
-			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
-				return getClassifierTypeExpr();
-			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
-				return getArrayDimensions();
-			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
-				return getConcreteSyntax();
-			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
-				return isInstanceOfExtensionDefinition();
+			case DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS:
+				return getTypeArrayDimensions();
+			case DblPackage.PROCEDURE__CLASSIFIER_TYPE:
+				return getClassifierType();
 			case DblPackage.PROCEDURE__STATEMENTS:
 				return getStatements();
 			case DblPackage.PROCEDURE__PARAMETERS:
@@ -470,18 +380,12 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)newValue);
 				return;
-			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
-				setClassifierTypeExpr((IdExpr)newValue);
+			case DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS:
+				getTypeArrayDimensions().clear();
+				getTypeArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
 				return;
-			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
-				getArrayDimensions().clear();
-				getArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
-				return;
-			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
-				setConcreteSyntax((String)newValue);
-				return;
-			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
-				setInstanceOfExtensionDefinition((Boolean)newValue);
+			case DblPackage.PROCEDURE__CLASSIFIER_TYPE:
+				setClassifierType((IdExpr)newValue);
 				return;
 			case DblPackage.PROCEDURE__STATEMENTS:
 				getStatements().clear();
@@ -512,17 +416,11 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)null);
 				return;
-			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
-				setClassifierTypeExpr((IdExpr)null);
+			case DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS:
+				getTypeArrayDimensions().clear();
 				return;
-			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
-				getArrayDimensions().clear();
-				return;
-			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
-				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
-				return;
-			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
-				setInstanceOfExtensionDefinition(INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT);
+			case DblPackage.PROCEDURE__CLASSIFIER_TYPE:
+				setClassifierType((IdExpr)null);
 				return;
 			case DblPackage.PROCEDURE__STATEMENTS:
 				getStatements().clear();
@@ -550,14 +448,10 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		switch (featureID) {
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
 				return primitiveType != null;
-			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
-				return classifierTypeExpr != null;
-			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
-				return arrayDimensions != null && !arrayDimensions.isEmpty();
-			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
-				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
-			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
-				return instanceOfExtensionDefinition != INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
+			case DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS:
+				return typeArrayDimensions != null && !typeArrayDimensions.isEmpty();
+			case DblPackage.PROCEDURE__CLASSIFIER_TYPE:
+				return classifierType != null;
 			case DblPackage.PROCEDURE__STATEMENTS:
 				return statements != null && !statements.isEmpty();
 			case DblPackage.PROCEDURE__PARAMETERS:
@@ -580,21 +474,14 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		if (baseClass == TypedElement.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.PROCEDURE__PRIMITIVE_TYPE: return DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE;
-				case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR: return DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR;
-				case DblPackage.PROCEDURE__ARRAY_DIMENSIONS: return DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS;
+				case DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS: return DblPackage.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS;
+				case DblPackage.PROCEDURE__CLASSIFIER_TYPE: return DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE;
 				default: return -1;
 			}
 		}
-		if (baseClass == ExtensibleElement.class) {
+		if (baseClass == LocalScope.class) {
 			switch (derivedFeatureID) {
-				case DblPackage.PROCEDURE__CONCRETE_SYNTAX: return DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
-				case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
-				default: return -1;
-			}
-		}
-		if (baseClass == CodeBlock.class) {
-			switch (derivedFeatureID) {
-				case DblPackage.PROCEDURE__STATEMENTS: return DblPackage.CODE_BLOCK__STATEMENTS;
+				case DblPackage.PROCEDURE__STATEMENTS: return DblPackage.LOCAL_SCOPE__STATEMENTS;
 				default: return -1;
 			}
 		}
@@ -611,21 +498,14 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		if (baseClass == TypedElement.class) {
 			switch (baseFeatureID) {
 				case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE: return DblPackage.PROCEDURE__PRIMITIVE_TYPE;
-				case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR: return DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR;
-				case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS: return DblPackage.PROCEDURE__ARRAY_DIMENSIONS;
+				case DblPackage.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS: return DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS;
+				case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE: return DblPackage.PROCEDURE__CLASSIFIER_TYPE;
 				default: return -1;
 			}
 		}
-		if (baseClass == ExtensibleElement.class) {
+		if (baseClass == LocalScope.class) {
 			switch (baseFeatureID) {
-				case DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX: return DblPackage.PROCEDURE__CONCRETE_SYNTAX;
-				case DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION;
-				default: return -1;
-			}
-		}
-		if (baseClass == CodeBlock.class) {
-			switch (baseFeatureID) {
-				case DblPackage.CODE_BLOCK__STATEMENTS: return DblPackage.PROCEDURE__STATEMENTS;
+				case DblPackage.LOCAL_SCOPE__STATEMENTS: return DblPackage.PROCEDURE__STATEMENTS;
 				default: return -1;
 			}
 		}
@@ -642,11 +522,7 @@ public class ProcedureImpl extends NamedElementImpl implements Procedure {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (concreteSyntax: ");
-		result.append(concreteSyntax);
-		result.append(", instanceOfExtensionDefinition: ");
-		result.append(instanceOfExtensionDefinition);
-		result.append(", clazz: ");
+		result.append(" (clazz: ");
 		result.append(clazz);
 		result.append(", abstract: ");
 		result.append(abstract_);

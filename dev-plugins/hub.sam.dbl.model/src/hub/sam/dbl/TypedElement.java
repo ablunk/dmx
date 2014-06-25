@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link hub.sam.dbl.TypedElement#getPrimitiveType <em>Primitive Type</em>}</li>
- *   <li>{@link hub.sam.dbl.TypedElement#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
- *   <li>{@link hub.sam.dbl.TypedElement#getArrayDimensions <em>Array Dimensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.TypedElement#getTypeArrayDimensions <em>Type Array Dimensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.TypedElement#getClassifierType <em>Classifier Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -55,45 +55,45 @@ public interface TypedElement extends EObject {
 	void setPrimitiveType(PrimitiveType value);
 
 	/**
-	 * Returns the value of the '<em><b>Classifier Type Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Classifier Type Expr</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Classifier Type Expr</em>' containment reference.
-	 * @see #setClassifierTypeExpr(IdExpr)
-	 * @see hub.sam.dbl.DblPackage#getTypedElement_ClassifierTypeExpr()
-	 * @model containment="true"
-	 * @generated
-	 */
-	IdExpr getClassifierTypeExpr();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.TypedElement#getClassifierTypeExpr <em>Classifier Type Expr</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Classifier Type Expr</em>' containment reference.
-	 * @see #getClassifierTypeExpr()
-	 * @generated
-	 */
-	void setClassifierTypeExpr(IdExpr value);
-
-	/**
-	 * Returns the value of the '<em><b>Array Dimensions</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Type Array Dimensions</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.ArrayDimension}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Array Dimensions</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Type Array Dimensions</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Array Dimensions</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getTypedElement_ArrayDimensions()
+	 * @return the value of the '<em>Type Array Dimensions</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getTypedElement_TypeArrayDimensions()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ArrayDimension> getArrayDimensions();
+	EList<ArrayDimension> getTypeArrayDimensions();
+
+	/**
+	 * Returns the value of the '<em><b>Classifier Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Classifier Type</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Classifier Type</em>' containment reference.
+	 * @see #setClassifierType(IdExpr)
+	 * @see hub.sam.dbl.DblPackage#getTypedElement_ClassifierType()
+	 * @model containment="true"
+	 * @generated
+	 */
+	IdExpr getClassifierType();
+
+	/**
+	 * Sets the value of the '{@link hub.sam.dbl.TypedElement#getClassifierType <em>Classifier Type</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Classifier Type</em>' containment reference.
+	 * @see #getClassifierType()
+	 * @generated
+	 */
+	void setClassifierType(IdExpr value);
 
 } // TypedElement

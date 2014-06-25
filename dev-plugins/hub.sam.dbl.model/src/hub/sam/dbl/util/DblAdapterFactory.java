@@ -148,12 +148,12 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createClassSimilarAdapter();
 			}
 			@Override
-			public Adapter caseSuperClassSpecification(SuperClassSpecification object) {
-				return createSuperClassSpecificationAdapter();
+			public Adapter caseClassPart(ClassPart object) {
+				return createClassPartAdapter();
 			}
 			@Override
-			public Adapter caseStartCodeBlock(StartCodeBlock object) {
-				return createStartCodeBlockAdapter();
+			public Adapter caseSuperClassSpecification(SuperClassSpecification object) {
+				return createSuperClassSpecificationAdapter();
 			}
 			@Override
 			public Adapter caseClazz(Clazz object) {
@@ -184,16 +184,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createNamedElementAdapter();
 			}
 			@Override
-			public Adapter caseCodeBlock(CodeBlock object) {
-				return createCodeBlockAdapter();
+			public Adapter casedeprecated_CodeBlock(deprecated_CodeBlock object) {
+				return createdeprecated_CodeBlockAdapter();
 			}
 			@Override
 			public Adapter caseStatement(Statement object) {
 				return createStatementAdapter();
 			}
 			@Override
-			public Adapter caseCompositeStatement(CompositeStatement object) {
-				return createCompositeStatementAdapter();
+			public Adapter caseLoopStatement(LoopStatement object) {
+				return createLoopStatementAdapter();
 			}
 			@Override
 			public Adapter caseSimpleStatement(SimpleStatement object) {
@@ -252,24 +252,24 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createPrintAdapter();
 			}
 			@Override
-			public Adapter caseSetStatement(SetStatement object) {
-				return createSetStatementAdapter();
-			}
-			@Override
-			public Adapter caseRemoveFromSet(RemoveFromSet object) {
-				return createRemoveFromSetAdapter();
-			}
-			@Override
-			public Adapter caseAddToSet(AddToSet object) {
-				return createAddToSetAdapter();
-			}
-			@Override
-			public Adapter caseEmptySet(EmptySet object) {
-				return createEmptySetAdapter();
-			}
-			@Override
 			public Adapter caseIfStatement(IfStatement object) {
 				return createIfStatementAdapter();
+			}
+			@Override
+			public Adapter caseLocalScope(LocalScope object) {
+				return createLocalScopeAdapter();
+			}
+			@Override
+			public Adapter caseLocalScopeStatement(LocalScopeStatement object) {
+				return createLocalScopeStatementAdapter();
+			}
+			@Override
+			public Adapter caseForStatement(ForStatement object) {
+				return createForStatementAdapter();
+			}
+			@Override
+			public Adapter caseWhileStatement(WhileStatement object) {
+				return createWhileStatementAdapter();
 			}
 			@Override
 			public Adapter caseSwitchStatement(SwitchStatement object) {
@@ -280,20 +280,12 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createSwitchCaseAdapter();
 			}
 			@Override
-			public Adapter caseWhileStatement(WhileStatement object) {
-				return createWhileStatementAdapter();
-			}
-			@Override
 			public Adapter caseBreakStatement(BreakStatement object) {
 				return createBreakStatementAdapter();
 			}
 			@Override
 			public Adapter caseContinueStatement(ContinueStatement object) {
 				return createContinueStatementAdapter();
-			}
-			@Override
-			public Adapter caseForStatement(ForStatement object) {
-				return createForStatementAdapter();
 			}
 			@Override
 			public Adapter caseExpression(Expression object) {
@@ -420,6 +412,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createEvalExprAdapter();
 			}
 			@Override
+			public Adapter casePredefinedId(PredefinedId object) {
+				return createPredefinedIdAdapter();
+			}
+			@Override
 			public Adapter caseMeLiteral(MeLiteral object) {
 				return createMeLiteralAdapter();
 			}
@@ -436,56 +432,12 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createTypeLiteralAdapter();
 			}
 			@Override
-			public Adapter caseSetOp(SetOp object) {
-				return createSetOpAdapter();
-			}
-			@Override
-			public Adapter caseSizeOfSet(SizeOfSet object) {
-				return createSizeOfSetAdapter();
-			}
-			@Override
-			public Adapter caseFirstInSet(FirstInSet object) {
-				return createFirstInSetAdapter();
-			}
-			@Override
-			public Adapter caseLastInSet(LastInSet object) {
-				return createLastInSetAdapter();
-			}
-			@Override
-			public Adapter caseContains(Contains object) {
-				return createContainsAdapter();
-			}
-			@Override
-			public Adapter caseIndexOf(IndexOf object) {
-				return createIndexOfAdapter();
-			}
-			@Override
-			public Adapter caseObjectAt(ObjectAt object) {
-				return createObjectAtAdapter();
-			}
-			@Override
-			public Adapter caseBeforeInSet(BeforeInSet object) {
-				return createBeforeInSetAdapter();
-			}
-			@Override
-			public Adapter caseAfterInSet(AfterInSet object) {
-				return createAfterInSetAdapter();
-			}
-			@Override
-			public Adapter caseDepIdentifiableElement(DepIdentifiableElement object) {
-				return createDepIdentifiableElementAdapter();
-			}
-			@Override
-			public Adapter casePredefinedId(PredefinedId object) {
-				return createPredefinedIdAdapter();
+			public Adapter caseSizeOfArray(SizeOfArray object) {
+				return createSizeOfArrayAdapter();
 			}
 			@Override
 			public Adapter caseIdExpr(IdExpr object) {
 				return createIdExprAdapter();
-			}
-			@Override
-			public Adapter caseArgumentExpression(ArgumentExpression object) {
-				return createArgumentExpressionAdapter();
 			}
 			@Override
 			public Adapter caseElementAccess(ElementAccess object) {
@@ -654,10 +606,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseExpandStatement(ExpandStatement object) {
 				return createExpandStatementAdapter();
-			}
-			@Override
-			public Adapter caseExpandSection(ExpandSection object) {
-				return createExpandSectionAdapter();
 			}
 			@Override
 			public Adapter caseCodeQuoteExpression(CodeQuoteExpression object) {
@@ -964,6 +912,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ClassPart <em>Class Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.ClassPart
+	 * @generated
+	 */
+	public Adapter createClassPartAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SuperClassSpecification <em>Super Class Specification</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -974,20 +936,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSuperClassSpecificationAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.StartCodeBlock <em>Start Code Block</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.StartCodeBlock
-	 * @generated
-	 */
-	public Adapter createStartCodeBlockAdapter() {
 		return null;
 	}
 
@@ -1090,16 +1038,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.CodeBlock <em>Code Block</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.deprecated_CodeBlock <em>deprecated Code Block</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.CodeBlock
+	 * @see hub.sam.dbl.deprecated_CodeBlock
 	 * @generated
 	 */
-	public Adapter createCodeBlockAdapter() {
+	public Adapter createdeprecated_CodeBlockAdapter() {
 		return null;
 	}
 
@@ -1118,16 +1066,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.CompositeStatement <em>Composite Statement</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.LoopStatement <em>Loop Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.CompositeStatement
+	 * @see hub.sam.dbl.LoopStatement
 	 * @generated
 	 */
-	public Adapter createCompositeStatementAdapter() {
+	public Adapter createLoopStatementAdapter() {
 		return null;
 	}
 
@@ -1328,62 +1276,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SetStatement <em>Set Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.SetStatement
-	 * @generated
-	 */
-	public Adapter createSetStatementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.RemoveFromSet <em>Remove From Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.RemoveFromSet
-	 * @generated
-	 */
-	public Adapter createRemoveFromSetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.AddToSet <em>Add To Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.AddToSet
-	 * @generated
-	 */
-	public Adapter createAddToSetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.EmptySet <em>Empty Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.EmptySet
-	 * @generated
-	 */
-	public Adapter createEmptySetAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.IfStatement <em>If Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1394,6 +1286,34 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIfStatementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.LocalScope <em>Local Scope</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.LocalScope
+	 * @generated
+	 */
+	public Adapter createLocalScopeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.LocalScopeStatement <em>Local Scope Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.LocalScopeStatement
+	 * @generated
+	 */
+	public Adapter createLocalScopeStatementAdapter() {
 		return null;
 	}
 
@@ -1902,128 +1822,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SetOp <em>Set Op</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SizeOfArray <em>Size Of Array</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.SetOp
+	 * @see hub.sam.dbl.SizeOfArray
 	 * @generated
 	 */
-	public Adapter createSetOpAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SizeOfSet <em>Size Of Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.SizeOfSet
-	 * @generated
-	 */
-	public Adapter createSizeOfSetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.FirstInSet <em>First In Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.FirstInSet
-	 * @generated
-	 */
-	public Adapter createFirstInSetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.LastInSet <em>Last In Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.LastInSet
-	 * @generated
-	 */
-	public Adapter createLastInSetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Contains <em>Contains</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.Contains
-	 * @generated
-	 */
-	public Adapter createContainsAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.IndexOf <em>Index Of</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.IndexOf
-	 * @generated
-	 */
-	public Adapter createIndexOfAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ObjectAt <em>Object At</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ObjectAt
-	 * @generated
-	 */
-	public Adapter createObjectAtAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.BeforeInSet <em>Before In Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.BeforeInSet
-	 * @generated
-	 */
-	public Adapter createBeforeInSetAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.AfterInSet <em>After In Set</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.AfterInSet
-	 * @generated
-	 */
-	public Adapter createAfterInSetAdapter() {
+	public Adapter createSizeOfArrayAdapter() {
 		return null;
 	}
 
@@ -2098,20 +1906,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.DepIdentifiableElement <em>Dep Identifiable Element</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.DepIdentifiableElement
-	 * @generated
-	 */
-	public Adapter createDepIdentifiableElementAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.PredefinedId <em>Predefined Id</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2136,20 +1930,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIdExprAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ArgumentExpression <em>Argument Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ArgumentExpression
-	 * @generated
-	 */
-	public Adapter createArgumentExpressionAdapter() {
 		return null;
 	}
 
@@ -2752,20 +2532,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExpandStatementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ExpandSection <em>Expand Section</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ExpandSection
-	 * @generated
-	 */
-	public Adapter createExpandSectionAdapter() {
 		return null;
 	}
 

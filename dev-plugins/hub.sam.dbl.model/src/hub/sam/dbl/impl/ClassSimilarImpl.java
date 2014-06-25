@@ -6,12 +6,12 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.ClassPart;
 import hub.sam.dbl.ClassSimilar;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ModifierExtensionsContainer;
 import hub.sam.dbl.Procedure;
-import hub.sam.dbl.StartCodeBlock;
 import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.Variable;
 
@@ -96,7 +96,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected StartCodeBlock initialBlock;
+	protected ClassPart initialBlock;
 
 	/**
 	 * The cached value of the '{@link #getFinalBlock() <em>Final Block</em>}' containment reference.
@@ -106,7 +106,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected StartCodeBlock finalBlock;
+	protected ClassPart finalBlock;
 
 	/**
 	 * The cached value of the '{@link #getActionsBlock() <em>Actions Block</em>}' containment reference.
@@ -116,7 +116,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected StartCodeBlock actionsBlock;
+	protected ClassPart actionsBlock;
 
 	/**
 	 * The cached value of the '{@link #getReportBlock() <em>Report Block</em>}' containment reference.
@@ -126,7 +126,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected StartCodeBlock reportBlock;
+	protected ClassPart reportBlock;
 
 	/**
 	 * The cached value of the '{@link #getClearBlock() <em>Clear Block</em>}' containment reference.
@@ -136,7 +136,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * @generated
 	 * @ordered
 	 */
-	protected StartCodeBlock clearBlock;
+	protected ClassPart clearBlock;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -210,7 +210,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StartCodeBlock getInitialBlock() {
+	public ClassPart getInitialBlock() {
 		return initialBlock;
 	}
 
@@ -219,8 +219,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetInitialBlock(StartCodeBlock newInitialBlock, NotificationChain msgs) {
-		StartCodeBlock oldInitialBlock = initialBlock;
+	public NotificationChain basicSetInitialBlock(ClassPart newInitialBlock, NotificationChain msgs) {
+		ClassPart oldInitialBlock = initialBlock;
 		initialBlock = newInitialBlock;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CLASS_SIMILAR__INITIAL_BLOCK, oldInitialBlock, newInitialBlock);
@@ -234,7 +234,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInitialBlock(StartCodeBlock newInitialBlock) {
+	public void setInitialBlock(ClassPart newInitialBlock) {
 		if (newInitialBlock != initialBlock) {
 			NotificationChain msgs = null;
 			if (initialBlock != null)
@@ -253,7 +253,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StartCodeBlock getFinalBlock() {
+	public ClassPart getFinalBlock() {
 		return finalBlock;
 	}
 
@@ -262,8 +262,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetFinalBlock(StartCodeBlock newFinalBlock, NotificationChain msgs) {
-		StartCodeBlock oldFinalBlock = finalBlock;
+	public NotificationChain basicSetFinalBlock(ClassPart newFinalBlock, NotificationChain msgs) {
+		ClassPart oldFinalBlock = finalBlock;
 		finalBlock = newFinalBlock;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CLASS_SIMILAR__FINAL_BLOCK, oldFinalBlock, newFinalBlock);
@@ -277,7 +277,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFinalBlock(StartCodeBlock newFinalBlock) {
+	public void setFinalBlock(ClassPart newFinalBlock) {
 		if (newFinalBlock != finalBlock) {
 			NotificationChain msgs = null;
 			if (finalBlock != null)
@@ -296,7 +296,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StartCodeBlock getActionsBlock() {
+	public ClassPart getActionsBlock() {
 		return actionsBlock;
 	}
 
@@ -305,8 +305,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetActionsBlock(StartCodeBlock newActionsBlock, NotificationChain msgs) {
-		StartCodeBlock oldActionsBlock = actionsBlock;
+	public NotificationChain basicSetActionsBlock(ClassPart newActionsBlock, NotificationChain msgs) {
+		ClassPart oldActionsBlock = actionsBlock;
 		actionsBlock = newActionsBlock;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK, oldActionsBlock, newActionsBlock);
@@ -320,7 +320,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setActionsBlock(StartCodeBlock newActionsBlock) {
+	public void setActionsBlock(ClassPart newActionsBlock) {
 		if (newActionsBlock != actionsBlock) {
 			NotificationChain msgs = null;
 			if (actionsBlock != null)
@@ -339,7 +339,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StartCodeBlock getReportBlock() {
+	public ClassPart getReportBlock() {
 		return reportBlock;
 	}
 
@@ -348,8 +348,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetReportBlock(StartCodeBlock newReportBlock, NotificationChain msgs) {
-		StartCodeBlock oldReportBlock = reportBlock;
+	public NotificationChain basicSetReportBlock(ClassPart newReportBlock, NotificationChain msgs) {
+		ClassPart oldReportBlock = reportBlock;
 		reportBlock = newReportBlock;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CLASS_SIMILAR__REPORT_BLOCK, oldReportBlock, newReportBlock);
@@ -363,7 +363,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setReportBlock(StartCodeBlock newReportBlock) {
+	public void setReportBlock(ClassPart newReportBlock) {
 		if (newReportBlock != reportBlock) {
 			NotificationChain msgs = null;
 			if (reportBlock != null)
@@ -382,7 +382,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StartCodeBlock getClearBlock() {
+	public ClassPart getClearBlock() {
 		return clearBlock;
 	}
 
@@ -391,8 +391,8 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetClearBlock(StartCodeBlock newClearBlock, NotificationChain msgs) {
-		StartCodeBlock oldClearBlock = clearBlock;
+	public NotificationChain basicSetClearBlock(ClassPart newClearBlock, NotificationChain msgs) {
+		ClassPart oldClearBlock = clearBlock;
 		clearBlock = newClearBlock;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CLASS_SIMILAR__CLEAR_BLOCK, oldClearBlock, newClearBlock);
@@ -406,7 +406,7 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setClearBlock(StartCodeBlock newClearBlock) {
+	public void setClearBlock(ClassPart newClearBlock) {
 		if (newClearBlock != clearBlock) {
 			NotificationChain msgs = null;
 			if (clearBlock != null)
@@ -506,19 +506,19 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 				getSuperClasses().addAll((Collection<? extends SuperClassSpecification>)newValue);
 				return;
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
-				setInitialBlock((StartCodeBlock)newValue);
+				setInitialBlock((ClassPart)newValue);
 				return;
 			case DblPackage.CLASS_SIMILAR__FINAL_BLOCK:
-				setFinalBlock((StartCodeBlock)newValue);
+				setFinalBlock((ClassPart)newValue);
 				return;
 			case DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK:
-				setActionsBlock((StartCodeBlock)newValue);
+				setActionsBlock((ClassPart)newValue);
 				return;
 			case DblPackage.CLASS_SIMILAR__REPORT_BLOCK:
-				setReportBlock((StartCodeBlock)newValue);
+				setReportBlock((ClassPart)newValue);
 				return;
 			case DblPackage.CLASS_SIMILAR__CLEAR_BLOCK:
-				setClearBlock((StartCodeBlock)newValue);
+				setClearBlock((ClassPart)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -545,19 +545,19 @@ public abstract class ClassSimilarImpl extends EmbeddableExtensionsContainerImpl
 				getSuperClasses().clear();
 				return;
 			case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK:
-				setInitialBlock((StartCodeBlock)null);
+				setInitialBlock((ClassPart)null);
 				return;
 			case DblPackage.CLASS_SIMILAR__FINAL_BLOCK:
-				setFinalBlock((StartCodeBlock)null);
+				setFinalBlock((ClassPart)null);
 				return;
 			case DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK:
-				setActionsBlock((StartCodeBlock)null);
+				setActionsBlock((ClassPart)null);
 				return;
 			case DblPackage.CLASS_SIMILAR__REPORT_BLOCK:
-				setReportBlock((StartCodeBlock)null);
+				setReportBlock((ClassPart)null);
 				return;
 			case DblPackage.CLASS_SIMILAR__CLEAR_BLOCK:
-				setClearBlock((StartCodeBlock)null);
+				setClearBlock((ClassPart)null);
 				return;
 		}
 		super.eUnset(featureID);

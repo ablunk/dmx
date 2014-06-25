@@ -71,16 +71,13 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.PROCEDURE: return createProcedure();
 			case DblPackage.FOR_STATEMENT: return createForStatement();
 			case DblPackage.NATIVE_BINDING: return createNativeBinding();
-			case DblPackage.START_CODE_BLOCK: return createStartCodeBlock();
 			case DblPackage.CLAZZ: return createClazz();
 			case DblPackage.CONSTRUCTOR: return createConstructor();
 			case DblPackage.CLASS_AUGMENT: return createClassAugment();
 			case DblPackage.VARIABLE: return createVariable();
 			case DblPackage.PARAMETER: return createParameter();
 			case DblPackage.NAMED_ELEMENT: return createNamedElement();
-			case DblPackage.CODE_BLOCK: return createCodeBlock();
 			case DblPackage.STATEMENT: return createStatement();
-			case DblPackage.COMPOSITE_STATEMENT: return createCompositeStatement();
 			case DblPackage.SIMPLE_STATEMENT: return createSimpleStatement();
 			case DblPackage.EXPRESSION_STATEMENT: return createExpressionStatement();
 			case DblPackage.STATEMENT_EXPRESSION: return createStatementExpression();
@@ -94,9 +91,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.ACTIVATE_OBJECT: return createActivateObject();
 			case DblPackage.ADVANCE: return createAdvance();
 			case DblPackage.PRINT: return createPrint();
-			case DblPackage.REMOVE_FROM_SET: return createRemoveFromSet();
-			case DblPackage.ADD_TO_SET: return createAddToSet();
-			case DblPackage.EMPTY_SET: return createEmptySet();
 			case DblPackage.IF_STATEMENT: return createIfStatement();
 			case DblPackage.WHILE_STATEMENT: return createWhileStatement();
 			case DblPackage.BREAK_STATEMENT: return createBreakStatement();
@@ -129,14 +123,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.SUPER_LITERAL: return createSuperLiteral();
 			case DblPackage.META_LITERAL: return createMetaLiteral();
 			case DblPackage.TYPE_LITERAL: return createTypeLiteral();
-			case DblPackage.SIZE_OF_SET: return createSizeOfSet();
-			case DblPackage.FIRST_IN_SET: return createFirstInSet();
-			case DblPackage.LAST_IN_SET: return createLastInSet();
-			case DblPackage.CONTAINS: return createContains();
-			case DblPackage.INDEX_OF: return createIndexOf();
-			case DblPackage.OBJECT_AT: return createObjectAt();
-			case DblPackage.BEFORE_IN_SET: return createBeforeInSet();
-			case DblPackage.AFTER_IN_SET: return createAfterInSet();
 			case DblPackage.STRING_LITERAL: return createStringLiteral();
 			case DblPackage.INT_LITERAL: return createIntLiteral();
 			case DblPackage.TRUE_LITERAL: return createTrueLiteral();
@@ -144,7 +130,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.DOUBLE_LITERAL: return createDoubleLiteral();
 			case DblPackage.PREDEFINED_ID: return createPredefinedId();
 			case DblPackage.ID_EXPR: return createIdExpr();
-			case DblPackage.ARGUMENT_EXPRESSION: return createArgumentExpression();
 			case DblPackage.VARIABLE_ACCESS: return createVariableAccess();
 			case DblPackage.META_ACCESS: return createMetaAccess();
 			case DblPackage.TYPE_ACCESS: return createTypeAccess();
@@ -183,7 +168,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.DYNAMIC_MAPPING_PART: return createDynamicMappingPart();
 			case DblPackage.EXPAND_EXPRESSION: return createExpandExpression();
 			case DblPackage.EXPAND_STATEMENT: return createExpandStatement();
-			case DblPackage.EXPAND_SECTION: return createExpandSection();
 			case DblPackage.CODE_QUOTE_EXPRESSION: return createCodeQuoteExpression();
 			case DblPackage.QUOTED_CODE: return createQuotedCode();
 			case DblPackage.QUOTED_EXPRESSION: return createQuotedExpression();
@@ -197,6 +181,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.ARRAY_DIMENSION: return createArrayDimension();
 			case DblPackage.SWITCH_CASE: return createSwitchCase();
 			case DblPackage.SWITCH_STATEMENT: return createSwitchStatement();
+			case DblPackage.SIZE_OF_ARRAY: return createSizeOfArray();
+			case DblPackage.LOCAL_SCOPE_STATEMENT: return createLocalScopeStatement();
+			case DblPackage.CLASS_PART: return createClassPart();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -348,9 +335,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SuperClassSpecification createSuperClassSpecification() {
-		SuperClassSpecificationImpl superClassSpecification = new SuperClassSpecificationImpl();
-		return superClassSpecification;
+	public ClassPart createClassPart() {
+		ClassPartImpl classPart = new ClassPartImpl();
+		return classPart;
 	}
 
 	/**
@@ -358,9 +345,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public StartCodeBlock createStartCodeBlock() {
-		StartCodeBlockImpl startCodeBlock = new StartCodeBlockImpl();
-		return startCodeBlock;
+	public SuperClassSpecification createSuperClassSpecification() {
+		SuperClassSpecificationImpl superClassSpecification = new SuperClassSpecificationImpl();
+		return superClassSpecification;
 	}
 
 	/**
@@ -428,9 +415,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CodeBlock createCodeBlock() {
-		CodeBlockImpl codeBlock = new CodeBlockImpl();
-		return codeBlock;
+	public deprecated_CodeBlock createdeprecated_CodeBlock() {
+		deprecated_CodeBlockImpl deprecated_CodeBlock = new deprecated_CodeBlockImpl();
+		return deprecated_CodeBlock;
 	}
 
 	/**
@@ -448,9 +435,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CompositeStatement createCompositeStatement() {
-		CompositeStatementImpl compositeStatement = new CompositeStatementImpl();
-		return compositeStatement;
+	public LoopStatement createLoopStatement() {
+		LoopStatementImpl loopStatement = new LoopStatementImpl();
+		return loopStatement;
 	}
 
 	/**
@@ -598,39 +585,19 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RemoveFromSet createRemoveFromSet() {
-		RemoveFromSetImpl removeFromSet = new RemoveFromSetImpl();
-		return removeFromSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AddToSet createAddToSet() {
-		AddToSetImpl addToSet = new AddToSetImpl();
-		return addToSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EmptySet createEmptySet() {
-		EmptySetImpl emptySet = new EmptySetImpl();
-		return emptySet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public IfStatement createIfStatement() {
 		IfStatementImpl ifStatement = new IfStatementImpl();
 		return ifStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LocalScopeStatement createLocalScopeStatement() {
+		LocalScopeStatementImpl localScopeStatement = new LocalScopeStatementImpl();
+		return localScopeStatement;
 	}
 
 	/**
@@ -978,79 +945,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SizeOfSet createSizeOfSet() {
-		SizeOfSetImpl sizeOfSet = new SizeOfSetImpl();
-		return sizeOfSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FirstInSet createFirstInSet() {
-		FirstInSetImpl firstInSet = new FirstInSetImpl();
-		return firstInSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public LastInSet createLastInSet() {
-		LastInSetImpl lastInSet = new LastInSetImpl();
-		return lastInSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Contains createContains() {
-		ContainsImpl contains = new ContainsImpl();
-		return contains;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IndexOf createIndexOf() {
-		IndexOfImpl indexOf = new IndexOfImpl();
-		return indexOf;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ObjectAt createObjectAt() {
-		ObjectAtImpl objectAt = new ObjectAtImpl();
-		return objectAt;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BeforeInSet createBeforeInSet() {
-		BeforeInSetImpl beforeInSet = new BeforeInSetImpl();
-		return beforeInSet;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AfterInSet createAfterInSet() {
-		AfterInSetImpl afterInSet = new AfterInSetImpl();
-		return afterInSet;
+	public SizeOfArray createSizeOfArray() {
+		SizeOfArrayImpl sizeOfArray = new SizeOfArrayImpl();
+		return sizeOfArray;
 	}
 
 	/**
@@ -1121,16 +1018,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public IdExpr createIdExpr() {
 		IdExprImpl idExpr = new IdExprImpl();
 		return idExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ArgumentExpression createArgumentExpression() {
-		ArgumentExpressionImpl argumentExpression = new ArgumentExpressionImpl();
-		return argumentExpression;
 	}
 
 	/**
@@ -1511,16 +1398,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public ExpandStatement createExpandStatement() {
 		ExpandStatementImpl expandStatement = new ExpandStatementImpl();
 		return expandStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ExpandSection createExpandSection() {
-		ExpandSectionImpl expandSection = new ExpandSectionImpl();
-		return expandSection;
 	}
 
 	/**

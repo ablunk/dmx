@@ -104,7 +104,8 @@ public class IdExprItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.ID_EXPR__PARENT_ID_EXPR);
 			childrenFeatures.add(DblPackage.Literals.ID_EXPR__PREDEFINED_ID);
-			childrenFeatures.add(DblPackage.Literals.ID_EXPR__ARGUMENTS);
+			childrenFeatures.add(DblPackage.Literals.ID_EXPR__ARRAY_INDEX);
+			childrenFeatures.add(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS);
 		}
 		return childrenFeatures;
 	}
@@ -161,7 +162,8 @@ public class IdExprItemProvider
 		switch (notification.getFeatureID(IdExpr.class)) {
 			case DblPackage.ID_EXPR__PARENT_ID_EXPR:
 			case DblPackage.ID_EXPR__PREDEFINED_ID:
-			case DblPackage.ID_EXPR__ARGUMENTS:
+			case DblPackage.ID_EXPR__ARRAY_INDEX:
+			case DblPackage.ID_EXPR__CALL_ARGUMENTS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -212,47 +214,392 @@ public class IdExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createSizeOfSet()));
+				 DblFactory.eINSTANCE.createSizeOfArray()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createFirstInSet()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createExpression()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createLastInSet()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createL1Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createContains()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createIndexOf()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createOr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createObjectAt()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createGreater()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createBeforeInSet()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createGreaterEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__PREDEFINED_ID,
-				 DblFactory.eINSTANCE.createAfterInSet()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createLess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.ID_EXPR__ARGUMENTS,
-				 DblFactory.eINSTANCE.createArgumentExpression()));
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createLessEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createInstanceOf()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createNot()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createCast()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createCreateObject()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createNullLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createTimeLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createActiveLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createStringLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createIntLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createTrueLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createFalseLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createEvalExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createVariableAccess()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createMetaAccess()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createTypeAccess()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createMetaExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createExpandExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL1Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createGreater()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createGreaterEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createLess()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createLessEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createInstanceOf()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createPlus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createMinus()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createMul()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createMod()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createDiv()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createNeg()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createNot()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createCast()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createCreateObject()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createNullLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createTimeLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createActiveLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createStringLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createIntLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createTrueLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createFalseLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createDoubleLiteral()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createEvalExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createVariableAccess()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createMetaAccess()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createTypeAccess()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createMetaExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createExpandExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
+			childFeature == DblPackage.Literals.ID_EXPR__PARENT_ID_EXPR ||
+			childFeature == DblPackage.Literals.ID_EXPR__ARRAY_INDEX ||
+			childFeature == DblPackage.Literals.ID_EXPR__CALL_ARGUMENTS;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

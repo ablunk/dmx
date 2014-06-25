@@ -11,15 +11,11 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -31,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.SwitchCaseImpl#getValue <em>Value</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.SwitchCaseImpl#getStatements <em>Statements</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.SwitchCaseImpl#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,14 +45,14 @@ public class SwitchCaseImpl extends EObjectImpl implements SwitchCase {
 	protected Expression value;
 
 	/**
-	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
+	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getStatements()
+	 * @see #getBody()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Statement> statements;
+	protected EList<Statement> body;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -125,11 +121,11 @@ public class SwitchCaseImpl extends EObjectImpl implements SwitchCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Statement> getStatements() {
-		if (statements == null) {
-			statements = new EObjectContainmentEList<Statement>(Statement.class, this, DblPackage.SWITCH_CASE__STATEMENTS);
+	public EList<Statement> getBody() {
+		if (body == null) {
+			body = new EObjectContainmentEList<Statement>(Statement.class, this, DblPackage.SWITCH_CASE__BODY);
 		}
-		return statements;
+		return body;
 	}
 
 	/**
@@ -142,8 +138,8 @@ public class SwitchCaseImpl extends EObjectImpl implements SwitchCase {
 		switch (featureID) {
 			case DblPackage.SWITCH_CASE__VALUE:
 				return basicSetValue(null, msgs);
-			case DblPackage.SWITCH_CASE__STATEMENTS:
-				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
+			case DblPackage.SWITCH_CASE__BODY:
+				return ((InternalEList<?>)getBody()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -158,8 +154,8 @@ public class SwitchCaseImpl extends EObjectImpl implements SwitchCase {
 		switch (featureID) {
 			case DblPackage.SWITCH_CASE__VALUE:
 				return getValue();
-			case DblPackage.SWITCH_CASE__STATEMENTS:
-				return getStatements();
+			case DblPackage.SWITCH_CASE__BODY:
+				return getBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -176,9 +172,9 @@ public class SwitchCaseImpl extends EObjectImpl implements SwitchCase {
 			case DblPackage.SWITCH_CASE__VALUE:
 				setValue((Expression)newValue);
 				return;
-			case DblPackage.SWITCH_CASE__STATEMENTS:
-				getStatements().clear();
-				getStatements().addAll((Collection<? extends Statement>)newValue);
+			case DblPackage.SWITCH_CASE__BODY:
+				getBody().clear();
+				getBody().addAll((Collection<? extends Statement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -195,8 +191,8 @@ public class SwitchCaseImpl extends EObjectImpl implements SwitchCase {
 			case DblPackage.SWITCH_CASE__VALUE:
 				setValue((Expression)null);
 				return;
-			case DblPackage.SWITCH_CASE__STATEMENTS:
-				getStatements().clear();
+			case DblPackage.SWITCH_CASE__BODY:
+				getBody().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -212,8 +208,8 @@ public class SwitchCaseImpl extends EObjectImpl implements SwitchCase {
 		switch (featureID) {
 			case DblPackage.SWITCH_CASE__VALUE:
 				return value != null;
-			case DblPackage.SWITCH_CASE__STATEMENTS:
-				return statements != null && !statements.isEmpty();
+			case DblPackage.SWITCH_CASE__BODY:
+				return body != null && !body.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -153,14 +153,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass superClassSpecificationEClass = null;
+	private EClass classPartEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass startCodeBlockEClass = null;
+	private EClass superClassSpecificationEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -216,7 +216,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass codeBlockEClass = null;
+	private EClass deprecated_CodeBlockEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -230,7 +230,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass compositeStatementEClass = null;
+	private EClass loopStatementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -335,35 +335,21 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass setStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass removeFromSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass addToSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass emptySetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass ifStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass localScopeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass localScopeStatementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -622,63 +608,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass setOpEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass sizeOfSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass firstInSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass lastInSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass containsEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass indexOfEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass objectAtEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass beforeInSetEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass afterInSetEClass = null;
+	private EClass sizeOfArrayEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -720,13 +650,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass depIdentifiableElementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass predefinedIdEClass = null;
 
 	/**
@@ -735,13 +658,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass idExprEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass argumentExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1043,13 +959,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass expandStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass expandSectionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1360,7 +1269,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypedElement_ClassifierTypeExpr() {
+	public EReference getTypedElement_TypeArrayDimensions() {
 		return (EReference)typedElementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1369,7 +1278,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTypedElement_ArrayDimensions() {
+	public EReference getTypedElement_ClassifierType() {
 		return (EReference)typedElementEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1612,6 +1521,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getClassPart() {
+		return classPartEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSuperClassSpecification() {
 		return superClassSpecificationEClass;
 	}
@@ -1632,15 +1550,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EReference getSuperClassSpecification_ConstructorArguments() {
 		return (EReference)superClassSpecificationEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStartCodeBlock() {
-		return startCodeBlockEClass;
 	}
 
 	/**
@@ -1783,8 +1692,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCodeBlock() {
-		return codeBlockEClass;
+	public EClass getdeprecated_CodeBlock() {
+		return deprecated_CodeBlockEClass;
 	}
 
 	/**
@@ -1792,8 +1701,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCodeBlock_Statements() {
-		return (EReference)codeBlockEClass.getEStructuralFeatures().get(0);
+	public EReference getdeprecated_CodeBlock_Statements() {
+		return (EReference)deprecated_CodeBlockEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1810,8 +1719,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCompositeStatement() {
-		return compositeStatementEClass;
+	public EClass getLoopStatement() {
+		return loopStatementEClass;
 	}
 
 	/**
@@ -2044,69 +1953,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSetStatement() {
-		return setStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSetStatement_Object() {
-		return (EReference)setStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSetStatement_Set() {
-		return (EReference)setStatementEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getRemoveFromSet() {
-		return removeFromSetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAddToSet() {
-		return addToSetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getAddToSet_AtIndex() {
-		return (EReference)addToSetEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getEmptySet() {
-		return emptySetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getIfStatement() {
 		return ifStatementEClass;
 	}
@@ -2125,7 +1971,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_IfCaseBlock() {
+	public EReference getIfStatement_TrueCase() {
 		return (EReference)ifStatementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2134,7 +1980,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_ElifCondition() {
+	public EReference getIfStatement_FalseCase() {
 		return (EReference)ifStatementEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -2143,8 +1989,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_ElifCaseBlock() {
-		return (EReference)ifStatementEClass.getEStructuralFeatures().get(3);
+	public EClass getLocalScope() {
+		return localScopeEClass;
 	}
 
 	/**
@@ -2152,8 +1998,17 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIfStatement_ElseCaseBlock() {
-		return (EReference)ifStatementEClass.getEStructuralFeatures().get(4);
+	public EReference getLocalScope_Statements() {
+		return (EReference)localScopeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLocalScopeStatement() {
+		return localScopeStatementEClass;
 	}
 
 	/**
@@ -2215,7 +2070,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSwitchCase_Statements() {
+	public EReference getSwitchCase_Body() {
 		return (EReference)switchCaseEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2242,7 +2097,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getWhileStatement_WhileBlock() {
+	public EReference getWhileStatement_Body() {
 		return (EReference)whileStatementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2629,89 +2484,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSetOp() {
-		return setOpEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSetOp_Set() {
-		return (EReference)setOpEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSizeOfSet() {
-		return sizeOfSetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getFirstInSet() {
-		return firstInSetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLastInSet() {
-		return lastInSetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getContains() {
-		return containsEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getIndexOf() {
-		return indexOfEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getObjectAt() {
-		return objectAtEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getBeforeInSet() {
-		return beforeInSetEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getAfterInSet() {
-		return afterInSetEClass;
+	public EClass getSizeOfArray() {
+		return sizeOfArrayEClass;
 	}
 
 	/**
@@ -2791,15 +2565,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getDepIdentifiableElement() {
-		return depIdentifiableElementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getPredefinedId() {
 		return predefinedIdEClass;
 	}
@@ -2845,7 +2610,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIdExpr_Arguments() {
+	public EReference getIdExpr_ArrayIndex() {
 		return (EReference)idExprEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -2854,17 +2619,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getArgumentExpression() {
-		return argumentExpressionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getArgumentExpression_Arguments() {
-		return (EReference)argumentExpressionEClass.getEStructuralFeatures().get(0);
+	public EReference getIdExpr_CallArguments() {
+		return (EReference)idExprEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3457,7 +3213,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTargetStatement_CodeBlock() {
+	public EReference getTargetStatement_Body() {
 		return (EReference)targetStatementEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -3646,24 +3402,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExpandSection() {
-		return expandSectionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getExpandSection_CodeBlock() {
-		return (EReference)expandSectionEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getCodeQuoteExpression() {
 		return codeQuoteExpressionEClass;
 	}
@@ -3790,7 +3528,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPattern_CodeBlock() {
+	public EReference getPattern_Body() {
 		return (EReference)patternEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -3861,8 +3599,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		typedElementEClass = createEClass(TYPED_ELEMENT);
 		createEReference(typedElementEClass, TYPED_ELEMENT__PRIMITIVE_TYPE);
-		createEReference(typedElementEClass, TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
-		createEReference(typedElementEClass, TYPED_ELEMENT__ARRAY_DIMENSIONS);
+		createEReference(typedElementEClass, TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS);
+		createEReference(typedElementEClass, TYPED_ELEMENT__CLASSIFIER_TYPE);
 
 		arrayDimensionEClass = createEClass(ARRAY_DIMENSION);
 		createEReference(arrayDimensionEClass, ARRAY_DIMENSION__SIZE);
@@ -3901,11 +3639,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEReference(classSimilarEClass, CLASS_SIMILAR__REPORT_BLOCK);
 		createEReference(classSimilarEClass, CLASS_SIMILAR__CLEAR_BLOCK);
 
+		classPartEClass = createEClass(CLASS_PART);
+
 		superClassSpecificationEClass = createEClass(SUPER_CLASS_SPECIFICATION);
 		createEReference(superClassSpecificationEClass, SUPER_CLASS_SPECIFICATION__CLAZZ);
 		createEReference(superClassSpecificationEClass, SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS);
-
-		startCodeBlockEClass = createEClass(START_CODE_BLOCK);
 
 		clazzEClass = createEClass(CLAZZ);
 		createEAttribute(clazzEClass, CLAZZ__ACTIVE);
@@ -3929,12 +3667,12 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		namedElementEClass = createEClass(NAMED_ELEMENT);
 		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
 
-		codeBlockEClass = createEClass(CODE_BLOCK);
-		createEReference(codeBlockEClass, CODE_BLOCK__STATEMENTS);
+		deprecated_CodeBlockEClass = createEClass(DEPRECATED_CODE_BLOCK);
+		createEReference(deprecated_CodeBlockEClass, DEPRECATED_CODE_BLOCK__STATEMENTS);
 
 		statementEClass = createEClass(STATEMENT);
 
-		compositeStatementEClass = createEClass(COMPOSITE_STATEMENT);
+		loopStatementEClass = createEClass(LOOP_STATEMENT);
 
 		simpleStatementEClass = createEClass(SIMPLE_STATEMENT);
 
@@ -3975,23 +3713,26 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		printEClass = createEClass(PRINT);
 		createEReference(printEClass, PRINT__OUTPUTS);
 
-		setStatementEClass = createEClass(SET_STATEMENT);
-		createEReference(setStatementEClass, SET_STATEMENT__OBJECT);
-		createEReference(setStatementEClass, SET_STATEMENT__SET);
-
-		removeFromSetEClass = createEClass(REMOVE_FROM_SET);
-
-		addToSetEClass = createEClass(ADD_TO_SET);
-		createEReference(addToSetEClass, ADD_TO_SET__AT_INDEX);
-
-		emptySetEClass = createEClass(EMPTY_SET);
-
 		ifStatementEClass = createEClass(IF_STATEMENT);
 		createEReference(ifStatementEClass, IF_STATEMENT__CONDITION);
-		createEReference(ifStatementEClass, IF_STATEMENT__IF_CASE_BLOCK);
-		createEReference(ifStatementEClass, IF_STATEMENT__ELIF_CONDITION);
-		createEReference(ifStatementEClass, IF_STATEMENT__ELIF_CASE_BLOCK);
-		createEReference(ifStatementEClass, IF_STATEMENT__ELSE_CASE_BLOCK);
+		createEReference(ifStatementEClass, IF_STATEMENT__TRUE_CASE);
+		createEReference(ifStatementEClass, IF_STATEMENT__FALSE_CASE);
+
+		localScopeEClass = createEClass(LOCAL_SCOPE);
+		createEReference(localScopeEClass, LOCAL_SCOPE__STATEMENTS);
+
+		localScopeStatementEClass = createEClass(LOCAL_SCOPE_STATEMENT);
+
+		forStatementEClass = createEClass(FOR_STATEMENT);
+		createEReference(forStatementEClass, FOR_STATEMENT__COUNT_VARIABLE_DEFINITION);
+		createEReference(forStatementEClass, FOR_STATEMENT__COUNT_VARIABLE_REFERENCE);
+		createEReference(forStatementEClass, FOR_STATEMENT__TERMINATION);
+		createEReference(forStatementEClass, FOR_STATEMENT__INCREMENT);
+		createEReference(forStatementEClass, FOR_STATEMENT__BODY);
+
+		whileStatementEClass = createEClass(WHILE_STATEMENT);
+		createEReference(whileStatementEClass, WHILE_STATEMENT__CONDITION);
+		createEReference(whileStatementEClass, WHILE_STATEMENT__BODY);
 
 		switchStatementEClass = createEClass(SWITCH_STATEMENT);
 		createEReference(switchStatementEClass, SWITCH_STATEMENT__VARIABLE);
@@ -4000,22 +3741,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		switchCaseEClass = createEClass(SWITCH_CASE);
 		createEReference(switchCaseEClass, SWITCH_CASE__VALUE);
-		createEReference(switchCaseEClass, SWITCH_CASE__STATEMENTS);
-
-		whileStatementEClass = createEClass(WHILE_STATEMENT);
-		createEReference(whileStatementEClass, WHILE_STATEMENT__CONDITION);
-		createEReference(whileStatementEClass, WHILE_STATEMENT__WHILE_BLOCK);
+		createEReference(switchCaseEClass, SWITCH_CASE__BODY);
 
 		breakStatementEClass = createEClass(BREAK_STATEMENT);
 
 		continueStatementEClass = createEClass(CONTINUE_STATEMENT);
-
-		forStatementEClass = createEClass(FOR_STATEMENT);
-		createEReference(forStatementEClass, FOR_STATEMENT__COUNT_VARIABLE_DEFINITION);
-		createEReference(forStatementEClass, FOR_STATEMENT__COUNT_VARIABLE_REFERENCE);
-		createEReference(forStatementEClass, FOR_STATEMENT__TERMINATION);
-		createEReference(forStatementEClass, FOR_STATEMENT__INCREMENT);
-		createEReference(forStatementEClass, FOR_STATEMENT__BODY);
 
 		expressionEClass = createEClass(EXPRESSION);
 
@@ -4086,6 +3816,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		evalExprEClass = createEClass(EVAL_EXPR);
 		createEReference(evalExprEClass, EVAL_EXPR__EXPR);
 
+		predefinedIdEClass = createEClass(PREDEFINED_ID);
+
 		meLiteralEClass = createEClass(ME_LITERAL);
 
 		superLiteralEClass = createEClass(SUPER_LITERAL);
@@ -4094,37 +3826,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		typeLiteralEClass = createEClass(TYPE_LITERAL);
 
-		setOpEClass = createEClass(SET_OP);
-		createEReference(setOpEClass, SET_OP__SET);
-
-		sizeOfSetEClass = createEClass(SIZE_OF_SET);
-
-		firstInSetEClass = createEClass(FIRST_IN_SET);
-
-		lastInSetEClass = createEClass(LAST_IN_SET);
-
-		containsEClass = createEClass(CONTAINS);
-
-		indexOfEClass = createEClass(INDEX_OF);
-
-		objectAtEClass = createEClass(OBJECT_AT);
-
-		beforeInSetEClass = createEClass(BEFORE_IN_SET);
-
-		afterInSetEClass = createEClass(AFTER_IN_SET);
-
-		depIdentifiableElementEClass = createEClass(DEP_IDENTIFIABLE_ELEMENT);
-
-		predefinedIdEClass = createEClass(PREDEFINED_ID);
+		sizeOfArrayEClass = createEClass(SIZE_OF_ARRAY);
 
 		idExprEClass = createEClass(ID_EXPR);
 		createEReference(idExprEClass, ID_EXPR__PARENT_ID_EXPR);
 		createEReference(idExprEClass, ID_EXPR__REFERENCED_ELEMENT);
 		createEReference(idExprEClass, ID_EXPR__PREDEFINED_ID);
-		createEReference(idExprEClass, ID_EXPR__ARGUMENTS);
-
-		argumentExpressionEClass = createEClass(ARGUMENT_EXPRESSION);
-		createEReference(argumentExpressionEClass, ARGUMENT_EXPRESSION__ARGUMENTS);
+		createEReference(idExprEClass, ID_EXPR__ARRAY_INDEX);
+		createEReference(idExprEClass, ID_EXPR__CALL_ARGUMENTS);
 
 		elementAccessEClass = createEClass(ELEMENT_ACCESS);
 		createEReference(elementAccessEClass, ELEMENT_ACCESS__ID_EXPR);
@@ -4220,7 +3929,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEReference(metaExprEClass, META_EXPR__EXPR);
 
 		targetStatementEClass = createEClass(TARGET_STATEMENT);
-		createEReference(targetStatementEClass, TARGET_STATEMENT__CODE_BLOCK);
+		createEReference(targetStatementEClass, TARGET_STATEMENT__BODY);
 
 		mappingStatementEClass = createEClass(MAPPING_STATEMENT);
 		createEReference(mappingStatementEClass, MAPPING_STATEMENT__PARTS);
@@ -4251,9 +3960,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEReference(expandStatementEClass, EXPAND_STATEMENT__META_OBJECT);
 		createEReference(expandStatementEClass, EXPAND_STATEMENT__LOCATION);
 
-		expandSectionEClass = createEClass(EXPAND_SECTION);
-		createEReference(expandSectionEClass, EXPAND_SECTION__CODE_BLOCK);
-
 		codeQuoteExpressionEClass = createEClass(CODE_QUOTE_EXPRESSION);
 		createEReference(codeQuoteExpressionEClass, CODE_QUOTE_EXPRESSION__QUOTED_CODE);
 
@@ -4272,7 +3978,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		patternEClass = createEClass(PATTERN);
 		createEAttribute(patternEClass, PATTERN__TOP);
 		createEReference(patternEClass, PATTERN__CONTEXT);
-		createEReference(patternEClass, PATTERN__CODE_BLOCK);
+		createEReference(patternEClass, PATTERN__BODY);
 
 		testStatementEClass = createEClass(TEST_STATEMENT);
 		createEAttribute(testStatementEClass, TEST_STATEMENT__VALUE);
@@ -4320,13 +4026,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		stringTypeEClass.getESuperTypes().add(this.getPrimitiveType());
 		procedureEClass.getESuperTypes().add(this.getNamedElement());
 		procedureEClass.getESuperTypes().add(this.getTypedElement());
-		procedureEClass.getESuperTypes().add(this.getCodeBlock());
+		procedureEClass.getESuperTypes().add(this.getLocalScope());
 		classifierEClass.getESuperTypes().add(this.getType());
 		classifierEClass.getESuperTypes().add(this.getNamedElement());
 		classifierEClass.getESuperTypes().add(this.getReferableRhsType());
 		classSimilarEClass.getESuperTypes().add(this.getEmbeddableExtensionsContainer());
 		classSimilarEClass.getESuperTypes().add(this.getModifierExtensionsContainer());
-		startCodeBlockEClass.getESuperTypes().add(this.getCodeBlock());
+		classPartEClass.getESuperTypes().add(this.getLocalScope());
 		clazzEClass.getESuperTypes().add(this.getClassifier());
 		clazzEClass.getESuperTypes().add(this.getClassSimilar());
 		classAugmentEClass.getESuperTypes().add(this.getClassSimilar());
@@ -4336,9 +4042,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		variableEClass.getESuperTypes().add(this.getStatement());
 		variableEClass.getESuperTypes().add(this.getModifierExtensionsContainer());
 		parameterEClass.getESuperTypes().add(this.getAbstractVariable());
-		codeBlockEClass.getESuperTypes().add(this.getExtensibleElement());
+		deprecated_CodeBlockEClass.getESuperTypes().add(this.getExtensibleElement());
 		statementEClass.getESuperTypes().add(this.getExtensibleElement());
-		compositeStatementEClass.getESuperTypes().add(this.getStatement());
+		loopStatementEClass.getESuperTypes().add(this.getStatement());
 		simpleStatementEClass.getESuperTypes().add(this.getStatement());
 		expressionStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		assignmentEClass.getESuperTypes().add(this.getSimpleStatement());
@@ -4352,16 +4058,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		activateObjectEClass.getESuperTypes().add(this.getSimpleStatement());
 		advanceEClass.getESuperTypes().add(this.getSimpleStatement());
 		printEClass.getESuperTypes().add(this.getSimpleStatement());
-		setStatementEClass.getESuperTypes().add(this.getSimpleStatement());
-		removeFromSetEClass.getESuperTypes().add(this.getSetStatement());
-		addToSetEClass.getESuperTypes().add(this.getSetStatement());
-		emptySetEClass.getESuperTypes().add(this.getSetStatement());
-		ifStatementEClass.getESuperTypes().add(this.getCompositeStatement());
-		switchStatementEClass.getESuperTypes().add(this.getCompositeStatement());
-		whileStatementEClass.getESuperTypes().add(this.getCompositeStatement());
+		ifStatementEClass.getESuperTypes().add(this.getStatement());
+		localScopeStatementEClass.getESuperTypes().add(this.getSimpleStatement());
+		localScopeStatementEClass.getESuperTypes().add(this.getLocalScope());
+		forStatementEClass.getESuperTypes().add(this.getLoopStatement());
+		whileStatementEClass.getESuperTypes().add(this.getLoopStatement());
+		switchStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		breakStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		continueStatementEClass.getESuperTypes().add(this.getSimpleStatement());
-		forStatementEClass.getESuperTypes().add(this.getCompositeStatement());
+		expressionEClass.getESuperTypes().add(this.getTypedElement());
 		expressionEClass.getESuperTypes().add(this.getExtensibleElement());
 		l1ExprEClass.getESuperTypes().add(this.getExpression());
 		binaryOperatorEClass.getESuperTypes().add(this.getExpression());
@@ -4399,15 +4104,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		superLiteralEClass.getESuperTypes().add(this.getPredefinedId());
 		metaLiteralEClass.getESuperTypes().add(this.getPredefinedId());
 		typeLiteralEClass.getESuperTypes().add(this.getPredefinedId());
-		setOpEClass.getESuperTypes().add(this.getPredefinedId());
-		sizeOfSetEClass.getESuperTypes().add(this.getSetOp());
-		firstInSetEClass.getESuperTypes().add(this.getSetOp());
-		lastInSetEClass.getESuperTypes().add(this.getSetOp());
-		containsEClass.getESuperTypes().add(this.getSetOp());
-		indexOfEClass.getESuperTypes().add(this.getSetOp());
-		objectAtEClass.getESuperTypes().add(this.getSetOp());
-		beforeInSetEClass.getESuperTypes().add(this.getSetOp());
-		afterInSetEClass.getESuperTypes().add(this.getSetOp());
+		sizeOfArrayEClass.getESuperTypes().add(this.getPredefinedId());
 		idExprEClass.getESuperTypes().add(this.getL1Expr());
 		elementAccessEClass.getESuperTypes().add(this.getExpression());
 		variableAccessEClass.getESuperTypes().add(this.getElementAccess());
@@ -4437,7 +4134,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		structuredPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
 		compositePropertyTypeEClass.getESuperTypes().add(this.getStructuredPropertyType());
 		referencePropertyTypeEClass.getESuperTypes().add(this.getStructuredPropertyType());
-		mappingEClass.getESuperTypes().add(this.getCodeBlock());
+		mappingEClass.getESuperTypes().add(this.getLocalScopeStatement());
 		metaExprEClass.getESuperTypes().add(this.getExpression());
 		targetStatementEClass.getESuperTypes().add(this.getStatement());
 		mappingStatementEClass.getESuperTypes().add(this.getStatement());
@@ -4450,7 +4147,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		expandExpressionEClass.getESuperTypes().add(this.getStatementExpression());
 		expandExpressionEClass.getESuperTypes().add(this.getExpression());
 		expandStatementEClass.getESuperTypes().add(this.getStatement());
-		expandSectionEClass.getESuperTypes().add(this.getCompositeStatement());
 		codeQuoteExpressionEClass.getESuperTypes().add(this.getExpression());
 		quotedExpressionEClass.getESuperTypes().add(this.getQuotedCode());
 		quotedStatementsEClass.getESuperTypes().add(this.getQuotedCode());
@@ -4492,8 +4188,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(typedElementEClass, TypedElement.class, "TypedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTypedElement_PrimitiveType(), this.getPrimitiveType(), null, "primitiveType", null, 0, 1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypedElement_ClassifierTypeExpr(), this.getIdExpr(), null, "classifierTypeExpr", null, 0, 1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTypedElement_ArrayDimensions(), this.getArrayDimension(), null, "arrayDimensions", null, 0, -1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypedElement_TypeArrayDimensions(), this.getArrayDimension(), null, "typeArrayDimensions", null, 0, -1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTypedElement_ClassifierType(), this.getIdExpr(), null, "classifierType", null, 0, 1, TypedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(arrayDimensionEClass, ArrayDimension.class, "ArrayDimension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getArrayDimension_Size(), this.getExpression(), null, "size", null, 0, 1, ArrayDimension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4526,17 +4222,17 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEReference(getClassSimilar_Attributes(), this.getVariable(), null, "attributes", null, 0, -1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassSimilar_Methods(), this.getProcedure(), null, "methods", null, 0, -1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClassSimilar_SuperClasses(), this.getSuperClassSpecification(), null, "superClasses", null, 0, -1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClassSimilar_InitialBlock(), this.getStartCodeBlock(), null, "initialBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClassSimilar_FinalBlock(), this.getStartCodeBlock(), null, "finalBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClassSimilar_ActionsBlock(), this.getStartCodeBlock(), null, "actionsBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClassSimilar_ReportBlock(), this.getStartCodeBlock(), null, "reportBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClassSimilar_ClearBlock(), this.getStartCodeBlock(), null, "clearBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassSimilar_InitialBlock(), this.getClassPart(), null, "initialBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassSimilar_FinalBlock(), this.getClassPart(), null, "finalBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassSimilar_ActionsBlock(), this.getClassPart(), null, "actionsBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassSimilar_ReportBlock(), this.getClassPart(), null, "reportBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClassSimilar_ClearBlock(), this.getClassPart(), null, "clearBlock", null, 0, 1, ClassSimilar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(classPartEClass, ClassPart.class, "ClassPart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(superClassSpecificationEClass, SuperClassSpecification.class, "SuperClassSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSuperClassSpecification_Clazz(), this.getClazz(), null, "clazz", null, 1, 1, SuperClassSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getSuperClassSpecification_ConstructorArguments(), this.getExpression(), null, "constructorArguments", null, 0, -1, SuperClassSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-
-		initEClass(startCodeBlockEClass, StartCodeBlock.class, "StartCodeBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(clazzEClass, Clazz.class, "Clazz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getClazz_Active(), ecorePackage.getEBoolean(), "active", "false", 1, 1, Clazz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4560,12 +4256,12 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(namedElementEClass, NamedElement.class, "NamedElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(codeBlockEClass, CodeBlock.class, "CodeBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCodeBlock_Statements(), this.getStatement(), null, "statements", null, 0, -1, CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(deprecated_CodeBlockEClass, deprecated_CodeBlock.class, "deprecated_CodeBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getdeprecated_CodeBlock_Statements(), this.getStatement(), null, "statements", null, 0, -1, deprecated_CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(statementEClass, Statement.class, "Statement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(compositeStatementEClass, CompositeStatement.class, "CompositeStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(loopStatementEClass, LoopStatement.class, "LoopStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(simpleStatementEClass, SimpleStatement.class, "SimpleStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4606,23 +4302,26 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(printEClass, Print.class, "Print", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPrint_Outputs(), this.getExpression(), null, "outputs", null, 0, -1, Print.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(setStatementEClass, SetStatement.class, "SetStatement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSetStatement_Object(), this.getExpression(), null, "object", null, 1, 1, SetStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSetStatement_Set(), this.getExpression(), null, "set", null, 1, 1, SetStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(removeFromSetEClass, RemoveFromSet.class, "RemoveFromSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(addToSetEClass, AddToSet.class, "AddToSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getAddToSet_AtIndex(), this.getArgumentExpression(), null, "atIndex", null, 0, 1, AddToSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(emptySetEClass, EmptySet.class, "EmptySet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(ifStatementEClass, IfStatement.class, "IfStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIfStatement_Condition(), this.getExpression(), null, "condition", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_IfCaseBlock(), this.getCodeBlock(), null, "ifCaseBlock", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_ElifCondition(), this.getExpression(), null, "elifCondition", null, 0, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_ElifCaseBlock(), this.getCodeBlock(), null, "elifCaseBlock", null, 0, -1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIfStatement_ElseCaseBlock(), this.getCodeBlock(), null, "elseCaseBlock", null, 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIfStatement_TrueCase(), this.getStatement(), null, "trueCase", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIfStatement_FalseCase(), this.getStatement(), null, "falseCase", null, 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(localScopeEClass, LocalScope.class, "LocalScope", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getLocalScope_Statements(), this.getStatement(), null, "statements", null, 0, -1, LocalScope.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(localScopeStatementEClass, LocalScopeStatement.class, "LocalScopeStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(forStatementEClass, ForStatement.class, "ForStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getForStatement_CountVariableDefinition(), this.getVariable(), null, "countVariableDefinition", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForStatement_CountVariableReference(), this.getAssignment(), null, "countVariableReference", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForStatement_Termination(), this.getExpression(), null, "termination", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForStatement_Increment(), this.getAssignment(), null, "increment", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getForStatement_Body(), this.getStatement(), null, "body", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(whileStatementEClass, WhileStatement.class, "WhileStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getWhileStatement_Condition(), this.getExpression(), null, "condition", null, 1, 1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getWhileStatement_Body(), this.getStatement(), null, "body", null, 1, 1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(switchStatementEClass, SwitchStatement.class, "SwitchStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSwitchStatement_Variable(), this.getVariableAccess(), null, "variable", null, 1, 1, SwitchStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4631,22 +4330,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(switchCaseEClass, SwitchCase.class, "SwitchCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getSwitchCase_Value(), this.getExpression(), null, "value", null, 1, 1, SwitchCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getSwitchCase_Statements(), this.getStatement(), null, "statements", null, 0, -1, SwitchCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(whileStatementEClass, WhileStatement.class, "WhileStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getWhileStatement_Condition(), this.getExpression(), null, "condition", null, 1, 1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getWhileStatement_WhileBlock(), this.getCodeBlock(), null, "whileBlock", null, 1, 1, WhileStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSwitchCase_Body(), this.getStatement(), null, "body", null, 0, -1, SwitchCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(breakStatementEClass, BreakStatement.class, "BreakStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(continueStatementEClass, ContinueStatement.class, "ContinueStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(forStatementEClass, ForStatement.class, "ForStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getForStatement_CountVariableDefinition(), this.getVariable(), null, "countVariableDefinition", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForStatement_CountVariableReference(), this.getAssignment(), null, "countVariableReference", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForStatement_Termination(), this.getExpression(), null, "termination", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForStatement_Increment(), this.getAssignment(), null, "increment", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForStatement_Body(), this.getCodeBlock(), null, "body", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(expressionEClass, Expression.class, "Expression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4717,6 +4405,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(evalExprEClass, EvalExpr.class, "EvalExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getEvalExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, EvalExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(predefinedIdEClass, PredefinedId.class, "PredefinedId", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(meLiteralEClass, MeLiteral.class, "MeLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(superLiteralEClass, SuperLiteral.class, "SuperLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4725,37 +4415,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(typeLiteralEClass, TypeLiteral.class, "TypeLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(setOpEClass, SetOp.class, "SetOp", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSetOp_Set(), this.getExpression(), null, "set", null, 0, 1, SetOp.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(sizeOfSetEClass, SizeOfSet.class, "SizeOfSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(firstInSetEClass, FirstInSet.class, "FirstInSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(lastInSetEClass, LastInSet.class, "LastInSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(containsEClass, Contains.class, "Contains", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(indexOfEClass, IndexOf.class, "IndexOf", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(objectAtEClass, ObjectAt.class, "ObjectAt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(beforeInSetEClass, BeforeInSet.class, "BeforeInSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(afterInSetEClass, AfterInSet.class, "AfterInSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(depIdentifiableElementEClass, DepIdentifiableElement.class, "DepIdentifiableElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(predefinedIdEClass, PredefinedId.class, "PredefinedId", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(sizeOfArrayEClass, SizeOfArray.class, "SizeOfArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(idExprEClass, IdExpr.class, "IdExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIdExpr_ParentIdExpr(), this.getIdExpr(), null, "parentIdExpr", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIdExpr_ReferencedElement(), this.getNamedElement(), null, "referencedElement", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIdExpr_PredefinedId(), this.getPredefinedId(), null, "predefinedId", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIdExpr_Arguments(), this.getArgumentExpression(), null, "arguments", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(argumentExpressionEClass, ArgumentExpression.class, "ArgumentExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getArgumentExpression_Arguments(), this.getExpression(), null, "arguments", null, 0, -1, ArgumentExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIdExpr_ArrayIndex(), this.getExpression(), null, "arrayIndex", null, 0, -1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIdExpr_CallArguments(), this.getExpression(), null, "callArguments", null, 0, -1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elementAccessEClass, ElementAccess.class, "ElementAccess", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getElementAccess_IdExpr(), this.getIdExpr(), null, "idExpr", null, 0, 1, ElementAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4853,7 +4520,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEReference(getMetaExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, MetaExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(targetStatementEClass, TargetStatement.class, "TargetStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTargetStatement_CodeBlock(), this.getCodeBlock(), null, "codeBlock", null, 1, 1, TargetStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTargetStatement_Body(), this.getStatement(), null, "body", null, 1, 1, TargetStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(mappingStatementEClass, MappingStatement.class, "MappingStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMappingStatement_Parts(), this.getMappingPart(), null, "parts", null, 0, -1, MappingStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4884,9 +4551,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEReference(getExpandStatement_MetaObject(), this.getExpression(), null, "metaObject", null, 1, 1, ExpandStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExpandStatement_Location(), this.getExpression(), null, "location", null, 0, 1, ExpandStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(expandSectionEClass, ExpandSection.class, "ExpandSection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getExpandSection_CodeBlock(), this.getCodeBlock(), null, "codeBlock", null, 0, 1, ExpandSection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(codeQuoteExpressionEClass, CodeQuoteExpression.class, "CodeQuoteExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getCodeQuoteExpression_QuotedCode(), this.getQuotedCode(), null, "quotedCode", null, 1, 1, CodeQuoteExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4905,7 +4569,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(patternEClass, Pattern.class, "Pattern", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPattern_Top(), ecorePackage.getEBoolean(), "top", "false", 1, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPattern_Context(), this.getParameter(), null, "context", null, 1, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPattern_CodeBlock(), this.getCodeBlock(), null, "codeBlock", null, 1, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPattern_Body(), this.getStatement(), null, "body", null, 1, 1, Pattern.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(testStatementEClass, TestStatement.class, "TestStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getTestStatement_Value(), ecorePackage.getEInt(), "value", null, 1, 1, TestStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

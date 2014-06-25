@@ -197,22 +197,12 @@ public class QuotedModuleContentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createProcedure()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createCodeBlock()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createdeprecated_CodeBlock()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -222,7 +212,7 @@ public class QuotedModuleContentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createCompositeStatement()));
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -287,32 +277,27 @@ public class QuotedModuleContentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createRemoveFromSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createAddToSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createEmptySet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createIfStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createSwitchStatement()));
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -323,11 +308,6 @@ public class QuotedModuleContentItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createContinueStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -557,11 +537,6 @@ public class QuotedModuleContentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpandSection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
 
 		newChildDescriptors.add
@@ -608,7 +583,6 @@ public class QuotedModuleContentItemProvider
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
-			childFeature == DblPackage.Literals.MODULE__PROCEDURES ||
 			childFeature == DblPackage.Literals.MODULE__VARIABLES;
 
 		if (qualify) {

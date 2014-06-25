@@ -6,16 +6,14 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Statement;
 import hub.sam.dbl.TargetStatement;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -25,7 +23,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.TargetStatementImpl#getCodeBlock <em>Code Block</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.TargetStatementImpl#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -33,15 +31,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class TargetStatementImpl extends StatementImpl implements TargetStatement {
 	/**
-	 * The cached value of the '{@link #getCodeBlock() <em>Code Block</em>}' containment reference.
+	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCodeBlock()
+	 * @see #getBody()
 	 * @generated
 	 * @ordered
 	 */
-	protected CodeBlock codeBlock;
-
+	protected Statement body;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,8 +63,8 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CodeBlock getCodeBlock() {
-		return codeBlock;
+	public Statement getBody() {
+		return body;
 	}
 
 	/**
@@ -75,11 +72,11 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCodeBlock(CodeBlock newCodeBlock, NotificationChain msgs) {
-		CodeBlock oldCodeBlock = codeBlock;
-		codeBlock = newCodeBlock;
+	public NotificationChain basicSetBody(Statement newBody, NotificationChain msgs) {
+		Statement oldBody = body;
+		body = newBody;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.TARGET_STATEMENT__CODE_BLOCK, oldCodeBlock, newCodeBlock);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.TARGET_STATEMENT__BODY, oldBody, newBody);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -90,18 +87,18 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCodeBlock(CodeBlock newCodeBlock) {
-		if (newCodeBlock != codeBlock) {
+	public void setBody(Statement newBody) {
+		if (newBody != body) {
 			NotificationChain msgs = null;
-			if (codeBlock != null)
-				msgs = ((InternalEObject)codeBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.TARGET_STATEMENT__CODE_BLOCK, null, msgs);
-			if (newCodeBlock != null)
-				msgs = ((InternalEObject)newCodeBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.TARGET_STATEMENT__CODE_BLOCK, null, msgs);
-			msgs = basicSetCodeBlock(newCodeBlock, msgs);
+			if (body != null)
+				msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.TARGET_STATEMENT__BODY, null, msgs);
+			if (newBody != null)
+				msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.TARGET_STATEMENT__BODY, null, msgs);
+			msgs = basicSetBody(newBody, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.TARGET_STATEMENT__CODE_BLOCK, newCodeBlock, newCodeBlock));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.TARGET_STATEMENT__BODY, newBody, newBody));
 	}
 
 	/**
@@ -112,8 +109,8 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.TARGET_STATEMENT__CODE_BLOCK:
-				return basicSetCodeBlock(null, msgs);
+			case DblPackage.TARGET_STATEMENT__BODY:
+				return basicSetBody(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -126,8 +123,8 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.TARGET_STATEMENT__CODE_BLOCK:
-				return getCodeBlock();
+			case DblPackage.TARGET_STATEMENT__BODY:
+				return getBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,8 +137,8 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.TARGET_STATEMENT__CODE_BLOCK:
-				setCodeBlock((CodeBlock)newValue);
+			case DblPackage.TARGET_STATEMENT__BODY:
+				setBody((Statement)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -155,8 +152,8 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.TARGET_STATEMENT__CODE_BLOCK:
-				setCodeBlock((CodeBlock)null);
+			case DblPackage.TARGET_STATEMENT__BODY:
+				setBody((Statement)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -170,8 +167,8 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.TARGET_STATEMENT__CODE_BLOCK:
-				return codeBlock != null;
+			case DblPackage.TARGET_STATEMENT__BODY:
+				return body != null;
 		}
 		return super.eIsSet(featureID);
 	}

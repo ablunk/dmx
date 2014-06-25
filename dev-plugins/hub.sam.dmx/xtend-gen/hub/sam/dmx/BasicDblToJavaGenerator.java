@@ -1,43 +1,36 @@
 package hub.sam.dmx;
 
 import com.google.common.base.Objects;
-import hub.sam.dbl.AddToSet;
-import hub.sam.dbl.AfterInSet;
 import hub.sam.dbl.And;
 import hub.sam.dbl.ArgumentExpression;
 import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.Assignment;
-import hub.sam.dbl.BeforeInSet;
 import hub.sam.dbl.BinaryOperator;
 import hub.sam.dbl.BoolType;
 import hub.sam.dbl.BreakStatement;
 import hub.sam.dbl.Cast;
+import hub.sam.dbl.ClassPart;
 import hub.sam.dbl.Classifier;
 import hub.sam.dbl.Clazz;
-import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.Constructor;
-import hub.sam.dbl.Contains;
 import hub.sam.dbl.ContinueStatement;
 import hub.sam.dbl.CreateObject;
 import hub.sam.dbl.Div;
 import hub.sam.dbl.DoubleLiteral;
 import hub.sam.dbl.DoubleType;
-import hub.sam.dbl.EmptySet;
 import hub.sam.dbl.Equal;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.FalseLiteral;
-import hub.sam.dbl.FirstInSet;
 import hub.sam.dbl.ForStatement;
 import hub.sam.dbl.Greater;
 import hub.sam.dbl.GreaterEqual;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.IfStatement;
-import hub.sam.dbl.IndexOf;
 import hub.sam.dbl.IntLiteral;
 import hub.sam.dbl.IntType;
-import hub.sam.dbl.LastInSet;
 import hub.sam.dbl.Less;
 import hub.sam.dbl.LessEqual;
+import hub.sam.dbl.LocalScopeStatement;
 import hub.sam.dbl.MappingPart;
 import hub.sam.dbl.MappingStatement;
 import hub.sam.dbl.MeLiteral;
@@ -52,7 +45,6 @@ import hub.sam.dbl.Neg;
 import hub.sam.dbl.Not;
 import hub.sam.dbl.NotEqual;
 import hub.sam.dbl.NullLiteral;
-import hub.sam.dbl.ObjectAt;
 import hub.sam.dbl.Or;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.Plus;
@@ -63,17 +55,17 @@ import hub.sam.dbl.Procedure;
 import hub.sam.dbl.ProcedureCall;
 import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.ReferableRhsType;
-import hub.sam.dbl.RemoveFromSet;
 import hub.sam.dbl.ResetGenContextStatement;
 import hub.sam.dbl.Return;
 import hub.sam.dbl.SetGenContextStatement;
-import hub.sam.dbl.SizeOfSet;
-import hub.sam.dbl.StartCodeBlock;
+import hub.sam.dbl.SizeOfArray;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.StringLiteral;
 import hub.sam.dbl.StringType;
 import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.SuperLiteral;
+import hub.sam.dbl.SwitchCase;
+import hub.sam.dbl.SwitchStatement;
 import hub.sam.dbl.TrueLiteral;
 import hub.sam.dbl.Type;
 import hub.sam.dbl.TypeAccess;
@@ -488,54 +480,39 @@ public class BasicDblToJavaGenerator {
       Expression _condition = it.getCondition();
       String _genExpr = this.genExpr(_condition);
       _builder.append(_genExpr, "");
-      _builder.append(") {");
+      _builder.append(")");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
-      CodeBlock _ifCaseBlock = it.getIfCaseBlock();
-      EList<Statement> _statements = _ifCaseBlock.getStatements();
-      String _gen = this.gen(_statements);
+      Statement _trueCase = it.getTrueCase();
+      String _gen = this.gen(_trueCase);
       _builder.append(_gen, "	");
       _builder.newLineIfNotEmpty();
-      _builder.append("}");
-      _builder.newLine();
       {
-        EList<CodeBlock> _elifCaseBlock = it.getElifCaseBlock();
-        for(final CodeBlock elseIfBlock : _elifCaseBlock) {
-          _builder.append("else if (");
-          EList<Expression> _elifCondition = it.getElifCondition();
-          EList<CodeBlock> _elifCaseBlock_1 = it.getElifCaseBlock();
-          int _indexOf = _elifCaseBlock_1.indexOf(elseIfBlock);
-          Expression _get = _elifCondition.get(_indexOf);
-          _builder.append(_get, "");
-          _builder.append(") {");
-          _builder.newLineIfNotEmpty();
+        Statement _falseCase = it.getFalseCase();
+        boolean _notEquals = (!Objects.equal(_falseCase, null));
+        if (_notEquals) {
+          _builder.append("else");
+          _builder.newLine();
           _builder.append("\t");
-          EList<Statement> _statements_1 = elseIfBlock.getStatements();
-          String _gen_1 = this.gen(_statements_1);
+          Statement _falseCase_1 = it.getFalseCase();
+          String _gen_1 = this.gen(_falseCase_1);
           _builder.append(_gen_1, "	");
           _builder.newLineIfNotEmpty();
-          _builder.append("}");
-          _builder.newLine();
         }
       }
-      _builder.append("else {");
-      _builder.newLine();
-      {
-        CodeBlock _elseCaseBlock = it.getElseCaseBlock();
-        boolean _notEquals = (!Objects.equal(_elseCaseBlock, null));
-        if (_notEquals) {
-          CodeBlock _elseCaseBlock_1 = it.getElseCaseBlock();
-          EList<Statement> _statements_2 = _elseCaseBlock_1.getStatements();
-          String _gen_2 = this.gen(_statements_2);
-          _builder.append(_gen_2, "");
-          _builder.newLineIfNotEmpty();
-        }
-      }
-      _builder.append("}");
-      _builder.newLine();
       _xblockexpression = (_builder.toString());
     }
     return _xblockexpression;
+  }
+  
+  protected String _genStatement(final LocalScopeStatement stm) {
+    StringConcatenation _builder = new StringConcatenation();
+    _builder.append("{");
+    EList<Statement> _statements = stm.getStatements();
+    String _gen = this.gen(_statements);
+    _builder.append(_gen, "");
+    _builder.append("}");
+    return _builder.toString();
   }
   
   protected String _genStatement(final Assignment stm) {
@@ -577,79 +554,64 @@ public class BasicDblToJavaGenerator {
     return _builder.toString();
   }
   
-  protected String _genStatement(final AddToSet stm) {
-    String _xblockexpression = null;
-    {
-      final AddToSet it = stm;
-      StringConcatenation _builder = new StringConcatenation();
-      Expression _set = it.getSet();
-      String _genExpr = this.genExpr(_set);
-      _builder.append(_genExpr, "");
-      _builder.append(".add(");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      {
-        ArgumentExpression _atIndex = it.getAtIndex();
-        boolean _notEquals = (!Objects.equal(_atIndex, null));
-        if (_notEquals) {
-          _builder.append("(int) ");
-          ArgumentExpression _atIndex_1 = it.getAtIndex();
-          String _genExpr_1 = this.genExpr(_atIndex_1);
-          _builder.append(_genExpr_1, "	");
-          _builder.append(", ");
-        }
-      }
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      Expression _object = it.getObject();
-      String _genExpr_2 = this.genExpr(_object);
-      _builder.append(_genExpr_2, "	");
-      _builder.newLineIfNotEmpty();
-      _builder.append(");");
-      _builder.newLine();
-      _xblockexpression = (_builder.toString());
-    }
-    return _xblockexpression;
-  }
-  
-  protected String _genStatement(final RemoveFromSet stm) {
-    String _xblockexpression = null;
-    {
-      final RemoveFromSet it = stm;
-      StringConcatenation _builder = new StringConcatenation();
-      Expression _set = it.getSet();
-      String _genExpr = this.genExpr(_set);
-      _builder.append(_genExpr, "");
-      _builder.append(".remove(");
-      Expression _object = it.getObject();
-      String _genExpr_1 = this.genExpr(_object);
-      _builder.append(_genExpr_1, "");
-      _builder.append(");");
-      _xblockexpression = (_builder.toString());
-    }
-    return _xblockexpression;
-  }
-  
-  protected String _genStatement(final EmptySet stm) {
-    String _xblockexpression = null;
-    {
-      final EmptySet it = stm;
-      StringConcatenation _builder = new StringConcatenation();
-      Expression _set = it.getSet();
-      String _genExpr = this.genExpr(_set);
-      _builder.append(_genExpr, "");
-      _builder.append(".clear();");
-      _xblockexpression = (_builder.toString());
-    }
-    return _xblockexpression;
-  }
-  
   protected String _genStatement(final BreakStatement stm) {
     return "break;";
   }
   
   protected String _genStatement(final ContinueStatement stm) {
     return "continue;";
+  }
+  
+  protected String _genStatement(final SwitchStatement stm) {
+    String _xblockexpression = null;
+    {
+      final SwitchStatement it = stm;
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("switch (");
+      VariableAccess _variable = it.getVariable();
+      String _genExpr = this.genExpr(_variable);
+      _builder.append(_genExpr, "");
+      _builder.append(") {");
+      _builder.newLineIfNotEmpty();
+      {
+        EList<SwitchCase> _cases = it.getCases();
+        for(final SwitchCase c : _cases) {
+          _builder.append("\t");
+          _builder.append("case ");
+          Expression _value = c.getValue();
+          String _genExpr_1 = this.genExpr(_value);
+          _builder.append(_genExpr_1, "	");
+          _builder.append(":");
+          _builder.newLineIfNotEmpty();
+          _builder.append("\t");
+          _builder.append("\t");
+          EList<Statement> _body = c.getBody();
+          String _gen = this.gen(_body);
+          _builder.append(_gen, "		");
+          _builder.newLineIfNotEmpty();
+        }
+      }
+      {
+        SwitchCase _defaultCase = it.getDefaultCase();
+        boolean _notEquals = (!Objects.equal(_defaultCase, null));
+        if (_notEquals) {
+          _builder.append("\t");
+          _builder.append("default:");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("\t");
+          SwitchCase _defaultCase_1 = it.getDefaultCase();
+          EList<Statement> _body_1 = _defaultCase_1.getBody();
+          String _gen_1 = this.gen(_body_1);
+          _builder.append(_gen_1, "		");
+          _builder.newLineIfNotEmpty();
+        }
+      }
+      _builder.append("}");
+      _builder.newLine();
+      _xblockexpression = (_builder.toString());
+    }
+    return _xblockexpression;
   }
   
   protected String _genStatement(final ForStatement stm) {
@@ -665,12 +627,8 @@ public class BasicDblToJavaGenerator {
         if (_notEquals) {
           _builder.append("\t");
           Variable _countVariableDefinition_1 = it.getCountVariableDefinition();
-          String _genType = this.genType(_countVariableDefinition_1);
-          _builder.append(_genType, "	");
-          _builder.append(" ");
-          Variable _countVariableDefinition_2 = it.getCountVariableDefinition();
-          String _name = _countVariableDefinition_2.getName();
-          _builder.append(_name, "	");
+          String _gen = this.gen(_countVariableDefinition_1);
+          _builder.append(_gen, "	");
           _builder.newLineIfNotEmpty();
         } else {
           Assignment _countVariableReference = it.getCountVariableReference();
@@ -678,14 +636,12 @@ public class BasicDblToJavaGenerator {
           if (_notEquals_1) {
             _builder.append("\t");
             Assignment _countVariableReference_1 = it.getCountVariableReference();
-            String _genAssignment = this.genAssignment(_countVariableReference_1, false);
+            String _genAssignment = this.genAssignment(_countVariableReference_1, true);
             _builder.append(_genAssignment, "	");
             _builder.newLineIfNotEmpty();
           }
         }
       }
-      _builder.append("\t");
-      _builder.append(";");
       _builder.newLine();
       _builder.append("\t");
       Expression _termination = it.getTermination();
@@ -700,16 +656,12 @@ public class BasicDblToJavaGenerator {
       String _genAssignment_1 = this.genAssignment(_increment, false);
       _builder.append(_genAssignment_1, "	");
       _builder.newLineIfNotEmpty();
-      _builder.append(") {");
+      _builder.append(")");
       _builder.newLine();
-      _builder.append("\t");
-      CodeBlock _body = it.getBody();
-      EList<Statement> _statements = _body.getStatements();
-      String _gen = this.gen(_statements);
-      _builder.append(_gen, "	");
+      Statement _body = it.getBody();
+      String _gen_1 = this.gen(_body);
+      _builder.append(_gen_1, "");
       _builder.newLineIfNotEmpty();
-      _builder.append("}");
-      _builder.newLine();
       _xblockexpression = (_builder.toString());
     }
     return _xblockexpression;
@@ -724,16 +676,13 @@ public class BasicDblToJavaGenerator {
       Expression _condition = it.getCondition();
       String _genExpr = this.genExpr(_condition);
       _builder.append(_genExpr, "");
-      _builder.append(") {");
+      _builder.append(")");
       _builder.newLineIfNotEmpty();
       _builder.append("\t\t\t");
-      CodeBlock _whileBlock = it.getWhileBlock();
-      EList<Statement> _statements = _whileBlock.getStatements();
-      String _gen = this.gen(_statements);
+      Statement _body = it.getBody();
+      String _gen = this.gen(_body);
       _builder.append(_gen, "			");
       _builder.newLineIfNotEmpty();
-      _builder.append("\t\t");
-      _builder.append("}");
       _xblockexpression = (_builder.toString());
     }
     return _xblockexpression;
@@ -809,13 +758,13 @@ public class BasicDblToJavaGenerator {
           _builder.append(_genExpr, "");
           _builder.newLineIfNotEmpty();
         } else {
-          EList<ArrayDimension> _arrayDimensions = it.getArrayDimensions();
-          boolean _isEmpty = _arrayDimensions.isEmpty();
+          EList<ArrayDimension> _typeArrayDimensions = it.getTypeArrayDimensions();
+          boolean _isEmpty = _typeArrayDimensions.isEmpty();
           boolean _not = (!_isEmpty);
           if (_not) {
           } else {
-            IdExpr _classifierTypeExpr = it.getClassifierTypeExpr();
-            boolean _notEquals_1 = (!Objects.equal(_classifierTypeExpr, null));
+            IdExpr _classifierType = it.getClassifierType();
+            boolean _notEquals_1 = (!Objects.equal(_classifierType, null));
             if (_notEquals_1) {
               _builder.append("= null");
               _builder.newLine();
@@ -979,8 +928,7 @@ public class BasicDblToJavaGenerator {
   protected String _genExpr(final IntLiteral expr) {
     int _value = expr.getValue();
     String _string = Integer.valueOf(_value).toString();
-    String _plus = (_string + "L");
-    return _plus;
+    return _string;
   }
   
   protected String _genExpr(final TrueLiteral expr) {
@@ -1044,21 +992,57 @@ public class BasicDblToJavaGenerator {
   }
   
   protected String _genExpr(final CreateObject expr) {
-    String _genType = this.genType(expr);
-    String _plus = ("(new " + _genType);
-    String _plus_1 = (_plus + "(");
-    IdExpr _classifierTypeExpr = null;
-    if (expr!=null) {
-      _classifierTypeExpr=expr.getClassifierTypeExpr();
+    String _xblockexpression = null;
+    {
+      final CreateObject it = expr;
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("(");
+      _builder.newLine();
+      _builder.append("new ");
+      String _genType = this.genType(it);
+      _builder.append(_genType, "");
+      _builder.append("\t\t");
+      _builder.newLineIfNotEmpty();
+      {
+        boolean _and = false;
+        IdExpr _classifierType = it.getClassifierType();
+        boolean _notEquals = (!Objects.equal(_classifierType, null));
+        if (!_notEquals) {
+          _and = false;
+        } else {
+          IdExpr _classifierType_1 = it.getClassifierType();
+          EList<Expression> _callArguments = _classifierType_1.getCallArguments();
+          boolean _isEmpty = _callArguments.isEmpty();
+          boolean _not = (!_isEmpty);
+          _and = (_notEquals && _not);
+        }
+        if (_and) {
+          _builder.append("(");
+          _builder.newLine();
+          {
+            IdExpr _classifierType_2 = it.getClassifierType();
+            EList<Expression> _callArguments_1 = _classifierType_2.getCallArguments();
+            boolean _hasElements = false;
+            for(final Expression arg : _callArguments_1) {
+              if (!_hasElements) {
+                _hasElements = true;
+              } else {
+                _builder.appendImmediate(",", "");
+              }
+              String _genExpr = this.genExpr(arg);
+              _builder.append(_genExpr, "");
+              _builder.newLineIfNotEmpty();
+            }
+          }
+          _builder.append(")");
+          _builder.newLine();
+        }
+      }
+      _builder.append(")");
+      _builder.newLine();
+      _xblockexpression = (_builder.toString());
     }
-    ArgumentExpression _arguments = null;
-    if (_classifierTypeExpr!=null) {
-      _arguments=_classifierTypeExpr.getArguments();
-    }
-    String _genExpr = this.genExpr(_arguments);
-    String _plus_2 = (_plus_1 + _genExpr);
-    String _plus_3 = (_plus_2 + "))");
-    return _plus_3;
+    return _xblockexpression;
   }
   
   public boolean refersToSyntaxPart(final IdExpr idExpr) {
@@ -1100,40 +1084,25 @@ public class BasicDblToJavaGenerator {
         IdExpr _parentIdExpr = it.getParentIdExpr();
         boolean _notEquals = (!Objects.equal(_parentIdExpr, null));
         if (_notEquals) {
-          {
-            boolean _and = false;
-            PredefinedId _predefinedId = it.getPredefinedId();
-            boolean _notEquals_1 = (!Objects.equal(_predefinedId, null));
-            if (!_notEquals_1) {
-              _and = false;
-            } else {
-              PredefinedId _predefinedId_1 = it.getPredefinedId();
-              _and = (_notEquals_1 && (_predefinedId_1 instanceof IndexOf));
-            }
-            if (_and) {
-              _builder.append("(");
-              _builder.newLine();
-            }
-          }
-          _builder.newLine();
           IdExpr _parentIdExpr_1 = it.getParentIdExpr();
           String _genIdExpr = this.genIdExpr(_parentIdExpr_1);
           _builder.append(_genIdExpr, "");
+          _builder.append(".");
           _builder.newLineIfNotEmpty();
         }
       }
       _builder.newLine();
       {
         NamedElement _referencedElement = it.getReferencedElement();
-        boolean _notEquals_2 = (!Objects.equal(_referencedElement, null));
-        if (_notEquals_2) {
+        boolean _notEquals_1 = (!Objects.equal(_referencedElement, null));
+        if (_notEquals_1) {
           NamedElement _referencedElement_1 = it.getReferencedElement();
           String _genIdExpr_for_ReferencedElement = this.genIdExpr_for_ReferencedElement(it, _referencedElement_1);
           _builder.append(_genIdExpr_for_ReferencedElement, "");
           _builder.newLineIfNotEmpty();
         } else {
-          PredefinedId _predefinedId_2 = it.getPredefinedId();
-          String _genIdExpr_for_PredefinedId = this.genIdExpr_for_PredefinedId(it, _predefinedId_2);
+          PredefinedId _predefinedId = it.getPredefinedId();
+          String _genIdExpr_for_PredefinedId = this.genIdExpr_for_PredefinedId(it, _predefinedId);
           _builder.append(_genIdExpr_for_PredefinedId, "");
           _builder.newLineIfNotEmpty();
         }
@@ -1160,74 +1129,8 @@ public class BasicDblToJavaGenerator {
     return "super";
   }
   
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final SizeOfSet predefinedId) {
-    return "size()";
-  }
-  
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final FirstInSet predefinedId) {
-    return "get(0)";
-  }
-  
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final LastInSet predefinedId) {
-    IdExpr _parentIdExpr = idExpr.getParentIdExpr();
-    String _genIdExpr = this.genIdExpr(_parentIdExpr);
-    String _plus = ("get(" + _genIdExpr);
-    String _plus_1 = (_plus + ".size() - 1)");
-    return _plus_1;
-  }
-  
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final Contains predefinedId) {
-    ArgumentExpression _arguments = idExpr.getArguments();
-    String _genExpr = this.genExpr(_arguments);
-    String _plus = ("contains(" + _genExpr);
-    String _plus_1 = (_plus + ")");
-    return _plus_1;
-  }
-  
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final IndexOf predefinedId) {
-    ArgumentExpression _arguments = idExpr.getArguments();
-    String _genExpr = this.genExpr(_arguments);
-    String _plus = ("indexOf(" + _genExpr);
-    String _plus_1 = (_plus + ")");
-    return _plus_1;
-  }
-  
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final ObjectAt predefinedId) {
-    ArgumentExpression _arguments = idExpr.getArguments();
-    String _genExpr = this.genExpr(_arguments);
-    String _plus = ("get((int) " + _genExpr);
-    String _plus_1 = (_plus + ")");
-    return _plus_1;
-  }
-  
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final AfterInSet predefinedId) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("get( ");
-    IdExpr _parentIdExpr = idExpr.getParentIdExpr();
-    String _genIdExpr = this.genIdExpr(_parentIdExpr);
-    _builder.append(_genIdExpr, "");
-    _builder.append(".indexOf(");
-    ArgumentExpression _arguments = idExpr.getArguments();
-    String _genExpr = this.genExpr(_arguments);
-    _builder.append(_genExpr, "");
-    _builder.append(") + 1)");
-    _builder.newLineIfNotEmpty();
-    return _builder.toString();
-  }
-  
-  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final BeforeInSet predefinedId) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("get( ");
-    IdExpr _parentIdExpr = idExpr.getParentIdExpr();
-    String _genIdExpr = this.genIdExpr(_parentIdExpr);
-    _builder.append(_genIdExpr, "");
-    _builder.append(".indexOf(");
-    ArgumentExpression _arguments = idExpr.getArguments();
-    String _genExpr = this.genExpr(_arguments);
-    _builder.append(_genExpr, "");
-    _builder.append(") - 1)");
-    _builder.newLineIfNotEmpty();
-    return _builder.toString();
+  protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final SizeOfArray predefinedId) {
+    return "length";
   }
   
   protected String _genIdExpr_for_ReferencedElement(final IdExpr idExpr, final NamedElement referencedElement) {
@@ -1245,42 +1148,41 @@ public class BasicDblToJavaGenerator {
     String _name_1 = referencedElement.getName();
     _builder.append(_name_1, "");
     _builder.newLineIfNotEmpty();
-    return _builder.toString();
-  }
-  
-  protected String _genIdExpr_for_ReferencedElement(final IdExpr idExpr, final Procedure referencedElement) {
-    StringConcatenation _builder = new StringConcatenation();
     {
-      EObject _eContainer = referencedElement.eContainer();
-      if ((_eContainer instanceof Module)) {
-        EObject _eContainer_1 = referencedElement.eContainer();
-        String _name = ((Module) _eContainer_1).getName();
-        _builder.append(_name, "");
-        _builder.append(".");
-        _builder.newLineIfNotEmpty();
-      }
-    }
-    String _name_1 = referencedElement.getName();
-    _builder.append(_name_1, "");
-    _builder.append("(");
-    _builder.newLineIfNotEmpty();
-    {
-      ArgumentExpression _arguments = idExpr.getArguments();
-      EList<Expression> _arguments_1 = _arguments.getArguments();
-      boolean _hasElements = false;
-      for(final Expression arg : _arguments_1) {
-        if (!_hasElements) {
-          _hasElements = true;
-        } else {
-          _builder.appendImmediate(",", "");
+      EList<Expression> _callArguments = idExpr.getCallArguments();
+      boolean _isEmpty = _callArguments.isEmpty();
+      boolean _not = (!_isEmpty);
+      if (_not) {
+        _builder.append("(");
+        _builder.newLine();
+        {
+          EList<Expression> _callArguments_1 = idExpr.getCallArguments();
+          boolean _hasElements = false;
+          for(final Expression arg : _callArguments_1) {
+            if (!_hasElements) {
+              _hasElements = true;
+            } else {
+              _builder.appendImmediate(",", "");
+            }
+            String _genExpr = this.genExpr(arg);
+            _builder.append(_genExpr, "");
+            _builder.newLineIfNotEmpty();
+          }
         }
-        String _genExpr = this.genExpr(arg);
-        _builder.append(_genExpr, "");
+        _builder.append(")");
+        _builder.newLine();
+      }
+    }
+    {
+      EList<Expression> _arrayIndex = idExpr.getArrayIndex();
+      for(final Expression index : _arrayIndex) {
+        _builder.append("[");
+        String _genExpr_1 = this.genExpr(index);
+        _builder.append(_genExpr_1, "");
+        _builder.append("]");
         _builder.newLineIfNotEmpty();
       }
     }
-    _builder.append(")");
-    _builder.newLine();
     return _builder.toString();
   }
   
@@ -1298,49 +1200,43 @@ public class BasicDblToJavaGenerator {
     String _xblockexpression = null;
     {
       final TypedElement it = typedElement;
-      String _xifexpression = null;
-      EList<ArrayDimension> _arrayDimensions = it.getArrayDimensions();
-      boolean _isEmpty = _arrayDimensions.isEmpty();
-      if (_isEmpty) {
-        String _genTypeNoWrapOfListPrimitives = this.genTypeNoWrapOfListPrimitives(it);
-        _xifexpression = _genTypeNoWrapOfListPrimitives;
-      } else {
-        _xifexpression = null;
+      StringConcatenation _builder = new StringConcatenation();
+      {
+        PrimitiveType _primitiveType = it.getPrimitiveType();
+        boolean _notEquals = (!Objects.equal(_primitiveType, null));
+        if (_notEquals) {
+          PrimitiveType _primitiveType_1 = it.getPrimitiveType();
+          String _genType = this.genType(_primitiveType_1);
+          _builder.append(_genType, "");
+          _builder.newLineIfNotEmpty();
+        } else {
+          IdExpr _classifierType = it.getClassifierType();
+          String _genClassifierTypeExpr = this.genClassifierTypeExpr(_classifierType);
+          _builder.append(_genClassifierTypeExpr, "");
+          _builder.newLineIfNotEmpty();
+        }
       }
-      _xblockexpression = (_xifexpression);
+      {
+        EList<ArrayDimension> _typeArrayDimensions = it.getTypeArrayDimensions();
+        boolean _isEmpty = _typeArrayDimensions.isEmpty();
+        boolean _not = (!_isEmpty);
+        if (_not) {
+          {
+            EList<ArrayDimension> _typeArrayDimensions_1 = it.getTypeArrayDimensions();
+            for(final ArrayDimension dim : _typeArrayDimensions_1) {
+              _builder.append("[");
+              Expression _size = dim.getSize();
+              String _genExpr = this.genExpr(_size);
+              _builder.append(_genExpr, "");
+              _builder.append("]");
+              _builder.newLineIfNotEmpty();
+            }
+          }
+        }
+      }
+      _xblockexpression = (_builder.toString());
     }
     return _xblockexpression;
-  }
-  
-  public String genTypeWrapListPrimitives(final TypedElement typedElement) {
-    String _xblockexpression = null;
-    {
-      final TypedElement it = typedElement;
-      PrimitiveType _primitiveType = it.getPrimitiveType();
-      if (_primitiveType!=null) {
-        this.genWrappedType(_primitiveType);
-      }
-      String _genClassifierTypeExpr = null;
-      IdExpr _classifierTypeExpr = it.getClassifierTypeExpr();
-      if (_classifierTypeExpr!=null) {
-        _genClassifierTypeExpr=this.genClassifierTypeExpr(_classifierTypeExpr);
-      }
-      _xblockexpression = (_genClassifierTypeExpr);
-    }
-    return _xblockexpression;
-  }
-  
-  public String genTypeNoWrapOfListPrimitives(final TypedElement typedElement) {
-    final TypedElement it = typedElement;
-    PrimitiveType _primitiveType = it.getPrimitiveType();
-    boolean _notEquals = (!Objects.equal(_primitiveType, null));
-    if (_notEquals) {
-      PrimitiveType _primitiveType_1 = it.getPrimitiveType();
-      return this.genType(_primitiveType_1);
-    } else {
-      IdExpr _classifierTypeExpr = it.getClassifierTypeExpr();
-      return this.genClassifierTypeExpr(_classifierTypeExpr);
-    }
   }
   
   public String genClassifierTypeExpr(final IdExpr typeExpr) {
@@ -1409,7 +1305,7 @@ public class BasicDblToJavaGenerator {
   }
   
   protected String _genType(final IntType type) {
-    return "long";
+    return "int";
   }
   
   protected String _genType(final VoidType type) {
@@ -1612,7 +1508,7 @@ public class BasicDblToJavaGenerator {
       _builder.append(") {");
       _builder.newLine();
       _builder.append("\t\t");
-      StartCodeBlock _initialBlock = it.getInitialBlock();
+      ClassPart _initialBlock = it.getInitialBlock();
       EList<Statement> _statements = null;
       if (_initialBlock!=null) {
         _statements=_initialBlock.getStatements();
@@ -1626,14 +1522,12 @@ public class BasicDblToJavaGenerator {
       _builder.append("\t");
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("public ");
       EList<Variable> _attributes = it.getAttributes();
       String _genVariables = this.genVariables(_attributes, false);
       _builder.append(_genVariables, "	");
       _builder.newLineIfNotEmpty();
       _builder.newLine();
       _builder.append("\t");
-      _builder.append("public ");
       EList<Procedure> _methods = it.getMethods();
       String _genProcedures = this.genProcedures(_methods, false);
       _builder.append(_genProcedures, "	");
@@ -1678,14 +1572,14 @@ public class BasicDblToJavaGenerator {
   public String gen(final Object clazz) {
     if (clazz instanceof Clazz) {
       return _gen((Clazz)clazz);
-    } else if (clazz instanceof Procedure) {
-      return _gen((Procedure)clazz);
     } else if (clazz instanceof Classifier) {
       return _gen((Classifier)clazz);
     } else if (clazz instanceof Statement) {
       return _gen((Statement)clazz);
     } else if (clazz instanceof Module) {
       return _gen((Module)clazz);
+    } else if (clazz instanceof Procedure) {
+      return _gen((Procedure)clazz);
     } else if (clazz instanceof List) {
       return _gen((List<Statement>)clazz);
     } else if (clazz == null) {
@@ -1697,13 +1591,7 @@ public class BasicDblToJavaGenerator {
   }
   
   public String genStatement(final EObject stm) {
-    if (stm instanceof AddToSet) {
-      return _genStatement((AddToSet)stm);
-    } else if (stm instanceof EmptySet) {
-      return _genStatement((EmptySet)stm);
-    } else if (stm instanceof RemoveFromSet) {
-      return _genStatement((RemoveFromSet)stm);
-    } else if (stm instanceof Assignment) {
+    if (stm instanceof Assignment) {
       return _genStatement((Assignment)stm);
     } else if (stm instanceof BreakStatement) {
       return _genStatement((BreakStatement)stm);
@@ -1711,8 +1599,8 @@ public class BasicDblToJavaGenerator {
       return _genStatement((ContinueStatement)stm);
     } else if (stm instanceof ForStatement) {
       return _genStatement((ForStatement)stm);
-    } else if (stm instanceof IfStatement) {
-      return _genStatement((IfStatement)stm);
+    } else if (stm instanceof LocalScopeStatement) {
+      return _genStatement((LocalScopeStatement)stm);
     } else if (stm instanceof Print) {
       return _genStatement((Print)stm);
     } else if (stm instanceof ResetGenContextStatement) {
@@ -1721,8 +1609,12 @@ public class BasicDblToJavaGenerator {
       return _genStatement((Return)stm);
     } else if (stm instanceof SetGenContextStatement) {
       return _genStatement((SetGenContextStatement)stm);
+    } else if (stm instanceof SwitchStatement) {
+      return _genStatement((SwitchStatement)stm);
     } else if (stm instanceof WhileStatement) {
       return _genStatement((WhileStatement)stm);
+    } else if (stm instanceof IfStatement) {
+      return _genStatement((IfStatement)stm);
     } else if (stm instanceof MappingStatement) {
       return _genStatement((MappingStatement)stm);
     } else if (stm instanceof Variable) {
@@ -1803,24 +1695,10 @@ public class BasicDblToJavaGenerator {
   }
   
   public String genIdExpr_for_PredefinedId(final IdExpr idExpr, final PredefinedId predefinedId) {
-    if (predefinedId instanceof AfterInSet) {
-      return _genIdExpr_for_PredefinedId(idExpr, (AfterInSet)predefinedId);
-    } else if (predefinedId instanceof BeforeInSet) {
-      return _genIdExpr_for_PredefinedId(idExpr, (BeforeInSet)predefinedId);
-    } else if (predefinedId instanceof Contains) {
-      return _genIdExpr_for_PredefinedId(idExpr, (Contains)predefinedId);
-    } else if (predefinedId instanceof FirstInSet) {
-      return _genIdExpr_for_PredefinedId(idExpr, (FirstInSet)predefinedId);
-    } else if (predefinedId instanceof IndexOf) {
-      return _genIdExpr_for_PredefinedId(idExpr, (IndexOf)predefinedId);
-    } else if (predefinedId instanceof LastInSet) {
-      return _genIdExpr_for_PredefinedId(idExpr, (LastInSet)predefinedId);
-    } else if (predefinedId instanceof ObjectAt) {
-      return _genIdExpr_for_PredefinedId(idExpr, (ObjectAt)predefinedId);
-    } else if (predefinedId instanceof SizeOfSet) {
-      return _genIdExpr_for_PredefinedId(idExpr, (SizeOfSet)predefinedId);
-    } else if (predefinedId instanceof MeLiteral) {
+    if (predefinedId instanceof MeLiteral) {
       return _genIdExpr_for_PredefinedId(idExpr, (MeLiteral)predefinedId);
+    } else if (predefinedId instanceof SizeOfArray) {
+      return _genIdExpr_for_PredefinedId(idExpr, (SizeOfArray)predefinedId);
     } else if (predefinedId instanceof SuperLiteral) {
       return _genIdExpr_for_PredefinedId(idExpr, (SuperLiteral)predefinedId);
     } else if (predefinedId != null) {
@@ -1832,9 +1710,7 @@ public class BasicDblToJavaGenerator {
   }
   
   public String genIdExpr_for_ReferencedElement(final IdExpr idExpr, final NamedElement referencedElement) {
-    if (referencedElement instanceof Procedure) {
-      return _genIdExpr_for_ReferencedElement(idExpr, (Procedure)referencedElement);
-    } else if (referencedElement instanceof PropertyBindingExpr) {
+    if (referencedElement instanceof PropertyBindingExpr) {
       return _genIdExpr_for_ReferencedElement(idExpr, (PropertyBindingExpr)referencedElement);
     } else if (referencedElement != null) {
       return _genIdExpr_for_ReferencedElement(idExpr, referencedElement);

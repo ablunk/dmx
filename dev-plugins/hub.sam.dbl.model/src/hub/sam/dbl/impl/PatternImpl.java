@@ -6,17 +6,15 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.Pattern;
+import hub.sam.dbl.Statement;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -28,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.PatternImpl#isTop <em>Top</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.PatternImpl#getContext <em>Context</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.PatternImpl#getCodeBlock <em>Code Block</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.PatternImpl#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,14 +64,14 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 	protected Parameter context;
 
 	/**
-	 * The cached value of the '{@link #getCodeBlock() <em>Code Block</em>}' containment reference.
+	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCodeBlock()
+	 * @see #getBody()
 	 * @generated
 	 * @ordered
 	 */
-	protected CodeBlock codeBlock;
+	protected Statement body;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -163,8 +161,8 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CodeBlock getCodeBlock() {
-		return codeBlock;
+	public Statement getBody() {
+		return body;
 	}
 
 	/**
@@ -172,11 +170,11 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetCodeBlock(CodeBlock newCodeBlock, NotificationChain msgs) {
-		CodeBlock oldCodeBlock = codeBlock;
-		codeBlock = newCodeBlock;
+	public NotificationChain basicSetBody(Statement newBody, NotificationChain msgs) {
+		Statement oldBody = body;
+		body = newBody;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.PATTERN__CODE_BLOCK, oldCodeBlock, newCodeBlock);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.PATTERN__BODY, oldBody, newBody);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -187,18 +185,18 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCodeBlock(CodeBlock newCodeBlock) {
-		if (newCodeBlock != codeBlock) {
+	public void setBody(Statement newBody) {
+		if (newBody != body) {
 			NotificationChain msgs = null;
-			if (codeBlock != null)
-				msgs = ((InternalEObject)codeBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.PATTERN__CODE_BLOCK, null, msgs);
-			if (newCodeBlock != null)
-				msgs = ((InternalEObject)newCodeBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.PATTERN__CODE_BLOCK, null, msgs);
-			msgs = basicSetCodeBlock(newCodeBlock, msgs);
+			if (body != null)
+				msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.PATTERN__BODY, null, msgs);
+			if (newBody != null)
+				msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.PATTERN__BODY, null, msgs);
+			msgs = basicSetBody(newBody, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PATTERN__CODE_BLOCK, newCodeBlock, newCodeBlock));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PATTERN__BODY, newBody, newBody));
 	}
 
 	/**
@@ -211,8 +209,8 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 		switch (featureID) {
 			case DblPackage.PATTERN__CONTEXT:
 				return basicSetContext(null, msgs);
-			case DblPackage.PATTERN__CODE_BLOCK:
-				return basicSetCodeBlock(null, msgs);
+			case DblPackage.PATTERN__BODY:
+				return basicSetBody(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -229,8 +227,8 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 				return isTop();
 			case DblPackage.PATTERN__CONTEXT:
 				return getContext();
-			case DblPackage.PATTERN__CODE_BLOCK:
-				return getCodeBlock();
+			case DblPackage.PATTERN__BODY:
+				return getBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -249,8 +247,8 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 			case DblPackage.PATTERN__CONTEXT:
 				setContext((Parameter)newValue);
 				return;
-			case DblPackage.PATTERN__CODE_BLOCK:
-				setCodeBlock((CodeBlock)newValue);
+			case DblPackage.PATTERN__BODY:
+				setBody((Statement)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -270,8 +268,8 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 			case DblPackage.PATTERN__CONTEXT:
 				setContext((Parameter)null);
 				return;
-			case DblPackage.PATTERN__CODE_BLOCK:
-				setCodeBlock((CodeBlock)null);
+			case DblPackage.PATTERN__BODY:
+				setBody((Statement)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -289,8 +287,8 @@ public class PatternImpl extends NamedElementImpl implements Pattern {
 				return top != TOP_EDEFAULT;
 			case DblPackage.PATTERN__CONTEXT:
 				return context != null;
-			case DblPackage.PATTERN__CODE_BLOCK:
-				return codeBlock != null;
+			case DblPackage.PATTERN__BODY:
+				return body != null;
 		}
 		return super.eIsSet(featureID);
 	}

@@ -162,22 +162,12 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createProcedure()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createCodeBlock()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createdeprecated_CodeBlock()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -187,7 +177,7 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createCompositeStatement()));
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -252,32 +242,27 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createRemoveFromSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createAddToSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createEmptySet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createIfStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createSwitchStatement()));
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -288,11 +273,6 @@ public class ClassSimilarItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createContinueStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -522,11 +502,6 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpandSection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
 
 		newChildDescriptors.add
@@ -552,27 +527,27 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__INITIAL_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				 DblFactory.eINSTANCE.createClassPart()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__FINAL_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				 DblFactory.eINSTANCE.createClassPart()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__ACTIONS_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				 DblFactory.eINSTANCE.createClassPart()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__REPORT_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				 DblFactory.eINSTANCE.createClassPart()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				 DblFactory.eINSTANCE.createClassPart()));
 	}
 
 	/**
@@ -589,13 +564,12 @@ public class ClassSimilarItemProvider
 		boolean qualify =
 			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
 			childFeature == DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS ||
-			childFeature == DblPackage.Literals.CLASS_SIMILAR__METHODS ||
+			childFeature == DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__INITIAL_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__FINAL_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__ACTIONS_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__REPORT_BLOCK ||
-			childFeature == DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK ||
-			childFeature == DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES;
+			childFeature == DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK;
 
 		if (qualify) {
 			return getString

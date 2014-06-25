@@ -124,6 +124,7 @@ public class DivItemProvider
 		Object childObject = child;
 
 		boolean qualify =
+			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
 			childFeature == DblPackage.Literals.BINARY_OPERATOR__OP1 ||
 			childFeature == DblPackage.Literals.BINARY_OPERATOR__OP2;
 

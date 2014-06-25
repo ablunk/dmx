@@ -6,6 +6,8 @@
  */
 package hub.sam.dbl;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -18,7 +20,8 @@ package hub.sam.dbl;
  *   <li>{@link hub.sam.dbl.IdExpr#getParentIdExpr <em>Parent Id Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.IdExpr#getReferencedElement <em>Referenced Element</em>}</li>
  *   <li>{@link hub.sam.dbl.IdExpr#getPredefinedId <em>Predefined Id</em>}</li>
- *   <li>{@link hub.sam.dbl.IdExpr#getArguments <em>Arguments</em>}</li>
+ *   <li>{@link hub.sam.dbl.IdExpr#getArrayIndex <em>Array Index</em>}</li>
+ *   <li>{@link hub.sam.dbl.IdExpr#getCallArguments <em>Call Arguments</em>}</li>
  * </ul>
  * </p>
  *
@@ -106,29 +109,35 @@ public interface IdExpr extends L1Expr {
 	void setPredefinedId(PredefinedId value);
 
 	/**
-	 * Returns the value of the '<em><b>Arguments</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Array Index</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Arguments</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Array Index</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Arguments</em>' containment reference.
-	 * @see #setArguments(ArgumentExpression)
-	 * @see hub.sam.dbl.DblPackage#getIdExpr_Arguments()
+	 * @return the value of the '<em>Array Index</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getIdExpr_ArrayIndex()
 	 * @model containment="true"
 	 * @generated
 	 */
-	ArgumentExpression getArguments();
+	EList<Expression> getArrayIndex();
 
 	/**
-	 * Sets the value of the '{@link hub.sam.dbl.IdExpr#getArguments <em>Arguments</em>}' containment reference.
+	 * Returns the value of the '<em><b>Call Arguments</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.Expression}.
 	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Call Arguments</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Arguments</em>' containment reference.
-	 * @see #getArguments()
+	 * @return the value of the '<em>Call Arguments</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getIdExpr_CallArguments()
+	 * @model containment="true"
 	 * @generated
 	 */
-	void setArguments(ArgumentExpression value);
+	EList<Expression> getCallArguments();
 
 } // IdExpr

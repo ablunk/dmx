@@ -17,5 +17,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Expression extends ExtensibleElement {
+public interface Expression extends TypedElement, ExtensibleElement {
 } // Expression

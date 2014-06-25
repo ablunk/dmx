@@ -6,17 +6,15 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
+import hub.sam.dbl.Statement;
 import hub.sam.dbl.WhileStatement;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -27,13 +25,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.WhileStatementImpl#getCondition <em>Condition</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.WhileStatementImpl#getWhileBlock <em>While Block</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.WhileStatementImpl#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class WhileStatementImpl extends CompositeStatementImpl implements WhileStatement {
+public class WhileStatementImpl extends LoopStatementImpl implements WhileStatement {
 	/**
 	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -45,14 +43,14 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 	protected Expression condition;
 
 	/**
-	 * The cached value of the '{@link #getWhileBlock() <em>While Block</em>}' containment reference.
+	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getWhileBlock()
+	 * @see #getBody()
 	 * @generated
 	 * @ordered
 	 */
-	protected CodeBlock whileBlock;
+	protected Statement body;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -121,8 +119,8 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CodeBlock getWhileBlock() {
-		return whileBlock;
+	public Statement getBody() {
+		return body;
 	}
 
 	/**
@@ -130,11 +128,11 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetWhileBlock(CodeBlock newWhileBlock, NotificationChain msgs) {
-		CodeBlock oldWhileBlock = whileBlock;
-		whileBlock = newWhileBlock;
+	public NotificationChain basicSetBody(Statement newBody, NotificationChain msgs) {
+		Statement oldBody = body;
+		body = newBody;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.WHILE_STATEMENT__WHILE_BLOCK, oldWhileBlock, newWhileBlock);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.WHILE_STATEMENT__BODY, oldBody, newBody);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -145,18 +143,18 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setWhileBlock(CodeBlock newWhileBlock) {
-		if (newWhileBlock != whileBlock) {
+	public void setBody(Statement newBody) {
+		if (newBody != body) {
 			NotificationChain msgs = null;
-			if (whileBlock != null)
-				msgs = ((InternalEObject)whileBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.WHILE_STATEMENT__WHILE_BLOCK, null, msgs);
-			if (newWhileBlock != null)
-				msgs = ((InternalEObject)newWhileBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.WHILE_STATEMENT__WHILE_BLOCK, null, msgs);
-			msgs = basicSetWhileBlock(newWhileBlock, msgs);
+			if (body != null)
+				msgs = ((InternalEObject)body).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.WHILE_STATEMENT__BODY, null, msgs);
+			if (newBody != null)
+				msgs = ((InternalEObject)newBody).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.WHILE_STATEMENT__BODY, null, msgs);
+			msgs = basicSetBody(newBody, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.WHILE_STATEMENT__WHILE_BLOCK, newWhileBlock, newWhileBlock));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.WHILE_STATEMENT__BODY, newBody, newBody));
 	}
 
 	/**
@@ -169,8 +167,8 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 		switch (featureID) {
 			case DblPackage.WHILE_STATEMENT__CONDITION:
 				return basicSetCondition(null, msgs);
-			case DblPackage.WHILE_STATEMENT__WHILE_BLOCK:
-				return basicSetWhileBlock(null, msgs);
+			case DblPackage.WHILE_STATEMENT__BODY:
+				return basicSetBody(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -185,8 +183,8 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 		switch (featureID) {
 			case DblPackage.WHILE_STATEMENT__CONDITION:
 				return getCondition();
-			case DblPackage.WHILE_STATEMENT__WHILE_BLOCK:
-				return getWhileBlock();
+			case DblPackage.WHILE_STATEMENT__BODY:
+				return getBody();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -202,8 +200,8 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 			case DblPackage.WHILE_STATEMENT__CONDITION:
 				setCondition((Expression)newValue);
 				return;
-			case DblPackage.WHILE_STATEMENT__WHILE_BLOCK:
-				setWhileBlock((CodeBlock)newValue);
+			case DblPackage.WHILE_STATEMENT__BODY:
+				setBody((Statement)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -220,8 +218,8 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 			case DblPackage.WHILE_STATEMENT__CONDITION:
 				setCondition((Expression)null);
 				return;
-			case DblPackage.WHILE_STATEMENT__WHILE_BLOCK:
-				setWhileBlock((CodeBlock)null);
+			case DblPackage.WHILE_STATEMENT__BODY:
+				setBody((Statement)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -237,8 +235,8 @@ public class WhileStatementImpl extends CompositeStatementImpl implements WhileS
 		switch (featureID) {
 			case DblPackage.WHILE_STATEMENT__CONDITION:
 				return condition != null;
-			case DblPackage.WHILE_STATEMENT__WHILE_BLOCK:
-				return whileBlock != null;
+			case DblPackage.WHILE_STATEMENT__BODY:
+				return body != null;
 		}
 		return super.eIsSet(featureID);
 	}

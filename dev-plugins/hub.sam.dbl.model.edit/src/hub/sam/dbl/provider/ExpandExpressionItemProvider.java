@@ -149,6 +149,9 @@ public class ExpandExpressionItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE);
 			childrenFeatures.add(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT);
 		}
 		return childrenFeatures;
@@ -209,6 +212,9 @@ public class ExpandExpressionItemProvider
 			case DblPackage.EXPAND_EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case DblPackage.EXPAND_EXPRESSION__PRIMITIVE_TYPE:
+			case DblPackage.EXPAND_EXPRESSION__TYPE_ARRAY_DIMENSIONS:
+			case DblPackage.EXPAND_EXPRESSION__CLASSIFIER_TYPE:
 			case DblPackage.EXPAND_EXPRESSION__META_OBJECT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -226,6 +232,41 @@ public class ExpandExpressionItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
+				 DblFactory.eINSTANCE.createVoidType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
+				 DblFactory.eINSTANCE.createIntType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
+				 DblFactory.eINSTANCE.createBoolType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
+				 DblFactory.eINSTANCE.createDoubleType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
+				 DblFactory.eINSTANCE.createStringType()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS,
+				 DblFactory.eINSTANCE.createArrayDimension()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE,
+				 DblFactory.eINSTANCE.createIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -406,6 +447,29 @@ public class ExpandExpressionItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
+			childFeature == DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

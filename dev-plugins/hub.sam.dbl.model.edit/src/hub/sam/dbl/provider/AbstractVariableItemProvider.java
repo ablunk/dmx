@@ -81,8 +81,8 @@ public class AbstractVariableItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE);
 		}
 		return childrenFeatures;
 	}
@@ -127,8 +127,8 @@ public class AbstractVariableItemProvider
 
 		switch (notification.getFeatureID(AbstractVariable.class)) {
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
-			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR:
-			case DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS:
+			case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS:
+			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -173,13 +173,13 @@ public class AbstractVariableItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR,
-				 DblFactory.eINSTANCE.createIdExpr()));
+				(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS,
+				 DblFactory.eINSTANCE.createArrayDimension()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS,
-				 DblFactory.eINSTANCE.createArrayDimension()));
+				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE,
+				 DblFactory.eINSTANCE.createIdExpr()));
 	}
 
 }

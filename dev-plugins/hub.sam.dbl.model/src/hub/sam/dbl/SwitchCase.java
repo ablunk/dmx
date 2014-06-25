@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link hub.sam.dbl.SwitchCase#getValue <em>Value</em>}</li>
- *   <li>{@link hub.sam.dbl.SwitchCase#getStatements <em>Statements</em>}</li>
+ *   <li>{@link hub.sam.dbl.SwitchCase#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,19 +51,19 @@ public interface SwitchCase extends EObject {
 	void setValue(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Body</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Statement}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Statements</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Body</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Statements</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getSwitchCase_Statements()
-	 * @model containment="true"
+	 * @return the value of the '<em>Body</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getSwitchCase_Body()
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
-	EList<Statement> getStatements();
+	EList<Statement> getBody();
 
 } // SwitchCase

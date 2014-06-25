@@ -40,7 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class MappingImpl extends CodeBlockImpl implements Mapping {
+public class MappingImpl extends LocalScopeStatementImpl implements Mapping {
 	/**
 	 * The cached value of the '{@link #getParts() <em>Parts</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

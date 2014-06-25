@@ -35,8 +35,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getPrimitiveType <em>Primitive Type</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getClassifierTypeExpr <em>Classifier Type Expr</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getArrayDimensions <em>Array Dimensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getTypeArrayDimensions <em>Type Array Dimensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getClassifierType <em>Classifier Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,24 +54,24 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 	protected PrimitiveType primitiveType;
 
 	/**
-	 * The cached value of the '{@link #getClassifierTypeExpr() <em>Classifier Type Expr</em>}' containment reference.
+	 * The cached value of the '{@link #getTypeArrayDimensions() <em>Type Array Dimensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getClassifierTypeExpr()
+	 * @see #getTypeArrayDimensions()
 	 * @generated
 	 * @ordered
 	 */
-	protected IdExpr classifierTypeExpr;
+	protected EList<ArrayDimension> typeArrayDimensions;
 
 	/**
-	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimensions</em>}' containment reference list.
+	 * The cached value of the '{@link #getClassifierType() <em>Classifier Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getArrayDimensions()
+	 * @see #getClassifierType()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ArrayDimension> arrayDimensions;
+	protected IdExpr classifierType;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -140,8 +140,11 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public IdExpr getClassifierTypeExpr() {
-		return classifierTypeExpr;
+	public EList<ArrayDimension> getTypeArrayDimensions() {
+		if (typeArrayDimensions == null) {
+			typeArrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS);
+		}
+		return typeArrayDimensions;
 	}
 
 	/**
@@ -149,11 +152,20 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetClassifierTypeExpr(IdExpr newClassifierTypeExpr, NotificationChain msgs) {
-		IdExpr oldClassifierTypeExpr = classifierTypeExpr;
-		classifierTypeExpr = newClassifierTypeExpr;
+	public IdExpr getClassifierType() {
+		return classifierType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetClassifierType(IdExpr newClassifierType, NotificationChain msgs) {
+		IdExpr oldClassifierType = classifierType;
+		classifierType = newClassifierType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR, oldClassifierTypeExpr, newClassifierTypeExpr);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE, oldClassifierType, newClassifierType);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -164,30 +176,18 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setClassifierTypeExpr(IdExpr newClassifierTypeExpr) {
-		if (newClassifierTypeExpr != classifierTypeExpr) {
+	public void setClassifierType(IdExpr newClassifierType) {
+		if (newClassifierType != classifierType) {
 			NotificationChain msgs = null;
-			if (classifierTypeExpr != null)
-				msgs = ((InternalEObject)classifierTypeExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR, null, msgs);
-			if (newClassifierTypeExpr != null)
-				msgs = ((InternalEObject)newClassifierTypeExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR, null, msgs);
-			msgs = basicSetClassifierTypeExpr(newClassifierTypeExpr, msgs);
+			if (classifierType != null)
+				msgs = ((InternalEObject)classifierType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE, null, msgs);
+			if (newClassifierType != null)
+				msgs = ((InternalEObject)newClassifierType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE, null, msgs);
+			msgs = basicSetClassifierType(newClassifierType, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR, newClassifierTypeExpr, newClassifierTypeExpr));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<ArrayDimension> getArrayDimensions() {
-		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS);
-		}
-		return arrayDimensions;
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE, newClassifierType, newClassifierType));
 	}
 
 	/**
@@ -200,10 +200,10 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 		switch (featureID) {
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
 				return basicSetPrimitiveType(null, msgs);
-			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR:
-				return basicSetClassifierTypeExpr(null, msgs);
-			case DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS:
-				return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS:
+				return ((InternalEList<?>)getTypeArrayDimensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
+				return basicSetClassifierType(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -218,10 +218,10 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 		switch (featureID) {
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
 				return getPrimitiveType();
-			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR:
-				return getClassifierTypeExpr();
-			case DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS:
-				return getArrayDimensions();
+			case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS:
+				return getTypeArrayDimensions();
+			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
+				return getClassifierType();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -238,12 +238,12 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)newValue);
 				return;
-			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR:
-				setClassifierTypeExpr((IdExpr)newValue);
+			case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS:
+				getTypeArrayDimensions().clear();
+				getTypeArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
 				return;
-			case DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS:
-				getArrayDimensions().clear();
-				getArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
+			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
+				setClassifierType((IdExpr)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -260,11 +260,11 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
 				setPrimitiveType((PrimitiveType)null);
 				return;
-			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR:
-				setClassifierTypeExpr((IdExpr)null);
+			case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS:
+				getTypeArrayDimensions().clear();
 				return;
-			case DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS:
-				getArrayDimensions().clear();
+			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
+				setClassifierType((IdExpr)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -280,10 +280,10 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 		switch (featureID) {
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
 				return primitiveType != null;
-			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR:
-				return classifierTypeExpr != null;
-			case DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS:
-				return arrayDimensions != null && !arrayDimensions.isEmpty();
+			case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS:
+				return typeArrayDimensions != null && !typeArrayDimensions.isEmpty();
+			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
+				return classifierType != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -298,8 +298,8 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 		if (baseClass == TypedElement.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE: return DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE;
-				case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR: return DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR;
-				case DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS: return DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS;
+				case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS: return DblPackage.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS;
+				case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE: return DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE;
 				default: return -1;
 			}
 		}
@@ -316,8 +316,8 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 		if (baseClass == TypedElement.class) {
 			switch (baseFeatureID) {
 				case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE: return DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE;
-				case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR: return DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE_EXPR;
-				case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS: return DblPackage.ABSTRACT_VARIABLE__ARRAY_DIMENSIONS;
+				case DblPackage.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS: return DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS;
+				case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE: return DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE;
 				default: return -1;
 			}
 		}

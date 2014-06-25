@@ -3,20 +3,16 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.Assignment;
-import hub.sam.dbl.CodeBlock;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ForStatement;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.Variable;
-import hub.sam.dbl.VariableAccess;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -36,7 +32,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class ForStatementImpl extends CompositeStatementImpl implements ForStatement {
+public class ForStatementImpl extends LoopStatementImpl implements ForStatement {
 	/**
 	 * The cached value of the '{@link #getCountVariableDefinition() <em>Count Variable Definition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -85,7 +81,7 @@ public class ForStatementImpl extends CompositeStatementImpl implements ForState
 	 * @generated
 	 * @ordered
 	 */
-	protected CodeBlock body;
+	protected Statement body;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -283,7 +279,7 @@ public class ForStatementImpl extends CompositeStatementImpl implements ForState
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public CodeBlock getBody() {
+	public Statement getBody() {
 		return body;
 	}
 
@@ -292,8 +288,8 @@ public class ForStatementImpl extends CompositeStatementImpl implements ForState
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetBody(CodeBlock newBody, NotificationChain msgs) {
-		CodeBlock oldBody = body;
+	public NotificationChain basicSetBody(Statement newBody, NotificationChain msgs) {
+		Statement oldBody = body;
 		body = newBody;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.FOR_STATEMENT__BODY, oldBody, newBody);
@@ -307,7 +303,7 @@ public class ForStatementImpl extends CompositeStatementImpl implements ForState
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBody(CodeBlock newBody) {
+	public void setBody(Statement newBody) {
 		if (newBody != body) {
 			NotificationChain msgs = null;
 			if (body != null)
@@ -386,7 +382,7 @@ public class ForStatementImpl extends CompositeStatementImpl implements ForState
 				setIncrement((Assignment)newValue);
 				return;
 			case DblPackage.FOR_STATEMENT__BODY:
-				setBody((CodeBlock)newValue);
+				setBody((Statement)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -413,7 +409,7 @@ public class ForStatementImpl extends CompositeStatementImpl implements ForState
 				setIncrement((Assignment)null);
 				return;
 			case DblPackage.FOR_STATEMENT__BODY:
-				setBody((CodeBlock)null);
+				setBody((Statement)null);
 				return;
 		}
 		super.eUnset(featureID);

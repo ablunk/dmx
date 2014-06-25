@@ -161,7 +161,7 @@ public class QuotedStatementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createCompositeStatement()));
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -226,32 +226,27 @@ public class QuotedStatementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createRemoveFromSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createAddToSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createEmptySet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
 				 DblFactory.eINSTANCE.createIfStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createSwitchStatement()));
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
 				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -266,7 +261,7 @@ public class QuotedStatementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createForStatement()));
+				 DblFactory.eINSTANCE.createMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -302,11 +297,6 @@ public class QuotedStatementsItemProvider
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
 				 DblFactory.eINSTANCE.createExpandStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createExpandSection()));
 
 		newChildDescriptors.add
 			(createChildParameter

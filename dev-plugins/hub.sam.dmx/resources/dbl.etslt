@@ -51,11 +51,13 @@ syntax(Model) "resources/dbl.ecore" {
 	ClassContent -> Procedure:composite(methods);
 	ClassContent -> ClassContentExtension:composite(extensions);
 	
-	InitialPart -> "initial" StartCodeBlock:composite(initialBlock);
-	FinalPart -> "final" StartCodeBlock:composite(finalBlock);
-	ActionsPart -> "actions" StartCodeBlock:composite(actionsBlock);
-	ReportPart -> "report" StartCodeBlock:composite(reportBlock);
-	ClearPart -> "clear" StartCodeBlock:composite(clearBlock);
+	InitialPart -> "initial" ClassPart:composite(initialBlock);
+	FinalPart -> "final" ClassPart:composite(finalBlock);
+	ActionsPart -> "actions" ClassPart:composite(actionsBlock);
+	ReportPart -> "report" ClassPart:composite(reportBlock);
+	ClearPart -> "clear" ClassPart:composite(clearBlock);
+	
+	ClassPart:element(ClassPart) -> "{" (Statement:composite(statements))* "}";
 	
 	BindingsPart -> "bindings" "{" NativeBinding:composite(bindings) ("," NativeBinding:composite(bindings))* "}";
 	NativeBinding:element(NativeBinding) -> STRINGDEF:composite(targetLanguage) "->" STRINGDEF:composite(targetType);
@@ -69,14 +71,11 @@ syntax(Model) "resources/dbl.ecore" {
 			(ClassContent)*
 		"}";
 	
-	Procedure:element(Procedure) -> TypeRule NamedElementName
+	Procedure:element(Procedure) -> TypedElementParts NamedElementName
 		"(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
 		(ClassElement:composite(clazz))?
 		(AbstractProcedure:composite(abstract))?
-		ProcedureBody;
-		
-	ProcedureBody -> "{" (Statement:composite(statements))* "}";
-	ProcedureBody ->  ";";
+		"{" (Statement:composite(statements))* "}";
 	
 	AbstractProcedure:constant("true":EBoolean) -> "abstract";
 
@@ -85,7 +84,7 @@ syntax(Model) "resources/dbl.ecore" {
 	//	("returning" TypeRule)?
 	//	"{" (Statement:composite(statements))* "}";
 	
-	Parameter:element(Parameter) -> TypeRule ws(space) IDENTIFIER:composite(name);
+	Parameter:element(Parameter) -> TypedElementParts ws(space) IDENTIFIER:composite(name);
 
 	Variable:element(Variable) -> Variable1;
 	
@@ -101,20 +100,23 @@ syntax(Model) "resources/dbl.ecore" {
 	VariableModifier -> EmptyVariableModifier;
 	EmptyVariableModifier:element(ExtensibleElement) -> "void743859743452";
 		
-	VariableTail -> TypeRule ws(space) IDENTIFIER:composite(name)
+	VariableTail -> TypedElementParts ws(space) IDENTIFIER:composite(name)
 		("=" Expression:composite(initialValue))? ;
 
 	ControlVariable:constant("true":EBoolean) -> "control";
 	ClassElement:constant("true":EBoolean) -> "static";
 	
-	TypeRule -> Type (ArrayDimensionEmpty:composite(arrayDimensions))*;
-	
-	//Type -> ClassifierRef:reference(classifierType);
-	Type -> BareIdExpr:composite(classifierTypeExpr);
-	Type -> PrimitiveType:composite(primitiveType);
+	TypedElementParts -> IdExpr:composite(classifierType) (ArrayDimensions)?;
+	TypedElementParts -> PrimitiveType:composite(primitiveType) (ArrayDimensions)?;
 
-	ArrayDimension:element(ArrayDimension) -> "[" Expression:composite(size) "]";
-	ArrayDimensionEmpty:element(ArrayDimension) -> "[" "]";
+	ArrayDimensions -> "array" (ArrayDimensionEmptyOptional:composite(typeArrayDimensions))*;
+
+//	Type -> BareIdExpr:composite(classifierType);
+//	Type -> PrimitiveType:composite(primitiveType);
+
+	//ArrayDimension:element(ArrayDimension) -> "[" Expression:composite(size) "]";
+	//ArrayDimensionEmpty:element(ArrayDimension) -> "[" "]";
+	ArrayDimensionEmptyOptional:element(ArrayDimension) -> "[" (Expression:composite(size))? "]";
 	
 	ClassRef:element(Clazz) -> IDENTIFIER:composite(name);
 	ClassifierRef:element(Classifier) -> IDENTIFIER:composite(name);
@@ -125,12 +127,6 @@ syntax(Model) "resources/dbl.ecore" {
 	PrimitiveType:element(DoubleType) -> "double";	
 	PrimitiveType:element(StringType) -> "string";
 	
-	CodeBlock:element(CodeBlock) -> "{" (Statement:composite(statements))* "}";
-	StartCodeBlock:element(StartCodeBlock) -> "{" (Statement:composite(statements))* "}";
-
-	Statement -> CompoundStatement;
-	Statement -> SimpleStatement;
-	
 	// test
 	//Statement -> Unless2_extension;
 	//Unless2_extension:element(Unless2) -> "unless2" "(" Expression:composite(condition) ")" CodeBlock:composite(codeBlock);
@@ -138,11 +134,16 @@ syntax(Model) "resources/dbl.ecore" {
 	SimpleStatement -> ExpressionStatement ";";
 	ExpressionStatement:element(ExpressionStatement) -> StatementExpression:composite(expression);
 	StatementExpression -> ProcedureCall;
-	StatementExpression -> ExpandExpression;
 
 	SimpleStatement -> Assignment ";";
 	SimpleStatement -> Variable ";";
 	SimpleStatement -> Return ";";
+	SimpleStatement -> Print ";";
+	SimpleStatement -> BreakStatement ";";
+	SimpleStatement -> ContinueStatement ";";
+	SimpleStatement -> LocalScopeStatement;
+	SimpleStatement -> SwitchStatement;
+
 	SimpleStatement -> Advance ";";
 	SimpleStatement -> Terminate ";";
 	SimpleStatement -> Yield ";";
@@ -150,16 +151,15 @@ syntax(Model) "resources/dbl.ecore" {
 	SimpleStatement -> Reactivate ";";
 	SimpleStatement -> ActivateObject ";";
 	SimpleStatement -> WaitUntil ";";
-	SimpleStatement -> Print ";";
-	SimpleStatement -> AddToSet ";";
-	SimpleStatement -> RemoveFromSet ";";
-	SimpleStatement -> EmptySet ";";
-	SimpleStatement -> BreakStatement ";";
-	SimpleStatement -> ContinueStatement ";";
-	SimpleStatement -> ExpandStatement ";";
-	
+
+	LocalScopeStatement:element(LocalScopeStatement) -> "{" (Statement:composite(statements))* "}";
+
 	Assignment:element(Assignment) -> VariableAccess:composite(variable) "=" Expression:composite(value);
 	Return:element(Return) -> "return" Expression:composite(value);
+	Print:element(Print) -> "print" Expression:composite(outputs) ("," Expression:composite(outputs))*;
+	BreakStatement:element(BreakStatement) -> "break";
+	ContinueStatement:element(ContinueStatement) -> "continue";
+
 	Advance:element(Advance) -> "advance" Expression:composite(time);
 	Terminate:element(Terminate) -> "terminate";
 	Yield:element(Yield) -> "yield";
@@ -167,31 +167,35 @@ syntax(Model) "resources/dbl.ecore" {
 	Reactivate:element(Reactivate) -> "reactivate" Expression:composite(objectAccess);
 	ActivateObject:element(ActivateObject) -> "activate" Expression:composite(objectAccess) ("priority" INTEGER:composite(priority))?;
 	WaitUntil:element(WaitUntil) -> "wait" "until" Expression:composite(condition);
-	Print:element(Print) -> "print" Expression:composite(outputs) ("," Expression:composite(outputs))*;
-	AddToSet:element(AddToSet) -> "place" Expression:composite(object) "into" Expression:composite(set) ("at" ArgumentExpression:composite(atIndex))?;
-	RemoveFromSet:element(RemoveFromSet) -> "remove" Expression:composite(object) "from" Expression:composite(set);
-	EmptySet:element(EmptySet) -> "empty" Expression:composite(set);
-	BreakStatement:element(BreakStatement) -> "break";
-	ContinueStatement:element(ContinueStatement) -> "continue";
 	
-	CompoundStatement -> IfStatement;
-	CompoundStatement -> IfElseStatement;
-	CompoundStatement -> IfElifElseStatement;
-	CompoundStatement -> WhileStatement;
-	CompoundStatement -> SwitchStatement;
-	CompoundStatement -> ForStatement;
-	CompoundStatement -> ExpandSection;
+	// an "open statement" contains at least one if which is not paired with a following else.
+	// a "closed statement" either does not contain an if at all or the if is paired with a following else.
+	// see http://www.parsifalsoft.com/ifelse.html
+	Statement -> Statement_open;
+	Statement -> Statement_closed;
 	
-	IfStatement:element(IfStatement) -> "if" "(" Expression:composite(condition) ")" CodeBlock:composite(ifCaseBlock);
+	Loop_open -> While_open;
+	Loop_open -> For_open;
+	Loop_closed -> While_closed;
+	Loop_closed -> For_closed;
 	
-	IfElseStatement:element(IfStatement) -> "if" "(" Expression:composite(condition) ")" CodeBlock:composite(ifCaseBlock)
-		"else" CodeBlock:composite(elseCaseBlock);
+	Statement_open -> If_open;
+	Statement_open -> If_closed_open;
+	Statement_open -> Loop_open;
+	
+	Statement_closed -> SimpleStatement;
+	Statement_closed -> If_closed_closed;
+	Statement_closed -> Loop_closed;
 
-	IfElifElseStatement:element(IfStatement) -> "if" "(" Expression:composite(condition) ")" CodeBlock:composite(ifCaseBlock)
-		"elseif" "(" Expression:composite(elifCondition) ")" CodeBlock:composite(elifCaseBlock)
-		("elseif" "(" Expression:composite(elifCondition) ")" CodeBlock:composite(elifCaseBlock))*
-		("else" CodeBlock:composite(elseCaseBlock))?;
-		
+	If_open:element(IfStatement) -> IfHeader Statement:composite(trueCase);
+	IfHeader -> "if" "(" Expression:composite(condition) ")";
+	
+	If_closed_open:element(IfStatement) -> IfHeader Statement_closed:composite(trueCase)
+		"else" Statement_open:composite(falseCase);
+
+	If_closed_closed:element(IfStatement) -> IfHeader Statement_closed:composite(trueCase)
+		"else" Statement_closed:composite(falseCase);
+	
 	SwitchStatement:element(SwitchStatement) -> "switch" "(" VariableAccess:composite(variable) ")"
 		"{"
 			(SwitchCase:composite(cases))*
@@ -199,19 +203,22 @@ syntax(Model) "resources/dbl.ecore" {
 		"}";
 	
 	SwitchCase:element(SwitchCase) -> "case" Expression:composite(value) ":"
-		(Statement:composite(statements))*;
+		(Statement:composite(body))*;
 		
 	DefaultSwitchCase:element(SwitchCase) -> "default" ":"
-		(Statement:composite(statements))*;
+		(Statement:composite(body))*;
 
-	WhileStatement:element(WhileStatement) -> "while" "(" Expression:composite(condition) ")" CodeBlock:composite(whileBlock);
+	While_open:element(WhileStatement) -> WhileHead Statement_open:composite(body);
+	While_closed:element(WhileStatement) -> WhileHead Statement_closed:composite(body);
+	WhileHead -> "while" "(" Expression:composite(condition) ")";
 
-	ForStatement:element(ForStatement) -> "for" "("
+	For_open:element(ForStatement) -> ForHead Statement_open:composite(body);
+	For_closed:element(ForStatement) -> ForHead Statement_closed:composite(body);
+	ForHead -> "for" "("
 			(VariableDefOrReference)? ";"
 			Expression:composite(termination) ";"
 			Assignment:composite(increment)
-		")"
-		CodeBlock:composite(body);
+		")";
 		
 	VariableDefOrReference -> Variable:composite(countVariableDefinition);
 	VariableDefOrReference -> Assignment:composite(countVariableReference);
@@ -270,8 +277,8 @@ syntax(Model) "resources/dbl.ecore" {
 	L1Expr -> CreateObject;
 	L1Expr -> TimeLiteral;
 	L1Expr -> ActiveLiteral;
-	L1Expr -> ExpandExpression;
-	L1Expr -> CodeQuote;
+//	L1Expr -> ExpandExpression;
+//	L1Expr -> CodeQuote;
 	L1Expr -> "(" ws(empty) Expression ws(empty) ")";
 	
 	Or:element(Or)   -> LogicalOr:composite(op1) ws(space) "or" ws(space) LogicalAnd:composite(op2);
@@ -295,7 +302,7 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	Neg:element(Neg)     -> "-" ws(space) Unary:composite(op);
 	Not:element(Not)     -> "!" ws(space) Unary:composite(op);
-	Cast:element(Cast) -> Factor:composite(op) ws(space) "as" ws(space) TypeRule;
+	Cast:element(Cast) -> Factor:composite(op) ws(space) "as" ws(space) TypedElementParts;
 
 	IntLiteral:element(IntLiteral) -> INTEGER:composite(value);
 	StringLiteral:element(StringLiteral) -> STRINGDEF:composite(value);
@@ -308,49 +315,44 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	//CreateObject:element(CreateObject) -> "new" ws(space) TypeRule
 	//	("(" Expression:composite(arguments) ("," Expression:composite(arguments))* ")")?;
-	CreateObject:element(CreateObject) -> "new" ws(space) CreateObjectType;
+	CreateObject:element(CreateObject) -> "new" ws(space) TypedElementParts;
+//		("(" ArgumentExpression:composite(arguments) ")")?;
 
-	CreateObjectType -> IdExpr:composite(classifierTypeExpr) (ArrayDimension:composite(arrayDimensions))*;
-	CreateObjectType -> PrimitiveType:composite(primitiveType) (ArrayDimension:composite(arrayDimensions))*;	
+	//CreateObjectType -> IdExpr:composite(classifierTypeExpr) (ArrayDimension:composite(arrayDimensions))*;
+	//CreateObjectType -> PrimitiveType:composite(primitiveType) (ArrayDimension:composite(arrayDimensions))*;	
 		
+	//IdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleIdExpr;
+	//IdExpr:element(IdExpr) -> SimpleIdExpr;
+
 	IdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleIdExpr;
 	IdExpr:element(IdExpr) -> SimpleIdExpr;
-	
-	BareIdExpr:element(IdExpr) -> BareSimpleIdExpr;
-	BareSimpleIdExpr -> NamedElementRef:reference(referencedElement);
-	
-	SimpleIdExpr -> NamedElementRef:reference(referencedElement) (IdExprArgs)?;
-	SimpleIdExpr -> PredefinedId:composite(predefinedId) (IdExprArgs)?;
 
-	IdExprArgs -> "(" ArgumentExpression:composite(arguments) ")";
-	ArgumentExpression:element(ArgumentExpression) -> (Expression:composite(arguments) ("," Expression:composite(arguments))*)?;
+//	UnqualifiedIdExpr:element(IdExpr) -> BareSimpleIdExpr;
+//	BareSimpleIdExpr -> NamedElementRef:reference(referencedElement);
+	
+	SimpleIdExpr -> NamedElementRef:reference(referencedElement) (IdExprArgs)? (IdExprIndexAt)*;
+	SimpleIdExpr -> PredefinedId:composite(predefinedId) (IdExprArgs)? (IdExprIndexAt)*;
+
+	IdExprArgs -> "(" Expression:composite(callArguments) ")";
+	IdExprIndexAt -> "[" Expression:composite(arrayIndex) "]";
 	
 	VariableAccess:element(VariableAccess) -> IdExpr:composite(idExpr);
 	
 	TypeAccess:element(TypeAccess) -> IdExpr:composite(idExpr);
 		
-	ProcedureCall:element(ProcedureCall) -> ProcedureCallIdExpr:composite(procedureAccess);
+	ProcedureCall:element(ProcedureCall) -> IdExpr:composite(procedureAccess);
 	
-	ProcedureCallIdExpr:element(IdExpr) -> SimpleProcedureCall;
-	ProcedureCallIdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleProcedureCall;
+//	ProcedureCallIdExpr:element(IdExpr) -> SimpleProcedureCall;
+//	ProcedureCallIdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleProcedureCall;
 
-	SimpleProcedureCall -> NamedElementRef:reference(referencedElement) IdExprArgs;
-	SimpleProcedureCall -> PredefinedId:composite(predefinedId) IdExprArgs;
+//	SimpleProcedureCall -> NamedElementRef:reference(referencedElement) IdExprArgs;
+//	SimpleProcedureCall -> PredefinedId:composite(predefinedId) IdExprArgs;
 	
 	PredefinedId:element(MeLiteral) -> "self";
 	PredefinedId:element(SuperLiteral) -> "super";
 	PredefinedId:element(MetaLiteral) -> "meta";
 	PredefinedId:element(TypeLiteral) -> "type";
-
-	PredefinedId:element(SizeOfSet) -> "size";
-	PredefinedId:element(FirstInSet) -> "first";
-	PredefinedId:element(LastInSet) -> "last";
-
-	PredefinedId:element(Contains) -> "contains";
-	PredefinedId:element(IndexOf) -> "indexOf";
-	PredefinedId:element(ObjectAt) -> "at";
-	PredefinedId:element(BeforeInSet) -> "before";
-	PredefinedId:element(AfterInSet) -> "after";
+	PredefinedId:element(SizeOfArray) -> "size";
 	
 	NamedElementRef:element(NamedElement) -> IDENTIFIER:composite(name);
 	
@@ -397,20 +399,20 @@ syntax(Model) "resources/dbl.ecore" {
 	SaveGenStatement:element(SaveGenStatement) -> "saveGen" Expression:composite(variable);
 	ResumeGenStatement:element(ResumeGenStatement) -> "resumeGen" Expression:composite(variable);
 		
-	ExpandExpression:element(ExpandExpression) -> "?" "(" Expression:composite(metaObject) ")";
-	CodeQuote:element(CodeQuoteExpression) -> "{" "#" QuotedCode:composite(quotedCode) "}";
+//	ExpandExpression:element(ExpandExpression) -> "?" "(" Expression:composite(metaObject) ")";
+//	CodeQuote:element(CodeQuoteExpression) -> "{" "#" QuotedCode:composite(quotedCode) "}";
 	
-	ExpandStatement:element(ExpandStatement) -> "expand" Expression:composite(metaObject) ("after" Expression:composite(location))?;
+//	ExpandStatement:element(ExpandStatement) -> "expand" Expression:composite(metaObject) ("after" Expression:composite(location))?;
 	//ExpandStatement:element(ExpandStatement) -> "expand" Expression:composite(metaObject);
-	ExpandStatement:element(ExpandStatement) -> "{" "=" ">" Expression:composite(metaObject) "}";
+//	ExpandStatement:element(ExpandStatement) -> "{" "=" ">" Expression:composite(metaObject) "}";
 	
-	QuotedCode:element(QuotedExpression) -> "E" ":" Expression:composite(expression);
-	QuotedCode:element(QuotedStatements) -> "S" ":" (Statement:composite(statements))*;
-	QuotedCode:element(QuotedClassContent) -> "CC" ":" (ClassContent)*;
-	QuotedCode:element(QuotedModuleContent) -> "MC" ":" (ModuleContent)*;
+//	QuotedCode:element(QuotedExpression) -> "E" ":" Expression:composite(expression);
+//	QuotedCode:element(QuotedStatements) -> "S" ":" (Statement:composite(statements))*;
+//	QuotedCode:element(QuotedClassContent) -> "CC" ":" (ClassContent)*;
+//	QuotedCode:element(QuotedModuleContent) -> "MC" ":" (ModuleContent)*;
 
-	ExpandSection:element(ExpandSection) -> ExpandSectionCodeBlock:composite(codeBlock);
-	ExpandSectionCodeBlock:element(CodeBlock) -> "{" "+" (Statement:composite(statements))* "}";	
+//	ExpandSection:element(ExpandSection) -> ExpandSectionCodeBlock:composite(codeBlock);
+//	ExpandSectionCodeBlock:element(CodeBlock) -> "{" "+" (Statement:composite(statements))* "}";	
 
 	// EXTENSION SYNTAX
 	
@@ -424,7 +426,7 @@ syntax(Model) "resources/dbl.ecore" {
 	//Terminal -> "(" OptionalExpr ")?";
 	//Terminal -> "(" AtLeastOneExpr ")+";
 	//Terminal -> "(" ArbitraryExpr ")*";
-	Terminal -> "[" RuntimeExpr "]";
+	//Terminal -> "[" RuntimeExpr "]";
 	Terminal -> PropertyBindingExpr;
 	Terminal -> RuleExpr;
 		
@@ -432,7 +434,7 @@ syntax(Model) "resources/dbl.ecore" {
 	//AtLeastOneExpr:element(AtLeastOneExpr) -> RhsExpression:composite(expression);
 	//ArbitraryExpr:element(ArbitraryExpr) -> RhsExpression:composite(expression);
 
-	RuntimeExpr:element(RuntimeExpr) -> RhsExpression:composite(expression);
+	//RuntimeExpr:element(RuntimeExpr) -> RhsExpression:composite(expression);
 	
 	//AlternativeExpr:element(AlternativeExpr) -> RhsExpression:composite(left) "|" Sequence:composite(right);
 	SequenceExpr:element(SequenceExpr) -> (Terminal:composite(sequence))*;

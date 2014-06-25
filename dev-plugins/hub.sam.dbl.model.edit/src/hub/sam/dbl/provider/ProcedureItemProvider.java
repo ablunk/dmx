@@ -64,56 +64,10 @@ public class ProcedureItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addConcreteSyntaxPropertyDescriptor(object);
-			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
 			addClazzPropertyDescriptor(object);
 			addAbstractPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Concrete Syntax feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addConcreteSyntaxPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_concreteSyntax_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_concreteSyntax_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Instance Of Extension Definition feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInstanceOfExtensionDefinitionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_instanceOfExtensionDefinition_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_instanceOfExtensionDefinition_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -173,9 +127,9 @@ public class ProcedureItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS);
-			childrenFeatures.add(DblPackage.Literals.CODE_BLOCK__STATEMENTS);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE);
+			childrenFeatures.add(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS);
 			childrenFeatures.add(DblPackage.Literals.PROCEDURE__PARAMETERS);
 		}
 		return childrenFeatures;
@@ -231,15 +185,13 @@ public class ProcedureItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Procedure.class)) {
-			case DblPackage.PROCEDURE__CONCRETE_SYNTAX:
-			case DblPackage.PROCEDURE__INSTANCE_OF_EXTENSION_DEFINITION:
 			case DblPackage.PROCEDURE__CLAZZ:
 			case DblPackage.PROCEDURE__ABSTRACT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DblPackage.PROCEDURE__PRIMITIVE_TYPE:
-			case DblPackage.PROCEDURE__CLASSIFIER_TYPE_EXPR:
-			case DblPackage.PROCEDURE__ARRAY_DIMENSIONS:
+			case DblPackage.PROCEDURE__TYPE_ARRAY_DIMENSIONS:
+			case DblPackage.PROCEDURE__CLASSIFIER_TYPE:
 			case DblPackage.PROCEDURE__STATEMENTS:
 			case DblPackage.PROCEDURE__PARAMETERS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -286,177 +238,167 @@ public class ProcedureItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR,
-				 DblFactory.eINSTANCE.createIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS,
+				(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS,
 				 DblFactory.eINSTANCE.createArrayDimension()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE,
+				 DblFactory.eINSTANCE.createIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createVariable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createCompositeStatement()));
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createSimpleStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createExpressionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createReturn()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createWaitUntil()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createTerminate()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createYield()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createReactivate()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createActivateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createAdvance()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createPrint()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createRemoveFromSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createAddToSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createEmptySet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createIfStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createSwitchStatement()));
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createWhileStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createBreakStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createContinueStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createBreakStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createContinueStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createMappingStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createSetGenContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createResetGenContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createSaveGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createExpandStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createExpandSection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.CODE_BLOCK__STATEMENTS,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createTestStatement()));
 
 		newChildDescriptors.add

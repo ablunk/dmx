@@ -4,6 +4,7 @@ import com.google.common.base.Objects;
 import hub.sam.dbl.ActivateObject;
 import hub.sam.dbl.ActiveLiteral;
 import hub.sam.dbl.Advance;
+import hub.sam.dbl.ClassPart;
 import hub.sam.dbl.Clazz;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.Expression;
@@ -11,7 +12,6 @@ import hub.sam.dbl.Module;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.Reactivate;
-import hub.sam.dbl.StartCodeBlock;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.TimeLiteral;
@@ -265,7 +265,7 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.append("\t");
       _builder.newLine();
       _builder.append("\t\t");
-      StartCodeBlock _initialBlock = it.getInitialBlock();
+      ClassPart _initialBlock = it.getInitialBlock();
       EList<Statement> _statements = null;
       if (_initialBlock!=null) {
         _statements=_initialBlock.getStatements();
@@ -285,12 +285,12 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
           _builder.append("public void base_actions() {");
           _builder.newLine();
           {
-            StartCodeBlock _actionsBlock = it.getActionsBlock();
+            ClassPart _actionsBlock = it.getActionsBlock();
             boolean _notEquals_1 = (!Objects.equal(_actionsBlock, null));
             if (_notEquals_1) {
               _builder.append("\t");
               _builder.append("\t");
-              StartCodeBlock _actionsBlock_1 = it.getActionsBlock();
+              ClassPart _actionsBlock_1 = it.getActionsBlock();
               EList<Statement> _statements_1 = _actionsBlock_1.getStatements();
               String _gen_2 = this.gen(_statements_1);
               _builder.append(_gen_2, "		");

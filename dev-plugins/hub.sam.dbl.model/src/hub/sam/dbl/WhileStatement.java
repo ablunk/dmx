@@ -16,7 +16,7 @@ package hub.sam.dbl;
  * The following features are supported:
  * <ul>
  *   <li>{@link hub.sam.dbl.WhileStatement#getCondition <em>Condition</em>}</li>
- *   <li>{@link hub.sam.dbl.WhileStatement#getWhileBlock <em>While Block</em>}</li>
+ *   <li>{@link hub.sam.dbl.WhileStatement#getBody <em>Body</em>}</li>
  * </ul>
  * </p>
  *
@@ -24,7 +24,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface WhileStatement extends CompositeStatement {
+public interface WhileStatement extends LoopStatement {
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -52,29 +52,29 @@ public interface WhileStatement extends CompositeStatement {
 	void setCondition(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>While Block</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Body</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>While Block</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Body</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>While Block</em>' containment reference.
-	 * @see #setWhileBlock(CodeBlock)
-	 * @see hub.sam.dbl.DblPackage#getWhileStatement_WhileBlock()
+	 * @return the value of the '<em>Body</em>' containment reference.
+	 * @see #setBody(Statement)
+	 * @see hub.sam.dbl.DblPackage#getWhileStatement_Body()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	CodeBlock getWhileBlock();
+	Statement getBody();
 
 	/**
-	 * Sets the value of the '{@link hub.sam.dbl.WhileStatement#getWhileBlock <em>While Block</em>}' containment reference.
+	 * Sets the value of the '{@link hub.sam.dbl.WhileStatement#getBody <em>Body</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>While Block</em>' containment reference.
-	 * @see #getWhileBlock()
+	 * @param value the new value of the '<em>Body</em>' containment reference.
+	 * @see #getBody()
 	 * @generated
 	 */
-	void setWhileBlock(CodeBlock value);
+	void setBody(Statement value);
 
 } // WhileStatement

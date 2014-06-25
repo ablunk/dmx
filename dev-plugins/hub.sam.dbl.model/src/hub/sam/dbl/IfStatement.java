@@ -17,10 +17,8 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link hub.sam.dbl.IfStatement#getCondition <em>Condition</em>}</li>
- *   <li>{@link hub.sam.dbl.IfStatement#getIfCaseBlock <em>If Case Block</em>}</li>
- *   <li>{@link hub.sam.dbl.IfStatement#getElifCondition <em>Elif Condition</em>}</li>
- *   <li>{@link hub.sam.dbl.IfStatement#getElifCaseBlock <em>Elif Case Block</em>}</li>
- *   <li>{@link hub.sam.dbl.IfStatement#getElseCaseBlock <em>Else Case Block</em>}</li>
+ *   <li>{@link hub.sam.dbl.IfStatement#getTrueCase <em>True Case</em>}</li>
+ *   <li>{@link hub.sam.dbl.IfStatement#getFalseCase <em>False Case</em>}</li>
  * </ul>
  * </p>
  *
@@ -28,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface IfStatement extends CompositeStatement {
+public interface IfStatement extends Statement {
 	/**
 	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -56,87 +54,55 @@ public interface IfStatement extends CompositeStatement {
 	void setCondition(Expression value);
 
 	/**
-	 * Returns the value of the '<em><b>If Case Block</b></em>' containment reference.
+	 * Returns the value of the '<em><b>True Case</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>If Case Block</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>True Case</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>If Case Block</em>' containment reference.
-	 * @see #setIfCaseBlock(CodeBlock)
-	 * @see hub.sam.dbl.DblPackage#getIfStatement_IfCaseBlock()
+	 * @return the value of the '<em>True Case</em>' containment reference.
+	 * @see #setTrueCase(Statement)
+	 * @see hub.sam.dbl.DblPackage#getIfStatement_TrueCase()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	CodeBlock getIfCaseBlock();
+	Statement getTrueCase();
 
 	/**
-	 * Sets the value of the '{@link hub.sam.dbl.IfStatement#getIfCaseBlock <em>If Case Block</em>}' containment reference.
+	 * Sets the value of the '{@link hub.sam.dbl.IfStatement#getTrueCase <em>True Case</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>If Case Block</em>' containment reference.
-	 * @see #getIfCaseBlock()
+	 * @param value the new value of the '<em>True Case</em>' containment reference.
+	 * @see #getTrueCase()
 	 * @generated
 	 */
-	void setIfCaseBlock(CodeBlock value);
+	void setTrueCase(Statement value);
 
 	/**
-	 * Returns the value of the '<em><b>Elif Condition</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.Expression}.
+	 * Returns the value of the '<em><b>False Case</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Elif Condition</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>False Case</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Elif Condition</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getIfStatement_ElifCondition()
+	 * @return the value of the '<em>False Case</em>' containment reference.
+	 * @see #setFalseCase(Statement)
+	 * @see hub.sam.dbl.DblPackage#getIfStatement_FalseCase()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Expression> getElifCondition();
+	Statement getFalseCase();
 
 	/**
-	 * Returns the value of the '<em><b>Elif Case Block</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.CodeBlock}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Elif Case Block</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Elif Case Block</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getIfStatement_ElifCaseBlock()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<CodeBlock> getElifCaseBlock();
-
-	/**
-	 * Returns the value of the '<em><b>Else Case Block</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Else Case Block</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Else Case Block</em>' containment reference.
-	 * @see #setElseCaseBlock(CodeBlock)
-	 * @see hub.sam.dbl.DblPackage#getIfStatement_ElseCaseBlock()
-	 * @model containment="true"
-	 * @generated
-	 */
-	CodeBlock getElseCaseBlock();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.IfStatement#getElseCaseBlock <em>Else Case Block</em>}' containment reference.
+	 * Sets the value of the '{@link hub.sam.dbl.IfStatement#getFalseCase <em>False Case</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Else Case Block</em>' containment reference.
-	 * @see #getElseCaseBlock()
+	 * @param value the new value of the '<em>False Case</em>' containment reference.
+	 * @see #getFalseCase()
 	 * @generated
 	 */
-	void setElseCaseBlock(CodeBlock value);
+	void setFalseCase(Statement value);
 
 } // IfStatement

@@ -125,6 +125,15 @@ public interface DblFactory extends EFactory {
 	NativeBinding createNativeBinding();
 
 	/**
+	 * Returns a new object of class '<em>Class Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Class Part</em>'.
+	 * @generated
+	 */
+	ClassPart createClassPart();
+
+	/**
 	 * Returns a new object of class '<em>Super Class Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -132,15 +141,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	SuperClassSpecification createSuperClassSpecification();
-
-	/**
-	 * Returns a new object of class '<em>Start Code Block</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Start Code Block</em>'.
-	 * @generated
-	 */
-	StartCodeBlock createStartCodeBlock();
 
 	/**
 	 * Returns a new object of class '<em>Clazz</em>'.
@@ -197,13 +197,13 @@ public interface DblFactory extends EFactory {
 	NamedElement createNamedElement();
 
 	/**
-	 * Returns a new object of class '<em>Code Block</em>'.
+	 * Returns a new object of class '<em>deprecated Code Block</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Code Block</em>'.
+	 * @return a new object of class '<em>deprecated Code Block</em>'.
 	 * @generated
 	 */
-	CodeBlock createCodeBlock();
+	deprecated_CodeBlock createdeprecated_CodeBlock();
 
 	/**
 	 * Returns a new object of class '<em>Statement</em>'.
@@ -215,13 +215,13 @@ public interface DblFactory extends EFactory {
 	Statement createStatement();
 
 	/**
-	 * Returns a new object of class '<em>Composite Statement</em>'.
+	 * Returns a new object of class '<em>Loop Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Composite Statement</em>'.
+	 * @return a new object of class '<em>Loop Statement</em>'.
 	 * @generated
 	 */
-	CompositeStatement createCompositeStatement();
+	LoopStatement createLoopStatement();
 
 	/**
 	 * Returns a new object of class '<em>Simple Statement</em>'.
@@ -350,33 +350,6 @@ public interface DblFactory extends EFactory {
 	Print createPrint();
 
 	/**
-	 * Returns a new object of class '<em>Remove From Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Remove From Set</em>'.
-	 * @generated
-	 */
-	RemoveFromSet createRemoveFromSet();
-
-	/**
-	 * Returns a new object of class '<em>Add To Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Add To Set</em>'.
-	 * @generated
-	 */
-	AddToSet createAddToSet();
-
-	/**
-	 * Returns a new object of class '<em>Empty Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Empty Set</em>'.
-	 * @generated
-	 */
-	EmptySet createEmptySet();
-
-	/**
 	 * Returns a new object of class '<em>If Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -384,6 +357,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	IfStatement createIfStatement();
+
+	/**
+	 * Returns a new object of class '<em>Local Scope Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Local Scope Statement</em>'.
+	 * @generated
+	 */
+	LocalScopeStatement createLocalScopeStatement();
 
 	/**
 	 * Returns a new object of class '<em>Switch Statement</em>'.
@@ -692,76 +674,13 @@ public interface DblFactory extends EFactory {
 	TypeLiteral createTypeLiteral();
 
 	/**
-	 * Returns a new object of class '<em>Size Of Set</em>'.
+	 * Returns a new object of class '<em>Size Of Array</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Size Of Set</em>'.
+	 * @return a new object of class '<em>Size Of Array</em>'.
 	 * @generated
 	 */
-	SizeOfSet createSizeOfSet();
-
-	/**
-	 * Returns a new object of class '<em>First In Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>First In Set</em>'.
-	 * @generated
-	 */
-	FirstInSet createFirstInSet();
-
-	/**
-	 * Returns a new object of class '<em>Last In Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Last In Set</em>'.
-	 * @generated
-	 */
-	LastInSet createLastInSet();
-
-	/**
-	 * Returns a new object of class '<em>Contains</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Contains</em>'.
-	 * @generated
-	 */
-	Contains createContains();
-
-	/**
-	 * Returns a new object of class '<em>Index Of</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Index Of</em>'.
-	 * @generated
-	 */
-	IndexOf createIndexOf();
-
-	/**
-	 * Returns a new object of class '<em>Object At</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Object At</em>'.
-	 * @generated
-	 */
-	ObjectAt createObjectAt();
-
-	/**
-	 * Returns a new object of class '<em>Before In Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Before In Set</em>'.
-	 * @generated
-	 */
-	BeforeInSet createBeforeInSet();
-
-	/**
-	 * Returns a new object of class '<em>After In Set</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>After In Set</em>'.
-	 * @generated
-	 */
-	AfterInSet createAfterInSet();
+	SizeOfArray createSizeOfArray();
 
 	/**
 	 * Returns a new object of class '<em>String Literal</em>'.
@@ -825,15 +744,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	IdExpr createIdExpr();
-
-	/**
-	 * Returns a new object of class '<em>Argument Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Argument Expression</em>'.
-	 * @generated
-	 */
-	ArgumentExpression createArgumentExpression();
 
 	/**
 	 * Returns a new object of class '<em>Variable Access</em>'.
@@ -1176,15 +1086,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	ExpandStatement createExpandStatement();
-
-	/**
-	 * Returns a new object of class '<em>Expand Section</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Expand Section</em>'.
-	 * @generated
-	 */
-	ExpandSection createExpandSection();
 
 	/**
 	 * Returns a new object of class '<em>Code Quote Expression</em>'.

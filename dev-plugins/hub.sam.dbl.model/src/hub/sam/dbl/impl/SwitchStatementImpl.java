@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class SwitchStatementImpl extends CompositeStatementImpl implements SwitchStatement {
+public class SwitchStatementImpl extends SimpleStatementImpl implements SwitchStatement {
 	/**
 	 * The cached value of the '{@link #getVariable() <em>Variable</em>}' containment reference.
 	 * <!-- begin-user-doc -->

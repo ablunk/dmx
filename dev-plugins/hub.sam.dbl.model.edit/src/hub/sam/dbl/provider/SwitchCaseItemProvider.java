@@ -80,7 +80,7 @@ public class SwitchCaseItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.SWITCH_CASE__VALUE);
-			childrenFeatures.add(DblPackage.Literals.SWITCH_CASE__STATEMENTS);
+			childrenFeatures.add(DblPackage.Literals.SWITCH_CASE__BODY);
 		}
 		return childrenFeatures;
 	}
@@ -133,7 +133,7 @@ public class SwitchCaseItemProvider
 
 		switch (notification.getFeatureID(SwitchCase.class)) {
 			case DblPackage.SWITCH_CASE__VALUE:
-			case DblPackage.SWITCH_CASE__STATEMENTS:
+			case DblPackage.SWITCH_CASE__BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -333,167 +333,157 @@ public class SwitchCaseItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createVariable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createCompositeStatement()));
+				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createSimpleStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createExpressionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createReturn()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createWaitUntil()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createTerminate()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createYield()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createReactivate()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createActivateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createAdvance()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createPrint()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createRemoveFromSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createAddToSet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createEmptySet()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createIfStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createSwitchStatement()));
+				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createWhileStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createBreakStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createContinueStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createBreakStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createContinueStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createMappingStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createSetGenContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createResetGenContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createSaveGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createExpandStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
-				 DblFactory.eINSTANCE.createExpandSection()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__STATEMENTS,
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createTestStatement()));
 	}
 

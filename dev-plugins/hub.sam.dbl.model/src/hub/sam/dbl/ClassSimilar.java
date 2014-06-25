@@ -89,12 +89,12 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Initial Block</em>' containment reference.
-	 * @see #setInitialBlock(StartCodeBlock)
+	 * @see #setInitialBlock(ClassPart)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_InitialBlock()
 	 * @model containment="true"
 	 * @generated
 	 */
-	StartCodeBlock getInitialBlock();
+	ClassPart getInitialBlock();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.ClassSimilar#getInitialBlock <em>Initial Block</em>}' containment reference.
@@ -104,7 +104,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @see #getInitialBlock()
 	 * @generated
 	 */
-	void setInitialBlock(StartCodeBlock value);
+	void setInitialBlock(ClassPart value);
 
 	/**
 	 * Returns the value of the '<em><b>Final Block</b></em>' containment reference.
@@ -115,12 +115,12 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Final Block</em>' containment reference.
-	 * @see #setFinalBlock(StartCodeBlock)
+	 * @see #setFinalBlock(ClassPart)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_FinalBlock()
 	 * @model containment="true"
 	 * @generated
 	 */
-	StartCodeBlock getFinalBlock();
+	ClassPart getFinalBlock();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.ClassSimilar#getFinalBlock <em>Final Block</em>}' containment reference.
@@ -130,7 +130,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @see #getFinalBlock()
 	 * @generated
 	 */
-	void setFinalBlock(StartCodeBlock value);
+	void setFinalBlock(ClassPart value);
 
 	/**
 	 * Returns the value of the '<em><b>Actions Block</b></em>' containment reference.
@@ -141,12 +141,12 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Actions Block</em>' containment reference.
-	 * @see #setActionsBlock(StartCodeBlock)
+	 * @see #setActionsBlock(ClassPart)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_ActionsBlock()
 	 * @model containment="true"
 	 * @generated
 	 */
-	StartCodeBlock getActionsBlock();
+	ClassPart getActionsBlock();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.ClassSimilar#getActionsBlock <em>Actions Block</em>}' containment reference.
@@ -156,7 +156,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @see #getActionsBlock()
 	 * @generated
 	 */
-	void setActionsBlock(StartCodeBlock value);
+	void setActionsBlock(ClassPart value);
 
 	/**
 	 * Returns the value of the '<em><b>Report Block</b></em>' containment reference.
@@ -167,12 +167,12 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Report Block</em>' containment reference.
-	 * @see #setReportBlock(StartCodeBlock)
+	 * @see #setReportBlock(ClassPart)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_ReportBlock()
 	 * @model containment="true"
 	 * @generated
 	 */
-	StartCodeBlock getReportBlock();
+	ClassPart getReportBlock();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.ClassSimilar#getReportBlock <em>Report Block</em>}' containment reference.
@@ -182,7 +182,7 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @see #getReportBlock()
 	 * @generated
 	 */
-	void setReportBlock(StartCodeBlock value);
+	void setReportBlock(ClassPart value);
 
 	/**
 	 * Returns the value of the '<em><b>Clear Block</b></em>' containment reference.
@@ -193,12 +193,12 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Clear Block</em>' containment reference.
-	 * @see #setClearBlock(StartCodeBlock)
+	 * @see #setClearBlock(ClassPart)
 	 * @see hub.sam.dbl.DblPackage#getClassSimilar_ClearBlock()
 	 * @model containment="true"
 	 * @generated
 	 */
-	StartCodeBlock getClearBlock();
+	ClassPart getClearBlock();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.ClassSimilar#getClearBlock <em>Clear Block</em>}' containment reference.
@@ -208,6 +208,6 @@ public interface ClassSimilar extends EmbeddableExtensionsContainer, ModifierExt
 	 * @see #getClearBlock()
 	 * @generated
 	 */
-	void setClearBlock(StartCodeBlock value);
+	void setClearBlock(ClassPart value);
 
 } // ClassSimilar

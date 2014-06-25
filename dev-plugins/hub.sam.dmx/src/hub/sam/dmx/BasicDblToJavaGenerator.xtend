@@ -2,39 +2,31 @@ package hub.sam.dmx
 
 import hub.sam.dbl.ActivateObject
 import hub.sam.dbl.ActiveLiteral
-import hub.sam.dbl.AddToSet
 import hub.sam.dbl.Advance
-import hub.sam.dbl.AfterInSet
 import hub.sam.dbl.And
 import hub.sam.dbl.ArgumentExpression
 import hub.sam.dbl.Assignment
-import hub.sam.dbl.BeforeInSet
 import hub.sam.dbl.BinaryOperator
 import hub.sam.dbl.BoolType
 import hub.sam.dbl.BreakStatement
 import hub.sam.dbl.Cast
 import hub.sam.dbl.Classifier
 import hub.sam.dbl.Clazz
-import hub.sam.dbl.Contains
 import hub.sam.dbl.ContinueStatement
 import hub.sam.dbl.CreateObject
 import hub.sam.dbl.Div
 import hub.sam.dbl.DoubleLiteral
 import hub.sam.dbl.DoubleType
-import hub.sam.dbl.EmptySet
 import hub.sam.dbl.Equal
 import hub.sam.dbl.Expression
 import hub.sam.dbl.FalseLiteral
-import hub.sam.dbl.FirstInSet
 import hub.sam.dbl.ForStatement
 import hub.sam.dbl.Greater
 import hub.sam.dbl.GreaterEqual
 import hub.sam.dbl.IdExpr
 import hub.sam.dbl.IfStatement
-import hub.sam.dbl.IndexOf
 import hub.sam.dbl.IntLiteral
 import hub.sam.dbl.IntType
-import hub.sam.dbl.LastInSet
 import hub.sam.dbl.Less
 import hub.sam.dbl.LessEqual
 import hub.sam.dbl.MappingStatement
@@ -49,7 +41,6 @@ import hub.sam.dbl.Neg
 import hub.sam.dbl.Not
 import hub.sam.dbl.NotEqual
 import hub.sam.dbl.NullLiteral
-import hub.sam.dbl.ObjectAt
 import hub.sam.dbl.Or
 import hub.sam.dbl.Plus
 import hub.sam.dbl.PredefinedId
@@ -59,11 +50,10 @@ import hub.sam.dbl.ProcedureCall
 import hub.sam.dbl.PropertyBindingExpr
 import hub.sam.dbl.Reactivate
 import hub.sam.dbl.ReferableRhsType
-import hub.sam.dbl.RemoveFromSet
 import hub.sam.dbl.ResetGenContextStatement
 import hub.sam.dbl.Return
 import hub.sam.dbl.SetGenContextStatement
-import hub.sam.dbl.SizeOfSet
+import hub.sam.dbl.SizeOfArray
 import hub.sam.dbl.Statement
 import hub.sam.dbl.StringLiteral
 import hub.sam.dbl.StringType
@@ -88,6 +78,8 @@ import java.util.regex.Matcher
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
+import hub.sam.dbl.SwitchStatement
+import hub.sam.dbl.LocalScopeStatement
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -414,22 +406,19 @@ class BasicDblToJavaGenerator {
 	def dispatch String genStatement(IfStatement ifStm) {
 		val it = ifStm
 		'''
-		if («condition.genExpr») {
-			«ifCaseBlock.statements.gen»
-		}
-		«FOR elseIfBlock : elifCaseBlock»
-		else if («elifCondition.get(elifCaseBlock.indexOf(elseIfBlock))») {
-			«elseIfBlock.statements.gen»
-		}
-		«ENDFOR»
-		else {
-		«IF elseCaseBlock != null»
-			«elseCaseBlock.statements.gen»
+		if («condition.genExpr»)
+			«trueCase.gen»
+		«IF falseCase != null»
+		else
+			«falseCase.gen»
 		«ENDIF»
-		}
 		'''
 	}
 	
+	def dispatch String genStatement(LocalScopeStatement stm) {
+		'''{«stm.statements.gen»}'''
+	}
+
 	def dispatch String genStatement(Assignment stm) {
 		stm.genAssignment(true)
 	}
@@ -446,26 +435,6 @@ class BasicDblToJavaGenerator {
 		'''return «stm.value.genExpr»;'''
 	}
 
-	def dispatch String genStatement(AddToSet stm) {
-		val it = stm
-		'''
-		«set.genExpr».add(
-			«IF atIndex != null»(int) «atIndex.genExpr», «ENDIF»
-			«object.genExpr»
-		);
-		'''
-	}
-
-	def dispatch String genStatement(RemoveFromSet stm) {
-		val it = stm
-		'''«set.genExpr».remove(«object.genExpr»);'''
-	}
-
-	def dispatch String genStatement(EmptySet stm) {
-		val it = stm
-		'''«set.genExpr».clear();'''
-	}
-
 	def dispatch String genStatement(BreakStatement stm) {
 		'break;'
 	}
@@ -474,6 +443,22 @@ class BasicDblToJavaGenerator {
 		'continue;'
 	}
 
+	def dispatch String genStatement(SwitchStatement stm) {
+		val it = stm
+		'''
+		switch («variable.genExpr») {
+			«FOR c : cases»
+			case «c.value.genExpr»:
+				«c.body.gen»
+			«ENDFOR»
+			«IF defaultCase != null»
+			default:
+				«defaultCase.body.gen»
+			«ENDIF»
+		}
+		'''
+	}
+	
 	def dispatch String genStatement(ForStatement stm) {
 		// it is better to provide for as a basic statement as GPL compilers
 		// provide optimizations for it.
@@ -481,25 +466,24 @@ class BasicDblToJavaGenerator {
 		'''
 		for (
 			«IF countVariableDefinition != null»
-				«countVariableDefinition.genType» «countVariableDefinition.name»
+				«countVariableDefinition.gen»
 			«ELSEIF countVariableReference != null»
-				«countVariableReference.genAssignment(false)»
+				«countVariableReference.genAssignment(true)»
 			«ENDIF»
-			;
+
 			«termination.genExpr»
 			;
 			«increment.genAssignment(false)»
-		) {
-			«body.statements.gen»
-		}
+		)
+		«body.gen»
 		'''
 	}
 
 	def dispatch String genStatement(WhileStatement stm) {
 		val it = stm
-		'''while («condition.genExpr») {
-			«whileBlock.statements.gen»
-		}'''
+		'''while («condition.genExpr»)
+			«body.gen»
+		'''
 	}
 
 	def dispatch String genStatement(ResetGenContextStatement stm) {
@@ -526,7 +510,7 @@ class BasicDblToJavaGenerator {
 		«genType» «name»
 		«IF initialValue != null»
 			= «initialValue.genExpr»
-		«ELSEIF !arrayDimensions.empty»
+		«ELSEIF !typeArrayDimensions.empty»
 «««			«IF ldim1 != null»
 «««				«IF ldim1.size > 0»
 «««					= new «ldim1.genTypeNoWrapOfListPrimitives»[«ldim1.size»]
@@ -534,7 +518,7 @@ class BasicDblToJavaGenerator {
 «««					= new java.util.ArrayList<«ldim1.genTypeWrapListPrimitives»>()
 «««				«ENDIF»
 «««			«ENDIF»
-		«ELSEIF classifierTypeExpr != null»
+		«ELSEIF classifierType != null»
 			= null
 		«ENDIF»
 		;
@@ -632,7 +616,7 @@ class BasicDblToJavaGenerator {
 	}
 	
 	def dispatch String genExpr(IntLiteral expr) {
-		expr.value.toString + 'L'
+		expr.value.toString
 	}
 	
 	def dispatch String genExpr(TrueLiteral expr) {
@@ -663,7 +647,24 @@ class BasicDblToJavaGenerator {
 	}
 	
 	def dispatch String genExpr(CreateObject expr) {
-		'(new ' + expr.genType + '(' + expr?.classifierTypeExpr?.arguments.genExpr + '))'
+		val it = expr
+		'''
+		(
+		new «genType»		
+«««		«IF !typeArrayDimensions.empty»
+«««			«FOR dim : typeArrayDimensions»
+«««				[«dim.size.genExpr»]
+«««			«ENDFOR»
+«««		«ENDIF»
+		«IF classifierType != null && !classifierType.callArguments.empty»
+			(
+			«FOR arg : classifierType.callArguments SEPARATOR ','»
+				«arg.genExpr»
+			«ENDFOR»
+			)
+		«ENDIF»
+		)
+		'''
 	}
 	
 	def boolean refersToSyntaxPart(IdExpr idExpr) {
@@ -691,11 +692,7 @@ class BasicDblToJavaGenerator {
 
 		'''
 		«IF parentIdExpr != null»
-			«IF predefinedId != null && predefinedId instanceof IndexOf»
-				(
-			«ENDIF»
-			
-			«parentIdExpr.genIdExpr»
+			«parentIdExpr.genIdExpr».
 		«ENDIF»
 		
 		«IF referencedElement != null»
@@ -722,40 +719,8 @@ class BasicDblToJavaGenerator {
 		'super'
 	}
 
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, SizeOfSet predefinedId) {
-		'size()'
-	}
-
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, FirstInSet predefinedId) {
-		'get(0)'
-	}
-
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, LastInSet predefinedId) {
-		'get(' + idExpr.parentIdExpr.genIdExpr + '.size() - 1)'
-	}
-
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, Contains predefinedId) {
-		'contains(' + idExpr.arguments.genExpr + ')'
-	}
-
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, IndexOf predefinedId) {
-		'indexOf(' + idExpr.arguments.genExpr + ')'
-	}
-
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, ObjectAt predefinedId) {
-		'get((int) ' + idExpr.arguments.genExpr + ')'
-	}
-
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, AfterInSet predefinedId) {
-		'''
-		get( «idExpr.parentIdExpr.genIdExpr».indexOf(«idExpr.arguments.genExpr») + 1)
-		'''
-	}
-
-	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, BeforeInSet predefinedId) {
-		'''
-		get( «idExpr.parentIdExpr.genIdExpr».indexOf(«idExpr.arguments.genExpr») - 1)
-		'''
+	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, SizeOfArray predefinedId) {
+		'length'
 	}
 
 	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, NamedElement referencedElement) {
@@ -764,21 +729,18 @@ class BasicDblToJavaGenerator {
 			«(referencedElement.eContainer as Module).name».
 		«ENDIF»
 		«referencedElement.name»
-		'''
-	}
-	
-	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, Procedure referencedElement) {
-		'''
-		«IF referencedElement.eContainer instanceof Module»
-			«(referencedElement.eContainer as Module).name».
+		«IF !idExpr.callArguments.empty»
+			(
+			«FOR arg : idExpr.callArguments SEPARATOR ','»
+				«arg.genExpr»
+			«ENDFOR»
+			)
 		«ENDIF»
-		«referencedElement.name»(
-		«FOR arg : idExpr.arguments.arguments SEPARATOR ','»
-			«arg.genExpr»
+		«FOR index : idExpr.arrayIndex»
+			[«index.genExpr»]
 		«ENDFOR»
-		)
 		'''
-	}
+	}	
 	
 	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, PropertyBindingExpr referencedElement) {
 		'''
@@ -788,34 +750,31 @@ class BasicDblToJavaGenerator {
 	
 	def dispatch String genType(TypedElement typedElement) {
 		val it = typedElement
-		if (arrayDimensions.empty) {
-			genTypeNoWrapOfListPrimitives
-		}
-		else {
-			// TODO
-//			if (listDims.size == 1) {
-//				val ldim1 = listDims.get(0)
-//				if (ldim1.size > 0) {
-//					ldim1.genTypeNoWrapOfListPrimitives + '[]'
-//				}
-//				else {
-//					'java.util.List<' + ldim1.genTypeWrapListPrimitives + '>'
-//				}
-//			}
-		}
+		'''
+		«IF primitiveType != null»
+			«primitiveType.genType»
+		«ELSE»
+			«classifierType.genClassifierTypeExpr»
+		«ENDIF»
+		«IF !typeArrayDimensions.empty»
+			«FOR dim : typeArrayDimensions»
+				[«dim.size.genExpr»]
+			«ENDFOR»
+		«ENDIF»
+		'''
 	}
 	
-	def String genTypeWrapListPrimitives(TypedElement typedElement) {
-		val it = typedElement
-		primitiveType?.genWrappedType
-		classifierTypeExpr?.genClassifierTypeExpr
-	}
-	
-	def String genTypeNoWrapOfListPrimitives(TypedElement typedElement) {
-		val it = typedElement
-		if (primitiveType != null) return primitiveType.genType
-		else return classifierTypeExpr.genClassifierTypeExpr
-	}
+//	def String genTypeWrapListPrimitives(TypedElement typedElement) {
+//		val it = typedElement
+//		primitiveType?.genWrappedType
+//		classifierType?.genClassifierTypeExpr
+//	}
+//	
+//	def String genTypeNoWrapOfListPrimitives(TypedElement typedElement) {
+//		val it = typedElement
+//		if (primitiveType != null) return primitiveType.genType
+//		else return classifierType.genClassifierTypeExpr
+//	}
 	
 	def String genClassifierTypeExpr(IdExpr typeExpr) {
 		typeExpr.referencedElement.genType
@@ -842,7 +801,7 @@ class BasicDblToJavaGenerator {
 	}
 	
 	def dispatch String genType(IntType type) {
-		'long'
+		'int'
 	}
 	
 	def dispatch String genType(VoidType type) {
@@ -941,9 +900,9 @@ class BasicDblToJavaGenerator {
 				«initialBlock?.statements.gen»
 			}
 			
-			public «attributes.genVariables(false)»
+			«attributes.genVariables(false)»
 
-			public «methods.genProcedures(false)»
+			«methods.genProcedures(false)»
 		}
 		'''
 	}

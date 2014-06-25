@@ -23,7 +23,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface ForStatement extends CompositeStatement {
+public interface ForStatement extends LoopStatement {
 	/**
 	 * Returns the value of the '<em><b>Count Variable Definition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -137,12 +137,12 @@ public interface ForStatement extends CompositeStatement {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Body</em>' containment reference.
-	 * @see #setBody(CodeBlock)
+	 * @see #setBody(Statement)
 	 * @see hub.sam.dbl.DblPackage#getForStatement_Body()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	CodeBlock getBody();
+	Statement getBody();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.ForStatement#getBody <em>Body</em>}' containment reference.
@@ -152,6 +152,6 @@ public interface ForStatement extends CompositeStatement {
 	 * @see #getBody()
 	 * @generated
 	 */
-	void setBody(CodeBlock value);
+	void setBody(Statement value);
 
 } // ForStatement

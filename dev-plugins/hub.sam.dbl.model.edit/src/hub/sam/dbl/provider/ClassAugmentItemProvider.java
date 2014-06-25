@@ -146,13 +146,12 @@ public class ClassAugmentItemProvider
 		boolean qualify =
 			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
 			childFeature == DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS ||
-			childFeature == DblPackage.Literals.CLASS_SIMILAR__METHODS ||
+			childFeature == DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__INITIAL_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__FINAL_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__ACTIONS_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__REPORT_BLOCK ||
-			childFeature == DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK ||
-			childFeature == DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES;
+			childFeature == DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK;
 
 		if (qualify) {
 			return getString

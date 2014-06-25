@@ -34,7 +34,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class IfStatementItemProvider
-	extends CompositeStatementItemProvider
+	extends StatementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -79,10 +79,8 @@ public class IfStatementItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.IF_STATEMENT__CONDITION);
-			childrenFeatures.add(DblPackage.Literals.IF_STATEMENT__IF_CASE_BLOCK);
-			childrenFeatures.add(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION);
-			childrenFeatures.add(DblPackage.Literals.IF_STATEMENT__ELIF_CASE_BLOCK);
-			childrenFeatures.add(DblPackage.Literals.IF_STATEMENT__ELSE_CASE_BLOCK);
+			childrenFeatures.add(DblPackage.Literals.IF_STATEMENT__TRUE_CASE);
+			childrenFeatures.add(DblPackage.Literals.IF_STATEMENT__FALSE_CASE);
 		}
 		return childrenFeatures;
 	}
@@ -138,10 +136,8 @@ public class IfStatementItemProvider
 
 		switch (notification.getFeatureID(IfStatement.class)) {
 			case DblPackage.IF_STATEMENT__CONDITION:
-			case DblPackage.IF_STATEMENT__IF_CASE_BLOCK:
-			case DblPackage.IF_STATEMENT__ELIF_CONDITION:
-			case DblPackage.IF_STATEMENT__ELIF_CASE_BLOCK:
-			case DblPackage.IF_STATEMENT__ELSE_CASE_BLOCK:
+			case DblPackage.IF_STATEMENT__TRUE_CASE:
+			case DblPackage.IF_STATEMENT__FALSE_CASE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -341,243 +337,313 @@ public class IfStatementItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__IF_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createProcedure()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createVariable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__IF_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createCodeBlock()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__IF_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__IF_CASE_BLOCK,
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createSimpleStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createExpressionStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createAssignment()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createReturn()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createWaitUntil()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createTerminate()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createWait()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createReactivate()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createActivateObject()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createAdvance()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createPrint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createIfStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createForStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createBreakStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createContinueStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
 				 DblFactory.eINSTANCE.createMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createExpression()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createL1Expr()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createMappingStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createAnd()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createSetGenContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createOr()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createResetGenContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createGreater()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createSaveGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createGreaterEqual()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createLess()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createExpandStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createLessEqual()));
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createTestStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createNotEqual()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createVariable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createEqual()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createInstanceOf()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createPlus()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createSimpleStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMinus()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createExpressionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMul()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMod()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createReturn()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createDiv()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createWaitUntil()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createNeg()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createTerminate()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createNot()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createYield()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createCast()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createCreateObject()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createReactivate()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createNullLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createActivateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createTimeLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createAdvance()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createActiveLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createPrint()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createStringLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createIfStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createIntLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createTrueLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createForStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createFalseLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createWhileStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createDoubleLiteral()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createBreakStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createIdExpr()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createContinueStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createVariableAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMetaAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createTypeAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createMetaExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createExpandExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION,
-				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createProcedure()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createCodeBlock()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELIF_CASE_BLOCK,
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
 				 DblFactory.eINSTANCE.createMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELSE_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createProcedure()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELSE_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createCodeBlock()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createMappingStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELSE_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createSetGenContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__ELSE_CASE_BLOCK,
-				 DblFactory.eINSTANCE.createMapping()));
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createSaveGenStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createResumeGenStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createExpandStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createTestStatement()));
 	}
 
 	/**
@@ -592,11 +658,8 @@ public class IfStatementItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.IF_STATEMENT__CONDITION ||
-			childFeature == DblPackage.Literals.IF_STATEMENT__ELIF_CONDITION ||
-			childFeature == DblPackage.Literals.IF_STATEMENT__IF_CASE_BLOCK ||
-			childFeature == DblPackage.Literals.IF_STATEMENT__ELIF_CASE_BLOCK ||
-			childFeature == DblPackage.Literals.IF_STATEMENT__ELSE_CASE_BLOCK;
+			childFeature == DblPackage.Literals.IF_STATEMENT__TRUE_CASE ||
+			childFeature == DblPackage.Literals.IF_STATEMENT__FALSE_CASE;
 
 		if (qualify) {
 			return getString

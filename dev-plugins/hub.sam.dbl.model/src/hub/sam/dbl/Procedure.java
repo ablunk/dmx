@@ -26,7 +26,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Procedure extends NamedElement, TypedElement, CodeBlock {
+public interface Procedure extends NamedElement, TypedElement, LocalScope {
 	/**
 	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Parameter}.

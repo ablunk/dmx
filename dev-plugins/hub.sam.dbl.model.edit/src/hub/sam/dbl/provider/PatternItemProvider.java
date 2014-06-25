@@ -104,7 +104,7 @@ public class PatternItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.PATTERN__CONTEXT);
-			childrenFeatures.add(DblPackage.Literals.PATTERN__CODE_BLOCK);
+			childrenFeatures.add(DblPackage.Literals.PATTERN__BODY);
 		}
 		return childrenFeatures;
 	}
@@ -163,7 +163,7 @@ public class PatternItemProvider
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DblPackage.PATTERN__CONTEXT:
-			case DblPackage.PATTERN__CODE_BLOCK:
+			case DblPackage.PATTERN__BODY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -188,23 +188,158 @@ public class PatternItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.PATTERN__CODE_BLOCK,
-				 DblFactory.eINSTANCE.createProcedure()));
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createVariable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.PATTERN__CODE_BLOCK,
-				 DblFactory.eINSTANCE.createCodeBlock()));
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.PATTERN__CODE_BLOCK,
-				 DblFactory.eINSTANCE.createStartCodeBlock()));
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createLoopStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.PATTERN__CODE_BLOCK,
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createSimpleStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createExpressionStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createAssignment()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createReturn()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createWaitUntil()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createTerminate()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createWait()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createReactivate()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createActivateObject()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createAdvance()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createPrint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createIfStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createForStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createBreakStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createContinueStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
 				 DblFactory.eINSTANCE.createMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createTargetStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createMappingStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createSetGenContextStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createSaveGenStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createResumeGenStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createExpandStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createTestStatement()));
 	}
 
 }

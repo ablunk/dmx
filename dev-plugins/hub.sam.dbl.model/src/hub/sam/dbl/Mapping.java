@@ -25,7 +25,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Mapping extends CodeBlock {
+public interface Mapping extends LocalScopeStatement {
 	/**
 	 * Returns the value of the '<em><b>Parts</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.MappingPart}.

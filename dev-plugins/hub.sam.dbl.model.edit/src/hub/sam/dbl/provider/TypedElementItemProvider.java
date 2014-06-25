@@ -86,8 +86,8 @@ public class TypedElementItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS);
+			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE);
 		}
 		return childrenFeatures;
 	}
@@ -129,8 +129,8 @@ public class TypedElementItemProvider
 
 		switch (notification.getFeatureID(TypedElement.class)) {
 			case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE:
-			case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR:
-			case DblPackage.TYPED_ELEMENT__ARRAY_DIMENSIONS:
+			case DblPackage.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS:
+			case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -175,13 +175,13 @@ public class TypedElementItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE_EXPR,
-				 DblFactory.eINSTANCE.createIdExpr()));
+				(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS,
+				 DblFactory.eINSTANCE.createArrayDimension()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__ARRAY_DIMENSIONS,
-				 DblFactory.eINSTANCE.createArrayDimension()));
+				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE,
+				 DblFactory.eINSTANCE.createIdExpr()));
 	}
 
 	/**
