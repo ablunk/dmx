@@ -1,57 +1,14 @@
+#import "test2"
+
 module test {
 
-class Y {
-	void n() {}
-}
-
-class X extends Y {
-	void m() {}
-}
-
-void testFor() {
-	int i;
-	for (i=1; i < 4; i=i+1) {
-		print i;
-	}
-
-	for (int j=1; j< 4; j=j+1) {
-		print j;
-	}
-	
-	for (i=1; i<2; i=i+1)
-		print i;
-
-	for (i=1; i<2; i=i+1)
-		for (int j=1; j<2; j=j+1)
-			print i+j;
-}
-
-void testArray() {
-	int array[][] m = new int array[2][1];
-	m[1][1] = 1;
-	m[2][1] = 2;
-	
-	int i=1;
-	m[i][1] = 1;
-
-	for (i=1; i <= m.size; i=i+1) {
-		print i +  " = " + m[i][1];
-	}
-}
-
-void testSwitch() {
-	int i = 9;
-	switch(i) {
-		case 1:
-			print "1";
-			break;
-		default:
-			print i;
-	}
-}
-
 void main() {
+	print "hello";
+
+	A a = new A;
+	print " " + a.h() + "\n";
 	
+	// TODO update Model (the Ecore instance) referenced as import whenever its file changes !
 }
 
 }

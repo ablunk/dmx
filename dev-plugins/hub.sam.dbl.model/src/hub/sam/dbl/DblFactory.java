@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl;
 
@@ -24,6 +20,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	DblFactory eINSTANCE = hub.sam.dbl.impl.DblFactoryImpl.init();
+
+	/**
+	 * Returns a new object of class '<em>Extensible Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Extensible Element</em>'.
+	 * @generated
+	 */
+	ExtensibleElement createExtensibleElement();
 
 	/**
 	 * Returns a new object of class '<em>Model</em>'.
@@ -233,24 +238,6 @@ public interface DblFactory extends EFactory {
 	SimpleStatement createSimpleStatement();
 
 	/**
-	 * Returns a new object of class '<em>Expression Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Expression Statement</em>'.
-	 * @generated
-	 */
-	ExpressionStatement createExpressionStatement();
-
-	/**
-	 * Returns a new object of class '<em>Statement Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Statement Expression</em>'.
-	 * @generated
-	 */
-	StatementExpression createStatementExpression();
-
-	/**
 	 * Returns a new object of class '<em>Assignment</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -368,6 +355,24 @@ public interface DblFactory extends EFactory {
 	LocalScopeStatement createLocalScopeStatement();
 
 	/**
+	 * Returns a new object of class '<em>For Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>For Statement</em>'.
+	 * @generated
+	 */
+	ForStatement createForStatement();
+
+	/**
+	 * Returns a new object of class '<em>While Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>While Statement</em>'.
+	 * @generated
+	 */
+	WhileStatement createWhileStatement();
+
+	/**
 	 * Returns a new object of class '<em>Switch Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -384,15 +389,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	SwitchCase createSwitchCase();
-
-	/**
-	 * Returns a new object of class '<em>While Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>While Statement</em>'.
-	 * @generated
-	 */
-	WhileStatement createWhileStatement();
 
 	/**
 	 * Returns a new object of class '<em>Break Statement</em>'.
@@ -413,15 +409,6 @@ public interface DblFactory extends EFactory {
 	ContinueStatement createContinueStatement();
 
 	/**
-	 * Returns a new object of class '<em>For Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>For Statement</em>'.
-	 * @generated
-	 */
-	ForStatement createForStatement();
-
-	/**
 	 * Returns a new object of class '<em>Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -438,60 +425,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	L1Expr createL1Expr();
-
-	/**
-	 * Returns a new object of class '<em>Plus</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Plus</em>'.
-	 * @generated
-	 */
-	Plus createPlus();
-
-	/**
-	 * Returns a new object of class '<em>Minus</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Minus</em>'.
-	 * @generated
-	 */
-	Minus createMinus();
-
-	/**
-	 * Returns a new object of class '<em>Mul</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Mul</em>'.
-	 * @generated
-	 */
-	Mul createMul();
-
-	/**
-	 * Returns a new object of class '<em>Mod</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Mod</em>'.
-	 * @generated
-	 */
-	Mod createMod();
-
-	/**
-	 * Returns a new object of class '<em>Div</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Div</em>'.
-	 * @generated
-	 */
-	Div createDiv();
-
-	/**
-	 * Returns a new object of class '<em>Neg</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Neg</em>'.
-	 * @generated
-	 */
-	Neg createNeg();
 
 	/**
 	 * Returns a new object of class '<em>And</em>'.
@@ -575,6 +508,60 @@ public interface DblFactory extends EFactory {
 	InstanceOf createInstanceOf();
 
 	/**
+	 * Returns a new object of class '<em>Plus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Plus</em>'.
+	 * @generated
+	 */
+	Plus createPlus();
+
+	/**
+	 * Returns a new object of class '<em>Minus</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Minus</em>'.
+	 * @generated
+	 */
+	Minus createMinus();
+
+	/**
+	 * Returns a new object of class '<em>Mul</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mul</em>'.
+	 * @generated
+	 */
+	Mul createMul();
+
+	/**
+	 * Returns a new object of class '<em>Mod</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Mod</em>'.
+	 * @generated
+	 */
+	Mod createMod();
+
+	/**
+	 * Returns a new object of class '<em>Div</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Div</em>'.
+	 * @generated
+	 */
+	Div createDiv();
+
+	/**
+	 * Returns a new object of class '<em>Neg</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Neg</em>'.
+	 * @generated
+	 */
+	Neg createNeg();
+
+	/**
 	 * Returns a new object of class '<em>Not</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -584,15 +571,6 @@ public interface DblFactory extends EFactory {
 	Not createNot();
 
 	/**
-	 * Returns a new object of class '<em>Create Object</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Create Object</em>'.
-	 * @generated
-	 */
-	CreateObject createCreateObject();
-
-	/**
 	 * Returns a new object of class '<em>Cast</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -600,6 +578,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	Cast createCast();
+
+	/**
+	 * Returns a new object of class '<em>Create Object</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Create Object</em>'.
+	 * @generated
+	 */
+	CreateObject createCreateObject();
 
 	/**
 	 * Returns a new object of class '<em>Null Literal</em>'.
@@ -627,60 +614,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	ActiveLiteral createActiveLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Eval Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Eval Expr</em>'.
-	 * @generated
-	 */
-	EvalExpr createEvalExpr();
-
-	/**
-	 * Returns a new object of class '<em>Me Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Me Literal</em>'.
-	 * @generated
-	 */
-	MeLiteral createMeLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Super Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Super Literal</em>'.
-	 * @generated
-	 */
-	SuperLiteral createSuperLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Meta Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Meta Literal</em>'.
-	 * @generated
-	 */
-	MetaLiteral createMetaLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Type Literal</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Type Literal</em>'.
-	 * @generated
-	 */
-	TypeLiteral createTypeLiteral();
-
-	/**
-	 * Returns a new object of class '<em>Size Of Array</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Size Of Array</em>'.
-	 * @generated
-	 */
-	SizeOfArray createSizeOfArray();
 
 	/**
 	 * Returns a new object of class '<em>String Literal</em>'.
@@ -728,6 +661,15 @@ public interface DblFactory extends EFactory {
 	DoubleLiteral createDoubleLiteral();
 
 	/**
+	 * Returns a new object of class '<em>Eval Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Eval Expr</em>'.
+	 * @generated
+	 */
+	EvalExpr createEvalExpr();
+
+	/**
 	 * Returns a new object of class '<em>Predefined Id</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -737,6 +679,51 @@ public interface DblFactory extends EFactory {
 	PredefinedId createPredefinedId();
 
 	/**
+	 * Returns a new object of class '<em>Me Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Me Literal</em>'.
+	 * @generated
+	 */
+	MeLiteral createMeLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Super Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Super Literal</em>'.
+	 * @generated
+	 */
+	SuperLiteral createSuperLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Meta Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Meta Literal</em>'.
+	 * @generated
+	 */
+	MetaLiteral createMetaLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Type Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Type Literal</em>'.
+	 * @generated
+	 */
+	TypeLiteral createTypeLiteral();
+
+	/**
+	 * Returns a new object of class '<em>Size Of Array</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Size Of Array</em>'.
+	 * @generated
+	 */
+	SizeOfArray createSizeOfArray();
+
+	/**
 	 * Returns a new object of class '<em>Id Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -744,6 +731,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	IdExpr createIdExpr();
+
+	/**
+	 * Returns a new object of class '<em>Call Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Call Part</em>'.
+	 * @generated
+	 */
+	CallPart createCallPart();
 
 	/**
 	 * Returns a new object of class '<em>Variable Access</em>'.
@@ -771,15 +767,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	TypeAccess createTypeAccess();
-
-	/**
-	 * Returns a new object of class '<em>Extensible Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Extensible Element</em>'.
-	 * @generated
-	 */
-	ExtensibleElement createExtensibleElement();
 
 	/**
 	 * Returns a new object of class '<em>Class Content Extension</em>'.
@@ -1142,15 +1129,6 @@ public interface DblFactory extends EFactory {
 	QuotedModuleContent createQuotedModuleContent();
 
 	/**
-	 * Returns a new object of class '<em>Test Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Test Statement</em>'.
-	 * @generated
-	 */
-	TestStatement createTestStatement();
-
-	/**
 	 * Returns a new object of class '<em>Pattern</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1158,6 +1136,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	Pattern createPattern();
+
+	/**
+	 * Returns a new object of class '<em>Test Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Test Statement</em>'.
+	 * @generated
+	 */
+	TestStatement createTestStatement();
 
 	/**
 	 * Returns the package supported by this factory.

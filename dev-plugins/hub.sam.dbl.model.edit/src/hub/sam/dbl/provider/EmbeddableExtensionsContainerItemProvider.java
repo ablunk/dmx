@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.provider;
 
@@ -175,12 +171,12 @@ public class EmbeddableExtensionsContainerItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpressionStatement()));
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createAssignment()));
+				 DblFactory.eINSTANCE.createProcedureCall()));
 
 		newChildDescriptors.add
 			(createChildParameter

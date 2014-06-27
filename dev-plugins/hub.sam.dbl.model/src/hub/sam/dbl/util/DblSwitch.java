@@ -316,22 +316,6 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.EXPRESSION_STATEMENT: {
-				ExpressionStatement expressionStatement = (ExpressionStatement)theEObject;
-				T result = caseExpressionStatement(expressionStatement);
-				if (result == null) result = caseSimpleStatement(expressionStatement);
-				if (result == null) result = caseStatement(expressionStatement);
-				if (result == null) result = caseExtensibleElement(expressionStatement);
-				if (result == null) result = caseNamedElement(expressionStatement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.STATEMENT_EXPRESSION: {
-				StatementExpression statementExpression = (StatementExpression)theEObject;
-				T result = caseStatementExpression(statementExpression);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DblPackage.ASSIGNMENT: {
 				Assignment assignment = (Assignment)theEObject;
 				T result = caseAssignment(assignment);
@@ -345,7 +329,10 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.PROCEDURE_CALL: {
 				ProcedureCall procedureCall = (ProcedureCall)theEObject;
 				T result = caseProcedureCall(procedureCall);
-				if (result == null) result = caseStatementExpression(procedureCall);
+				if (result == null) result = caseSimpleStatement(procedureCall);
+				if (result == null) result = caseStatement(procedureCall);
+				if (result == null) result = caseExtensibleElement(procedureCall);
+				if (result == null) result = caseNamedElement(procedureCall);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -908,6 +895,12 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.CALL_PART: {
+				CallPart callPart = (CallPart)theEObject;
+				T result = caseCallPart(callPart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.ELEMENT_ACCESS: {
 				ElementAccess elementAccess = (ElementAccess)theEObject;
 				T result = caseElementAccess(elementAccess);
@@ -1233,7 +1226,6 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.EXPAND_EXPRESSION: {
 				ExpandExpression expandExpression = (ExpandExpression)theEObject;
 				T result = caseExpandExpression(expandExpression);
-				if (result == null) result = caseStatementExpression(expandExpression);
 				if (result == null) result = caseExpression(expandExpression);
 				if (result == null) result = caseTypedElement(expandExpression);
 				if (result == null) result = caseExtensibleElement(expandExpression);
@@ -1782,36 +1774,6 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseSimpleStatement(SimpleStatement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Expression Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Expression Statement</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseExpressionStatement(ExpressionStatement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Statement Expression</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Statement Expression</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseStatementExpression(StatementExpression object) {
 		return null;
 	}
 
@@ -2682,6 +2644,21 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseIdExpr(IdExpr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Call Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Call Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseCallPart(CallPart object) {
 		return null;
 	}
 

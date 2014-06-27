@@ -1,12 +1,8 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.ArgumentExpression;
+import hub.sam.dbl.CallPart;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.IdExpr;
@@ -14,14 +10,17 @@ import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.PredefinedId;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -36,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getReferencedElement <em>Referenced Element</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getPredefinedId <em>Predefined Id</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getArrayIndex <em>Array Index</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getCallArguments <em>Call Arguments</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getCallPart <em>Call Part</em>}</li>
  * </ul>
  * </p>
  *
@@ -84,14 +83,14 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 	protected EList<Expression> arrayIndex;
 
 	/**
-	 * The cached value of the '{@link #getCallArguments() <em>Call Arguments</em>}' containment reference list.
+	 * The cached value of the '{@link #getCallPart() <em>Call Part</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCallArguments()
+	 * @see #getCallPart()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Expression> callArguments;
+	protected CallPart callPart;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -253,11 +252,42 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Expression> getCallArguments() {
-		if (callArguments == null) {
-			callArguments = new EObjectContainmentEList<Expression>(Expression.class, this, DblPackage.ID_EXPR__CALL_ARGUMENTS);
+	public CallPart getCallPart() {
+		return callPart;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetCallPart(CallPart newCallPart, NotificationChain msgs) {
+		CallPart oldCallPart = callPart;
+		callPart = newCallPart;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.ID_EXPR__CALL_PART, oldCallPart, newCallPart);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return callArguments;
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCallPart(CallPart newCallPart) {
+		if (newCallPart != callPart) {
+			NotificationChain msgs = null;
+			if (callPart != null)
+				msgs = ((InternalEObject)callPart).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.ID_EXPR__CALL_PART, null, msgs);
+			if (newCallPart != null)
+				msgs = ((InternalEObject)newCallPart).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.ID_EXPR__CALL_PART, null, msgs);
+			msgs = basicSetCallPart(newCallPart, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.ID_EXPR__CALL_PART, newCallPart, newCallPart));
 	}
 
 	/**
@@ -274,8 +304,8 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 				return basicSetPredefinedId(null, msgs);
 			case DblPackage.ID_EXPR__ARRAY_INDEX:
 				return ((InternalEList<?>)getArrayIndex()).basicRemove(otherEnd, msgs);
-			case DblPackage.ID_EXPR__CALL_ARGUMENTS:
-				return ((InternalEList<?>)getCallArguments()).basicRemove(otherEnd, msgs);
+			case DblPackage.ID_EXPR__CALL_PART:
+				return basicSetCallPart(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -297,8 +327,8 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 				return getPredefinedId();
 			case DblPackage.ID_EXPR__ARRAY_INDEX:
 				return getArrayIndex();
-			case DblPackage.ID_EXPR__CALL_ARGUMENTS:
-				return getCallArguments();
+			case DblPackage.ID_EXPR__CALL_PART:
+				return getCallPart();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -325,9 +355,8 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 				getArrayIndex().clear();
 				getArrayIndex().addAll((Collection<? extends Expression>)newValue);
 				return;
-			case DblPackage.ID_EXPR__CALL_ARGUMENTS:
-				getCallArguments().clear();
-				getCallArguments().addAll((Collection<? extends Expression>)newValue);
+			case DblPackage.ID_EXPR__CALL_PART:
+				setCallPart((CallPart)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -353,8 +382,8 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 			case DblPackage.ID_EXPR__ARRAY_INDEX:
 				getArrayIndex().clear();
 				return;
-			case DblPackage.ID_EXPR__CALL_ARGUMENTS:
-				getCallArguments().clear();
+			case DblPackage.ID_EXPR__CALL_PART:
+				setCallPart((CallPart)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -376,8 +405,8 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 				return predefinedId != null;
 			case DblPackage.ID_EXPR__ARRAY_INDEX:
 				return arrayIndex != null && !arrayIndex.isEmpty();
-			case DblPackage.ID_EXPR__CALL_ARGUMENTS:
-				return callArguments != null && !callArguments.isEmpty();
+			case DblPackage.ID_EXPR__CALL_PART:
+				return callPart != null;
 		}
 		return super.eIsSet(featureID);
 	}

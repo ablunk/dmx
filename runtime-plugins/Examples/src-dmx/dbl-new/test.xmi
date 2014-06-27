@@ -1,189 +1,35 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="test2"/>
   <modules name="test">
-    <classifiers xsi:type="dbl:Clazz" name="Y">
-      <methods name="n">
-        <primitiveType xsi:type="dbl:VoidType"/>
-      </methods>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="X">
-      <methods name="m">
-        <primitiveType xsi:type="dbl:VoidType"/>
-      </methods>
-      <superClasses clazz="//@modules.0/@classifiers.0"/>
-    </classifiers>
-    <procedures name="testFor">
-      <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="i">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </statements>
-      <statements xsi:type="dbl:ForStatement">
-        <countVariableReference>
-          <variable>
-            <idExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-          </variable>
-          <value xsi:type="dbl:IntLiteral" value="1"/>
-        </countVariableReference>
-        <termination xsi:type="dbl:Less">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-          <op2 xsi:type="dbl:IntLiteral" value="4"/>
-        </termination>
-        <increment>
-          <variable>
-            <idExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-          </variable>
-          <value xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-            <op2 xsi:type="dbl:IntLiteral" value="1"/>
-          </value>
-        </increment>
-        <body>
-          <statements xsi:type="dbl:Print">
-            <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-          </statements>
-        </body>
-      </statements>
-      <statements xsi:type="dbl:ForStatement">
-        <countVariableDefinition name="j">
-          <primitiveType xsi:type="dbl:IntType"/>
-          <initialValue xsi:type="dbl:IntLiteral" value="1"/>
-        </countVariableDefinition>
-        <termination xsi:type="dbl:Less">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.2/@countVariableDefinition"/>
-          <op2 xsi:type="dbl:IntLiteral" value="4"/>
-        </termination>
-        <increment>
-          <variable>
-            <idExpr referencedElement="//@modules.0/@procedures.0/@statements.2/@countVariableDefinition"/>
-          </variable>
-          <value xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.2/@countVariableDefinition"/>
-            <op2 xsi:type="dbl:IntLiteral" value="1"/>
-          </value>
-        </increment>
-        <body>
-          <statements xsi:type="dbl:Print">
-            <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.2/@countVariableDefinition"/>
-          </statements>
-        </body>
-      </statements>
-    </procedures>
-    <procedures name="testArray">
-      <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="m">
-        <primitiveType xsi:type="dbl:IntType"/>
-        <typeArrayDimensions/>
-        <typeArrayDimensions/>
-        <initialValue xsi:type="dbl:CreateObject">
-          <primitiveType xsi:type="dbl:IntType"/>
-          <typeArrayDimensions>
-            <size xsi:type="dbl:IntLiteral" value="2"/>
-          </typeArrayDimensions>
-          <typeArrayDimensions>
-            <size xsi:type="dbl:IntLiteral" value="1"/>
-          </typeArrayDimensions>
-        </initialValue>
-      </statements>
-      <statements xsi:type="dbl:Assignment">
-        <variable>
-          <idExpr referencedElement="//@modules.0/@procedures.1/@statements.0">
-            <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
-            <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
-          </idExpr>
-        </variable>
-        <value xsi:type="dbl:IntLiteral" value="1"/>
-      </statements>
-      <statements xsi:type="dbl:Assignment">
-        <variable>
-          <idExpr referencedElement="//@modules.0/@procedures.1/@statements.0">
-            <arrayIndex xsi:type="dbl:IntLiteral" value="2"/>
-            <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
-          </idExpr>
-        </variable>
-        <value xsi:type="dbl:IntLiteral" value="2"/>
-      </statements>
-      <statements xsi:type="dbl:Variable" name="i">
-        <primitiveType xsi:type="dbl:IntType"/>
-        <initialValue xsi:type="dbl:IntLiteral" value="1"/>
-      </statements>
-      <statements xsi:type="dbl:Assignment">
-        <variable>
-          <idExpr referencedElement="//@modules.0/@procedures.1/@statements.0">
-            <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.3"/>
-            <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
-          </idExpr>
-        </variable>
-        <value xsi:type="dbl:IntLiteral" value="1"/>
-      </statements>
-      <statements xsi:type="dbl:ForStatement">
-        <countVariableReference>
-          <variable>
-            <idExpr referencedElement="//@modules.0/@procedures.1/@statements.3"/>
-          </variable>
-          <value xsi:type="dbl:IntLiteral" value="1"/>
-        </countVariableReference>
-        <termination xsi:type="dbl:LessEqual">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.3"/>
-          <op2 xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@procedures.1/@statements.0"/>
-            <predefinedId xsi:type="dbl:SizeOfArray"/>
-          </op2>
-        </termination>
-        <increment>
-          <variable>
-            <idExpr referencedElement="//@modules.0/@procedures.1/@statements.3"/>
-          </variable>
-          <value xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.3"/>
-            <op2 xsi:type="dbl:IntLiteral" value="1"/>
-          </value>
-        </increment>
-        <body>
-          <statements xsi:type="dbl:Print">
-            <outputs xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:Plus">
-                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.3"/>
-                <op2 xsi:type="dbl:StringLiteral" value=" = "/>
-              </op1>
-              <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.0">
-                <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.3"/>
-                <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
-              </op2>
-            </outputs>
-          </statements>
-        </body>
-      </statements>
-    </procedures>
-    <procedures name="testSwitch">
-      <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="i">
-        <primitiveType xsi:type="dbl:IntType"/>
-        <initialValue xsi:type="dbl:IntLiteral" value="9"/>
-      </statements>
-      <statements xsi:type="dbl:SwitchStatement">
-        <variable>
-          <idExpr referencedElement="//@modules.0/@procedures.2/@statements.0"/>
-        </variable>
-        <cases>
-          <value xsi:type="dbl:IntLiteral" value="1"/>
-          <body>
-            <statements xsi:type="dbl:Print">
-              <outputs xsi:type="dbl:StringLiteral" value="1"/>
-            </statements>
-            <statements xsi:type="dbl:BreakStatement"/>
-          </body>
-        </cases>
-        <defaultCase>
-          <body>
-            <statements xsi:type="dbl:Print">
-              <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.2/@statements.0"/>
-            </statements>
-          </body>
-        </defaultCase>
-      </statements>
-    </procedures>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="hello"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="a">
+        <classifierType>
+          <referencedElement href="test2.dbl#//@modules.0/@classifiers.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="test2.dbl#//@modules.0/@classifiers.1"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value=" "/>
+            <op2 xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+              <referencedElement href="test2.dbl#//@modules.0/@classifiers.2/@methods.0"/>
+              <callPart/>
+            </op2>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
     </procedures>
   </modules>
 </dbl:Model>

@@ -28,19 +28,20 @@ public class DblSemanticsProvider extends DefaultSemanticsProvider {
 
 		@Override
 		public void addValue(ParseTreeNode parseTreeNode, Object actual, Object value, IModelCreatingContext context,
-				CompositeBinding binding) throws ModelCreatingException {
+				CompositeBinding binding) throws ModelCreatingException
+		{
 			if (actual instanceof Import && value instanceof String && !value.equals("")) {
 				Import imprt = (Import) actual;
-				String stringValue = (String) value;
+				String fileString = (String) value;
 				IPath editorInputLocation = preProcessedDocument.getLocation().removeLastSegments(1);
-				URI uri = DblPreProcessor.getPlatformResourceURI(editorInputLocation.append(stringValue).addFileExtension("xmi"));
+				URI fileUri = DblPreProcessor.getPlatformResourceURI(editorInputLocation.append(fileString).addFileExtension("xmi"));
 				
 				for (Resource resource: preProcessedDocument.getImportedResources()) {
-					if (resource.getURI() != null && resource.getURI().equals(uri)) {
+					if (resource.getURI() != null && resource.getURI().trimFileExtension().equals(fileUri.trimFileExtension())) {
 						if (resource.getContents().size() > 0) {
 							Model model = (Model) resource.getContents().get(0);
 							imprt.setModel(model);
-							imprt.setFile(stringValue);
+							imprt.setFile(fileString);
 							System.out.println("added model for import " + imprt.getFile());
 						}
 					}

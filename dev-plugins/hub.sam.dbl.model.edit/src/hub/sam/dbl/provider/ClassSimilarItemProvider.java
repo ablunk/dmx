@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.provider;
 
@@ -19,7 +15,6 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -187,12 +182,12 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpressionStatement()));
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createAssignment()));
+				 DblFactory.eINSTANCE.createProcedureCall()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -55,7 +55,7 @@ public interface SwitchCase extends EObject {
 	 * The list contents are of type {@link hub.sam.dbl.Statement}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Body</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Body</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->

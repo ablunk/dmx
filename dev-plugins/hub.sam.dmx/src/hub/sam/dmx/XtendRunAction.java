@@ -317,12 +317,11 @@ public class XtendRunAction extends Action {
 		}
 		monitor.worked(10); // 15%
 				
-		// 3. invoke Xtend for BaseToTarget transformation
+		// 3. invoke Xtend for DBL-To-Target transformation
 		
 		monitor.subTask("Generating program in target language");
 		
-		System.out.println("Executing Base-To-Target transformation ...");
-		System.out.println("Target: Java/" + TransformationProperties.getSimLib());
+		System.out.println("Executing generator DBL to Java/" + TransformationProperties.getSimLib() + " ...");
 		
 		Resource originalResource = editor.getCurrentModel();
 		
@@ -347,7 +346,7 @@ public class XtendRunAction extends Action {
 
 		// 6. compile and execute generated artifacts
 		
-		/*monitor.subTask("Compiling target language code");
+		monitor.subTask("Compiling target language program");
 		
 		boolean compileOk = false;
 		compileOk = compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
@@ -361,14 +360,14 @@ public class XtendRunAction extends Action {
 		if (compileOk) {
 			try {
 				monitor.subTask("Executing target language program");				
-				launchJavaProgram(true, currentJavaProject, workingDirectory, "JavaMain", null);
+				launchJavaProgram(true, currentJavaProject, workingDirectory, generator.javaPackageFolderPrefix + "/JavaMain", null);
 				monitor.worked(5); // 100%
 			}
 			catch (CoreException e) {
 				e.printStackTrace();
 				return;
 			}
-		}*/		
+		}
 	}
 	
 	private void translateExtensions(IProgressMonitor monitor, Resource originalResource,
@@ -561,9 +560,16 @@ public class XtendRunAction extends Action {
 		System.out.println("Cleaning \"" + folder.toString() + "\" ...");
 		File dir = new File(folder.getLocation().toString());
 		if (dir.isDirectory()) {
-			for (File file: dir.listFiles()) {
-				file.delete();
+			cleanFolderRecursive(dir);
+		}
+	}
+	
+	private void cleanFolderRecursive(File directory) {
+		for (File containedElement: directory.listFiles()) {
+			if (containedElement.isDirectory()) {
+				cleanFolderRecursive(containedElement);
 			}
+			containedElement.delete();
 		}
 	}
 	

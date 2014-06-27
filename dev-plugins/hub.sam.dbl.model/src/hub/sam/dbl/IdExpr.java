@@ -1,13 +1,8 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl;
 
 import org.eclipse.emf.common.util.EList;
-
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +16,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link hub.sam.dbl.IdExpr#getReferencedElement <em>Referenced Element</em>}</li>
  *   <li>{@link hub.sam.dbl.IdExpr#getPredefinedId <em>Predefined Id</em>}</li>
  *   <li>{@link hub.sam.dbl.IdExpr#getArrayIndex <em>Array Index</em>}</li>
- *   <li>{@link hub.sam.dbl.IdExpr#getCallArguments <em>Call Arguments</em>}</li>
+ *   <li>{@link hub.sam.dbl.IdExpr#getCallPart <em>Call Part</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,7 +108,7 @@ public interface IdExpr extends L1Expr {
 	 * The list contents are of type {@link hub.sam.dbl.Expression}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Array Index</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Array Index</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -125,19 +120,29 @@ public interface IdExpr extends L1Expr {
 	EList<Expression> getArrayIndex();
 
 	/**
-	 * Returns the value of the '<em><b>Call Arguments</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.Expression}.
+	 * Returns the value of the '<em><b>Call Part</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Call Arguments</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Call Part</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Call Arguments</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getIdExpr_CallArguments()
+	 * @return the value of the '<em>Call Part</em>' containment reference.
+	 * @see #setCallPart(CallPart)
+	 * @see hub.sam.dbl.DblPackage#getIdExpr_CallPart()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Expression> getCallArguments();
+	CallPart getCallPart();
+
+	/**
+	 * Sets the value of the '{@link hub.sam.dbl.IdExpr#getCallPart <em>Call Part</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Call Part</em>' containment reference.
+	 * @see #getCallPart()
+	 * @generated
+	 */
+	void setCallPart(CallPart value);
 
 } // IdExpr

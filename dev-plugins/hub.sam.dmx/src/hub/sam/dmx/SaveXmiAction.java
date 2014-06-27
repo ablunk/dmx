@@ -59,7 +59,12 @@ public class SaveXmiAction extends ResourceAction implements ITefEditorStatusLis
 				options.put(XMLResource.OPTION_SCHEMA_LOCATION, Boolean.TRUE);
 				
 				FileOutputStream originalAsXmiStream = new FileOutputStream(xmiRawLocation.toString());
-				editor.getCurrentModel().save(originalAsXmiStream, options);
+				try {
+					editor.getCurrentModel().save(originalAsXmiStream, options);
+				}
+				catch (IOException e) {
+					e.printStackTrace();
+				}
 				System.out.println("saved as XMI: " + xmiRawLocation);
 				
 				// refreshing the folder that contains the XMI file, so the change is recognized by the editor

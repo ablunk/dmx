@@ -4,7 +4,6 @@ import hub.sam.dbl.ActivateObject
 import hub.sam.dbl.ActiveLiteral
 import hub.sam.dbl.Advance
 import hub.sam.dbl.And
-import hub.sam.dbl.ArgumentExpression
 import hub.sam.dbl.Assignment
 import hub.sam.dbl.BinaryOperator
 import hub.sam.dbl.BoolType
@@ -29,6 +28,7 @@ import hub.sam.dbl.IntLiteral
 import hub.sam.dbl.IntType
 import hub.sam.dbl.Less
 import hub.sam.dbl.LessEqual
+import hub.sam.dbl.LocalScopeStatement
 import hub.sam.dbl.MappingStatement
 import hub.sam.dbl.MeLiteral
 import hub.sam.dbl.Minus
@@ -58,6 +58,7 @@ import hub.sam.dbl.Statement
 import hub.sam.dbl.StringLiteral
 import hub.sam.dbl.StringType
 import hub.sam.dbl.SuperLiteral
+import hub.sam.dbl.SwitchStatement
 import hub.sam.dbl.TimeLiteral
 import hub.sam.dbl.TrueLiteral
 import hub.sam.dbl.Type
@@ -78,8 +79,6 @@ import java.util.regex.Matcher
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.resource.Resource
-import hub.sam.dbl.SwitchStatement
-import hub.sam.dbl.LocalScopeStatement
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -93,15 +92,15 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 		val mainProcedure = procedures.findFirst[name == 'main']
 		
 		'''
-		package «javaPackagePrefix»;
+		«genPackageStatement»
 		
 		import hub.sam.dmx.javasim.desmoj.SimulationProcess;
 		import hub.sam.dmx.javasim.desmoj.DefaultSimulation;
 		
-		public class «name» extends SimulationProcess {
+		public class «javaClass_for_ModuleLevelElements» extends SimulationProcess {
 			
-			public «name»() {
-				super("«name»");
+			public «javaClass_for_ModuleLevelElements»() {
+				super("Main procedure in module '«name»'");
 			}
 			
 			public void base_actions() {
@@ -112,7 +111,7 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 			}
 
 			public static void startMainProcedure() {
-				«name» mainProcess = new «name»();
+				«javaClass_for_ModuleLevelElements» mainProcess = new «javaClass_for_ModuleLevelElements»();
 				DefaultSimulation.DEFAULT.addInitialProcess(mainProcess);
 				DefaultSimulation.DEFAULT.start(0);
 			}
@@ -133,7 +132,7 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	override def String genActiveClass(Clazz clazz) {
 		val it = clazz
 		'''
-		package «javaPackagePrefix»;
+		«genPackageStatement»
 		
 		import hub.sam.dmx.javasim.desmoj.SimulationProcess;
 		import hub.sam.dmx.javasim.desmoj.DefaultSimulation;
@@ -242,6 +241,8 @@ class BasicDblToJavaGenerator {
 	public val javaPackageFolderPrefix = javaPackagePrefix.replaceAll("\\.", "/")
 	var IPath javaPackageFolder;
 	
+	protected val javaClass_for_ModuleLevelElements = "Module_"
+	
 	new(Resource modelResource, IPath outputFolder) {
 		this.modelResource = modelResource;
 		this.outputFolder = outputFolder;
@@ -254,9 +255,9 @@ class BasicDblToJavaGenerator {
 	def String genModuleWithMainProcedure(Module module) {
 		val it = module
 		'''
-		package «javaPackagePrefix»;
+		«genPackageStatement»
 
-		public class «name» {
+		public class «javaClass_for_ModuleLevelElements» {
 			
 			public static void startMainProcedure() {
 				main();
@@ -278,22 +279,83 @@ class BasicDblToJavaGenerator {
 		'<! unknown element ' + eObj.eClass.name ' !>'
 	}
 
-	def Module getModuleWithMainProcedure(Model model) {
-		model.modules.findFirst[ procedures.exists[ name == 'main' ] ]
+	var Module _lazy_moduleWithMainProcedure = null;
+
+	def Module getModuleWithMainProcedure() {
+		if (_lazy_moduleWithMainProcedure == null) {
+			_lazy_moduleWithMainProcedure = (modelResource.contents.head as Model).modules.findFirst[ procedures.exists[ name == 'main' ] ]
+		}
+		return _lazy_moduleWithMainProcedure;
+	}
+	
+	def void makeFolder(IPath folder) {
+		val folder_fileObject = new File(folder.toString);
+		if (!folder_fileObject.exists && !folder_fileObject.mkdirs) {
+			throw new RuntimeException("could not create java package folder structure.");
+		}
 	}
 	
 	def void startGenerator() {
 		val model = modelResource.contents.head as Model;
-		val moduleWithMainProcedure = model.moduleWithMainProcedure
 		
-		javaPackageFolder = outputFolder.append(javaPackageFolderPrefix)
-		val javaPackageFolder_fileObject = new File(javaPackageFolder.toString);
-		if (!javaPackageFolder_fileObject.exists && !javaPackageFolder_fileObject.mkdirs) {
-			throw new RuntimeException("could not create java package folder structure.");
+		model.genModel
+		model.genImportedModels
+	}
+	
+	def void genImportedModels(Model importingModel) {
+		val it = importingModel
+		if (!imports.empty) {
+			for ( imprt : imports) {
+				// model (XMI) might not be up-to-date ?!?
+				imprt.model.genModel
+				imprt.model.genImportedModels // recursively generate models of imported models
+			}
 		}
+	}
+
+//	def dispatch String javaNameQualified(Module element) {
+//		val it = element
+//		javaPackagePrefix + "." + javaNameSimple
+//	}
+	
+	def String javaNameQualified_for_Module(Module element, boolean forContentAccess) {
+		val it = element
+		if (forContentAccess) javaPackagePrefix + "." + name + "." + javaClass_for_ModuleLevelElements
+		else javaPackagePrefix + "." + name
+	}
+
+	def dispatch String javaNameQualified(Clazz element) {
+		val it = element
+		val owner = element.eContainer as Module;
+		owner.javaNameQualified_for_Module(false) + "." + name
+	}
+
+	def dispatch String javaNameQualified(Procedure element) {
+		element.javaNameQualified_for_ProcedureVariable
+	}
+	
+	def dispatch String javaNameQualified(Variable element) {
+		element.javaNameQualified_for_ProcedureVariable
+	}
+	
+	def String javaNameQualified_for_ProcedureVariable(NamedElement element) {
+		val it = element
+		if (element.eContainer instanceof Module) {
+			val owner = element.eContainer as Module;
+			owner.javaNameQualified_for_Module(true) + "." + name
+		}
+		else name
+	}
+
+	def void genModel(Model model) {
+		javaPackageFolder = outputFolder.append(javaPackageFolderPrefix)
+		makeFolder(javaPackageFolder);
 			
 		model.modules.forEach[ module | 
-			val Writer moduleWriter = beginTargetFile(javaPackageFolder, module.name + ".java");
+			val moduleFolder = javaPackageFolder.append(module.name)
+			makeFolder(moduleFolder)
+
+			val Writer moduleWriter = beginTargetFile(moduleFolder, javaClass_for_ModuleLevelElements + ".java");
 			moduleWriter.write(
 				if (module != moduleWithMainProcedure) module.gen
 				else module.genModuleWithMainProcedure
@@ -303,7 +365,7 @@ class BasicDblToJavaGenerator {
 			module.classifiers.forEach[ classifier |
 				val String result = classifier.gen
 				if (result != null && result != "") {
-					val Writer classifierWriter = beginTargetFile(javaPackageFolder, classifier.name + ".java");
+					val Writer classifierWriter = beginTargetFile(moduleFolder, classifier.name + ".java");
 					classifierWriter.write(result)
 					endTargetFile(classifierWriter)
 				}
@@ -320,7 +382,7 @@ class BasicDblToJavaGenerator {
 				public static void main(String[] args) {
 					long startTime = System.nanoTime();
 					
-					«moduleWithMainProcedure.name».startMainProcedure();
+					«moduleWithMainProcedure.javaNameQualified_for_Module(true)».startMainProcedure();
 					
 					long estimatedTime = System.nanoTime() - startTime;
 					long ms = estimatedTime / (1000 * 1000);
@@ -354,9 +416,9 @@ class BasicDblToJavaGenerator {
 		val it = module;		
 		// TODO import types used in this module
 		'''
-		package «javaPackagePrefix»;
+		«genPackageStatement»
 		
-		public class «name» {
+		public class «javaClass_for_ModuleLevelElements» {
 			«variables.genVariables(true)»
 			
 			«procedures.genProcedures(true)»
@@ -390,7 +452,7 @@ class BasicDblToJavaGenerator {
 	}
 	
 	def dispatch String genStatement(ProcedureCall call) {
-		call.procedureAccess.genExpr
+		call.callIdExpr.genExpr + ';'
 	}
 	
 	def dispatch String genStatement(Print print) {
@@ -640,27 +702,18 @@ class BasicDblToJavaGenerator {
 		'''(«op1.genExpr» «op» «op2.genExpr»)'''
 	}
 
-	def dispatch String genExpr(ArgumentExpression expr) {
-		'''«FOR e : expr.arguments SEPARATOR ','»
-			«e.genExpr»
-		«ENDFOR»'''
-	}
-	
 	def dispatch String genExpr(CreateObject expr) {
 		val it = expr
 		'''
 		(
-		new «genType»		
-«««		«IF !typeArrayDimensions.empty»
-«««			«FOR dim : typeArrayDimensions»
-«««				[«dim.size.genExpr»]
-«««			«ENDFOR»
-«««		«ENDIF»
-		«IF classifierType != null && !classifierType.callArguments.empty»
+			new «genType»		
+		«IF classifierType != null && classifierType.arrayIndex.empty && typeArrayDimensions.empty»
 			(
-			«FOR arg : classifierType.callArguments SEPARATOR ','»
-				«arg.genExpr»
-			«ENDFOR»
+			«IF classifierType.callPart != null»
+				«FOR arg : classifierType.callPart.callArguments SEPARATOR ','»
+					«arg.genExpr»
+				«ENDFOR»
+			«ENDIF»
 			)
 		«ENDIF»
 		)
@@ -725,13 +778,10 @@ class BasicDblToJavaGenerator {
 
 	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, NamedElement referencedElement) {
 		'''
-		«IF referencedElement.eContainer instanceof Module»
-			«(referencedElement.eContainer as Module).name».
-		«ENDIF»
-		«referencedElement.name»
-		«IF !idExpr.callArguments.empty»
+		«referencedElement.javaNameQualified»
+		«IF idExpr.callPart != null»
 			(
-			«FOR arg : idExpr.callArguments SEPARATOR ','»
+			«FOR arg : idExpr.callPart.callArguments SEPARATOR ','»
 				«arg.genExpr»
 			«ENDFOR»
 			)
@@ -784,10 +834,20 @@ class BasicDblToJavaGenerator {
 		rhsType.name
 	}
 	
+	def String genModulePrefix(EObject element) {
+		val it = element
+		'''
+		«IF eContainer instanceof Module»
+			«javaPackagePrefix».
+			«(eContainer as Module).name».
+		«ENDIF»
+		'''		
+	}
+	
 	def dispatch String genType(Classifier type) {
 		val it = type
 		if (bindings.empty) {
-			name
+			javaNameQualified
 		}
 		else {
 			val targetType = bindings.findFirst[targetLanguage == simLibName].targetType
@@ -877,10 +937,22 @@ class BasicDblToJavaGenerator {
 		}
 	}
 	
+	def String genPackageStatement(Module module) {
+		'''
+		package «module.javaNameQualified_for_Module(false)»;
+		'''
+	}
+
+	def String genPackageStatement(Clazz clazz) {
+		'''
+		package «(clazz.eContainer as Module).javaNameQualified_for_Module(false)»;
+		'''
+	}
+	
 	def String genPassiveClass(Clazz clazz) {
 		val it = clazz
 		'''
-		package «javaPackagePrefix»;
+		«genPackageStatement»
 		
 		public class «name»
 		«IF superClasses.size > 1»

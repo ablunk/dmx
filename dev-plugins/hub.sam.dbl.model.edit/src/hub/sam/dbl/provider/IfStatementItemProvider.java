@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.provider;
 
@@ -358,12 +354,12 @@ public class IfStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
-				 DblFactory.eINSTANCE.createExpressionStatement()));
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
-				 DblFactory.eINSTANCE.createAssignment()));
+				 DblFactory.eINSTANCE.createProcedureCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -513,12 +509,12 @@ public class IfStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
-				 DblFactory.eINSTANCE.createExpressionStatement()));
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
-				 DblFactory.eINSTANCE.createAssignment()));
+				 DblFactory.eINSTANCE.createProcedureCall()));
 
 		newChildDescriptors.add
 			(createChildParameter

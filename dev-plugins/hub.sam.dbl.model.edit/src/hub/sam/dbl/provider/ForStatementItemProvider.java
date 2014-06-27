@@ -373,12 +373,12 @@ public class ForStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createExpressionStatement()));
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createAssignment()));
+				 DblFactory.eINSTANCE.createProcedureCall()));
 
 		newChildDescriptors.add
 			(createChildParameter

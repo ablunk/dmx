@@ -79,8 +79,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.NAMED_ELEMENT: return createNamedElement();
 			case DblPackage.STATEMENT: return createStatement();
 			case DblPackage.SIMPLE_STATEMENT: return createSimpleStatement();
-			case DblPackage.EXPRESSION_STATEMENT: return createExpressionStatement();
-			case DblPackage.STATEMENT_EXPRESSION: return createStatementExpression();
 			case DblPackage.ASSIGNMENT: return createAssignment();
 			case DblPackage.PROCEDURE_CALL: return createProcedureCall();
 			case DblPackage.RETURN: return createReturn();
@@ -184,6 +182,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.SIZE_OF_ARRAY: return createSizeOfArray();
 			case DblPackage.LOCAL_SCOPE_STATEMENT: return createLocalScopeStatement();
 			case DblPackage.CLASS_PART: return createClassPart();
+			case DblPackage.CALL_PART: return createCallPart();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -448,26 +447,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public SimpleStatement createSimpleStatement() {
 		SimpleStatementImpl simpleStatement = new SimpleStatementImpl();
 		return simpleStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ExpressionStatement createExpressionStatement() {
-		ExpressionStatementImpl expressionStatement = new ExpressionStatementImpl();
-		return expressionStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StatementExpression createStatementExpression() {
-		StatementExpressionImpl statementExpression = new StatementExpressionImpl();
-		return statementExpression;
 	}
 
 	/**
@@ -1018,6 +997,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public IdExpr createIdExpr() {
 		IdExprImpl idExpr = new IdExprImpl();
 		return idExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CallPart createCallPart() {
+		CallPartImpl callPart = new CallPartImpl();
+		return callPart;
 	}
 
 	/**

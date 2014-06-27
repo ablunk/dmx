@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.provider;
 
@@ -19,14 +15,12 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -36,7 +30,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class ExpandExpressionItemProvider
-	extends StatementExpressionItemProvider
+	extends ExpressionItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -64,77 +58,8 @@ public class ExpandExpressionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
-			addConcreteSyntaxPropertyDescriptor(object);
-			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_NamedElement_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_name_feature", "_UI_NamedElement_type"),
-				 DblPackage.Literals.NAMED_ELEMENT__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Concrete Syntax feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addConcreteSyntaxPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_concreteSyntax_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_concreteSyntax_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Instance Of Extension Definition feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addInstanceOfExtensionDefinitionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_instanceOfExtensionDefinition_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_instanceOfExtensionDefinition_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -149,9 +74,6 @@ public class ExpandExpressionItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS);
-			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE);
 			childrenFeatures.add(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT);
 		}
 		return childrenFeatures;
@@ -207,14 +129,6 @@ public class ExpandExpressionItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ExpandExpression.class)) {
-			case DblPackage.EXPAND_EXPRESSION__NAME:
-			case DblPackage.EXPAND_EXPRESSION__CONCRETE_SYNTAX:
-			case DblPackage.EXPAND_EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case DblPackage.EXPAND_EXPRESSION__PRIMITIVE_TYPE:
-			case DblPackage.EXPAND_EXPRESSION__TYPE_ARRAY_DIMENSIONS:
-			case DblPackage.EXPAND_EXPRESSION__CLASSIFIER_TYPE:
 			case DblPackage.EXPAND_EXPRESSION__META_OBJECT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -232,41 +146,6 @@ public class ExpandExpressionItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
-				 DblFactory.eINSTANCE.createVoidType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
-				 DblFactory.eINSTANCE.createIntType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
-				 DblFactory.eINSTANCE.createBoolType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
-				 DblFactory.eINSTANCE.createDoubleType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE,
-				 DblFactory.eINSTANCE.createStringType()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS,
-				 DblFactory.eINSTANCE.createArrayDimension()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE,
-				 DblFactory.eINSTANCE.createIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.impl;
 
@@ -12,8 +8,10 @@ import hub.sam.dbl.TargetStatement;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -39,6 +37,7 @@ public class TargetStatementImpl extends StatementImpl implements TargetStatemen
 	 * @ordered
 	 */
 	protected Statement body;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -200,14 +200,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createSimpleStatementAdapter();
 			}
 			@Override
-			public Adapter caseExpressionStatement(ExpressionStatement object) {
-				return createExpressionStatementAdapter();
-			}
-			@Override
-			public Adapter caseStatementExpression(StatementExpression object) {
-				return createStatementExpressionAdapter();
-			}
-			@Override
 			public Adapter caseAssignment(Assignment object) {
 				return createAssignmentAdapter();
 			}
@@ -438,6 +430,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseIdExpr(IdExpr object) {
 				return createIdExprAdapter();
+			}
+			@Override
+			public Adapter caseCallPart(CallPart object) {
+				return createCallPartAdapter();
 			}
 			@Override
 			public Adapter caseElementAccess(ElementAccess object) {
@@ -1090,34 +1086,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createSimpleStatementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ExpressionStatement <em>Expression Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ExpressionStatement
-	 * @generated
-	 */
-	public Adapter createExpressionStatementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.StatementExpression <em>Statement Expression</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.StatementExpression
-	 * @generated
-	 */
-	public Adapter createStatementExpressionAdapter() {
 		return null;
 	}
 
@@ -1930,6 +1898,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIdExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.CallPart <em>Call Part</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.CallPart
+	 * @generated
+	 */
+	public Adapter createCallPartAdapter() {
 		return null;
 	}
 

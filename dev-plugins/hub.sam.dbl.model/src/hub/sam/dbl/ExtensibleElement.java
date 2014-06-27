@@ -2,7 +2,6 @@
  */
 package hub.sam.dbl;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->

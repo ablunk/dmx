@@ -1,13 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.Expression;
+import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.ProcedureCall;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -25,22 +21,22 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.ProcedureCallImpl#getProcedureAccess <em>Procedure Access</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ProcedureCallImpl#getCallIdExpr <em>Call Id Expr</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ProcedureCallImpl extends StatementExpressionImpl implements ProcedureCall {
+public class ProcedureCallImpl extends SimpleStatementImpl implements ProcedureCall {
 	/**
-	 * The cached value of the '{@link #getProcedureAccess() <em>Procedure Access</em>}' containment reference.
+	 * The cached value of the '{@link #getCallIdExpr() <em>Call Id Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProcedureAccess()
+	 * @see #getCallIdExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression procedureAccess;
+	protected IdExpr callIdExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -66,8 +62,8 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getProcedureAccess() {
-		return procedureAccess;
+	public IdExpr getCallIdExpr() {
+		return callIdExpr;
 	}
 
 	/**
@@ -75,11 +71,11 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetProcedureAccess(Expression newProcedureAccess, NotificationChain msgs) {
-		Expression oldProcedureAccess = procedureAccess;
-		procedureAccess = newProcedureAccess;
+	public NotificationChain basicSetCallIdExpr(IdExpr newCallIdExpr, NotificationChain msgs) {
+		IdExpr oldCallIdExpr = callIdExpr;
+		callIdExpr = newCallIdExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS, oldProcedureAccess, newProcedureAccess);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE_CALL__CALL_ID_EXPR, oldCallIdExpr, newCallIdExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -90,18 +86,18 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setProcedureAccess(Expression newProcedureAccess) {
-		if (newProcedureAccess != procedureAccess) {
+	public void setCallIdExpr(IdExpr newCallIdExpr) {
+		if (newCallIdExpr != callIdExpr) {
 			NotificationChain msgs = null;
-			if (procedureAccess != null)
-				msgs = ((InternalEObject)procedureAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS, null, msgs);
-			if (newProcedureAccess != null)
-				msgs = ((InternalEObject)newProcedureAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS, null, msgs);
-			msgs = basicSetProcedureAccess(newProcedureAccess, msgs);
+			if (callIdExpr != null)
+				msgs = ((InternalEObject)callIdExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE_CALL__CALL_ID_EXPR, null, msgs);
+			if (newCallIdExpr != null)
+				msgs = ((InternalEObject)newCallIdExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.PROCEDURE_CALL__CALL_ID_EXPR, null, msgs);
+			msgs = basicSetCallIdExpr(newCallIdExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS, newProcedureAccess, newProcedureAccess));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROCEDURE_CALL__CALL_ID_EXPR, newCallIdExpr, newCallIdExpr));
 	}
 
 	/**
@@ -112,8 +108,8 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS:
-				return basicSetProcedureAccess(null, msgs);
+			case DblPackage.PROCEDURE_CALL__CALL_ID_EXPR:
+				return basicSetCallIdExpr(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -126,8 +122,8 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS:
-				return getProcedureAccess();
+			case DblPackage.PROCEDURE_CALL__CALL_ID_EXPR:
+				return getCallIdExpr();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -140,8 +136,8 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS:
-				setProcedureAccess((Expression)newValue);
+			case DblPackage.PROCEDURE_CALL__CALL_ID_EXPR:
+				setCallIdExpr((IdExpr)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -155,8 +151,8 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS:
-				setProcedureAccess((Expression)null);
+			case DblPackage.PROCEDURE_CALL__CALL_ID_EXPR:
+				setCallIdExpr((IdExpr)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -170,8 +166,8 @@ public class ProcedureCallImpl extends StatementExpressionImpl implements Proced
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS:
-				return procedureAccess != null;
+			case DblPackage.PROCEDURE_CALL__CALL_ID_EXPR:
+				return callIdExpr != null;
 		}
 		return super.eIsSet(featureID);
 	}

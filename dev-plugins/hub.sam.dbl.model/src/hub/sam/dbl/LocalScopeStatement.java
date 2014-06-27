@@ -14,5 +14,4 @@ package hub.sam.dbl;
  * @generated
  */
 public interface LocalScopeStatement extends SimpleStatement, LocalScope {
-
 } // LocalScopeStatement

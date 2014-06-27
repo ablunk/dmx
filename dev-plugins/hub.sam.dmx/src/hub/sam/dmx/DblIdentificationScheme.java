@@ -19,7 +19,6 @@ import hub.sam.dbl.MetaLiteral;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
-import hub.sam.dbl.NamedExtensible;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.Procedure;
@@ -75,7 +74,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				Clazz containerClass = getContainerObjectOfType(context, Clazz.class);
 				Module containerModule = (Module) getContainerObjectOfType(context, DblPackage.Literals.MODULE);
 				
-				if (idExpr.getCallArguments().size() > 0) {
+				if (idExpr.getCallPart() != null) {
 					// procedure or type in create object expression ...
 					
 					if (idExpr.getParentIdExpr() == null) {
@@ -159,7 +158,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 							if (referencedParentElement instanceof AbstractVariable
 									|| referencedParentElement instanceof Procedure) {
 								TypedElement referencedParentTypedElement = (TypedElement) referencedParentElement;
-								if (referencedParentTypedElement.getTypeArrayDimensions().size() == 0) {
+								if (referencedParentTypedElement.getClassifierType() != null) {
 									addIdsForMethods(referencedParentTypedElement.getClassifierType(), namedElementId, allIds);
 								}
 							}
@@ -405,7 +404,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				// TODO just for making the SML example work
 				addPlainNames(namedElementId.getName(), context, allIds);
 			}
-			else if (context instanceof NamedExtensible) {
+			else if (context instanceof ExtensibleElement) {
 				addPlainNames(namedElementId.getName(), context, allIds);
 			}
 

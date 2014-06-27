@@ -1,29 +1,26 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.Expression;
 import hub.sam.dbl.IdExpr;
-import hub.sam.dbl.ListDimension;
 import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.TypedElement;
 
 import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 

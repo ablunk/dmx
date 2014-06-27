@@ -1,12 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl;
 
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -26,7 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Type extends EObject {
-
 	/**
 	 * Returns the value of the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.ArrayDimension}.
@@ -42,4 +38,5 @@ public interface Type extends EObject {
 	 * @generated
 	 */
 	EList<ArrayDimension> getArrayDimensions();
+
 } // Type

@@ -1,6 +1,6 @@
 package hub.sam.dmx;
 
-import hub.sam.dbl.Construct;
+import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.util.DblUtil;
 import hub.sam.tef.modelcreating.ModelCreatingException;
 import hub.sam.tef.modelcreating.ParseTreeRuleNode;
@@ -31,9 +31,9 @@ public class DbxModelCreationContext extends DblModelCreationContext {
 					EObject result = ePackage.getEFactoryInstance().create(metaClass);
 					fNodesForObjects.put(result, node);
 					
-					if (result instanceof Construct) {
-						Construct construct = (Construct) result;
-						construct.setConcreteSyntax(node.getNodeText());
+					if (result instanceof ExtensibleElement) {
+						ExtensibleElement element = (ExtensibleElement) result;
+						element.setConcreteSyntax(node.getNodeText());
 					}
 					
 //					if (result instanceof Extension) {

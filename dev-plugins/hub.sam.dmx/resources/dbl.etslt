@@ -79,11 +79,6 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	AbstractProcedure:constant("true":EBoolean) -> "abstract";
 
-	//Procedure:element(Procedure) -> (ClassVariable:composite(clazz))? "procedure" IDENTIFIER:composite(name)
-	//	("(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")")?
-	//	("returning" TypeRule)?
-	//	"{" (Statement:composite(statements))* "}";
-	
 	Parameter:element(Parameter) -> TypedElementParts ws(space) IDENTIFIER:composite(name);
 
 	Variable:element(Variable) -> Variable1;
@@ -131,10 +126,7 @@ syntax(Model) "resources/dbl.ecore" {
 	//Statement -> Unless2_extension;
 	//Unless2_extension:element(Unless2) -> "unless2" "(" Expression:composite(condition) ")" CodeBlock:composite(codeBlock);
 
-	SimpleStatement -> ExpressionStatement ";";
-	ExpressionStatement:element(ExpressionStatement) -> StatementExpression:composite(expression);
-	StatementExpression -> ProcedureCall;
-
+	SimpleStatement -> ProcedureCall ";";
 	SimpleStatement -> Assignment ";";
 	SimpleStatement -> Variable ";";
 	SimpleStatement -> Return ";";
@@ -168,6 +160,7 @@ syntax(Model) "resources/dbl.ecore" {
 	ActivateObject:element(ActivateObject) -> "activate" Expression:composite(objectAccess) ("priority" INTEGER:composite(priority))?;
 	WaitUntil:element(WaitUntil) -> "wait" "until" Expression:composite(condition);
 	
+	// the following rules solve the dangling-else ambiguity.
 	// an "open statement" contains at least one if which is not paired with a following else.
 	// a "closed statement" either does not contain an if at all or the if is paired with a following else.
 	// see http://www.parsifalsoft.com/ifelse.html
@@ -223,7 +216,6 @@ syntax(Model) "resources/dbl.ecore" {
 	VariableDefOrReference -> Variable:composite(countVariableDefinition);
 	VariableDefOrReference -> Assignment:composite(countVariableReference);
 
-	//Expression -> LogicalOr;
 	Expression -> L9Expr;
 	
 	L9Expr -> LogicalOr;
@@ -277,8 +269,6 @@ syntax(Model) "resources/dbl.ecore" {
 	L1Expr -> CreateObject;
 	L1Expr -> TimeLiteral;
 	L1Expr -> ActiveLiteral;
-//	L1Expr -> ExpandExpression;
-//	L1Expr -> CodeQuote;
 	L1Expr -> "(" ws(empty) Expression ws(empty) ")";
 	
 	Or:element(Or)   -> LogicalOr:composite(op1) ws(space) "or" ws(space) LogicalAnd:composite(op2);
@@ -333,20 +323,18 @@ syntax(Model) "resources/dbl.ecore" {
 	SimpleIdExpr -> NamedElementRef:reference(referencedElement) (IdExprArgs)? (IdExprIndexAt)*;
 	SimpleIdExpr -> PredefinedId:composite(predefinedId) (IdExprArgs)? (IdExprIndexAt)*;
 
-	IdExprArgs -> "(" Expression:composite(callArguments) ")";
+	IdExprArgs -> "(" CallPart:composite(callPart) ")";
+	CallPart:element(CallPart) -> (Expression:composite(callArguments) ("," Expression:composite(callArguments))* )?;
+	
 	IdExprIndexAt -> "[" Expression:composite(arrayIndex) "]";
 	
 	VariableAccess:element(VariableAccess) -> IdExpr:composite(idExpr);
 	
 	TypeAccess:element(TypeAccess) -> IdExpr:composite(idExpr);
 		
-	ProcedureCall:element(ProcedureCall) -> IdExpr:composite(procedureAccess);
-	
-//	ProcedureCallIdExpr:element(IdExpr) -> SimpleProcedureCall;
-//	ProcedureCallIdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleProcedureCall;
-
-//	SimpleProcedureCall -> NamedElementRef:reference(referencedElement) IdExprArgs;
-//	SimpleProcedureCall -> PredefinedId:composite(predefinedId) IdExprArgs;
+	// it is difficult to distinguishe a procedure call syntactically from a variable access.
+	// therefore, variable access should be disallowed by a constraint.
+	ProcedureCall:element(ProcedureCall) -> IdExpr:composite(callIdExpr);
 	
 	PredefinedId:element(MeLiteral) -> "self";
 	PredefinedId:element(SuperLiteral) -> "super";

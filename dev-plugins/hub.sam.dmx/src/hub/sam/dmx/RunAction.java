@@ -85,6 +85,7 @@ import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
 
+@Deprecated
 public class RunAction extends Action {
 
 	private final DblTextEditor editor;

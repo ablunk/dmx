@@ -4,7 +4,6 @@ package hub.sam.dbl;
 
 import org.eclipse.emf.ecore.EObject;
 
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Array Dimension</b></em>'.
@@ -26,7 +25,7 @@ public interface ArrayDimension extends EObject {
 	 * Returns the value of the '<em><b>Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Size</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Size</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->

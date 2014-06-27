@@ -18,7 +18,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Import">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//Model"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//Model"
+        transient="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Module" eSuperTypes="#//NamedElement #//EmbeddableExtensionsContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifiers" upperBound="-1"
@@ -138,20 +139,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="Statement" eSuperTypes="#//ExtensibleElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="LoopStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleStatement" eSuperTypes="#//Statement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ExpressionStatement" eSuperTypes="#//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expression" lowerBound="1"
-        eType="#//StatementExpression" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StatementExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="#//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
         eType="#//VariableAccess" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ProcedureCall" eSuperTypes="#//StatementExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="procedureAccess" lowerBound="1"
-        eType="#//Expression" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProcedureCall" eSuperTypes="#//SimpleStatement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="callIdExpr" lowerBound="1"
+        eType="#//IdExpr" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Return" eSuperTypes="#//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" lowerBound="1" eType="#//Expression"
@@ -291,6 +287,10 @@
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="arrayIndex" upperBound="-1"
         eType="#//Expression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="callPart" eType="#//CallPart"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CallPart">
     <eStructuralFeatures xsi:type="ecore:EReference" name="callArguments" upperBound="-1"
         eType="#//Expression" containment="true"/>
   </eClassifiers>
@@ -439,7 +439,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" lowerBound="1" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExpandExpression" eSuperTypes="#//StatementExpression #//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="ExpandExpression" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaObject" lowerBound="1"
         eType="#//Expression" containment="true"/>
   </eClassifiers>

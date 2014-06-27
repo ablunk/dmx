@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.provider;
 
@@ -34,7 +30,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class ProcedureCallItemProvider
-	extends StatementExpressionItemProvider
+	extends SimpleStatementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -78,7 +74,7 @@ public class ProcedureCallItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS);
+			childrenFeatures.add(DblPackage.Literals.PROCEDURE_CALL__CALL_ID_EXPR);
 		}
 		return childrenFeatures;
 	}
@@ -115,7 +111,10 @@ public class ProcedureCallItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ProcedureCall_type");
+		String label = ((ProcedureCall)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ProcedureCall_type") :
+			getString("_UI_ProcedureCall_type") + " " + label;
 	}
 
 	/**
@@ -130,7 +129,7 @@ public class ProcedureCallItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ProcedureCall.class)) {
-			case DblPackage.PROCEDURE_CALL__PROCEDURE_ACCESS:
+			case DblPackage.PROCEDURE_CALL__CALL_ID_EXPR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -150,183 +149,8 @@ public class ProcedureCallItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createL1Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createAnd()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createOr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createGreater()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createGreaterEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createLess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createInstanceOf()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createNot()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createCast()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createCreateObject()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createNullLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createTimeLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createStringLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createIntLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createTrueLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createFalseLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createDoubleLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
+				(DblPackage.Literals.PROCEDURE_CALL__CALL_ID_EXPR,
 				 DblFactory.eINSTANCE.createIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createVariableAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createMetaAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createTypeAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createMetaExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createExpandExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PROCEDURE_CALL__PROCEDURE_ACCESS,
-				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
 	}
 
 }

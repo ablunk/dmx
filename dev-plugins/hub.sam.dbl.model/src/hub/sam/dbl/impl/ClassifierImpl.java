@@ -1,15 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.Classifier;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.ExpandExpression;
-import hub.sam.dbl.ExpandableElement;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.NativeBinding;
 import hub.sam.dbl.ReferableRhsType;

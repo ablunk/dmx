@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl;
 
@@ -23,7 +19,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface ExpandExpression extends StatementExpression, Expression {
+public interface ExpandExpression extends Expression {
 	/**
 	 * Returns the value of the '<em><b>Meta Object</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

@@ -1,12 +1,7 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl;
 
-import java.math.BigInteger;
 
 /**
  * <!-- begin-user-doc -->

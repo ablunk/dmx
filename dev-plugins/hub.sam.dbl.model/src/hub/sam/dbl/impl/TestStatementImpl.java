@@ -1,15 +1,9 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.TestStatement;
-
-import java.math.BigInteger;
 
 import org.eclipse.emf.common.notify.Notification;
 

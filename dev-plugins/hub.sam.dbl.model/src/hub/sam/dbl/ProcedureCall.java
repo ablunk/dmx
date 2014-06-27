@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl;
 
@@ -15,7 +11,7 @@ package hub.sam.dbl;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link hub.sam.dbl.ProcedureCall#getProcedureAccess <em>Procedure Access</em>}</li>
+ *   <li>{@link hub.sam.dbl.ProcedureCall#getCallIdExpr <em>Call Id Expr</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,31 +19,31 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface ProcedureCall extends StatementExpression {
+public interface ProcedureCall extends SimpleStatement {
 	/**
-	 * Returns the value of the '<em><b>Procedure Access</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Call Id Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Procedure Access</em>' containment reference isn't clear,
+	 * If the meaning of the '<em>Call Id Expr</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Procedure Access</em>' containment reference.
-	 * @see #setProcedureAccess(Expression)
-	 * @see hub.sam.dbl.DblPackage#getProcedureCall_ProcedureAccess()
+	 * @return the value of the '<em>Call Id Expr</em>' containment reference.
+	 * @see #setCallIdExpr(IdExpr)
+	 * @see hub.sam.dbl.DblPackage#getProcedureCall_CallIdExpr()
 	 * @model containment="true" required="true"
 	 * @generated
 	 */
-	Expression getProcedureAccess();
+	IdExpr getCallIdExpr();
 
 	/**
-	 * Sets the value of the '{@link hub.sam.dbl.ProcedureCall#getProcedureAccess <em>Procedure Access</em>}' containment reference.
+	 * Sets the value of the '{@link hub.sam.dbl.ProcedureCall#getCallIdExpr <em>Call Id Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Procedure Access</em>' containment reference.
-	 * @see #getProcedureAccess()
+	 * @param value the new value of the '<em>Call Id Expr</em>' containment reference.
+	 * @see #getCallIdExpr()
 	 * @generated
 	 */
-	void setProcedureAccess(Expression value);
+	void setCallIdExpr(IdExpr value);
 
 } // ProcedureCall

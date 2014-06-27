@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl;
 
@@ -63,7 +59,7 @@ public interface Import extends EObject {
 	 * @return the value of the '<em>Model</em>' reference.
 	 * @see #setModel(Model)
 	 * @see hub.sam.dbl.DblPackage#getImport_Model()
-	 * @model
+	 * @model transient="true"
 	 * @generated
 	 */
 	Model getModel();

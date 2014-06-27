@@ -244,20 +244,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass expressionStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass statementExpressionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass assignmentEClass = null;
 
 	/**
@@ -658,6 +644,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass idExprEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass callPartEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1737,33 +1730,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExpressionStatement() {
-		return expressionStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getExpressionStatement_Expression() {
-		return (EReference)expressionStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStatementExpression() {
-		return statementExpressionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getAssignment() {
 		return assignmentEClass;
 	}
@@ -1800,7 +1766,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getProcedureCall_ProcedureAccess() {
+	public EReference getProcedureCall_CallIdExpr() {
 		return (EReference)procedureCallEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2619,8 +2585,26 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getIdExpr_CallArguments() {
+	public EReference getIdExpr_CallPart() {
 		return (EReference)idExprEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getCallPart() {
+		return callPartEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCallPart_CallArguments() {
+		return (EReference)callPartEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3676,17 +3660,12 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		simpleStatementEClass = createEClass(SIMPLE_STATEMENT);
 
-		expressionStatementEClass = createEClass(EXPRESSION_STATEMENT);
-		createEReference(expressionStatementEClass, EXPRESSION_STATEMENT__EXPRESSION);
-
-		statementExpressionEClass = createEClass(STATEMENT_EXPRESSION);
-
 		assignmentEClass = createEClass(ASSIGNMENT);
 		createEReference(assignmentEClass, ASSIGNMENT__VARIABLE);
 		createEReference(assignmentEClass, ASSIGNMENT__VALUE);
 
 		procedureCallEClass = createEClass(PROCEDURE_CALL);
-		createEReference(procedureCallEClass, PROCEDURE_CALL__PROCEDURE_ACCESS);
+		createEReference(procedureCallEClass, PROCEDURE_CALL__CALL_ID_EXPR);
 
 		returnEClass = createEClass(RETURN);
 		createEReference(returnEClass, RETURN__VALUE);
@@ -3833,7 +3812,10 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEReference(idExprEClass, ID_EXPR__REFERENCED_ELEMENT);
 		createEReference(idExprEClass, ID_EXPR__PREDEFINED_ID);
 		createEReference(idExprEClass, ID_EXPR__ARRAY_INDEX);
-		createEReference(idExprEClass, ID_EXPR__CALL_ARGUMENTS);
+		createEReference(idExprEClass, ID_EXPR__CALL_PART);
+
+		callPartEClass = createEClass(CALL_PART);
+		createEReference(callPartEClass, CALL_PART__CALL_ARGUMENTS);
 
 		elementAccessEClass = createEClass(ELEMENT_ACCESS);
 		createEReference(elementAccessEClass, ELEMENT_ACCESS__ID_EXPR);
@@ -4046,9 +4028,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		statementEClass.getESuperTypes().add(this.getExtensibleElement());
 		loopStatementEClass.getESuperTypes().add(this.getStatement());
 		simpleStatementEClass.getESuperTypes().add(this.getStatement());
-		expressionStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		assignmentEClass.getESuperTypes().add(this.getSimpleStatement());
-		procedureCallEClass.getESuperTypes().add(this.getStatementExpression());
+		procedureCallEClass.getESuperTypes().add(this.getSimpleStatement());
 		returnEClass.getESuperTypes().add(this.getSimpleStatement());
 		waitUntilEClass.getESuperTypes().add(this.getSimpleStatement());
 		terminateEClass.getESuperTypes().add(this.getSimpleStatement());
@@ -4144,7 +4125,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		resumeGenStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		fixedMappingPartEClass.getESuperTypes().add(this.getMappingPart());
 		dynamicMappingPartEClass.getESuperTypes().add(this.getMappingPart());
-		expandExpressionEClass.getESuperTypes().add(this.getStatementExpression());
 		expandExpressionEClass.getESuperTypes().add(this.getExpression());
 		expandStatementEClass.getESuperTypes().add(this.getStatement());
 		codeQuoteExpressionEClass.getESuperTypes().add(this.getExpression());
@@ -4168,7 +4148,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getImport_File(), ecorePackage.getEString(), "file", null, 1, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getImport_Model(), this.getModel(), null, "model", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getImport_Model(), this.getModel(), null, "model", null, 0, 1, Import.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(moduleEClass, Module.class, "Module", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModule_Classifiers(), this.getClassifier(), null, "classifiers", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4265,17 +4245,12 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(simpleStatementEClass, SimpleStatement.class, "SimpleStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(expressionStatementEClass, ExpressionStatement.class, "ExpressionStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getExpressionStatement_Expression(), this.getStatementExpression(), null, "expression", null, 1, 1, ExpressionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(statementExpressionEClass, StatementExpression.class, "StatementExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(assignmentEClass, Assignment.class, "Assignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAssignment_Variable(), this.getVariableAccess(), null, "variable", null, 1, 1, Assignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getAssignment_Value(), this.getExpression(), null, "value", null, 1, 1, Assignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(procedureCallEClass, ProcedureCall.class, "ProcedureCall", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getProcedureCall_ProcedureAccess(), this.getExpression(), null, "procedureAccess", null, 1, 1, ProcedureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getProcedureCall_CallIdExpr(), this.getIdExpr(), null, "callIdExpr", null, 1, 1, ProcedureCall.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(returnEClass, Return.class, "Return", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReturn_Value(), this.getExpression(), null, "value", null, 1, 1, Return.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4422,7 +4397,10 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEReference(getIdExpr_ReferencedElement(), this.getNamedElement(), null, "referencedElement", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIdExpr_PredefinedId(), this.getPredefinedId(), null, "predefinedId", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIdExpr_ArrayIndex(), this.getExpression(), null, "arrayIndex", null, 0, -1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getIdExpr_CallArguments(), this.getExpression(), null, "callArguments", null, 0, -1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIdExpr_CallPart(), this.getCallPart(), null, "callPart", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(callPartEClass, CallPart.class, "CallPart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getCallPart_CallArguments(), this.getExpression(), null, "callArguments", null, 0, -1, CallPart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(elementAccessEClass, ElementAccess.class, "ElementAccess", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getElementAccess_IdExpr(), this.getIdExpr(), null, "idExpr", null, 0, 1, ElementAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

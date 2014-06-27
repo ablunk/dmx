@@ -98,16 +98,18 @@ public class DbxTextEditor extends DblTextEditor {
 				@Override
 				public boolean visit(IResourceDelta delta) throws CoreException {
 					IPath path = delta.getFullPath();
+					String fileName = path.removeFileExtension().lastSegment();
+					
 					if (path != null && path.getFileExtension() != null && path.getFileExtension().equals("xmi")) {
 						String rawPath = DblPreProcessor.getPlatformResourceURI(ResourcesPlugin.getWorkspace().getRoot().getFile(path).getRawLocation()).toString();
-						if (preProcessor.getFileForImportedResources().containsKey(rawPath)) {
-							Resource importedResourceWithChanges = preProcessor.getFileForImportedResources().get(rawPath);
+						Resource importedResourceWithChanges = preProcessor.getFileImportResource(fileName);
+						if (importedResourceWithChanges != null) {
 							unwindExtensionDefinitionEffects(importedResourceWithChanges);
 							importedResourceWithChanges.unload();
 							//synchronized (this) {
 							getImportedResources().remove(importedResourceWithChanges);
 							//}
-							preProcessor.getFileForImportedResources().remove(rawPath);
+							preProcessor.loseImportedResource(fileName);
 							fireRccSyntaxChanged();
 						}
 					}

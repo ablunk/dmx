@@ -170,12 +170,12 @@ public class deprecated_CodeBlockItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createExpressionStatement()));
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DEPRECATED_CODE_BLOCK__STATEMENTS,
-				 DblFactory.eINSTANCE.createAssignment()));
+				 DblFactory.eINSTANCE.createProcedureCall()));
 
 		newChildDescriptors.add
 			(createChildParameter

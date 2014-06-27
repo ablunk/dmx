@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.provider;
 
@@ -171,12 +167,12 @@ public class QuotedStatementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createExpressionStatement()));
+				 DblFactory.eINSTANCE.createAssignment()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createAssignment()));
+				 DblFactory.eINSTANCE.createProcedureCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
