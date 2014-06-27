@@ -59,7 +59,7 @@ public interface Import extends EObject {
 	 * @return the value of the '<em>Model</em>' reference.
 	 * @see #setModel(Model)
 	 * @see hub.sam.dbl.DblPackage#getImport_Model()
-	 * @model transient="true"
+	 * @model
 	 * @generated
 	 */
 	Model getModel();

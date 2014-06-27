@@ -37,7 +37,7 @@
         </statements>
       </methods>
     </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="CC"/>
+    <classifiers xsi:type="dbl:Clazz" name="C"/>
     <classifiers xsi:type="dbl:Clazz" name="A">
       <attributes name="b">
         <classifierType referencedElement="//@modules.0/@classifiers.0"/>

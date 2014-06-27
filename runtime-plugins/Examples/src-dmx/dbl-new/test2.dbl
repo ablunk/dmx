@@ -11,7 +11,7 @@ class B {
 		return self;
 	}
 }
-
+class C {}
 class A {
 	B b = new B;
 	B array[] b2 = new B array[10];

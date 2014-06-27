@@ -76,7 +76,7 @@ public class DblPreProcessor {
 											@Override
 											public void errorStatusChanged(TextEditor editor) {
 												System.out.println("editor changed: " + editor.getEditorInput().getName());
-												// TODO reconcile current editor
+												// TODO start reconcile for current editor
 											}
 										});
 									}
@@ -109,7 +109,7 @@ public class DblPreProcessor {
 		fileImportsSelfLoaded.remove(importedFile);
 		fileImportsInActiveEditors.remove(importedFile);
 	}
-
+	
 	public synchronized Collection<Resource> getImportedResources() {
 		Set<Resource> importedResources = new HashSet<Resource>();
 		importedResources.addAll(fileImportsSelfLoaded.values());
