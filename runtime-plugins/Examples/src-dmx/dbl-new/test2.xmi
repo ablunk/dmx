@@ -62,6 +62,20 @@
         </statements>
       </methods>
     </classifiers>
+    <extensionDefs name="S1">
+      <textualSyntaxDef>
+        <extensionRule name="Statement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="S1">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="s12"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef/>
+    </extensionDefs>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="a">

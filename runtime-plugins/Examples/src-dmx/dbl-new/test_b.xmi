@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="test2">
+    <model href="test2.dbl#/"/>
+  </imports>
+  <modules name="test_b">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="c">
+        <classifierType>
+          <referencedElement href="test2.dbl#//@modules.0/@classifiers.1"/>
+        </classifierType>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

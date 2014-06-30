@@ -2,6 +2,7 @@ package hub.sam.dmx;
 
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.provider.DblItemProviderAdapterFactory;
+import hub.sam.tef.editor.SourceViewerConfiguration;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 import hub.sam.tef.semantics.ISemanticsProvider;
 
@@ -19,6 +20,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IPartListener2;
+import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.part.FileEditorInput;
 import org.osgi.framework.Bundle;
@@ -28,8 +30,13 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	private SaveXmiAction saveXmiAction;
 	private List<Action> runActions = new ArrayList<Action>();
 	
-	protected DblPreProcessor preProcessor = new DblPreProcessor();
+	protected DblPreProcessor preProcessor = new DblPreProcessor(this);
 	
+	@Override
+	protected SourceViewerConfiguration createSourceViewerConfiguration() {
+		return new DblSourceViewerConfiguration(this);
+	}
+
 	@Override
 	public IModelCreatingContext createModelCreatingContext() {
 		//resourceSet.getPackageRegistry().put(DblPackage.eNS_URI, DblPackage.eINSTANCE);
@@ -47,6 +54,10 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	
 	public synchronized Collection<Resource> getImportedResources() {
 		return preProcessor.getImportedResources();
+	}
+	
+	public synchronized Resource getFileImportResource(String fileToImport) {
+		return preProcessor.getFileImportResource(fileToImport);
 	}
 	
 	private DblPackage dblMetaModel;
@@ -95,6 +106,11 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 			@Override
 			public Resource getCurrentModel() {
 				return DblTextEditor.this.getCurrentModel();
+			}
+
+			@Override
+			public void addPropertyChangedListener(IPropertyListener listener) {
+				preProcessor.addPropertyChangedListener(listener);
 			}
 		});
 	}

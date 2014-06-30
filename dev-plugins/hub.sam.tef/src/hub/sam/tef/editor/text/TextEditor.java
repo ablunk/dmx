@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.emf.common.notify.AdapterFactory;
@@ -150,7 +151,7 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	
 	private FormatAction fFormatAction = null;
 	
-	private final Collection<ITefEditorStatusListener> fStatusListener = new ArrayList<ITefEditorStatusListener>();
+	private final Collection<ITefEditorStatusListener> fStatusListener = new CopyOnWriteArrayList<ITefEditorStatusListener>();
 
 	/**
 	 * @return all the packages that contain all used meta-model elements of the models edited with
@@ -698,6 +699,13 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	public void fireEditorStatus() {
 		for(ITefEditorStatusListener listener: fStatusListener) {
 			listener.errorStatusChanged(this);
+			listener.modelChanged(this);
+		}
+	}
+	
+	public void fireReferencedModelChanged() {
+		for(ITefEditorStatusListener listener: fStatusListener) {
+			listener.referencedModelChanged(this);
 		}
 	}
 	

@@ -94,8 +94,17 @@ public class SaveXmiAction extends ResourceAction implements ITefEditorStatusLis
 
 	@Override
 	public void rccSyntaxChanged(TextEditor editor) {
-		// TODO Auto-generated method stub
-		
+		// empty
+	}
+
+	@Override
+	public void modelChanged(TextEditor editor) {
+		// empty
+	}
+
+	@Override
+	public void referencedModelChanged(TextEditor editor) {
+		// empty
 	}
 	
 }

@@ -1,10 +1,10 @@
 package hub.sam.dmx;
 
+import hub.sam.dbl.Import;
+import hub.sam.dbl.Model;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 import hub.sam.tef.modelcreating.ModelCreatingException;
 import hub.sam.tef.modelcreating.ParseTreeNode;
-import hub.sam.dbl.Import;
-import hub.sam.dbl.Model;
 import hub.sam.tef.semantics.AbstractPropertySemantics;
 import hub.sam.tef.semantics.DefaultSemanticsProvider;
 import hub.sam.tef.semantics.IPropertyCreationSemantics;
@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 public class DblSemanticsProvider extends DefaultSemanticsProvider {
 
-	private final IPropertyCreationSemantics propertyCreationSemantics = new DblPropertyCreationSemantics();
+	//private final IPropertyCreationSemantics propertyCreationSemantics = new DblPropertyCreationSemantics();
 	private final IPropertyCreationSemantics metaModelReferenceSemantics = new DblMetaModelReferenceSemantics();
 	
 	private IPropertyCreationSemantics fileImportSemantics;
@@ -31,18 +31,20 @@ public class DblSemanticsProvider extends DefaultSemanticsProvider {
 				CompositeBinding binding) throws ModelCreatingException
 		{
 			if (actual instanceof Import && value instanceof String && !value.equals("")) {
-				Import imprt = (Import) actual;
+				final Import imprt = (Import) actual;
 				String fileString = (String) value;
-				IPath editorInputLocation = preProcessedDocument.getLocation().removeLastSegments(1);
+				final IPath editorInputLocation = preProcessedDocument.getLocation().removeLastSegments(1);
 				URI fileUri = DblPreProcessor.getPlatformResourceURI(editorInputLocation.append(fileString).addFileExtension("xmi"));
 				
 				for (Resource resource: preProcessedDocument.getImportedResources()) {
 					if (resource.getURI() != null && resource.getURI().trimFileExtension().equals(fileUri.trimFileExtension())) {
 						if (resource.getContents().size() > 0) {
 							Model model = (Model) resource.getContents().get(0);
+							
 							imprt.setModel(model);
 							imprt.setFile(fileString);
-							System.out.println("added model for import " + imprt.getFile());
+							
+							System.out.println("added model referenced by import of " + imprt.getFile());
 						}
 					}
 				}

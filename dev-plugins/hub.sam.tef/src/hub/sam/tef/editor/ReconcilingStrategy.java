@@ -78,9 +78,9 @@ public class ReconcilingStrategy implements IReconcilingStrategy {
 	public ReconcilingStrategy(final TextEditor editor,
 			final ISourceViewer sourceViewer) {
 		super();
-		fEditor = editor;
 		fSourceViewer = sourceViewer;
 		fParser = new Parser(editor.getSyntax());
+		fEditor = editor;
 	}
 
 	/**
@@ -204,6 +204,12 @@ public class ReconcilingStrategy implements IReconcilingStrategy {
 					}
 					
 					public void errorStatusChanged(TextEditor editor) {
+					}
+
+					public void modelChanged(TextEditor editor) {
+					}
+
+					public void referencedModelChanged(TextEditor editor) {
 					}
 				};
 				fEditor.addEditorStatusListener(editorStatusListener);

@@ -13,6 +13,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
+import org.eclipse.ui.IPropertyListener;
 import org.osgi.framework.Bundle;
 
 public class DblParser extends HeadlessEclipseParser {
@@ -69,10 +70,15 @@ public class DblParser extends HeadlessEclipseParser {
 					return null;
 				}
 			}
+
+			@Override
+			public void addPropertyChangedListener(IPropertyListener listener) {
+				preProcessor.addPropertyChangedListener(listener);
+			}
 		});
 	}
 	
-	private DblPreProcessor preProcessor = new DblPreProcessor();
+	private DblPreProcessor preProcessor = new DblPreProcessor(null);
 
 	@Override
 	protected void preProcess(String inputText, IPath inputLocation) {

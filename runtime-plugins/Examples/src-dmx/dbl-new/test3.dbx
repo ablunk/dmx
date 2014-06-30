@@ -1,0 +1,10 @@
+#import "test2"
+
+module test3 {
+
+void main() {
+	CCC c;
+	s12;
+}
+
+}

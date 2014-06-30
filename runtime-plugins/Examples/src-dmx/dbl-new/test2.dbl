@@ -1,5 +1,14 @@
 module test2 {
 
+extension S1 {
+	Statement -> S1;
+	S1 -> "s12" ";";
+}
+semantics {
+
+
+}
+
 class B {
 	int array[] i = new int array[10];
 	
@@ -11,7 +20,7 @@ class B {
 		return self;
 	}
 }
-class C {}
+class CCC {}
 class A {
 	B b = new B;
 	B array[] b2 = new B array[10];

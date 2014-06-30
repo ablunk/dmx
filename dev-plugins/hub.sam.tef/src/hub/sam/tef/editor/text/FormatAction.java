@@ -96,7 +96,14 @@ public class FormatAction extends ResourceAction implements ITefEditorStatusList
 	}
 
 	public void rccSyntaxChanged(TextEditor editor) {
-		// TODO Auto-generated method stub
-		
+		// empty
+	}
+
+	public void modelChanged(TextEditor editor) {
+		// empty
+	}
+
+	public void referencedModelChanged(TextEditor editor) {
+		// empty
 	}
 }

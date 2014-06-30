@@ -76,7 +76,7 @@ public class DbxTextEditor extends DblTextEditor {
 		return "/resources/dbl.ecore";
 	}
 	
-	private Map<String, ExtensionDefinitionProcessor> extensionDefs = new HashMap<String, ExtensionDefinitionProcessor>();
+	private static Map<String, ExtensionDefinitionProcessor> extensionDefsProcessed = new HashMap<String, ExtensionDefinitionProcessor>();
 
 	private IResourceChangeListener workspaceResourceChangeListener;
 	private IResourceDeltaVisitor resourceDeltaVisitor;
@@ -87,7 +87,10 @@ public class DbxTextEditor extends DblTextEditor {
 		
 		boolean additions = false;
 		for (Resource importedResource: getImportedResources()) {
-			additions |= updateExtensionDefs((Model) importedResource.getContents().get(0));
+			// TODO start at leaves of import tree and move to the root
+			if (importedResource.getContents().size() > 0) {
+				additions |= updateExtensionDefs((Model) importedResource.getContents().get(0));
+			}
 		}
 		if (additions) {
 			fireRccSyntaxChanged();
@@ -101,15 +104,21 @@ public class DbxTextEditor extends DblTextEditor {
 					String fileName = path.removeFileExtension().lastSegment();
 					
 					if (path != null && path.getFileExtension() != null && path.getFileExtension().equals("xmi")) {
-						String rawPath = DblPreProcessor.getPlatformResourceURI(ResourcesPlugin.getWorkspace().getRoot().getFile(path).getRawLocation()).toString();
 						Resource importedResourceWithChanges = preProcessor.getFileImportResource(fileName);
+
 						if (importedResourceWithChanges != null) {
 							unwindExtensionDefinitionEffects(importedResourceWithChanges);
-							importedResourceWithChanges.unload();
-							//synchronized (this) {
-							getImportedResources().remove(importedResourceWithChanges);
-							//}
-							preProcessor.loseImportedResource(fileName);
+							
+							// INFO:
+							// xmi resources do not need to be reloaded because active editors (which potentially change) are referenced directly.
+							// however, if an xmi file changes externally (outside eclipse), this change is not known anymore.
+							
+//							importedResourceWithChanges.unload();
+//							//synchronized (this) {
+//							getImportedResources().remove(importedResourceWithChanges);
+//							//}
+//							preProcessor.loseImportedResource(fileName);
+							
 							fireRccSyntaxChanged();
 						}
 					}
@@ -147,7 +156,7 @@ public class DbxTextEditor extends DblTextEditor {
 		boolean additions = false;
 		for (Module module: model.getModules()) {
 			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
-				if (!extensionDefs.containsKey(extensionDef.getName())) {
+				if (!extensionDefsProcessed.containsKey(extensionDef.getName())) {
 					addExtensionDef(extensionDef);
 					additions = true;
 				}
@@ -169,10 +178,10 @@ public class DbxTextEditor extends DblTextEditor {
 		Model model = (Model) resource.getContents().get(0);
 		for (Module module: model.getModules()) {
 			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
-				if (extensionDefs.containsKey(extensionDef.getName())) {
+				if (extensionDefsProcessed.containsKey(extensionDef.getName())) {
 					System.out.println("unwinding extension definition '" + extensionDef.getName() + "' ...");
-					extensionDefs.get(extensionDef.getName()).revert();
-					extensionDefs.remove(extensionDef.getName());
+					extensionDefsProcessed.get(extensionDef.getName()).revert();
+					extensionDefsProcessed.remove(extensionDef.getName());
 				}
 			}
 		}
@@ -805,7 +814,7 @@ public class DbxTextEditor extends DblTextEditor {
 		ExtensionDefinitionProcessor processor = new ExtensionDefinitionProcessor(extensionDef);
 		boolean added = processor.addToSyntax();
 		if (added) {
-			extensionDefs.put(extensionDef.getName(), processor);
+			extensionDefsProcessed.put(extensionDef.getName(), processor);
 		}
 	}
 	
@@ -813,7 +822,7 @@ public class DbxTextEditor extends DblTextEditor {
 		System.out.println("adding extension definition '" + extensionDef.getName() + "' ...");
 		
 		ExtensionDefinitionProcessor processor = new ExtensionDefinitionProcessor(extensionDef);
-		extensionDefs.put(extensionDef.getName(), processor);
+		extensionDefsProcessed.put(extensionDef.getName(), processor);
 
 		// *** extend DBL TSL grammar ***
 		
