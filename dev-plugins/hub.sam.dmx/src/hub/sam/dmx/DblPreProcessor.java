@@ -66,20 +66,21 @@ public class DblPreProcessor {
 			
 			if (changedEditor != editor) {
 				System.out.println("editor '" + editor.getEditorInput().getName()
-					+ "' is notified of change in imported model '" + editor.getEditorInput().getName() + "'");
+					+ "' is notified of change in imported model '" + changedEditor.getEditorInput().getName() + "'");
 	
 				if (editor.getCurrentModel() != null) {
 					// update imports
 					Model model = (Model) editor.getCurrentModel().getContents().get(0);
 					for (Import imprt: model.getImports()) {
-						if (imprt.getFile().concat(".dbl").equals(editor.getEditorInput().getName())) {
+						if (imprt.getFile().concat(".dbl").equals(changedEditor.getEditorInput().getName())) {
 							imprt.setModel((Model) editor.getCurrentModel().getContents().get(0));
+
+							// initiate reconcile
+							editor.fireReferencedModelChanged();
 							break;
 						}
 					}
 					
-					// initiate reconcile
-					editor.fireReferencedModelChanged();
 				}
 			}
 		}
@@ -171,15 +172,15 @@ public class DblPreProcessor {
 										IPath otherEditorInputLocation = ((FileEditorInput) otherEditor.getEditorInput()).getFile().getLocation();
 										String otherEditorFileName = otherEditorInputLocation.removeFileExtension().lastSegment().toString();
 	
-										if (editor != null) {
-											otherEditor.getSite().getPage().removePartListener(otherEditorRefPartListener);
-											
-											otherEditor.addEditorStatusListener(getBackgroundEditorListener());
-											System.out.println("editor '" + editor.getEditorInput().getName() + "' listens to other editor '"
-													+ otherEditor.getEditorInput().getName() + "'");
-										}
-										
 										if (otherEditorFileName.equals(fileToImport)) {
+											if (editor != null) {
+												otherEditor.getSite().getPage().removePartListener(otherEditorRefPartListener);
+												
+												otherEditor.addEditorStatusListener(getBackgroundEditorListener());
+												System.out.println("editor '" + editor.getEditorInput().getName() + "' listens to other editor '"
+														+ otherEditor.getEditorInput().getName() + "'");
+											}
+
 											fileImportsInActiveEditors.put(otherEditorFileName, otherEditor);
 	
 											fileImportsSelfLoaded.remove(otherEditorFileName);
