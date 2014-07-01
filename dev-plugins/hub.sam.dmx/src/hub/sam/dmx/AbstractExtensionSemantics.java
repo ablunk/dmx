@@ -66,7 +66,7 @@ public abstract class AbstractExtensionSemantics {
 						EPackage metamodelPackage = (EPackage) rootObject;
 						resourceSet.getPackageRegistry().put(DblPackage.eNS_URI, metamodelPackage);
 						
-						concreteSyntaxProperty = ((EClass) metamodelPackage.getEClassifier("Construct")).getEStructuralFeature("concreteSyntax");
+						concreteSyntaxProperty = ((EClass) metamodelPackage.getEClassifier("ExtensibleElement")).getEStructuralFeature("concreteSyntax");
 					}
 		    	}
 		    	else {

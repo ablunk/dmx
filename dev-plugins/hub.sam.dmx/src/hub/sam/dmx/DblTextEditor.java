@@ -20,7 +20,6 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.ui.IPartListener2;
-import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.part.FileEditorInput;
 import org.osgi.framework.Bundle;
@@ -107,11 +106,6 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 			public Resource getCurrentModel() {
 				return DblTextEditor.this.getCurrentModel();
 			}
-
-			@Override
-			public void addPropertyChangedListener(IPropertyListener listener) {
-				preProcessor.addPropertyChangedListener(listener);
-			}
 		});
 	}
 
@@ -140,19 +134,13 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		saveXmiAction = new SaveXmiAction(this);
 		setAction(SaveXmiAction.ACTION_DEFINITION_ID, saveXmiAction);
 		
-//		addRunAction("DESMO-J (using Acceleo)", "desmoj");
+		addRunAction("DESMO-J", "desmoj");		
 //		addRunAction("JiST-Pro (using Acceleo)", "jist");
 //		addRunAction("jDisco (using Acceleo)", "jdisco");
-
-		XtendRunAction runAction = new XtendRunAction(this);
-		runAction.setTargetSimLib("desmoj");
-		runAction.setText("DESMO-J (using Xtend)");
-		setAction("hub.sam.dmx.action.run." + "desmoj", runAction);
-		runActions.add(runAction);		
 	}
 	
 	private void addRunAction(String name, String targetSimLib) {
-		RunAction runAction = new RunAction(this);
+		XtendRunAction runAction = new XtendRunAction(this);
 		runAction.setTargetSimLib(targetSimLib);
 		runAction.setText(name);
 		setAction("hub.sam.dmx.action.run." + targetSimLib, runAction);

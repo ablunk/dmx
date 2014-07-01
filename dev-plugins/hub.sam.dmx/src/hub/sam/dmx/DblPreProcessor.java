@@ -24,7 +24,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener2;
-import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.PlatformUI;
@@ -110,7 +109,8 @@ public class DblPreProcessor {
 				IWorkbenchPart part = partRef.getPart(false);
 				if (part instanceof DblTextEditor) {
 					DblTextEditor changedEditor = (DblTextEditor) part;
-					if (editor.getFileImportResource(changedEditor.getCurrentModel().getURI().trimFileExtension().lastSegment()) != null) {
+					if (changedEditor.getCurrentModel() != null
+							&& editor.getFileImportResource(changedEditor.getCurrentModel().getURI().trimFileExtension().lastSegment()) != null) {
 						editor.fireReferencedModelChanged();
 					}
 				}
@@ -214,19 +214,6 @@ public class DblPreProcessor {
 	public void loseImportedResource(String importedFile) {
 		fileImportsSelfLoaded.remove(importedFile);
 		fileImportsInActiveEditors.remove(importedFile);
-	}
-	
-	private Collection<IPropertyListener> listeners = new HashSet<IPropertyListener>();
-	
-	public void addPropertyChangedListener(IPropertyListener listener) {
-		listeners.add(listener);
-	}
-	
-	private void fireResourceChanged(Resource resource) {
-		System.out.println("notify others of resource change: " + resource.getURI().toString());
-		for (IPropertyListener listener: listeners) {
-			listener.propertyChanged(resource, IPreProcessedDocument.RESOURCE_CHANGED_ID);
-		}
 	}
 	
 	public synchronized Collection<Resource> getImportedResources() {

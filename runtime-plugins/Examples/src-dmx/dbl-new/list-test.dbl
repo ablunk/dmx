@@ -1,0 +1,47 @@
+module ecore_test {
+
+class Object {
+	bindings {
+		"desmoj" -> "java.lang.Object"
+	}
+}
+
+class List {
+	bindings {
+		"desmoj" -> "java.util.List"
+	}
+	
+	boolean add(Object e) abstract;
+	boolean add(int index, Object e) abstract;
+	void clear() abstract;
+	boolean contains(Object e) abstract;
+	int size() abstract;
+	Object get(int index) abstract;
+	int indexOf(Object e) abstract;
+	boolean isEmpty() abstract;
+	Object remove(int index) abstract;
+	boolean remove(Object e) abstract;
+	Object set(int index, Object e) abstract;
+	Object array[] toArray() abstract;
+}
+
+class ArrayList extends List {
+	bindings {
+		"desmoj" -> "java.util.ArrayList"
+	}
+}
+
+class A {
+}
+
+void main() {
+	A a = new A;
+	ArrayList l = new ArrayList;
+	l.add(a);
+	print l.size() + "\n";
+	print l.get(0) + "\n";
+	Object array[] f = l.toArray();
+	print f[0] + "\n";	
+}
+
+}

@@ -74,8 +74,9 @@ syntax(Model) "resources/dbl.ecore" {
 	Procedure:element(Procedure) -> TypedElementParts NamedElementName
 		"(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
 		(ClassElement:composite(clazz))?
-		(AbstractProcedure:composite(abstract))?
-		"{" (Statement:composite(statements))* "}";
+		ProcedureBody;
+	ProcedureBody -> AbstractProcedure:composite(abstract) ";";
+	ProcedureBody -> "{" (Statement:composite(statements))* "}";
 	
 	AbstractProcedure:constant("true":EBoolean) -> "abstract";
 

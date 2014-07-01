@@ -84,7 +84,11 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						
 						// add methods and augmented methods
 						if (containerClass != null) {
-							otherIdsHidden = addIds(namedElementId, containerClass.getMethods(), allIds);
+							for (Procedure method: containerClass.getMethods()) {
+								if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+									otherIdsHidden = addId(namedElementId, method, allIds);
+								}
+							}
 							if (containerModule != null) {
 								otherIdsHidden |= addIdsForAugmentedMethods(containerClass, containerModule, namedElementId, allIds);
 							}
@@ -92,12 +96,16 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						
 						// add inherited methods
 						if (!otherIdsHidden && containerClass != null) {
-							otherIdsHidden |= addIdsForInheritedMethods(containerClass, namedElementId, allIds);
+							otherIdsHidden |= addIdsForInheritedMethods(containerClass, namedElementId, allIds, idExpr);
 						}
 						
 						// add global procedures
 						if (!otherIdsHidden && containerModule != null) {
-							otherIdsHidden = addIds(namedElementId, containerModule.getProcedures(), allIds);
+							for (Procedure method: containerModule.getProcedures()) {
+								if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+									otherIdsHidden = addId(namedElementId, method, allIds);
+								}
+							}
 						}
 						
 						// ---> try to find a Type now ...
@@ -113,7 +121,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						}
 					}
 					else if (hasSuperAsParent(idExpr) && containerClass != null) {
-						addIdsForInheritedMethods(containerClass, namedElementId, allIds);
+						addIdsForInheritedMethods(containerClass, namedElementId, allIds, idExpr);
 					}
 					else if (hasMetaAsParent(idExpr)) {
 						NamedElement metaOfElement = idExpr.getParentIdExpr().getParentIdExpr().getReferencedElement();
@@ -121,7 +129,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						System.out.println("meta-object: " + metaElementName + " " + metaOfElement.getName());
 						Classifier eClass = findImportedClassifier((Model) containerModule.eContainer(), metaElementName);
 						if (eClass != null) {
-							addIdsForMethods(eClass, namedElementId, allIds);
+							addIdsForMethods(eClass, namedElementId, allIds, idExpr);
 						}
 					}
 					else if (hasTypeAsParent(idExpr)) {
@@ -146,7 +154,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 							System.out.println("type-object: " + metaTypeName + " " + typeName);
 							Classifier eClass = findImportedClassifier((Model) containerModule.eContainer(), metaTypeName);
 							if (eClass != null) {
-								addIdsForMethods(eClass, namedElementId, allIds);
+								addIdsForMethods(eClass, namedElementId, allIds, idExpr);
 							}
 						}
 					}
@@ -159,12 +167,12 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 									|| referencedParentElement instanceof Procedure) {
 								TypedElement referencedParentTypedElement = (TypedElement) referencedParentElement;
 								if (referencedParentTypedElement.getClassifierType() != null) {
-									addIdsForMethods(referencedParentTypedElement.getClassifierType(), namedElementId, allIds);
+									addIdsForMethods(referencedParentTypedElement.getClassifierType(), namedElementId, allIds, idExpr);
 								}
 							}
 							else if (referencedParentElement instanceof Classifier) {
 								Classifier parentClassifier = (Classifier) referencedParentElement;
-								addIdsForClassMethods(parentClassifier, namedElementId, allIds);
+								addIdsForClassMethods(parentClassifier, namedElementId, allIds, idExpr);
 							}
 							else if (referencedParentElement instanceof PropertyBindingExpr) {
 								System.out.println("parent is property binding: " + referencedParentElement.getName());
@@ -184,7 +192,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 								
 								if (rhsType != null && rhsType instanceof Classifier) {
 									Classifier classifierRhsType = (Classifier) rhsType;
-									addIdsForMethods(classifierRhsType, namedElementId, allIds);
+									addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
 								}
 							}
 						}
@@ -442,12 +450,12 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return super.getGlobalIdentities(identifier, context, type);
 	}
 	
-	private void addIdsForMethods(IdExpr classifierTypeExpr, NamedElement namedElementId, Collection<Object> allIds) {
+	private void addIdsForMethods(IdExpr classifierTypeExpr, NamedElement namedElementId, Collection<Object> allIds, IdExpr idExpr) {
 		if (classifierTypeExpr != null) {
 			NamedElement type = classifierTypeExpr.getReferencedElement();
 			if (type instanceof Classifier) {
 				Classifier classifier = (Classifier) type;
-				addIdsForMethods(classifier, namedElementId, allIds);
+				addIdsForMethods(classifier, namedElementId, allIds, idExpr);
 			}
 		}
 	}
@@ -822,28 +830,36 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		public void m() {}
 	}
 
-	private boolean addIdsForInheritedMethods(Clazz clazz, NamedElement eObjectId, Collection allIds) {
+	private boolean addIdsForInheritedMethods(Clazz clazz, NamedElement eObjectId, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 
 		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
 			if (!idsAdded) {
 				final Clazz superClazz = superClassSpec.getClazz();
-				idsAdded |= addIds(eObjectId, superClazz.getMethods(), allIds);
-				idsAdded |= addIdsForInheritedClassMethods(superClazz, eObjectId, allIds);
+				for (Procedure method: superClazz.getMethods()) {
+					if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+						idsAdded |= addId(eObjectId, method, allIds);
+					}
+				}
+				idsAdded |= addIdsForInheritedClassMethods(superClazz, eObjectId, allIds, idExpr);
 			}
 		}
 
 		return idsAdded;
 	}
 	
-	private boolean addIdsForInheritedClassMethods(Clazz clazz, NamedElement eObjectId, Collection allIds) {
+	private boolean addIdsForInheritedClassMethods(Clazz clazz, NamedElement eObjectId, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 
 		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
 			if (!idsAdded) {
 				final Clazz superClazz = superClassSpec.getClazz();
-				idsAdded |= addIds(eObjectId, getClassMethods(superClazz.getMethods()), allIds);
-				idsAdded |= addIdsForInheritedClassMethods(superClazz, eObjectId, allIds);
+				for (Procedure method: getClassMethods(superClazz.getMethods())) {
+					if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+						idsAdded |= addId(eObjectId, method, allIds);
+					}
+				}
+				idsAdded |= addIdsForInheritedClassMethods(superClazz, eObjectId, allIds, idExpr);
 			}
 		}
 		
@@ -928,13 +944,17 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return idsAdded;
 	}
 
-	private boolean addIdsForMethods(Classifier classifier, NamedElement identifier, Collection allIds) {
+	private boolean addIdsForMethods(Classifier classifier, NamedElement identifier, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 		if (classifier instanceof Clazz) {
 			Clazz clazz = (Clazz) classifier;
 
 			// add methods
-			idsAdded = addIds(identifier, clazz.getMethods(), allIds);
+			for (Procedure method: clazz.getMethods()) {
+				if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+					idsAdded = addId(identifier, method, allIds);
+				}
+			}
 			
 			// add augmented methods
 			Module containerModule = getContainerObjectOfType(clazz, Module.class);
@@ -942,19 +962,23 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 
 			// add inherited methods
 			if (!idsAdded) {
-				idsAdded |= addIdsForInheritedMethods(clazz, identifier, allIds);
+				idsAdded |= addIdsForInheritedMethods(clazz, identifier, allIds, idExpr);
 			}
 		}
 		return idsAdded;
 	}
 	
-	private boolean addIdsForClassMethods(Classifier classifier, NamedElement identifier, Collection allIds) {
+	private boolean addIdsForClassMethods(Classifier classifier, NamedElement identifier, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 		if (classifier instanceof Clazz) {
 			Clazz clazz = (Clazz) classifier;
 
 			// add methods
-			idsAdded = addIds(identifier, getClassMethods(clazz.getMethods()), allIds);
+			for (Procedure method: getClassMethods(clazz.getMethods())) {
+				if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+					idsAdded = addId(identifier, method, allIds);
+				}
+			}
 			
 			// add augmented methods
 			Module containerModule = getContainerObjectOfType(clazz, Module.class);
@@ -962,7 +986,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 
 			// add inherited methods
 			if (!idsAdded) {
-				idsAdded |= addIdsForInheritedClassMethods(clazz, identifier, allIds);
+				idsAdded |= addIdsForInheritedClassMethods(clazz, identifier, allIds, idExpr);
 			}
 		}
 		return idsAdded;

@@ -1,13 +1,9 @@
 	module ecore {
-		interface Object {
+		class Object {
 		}
-			interface EAttribute extends EObject, EStructuralFeature {
-					boolean
-				
-				 isID();
-					EDataType
-				
-				 getEAttributeType();
+			class EAttribute extends EObject, EStructuralFeature {
+				boolean isID() abstract {}
+				EDataType getEAttributeType() abstract {}
 			}
 			interface EAnnotation extends EObject, EModelElement {
 					string

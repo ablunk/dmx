@@ -9,6 +9,7 @@ import java.util.Iterator;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -31,7 +32,7 @@ public class EcoreModelManager {
 	
 	public interface IEcoreModel {
 		public void loadModel(String uri);
-		public Iterator<Object> getAllContents();
+		public Iterator<Notifier> getAllContents();
 	}
 	
 	public IEcoreModel ecoreModel = new IEcoreModel() {
@@ -39,11 +40,11 @@ public class EcoreModelManager {
 		private String metaModelPath = null;
 		
 		@SuppressWarnings("unchecked")
-		public Iterator<Object> getAllContents() {
+		public Iterator<Notifier> getAllContents() {
 			if (metaModel == null) {
 				return Collections.EMPTY_LIST.iterator();
 			} else {
-				return (Iterator)metaModel.getAllContents();
+				return (Iterator<Notifier>) metaModel.getAllContents();
 			}
 		}
 		

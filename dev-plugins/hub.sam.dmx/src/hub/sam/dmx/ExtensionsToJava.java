@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
  *
  * @generated
  */
+@Deprecated
 public class ExtensionsToJava extends AbstractAcceleoGenerator {
     /**
      * The name of the module.

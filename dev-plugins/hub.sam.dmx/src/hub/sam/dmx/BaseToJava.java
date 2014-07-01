@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
  *
  * @generated
  */
+@Deprecated
 public class BaseToJava extends AbstractAcceleoGenerator {
     /**
      * The name of the module.

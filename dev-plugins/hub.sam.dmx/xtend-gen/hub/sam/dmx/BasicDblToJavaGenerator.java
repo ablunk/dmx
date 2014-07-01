@@ -75,9 +75,7 @@ import hub.sam.dbl.Variable;
 import hub.sam.dbl.VariableAccess;
 import hub.sam.dbl.VoidType;
 import hub.sam.dbl.WhileStatement;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import hub.sam.dmx.AbstractGenerator;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
@@ -96,11 +94,7 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 @SuppressWarnings("all")
-public class BasicDblToJavaGenerator {
-  private final Resource modelResource;
-  
-  private final IPath outputFolder;
-  
+public class BasicDblToJavaGenerator extends AbstractGenerator {
   public final String javaPackagePrefix = "hub.sam.dmx.javasim.gen";
   
   public final String javaPackageFolderPrefix = new Function0<String>() {
@@ -115,8 +109,7 @@ public class BasicDblToJavaGenerator {
   protected final String javaClass_for_ModuleLevelElements = "Module_";
   
   public BasicDblToJavaGenerator(final Resource modelResource, final IPath outputFolder) {
-    this.modelResource = modelResource;
-    this.outputFolder = outputFolder;
+    super(modelResource, outputFolder);
   }
   
   public String genActiveClass(final Clazz clazz) {
@@ -208,26 +201,6 @@ public class BasicDblToJavaGenerator {
       this._lazy_moduleWithMainProcedure = _findFirst;
     }
     return this._lazy_moduleWithMainProcedure;
-  }
-  
-  public void makeFolder(final IPath folder) {
-    String _string = folder.toString();
-    File _file = new File(_string);
-    final File folder_fileObject = _file;
-    boolean _and = false;
-    boolean _exists = folder_fileObject.exists();
-    boolean _not = (!_exists);
-    if (!_not) {
-      _and = false;
-    } else {
-      boolean _mkdirs = folder_fileObject.mkdirs();
-      boolean _not_1 = (!_mkdirs);
-      _and = (_not && _not_1);
-    }
-    if (_and) {
-      RuntimeException _runtimeException = new RuntimeException("could not create java package folder structure.");
-      throw _runtimeException;
-    }
   }
   
   public void startGenerator() {
@@ -1238,7 +1211,15 @@ public class BasicDblToJavaGenerator {
   }
   
   protected String _genIdExpr_for_PredefinedId(final IdExpr idExpr, final SizeOfArray predefinedId) {
-    return "length";
+    String _xifexpression = null;
+    CallPart _callPart = idExpr.getCallPart();
+    boolean _equals = Objects.equal(_callPart, null);
+    if (_equals) {
+      _xifexpression = "length";
+    } else {
+      _xifexpression = "size()";
+    }
+    return _xifexpression;
   }
   
   protected String _genIdExpr_for_ReferencedElement(final IdExpr idExpr, final NamedElement referencedElement) {
@@ -1678,36 +1659,6 @@ public class BasicDblToJavaGenerator {
       _xblockexpression = (_builder.toString());
     }
     return _xblockexpression;
-  }
-  
-  private Writer beginTargetFile(final IPath folder, final String fileName) {
-    try {
-      IPath _append = folder.append(fileName);
-      String _string = _append.toString();
-      File _file = new File(_string);
-      final File file = _file;
-      boolean _exists = file.exists();
-      boolean _not = (!_exists);
-      if (_not) {
-        file.createNewFile();
-      }
-      File _absoluteFile = file.getAbsoluteFile();
-      FileWriter _fileWriter = new FileWriter(_absoluteFile);
-      final FileWriter fileWriter = _fileWriter;
-      BufferedWriter _bufferedWriter = new BufferedWriter(fileWriter);
-      final BufferedWriter bufferedWriter = _bufferedWriter;
-      return bufferedWriter;
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
-  }
-  
-  private void endTargetFile(final Writer targerWriter) {
-    try {
-      targerWriter.close();
-    } catch (Throwable _e) {
-      throw Exceptions.sneakyThrow(_e);
-    }
   }
   
   public String javaNameQualified(final NamedElement element) {

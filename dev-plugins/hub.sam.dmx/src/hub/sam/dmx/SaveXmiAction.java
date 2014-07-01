@@ -65,16 +65,12 @@ public class SaveXmiAction extends ResourceAction implements ITefEditorStatusLis
 				catch (IOException e) {
 					e.printStackTrace();
 				}
-				System.out.println("saved as XMI: " + xmiRawLocation);
+				System.out.println("model in editor '" + editor.getEditorInput().getName() + "' saved as XMI: " + xmiRawLocation);
 				
 				// refreshing the folder that contains the XMI file, so the change is recognized by the editor
 				((FileEditorInput) editor.getEditorInput()).getFile().getParent().refreshLocal(IResource.DEPTH_ONE, null);
 			}
 			catch (FileNotFoundException e) {
-				e.printStackTrace();
-				return;
-			}
-			catch (IOException e) {
 				e.printStackTrace();
 				return;
 			} catch (CoreException e) {

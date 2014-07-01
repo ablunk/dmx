@@ -6,9 +6,7 @@ void main() {
 	print "hello";
 
 	A a = new CCC;
-	print " " + a.h() + "\n";
-	
-	// TODO update Model (the Ecore instance) referenced as import whenever its file changes !
+	print " " + a.h() + "\n";	
 }
 
 }

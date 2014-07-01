@@ -70,9 +70,6 @@ import hub.sam.dbl.VoidType
 import hub.sam.dbl.Wait
 import hub.sam.dbl.WhileStatement
 import hub.sam.dbl.Yield
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileWriter
 import java.io.Writer
 import java.util.List
 import java.util.regex.Matcher
@@ -232,10 +229,7 @@ class ExtensionsToJavaGenerator extends BasicDblToJavaGenerator {
 	
 }
 	
-class BasicDblToJavaGenerator {
-	
-	private val Resource modelResource
-	private val IPath outputFolder
+class BasicDblToJavaGenerator extends AbstractGenerator {
 	
 	public val javaPackagePrefix = "hub.sam.dmx.javasim.gen"
 	public val javaPackageFolderPrefix = javaPackagePrefix.replaceAll("\\.", "/")
@@ -244,8 +238,7 @@ class BasicDblToJavaGenerator {
 	protected val javaClass_for_ModuleLevelElements = "Module_"
 	
 	new(Resource modelResource, IPath outputFolder) {
-		this.modelResource = modelResource;
-		this.outputFolder = outputFolder;
+		super(modelResource, outputFolder)
 	}
 	
 	def String genActiveClass(Clazz clazz) {
@@ -288,14 +281,7 @@ class BasicDblToJavaGenerator {
 		return _lazy_moduleWithMainProcedure;
 	}
 	
-	def void makeFolder(IPath folder) {
-		val folder_fileObject = new File(folder.toString);
-		if (!folder_fileObject.exists && !folder_fileObject.mkdirs) {
-			throw new RuntimeException("could not create java package folder structure.");
-		}
-	}
-	
-	def void startGenerator() {
+	override void startGenerator() {
 		val model = modelResource.contents.head as Model;
 		
 		model.genModel
@@ -773,7 +759,8 @@ class BasicDblToJavaGenerator {
 	}
 
 	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, SizeOfArray predefinedId) {
-		'length'
+		if (idExpr.callPart == null) 'length'
+		else 'size()'
 	}
 
 	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, NamedElement referencedElement) {
@@ -977,21 +964,6 @@ class BasicDblToJavaGenerator {
 			Çmethods.genProcedures(false)È
 		}
 		'''
-	}
-	
-	private def Writer beginTargetFile(IPath folder, String fileName) {
-		val File file = new File(folder.append(fileName).toString);
-		if (!file.exists()) {
-			file.createNewFile();
-		}
- 
-		val FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
-		val BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-		return bufferedWriter;
-	}
-	
-	private def void endTargetFile(Writer targerWriter) {
-		targerWriter.close;
 	}
 		
 }
