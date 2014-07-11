@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EcorePackage
 import java.io.Writer
 import org.eclipse.emf.ecore.ETypedElement
 import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.emf.ecore.EPackage
 
 class EcoreToDblGenerator extends AbstractGenerator {
 	
@@ -13,25 +14,27 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		super(outputFolder)
 	}
 	
-	override startGenerator() {
-		val ecore = EcorePackage.eINSTANCE;
-
-		makeFolder("resources-gen")
-		val Writer writer = beginTargetFile("resources-gen/ecore.dbl");
+	def startGenerator(String outputFile, EPackage metamodel, String javaPackagePrefix) {
+		val Writer writer = beginTargetFile(outputFile);
 
 		writer.write(
 		'''
-		module ecore {
+		module «metamodel.name» {
 		
 		'''
 		)
-		ecore.EClassifiers.filter(EClass).forEach[writer.write(genEClass)]
+		metamodel.EClassifiers.filter(EClass).forEach[writer.write(genEClass(javaPackagePrefix))]
 		writer.write('''
 		
 		}
 		''')
 
 		endTargetFile(writer)				
+	}
+	
+	override startGenerator() {
+		makeFolder("resources-gen")
+		startGenerator("resources-gen/ecore.dbl", EcorePackage.eINSTANCE, "org.eclipse.emf.ecore")
 	}
 	
 	def static void main(String[] args) {
@@ -60,7 +63,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		if (!feature.many) 'void set' + name.toFirstUpper + '(' + genType + ' value) abstract;'
 	}
 	
-	def String genEClass(EClass eClass) {
+	def String genEClass(EClass eClass, String javaPackagePrefix) {
 		val it = eClass
 		if (!name.equals("EObject")) {
 			'''
@@ -75,7 +78,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 			«ENDIF»
 			{
 				bindings {
-					"java" -> "org.eclipse.emf.ecore.«name»"
+					"java" -> "«javaPackagePrefix».«name»"
 				}
 				
 				«FOR feature : EStructuralFeatures»

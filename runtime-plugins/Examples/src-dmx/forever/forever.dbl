@@ -1,4 +1,4 @@
-#import "../base"
+#import "../dbl"
 
 module ForeverExtension {
 
@@ -6,13 +6,17 @@ module ForeverExtension {
 		Statement -> Forever;
 		Forever -> "forever" "{" ManyStatements "}";
 		ManyStatements -> ;
-		ManyStatements -> statements : Statement ManyStatements;
+		ManyStatements -> statements : list(Statement) ManyStatements;
 	}
 	semantics {
 		gen "while (true) {";
-		for (Statement stm : statements) {
+		
+		ListIterator it = statements;
+		while (it.hasNext()) {
+			Statement stm = it.next() as Statement;
 			gen "" stm "";
 		}
+
 		gen "}";
 	}
 

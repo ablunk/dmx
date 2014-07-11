@@ -8,6 +8,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.ETypedElement;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -23,22 +24,23 @@ public class EcoreToDblGenerator extends AbstractGenerator {
     super(outputFolder);
   }
   
-  public void startGenerator() {
+  public void startGenerator(final String outputFile, final EPackage metamodel, final String javaPackagePrefix) {
     try {
-      final EcorePackage ecore = EcorePackage.eINSTANCE;
-      this.makeFolder("resources-gen");
-      final Writer writer = this.beginTargetFile("resources-gen/ecore.dbl");
+      final Writer writer = this.beginTargetFile(outputFile);
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("module ecore {");
-      _builder.newLine();
+      _builder.append("module ");
+      String _name = metamodel.getName();
+      _builder.append(_name, "");
+      _builder.append(" {");
+      _builder.newLineIfNotEmpty();
       _builder.newLine();
       writer.write(_builder.toString());
-      EList<EClassifier> _eClassifiers = ecore.getEClassifiers();
+      EList<EClassifier> _eClassifiers = metamodel.getEClassifiers();
       Iterable<EClass> _filter = Iterables.<EClass>filter(_eClassifiers, EClass.class);
       final Procedure1<EClass> _function = new Procedure1<EClass>() {
         public void apply(final EClass it) {
           try {
-            String _genEClass = EcoreToDblGenerator.this.genEClass(it);
+            String _genEClass = EcoreToDblGenerator.this.genEClass(it, javaPackagePrefix);
             writer.write(_genEClass);
           } catch (Throwable _e) {
             throw Exceptions.sneakyThrow(_e);
@@ -55,6 +57,11 @@ public class EcoreToDblGenerator extends AbstractGenerator {
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+  
+  public void startGenerator() {
+    this.makeFolder("resources-gen");
+    this.startGenerator("resources-gen/ecore.dbl", EcorePackage.eINSTANCE, "org.eclipse.emf.ecore");
   }
   
   public static void main(final String[] args) {
@@ -130,7 +137,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  public String genEClass(final EClass eClass) {
+  public String genEClass(final EClass eClass, final String javaPackagePrefix) {
     String _xblockexpression = null;
     {
       final EClass it = eClass;
@@ -175,7 +182,9 @@ public class EcoreToDblGenerator extends AbstractGenerator {
         _builder.append("bindings {");
         _builder.newLine();
         _builder.append("\t\t");
-        _builder.append("\"java\" -> \"org.eclipse.emf.ecore.");
+        _builder.append("\"java\" -> \"");
+        _builder.append(javaPackagePrefix, "		");
+        _builder.append(".");
         String _name_3 = it.getName();
         _builder.append(_name_3, "		");
         _builder.append("\"");
