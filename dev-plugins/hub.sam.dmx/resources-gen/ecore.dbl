@@ -22,11 +22,11 @@ EModelElement
 	
 	string getSource() abstract;
 	void setSource(string value) abstract;
-	EList getDetails() abstract;
+	List getDetails() abstract;
 	EModelElement getEModelElement() abstract;
 	void setEModelElement(EModelElement value) abstract;
-	EList getContents() abstract;
-	EList getReferences() abstract;
+	List getContents() abstract;
+	List getReferences() abstract;
 }
 class EClass
 extends 
@@ -40,20 +40,20 @@ EClassifier
 	void setAbstract(boolean value) abstract;
 	boolean isInterface() abstract;
 	void setInterface(boolean value) abstract;
-	EList getESuperTypes() abstract;
-	EList getEOperations() abstract;
-	EList getEAllAttributes() abstract;
-	EList getEAllReferences() abstract;
-	EList getEReferences() abstract;
-	EList getEAttributes() abstract;
-	EList getEAllContainments() abstract;
-	EList getEAllOperations() abstract;
-	EList getEAllStructuralFeatures() abstract;
-	EList getEAllSuperTypes() abstract;
+	List getESuperTypes() abstract;
+	List getEOperations() abstract;
+	List getEAllAttributes() abstract;
+	List getEAllReferences() abstract;
+	List getEReferences() abstract;
+	List getEAttributes() abstract;
+	List getEAllContainments() abstract;
+	List getEAllOperations() abstract;
+	List getEAllStructuralFeatures() abstract;
+	List getEAllSuperTypes() abstract;
 	EAttribute getEIDAttribute() abstract;
-	EList getEStructuralFeatures() abstract;
-	EList getEGenericSuperTypes() abstract;
-	EList getEAllGenericSuperTypes() abstract;
+	List getEStructuralFeatures() abstract;
+	List getEGenericSuperTypes() abstract;
+	List getEAllGenericSuperTypes() abstract;
 }
 class EClassifier
 extends 
@@ -70,7 +70,7 @@ ENamedElement
 	string getInstanceTypeName() abstract;
 	void setInstanceTypeName(string value) abstract;
 	EPackage getEPackage() abstract;
-	EList getETypeParameters() abstract;
+	List getETypeParameters() abstract;
 }
 class EDataType
 extends 
@@ -91,7 +91,7 @@ EDataType
 		"java" -> "org.eclipse.emf.ecore.EEnum"
 	}
 	
-	EList getELiterals() abstract;
+	List getELiterals() abstract;
 }
 class EEnumLiteral
 extends 
@@ -127,7 +127,7 @@ extends EObject
 		"java" -> "org.eclipse.emf.ecore.EModelElement"
 	}
 	
-	EList getEAnnotations() abstract;
+	List getEAnnotations() abstract;
 }
 class ENamedElement
 extends 
@@ -158,34 +158,34 @@ class Enumerator {
 	}
 }
 
-class EListIterator {
+class ListIterator {
 	bindings {
 		"java" -> "java.util.Iterator"
 	}
 
 	boolean hasNext() abstract;
-	EObject next() abstract;
+	Object next() abstract;
 	void remove() abstract;
 }
 
-class EList {
+class List {
 	bindings {
 		"java" -> "java.util.List"
 	}
 
-boolean add(EObject e) abstract;
-boolean add(int index, EObject e) abstract;
+boolean add(Object e) abstract;
+boolean add(int index, Object e) abstract;
 void clear() abstract;
-boolean contains(EObject e) abstract;
+boolean contains(Object e) abstract;
 int size() abstract;
-EObject get(int index) abstract;
-int indexOf(EObject e) abstract;
+Object get(int index) abstract;
+int indexOf(Object e) abstract;
 boolean isEmpty() abstract;
-EObject remove(int index) abstract;
-boolean remove(EObject e) abstract;
-EObject set(int index, EObject e) abstract;
-EObject array[] toArray() abstract;
-EListIterator iterator() abstract;
+Object remove(int index) abstract;
+boolean remove(Object e) abstract;
+Object set(int index, Object e) abstract;
+Object array[] toArray() abstract;
+ListIterator iterator() abstract;
 }
 
 class EObject {
@@ -197,8 +197,8 @@ class EObject {
 	EObject eContainer() abstract;
 	EStructuralFeature eContainingFeature() abstract;
 	EReference eContainmentFeature() abstract;
-	EList eContents() abstract;
-	EList eAllContents() abstract;
+	List eContents() abstract;
+	List eAllContents() abstract;
 	//boolean eIsProxy() abstract;
 	//EList eCrossReferences() abstract;
 	Object eGet(EStructuralFeature feature) abstract;
@@ -217,10 +217,10 @@ ETypedElement
 	}
 	
 	EClass getEContainingClass() abstract;
-	EList getETypeParameters() abstract;
-	EList getEParameters() abstract;
-	EList getEExceptions() abstract;
-	EList getEGenericExceptions() abstract;
+	List getETypeParameters() abstract;
+	List getEParameters() abstract;
+	List getEExceptions() abstract;
+	List getEGenericExceptions() abstract;
 }
 class EPackage
 extends 
@@ -236,8 +236,8 @@ ENamedElement
 	void setNsPrefix(string value) abstract;
 	EFactory getEFactoryInstance() abstract;
 	void setEFactoryInstance(EFactory value) abstract;
-	EList getEClassifiers() abstract;
-	EList getESubpackages() abstract;
+	List getEClassifiers() abstract;
+	List getESubpackages() abstract;
 	EPackage getESuperPackage() abstract;
 }
 class EParameter
@@ -266,7 +266,7 @@ EStructuralFeature
 	EReference getEOpposite() abstract;
 	void setEOpposite(EReference value) abstract;
 	EClass getEReferenceType() abstract;
-	EList getEKeys() abstract;
+	List getEKeys() abstract;
 }
 class EStructuralFeature
 extends 
@@ -335,7 +335,7 @@ extends EObject
 	
 	EGenericType getEUpperBound() abstract;
 	void setEUpperBound(EGenericType value) abstract;
-	EList getETypeArguments() abstract;
+	List getETypeArguments() abstract;
 	EClassifier getERawType() abstract;
 	EGenericType getELowerBound() abstract;
 	void setELowerBound(EGenericType value) abstract;
@@ -352,7 +352,7 @@ ENamedElement
 		"java" -> "org.eclipse.emf.ecore.ETypeParameter"
 	}
 	
-	EList getEBounds() abstract;
+	List getEBounds() abstract;
 }
 
 }

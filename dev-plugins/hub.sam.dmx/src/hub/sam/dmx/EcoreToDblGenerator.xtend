@@ -104,34 +104,34 @@ class EcoreToDblGenerator extends AbstractGenerator {
 				}
 			}
 			
-			class EListIterator {
+			class ListIterator {
 				bindings {
 					"java" -> "java.util.Iterator"
 				}
 
 				boolean hasNext() abstract;
-				EObject next() abstract;
+				Object next() abstract;
 				void remove() abstract;
 			}
 
-			class EList {
+			class List {
 				bindings {
 					"java" -> "java.util.List"
 				}
 
-			boolean add(EObject e) abstract;
-			boolean add(int index, EObject e) abstract;
+			boolean add(Object e) abstract;
+			boolean add(int index, Object e) abstract;
 			void clear() abstract;
-			boolean contains(EObject e) abstract;
+			boolean contains(Object e) abstract;
 			int size() abstract;
-			EObject get(int index) abstract;
-			int indexOf(EObject e) abstract;
+			Object get(int index) abstract;
+			int indexOf(Object e) abstract;
 			boolean isEmpty() abstract;
-			EObject remove(int index) abstract;
-			boolean remove(EObject e) abstract;
-			EObject set(int index, EObject e) abstract;
-			EObject array[] toArray() abstract;
-			EListIterator iterator() abstract;
+			Object remove(int index) abstract;
+			boolean remove(Object e) abstract;
+			Object set(int index, Object e) abstract;
+			Object array[] toArray() abstract;
+			ListIterator iterator() abstract;
 			}
 
 			class EObject {
@@ -143,8 +143,8 @@ class EcoreToDblGenerator extends AbstractGenerator {
 				EObject eContainer() abstract;
 				EStructuralFeature eContainingFeature() abstract;
 				EReference eContainmentFeature() abstract;
-				EList eContents() abstract;
-				EList eAllContents() abstract;
+				List eContents() abstract;
+				List eAllContents() abstract;
 				//boolean eIsProxy() abstract;
 				//EList eCrossReferences() abstract;
 				Object eGet(EStructuralFeature feature) abstract;
@@ -163,7 +163,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		if (EType != null) {
 			if (many) {
 				//'''«EType.name» array[]'''
-				'EList'
+				'List'
 			}
 			else {
 				switch (EType.name) {

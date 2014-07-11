@@ -14,8 +14,8 @@ void main() {
 	EPackage pkg = EcorePackage.eINSTANCE;
 	print "EPackage " + pkg.getName() + "\n";
 	
-	EList classifiers = pkg.getEClassifiers();
-	EListIterator it = classifiers.iterator();
+	List classifiers = pkg.getEClassifiers();
+	ListIterator it = classifiers.iterator();
 	
 	while (it.hasNext()) {
 		EClassifier c = it.next() as EClassifier;

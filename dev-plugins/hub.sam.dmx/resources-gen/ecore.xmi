@@ -242,24 +242,24 @@
     <classifiers xsi:type="dbl:Clazz" name="Enumerator">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.Enumerator"/>
     </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="EListIterator">
+    <classifiers xsi:type="dbl:Clazz" name="ListIterator">
       <bindings targetLanguage="java" targetType="java.util.Iterator"/>
       <methods name="hasNext" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="next" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.10"/>
       </methods>
       <methods name="remove" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
       </methods>
     </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="EList">
+    <classifiers xsi:type="dbl:Clazz" name="List">
       <bindings targetLanguage="java" targetType="java.util.List"/>
       <methods name="add" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         </parameters>
       </methods>
       <methods name="add" abstract="true">
@@ -268,7 +268,7 @@
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
         <parameters name="e">
-          <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         </parameters>
       </methods>
       <methods name="clear" abstract="true">
@@ -277,14 +277,14 @@
       <methods name="contains" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         </parameters>
       </methods>
       <methods name="size" abstract="true">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="get" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         <parameters name="index">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
@@ -292,14 +292,14 @@
       <methods name="indexOf" abstract="true">
         <primitiveType xsi:type="dbl:IntType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         </parameters>
       </methods>
       <methods name="isEmpty" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="remove" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         <parameters name="index">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
@@ -307,21 +307,21 @@
       <methods name="remove" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         </parameters>
       </methods>
       <methods name="set" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         <parameters name="index">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
         <parameters name="e">
-          <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.10"/>
         </parameters>
       </methods>
       <methods name="toArray" abstract="true">
         <typeArrayDimensions/>
-        <classifierType referencedElement="//@modules.0/@classifiers.15"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.10"/>
       </methods>
       <methods name="iterator" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.13"/>
