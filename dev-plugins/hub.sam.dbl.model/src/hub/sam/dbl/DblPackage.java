@@ -2463,22 +2463,13 @@ public interface DblPackage extends EPackage {
 	int FOR_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = LOOP_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Count Variable Definition</b></em>' containment reference.
+	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__COUNT_VARIABLE_DEFINITION = LOOP_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Count Variable Reference</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__COUNT_VARIABLE_REFERENCE = LOOP_STATEMENT_FEATURE_COUNT + 1;
+	int FOR_STATEMENT__STATEMENTS = LOOP_STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Termination</b></em>' containment reference.
@@ -2487,7 +2478,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__TERMINATION = LOOP_STATEMENT_FEATURE_COUNT + 2;
+	int FOR_STATEMENT__TERMINATION = LOOP_STATEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Increment</b></em>' containment reference.
@@ -2496,7 +2487,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__INCREMENT = LOOP_STATEMENT_FEATURE_COUNT + 3;
+	int FOR_STATEMENT__INCREMENT = LOOP_STATEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -2505,7 +2496,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__BODY = LOOP_STATEMENT_FEATURE_COUNT + 4;
+	int FOR_STATEMENT__BODY = LOOP_STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>For Statement</em>' class.
@@ -2514,7 +2505,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT_FEATURE_COUNT = LOOP_STATEMENT_FEATURE_COUNT + 5;
+	int FOR_STATEMENT_FEATURE_COUNT = LOOP_STATEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.WhileStatementImpl <em>While Statement</em>}' class.
@@ -9074,28 +9065,6 @@ public interface DblPackage extends EPackage {
 	EClass getForStatement();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getCountVariableDefinition <em>Count Variable Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Count Variable Definition</em>'.
-	 * @see hub.sam.dbl.ForStatement#getCountVariableDefinition()
-	 * @see #getForStatement()
-	 * @generated
-	 */
-	EReference getForStatement_CountVariableDefinition();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getCountVariableReference <em>Count Variable Reference</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Count Variable Reference</em>'.
-	 * @see hub.sam.dbl.ForStatement#getCountVariableReference()
-	 * @see #getForStatement()
-	 * @generated
-	 */
-	EReference getForStatement_CountVariableReference();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ForStatement#getTermination <em>Termination</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11773,22 +11742,6 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EClass FOR_STATEMENT = eINSTANCE.getForStatement();
-
-		/**
-		 * The meta object literal for the '<em><b>Count Variable Definition</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FOR_STATEMENT__COUNT_VARIABLE_DEFINITION = eINSTANCE.getForStatement_CountVariableDefinition();
-
-		/**
-		 * The meta object literal for the '<em><b>Count Variable Reference</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference FOR_STATEMENT__COUNT_VARIABLE_REFERENCE = eINSTANCE.getForStatement_CountVariableReference();
 
 		/**
 		 * The meta object literal for the '<em><b>Termination</b></em>' containment reference feature.

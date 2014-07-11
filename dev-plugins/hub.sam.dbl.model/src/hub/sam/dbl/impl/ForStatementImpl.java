@@ -6,16 +6,21 @@ import hub.sam.dbl.Assignment;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ForStatement;
+import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.Variable;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -24,8 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getCountVariableDefinition <em>Count Variable Definition</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getCountVariableReference <em>Count Variable Reference</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getTermination <em>Termination</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getIncrement <em>Increment</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getBody <em>Body</em>}</li>
@@ -36,24 +40,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  */
 public class ForStatementImpl extends LoopStatementImpl implements ForStatement {
 	/**
-	 * The cached value of the '{@link #getCountVariableDefinition() <em>Count Variable Definition</em>}' containment reference.
+	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getCountVariableDefinition()
+	 * @see #getStatements()
 	 * @generated
 	 * @ordered
 	 */
-	protected Variable countVariableDefinition;
-
-	/**
-	 * The cached value of the '{@link #getCountVariableReference() <em>Count Variable Reference</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCountVariableReference()
-	 * @generated
-	 * @ordered
-	 */
-	protected Assignment countVariableReference;
+	protected EList<Statement> statements;
 
 	/**
 	 * The cached value of the '{@link #getTermination() <em>Termination</em>}' containment reference.
@@ -109,85 +103,11 @@ public class ForStatementImpl extends LoopStatementImpl implements ForStatement 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Variable getCountVariableDefinition() {
-		return countVariableDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetCountVariableDefinition(Variable newCountVariableDefinition, NotificationChain msgs) {
-		Variable oldCountVariableDefinition = countVariableDefinition;
-		countVariableDefinition = newCountVariableDefinition;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION, oldCountVariableDefinition, newCountVariableDefinition);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Statement> getStatements() {
+		if (statements == null) {
+			statements = new EObjectContainmentEList<Statement>(Statement.class, this, DblPackage.FOR_STATEMENT__STATEMENTS);
 		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCountVariableDefinition(Variable newCountVariableDefinition) {
-		if (newCountVariableDefinition != countVariableDefinition) {
-			NotificationChain msgs = null;
-			if (countVariableDefinition != null)
-				msgs = ((InternalEObject)countVariableDefinition).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION, null, msgs);
-			if (newCountVariableDefinition != null)
-				msgs = ((InternalEObject)newCountVariableDefinition).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION, null, msgs);
-			msgs = basicSetCountVariableDefinition(newCountVariableDefinition, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION, newCountVariableDefinition, newCountVariableDefinition));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Assignment getCountVariableReference() {
-		return countVariableReference;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetCountVariableReference(Assignment newCountVariableReference, NotificationChain msgs) {
-		Assignment oldCountVariableReference = countVariableReference;
-		countVariableReference = newCountVariableReference;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE, oldCountVariableReference, newCountVariableReference);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setCountVariableReference(Assignment newCountVariableReference) {
-		if (newCountVariableReference != countVariableReference) {
-			NotificationChain msgs = null;
-			if (countVariableReference != null)
-				msgs = ((InternalEObject)countVariableReference).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE, null, msgs);
-			if (newCountVariableReference != null)
-				msgs = ((InternalEObject)newCountVariableReference).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE, null, msgs);
-			msgs = basicSetCountVariableReference(newCountVariableReference, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE, newCountVariableReference, newCountVariableReference));
+		return statements;
 	}
 
 	/**
@@ -327,10 +247,8 @@ public class ForStatementImpl extends LoopStatementImpl implements ForStatement 
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION:
-				return basicSetCountVariableDefinition(null, msgs);
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE:
-				return basicSetCountVariableReference(null, msgs);
+			case DblPackage.FOR_STATEMENT__STATEMENTS:
+				return ((InternalEList<?>)getStatements()).basicRemove(otherEnd, msgs);
 			case DblPackage.FOR_STATEMENT__TERMINATION:
 				return basicSetTermination(null, msgs);
 			case DblPackage.FOR_STATEMENT__INCREMENT:
@@ -349,10 +267,8 @@ public class ForStatementImpl extends LoopStatementImpl implements ForStatement 
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION:
-				return getCountVariableDefinition();
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE:
-				return getCountVariableReference();
+			case DblPackage.FOR_STATEMENT__STATEMENTS:
+				return getStatements();
 			case DblPackage.FOR_STATEMENT__TERMINATION:
 				return getTermination();
 			case DblPackage.FOR_STATEMENT__INCREMENT:
@@ -368,14 +284,13 @@ public class ForStatementImpl extends LoopStatementImpl implements ForStatement 
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION:
-				setCountVariableDefinition((Variable)newValue);
-				return;
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE:
-				setCountVariableReference((Assignment)newValue);
+			case DblPackage.FOR_STATEMENT__STATEMENTS:
+				getStatements().clear();
+				getStatements().addAll((Collection<? extends Statement>)newValue);
 				return;
 			case DblPackage.FOR_STATEMENT__TERMINATION:
 				setTermination((Expression)newValue);
@@ -398,11 +313,8 @@ public class ForStatementImpl extends LoopStatementImpl implements ForStatement 
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION:
-				setCountVariableDefinition((Variable)null);
-				return;
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE:
-				setCountVariableReference((Assignment)null);
+			case DblPackage.FOR_STATEMENT__STATEMENTS:
+				getStatements().clear();
 				return;
 			case DblPackage.FOR_STATEMENT__TERMINATION:
 				setTermination((Expression)null);
@@ -425,10 +337,8 @@ public class ForStatementImpl extends LoopStatementImpl implements ForStatement 
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION:
-				return countVariableDefinition != null;
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE:
-				return countVariableReference != null;
+			case DblPackage.FOR_STATEMENT__STATEMENTS:
+				return statements != null && !statements.isEmpty();
 			case DblPackage.FOR_STATEMENT__TERMINATION:
 				return termination != null;
 			case DblPackage.FOR_STATEMENT__INCREMENT:
@@ -437,6 +347,38 @@ public class ForStatementImpl extends LoopStatementImpl implements ForStatement 
 				return body != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == LocalScope.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.FOR_STATEMENT__STATEMENTS: return DblPackage.LOCAL_SCOPE__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == LocalScope.class) {
+			switch (baseFeatureID) {
+				case DblPackage.LOCAL_SCOPE__STATEMENTS: return DblPackage.FOR_STATEMENT__STATEMENTS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
 } //ForStatementImpl

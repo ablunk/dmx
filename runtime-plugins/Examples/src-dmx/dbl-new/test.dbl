@@ -2,6 +2,14 @@
 
 module test {
 
+class Y {
+	X getX() abstract;
+}
+
+class X {
+}
+
+
 void main() {
 	print "hello";
 

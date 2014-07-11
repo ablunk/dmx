@@ -190,11 +190,7 @@
         eType="#//Statement" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LocalScopeStatement" eSuperTypes="#//SimpleStatement #//LocalScope"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ForStatement" eSuperTypes="#//LoopStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="countVariableDefinition"
-        eType="#//Variable" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="countVariableReference"
-        eType="#//Assignment" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ForStatement" eSuperTypes="#//LoopStatement #//LocalScope">
     <eStructuralFeatures xsi:type="ecore:EReference" name="termination" lowerBound="1"
         eType="#//Expression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="increment" lowerBound="1"

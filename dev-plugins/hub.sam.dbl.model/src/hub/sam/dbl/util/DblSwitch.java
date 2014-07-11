@@ -456,6 +456,7 @@ public class DblSwitch<T> extends Switch<T> {
 				ForStatement forStatement = (ForStatement)theEObject;
 				T result = caseForStatement(forStatement);
 				if (result == null) result = caseLoopStatement(forStatement);
+				if (result == null) result = caseLocalScope(forStatement);
 				if (result == null) result = caseStatement(forStatement);
 				if (result == null) result = caseExtensibleElement(forStatement);
 				if (result == null) result = caseNamedElement(forStatement);

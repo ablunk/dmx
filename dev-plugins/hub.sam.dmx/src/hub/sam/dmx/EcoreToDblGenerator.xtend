@@ -1,19 +1,187 @@
 package hub.sam.dmx
 
-import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.core.runtime.IPath
-import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EcorePackage
+import java.io.Writer
+import org.eclipse.emf.ecore.ETypedElement
+import org.eclipse.emf.ecore.EStructuralFeature
 
 class EcoreToDblGenerator extends AbstractGenerator {
 	
-	new(Resource modelResource, IPath outputFolder) {
-		super(modelResource, outputFolder)
+	new(IPath outputFolder) {
+		super(outputFolder)
 	}
 	
 	override startGenerator() {
-		val pkg = modelResource.contents.head as EPackage
+		val ecore = EcorePackage.eINSTANCE;
+
+		makeFolder("resources-gen")
+		val Writer writer = beginTargetFile("resources-gen/ecore.dbl");
+
+		writer.write(
+		'''
+		module ecore {
 		
+		'''
+		)
+		ecore.EClassifiers.filter(EClass).forEach[writer.write(genEClass)]
+		writer.write('''
+		
+		}
+		''')
+
+		endTargetFile(writer)				
+	}
+	
+	def static void main(String[] args) {
+		(new EcoreToDblGenerator(null)).startGenerator
+	}
+	
+	def String genFeature(EStructuralFeature feature) {
+		val it = feature
+		'''
+		«genGetter»
+		«IF changeable»
+			«genSetter»
+		«ENDIF»
+		'''
+	}
+
+	def String genGetter(EStructuralFeature feature) {
+		val it = feature
+		genType + ' '
+		+ (if (EType.name.equals("EBoolean")) 'is' else 'get')
+		+ name.toFirstUpper + '() abstract;'
+	}
+
+	def String genSetter(EStructuralFeature feature) {
+		val it = feature
+		if (!feature.many) 'void set' + name.toFirstUpper + '(' + genType + ' value) abstract;'
+	}
+	
+	def String genEClass(EClass eClass) {
+		val it = eClass
+		if (!name.equals("EObject")) {
+			'''
+			class «name»
+			«IF ESuperTypes.empty»
+				extends EObject
+			«ELSE»
+				extends 
+				«FOR superClass : ESuperTypes SEPARATOR ','»
+					«superClass.name»
+				«ENDFOR»
+			«ENDIF»
+			{
+				bindings {
+					"java" -> "org.eclipse.emf.ecore.«name»"
+				}
 				
+				«FOR feature : EStructuralFeatures»
+					«feature.genFeature»
+				«ENDFOR»
+			}
+			'''
+		}
+		else {
+			'''
+			class Object {
+				bindings {
+					"java" -> "java.lang.Object"
+				}
+			}
+			
+			class Class {
+				bindings {
+					"java" -> "java.lang.Class"
+				}
+			}
+			
+			class Enumerator {
+				bindings {
+					"java" -> "org.eclipse.emf.common.util.Enumerator"
+				}
+			}
+			
+			class EListIterator {
+				bindings {
+					"java" -> "java.util.Iterator"
+				}
+
+				boolean hasNext() abstract;
+				EObject next() abstract;
+				void remove() abstract;
+			}
+
+			class EList {
+				bindings {
+					"java" -> "java.util.List"
+				}
+
+			boolean add(EObject e) abstract;
+			boolean add(int index, EObject e) abstract;
+			void clear() abstract;
+			boolean contains(EObject e) abstract;
+			int size() abstract;
+			EObject get(int index) abstract;
+			int indexOf(EObject e) abstract;
+			boolean isEmpty() abstract;
+			EObject remove(int index) abstract;
+			boolean remove(EObject e) abstract;
+			EObject set(int index, EObject e) abstract;
+			EObject array[] toArray() abstract;
+			EListIterator iterator() abstract;
+			}
+
+			class EObject {
+				bindings {
+					"java" -> "org.eclipse.emf.ecore.EObject"
+				}
+				EClass eClass() abstract;
+				//Resource eResource() abstract;
+				EObject eContainer() abstract;
+				EStructuralFeature eContainingFeature() abstract;
+				EReference eContainmentFeature() abstract;
+				EList eContents() abstract;
+				EList eAllContents() abstract;
+				//boolean eIsProxy() abstract;
+				//EList eCrossReferences() abstract;
+				Object eGet(EStructuralFeature feature) abstract;
+				Object eGet(EStructuralFeature feature, boolean resolve) abstract;
+				void eSet(EStructuralFeature feature, Object newValue) abstract;
+				boolean eIsSet(EStructuralFeature feature) abstract;
+				void eUnset(EStructuralFeature feature) abstract;
+				//Object eInvoke(EOperation operation, Object array[] arguments) abstract;
+			}
+			'''
+		}
+	}
+	
+	def String genType(ETypedElement typedElement) {
+		val it = typedElement
+		if (EType != null) {
+			if (many) {
+				//'''«EType.name» array[]'''
+				'EList'
+			}
+			else {
+				switch (EType.name) {
+					case 'EInt': 'int'
+					case 'EBigInteger': 'int'
+					case 'EDouble': 'double'
+					case 'EBoolean': 'boolean'
+					case 'EString': 'string'
+					case 'EJavaObject': 'Object'
+					case 'EJavaClass': 'Class'
+					case 'EEnumerator': 'Enumerator'
+					default: EType.name
+				}
+			}
+		}
+		else {
+			'void'
+		}
 	}
 	
 }

@@ -10,16 +10,22 @@ public class ModelReferenceAwareReconcilingStrategy extends ReconcilingStrategy 
 	
 	final DblTextEditor editor;
 
-	public ModelReferenceAwareReconcilingStrategy(DblTextEditor editor, ISourceViewer sourceViewer) {
+	public ModelReferenceAwareReconcilingStrategy(DblTextEditor editor, final ISourceViewer sourceViewer) {
 		super(editor, sourceViewer);
-		this.editor = editor;		
+		this.editor = editor;
 		
 		editor.addEditorStatusListener(new ITefEditorStatusListener() {
 			
 			@Override
 			public void referencedModelChanged(TextEditor editor) {
-				System.out.println("referenced model changed for editor '" + editor.getEditorInput().getName() + "' -> initiate reconcile");
-				reconcile(null);
+				System.out.println("referenced model changed for editor '" + editor.getEditorInput().getName() + "'");
+				if (sourceViewer.getDocument() != null) {
+					System.out.println(" -> initiate reconcile");
+					reconcile(null);
+				}
+				else {
+					System.out.println(" -> no reconcile (editor is closed)");
+				}
 			}
 			
 			@Override

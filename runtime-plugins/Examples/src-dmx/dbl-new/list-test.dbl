@@ -2,13 +2,23 @@ module ecore_test {
 
 class Object {
 	bindings {
-		"desmoj" -> "java.lang.Object"
+		"java" -> "java.lang.Object"
 	}
+}
+
+class Iterator {
+	bindings {
+		"java" -> "java.util.Iterator"
+	}
+	
+	boolean hasNext() abstract;
+	Object next() abstract;
+	void remove() abstract;
 }
 
 class List {
 	bindings {
-		"desmoj" -> "java.util.List"
+		"java" -> "java.util.List"
 	}
 	
 	boolean add(Object e) abstract;
@@ -23,11 +33,12 @@ class List {
 	boolean remove(Object e) abstract;
 	Object set(int index, Object e) abstract;
 	Object array[] toArray() abstract;
+	Iterator iterator() abstract;
 }
 
 class ArrayList extends List {
 	bindings {
-		"desmoj" -> "java.util.ArrayList"
+		"java" -> "java.util.ArrayList"
 	}
 }
 
@@ -38,10 +49,14 @@ void main() {
 	A a = new A;
 	ArrayList l = new ArrayList;
 	l.add(a);
-	print l.size() + "\n";
-	print l.get(0) + "\n";
-	Object array[] f = l.toArray();
-	print f[0] + "\n";	
+	l.add(a);
+	
+	Iterator lit = l.iterator();
+	while (lit.hasNext()) {
+		Object o = lit.next();
+		A la = o as A;
+		print la + "\n";
+	}	
 }
 
 }

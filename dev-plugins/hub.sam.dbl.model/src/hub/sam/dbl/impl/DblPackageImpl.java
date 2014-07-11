@@ -2099,7 +2099,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getForStatement_CountVariableDefinition() {
+	public EReference getForStatement_Termination() {
 		return (EReference)forStatementEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2108,7 +2108,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getForStatement_CountVariableReference() {
+	public EReference getForStatement_Increment() {
 		return (EReference)forStatementEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2117,26 +2117,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getForStatement_Termination() {
-		return (EReference)forStatementEClass.getEStructuralFeatures().get(2);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getForStatement_Increment() {
-		return (EReference)forStatementEClass.getEStructuralFeatures().get(3);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getForStatement_Body() {
-		return (EReference)forStatementEClass.getEStructuralFeatures().get(4);
+		return (EReference)forStatementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3703,8 +3685,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		localScopeStatementEClass = createEClass(LOCAL_SCOPE_STATEMENT);
 
 		forStatementEClass = createEClass(FOR_STATEMENT);
-		createEReference(forStatementEClass, FOR_STATEMENT__COUNT_VARIABLE_DEFINITION);
-		createEReference(forStatementEClass, FOR_STATEMENT__COUNT_VARIABLE_REFERENCE);
 		createEReference(forStatementEClass, FOR_STATEMENT__TERMINATION);
 		createEReference(forStatementEClass, FOR_STATEMENT__INCREMENT);
 		createEReference(forStatementEClass, FOR_STATEMENT__BODY);
@@ -4043,6 +4023,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		localScopeStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		localScopeStatementEClass.getESuperTypes().add(this.getLocalScope());
 		forStatementEClass.getESuperTypes().add(this.getLoopStatement());
+		forStatementEClass.getESuperTypes().add(this.getLocalScope());
 		whileStatementEClass.getESuperTypes().add(this.getLoopStatement());
 		switchStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		breakStatementEClass.getESuperTypes().add(this.getSimpleStatement());
@@ -4288,8 +4269,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(localScopeStatementEClass, LocalScopeStatement.class, "LocalScopeStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(forStatementEClass, ForStatement.class, "ForStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getForStatement_CountVariableDefinition(), this.getVariable(), null, "countVariableDefinition", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getForStatement_CountVariableReference(), this.getAssignment(), null, "countVariableReference", null, 0, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getForStatement_Termination(), this.getExpression(), null, "termination", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getForStatement_Increment(), this.getAssignment(), null, "increment", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getForStatement_Body(), this.getStatement(), null, "body", null, 1, 1, ForStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

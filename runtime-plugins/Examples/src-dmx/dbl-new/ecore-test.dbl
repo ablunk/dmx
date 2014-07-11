@@ -1,0 +1,26 @@
+#import "../ecore"
+
+module ecore_test {
+
+class EcorePackage extends EPackage {
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EcorePackage"
+	}
+	
+	static EcorePackage eINSTANCE;	
+}
+
+void main() {
+	EPackage pkg = EcorePackage.eINSTANCE;
+	print "EPackage " + pkg.getName() + "\n";
+	
+	EList classifiers = pkg.getEClassifiers();
+	EListIterator it = classifiers.iterator();
+	
+	while (it.hasNext()) {
+		EClassifier c = it.next() as EClassifier;
+		print "EClassifier " + c.getName() + "\n";
+	}
+}
+
+}

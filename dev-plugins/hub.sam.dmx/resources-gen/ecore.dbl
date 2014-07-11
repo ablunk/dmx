@@ -1,0 +1,358 @@
+module ecore {
+
+class EAttribute
+extends 
+EStructuralFeature
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EAttribute"
+	}
+	
+	boolean isID() abstract;
+	void setID(boolean value) abstract;
+	EDataType getEAttributeType() abstract;
+}
+class EAnnotation
+extends 
+EModelElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EAnnotation"
+	}
+	
+	string getSource() abstract;
+	void setSource(string value) abstract;
+	EList getDetails() abstract;
+	EModelElement getEModelElement() abstract;
+	void setEModelElement(EModelElement value) abstract;
+	EList getContents() abstract;
+	EList getReferences() abstract;
+}
+class EClass
+extends 
+EClassifier
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EClass"
+	}
+	
+	boolean isAbstract() abstract;
+	void setAbstract(boolean value) abstract;
+	boolean isInterface() abstract;
+	void setInterface(boolean value) abstract;
+	EList getESuperTypes() abstract;
+	EList getEOperations() abstract;
+	EList getEAllAttributes() abstract;
+	EList getEAllReferences() abstract;
+	EList getEReferences() abstract;
+	EList getEAttributes() abstract;
+	EList getEAllContainments() abstract;
+	EList getEAllOperations() abstract;
+	EList getEAllStructuralFeatures() abstract;
+	EList getEAllSuperTypes() abstract;
+	EAttribute getEIDAttribute() abstract;
+	EList getEStructuralFeatures() abstract;
+	EList getEGenericSuperTypes() abstract;
+	EList getEAllGenericSuperTypes() abstract;
+}
+class EClassifier
+extends 
+ENamedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EClassifier"
+	}
+	
+	string getInstanceClassName() abstract;
+	void setInstanceClassName(string value) abstract;
+	Class getInstanceClass() abstract;
+	Object getDefaultValue() abstract;
+	string getInstanceTypeName() abstract;
+	void setInstanceTypeName(string value) abstract;
+	EPackage getEPackage() abstract;
+	EList getETypeParameters() abstract;
+}
+class EDataType
+extends 
+EClassifier
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EDataType"
+	}
+	
+	boolean isSerializable() abstract;
+	void setSerializable(boolean value) abstract;
+}
+class EEnum
+extends 
+EDataType
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EEnum"
+	}
+	
+	EList getELiterals() abstract;
+}
+class EEnumLiteral
+extends 
+ENamedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EEnumLiteral"
+	}
+	
+	int getValue() abstract;
+	void setValue(int value) abstract;
+	Enumerator getInstance() abstract;
+	void setInstance(Enumerator value) abstract;
+	string getLiteral() abstract;
+	void setLiteral(string value) abstract;
+	EEnum getEEnum() abstract;
+}
+class EFactory
+extends 
+EModelElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EFactory"
+	}
+	
+	EPackage getEPackage() abstract;
+	void setEPackage(EPackage value) abstract;
+}
+class EModelElement
+extends EObject
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EModelElement"
+	}
+	
+	EList getEAnnotations() abstract;
+}
+class ENamedElement
+extends 
+EModelElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.ENamedElement"
+	}
+	
+	string getName() abstract;
+	void setName(string value) abstract;
+}
+class Object {
+	bindings {
+		"java" -> "java.lang.Object"
+	}
+}
+
+class Class {
+	bindings {
+		"java" -> "java.lang.Class"
+	}
+}
+
+class Enumerator {
+	bindings {
+		"java" -> "org.eclipse.emf.common.util.Enumerator"
+	}
+}
+
+class EListIterator {
+	bindings {
+		"java" -> "java.util.Iterator"
+	}
+
+	boolean hasNext() abstract;
+	EObject next() abstract;
+	void remove() abstract;
+}
+
+class EList {
+	bindings {
+		"java" -> "java.util.List"
+	}
+
+boolean add(EObject e) abstract;
+boolean add(int index, EObject e) abstract;
+void clear() abstract;
+boolean contains(EObject e) abstract;
+int size() abstract;
+EObject get(int index) abstract;
+int indexOf(EObject e) abstract;
+boolean isEmpty() abstract;
+EObject remove(int index) abstract;
+boolean remove(EObject e) abstract;
+EObject set(int index, EObject e) abstract;
+EObject array[] toArray() abstract;
+EListIterator iterator() abstract;
+}
+
+class EObject {
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EObject"
+	}
+	EClass eClass() abstract;
+	//Resource eResource() abstract;
+	EObject eContainer() abstract;
+	EStructuralFeature eContainingFeature() abstract;
+	EReference eContainmentFeature() abstract;
+	EList eContents() abstract;
+	EList eAllContents() abstract;
+	//boolean eIsProxy() abstract;
+	//EList eCrossReferences() abstract;
+	Object eGet(EStructuralFeature feature) abstract;
+	Object eGet(EStructuralFeature feature, boolean resolve) abstract;
+	void eSet(EStructuralFeature feature, Object newValue) abstract;
+	boolean eIsSet(EStructuralFeature feature) abstract;
+	void eUnset(EStructuralFeature feature) abstract;
+	//Object eInvoke(EOperation operation, Object array[] arguments) abstract;
+}
+class EOperation
+extends 
+ETypedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EOperation"
+	}
+	
+	EClass getEContainingClass() abstract;
+	EList getETypeParameters() abstract;
+	EList getEParameters() abstract;
+	EList getEExceptions() abstract;
+	EList getEGenericExceptions() abstract;
+}
+class EPackage
+extends 
+ENamedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EPackage"
+	}
+	
+	string getNsURI() abstract;
+	void setNsURI(string value) abstract;
+	string getNsPrefix() abstract;
+	void setNsPrefix(string value) abstract;
+	EFactory getEFactoryInstance() abstract;
+	void setEFactoryInstance(EFactory value) abstract;
+	EList getEClassifiers() abstract;
+	EList getESubpackages() abstract;
+	EPackage getESuperPackage() abstract;
+}
+class EParameter
+extends 
+ETypedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EParameter"
+	}
+	
+	EOperation getEOperation() abstract;
+}
+class EReference
+extends 
+EStructuralFeature
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EReference"
+	}
+	
+	boolean isContainment() abstract;
+	void setContainment(boolean value) abstract;
+	boolean isContainer() abstract;
+	boolean isResolveProxies() abstract;
+	void setResolveProxies(boolean value) abstract;
+	EReference getEOpposite() abstract;
+	void setEOpposite(EReference value) abstract;
+	EClass getEReferenceType() abstract;
+	EList getEKeys() abstract;
+}
+class EStructuralFeature
+extends 
+ETypedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EStructuralFeature"
+	}
+	
+	boolean isChangeable() abstract;
+	void setChangeable(boolean value) abstract;
+	boolean isVolatile() abstract;
+	void setVolatile(boolean value) abstract;
+	boolean isTransient() abstract;
+	void setTransient(boolean value) abstract;
+	string getDefaultValueLiteral() abstract;
+	void setDefaultValueLiteral(string value) abstract;
+	Object getDefaultValue() abstract;
+	boolean isUnsettable() abstract;
+	void setUnsettable(boolean value) abstract;
+	boolean isDerived() abstract;
+	void setDerived(boolean value) abstract;
+	EClass getEContainingClass() abstract;
+}
+class ETypedElement
+extends 
+ENamedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.ETypedElement"
+	}
+	
+	boolean isOrdered() abstract;
+	void setOrdered(boolean value) abstract;
+	boolean isUnique() abstract;
+	void setUnique(boolean value) abstract;
+	int getLowerBound() abstract;
+	void setLowerBound(int value) abstract;
+	int getUpperBound() abstract;
+	void setUpperBound(int value) abstract;
+	boolean isMany() abstract;
+	boolean isRequired() abstract;
+	EClassifier getEType() abstract;
+	void setEType(EClassifier value) abstract;
+	EGenericType getEGenericType() abstract;
+	void setEGenericType(EGenericType value) abstract;
+}
+class EStringToStringMapEntry
+extends EObject
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EStringToStringMapEntry"
+	}
+	
+	string getKey() abstract;
+	void setKey(string value) abstract;
+	string getValue() abstract;
+	void setValue(string value) abstract;
+}
+class EGenericType
+extends EObject
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EGenericType"
+	}
+	
+	EGenericType getEUpperBound() abstract;
+	void setEUpperBound(EGenericType value) abstract;
+	EList getETypeArguments() abstract;
+	EClassifier getERawType() abstract;
+	EGenericType getELowerBound() abstract;
+	void setELowerBound(EGenericType value) abstract;
+	ETypeParameter getETypeParameter() abstract;
+	void setETypeParameter(ETypeParameter value) abstract;
+	EClassifier getEClassifier() abstract;
+	void setEClassifier(EClassifier value) abstract;
+}
+class ETypeParameter
+extends 
+ENamedElement
+{
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.ETypeParameter"
+	}
+	
+	EList getEBounds() abstract;
+}
+
+}

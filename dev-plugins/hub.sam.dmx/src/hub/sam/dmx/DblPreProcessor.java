@@ -119,6 +119,13 @@ public class DblPreProcessor {
 		}
 		
 		@Override
+		public void partClosed(IWorkbenchPartReference partRef) {
+			if (!partRef.getPartName().equals(editor.getPartName())) {
+				System.out.println("editor '"+ editor.getPartName() + "' is notified that " + "editor '" + partRef.getPartName() + "' is closed");
+			}			
+		}
+		
+		@Override
 		public void partVisible(IWorkbenchPartReference partRef) {}
 
 		@Override
@@ -129,9 +136,6 @@ public class DblPreProcessor {
 		
 		@Override
 		public void partDeactivated(IWorkbenchPartReference partRef) {}
-		
-		@Override
-		public void partClosed(IWorkbenchPartReference partRef) {}
 		
 		@Override
 		public void partBroughtToTop(IWorkbenchPartReference partRef) {}

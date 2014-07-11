@@ -90,6 +90,7 @@ public class XtendRunAction extends Action {
 	public static final String TEMP_FOLDER_NAME = "temp";
 	
 	private String targetSimLib;
+	private String targetLanguage;
 	
 	public XtendRunAction(DblTextEditor editor) {
 		this.editor = editor;
@@ -794,6 +795,14 @@ public class XtendRunAction extends Action {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public String getTargetLanguage() {
+		return targetLanguage;
+	}
+
+	public void setTargetLanguage(String targetLanguage) {
+		this.targetLanguage = targetLanguage;
 	}
 	
 }

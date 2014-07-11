@@ -52,11 +52,18 @@ public class DblModelCreationContext extends ModelCreatingContext {
 			if (iterator.hasNext()) {
 				return true;
 			}
-			else if (!importsLeft.isEmpty()) {
-				Import imprt = importsLeft.iterator().next();
-				iterator = imprt.getModel().eAllContents();
-				importsLeft.remove(imprt);
-				return iterator.hasNext();
+			else {
+				while (!importsLeft.isEmpty()) {
+					Import imprt = importsLeft.iterator().next();
+					importsLeft.remove(imprt);
+					Model modelToImport = imprt.getModel();
+					if (modelToImport == null)
+						continue;
+					else {
+						iterator = imprt.getModel().eAllContents();
+						return iterator.hasNext();
+					}
+				}
 			}
 			return false;
 		}

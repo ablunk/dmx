@@ -25,4 +25,11 @@
 		<nature>org.eclipse.pde.PluginNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>resources-gen</name>
+			<type>2</type>
+			<location>/Users/blunk/Projekte/Entwicklungen/dmx/git/dev-plugins/hub.sam.dmx/resources-gen</location>
+		</link>
+	</linkedResources>
 </projectDescription>

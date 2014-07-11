@@ -231,6 +231,8 @@ class ExtensionsToJavaGenerator extends BasicDblToJavaGenerator {
 	
 class BasicDblToJavaGenerator extends AbstractGenerator {
 	
+	protected val Resource modelResource
+
 	public val javaPackagePrefix = "hub.sam.dmx.javasim.gen"
 	public val javaPackageFolderPrefix = javaPackagePrefix.replaceAll("\\.", "/")
 	var IPath javaPackageFolder;
@@ -238,7 +240,8 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	protected val javaClass_for_ModuleLevelElements = "Module_"
 	
 	new(Resource modelResource, IPath outputFolder) {
-		super(modelResource, outputFolder)
+		super(outputFolder)
+		this.modelResource = modelResource;
 	}
 	
 	def String genActiveClass(Clazz clazz) {
@@ -267,6 +270,10 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		''
 	}
 	
+	def String getLanguageName() {
+		'java'
+	}
+
 	// forward generation of other elements to more specific generators
 	def String forwardGen(EObject eObj) {
 		'<! unknown element ' + eObj.eClass.name ' !>'
@@ -312,8 +319,22 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	def dispatch String javaNameQualified(Clazz element) {
 		val it = element
-		val owner = element.eContainer as Module;
-		owner.javaNameQualified_for_Module(false) + "." + name
+		if (bindings.empty) {
+			val owner = element.eContainer as Module;
+			owner.javaNameQualified_for_Module(false) + "." + name
+		}
+		else javaNameBound
+	}
+	
+	def String javaNameBound(Clazz clazz) {
+		val it = clazz
+		var targetType = bindings.findFirst[targetLanguage == simLibName]?.targetType
+		if (targetType != null) targetType
+		else {
+			targetType = bindings.findFirst[targetLanguage == languageName]?.targetType
+			if (targetType != null) targetType
+			else '<!- type binding for library ' + simLibName + ' is missing for type ' + clazz.name + ' !>'
+		}		
 	}
 
 	def dispatch String javaNameQualified(Procedure element) {
@@ -513,11 +534,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		val it = stm
 		'''
 		for (
-			«IF countVariableDefinition != null»
-				«countVariableDefinition.gen»
-			«ELSEIF countVariableReference != null»
-				«countVariableReference.genAssignment(true)»
-			«ENDIF»
+			«statements.head.gen»
 
 			«termination.genExpr»
 			;
@@ -832,15 +849,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	}
 	
 	def dispatch String genType(Classifier type) {
-		val it = type
-		if (bindings.empty) {
-			javaNameQualified
-		}
-		else {
-			val targetType = bindings.findFirst[targetLanguage == simLibName].targetType
-			if (targetType != null) targetType
-			else '<!- type binding for library ' + simLibName + ' is missing for type ' + type.name + ' !>'
-		}
+		type.javaNameQualified
 	}
 
 	def dispatch String genType(Type type) {

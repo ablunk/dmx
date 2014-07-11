@@ -397,13 +397,13 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			}
 			else if (identifier instanceof Variable) {
 				// TODO extract and include variable resolution from above here
-				Statement stm = getContainerObjectOfType(context, Statement.class);
-				addIdsForLocalVariables(stm, namedElementId, allIds);
+				LocalScope localScope = getContainerObjectOfType(context, LocalScope.class);
+				addIdsForLocalVariables(localScope, namedElementId, allIds);
 			}
 			else if (context instanceof Statement && identifier instanceof Variable) {
 				// TODO just testing here
-				Statement stm = (Statement) context;
-				addIdsForLocalVariables(stm, namedElementId, allIds);
+				LocalScope localScope = (LocalScope) context;
+				addIdsForLocalVariables(localScope, namedElementId, allIds);
 			}
 			else if (namedElementId.eClass().getName().equals("Vertex")
 					|| namedElementId.eClass().getName().equals("L2")
@@ -708,50 +708,32 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 //	}
 
 	private boolean addIdsForLocalVariables(Expression expr, NamedElement eObjectId, Collection allIds) {
-		Statement stm = getContainerObjectOfType(expr, Statement.class);
-		if (stm != null)
-			return addIdsForLocalVariables(stm, eObjectId, allIds);
+		LocalScope localScope = getContainerObjectOfType(expr, LocalScope.class);
+		if (localScope != null)
+			return addIdsForLocalVariables(localScope, eObjectId, allIds);
 		else
 			return false;
 	}
 	
-	private boolean addIdsForLocalVariables(Statement contextStatement, NamedElement eObjectId, Collection allIds) {
+	private boolean addIdsForLocalVariables(LocalScope contextScope, NamedElement eObjectId, Collection allIds) {
 		boolean idsAdded = false;
 		
-		LocalScope outerLocalScope = getContainerObjectOfType(contextStatement, LocalScope.class);		
-		if (outerLocalScope != null) {
-			for (Statement statement: outerLocalScope.getStatements()) {
-//				if (statement == contextStatement) {
-//					break;
-//				}
+		if (contextScope != null) {
+			for (Statement statement: contextScope.getStatements()) {
 				if (statement instanceof Variable) {
 					Variable localVariable = (Variable) statement;
 					idsAdded |= addId(eObjectId, localVariable, allIds);
 				}
-				else if (statement instanceof ForStatement) {
-					ForStatement forStm = (ForStatement) statement;
-					if (forStm.getCountVariableDefinition() != null) {
-						idsAdded |= addId(eObjectId, forStm.getCountVariableDefinition(), allIds);
-					}
+
+				if (statement == contextScope) {
+					// the identifier is used in a part of the context statement. therefore, do not look beyond the context.
+					break;
 				}
 			}
 	
-			EObject codeBlockContainer = outerLocalScope.eContainer();
-			if (codeBlockContainer instanceof ForStatement) {
-				ForStatement forStm = (ForStatement) codeBlockContainer;
-				if (forStm.getCountVariableDefinition() != null) {
-					idsAdded |= addId(eObjectId, forStm.getCountVariableDefinition(), allIds);
-				}
-				else if (forStm.getCountVariableReference() != null) {
-					idsAdded |= addIdsForLocalVariables(forStm.getCountVariableReference(), eObjectId, allIds);
-				}
-				idsAdded |= addIdsForLocalVariables(forStm, eObjectId, allIds);
-			}
-			else {
-				Statement parentStatement = getContainerObjectOfType(outerLocalScope, Statement.class);
-				if (parentStatement != null) {
-					idsAdded |= addIdsForLocalVariables(parentStatement, eObjectId, allIds);
-				}
+			LocalScope parentScope = getContainerObjectOfType(contextScope.eContainer(), LocalScope.class);
+			if (parentScope != null) {
+				idsAdded |= addIdsForLocalVariables(parentScope, eObjectId, allIds);
 			}
 		}
 		
@@ -834,8 +816,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		boolean idsAdded = false;
 
 		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
-			if (!idsAdded) {
-				final Clazz superClazz = superClassSpec.getClazz();
+			final Clazz superClazz = superClassSpec.getClazz();
+			if (!idsAdded && superClazz != null) {
 				for (Procedure method: superClazz.getMethods()) {
 					if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
 						idsAdded |= addId(eObjectId, method, allIds);
@@ -852,8 +834,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		boolean idsAdded = false;
 
 		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
-			if (!idsAdded) {
-				final Clazz superClazz = superClassSpec.getClazz();
+			final Clazz superClazz = superClassSpec.getClazz();
+			if (!idsAdded && superClazz != null) {
 				for (Procedure method: getClassMethods(superClazz.getMethods())) {
 					if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
 						idsAdded |= addId(eObjectId, method, allIds);
@@ -870,8 +852,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		boolean idsAdded = false;
 		
 		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
-			if (!idsAdded) {
-				final Clazz superClazz = superClassSpec.getClazz();
+			final Clazz superClazz = superClassSpec.getClazz();
+			if (!idsAdded && superClazz != null) {
 				idsAdded |= addIds(eObjectId, superClazz.getAttributes(), allIds);
 				idsAdded |= addIdsForInheritedClassAttributes(superClazz, eObjectId, allIds);
 
@@ -887,8 +869,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		boolean idsAdded = false;
 		
 		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
-			if (!idsAdded) {
-				final Clazz superClazz = superClassSpec.getClazz();
+			final Clazz superClazz = superClassSpec.getClazz();
+			if (!idsAdded && superClazz != null) {
 				idsAdded |= addIds(eObjectId, getClassAttributes(superClazz.getAttributes()), allIds);
 				idsAdded |= addIdsForInheritedClassAttributes(superClazz, eObjectId, allIds);
 

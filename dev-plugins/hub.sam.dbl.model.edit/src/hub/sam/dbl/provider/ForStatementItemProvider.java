@@ -74,8 +74,7 @@ public class ForStatementItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION);
-			childrenFeatures.add(DblPackage.Literals.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE);
+			childrenFeatures.add(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS);
 			childrenFeatures.add(DblPackage.Literals.FOR_STATEMENT__TERMINATION);
 			childrenFeatures.add(DblPackage.Literals.FOR_STATEMENT__INCREMENT);
 			childrenFeatures.add(DblPackage.Literals.FOR_STATEMENT__BODY);
@@ -133,8 +132,7 @@ public class ForStatementItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ForStatement.class)) {
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION:
-			case DblPackage.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE:
+			case DblPackage.FOR_STATEMENT__STATEMENTS:
 			case DblPackage.FOR_STATEMENT__TERMINATION:
 			case DblPackage.FOR_STATEMENT__INCREMENT:
 			case DblPackage.FOR_STATEMENT__BODY:
@@ -157,13 +155,158 @@ public class ForStatementItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createVariable()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE,
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createLoopStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createSimpleStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createAssignment()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createProcedureCall()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createReturn()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createWaitUntil()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createTerminate()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createWait()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createReactivate()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createActivateObject()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createAdvance()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createPrint()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createIfStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createLocalScopeStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createForStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createWhileStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createSwitchStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createBreakStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createContinueStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createMapping()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createTargetStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createMappingStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createSetGenContextStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createSaveGenStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createResumeGenStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createExpandStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createTestStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -518,9 +661,8 @@ public class ForStatementItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.FOR_STATEMENT__COUNT_VARIABLE_DEFINITION ||
+			childFeature == DblPackage.Literals.LOCAL_SCOPE__STATEMENTS ||
 			childFeature == DblPackage.Literals.FOR_STATEMENT__BODY ||
-			childFeature == DblPackage.Literals.FOR_STATEMENT__COUNT_VARIABLE_REFERENCE ||
 			childFeature == DblPackage.Literals.FOR_STATEMENT__INCREMENT;
 
 		if (qualify) {

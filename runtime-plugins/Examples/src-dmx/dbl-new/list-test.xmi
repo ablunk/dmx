@@ -2,10 +2,28 @@
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="ecore_test">
     <classifiers xsi:type="dbl:Clazz" name="Object">
-      <bindings targetLanguage="desmoj" targetType="java.lang."/>
+      <bindings targetType="java.lang.Object">
+        <targetLanguage>java</targetLanguage>
+      </bindings>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Iterator">
+      <bindings targetType="java.util.Iterator">
+        <targetLanguage>java</targetLanguage>
+      </bindings>
+      <methods name="hasNext" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="next" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+      </methods>
+      <methods name="remove" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="List">
-      <bindings targetLanguage="desmoj" targetType="java.util.List"/>
+      <bindings targetType="java.util.List">
+        <targetLanguage>java</targetLanguage>
+      </bindings>
       <methods name="add" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
@@ -73,70 +91,81 @@
         <typeArrayDimensions/>
         <classifierType referencedElement="//@modules.0/@classifiers.0"/>
       </methods>
+      <methods name="iterator" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classifiers.1"/>
+      </methods>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ArrayList">
-      <bindings targetLanguage="desmoj" targetType="java.util.ArrayList"/>
-      <superClasses clazz="//@modules.0/@classifiers.1"/>
+      <bindings targetType="java.util.ArrayList">
+        <targetLanguage>java</targetLanguage>
+      </bindings>
+      <superClasses clazz="//@modules.0/@classifiers.2"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="A"/>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="a">
+        <classifierType referencedElement="//@modules.0/@classifiers.4"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classifiers.4"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="l">
         <classifierType referencedElement="//@modules.0/@classifiers.3"/>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType referencedElement="//@modules.0/@classifiers.3"/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:Variable" name="l">
-        <classifierType referencedElement="//@modules.0/@classifiers.2"/>
-        <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.2"/>
-        </initialValue>
-      </statements>
       <statements xsi:type="dbl:ProcedureCall">
-        <callIdExpr referencedElement="//@modules.0/@classifiers.1/@methods.0">
+        <callIdExpr referencedElement="//@modules.0/@classifiers.2/@methods.0">
           <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
           <callPart>
             <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
           </callPart>
         </callIdExpr>
       </statements>
-      <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:Plus">
-          <op1 xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
-            <predefinedId xsi:type="dbl:SizeOfArray"/>
-            <callPart/>
-          </op1>
-          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
-        </outputs>
+      <statements xsi:type="dbl:ProcedureCall">
+        <callIdExpr referencedElement="//@modules.0/@classifiers.2/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          </callPart>
+        </callIdExpr>
       </statements>
-      <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:Plus">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.5">
-            <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
-            <callPart>
-              <callArguments xsi:type="dbl:IntLiteral"/>
-            </callPart>
-          </op1>
-          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
-        </outputs>
-      </statements>
-      <statements xsi:type="dbl:Variable" name="f">
-        <typeArrayDimensions/>
-        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
-        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.11">
+      <statements xsi:type="dbl:Variable" name="lit">
+        <classifierType referencedElement="//@modules.0/@classifiers.1"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@methods.12">
           <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.1"/>
           <callPart/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:Plus">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.5">
-            <arrayIndex xsi:type="dbl:IntLiteral"/>
-          </op1>
-          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
-        </outputs>
+      <statements xsi:type="dbl:WhileStatement">
+        <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.4"/>
+          <callPart/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Variable" name="o">
+            <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+            <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.1">
+              <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.4"/>
+              <callPart/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Variable" name="la">
+            <classifierType referencedElement="//@modules.0/@classifiers.4"/>
+            <initialValue xsi:type="dbl:Cast">
+              <classifierType referencedElement="//@modules.0/@classifiers.4"/>
+              <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.5/@body/@statements.0"/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.5/@body/@statements.1"/>
+              <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+            </outputs>
+          </statements>
+        </body>
       </statements>
     </procedures>
   </modules>

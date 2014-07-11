@@ -214,8 +214,10 @@ syntax(Model) "resources/dbl.ecore" {
 			Assignment:composite(increment)
 		")";
 		
-	VariableDefOrReference -> Variable:composite(countVariableDefinition);
-	VariableDefOrReference -> Assignment:composite(countVariableReference);
+	//VariableDefOrReference -> Variable:composite(countVariableDefinition);
+	//VariableDefOrReference -> Assignment:composite(countVariableReference);
+	VariableDefOrReference -> Variable:composite(statements);
+	VariableDefOrReference -> Assignment:composite(statements);
 
 	Expression -> L9Expr;
 	

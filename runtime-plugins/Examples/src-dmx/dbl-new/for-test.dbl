@@ -1,0 +1,10 @@
+module forTest {
+
+void main() {
+	int j=4;
+	for (int i=0; i<j; i=i+1) {
+		print i+j;
+	}
+}
+
+}

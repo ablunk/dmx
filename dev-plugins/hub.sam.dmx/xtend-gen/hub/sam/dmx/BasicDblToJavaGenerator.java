@@ -95,6 +95,8 @@ import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 @SuppressWarnings("all")
 public class BasicDblToJavaGenerator extends AbstractGenerator {
+  protected final Resource modelResource;
+  
   public final String javaPackagePrefix = "hub.sam.dmx.javasim.gen";
   
   public final String javaPackageFolderPrefix = new Function0<String>() {
@@ -109,7 +111,8 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   protected final String javaClass_for_ModuleLevelElements = "Module_";
   
   public BasicDblToJavaGenerator(final Resource modelResource, final IPath outputFolder) {
-    super(modelResource, outputFolder);
+    super(outputFolder);
+    this.modelResource = modelResource;
   }
   
   public String genActiveClass(final Clazz clazz) {
@@ -162,6 +165,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   
   public String getSimLibName() {
     return "";
+  }
+  
+  public String getLanguageName() {
+    return "java";
   }
   
   public String forwardGen(final EObject eObj) {
@@ -256,13 +263,89 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     String _xblockexpression = null;
     {
       final Clazz it = element;
-      EObject _eContainer = element.eContainer();
-      final Module owner = ((Module) _eContainer);
-      String _javaNameQualified_for_Module = this.javaNameQualified_for_Module(owner, false);
-      String _plus = (_javaNameQualified_for_Module + ".");
-      String _name = it.getName();
-      String _plus_1 = (_plus + _name);
-      _xblockexpression = (_plus_1);
+      String _xifexpression = null;
+      EList<NativeBinding> _bindings = it.getBindings();
+      boolean _isEmpty = _bindings.isEmpty();
+      if (_isEmpty) {
+        String _xblockexpression_1 = null;
+        {
+          EObject _eContainer = element.eContainer();
+          final Module owner = ((Module) _eContainer);
+          String _javaNameQualified_for_Module = this.javaNameQualified_for_Module(owner, false);
+          String _plus = (_javaNameQualified_for_Module + ".");
+          String _name = it.getName();
+          String _plus_1 = (_plus + _name);
+          _xblockexpression_1 = (_plus_1);
+        }
+        _xifexpression = _xblockexpression_1;
+      } else {
+        String _javaNameBound = this.javaNameBound(it);
+        _xifexpression = _javaNameBound;
+      }
+      _xblockexpression = (_xifexpression);
+    }
+    return _xblockexpression;
+  }
+  
+  public String javaNameBound(final Clazz clazz) {
+    String _xblockexpression = null;
+    {
+      final Clazz it = clazz;
+      EList<NativeBinding> _bindings = it.getBindings();
+      final Function1<NativeBinding,Boolean> _function = new Function1<NativeBinding,Boolean>() {
+        public Boolean apply(final NativeBinding it) {
+          String _targetLanguage = it.getTargetLanguage();
+          String _simLibName = BasicDblToJavaGenerator.this.getSimLibName();
+          boolean _equals = Objects.equal(_targetLanguage, _simLibName);
+          return Boolean.valueOf(_equals);
+        }
+      };
+      NativeBinding _findFirst = IterableExtensions.<NativeBinding>findFirst(_bindings, _function);
+      String _targetType = null;
+      if (_findFirst!=null) {
+        _targetType=_findFirst.getTargetType();
+      }
+      String targetType = _targetType;
+      String _xifexpression = null;
+      boolean _notEquals = (!Objects.equal(targetType, null));
+      if (_notEquals) {
+        _xifexpression = targetType;
+      } else {
+        String _xblockexpression_1 = null;
+        {
+          EList<NativeBinding> _bindings_1 = it.getBindings();
+          final Function1<NativeBinding,Boolean> _function_1 = new Function1<NativeBinding,Boolean>() {
+            public Boolean apply(final NativeBinding it) {
+              String _targetLanguage = it.getTargetLanguage();
+              String _languageName = BasicDblToJavaGenerator.this.getLanguageName();
+              boolean _equals = Objects.equal(_targetLanguage, _languageName);
+              return Boolean.valueOf(_equals);
+            }
+          };
+          NativeBinding _findFirst_1 = IterableExtensions.<NativeBinding>findFirst(_bindings_1, _function_1);
+          String _targetType_1 = null;
+          if (_findFirst_1!=null) {
+            _targetType_1=_findFirst_1.getTargetType();
+          }
+          targetType = _targetType_1;
+          String _xifexpression_1 = null;
+          boolean _notEquals_1 = (!Objects.equal(targetType, null));
+          if (_notEquals_1) {
+            _xifexpression_1 = targetType;
+          } else {
+            String _simLibName = this.getSimLibName();
+            String _plus = ("<!- type binding for library " + _simLibName);
+            String _plus_1 = (_plus + " is missing for type ");
+            String _name = clazz.getName();
+            String _plus_2 = (_plus_1 + _name);
+            String _plus_3 = (_plus_2 + " !>");
+            _xifexpression_1 = _plus_3;
+          }
+          _xblockexpression_1 = (_xifexpression_1);
+        }
+        _xifexpression = _xblockexpression_1;
+      }
+      _xblockexpression = (_xifexpression);
     }
     return _xblockexpression;
   }
@@ -707,27 +790,12 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("for (");
       _builder.newLine();
-      {
-        Variable _countVariableDefinition = it.getCountVariableDefinition();
-        boolean _notEquals = (!Objects.equal(_countVariableDefinition, null));
-        if (_notEquals) {
-          _builder.append("\t");
-          Variable _countVariableDefinition_1 = it.getCountVariableDefinition();
-          String _gen = this.gen(_countVariableDefinition_1);
-          _builder.append(_gen, "	");
-          _builder.newLineIfNotEmpty();
-        } else {
-          Assignment _countVariableReference = it.getCountVariableReference();
-          boolean _notEquals_1 = (!Objects.equal(_countVariableReference, null));
-          if (_notEquals_1) {
-            _builder.append("\t");
-            Assignment _countVariableReference_1 = it.getCountVariableReference();
-            String _genAssignment = this.genAssignment(_countVariableReference_1, true);
-            _builder.append(_genAssignment, "	");
-            _builder.newLineIfNotEmpty();
-          }
-        }
-      }
+      _builder.append("\t");
+      EList<Statement> _statements = it.getStatements();
+      Statement _head = IterableExtensions.<Statement>head(_statements);
+      String _gen = this.gen(_head);
+      _builder.append(_gen, "	");
+      _builder.newLineIfNotEmpty();
       _builder.newLine();
       _builder.append("\t");
       Expression _termination = it.getTermination();
@@ -739,8 +807,8 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       _builder.newLine();
       _builder.append("\t");
       Assignment _increment = it.getIncrement();
-      String _genAssignment_1 = this.genAssignment(_increment, false);
-      _builder.append(_genAssignment_1, "	");
+      String _genAssignment = this.genAssignment(_increment, false);
+      _builder.append(_genAssignment, "	");
       _builder.newLineIfNotEmpty();
       _builder.append(")");
       _builder.newLine();
@@ -1353,49 +1421,8 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   protected String _genType(final Classifier type) {
-    String _xblockexpression = null;
-    {
-      final Classifier it = type;
-      String _xifexpression = null;
-      EList<NativeBinding> _bindings = it.getBindings();
-      boolean _isEmpty = _bindings.isEmpty();
-      if (_isEmpty) {
-        String _javaNameQualified = this.javaNameQualified(it);
-        _xifexpression = _javaNameQualified;
-      } else {
-        String _xblockexpression_1 = null;
-        {
-          EList<NativeBinding> _bindings_1 = it.getBindings();
-          final Function1<NativeBinding,Boolean> _function = new Function1<NativeBinding,Boolean>() {
-            public Boolean apply(final NativeBinding it) {
-              String _targetLanguage = it.getTargetLanguage();
-              String _simLibName = BasicDblToJavaGenerator.this.getSimLibName();
-              boolean _equals = Objects.equal(_targetLanguage, _simLibName);
-              return Boolean.valueOf(_equals);
-            }
-          };
-          NativeBinding _findFirst = IterableExtensions.<NativeBinding>findFirst(_bindings_1, _function);
-          final String targetType = _findFirst.getTargetType();
-          String _xifexpression_1 = null;
-          boolean _notEquals = (!Objects.equal(targetType, null));
-          if (_notEquals) {
-            _xifexpression_1 = targetType;
-          } else {
-            String _simLibName = this.getSimLibName();
-            String _plus = ("<!- type binding for library " + _simLibName);
-            String _plus_1 = (_plus + " is missing for type ");
-            String _name = type.getName();
-            String _plus_2 = (_plus_1 + _name);
-            String _plus_3 = (_plus_2 + " !>");
-            _xifexpression_1 = _plus_3;
-          }
-          _xblockexpression_1 = (_xifexpression_1);
-        }
-        _xifexpression = _xblockexpression_1;
-      }
-      _xblockexpression = (_xifexpression);
-    }
-    return _xblockexpression;
+    String _javaNameQualified = this.javaNameQualified(type);
+    return _javaNameQualified;
   }
   
   protected String _genType(final Type type) {

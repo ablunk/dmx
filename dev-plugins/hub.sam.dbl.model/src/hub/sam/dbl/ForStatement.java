@@ -11,8 +11,6 @@ package hub.sam.dbl;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link hub.sam.dbl.ForStatement#getCountVariableDefinition <em>Count Variable Definition</em>}</li>
- *   <li>{@link hub.sam.dbl.ForStatement#getCountVariableReference <em>Count Variable Reference</em>}</li>
  *   <li>{@link hub.sam.dbl.ForStatement#getTermination <em>Termination</em>}</li>
  *   <li>{@link hub.sam.dbl.ForStatement#getIncrement <em>Increment</em>}</li>
  *   <li>{@link hub.sam.dbl.ForStatement#getBody <em>Body</em>}</li>
@@ -23,59 +21,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface ForStatement extends LoopStatement {
-	/**
-	 * Returns the value of the '<em><b>Count Variable Definition</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Count Variable Definition</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Count Variable Definition</em>' containment reference.
-	 * @see #setCountVariableDefinition(Variable)
-	 * @see hub.sam.dbl.DblPackage#getForStatement_CountVariableDefinition()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Variable getCountVariableDefinition();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.ForStatement#getCountVariableDefinition <em>Count Variable Definition</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Count Variable Definition</em>' containment reference.
-	 * @see #getCountVariableDefinition()
-	 * @generated
-	 */
-	void setCountVariableDefinition(Variable value);
-
-	/**
-	 * Returns the value of the '<em><b>Count Variable Reference</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Count Variable Reference</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Count Variable Reference</em>' containment reference.
-	 * @see #setCountVariableReference(Assignment)
-	 * @see hub.sam.dbl.DblPackage#getForStatement_CountVariableReference()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Assignment getCountVariableReference();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.ForStatement#getCountVariableReference <em>Count Variable Reference</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Count Variable Reference</em>' containment reference.
-	 * @see #getCountVariableReference()
-	 * @generated
-	 */
-	void setCountVariableReference(Assignment value);
-
+public interface ForStatement extends LoopStatement, LocalScope {
 	/**
 	 * Returns the value of the '<em><b>Termination</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
