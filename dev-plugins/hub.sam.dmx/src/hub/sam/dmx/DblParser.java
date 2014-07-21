@@ -1,6 +1,7 @@
 package hub.sam.dmx;
 
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Model;
 import hub.sam.dbl.provider.DblItemProviderAdapterFactory;
 import hub.sam.tef.modelcreating.HeadlessEclipseParser;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
@@ -11,7 +12,6 @@ import java.util.Collection;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.osgi.framework.Bundle;
 
@@ -51,19 +51,19 @@ public class DblParser extends HeadlessEclipseParser {
 		return new DblSemanticsProvider(new IPreProcessedDocument() {
 			
 			@Override
-			public IPath getLocation() {
-				return inputLocation;
+			public IPath getPath() {
+				return inputPath;
 			}
-			
+
 			@Override
-			public Collection<Resource> getImportedResources() {
-				return preProcessor.getImportedResources();
+			public Collection<IModelContainer> getImportsModels() {
+				return preProcessor.getImportedModels();
 			}
-			
+
 			@Override
-			public Resource getCurrentModel() {
+			public Model getModel() {
 				if (getLastModelCreationContext() != null) {
-					return getLastModelCreationContext().getResource();
+					return (Model) getLastModelCreationContext().getResource().getContents().get(0);
 				}
 				else {
 					return null;
@@ -75,8 +75,8 @@ public class DblParser extends HeadlessEclipseParser {
 	private DblPreProcessor preProcessor = new DblPreProcessor(null);
 
 	@Override
-	protected void preProcess(String inputText, IPath inputLocation) {
-		preProcessor.preProcess(inputText, inputLocation);
+	protected void preProcess(String inputText, IPath inputPath) {
+		preProcessor.preProcess(inputText, inputPath);
 	}
 
 }

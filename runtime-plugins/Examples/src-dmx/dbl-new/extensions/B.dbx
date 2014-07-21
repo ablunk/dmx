@@ -1,0 +1,13 @@
+#import "C"
+
+module B {
+
+class B {}
+
+void mb() {
+	B b;
+	C c;
+	s11;
+}
+
+}

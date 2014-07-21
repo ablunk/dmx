@@ -7,9 +7,7 @@ import hub.sam.tef.editor.text.TextEditor;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,9 +30,9 @@ import org.eclipse.ui.part.FileEditorInput;
 public class DblPreProcessor {
 	
 	private final DblTextEditor editor;
-	private ResourceSet resourceSet = new ResourceSetImpl();
-	private Map<String, Resource> fileImportsSelfLoaded = new HashMap<String, Resource>();
-	private Map<String, DblTextEditor> fileImportsInActiveEditors = new HashMap<String, DblTextEditor>();
+	private static ResourceSet resourceSet = new ResourceSetImpl();
+	private Map<String, IModelContainer> allImports = new HashMap<String, IModelContainer>();
+	private Map<String, DblTextEditor> importsOpenedInActiveEditors = new HashMap<String, DblTextEditor>();
 	
 	/**
 	 * 
@@ -49,7 +47,7 @@ public class DblPreProcessor {
 	    return URI.createPlatformResourceURI(projectFile.getFullPath().toString(), true);
 	}
 	
-	private class BackgroundEditorListener implements ITefEditorStatusListener {
+	protected class ImportsEditorListener implements ITefEditorStatusListener {
 		
 		@Override
 		public void rccSyntaxChanged(TextEditor editor) {
@@ -72,11 +70,14 @@ public class DblPreProcessor {
 					// update imports
 					Model model = (Model) editor.getCurrentModel().getContents().get(0);
 					for (Import imprt: model.getImports()) {
-						if (imprt.getFile().concat(".dbl").equals(changedEditor.getEditorInput().getName())) {
-							imprt.setModel((Model) editor.getCurrentModel().getContents().get(0));
-
-							// initiate reconcile
-							editor.fireReferencedModelChanged();
+						String fileName = imprt.getFile();
+						if (fileName.concat(".dbl").equals(changedEditor.getEditorInput().getName())
+								|| fileName.concat(".dbx").equals(changedEditor.getEditorInput().getName()))
+						{
+							Model changedModel = (Model) changedEditor.getCurrentModel().getContents().get(0);
+							//imprt.setModel((Model) editor.getCurrentModel().getContents().get(0));
+							imprt.setModel(changedModel);
+							importedModelChanged(changedModel);
 							break;
 						}
 					}
@@ -92,13 +93,18 @@ public class DblPreProcessor {
 		
 	}
 	
-	private BackgroundEditorListener backgroundEditorListener = null;
+	protected void importedModelChanged(Model model) {
+		// initiate reconcile
+		editor.fireReferencedModelChanged();
+	}
 	
-	private BackgroundEditorListener getBackgroundEditorListener() {
-		if (backgroundEditorListener == null) {
-			return new BackgroundEditorListener();
+	protected ITefEditorStatusListener importsEditorListener = null;
+	
+	protected ITefEditorStatusListener getImportsEditorListener() {
+		if (importsEditorListener == null) {
+			return new ImportsEditorListener();
 		}
-		return backgroundEditorListener;
+		return importsEditorListener;
 	}
 	
 	private IPartListener2 otherEditorRefPartListener = new IPartListener2() {
@@ -144,90 +150,157 @@ public class DblPreProcessor {
 		public void partActivated(IWorkbenchPartReference partRef) {}
 	};
 	
-	public void preProcess(String inputText, IPath inputLocation) {
+	public void preProcess(String inputText, IPath inputPath) {
 		Pattern importRegex = Pattern.compile("^#import \"(.+)\"");
 		Matcher matcher = importRegex.matcher(inputText);
 		
 		while (matcher.find()) {
 			final String fileToImport = matcher.group(1);
-			
-			IPath editorInputLocation = inputLocation.removeLastSegments(1);
-			IPath file = editorInputLocation.append(fileToImport).addFileExtension("xmi");
-		    
-			try {
-		    	if (!fileImportsInActiveEditors.containsKey(fileToImport)) {
-			    	// check if import is currently opened in another editor window
-
-		    		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-		    			public void run() {
-					    	IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-					    	
-					    	for (IEditorReference otherEditorRef: editorRefs) {					    		
-								if (editor != null) {
-									otherEditorRef.getPage().addPartListener(otherEditorRefPartListener);
-								}
-					    		
-					    		IEditorPart otherEditorPart = otherEditorRef.getEditor(false);
-					    		if (otherEditorPart instanceof DblTextEditor) {
-									DblTextEditor otherEditor = (DblTextEditor) otherEditorPart;
-									
-									if (!editor.getPartName().equals(otherEditor.getPartName())) {
-										
-										IPath otherEditorInputLocation = ((FileEditorInput) otherEditor.getEditorInput()).getFile().getLocation();
-										String otherEditorFileName = otherEditorInputLocation.removeFileExtension().lastSegment().toString();
+			importFile(fileToImport, true, inputPath);
+		}
+	}
 	
-										if (otherEditorFileName.equals(fileToImport)) {
-											if (editor != null) {
-												otherEditor.getSite().getPage().removePartListener(otherEditorRefPartListener);
-												
-												otherEditor.addEditorStatusListener(getBackgroundEditorListener());
-												System.out.println("editor '" + editor.getEditorInput().getName() + "' listens to other editor '"
-														+ otherEditor.getEditorInput().getName() + "'");
-											}
-
-											fileImportsInActiveEditors.put(otherEditorFileName, otherEditor);
-	
-											fileImportsSelfLoaded.remove(otherEditorFileName);
-											System.out.println("linked import '" + fileToImport + "' to opened editor.");
-										}
-									}
-								}
-					    	}
-		    			}
-		    		});
-		    	}
+	protected DblTextEditor getOpenedEditorForImport(final String fileToImport, final boolean directImport) {
+		RunnableWithReturn<DblTextEditor> runnable = new RunnableWithReturn<DblTextEditor>() {
+			public void run() {
+		    	IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		    	
-			    if (!fileImportsInActiveEditors.containsKey(fileToImport)) {
-		    		Resource resource = resourceSet.getResource(getPlatformResourceURI(file), true);
-		    		EcoreUtil.resolveAll(resource);
-		    		fileImportsSelfLoaded.put(fileToImport, resource);		
-					System.out.println("loaded import '" + fileToImport + "'.");
-				}
+		    	// check if import is currently opened in another editor window
+		    	for (IEditorReference otherEditorRef: editorRefs) {					    		
+					if (editor != null && directImport) {
+						otherEditorRef.getPage().addPartListener(otherEditorRefPartListener);
+					}
+		    		
+		    		IEditorPart otherEditorPart = otherEditorRef.getEditor(false);
+		    		if (otherEditorPart instanceof DblTextEditor) {
+						final DblTextEditor otherEditor = (DblTextEditor) otherEditorPart;
+						
+						if (!editor.getPartName().equals(otherEditor.getPartName())) {
+							
+							IPath otherEditorInputLocation = ((FileEditorInput) otherEditor.getEditorInput()).getFile().getLocation();
+							String otherEditorFileName = otherEditorInputLocation.removeFileExtension().lastSegment().toString();
+
+							if (otherEditorFileName.equals(fileToImport)) {
+								if (editor != null && directImport) {
+									otherEditor.getSite().getPage().removePartListener(otherEditorRefPartListener);
+									
+									otherEditor.addEditorStatusListener(getImportsEditorListener());
+									System.out.println("editor '" + editor.getEditorInput().getName() + "' listens to other editor '"
+											+ otherEditor.getEditorInput().getName() + "'");
+								}
+
+								setResult(otherEditor);
+							}
+						}
+		    		}
+		    	}
 			}
-		    catch (RuntimeException e) {
-		    	System.out.println(e.getMessage());
-		    }
+		};
+		PlatformUI.getWorkbench().getDisplay().syncExec(runnable);
+		return runnable.getResult();
+	}
+	
+	/**
+	 * Loads the model of the specified fileToImport. Listens to changes in the model if directImport is set to true.
+	 * Note: Changes of indirect imports are propagated from outside to inside.
+	 * 
+	 * @param fileToImport
+	 * @param directImport
+	 * @param inputPath
+	 */
+	protected void importFile(final String fileToImport, final boolean directImport, IPath inputPath) {			
+		try {
+	    	if (!importsOpenedInActiveEditors.containsKey(fileToImport)) {
+	    		final DblTextEditor openedEditor = getOpenedEditorForImport(fileToImport, directImport);
+	    		if (openedEditor != null) {
+					IPath openedEditorInputLocation = ((FileEditorInput) openedEditor.getEditorInput()).getFile().getLocation();
+					String openedEditorFileName = openedEditorInputLocation.removeFileExtension().lastSegment().toString();
+
+					importsOpenedInActiveEditors.put(openedEditorFileName, openedEditor);
+					System.out.println("linked import '" + fileToImport + "' to opened editor.");
+
+					allImports.put(openedEditorFileName, new IModelContainer() {
+						@Override
+						public Model getModel() {
+							return (Model) openedEditor.getCurrentModel().getContents().get(0);
+						}
+
+						@Override
+						public Resource getResource() {
+							return openedEditor.getCurrentModel();
+						}
+					});
+	    		}
+	    	}
+	    	
+		    if (!importsOpenedInActiveEditors.containsKey(fileToImport)) {
+	    		final Resource resource = loadXmi(fileToImport, inputPath);
+	    		allImports.put(fileToImport, new IModelContainer() {
+					@Override
+					public Model getModel() {
+						return (Model) resource.getContents().get(0);
+					}
+
+					@Override
+					public Resource getResource() {
+						return resource;
+					}
+				});		
+				System.out.println("loaded import '" + fileToImport + "'.");
+			}
 		}
+	    catch (RuntimeException e) {
+	    	System.out.println(e.getMessage());
+	    }
 	}
 	
-	public Resource getFileImportResource(String fileToImport) {
-		if (fileImportsSelfLoaded.containsKey(fileToImport)) return fileImportsSelfLoaded.get(fileToImport);
-		else if (fileImportsInActiveEditors.containsKey(fileToImport)) return fileImportsInActiveEditors.get(fileToImport).getCurrentModel();
-		else return null;
+	protected Resource loadXmi(String fileToImport, IPath inputPath) {
+		IPath xmiToImport = inputPath.append(fileToImport).addFileExtension("xmi");
+		Resource resource = resourceSet.getResource(getPlatformResourceURI(xmiToImport), true);
+		EcoreUtil.resolveAll(resource);
+		return resource;
 	}
 	
-	public void loseImportedResource(String importedFile) {
-		fileImportsSelfLoaded.remove(importedFile);
-		fileImportsInActiveEditors.remove(importedFile);
+	public synchronized IModelContainer getImportedModel(String fileOfImport) {
+		return allImports.get(fileOfImport);
 	}
 	
-	public synchronized Collection<Resource> getImportedResources() {
-		Set<Resource> importedResources = new HashSet<Resource>();
-		importedResources.addAll(fileImportsSelfLoaded.values());
-		for (DblTextEditor editor: fileImportsInActiveEditors.values()) {
-			importedResources.add(editor.getCurrentModel());
+	public void loseImport(String fileOfImport) {
+		allImports.remove(fileOfImport);
+		importsOpenedInActiveEditors.remove(fileOfImport);
+	}
+	
+	public void loseImports() {
+		allImports.keySet().removeAll(importsOpenedInActiveEditors.keySet());
+		for (IModelContainer imprt: allImports.values()) {
+			imprt.getResource().unload();
 		}
-		return importedResources;
+		allImports.clear();
+		importsOpenedInActiveEditors.clear();
 	}
+	
+	public synchronized Collection<IModelContainer> getImportedModels() {
+		return allImports.values();
+	}
+	
+//	public Resource getFileImportResource(String fileToImport) {
+//		if (fileImportsSelfLoaded.containsKey(fileToImport)) return fileImportsSelfLoaded.get(fileToImport);
+//		else if (importsOpenedInActiveEditors.containsKey(fileToImport)) return importsOpenedInActiveEditors.get(fileToImport).getCurrentModel();
+//		else return null;
+//	}
+//	
+//	public void loseImportedResource(String importedFile) {
+//		fileImportsSelfLoaded.remove(importedFile);
+//		importsOpenedInActiveEditors.remove(importedFile);
+//	}
+//	
+//	public synchronized Collection<Resource> getImportedResources() {
+//		Set<Resource> importedResources = new HashSet<Resource>();
+//		importedResources.addAll(fileImportsSelfLoaded.values());
+//		for (DblTextEditor editor: importsOpenedInActiveEditors.values()) {
+//			importedResources.add(editor.getCurrentModel());
+//		}
+//		return importedResources;
+//	}
 	
 }

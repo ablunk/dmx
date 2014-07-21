@@ -1,6 +1,7 @@
 package hub.sam.dmx;
 
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Model;
 import hub.sam.dbl.provider.DblItemProviderAdapterFactory;
 import hub.sam.tef.editor.SourceViewerConfiguration;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
@@ -19,8 +20,11 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.ide.FileStoreEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 import org.osgi.framework.Bundle;
 
@@ -29,7 +33,19 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	private SaveXmiAction saveXmiAction;
 	private List<Action> runActions = new ArrayList<Action>();
 	
-	protected DblPreProcessor preProcessor = new DblPreProcessor(this);
+	protected DblPreProcessor _preProcessor;
+	
+	public DblTextEditor() {
+		initPreProcessor();
+	}
+	
+	protected DblPreProcessor getPreProcessor() {
+		return _preProcessor;
+	}
+	
+	protected void initPreProcessor() {
+		_preProcessor = new DblPreProcessor(this);
+	}
 	
 	@Override
 	protected SourceViewerConfiguration createSourceViewerConfiguration() {
@@ -45,18 +61,37 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	}
 	
 	@Override
-	public void preProcessDocument() {
-		super.preProcessDocument();
-		IPath inputLocation = ((FileEditorInput) getEditorInput()).getFile().getLocation();
-		preProcessor.preProcess(getCurrentText(), inputLocation);		
+	protected String getResourceFile() {
+		IEditorInput editorInput = getEditorInput();
+		if (editorInput instanceof IFileEditorInput) {
+			// file input internal to the workspace
+			IFileEditorInput fileInput = (IFileEditorInput)editorInput;
+			return fileInput.getFile().getFullPath().removeFileExtension().addFileExtension("xmi").toString();
+		}
+		else if (editorInput instanceof FileStoreEditorInput) {
+			// file input external to the workspace
+			FileStoreEditorInput fileInput = (FileStoreEditorInput) editorInput;
+			return fileInput.getURI().getPath(); // TODO should be same as above
+		}
+		return null;
+
 	}
 	
-	public synchronized Collection<Resource> getImportedResources() {
-		return preProcessor.getImportedResources();
+	@Override
+	public void preProcessDocument() {
+		super.preProcessDocument();
+		IPath inputFile = ((FileEditorInput) getEditorInput()).getFile().getLocation();
+		getPreProcessor().preProcess(getCurrentText(), inputFile.removeLastSegments(1));		
+	}
+	
+	public synchronized Collection<IModelContainer> getImportedModels() {
+		return getPreProcessor().getImportedModels();
 	}
 	
 	public synchronized Resource getFileImportResource(String fileToImport) {
-		return preProcessor.getFileImportResource(fileToImport);
+		IModelContainer model = getPreProcessor().getImportedModel(fileToImport);
+		if (model != null) return model.getResource();
+		else return null;
 	}
 	
 	private DblPackage dblMetaModel;
@@ -93,18 +128,22 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		return new DblSemanticsProvider(new IPreProcessedDocument() {
 			
 			@Override
-			public IPath getLocation() {
-				return ((FileEditorInput) getEditorInput()).getFile().getLocation();
+			public IPath getPath() {
+				return ((FileEditorInput) getEditorInput()).getFile().getLocation().removeLastSegments(1);
 			}
-			
+
 			@Override
-			public Collection<Resource> getImportedResources() {
-				return preProcessor.getImportedResources();
+			public Collection<IModelContainer> getImportsModels() {
+				return getPreProcessor().getImportedModels();
 			}
-			
+
 			@Override
-			public Resource getCurrentModel() {
-				return DblTextEditor.this.getCurrentModel();
+			public Model getModel() {
+				Resource resource = DblTextEditor.this.getCurrentModel();
+				if (resource != null) {
+					return (Model) resource.getContents().get(0);
+				}
+				return null;
 			}
 		});
 	}
@@ -159,6 +198,10 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		if (saveXmiAction != null) {
 			saveXmiAction.dispose();
 		}
+		if (editorPartListener != null) {
+			getEditorSite().getPage().removePartListener(editorPartListener);
+		}
+		getPreProcessor().loseImports();
 		super.dispose();
 	}
 	

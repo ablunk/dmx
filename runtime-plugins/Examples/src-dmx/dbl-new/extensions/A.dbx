@@ -1,0 +1,14 @@
+#import "B"
+
+module A {
+
+void main() {
+	B b;
+	C c;
+	
+	// TODO mb();
+	//mb();
+	s11; // TODO
+}
+
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="B">
+    <model href="B.xmi#/"/>
+  </imports>
+  <modules name="A">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="b" concreteSyntax="B b">
+        <classifierType concreteSyntax="B">
+          <referencedElement href="B.xmi#//@modules.0/@classifiers.0"/>
+        </classifierType>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="c" concreteSyntax="C c">
+        <classifierType concreteSyntax="C">
+          <referencedElement href="C.xmi#//@modules.0/@classifiers.0"/>
+        </classifierType>
+      </statements>
+      <statements xsi:type="dbl:S1" concreteSyntax="s11;"/>
+    </procedures>
+  </modules>
+</dbl:Model>

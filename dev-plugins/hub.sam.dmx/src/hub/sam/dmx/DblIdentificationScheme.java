@@ -10,7 +10,6 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ForStatement;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.LocalScope;
@@ -50,6 +49,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 
 public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	
@@ -1073,8 +1073,14 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	
 	private String getQualifiedId(EObject object) {
 		String result;
+		
+		Resource preModelResource = null;
+		if (preProcessedDocument.getModel() != null) {
+			preModelResource = preProcessedDocument.getModel().eResource();
+		}
+		
 		if (object.eResource() == null || object.eResource().getURI() == null
-				|| object.eResource() == preProcessedDocument.getCurrentModel()) {
+				|| object.eResource() == preModelResource) {
 			result = object.eResource().getURIFragment(object);
 		}
 		else {

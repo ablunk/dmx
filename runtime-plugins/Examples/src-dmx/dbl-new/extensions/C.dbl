@@ -1,0 +1,18 @@
+#import "D"
+
+module C {
+
+void mc() {
+	D d;
+}
+
+class C {}
+
+extension S1 {
+	Statement -> S1;
+	S1 -> "s11" ";";
+}
+semantics {
+}
+
+}

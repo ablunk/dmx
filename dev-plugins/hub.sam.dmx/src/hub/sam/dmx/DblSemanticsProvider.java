@@ -12,7 +12,6 @@ import hub.sam.tef.semantics.IValueCreationSemantics;
 import hub.sam.tef.tsl.CompositeBinding;
 import hub.sam.tef.tsl.ValueBinding;
 
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 
@@ -33,10 +32,10 @@ public class DblSemanticsProvider extends DefaultSemanticsProvider {
 			if (actual instanceof Import && value instanceof String && !value.equals("")) {
 				final Import imprt = (Import) actual;
 				String fileString = (String) value;
-				final IPath editorInputLocation = preProcessedDocument.getLocation().removeLastSegments(1);
-				URI fileUri = DblPreProcessor.getPlatformResourceURI(editorInputLocation.append(fileString).addFileExtension("xmi"));
+				URI fileUri = DblPreProcessor.getPlatformResourceURI(preProcessedDocument.getPath().append(fileString).addFileExtension("xmi"));
 				
-				for (Resource resource: preProcessedDocument.getImportedResources()) {
+				for (IModelContainer modelContainer: preProcessedDocument.getImportsModels()) {
+					final Resource resource = modelContainer.getResource();
 					if (resource.getURI() != null && resource.getURI().trimFileExtension().equals(fileUri.trimFileExtension())) {
 						if (resource.getContents().size() > 0) {
 							Model model = (Model) resource.getContents().get(0);

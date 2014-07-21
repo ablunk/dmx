@@ -329,7 +329,7 @@ public class XtendRunAction extends Action {
 		BasicDblToJavaGenerator generator = null;
 		
 		if (targetSimLib == "desmoj") {
-			generator = new DblToDesmojJavaGenerator(originalResource, genFolder);
+			generator = new DblToDesmojJavaGenerator((Model) originalResource.getContents().get(0), genFolder);
 		}
 		generator.startGenerator();
 
@@ -371,21 +371,75 @@ public class XtendRunAction extends Action {
 		}
 	}
 	
-	private void translateExtensions(IProgressMonitor monitor, Resource originalResource,
-			URI workingCopyXmiUri, IPath workingCopyXmiFile) {
+	/**
+	 * translates all extensions directly contained in inputModel and saves the result in outputXmi as ..._base.xmi
+	 * 
+	 * @param inputModel
+	 * @param outputXmi
+	 */
+	private void translateExtensions(Model inputModel, URI outputXmi) {
+		
+		Collection<ExtensibleElement> extensionInstances = new HashSet<ExtensibleElement>();
+		TreeIterator<EObject> allContents = inputModel.eAllContents();
+		while (allContents.hasNext()) {
+			EObject eObject = allContents.next();
+			if (eObject instanceof ExtensibleElement && ((ExtensibleElement) eObject).isInstanceOfExtensionDefinition()) {
+				// NOTE All extension meta-classes have to extend the meta-class ExtensibleElement.
+				// Instances of meta-classes added by extension, have to set their attribute objectIsExtensionInstance to true.
+				// This is necessary in order to find them in the model.
+				
+				ExtensibleElement extensionInstance = (ExtensibleElement) eObject;
+				extensionInstances.add(extensionInstance);
+				System.out.println("Found an extension instance of class " + extensionInstance.eClass().getName());
+			}
+		}
+		
+		if (extensionInstances.size() > 0) {
+					
+			IProject currentProject = getCurrentProject();
+			IPath genFolder = getJavaGenFolder(currentProject).getRawLocation();
+
+			IPath workingDirectory = currentProject.getLocation();
+			IJavaProject currentJavaProject = JavaCore.create(currentProject);
+
+			// generate all ExtensionSemantics classes by executing ExtensionsToJava.mtl
+			System.out.println("Generating Java code for executing semantics definitions ...");
+			
+			ExtensionDefinitionsToJava generator = new ExtensionDefinitionsToJava(inputModel, genFolder);
+			
+			// NOTE Usually, launching an Acceleo template from the current project won't work. This is because Acceleo
+			//      needs to create objects of non-existent extension meta-classes, e.g. Unless. We worked around this
+			//      problem by manually adapting the metamodel factory in DblFactoryImpl.create(...).
+			//      -> changed default case to: return DbxModelCreationContext.createObjectOfParentClass(eClass);
+			//ExtensionsToJava.main(new String[] { workingCopyXmiFile.toString(), genFolder.toString() });
+			try {
+				launchJavaProgram(true, currentJavaProject, workingDirectory, "hub.sam.dmx.ExtensionsToJava", new String[] { workingCopyXmiFile.toString(), genFolder.toString() });
+			}
+			catch (CoreException e1) {
+				e1.printStackTrace();
+				return;
+			}
+			System.out.println("Finished.");
+			
+			// TODO ....
+		}
+		
+	}
+	
+	private void translateExtensions(IProgressMonitor monitor, Resource originalResource, URI workingCopyXmiUri, IPath workingCopyXmiFile) {
 
 		monitor.subTask("Looking for extension instances");
 		
-		Collection<String> importedExtensionDefinitionNames = new HashSet<String>();
-		Model model = (Model) originalResource.getContents().get(0);
-		for (Import imprt: model.getImports()) {
-			for (Module importedModule: imprt.getModel().getModules()) {
-				// TODO add support for multiple levels of imports
-				for (ExtensionDefinition extensionDef: importedModule.getExtensionDefs()) {
-					importedExtensionDefinitionNames.add(extensionDef.getName());
-				}
-			}
-		}
+//		Collection<String> importedExtensionDefinitionNames = new HashSet<String>();
+//		Model model = (Model) originalResource.getContents().get(0);
+//		for (Import imprt: model.getImports()) {
+//			for (Module importedModule: imprt.getModel().getModules()) {
+//				// TODO add support for multiple levels of imports
+//				for (ExtensionDefinition extensionDef: importedModule.getExtensionDefs()) {
+//					importedExtensionDefinitionNames.add(extensionDef.getName());
+//				}
+//			}
+//		}
 		
 		Collection<ExtensibleElement> extensionInstances = new HashSet<ExtensibleElement>();
 		TreeIterator<EObject> allContents = originalResource.getAllContents();

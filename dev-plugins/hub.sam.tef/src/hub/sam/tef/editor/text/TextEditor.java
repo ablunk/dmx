@@ -341,7 +341,7 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	public void updateCurrentModel(final IModelCreatingContext context) {			
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {	
 			public void run() {
-				TreePath[] expandState = null; 
+				TreePath[] expandState = null;
 				if (fContentOutlineViewer != null) {
 					expandState = fContentOutlineViewer.getExpandedTreePaths();
 				}
@@ -376,6 +376,21 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 
 		});
 	}
+	
+	protected String getResourceFile() {
+		IEditorInput editorInput = getEditorInput();
+		if (editorInput instanceof IFileEditorInput) {
+			// file input internal to the workspace
+			IFileEditorInput fileInput = (IFileEditorInput)editorInput;
+			return fileInput.getFile().getFullPath().toString();
+		}
+		else if (editorInput instanceof FileStoreEditorInput) {
+			// file input external to the workspace
+			FileStoreEditorInput fileInput = (FileStoreEditorInput) editorInput;
+			return fileInput.getURI().getPath();
+		}
+		return null;
+	}
 
 	/**
 	 * Updates the resource that is used to store the editor state (outline view, occurrences) with
@@ -398,41 +413,35 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 						storeResource.getContents().clear();
 						storeResource.getContents().addAll(contextResource.getContents());				
 					}
+//					resourceinfo();
 				} else {
 				// editor has no resource yet, create one based on the current
 				// file input
-					IEditorInput editorInput = getEditorInput();
-					if (editorInput instanceof IFileEditorInput) {
-						// file input internal to the workspace
-						IFileEditorInput fileInput = (IFileEditorInput)editorInput;
+					String resourceFile = getResourceFile();
+					if (resourceFile != null) {
 						storeResource = resourceSet.createResource(
-								URI.createPlatformResourceURI(
-										fileInput.getFile().getFullPath().toString(),
-										true));
+								URI.createPlatformResourceURI(resourceFile,	true));
 						// move model from the context resource to the editor resource
 						storeResource.getContents().addAll(contextResource.getContents());
 						resource = storeResource;
-					}
-					else if (editorInput instanceof FileStoreEditorInput) {
-						// file input external to the workspace
-						FileStoreEditorInput fileInput = (FileStoreEditorInput) editorInput;
-						storeResource = resourceSet.createResource(
-								URI.createPlatformResourceURI(
-										fileInput.getURI().getPath().toString(),
-										true));
-						// move model from the context resource to the editor resource
-						storeResource.getContents().addAll(contextResource.getContents());
-						resource = storeResource;
-					}
-					else {
-						// this is an unknown input, we can't create a resource for this
-						// input so stop here
-						//System.out.println(editorInput);
-						return null;
+//						resourceinfo();
 					}
 				}
 		return storeResource;
 	}
+	
+//	Adapter changeAdapter = new AdapterImpl() {
+//		public void notifyChanged(Notification notification) {
+//			System.out.println(notification.getFeature() + " changed");
+//		}
+//	};
+//	
+//	private void resourceinfo() {
+//		System.out.println("updated resource: " + resource.toString());
+//		if (!resource.eAdapters().contains(changeAdapter)) {
+//			resource.eAdapters().add(changeAdapter);
+//		}
+//	}
 
 	/**
 	 * Allows to change the text in the editor. This is used to discard the user input and replace

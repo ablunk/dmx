@@ -33,7 +33,7 @@ public abstract class HeadlessEclipseParser {
 	private Syntax fSyntax = null;
 	private final IIdentificationScheme fIdentificationScheme;
 	
-	protected final IPath inputLocation;
+	protected final IPath inputPath;
 
 	protected ResourceSet resourceSet = new ResourceSetImpl();
 	private Resource resource = null;
@@ -41,8 +41,8 @@ public abstract class HeadlessEclipseParser {
 	private IModelCreatingContext lastModelCreationContext;
 	private String currentText;
 	
-	public HeadlessEclipseParser(IPath inputLocation) {
-		this.inputLocation = inputLocation;
+	public HeadlessEclipseParser(IPath inputPath) {
+		this.inputPath = inputPath;
 		fIdentificationScheme = createIdentificationScheme();
 		fSemanitcsProvider = createSemanticsProvider();
 		fMetaModelPackages = createMetaModelPackages();
@@ -53,7 +53,7 @@ public abstract class HeadlessEclipseParser {
 
 	public IModelCreatingContext parse(String inputText) throws ModelCreatingException {
 		System.out.println("pre-processing ...");
-		preProcess(inputText, inputLocation);
+		preProcess(inputText, inputPath);
 		
 		currentText = inputText;
 		IModelCreatingContext context = createModelCreatingContext();

@@ -45,14 +45,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Stack;
 
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
@@ -63,7 +56,6 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.PlatformUI;
@@ -76,89 +68,95 @@ public class DbxTextEditor extends DblTextEditor {
 		return "/resources/dbl.ecore";
 	}
 	
-	private static Map<String, ExtensionDefinitionProcessor> extensionDefsProcessed = new HashMap<String, ExtensionDefinitionProcessor>();
+	private Map<String, ExtensionDefinitionProcessor> extensionDefsProcessed = new HashMap<String, ExtensionDefinitionProcessor>();
 
-	private IResourceChangeListener workspaceResourceChangeListener;
-	private IResourceDeltaVisitor resourceDeltaVisitor;
+//	private IResourceChangeListener workspaceResourceChangeListener;
+//	private IResourceDeltaVisitor resourceDeltaVisitor;
 	
+	@Override
+	protected void initPreProcessor() {
+		_preProcessor = new DbxPreProcessor(this);
+	}
+
 	@Override
 	public void preProcessDocument() {
 		super.preProcessDocument();
+
+		// TODO extension definitions have to be added for each import beginning at the leaves of the import tree.
+		// what is needed, is a pre-processed model of the full import tree. this pre-model is used for adding extension definitions
+		// from outside to inside (i.e. beginning at the leaves of the import tree back to the model itself)
 		
-		boolean additions = false;
-		for (Resource importedResource: getImportedResources()) {
-			// TODO start at leaves of import tree and move to the root
-			if (importedResource.getContents().size() > 0) {
-				additions |= updateExtensionDefs((Model) importedResource.getContents().get(0));
-			}
-		}
-		if (additions) {
+//		boolean additions = updateExtensionDefs();
+		
+//		for (IModelContainer modelContainer: getImportedModels()) {
+//			final Resource importedResource = modelContainer.getResource();
+//			// TODO start at leaves of import tree and move to the root
+//			if (importedResource.getContents().size() > 0) {
+//				additions |= updateExtensionDefs((Model) importedResource.getContents().get(0));
+//			}
+//		}
+
+		if (extensionDefinitionsAdded) {
+			extensionDefinitionsAdded = false;
 			fireRccSyntaxChanged();
 		}
 		
-		if (workspaceResourceChangeListener == null) {
-			resourceDeltaVisitor = new IResourceDeltaVisitor() {
-				@Override
-				public boolean visit(IResourceDelta delta) throws CoreException {
-					IPath path = delta.getFullPath();
-					String fileName = path.removeFileExtension().lastSegment();
-					
-					if (path != null && path.getFileExtension() != null && path.getFileExtension().equals("xmi")) {
-						Resource importedResourceWithChanges = preProcessor.getFileImportResource(fileName);
-
-						if (importedResourceWithChanges != null) {
-							unwindExtensionDefinitionEffects(importedResourceWithChanges);
-							
-							// INFO:
-							// xmi resources do not need to be reloaded because active editors (which potentially change) are referenced directly.
-							// however, if an xmi file changes externally (outside eclipse), this change is not known anymore.
-							
-//							importedResourceWithChanges.unload();
-//							//synchronized (this) {
-//							getImportedResources().remove(importedResourceWithChanges);
-//							//}
-//							preProcessor.loseImportedResource(fileName);
-							
-							fireRccSyntaxChanged();
-						}
-					}
-					return true;
-				}
-			};
-			
-			workspaceResourceChangeListener = new IResourceChangeListener() {
-				@Override
-				public void resourceChanged(IResourceChangeEvent event) {
-					try {
-						event.getDelta().accept(resourceDeltaVisitor);
-					}
-					catch (CoreException e) {
-						e.printStackTrace();
-					}
-				}
-			};
-			ResourcesPlugin.getWorkspace().addResourceChangeListener(workspaceResourceChangeListener, IResourceChangeEvent.POST_CHANGE);
-		}
+//		// TODO change code below so that extension definition updates occur when the pre-processor is notified of a change
+		
+//		if (workspaceResourceChangeListener == null) {
+//			resourceDeltaVisitor = new IResourceDeltaVisitor() {
+//				@Override
+//				public boolean visit(IResourceDelta delta) throws CoreException {
+//					IPath path = delta.getFullPath();
+//					String fileName = path.removeFileExtension().lastSegment();
+//					
+//					if (path != null && path.getFileExtension() != null && path.getFileExtension().equals("xmi")) {
+//						//Resource importedResourceWithChanges = preProcessor.getImportedModel(fileName).getResource();
+//						IModelContainer importWithChanges = getPreProcessor().getImportedModel(fileName);
+//
+//						if (importWithChanges != null) {
+//							unwindExtensionDefinitionEffects(importWithChanges.getModel());
+//							
+//							// INFO:
+//							// xmi resources do not need to be reloaded because active editors (which potentially change) are referenced directly.
+//							// however, if an xmi file changes externally (outside eclipse), this change is not known anymore.
+//							
+////							importedResourceWithChanges.unload();
+////							//synchronized (this) {
+////							getImportedResources().remove(importedResourceWithChanges);
+////							//}
+////							preProcessor.loseImportedResource(fileName);
+//							
+//							fireRccSyntaxChanged();
+//						}
+//					}
+//					return true;
+//				}
+//			};
+//			
+//			workspaceResourceChangeListener = new IResourceChangeListener() {
+//				@Override
+//				public void resourceChanged(IResourceChangeEvent event) {
+//					try {
+//						event.getDelta().accept(resourceDeltaVisitor);
+//					}
+//					catch (CoreException e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			};
+//			ResourcesPlugin.getWorkspace().addResourceChangeListener(workspaceResourceChangeListener, IResourceChangeEvent.POST_CHANGE);
+//		}
 	}
+	
+	private boolean extensionDefinitionsAdded = false;
 
-	@Override
-	public void dispose() {
-		super.dispose();
-		if (workspaceResourceChangeListener != null) {
-			ResourcesPlugin.getWorkspace().removeResourceChangeListener(workspaceResourceChangeListener);
-		}
-		if (editorPartListener != null) {
-			getEditorSite().getPage().removePartListener(editorPartListener);
-		}
-	}
-
-	private boolean updateExtensionDefs(Model model) {
-		boolean additions = false;
+	void addExtensionDefinitions(Model model) {		
 		for (Module module: model.getModules()) {
 			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
 				if (!extensionDefsProcessed.containsKey(extensionDef.getName())) {
-					addExtensionDef(extensionDef);
-					additions = true;
+					addExtensionDefinition(extensionDef);
+					extensionDefinitionsAdded = true;
 				}
 			}
 		}
@@ -170,12 +168,31 @@ public class DbxTextEditor extends DblTextEditor {
 				getSourceViewerConfiguration().getPresentationReconciler(getSourceViewer()).install(getSourceViewer());
 			}
 		});
-		
-		return additions;
 	}
+
+//	private boolean updateExtensionDefs(Model model) {
+//		boolean additions = false;
+//		for (Module module: model.getModules()) {
+//			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
+//				if (!extensionDefsProcessed.containsKey(extensionDef.getName())) {
+//					addExtensionDef(extensionDef);
+//					additions = true;
+//				}
+//			}
+//		}
+//		
+//		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
+//			public void run() {
+//				getSourceViewerConfiguration().getPresentationReconciler(getSourceViewer()).uninstall();
+//				((SourceViewerConfiguration) getSourceViewerConfiguration()).clearPresentationReconciler();
+//				getSourceViewerConfiguration().getPresentationReconciler(getSourceViewer()).install(getSourceViewer());
+//			}
+//		});
+//		
+//		return additions;
+//	}
 	
-	private void unwindExtensionDefinitionEffects(Resource resource) {
-		Model model = (Model) resource.getContents().get(0);
+	void unwindExtensionDefinitionEffects(Model model) {
 		for (Module module: model.getModules()) {
 			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
 				if (extensionDefsProcessed.containsKey(extensionDef.getName())) {
@@ -808,7 +825,7 @@ public class DbxTextEditor extends DblTextEditor {
 		
 	}
 	
-	private void addExtensionDef(ExtensionDefinition extensionDef) {
+	private void addExtensionDefinition(ExtensionDefinition extensionDef) {
 		System.out.println("adding extension definition '" + extensionDef.getName() + "' ...");
 		
 		ExtensionDefinitionProcessor processor = new ExtensionDefinitionProcessor(extensionDef);
@@ -1073,6 +1090,7 @@ public class DbxTextEditor extends DblTextEditor {
 	protected Bundle getPluginBundle() {
 		return Activator.getDefault().getBundle();
 	}
+	
 	
 	private Syntax syntax;
 	
