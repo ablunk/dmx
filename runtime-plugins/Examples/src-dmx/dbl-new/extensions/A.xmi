@@ -16,6 +16,12 @@
           <referencedElement href="C.xmi#//@modules.0/@classifiers.0"/>
         </classifierType>
       </statements>
+      <statements xsi:type="dbl:ProcedureCall" concreteSyntax="mb()">
+        <callIdExpr concreteSyntax="mb()">
+          <referencedElement href="B.xmi#//@modules.0/@procedures.0"/>
+          <callPart/>
+        </callIdExpr>
+      </statements>
       <statements xsi:type="dbl:S1" concreteSyntax="s11;"/>
     </procedures>
   </modules>

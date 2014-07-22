@@ -73,6 +73,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 
 				Clazz containerClass = getContainerObjectOfType(context, Clazz.class);
 				Module containerModule = (Module) getContainerObjectOfType(context, DblPackage.Literals.MODULE);
+				Model containerModel = (Model) getContainerObjectOfType(context, DblPackage.Literals.MODEL);
 				
 				if (idExpr.getCallPart() != null) {
 					// procedure or type in create object expression ...
@@ -99,13 +100,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 							otherIdsHidden |= addIdsForInheritedMethods(containerClass, namedElementId, allIds, idExpr);
 						}
 						
-						// add global procedures
-						if (!otherIdsHidden && containerModule != null) {
-							for (Procedure method: containerModule.getProcedures()) {
-								if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
-									otherIdsHidden = addId(namedElementId, method, allIds);
-								}
-							}
+						// add global procedures (also imported ones)
+						if (!otherIdsHidden) {
+							otherIdsHidden = addIdsForGlobalProcedures(containerModel, namedElementId, allIds, idExpr);
 						}
 						
 						// ---> try to find a Type now ...
@@ -450,6 +447,37 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return super.getGlobalIdentities(identifier, context, type);
 	}
 	
+	private boolean _addIdsForGlobalProcedures(Module containerModule, NamedElement namedElementId, Collection<Object> allIds, IdExpr idExpr) {
+		boolean added = false;
+		if (containerModule != null) {
+			for (Procedure method: containerModule.getProcedures()) {
+				if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+					added |= addId(namedElementId, method, allIds);
+				}
+			}
+		}
+		return added;
+	}
+	
+	private boolean addIdsForGlobalProcedures(Model containerModel, NamedElement namedElementId, Collection<Object> allIds, IdExpr idExpr) {
+		boolean added = false;
+		
+		for (Module module: containerModel.getModules()) {
+			added |= _addIdsForGlobalProcedures(module, namedElementId, allIds, idExpr);
+		}
+		
+		if (!added) {
+			for (Import imprt: containerModel.getImports()) {
+				Model importedModel = imprt.getModel();
+				if (importedModel != null) {
+					added |= addIdsForGlobalProcedures(importedModel, namedElementId, allIds, idExpr);
+				}
+			}
+		}
+
+		return added;
+	}
+
 	private void addIdsForMethods(IdExpr classifierTypeExpr, NamedElement namedElementId, Collection<Object> allIds, IdExpr idExpr) {
 		if (classifierTypeExpr != null) {
 			NamedElement type = classifierTypeExpr.getReferencedElement();

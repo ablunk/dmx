@@ -6,8 +6,7 @@ void main() {
 	B b;
 	C c;
 	
-	// TODO mb();
-	//mb();
+	mb();
 	s11; // TODO
 }
 
