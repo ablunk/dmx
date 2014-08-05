@@ -10,8 +10,8 @@ extension SB {
 }
 semantics {
 	sc "SB semantics";
-	gen "print \"sb\\n\";";
-	gen "sc \"gen statement in SB semantics\";";
+	expand "print \"sb\\n\";";
+	expand "sc \"gen statement in SB semantics\";";
 }
 
 void mb() {

@@ -17,12 +17,12 @@
           </rhs>
         </newRules>
       </textualSyntaxDef>
-      <mappingDef concreteSyntax="sc &quot;SB semantics&quot;;&#xA;&#x9;gen &quot;print \&quot;sb\\n\&quot;;&quot;;&#xA;&#x9;gen &quot;sc \&quot;gen statement in SB semantics\&quot;;&quot;;">
+      <mappingDef concreteSyntax="sc &quot;SB semantics&quot;;&#xA;&#x9;expand &quot;print \&quot;sb\\n\&quot;;&quot;;&#xA;&#x9;expand &quot;sc \&quot;gen statement in SB semantics\&quot;;&quot;;">
         <statements xsi:type="dbl:SC" concreteSyntax="sc &quot;SB semantics&quot;;" instanceOfExtensionDefinition="true" usedIn="SB semantics"/>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;print \&quot;sb\\n\&quot;;&quot;">
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;print \&quot;sb\\n\&quot;;&quot;">
           <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sb\\n\&quot;;"/>
         </statements>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;sc \&quot;gen statement in SB semantics\&quot;;&quot;">
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;sc \&quot;gen statement in SB semantics\&quot;;&quot;">
           <parts xsi:type="dbl:FixedMappingPart" code="sc \&quot;gen statement in SB semantics\&quot;;"/>
         </statements>
       </mappingDef>

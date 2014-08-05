@@ -375,18 +375,18 @@ syntax(Model) "resources/dbl.ecore" {
 	SimpleStatement -> SaveGenStatement ";";
 	SimpleStatement -> ResumeGenStatement ";";
 	
-	MappingStatement:element(MappingStatement) -> "gen" FixedMappingPartMiddle:composite(parts)
+	MappingStatement:element(MappingStatement) -> "expand" FixedMappingPartMiddle:composite(parts)
 		(ws(space) DynamicMappingPart:composite(parts) ws(space) FixedMappingPartMiddle:composite(parts))*;
 	
 	FixedMappingPartMiddle:element(FixedMappingPart) -> CODE:composite(code);
 	FixedMappingPartMiddle:element(FixedMappingPart) -> STRINGDEF:composite(code);
 	DynamicMappingPart:element(DynamicMappingPart) -> Factor:composite(expr);
 	
-	SetGenContextStatement:element(SetGenContextStatement) -> "setGenContext" AddBeforeOrAfterContext;
+	SetGenContextStatement:element(SetGenContextStatement) -> "setExpansionContext" AddBeforeOrAfterContext;
 	AddBeforeOrAfterContext -> IsAddBeforeOrAfter:composite(addAfterContext) Expression:composite(context);
 	IsAddBeforeOrAfter:constant("true":EBoolean) -> "after";
 	IsAddBeforeOrAfter:constant("false":EBoolean) -> "before";
-	ResetGenContextStatement:element(ResetGenContextStatement) -> "resetGenContext";
+	ResetGenContextStatement:element(ResetGenContextStatement) -> "resetExpansionContext";
 	SaveGenStatement:element(SaveGenStatement) -> "saveGen" Expression:composite(variable);
 	ResumeGenStatement:element(ResumeGenStatement) -> "resumeGen" Expression:composite(variable);
 		
