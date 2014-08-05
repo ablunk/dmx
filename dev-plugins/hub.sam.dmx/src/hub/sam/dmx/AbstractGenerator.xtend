@@ -14,8 +14,6 @@ abstract class AbstractGenerator {
 		this.outputFolder = outputFolder;
 	}
 	
-	def abstract void startGenerator();
-	
 	protected def void makeFolder(IPath folder) {
 		val folder_fileObject = new File(folder.toString);
 		if (!folder_fileObject.exists && !folder_fileObject.mkdirs) {

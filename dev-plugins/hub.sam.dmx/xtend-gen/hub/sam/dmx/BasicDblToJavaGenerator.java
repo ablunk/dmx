@@ -18,15 +18,17 @@ import hub.sam.dbl.CreateObject;
 import hub.sam.dbl.Div;
 import hub.sam.dbl.DoubleLiteral;
 import hub.sam.dbl.DoubleType;
+import hub.sam.dbl.DynamicMappingPart;
 import hub.sam.dbl.Equal;
 import hub.sam.dbl.Expression;
+import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.FalseLiteral;
+import hub.sam.dbl.FixedMappingPart;
 import hub.sam.dbl.ForStatement;
 import hub.sam.dbl.Greater;
 import hub.sam.dbl.GreaterEqual;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.IfStatement;
-import hub.sam.dbl.Import;
 import hub.sam.dbl.IntLiteral;
 import hub.sam.dbl.IntType;
 import hub.sam.dbl.Less;
@@ -84,19 +86,18 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
 
+/**
+ * Generates Java code for the specified model only (i.e. imported models are not considered).
+ */
 @SuppressWarnings("all")
 public class BasicDblToJavaGenerator extends AbstractGenerator {
-  protected final Resource modelResource;
-  
   public final String javaPackagePrefix = "hub.sam.dmx.javasim.gen";
   
   public final String javaPackageFolderPrefix = new Function0<String>() {
@@ -106,13 +107,15 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     }
   }.apply();
   
-  private IPath javaPackageFolder;
+  public IPath javaPackageFolder;
   
   protected final String javaClass_for_ModuleLevelElements = "Module_";
   
-  public BasicDblToJavaGenerator(final Resource modelResource, final IPath outputFolder) {
+  public BasicDblToJavaGenerator(final IPath outputFolder) {
     super(outputFolder);
-    this.modelResource = modelResource;
+    IPath _append = outputFolder.append(this.javaPackageFolderPrefix);
+    this.javaPackageFolder = _append;
+    this.makeFolder(this.javaPackageFolder);
   }
   
   public String genActiveClass(final Clazz clazz) {
@@ -184,58 +187,6 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   
   private Module _lazy_moduleWithMainProcedure = null;
   
-  public Module getModuleWithMainProcedure() {
-    boolean _equals = Objects.equal(this._lazy_moduleWithMainProcedure, null);
-    if (_equals) {
-      EList<EObject> _contents = this.modelResource.getContents();
-      EObject _head = IterableExtensions.<EObject>head(_contents);
-      EList<Module> _modules = ((Model) _head).getModules();
-      final Function1<Module,Boolean> _function = new Function1<Module,Boolean>() {
-        public Boolean apply(final Module it) {
-          EList<Procedure> _procedures = it.getProcedures();
-          final Function1<Procedure,Boolean> _function = new Function1<Procedure,Boolean>() {
-            public Boolean apply(final Procedure it) {
-              String _name = it.getName();
-              boolean _equals = Objects.equal(_name, "main");
-              return Boolean.valueOf(_equals);
-            }
-          };
-          boolean _exists = IterableExtensions.<Procedure>exists(_procedures, _function);
-          return Boolean.valueOf(_exists);
-        }
-      };
-      Module _findFirst = IterableExtensions.<Module>findFirst(_modules, _function);
-      this._lazy_moduleWithMainProcedure = _findFirst;
-    }
-    return this._lazy_moduleWithMainProcedure;
-  }
-  
-  public void startGenerator() {
-    EList<EObject> _contents = this.modelResource.getContents();
-    EObject _head = IterableExtensions.<EObject>head(_contents);
-    final Model model = ((Model) _head);
-    this.genModel(model);
-    this.genImportedModels(model);
-  }
-  
-  public void genImportedModels(final Model importingModel) {
-    final Model it = importingModel;
-    EList<Import> _imports = it.getImports();
-    boolean _isEmpty = _imports.isEmpty();
-    boolean _not = (!_isEmpty);
-    if (_not) {
-      EList<Import> _imports_1 = it.getImports();
-      for (final Import imprt : _imports_1) {
-        {
-          Model _model = imprt.getModel();
-          this.genModel(_model);
-          Model _model_1 = imprt.getModel();
-          this.genImportedModels(_model_1);
-        }
-      }
-    }
-  }
-  
   public String javaNameQualified_for_Module(final Module element, final boolean forContentAccess) {
     String _xblockexpression = null;
     {
@@ -255,6 +206,21 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
         _xifexpression = _plus_5;
       }
       _xblockexpression = (_xifexpression);
+    }
+    return _xblockexpression;
+  }
+  
+  protected String _javaNameQualified(final ExtensionDefinition element) {
+    String _xblockexpression = null;
+    {
+      final ExtensionDefinition it = element;
+      EObject _eContainer = element.eContainer();
+      final Module owner = ((Module) _eContainer);
+      String _javaNameQualified_for_Module = this.javaNameQualified_for_Module(owner, false);
+      String _plus = (_javaNameQualified_for_Module + ".");
+      String _name = it.getName();
+      String _plus_1 = (_plus + _name);
+      _xblockexpression = (_plus_1);
     }
     return _xblockexpression;
   }
@@ -387,13 +353,33 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  public void genModel(final Model model) {
+  public void genModel(final Model model, final boolean mainModel) {
     try {
-      IPath _append = this.outputFolder.append(this.javaPackageFolderPrefix);
-      this.javaPackageFolder = _append;
-      this.makeFolder(this.javaPackageFolder);
-      EList<Module> _modules = model.getModules();
-      final Procedure1<Module> _function = new Procedure1<Module>() {
+      Module _xifexpression = null;
+      if (mainModel) {
+        EList<Module> _modules = model.getModules();
+        final Function1<Module,Boolean> _function = new Function1<Module,Boolean>() {
+          public Boolean apply(final Module it) {
+            EList<Procedure> _procedures = it.getProcedures();
+            final Function1<Procedure,Boolean> _function = new Function1<Procedure,Boolean>() {
+              public Boolean apply(final Procedure it) {
+                String _name = it.getName();
+                boolean _equals = Objects.equal(_name, "main");
+                return Boolean.valueOf(_equals);
+              }
+            };
+            boolean _exists = IterableExtensions.<Procedure>exists(_procedures, _function);
+            return Boolean.valueOf(_exists);
+          }
+        };
+        Module _findFirst = IterableExtensions.<Module>findFirst(_modules, _function);
+        _xifexpression = _findFirst;
+      } else {
+        _xifexpression = null;
+      }
+      final Module moduleWithMainProcedure = _xifexpression;
+      EList<Module> _modules_1 = model.getModules();
+      final Procedure1<Module> _function_1 = new Procedure1<Module>() {
         public void apply(final Module module) {
           try {
             String _name = module.getName();
@@ -402,9 +388,15 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
             String _plus = (BasicDblToJavaGenerator.this.javaClass_for_ModuleLevelElements + ".java");
             final Writer moduleWriter = BasicDblToJavaGenerator.this.beginTargetFile(moduleFolder, _plus);
             String _xifexpression = null;
-            Module _moduleWithMainProcedure = BasicDblToJavaGenerator.this.getModuleWithMainProcedure();
-            boolean _notEquals = (!Objects.equal(module, _moduleWithMainProcedure));
-            if (_notEquals) {
+            boolean _or = false;
+            boolean _equals = Objects.equal(moduleWithMainProcedure, null);
+            if (_equals) {
+              _or = true;
+            } else {
+              boolean _notEquals = (!Objects.equal(module, moduleWithMainProcedure));
+              _or = (_equals || _notEquals);
+            }
+            if (_or) {
               String _gen = BasicDblToJavaGenerator.this.gen(module);
               _xifexpression = _gen;
             } else {
@@ -444,62 +436,61 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
           }
         }
       };
-      IterableExtensions.<Module>forEach(_modules, _function);
-      final Writer javaMain = this.beginTargetFile(this.javaPackageFolder, "JavaMain.java");
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("package ");
-      _builder.append(this.javaPackagePrefix, "");
-      _builder.append(";");
-      _builder.newLineIfNotEmpty();
-      _builder.newLine();
-      _builder.append("public class JavaMain {");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("public static void main(String[] args) {");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("long startTime = System.nanoTime();");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.newLine();
-      _builder.append("\t\t");
-      Module _moduleWithMainProcedure = this.getModuleWithMainProcedure();
-      String _javaNameQualified_for_Module = this.javaNameQualified_for_Module(_moduleWithMainProcedure, true);
-      _builder.append(_javaNameQualified_for_Module, "		");
-      _builder.append(".startMainProcedure();");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t\t");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("long estimatedTime = System.nanoTime() - startTime;");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("long ms = estimatedTime / (1000 * 1000);");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("System.out.println(\"Execution time: \" + ms / 1000.0 + \" seconds\");");
-      _builder.newLine();
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("Runtime runtime = Runtime.getRuntime();");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("long memory = runtime.totalMemory() - runtime.freeMemory();");
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("System.out.println(\"Memory Usage: \" +  memory/1024.0/1024 + \" MB\");");
-      _builder.newLine();
-      _builder.newLine();
-      _builder.append("\t\t");
-      _builder.append("System.exit(0);");
-      _builder.newLine();
-      _builder.append("\t");
-      _builder.append("}");
-      _builder.newLine();
-      _builder.append("}");
-      _builder.newLine();
-      javaMain.write(_builder.toString());
-      this.endTargetFile(javaMain);
+      IterableExtensions.<Module>forEach(_modules_1, _function_1);
+      if (mainModel) {
+        final Writer javaMain = this.beginTargetFile(this.javaPackageFolder, "JavaMain.java");
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("package ");
+        _builder.append(this.javaPackagePrefix, "");
+        _builder.append(";");
+        _builder.newLineIfNotEmpty();
+        _builder.newLine();
+        _builder.append("public class JavaMain {");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("public static void main(String[] args) {");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("long startTime = System.nanoTime();");
+        _builder.newLine();
+        _builder.newLine();
+        _builder.append("\t\t");
+        String _javaNameQualified_for_Module = this.javaNameQualified_for_Module(moduleWithMainProcedure, true);
+        _builder.append(_javaNameQualified_for_Module, "		");
+        _builder.append(".startMainProcedure();");
+        _builder.newLineIfNotEmpty();
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("long estimatedTime = System.nanoTime() - startTime;");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("long ms = estimatedTime / (1000 * 1000);");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("System.out.println(\"Execution time: \" + ms / 1000.0 + \" seconds\");");
+        _builder.newLine();
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("Runtime runtime = Runtime.getRuntime();");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("long memory = runtime.totalMemory() - runtime.freeMemory();");
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("System.out.println(\"Memory Usage: \" +  memory/1024.0/1024 + \" MB\");");
+        _builder.newLine();
+        _builder.newLine();
+        _builder.append("\t\t");
+        _builder.append("System.exit(0);");
+        _builder.newLine();
+        _builder.append("\t");
+        _builder.append("}");
+        _builder.newLine();
+        _builder.append("}");
+        _builder.newLine();
+        javaMain.write(_builder.toString());
+        this.endTargetFile(javaMain);
+      }
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
@@ -870,6 +861,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       final MappingStatement it = stm;
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("gen(");
+      _builder.newLine();
       {
         EList<MappingPart> _parts = it.getParts();
         boolean _hasElements = false;
@@ -877,18 +869,35 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
           if (!_hasElements) {
             _hasElements = true;
           } else {
-            _builder.appendImmediate("+", "");
+            _builder.appendImmediate("+", "		");
           }
-          _builder.newLineIfNotEmpty();
-          _builder.append("// TODO");
-          _builder.newLine();
           _builder.append("\t\t");
+          String _genMappingPart = this.genMappingPart(part);
+          _builder.append(_genMappingPart, "		");
+          _builder.newLineIfNotEmpty();
         }
       }
+      _builder.append("\t\t");
       _builder.append(");");
       _xblockexpression = (_builder.toString());
     }
     return _xblockexpression;
+  }
+  
+  protected String _genMappingPart(final MappingPart part) {
+    return "< unknown mapping part >";
+  }
+  
+  protected String _genMappingPart(final FixedMappingPart part) {
+    String _code = part.getCode();
+    String _quoteJavaString = this.quoteJavaString(_code);
+    return _quoteJavaString;
+  }
+  
+  protected String _genMappingPart(final DynamicMappingPart part) {
+    Expression _expr = part.getExpr();
+    String _genExpr = this.genExpr(_expr);
+    return _genExpr;
   }
   
   protected String _genStatement(final Variable variable) {
@@ -1194,31 +1203,6 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  public boolean refersToSyntaxPart(final IdExpr idExpr) {
-    final IdExpr it = idExpr;
-    IdExpr _parentIdExpr = it.getParentIdExpr();
-    boolean _equals = Objects.equal(_parentIdExpr, null);
-    if (_equals) {
-      boolean _and = false;
-      NamedElement _referencedElement = it.getReferencedElement();
-      boolean _notEquals = (!Objects.equal(_referencedElement, null));
-      if (!_notEquals) {
-        _and = false;
-      } else {
-        NamedElement _referencedElement_1 = it.getReferencedElement();
-        _and = (_notEquals && (_referencedElement_1 instanceof PropertyBindingExpr));
-      }
-      return _and;
-    } else {
-      IdExpr _parentIdExpr_1 = it.getParentIdExpr();
-      return this.refersToSyntaxPart(_parentIdExpr_1);
-    }
-  }
-  
-  public boolean refersToSyntaxPart_ofType_StructuredType(final IdExpr idExpr) {
-    return false;
-  }
-  
   protected String _genExpr(final IdExpr idExpr) {
     String _genIdExpr = this.genIdExpr(idExpr);
     return _genIdExpr;
@@ -1334,13 +1318,12 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   protected String _genIdExpr_for_ReferencedElement(final IdExpr idExpr, final PropertyBindingExpr referencedElement) {
-    StringConcatenation _builder = new StringConcatenation();
-    _builder.append("get");
-    String _name = referencedElement.getName();
-    String _firstUpper = StringExtensions.toFirstUpper(_name);
-    _builder.append(_firstUpper, "");
-    _builder.newLineIfNotEmpty();
-    return _builder.toString();
+    String _genIdExpr_for_PropertyBindingExpr = this.genIdExpr_for_PropertyBindingExpr(idExpr, referencedElement);
+    return _genIdExpr_for_PropertyBindingExpr;
+  }
+  
+  public String genIdExpr_for_PropertyBindingExpr(final IdExpr idExpr, final PropertyBindingExpr referencedElement) {
+    return null;
   }
   
   protected String _genType(final TypedElement typedElement) {
@@ -1693,6 +1676,8 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       return _javaNameQualified((Clazz)element);
     } else if (element instanceof Variable) {
       return _javaNameQualified((Variable)element);
+    } else if (element instanceof ExtensionDefinition) {
+      return _javaNameQualified((ExtensionDefinition)element);
     } else if (element instanceof Procedure) {
       return _javaNameQualified((Procedure)element);
     } else {
@@ -1758,6 +1743,19 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(stm).toString());
+    }
+  }
+  
+  public String genMappingPart(final MappingPart part) {
+    if (part instanceof DynamicMappingPart) {
+      return _genMappingPart((DynamicMappingPart)part);
+    } else if (part instanceof FixedMappingPart) {
+      return _genMappingPart((FixedMappingPart)part);
+    } else if (part != null) {
+      return _genMappingPart(part);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(part).toString());
     }
   }
   

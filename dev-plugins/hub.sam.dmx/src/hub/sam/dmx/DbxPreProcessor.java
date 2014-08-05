@@ -17,11 +17,11 @@ import hub.sam.dbl.Model;
 
 public class DbxPreProcessor extends DblPreProcessor {
 
-	private DbxTextEditor editor;
+	private IExtensionDefinitionApplier extensionDefinitionApplier;
 	
-	public DbxPreProcessor(DbxTextEditor editor) {
-		super(editor);
-		this.editor = editor;
+	public DbxPreProcessor(IExtensionDefinitionApplier extensionDefinitionApplier, String filename, DbxTextEditor openedEditor) {
+		super(filename, openedEditor);
+		this.extensionDefinitionApplier = extensionDefinitionApplier;
 	}
 	
 	private Collection<String> processedFileImports = new HashSet<String>();
@@ -58,12 +58,9 @@ public class DbxPreProcessor extends DblPreProcessor {
 					}
 				}
 				
-				// TODO add extension definitions contained in import -> requires ecore model
+				// add extension definitions contained in import -> requires ecore model
 				if (resourceForImport != null) {
-					if (resourceForImport.getContents().isEmpty()) {
-						System.out.println("problem");
-					}
-					editor.addExtensionDefinitions((Model) resourceForImport.getContents().get(0));
+					extensionDefinitionApplier.addExtensionDefinitions((Model) resourceForImport.getContents().get(0));
 				}
 			}
 		}
@@ -117,8 +114,8 @@ public class DbxPreProcessor extends DblPreProcessor {
 
 	@Override
 	protected void importedModelChanged(Model model) {
-		editor.unwindExtensionDefinitionEffects(model);
-		editor.fireRccSyntaxChanged();
+		extensionDefinitionApplier.unwindExtensionDefinitionEffects(model);
+		extensionDefinitionApplier.syntaxChanged();
 		
 		super.importedModelChanged(model);
 	}

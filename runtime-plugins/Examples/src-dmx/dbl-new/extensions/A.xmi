@@ -22,7 +22,8 @@
           <callPart/>
         </callIdExpr>
       </statements>
-      <statements xsi:type="dbl:S1" concreteSyntax="s11;"/>
+      <statements xsi:type="dbl:SC" concreteSyntax="sc 15;" instanceOfExtensionDefinition="true" numberr="15"/>
+      <statements xsi:type="dbl:SB" concreteSyntax="sb;" instanceOfExtensionDefinition="true"/>
     </procedures>
   </modules>
 </dbl:Model>

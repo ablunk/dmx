@@ -1,11 +1,11 @@
 package hub.sam.dmx;
 
+import hub.sam.dbl.DblPackage;
 import hub.sam.dmx.modifications.Addition;
 import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.ModificationsFactory;
 import hub.sam.dmx.modifications.ModificationsPackage;
 import hub.sam.dmx.modifications.ModificationsRecord;
-import hub.sam.dbl.DblPackage;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -38,17 +38,17 @@ public abstract class AbstractExtensionSemantics {
 	protected abstract void doGenerate(EObject extensionInstance);
 	
 	public void doGenerate(String[] args) {
-		doGenerate(args, false);
+		doGenerate(args, true);
 	}
 	
 	public void doGenerate(String[] args, boolean useDynamicEObjects) {
 		try {
-			FileWriter errStreamFile = new FileWriter(RunAction.TEMP_FOLDER_NAME + File.separator + "debug.txt");
+			FileWriter errStreamFile = new FileWriter(XtendRunAction.TEMP_FOLDER_NAME + File.separator + "debug.txt");
 			BufferedWriter err = new BufferedWriter(errStreamFile);
 			err.write("starting ...\n");
 
 			try {
-				String eblProgramXmiFile = args[0];
+				String modelXmiFile = args[0];
 				extensionInstanceUri = args[1];
 
 				ResourceSet resourceSet = new ResourceSetImpl();
@@ -58,7 +58,7 @@ public abstract class AbstractExtensionSemantics {
 		    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
         
 		    	if (useDynamicEObjects) {
-			    	String metamodelFile = RunAction.TEMP_FOLDER_NAME + File.separator + "dbl.ecore";
+			    	String metamodelFile = XtendRunAction.TEMP_FOLDER_NAME + File.separator + "dbl.ecore";
 					URI metamodelUri = URI.createFileURI(new File(metamodelFile).getAbsolutePath());
 					Resource metamodelResource = resourceSet.getResource(metamodelUri, true);
 					EObject rootObject = metamodelResource.getContents().get(0);
@@ -73,10 +73,10 @@ public abstract class AbstractExtensionSemantics {
 		    		resourceSet.getPackageRegistry().put(DblPackage.eNS_URI, DblPackage.eINSTANCE);
 		    	}
 
-				URI eblProgramFileUri = URI.createFileURI(new File(eblProgramXmiFile).getAbsolutePath());
+				URI eblProgramFileUri = URI.createFileURI(new File(modelXmiFile).getAbsolutePath());
 				Resource eblProgramResource = resourceSet.getResource(eblProgramFileUri, true);
 				
-				String modificationsXmiFile = RunAction.TEMP_FOLDER_NAME + File.separator + "modifications.xmi";
+				String modificationsXmiFile = XtendRunAction.TEMP_FOLDER_NAME + File.separator + "modifications.xmi";
 				URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());
 				Resource modificationsResource = resourceSet.getResource(modificationsFileUri, true);
 				if (modificationsResource.getContents().size() == 0) {
@@ -130,11 +130,6 @@ public abstract class AbstractExtensionSemantics {
 	protected Object getPropertyValue(EObject eObject, String propertyName) {
 		EStructuralFeature property = eObject.eClass().getEStructuralFeature(propertyName);
 		return eObject.eGet(property);
-	}
-	
-	protected EList getListPropertyValue(EObject eObject, String propertyName) {
-		EStructuralFeature property = eObject.eClass().getEStructuralFeature(propertyName);
-		return (EList) eObject.eGet(property);
 	}
 	
 	static String getEmfUriFragment(EObject eObject) {

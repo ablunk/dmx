@@ -4,10 +4,26 @@ module B {
 
 class B {}
 
+extension SB {
+	Statement -> SB;
+	SB -> "sb" ";";
+}
+semantics {
+	sc 12;
+	gen "print \"sb\";";
+	gen "sc 17;";
+}
+
 void mb() {
 	B b;
 	C c;
-	s11;
+	sc 13;
+	print "\n";
+}
+
+void main() {
+	mb();
+	print "B.main()\n";
 }
 
 }

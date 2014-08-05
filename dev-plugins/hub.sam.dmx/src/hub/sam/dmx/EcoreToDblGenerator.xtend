@@ -32,7 +32,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		endTargetFile(writer)				
 	}
 	
-	override startGenerator() {
+	def void startGenerator() {
 		makeFolder("resources-gen")
 		startGenerator("resources-gen/ecore.dbl", EcorePackage.eINSTANCE, "org.eclipse.emf.ecore")
 	}

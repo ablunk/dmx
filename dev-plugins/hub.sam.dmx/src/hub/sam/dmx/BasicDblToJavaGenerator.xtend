@@ -75,12 +75,15 @@ import java.util.List
 import java.util.regex.Matcher
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.emf.ecore.resource.Resource
+import hub.sam.dbl.MappingPart
+import hub.sam.dbl.FixedMappingPart
+import hub.sam.dbl.DynamicMappingPart
+import hub.sam.dbl.ExtensionDefinition
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
-	new(Resource modelResource, IPath outputFolder) {
-		super(modelResource, outputFolder)
+	new(IPath outputFolder) {
+		super(outputFolder)
 	}
 	
 	override def String genModuleWithMainProcedure(Module module) {
@@ -217,31 +220,22 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
 }
 
-class ExtensionsToJavaGenerator extends BasicDblToJavaGenerator {
-	
-	new(Resource modelResource, IPath outputFolder) {
-		super(modelResource, outputFolder)
-	}
-	
-	override String genIdExpr_for_PredefinedId_meLiteral() {
-		'self'
-	}
-	
-}
-	
+/**
+ * Generates Java code for the specified model only (i.e. imported models are not considered).
+ */
 class BasicDblToJavaGenerator extends AbstractGenerator {
 	
-	protected val Resource modelResource
-
 	public val javaPackagePrefix = "hub.sam.dmx.javasim.gen"
 	public val javaPackageFolderPrefix = javaPackagePrefix.replaceAll("\\.", "/")
-	var IPath javaPackageFolder;
+	public var IPath javaPackageFolder;
 	
 	protected val javaClass_for_ModuleLevelElements = "Module_"
 	
-	new(Resource modelResource, IPath outputFolder) {
+	new(IPath outputFolder) {
 		super(outputFolder)
-		this.modelResource = modelResource;
+
+		javaPackageFolder = outputFolder.append(javaPackageFolderPrefix)
+		makeFolder(javaPackageFolder);
 	}
 	
 	def String genActiveClass(Clazz clazz) {
@@ -281,30 +275,12 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	var Module _lazy_moduleWithMainProcedure = null;
 
-	def Module getModuleWithMainProcedure() {
-		if (_lazy_moduleWithMainProcedure == null) {
-			_lazy_moduleWithMainProcedure = (modelResource.contents.head as Model).modules.findFirst[ procedures.exists[ name == 'main' ] ]
-		}
-		return _lazy_moduleWithMainProcedure;
-	}
-	
-	override void startGenerator() {
-		val model = modelResource.contents.head as Model;
-		
-		model.genModel
-		model.genImportedModels
-	}
-	
-	def void genImportedModels(Model importingModel) {
-		val it = importingModel
-		if (!imports.empty) {
-			for ( imprt : imports) {
-				// model (XMI) might not be up-to-date ?!?
-				imprt.model.genModel
-				imprt.model.genImportedModels // recursively generate models of imported models
-			}
-		}
-	}
+//	def Module getModuleWithMainProcedure(Model model) {
+//		if (_lazy_moduleWithMainProcedure == null) {
+//			_lazy_moduleWithMainProcedure = model.modules.findFirst[ procedures.exists[ name == 'main' ] ]
+//		}
+//		return _lazy_moduleWithMainProcedure;
+//	}
 
 //	def dispatch String javaNameQualified(Module element) {
 //		val it = element
@@ -315,6 +291,12 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		val it = element
 		if (forContentAccess) javaPackagePrefix + "." + name + "." + javaClass_for_ModuleLevelElements
 		else javaPackagePrefix + "." + name
+	}
+
+	def dispatch String javaNameQualified(ExtensionDefinition element) {
+		val it = element
+		val owner = element.eContainer as Module;
+		owner.javaNameQualified_for_Module(false) + "." + name
 	}
 
 	def dispatch String javaNameQualified(Clazz element) {
@@ -354,17 +336,16 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		else name
 	}
 
-	def void genModel(Model model) {
-		javaPackageFolder = outputFolder.append(javaPackageFolderPrefix)
-		makeFolder(javaPackageFolder);
-			
+	def void genModel(Model model, boolean mainModel) {
+		val Module moduleWithMainProcedure = if (mainModel) model.modules.findFirst[ procedures.exists[ name == 'main' ] ] else null
+		
 		model.modules.forEach[ module | 
 			val moduleFolder = javaPackageFolder.append(module.name)
 			makeFolder(moduleFolder)
 
 			val Writer moduleWriter = beginTargetFile(moduleFolder, javaClass_for_ModuleLevelElements + ".java");
 			moduleWriter.write(
-				if (module != moduleWithMainProcedure) module.gen
+				if (moduleWithMainProcedure == null || module != moduleWithMainProcedure) module.gen
 				else module.genModuleWithMainProcedure
 			)
 			endTargetFile(moduleWriter)
@@ -379,32 +360,34 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 			]
 		]
 		
-		// main Java class with main function
-		val Writer javaMain = beginTargetFile(javaPackageFolder, "JavaMain.java");
-		javaMain.write(
-			'''
-			package «javaPackagePrefix»;
-			
-			public class JavaMain {
-				public static void main(String[] args) {
-					long startTime = System.nanoTime();
-					
-					«moduleWithMainProcedure.javaNameQualified_for_Module(true)».startMainProcedure();
-					
-					long estimatedTime = System.nanoTime() - startTime;
-					long ms = estimatedTime / (1000 * 1000);
-					System.out.println("Execution time: " + ms / 1000.0 + " seconds");
+		if (mainModel) {
+			// main Java class with main function
+			val Writer javaMain = beginTargetFile(javaPackageFolder, "JavaMain.java");
+			javaMain.write(
+				'''
+				package «javaPackagePrefix»;
+				
+				public class JavaMain {
+					public static void main(String[] args) {
+						long startTime = System.nanoTime();
+				
+						«moduleWithMainProcedure.javaNameQualified_for_Module(true)».startMainProcedure();
+				
+						long estimatedTime = System.nanoTime() - startTime;
+						long ms = estimatedTime / (1000 * 1000);
+						System.out.println("Execution time: " + ms / 1000.0 + " seconds");
 
-					Runtime runtime = Runtime.getRuntime();
-					long memory = runtime.totalMemory() - runtime.freeMemory();
-					System.out.println("Memory Usage: " +  memory/1024.0/1024 + " MB");
+						Runtime runtime = Runtime.getRuntime();
+						long memory = runtime.totalMemory() - runtime.freeMemory();
+						System.out.println("Memory Usage: " +  memory/1024.0/1024 + " MB");
 
-					System.exit(0);
+						System.exit(0);
+					}
 				}
-			}
-			'''			
-		);
-		endTargetFile(javaMain);
+				'''			
+			);
+			endTargetFile(javaMain);
+		}
 	}
 	
 	def dispatch String gen(Classifier c) {
@@ -562,9 +545,23 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	def dispatch String genStatement(MappingStatement stm) {
 		val it = stm
-		'''gen(«FOR part : parts SEPARATOR '+'»
-			// TODO
-		«ENDFOR»);'''
+		'''gen(
+		«FOR part : parts SEPARATOR '+'»
+			«part.genMappingPart»
+		«ENDFOR»
+		);'''
+	}
+	
+	def dispatch String genMappingPart(MappingPart part) {
+		'< unknown mapping part >'
+	}
+
+	def dispatch String genMappingPart(FixedMappingPart part) {
+		quoteJavaString(part.code)
+	}
+
+	def dispatch String genMappingPart(DynamicMappingPart part) {
+		part.expr.genExpr
 	}
 
 	def dispatch String genStatement(Variable variable) {
@@ -723,28 +720,12 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'''
 	}
 	
-	def boolean refersToSyntaxPart(IdExpr idExpr) {
-		val it = idExpr
-		if (parentIdExpr == null) {
-			return referencedElement != null && referencedElement instanceof PropertyBindingExpr
-		}
-		else
-			return parentIdExpr.refersToSyntaxPart
-	}
-	
-	def boolean refersToSyntaxPart_ofType_StructuredType(IdExpr idExpr) {
-		false
-	}
-	
 	def dispatch String genExpr(IdExpr idExpr) {
 		idExpr.genIdExpr
 	}
 
 	def String genIdExpr(IdExpr idExpr) {
 		val it = idExpr
-
-		// TODO different code generation if used in extension semantics needed
-		// SEE template public genExpression(idExpr : IdExpr, extensionSemantics : Boolean)
 
 		'''
 		«IF parentIdExpr != null»
@@ -797,9 +778,11 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	}	
 	
 	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, PropertyBindingExpr referencedElement) {
-		'''
-		get«referencedElement.name.toFirstUpper»
-		'''
+		idExpr.genIdExpr_for_PropertyBindingExpr(referencedElement)
+	}
+	
+	def String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, PropertyBindingExpr referencedElement) {
+		// empty for DBL models
 	}
 	
 	def dispatch String genType(TypedElement typedElement) {

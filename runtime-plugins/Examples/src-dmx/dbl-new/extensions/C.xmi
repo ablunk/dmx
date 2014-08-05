@@ -5,19 +5,30 @@
   </imports>
   <modules name="C">
     <classifiers xsi:type="dbl:Clazz" name="C"/>
-    <extensionDefs name="S1">
+    <extensionDefs name="SC">
       <textualSyntaxDef>
         <extensionRule name="Statement">
           <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
         </extensionRule>
-        <newRules name="S1">
+        <newRules name="SC">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="s11"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="sc"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="numberr">
+              <propertyType xsi:type="dbl:IntPropertyType"/>
+            </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>
         </newRules>
       </textualSyntaxDef>
-      <mappingDef/>
+      <mappingDef>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;SC\&quot; + "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" + \&quot;\\n\&quot;;"/>
+        </statements>
+      </mappingDef>
     </extensionDefs>
     <procedures name="mc">
       <primitiveType xsi:type="dbl:VoidType"/>
@@ -25,6 +36,12 @@
         <classifierType>
           <referencedElement href="D.xmi#//@modules.0/@classifiers.0"/>
         </classifierType>
+      </statements>
+    </procedures>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="C.main()\n"/>
       </statements>
     </procedures>
   </modules>

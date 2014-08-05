@@ -7,7 +7,9 @@ void main() {
 	C c;
 	
 	mb();
-	s11; // TODO
+	
+	sc 15;
+	sb;
 }
 
 }

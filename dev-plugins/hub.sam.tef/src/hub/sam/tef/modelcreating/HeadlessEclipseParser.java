@@ -15,7 +15,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
@@ -36,7 +35,6 @@ public abstract class HeadlessEclipseParser {
 	protected final IPath inputPath;
 
 	protected ResourceSet resourceSet = new ResourceSetImpl();
-	private Resource resource = null;
 	
 	private IModelCreatingContext lastModelCreationContext;
 	private String currentText;

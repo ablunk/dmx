@@ -15,8 +15,6 @@ public abstract class AbstractGenerator {
     this.outputFolder = outputFolder;
   }
   
-  public abstract void startGenerator();
-  
   protected void makeFolder(final IPath folder) {
     String _string = folder.toString();
     File _file = new File(_string);

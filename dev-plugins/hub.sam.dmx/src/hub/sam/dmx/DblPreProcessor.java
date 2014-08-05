@@ -24,12 +24,14 @@ import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener2;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartReference;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 public class DblPreProcessor {
 	
 	private final DblTextEditor editor;
+	private final String filename; // the file that is pre-processed by this pre-processor
 	private static ResourceSet resourceSet = new ResourceSetImpl();
 	private Map<String, IModelContainer> allImports = new HashMap<String, IModelContainer>();
 	private Map<String, DblTextEditor> importsOpenedInActiveEditors = new HashMap<String, DblTextEditor>();
@@ -38,7 +40,8 @@ public class DblPreProcessor {
 	 * 
 	 * @param editor if non-null, pre-processors updates imports. otherwise, null may be passed as a legal value.
 	 */
-	public DblPreProcessor(DblTextEditor editor) {
+	public DblPreProcessor(String filename, DblTextEditor editor) {
+		this.filename = filename;
 		this.editor = editor;
 	}
 	
@@ -161,21 +164,31 @@ public class DblPreProcessor {
 	}
 	
 	protected DblTextEditor getOpenedEditorForImport(final String fileToImport, final boolean directImport) {
+		final String fileToImportDbl = fileToImport.concat(".dbl");
+		final String fileToImportDbx = fileToImport.concat(".dbx");
 		RunnableWithReturn<DblTextEditor> runnable = new RunnableWithReturn<DblTextEditor>() {
 			public void run() {
 		    	IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
 		    	
 		    	// check if import is currently opened in another editor window
 		    	for (IEditorReference otherEditorRef: editorRefs) {					    		
-					if (editor != null && directImport) {
-						otherEditorRef.getPage().addPartListener(otherEditorRefPartListener);
-					}
-		    		
+
 		    		IEditorPart otherEditorPart = otherEditorRef.getEditor(false);
-		    		if (otherEditorPart instanceof DblTextEditor) {
+					if (otherEditorPart == null && editor != null && directImport) {
+						try {
+							String otherEditorName = otherEditorRef.getEditorInput().getName();
+							if (otherEditorName.equals(fileToImportDbl) || otherEditorName.equals(fileToImportDbx)) {
+								otherEditorRef.getPage().addPartListener(otherEditorRefPartListener);
+							}
+						}
+						catch (PartInitException e) {
+							throw new RuntimeException(e);
+						}
+					}
+					else if (otherEditorPart instanceof DblTextEditor) {
 						final DblTextEditor otherEditor = (DblTextEditor) otherEditorPart;
 						
-						if (!editor.getPartName().equals(otherEditor.getPartName())) {
+						if (editor != null && !editor.getPartName().equals(otherEditor.getPartName())) {
 							
 							IPath otherEditorInputLocation = ((FileEditorInput) otherEditor.getEditorInput()).getFile().getLocation();
 							String otherEditorFileName = otherEditorInputLocation.removeFileExtension().lastSegment().toString();
@@ -188,10 +201,13 @@ public class DblPreProcessor {
 									System.out.println("editor '" + editor.getEditorInput().getName() + "' listens to other editor '"
 											+ otherEditor.getEditorInput().getName() + "'");
 								}
-
 								setResult(otherEditor);
 							}
 						}
+						else if (editor == null && filename.equals(otherEditor.getPartName())) {
+							setResult(otherEditor);
+						}
+						
 		    		}
 		    	}
 			}

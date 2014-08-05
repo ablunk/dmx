@@ -25,15 +25,14 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 @SuppressWarnings("all")
 public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
-  public DblToDesmojJavaGenerator(final Resource modelResource, final IPath outputFolder) {
-    super(modelResource, outputFolder);
+  public DblToDesmojJavaGenerator(final IPath outputFolder) {
+    super(outputFolder);
   }
   
   public String genModuleWithMainProcedure(final Module module) {

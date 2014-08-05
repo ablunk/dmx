@@ -17,40 +17,50 @@
           </rhs>
         </newRules>
       </textualSyntaxDef>
-      <mappingDef concreteSyntax="sc 12;&#xA;&#x9;gen &quot;print \&quot;sb\&quot;;&quot;;&#xA;&#x9;gen &quot;sc 17;&quot;;">
-        <statements xsi:type="dbl:SC" concreteSyntax="sc 12;" instanceOfExtensionDefinition="true" numberr="12"/>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;print \&quot;sb\&quot;;&quot;">
+      <mappingDef>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="SC"/>
+            <op2 xsi:type="dbl:IntLiteral" value="12"/>
+          </outputs>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
           <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sb\&quot;;"/>
         </statements>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;sc 17;&quot;">
+        <statements xsi:type="dbl:MappingStatement">
           <parts xsi:type="dbl:FixedMappingPart" code="sc 17;"/>
         </statements>
       </mappingDef>
     </extensionDefs>
     <procedures name="mb">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="b" concreteSyntax="B b">
-        <classifierType concreteSyntax="B" referencedElement="//@modules.0/@classifiers.0"/>
+      <statements xsi:type="dbl:Variable" name="b">
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
       </statements>
-      <statements xsi:type="dbl:Variable" name="c" concreteSyntax="C c">
-        <classifierType concreteSyntax="C">
+      <statements xsi:type="dbl:Variable" name="c">
+        <classifierType>
           <referencedElement href="C.xmi#//@modules.0/@classifiers.0"/>
         </classifierType>
       </statements>
-      <statements xsi:type="dbl:SC" concreteSyntax="sc 13;" instanceOfExtensionDefinition="true" numberr="13"/>
-      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;\n&quot;">
-        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:StringLiteral" value="SC"/>
+          <op2 xsi:type="dbl:IntLiteral" value="13"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="\n"/>
       </statements>
     </procedures>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:ProcedureCall" concreteSyntax="mb()">
-        <callIdExpr concreteSyntax="mb()" referencedElement="//@modules.0/@procedures.0">
+      <statements xsi:type="dbl:ProcedureCall">
+        <callIdExpr referencedElement="//@modules.0/@procedures.0">
           <callPart/>
         </callIdExpr>
       </statements>
-      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;B.main()\n&quot;">
-        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;B.main()\n&quot;" value="B.main()\n"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="B.main()\n"/>
       </statements>
     </procedures>
   </modules>

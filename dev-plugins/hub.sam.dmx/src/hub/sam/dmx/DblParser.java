@@ -17,8 +17,12 @@ import org.osgi.framework.Bundle;
 
 public class DblParser extends HeadlessEclipseParser {
 	
-	public DblParser(IPath inputLocation) {
-		super(inputLocation);
+	protected final String filename;
+	
+	public DblParser(IPath inputPath, String filename) {
+		super(inputPath);
+		this.filename = filename;
+		initPreProcessor();
 	}
 
 	@Override
@@ -29,6 +33,20 @@ public class DblParser extends HeadlessEclipseParser {
 	
 	public EPackage[] createMetaModelPackages() {
 		return new EPackage[] { DblPackage.eINSTANCE };
+	}
+	
+	private DblPackage dblMetaModel;
+	
+	public DblPackage getDblMetaModel() {
+		if (dblMetaModel == null) {
+			for (EPackage pkg: getMetaModelPackages()) {
+				if (pkg instanceof DblPackage) {
+					dblMetaModel = (DblPackage) pkg;
+					break;
+				}
+			}			
+		}
+		return dblMetaModel;
 	}
 
 	@Override
@@ -57,7 +75,7 @@ public class DblParser extends HeadlessEclipseParser {
 
 			@Override
 			public Collection<IModelContainer> getImportsModels() {
-				return preProcessor.getImportedModels();
+				return getPreProcessor().getImportedModels();
 			}
 
 			@Override
@@ -72,11 +90,19 @@ public class DblParser extends HeadlessEclipseParser {
 		});
 	}
 	
-	private DblPreProcessor preProcessor = new DblPreProcessor(null);
+	protected DblPreProcessor _preProcessor;
+	
+	protected DblPreProcessor getPreProcessor() {
+		return _preProcessor;
+	}
+	
+	protected void initPreProcessor() {
+		_preProcessor = new DblPreProcessor(filename, null);
+	}
 
 	@Override
 	protected void preProcess(String inputText, IPath inputPath) {
-		preProcessor.preProcess(inputText, inputPath);
+		getPreProcessor().preProcess(inputText, inputPath);
 	}
 
 }

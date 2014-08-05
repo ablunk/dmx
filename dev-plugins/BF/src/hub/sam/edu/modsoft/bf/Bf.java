@@ -1,8 +1,12 @@
 package hub.sam.edu.modsoft.bf;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -25,12 +29,45 @@ public class Bf {
 		boxName.setEType(EcorePackage.Literals.ESTRING);
 		boxClass.getEStructuralFeatures().add(boxName);
 		
+		EAttribute id = EcoreFactory.eINSTANCE.createEAttribute();
+		id.setName("id");
+		id.setEType(EcorePackage.Literals.EINT);
+		boxClass.getEStructuralFeatures().add(id);
+
+		EAttribute listAttr = EcoreFactory.eINSTANCE.createEAttribute();
+		listAttr.setName("boxes");
+		listAttr.setEType(boxClass);
+		listAttr.setLowerBound(0);
+		listAttr.setUpperBound(-1);
+		listAttr.setOrdered(true);
+		boxClass.getEStructuralFeatures().add(listAttr);
+
 		// model
 		EObjectImpl box = (EObjectImpl) EcoreFactory.eINSTANCE.createEObject();
 		box.eSetClass(boxClass);
 		box.eSet(boxName, "A");
+		box.eSet(id, 2);
+
+		EList<EObject> listValue = new BasicEList<EObject>();
+		listValue.add(box);
+		box.eSet(listAttr, listValue);
 		
-		System.out.println(box.eGet(boxName));
+		String nameValue = getPropertyValue(box, "name", String.class);
+		Integer idValue = getPropertyValue(box, "id", Integer.class);
+		EList<EObject> boxesValue = getListPropertyValue(box, "boxes", EObject.class);
+		
+		System.out.println( getPropertyValue( boxesValue.get(0), "name", String.class ) );
 	}
+	
+	public static <T> T getPropertyValue(EObject eObject, String propertyName, Class<T> propertyType) {
+		EStructuralFeature property = eObject.eClass().getEStructuralFeature(propertyName);
+		return (T) eObject.eGet(property);
+	}
+	
+	public static <T> EList<T> getListPropertyValue(EObject eObject, String propertyName, Class<T> listItemType) {
+		EStructuralFeature property = eObject.eClass().getEStructuralFeature(propertyName);
+		return (EList<T>) eObject.eGet(property);
+	}
+
 
 }

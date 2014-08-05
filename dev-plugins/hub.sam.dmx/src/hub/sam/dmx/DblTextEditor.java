@@ -35,16 +35,14 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	
 	protected DblPreProcessor _preProcessor;
 	
-	public DblTextEditor() {
-		initPreProcessor();
-	}
-	
 	protected DblPreProcessor getPreProcessor() {
 		return _preProcessor;
 	}
 	
 	protected void initPreProcessor() {
-		_preProcessor = new DblPreProcessor(this);
+		if (_preProcessor == null) {
+			_preProcessor = new DblPreProcessor(getEditorInput().getName(), this);
+		}
 	}
 	
 	@Override
@@ -79,6 +77,7 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	
 	@Override
 	public void preProcessDocument() {
+		initPreProcessor();
 		super.preProcessDocument();
 		IPath inputFile = ((FileEditorInput) getEditorInput()).getFile().getLocation();
 		getPreProcessor().preProcess(getCurrentText(), inputFile.removeLastSegments(1));		
