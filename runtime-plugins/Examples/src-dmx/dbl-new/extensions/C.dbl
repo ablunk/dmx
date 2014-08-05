@@ -10,10 +10,10 @@ class C {}
 
 extension SC {
 	Statement -> SC;
-	SC -> "sc" numberr:INT ";";
+	SC -> "sc" usedIn:STRING ";";
 }
 semantics {
-	gen "print \"SC\" + " numberr " + \"\\n\";";
+	gen "print \"sc used in '\" + \"" usedIn "\" + \"'\\n\";";
 }
 
 void main() {

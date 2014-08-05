@@ -9,16 +9,15 @@ extension SB {
 	SB -> "sb" ";";
 }
 semantics {
-	sc 12;
-	gen "print \"sb\";";
-	gen "sc 17;";
+	sc "SB semantics";
+	gen "print \"sb\\n\";";
+	gen "sc \"gen statement in SB semantics\";";
 }
 
 void mb() {
 	B b;
 	C c;
-	sc 13;
-	print "\n";
+	sc "B.mb()";
 }
 
 void main() {

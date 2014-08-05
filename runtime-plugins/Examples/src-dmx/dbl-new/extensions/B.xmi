@@ -17,13 +17,13 @@
           </rhs>
         </newRules>
       </textualSyntaxDef>
-      <mappingDef concreteSyntax="sc 12;&#xA;&#x9;gen &quot;print \&quot;sb\&quot;;&quot;;&#xA;&#x9;gen &quot;sc 17;&quot;;">
-        <statements xsi:type="dbl:SC" concreteSyntax="sc 12;" instanceOfExtensionDefinition="true" numberr="12"/>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;print \&quot;sb\&quot;;&quot;">
-          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sb\&quot;;"/>
+      <mappingDef concreteSyntax="sc &quot;SB semantics&quot;;&#xA;&#x9;gen &quot;print \&quot;sb\\n\&quot;;&quot;;&#xA;&#x9;gen &quot;sc \&quot;gen statement in SB semantics\&quot;;&quot;;">
+        <statements xsi:type="dbl:SC" concreteSyntax="sc &quot;SB semantics&quot;;" instanceOfExtensionDefinition="true" usedIn="SB semantics"/>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;print \&quot;sb\\n\&quot;;&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sb\\n\&quot;;"/>
         </statements>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;sc 17;&quot;">
-          <parts xsi:type="dbl:FixedMappingPart" code="sc 17;"/>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="gen &quot;sc \&quot;gen statement in SB semantics\&quot;;&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="sc \&quot;gen statement in SB semantics\&quot;;"/>
         </statements>
       </mappingDef>
     </extensionDefs>
@@ -37,10 +37,7 @@
           <referencedElement href="C.xmi#//@modules.0/@classifiers.0"/>
         </classifierType>
       </statements>
-      <statements xsi:type="dbl:SC" concreteSyntax="sc 13;" instanceOfExtensionDefinition="true" numberr="13"/>
-      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;\n&quot;">
-        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
-      </statements>
+      <statements xsi:type="dbl:SC" concreteSyntax="sc &quot;B.mb()&quot;;" instanceOfExtensionDefinition="true" usedIn="B.mb()"/>
     </procedures>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>

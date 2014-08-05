@@ -1,8 +1,12 @@
 package hub.sam.tef.modelcreating;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import hub.sam.tef.TEFPlugin;
 import hub.sam.tef.Utilities;
 import hub.sam.tef.rcc.Token;
+import hub.sam.tef.semantics.AbstractError;
 import hub.sam.tef.semantics.DefaultIdentificationScheme;
 import hub.sam.tef.semantics.DefaultSemanticsProvider;
 import hub.sam.tef.semantics.Error;
@@ -17,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.edit.provider.ComposedAdapterFactory;
 import org.eclipse.emf.edit.provider.ReflectiveItemProviderAdapterFactory;
 import org.eclipse.emf.edit.provider.resource.ResourceItemProviderAdapterFactory;
@@ -33,14 +38,16 @@ public abstract class HeadlessEclipseParser {
 	private final IIdentificationScheme fIdentificationScheme;
 	
 	protected final IPath inputPath;
+	protected final String filename;
 
 	protected ResourceSet resourceSet = new ResourceSetImpl();
 	
 	private IModelCreatingContext lastModelCreationContext;
 	private String currentText;
 	
-	public HeadlessEclipseParser(IPath inputPath) {
+	public HeadlessEclipseParser(IPath inputPath, String filename) {
 		this.inputPath = inputPath;
+		this.filename = filename;
 		fIdentificationScheme = createIdentificationScheme();
 		fSemanitcsProvider = createSemanticsProvider();
 		fMetaModelPackages = createMetaModelPackages();
@@ -50,7 +57,7 @@ public abstract class HeadlessEclipseParser {
 	protected abstract void preProcess(String inputText, IPath inputLocation);
 
 	public IModelCreatingContext parse(String inputText) throws ModelCreatingException {
-		System.out.println("pre-processing ...");
+		System.out.println("pre-processing " + filename + " ...");
 		preProcess(inputText, inputPath);
 		
 		currentText = inputText;
@@ -120,15 +127,27 @@ public abstract class HeadlessEclipseParser {
 		return fSyntax;
 	}
 	
+	private static Map<String, Syntax> originalSyntaxDescriptions = new HashMap<String, Syntax>();
+	
 	/**
 	 * @return the newly created/loaded syntax for this editor.
 	 */
 	protected Syntax createSyntax() throws TslException {
-		Bundle bundle = getPluginBundle();
-		if (bundle == null) {
-			bundle = TEFPlugin.getDefault().getBundle();
+		if (!originalSyntaxDescriptions.containsKey(getSyntaxPath())) {
+			Bundle bundle = getPluginBundle();
+			if (bundle == null) {
+				bundle = TEFPlugin.getDefault().getBundle();
+			}
+			System.out.println("loading syntax from " + getSyntaxPath());
+			Syntax syntax = Utilities.loadSyntaxDescription(bundle, getSyntaxPath(), getMetaModelPackages());
+			originalSyntaxDescriptions.put(getSyntaxPath(), syntax);
+			return syntax;
 		}
-		return Utilities.loadSyntaxDescription(bundle, getSyntaxPath(), getMetaModelPackages());
+		else {
+			System.out.println("copying syntax previously loaded from " + getSyntaxPath());
+			Syntax syntaxCopy = EcoreUtil.copy(originalSyntaxDescriptions.get(getSyntaxPath()));
+			return syntaxCopy;
+		}
 	}
 	
 	protected abstract Bundle getPluginBundle();

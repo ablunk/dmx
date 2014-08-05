@@ -13,12 +13,7 @@ import hub.sam.dmx.modifications.Substitution;
 import hub.sam.tef.modelcreating.HeadlessEclipseParser;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 import hub.sam.tef.modelcreating.ModelCreatingException;
-import hub.sam.tef.modelcreating.ParseTreeRuleNode;
-import hub.sam.tef.modelcreating.IModelCreatingContext.ActionStatementEvaluationTime;
-import hub.sam.tef.modelcreating.IModelCreatingContext.Resolution;
 import hub.sam.tef.semantics.AbstractError;
-import hub.sam.tef.semantics.ISemanticsProvider;
-import hub.sam.tef.util.MultiMap;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -61,10 +56,8 @@ import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.emf.codegen.ecore.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -291,10 +284,8 @@ public class ModelLauncher {
 					try {
 						IModelCreatingContext creationContext = parser.parse(modelAsText);
 						if (creationContext.getErrors().size() > 0) {
-							for (AbstractError error: creationContext.getErrors()) {
-								System.out.println("PARSE ERROR in " + inputFile.getName() + ": " + error.getMessage());
-								throw new RuntimeException(error.getMessage());
-							}
+							printParseErrorsToEditorConsole(creationContext, inputFile.getName(), modelAsText);
+							throw new RuntimeException(creationContext.getErrors().iterator().next().getMessage());
 						}
 						else {
 							parsedWorkingModel = new ParsedWorkingCopyModel(inputModel.eResource().getURI(),
@@ -489,16 +480,13 @@ public class ModelLauncher {
 			String filename = workingModel.getResource().getURI().trimFileExtension().appendFileExtension("dbx").lastSegment();
 
 			HeadlessEclipseParser parser = new DbxParser(inputPath, filename);
-			// TODO reduce execution time by reusing the current DBL metamodel and the current syntax model in DblParser
 			
 			try {
 				//lastInputModelContext = parser.parse("module test { void main() { print \"hello\"; } }");
 				IModelCreatingContext modelCreationContext = parser.parse(substitutedText);
 				if (modelCreationContext.getErrors().size() > 0) {
-					for (AbstractError error: modelCreationContext.getErrors()) {
-						System.out.println("PARSE ERROR in " + filename + ": " + error.getMessage());
-						throw new RuntimeException(error.getMessage());
-					}
+					printParseErrorsToEditorConsole(modelCreationContext, filename, substitutedText);
+					throw new RuntimeException(modelCreationContext.getErrors().iterator().next().getMessage());
 				}
 				else {
 					workingModel = new ParsedWorkingCopyModel(workingModel,
@@ -515,6 +503,17 @@ public class ModelLauncher {
 		}
 		
 		return workingModel;
+	}
+	
+	private void printParseErrorsToEditorConsole(IModelCreatingContext context, String filename, String sourceText) {
+		final MessageConsoleStream stream = getConsoleForCurrentEditor().newMessageStream();
+		for (AbstractError error: context.getErrors()) {
+			Position errorPosition = error.getPosition(context);
+			stream.println(filename + " >> " + error.getMessage());
+			if (errorPosition.offset >= 0) {
+				stream.println("text before error:\n" + sourceText.substring(0, errorPosition.offset));
+			}
+		}
 	}
 	
 	private String textSubstituteExtensionInstances(ParsedWorkingCopyModel workingModel) {
@@ -917,6 +916,8 @@ public class ModelLauncher {
 
 		final IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
 		final boolean isDbxInputFile = inputFile.getFileExtension().equals("dbx");
+
+		System.out.println("Compiling and executing model " + inputFile + " ...");
 
 		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
 		

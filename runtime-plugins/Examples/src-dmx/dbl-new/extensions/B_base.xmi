@@ -20,15 +20,18 @@
       <mappingDef>
         <statements xsi:type="dbl:Print">
           <outputs xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:StringLiteral" value="SC"/>
-            <op2 xsi:type="dbl:IntLiteral" value="12"/>
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:StringLiteral" value="sc used in '"/>
+              <op2 xsi:type="dbl:StringLiteral" value="SB semantics"/>
+            </op1>
+            <op2 xsi:type="dbl:StringLiteral" value="'\n"/>
           </outputs>
         </statements>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sb\&quot;;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sb\\n\&quot;;"/>
         </statements>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="sc 17;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="sc \&quot;gen statement in SB semantics\&quot;;"/>
         </statements>
       </mappingDef>
     </extensionDefs>
@@ -44,12 +47,12 @@
       </statements>
       <statements xsi:type="dbl:Print">
         <outputs xsi:type="dbl:Plus">
-          <op1 xsi:type="dbl:StringLiteral" value="SC"/>
-          <op2 xsi:type="dbl:IntLiteral" value="13"/>
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="sc used in '"/>
+            <op2 xsi:type="dbl:StringLiteral" value="B.mb()"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="'\n"/>
         </outputs>
-      </statements>
-      <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:StringLiteral" value="\n"/>
       </statements>
     </procedures>
     <procedures name="main">

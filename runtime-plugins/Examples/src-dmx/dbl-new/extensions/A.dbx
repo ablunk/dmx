@@ -8,7 +8,7 @@ void main() {
 	
 	mb();
 	
-	sc 15;
+	sc "A.main()";
 	sb;
 }
 

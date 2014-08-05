@@ -13,8 +13,8 @@
         <newRules name="SC">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="sc"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="numberr">
-              <propertyType xsi:type="dbl:IntPropertyType"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="usedIn">
+              <propertyType xsi:type="dbl:StringPropertyType"/>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>
@@ -22,11 +22,11 @@
       </textualSyntaxDef>
       <mappingDef>
         <statements xsi:type="dbl:MappingStatement">
-          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;SC\&quot; + "/>
+          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sc used in '\&quot; + \&quot;"/>
           <parts xsi:type="dbl:DynamicMappingPart">
             <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
           </parts>
-          <parts xsi:type="dbl:FixedMappingPart" code=" + \&quot;\\n\&quot;;"/>
+          <parts xsi:type="dbl:FixedMappingPart" code="\&quot; + \&quot;'\\n\&quot;;"/>
         </statements>
       </mappingDef>
     </extensionDefs>

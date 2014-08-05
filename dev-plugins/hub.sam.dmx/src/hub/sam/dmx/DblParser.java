@@ -17,11 +17,8 @@ import org.osgi.framework.Bundle;
 
 public class DblParser extends HeadlessEclipseParser {
 	
-	protected final String filename;
-	
 	public DblParser(IPath inputPath, String filename) {
-		super(inputPath);
-		this.filename = filename;
+		super(inputPath, filename);
 		initPreProcessor();
 	}
 

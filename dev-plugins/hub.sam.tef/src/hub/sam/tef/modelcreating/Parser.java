@@ -81,7 +81,8 @@ public class Parser {
 		
 		Syntax rccSyntax = null;
 		if (fRccSyntax == null) {
-			System.out.println("building RCC syntax ...");
+			System.out.println("building RCC syntax description for metamodel " + fSyntax.getMetaModelPlatformURI()
+					+ " from TEF syntax description #" + fSyntax.hashCode() + " ...");
 			
 			fRccSyntax = fSyntax.getRccSyntax();
 

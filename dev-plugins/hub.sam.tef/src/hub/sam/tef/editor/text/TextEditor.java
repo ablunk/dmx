@@ -325,7 +325,7 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	}
 	
 	public void preProcessDocument() {
-		System.out.println("pre-processing ...");
+		System.out.println("pre-processing editor " + getEditorInput().getName() + " ...");
 		
 	}
 	
