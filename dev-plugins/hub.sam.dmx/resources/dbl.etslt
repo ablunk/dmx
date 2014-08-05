@@ -335,7 +335,7 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	TypeAccess:element(TypeAccess) -> IdExpr:composite(idExpr);
 		
-	// it is difficult to distinguishe a procedure call syntactically from a variable access.
+	// it is difficult to distinguish a procedure call syntactically from a variable access.
 	// therefore, variable access should be disallowed by a constraint.
 	ProcedureCall:element(ProcedureCall) -> IdExpr:composite(callIdExpr);
 	

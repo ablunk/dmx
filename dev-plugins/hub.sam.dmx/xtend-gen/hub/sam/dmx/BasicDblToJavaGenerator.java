@@ -185,8 +185,6 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  private Module _lazy_moduleWithMainProcedure = null;
-  
   public String javaNameQualified_for_Module(final Module element, final boolean forContentAccess) {
     String _xblockexpression = null;
     {

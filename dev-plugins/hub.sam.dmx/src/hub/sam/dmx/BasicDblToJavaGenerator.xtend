@@ -272,20 +272,6 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def String forwardGen(EObject eObj) {
 		'<! unknown element ' + eObj.eClass.name ' !>'
 	}
-
-	var Module _lazy_moduleWithMainProcedure = null;
-
-//	def Module getModuleWithMainProcedure(Model model) {
-//		if (_lazy_moduleWithMainProcedure == null) {
-//			_lazy_moduleWithMainProcedure = model.modules.findFirst[ procedures.exists[ name == 'main' ] ]
-//		}
-//		return _lazy_moduleWithMainProcedure;
-//	}
-
-//	def dispatch String javaNameQualified(Module element) {
-//		val it = element
-//		javaPackagePrefix + "." + javaNameSimple
-//	}
 	
 	def String javaNameQualified_for_Module(Module element, boolean forContentAccess) {
 		val it = element

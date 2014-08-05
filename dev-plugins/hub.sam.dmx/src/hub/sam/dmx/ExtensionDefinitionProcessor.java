@@ -18,7 +18,6 @@ import hub.sam.dbl.StringPropertyType;
 import hub.sam.dbl.TerminalExpr;
 import hub.sam.dbl.TsRule;
 import hub.sam.tef.tsl.CompositeBinding;
-import hub.sam.tef.tsl.ConstantBinding;
 import hub.sam.tef.tsl.ElementBinding;
 import hub.sam.tef.tsl.FixTerminal;
 import hub.sam.tef.tsl.NonTerminal;
@@ -98,11 +97,11 @@ public class ExtensionDefinitionProcessor {
 		return false;
 	}
 	
-	private void printCurrentSyntax() {
-		for (Rule rule: getSyntax().getRules()) {
-			System.out.println(rule);
-		}
-	}
+//	private void printCurrentSyntax() {
+//		for (Rule rule: getSyntax().getRules()) {
+//			System.out.println(rule);
+//		}
+//	}
 	
 	private void processExtensionRule(ExtensionRule extensionRule) {
 		NonTerminal nonTerminal = TslFactory.eINSTANCE.createNonTerminal();
@@ -304,37 +303,37 @@ public class ExtensionDefinitionProcessor {
 			
 	}
 	
-	private NonTerminal createNonTerminalForBooleanPropertyBinding(PropertyBindingExpr bindingExpr, BooleanPropertyType propertyType,
-			EClass metaClass) {
-		
-		EAttribute property = EcoreFactory.eINSTANCE.createEAttribute();
-		property.setName(bindingExpr.getName());
-		property.setEType(EcorePackage.Literals.EBOOLEAN);
-		metaClass.getEStructuralFeatures().add(property);
-
-		// IsQualifiedReference:constant("true":EBoolean) -> "qualified";
-
-		String booleanRuleName = metaClass.getName() + "_" + bindingExpr.getName() + "_booleanRule";
-		SimpleRule booleanRule = createTslRule(booleanRuleName);
-		
-		ConstantBinding booleanBinding = TslFactory.eINSTANCE.createConstantBinding();
-		booleanBinding.setValue("true");
-		booleanBinding.setType("EBoolean");
-		
-		FixTerminal keywordTerminal = TslFactory.eINSTANCE.createFixTerminal();
-		keywordTerminal.setTerminal(propertyType.getTerminal());
-
-		// ... -> ... ( IsQualifiedReference:composite(qualified) )? ... ;
-
-		CompositeBinding tslPropertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
-		tslPropertyBinding.setProperty(property);
-		
-		NonTerminal propertyNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
-		propertyNonTerminal.setPropertyBinding(tslPropertyBinding);
-		propertyNonTerminal.setName(booleanRuleName);
-		
-		return propertyNonTerminal;
-	}
+//	private NonTerminal createNonTerminalForBooleanPropertyBinding(PropertyBindingExpr bindingExpr, BooleanPropertyType propertyType,
+//			EClass metaClass) {
+//		
+//		EAttribute property = EcoreFactory.eINSTANCE.createEAttribute();
+//		property.setName(bindingExpr.getName());
+//		property.setEType(EcorePackage.Literals.EBOOLEAN);
+//		metaClass.getEStructuralFeatures().add(property);
+//
+//		// IsQualifiedReference:constant("true":EBoolean) -> "qualified";
+//
+//		String booleanRuleName = metaClass.getName() + "_" + bindingExpr.getName() + "_booleanRule";
+//		SimpleRule booleanRule = createTslRule(booleanRuleName);
+//		
+//		ConstantBinding booleanBinding = TslFactory.eINSTANCE.createConstantBinding();
+//		booleanBinding.setValue("true");
+//		booleanBinding.setType("EBoolean");
+//		
+//		FixTerminal keywordTerminal = TslFactory.eINSTANCE.createFixTerminal();
+//		keywordTerminal.setTerminal(propertyType.getTerminal());
+//
+//		// ... -> ... ( IsQualifiedReference:composite(qualified) )? ... ;
+//
+//		CompositeBinding tslPropertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
+//		tslPropertyBinding.setProperty(property);
+//		
+//		NonTerminal propertyNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
+//		propertyNonTerminal.setPropertyBinding(tslPropertyBinding);
+//		propertyNonTerminal.setName(booleanRuleName);
+//		
+//		return propertyNonTerminal;
+//	}
 	
 	private NonTerminal createNonTerminalForPrimitivePropertyBinding(PropertyBindingExpr bindingExpr, EDataType propertyType, String tslValueTypeName, EClass metaClass) {
 		EAttribute property = createAttribute(bindingExpr.getName(), metaClass);

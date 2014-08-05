@@ -111,6 +111,7 @@ public abstract class AbstractExtensionSemantics {
 		Object propertyValue = extensionInstance.eGet(property);
 		
 		if (propertyValue instanceof EList) {
+			@SuppressWarnings("unchecked")
 			EList<EObject> listPropertyValue = (EList<EObject>) propertyValue;
 			String concreteSyntax = "";
 			for (EObject listItem: listPropertyValue) {

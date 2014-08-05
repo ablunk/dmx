@@ -17,7 +17,7 @@ public class DblMetaModelReferenceSemantics extends
 	{
 		if (!value.equals("")) {
 			try {
-				((DblModelCreationContext) context).ecoreModelManager.ecoreModel.loadModel((String)value);
+				DblModelCreationContext.ecoreModelManager.ecoreModel.loadModel((String)value);
 //				((IdResolution)actual).setMetaModelPlatformURI((String)value);
 			}
 			catch (Exception ex) {

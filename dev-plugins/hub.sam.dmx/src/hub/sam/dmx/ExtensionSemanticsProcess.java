@@ -8,6 +8,7 @@ import org.eclipse.debug.core.model.IStreamsProxy;
 public class ExtensionSemanticsProcess implements IProcess {
 
 	@Override
+	@SuppressWarnings("all")
 	public Object getAdapter(Class adapter) {
 		// TODO Auto-generated method stub
 		return null;
