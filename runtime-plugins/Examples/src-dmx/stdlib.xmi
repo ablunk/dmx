@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="stdblib">
+    <classifiers xsi:type="dbl:Clazz" name="Object">
+      <bindings targetLanguage="java" targetType="java.lang.Object"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Class">
+      <bindings targetLanguage="java" targetType="java.lang.Class"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Iterator">
+      <bindings targetLanguage="java" targetType="java.util.Iterator"/>
+      <methods name="hasNext" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="next" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+      </methods>
+      <methods name="remove" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="List">
+      <bindings targetLanguage="java" targetType="java.util.List"/>
+      <methods name="add" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        </parameters>
+      </methods>
+      <methods name="add" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="index">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        </parameters>
+      </methods>
+      <methods name="clear" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+      <methods name="contains" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        </parameters>
+      </methods>
+      <methods name="size" abstract="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+      <methods name="get" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        <parameters name="index">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="indexOf" abstract="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        </parameters>
+      </methods>
+      <methods name="isEmpty" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="remove" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        <parameters name="index">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="remove" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        </parameters>
+      </methods>
+      <methods name="set" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        <parameters name="index">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        </parameters>
+      </methods>
+      <methods name="toArray" abstract="true">
+        <typeArrayDimensions/>
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+      </methods>
+      <methods name="iterator" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classifiers.2"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="ArrayList">
+      <bindings targetLanguage="java" targetType="java.util.ArrayList"/>
+      <superClasses clazz="//@modules.0/@classifiers.3"/>
+    </classifiers>
+  </modules>
+</dbl:Model>

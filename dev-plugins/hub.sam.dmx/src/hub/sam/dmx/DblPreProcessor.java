@@ -154,7 +154,7 @@ public class DblPreProcessor {
 	};
 	
 	public void preProcess(String inputText, IPath inputPath) {
-		Pattern importRegex = Pattern.compile("^#import \"(.+)\"");
+		Pattern importRegex = Pattern.compile("#import \"(.+)\"");
 		Matcher matcher = importRegex.matcher(inputText);
 		
 		while (matcher.find()) {

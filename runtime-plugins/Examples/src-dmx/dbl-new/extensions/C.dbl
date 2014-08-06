@@ -13,7 +13,7 @@ extension SC {
 	SC -> "sc" usedIn:STRING ";";
 }
 semantics {
-	expand "print \"sc used in '\" + \"" usedIn "\" + \"'\\n\";";
+	expand (*print \"sc used in '\" + \"*) usedIn (*\" + \"'\\n\";*);
 }
 
 void main() {

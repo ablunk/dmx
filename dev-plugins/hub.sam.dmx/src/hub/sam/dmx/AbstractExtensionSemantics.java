@@ -1,6 +1,8 @@
 package hub.sam.dmx;
 
+import hub.sam.dbl.DblFactory;
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.impl.DblPackageImpl;
 import hub.sam.dmx.modifications.Addition;
 import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.ModificationsFactory;
@@ -44,12 +46,15 @@ public abstract class AbstractExtensionSemantics {
 	public void doGenerate(String[] args, boolean useDynamicEObjects) {
 		try {
 			FileWriter errStreamFile = new FileWriter(XtendRunAction.TEMP_FOLDER_NAME + File.separator + "debug.txt");
-			BufferedWriter err = new BufferedWriter(errStreamFile);
-			err.write("starting ...\n");
+			BufferedWriter debugWriter = new BufferedWriter(errStreamFile);
+			debugWriter.write("starting ...\n");
 
 			try {
 				String modelXmiFile = args[0];
 				extensionInstanceUri = args[1];
+
+				debugWriter.write("modelXmiFile = " + modelXmiFile + "\n");
+				debugWriter.write("extensionInstanceUri = " + extensionInstanceUri + "\n");
 
 				ResourceSet resourceSet = new ResourceSetImpl();
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
@@ -64,6 +69,7 @@ public abstract class AbstractExtensionSemantics {
 					EObject rootObject = metamodelResource.getContents().get(0);
 					if (rootObject instanceof EPackage) {
 						EPackage metamodelPackage = (EPackage) rootObject;
+
 						resourceSet.getPackageRegistry().put(DblPackage.eNS_URI, metamodelPackage);
 						
 						concreteSyntaxProperty = ((EClass) metamodelPackage.getEClassifier("ExtensibleElement")).getEStructuralFeature("concreteSyntax");
@@ -95,10 +101,10 @@ public abstract class AbstractExtensionSemantics {
 				modificationsResource.save(Collections.EMPTY_MAP);
 			}
 			catch (Exception e) {
-				err.write("Error: " + e.getMessage() + "\n" + e.getStackTrace() + "\n");
+				debugWriter.write("Error: " + e.getMessage() + "\n" + e.getStackTrace() + "\n");
 			}
 			finally {
-				err.close();
+				debugWriter.close();
 			}
 		}
 		catch (IOException e1) {
@@ -109,7 +115,10 @@ public abstract class AbstractExtensionSemantics {
 	protected String getConcreteSyntax(EObject extensionInstance, String propertyName) {
 		EStructuralFeature property = extensionInstance.eClass().getEStructuralFeature(propertyName);
 		Object propertyValue = extensionInstance.eGet(property);
-		
+		return getConcreteSyntax(propertyValue);
+	}
+	
+	protected String getConcreteSyntax(Object propertyValue) {
 		if (propertyValue instanceof EList) {
 			@SuppressWarnings("unchecked")
 			EList<EObject> listPropertyValue = (EList<EObject>) propertyValue;
@@ -130,7 +139,7 @@ public abstract class AbstractExtensionSemantics {
 	
 	protected Object getPropertyValue(EObject eObject, String propertyName) {
 		EStructuralFeature property = eObject.eClass().getEStructuralFeature(propertyName);
-		return eObject.eGet(property);
+		return eObject.eGet(property, true);
 	}
 	
 	static String getEmfUriFragment(EObject eObject) {

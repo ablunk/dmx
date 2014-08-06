@@ -1,6 +1,6 @@
 #import "sdl-xr"
 
-module sml_application {
+module sdl0_application {
 
 	boolean debug = true;
 

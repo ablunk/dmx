@@ -1,17 +1,17 @@
-module semaphore_app {
+#import "../../stdlib"
 
-interface Object {}
+module semaphore_app {
 
 active class FifoSemaphore(int initCount) {
 	int count = 1;
-	list(Object) fifoList;
+	List fifoList;
 	Object next;
 	
 	void take() {
 		while (count == 0 and next != self) {
 			wait;
 		}
-		next = fifoList.first;
+		next = fifoList.iterator().next();
 	}
 }
 

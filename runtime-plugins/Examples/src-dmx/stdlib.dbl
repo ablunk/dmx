@@ -1,4 +1,4 @@
-module ecore_test {
+module stdlib {
 
 class Object {
 	bindings {
@@ -6,11 +6,17 @@ class Object {
 	}
 }
 
+class Class {
+	bindings {
+		"java" -> "java.lang.Class"
+	}
+}
+
 class Iterator {
 	bindings {
 		"java" -> "java.util.Iterator"
 	}
-	
+
 	boolean hasNext() abstract;
 	Object next() abstract;
 	void remove() abstract;
@@ -20,7 +26,7 @@ class List {
 	bindings {
 		"java" -> "java.util.List"
 	}
-	
+
 	boolean add(Object e) abstract;
 	boolean add(int index, Object e) abstract;
 	void clear() abstract;
@@ -40,23 +46,6 @@ class ArrayList extends List {
 	bindings {
 		"java" -> "java.util.ArrayList"
 	}
-}
-
-class A {
-}
-
-void main() {
-	A a = new A;
-	ArrayList l = new ArrayList;
-	l.add(a);
-	l.add(a);
-	
-	Iterator lit = l.iterator();
-	while (lit.hasNext()) {
-		Object o = lit.next();
-		A la = o as A;
-		print la + "\n";
-	}	
 }
 
 }

@@ -692,7 +692,9 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	 * changes after reconciliation.
 	 */
 	public void addEditorStatusListener(ITefEditorStatusListener listener) {
-		this.fStatusListener.add(listener);
+		if (!fStatusListener.contains(listener)) {
+			fStatusListener.add(listener);
+		}
 	}
 	
 	/**

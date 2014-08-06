@@ -1,0 +1,22 @@
+#import "../../dbl"
+
+module E {
+
+class E {}
+
+extension SE {
+	Statement -> SE;
+	SE -> "se" body:LocalScopeStatement ;
+}
+semantics {
+	List statements = body.getStatements();
+	
+	Iterator it = statements.iterator();
+	while (it.hasNext()) {
+		Object o = it.next();
+		Statement stm = o as Statement;
+		expand stm;
+	}
+}
+
+}

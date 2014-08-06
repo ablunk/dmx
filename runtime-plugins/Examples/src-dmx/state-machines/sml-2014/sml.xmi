@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../../base">
-    <model href="../../base.xmi#/"/>
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
   </imports>
   <modules name="sml">
     <extensionDefs name="Signal">
@@ -31,13 +31,13 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="send"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="signal">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="target">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
@@ -141,7 +141,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="signalEvent">
               <propertyType xsi:type="dbl:ReferencePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.26"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.21"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -159,7 +159,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="delay">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
@@ -173,7 +173,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="["/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="condition">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal="]"/>
@@ -187,7 +187,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="/"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="effect">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.34"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
               </propertyType>
             </sequence>
           </rhs>

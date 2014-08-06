@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="E">
+    <model href="E.xmi#/"/>
+  </imports>
+  <modules name="E_user">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:SE" concreteSyntax="se {&#xA;&#x9;&#x9;print &quot;Hello&quot;;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <body concreteSyntax="{&#xA;&#x9;&#x9;print &quot;Hello&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print &quot;Hello&quot;">
+            <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Hello&quot;" value="Hello"/>
+          </statements>
+        </body>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

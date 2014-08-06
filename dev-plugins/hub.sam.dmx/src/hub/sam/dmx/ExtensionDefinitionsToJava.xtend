@@ -14,6 +14,11 @@ import hub.sam.dbl.Variable
 import java.io.Writer
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
+import hub.sam.dbl.PropertyType
+import hub.sam.dbl.Classifier
+import hub.sam.dbl.IntPropertyType
+import hub.sam.dbl.StringPropertyType
+import hub.sam.dbl.Procedure
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -74,11 +79,42 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		false
 	}
 	
+	def String genSyntaxPartIdExpr(IdExpr idExpr) {
+		val it = idExpr
+
+		'''
+		getPropertyValue(
+		
+		(EObject)
+		«IF parentIdExpr != null»
+			«parentIdExpr.genSyntaxPartIdExpr»,
+		«ELSE»
+			_extensionInstance,
+		«ENDIF»
+		
+		«IF referencedElement != null»
+			"«
+			if (referencedElement.name.startsWith("get"))
+				referencedElement.name.substring(3).toFirstLower
+			else if (referencedElement.name.startsWith("is"))
+				referencedElement.name.substring(2).toFirstLower
+			else
+				referencedElement.name
+			»"
+		«ELSE»
+			«genIdExpr_for_PredefinedId(predefinedId)»
+		«ENDIF»
+		)
+		'''
+	}
+	
+	
 	override String genIdExpr(IdExpr idExpr) {
 		val it = idExpr
+		//«IF refersToSyntaxPart && partOfGenStatement && (refersToSyntaxPart_ofType_StructuredPropertyType || refersToVariable_ofType_StructuredPropertyType)»
 		'''
-		«IF refersToSyntaxPart && partOfGenStatement && (refersToSyntaxPart_ofType_StructuredPropertyType || refersToVariable_ofType_StructuredPropertyType)»
-			((ExtensibleElement) «super.genIdExpr(idExpr)»).getConcreteSyntax()
+		«IF refersToSyntaxPart && partOfGenStatement»
+			getConcreteSyntax(«genSyntaxPartIdExpr(idExpr)»)
 		«ELSE»
 			«super.genIdExpr(idExpr)»
 		«ENDIF»
@@ -88,6 +124,31 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	override String genIdExpr_for_PredefinedId_meLiteral() {
 		'_extensionInstance'
 	}
+	
+	def dispatch String genPropertyType(PropertyType type) {
+		'<unkown property type>'
+	}
+	
+	def dispatch String genPropertyType(IntPropertyType type) {
+		'Integer'
+	}
+	
+	def dispatch String genPropertyType(StringPropertyType type) {
+		'String'
+	}
+	
+	def dispatch String genPropertyType(StructuredPropertyType type) {
+		//type.type.genReferableRhsType
+		'EObject'
+	}
+	
+//	def dispatch String genReferableRhsType(ReferableRhsType type) {
+//		type.name
+//	}
+//	
+//	def dispatch String genReferableRhsType(Classifier type) {
+//		type.genType
+//	}
 	
 	override String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, PropertyBindingExpr referencedElement) {
 		'''

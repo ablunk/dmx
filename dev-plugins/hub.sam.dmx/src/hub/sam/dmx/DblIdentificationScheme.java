@@ -173,7 +173,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 							}
 							else if (referencedParentElement instanceof PropertyBindingExpr) {
 								System.out.println("parent is property binding: " + referencedParentElement.getName());
-								// TODO
+
 								PropertyBindingExpr parentPropertyBinding = (PropertyBindingExpr) referencedParentElement;
 								PropertyType propertyType = parentPropertyBinding.getPropertyType();
 								ReferableRhsType rhsType = null;
@@ -851,7 +851,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						idsAdded |= addId(eObjectId, method, allIds);
 					}
 				}
-				idsAdded |= addIdsForInheritedClassMethods(superClazz, eObjectId, allIds, idExpr);
+				idsAdded |= addIdsForInheritedMethods(superClazz, eObjectId, allIds, idExpr);
 			}
 		}
 

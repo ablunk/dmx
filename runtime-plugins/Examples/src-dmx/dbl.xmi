@@ -30,16 +30,16 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Model"/>
       <methods name="getImports" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getModules" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Import">
@@ -63,34 +63,34 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Module">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Module"/>
       <methods name="getClassifiers" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getClassAugments" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getExtensionDefs" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getProcedures" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getVariables" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
@@ -100,33 +100,33 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.EmbeddableExtensionsContainer"/>
       <methods name="getExtensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ModifierExtensionsContainer">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ModifierExtensionsContainer"/>
       <methods name="getModifierExtensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Type">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Type"/>
       <methods name="getArrayDimensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TypedElement">
@@ -142,7 +142,7 @@
       </methods>
       <methods name="getTypeArrayDimensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getClassifierType" abstract="true">
@@ -155,7 +155,7 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ArrayDimension">
@@ -170,7 +170,7 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="PrimitiveType">
@@ -201,7 +201,7 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Procedure"/>
       <methods name="getParameters" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="isClazz" abstract="true">
@@ -230,7 +230,7 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Classifier"/>
       <methods name="getBindings" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.6"/>
@@ -258,24 +258,24 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ClassSimilar">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassSimilar"/>
       <methods name="getAttributes" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getMethods" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getSuperClasses" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getInitialBlock" abstract="true">
@@ -343,11 +343,11 @@
       </methods>
       <methods name="getConstructorArguments" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Clazz">
@@ -377,11 +377,11 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Constructor"/>
       <methods name="getParameters" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ClassAugment">
@@ -451,14 +451,14 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="deprecated_CodeBlock">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.deprecated_CodeBlock"/>
       <methods name="getStatements" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.0"/>
@@ -600,7 +600,7 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Print"/>
       <methods name="getOutputs" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.31"/>
@@ -640,11 +640,11 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScope"/>
       <methods name="getStatements" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="LocalScopeStatement">
@@ -719,7 +719,7 @@
       </methods>
       <methods name="getCases" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getDefaultCase" abstract="true">
@@ -746,11 +746,11 @@
       </methods>
       <methods name="getBody" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="BreakStatement">
@@ -954,7 +954,7 @@
     <classifiers xsi:type="dbl:Clazz" name="PredefinedId">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PredefinedId"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MeLiteral">
@@ -1008,7 +1008,7 @@
       </methods>
       <methods name="getArrayIndex" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getCallPart" abstract="true">
@@ -1026,11 +1026,11 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CallPart"/>
       <methods name="getCallArguments" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ElementAccess">
@@ -1070,7 +1070,7 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionDefinition"/>
       <methods name="getAbstractSyntaxDef" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getTextualSyntaxDef" abstract="true">
@@ -1106,11 +1106,11 @@
       </methods>
       <methods name="getNewRules" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ReferableRhsType">
@@ -1165,14 +1165,14 @@
     <classifiers xsi:type="dbl:Clazz" name="RhsExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.RhsExpression"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SequenceExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SequenceExpr"/>
       <methods name="getSequence" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.102"/>
@@ -1294,7 +1294,7 @@
     <classifiers xsi:type="dbl:Clazz" name="PropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PropertyType"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IdPropertyType">
@@ -1374,7 +1374,7 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mapping"/>
       <methods name="getParts" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getMetaObject" abstract="true">
@@ -1391,7 +1391,7 @@
     <classifiers xsi:type="dbl:Clazz" name="MappingPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MappingPart"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MetaExpr">
@@ -1424,12 +1424,12 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MappingStatement"/>
       <methods name="getParts" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getExprs" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.29"/>
@@ -1563,7 +1563,7 @@
     <classifiers xsi:type="dbl:Clazz" name="QuotedCode">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedCode"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.15"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedExpression">
@@ -1583,7 +1583,7 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedStatements"/>
       <methods name="getStatements" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.14"/>
+          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.134"/>

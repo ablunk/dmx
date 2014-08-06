@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../../base">
-    <model href="../../base.xmi#/"/>
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
   </imports>
-  <modules name="sml">
+  <modules name="sdl0">
     <extensionDefs name="EnvSendStatement">
       <textualSyntaxDef>
         <extensionRule name="Statement">
@@ -34,9 +34,9 @@
         <newRules name="Env">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="env"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="codeBlock">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="localScope">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.34"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -102,7 +102,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="variables">
               <propertyType xsi:type="dbl:CompositePropertyType" list="true">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.31"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.10"/>
@@ -117,7 +117,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="variables">
               <propertyType xsi:type="dbl:CompositePropertyType" list="true">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.31"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.10"/>
@@ -299,7 +299,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="provided"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="enablingCondition">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -344,9 +344,9 @@
         <newRules name="Task">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="task"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="codeBlock">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="localScope">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.34"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -382,7 +382,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="timeExpr">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -406,7 +406,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="pid"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="targetPid">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -483,7 +483,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="primitiveType">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.10"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.9"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -643,7 +643,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="timeExpr">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.90"/>

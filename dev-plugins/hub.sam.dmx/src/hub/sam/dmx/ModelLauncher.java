@@ -475,6 +475,10 @@ public class ModelLauncher {
 			// text substitute extension instances by result of semantics executions
 			String substitutedText = textSubstituteExtensionInstances(workingModel);
 			
+			if (substitutedText == null) {
+				throw new RuntimeException();
+			}
+			
 			// parse text with substituted parts with headless DBL parser to >>workingModel<<
 			IPath inputPath = getXmiRawLocation(workingModel.getResource().getURI().trimSegments(1));
 			String filename = workingModel.getResource().getURI().trimFileExtension().appendFileExtension("dbx").lastSegment();

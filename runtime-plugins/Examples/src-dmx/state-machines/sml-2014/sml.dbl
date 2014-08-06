@@ -1,4 +1,4 @@
-#import "../../base"
+#import "../../dbl"
 
 module sml {
 
@@ -45,7 +45,7 @@ extension StateMachine {
 	GuardOptional -> "[" condition:Expression "]";
 	
 	EffectsOptional -> ;
-	EffectsOptional -> "/" effect:CodeBlock;
+	EffectsOptional -> "/" effect:LocalScopeStatement;
 	
 	TargetState -> "->" target:$$State;
 	TargetState -> "->" "final";

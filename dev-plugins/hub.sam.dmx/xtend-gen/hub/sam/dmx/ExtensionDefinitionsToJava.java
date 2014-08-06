@@ -5,18 +5,22 @@ import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Import;
+import hub.sam.dbl.IntPropertyType;
 import hub.sam.dbl.Mapping;
 import hub.sam.dbl.MappingStatement;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
+import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
 import hub.sam.dbl.ReferableRhsType;
+import hub.sam.dbl.StringPropertyType;
 import hub.sam.dbl.StructuredPropertyType;
 import hub.sam.dbl.Variable;
 import hub.sam.dmx.BasicDblToJavaGenerator;
 import java.io.Writer;
+import java.util.Arrays;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -25,6 +29,7 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -124,6 +129,81 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
     return _xblockexpression;
   }
   
+  public String genSyntaxPartIdExpr(final IdExpr idExpr) {
+    String _xblockexpression = null;
+    {
+      final IdExpr it = idExpr;
+      StringConcatenation _builder = new StringConcatenation();
+      _builder.append("getPropertyValue(");
+      _builder.newLine();
+      _builder.newLine();
+      _builder.append("(EObject)");
+      _builder.newLine();
+      {
+        IdExpr _parentIdExpr = it.getParentIdExpr();
+        boolean _notEquals = (!Objects.equal(_parentIdExpr, null));
+        if (_notEquals) {
+          IdExpr _parentIdExpr_1 = it.getParentIdExpr();
+          String _genSyntaxPartIdExpr = this.genSyntaxPartIdExpr(_parentIdExpr_1);
+          _builder.append(_genSyntaxPartIdExpr, "");
+          _builder.append(",");
+          _builder.newLineIfNotEmpty();
+        } else {
+          _builder.append("_extensionInstance,");
+          _builder.newLine();
+        }
+      }
+      _builder.newLine();
+      {
+        NamedElement _referencedElement = it.getReferencedElement();
+        boolean _notEquals_1 = (!Objects.equal(_referencedElement, null));
+        if (_notEquals_1) {
+          _builder.append("\"");
+          String _xifexpression = null;
+          NamedElement _referencedElement_1 = it.getReferencedElement();
+          String _name = _referencedElement_1.getName();
+          boolean _startsWith = _name.startsWith("get");
+          if (_startsWith) {
+            NamedElement _referencedElement_2 = it.getReferencedElement();
+            String _name_1 = _referencedElement_2.getName();
+            String _substring = _name_1.substring(3);
+            String _firstLower = StringExtensions.toFirstLower(_substring);
+            _xifexpression = _firstLower;
+          } else {
+            String _xifexpression_1 = null;
+            NamedElement _referencedElement_3 = it.getReferencedElement();
+            String _name_2 = _referencedElement_3.getName();
+            boolean _startsWith_1 = _name_2.startsWith("is");
+            if (_startsWith_1) {
+              NamedElement _referencedElement_4 = it.getReferencedElement();
+              String _name_3 = _referencedElement_4.getName();
+              String _substring_1 = _name_3.substring(2);
+              String _firstLower_1 = StringExtensions.toFirstLower(_substring_1);
+              _xifexpression_1 = _firstLower_1;
+            } else {
+              NamedElement _referencedElement_5 = it.getReferencedElement();
+              String _name_4 = _referencedElement_5.getName();
+              _xifexpression_1 = _name_4;
+            }
+            _xifexpression = _xifexpression_1;
+          }
+          _builder.append(_xifexpression, "");
+          _builder.append("\"");
+          _builder.newLineIfNotEmpty();
+        } else {
+          PredefinedId _predefinedId = it.getPredefinedId();
+          String _genIdExpr_for_PredefinedId = this.genIdExpr_for_PredefinedId(it, _predefinedId);
+          _builder.append(_genIdExpr_for_PredefinedId, "");
+          _builder.newLineIfNotEmpty();
+        }
+      }
+      _builder.append(")");
+      _builder.newLine();
+      _xblockexpression = (_builder.toString());
+    }
+    return _xblockexpression;
+  }
+  
   public String genIdExpr(final IdExpr idExpr) {
     String _xblockexpression = null;
     {
@@ -131,36 +211,22 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       StringConcatenation _builder = new StringConcatenation();
       {
         boolean _and = false;
-        boolean _and_1 = false;
         boolean _refersToSyntaxPart = this.refersToSyntaxPart(it);
         if (!_refersToSyntaxPart) {
-          _and_1 = false;
-        } else {
-          boolean _isPartOfGenStatement = this.isPartOfGenStatement(it);
-          _and_1 = (_refersToSyntaxPart && _isPartOfGenStatement);
-        }
-        if (!_and_1) {
           _and = false;
         } else {
-          boolean _or = false;
-          boolean _refersToSyntaxPart_ofType_StructuredPropertyType = this.refersToSyntaxPart_ofType_StructuredPropertyType(it);
-          if (_refersToSyntaxPart_ofType_StructuredPropertyType) {
-            _or = true;
-          } else {
-            boolean _refersToVariable_ofType_StructuredPropertyType = this.refersToVariable_ofType_StructuredPropertyType(it);
-            _or = (_refersToSyntaxPart_ofType_StructuredPropertyType || _refersToVariable_ofType_StructuredPropertyType);
-          }
-          _and = (_and_1 && _or);
+          boolean _isPartOfGenStatement = this.isPartOfGenStatement(it);
+          _and = (_refersToSyntaxPart && _isPartOfGenStatement);
         }
         if (_and) {
-          _builder.append("((ExtensibleElement) ");
-          String _genIdExpr = super.genIdExpr(idExpr);
-          _builder.append(_genIdExpr, "");
-          _builder.append(").getConcreteSyntax()");
+          _builder.append("getConcreteSyntax(");
+          String _genSyntaxPartIdExpr = this.genSyntaxPartIdExpr(idExpr);
+          _builder.append(_genSyntaxPartIdExpr, "");
+          _builder.append(")");
           _builder.newLineIfNotEmpty();
         } else {
-          String _genIdExpr_1 = super.genIdExpr(idExpr);
-          _builder.append(_genIdExpr_1, "");
+          String _genIdExpr = super.genIdExpr(idExpr);
+          _builder.append(_genIdExpr, "");
           _builder.newLineIfNotEmpty();
         }
       }
@@ -171,6 +237,22 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
   
   public String genIdExpr_for_PredefinedId_meLiteral() {
     return "_extensionInstance";
+  }
+  
+  protected String _genPropertyType(final PropertyType type) {
+    return "<unkown property type>";
+  }
+  
+  protected String _genPropertyType(final IntPropertyType type) {
+    return "Integer";
+  }
+  
+  protected String _genPropertyType(final StringPropertyType type) {
+    return "String";
+  }
+  
+  protected String _genPropertyType(final StructuredPropertyType type) {
+    return "EObject";
   }
   
   public String genIdExpr_for_PropertyBindingExpr(final IdExpr idExpr, final PropertyBindingExpr referencedElement) {
@@ -317,5 +399,20 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _xblockexpression = (_builder.toString());
     }
     return _xblockexpression;
+  }
+  
+  public String genPropertyType(final PropertyType type) {
+    if (type instanceof IntPropertyType) {
+      return _genPropertyType((IntPropertyType)type);
+    } else if (type instanceof StringPropertyType) {
+      return _genPropertyType((StringPropertyType)type);
+    } else if (type instanceof StructuredPropertyType) {
+      return _genPropertyType((StructuredPropertyType)type);
+    } else if (type != null) {
+      return _genPropertyType(type);
+    } else {
+      throw new IllegalArgumentException("Unhandled parameter types: " +
+        Arrays.<Object>asList(type).toString());
+    }
   }
 }
