@@ -883,7 +883,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			final Clazz superClazz = superClassSpec.getClazz();
 			if (!idsAdded && superClazz != null) {
 				idsAdded |= addIds(eObjectId, superClazz.getAttributes(), allIds);
-				idsAdded |= addIdsForInheritedClassAttributes(superClazz, eObjectId, allIds);
+				idsAdded |= addIdsForInheritedAttributes(superClazz, eObjectId, allIds);
 
 				//Module containerModule = getContainerObjectOfType(superClass, Module.class);
 				//idsAdded |= addIdsForAugmentedAttributes(superClass, containerModule, eObjectId, allIds);
