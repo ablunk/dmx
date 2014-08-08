@@ -28,8 +28,29 @@
           </classifierType>
           <initialValue xsi:type="dbl:IdExpr">
             <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
-            <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@methods.0"/>
-            <callPart/>
+            <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="s0">
+          <classifierType>
+            <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.29"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:Cast">
+            <classifierType>
+              <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.29"/>
+            </classifierType>
+            <op xsi:type="dbl:IdExpr">
+              <parentIdExpr>
+                <parentIdExpr>
+                  <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
+                  <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
+                </parentIdExpr>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.3/@methods.12"/>
+                <callPart/>
+              </parentIdExpr>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.2/@methods.1"/>
+              <callPart/>
+            </op>
           </initialValue>
         </statements>
         <statements xsi:type="dbl:Variable" name="it">
@@ -37,14 +58,17 @@
             <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.2"/>
           </classifierType>
           <initialValue xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+            <parentIdExpr>
+              <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
+              <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
+            </parentIdExpr>
             <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.3/@methods.12"/>
             <callPart/>
           </initialValue>
         </statements>
         <statements xsi:type="dbl:WhileStatement">
           <condition xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+            <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
             <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.2/@methods.0"/>
             <callPart/>
           </condition>
@@ -54,7 +78,7 @@
                 <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.0"/>
               </classifierType>
               <initialValue xsi:type="dbl:IdExpr">
-                <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+                <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
                 <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.2/@methods.1"/>
                 <callPart/>
               </initialValue>
@@ -67,13 +91,14 @@
                 <classifierType>
                   <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.29"/>
                 </classifierType>
-                <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2/@body/@statements.0"/>
+                <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@body/@statements.0"/>
               </initialValue>
             </statements>
             <statements xsi:type="dbl:MappingStatement">
               <parts xsi:type="dbl:DynamicMappingPart">
-                <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2/@body/@statements.1"/>
+                <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@body/@statements.1"/>
               </parts>
+              <parts xsi:type="dbl:FixedMappingPart" code=";"/>
             </statements>
           </body>
         </statements>

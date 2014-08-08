@@ -1,5 +1,3 @@
-#import "ecore"
-
 module dbl {
 
 class ExtensibleElement
@@ -10,8 +8,10 @@ NamedElement
 		"java" -> "hub.sam.dbl.ExtensibleElement"
 	}
 	
+	string concreteSyntax;
 	string getConcreteSyntax() abstract;
 	void setConcreteSyntax(string value) abstract;
+	boolean instanceOfExtensionDefinition;
 	boolean isInstanceOfExtensionDefinition() abstract;
 	void setInstanceOfExtensionDefinition(boolean value) abstract;
 }
@@ -22,7 +22,9 @@ extends EObject
 		"java" -> "hub.sam.dbl.Model"
 	}
 	
+	List imports;
 	List getImports() abstract;
+	List modules;
 	List getModules() abstract;
 }
 class Import
@@ -32,8 +34,10 @@ extends EObject
 		"java" -> "hub.sam.dbl.Import"
 	}
 	
+	string file;
 	string getFile() abstract;
 	void setFile(string value) abstract;
+	Model model;
 	Model getModel() abstract;
 	void setModel(Model value) abstract;
 }
@@ -46,10 +50,15 @@ EmbeddableExtensionsContainer
 		"java" -> "hub.sam.dbl.Module"
 	}
 	
+	List classifiers;
 	List getClassifiers() abstract;
+	List classAugments;
 	List getClassAugments() abstract;
+	List extensionDefs;
 	List getExtensionDefs() abstract;
+	List procedures;
 	List getProcedures() abstract;
+	List variables;
 	List getVariables() abstract;
 }
 class EmbeddableExtensionsContainer
@@ -59,6 +68,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.EmbeddableExtensionsContainer"
 	}
 	
+	List extensions;
 	List getExtensions() abstract;
 }
 class ModifierExtensionsContainer
@@ -68,6 +78,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.ModifierExtensionsContainer"
 	}
 	
+	List modifierExtensions;
 	List getModifierExtensions() abstract;
 }
 class Type
@@ -77,6 +88,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.Type"
 	}
 	
+	List arrayDimensions;
 	List getArrayDimensions() abstract;
 }
 class TypedElement
@@ -86,9 +98,12 @@ extends EObject
 		"java" -> "hub.sam.dbl.TypedElement"
 	}
 	
+	PrimitiveType primitiveType;
 	PrimitiveType getPrimitiveType() abstract;
 	void setPrimitiveType(PrimitiveType value) abstract;
+	List typeArrayDimensions;
 	List getTypeArrayDimensions() abstract;
+	IdExpr classifierType;
 	IdExpr getClassifierType() abstract;
 	void setClassifierType(IdExpr value) abstract;
 }
@@ -99,6 +114,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.ArrayDimension"
 	}
 	
+	Expression size;
 	Expression getSize() abstract;
 	void setSize(Expression value) abstract;
 }
@@ -166,9 +182,12 @@ LocalScope
 		"java" -> "hub.sam.dbl.Procedure"
 	}
 	
+	List parameters;
 	List getParameters() abstract;
+	boolean clazz;
 	boolean isClazz() abstract;
 	void setClazz(boolean value) abstract;
+	boolean abstract;
 	boolean isAbstract() abstract;
 	void setAbstract(boolean value) abstract;
 }
@@ -182,6 +201,7 @@ ReferableRhsType
 		"java" -> "hub.sam.dbl.Classifier"
 	}
 	
+	List bindings;
 	List getBindings() abstract;
 }
 class NativeBinding
@@ -191,8 +211,10 @@ extends EObject
 		"java" -> "hub.sam.dbl.NativeBinding"
 	}
 	
+	string targetLanguage;
 	string getTargetLanguage() abstract;
 	void setTargetLanguage(string value) abstract;
+	string targetType;
 	string getTargetType() abstract;
 	void setTargetType(string value) abstract;
 }
@@ -205,17 +227,25 @@ ModifierExtensionsContainer
 		"java" -> "hub.sam.dbl.ClassSimilar"
 	}
 	
+	List attributes;
 	List getAttributes() abstract;
+	List methods;
 	List getMethods() abstract;
+	List superClasses;
 	List getSuperClasses() abstract;
+	ClassPart initialBlock;
 	ClassPart getInitialBlock() abstract;
 	void setInitialBlock(ClassPart value) abstract;
+	ClassPart finalBlock;
 	ClassPart getFinalBlock() abstract;
 	void setFinalBlock(ClassPart value) abstract;
+	ClassPart actionsBlock;
 	ClassPart getActionsBlock() abstract;
 	void setActionsBlock(ClassPart value) abstract;
+	ClassPart reportBlock;
 	ClassPart getReportBlock() abstract;
 	void setReportBlock(ClassPart value) abstract;
+	ClassPart clearBlock;
 	ClassPart getClearBlock() abstract;
 	void setClearBlock(ClassPart value) abstract;
 }
@@ -235,8 +265,10 @@ extends EObject
 		"java" -> "hub.sam.dbl.SuperClassSpecification"
 	}
 	
+	Clazz clazz;
 	Clazz getClazz() abstract;
 	void setClazz(Clazz value) abstract;
+	List constructorArguments;
 	List getConstructorArguments() abstract;
 }
 class Clazz
@@ -248,8 +280,10 @@ ClassSimilar
 		"java" -> "hub.sam.dbl.Clazz"
 	}
 	
+	boolean active;
 	boolean isActive() abstract;
 	void setActive(boolean value) abstract;
+	Constructor constructor;
 	Constructor getConstructor() abstract;
 	void setConstructor(Constructor value) abstract;
 }
@@ -260,6 +294,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.Constructor"
 	}
 	
+	List parameters;
 	List getParameters() abstract;
 }
 class ClassAugment
@@ -270,6 +305,7 @@ ClassSimilar
 		"java" -> "hub.sam.dbl.ClassAugment"
 	}
 	
+	Clazz augmentedClass;
 	Clazz getAugmentedClass() abstract;
 	void setAugmentedClass(Clazz value) abstract;
 }
@@ -293,10 +329,13 @@ ModifierExtensionsContainer
 		"java" -> "hub.sam.dbl.Variable"
 	}
 	
+	boolean control;
 	boolean isControl() abstract;
 	void setControl(boolean value) abstract;
+	boolean clazz;
 	boolean isClazz() abstract;
 	void setClazz(boolean value) abstract;
+	Expression initialValue;
 	Expression getInitialValue() abstract;
 	void setInitialValue(Expression value) abstract;
 }
@@ -316,6 +355,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.NamedElement"
 	}
 	
+	string name;
 	string getName() abstract;
 	void setName(string value) abstract;
 }
@@ -327,6 +367,7 @@ ExtensibleElement
 		"java" -> "hub.sam.dbl.deprecated_CodeBlock"
 	}
 	
+	List statements;
 	List getStatements() abstract;
 }
 class Statement
@@ -364,8 +405,10 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Assignment"
 	}
 	
+	VariableAccess variable;
 	VariableAccess getVariable() abstract;
 	void setVariable(VariableAccess value) abstract;
+	Expression value;
 	Expression getValue() abstract;
 	void setValue(Expression value) abstract;
 }
@@ -377,6 +420,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.ProcedureCall"
 	}
 	
+	IdExpr callIdExpr;
 	IdExpr getCallIdExpr() abstract;
 	void setCallIdExpr(IdExpr value) abstract;
 }
@@ -388,6 +432,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Return"
 	}
 	
+	Expression value;
 	Expression getValue() abstract;
 	void setValue(Expression value) abstract;
 }
@@ -399,6 +444,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.WaitUntil"
 	}
 	
+	Expression condition;
 	Expression getCondition() abstract;
 	void setCondition(Expression value) abstract;
 }
@@ -437,6 +483,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Reactivate"
 	}
 	
+	Expression objectAccess;
 	Expression getObjectAccess() abstract;
 	void setObjectAccess(Expression value) abstract;
 }
@@ -448,8 +495,10 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.ActivateObject"
 	}
 	
+	Expression objectAccess;
 	Expression getObjectAccess() abstract;
 	void setObjectAccess(Expression value) abstract;
+	int priority;
 	int getPriority() abstract;
 	void setPriority(int value) abstract;
 }
@@ -461,6 +510,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Advance"
 	}
 	
+	Expression time;
 	Expression getTime() abstract;
 	void setTime(Expression value) abstract;
 }
@@ -472,6 +522,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Print"
 	}
 	
+	List outputs;
 	List getOutputs() abstract;
 }
 class IfStatement
@@ -482,10 +533,13 @@ Statement
 		"java" -> "hub.sam.dbl.IfStatement"
 	}
 	
+	Expression condition;
 	Expression getCondition() abstract;
 	void setCondition(Expression value) abstract;
+	Statement trueCase;
 	Statement getTrueCase() abstract;
 	void setTrueCase(Statement value) abstract;
+	Statement falseCase;
 	Statement getFalseCase() abstract;
 	void setFalseCase(Statement value) abstract;
 }
@@ -496,6 +550,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.LocalScope"
 	}
 	
+	List statements;
 	List getStatements() abstract;
 }
 class LocalScopeStatement
@@ -517,10 +572,13 @@ LocalScope
 		"java" -> "hub.sam.dbl.ForStatement"
 	}
 	
+	Expression termination;
 	Expression getTermination() abstract;
 	void setTermination(Expression value) abstract;
+	Assignment increment;
 	Assignment getIncrement() abstract;
 	void setIncrement(Assignment value) abstract;
+	Statement body;
 	Statement getBody() abstract;
 	void setBody(Statement value) abstract;
 }
@@ -532,8 +590,10 @@ LoopStatement
 		"java" -> "hub.sam.dbl.WhileStatement"
 	}
 	
+	Expression condition;
 	Expression getCondition() abstract;
 	void setCondition(Expression value) abstract;
+	Statement body;
 	Statement getBody() abstract;
 	void setBody(Statement value) abstract;
 }
@@ -545,9 +605,12 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.SwitchStatement"
 	}
 	
+	VariableAccess variable;
 	VariableAccess getVariable() abstract;
 	void setVariable(VariableAccess value) abstract;
+	List cases;
 	List getCases() abstract;
+	SwitchCase defaultCase;
 	SwitchCase getDefaultCase() abstract;
 	void setDefaultCase(SwitchCase value) abstract;
 }
@@ -558,8 +621,10 @@ extends EObject
 		"java" -> "hub.sam.dbl.SwitchCase"
 	}
 	
+	Expression value;
 	Expression getValue() abstract;
 	void setValue(Expression value) abstract;
+	List body;
 	List getBody() abstract;
 }
 class BreakStatement
@@ -607,8 +672,10 @@ Expression
 		"java" -> "hub.sam.dbl.BinaryOperator"
 	}
 	
+	Expression op1;
 	Expression getOp1() abstract;
 	void setOp1(Expression value) abstract;
+	Expression op2;
 	Expression getOp2() abstract;
 	void setOp2(Expression value) abstract;
 }
@@ -620,6 +687,7 @@ Expression
 		"java" -> "hub.sam.dbl.UnaryOperator"
 	}
 	
+	Expression op;
 	Expression getOp() abstract;
 	void setOp(Expression value) abstract;
 }
@@ -822,6 +890,7 @@ L1Expr
 		"java" -> "hub.sam.dbl.StringLiteral"
 	}
 	
+	string value;
 	string getValue() abstract;
 	void setValue(string value) abstract;
 }
@@ -833,6 +902,7 @@ L1Expr
 		"java" -> "hub.sam.dbl.IntLiteral"
 	}
 	
+	int value;
 	int getValue() abstract;
 	void setValue(int value) abstract;
 }
@@ -862,6 +932,7 @@ L1Expr
 		"java" -> "hub.sam.dbl.DoubleLiteral"
 	}
 	
+	double value;
 	double getValue() abstract;
 	void setValue(double value) abstract;
 }
@@ -873,6 +944,7 @@ Expression
 		"java" -> "hub.sam.dbl.EvalExpr"
 	}
 	
+	Expression expr;
 	Expression getExpr() abstract;
 	void setExpr(Expression value) abstract;
 }
@@ -937,13 +1009,18 @@ L1Expr
 		"java" -> "hub.sam.dbl.IdExpr"
 	}
 	
+	IdExpr parentIdExpr;
 	IdExpr getParentIdExpr() abstract;
 	void setParentIdExpr(IdExpr value) abstract;
+	NamedElement referencedElement;
 	NamedElement getReferencedElement() abstract;
 	void setReferencedElement(NamedElement value) abstract;
+	PredefinedId predefinedId;
 	PredefinedId getPredefinedId() abstract;
 	void setPredefinedId(PredefinedId value) abstract;
+	List arrayIndex;
 	List getArrayIndex() abstract;
+	CallPart callPart;
 	CallPart getCallPart() abstract;
 	void setCallPart(CallPart value) abstract;
 }
@@ -954,6 +1031,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.CallPart"
 	}
 	
+	List callArguments;
 	List getCallArguments() abstract;
 }
 class ElementAccess
@@ -964,6 +1042,7 @@ Expression
 		"java" -> "hub.sam.dbl.ElementAccess"
 	}
 	
+	IdExpr idExpr;
 	IdExpr getIdExpr() abstract;
 	void setIdExpr(IdExpr value) abstract;
 }
@@ -1020,9 +1099,12 @@ NamedElement
 		"java" -> "hub.sam.dbl.ExtensionDefinition"
 	}
 	
+	List abstractSyntaxDef;
 	List getAbstractSyntaxDef() abstract;
+	TextualSyntaxDef textualSyntaxDef;
 	TextualSyntaxDef getTextualSyntaxDef() abstract;
 	void setTextualSyntaxDef(TextualSyntaxDef value) abstract;
+	Mapping mappingDef;
 	Mapping getMappingDef() abstract;
 	void setMappingDef(Mapping value) abstract;
 }
@@ -1033,8 +1115,10 @@ extends EObject
 		"java" -> "hub.sam.dbl.TextualSyntaxDef"
 	}
 	
+	ExtensionRule extensionRule;
 	ExtensionRule getExtensionRule() abstract;
 	void setExtensionRule(ExtensionRule value) abstract;
+	List newRules;
 	List getNewRules() abstract;
 }
 class ReferableRhsType
@@ -1055,8 +1139,10 @@ ReferableRhsType
 		"java" -> "hub.sam.dbl.TsRule"
 	}
 	
+	string metaClassName;
 	string getMetaClassName() abstract;
 	void setMetaClassName(string value) abstract;
+	RhsExpression rhs;
 	RhsExpression getRhs() abstract;
 	void setRhs(RhsExpression value) abstract;
 }
@@ -1068,8 +1154,10 @@ NamedElement
 		"java" -> "hub.sam.dbl.ExtensionRule"
 	}
 	
+	Classifier instantiableMetaClass;
 	Classifier getInstantiableMetaClass() abstract;
 	void setInstantiableMetaClass(Classifier value) abstract;
+	RuleExpr firstNewRule;
 	RuleExpr getFirstNewRule() abstract;
 	void setFirstNewRule(RuleExpr value) abstract;
 }
@@ -1089,6 +1177,7 @@ RhsExpression
 		"java" -> "hub.sam.dbl.SequenceExpr"
 	}
 	
+	List sequence;
 	List getSequence() abstract;
 }
 class OptionalExpr
@@ -1099,6 +1188,7 @@ RhsExpression
 		"java" -> "hub.sam.dbl.OptionalExpr"
 	}
 	
+	RhsExpression expression;
 	RhsExpression getExpression() abstract;
 	void setExpression(RhsExpression value) abstract;
 }
@@ -1110,6 +1200,7 @@ RhsExpression
 		"java" -> "hub.sam.dbl.RuntimeExpr"
 	}
 	
+	RhsExpression expression;
 	RhsExpression getExpression() abstract;
 	void setExpression(RhsExpression value) abstract;
 }
@@ -1121,6 +1212,7 @@ RhsExpression
 		"java" -> "hub.sam.dbl.AtLeastOneExpr"
 	}
 	
+	RhsExpression expression;
 	RhsExpression getExpression() abstract;
 	void setExpression(RhsExpression value) abstract;
 }
@@ -1132,6 +1224,7 @@ RhsExpression
 		"java" -> "hub.sam.dbl.ArbitraryExpr"
 	}
 	
+	RhsExpression expression;
 	RhsExpression getExpression() abstract;
 	void setExpression(RhsExpression value) abstract;
 }
@@ -1143,8 +1236,10 @@ RhsExpression
 		"java" -> "hub.sam.dbl.AlternativeExpr"
 	}
 	
+	RhsExpression left;
 	RhsExpression getLeft() abstract;
 	void setLeft(RhsExpression value) abstract;
+	RhsExpression right;
 	RhsExpression getRight() abstract;
 	void setRight(RhsExpression value) abstract;
 }
@@ -1156,6 +1251,7 @@ RhsExpression
 		"java" -> "hub.sam.dbl.TerminalExpr"
 	}
 	
+	string terminal;
 	string getTerminal() abstract;
 	void setTerminal(string value) abstract;
 }
@@ -1168,10 +1264,12 @@ RhsExpression
 		"java" -> "hub.sam.dbl.PropertyBindingExpr"
 	}
 	
+	PropertyType propertyType;
 	PropertyType getPropertyType() abstract;
 	void setPropertyType(PropertyType value) abstract;
-	//BindingExprOpKind getOperator() abstract;
-	//void setOperator(BindingExprOpKind value) abstract;
+	BindingExprOpKind operator;
+	BindingExprOpKind getOperator() abstract;
+	void setOperator(BindingExprOpKind value) abstract;
 }
 class RuleExpr
 extends 
@@ -1181,6 +1279,7 @@ RhsExpression
 		"java" -> "hub.sam.dbl.RuleExpr"
 	}
 	
+	TsRule rule;
 	TsRule getRule() abstract;
 	void setRule(TsRule value) abstract;
 }
@@ -1227,6 +1326,7 @@ PropertyType
 		"java" -> "hub.sam.dbl.BooleanPropertyType"
 	}
 	
+	string terminal;
 	string getTerminal() abstract;
 	void setTerminal(string value) abstract;
 }
@@ -1238,6 +1338,7 @@ PropertyType
 		"java" -> "hub.sam.dbl.StructuredPropertyType"
 	}
 	
+	ReferableRhsType type;
 	ReferableRhsType getType() abstract;
 	void setType(ReferableRhsType value) abstract;
 }
@@ -1249,6 +1350,7 @@ StructuredPropertyType
 		"java" -> "hub.sam.dbl.CompositePropertyType"
 	}
 	
+	boolean list;
 	boolean isList() abstract;
 	void setList(boolean value) abstract;
 }
@@ -1260,8 +1362,10 @@ StructuredPropertyType
 		"java" -> "hub.sam.dbl.ReferencePropertyType"
 	}
 	
+	Pattern idResolutionPattern;
 	Pattern getIdResolutionPattern() abstract;
 	void setIdResolutionPattern(Pattern value) abstract;
+	boolean rawReference;
 	boolean isRawReference() abstract;
 	void setRawReference(boolean value) abstract;
 }
@@ -1273,7 +1377,9 @@ LocalScopeStatement
 		"java" -> "hub.sam.dbl.Mapping"
 	}
 	
+	List parts;
 	List getParts() abstract;
+	Expression metaObject;
 	Expression getMetaObject() abstract;
 	void setMetaObject(Expression value) abstract;
 }
@@ -1293,6 +1399,7 @@ Expression
 		"java" -> "hub.sam.dbl.MetaExpr"
 	}
 	
+	Expression expr;
 	Expression getExpr() abstract;
 	void setExpr(Expression value) abstract;
 }
@@ -1304,6 +1411,7 @@ Statement
 		"java" -> "hub.sam.dbl.TargetStatement"
 	}
 	
+	Statement body;
 	Statement getBody() abstract;
 	void setBody(Statement value) abstract;
 }
@@ -1315,7 +1423,9 @@ Statement
 		"java" -> "hub.sam.dbl.MappingStatement"
 	}
 	
+	List parts;
 	List getParts() abstract;
+	List exprs;
 	List getExprs() abstract;
 }
 class SetGenContextStatement
@@ -1326,8 +1436,10 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.SetGenContextStatement"
 	}
 	
+	Expression context;
 	Expression getContext() abstract;
 	void setContext(Expression value) abstract;
+	boolean addAfterContext;
 	boolean isAddAfterContext() abstract;
 	void setAddAfterContext(boolean value) abstract;
 }
@@ -1348,6 +1460,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.SaveGenStatement"
 	}
 	
+	Expression variable;
 	Expression getVariable() abstract;
 	void setVariable(Expression value) abstract;
 }
@@ -1359,6 +1472,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.ResumeGenStatement"
 	}
 	
+	Expression variable;
 	Expression getVariable() abstract;
 	void setVariable(Expression value) abstract;
 }
@@ -1370,6 +1484,7 @@ MappingPart
 		"java" -> "hub.sam.dbl.FixedMappingPart"
 	}
 	
+	string code;
 	string getCode() abstract;
 	void setCode(string value) abstract;
 }
@@ -1381,6 +1496,7 @@ MappingPart
 		"java" -> "hub.sam.dbl.DynamicMappingPart"
 	}
 	
+	Expression expr;
 	Expression getExpr() abstract;
 	void setExpr(Expression value) abstract;
 }
@@ -1392,6 +1508,7 @@ Expression
 		"java" -> "hub.sam.dbl.ExpandExpression"
 	}
 	
+	Expression metaObject;
 	Expression getMetaObject() abstract;
 	void setMetaObject(Expression value) abstract;
 }
@@ -1403,8 +1520,10 @@ Statement
 		"java" -> "hub.sam.dbl.ExpandStatement"
 	}
 	
+	Expression metaObject;
 	Expression getMetaObject() abstract;
 	void setMetaObject(Expression value) abstract;
+	Expression location;
 	Expression getLocation() abstract;
 	void setLocation(Expression value) abstract;
 }
@@ -1416,6 +1535,7 @@ Expression
 		"java" -> "hub.sam.dbl.CodeQuoteExpression"
 	}
 	
+	QuotedCode quotedCode;
 	QuotedCode getQuotedCode() abstract;
 	void setQuotedCode(QuotedCode value) abstract;
 }
@@ -1435,6 +1555,7 @@ QuotedCode
 		"java" -> "hub.sam.dbl.QuotedExpression"
 	}
 	
+	Expression expression;
 	Expression getExpression() abstract;
 	void setExpression(Expression value) abstract;
 }
@@ -1446,6 +1567,7 @@ QuotedCode
 		"java" -> "hub.sam.dbl.QuotedStatements"
 	}
 	
+	List statements;
 	List getStatements() abstract;
 }
 class QuotedClassContent
@@ -1476,10 +1598,13 @@ NamedElement
 		"java" -> "hub.sam.dbl.Pattern"
 	}
 	
+	boolean top;
 	boolean isTop() abstract;
 	void setTop(boolean value) abstract;
+	Parameter context;
 	Parameter getContext() abstract;
 	void setContext(Parameter value) abstract;
+	Statement body;
 	Statement getBody() abstract;
 	void setBody(Statement value) abstract;
 }
@@ -1491,6 +1616,7 @@ Statement
 		"java" -> "hub.sam.dbl.TestStatement"
 	}
 	
+	int value;
 	int getValue() abstract;
 	void setValue(int value) abstract;
 }

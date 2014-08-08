@@ -44,11 +44,17 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	def String genFeature(EStructuralFeature feature) {
 		val it = feature
 		'''
+		«genAttribute»
 		«genGetter»
 		«IF changeable»
 			«genSetter»
 		«ENDIF»
 		'''
+	}
+
+	def String genAttribute(EStructuralFeature feature) {
+		val it = feature
+		genType + ' ' + name + ';'
 	}
 
 	def String genGetter(EStructuralFeature feature) {

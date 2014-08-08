@@ -1,0 +1,22 @@
+#import "../stdlib"
+
+module ecore_test {
+
+class A {
+}
+
+void main() {
+	A a = new A;
+	ArrayList l = new ArrayList;
+	l.add(a);
+	l.add(a);
+	
+	Iterator lit = l.iterator();
+	while (lit.hasNext()) {
+		Object o = lit.next();
+		A la = o as A;
+		print la + "\n";
+	}	
+}
+
+}

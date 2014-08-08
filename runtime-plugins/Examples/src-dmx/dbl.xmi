@@ -6,6 +6,12 @@
   <modules name="dbl">
     <classifiers xsi:type="dbl:Clazz" name="ExtensibleElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensibleElement"/>
+      <attributes name="concreteSyntax">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="instanceOfExtensionDefinition">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
       <methods name="getConcreteSyntax" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -28,22 +34,38 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Model">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Model"/>
+      <attributes name="imports">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="modules">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getImports" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getModules" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Import">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Import"/>
+      <attributes name="file">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="model">
+        <classifierType referencedElement="//@modules.0/@classifiers.1"/>
+      </attributes>
       <methods name="getFile" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -63,34 +85,59 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Module">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Module"/>
+      <attributes name="classifiers">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="classAugments">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="extensionDefs">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="procedures">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="variables">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getClassifiers" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getClassAugments" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getExtensionDefs" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getProcedures" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getVariables" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
@@ -98,39 +145,65 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="EmbeddableExtensionsContainer">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.EmbeddableExtensionsContainer"/>
+      <attributes name="extensions">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getExtensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ModifierExtensionsContainer">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ModifierExtensionsContainer"/>
+      <attributes name="modifierExtensions">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getModifierExtensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Type">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Type"/>
+      <attributes name="arrayDimensions">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getArrayDimensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TypedElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypedElement"/>
+      <attributes name="primitiveType">
+        <classifierType referencedElement="//@modules.0/@classifiers.9"/>
+      </attributes>
+      <attributes name="typeArrayDimensions">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="classifierType">
+        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+      </attributes>
       <methods name="getPrimitiveType" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.9"/>
       </methods>
@@ -142,7 +215,7 @@
       </methods>
       <methods name="getTypeArrayDimensions" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getClassifierType" abstract="true">
@@ -155,11 +228,14 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ArrayDimension">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ArrayDimension"/>
+      <attributes name="_size">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getSize" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -170,7 +246,7 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="PrimitiveType">
@@ -199,9 +275,20 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Procedure">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Procedure"/>
+      <attributes name="parameters">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="clazz">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
+      <attributes name="abstract">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
       <methods name="getParameters" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="isClazz" abstract="true">
@@ -228,9 +315,14 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Classifier">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Classifier"/>
+      <attributes name="bindings">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getBindings" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.6"/>
@@ -239,6 +331,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="NativeBinding">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NativeBinding"/>
+      <attributes name="targetLanguage">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="targetType">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
       <methods name="getTargetLanguage" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -258,24 +356,54 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ClassSimilar">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassSimilar"/>
+      <attributes name="attributes">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="methods">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="superClasses">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="initialBlock">
+        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
+      </attributes>
+      <attributes name="finalBlock">
+        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
+      </attributes>
+      <attributes name="actionsBlock">
+        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
+      </attributes>
+      <attributes name="reportBlock">
+        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
+      </attributes>
+      <attributes name="clearBlock">
+        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
+      </attributes>
       <methods name="getAttributes" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getMethods" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getSuperClasses" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getInitialBlock" abstract="true">
@@ -332,6 +460,14 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SuperClassSpecification">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperClassSpecification"/>
+      <attributes name="clazz">
+        <classifierType referencedElement="//@modules.0/@classifiers.21"/>
+      </attributes>
+      <attributes name="constructorArguments">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getClazz" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.21"/>
       </methods>
@@ -343,15 +479,21 @@
       </methods>
       <methods name="getConstructorArguments" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Clazz">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Clazz"/>
+      <attributes name="active">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
+      <attributes name="constructor">
+        <classifierType referencedElement="//@modules.0/@classifiers.22"/>
+      </attributes>
       <methods name="isActive" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -375,17 +517,25 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Constructor">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Constructor"/>
+      <attributes name="parameters">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getParameters" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ClassAugment">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassAugment"/>
+      <attributes name="augmentedClass">
+        <classifierType referencedElement="//@modules.0/@classifiers.21"/>
+      </attributes>
       <methods name="getAugmentedClass" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.21"/>
       </methods>
@@ -404,6 +554,15 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Variable">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Variable"/>
+      <attributes name="control">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
+      <attributes name="clazz">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
+      <attributes name="initialValue">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="isControl" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -441,6 +600,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="NamedElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NamedElement"/>
+      <attributes name="name">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
       <methods name="getName" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -451,14 +613,19 @@
         </parameters>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="deprecated_CodeBlock">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.deprecated_CodeBlock"/>
+      <attributes name="statements">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getStatements" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.0"/>
@@ -477,6 +644,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Assignment">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Assignment"/>
+      <attributes name="variable">
+        <classifierType referencedElement="//@modules.0/@classifiers.92"/>
+      </attributes>
+      <attributes name="value">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getVariable" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.92"/>
       </methods>
@@ -499,6 +672,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ProcedureCall">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ProcedureCall"/>
+      <attributes name="callIdExpr">
+        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+      </attributes>
       <methods name="getCallIdExpr" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.89"/>
       </methods>
@@ -512,6 +688,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Return">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Return"/>
+      <attributes name="value">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getValue" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -525,6 +704,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="WaitUntil">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WaitUntil"/>
+      <attributes name="condition">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getCondition" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -550,6 +732,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Reactivate">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Reactivate"/>
+      <attributes name="objectAccess">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getObjectAccess" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -563,6 +748,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ActivateObject">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ActivateObject"/>
+      <attributes name="objectAccess">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="_priority">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
       <methods name="getObjectAccess" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -585,6 +776,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Advance">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Advance"/>
+      <attributes name="time">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getTime" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -598,15 +792,29 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Print">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Print"/>
+      <attributes name="outputs">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getOutputs" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.31"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IfStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IfStatement"/>
+      <attributes name="condition">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="trueCase">
+        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+      </attributes>
+      <attributes name="falseCase">
+        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+      </attributes>
       <methods name="getCondition" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -638,13 +846,18 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="LocalScope">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScope"/>
+      <attributes name="statements">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getStatements" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="LocalScopeStatement">
@@ -654,6 +867,15 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ForStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ForStatement"/>
+      <attributes name="termination">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="increment">
+        <classifierType referencedElement="//@modules.0/@classifiers.32"/>
+      </attributes>
+      <attributes name="body">
+        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+      </attributes>
       <methods name="getTermination" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -686,6 +908,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="WhileStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WhileStatement"/>
+      <attributes name="condition">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="body">
+        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+      </attributes>
       <methods name="getCondition" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -708,6 +936,17 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SwitchStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchStatement"/>
+      <attributes name="variable">
+        <classifierType referencedElement="//@modules.0/@classifiers.92"/>
+      </attributes>
+      <attributes name="cases">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="defaultCase">
+        <classifierType referencedElement="//@modules.0/@classifiers.49"/>
+      </attributes>
       <methods name="getVariable" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.92"/>
       </methods>
@@ -719,7 +958,7 @@
       </methods>
       <methods name="getCases" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getDefaultCase" abstract="true">
@@ -735,6 +974,14 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SwitchCase">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchCase"/>
+      <attributes name="value">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="body">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getValue" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -746,11 +993,11 @@
       </methods>
       <methods name="getBody" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="BreakStatement">
@@ -772,6 +1019,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="BinaryOperator">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BinaryOperator"/>
+      <attributes name="op1">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="op2">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getOp1" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -794,6 +1047,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="UnaryOperator">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.UnaryOperator"/>
+      <attributes name="op">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getOp" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -893,6 +1149,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="StringLiteral">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringLiteral"/>
+      <attributes name="value">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
       <methods name="getValue" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -906,6 +1165,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IntLiteral">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntLiteral"/>
+      <attributes name="value">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
       <methods name="getValue" abstract="true">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
@@ -927,6 +1189,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="DoubleLiteral">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleLiteral"/>
+      <attributes name="value">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </attributes>
       <methods name="getValue" abstract="true">
         <primitiveType xsi:type="dbl:DoubleType"/>
       </methods>
@@ -940,6 +1205,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="EvalExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.EvalExpr"/>
+      <attributes name="expr">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getExpr" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -954,7 +1222,7 @@
     <classifiers xsi:type="dbl:Clazz" name="PredefinedId">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PredefinedId"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MeLiteral">
@@ -979,6 +1247,23 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IdExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdExpr"/>
+      <attributes name="parentIdExpr">
+        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+      </attributes>
+      <attributes name="referencedElement">
+        <classifierType referencedElement="//@modules.0/@classifiers.27"/>
+      </attributes>
+      <attributes name="predefinedId">
+        <classifierType referencedElement="//@modules.0/@classifiers.83"/>
+      </attributes>
+      <attributes name="arrayIndex">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="callPart">
+        <classifierType referencedElement="//@modules.0/@classifiers.90"/>
+      </attributes>
       <methods name="getParentIdExpr" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.89"/>
       </methods>
@@ -1008,7 +1293,7 @@
       </methods>
       <methods name="getArrayIndex" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getCallPart" abstract="true">
@@ -1024,17 +1309,25 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="CallPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CallPart"/>
+      <attributes name="callArguments">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getCallArguments" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ElementAccess">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementAccess"/>
+      <attributes name="idExpr">
+        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+      </attributes>
       <methods name="getIdExpr" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.89"/>
       </methods>
@@ -1068,9 +1361,20 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ExtensionDefinition">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionDefinition"/>
+      <attributes name="abstractSyntaxDef">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="textualSyntaxDef">
+        <classifierType referencedElement="//@modules.0/@classifiers.98"/>
+      </attributes>
+      <attributes name="mappingDef">
+        <classifierType referencedElement="//@modules.0/@classifiers.120"/>
+      </attributes>
       <methods name="getAbstractSyntaxDef" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getTextualSyntaxDef" abstract="true">
@@ -1095,6 +1399,14 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TextualSyntaxDef">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TextualSyntaxDef"/>
+      <attributes name="extensionRule">
+        <classifierType referencedElement="//@modules.0/@classifiers.101"/>
+      </attributes>
+      <attributes name="newRules">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getExtensionRule" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.101"/>
       </methods>
@@ -1106,11 +1418,11 @@
       </methods>
       <methods name="getNewRules" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ReferableRhsType">
@@ -1119,6 +1431,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TsRule">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TsRule"/>
+      <attributes name="metaClassName">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="rhs">
+        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+      </attributes>
       <methods name="getMetaClassName" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -1142,6 +1460,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ExtensionRule">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionRule"/>
+      <attributes name="instantiableMetaClass">
+        <classifierType referencedElement="//@modules.0/@classifiers.16"/>
+      </attributes>
+      <attributes name="firstNewRule">
+        <classifierType referencedElement="//@modules.0/@classifiers.111"/>
+      </attributes>
       <methods name="getInstantiableMetaClass" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.16"/>
       </methods>
@@ -1165,20 +1489,28 @@
     <classifiers xsi:type="dbl:Clazz" name="RhsExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.RhsExpression"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SequenceExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SequenceExpr"/>
+      <attributes name="sequence">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getSequence" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.102"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="OptionalExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.OptionalExpr"/>
+      <attributes name="expression">
+        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+      </attributes>
       <methods name="getExpression" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </methods>
@@ -1192,6 +1524,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="RuntimeExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.RuntimeExpr"/>
+      <attributes name="expression">
+        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+      </attributes>
       <methods name="getExpression" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </methods>
@@ -1205,6 +1540,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="AtLeastOneExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AtLeastOneExpr"/>
+      <attributes name="expression">
+        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+      </attributes>
       <methods name="getExpression" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </methods>
@@ -1218,6 +1556,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ArbitraryExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ArbitraryExpr"/>
+      <attributes name="expression">
+        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+      </attributes>
       <methods name="getExpression" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </methods>
@@ -1231,6 +1572,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="AlternativeExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AlternativeExpr"/>
+      <attributes name="left">
+        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+      </attributes>
+      <attributes name="right">
+        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+      </attributes>
       <methods name="getLeft" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </methods>
@@ -1253,6 +1600,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TerminalExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TerminalExpr"/>
+      <attributes name="terminal">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
       <methods name="getTerminal" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -1266,6 +1616,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="PropertyBindingExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PropertyBindingExpr"/>
+      <attributes name="propertyType">
+        <classifierType referencedElement="//@modules.0/@classifiers.112"/>
+      </attributes>
       <methods name="getPropertyType" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.112"/>
       </methods>
@@ -1280,6 +1633,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="RuleExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.RuleExpr"/>
+      <attributes name="rule">
+        <classifierType referencedElement="//@modules.0/@classifiers.100"/>
+      </attributes>
       <methods name="getRule" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.100"/>
       </methods>
@@ -1294,7 +1650,7 @@
     <classifiers xsi:type="dbl:Clazz" name="PropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PropertyType"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IdPropertyType">
@@ -1311,6 +1667,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="BooleanPropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BooleanPropertyType"/>
+      <attributes name="terminal">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
       <methods name="getTerminal" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -1324,6 +1683,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="StructuredPropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StructuredPropertyType"/>
+      <attributes name="_type">
+        <classifierType referencedElement="//@modules.0/@classifiers.99"/>
+      </attributes>
       <methods name="getType" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.99"/>
       </methods>
@@ -1337,6 +1699,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="CompositePropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CompositePropertyType"/>
+      <attributes name="list">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
       <methods name="isList" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -1350,6 +1715,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ReferencePropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ReferencePropertyType"/>
+      <attributes name="idResolutionPattern">
+        <classifierType referencedElement="//@modules.0/@classifiers.139"/>
+      </attributes>
+      <attributes name="rawReference">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
       <methods name="getIdResolutionPattern" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.139"/>
       </methods>
@@ -1372,9 +1743,17 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Mapping">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mapping"/>
+      <attributes name="parts">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="metaObject">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getParts" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getMetaObject" abstract="true">
@@ -1391,11 +1770,14 @@
     <classifiers xsi:type="dbl:Clazz" name="MappingPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MappingPart"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MetaExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaExpr"/>
+      <attributes name="expr">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getExpr" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1409,6 +1791,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TargetStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TargetStatement"/>
+      <attributes name="body">
+        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+      </attributes>
       <methods name="getBody" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </methods>
@@ -1422,20 +1807,36 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MappingStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MappingStatement"/>
+      <attributes name="parts">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="exprs">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getParts" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <methods name="getExprs" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.29"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SetGenContextStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SetGenContextStatement"/>
+      <attributes name="context">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="addAfterContext">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
       <methods name="getContext" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1462,6 +1863,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SaveGenStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SaveGenStatement"/>
+      <attributes name="variable">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getVariable" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1475,6 +1879,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ResumeGenStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ResumeGenStatement"/>
+      <attributes name="variable">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getVariable" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1488,6 +1895,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="FixedMappingPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.FixedMappingPart"/>
+      <attributes name="code">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
       <methods name="getCode" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -1501,6 +1911,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="DynamicMappingPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DynamicMappingPart"/>
+      <attributes name="expr">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getExpr" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1514,6 +1927,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ExpandExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpression"/>
+      <attributes name="metaObject">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getMetaObject" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1527,6 +1943,12 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ExpandStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandStatement"/>
+      <attributes name="metaObject">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
+      <attributes name="location">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getMetaObject" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1549,6 +1971,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="CodeQuoteExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CodeQuoteExpression"/>
+      <attributes name="quotedCode">
+        <classifierType referencedElement="//@modules.0/@classifiers.134"/>
+      </attributes>
       <methods name="getQuotedCode" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.134"/>
       </methods>
@@ -1563,11 +1988,14 @@
     <classifiers xsi:type="dbl:Clazz" name="QuotedCode">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedCode"/>
       <superClasses>
-        <clazz href="ecore.xmi#//@modules.0/@classifiers.13"/>
+        <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedExpression"/>
+      <attributes name="expression">
+        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      </attributes>
       <methods name="getExpression" abstract="true">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
@@ -1581,9 +2009,14 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedStatements">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedStatements"/>
+      <attributes name="statements">
+        <classifierType>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
       <methods name="getStatements" abstract="true">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@modules.0/@classifiers.12"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.134"/>
@@ -1600,6 +2033,15 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Pattern">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Pattern"/>
+      <attributes name="top">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
+      <attributes name="context">
+        <classifierType referencedElement="//@modules.0/@classifiers.26"/>
+      </attributes>
+      <attributes name="body">
+        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+      </attributes>
       <methods name="isTop" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -1631,6 +2073,9 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TestStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TestStatement"/>
+      <attributes name="value">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
       <methods name="getValue" abstract="true">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>

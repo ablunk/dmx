@@ -907,6 +907,9 @@ public class ModelLauncher {
 		resetConsole();
 
 		monitor.worked(5); // 5%
+//		monitor.subTask("Generating EMF Java classes for DBL metamodel");
+//		genEmfJavaClasses(currentProject);
+
 		monitor.subTask("Translating model to target language program");
 
 		// 1a. NEW --> Access properties by EMF's reflection mechanism. In this, no EMF code needs to generated here.

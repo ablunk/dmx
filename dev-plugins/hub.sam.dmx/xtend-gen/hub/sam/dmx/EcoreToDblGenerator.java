@@ -74,6 +74,9 @@ public class EcoreToDblGenerator extends AbstractGenerator {
     {
       final EStructuralFeature it = feature;
       StringConcatenation _builder = new StringConcatenation();
+      String _genAttribute = this.genAttribute(it);
+      _builder.append(_genAttribute, "");
+      _builder.newLineIfNotEmpty();
       String _genGetter = this.genGetter(it);
       _builder.append(_genGetter, "");
       _builder.newLineIfNotEmpty();
@@ -86,6 +89,20 @@ public class EcoreToDblGenerator extends AbstractGenerator {
         }
       }
       _xblockexpression = (_builder.toString());
+    }
+    return _xblockexpression;
+  }
+  
+  public String genAttribute(final EStructuralFeature feature) {
+    String _xblockexpression = null;
+    {
+      final EStructuralFeature it = feature;
+      String _genType = this.genType(it);
+      String _plus = (_genType + " ");
+      String _name = it.getName();
+      String _plus_1 = (_plus + _name);
+      String _plus_2 = (_plus_1 + ";");
+      _xblockexpression = (_plus_2);
     }
     return _xblockexpression;
   }

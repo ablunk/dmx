@@ -6,16 +6,21 @@ class E {}
 
 extension SE {
 	Statement -> SE;
-	SE -> "se" body:LocalScopeStatement ;
+	SE -> "se" body:LocalScopeStatement;
 }
 semantics {
-	List statements = body.getStatements();
+	List statements = body.statements;
+	// getPropertyValue( getPropertyValue(_extensionInstance, "body"), "statements")
+
+	Statement s0 = body.statements.iterator().next() as Statement;
+	// ((EList) getPropertyValue( (EObject) getPropertyValue(_extensionInstance, "body"), "statements") ).iterator().next()
+	// idExprs, die elemente im modul DBL referenzieren werden umgeschrieben. der rest nicht.
 	
-	Iterator it = statements.iterator();
+	Iterator it = body.statements.iterator();
 	while (it.hasNext()) {
 		Object o = it.next();
 		Statement stm = o as Statement;
-		expand stm;
+		expand stm (*;*);
 	}
 }
 

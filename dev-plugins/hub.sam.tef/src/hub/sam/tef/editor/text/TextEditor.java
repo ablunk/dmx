@@ -694,6 +694,7 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	public void addEditorStatusListener(ITefEditorStatusListener listener) {
 		if (!fStatusListener.contains(listener)) {
 			fStatusListener.add(listener);
+			System.out.println(getEditorInput().getName() + ": added ITefEditorStatusListener");
 		}
 	}
 	

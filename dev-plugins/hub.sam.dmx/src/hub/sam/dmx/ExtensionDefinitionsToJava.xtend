@@ -4,21 +4,22 @@ import hub.sam.dbl.ExtensibleElement
 import hub.sam.dbl.ExtensionDefinition
 import hub.sam.dbl.IdExpr
 import hub.sam.dbl.Import
+import hub.sam.dbl.IntPropertyType
 import hub.sam.dbl.MappingStatement
 import hub.sam.dbl.Model
 import hub.sam.dbl.Module
 import hub.sam.dbl.PropertyBindingExpr
+import hub.sam.dbl.PropertyType
 import hub.sam.dbl.ReferableRhsType
+import hub.sam.dbl.StringPropertyType
 import hub.sam.dbl.StructuredPropertyType
 import hub.sam.dbl.Variable
 import java.io.Writer
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
-import hub.sam.dbl.PropertyType
-import hub.sam.dbl.Classifier
-import hub.sam.dbl.IntPropertyType
-import hub.sam.dbl.StringPropertyType
-import hub.sam.dbl.Procedure
+import hub.sam.dbl.TypedElement
+import hub.sam.dbl.Type
+import hub.sam.dbl.TsRule
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -31,15 +32,40 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		super(outputFolder)
 	}
 	
-	def boolean refersToSyntaxPart(IdExpr idExpr) {
+	def boolean oneParentRefersToSyntaxPartOrDblMetamodel(IdExpr idExpr) {
 		val it = idExpr
-		if (parentIdExpr == null) {
-			return referencedElement instanceof PropertyBindingExpr
+		if (referencedElement instanceof PropertyBindingExpr) {
+			true
 		}
-		else
-			return parentIdExpr.refersToSyntaxPart
+		else {
+			if (referencedElement != null && referencedElement instanceof TypedElement) {
+				val typedReferencedElement = referencedElement as TypedElement
+				val referencedElementClassifierType = typedReferencedElement.classifierType
+				if (referencedElementClassifierType != null) {
+					val dblType = referencedElementClassifierType.referencedElement.getContainerObjectOfType(Module).name.equals("dbl")
+					if (dblType) return true;
+				}
+			}
+			
+			if (parentIdExpr != null) {
+				parentIdExpr.oneParentRefersToSyntaxPartOrDblMetamodel
+			}
+			else {
+				false
+			}
+		}
 	}
 	
+	def boolean directlyRefersToSyntaxPart(IdExpr idExpr) {
+		val it = idExpr
+		return referencedElement instanceof PropertyBindingExpr
+	}
+	
+	def boolean refersToDblMetamodel(IdExpr idExpr) {
+		val it = idExpr
+		referencedElement != null && referencedElement.getContainerObjectOfType(Module).name.equals("dbl")
+	}
+
 	def boolean hasSyntaxType(IdExpr idExpr) {
 		val it = idExpr
 		if (parentIdExpr == null) {
@@ -79,42 +105,136 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		false
 	}
 	
-	def String genSyntaxPartIdExpr(IdExpr idExpr) {
-		val it = idExpr
+//	def String genSyntaxPartIdExpr(IdExpr idExpr) {
+//		val it = idExpr
+//
+//		'''
+//		getPropertyValue(
+//		
+//		(EObject)
+//		«IF parentIdExpr != null»
+//			«parentIdExpr.genSyntaxPartIdExpr»,
+//		«ELSE»
+//			_extensionInstance,
+//		«ENDIF»
+//		
+//		«IF referencedElement != null»
+//			"«
+//			if (referencedElement.name.startsWith("_"))
+//				referencedElement.name.substring(1)
+//			else
+//				referencedElement.name
+//			»"
+//		«ELSE»
+//			«genIdExpr_for_PredefinedId(predefinedId)»
+//		«ENDIF»
+//		)
+//		'''
+//	}
 
-		'''
-		getPropertyValue(
-		
-		(EObject)
-		«IF parentIdExpr != null»
-			«parentIdExpr.genSyntaxPartIdExpr»,
-		«ELSE»
-			_extensionInstance,
-		«ENDIF»
-		
-		«IF referencedElement != null»
-			"«
-			if (referencedElement.name.startsWith("get"))
-				referencedElement.name.substring(3).toFirstLower
-			else if (referencedElement.name.startsWith("is"))
-				referencedElement.name.substring(2).toFirstLower
-			else
-				referencedElement.name
-			»"
-		«ELSE»
-			«genIdExpr_for_PredefinedId(predefinedId)»
-		«ENDIF»
-		)
-		'''
+	def boolean referencedElementIsOfTypeList(IdExpr idExpr) {
+		val referencedElement = idExpr.referencedElement
+		if (referencedElement != null && referencedElement instanceof TypedElement) {
+			val typedElement = referencedElement as TypedElement
+			if (typedElement.classifierType != null) {
+				val referencedClassifierType = typedElement.classifierType.referencedElement
+				return referencedClassifierType.name.equals("List")
+			}
+		}
+		return false
 	}
 	
+	override String genType(EObject type) {
+		if (type instanceof TsRule || type.getContainerObjectOfType(Module).name.equals("dbl")) return "EObject"
+		else super.genType(type)
+	}
+	
+	def String genIdExprWithSyntaxPartReferences(IdExpr idExpr) {
+		val it = idExpr
+
+		if (directlyRefersToSyntaxPart || refersToDblMetamodel) {
+			'''
+			(
+			«IF referencedElement != null»
+				«IF referencedElementIsOfTypeList»
+					(java.util.List)
+				«ELSE»
+					(EObject)
+				«ENDIF»
+			«ENDIF»
+			getPropertyValue(
+			«IF parentIdExpr != null»
+				«parentIdExpr.genIdExprWithSyntaxPartReferences»
+			«ELSE»
+				(EObject) _extensionInstance
+			«ENDIF»
+			,
+			«IF referencedElement != null»
+				"«
+				if (referencedElement.name.startsWith("_"))
+					referencedElement.name.substring(1)
+				else
+					referencedElement.name
+				»"
+			«ELSE»
+				«genIdExpr_for_PredefinedId(predefinedId)»
+			«ENDIF»
+			)
+			)
+			'''
+		}
+		else {
+			if (parentIdExpr != null) {
+				parentIdExpr.genIdExprWithSyntaxPartReferences + "." + genIdExpr_for_ReferencedElement(referencedElement)
+			}
+			else {
+				genIdExpr_for_ReferencedElement(referencedElement)
+			}
+		}
+	}
+
+//	def String genIdExprWithSyntaxPartReferences(IdExpr idExpr) {
+//		val it = idExpr
+//
+//		if (directlyRefersToSyntaxPart || refersToDblMetamodel) {
+//			'''
+//			«IF parentIdExpr != null»
+//				«parentIdExpr.genIdExprWithSyntaxPartReferences».
+//			«ELSE»
+//				_extensionInstance.
+//			«ENDIF»
+//			
+//			«IF referencedElement != null»
+//				get«
+//				if (referencedElement.name.startsWith("_"))
+//					referencedElement.name.substring(1).toFirstUpper
+//				else
+//					referencedElement.name.toFirstUpper
+//				»()
+//			«ELSE»
+//				«genIdExpr_for_PredefinedId(predefinedId)»
+//			«ENDIF»
+//			'''
+//		}
+//		else {
+//			if (parentIdExpr != null) {
+//				parentIdExpr.genIdExprWithSyntaxPartReferences + "." + genIdExpr_for_ReferencedElement(referencedElement)
+//			}
+//			else {
+//				genIdExpr_for_ReferencedElement(referencedElement)
+//			}
+//		}
+//	}
 	
 	override String genIdExpr(IdExpr idExpr) {
 		val it = idExpr
-		//«IF refersToSyntaxPart && partOfGenStatement && (refersToSyntaxPart_ofType_StructuredPropertyType || refersToVariable_ofType_StructuredPropertyType)»
 		'''
-		«IF refersToSyntaxPart && partOfGenStatement»
-			getConcreteSyntax(«genSyntaxPartIdExpr(idExpr)»)
+		«IF oneParentRefersToSyntaxPartOrDblMetamodel»
+			«IF partOfGenStatement»
+				getConcreteSyntax(«genIdExprWithSyntaxPartReferences»)
+			«ELSE»
+				«genIdExprWithSyntaxPartReferences»
+			«ENDIF»
 		«ELSE»
 			«super.genIdExpr(idExpr)»
 		«ENDIF»
@@ -153,7 +273,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	override String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, PropertyBindingExpr referencedElement) {
 		'''
 		getPropertyValue(_extensionInstance ,"«referencedElement.name»")
-		'''		
+		'''
 	}
 	
 	def ExtensionDefinition getImportedExtensionDefinition(Model model, String name) {

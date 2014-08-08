@@ -21,7 +21,9 @@ public class DbxTextEditor extends DblTextEditor implements IExtensionDefinition
 	
 	@Override
 	protected void initPreProcessor() {
-		_preProcessor = new DbxPreProcessor(this, getEditorInput().getName(), this);
+		if (_preProcessor == null) {
+			_preProcessor = new DbxPreProcessor(this, getEditorInput().getName(), this);
+		}
 	}
 	
 	private ExtensionDefinitionManager _extensionDefinitionManager;

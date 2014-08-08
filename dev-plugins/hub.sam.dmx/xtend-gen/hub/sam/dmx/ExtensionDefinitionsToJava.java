@@ -17,6 +17,8 @@ import hub.sam.dbl.PropertyType;
 import hub.sam.dbl.ReferableRhsType;
 import hub.sam.dbl.StringPropertyType;
 import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.TsRule;
+import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.Variable;
 import hub.sam.dmx.BasicDblToJavaGenerator;
 import java.io.Writer;
@@ -29,7 +31,6 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.StringExtensions;
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -42,17 +43,85 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
     super(outputFolder);
   }
   
-  public boolean refersToSyntaxPart(final IdExpr idExpr) {
-    final IdExpr it = idExpr;
-    IdExpr _parentIdExpr = it.getParentIdExpr();
-    boolean _equals = Objects.equal(_parentIdExpr, null);
-    if (_equals) {
+  public boolean oneParentRefersToSyntaxPartOrDblMetamodel(final IdExpr idExpr) {
+    boolean _xblockexpression = false;
+    {
+      final IdExpr it = idExpr;
+      boolean _xifexpression = false;
       NamedElement _referencedElement = it.getReferencedElement();
-      return (_referencedElement instanceof PropertyBindingExpr);
-    } else {
-      IdExpr _parentIdExpr_1 = it.getParentIdExpr();
-      return this.refersToSyntaxPart(_parentIdExpr_1);
+      if ((_referencedElement instanceof PropertyBindingExpr)) {
+        _xifexpression = true;
+      } else {
+        boolean _xblockexpression_1 = false;
+        {
+          boolean _and = false;
+          NamedElement _referencedElement_1 = it.getReferencedElement();
+          boolean _notEquals = (!Objects.equal(_referencedElement_1, null));
+          if (!_notEquals) {
+            _and = false;
+          } else {
+            NamedElement _referencedElement_2 = it.getReferencedElement();
+            _and = (_notEquals && (_referencedElement_2 instanceof TypedElement));
+          }
+          if (_and) {
+            NamedElement _referencedElement_3 = it.getReferencedElement();
+            final TypedElement typedReferencedElement = ((TypedElement) _referencedElement_3);
+            final IdExpr referencedElementClassifierType = typedReferencedElement.getClassifierType();
+            boolean _notEquals_1 = (!Objects.equal(referencedElementClassifierType, null));
+            if (_notEquals_1) {
+              NamedElement _referencedElement_4 = referencedElementClassifierType.getReferencedElement();
+              Module _containerObjectOfType = this.<Module>getContainerObjectOfType(_referencedElement_4, Module.class);
+              String _name = _containerObjectOfType.getName();
+              final boolean dblType = _name.equals("dbl");
+              if (dblType) {
+                return true;
+              }
+            }
+          }
+          boolean _xifexpression_1 = false;
+          IdExpr _parentIdExpr = it.getParentIdExpr();
+          boolean _notEquals_2 = (!Objects.equal(_parentIdExpr, null));
+          if (_notEquals_2) {
+            IdExpr _parentIdExpr_1 = it.getParentIdExpr();
+            boolean _oneParentRefersToSyntaxPartOrDblMetamodel = this.oneParentRefersToSyntaxPartOrDblMetamodel(_parentIdExpr_1);
+            _xifexpression_1 = _oneParentRefersToSyntaxPartOrDblMetamodel;
+          } else {
+            _xifexpression_1 = false;
+          }
+          _xblockexpression_1 = (_xifexpression_1);
+        }
+        _xifexpression = _xblockexpression_1;
+      }
+      _xblockexpression = (_xifexpression);
     }
+    return _xblockexpression;
+  }
+  
+  public boolean directlyRefersToSyntaxPart(final IdExpr idExpr) {
+    final IdExpr it = idExpr;
+    NamedElement _referencedElement = it.getReferencedElement();
+    return (_referencedElement instanceof PropertyBindingExpr);
+  }
+  
+  public boolean refersToDblMetamodel(final IdExpr idExpr) {
+    boolean _xblockexpression = false;
+    {
+      final IdExpr it = idExpr;
+      boolean _and = false;
+      NamedElement _referencedElement = it.getReferencedElement();
+      boolean _notEquals = (!Objects.equal(_referencedElement, null));
+      if (!_notEquals) {
+        _and = false;
+      } else {
+        NamedElement _referencedElement_1 = it.getReferencedElement();
+        Module _containerObjectOfType = this.<Module>getContainerObjectOfType(_referencedElement_1, Module.class);
+        String _name = _containerObjectOfType.getName();
+        boolean _equals = _name.equals("dbl");
+        _and = (_notEquals && _equals);
+      }
+      _xblockexpression = (_and);
+    }
+    return _xblockexpression;
   }
   
   public boolean hasSyntaxType(final IdExpr idExpr) {
@@ -129,77 +198,153 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
     return _xblockexpression;
   }
   
-  public String genSyntaxPartIdExpr(final IdExpr idExpr) {
+  public boolean referencedElementIsOfTypeList(final IdExpr idExpr) {
+    final NamedElement referencedElement = idExpr.getReferencedElement();
+    boolean _and = false;
+    boolean _notEquals = (!Objects.equal(referencedElement, null));
+    if (!_notEquals) {
+      _and = false;
+    } else {
+      _and = (_notEquals && (referencedElement instanceof TypedElement));
+    }
+    if (_and) {
+      final TypedElement typedElement = ((TypedElement) referencedElement);
+      IdExpr _classifierType = typedElement.getClassifierType();
+      boolean _notEquals_1 = (!Objects.equal(_classifierType, null));
+      if (_notEquals_1) {
+        IdExpr _classifierType_1 = typedElement.getClassifierType();
+        final NamedElement referencedClassifierType = _classifierType_1.getReferencedElement();
+        String _name = referencedClassifierType.getName();
+        return _name.equals("List");
+      }
+    }
+    return false;
+  }
+  
+  public String genType(final EObject type) {
+    String _xifexpression = null;
+    boolean _or = false;
+    if ((type instanceof TsRule)) {
+      _or = true;
+    } else {
+      Module _containerObjectOfType = this.<Module>getContainerObjectOfType(type, Module.class);
+      String _name = _containerObjectOfType.getName();
+      boolean _equals = _name.equals("dbl");
+      _or = ((type instanceof TsRule) || _equals);
+    }
+    if (_or) {
+      return "EObject";
+    } else {
+      String _genType = super.genType(type);
+      _xifexpression = _genType;
+    }
+    return _xifexpression;
+  }
+  
+  public String genIdExprWithSyntaxPartReferences(final IdExpr idExpr) {
     String _xblockexpression = null;
     {
       final IdExpr it = idExpr;
-      StringConcatenation _builder = new StringConcatenation();
-      _builder.append("getPropertyValue(");
-      _builder.newLine();
-      _builder.newLine();
-      _builder.append("(EObject)");
-      _builder.newLine();
-      {
-        IdExpr _parentIdExpr = it.getParentIdExpr();
-        boolean _notEquals = (!Objects.equal(_parentIdExpr, null));
-        if (_notEquals) {
-          IdExpr _parentIdExpr_1 = it.getParentIdExpr();
-          String _genSyntaxPartIdExpr = this.genSyntaxPartIdExpr(_parentIdExpr_1);
-          _builder.append(_genSyntaxPartIdExpr, "");
-          _builder.append(",");
-          _builder.newLineIfNotEmpty();
-        } else {
-          _builder.append("_extensionInstance,");
-          _builder.newLine();
-        }
+      String _xifexpression = null;
+      boolean _or = false;
+      boolean _directlyRefersToSyntaxPart = this.directlyRefersToSyntaxPart(it);
+      if (_directlyRefersToSyntaxPart) {
+        _or = true;
+      } else {
+        boolean _refersToDblMetamodel = this.refersToDblMetamodel(it);
+        _or = (_directlyRefersToSyntaxPart || _refersToDblMetamodel);
       }
-      _builder.newLine();
-      {
-        NamedElement _referencedElement = it.getReferencedElement();
-        boolean _notEquals_1 = (!Objects.equal(_referencedElement, null));
-        if (_notEquals_1) {
-          _builder.append("\"");
-          String _xifexpression = null;
-          NamedElement _referencedElement_1 = it.getReferencedElement();
-          String _name = _referencedElement_1.getName();
-          boolean _startsWith = _name.startsWith("get");
-          if (_startsWith) {
-            NamedElement _referencedElement_2 = it.getReferencedElement();
-            String _name_1 = _referencedElement_2.getName();
-            String _substring = _name_1.substring(3);
-            String _firstLower = StringExtensions.toFirstLower(_substring);
-            _xifexpression = _firstLower;
-          } else {
-            String _xifexpression_1 = null;
-            NamedElement _referencedElement_3 = it.getReferencedElement();
-            String _name_2 = _referencedElement_3.getName();
-            boolean _startsWith_1 = _name_2.startsWith("is");
-            if (_startsWith_1) {
-              NamedElement _referencedElement_4 = it.getReferencedElement();
-              String _name_3 = _referencedElement_4.getName();
-              String _substring_1 = _name_3.substring(2);
-              String _firstLower_1 = StringExtensions.toFirstLower(_substring_1);
-              _xifexpression_1 = _firstLower_1;
-            } else {
-              NamedElement _referencedElement_5 = it.getReferencedElement();
-              String _name_4 = _referencedElement_5.getName();
-              _xifexpression_1 = _name_4;
+      if (_or) {
+        StringConcatenation _builder = new StringConcatenation();
+        _builder.append("(");
+        _builder.newLine();
+        {
+          NamedElement _referencedElement = it.getReferencedElement();
+          boolean _notEquals = (!Objects.equal(_referencedElement, null));
+          if (_notEquals) {
+            {
+              boolean _referencedElementIsOfTypeList = this.referencedElementIsOfTypeList(it);
+              if (_referencedElementIsOfTypeList) {
+                _builder.append("(java.util.List)");
+                _builder.newLine();
+              } else {
+                _builder.append("(EObject)");
+                _builder.newLine();
+              }
             }
-            _xifexpression = _xifexpression_1;
           }
-          _builder.append(_xifexpression, "");
-          _builder.append("\"");
-          _builder.newLineIfNotEmpty();
-        } else {
-          PredefinedId _predefinedId = it.getPredefinedId();
-          String _genIdExpr_for_PredefinedId = this.genIdExpr_for_PredefinedId(it, _predefinedId);
-          _builder.append(_genIdExpr_for_PredefinedId, "");
-          _builder.newLineIfNotEmpty();
         }
+        _builder.append("getPropertyValue(");
+        _builder.newLine();
+        {
+          IdExpr _parentIdExpr = it.getParentIdExpr();
+          boolean _notEquals_1 = (!Objects.equal(_parentIdExpr, null));
+          if (_notEquals_1) {
+            IdExpr _parentIdExpr_1 = it.getParentIdExpr();
+            String _genIdExprWithSyntaxPartReferences = this.genIdExprWithSyntaxPartReferences(_parentIdExpr_1);
+            _builder.append(_genIdExprWithSyntaxPartReferences, "");
+            _builder.newLineIfNotEmpty();
+          } else {
+            _builder.append("(EObject) _extensionInstance");
+            _builder.newLine();
+          }
+        }
+        _builder.append(",");
+        _builder.newLine();
+        {
+          NamedElement _referencedElement_1 = it.getReferencedElement();
+          boolean _notEquals_2 = (!Objects.equal(_referencedElement_1, null));
+          if (_notEquals_2) {
+            _builder.append("\"");
+            String _xifexpression_1 = null;
+            NamedElement _referencedElement_2 = it.getReferencedElement();
+            String _name = _referencedElement_2.getName();
+            boolean _startsWith = _name.startsWith("_");
+            if (_startsWith) {
+              NamedElement _referencedElement_3 = it.getReferencedElement();
+              String _name_1 = _referencedElement_3.getName();
+              String _substring = _name_1.substring(1);
+              _xifexpression_1 = _substring;
+            } else {
+              NamedElement _referencedElement_4 = it.getReferencedElement();
+              String _name_2 = _referencedElement_4.getName();
+              _xifexpression_1 = _name_2;
+            }
+            _builder.append(_xifexpression_1, "");
+            _builder.append("\"");
+            _builder.newLineIfNotEmpty();
+          } else {
+            PredefinedId _predefinedId = it.getPredefinedId();
+            String _genIdExpr_for_PredefinedId = this.genIdExpr_for_PredefinedId(it, _predefinedId);
+            _builder.append(_genIdExpr_for_PredefinedId, "");
+            _builder.newLineIfNotEmpty();
+          }
+        }
+        _builder.append(")");
+        _builder.newLine();
+        _builder.append(")");
+        _builder.newLine();
+        _xifexpression = _builder.toString();
+      } else {
+        String _xifexpression_2 = null;
+        IdExpr _parentIdExpr_2 = it.getParentIdExpr();
+        boolean _notEquals_3 = (!Objects.equal(_parentIdExpr_2, null));
+        if (_notEquals_3) {
+          IdExpr _parentIdExpr_3 = it.getParentIdExpr();
+          String _genIdExprWithSyntaxPartReferences_1 = this.genIdExprWithSyntaxPartReferences(_parentIdExpr_3);
+          String _plus = (_genIdExprWithSyntaxPartReferences_1 + ".");
+          NamedElement _referencedElement_5 = it.getReferencedElement();
+          String _genIdExpr_for_ReferencedElement = this.genIdExpr_for_ReferencedElement(it, _referencedElement_5);
+          String _plus_1 = (_plus + _genIdExpr_for_ReferencedElement);
+          _xifexpression_2 = _plus_1;
+        } else {
+          NamedElement _referencedElement_6 = it.getReferencedElement();
+          String _genIdExpr_for_ReferencedElement_1 = this.genIdExpr_for_ReferencedElement(it, _referencedElement_6);
+          _xifexpression_2 = _genIdExpr_for_ReferencedElement_1;
+        }
+        _xifexpression = _xifexpression_2;
       }
-      _builder.append(")");
-      _builder.newLine();
-      _xblockexpression = (_builder.toString());
+      _xblockexpression = (_xifexpression);
     }
     return _xblockexpression;
   }
@@ -210,20 +355,22 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       final IdExpr it = idExpr;
       StringConcatenation _builder = new StringConcatenation();
       {
-        boolean _and = false;
-        boolean _refersToSyntaxPart = this.refersToSyntaxPart(it);
-        if (!_refersToSyntaxPart) {
-          _and = false;
-        } else {
-          boolean _isPartOfGenStatement = this.isPartOfGenStatement(it);
-          _and = (_refersToSyntaxPart && _isPartOfGenStatement);
-        }
-        if (_and) {
-          _builder.append("getConcreteSyntax(");
-          String _genSyntaxPartIdExpr = this.genSyntaxPartIdExpr(idExpr);
-          _builder.append(_genSyntaxPartIdExpr, "");
-          _builder.append(")");
-          _builder.newLineIfNotEmpty();
+        boolean _oneParentRefersToSyntaxPartOrDblMetamodel = this.oneParentRefersToSyntaxPartOrDblMetamodel(it);
+        if (_oneParentRefersToSyntaxPartOrDblMetamodel) {
+          {
+            boolean _isPartOfGenStatement = this.isPartOfGenStatement(it);
+            if (_isPartOfGenStatement) {
+              _builder.append("getConcreteSyntax(");
+              String _genIdExprWithSyntaxPartReferences = this.genIdExprWithSyntaxPartReferences(it);
+              _builder.append(_genIdExprWithSyntaxPartReferences, "");
+              _builder.append(")");
+              _builder.newLineIfNotEmpty();
+            } else {
+              String _genIdExprWithSyntaxPartReferences_1 = this.genIdExprWithSyntaxPartReferences(it);
+              _builder.append(_genIdExprWithSyntaxPartReferences_1, "");
+              _builder.newLineIfNotEmpty();
+            }
+          }
         } else {
           String _genIdExpr = super.genIdExpr(idExpr);
           _builder.append(_genIdExpr, "");

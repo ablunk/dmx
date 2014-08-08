@@ -5,6 +5,7 @@ module E_user {
 void main() {
 	se {
 		print "Hello";
+		print " World\n";
 	}
 }
 

@@ -105,7 +105,7 @@ public class DblPreProcessor {
 	
 	protected ITefEditorStatusListener getImportsEditorListener() {
 		if (importsEditorListener == null) {
-			return new ImportsEditorListener();
+			importsEditorListener = new ImportsEditorListener();
 		}
 		return importsEditorListener;
 	}
