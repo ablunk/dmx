@@ -1,0 +1,17 @@
+#import "../../stdx"
+
+module E {
+
+class E {}
+
+extension SE {
+	Statement -> SE;
+	SE -> "se" body:LocalScopeStatement;
+}
+semantics {
+	foreach(Statement stm in body.statements) {
+		expand stm ";";
+	}
+}
+
+}

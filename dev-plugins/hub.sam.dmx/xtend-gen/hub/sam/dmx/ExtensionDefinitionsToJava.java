@@ -1,6 +1,7 @@
 package hub.sam.dmx;
 
 import com.google.common.base.Objects;
+import hub.sam.dbl.CompositePropertyType;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdExpr;
@@ -200,22 +201,27 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
   
   public boolean referencedElementIsOfTypeList(final IdExpr idExpr) {
     final NamedElement referencedElement = idExpr.getReferencedElement();
-    boolean _and = false;
     boolean _notEquals = (!Objects.equal(referencedElement, null));
-    if (!_notEquals) {
-      _and = false;
-    } else {
-      _and = (_notEquals && (referencedElement instanceof TypedElement));
-    }
-    if (_and) {
-      final TypedElement typedElement = ((TypedElement) referencedElement);
-      IdExpr _classifierType = typedElement.getClassifierType();
-      boolean _notEquals_1 = (!Objects.equal(_classifierType, null));
-      if (_notEquals_1) {
-        IdExpr _classifierType_1 = typedElement.getClassifierType();
-        final NamedElement referencedClassifierType = _classifierType_1.getReferencedElement();
-        String _name = referencedClassifierType.getName();
-        return _name.equals("List");
+    if (_notEquals) {
+      if ((referencedElement instanceof TypedElement)) {
+        final TypedElement typedElement = ((TypedElement) referencedElement);
+        IdExpr _classifierType = typedElement.getClassifierType();
+        boolean _notEquals_1 = (!Objects.equal(_classifierType, null));
+        if (_notEquals_1) {
+          IdExpr _classifierType_1 = typedElement.getClassifierType();
+          final NamedElement referencedClassifierType = _classifierType_1.getReferencedElement();
+          String _name = referencedClassifierType.getName();
+          return _name.equals("List");
+        }
+      } else {
+        if ((referencedElement instanceof PropertyBindingExpr)) {
+          final PropertyBindingExpr propertyBinding = ((PropertyBindingExpr) referencedElement);
+          final PropertyType propertyType = propertyBinding.getPropertyType();
+          if ((propertyType instanceof CompositePropertyType)) {
+            final CompositePropertyType compositePropertyType = ((CompositePropertyType) propertyType);
+            return compositePropertyType.isList();
+          }
+        }
       }
     }
     return false;

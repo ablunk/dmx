@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="dbl">
+    <model href="dbl.xmi#/"/>
+  </imports>
+  <imports file="stdlib">
+    <model href="stdlib.xmi#/"/>
+  </imports>
+  <modules name="stdx">
+    <extensionDefs name="ForEach">
+      <textualSyntaxDef>
+        <extensionRule name="LocalScopeStatement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="ForEach">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="foreach"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="statements">
+              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                <type xsi:type="dbl:Clazz" href="dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="collection">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="dbl.xmi#//@modules.0/@classifiers.52"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="dbl.xmi#//@modules.0/@classifiers.45"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="Variable varDef = statements.get(0) as Variable;&#xA;&#x9;&#xA;&#x9;expand &quot;Iterator it = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;expand &quot;while (it.hasNext()) {&quot;;&#xA;&#x9;expand &quot;&#x9;Object object = it.next();&quot;;&#xA;&#x9;expand &#x9;&#x9;varDef &quot; = object as &quot; varDef.classifierType &quot;;&quot;;&#xA;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;expand &quot;}&quot;;">
+        <statements xsi:type="dbl:Variable" name="varDef" concreteSyntax="Variable varDef = statements.get(0) as Variable">
+          <classifierType concreteSyntax="Variable">
+            <referencedElement href="dbl.xmi#//@modules.0/@classifiers.25"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:Cast" concreteSyntax="statements.get(0) as Variable">
+            <classifierType concreteSyntax="Variable">
+              <referencedElement href="dbl.xmi#//@modules.0/@classifiers.25"/>
+            </classifierType>
+            <op xsi:type="dbl:IdExpr" concreteSyntax="statements.get(0)">
+              <parentIdExpr concreteSyntax="statements" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.2"/>
+              <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+              <callPart>
+                <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </callPart>
+            </op>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;Iterator it = &quot; collection &quot;.iterator();&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="Iterator it = "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.4"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=".iterator();"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;while (it.hasNext()) {&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="while (it.hasNext()) {"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;&#x9;Object object = it.next();&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="&#x9;Object object = it.next();"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &#x9;&#x9;varDef &quot; = object as &quot; varDef.classifierType &quot;;&quot;">
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="varDef" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" = object as "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="varDef.classifierType">
+              <parentIdExpr concreteSyntax="varDef" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+              <referencedElement href="dbl.xmi#//@modules.0/@classifiers.7/@attributes.2"/>
+            </expr>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand&#x9;&#x9;body">
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.6"/>
+          </parts>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;}&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="}"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

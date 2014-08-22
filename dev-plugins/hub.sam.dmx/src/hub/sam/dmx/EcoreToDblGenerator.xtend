@@ -45,7 +45,6 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		val it = feature
 		'''
 		«genAttribute»
-		«genGetter»
 		«IF changeable»
 			«genSetter»
 		«ENDIF»

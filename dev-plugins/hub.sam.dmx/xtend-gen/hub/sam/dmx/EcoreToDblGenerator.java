@@ -77,9 +77,6 @@ public class EcoreToDblGenerator extends AbstractGenerator {
       String _genAttribute = this.genAttribute(it);
       _builder.append(_genAttribute, "");
       _builder.newLineIfNotEmpty();
-      String _genGetter = this.genGetter(it);
-      _builder.append(_genGetter, "");
-      _builder.newLineIfNotEmpty();
       {
         boolean _isChangeable = it.isChangeable();
         if (_isChangeable) {

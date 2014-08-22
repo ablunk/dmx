@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject
 import hub.sam.dbl.TypedElement
 import hub.sam.dbl.Type
 import hub.sam.dbl.TsRule
+import hub.sam.dbl.CompositePropertyType
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -134,11 +135,21 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 
 	def boolean referencedElementIsOfTypeList(IdExpr idExpr) {
 		val referencedElement = idExpr.referencedElement
-		if (referencedElement != null && referencedElement instanceof TypedElement) {
-			val typedElement = referencedElement as TypedElement
-			if (typedElement.classifierType != null) {
-				val referencedClassifierType = typedElement.classifierType.referencedElement
-				return referencedClassifierType.name.equals("List")
+		if (referencedElement != null) {
+			if (referencedElement instanceof TypedElement) {
+				val typedElement = referencedElement as TypedElement
+				if (typedElement.classifierType != null) {
+					val referencedClassifierType = typedElement.classifierType.referencedElement
+					return referencedClassifierType.name.equals("List")
+				}
+			}
+			else if (referencedElement instanceof PropertyBindingExpr) {
+				val propertyBinding = referencedElement as PropertyBindingExpr
+				val propertyType = propertyBinding.propertyType
+				if (propertyType instanceof CompositePropertyType) {
+					val compositePropertyType = propertyType as CompositePropertyType
+					return compositePropertyType.list
+				}
 			}
 		}
 		return false

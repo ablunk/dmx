@@ -12,17 +12,11 @@
       <attributes name="instanceOfExtensionDefinition">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="getConcreteSyntax" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setConcreteSyntax" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
-      </methods>
-      <methods name="isInstanceOfExtensionDefinition" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="setInstanceOfExtensionDefinition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -44,16 +38,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getImports" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getModules" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
@@ -66,17 +50,11 @@
       <attributes name="model">
         <classifierType referencedElement="//@modules.0/@classifiers.1"/>
       </attributes>
-      <methods name="getFile" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setFile" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
-      </methods>
-      <methods name="getModel" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.1"/>
       </methods>
       <methods name="setModel" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -115,31 +93,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getClassifiers" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getClassAugments" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getExtensionDefs" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getProcedures" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getVariables" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
       <superClasses clazz="//@modules.0/@classifiers.4"/>
     </classifiers>
@@ -150,11 +103,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getExtensions" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
@@ -166,11 +114,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getModifierExtensions" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
@@ -182,11 +125,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getArrayDimensions" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
@@ -204,22 +142,11 @@
       <attributes name="classifierType">
         <classifierType referencedElement="//@modules.0/@classifiers.89"/>
       </attributes>
-      <methods name="getPrimitiveType" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.9"/>
-      </methods>
       <methods name="setPrimitiveType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.9"/>
         </parameters>
-      </methods>
-      <methods name="getTypeArrayDimensions" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getClassifierType" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
       </methods>
       <methods name="setClassifierType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -236,9 +163,6 @@
       <attributes name="_size">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getSize" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setSize" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -286,22 +210,11 @@
       <attributes name="abstract">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="getParameters" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="isClazz" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
       <methods name="setClazz" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
-      </methods>
-      <methods name="isAbstract" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="setAbstract" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -320,11 +233,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getBindings" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses clazz="//@modules.0/@classifiers.6"/>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
       <superClasses clazz="//@modules.0/@classifiers.99"/>
@@ -337,17 +245,11 @@
       <attributes name="targetType">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="getTargetLanguage" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setTargetLanguage" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
-      </methods>
-      <methods name="getTargetType" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="setTargetType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -391,32 +293,11 @@
       <attributes name="clearBlock">
         <classifierType referencedElement="//@modules.0/@classifiers.19"/>
       </attributes>
-      <methods name="getAttributes" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getMethods" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getSuperClasses" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getInitialBlock" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
-      </methods>
       <methods name="setInitialBlock" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.19"/>
         </parameters>
-      </methods>
-      <methods name="getFinalBlock" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
       </methods>
       <methods name="setFinalBlock" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -424,26 +305,17 @@
           <classifierType referencedElement="//@modules.0/@classifiers.19"/>
         </parameters>
       </methods>
-      <methods name="getActionsBlock" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
-      </methods>
       <methods name="setActionsBlock" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.19"/>
         </parameters>
       </methods>
-      <methods name="getReportBlock" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
-      </methods>
       <methods name="setReportBlock" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.19"/>
         </parameters>
-      </methods>
-      <methods name="getClearBlock" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.19"/>
       </methods>
       <methods name="setClearBlock" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -468,19 +340,11 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getClazz" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.21"/>
-      </methods>
       <methods name="setClazz" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.21"/>
         </parameters>
-      </methods>
-      <methods name="getConstructorArguments" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
       </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
@@ -494,17 +358,11 @@
       <attributes name="constructor">
         <classifierType referencedElement="//@modules.0/@classifiers.22"/>
       </attributes>
-      <methods name="isActive" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
       <methods name="setActive" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
-      </methods>
-      <methods name="getConstructor" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.22"/>
       </methods>
       <methods name="setConstructor" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -522,11 +380,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getParameters" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
@@ -536,9 +389,6 @@
       <attributes name="augmentedClass">
         <classifierType referencedElement="//@modules.0/@classifiers.21"/>
       </attributes>
-      <methods name="getAugmentedClass" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.21"/>
-      </methods>
       <methods name="setAugmentedClass" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -563,26 +413,17 @@
       <attributes name="initialValue">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="isControl" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
       <methods name="setControl" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <methods name="isClazz" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
       <methods name="setClazz" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
-      </methods>
-      <methods name="getInitialValue" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
       <methods name="setInitialValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -603,9 +444,6 @@
       <attributes name="name">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="getName" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setName" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -623,11 +461,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getStatements" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses clazz="//@modules.0/@classifiers.0"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Statement">
@@ -650,17 +483,11 @@
       <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getVariable" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.92"/>
-      </methods>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.92"/>
         </parameters>
-      </methods>
-      <methods name="getValue" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -675,9 +502,6 @@
       <attributes name="callIdExpr">
         <classifierType referencedElement="//@modules.0/@classifiers.89"/>
       </attributes>
-      <methods name="getCallIdExpr" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
-      </methods>
       <methods name="setCallIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -691,9 +515,6 @@
       <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getValue" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -707,9 +528,6 @@
       <attributes name="condition">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getCondition" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -735,9 +553,6 @@
       <attributes name="objectAccess">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getObjectAccess" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setObjectAccess" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -754,17 +569,11 @@
       <attributes name="_priority">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
-      <methods name="getObjectAccess" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setObjectAccess" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
-      </methods>
-      <methods name="getPriority" abstract="true">
-        <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="setPriority" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -779,9 +588,6 @@
       <attributes name="time">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getTime" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setTime" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -797,11 +603,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getOutputs" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses clazz="//@modules.0/@classifiers.31"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IfStatement">
@@ -815,26 +616,17 @@
       <attributes name="falseCase">
         <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </attributes>
-      <methods name="getCondition" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
       </methods>
-      <methods name="getTrueCase" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
-      </methods>
       <methods name="setTrueCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.29"/>
         </parameters>
-      </methods>
-      <methods name="getFalseCase" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </methods>
       <methods name="setFalseCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -851,11 +643,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getStatements" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
@@ -876,26 +663,17 @@
       <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </attributes>
-      <methods name="getTermination" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setTermination" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
       </methods>
-      <methods name="getIncrement" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.32"/>
-      </methods>
       <methods name="setIncrement" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.32"/>
         </parameters>
-      </methods>
-      <methods name="getBody" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </methods>
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -914,17 +692,11 @@
       <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </attributes>
-      <methods name="getCondition" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
-      </methods>
-      <methods name="getBody" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </methods>
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -947,22 +719,11 @@
       <attributes name="defaultCase">
         <classifierType referencedElement="//@modules.0/@classifiers.49"/>
       </attributes>
-      <methods name="getVariable" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.92"/>
-      </methods>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.92"/>
         </parameters>
-      </methods>
-      <methods name="getCases" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getDefaultCase" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.49"/>
       </methods>
       <methods name="setDefaultCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -982,19 +743,11 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getValue" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
-      </methods>
-      <methods name="getBody" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
       </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
@@ -1025,17 +778,11 @@
       <attributes name="op2">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getOp1" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setOp1" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
-      </methods>
-      <methods name="getOp2" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
       <methods name="setOp2" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1050,9 +797,6 @@
       <attributes name="op">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getOp" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setOp" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1152,9 +896,6 @@
       <attributes name="value">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="getValue" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1168,9 +909,6 @@
       <attributes name="value">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
-      <methods name="getValue" abstract="true">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1192,9 +930,6 @@
       <attributes name="value">
         <primitiveType xsi:type="dbl:DoubleType"/>
       </attributes>
-      <methods name="getValue" abstract="true">
-        <primitiveType xsi:type="dbl:DoubleType"/>
-      </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1208,9 +943,6 @@
       <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getExpr" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1264,17 +996,11 @@
       <attributes name="callPart">
         <classifierType referencedElement="//@modules.0/@classifiers.90"/>
       </attributes>
-      <methods name="getParentIdExpr" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
-      </methods>
       <methods name="setParentIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.89"/>
         </parameters>
-      </methods>
-      <methods name="getReferencedElement" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.27"/>
       </methods>
       <methods name="setReferencedElement" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1282,22 +1008,11 @@
           <classifierType referencedElement="//@modules.0/@classifiers.27"/>
         </parameters>
       </methods>
-      <methods name="getPredefinedId" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.83"/>
-      </methods>
       <methods name="setPredefinedId" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.83"/>
         </parameters>
-      </methods>
-      <methods name="getArrayIndex" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getCallPart" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.90"/>
       </methods>
       <methods name="setCallPart" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1314,11 +1029,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getCallArguments" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
       </superClasses>
@@ -1328,9 +1038,6 @@
       <attributes name="idExpr">
         <classifierType referencedElement="//@modules.0/@classifiers.89"/>
       </attributes>
-      <methods name="getIdExpr" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
-      </methods>
       <methods name="setIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1372,22 +1079,11 @@
       <attributes name="mappingDef">
         <classifierType referencedElement="//@modules.0/@classifiers.120"/>
       </attributes>
-      <methods name="getAbstractSyntaxDef" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getTextualSyntaxDef" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.98"/>
-      </methods>
       <methods name="setTextualSyntaxDef" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.98"/>
         </parameters>
-      </methods>
-      <methods name="getMappingDef" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.120"/>
       </methods>
       <methods name="setMappingDef" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1407,19 +1103,11 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getExtensionRule" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.101"/>
-      </methods>
       <methods name="setExtensionRule" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.101"/>
         </parameters>
-      </methods>
-      <methods name="getNewRules" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
       </methods>
       <superClasses>
         <clazz href="ecore.xmi#//@modules.0/@classifiers.11"/>
@@ -1437,17 +1125,11 @@
       <attributes name="rhs">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </attributes>
-      <methods name="getMetaClassName" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setMetaClassName" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
-      </methods>
-      <methods name="getRhs" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </methods>
       <methods name="setRhs" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1466,17 +1148,11 @@
       <attributes name="firstNewRule">
         <classifierType referencedElement="//@modules.0/@classifiers.111"/>
       </attributes>
-      <methods name="getInstantiableMetaClass" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.16"/>
-      </methods>
       <methods name="setInstantiableMetaClass" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.16"/>
         </parameters>
-      </methods>
-      <methods name="getFirstNewRule" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.111"/>
       </methods>
       <methods name="setFirstNewRule" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1499,11 +1175,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getSequence" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses clazz="//@modules.0/@classifiers.102"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="OptionalExpr">
@@ -1511,9 +1182,6 @@
       <attributes name="expression">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </attributes>
-      <methods name="getExpression" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </methods>
       <methods name="setExpression" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1527,9 +1195,6 @@
       <attributes name="expression">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </attributes>
-      <methods name="getExpression" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </methods>
       <methods name="setExpression" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1543,9 +1208,6 @@
       <attributes name="expression">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </attributes>
-      <methods name="getExpression" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </methods>
       <methods name="setExpression" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1559,9 +1221,6 @@
       <attributes name="expression">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </attributes>
-      <methods name="getExpression" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </methods>
       <methods name="setExpression" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1578,17 +1237,11 @@
       <attributes name="right">
         <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </attributes>
-      <methods name="getLeft" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </methods>
       <methods name="setLeft" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.102"/>
         </parameters>
-      </methods>
-      <methods name="getRight" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
       </methods>
       <methods name="setRight" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1603,9 +1256,6 @@
       <attributes name="terminal">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="getTerminal" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setTerminal" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1619,9 +1269,6 @@
       <attributes name="propertyType">
         <classifierType referencedElement="//@modules.0/@classifiers.112"/>
       </attributes>
-      <methods name="getPropertyType" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.112"/>
-      </methods>
       <methods name="setPropertyType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1636,9 +1283,6 @@
       <attributes name="rule">
         <classifierType referencedElement="//@modules.0/@classifiers.100"/>
       </attributes>
-      <methods name="getRule" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.100"/>
-      </methods>
       <methods name="setRule" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1670,9 +1314,6 @@
       <attributes name="terminal">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="getTerminal" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setTerminal" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1686,9 +1327,6 @@
       <attributes name="_type">
         <classifierType referencedElement="//@modules.0/@classifiers.99"/>
       </attributes>
-      <methods name="getType" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.99"/>
-      </methods>
       <methods name="setType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1702,9 +1340,6 @@
       <attributes name="list">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="isList" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
       <methods name="setList" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1721,17 +1356,11 @@
       <attributes name="rawReference">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="getIdResolutionPattern" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.139"/>
-      </methods>
       <methods name="setIdResolutionPattern" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.139"/>
         </parameters>
-      </methods>
-      <methods name="isRawReference" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="setRawReference" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1751,14 +1380,6 @@
       <attributes name="metaObject">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getParts" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getMetaObject" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1778,9 +1399,6 @@
       <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getExpr" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1794,9 +1412,6 @@
       <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </attributes>
-      <methods name="getBody" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
-      </methods>
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1817,16 +1432,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getParts" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
-      <methods name="getExprs" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses clazz="//@modules.0/@classifiers.29"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SetGenContextStatement">
@@ -1837,17 +1442,11 @@
       <attributes name="addAfterContext">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="getContext" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setContext" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
-      </methods>
-      <methods name="isAddAfterContext" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="setAddAfterContext" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1866,9 +1465,6 @@
       <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getVariable" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1882,9 +1478,6 @@
       <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getVariable" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1898,9 +1491,6 @@
       <attributes name="code">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="getCode" abstract="true">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </methods>
       <methods name="setCode" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1914,9 +1504,6 @@
       <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getExpr" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1930,9 +1517,6 @@
       <attributes name="metaObject">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getMetaObject" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1949,17 +1533,11 @@
       <attributes name="location">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getMetaObject" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.52"/>
         </parameters>
-      </methods>
-      <methods name="getLocation" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </methods>
       <methods name="setLocation" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1974,9 +1552,6 @@
       <attributes name="quotedCode">
         <classifierType referencedElement="//@modules.0/@classifiers.134"/>
       </attributes>
-      <methods name="getQuotedCode" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.134"/>
-      </methods>
       <methods name="setQuotedCode" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -1996,9 +1571,6 @@
       <attributes name="expression">
         <classifierType referencedElement="//@modules.0/@classifiers.52"/>
       </attributes>
-      <methods name="getExpression" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
-      </methods>
       <methods name="setExpression" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
@@ -2014,11 +1586,6 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <methods name="getStatements" abstract="true">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </methods>
       <superClasses clazz="//@modules.0/@classifiers.134"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedClassContent">
@@ -2042,26 +1609,17 @@
       <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </attributes>
-      <methods name="isTop" abstract="true">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
       <methods name="setTop" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <methods name="getContext" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.26"/>
-      </methods>
       <methods name="setContext" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classifiers.26"/>
         </parameters>
-      </methods>
-      <methods name="getBody" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
       </methods>
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -2076,9 +1634,6 @@
       <attributes name="value">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
-      <methods name="getValue" abstract="true">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">

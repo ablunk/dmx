@@ -8,14 +8,12 @@ extension ForEach {
 	ForEach -> "foreach" "(" elementVariable:Variable "in" collection:Expression ")" body:LocalScopeStatement;
 }
 semantics {
-	expand "
-		Iterator it = "collection".iterator();
-		while (it.hasNext()) {
-			Object object = it.next();
-			"elementVariable" = object as "elementVariable.getClassifierType()";
-			"body"
-		}
-	";
+	expand "Iterator it = " collection ".iterator();";
+	expand "while (it.hasNext()) {";
+	expand "	Object object = it.next();";
+	expand 		elementVariable " = object as " elementVariable.classifierType ";";
+	expand		body;
+	expand "}";
 }
 
 }

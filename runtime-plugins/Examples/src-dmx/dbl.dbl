@@ -1,3 +1,5 @@
+#import "ecore"
+
 module dbl {
 
 class ExtensibleElement
@@ -97,7 +99,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.ArrayDimension"
 	}
 	
-	Expression size;
+	Expression _size;
 	void setSize(Expression value) abstract;
 }
 class PrimitiveType
@@ -448,7 +450,7 @@ SimpleStatement
 	
 	Expression objectAccess;
 	void setObjectAccess(Expression value) abstract;
-	int priority;
+	int _priority;
 	void setPriority(int value) abstract;
 }
 class Advance
@@ -1168,8 +1170,6 @@ RhsExpression
 	
 	PropertyType propertyType;
 	void setPropertyType(PropertyType value) abstract;
-	BindingExprOpKind operator;
-	void setOperator(BindingExprOpKind value) abstract;
 }
 class RuleExpr
 extends 
@@ -1236,7 +1236,7 @@ PropertyType
 		"java" -> "hub.sam.dbl.StructuredPropertyType"
 	}
 	
-	ReferableRhsType type;
+	ReferableRhsType _type;
 	void setType(ReferableRhsType value) abstract;
 }
 class CompositePropertyType

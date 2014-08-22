@@ -181,16 +181,31 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 								if (propertyType instanceof CompositePropertyType) {
 									CompositePropertyType compositePropertyType = (CompositePropertyType) propertyType;
 									rhsType = compositePropertyType.getType();
+									
+									if (compositePropertyType.isList()) {
+										// find type stdlib.List and add its methods
+										Classifier listClassifier = findImportedClassifier(containerModel, "List");
+										if (listClassifier != null) {
+											addIdsForMethods(listClassifier, namedElementId, allIds, idExpr);
+										}
+									}
+									else {
+										if (rhsType != null && rhsType instanceof Classifier) {
+											Classifier classifierRhsType = (Classifier) rhsType;
+											addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
+										}										
+									}
 								}
 								else if (propertyType instanceof ReferencePropertyType) {
 									ReferencePropertyType referencePropertyType = (ReferencePropertyType) propertyType;
 									rhsType = referencePropertyType.getType();
+
+									if (rhsType != null && rhsType instanceof Classifier) {
+										Classifier classifierRhsType = (Classifier) rhsType;
+										addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
+									}
 								}
 								
-								if (rhsType != null && rhsType instanceof Classifier) {
-									Classifier classifierRhsType = (Classifier) rhsType;
-									addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
-								}
 							}
 						}
 						
@@ -296,9 +311,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						}
 						
 						// identifiers used in extensions are provided at a global scope by default
-						if (checkIfUsedInsideExtensionInstance(idExpr)) {
-							addPlainNames(namedElementId.getName(), context, allIds);
-						}
+//						if (checkIfUsedInsideExtensionInstance(idExpr)) {
+//							addPlainNames(namedElementId.getName(), context, allIds);
+//						}
 						
 						// imported types
 						if (containerModule.eContainer() instanceof Model) {

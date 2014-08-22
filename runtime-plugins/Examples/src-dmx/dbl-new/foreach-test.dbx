@@ -1,4 +1,4 @@
-#import "foreach"
+#import "../stdx"
 
 module foreach_test {
 

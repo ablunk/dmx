@@ -1,4 +1,5 @@
 #import "../ecore"
+#import "../stdx"
 
 module ecore_test {
 
@@ -14,12 +15,8 @@ void main() {
 	EPackage pkg = EcorePackage.eINSTANCE;
 	print "EPackage " + pkg.getName() + "\n";
 	
-	List classifiers = pkg.getEClassifiers();
-	Iterator it = classifiers.iterator();
-	
-	while (it.hasNext()) {
-		EClassifier c = it.next() as EClassifier;
-		print "EClassifier " + c.getName() + "\n";
+	foreach (EClassifier ec in pkg.getEClassifiers()) {
+		print "EClassifier " + ec.getName() + "\n";
 	}
 }
 
