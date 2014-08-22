@@ -4001,7 +4001,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		abstractVariableEClass.getESuperTypes().add(this.getNamedElement());
 		abstractVariableEClass.getESuperTypes().add(this.getTypedElement());
 		variableEClass.getESuperTypes().add(this.getAbstractVariable());
-		variableEClass.getESuperTypes().add(this.getStatement());
+		variableEClass.getESuperTypes().add(this.getSimpleStatement());
 		variableEClass.getESuperTypes().add(this.getModifierExtensionsContainer());
 		parameterEClass.getESuperTypes().add(this.getAbstractVariable());
 		deprecated_CodeBlockEClass.getESuperTypes().add(this.getExtensibleElement());

@@ -259,9 +259,10 @@ public class DblSwitch<T> extends Switch<T> {
 				Variable variable = (Variable)theEObject;
 				T result = caseVariable(variable);
 				if (result == null) result = caseAbstractVariable(variable);
-				if (result == null) result = caseStatement(variable);
+				if (result == null) result = caseSimpleStatement(variable);
 				if (result == null) result = caseModifierExtensionsContainer(variable);
 				if (result == null) result = caseTypedElement(variable);
+				if (result == null) result = caseStatement(variable);
 				if (result == null) result = caseExtensibleElement(variable);
 				if (result == null) result = caseNamedElement(variable);
 				if (result == null) result = defaultCase(theEObject);

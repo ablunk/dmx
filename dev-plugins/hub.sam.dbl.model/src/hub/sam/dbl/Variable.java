@@ -21,7 +21,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Variable extends AbstractVariable, Statement, ModifierExtensionsContainer {
+public interface Variable extends AbstractVariable, SimpleStatement, ModifierExtensionsContainer {
 	/**
 	 * Returns the value of the '<em><b>Control</b></em>' attribute.
 	 * The default value is <code>"false"</code>.

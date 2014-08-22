@@ -6,6 +6,7 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ModifierExtensionsContainer;
+import hub.sam.dbl.SimpleStatement;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.Variable;
 
@@ -446,6 +447,11 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 				default: return -1;
 			}
 		}
+		if (baseClass == SimpleStatement.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
 		if (baseClass == ModifierExtensionsContainer.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.VARIABLE__MODIFIER_EXTENSIONS: return DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS;
@@ -470,6 +476,11 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 			}
 		}
 		if (baseClass == Statement.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == SimpleStatement.class) {
 			switch (baseFeatureID) {
 				default: return -1;
 			}

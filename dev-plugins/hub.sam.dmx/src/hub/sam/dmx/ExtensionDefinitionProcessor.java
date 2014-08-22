@@ -486,7 +486,9 @@ public class ExtensionDefinitionProcessor {
 		if (bindingMetaClass == null) {
 			bindingMetaClass = getMetaClass(propertyTypeName);				
 		}
-		property.setEType(bindingMetaClass);
+		if (property.getEType() == null) { // else: the property is inherited -> use its defined type
+			property.setEType(bindingMetaClass);
+		}
 		
 		PropertyBinding propertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
 		propertyBinding.setProperty(property);
