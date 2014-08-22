@@ -26,9 +26,10 @@ public class DbxPreProcessor extends DblPreProcessor {
 	
 	private Collection<String> processedFileImports = new HashSet<String>();
 	
-	private void processExtensionDefinitionsOutsideToInside(String inputText, IPath inputPath) {
+	private boolean processExtensionDefinitionsOutsideToInside(String inputText, IPath inputPath) {
 		Pattern importRegex = Pattern.compile("#import \"(.+)\"");
 		Matcher matcher = importRegex.matcher(inputText);
+		boolean added = false;
 		
 		while (matcher.find()) {
 			final String fileToImport = matcher.group(1);
@@ -60,10 +61,12 @@ public class DbxPreProcessor extends DblPreProcessor {
 				
 				// add extension definitions contained in import -> requires ecore model
 				if (resourceForImport != null) {
-					extensionDefinitionApplier.addExtensionDefinitions((Model) resourceForImport.getContents().get(0));
+					added |= extensionDefinitionApplier.addExtensionDefinitions((Model) resourceForImport.getContents().get(0));
 				}
 			}
 		}
+		
+		return added;
 	}
 	
 	private String getImportLinesInContent(File importFile) {
@@ -105,7 +108,10 @@ public class DbxPreProcessor extends DblPreProcessor {
 		// 1. build a pre-model of the full import tree (without importing)
 		//    and add extension definitions from outside to inside (i.e. beginning at the leaves of the import tree)
 		processedFileImports.clear();
-		processExtensionDefinitionsOutsideToInside(inputText, inputPath);
+		boolean extensionDefinitionsAdded = processExtensionDefinitionsOutsideToInside(inputText, inputPath);
+		if (extensionDefinitionsAdded) {
+			extensionDefinitionApplier.syntaxChanged();
+		}
 		
 		// 2. process direct imports, i.e. call importFile(..) and listen for model changes
 		// TODO can be optimized
