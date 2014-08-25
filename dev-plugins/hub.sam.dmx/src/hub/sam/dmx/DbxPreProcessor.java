@@ -47,14 +47,15 @@ public class DbxPreProcessor extends DblPreProcessor {
 					// load text from file
 					IPath dblImport = inputPath.append(fileToImport).addFileExtension("dbl");
 					IPath dbxImport = inputPath.append(fileToImport).addFileExtension("dbx");
-					
+					IPath importInputPath = dblImport.removeLastSegments(1);
+							
 					File file = new File(dblImport.toOSString());
 					if (!file.exists()) {
 						file = new File(dbxImport.toOSString());
 					}
 					
 					if (file.exists()) {
-						processExtensionDefinitionsOutsideToInside(getImportLinesInContent(file), inputPath);
+						processExtensionDefinitionsOutsideToInside(getImportLinesInContent(file), importInputPath);
 						resourceForImport = loadXmi(fileToImport, inputPath);
 					}
 				}
