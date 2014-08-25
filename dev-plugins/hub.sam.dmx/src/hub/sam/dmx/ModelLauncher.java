@@ -372,6 +372,17 @@ public class ModelLauncher {
 		}
 	}
 	
+	private boolean transitivelyContainsExtensionInstance(EObject eObject) {
+		TreeIterator<EObject> allContents = eObject.eAllContents();
+		while (allContents.hasNext()) {
+			EObject content = allContents.next();
+			if (content instanceof ExtensibleElement && ((ExtensibleElement) content).isInstanceOfExtensionDefinition()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	private Map<String, Collection<ExtensibleElement>> getExtensionInstances(Model inputModel) {
 		Map<String, Collection<ExtensibleElement>> extensionDefinitionNames_to_extensionInstances = new HashMap<String, Collection<ExtensibleElement>>();
 		
@@ -385,11 +396,20 @@ public class ModelLauncher {
 				// instances are not extensions.
 				
 				ExtensibleElement extensionInstance = (ExtensibleElement) eObject;
-				String extensionDefinitionName = extensionInstance.eClass().getName();
-				if (!extensionDefinitionNames_to_extensionInstances.containsKey(extensionDefinitionName)) {
-					extensionDefinitionNames_to_extensionInstances.put(extensionDefinitionName, new HashSet<ExtensibleElement>());
+				
+				// NOTE the extension instance MUST NOT transitively contain other extension instances.
+				// if it does, the contained extension instances have to be replaced first.
+				// reason: extension instance substitution is implemented based on text substitution.
+				//         when an other extension instance is replaced, its contained extension instances change positions.
+				//         therefore, contained extension instances have to be replaced first.
+				
+				if (!transitivelyContainsExtensionInstance(extensionInstance)) {
+					String extensionDefinitionName = extensionInstance.eClass().getName();
+					if (!extensionDefinitionNames_to_extensionInstances.containsKey(extensionDefinitionName)) {
+						extensionDefinitionNames_to_extensionInstances.put(extensionDefinitionName, new HashSet<ExtensibleElement>());
+					}
+					extensionDefinitionNames_to_extensionInstances.get(extensionDefinitionName).add(extensionInstance);
 				}
-				extensionDefinitionNames_to_extensionInstances.get(extensionDefinitionName).add(extensionInstance);
 			}
 		}
 
@@ -551,9 +571,6 @@ public class ModelLauncher {
 			// compute text positions from position objects
 			for (Modification mod: modificationsRecord.getModifications()) {
 				EObject positionObject = workingModel.getResource().getEObject(mod.getSourceEObjectUri());
-				
-				// TODO problem: object positions are only available for the active editor model.
-				//               substituting extensions in models which are imported requires parsing the imported model text again.
 				
 				Position position = workingModel.getObjectPosition(positionObject);
 				

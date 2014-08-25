@@ -1,0 +1,31 @@
+#import "../dbl"
+#import "../stdlib"
+#import "foreach"
+
+module stdx_println {
+
+extension PrintLn {
+	SimpleStatement -> PrintLn;
+	PrintLn -> "println"  PrintLnOutputs ";";
+	PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;
+	PrintLnOutputsOptional -> ;
+	PrintLnOutputsOptional -> "," PrintLnOutputs;
+}
+semantics {
+	expand "print ";
+	
+	boolean first = true;
+	foreach (Expression output in outputs) {
+		if (!first) expand ",";
+		else first = false;
+		
+		expand output;
+	}
+	
+	if (!first) expand ",";
+	expand "\"\\n\"";
+	
+	expand ";";
+}
+
+}
