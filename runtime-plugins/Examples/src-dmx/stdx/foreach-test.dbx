@@ -1,0 +1,12 @@
+#import "foreach"
+
+module stdx_foreach_test {
+
+void test() {
+	List l;
+	foreach (Object x in l) {
+		Object x2 = x;
+	}
+}
+
+}

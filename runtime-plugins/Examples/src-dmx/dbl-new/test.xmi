@@ -15,7 +15,7 @@
       <statements xsi:type="dbl:Print">
         <outputs xsi:type="dbl:StringLiteral" value="hello"/>
       </statements>
-      <statements xsi:type="dbl:Variable" name="a">
+      <statements name="a">
         <classifierType>
           <referencedElement href="test2.xmi#//@modules.0/@classifiers.2"/>
         </classifierType>
@@ -37,6 +37,25 @@
           </op1>
           <op2 xsi:type="dbl:StringLiteral" value="\n"/>
         </outputs>
+      </statements>
+      <statements name="aa">
+        <classifierType>
+          <referencedElement href="test2.xmi#//@modules.0/@classifiers.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="test2.xmi#//@modules.0/@classifiers.2"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@procedures.0/@statements.3"/>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" value="1"/>
+      </statements>
+      <statements xsi:type="dbl:LocalScopeStatement">
+        <statements xsi:type="dbl:Wait"/>
       </statements>
     </procedures>
   </modules>

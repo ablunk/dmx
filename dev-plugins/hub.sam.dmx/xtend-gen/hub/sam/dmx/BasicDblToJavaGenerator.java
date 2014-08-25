@@ -1670,10 +1670,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   public String javaNameQualified(final NamedElement element) {
-    if (element instanceof Clazz) {
-      return _javaNameQualified((Clazz)element);
-    } else if (element instanceof Variable) {
+    if (element instanceof Variable) {
       return _javaNameQualified((Variable)element);
+    } else if (element instanceof Clazz) {
+      return _javaNameQualified((Clazz)element);
     } else if (element instanceof ExtensionDefinition) {
       return _javaNameQualified((ExtensionDefinition)element);
     } else if (element instanceof Procedure) {
@@ -1728,14 +1728,14 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       return _genStatement((SetGenContextStatement)stm);
     } else if (stm instanceof SwitchStatement) {
       return _genStatement((SwitchStatement)stm);
+    } else if (stm instanceof Variable) {
+      return _genStatement((Variable)stm);
     } else if (stm instanceof WhileStatement) {
       return _genStatement((WhileStatement)stm);
     } else if (stm instanceof IfStatement) {
       return _genStatement((IfStatement)stm);
     } else if (stm instanceof MappingStatement) {
       return _genStatement((MappingStatement)stm);
-    } else if (stm instanceof Variable) {
-      return _genStatement((Variable)stm);
     } else if (stm != null) {
       return _genStatement(stm);
     } else {

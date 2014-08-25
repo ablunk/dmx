@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.impl.DynamicEObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 
@@ -30,6 +31,10 @@ public class DbxModelCreationContext extends DblModelCreationContext {
 					}
 					EObject result = ePackage.getEFactoryInstance().create(metaClass);
 					fNodesForObjects.put(result, node);
+
+//					if (result instanceof DynamicEObjectImpl) {
+//						DynamicEObjectImpl dynamicEObject = (DynamicEObjectImpl) result;
+//					}
 					
 					if (result instanceof ExtensibleElement) {
 						ExtensibleElement element = (ExtensibleElement) result;

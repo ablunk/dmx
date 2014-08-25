@@ -1,5 +1,5 @@
 #import "../ecore"
-#import "../stdx"
+#import "../stdx/println"
 
 module ecore_test {
 
@@ -16,7 +16,7 @@ void main() {
 	print "EPackage " + pkg.getName() + "\n";
 	
 	foreach (EClassifier ec in pkg.getEClassifiers()) {
-		print "EClassifier " + ec.getName() + "\n";
+		println "EClassifier " + ec.getName();
 	}
 }
 

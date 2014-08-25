@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="foreach">
+    <model href="foreach.xmi#/"/>
+  </imports>
+  <modules name="stdx_foreach_test">
+    <procedures name="test">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="l" concreteSyntax="List l">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </statements>
+      <statements xsi:type="dbl:ForEach" concreteSyntax="foreach (Object x in l) {&#xA;&#x9;&#x9;Object x2 = x;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="x" concreteSyntax="Object x">
+          <classifierType concreteSyntax="Object">
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="l" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;Object x2 = x;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Variable" name="x2" concreteSyntax="Object x2 = x">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="x" referencedElement="//@modules.0/@procedures.0/@statements.1/@statements.0"/>
+          </statements>
+        </body>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

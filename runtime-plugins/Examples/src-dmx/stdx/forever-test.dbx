@@ -1,0 +1,9 @@
+#import "forever"
+
+module stdx_forever_test {
+
+void test() {
+	forever {}
+}
+
+}

@@ -1,0 +1,13 @@
+#import "../dbl"
+#import "../stdlib"
+
+module stdx_forever {
+
+extension Forever {
+	SimpleStatement -> Forever;
+	Forever -> "forever" body:LocalScopeStatement;
+}
+semantics {
+}
+
+}

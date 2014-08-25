@@ -3,14 +3,14 @@
   <imports file="../ecore">
     <model href="../ecore.xmi#/"/>
   </imports>
-  <imports file="../stdx">
-    <model href="../stdx.xmi#/"/>
+  <imports file="../stdx/println">
+    <model href="../stdx/println.xmi#/"/>
   </imports>
   <modules name="ecore_test">
     <classifiers xsi:type="dbl:Clazz" name="EcorePackage">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
-      <attributes name="eINSTANCE" clazz="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+      <attributes name="eINSTANCE" concreteSyntax="static EcorePackage eINSTANCE" clazz="true">
+        <classifierType concreteSyntax="EcorePackage" referencedElement="//@modules.0/@classifiers.0"/>
       </attributes>
       <superClasses>
         <clazz href="../ecore.xmi#//@modules.0/@classifiers.13"/>
@@ -18,34 +18,34 @@
     </classifiers>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements name="pkg">
-        <classifierType>
+      <statements xsi:type="dbl:Variable" name="pkg" concreteSyntax="EPackage pkg = EcorePackage.eINSTANCE">
+        <classifierType concreteSyntax="EPackage">
           <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.13"/>
         </classifierType>
-        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0">
-          <parentIdExpr referencedElement="//@modules.0/@classifiers.0"/>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="EcorePackage.eINSTANCE" referencedElement="//@modules.0/@classifiers.0/@attributes.0">
+          <parentIdExpr concreteSyntax="EcorePackage" referencedElement="//@modules.0/@classifiers.0"/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:Plus">
-          <op1 xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:StringLiteral" value="EPackage "/>
-            <op2 xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;EPackage &quot; + pkg.getName() + &quot;\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;EPackage &quot; + pkg.getName() + &quot;\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;EPackage &quot; + pkg.getName()">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;EPackage &quot;" value="EPackage "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="pkg.getName()">
+              <parentIdExpr concreteSyntax="pkg" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
               <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.9/@methods.0"/>
               <callPart/>
             </op2>
           </op1>
-          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+          <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
         </outputs>
       </statements>
-      <statements name="it">
-        <classifierType>
+      <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = pkg.getEClassifiers().iterator()">
+        <classifierType concreteSyntax="Iterator">
           <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2"/>
         </classifierType>
-        <initialValue xsi:type="dbl:IdExpr">
-          <parentIdExpr>
-            <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="pkg.getEClassifiers().iterator()">
+          <parentIdExpr concreteSyntax="pkg.getEClassifiers()">
+            <parentIdExpr concreteSyntax="pkg" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
             <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.13/@methods.6"/>
             <callPart/>
           </parentIdExpr>
@@ -53,47 +53,45 @@
           <callPart/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:WhileStatement">
-        <condition xsi:type="dbl:IdExpr">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.2"/>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#x9;Object object = it.next();EClassifier ec = object as EClassifier;{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;}}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
+          <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@procedures.0/@statements.2"/>
           <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.0"/>
           <callPart/>
         </condition>
-        <body xsi:type="dbl:LocalScopeStatement">
-          <statements name="object">
-            <classifierType>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object object = it.next();EClassifier ec = object as EClassifier;{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;}}">
+          <statements xsi:type="dbl:Variable" name="object" concreteSyntax="Object object = it.next()">
+            <classifierType concreteSyntax="Object">
               <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
             </classifierType>
-            <initialValue xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.2"/>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
+              <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@procedures.0/@statements.2"/>
               <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.1"/>
               <callPart/>
             </initialValue>
           </statements>
-          <statements name="ec">
-            <classifierType>
+          <statements xsi:type="dbl:Variable" name="ec" concreteSyntax="EClassifier ec = object as EClassifier">
+            <classifierType concreteSyntax="EClassifier">
               <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.3"/>
             </classifierType>
-            <initialValue xsi:type="dbl:Cast">
-              <classifierType>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="object as EClassifier">
+              <classifierType concreteSyntax="EClassifier">
                 <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.3"/>
               </classifierType>
-              <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.3/@body/@statements.0"/>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="object" referencedElement="//@modules.0/@procedures.0/@statements.3/@body/@statements.0"/>
             </initialValue>
           </statements>
-          <statements xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:Print">
-              <outputs xsi:type="dbl:Plus">
-                <op1 xsi:type="dbl:Plus">
-                  <op1 xsi:type="dbl:StringLiteral" value="EClassifier "/>
-                  <op2 xsi:type="dbl:IdExpr">
-                    <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.3/@body/@statements.1"/>
-                    <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.9/@methods.0"/>
-                    <callPart/>
-                  </op2>
-                </op1>
-                <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+          <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;}">
+            <statements xsi:type="dbl:Print" concreteSyntax="print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;">
+              <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;EClassifier &quot; + ec.getName()">
+                <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;EClassifier &quot;" value="EClassifier "/>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="ec.getName()">
+                  <parentIdExpr concreteSyntax="ec" referencedElement="//@modules.0/@procedures.0/@statements.3/@body/@statements.1"/>
+                  <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.9/@methods.0"/>
+                  <callPart/>
+                </op2>
               </outputs>
+              <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
             </statements>
           </statements>
         </body>

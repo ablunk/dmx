@@ -1,0 +1,26 @@
+#import "../dbl"
+#import "../stdlib"
+
+module stdx_foreach {
+
+extension ForEach {
+	LocalScopeStatement -> ForEach;
+	ForEach -> "foreach" "(" statements:list(Variable) "in" collection:Expression ")" body:LocalScopeStatement;
+}
+semantics {
+	
+	// syntax part definitions of list type, i.e. part:list(type)
+	// are accessed in semantics definitions as variables of type of stdlib.List, e.g.
+	// Type x = part.get(0) as Type
+	
+	Variable varDef = statements.get(0) as Variable;
+	
+	expand "Iterator it = " collection ".iterator();";
+	expand "while (it.hasNext()) {";
+	expand "	Object object = it.next();";
+	expand 		varDef " = object as " varDef.classifierType ";";
+	expand		body;
+	expand "}";
+}
+
+}

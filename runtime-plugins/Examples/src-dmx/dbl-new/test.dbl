@@ -14,7 +14,11 @@ void main() {
 	print "hello";
 
 	A a = new CCC;
-	print " " + a.h() + "\n";	
+	print " " + a.h() + "\n";
+	
+	A aa = new A;
+	aa = 1;
+	{ wait; }
 }
 
 }
