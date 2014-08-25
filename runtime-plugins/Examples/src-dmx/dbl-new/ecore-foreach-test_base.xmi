@@ -3,10 +3,10 @@
   <imports file="../ecore">
     <model href="../ecore.xmi#/"/>
   </imports>
-  <imports file="../stdx/println">
-    <model href="../stdx/println.xmi#/"/>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
   </imports>
-  <modules name="ecore_test">
+  <modules name="ecore_foreach_test">
     <classifiers xsi:type="dbl:Clazz" name="EcorePackage">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
       <attributes name="eINSTANCE" concreteSyntax="static EcorePackage eINSTANCE" clazz="true">
@@ -53,13 +53,13 @@
           <callPart/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#x9;Object object = it.next();EClassifier ec = object as EClassifier;{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;}}">
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#x9;Object object = it.next();EClassifier ec = object as EClassifier;{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;,&quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}&#xA;&#x9;}}">
         <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
           <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@procedures.0/@statements.2"/>
           <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.0"/>
           <callPart/>
         </condition>
-        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object object = it.next();EClassifier ec = object as EClassifier;{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;}}">
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object object = it.next();EClassifier ec = object as EClassifier;{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;,&quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}&#xA;&#x9;}}">
           <statements xsi:type="dbl:Variable" name="object" concreteSyntax="Object object = it.next()">
             <classifierType concreteSyntax="Object">
               <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
@@ -81,7 +81,7 @@
               <op xsi:type="dbl:IdExpr" concreteSyntax="object" referencedElement="//@modules.0/@procedures.0/@statements.3/@body/@statements.0"/>
             </initialValue>
           </statements>
-          <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;;&#xA;&#x9;&#x9;while (true) {&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;,&quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
             <statements xsi:type="dbl:Print" concreteSyntax="print &quot;EClassifier &quot; + ec.getName(),&quot;\n&quot;">
               <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;EClassifier &quot; + ec.getName()">
                 <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;EClassifier &quot;" value="EClassifier "/>
@@ -92,6 +92,16 @@
                 </op2>
               </outputs>
               <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </statements>
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (true) {&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;,&quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}">
+              <condition xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;,&quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Print" concreteSyntax="print &quot;forever&quot;,&quot;\n&quot;">
+                  <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;forever&quot;" value="forever"/>
+                  <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+                </statements>
+                <statements xsi:type="dbl:BreakStatement" concreteSyntax="break"/>
+              </body>
             </statements>
           </statements>
         </body>

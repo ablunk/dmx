@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="forever">
+    <model href="forever.xmi#/"/>
+  </imports>
+  <modules name="stdx_forevr_test">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (true) {&#xA;&#x9;&#x9;print &quot;forever 1&quot;;&#xA;&#x9;&#x9;break;&#xA;&#x9;}">
+        <condition xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print &quot;forever 1&quot;;&#xA;&#x9;&#x9;break;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print &quot;forever 1&quot;">
+            <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;forever 1&quot;" value="forever 1"/>
+          </statements>
+          <statements xsi:type="dbl:BreakStatement" concreteSyntax="break"/>
+        </body>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

@@ -346,7 +346,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 			]
 		]
 		
-		if (mainModel) {
+		if (mainModel && moduleWithMainProcedure != null) {
 			// main Java class with main function
 			val Writer javaMain = beginTargetFile(javaPackageFolder, "JavaMain.java");
 			javaMain.write(

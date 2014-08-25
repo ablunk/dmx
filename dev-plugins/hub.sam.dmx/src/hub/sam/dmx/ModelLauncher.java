@@ -562,7 +562,7 @@ public class ModelLauncher {
 		System.out.println(workingModel.getText());
 		System.out.println("--------- ------------- ---------");
 			
-		if (modificationsRecord == null) {
+		if (modificationsRecord == null || modificationsRecord.getModifications().size() == 0) {
 			System.out.println("No modifications found. Skipping extension substitution.");
 			
 			return null;

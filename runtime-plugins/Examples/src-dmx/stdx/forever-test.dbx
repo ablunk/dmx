@@ -1,9 +1,12 @@
 #import "forever"
 
-module stdx_forever_test {
+module stdx_forevr_test {
 
-void test() {
-	forever {}
+void main() {
+	forever {
+		print "forever 1";
+		break;
+	}
 }
 
 }

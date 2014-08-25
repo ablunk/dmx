@@ -435,7 +435,14 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
         }
       };
       IterableExtensions.<Module>forEach(_modules_1, _function_1);
-      if (mainModel) {
+      boolean _and = false;
+      if (!mainModel) {
+        _and = false;
+      } else {
+        boolean _notEquals = (!Objects.equal(moduleWithMainProcedure, null));
+        _and = (mainModel && _notEquals);
+      }
+      if (_and) {
         final Writer javaMain = this.beginTargetFile(this.javaPackageFolder, "JavaMain.java");
         StringConcatenation _builder = new StringConcatenation();
         _builder.append("package ");

@@ -8,6 +8,7 @@ extension Forever {
 	Forever -> "forever" body:LocalScopeStatement;
 }
 semantics {
+	expand "while (true) " body;
 }
 
 }
