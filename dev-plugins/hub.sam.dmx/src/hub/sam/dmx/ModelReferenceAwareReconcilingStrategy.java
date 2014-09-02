@@ -1,5 +1,7 @@
 package hub.sam.dmx;
 
+import java.util.logging.Logger;
+
 import org.eclipse.jface.text.source.ISourceViewer;
 
 import hub.sam.tef.editor.ReconcilingStrategy;
@@ -7,6 +9,8 @@ import hub.sam.tef.editor.text.ITefEditorStatusListener;
 import hub.sam.tef.editor.text.TextEditor;
 
 public class ModelReferenceAwareReconcilingStrategy extends ReconcilingStrategy {
+	
+	private final static Logger logger = Logger.getLogger(ModelReferenceAwareReconcilingStrategy.class.getName());
 	
 	final DblTextEditor editor;
 
@@ -18,13 +22,13 @@ public class ModelReferenceAwareReconcilingStrategy extends ReconcilingStrategy 
 			
 			@Override
 			public void referencedModelChanged(TextEditor editor) {
-				System.out.println("referenced model changed for editor '" + editor.getEditorInput().getName() + "'");
+				logger.info("referenced model changed for editor '" + editor.getEditorInput().getName() + "'");
 				if (sourceViewer.getDocument() != null) {
-					System.out.println(" -> initiate reconcile");
+					logger.info(" -> initiate reconcile");
 					reconcile(null);
 				}
 				else {
-					System.out.println(" -> no reconcile (editor is closed)");
+					logger.info(" -> no reconcile (editor was closed)");
 				}
 			}
 			

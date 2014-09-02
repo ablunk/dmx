@@ -1,0 +1,16 @@
+#import "ext-reuse-composition2"
+
+module C {
+
+class C {
+	xd {
+		xb;
+		dpart;
+	}
+}
+
+void main() {
+	xb;
+}
+
+}

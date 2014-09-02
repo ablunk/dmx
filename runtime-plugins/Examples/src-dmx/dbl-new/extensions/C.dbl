@@ -1,4 +1,5 @@
 #import "D"
+#import "../../dbl"
 
 module C {
 
@@ -8,9 +9,9 @@ void mc() {
 
 class C {}
 
-extension SC {
-	Statement -> SC;
-	SC -> "sc" usedIn:STRING ";";
+extension SC extends dbl Statement {
+	start SCR;
+	SCR -> "sc" usedIn:STRING ";";
 }
 semantics {
 	expand (*print \"sc used in '\" + \"*) usedIn (*\" + \"'\\n\";*);

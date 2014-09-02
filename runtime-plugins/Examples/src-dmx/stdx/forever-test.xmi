@@ -6,9 +6,8 @@
   <modules name="stdx_forevr_test">
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (true) {&#xA;&#x9;&#x9;print &quot;forever 1&quot;;&#xA;&#x9;&#x9;break;&#xA;&#x9;}">
-        <condition xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
-        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print &quot;forever 1&quot;;&#xA;&#x9;&#x9;break;&#xA;&#x9;}">
+      <statements xsi:type="dbl:Forever_Forever" concreteSyntax="forever {&#xA;&#x9;&#x9;print &quot;forever 1&quot;;&#xA;&#x9;&#x9;break;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <body concreteSyntax="{&#xA;&#x9;&#x9;print &quot;forever 1&quot;;&#xA;&#x9;&#x9;break;&#xA;&#x9;}">
           <statements xsi:type="dbl:Print" concreteSyntax="print &quot;forever 1&quot;">
             <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;forever 1&quot;" value="forever 1"/>
           </statements>

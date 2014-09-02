@@ -3,7 +3,7 @@
 package hub.sam.dbl.provider;
 
 
-import hub.sam.dbl.ReferableRhsType;
+import hub.sam.dbl.LanguageConstructClassifier;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,12 +19,12 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 
 /**
- * This is the item provider adapter for a {@link hub.sam.dbl.ReferableRhsType} object.
+ * This is the item provider adapter for a {@link hub.sam.dbl.LanguageConstructClassifier} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ReferableRhsTypeItemProvider
+public class LanguageConstructClassifierItemProvider
 	extends NamedElementItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -38,7 +38,7 @@ public class ReferableRhsTypeItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferableRhsTypeItemProvider(AdapterFactory adapterFactory) {
+	public LanguageConstructClassifierItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -65,10 +65,10 @@ public class ReferableRhsTypeItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ReferableRhsType)object).getName();
+		String label = ((LanguageConstructClassifier)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_ReferableRhsType_type") :
-			getString("_UI_ReferableRhsType_type") + " " + label;
+			getString("_UI_LanguageConstructClassifier_type") :
+			getString("_UI_LanguageConstructClassifier_type") + " " + label;
 	}
 
 	/**

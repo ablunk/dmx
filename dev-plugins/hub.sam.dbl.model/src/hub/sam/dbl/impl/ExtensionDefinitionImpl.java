@@ -3,8 +3,10 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.Classifier;
+import hub.sam.dbl.Clazz;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.LanguageConceptClassifier;
 import hub.sam.dbl.Mapping;
 import hub.sam.dbl.TextualSyntaxDef;
 
@@ -30,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getExtendedConcept <em>Extended Concept</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getAbstractSyntaxDef <em>Abstract Syntax Def</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getTextualSyntaxDef <em>Textual Syntax Def</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getMappingDef <em>Mapping Def</em>}</li>
@@ -38,7 +41,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class ExtensionDefinitionImpl extends NamedElementImpl implements ExtensionDefinition {
+public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl implements ExtensionDefinition {
+	/**
+	 * The cached value of the '{@link #getExtendedConcept() <em>Extended Concept</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtendedConcept()
+	 * @generated
+	 * @ordered
+	 */
+	protected LanguageConceptClassifier extendedConcept;
+
 	/**
 	 * The cached value of the '{@link #getAbstractSyntaxDef() <em>Abstract Syntax Def</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -86,6 +99,44 @@ public class ExtensionDefinitionImpl extends NamedElementImpl implements Extensi
 	@Override
 	protected EClass eStaticClass() {
 		return DblPackage.Literals.EXTENSION_DEFINITION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LanguageConceptClassifier getExtendedConcept() {
+		if (extendedConcept != null && extendedConcept.eIsProxy()) {
+			InternalEObject oldExtendedConcept = (InternalEObject)extendedConcept;
+			extendedConcept = (LanguageConceptClassifier)eResolveProxy(oldExtendedConcept);
+			if (extendedConcept != oldExtendedConcept) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.EXTENSION_DEFINITION__EXTENDED_CONCEPT, oldExtendedConcept, extendedConcept));
+			}
+		}
+		return extendedConcept;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LanguageConceptClassifier basicGetExtendedConcept() {
+		return extendedConcept;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExtendedConcept(LanguageConceptClassifier newExtendedConcept) {
+		LanguageConceptClassifier oldExtendedConcept = extendedConcept;
+		extendedConcept = newExtendedConcept;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.EXTENSION_DEFINITION__EXTENDED_CONCEPT, oldExtendedConcept, extendedConcept));
 	}
 
 	/**
@@ -212,6 +263,9 @@ public class ExtensionDefinitionImpl extends NamedElementImpl implements Extensi
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case DblPackage.EXTENSION_DEFINITION__EXTENDED_CONCEPT:
+				if (resolve) return getExtendedConcept();
+				return basicGetExtendedConcept();
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
 				return getAbstractSyntaxDef();
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
@@ -231,6 +285,9 @@ public class ExtensionDefinitionImpl extends NamedElementImpl implements Extensi
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case DblPackage.EXTENSION_DEFINITION__EXTENDED_CONCEPT:
+				setExtendedConcept((LanguageConceptClassifier)newValue);
+				return;
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
 				getAbstractSyntaxDef().clear();
 				getAbstractSyntaxDef().addAll((Collection<? extends Classifier>)newValue);
@@ -253,6 +310,9 @@ public class ExtensionDefinitionImpl extends NamedElementImpl implements Extensi
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case DblPackage.EXTENSION_DEFINITION__EXTENDED_CONCEPT:
+				setExtendedConcept((LanguageConceptClassifier)null);
+				return;
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
 				getAbstractSyntaxDef().clear();
 				return;
@@ -274,6 +334,8 @@ public class ExtensionDefinitionImpl extends NamedElementImpl implements Extensi
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case DblPackage.EXTENSION_DEFINITION__EXTENDED_CONCEPT:
+				return extendedConcept != null;
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
 				return abstractSyntaxDef != null && !abstractSyntaxDef.isEmpty();
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:

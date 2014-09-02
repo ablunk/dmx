@@ -32,7 +32,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class ClassifierItemProvider
-	extends TypeItemProvider
+	extends NamedElementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -60,31 +60,8 @@ public class ClassifierItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_NamedElement_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_NamedElement_name_feature", "_UI_NamedElement_type"),
-				 DblPackage.Literals.NAMED_ELEMENT__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -99,7 +76,7 @@ public class ClassifierItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.CLASSIFIER__BINDINGS);
+			childrenFeatures.add(DblPackage.Literals.TYPE__ARRAY_DIMENSIONS);
 		}
 		return childrenFeatures;
 	}
@@ -143,10 +120,7 @@ public class ClassifierItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Classifier.class)) {
-			case DblPackage.CLASSIFIER__NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case DblPackage.CLASSIFIER__BINDINGS:
+			case DblPackage.CLASSIFIER__ARRAY_DIMENSIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -166,8 +140,8 @@ public class ClassifierItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.CLASSIFIER__BINDINGS,
-				 DblFactory.eINSTANCE.createNativeBinding()));
+				(DblPackage.Literals.TYPE__ARRAY_DIMENSIONS,
+				 DblFactory.eINSTANCE.createArrayDimension()));
 	}
 
 }

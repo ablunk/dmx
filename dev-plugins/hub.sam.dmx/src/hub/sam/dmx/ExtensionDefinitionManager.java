@@ -2,6 +2,7 @@ package hub.sam.dmx;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensionDefinition;
@@ -10,8 +11,10 @@ import hub.sam.dbl.Module;
 import hub.sam.tef.tsl.Syntax;
 
 public class ExtensionDefinitionManager implements IExtensionDefinitionApplier {
+	
+	private static final Logger logger = Logger.getLogger(ExtensionDefinitionManager.class.getName());
 
-	private final Map<String, ExtensionDefinitionProcessor> extensionDefsProcessed = new HashMap<String, ExtensionDefinitionProcessor>();
+	private final Map<String, ExtensionSyntaxDefinitionProcessor> extensionDefsProcessed = new HashMap<String, ExtensionSyntaxDefinitionProcessor>();
 	
 	private final Syntax _syntax;
 	private final DblPackage _dblMetaModel;
@@ -35,8 +38,7 @@ public class ExtensionDefinitionManager implements IExtensionDefinitionApplier {
 		for (Module module: model.getModules()) {
 			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
 				if (!extensionDefsProcessed.containsKey(extensionDef.getName())) {
-					addExtensionDefinition(extensionDef);
-					extensionDefinitionsAdded = true;
+					extensionDefinitionsAdded |= addExtensionDefinition(extensionDef);;
 				}
 			}
 		}
@@ -48,7 +50,7 @@ public class ExtensionDefinitionManager implements IExtensionDefinitionApplier {
 		for (Module module: model.getModules()) {
 			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
 				if (extensionDefsProcessed.containsKey(extensionDef.getName())) {
-					System.out.println("unwinding extension definition '" + extensionDef.getName() + "' ...");
+					logger.info("unwinding extension definition '" + extensionDef.getName() + "' ...");
 					extensionDefsProcessed.get(extensionDef.getName()).revert();
 					extensionDefsProcessed.remove(extensionDef.getName());
 				}
@@ -56,13 +58,17 @@ public class ExtensionDefinitionManager implements IExtensionDefinitionApplier {
 		}
 	}
 	
-	private void addExtensionDefinition(ExtensionDefinition extensionDef) {
-		System.out.println("adding extension definition '" + extensionDef.getName() + "' ...");
+	private boolean addExtensionDefinition(ExtensionDefinition extensionDef) {
+		logger.info("adding extension definition '" + extensionDef.getName() + "' ...");
 		
-		ExtensionDefinitionProcessor processor = new ExtensionDefinitionProcessor(extensionDef, getSyntax(), getDblMetaModel());
-		boolean added = processor.addToSyntax();
+		ExtensionSyntaxDefinitionProcessor processor = new ExtensionSyntaxDefinitionProcessor(extensionDef, getSyntax(), getDblMetaModel());
+		boolean added = processor.addToDbl();
 		if (added) {
 			extensionDefsProcessed.put(extensionDef.getName(), processor);
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 

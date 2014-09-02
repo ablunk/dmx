@@ -1,0 +1,23 @@
+#import "../../dbl"
+
+module ext_reuse_extension {
+
+extension A extends dbl ClassContentExtension {
+	start AR;
+	AR -> "xa" "{" ManyB "}";
+	ManyB -> ;
+	ManyB -> b:B ManyB;
+}
+
+extension B extends dbl SimpleStatement {
+	start BR;
+	BR -> "xb" ";";
+}
+
+// an extension C which extends another extension B
+extension C extends extension B {
+	start CR;
+	CR -> "xc" ";";
+}
+
+}

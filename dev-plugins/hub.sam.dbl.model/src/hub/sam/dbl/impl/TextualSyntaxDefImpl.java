@@ -3,7 +3,6 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.ExtensionRule;
 import hub.sam.dbl.TextualSyntaxDef;
 import hub.sam.dbl.TsRule;
 
@@ -30,8 +29,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.TextualSyntaxDefImpl#getExtensionRule <em>Extension Rule</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.TextualSyntaxDefImpl#getNewRules <em>New Rules</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.TextualSyntaxDefImpl#getStartRule <em>Start Rule</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.TextualSyntaxDefImpl#getRules <em>Rules</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,24 +38,24 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDef {
 	/**
-	 * The cached value of the '{@link #getExtensionRule() <em>Extension Rule</em>}' containment reference.
+	 * The cached value of the '{@link #getStartRule() <em>Start Rule</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensionRule()
+	 * @see #getStartRule()
 	 * @generated
 	 * @ordered
 	 */
-	protected ExtensionRule extensionRule;
+	protected TsRule startRule;
 
 	/**
-	 * The cached value of the '{@link #getNewRules() <em>New Rules</em>}' containment reference list.
+	 * The cached value of the '{@link #getRules() <em>Rules</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getNewRules()
+	 * @see #getRules()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<TsRule> newRules;
+	protected EList<TsRule> rules;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -82,8 +81,16 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExtensionRule getExtensionRule() {
-		return extensionRule;
+	public TsRule getStartRule() {
+		if (startRule != null && startRule.eIsProxy()) {
+			InternalEObject oldStartRule = (InternalEObject)startRule;
+			startRule = (TsRule)eResolveProxy(oldStartRule);
+			if (startRule != oldStartRule) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.TEXTUAL_SYNTAX_DEF__START_RULE, oldStartRule, startRule));
+			}
+		}
+		return startRule;
 	}
 
 	/**
@@ -91,14 +98,8 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetExtensionRule(ExtensionRule newExtensionRule, NotificationChain msgs) {
-		ExtensionRule oldExtensionRule = extensionRule;
-		extensionRule = newExtensionRule;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE, oldExtensionRule, newExtensionRule);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
+	public TsRule basicGetStartRule() {
+		return startRule;
 	}
 
 	/**
@@ -106,18 +107,11 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setExtensionRule(ExtensionRule newExtensionRule) {
-		if (newExtensionRule != extensionRule) {
-			NotificationChain msgs = null;
-			if (extensionRule != null)
-				msgs = ((InternalEObject)extensionRule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE, null, msgs);
-			if (newExtensionRule != null)
-				msgs = ((InternalEObject)newExtensionRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE, null, msgs);
-			msgs = basicSetExtensionRule(newExtensionRule, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE, newExtensionRule, newExtensionRule));
+	public void setStartRule(TsRule newStartRule) {
+		TsRule oldStartRule = startRule;
+		startRule = newStartRule;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.TEXTUAL_SYNTAX_DEF__START_RULE, oldStartRule, startRule));
 	}
 
 	/**
@@ -125,11 +119,11 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<TsRule> getNewRules() {
-		if (newRules == null) {
-			newRules = new EObjectContainmentEList<TsRule>(TsRule.class, this, DblPackage.TEXTUAL_SYNTAX_DEF__NEW_RULES);
+	public EList<TsRule> getRules() {
+		if (rules == null) {
+			rules = new EObjectContainmentEList<TsRule>(TsRule.class, this, DblPackage.TEXTUAL_SYNTAX_DEF__RULES);
 		}
-		return newRules;
+		return rules;
 	}
 
 	/**
@@ -140,10 +134,8 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE:
-				return basicSetExtensionRule(null, msgs);
-			case DblPackage.TEXTUAL_SYNTAX_DEF__NEW_RULES:
-				return ((InternalEList<?>)getNewRules()).basicRemove(otherEnd, msgs);
+			case DblPackage.TEXTUAL_SYNTAX_DEF__RULES:
+				return ((InternalEList<?>)getRules()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -156,10 +148,11 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE:
-				return getExtensionRule();
-			case DblPackage.TEXTUAL_SYNTAX_DEF__NEW_RULES:
-				return getNewRules();
+			case DblPackage.TEXTUAL_SYNTAX_DEF__START_RULE:
+				if (resolve) return getStartRule();
+				return basicGetStartRule();
+			case DblPackage.TEXTUAL_SYNTAX_DEF__RULES:
+				return getRules();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -173,12 +166,12 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE:
-				setExtensionRule((ExtensionRule)newValue);
+			case DblPackage.TEXTUAL_SYNTAX_DEF__START_RULE:
+				setStartRule((TsRule)newValue);
 				return;
-			case DblPackage.TEXTUAL_SYNTAX_DEF__NEW_RULES:
-				getNewRules().clear();
-				getNewRules().addAll((Collection<? extends TsRule>)newValue);
+			case DblPackage.TEXTUAL_SYNTAX_DEF__RULES:
+				getRules().clear();
+				getRules().addAll((Collection<? extends TsRule>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -192,11 +185,11 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE:
-				setExtensionRule((ExtensionRule)null);
+			case DblPackage.TEXTUAL_SYNTAX_DEF__START_RULE:
+				setStartRule((TsRule)null);
 				return;
-			case DblPackage.TEXTUAL_SYNTAX_DEF__NEW_RULES:
-				getNewRules().clear();
+			case DblPackage.TEXTUAL_SYNTAX_DEF__RULES:
+				getRules().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -210,10 +203,10 @@ public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDe
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE:
-				return extensionRule != null;
-			case DblPackage.TEXTUAL_SYNTAX_DEF__NEW_RULES:
-				return newRules != null && !newRules.isEmpty();
+			case DblPackage.TEXTUAL_SYNTAX_DEF__START_RULE:
+				return startRule != null;
+			case DblPackage.TEXTUAL_SYNTAX_DEF__RULES:
+				return rules != null && !rules.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

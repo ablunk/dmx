@@ -106,17 +106,19 @@ public class DbxPreProcessor extends DblPreProcessor {
 
 	@Override
 	public void preProcess(String inputText, IPath inputPath) {
-		// 1. build a pre-model of the full import tree (without importing)
-		//    and add extension definitions from outside to inside (i.e. beginning at the leaves of the import tree)
-		processedFileImports.clear();
-		boolean extensionDefinitionsAdded = processExtensionDefinitionsOutsideToInside(inputText, inputPath);
-		if (extensionDefinitionsAdded) {
-			extensionDefinitionApplier.syntaxChanged();
+		if (inputText != null) {
+			// 1. build a pre-model of the full import tree (without importing)
+			//    and add extension definitions from outside to inside (i.e. beginning at the leaves of the import tree)
+			processedFileImports.clear();
+			boolean extensionDefinitionsAdded = processExtensionDefinitionsOutsideToInside(inputText, inputPath);
+			if (extensionDefinitionsAdded) {
+				extensionDefinitionApplier.syntaxChanged();
+			}
+			
+			// 2. process direct imports, i.e. call importFile(..) and listen for model changes
+			// TODO can be optimized
+			super.preProcess(inputText, inputPath);
 		}
-		
-		// 2. process direct imports, i.e. call importFile(..) and listen for model changes
-		// TODO can be optimized
-		super.preProcess(inputText, inputPath);
 	}
 
 	@Override

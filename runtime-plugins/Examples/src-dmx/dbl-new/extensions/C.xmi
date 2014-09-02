@@ -3,14 +3,15 @@
   <imports file="D">
     <model href="D.xmi#/"/>
   </imports>
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
   <modules name="C">
     <classifiers xsi:type="dbl:Clazz" name="C"/>
     <extensionDefs name="SC">
-      <textualSyntaxDef>
-        <extensionRule name="Statement">
-          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
-        </extensionRule>
-        <newRules name="SC">
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="SCR">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="sc"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="usedIn">
@@ -18,13 +19,13 @@
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>
-        </newRules>
+        </rules>
       </textualSyntaxDef>
       <mappingDef>
         <statements xsi:type="dbl:MappingStatement">
           <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sc used in '\&quot; + \&quot;"/>
           <parts xsi:type="dbl:DynamicMappingPart">
-            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
           </parts>
           <parts xsi:type="dbl:FixedMappingPart" code="\&quot; + \&quot;'\\n\&quot;;"/>
         </statements>

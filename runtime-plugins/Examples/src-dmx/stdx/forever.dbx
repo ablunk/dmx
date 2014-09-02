@@ -3,8 +3,8 @@
 
 module stdx_forever {
 
-extension Forever {
-	SimpleStatement -> Forever;
+extension Forever extends dbl SimpleStatement {
+	start Forever;
 	Forever -> "forever" body:LocalScopeStatement;
 }
 semantics {

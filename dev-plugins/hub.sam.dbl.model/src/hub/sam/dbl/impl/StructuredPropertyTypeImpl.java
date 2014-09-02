@@ -3,14 +3,12 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.ReferableRhsType;
+import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.StructuredPropertyType;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -35,7 +33,7 @@ public class StructuredPropertyTypeImpl extends PropertyTypeImpl implements Stru
 	 * @generated
 	 * @ordered
 	 */
-	protected ReferableRhsType type;
+	protected LanguageConstructClassifier type;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -61,10 +59,10 @@ public class StructuredPropertyTypeImpl extends PropertyTypeImpl implements Stru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferableRhsType getType() {
+	public LanguageConstructClassifier getType() {
 		if (type != null && type.eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
-			type = (ReferableRhsType)eResolveProxy(oldType);
+			type = (LanguageConstructClassifier)eResolveProxy(oldType);
 			if (type != oldType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.STRUCTURED_PROPERTY_TYPE__TYPE, oldType, type));
@@ -78,7 +76,7 @@ public class StructuredPropertyTypeImpl extends PropertyTypeImpl implements Stru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ReferableRhsType basicGetType() {
+	public LanguageConstructClassifier basicGetType() {
 		return type;
 	}
 
@@ -87,8 +85,8 @@ public class StructuredPropertyTypeImpl extends PropertyTypeImpl implements Stru
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setType(ReferableRhsType newType) {
-		ReferableRhsType oldType = type;
+	public void setType(LanguageConstructClassifier newType) {
+		LanguageConstructClassifier oldType = type;
 		type = newType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.STRUCTURED_PROPERTY_TYPE__TYPE, oldType, type));
@@ -118,7 +116,7 @@ public class StructuredPropertyTypeImpl extends PropertyTypeImpl implements Stru
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case DblPackage.STRUCTURED_PROPERTY_TYPE__TYPE:
-				setType((ReferableRhsType)newValue);
+				setType((LanguageConstructClassifier)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -133,7 +131,7 @@ public class StructuredPropertyTypeImpl extends PropertyTypeImpl implements Stru
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case DblPackage.STRUCTURED_PROPERTY_TYPE__TYPE:
-				setType((ReferableRhsType)null);
+				setType((LanguageConstructClassifier)null);
 				return;
 		}
 		super.eUnset(featureID);

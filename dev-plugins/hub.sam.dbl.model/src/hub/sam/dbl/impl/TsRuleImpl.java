@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.TsRuleImpl#getMetaClassName <em>Meta Class Name</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.TsRuleImpl#getRhs <em>Rhs</em>}</li>
  * </ul>
  * </p>
@@ -29,26 +28,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class TsRuleImpl extends NamedElementImpl implements TsRule {
-	/**
-	 * The default value of the '{@link #getMetaClassName() <em>Meta Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetaClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String META_CLASS_NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getMetaClassName() <em>Meta Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMetaClassName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String metaClassName = META_CLASS_NAME_EDEFAULT;
-
 	/**
 	 * The cached value of the '{@link #getRhs() <em>Rhs</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -76,27 +55,6 @@ public class TsRuleImpl extends NamedElementImpl implements TsRule {
 	@Override
 	protected EClass eStaticClass() {
 		return DblPackage.Literals.TS_RULE;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getMetaClassName() {
-		return metaClassName;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMetaClassName(String newMetaClassName) {
-		String oldMetaClassName = metaClassName;
-		metaClassName = newMetaClassName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.TS_RULE__META_CLASS_NAME, oldMetaClassName, metaClassName));
 	}
 
 	/**
@@ -164,8 +122,6 @@ public class TsRuleImpl extends NamedElementImpl implements TsRule {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.TS_RULE__META_CLASS_NAME:
-				return getMetaClassName();
 			case DblPackage.TS_RULE__RHS:
 				return getRhs();
 		}
@@ -180,9 +136,6 @@ public class TsRuleImpl extends NamedElementImpl implements TsRule {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.TS_RULE__META_CLASS_NAME:
-				setMetaClassName((String)newValue);
-				return;
 			case DblPackage.TS_RULE__RHS:
 				setRhs((RhsExpression)newValue);
 				return;
@@ -198,9 +151,6 @@ public class TsRuleImpl extends NamedElementImpl implements TsRule {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.TS_RULE__META_CLASS_NAME:
-				setMetaClassName(META_CLASS_NAME_EDEFAULT);
-				return;
 			case DblPackage.TS_RULE__RHS:
 				setRhs((RhsExpression)null);
 				return;
@@ -216,28 +166,10 @@ public class TsRuleImpl extends NamedElementImpl implements TsRule {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.TS_RULE__META_CLASS_NAME:
-				return META_CLASS_NAME_EDEFAULT == null ? metaClassName != null : !META_CLASS_NAME_EDEFAULT.equals(metaClassName);
 			case DblPackage.TS_RULE__RHS:
 				return rhs != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (metaClassName: ");
-		result.append(metaClassName);
-		result.append(')');
-		return result.toString();
 	}
 
 } //TsRuleImpl

@@ -31,6 +31,7 @@ import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.IfStatement;
 import hub.sam.dbl.IntLiteral;
 import hub.sam.dbl.IntType;
+import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.Less;
 import hub.sam.dbl.LessEqual;
 import hub.sam.dbl.LocalScopeStatement;
@@ -57,7 +58,6 @@ import hub.sam.dbl.Print;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.ProcedureCall;
 import hub.sam.dbl.PropertyBindingExpr;
-import hub.sam.dbl.ReferableRhsType;
 import hub.sam.dbl.ResetGenContextStatement;
 import hub.sam.dbl.Return;
 import hub.sam.dbl.SetGenContextStatement;
@@ -1380,8 +1380,8 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _genType;
   }
   
-  protected String _genType(final ReferableRhsType rhsType) {
-    String _name = rhsType.getName();
+  protected String _genType(final LanguageConstructClassifier langClassifier) {
+    String _name = langClassifier.getName();
     return _name;
   }
   
@@ -1694,10 +1694,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   public String gen(final Object clazz) {
     if (clazz instanceof Clazz) {
       return _gen((Clazz)clazz);
-    } else if (clazz instanceof Classifier) {
-      return _gen((Classifier)clazz);
     } else if (clazz instanceof Statement) {
       return _gen((Statement)clazz);
+    } else if (clazz instanceof Classifier) {
+      return _gen((Classifier)clazz);
     } else if (clazz instanceof Module) {
       return _gen((Module)clazz);
     } else if (clazz instanceof Procedure) {
@@ -1856,8 +1856,6 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   public String genType(final EObject type) {
     if (type instanceof BoolType) {
       return _genType((BoolType)type);
-    } else if (type instanceof Classifier) {
-      return _genType((Classifier)type);
     } else if (type instanceof DoubleType) {
       return _genType((DoubleType)type);
     } else if (type instanceof IntType) {
@@ -1866,8 +1864,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       return _genType((StringType)type);
     } else if (type instanceof VoidType) {
       return _genType((VoidType)type);
-    } else if (type instanceof ReferableRhsType) {
-      return _genType((ReferableRhsType)type);
+    } else if (type instanceof Classifier) {
+      return _genType((Classifier)type);
+    } else if (type instanceof LanguageConstructClassifier) {
+      return _genType((LanguageConstructClassifier)type);
     } else if (type instanceof Type) {
       return _genType((Type)type);
     } else if (type instanceof TypedElement) {

@@ -137,7 +137,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.EXTENSION_DEFINITION: return createExtensionDefinition();
 			case DblPackage.TEXTUAL_SYNTAX_DEF: return createTextualSyntaxDef();
 			case DblPackage.TS_RULE: return createTsRule();
-			case DblPackage.EXTENSION_RULE: return createExtensionRule();
 			case DblPackage.SEQUENCE_EXPR: return createSequenceExpr();
 			case DblPackage.OPTIONAL_EXPR: return createOptionalExpr();
 			case DblPackage.RUNTIME_EXPR: return createRuntimeExpr();
@@ -146,7 +145,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.ALTERNATIVE_EXPR: return createAlternativeExpr();
 			case DblPackage.TERMINAL_EXPR: return createTerminalExpr();
 			case DblPackage.PROPERTY_BINDING_EXPR: return createPropertyBindingExpr();
-			case DblPackage.RULE_EXPR: return createRuleExpr();
 			case DblPackage.ID_PROPERTY_TYPE: return createIdPropertyType();
 			case DblPackage.INT_PROPERTY_TYPE: return createIntPropertyType();
 			case DblPackage.STRING_PROPERTY_TYPE: return createStringPropertyType();
@@ -183,6 +181,8 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.LOCAL_SCOPE_STATEMENT: return createLocalScopeStatement();
 			case DblPackage.CLASS_PART: return createClassPart();
 			case DblPackage.CALL_PART: return createCallPart();
+			case DblPackage.RHS_CLASSIFIER_EXPR: return createRhsClassifierExpr();
+			case DblPackage.LOCAL_SCOPE: return createLocalScope();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -567,6 +567,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public IfStatement createIfStatement() {
 		IfStatementImpl ifStatement = new IfStatementImpl();
 		return ifStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public LocalScope createLocalScope() {
+		LocalScopeImpl localScope = new LocalScopeImpl();
+		return localScope;
 	}
 
 	/**
@@ -1104,16 +1114,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExtensionRule createExtensionRule() {
-		ExtensionRuleImpl extensionRule = new ExtensionRuleImpl();
-		return extensionRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public SequenceExpr createSequenceExpr() {
 		SequenceExprImpl sequenceExpr = new SequenceExprImpl();
 		return sequenceExpr;
@@ -1194,9 +1194,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public RuleExpr createRuleExpr() {
-		RuleExprImpl ruleExpr = new RuleExprImpl();
-		return ruleExpr;
+	public RhsClassifierExpr createRhsClassifierExpr() {
+		RhsClassifierExprImpl rhsClassifierExpr = new RhsClassifierExprImpl();
+		return rhsClassifierExpr;
 	}
 
 	/**

@@ -311,7 +311,11 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	 * @return the current text edited in this editor.
 	 */
 	public String getCurrentText() {
-		return getSourceViewer().getDocument().get();
+		final ISourceViewer sourceViewer = getSourceViewer();
+		if (sourceViewer != null) {
+			return sourceViewer.getDocument().get();
+		}
+		else return null;
 	}
 	
 	/**
@@ -694,7 +698,7 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 	public void addEditorStatusListener(ITefEditorStatusListener listener) {
 		if (!fStatusListener.contains(listener)) {
 			fStatusListener.add(listener);
-			System.out.println(getEditorInput().getName() + ": added ITefEditorStatusListener");
+//			System.out.println(getEditorInput().getName() + ": added ITefEditorStatusListener");
 		}
 	}
 	

@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link hub.sam.dbl.ExtensionDefinition#getExtendedConcept <em>Extended Concept</em>}</li>
  *   <li>{@link hub.sam.dbl.ExtensionDefinition#getAbstractSyntaxDef <em>Abstract Syntax Def</em>}</li>
  *   <li>{@link hub.sam.dbl.ExtensionDefinition#getTextualSyntaxDef <em>Textual Syntax Def</em>}</li>
  *   <li>{@link hub.sam.dbl.ExtensionDefinition#getMappingDef <em>Mapping Def</em>}</li>
@@ -22,7 +23,33 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ExtensionDefinition extends NamedElement {
+public interface ExtensionDefinition extends LanguageConceptClassifier {
+	/**
+	 * Returns the value of the '<em><b>Extended Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Extended Concept</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Extended Concept</em>' reference.
+	 * @see #setExtendedConcept(LanguageConceptClassifier)
+	 * @see hub.sam.dbl.DblPackage#getExtensionDefinition_ExtendedConcept()
+	 * @model required="true"
+	 * @generated
+	 */
+	LanguageConceptClassifier getExtendedConcept();
+
+	/**
+	 * Sets the value of the '{@link hub.sam.dbl.ExtensionDefinition#getExtendedConcept <em>Extended Concept</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Extended Concept</em>' reference.
+	 * @see #getExtendedConcept()
+	 * @generated
+	 */
+	void setExtendedConcept(LanguageConceptClassifier value);
+
 	/**
 	 * Returns the value of the '<em><b>Abstract Syntax Def</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Classifier}.

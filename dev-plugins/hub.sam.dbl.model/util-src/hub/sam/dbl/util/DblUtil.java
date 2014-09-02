@@ -1,5 +1,7 @@
 package hub.sam.dbl.util;
 
+import java.util.logging.Logger;
+
 import hub.sam.dbl.DblFactory;
 import hub.sam.dbl.ExtensibleElement;
 
@@ -8,32 +10,27 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 public class DblUtil {
+	
+	private static final Logger logger = Logger.getLogger(DblUtil.class.getName());
 
 	public static EObject createObjectOfParentClass(EClass metaClass) {
-		System.out.print("trying to create instance of dynamically added meta-class " + metaClass.getName() + " ...");
-
 		EObjectImpl instance = null;
 		try {
 			EClass parentClass = metaClass.getESuperTypes().get(0);
-			System.out.println();
-			System.out.print("instantiating " + parentClass.getName() + " ");
-			if (metaClass.getESuperTypes().size() > 1) {
-				System.out.print(" -- warning: multiple parent meta-classes exist, instantiating the first one");
-			}
+
 			instance = (EObjectImpl) DblFactory.eINSTANCE.create(parentClass);
 			instance.eSetClass(metaClass);
 			
 			if (instance instanceof ExtensibleElement) {
 				ExtensibleElement extensibleInstance = (ExtensibleElement) instance;
 				extensibleInstance.setInstanceOfExtensionDefinition(true);
-				System.out.print(" as extension instance");
 			}
 			
-			System.out.println(" -- ok");
+			logger.info("instantiated meta-class " + metaClass.getName() + " via first parent meta-class " + parentClass.getName() + ".");
 		}
 		finally {
 			if (instance == null) {
-				System.out.println(" -- failed");
+				logger.severe("instantiating meta-class " + metaClass.getName() + " failed.");
 			}
 		}
 		

@@ -1,5 +1,7 @@
 package hub.sam.dmx;
 
+import java.util.logging.Logger;
+
 import hub.sam.dbl.Import;
 import hub.sam.dbl.Model;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
@@ -16,6 +18,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 
 public class DblSemanticsProvider extends DefaultSemanticsProvider {
+	
+	private static final Logger logger = Logger.getLogger(DblSemanticsProvider.class.getName());
 
 	//private final IPropertyCreationSemantics propertyCreationSemantics = new DblPropertyCreationSemantics();
 	private final IPropertyCreationSemantics metaModelReferenceSemantics = new DblMetaModelReferenceSemantics();
@@ -43,7 +47,7 @@ public class DblSemanticsProvider extends DefaultSemanticsProvider {
 							imprt.setModel(model);
 							imprt.setFile(fileString);
 							
-							System.out.println("added model referenced by import of " + imprt.getFile());
+							logger.info("added model referenced by import of " + imprt.getFile());
 						}
 					}
 				}

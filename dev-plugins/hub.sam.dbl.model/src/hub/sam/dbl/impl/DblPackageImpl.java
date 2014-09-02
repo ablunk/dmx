@@ -720,7 +720,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass referableRhsTypeEClass = null;
+	private EClass languageConstructClassifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass languageConceptClassifierEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -728,13 +735,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass tsRuleEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass extensionRuleEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -804,7 +804,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass ruleExprEClass = null;
+	private EClass rhsClassifierExprEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1397,15 +1397,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getClassifier_Bindings() {
-		return (EReference)classifierEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getNativeBinding() {
 		return nativeBindingEClass;
 	}
@@ -1570,6 +1561,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EReference getClazz_Constructor() {
 		return (EReference)clazzEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getClazz_Bindings() {
+		return (EReference)clazzEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2693,7 +2693,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionDefinition_AbstractSyntaxDef() {
+	public EReference getExtensionDefinition_ExtendedConcept() {
 		return (EReference)extensionDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2702,7 +2702,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionDefinition_TextualSyntaxDef() {
+	public EReference getExtensionDefinition_AbstractSyntaxDef() {
 		return (EReference)extensionDefinitionEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2711,8 +2711,17 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionDefinition_MappingDef() {
+	public EReference getExtensionDefinition_TextualSyntaxDef() {
 		return (EReference)extensionDefinitionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensionDefinition_MappingDef() {
+		return (EReference)extensionDefinitionEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -2729,7 +2738,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTextualSyntaxDef_ExtensionRule() {
+	public EReference getTextualSyntaxDef_StartRule() {
 		return (EReference)textualSyntaxDefEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -2738,7 +2747,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTextualSyntaxDef_NewRules() {
+	public EReference getTextualSyntaxDef_Rules() {
 		return (EReference)textualSyntaxDefEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -2747,8 +2756,17 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getReferableRhsType() {
-		return referableRhsTypeEClass;
+	public EClass getLanguageConstructClassifier() {
+		return languageConstructClassifierEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLanguageConceptClassifier() {
+		return languageConceptClassifierEClass;
 	}
 
 	/**
@@ -2765,44 +2783,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTsRule_MetaClassName() {
-		return (EAttribute)tsRuleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getTsRule_Rhs() {
-		return (EReference)tsRuleEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getExtensionRule() {
-		return extensionRuleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getExtensionRule_InstantiableMetaClass() {
-		return (EReference)extensionRuleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getExtensionRule_FirstNewRule() {
-		return (EReference)extensionRuleEClass.getEStructuralFeatures().get(1);
+		return (EReference)tsRuleEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2981,8 +2963,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRuleExpr() {
-		return ruleExprEClass;
+	public EClass getRhsClassifierExpr() {
+		return rhsClassifierExprEClass;
 	}
 
 	/**
@@ -2990,8 +2972,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getRuleExpr_Rule() {
-		return (EReference)ruleExprEClass.getEStructuralFeatures().get(0);
+	public EReference getRhsClassifierExpr_Classifier() {
+		return (EReference)rhsClassifierExprEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3589,7 +3571,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEAttribute(procedureEClass, PROCEDURE__ABSTRACT);
 
 		classifierEClass = createEClass(CLASSIFIER);
-		createEReference(classifierEClass, CLASSIFIER__BINDINGS);
 
 		nativeBindingEClass = createEClass(NATIVE_BINDING);
 		createEAttribute(nativeBindingEClass, NATIVE_BINDING__TARGET_LANGUAGE);
@@ -3614,6 +3595,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		clazzEClass = createEClass(CLAZZ);
 		createEAttribute(clazzEClass, CLAZZ__ACTIVE);
 		createEReference(clazzEClass, CLAZZ__CONSTRUCTOR);
+		createEReference(clazzEClass, CLAZZ__BINDINGS);
 
 		constructorEClass = createEClass(CONSTRUCTOR);
 		createEReference(constructorEClass, CONSTRUCTOR__PARAMETERS);
@@ -3811,23 +3793,21 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		moduleContentExtensionEClass = createEClass(MODULE_CONTENT_EXTENSION);
 
 		extensionDefinitionEClass = createEClass(EXTENSION_DEFINITION);
+		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__EXTENDED_CONCEPT);
 		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF);
 		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF);
 		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__MAPPING_DEF);
 
 		textualSyntaxDefEClass = createEClass(TEXTUAL_SYNTAX_DEF);
-		createEReference(textualSyntaxDefEClass, TEXTUAL_SYNTAX_DEF__EXTENSION_RULE);
-		createEReference(textualSyntaxDefEClass, TEXTUAL_SYNTAX_DEF__NEW_RULES);
+		createEReference(textualSyntaxDefEClass, TEXTUAL_SYNTAX_DEF__START_RULE);
+		createEReference(textualSyntaxDefEClass, TEXTUAL_SYNTAX_DEF__RULES);
 
-		referableRhsTypeEClass = createEClass(REFERABLE_RHS_TYPE);
+		languageConstructClassifierEClass = createEClass(LANGUAGE_CONSTRUCT_CLASSIFIER);
+
+		languageConceptClassifierEClass = createEClass(LANGUAGE_CONCEPT_CLASSIFIER);
 
 		tsRuleEClass = createEClass(TS_RULE);
-		createEAttribute(tsRuleEClass, TS_RULE__META_CLASS_NAME);
 		createEReference(tsRuleEClass, TS_RULE__RHS);
-
-		extensionRuleEClass = createEClass(EXTENSION_RULE);
-		createEReference(extensionRuleEClass, EXTENSION_RULE__INSTANTIABLE_META_CLASS);
-		createEReference(extensionRuleEClass, EXTENSION_RULE__FIRST_NEW_RULE);
 
 		rhsExpressionEClass = createEClass(RHS_EXPRESSION);
 
@@ -3857,8 +3837,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEReference(propertyBindingExprEClass, PROPERTY_BINDING_EXPR__PROPERTY_TYPE);
 		createEAttribute(propertyBindingExprEClass, PROPERTY_BINDING_EXPR__OPERATOR);
 
-		ruleExprEClass = createEClass(RULE_EXPR);
-		createEReference(ruleExprEClass, RULE_EXPR__RULE);
+		rhsClassifierExprEClass = createEClass(RHS_CLASSIFIER_EXPR);
+		createEReference(rhsClassifierExprEClass, RHS_CLASSIFIER_EXPR__CLASSIFIER);
 
 		propertyTypeEClass = createEClass(PROPERTY_TYPE);
 
@@ -3989,14 +3969,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		procedureEClass.getESuperTypes().add(this.getNamedElement());
 		procedureEClass.getESuperTypes().add(this.getTypedElement());
 		procedureEClass.getESuperTypes().add(this.getLocalScope());
-		classifierEClass.getESuperTypes().add(this.getType());
 		classifierEClass.getESuperTypes().add(this.getNamedElement());
-		classifierEClass.getESuperTypes().add(this.getReferableRhsType());
+		classifierEClass.getESuperTypes().add(this.getType());
 		classSimilarEClass.getESuperTypes().add(this.getEmbeddableExtensionsContainer());
 		classSimilarEClass.getESuperTypes().add(this.getModifierExtensionsContainer());
 		classPartEClass.getESuperTypes().add(this.getLocalScope());
 		clazzEClass.getESuperTypes().add(this.getClassifier());
 		clazzEClass.getESuperTypes().add(this.getClassSimilar());
+		clazzEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
 		classAugmentEClass.getESuperTypes().add(this.getClassSimilar());
 		abstractVariableEClass.getESuperTypes().add(this.getNamedElement());
 		abstractVariableEClass.getESuperTypes().add(this.getTypedElement());
@@ -4074,11 +4054,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		typeAccessEClass.getESuperTypes().add(this.getElementAccess());
 		classContentExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
 		moduleContentExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
-		extensionDefinitionEClass.getESuperTypes().add(this.getNamedElement());
-		referableRhsTypeEClass.getESuperTypes().add(this.getNamedElement());
+		extensionDefinitionEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
+		languageConstructClassifierEClass.getESuperTypes().add(this.getNamedElement());
+		languageConceptClassifierEClass.getESuperTypes().add(this.getLanguageConstructClassifier());
 		tsRuleEClass.getESuperTypes().add(this.getNamedElement());
-		tsRuleEClass.getESuperTypes().add(this.getReferableRhsType());
-		extensionRuleEClass.getESuperTypes().add(this.getNamedElement());
+		tsRuleEClass.getESuperTypes().add(this.getLanguageConstructClassifier());
 		sequenceExprEClass.getESuperTypes().add(this.getRhsExpression());
 		optionalExprEClass.getESuperTypes().add(this.getRhsExpression());
 		runtimeExprEClass.getESuperTypes().add(this.getRhsExpression());
@@ -4088,7 +4068,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		terminalExprEClass.getESuperTypes().add(this.getRhsExpression());
 		propertyBindingExprEClass.getESuperTypes().add(this.getNamedElement());
 		propertyBindingExprEClass.getESuperTypes().add(this.getRhsExpression());
-		ruleExprEClass.getESuperTypes().add(this.getRhsExpression());
+		rhsClassifierExprEClass.getESuperTypes().add(this.getRhsExpression());
 		idPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
 		intPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
 		stringPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
@@ -4173,7 +4153,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEAttribute(getProcedure_Abstract(), ecorePackage.getEBoolean(), "abstract", "false", 1, 1, Procedure.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(classifierEClass, Classifier.class, "Classifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getClassifier_Bindings(), this.getNativeBinding(), null, "bindings", null, 0, -1, Classifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nativeBindingEClass, NativeBinding.class, "NativeBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNativeBinding_TargetLanguage(), ecorePackage.getEString(), "targetLanguage", null, 1, 1, NativeBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4198,6 +4177,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(clazzEClass, Clazz.class, "Clazz", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getClazz_Active(), ecorePackage.getEBoolean(), "active", "false", 1, 1, Clazz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClazz_Constructor(), this.getConstructor(), null, "constructor", null, 0, 1, Clazz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClazz_Bindings(), this.getNativeBinding(), null, "bindings", null, 0, -1, Clazz.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constructorEClass, Constructor.class, "Constructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConstructor_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Constructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
@@ -4263,7 +4243,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEReference(getIfStatement_TrueCase(), this.getStatement(), null, "trueCase", null, 1, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getIfStatement_FalseCase(), this.getStatement(), null, "falseCase", null, 0, 1, IfStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(localScopeEClass, LocalScope.class, "LocalScope", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(localScopeEClass, LocalScope.class, "LocalScope", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getLocalScope_Statements(), this.getStatement(), null, "statements", null, 0, -1, LocalScope.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(localScopeStatementEClass, LocalScopeStatement.class, "LocalScopeStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -4395,23 +4375,21 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(moduleContentExtensionEClass, ModuleContentExtension.class, "ModuleContentExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(extensionDefinitionEClass, ExtensionDefinition.class, "ExtensionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtensionDefinition_ExtendedConcept(), this.getLanguageConceptClassifier(), null, "extendedConcept", null, 1, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtensionDefinition_AbstractSyntaxDef(), this.getClassifier(), null, "abstractSyntaxDef", null, 0, -1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtensionDefinition_TextualSyntaxDef(), this.getTextualSyntaxDef(), null, "textualSyntaxDef", null, 1, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtensionDefinition_MappingDef(), this.getMapping(), null, "mappingDef", null, 0, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(textualSyntaxDefEClass, TextualSyntaxDef.class, "TextualSyntaxDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTextualSyntaxDef_ExtensionRule(), this.getExtensionRule(), null, "extensionRule", null, 1, 1, TextualSyntaxDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTextualSyntaxDef_NewRules(), this.getTsRule(), null, "newRules", null, 0, -1, TextualSyntaxDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextualSyntaxDef_StartRule(), this.getTsRule(), null, "startRule", null, 1, 1, TextualSyntaxDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTextualSyntaxDef_Rules(), this.getTsRule(), null, "rules", null, 0, -1, TextualSyntaxDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(referableRhsTypeEClass, ReferableRhsType.class, "ReferableRhsType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(languageConstructClassifierEClass, LanguageConstructClassifier.class, "LanguageConstructClassifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(languageConceptClassifierEClass, LanguageConceptClassifier.class, "LanguageConceptClassifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(tsRuleEClass, TsRule.class, "TsRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTsRule_MetaClassName(), ecorePackage.getEString(), "metaClassName", null, 0, 1, TsRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTsRule_Rhs(), this.getRhsExpression(), null, "rhs", null, 1, 1, TsRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(extensionRuleEClass, ExtensionRule.class, "ExtensionRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getExtensionRule_InstantiableMetaClass(), this.getClassifier(), null, "instantiableMetaClass", null, 0, 1, ExtensionRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensionRule_FirstNewRule(), this.getRuleExpr(), null, "firstNewRule", null, 1, 1, ExtensionRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(rhsExpressionEClass, RhsExpression.class, "RhsExpression", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4443,8 +4421,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEReference(getPropertyBindingExpr_PropertyType(), this.getPropertyType(), null, "propertyType", null, 1, 1, PropertyBindingExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPropertyBindingExpr_Operator(), this.getBindingExprOpKind(), "operator", null, 1, 1, PropertyBindingExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(ruleExprEClass, RuleExpr.class, "RuleExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRuleExpr_Rule(), this.getTsRule(), null, "rule", null, 1, 1, RuleExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(rhsClassifierExprEClass, RhsClassifierExpr.class, "RhsClassifierExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRhsClassifierExpr_Classifier(), this.getLanguageConstructClassifier(), null, "classifier", null, 1, 1, RhsClassifierExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propertyTypeEClass, PropertyType.class, "PropertyType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4458,7 +4436,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEAttribute(getBooleanPropertyType_Terminal(), ecorePackage.getEString(), "terminal", null, 1, 1, BooleanPropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(structuredPropertyTypeEClass, StructuredPropertyType.class, "StructuredPropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStructuredPropertyType_Type(), this.getReferableRhsType(), null, "type", null, 1, 1, StructuredPropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getStructuredPropertyType_Type(), this.getLanguageConstructClassifier(), null, "type", null, 1, 1, StructuredPropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(compositePropertyTypeEClass, CompositePropertyType.class, "CompositePropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getCompositePropertyType_List(), ecorePackage.getEBoolean(), "list", "false", 1, 1, CompositePropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -346,6 +346,15 @@ public interface DblFactory extends EFactory {
 	IfStatement createIfStatement();
 
 	/**
+	 * Returns a new object of class '<em>Local Scope</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Local Scope</em>'.
+	 * @generated
+	 */
+	LocalScope createLocalScope();
+
+	/**
 	 * Returns a new object of class '<em>Local Scope Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -814,15 +823,6 @@ public interface DblFactory extends EFactory {
 	TsRule createTsRule();
 
 	/**
-	 * Returns a new object of class '<em>Extension Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Extension Rule</em>'.
-	 * @generated
-	 */
-	ExtensionRule createExtensionRule();
-
-	/**
 	 * Returns a new object of class '<em>Sequence Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -895,13 +895,13 @@ public interface DblFactory extends EFactory {
 	PropertyBindingExpr createPropertyBindingExpr();
 
 	/**
-	 * Returns a new object of class '<em>Rule Expr</em>'.
+	 * Returns a new object of class '<em>Rhs Classifier Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Rule Expr</em>'.
+	 * @return a new object of class '<em>Rhs Classifier Expr</em>'.
 	 * @generated
 	 */
-	RuleExpr createRuleExpr();
+	RhsClassifierExpr createRhsClassifierExpr();
 
 	/**
 	 * Returns a new object of class '<em>Id Property Type</em>'.

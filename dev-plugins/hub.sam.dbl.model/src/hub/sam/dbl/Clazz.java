@@ -2,6 +2,8 @@
  */
 package hub.sam.dbl;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -13,6 +15,7 @@ package hub.sam.dbl;
  * <ul>
  *   <li>{@link hub.sam.dbl.Clazz#isActive <em>Active</em>}</li>
  *   <li>{@link hub.sam.dbl.Clazz#getConstructor <em>Constructor</em>}</li>
+ *   <li>{@link hub.sam.dbl.Clazz#getBindings <em>Bindings</em>}</li>
  * </ul>
  * </p>
  *
@@ -20,7 +23,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Clazz extends Classifier, ClassSimilar {
+public interface Clazz extends Classifier, ClassSimilar, LanguageConceptClassifier {
 	/**
 	 * Returns the value of the '<em><b>Active</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
@@ -73,5 +76,21 @@ public interface Clazz extends Classifier, ClassSimilar {
 	 * @generated
 	 */
 	void setConstructor(Constructor value);
+
+	/**
+	 * Returns the value of the '<em><b>Bindings</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.NativeBinding}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Bindings</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bindings</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getClazz_Bindings()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<NativeBinding> getBindings();
 
 } // Clazz

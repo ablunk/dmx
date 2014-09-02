@@ -97,7 +97,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.ArrayDimension"
 	}
 	
-	Expression size;
+	Expression _size;
 	void setSize(Expression value) abstract;
 }
 class PrimitiveType
@@ -172,15 +172,13 @@ LocalScope
 }
 class Classifier
 extends 
-Type,
 NamedElement,
-ReferableRhsType
+Type
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Classifier"
 	}
 	
-	List bindings;
 }
 class NativeBinding
 extends EObject
@@ -240,7 +238,8 @@ extends EObject
 class Clazz
 extends 
 Classifier,
-ClassSimilar
+ClassSimilar,
+LanguageConceptClassifier
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Clazz"
@@ -250,6 +249,7 @@ ClassSimilar
 	void setActive(boolean value) abstract;
 	Constructor constructor;
 	void setConstructor(Constructor value) abstract;
+	List bindings;
 }
 class Constructor
 extends EObject
@@ -284,7 +284,7 @@ TypedElement
 class Variable
 extends 
 AbstractVariable,
-Statement,
+SimpleStatement,
 ModifierExtensionsContainer
 {
 	bindings {
@@ -448,7 +448,7 @@ SimpleStatement
 	
 	Expression objectAccess;
 	void setObjectAccess(Expression value) abstract;
-	int priority;
+	int _priority;
 	void setPriority(int value) abstract;
 }
 class Advance
@@ -1012,12 +1012,14 @@ ExtensibleElement
 }
 class ExtensionDefinition
 extends 
-NamedElement
+LanguageConceptClassifier
 {
 	bindings {
 		"java" -> "hub.sam.dbl.ExtensionDefinition"
 	}
 	
+	LanguageConceptClassifier extendedConcept;
+	void setExtendedConcept(LanguageConceptClassifier value) abstract;
 	List abstractSyntaxDef;
 	TextualSyntaxDef textualSyntaxDef;
 	void setTextualSyntaxDef(TextualSyntaxDef value) abstract;
@@ -1031,45 +1033,39 @@ extends EObject
 		"java" -> "hub.sam.dbl.TextualSyntaxDef"
 	}
 	
-	ExtensionRule extensionRule;
-	void setExtensionRule(ExtensionRule value) abstract;
-	List newRules;
+	TsRule startRule;
+	void setStartRule(TsRule value) abstract;
+	List rules;
 }
-class ReferableRhsType
+class LanguageConstructClassifier
 extends 
 NamedElement
 {
 	bindings {
-		"java" -> "hub.sam.dbl.ReferableRhsType"
+		"java" -> "hub.sam.dbl.LanguageConstructClassifier"
+	}
+	
+}
+class LanguageConceptClassifier
+extends 
+LanguageConstructClassifier
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LanguageConceptClassifier"
 	}
 	
 }
 class TsRule
 extends 
 NamedElement,
-ReferableRhsType
+LanguageConstructClassifier
 {
 	bindings {
 		"java" -> "hub.sam.dbl.TsRule"
 	}
 	
-	string metaClassName;
-	void setMetaClassName(string value) abstract;
 	RhsExpression rhs;
 	void setRhs(RhsExpression value) abstract;
-}
-class ExtensionRule
-extends 
-NamedElement
-{
-	bindings {
-		"java" -> "hub.sam.dbl.ExtensionRule"
-	}
-	
-	Classifier instantiableMetaClass;
-	void setInstantiableMetaClass(Classifier value) abstract;
-	RuleExpr firstNewRule;
-	void setFirstNewRule(RuleExpr value) abstract;
 }
 class RhsExpression
 extends EObject
@@ -1171,16 +1167,16 @@ RhsExpression
 	BindingExprOpKind operator;
 	void setOperator(BindingExprOpKind value) abstract;
 }
-class RuleExpr
+class RhsClassifierExpr
 extends 
 RhsExpression
 {
 	bindings {
-		"java" -> "hub.sam.dbl.RuleExpr"
+		"java" -> "hub.sam.dbl.RhsClassifierExpr"
 	}
 	
-	TsRule rule;
-	void setRule(TsRule value) abstract;
+	LanguageConstructClassifier classifier;
+	void setClassifier(LanguageConstructClassifier value) abstract;
 }
 class PropertyType
 extends EObject
@@ -1236,8 +1232,8 @@ PropertyType
 		"java" -> "hub.sam.dbl.StructuredPropertyType"
 	}
 	
-	ReferableRhsType type;
-	void setType(ReferableRhsType value) abstract;
+	LanguageConstructClassifier _type;
+	void setType(LanguageConstructClassifier value) abstract;
 }
 class CompositePropertyType
 extends 

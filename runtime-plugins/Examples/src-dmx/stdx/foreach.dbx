@@ -3,8 +3,8 @@
 
 module stdx_foreach {
 
-extension ForEach {
-	LocalScopeStatement -> ForEach;
+extension ForEach extends dbl LocalScopeStatement {
+	start ForEach;
 	ForEach -> "foreach" "(" statements:list(Variable) "in" collection:Expression ")" body:LocalScopeStatement;
 }
 semantics {

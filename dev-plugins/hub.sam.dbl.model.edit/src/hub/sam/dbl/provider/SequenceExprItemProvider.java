@@ -187,7 +187,7 @@ public class SequenceExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
-				 DblFactory.eINSTANCE.createRuleExpr()));
+				 DblFactory.eINSTANCE.createRhsClassifierExpr()));
 	}
 
 }

@@ -1,0 +1,16 @@
+#import "../../dbl"
+
+module ext_reuse_composition1 {
+
+// an extension A which is composed of another extension B
+extension A extends dbl ClassContentExtension {
+	start AR;
+	AR -> "xa" "{" b:B "}";
+}
+
+extension B extends dbl SimpleStatement {
+	start BR;
+	BR -> "xb" ";";
+}
+
+}

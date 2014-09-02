@@ -3,8 +3,8 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.RuleExpr;
-import hub.sam.dbl.TsRule;
+import hub.sam.dbl.LanguageConstructClassifier;
+import hub.sam.dbl.RhsClassifierExpr;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -15,34 +15,34 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Rule Expr</b></em>'.
+ * An implementation of the model object '<em><b>Rhs Classifier Expr</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.RuleExprImpl#getRule <em>Rule</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.RhsClassifierExprImpl#getClassifier <em>Classifier</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
+public class RhsClassifierExprImpl extends RhsExpressionImpl implements RhsClassifierExpr {
 	/**
-	 * The cached value of the '{@link #getRule() <em>Rule</em>}' reference.
+	 * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getRule()
+	 * @see #getClassifier()
 	 * @generated
 	 * @ordered
 	 */
-	protected TsRule rule;
+	protected LanguageConstructClassifier classifier;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RuleExprImpl() {
+	protected RhsClassifierExprImpl() {
 		super();
 	}
 
@@ -53,7 +53,7 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return DblPackage.Literals.RULE_EXPR;
+		return DblPackage.Literals.RHS_CLASSIFIER_EXPR;
 	}
 
 	/**
@@ -61,16 +61,16 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TsRule getRule() {
-		if (rule != null && rule.eIsProxy()) {
-			InternalEObject oldRule = (InternalEObject)rule;
-			rule = (TsRule)eResolveProxy(oldRule);
-			if (rule != oldRule) {
+	public LanguageConstructClassifier getClassifier() {
+		if (classifier != null && classifier.eIsProxy()) {
+			InternalEObject oldClassifier = (InternalEObject)classifier;
+			classifier = (LanguageConstructClassifier)eResolveProxy(oldClassifier);
+			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.RULE_EXPR__RULE, oldRule, rule));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.RHS_CLASSIFIER_EXPR__CLASSIFIER, oldClassifier, classifier));
 			}
 		}
-		return rule;
+		return classifier;
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TsRule basicGetRule() {
-		return rule;
+	public LanguageConstructClassifier basicGetClassifier() {
+		return classifier;
 	}
 
 	/**
@@ -87,11 +87,11 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRule(TsRule newRule) {
-		TsRule oldRule = rule;
-		rule = newRule;
+	public void setClassifier(LanguageConstructClassifier newClassifier) {
+		LanguageConstructClassifier oldClassifier = classifier;
+		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.RULE_EXPR__RULE, oldRule, rule));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.RHS_CLASSIFIER_EXPR__CLASSIFIER, oldClassifier, classifier));
 	}
 
 	/**
@@ -102,9 +102,9 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.RULE_EXPR__RULE:
-				if (resolve) return getRule();
-				return basicGetRule();
+			case DblPackage.RHS_CLASSIFIER_EXPR__CLASSIFIER:
+				if (resolve) return getClassifier();
+				return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -117,8 +117,8 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.RULE_EXPR__RULE:
-				setRule((TsRule)newValue);
+			case DblPackage.RHS_CLASSIFIER_EXPR__CLASSIFIER:
+				setClassifier((LanguageConstructClassifier)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -132,8 +132,8 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.RULE_EXPR__RULE:
-				setRule((TsRule)null);
+			case DblPackage.RHS_CLASSIFIER_EXPR__CLASSIFIER:
+				setClassifier((LanguageConstructClassifier)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -147,10 +147,10 @@ public class RuleExprImpl extends RhsExpressionImpl implements RuleExpr {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.RULE_EXPR__RULE:
-				return rule != null;
+			case DblPackage.RHS_CLASSIFIER_EXPR__CLASSIFIER:
+				return classifier != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //RuleExprImpl
+} //RhsClassifierExprImpl

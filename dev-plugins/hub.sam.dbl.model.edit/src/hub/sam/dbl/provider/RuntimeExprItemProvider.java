@@ -187,7 +187,7 @@ public class RuntimeExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.RUNTIME_EXPR__EXPRESSION,
-				 DblFactory.eINSTANCE.createRuleExpr()));
+				 DblFactory.eINSTANCE.createRhsClassifierExpr()));
 	}
 
 }

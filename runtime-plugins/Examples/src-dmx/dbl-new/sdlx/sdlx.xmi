@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <modules name="sdlx">
+    <extensionDefs name="EnvSendStatement">
+      <textualSyntaxDef>
+        <extensionRule name="Statement">
+          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="EnvSendStatement">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="send"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="signal">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.57" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="pset"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="targetSet">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.11" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef/>
+    </extensionDefs>
+    <extensionDefs name="Env">
+      <textualSyntaxDef>
+        <extensionRule name="ModuleContentExtension">
+          <firstNewRule rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="Env">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="env"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="localScope">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef/>
+    </extensionDefs>
+    <extensionDefs name="System">
+      <textualSyntaxDef>
+        <extensionRule name="ModuleContentExtension">
+          <firstNewRule rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.0"/>
+        </extensionRule>
+        <newRules name="System">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="system"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="endsystem"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="SystemEntityListOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="SystemEntityListOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="entities">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.4" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.2"/>
+          </rhs>
+        </newRules>
+        <newRules name="SystemEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.11"/>
+          </rhs>
+        </newRules>
+        <newRules name="SystemEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.57"/>
+          </rhs>
+        </newRules>
+        <newRules name="SystemEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.58"/>
+          </rhs>
+        </newRules>
+        <newRules name="SystemEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.7"/>
+          </rhs>
+        </newRules>
+        <newRules name="VariableDefinition">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="dcl"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.8"/>
+          </rhs>
+        </newRules>
+        <newRules name="VariableList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="variables">
+              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.10"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="VariableListNextOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="VariableListNextOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="variables">
+              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.10"/>
+          </rhs>
+        </newRules>
+        <newRules name="ProcessDefinition">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="process"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.14"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.20"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="endprocess"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.12"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="ProcessEndNameOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="ProcessEndNameOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="endNameRef">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.11" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="ProcessEntityListOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="ProcessEntityListOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="entities">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.18" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.14"/>
+          </rhs>
+        </newRules>
+        <newRules name="ProcessEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.57"/>
+          </rhs>
+        </newRules>
+        <newRules name="ProcessEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.58"/>
+          </rhs>
+        </newRules>
+        <newRules name="ProcessEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.7"/>
+          </rhs>
+        </newRules>
+        <newRules name="ProcessBodyOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="ProcessBodyOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="start">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.21"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.22"/>
+          </rhs>
+        </newRules>
+        <newRules name="Start">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="start"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.39"/>
+          </rhs>
+        </newRules>
+        <newRules name="StateListOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="StateListOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="states">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.24" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.22"/>
+          </rhs>
+        </newRules>
+        <newRules name="State">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="state"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.27"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="endstate"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.25"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="StateEndNameOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="StateEndNameOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="endNameRef">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.24" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="EventListOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="EventListOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="events">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.29" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.27"/>
+          </rhs>
+        </newRules>
+        <newRules name="Event">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.30"/>
+          </rhs>
+        </newRules>
+        <newRules name="InputPart">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="input"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.31"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.39"/>
+          </rhs>
+        </newRules>
+        <newRules name="StimulusList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="stimulus">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.36" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.33"/>
+          </rhs>
+        </newRules>
+        <newRules name="StimulusListNextOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="StimulusListNextOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="stimulus">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.36" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.33"/>
+          </rhs>
+        </newRules>
+        <newRules name="Stimulus">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="signal"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="signal">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.57" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="Stimulus">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="timer"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="timer">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.58" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="Stimulus">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="none"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.38"/>
+          </rhs>
+        </newRules>
+        <newRules name="EnablingConditionOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="EnablingConditionOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="provided"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="enablingCondition">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="Transition">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.40"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.56"/>
+          </rhs>
+        </newRules>
+        <newRules name="ActionListOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="ActionListOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="actions">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.80" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.40"/>
+          </rhs>
+        </newRules>
+        <newRules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.46"/>
+          </rhs>
+        </newRules>
+        <newRules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.47"/>
+          </rhs>
+        </newRules>
+        <newRules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.48"/>
+          </rhs>
+        </newRules>
+        <newRules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.51"/>
+          </rhs>
+        </newRules>
+        <newRules name="Task">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="task"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="localScope">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="TimerReset">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="reset"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="timer">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.58" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="TimerSet">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="set"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.49"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="timer">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.58" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="TimerExprOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="TimerExprOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="timeExpr">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="Output">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="output"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="signal">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.57" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.54"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="OutputTargetOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="OutputTargetOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="pid"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="targetPid">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="OutputTargetOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="pset"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="targetProcess">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.11" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="TransitionTerminator">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="nextState"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="nextState">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.24" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="TransitionTerminator">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="stop"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="SignalDefinition">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="signal"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.59"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="TimerDefinition">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="timer"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="FormalContextParamOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="FormalContextParamOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="parameters">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.63" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.61"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
+          </rhs>
+        </newRules>
+        <newRules name="FormalContextParamNextOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="FormalContextParamNextOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="parameters">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.63" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.61"/>
+          </rhs>
+        </newRules>
+        <newRules name="FormalContextParam">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="primitiveType">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.9"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="SystemEntity">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.65"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemaphoreDefinition">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="semaphore"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="kind"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="kind">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.66"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.67"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemBinary">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="BINARY"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.68"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.70"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemPolicyOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="SemPolicyOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="policy"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="policy">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.72"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="SemInitialOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="SemInitialOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="initial"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="initState">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.76"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="SemPolicy">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.74"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemPolicy">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.75"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemFIFO">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="FIFO"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemPrio">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="PRIO"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemInitial">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.78"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemInitial">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.79"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemEmpty">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="EMPTY"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemFull">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="FULL"/>
+          </rhs>
+        </newRules>
+        <newRules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.82"/>
+          </rhs>
+        </newRules>
+        <newRules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.95"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemaphoreTake">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="take"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="semaphore">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.65" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="timeout">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.85"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemTimeout">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.86"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemTimeout">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.87"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemTimeout">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.88"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemTimeoutForever">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="FOREVER"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemTimeoutNoWait">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="with"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="NO_WAIT"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.90"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.90"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemTimeoutTime">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="with"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="timeout"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="timeExpr">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.90"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.90"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemActionOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </newRules>
+        <newRules name="SemActionOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="on"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="semAction">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.91" list="true"/>
+            </sequence>
+          </rhs>
+        </newRules>
+        <newRules name="SemAction">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.93"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemAction">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.94"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemActionOK">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="OK"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.40"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemActionError">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ERROR"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:RuleExpr" rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.40"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </newRules>
+        <newRules name="SemaphoreGive">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="give"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="semaphore">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.65" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </newRules>
+      </textualSyntaxDef>
+      <mappingDef/>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

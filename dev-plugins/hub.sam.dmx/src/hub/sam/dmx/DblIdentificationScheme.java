@@ -12,6 +12,7 @@ import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Import;
+import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaLiteral;
@@ -23,10 +24,9 @@ import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
-import hub.sam.dbl.ReferableRhsType;
 import hub.sam.dbl.ReferencePropertyType;
+import hub.sam.dbl.RhsClassifierExpr;
 import hub.sam.dbl.RhsExpression;
-import hub.sam.dbl.RuleExpr;
 import hub.sam.dbl.SequenceExpr;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.StructuredPropertyType;
@@ -176,11 +176,11 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 
 								PropertyBindingExpr parentPropertyBinding = (PropertyBindingExpr) referencedParentElement;
 								PropertyType propertyType = parentPropertyBinding.getPropertyType();
-								ReferableRhsType rhsType = null;
+								LanguageConstructClassifier langClassifier = null;
 								
 								if (propertyType instanceof CompositePropertyType) {
 									CompositePropertyType compositePropertyType = (CompositePropertyType) propertyType;
-									rhsType = compositePropertyType.getType();
+									langClassifier = compositePropertyType.getType();
 									
 									if (compositePropertyType.isList()) {
 										// find type stdlib.List and add its methods
@@ -190,18 +190,18 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 										}
 									}
 									else {
-										if (rhsType != null && rhsType instanceof Classifier) {
-											Classifier classifierRhsType = (Classifier) rhsType;
+										if (langClassifier != null && langClassifier instanceof Classifier) {
+											Classifier classifierRhsType = (Classifier) langClassifier;
 											addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
 										}										
 									}
 								}
 								else if (propertyType instanceof ReferencePropertyType) {
 									ReferencePropertyType referencePropertyType = (ReferencePropertyType) propertyType;
-									rhsType = referencePropertyType.getType();
+									langClassifier = referencePropertyType.getType();
 
-									if (rhsType != null && rhsType instanceof Classifier) {
-										Classifier classifierRhsType = (Classifier) rhsType;
+									if (langClassifier != null && langClassifier instanceof Classifier) {
+										Classifier classifierRhsType = (Classifier) langClassifier;
 										addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
 									}
 								}
@@ -286,10 +286,10 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						// idres ...
 //						addIdsForIdResolution(idExpr, namedElementId, allIds);
 						
-						// extension definitions
+						// rules and properties defined in the current extension definition
 						ExtensionDefinition extDef = getContainerObjectOfType(idExpr, ExtensionDefinition.class);
 						if (!otherIdsHidden && extDef != null) {
-							TsRule firstRule = extDef.getTextualSyntaxDef().getNewRules().get(0);
+							TsRule firstRule = extDef.getTextualSyntaxDef().getRules().get(0);
 							
 							// add all properties that are accessible from the first rule
 							Stack<TsRule> ruleStack = new Stack<TsRule>();
@@ -298,8 +298,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 							ruleStack.pop();
 							
 							// add types of assigned rules
-							addId(namedElementId, extDef.getTextualSyntaxDef().getExtensionRule().getFirstNewRule().getRule(), allIds);
-							for (TsRule rule: extDef.getTextualSyntaxDef().getNewRules()) {
+							addId(namedElementId, extDef.getTextualSyntaxDef().getStartRule(), allIds);
+							for (TsRule rule: extDef.getTextualSyntaxDef().getRules()) {
 								addIdsForAssignedRules(rule.getRhs(), namedElementId, allIds);
 								
 								// also add types of indirectly assigned rules, e.g. in "M -> a:A; A -> B; B -> x:X;" the rule B is indirectly an assigned rule
@@ -360,7 +360,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 								PropertyType parentPropertyType = parentPropertyBinding.getPropertyType();
 								if (parentPropertyType instanceof StructuredPropertyType) {
 									StructuredPropertyType structuredParentPropertyType = (StructuredPropertyType) parentPropertyType;
-									addIdsForPropertiesOfReferableRhsType(structuredParentPropertyType.getType(), namedElementId, allIds);
+									addIdsForPropertiesOfLanguageConstructClassifier(structuredParentPropertyType.getType(), namedElementId, allIds);
 								}
 							}
 							else {
@@ -398,12 +398,17 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 					addIds(namedElementId, containerModule.getClassifiers(), allIds);
 				}				
 			}
-			else if (context instanceof RuleExpr) {
+			else if (context instanceof TextualSyntaxDef) {
 				addIdsForTsRules(context, namedElementId.getName(), allIds);
 			}
-//			else if (identifier instanceof Pattern) {
-//				addIdsForIdResolution(context, namedElementId, allIds);
-//			}
+			else if (context instanceof ExtensionDefinition) {
+				addIdsForLanguageConceptClassifiers(context, namedElementId.getName(), allIds);
+			}
+			else if (context instanceof RhsExpression) {
+				if (context instanceof RhsClassifierExpr) {
+					addIdsForLanguageConstructClassifiers(context, namedElementId.getName(), allIds);
+				}
+			}
 			else if (identifier instanceof Classifier) {
 				addIdsForClassifiers(context, namedElementId.getName(), allIds);
 			}
@@ -417,20 +422,21 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				LocalScope localScope = (LocalScope) context;
 				addIdsForLocalVariables(localScope, namedElementId, allIds);
 			}
-			else if (namedElementId.eClass().getName().equals("Vertex")
-					|| namedElementId.eClass().getName().equals("L2")
-					|| namedElementId.eClass().getName().equals("EventDecl")
-					|| namedElementId.eClass().getName().equals("Foo")) {
-				// TODO just for making the SML example work
-				addPlainNames(namedElementId.getName(), context, allIds);
-			}
+//			else if (namedElementId.eClass().getName().equals("Vertex")
+//					|| namedElementId.eClass().getName().equals("L2")
+//					|| namedElementId.eClass().getName().equals("EventDecl")
+//					|| namedElementId.eClass().getName().equals("Foo")) {
+//				// TODO just for making the SML example work
+//				addPlainNames(namedElementId.getName(), context, allIds);
+//			}
 			else if (context instanceof ExtensibleElement) {
 				addPlainNames(namedElementId.getName(), context, allIds);
 			}
 
-			//if (allIds.isEmpty()) {
-			//	addPlainNames(namedElementId.getName(), context, allIds);
-			//}
+			// necessary by raw references to global names
+			if (allIds.isEmpty()) {
+				addPlainNames(namedElementId.getName(), context, allIds);
+			}
 		}
 		else if (identifier instanceof String
 				&& (type.getName().equals("Clazz") || type.getName().equals("Interface") || type.getName().equals("Classifier"))
@@ -438,12 +444,11 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			
 			addIdsForClassifiers(context, (String) identifier, allIds);
 		}
-		else if (identifier instanceof String && (type.getName().equals("ReferableRhsType") || type instanceof ReferableRhsType)) {
-			addIdsForTsRules(context, (String) identifier, allIds);
-			addIdsForClassifiers(context, (String) identifier, allIds);
+		else if (identifier instanceof String && (type.getName().equals("LanguageConstructClassifier") || type instanceof LanguageConstructClassifier)) {
+			addIdsForLanguageConstructClassifiers(context, (String) identifier, allIds);
 		}
 
-		// TODO adding plain names must be specified explicitly in language extensions
+		// necessary by raw references to global names
 		if (identifier instanceof String && allIds.isEmpty()) {
 			addPlainNames((String) identifier, context, allIds);
 		}
@@ -507,22 +512,22 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		if (typedElement.getTypeArrayDimensions().isEmpty()) {
 			if (typedElement.getClassifierType() != null) {
 				NamedElement type = typedElement.getClassifierType().getReferencedElement();
-				if (type instanceof ReferableRhsType) { // includes Classifiers and TsRules
-					ReferableRhsType parentElementReferableRhsType = (ReferableRhsType) type;
-					addIdsForPropertiesOfReferableRhsType(parentElementReferableRhsType, namedElementId, allIds);
+				if (type instanceof LanguageConstructClassifier) { // includes Classifiers and TsRules
+					LanguageConstructClassifier langClassifier = (LanguageConstructClassifier) type;
+					addIdsForPropertiesOfLanguageConstructClassifier(langClassifier, namedElementId, allIds);
 				}
 			}
 		}
 	}
 
-	private boolean addIdsForPropertiesOfReferableRhsType(ReferableRhsType type, NamedElement namedElementId,
+	private boolean addIdsForPropertiesOfLanguageConstructClassifier(LanguageConstructClassifier langClassifier, NamedElement namedElementId,
 			Collection<Object> allIds) {
-		if (type instanceof Clazz) {
-			Clazz clazz = (Clazz) type;
+		if (langClassifier instanceof Clazz) {
+			Clazz clazz = (Clazz) langClassifier;
 			return addIdsForAttributes(clazz, namedElementId, allIds);
 		}
-		else if (type instanceof TsRule) {
-			TsRule entryRule = (TsRule) type;
+		else if (langClassifier instanceof TsRule) {
+			TsRule entryRule = (TsRule) langClassifier;
 			boolean idsAdded = false;
 			for (TsRule rule: getAllTsRules(entryRule)) {
 				Stack<TsRule> ruleStack = new Stack<TsRule>();
@@ -544,7 +549,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private Collection<TsRule> getAllTsRules(TsRule tsRule) {
 		Collection<TsRule> rules = new HashSet<TsRule>();
 		rules.add(tsRule);
-		for (TsRule otherTsRule: ((TextualSyntaxDef) tsRule.eContainer()).getNewRules()) {
+		for (TsRule otherTsRule: ((TextualSyntaxDef) tsRule.eContainer()).getRules()) {
 			if (otherTsRule.getName().equals(tsRule.getName())) {
 				rules.add(otherTsRule);
 			}
@@ -564,9 +569,17 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			definedProperties.add(bindingExpr);
 			return;
 		}
-		if (expr instanceof RuleExpr) {
-			RuleExpr ruleExpr = (RuleExpr) expr;
-			collectPropertyBindings(ruleExpr, definedProperties);
+		if (expr instanceof RhsClassifierExpr) {
+			RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr) expr;
+			LanguageConstructClassifier langClassifier = rhsClassifierExpr.getClassifier();
+			
+			if (langClassifier instanceof TsRule) {
+				TsRule tsRule = (TsRule) langClassifier;
+				collectPropertyBindings(tsRule.getRhs(), definedProperties);
+			}
+			else {
+				// TODO
+			}
 		}
 		else {
 			for (EObject content: expr.eContents()) {
@@ -608,10 +621,16 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		if (expr instanceof SequenceExpr) {
 			SequenceExpr seqExpr = (SequenceExpr) expr;
 			if (seqExpr.getSequence().size() == 1) {
-				RhsExpression firstExpr =seqExpr.getSequence().get(0);
-				if (firstExpr instanceof RuleExpr) {
-					RuleExpr ruleExpr = (RuleExpr) firstExpr;
-					return ruleExpr.getRule();
+				RhsExpression firstExpr = seqExpr.getSequence().get(0);
+				
+				if (firstExpr instanceof RhsClassifierExpr) {
+					RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr) firstExpr;
+					LanguageConstructClassifier langClassifier = rhsClassifierExpr.getClassifier();
+					
+					if (langClassifier instanceof TsRule) {
+						TsRule referencedTsRule = (TsRule) langClassifier;
+						return referencedTsRule;
+					}
 				}
 			}
 		}
@@ -647,18 +666,45 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 //		}		
 //	}
 
-	private void addIdsForTsRules(EObject context, String identifier, Collection<Object> allIds) {
+	private boolean addIdsForTsRules(EObject context, String identifier, Collection<Object> allIds) {
 		ExtensionDefinition extensionDef = getContainerObjectOfType(context, ExtensionDefinition.class);
 		if (extensionDef != null) {
-			addIds(identifier, extensionDef.getTextualSyntaxDef().getNewRules(), allIds);
+			addIds(identifier, extensionDef.getTextualSyntaxDef().getRules(), allIds);
 			if (allIds.size() > 1) {
 				Object first = allIds.iterator().next();
 				allIds.clear();
 				allIds.add(first);
+				return true;
 			}
 		}
+		return false;
 	}
 	
+	private boolean addIdsForLanguageConceptClassifiers(EObject context, String identifier, Collection<Object> allIds) {
+		boolean idsAdded = false;
+		
+		idsAdded |= addIdsForClassifiers(context, identifier, allIds);
+
+		Module containerModule = getContainerObjectOfType(context, Module.class);
+		if (containerModule != null) {
+			for (ExtensionDefinition otherExtDef : containerModule.getExtensionDefs()) {
+				idsAdded |= addId(identifier, otherExtDef, allIds);
+			}
+		}
+		
+		return idsAdded;
+	}
+
+	private boolean addIdsForLanguageConstructClassifiers(EObject context, String identifier, Collection<Object> allIds) {
+		boolean idsAdded = false;
+		
+		idsAdded |= addIdsForTsRules(context, identifier, allIds);
+
+		idsAdded |= addIdsForLanguageConceptClassifiers(context, identifier, allIds);
+		
+		return idsAdded;
+	}
+
 	private boolean addIdsForClassifiers(EObject context, String identifier, Collection<Object> allIds) {
 		boolean idsAdded = false;
 
@@ -712,19 +758,28 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			PropertyBindingExpr bindingExpr = (PropertyBindingExpr) expr;
 			return addId(eObjectId, bindingExpr, allIds);
 		}
-		else if (expr instanceof RuleExpr) {
-			RuleExpr ruleExpr = (RuleExpr) expr;
-			TsRule entryRule = ruleExpr.getRule();
-			boolean idsAdded = false;
-			for (TsRule rule: getAllTsRules(entryRule)) {
-				if (!ruleStack.contains(rule)) { // prevents endless recursion
-					RhsExpression rhsExpr = rule.getRhs();
-					ruleStack.push(rule);
-					idsAdded |= addIdsForRhsExpressionsTree(rhsExpr, ruleStack, eObjectId, allIds);
-					ruleStack.pop();
+		if (expr instanceof RhsClassifierExpr) {
+			RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr) expr;
+			LanguageConstructClassifier langClassifier = rhsClassifierExpr.getClassifier();
+
+			if (langClassifier instanceof TsRule) {
+				TsRule entryRule = (TsRule) langClassifier;
+				
+				boolean idsAdded = false;
+				for (TsRule rule: getAllTsRules(entryRule)) {
+					if (!ruleStack.contains(rule)) { // prevents endless recursion
+						RhsExpression rhsExpr = rule.getRhs();
+						ruleStack.push(rule);
+						idsAdded |= addIdsForRhsExpressionsTree(rhsExpr, ruleStack, eObjectId, allIds);
+						ruleStack.pop();
+					}
 				}
+				return idsAdded;
 			}
-			return idsAdded;
+			else {
+				// TODO
+				return false;
+			}
 		}
 		else {
 			boolean idsAdded = false;

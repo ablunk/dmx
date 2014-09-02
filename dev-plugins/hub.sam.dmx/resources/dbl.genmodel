@@ -61,9 +61,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Procedure/clazz"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Procedure/abstract"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//Classifier">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Classifier/bindings"/>
-    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//Classifier"/>
     <genClasses ecoreClass="dbl.ecore#//NativeBinding">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NativeBinding/targetLanguage"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NativeBinding/targetType"/>
@@ -86,6 +84,7 @@
     <genClasses ecoreClass="dbl.ecore#//Clazz">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Clazz/active"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Clazz/constructor"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Clazz/bindings"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//Constructor">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Constructor/parameters"/>
@@ -236,22 +235,19 @@
     <genClasses ecoreClass="dbl.ecore#//ClassContentExtension"/>
     <genClasses ecoreClass="dbl.ecore#//ModuleContentExtension"/>
     <genClasses image="false" ecoreClass="dbl.ecore#//ExtensionDefinition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/extendedConcept"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/abstractSyntaxDef"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/textualSyntaxDef"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/mappingDef"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//TextualSyntaxDef">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TextualSyntaxDef/extensionRule"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TextualSyntaxDef/newRules"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//TextualSyntaxDef/startRule"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TextualSyntaxDef/rules"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//ReferableRhsType"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//LanguageConstructClassifier"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//LanguageConceptClassifier"/>
     <genClasses ecoreClass="dbl.ecore#//TsRule">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//TsRule/metaClassName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TsRule/rhs"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//ExtensionRule">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionRule/instantiableMetaClass"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionRule/firstNewRule"/>
     </genClasses>
     <genClasses image="false" ecoreClass="dbl.ecore#//RhsExpression">
       <genOperations ecoreOperation="dbl.ecore#//RhsExpression/getSubExpressions"/>
@@ -282,8 +278,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//PropertyBindingExpr/propertyType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//PropertyBindingExpr/operator"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//RuleExpr">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//RuleExpr/rule"/>
+    <genClasses ecoreClass="dbl.ecore#//RhsClassifierExpr">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//RhsClassifierExpr/classifier"/>
     </genClasses>
     <genClasses image="false" ecoreClass="dbl.ecore#//PropertyType"/>
     <genClasses ecoreClass="dbl.ecore#//IdPropertyType"/>

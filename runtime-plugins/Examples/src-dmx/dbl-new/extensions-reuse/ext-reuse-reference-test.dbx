@@ -1,0 +1,17 @@
+#import "ext-reuse-reference"
+
+module C {
+
+int i;
+
+class C {
+	void test() {
+		xe k;
+	}
+}
+
+void main() {
+	xb k;
+}
+
+}

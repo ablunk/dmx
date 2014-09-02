@@ -7,6 +7,7 @@ import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.IntPropertyType;
+import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.Mapping;
 import hub.sam.dbl.MappingStatement;
 import hub.sam.dbl.Model;
@@ -15,7 +16,6 @@ import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
-import hub.sam.dbl.ReferableRhsType;
 import hub.sam.dbl.StringPropertyType;
 import hub.sam.dbl.StructuredPropertyType;
 import hub.sam.dbl.TsRule;
@@ -191,7 +191,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
         if (_notEquals) {
           IdExpr _classifierType_1 = variable.getClassifierType();
           final NamedElement type = _classifierType_1.getReferencedElement();
-          return (type instanceof ReferableRhsType);
+          return (type instanceof LanguageConstructClassifier);
         }
       }
       _xblockexpression = (false);

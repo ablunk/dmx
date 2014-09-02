@@ -1,0 +1,165 @@
+#import "../../dbl"
+
+module sdlx {
+
+extension EnvSendStatement {
+	Statement -> EnvSendStatement;
+	EnvSendStatement -> "send" signal:$$SignalDefinition "to" "pset" targetSet:$$ProcessDefinition ";";
+}
+semantics {
+}
+
+extension Env {
+	ModuleContentExtension -> Env;
+	Env -> "env" localScope:LocalScopeStatement;	
+}
+semantics {
+}
+
+/*
+
+extension System {
+	...
+	SystemEntity -> ProcessDefinition;
+	...
+}
+
+extension ProcessDefinition {
+	LocalScope -> ProcessDefinition;
+	ProcessDefinition -> "process" ...
+}
+
+*/
+
+extension System {
+	ModuleContentExtension -> System;
+	
+	System -> "system" name:ID ";" SystemEntityListOpt "endsystem" ";";
+	SystemEntityListOpt -> ;
+	SystemEntityListOpt -> entities:list(SystemEntity) SystemEntityListOpt;
+	SystemEntity -> ProcessDefinition;
+	SystemEntity -> SignalDefinition;
+	SystemEntity -> TimerDefinition;
+	SystemEntity -> VariableDefinition;
+	
+	VariableDefinition -> "dcl" VariableList;
+	VariableList -> variables:list(Variable) VariableListNextOpt ";";
+	VariableListNextOpt -> ;
+	VariableListNextOpt -> "," variables:list(Variable) VariableListNextOpt;
+	
+	// ProcessDefinition extends LocalScope -> "process" ...
+	ProcessDefinition -> "process" name:ID ";" ProcessEntityListOpt ProcessBodyOpt "endprocess" ProcessEndNameOpt ";";
+	ProcessEndNameOpt -> ;
+	ProcessEndNameOpt -> endNameRef:$$ProcessDefinition;
+	
+	ProcessEntityListOpt -> ;
+	ProcessEntityListOpt -> entities:list(ProcessEntity) ProcessEntityListOpt;
+	ProcessEntity -> SignalDefinition;
+	ProcessEntity -> TimerDefinition;
+	ProcessEntity -> VariableDefinition;
+	
+	ProcessBodyOpt -> ;
+	ProcessBodyOpt -> start:Start StateListOpt;
+	Start -> "start" ";" Transition;
+	
+	StateListOpt -> ;
+	StateListOpt -> states:list(State) StateListOpt;
+	
+	State -> "state" name:ID ";" EventListOpt "endstate" StateEndNameOpt ";";
+	StateEndNameOpt -> ;
+	StateEndNameOpt -> endNameRef:$$State;
+	
+	EventListOpt -> ;
+	EventListOpt -> events:list(Event) EventListOpt;
+	Event -> InputPart;
+	
+	InputPart -> "input" StimulusList ";" Transition;
+	StimulusList -> stimulus:list(Stimulus) StimulusListNextOpt;
+	StimulusListNextOpt -> ;
+	StimulusListNextOpt -> "," stimulus:list(Stimulus) StimulusListNextOpt;
+	Stimulus -> "signal" signal:$$SignalDefinition; // SignalVariableBindingsOpt;
+	Stimulus -> "timer" timer:$$TimerDefinition;
+	Stimulus -> "none" EnablingConditionOpt;
+	
+	EnablingConditionOpt -> ;
+	EnablingConditionOpt -> "provided" enablingCondition:Expression;
+	
+	Transition -> ActionListOpt TransitionTerminator;
+	ActionListOpt -> ;
+	ActionListOpt -> actions:list(Action) ActionListOpt;
+	
+	Action -> Task;
+	Action -> TimerReset;
+	Action -> TimerSet;
+	Action -> Output;
+	
+	Task -> "task" localScope:LocalScopeStatement;
+	
+	TimerReset -> "reset" "(" timer:$$TimerDefinition ")" ";";
+	TimerSet -> "set" "(" TimerExprOpt "," timer:$$TimerDefinition ")" ";";
+	TimerExprOpt -> ;
+	TimerExprOpt -> timeExpr:Expression;
+	
+	Output -> "output" signal:$$SignalDefinition OutputTargetOpt ";";
+	OutputTargetOpt -> ;
+	OutputTargetOpt -> "to" "pid" targetPid:Expression;
+	OutputTargetOpt -> "to" "pset" targetProcess:$$ProcessDefinition;
+	
+	TransitionTerminator -> "nextState" nextState:$$State ";";
+	TransitionTerminator -> "stop" ";";
+	
+	SignalDefinition -> "signal" name:ID FormalContextParamOpt ";";
+	TimerDefinition -> "timer" name:ID ";";
+	
+	FormalContextParamOpt -> ;
+	FormalContextParamOpt -> "(" parameters:list(FormalContextParam) FormalContextParamNextOpt ")";
+	FormalContextParamNextOpt -> ;
+	FormalContextParamNextOpt -> "," parameters:list(FormalContextParam) FormalContextParamNextOpt;
+	FormalContextParam -> primitiveType:PrimitiveType;
+	
+	// the following is to be defined as an extension of this extension.
+	// because there is no editor support at the moment, it is defined right here.
+	
+	SystemEntity -> SemaphoreDefinition;
+	
+	SemaphoreDefinition -> "semaphore" name:ID "," "kind" "=" kind:SemKind ";";
+	SemKind -> SemBinary;
+	SemBinary -> "BINARY" SemPolicyOpt SemInitialOpt;
+	SemPolicyOpt -> ;
+	SemPolicyOpt -> "," "policy" "=" policy:SemPolicy;
+	SemInitialOpt -> ;
+	SemInitialOpt -> "," "initial" "=" initState:SemInitial;
+	SemPolicy -> SemFIFO;
+	SemPolicy -> SemPrio;
+	SemFIFO -> "FIFO";
+	SemPrio -> "PRIO";
+	SemInitial -> SemEmpty;
+	SemInitial -> SemFull;
+	SemEmpty -> "EMPTY";
+	SemFull -> "FULL";
+	
+	Action -> SemaphoreTake;
+	Action -> SemaphoreGive;
+	
+	SemaphoreTake -> "take" semaphore:$$SemaphoreDefinition timeout:SemTimeout ";";
+	SemTimeout -> SemTimeoutForever;
+	SemTimeout -> SemTimeoutNoWait;
+	SemTimeout -> SemTimeoutTime;
+	SemTimeoutForever -> "FOREVER";
+	SemTimeoutNoWait -> "with" "NO_WAIT" SemActionOpt SemActionOpt;
+	SemTimeoutTime -> "with" "timeout" "=" timeExpr:Expression SemActionOpt SemActionOpt;
+	
+	SemActionOpt -> ;
+	SemActionOpt -> "," "on" semAction:list(SemAction);
+	
+	SemAction -> SemActionOK;
+	SemAction -> SemActionError;
+	SemActionOK -> "OK" "{" ActionListOpt "}";
+	SemActionError -> "ERROR" "{" ActionListOpt "}";
+	
+	SemaphoreGive -> "give" semaphore:$$SemaphoreDefinition ";";
+}
+semantics {
+}
+
+}

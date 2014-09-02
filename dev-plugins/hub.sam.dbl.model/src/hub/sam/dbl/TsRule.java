@@ -11,7 +11,6 @@ package hub.sam.dbl;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link hub.sam.dbl.TsRule#getMetaClassName <em>Meta Class Name</em>}</li>
  *   <li>{@link hub.sam.dbl.TsRule#getRhs <em>Rhs</em>}</li>
  * </ul>
  * </p>
@@ -20,33 +19,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface TsRule extends NamedElement, ReferableRhsType {
-	/**
-	 * Returns the value of the '<em><b>Meta Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Meta Class Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Meta Class Name</em>' attribute.
-	 * @see #setMetaClassName(String)
-	 * @see hub.sam.dbl.DblPackage#getTsRule_MetaClassName()
-	 * @model
-	 * @generated
-	 */
-	String getMetaClassName();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.TsRule#getMetaClassName <em>Meta Class Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Meta Class Name</em>' attribute.
-	 * @see #getMetaClassName()
-	 * @generated
-	 */
-	void setMetaClassName(String value);
-
+public interface TsRule extends NamedElement, LanguageConstructClassifier {
 	/**
 	 * Returns the value of the '<em><b>Rhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

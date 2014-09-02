@@ -8,6 +8,7 @@ import hub.sam.tef.editor.text.TextEditor;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,6 +36,8 @@ public class DblPreProcessor {
 	private static ResourceSet resourceSet = new ResourceSetImpl();
 	private Map<String, IModelContainer> allImports = new HashMap<String, IModelContainer>();
 	private Map<String, DblTextEditor> importsOpenedInActiveEditors = new HashMap<String, DblTextEditor>();
+	
+	private final static Logger logger = Logger.getLogger(DblPreProcessor.class.getName());
 	
 	/**
 	 * 
@@ -66,7 +69,7 @@ public class DblPreProcessor {
 		public void modelChanged(TextEditor changedEditor) {
 			
 			if (changedEditor != editor) {
-				System.out.println("editor '" + editor.getEditorInput().getName()
+				logger.info("editor '" + editor.getEditorInput().getName()
 					+ "' is notified of change in imported model '" + changedEditor.getEditorInput().getName() + "'");
 	
 				if (editor.getCurrentModel() != null) {
@@ -115,7 +118,7 @@ public class DblPreProcessor {
 		@Override
 		public void partOpened(IWorkbenchPartReference partRef) {			
 			if (!partRef.getPartName().equals(editor.getPartName())) {
-				System.out.println("editor '"+ editor.getPartName() + "' is notified that " + "editor '" + partRef.getPartName() + "' is opened");
+				logger.info("editor '"+ editor.getPartName() + "' is notified that " + "editor '" + partRef.getPartName() + "' is opened");
 				IWorkbenchPart part = partRef.getPart(false);
 				if (part instanceof DblTextEditor) {
 					DblTextEditor changedEditor = (DblTextEditor) part;
@@ -130,7 +133,7 @@ public class DblPreProcessor {
 		@Override
 		public void partClosed(IWorkbenchPartReference partRef) {
 			if (!partRef.getPartName().equals(editor.getPartName())) {
-				System.out.println("editor '"+ editor.getPartName() + "' is notified that " + "editor '" + partRef.getPartName() + "' is closed");
+				logger.info("editor '"+ editor.getPartName() + "' is notified that " + "editor '" + partRef.getPartName() + "' is closed");
 			}			
 		}
 		
@@ -154,12 +157,14 @@ public class DblPreProcessor {
 	};
 	
 	public void preProcess(String inputText, IPath inputPath) {
-		Pattern importRegex = Pattern.compile("#import \"(.+)\"");
-		Matcher matcher = importRegex.matcher(inputText);
-		
-		while (matcher.find()) {
-			final String fileToImport = matcher.group(1);
-			importFile(fileToImport, true, inputPath);
+		if (inputText != null) {
+			Pattern importRegex = Pattern.compile("#import \"(.+)\"");
+			Matcher matcher = importRegex.matcher(inputText);
+			
+			while (matcher.find()) {
+				final String fileToImport = matcher.group(1);
+				importFile(fileToImport, true, inputPath);
+			}
 		}
 	}
 	
@@ -198,7 +203,7 @@ public class DblPreProcessor {
 									otherEditor.getSite().getPage().removePartListener(otherEditorRefPartListener);
 									
 									otherEditor.addEditorStatusListener(getImportsEditorListener());
-									System.out.println("editor '" + editor.getEditorInput().getName() + "' listens to other editor '"
+									logger.info("editor '" + editor.getEditorInput().getName() + "' listens to other editor '"
 											+ otherEditor.getEditorInput().getName() + "'");
 								}
 								setResult(otherEditor);
@@ -233,7 +238,7 @@ public class DblPreProcessor {
 					String openedEditorFileName = openedEditorInputLocation.removeFileExtension().lastSegment().toString();
 
 					importsOpenedInActiveEditors.put(openedEditorFileName, openedEditor);
-					System.out.println("linked import '" + fileToImport + "' to opened editor.");
+					logger.info("linked import '" + fileToImport + "' to opened editor.");
 
 					allImports.put(openedEditorFileName, new IModelContainer() {
 						@Override
@@ -262,11 +267,11 @@ public class DblPreProcessor {
 						return resource;
 					}
 				});		
-				System.out.println("loaded import '" + fileToImport + "'.");
+	    		logger.info("loaded import '" + fileToImport + "'.");
 			}
 		}
 	    catch (RuntimeException e) {
-	    	System.out.println(e.getMessage());
+	    	logger.severe(e.getMessage());
 	    }
 	}
 	

@@ -468,16 +468,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createTextualSyntaxDefAdapter();
 			}
 			@Override
-			public Adapter caseReferableRhsType(ReferableRhsType object) {
-				return createReferableRhsTypeAdapter();
+			public Adapter caseLanguageConstructClassifier(LanguageConstructClassifier object) {
+				return createLanguageConstructClassifierAdapter();
+			}
+			@Override
+			public Adapter caseLanguageConceptClassifier(LanguageConceptClassifier object) {
+				return createLanguageConceptClassifierAdapter();
 			}
 			@Override
 			public Adapter caseTsRule(TsRule object) {
 				return createTsRuleAdapter();
-			}
-			@Override
-			public Adapter caseExtensionRule(ExtensionRule object) {
-				return createExtensionRuleAdapter();
 			}
 			@Override
 			public Adapter caseRhsExpression(RhsExpression object) {
@@ -516,8 +516,8 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createPropertyBindingExprAdapter();
 			}
 			@Override
-			public Adapter caseRuleExpr(RuleExpr object) {
-				return createRuleExprAdapter();
+			public Adapter caseRhsClassifierExpr(RhsClassifierExpr object) {
+				return createRhsClassifierExprAdapter();
 			}
 			@Override
 			public Adapter casePropertyType(PropertyType object) {
@@ -2042,16 +2042,30 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ReferableRhsType <em>Referable Rhs Type</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.LanguageConstructClassifier <em>Language Construct Classifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.ReferableRhsType
+	 * @see hub.sam.dbl.LanguageConstructClassifier
 	 * @generated
 	 */
-	public Adapter createReferableRhsTypeAdapter() {
+	public Adapter createLanguageConstructClassifierAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.LanguageConceptClassifier <em>Language Concept Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.LanguageConceptClassifier
+	 * @generated
+	 */
+	public Adapter createLanguageConceptClassifierAdapter() {
 		return null;
 	}
 
@@ -2066,20 +2080,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createTsRuleAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ExtensionRule <em>Extension Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ExtensionRule
-	 * @generated
-	 */
-	public Adapter createExtensionRuleAdapter() {
 		return null;
 	}
 
@@ -2210,16 +2210,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.RuleExpr <em>Rule Expr</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.RhsClassifierExpr <em>Rhs Classifier Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.RuleExpr
+	 * @see hub.sam.dbl.RhsClassifierExpr
 	 * @generated
 	 */
-	public Adapter createRuleExprAdapter() {
+	public Adapter createRhsClassifierExprAdapter() {
 		return null;
 	}
 

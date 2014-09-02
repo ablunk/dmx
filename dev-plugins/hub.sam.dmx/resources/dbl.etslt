@@ -115,7 +115,7 @@ syntax(Model) "resources/dbl.ecore" {
 	ArrayDimensionEmptyOptional:element(ArrayDimension) -> "[" (Expression:composite(size))? "]";
 	
 	ClassRef:element(Clazz) -> IDENTIFIER:composite(name);
-	ClassifierRef:element(Classifier) -> IDENTIFIER:composite(name);
+	//ClassifierRef:element(Classifier) -> IDENTIFIER:composite(name);
 
 	PrimitiveType:element(VoidType) -> "void";
 	PrimitiveType:element(IntType) -> "int";
@@ -350,19 +350,22 @@ syntax(Model) "resources/dbl.ecore" {
 	// EXTENSIONS
 	
 	extensionDef:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
-		//("abstract" ("syntax")? "{" (Classifier:composite(abstractSyntaxDef))? "}")?
+		"extends" ExtendedConstruct
 		TextualSyntaxDef:composite(textualSyntaxDef)
 		("semantics" "{" Mapping:composite(mappingDef) "}")?;
 	
 	TextualSyntaxDef:element(TextualSyntaxDef) -> ("textual")? "{"
-		ExtensionRule:composite(extensionRule) (TsRule:composite(newRules))* "}";
+		"start" TsRuleRef:reference(startRule) ";" (TsRule:composite(rules))* "}";
 	
-	ExtensionRule:element(ExtensionRule) -> IDENTIFIER:composite(name) 
-		(":" "instantiates" "(" ClassifierRef:reference(instantiableMetaClass) ")")?
-		"->" RuleExpr:composite(firstNewRule) ";";
-
-	TsRule:element(TsRule) -> IDENTIFIER:composite(name) //(":" "metaClass" "(" ClassifierRef:reference(metaClassName) ")")?
-		"->" RhsExpression:composite(rhs) ";";
+	ExtendedConstruct -> ExtendedDblConcept;
+	ExtendedConstruct -> ExtendedExtension;
+	
+	ExtendedDblConcept -> "dbl" ClassRef:reference(extendedConcept);
+	ExtendedExtension -> "extension" ExtensionDefinitionRef:reference(extendedConcept);
+	
+	ExtensionDefinitionRef:element(ExtensionDefinition) -> IDENTIFIER:composite(name);
+	
+	TsRule:element(TsRule) -> IDENTIFIER:composite(name) "->" RhsExpression:composite(rhs) ";";
 	
 	// EXTENSION MAPPING
 	
@@ -425,7 +428,8 @@ syntax(Model) "resources/dbl.ecore" {
 	//Terminal -> "(" ArbitraryExpr ")*";
 	//Terminal -> "[" RuntimeExpr "]";
 	Terminal -> PropertyBindingExpr;
-	Terminal -> RuleExpr;
+	//Terminal -> RuleExpr;
+	Terminal -> RhsClassifierExpr;
 		
 	//OptionalExpr:element(OptionalExpr) -> RhsExpression:composite(expression);
 	//AtLeastOneExpr:element(AtLeastOneExpr) -> RhsExpression:composite(expression);
@@ -438,7 +442,10 @@ syntax(Model) "resources/dbl.ecore" {
 	TerminalExpr:element(TerminalExpr) -> STRINGDEF:composite(terminal);
 	PropertyBindingExpr:element(PropertyBindingExpr) -> IDENTIFIER:composite(name) ":" PropertyType:composite(propertyType);
 	
-	RuleExpr:element(RuleExpr) -> TsRuleRef:reference(rule);
+	//RuleExpr:element(RuleExpr) -> TsRuleRef:reference(rule);
+	
+	RhsClassifierExpr:element(RhsClassifierExpr) -> LanguageConstructClassifierRef:reference(classifier);
+	//ExtensionDefinitionRef:element(ExtensionDefinition) -> IDENTIFIER:composite(name);
 	
 	//BindingExprOperator:constant("ASSIGN":BindingExprOpKind) -> "=";
 	//BindingExprOperator:constant("ADD":BindingExprOpKind) -> "+=";
@@ -459,14 +466,14 @@ syntax(Model) "resources/dbl.ecore" {
 	BooleanPropertyType:element(BooleanPropertyType) -> STRINGDEF:composite(terminal);
 
 	// raw -> variable=$$Variable	
-	ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? ReferableRhsTypeRef:reference(type);
-	CompositePropertyType:element(CompositePropertyType) -> IsListType:composite(list) "(" ReferableRhsTypeRef:reference(type) ")";
-	CompositePropertyType:element(CompositePropertyType) -> ReferableRhsTypeRef:reference(type);
+	ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? LanguageConstructClassifierRef:reference(type);
+	CompositePropertyType:element(CompositePropertyType) -> IsListType:composite(list) "(" LanguageConstructClassifierRef:reference(type) ")";
+	CompositePropertyType:element(CompositePropertyType) -> LanguageConstructClassifierRef:reference(type);
 
 	IsListType:constant("true":EBoolean) -> "list";
 	IsRawReference:constant("true":EBoolean) -> "$";
 	
-	ReferableRhsTypeRef:element(ReferableRhsType) -> IDENTIFIER:composite(name);
+	LanguageConstructClassifierRef:element(LanguageConstructClassifier) -> IDENTIFIER:composite(name);
 	TsRuleRef:element(TsRule) -> IDENTIFIER:composite(name);
 
 	Statement -> Test7349549;

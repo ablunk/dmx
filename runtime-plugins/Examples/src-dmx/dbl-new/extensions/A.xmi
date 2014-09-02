@@ -22,8 +22,8 @@
           <callPart/>
         </callIdExpr>
       </statements>
-      <statements xsi:type="dbl:SC" concreteSyntax="sc &quot;A.main()&quot;;" instanceOfExtensionDefinition="true" usedIn="A.main()"/>
-      <statements xsi:type="dbl:SB" concreteSyntax="sb;" instanceOfExtensionDefinition="true"/>
+      <statements xsi:type="dbl:SC_SCR" concreteSyntax="sc &quot;A.main()&quot;;" instanceOfExtensionDefinition="true" usedIn="A.main()"/>
+      <statements xsi:type="dbl:SB_SBR" concreteSyntax="sb;" instanceOfExtensionDefinition="true"/>
     </procedures>
   </modules>
 </dbl:Model>

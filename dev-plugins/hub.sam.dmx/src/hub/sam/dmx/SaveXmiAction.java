@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -22,10 +23,11 @@ import org.eclipse.ui.texteditor.ResourceAction;
 public class SaveXmiAction extends ResourceAction implements ITefEditorStatusListener {
 
 	public final static String MESSAGE_KEYS_PREFIX = "SaveXmiAction.";
-
 	public final static String ACTION_DEFINITION_ID = "hub.sam.dmx.SaveXmi";
 	
 	private final TextEditor fEditor;
+	
+	private final static Logger logger = Logger.getLogger(SaveXmiAction.class.getName());
 
 	public SaveXmiAction(TextEditor editor) {
 		super(Activator.getMessagesBundle(), MESSAGE_KEYS_PREFIX);
@@ -65,7 +67,7 @@ public class SaveXmiAction extends ResourceAction implements ITefEditorStatusLis
 				catch (IOException e) {
 					e.printStackTrace();
 				}
-				System.out.println("model in editor '" + editor.getEditorInput().getName() + "' saved as XMI: " + xmiRawLocation);
+				logger.info("model in editor '" + editor.getEditorInput().getName() + "' saved as XMI: " + xmiRawLocation);
 				
 				// refreshing the folder that contains the XMI file, so the change is recognized by the editor
 				((FileEditorInput) editor.getEditorInput()).getFile().getParent().refreshLocal(IResource.DEPTH_ONE, null);

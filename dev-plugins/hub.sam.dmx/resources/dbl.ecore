@@ -70,10 +70,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="abstract" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Classifier" abstract="true" eSuperTypes="#//Type #//NamedElement #//ReferableRhsType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
-        eType="#//NativeBinding" containment="true"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Classifier" abstract="true" eSuperTypes="#//NamedElement #//Type"/>
   <eClassifiers xsi:type="ecore:EClass" name="NativeBinding">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetLanguage" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -104,11 +101,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructorArguments" ordered="false"
         upperBound="-1" eType="#//Expression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Clazz" eSuperTypes="#//Classifier #//ClassSimilar">
+  <eClassifiers xsi:type="ecore:EClass" name="Clazz" eSuperTypes="#//Classifier #//ClassSimilar #//LanguageConceptClassifier">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="active" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="#//Constructor"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
+        eType="#//NativeBinding" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Constructor">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" ordered="false"
@@ -185,7 +184,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="falseCase" eType="#//Statement"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LocalScope" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="LocalScope">
     <eStructuralFeatures xsi:type="ecore:EReference" name="statements" upperBound="-1"
         eType="#//Statement" containment="true"/>
   </eClassifiers>
@@ -298,7 +297,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="TypeAccess" eSuperTypes="#//ElementAccess"/>
   <eClassifiers xsi:type="ecore:EClass" name="ClassContentExtension" eSuperTypes="#//ExtensibleElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModuleContentExtension" eSuperTypes="#//ExtensibleElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtensionDefinition" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="ExtensionDefinition" eSuperTypes="#//LanguageConceptClassifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extendedConcept" lowerBound="1"
+        eType="#//LanguageConceptClassifier"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="abstractSyntaxDef" upperBound="-1"
         eType="#//Classifier" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="textualSyntaxDef" lowerBound="1"
@@ -307,22 +308,18 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TextualSyntaxDef">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extensionRule" lowerBound="1"
-        eType="#//ExtensionRule" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="newRules" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startRule" lowerBound="1"
+        eType="#//TsRule"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         eType="#//TsRule" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferableRhsType" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TsRule" eSuperTypes="#//NamedElement #//ReferableRhsType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="metaClassName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LanguageConstructClassifier" abstract="true"
+      eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="LanguageConceptClassifier" abstract="true"
+      eSuperTypes="#//LanguageConstructClassifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TsRule" eSuperTypes="#//NamedElement #//LanguageConstructClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" lowerBound="1" eType="#//RhsExpression"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtensionRule" eSuperTypes="#//NamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="instantiableMetaClass"
-        eType="#//Classifier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="firstNewRule" lowerBound="1"
-        eType="#//RuleExpr" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="RhsExpression" abstract="true">
     <eOperations name="getSubExpressions" ordered="false" upperBound="-1" eType="#//RhsExpression"/>
@@ -368,8 +365,9 @@
     <eLiterals name="ADD" value="1"/>
     <eLiterals name="BOOL" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RuleExpr" eSuperTypes="#//RhsExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" lowerBound="1" eType="#//TsRule"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RhsClassifierExpr" eSuperTypes="#//RhsExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
+        eType="#//LanguageConstructClassifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PropertyType" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="IdPropertyType" eSuperTypes="#//PropertyType"/>
@@ -380,7 +378,7 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StructuredPropertyType" eSuperTypes="#//PropertyType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//ReferableRhsType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//LanguageConstructClassifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompositePropertyType" eSuperTypes="#//StructuredPropertyType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"

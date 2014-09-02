@@ -4,9 +4,9 @@ module B {
 
 class B {}
 
-extension SB {
-	Statement -> SB;
-	SB -> "sb" ";";
+extension SB extends dbl Statement {
+	start SBR;
+	SBR -> "sb" ";";
 }
 semantics {
 	sc "SB semantics";

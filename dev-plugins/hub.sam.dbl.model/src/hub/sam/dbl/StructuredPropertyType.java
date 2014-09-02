@@ -29,12 +29,12 @@ public interface StructuredPropertyType extends PropertyType {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Type</em>' reference.
-	 * @see #setType(ReferableRhsType)
+	 * @see #setType(LanguageConstructClassifier)
 	 * @see hub.sam.dbl.DblPackage#getStructuredPropertyType_Type()
 	 * @model required="true"
 	 * @generated
 	 */
-	ReferableRhsType getType();
+	LanguageConstructClassifier getType();
 
 	/**
 	 * Sets the value of the '{@link hub.sam.dbl.StructuredPropertyType#getType <em>Type</em>}' reference.
@@ -44,6 +44,6 @@ public interface StructuredPropertyType extends PropertyType {
 	 * @see #getType()
 	 * @generated
 	 */
-	void setType(ReferableRhsType value);
+	void setType(LanguageConstructClassifier value);
 
 } // StructuredPropertyType

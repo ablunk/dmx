@@ -10,7 +10,6 @@ import hub.sam.dbl.Model
 import hub.sam.dbl.Module
 import hub.sam.dbl.PropertyBindingExpr
 import hub.sam.dbl.PropertyType
-import hub.sam.dbl.ReferableRhsType
 import hub.sam.dbl.StringPropertyType
 import hub.sam.dbl.StructuredPropertyType
 import hub.sam.dbl.Variable
@@ -18,9 +17,9 @@ import java.io.Writer
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
 import hub.sam.dbl.TypedElement
-import hub.sam.dbl.Type
 import hub.sam.dbl.TsRule
 import hub.sam.dbl.CompositePropertyType
+import hub.sam.dbl.LanguageConstructClassifier
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -100,7 +99,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 			val variable = referencedElement as Variable;
 			if (variable.classifierType != null) {
 				val type = variable.classifierType.referencedElement
-				return type instanceof ReferableRhsType
+				return type instanceof LanguageConstructClassifier
 			}
 		}
 		false

@@ -4,8 +4,8 @@
 
 module stdx_println {
 
-extension PrintLn {
-	SimpleStatement -> PrintLn;
+extension PrintLn extends dbl SimpleStatement {
+	start PrintLn;
 	PrintLn -> "println"  PrintLnOutputs ";";
 	PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;
 	PrintLnOutputsOptional -> ;

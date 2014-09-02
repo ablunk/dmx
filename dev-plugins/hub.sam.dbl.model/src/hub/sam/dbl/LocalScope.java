@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see hub.sam.dbl.DblPackage#getLocalScope()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface LocalScope extends EObject {

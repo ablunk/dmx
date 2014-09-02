@@ -187,7 +187,7 @@ public class ArbitraryExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ARBITRARY_EXPR__EXPRESSION,
-				 DblFactory.eINSTANCE.createRuleExpr()));
+				 DblFactory.eINSTANCE.createRhsClassifierExpr()));
 	}
 
 }

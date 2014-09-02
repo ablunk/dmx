@@ -715,31 +715,22 @@ public interface DblPackage extends EPackage {
 	int CLASSIFIER = 16;
 
 	/**
-	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASSIFIER__ARRAY_DIMENSIONS = TYPE__ARRAY_DIMENSIONS;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__NAME = TYPE_FEATURE_COUNT + 0;
+	int CLASSIFIER__NAME = NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER__BINDINGS = TYPE_FEATURE_COUNT + 1;
+	int CLASSIFIER__ARRAY_DIMENSIONS = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Classifier</em>' class.
@@ -748,7 +739,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASSIFIER_FEATURE_COUNT = TYPE_FEATURE_COUNT + 2;
+	int CLASSIFIER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NativeBindingImpl <em>Native Binding</em>}' class.
@@ -1000,15 +991,6 @@ public interface DblPackage extends EPackage {
 	int CLAZZ = 21;
 
 	/**
-	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLAZZ__ARRAY_DIMENSIONS = CLASSIFIER__ARRAY_DIMENSIONS;
-
-	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1018,13 +1000,13 @@ public interface DblPackage extends EPackage {
 	int CLAZZ__NAME = CLASSIFIER__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__BINDINGS = CLASSIFIER__BINDINGS;
+	int CLAZZ__ARRAY_DIMENSIONS = CLASSIFIER__ARRAY_DIMENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
@@ -1135,13 +1117,22 @@ public interface DblPackage extends EPackage {
 	int CLAZZ__CONSTRUCTOR = CLASSIFIER_FEATURE_COUNT + 11;
 
 	/**
+	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLAZZ__BINDINGS = CLASSIFIER_FEATURE_COUNT + 12;
+
+	/**
 	 * The number of structural features of the '<em>Clazz</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 12;
+	int CLAZZ_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 13;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ConstructorImpl <em>Constructor</em>}' class.
@@ -6059,6 +6050,62 @@ public interface DblPackage extends EPackage {
 	int MODULE_CONTENT_EXTENSION_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.LanguageConstructClassifierImpl <em>Language Construct Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.LanguageConstructClassifierImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConstructClassifier()
+	 * @generated
+	 */
+	int LANGUAGE_CONSTRUCT_CLASSIFIER = 99;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONSTRUCT_CLASSIFIER__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The number of structural features of the '<em>Language Construct Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONSTRUCT_CLASSIFIER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.LanguageConceptClassifierImpl <em>Language Concept Classifier</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.LanguageConceptClassifierImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConceptClassifier()
+	 * @generated
+	 */
+	int LANGUAGE_CONCEPT_CLASSIFIER = 100;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONCEPT_CLASSIFIER__NAME = LANGUAGE_CONSTRUCT_CLASSIFIER__NAME;
+
+	/**
+	 * The number of structural features of the '<em>Language Concept Classifier</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT = LANGUAGE_CONSTRUCT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExtensionDefinitionImpl <em>Extension Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6075,7 +6122,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__NAME = NAMED_ELEMENT__NAME;
+	int EXTENSION_DEFINITION__NAME = LANGUAGE_CONCEPT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Extended Concept</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSION_DEFINITION__EXTENDED_CONCEPT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Abstract Syntax Def</b></em>' containment reference list.
@@ -6084,7 +6140,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Textual Syntax Def</b></em>' containment reference.
@@ -6093,7 +6149,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Mapping Def</b></em>' containment reference.
@@ -6102,7 +6158,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__MAPPING_DEF = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int EXTENSION_DEFINITION__MAPPING_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Extension Definition</em>' class.
@@ -6111,7 +6167,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int EXTENSION_DEFINITION_FEATURE_COUNT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TextualSyntaxDefImpl <em>Textual Syntax Def</em>}' class.
@@ -6124,22 +6180,22 @@ public interface DblPackage extends EPackage {
 	int TEXTUAL_SYNTAX_DEF = 98;
 
 	/**
-	 * The feature id for the '<em><b>Extension Rule</b></em>' containment reference.
+	 * The feature id for the '<em><b>Start Rule</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__EXTENSION_RULE = 0;
+	int TEXTUAL_SYNTAX_DEF__START_RULE = 0;
 
 	/**
-	 * The feature id for the '<em><b>New Rules</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__NEW_RULES = 1;
+	int TEXTUAL_SYNTAX_DEF__RULES = 1;
 
 	/**
 	 * The number of structural features of the '<em>Textual Syntax Def</em>' class.
@@ -6151,34 +6207,6 @@ public interface DblPackage extends EPackage {
 	int TEXTUAL_SYNTAX_DEF_FEATURE_COUNT = 2;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ReferableRhsTypeImpl <em>Referable Rhs Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ReferableRhsTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getReferableRhsType()
-	 * @generated
-	 */
-	int REFERABLE_RHS_TYPE = 99;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERABLE_RHS_TYPE__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The number of structural features of the '<em>Referable Rhs Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REFERABLE_RHS_TYPE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TsRuleImpl <em>Ts Rule</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6186,7 +6214,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTsRule()
 	 * @generated
 	 */
-	int TS_RULE = 100;
+	int TS_RULE = 101;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -6198,22 +6226,13 @@ public interface DblPackage extends EPackage {
 	int TS_RULE__NAME = NAMED_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Meta Class Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE__META_CLASS_NAME = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
 	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__RHS = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int TS_RULE__RHS = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Ts Rule</em>' class.
@@ -6222,53 +6241,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ExtensionRuleImpl <em>Extension Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ExtensionRuleImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionRule()
-	 * @generated
-	 */
-	int EXTENSION_RULE = 101;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_RULE__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Instantiable Meta Class</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_RULE__INSTANTIABLE_META_CLASS = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>First New Rule</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_RULE__FIRST_NEW_RULE = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Extension Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_RULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int TS_RULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.RhsExpressionImpl <em>Rhs Expression</em>}' class.
@@ -6541,32 +6514,32 @@ public interface DblPackage extends EPackage {
 	int PROPERTY_BINDING_EXPR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.RuleExprImpl <em>Rule Expr</em>}' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.RhsClassifierExprImpl <em>Rhs Classifier Expr</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.RuleExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getRuleExpr()
+	 * @see hub.sam.dbl.impl.RhsClassifierExprImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getRhsClassifierExpr()
 	 * @generated
 	 */
-	int RULE_EXPR = 111;
+	int RHS_CLASSIFIER_EXPR = 111;
 
 	/**
-	 * The feature id for the '<em><b>Rule</b></em>' reference.
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RULE_EXPR__RULE = RHS_EXPRESSION_FEATURE_COUNT + 0;
+	int RHS_CLASSIFIER_EXPR__CLASSIFIER = RHS_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Rule Expr</em>' class.
+	 * The number of structural features of the '<em>Rhs Classifier Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RULE_EXPR_FEATURE_COUNT = RHS_EXPRESSION_FEATURE_COUNT + 1;
+	int RHS_CLASSIFIER_EXPR_FEATURE_COUNT = RHS_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.PropertyTypeImpl <em>Property Type</em>}' class.
@@ -8369,17 +8342,6 @@ public interface DblPackage extends EPackage {
 	EClass getClassifier();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Classifier#getBindings <em>Bindings</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Bindings</em>'.
-	 * @see hub.sam.dbl.Classifier#getBindings()
-	 * @see #getClassifier()
-	 * @generated
-	 */
-	EReference getClassifier_Bindings();
-
-	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.NativeBinding <em>Native Binding</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8582,6 +8544,17 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getClazz_Constructor();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Clazz#getBindings <em>Bindings</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Bindings</em>'.
+	 * @see hub.sam.dbl.Clazz#getBindings()
+	 * @see #getClazz()
+	 * @generated
+	 */
+	EReference getClazz_Bindings();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Constructor <em>Constructor</em>}'.
@@ -9839,6 +9812,17 @@ public interface DblPackage extends EPackage {
 	EClass getExtensionDefinition();
 
 	/**
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensionDefinition#getExtendedConcept <em>Extended Concept</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Extended Concept</em>'.
+	 * @see hub.sam.dbl.ExtensionDefinition#getExtendedConcept()
+	 * @see #getExtensionDefinition()
+	 * @generated
+	 */
+	EReference getExtensionDefinition_ExtendedConcept();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.ExtensionDefinition#getAbstractSyntaxDef <em>Abstract Syntax Def</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9882,36 +9866,46 @@ public interface DblPackage extends EPackage {
 	EClass getTextualSyntaxDef();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.TextualSyntaxDef#getExtensionRule <em>Extension Rule</em>}'.
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.TextualSyntaxDef#getStartRule <em>Start Rule</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Extension Rule</em>'.
-	 * @see hub.sam.dbl.TextualSyntaxDef#getExtensionRule()
+	 * @return the meta object for the reference '<em>Start Rule</em>'.
+	 * @see hub.sam.dbl.TextualSyntaxDef#getStartRule()
 	 * @see #getTextualSyntaxDef()
 	 * @generated
 	 */
-	EReference getTextualSyntaxDef_ExtensionRule();
+	EReference getTextualSyntaxDef_StartRule();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.TextualSyntaxDef#getNewRules <em>New Rules</em>}'.
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.TextualSyntaxDef#getRules <em>Rules</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>New Rules</em>'.
-	 * @see hub.sam.dbl.TextualSyntaxDef#getNewRules()
+	 * @return the meta object for the containment reference list '<em>Rules</em>'.
+	 * @see hub.sam.dbl.TextualSyntaxDef#getRules()
 	 * @see #getTextualSyntaxDef()
 	 * @generated
 	 */
-	EReference getTextualSyntaxDef_NewRules();
+	EReference getTextualSyntaxDef_Rules();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ReferableRhsType <em>Referable Rhs Type</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.LanguageConstructClassifier <em>Language Construct Classifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Referable Rhs Type</em>'.
-	 * @see hub.sam.dbl.ReferableRhsType
+	 * @return the meta object for class '<em>Language Construct Classifier</em>'.
+	 * @see hub.sam.dbl.LanguageConstructClassifier
 	 * @generated
 	 */
-	EClass getReferableRhsType();
+	EClass getLanguageConstructClassifier();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.LanguageConceptClassifier <em>Language Concept Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Language Concept Classifier</em>'.
+	 * @see hub.sam.dbl.LanguageConceptClassifier
+	 * @generated
+	 */
+	EClass getLanguageConceptClassifier();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.TsRule <em>Ts Rule</em>}'.
@@ -9924,17 +9918,6 @@ public interface DblPackage extends EPackage {
 	EClass getTsRule();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.TsRule#getMetaClassName <em>Meta Class Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Meta Class Name</em>'.
-	 * @see hub.sam.dbl.TsRule#getMetaClassName()
-	 * @see #getTsRule()
-	 * @generated
-	 */
-	EAttribute getTsRule_MetaClassName();
-
-	/**
 	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.TsRule#getRhs <em>Rhs</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9944,38 +9927,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getTsRule_Rhs();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ExtensionRule <em>Extension Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Extension Rule</em>'.
-	 * @see hub.sam.dbl.ExtensionRule
-	 * @generated
-	 */
-	EClass getExtensionRule();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensionRule#getInstantiableMetaClass <em>Instantiable Meta Class</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Instantiable Meta Class</em>'.
-	 * @see hub.sam.dbl.ExtensionRule#getInstantiableMetaClass()
-	 * @see #getExtensionRule()
-	 * @generated
-	 */
-	EReference getExtensionRule_InstantiableMetaClass();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ExtensionRule#getFirstNewRule <em>First New Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>First New Rule</em>'.
-	 * @see hub.sam.dbl.ExtensionRule#getFirstNewRule()
-	 * @see #getExtensionRule()
-	 * @generated
-	 */
-	EReference getExtensionRule_FirstNewRule();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.RhsExpression <em>Rhs Expression</em>}'.
@@ -10178,25 +10129,25 @@ public interface DblPackage extends EPackage {
 	EAttribute getPropertyBindingExpr_Operator();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.RuleExpr <em>Rule Expr</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.RhsClassifierExpr <em>Rhs Classifier Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rule Expr</em>'.
-	 * @see hub.sam.dbl.RuleExpr
+	 * @return the meta object for class '<em>Rhs Classifier Expr</em>'.
+	 * @see hub.sam.dbl.RhsClassifierExpr
 	 * @generated
 	 */
-	EClass getRuleExpr();
+	EClass getRhsClassifierExpr();
 
 	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.RuleExpr#getRule <em>Rule</em>}'.
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.RhsClassifierExpr#getClassifier <em>Classifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Rule</em>'.
-	 * @see hub.sam.dbl.RuleExpr#getRule()
-	 * @see #getRuleExpr()
+	 * @return the meta object for the reference '<em>Classifier</em>'.
+	 * @see hub.sam.dbl.RhsClassifierExpr#getClassifier()
+	 * @see #getRhsClassifierExpr()
 	 * @generated
 	 */
-	EReference getRuleExpr_Rule();
+	EReference getRhsClassifierExpr_Classifier();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.PropertyType <em>Property Type</em>}'.
@@ -11156,14 +11107,6 @@ public interface DblPackage extends EPackage {
 		EClass CLASSIFIER = eINSTANCE.getClassifier();
 
 		/**
-		 * The meta object literal for the '<em><b>Bindings</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference CLASSIFIER__BINDINGS = eINSTANCE.getClassifier_Bindings();
-
-		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.NativeBindingImpl <em>Native Binding</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -11324,6 +11267,14 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EReference CLAZZ__CONSTRUCTOR = eINSTANCE.getClazz_Constructor();
+
+		/**
+		 * The meta object literal for the '<em><b>Bindings</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CLAZZ__BINDINGS = eINSTANCE.getClazz_Bindings();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ConstructorImpl <em>Constructor</em>}' class.
@@ -12446,6 +12397,14 @@ public interface DblPackage extends EPackage {
 		EClass EXTENSION_DEFINITION = eINSTANCE.getExtensionDefinition();
 
 		/**
+		 * The meta object literal for the '<em><b>Extended Concept</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXTENSION_DEFINITION__EXTENDED_CONCEPT = eINSTANCE.getExtensionDefinition_ExtendedConcept();
+
+		/**
 		 * The meta object literal for the '<em><b>Abstract Syntax Def</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -12480,30 +12439,40 @@ public interface DblPackage extends EPackage {
 		EClass TEXTUAL_SYNTAX_DEF = eINSTANCE.getTextualSyntaxDef();
 
 		/**
-		 * The meta object literal for the '<em><b>Extension Rule</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Start Rule</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TEXTUAL_SYNTAX_DEF__EXTENSION_RULE = eINSTANCE.getTextualSyntaxDef_ExtensionRule();
+		EReference TEXTUAL_SYNTAX_DEF__START_RULE = eINSTANCE.getTextualSyntaxDef_StartRule();
 
 		/**
-		 * The meta object literal for the '<em><b>New Rules</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TEXTUAL_SYNTAX_DEF__NEW_RULES = eINSTANCE.getTextualSyntaxDef_NewRules();
+		EReference TEXTUAL_SYNTAX_DEF__RULES = eINSTANCE.getTextualSyntaxDef_Rules();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ReferableRhsTypeImpl <em>Referable Rhs Type</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.LanguageConstructClassifierImpl <em>Language Construct Classifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ReferableRhsTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getReferableRhsType()
+		 * @see hub.sam.dbl.impl.LanguageConstructClassifierImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConstructClassifier()
 		 * @generated
 		 */
-		EClass REFERABLE_RHS_TYPE = eINSTANCE.getReferableRhsType();
+		EClass LANGUAGE_CONSTRUCT_CLASSIFIER = eINSTANCE.getLanguageConstructClassifier();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.LanguageConceptClassifierImpl <em>Language Concept Classifier</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.LanguageConceptClassifierImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConceptClassifier()
+		 * @generated
+		 */
+		EClass LANGUAGE_CONCEPT_CLASSIFIER = eINSTANCE.getLanguageConceptClassifier();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.TsRuleImpl <em>Ts Rule</em>}' class.
@@ -12516,46 +12485,12 @@ public interface DblPackage extends EPackage {
 		EClass TS_RULE = eINSTANCE.getTsRule();
 
 		/**
-		 * The meta object literal for the '<em><b>Meta Class Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TS_RULE__META_CLASS_NAME = eINSTANCE.getTsRule_MetaClassName();
-
-		/**
 		 * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TS_RULE__RHS = eINSTANCE.getTsRule_Rhs();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExtensionRuleImpl <em>Extension Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ExtensionRuleImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionRule()
-		 * @generated
-		 */
-		EClass EXTENSION_RULE = eINSTANCE.getExtensionRule();
-
-		/**
-		 * The meta object literal for the '<em><b>Instantiable Meta Class</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSION_RULE__INSTANTIABLE_META_CLASS = eINSTANCE.getExtensionRule_InstantiableMetaClass();
-
-		/**
-		 * The meta object literal for the '<em><b>First New Rule</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSION_RULE__FIRST_NEW_RULE = eINSTANCE.getExtensionRule_FirstNewRule();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.RhsExpressionImpl <em>Rhs Expression</em>}' class.
@@ -12728,22 +12663,22 @@ public interface DblPackage extends EPackage {
 		EAttribute PROPERTY_BINDING_EXPR__OPERATOR = eINSTANCE.getPropertyBindingExpr_Operator();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.RuleExprImpl <em>Rule Expr</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.RhsClassifierExprImpl <em>Rhs Classifier Expr</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.RuleExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getRuleExpr()
+		 * @see hub.sam.dbl.impl.RhsClassifierExprImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getRhsClassifierExpr()
 		 * @generated
 		 */
-		EClass RULE_EXPR = eINSTANCE.getRuleExpr();
+		EClass RHS_CLASSIFIER_EXPR = eINSTANCE.getRhsClassifierExpr();
 
 		/**
-		 * The meta object literal for the '<em><b>Rule</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Classifier</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference RULE_EXPR__RULE = eINSTANCE.getRuleExpr_Rule();
+		EReference RHS_CLASSIFIER_EXPR__CLASSIFIER = eINSTANCE.getRhsClassifierExpr_Classifier();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.PropertyTypeImpl <em>Property Type</em>}' class.

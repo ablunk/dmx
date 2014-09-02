@@ -9,7 +9,10 @@ import hub.sam.dbl.Constructor;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
 import hub.sam.dbl.ExtensibleElement;
+import hub.sam.dbl.LanguageConceptClassifier;
+import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.ModifierExtensionsContainer;
+import hub.sam.dbl.NativeBinding;
 import hub.sam.dbl.Procedure;
 import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.Variable;
@@ -48,6 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getClearBlock <em>Clear Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#isActive <em>Active</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getConstructor <em>Constructor</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getBindings <em>Bindings</em>}</li>
  * </ul>
  * </p>
  *
@@ -183,6 +187,16 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * @ordered
 	 */
 	protected Constructor constructor;
+
+	/**
+	 * The cached value of the '{@link #getBindings() <em>Bindings</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBindings()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<NativeBinding> bindings;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -547,6 +561,18 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<NativeBinding> getBindings() {
+		if (bindings == null) {
+			bindings = new EObjectContainmentEList<NativeBinding>(NativeBinding.class, this, DblPackage.CLAZZ__BINDINGS);
+		}
+		return bindings;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -572,6 +598,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return basicSetClearBlock(null, msgs);
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				return basicSetConstructor(null, msgs);
+			case DblPackage.CLAZZ__BINDINGS:
+				return ((InternalEList<?>)getBindings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -608,6 +636,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return isActive();
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				return getConstructor();
+			case DblPackage.CLAZZ__BINDINGS:
+				return getBindings();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -662,6 +692,10 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				setConstructor((Constructor)newValue);
 				return;
+			case DblPackage.CLAZZ__BINDINGS:
+				getBindings().clear();
+				getBindings().addAll((Collection<? extends NativeBinding>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -710,6 +744,9 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				setConstructor((Constructor)null);
 				return;
+			case DblPackage.CLAZZ__BINDINGS:
+				getBindings().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -746,6 +783,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return active != ACTIVE_EDEFAULT;
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				return constructor != null;
+			case DblPackage.CLAZZ__BINDINGS:
+				return bindings != null && !bindings.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -782,6 +821,16 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				default: return -1;
 			}
 		}
+		if (baseClass == LanguageConstructClassifier.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == LanguageConceptClassifier.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -814,6 +863,16 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				case DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK: return DblPackage.CLAZZ__ACTIONS_BLOCK;
 				case DblPackage.CLASS_SIMILAR__REPORT_BLOCK: return DblPackage.CLAZZ__REPORT_BLOCK;
 				case DblPackage.CLASS_SIMILAR__CLEAR_BLOCK: return DblPackage.CLAZZ__CLEAR_BLOCK;
+				default: return -1;
+			}
+		}
+		if (baseClass == LanguageConstructClassifier.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == LanguageConceptClassifier.class) {
+			switch (baseFeatureID) {
 				default: return -1;
 			}
 		}

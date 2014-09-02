@@ -60,31 +60,8 @@ public class TsRuleItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addMetaClassNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Meta Class Name feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addMetaClassNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_TsRule_metaClassName_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_TsRule_metaClassName_feature", "_UI_TsRule_type"),
-				 DblPackage.Literals.TS_RULE__META_CLASS_NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -154,9 +131,6 @@ public class TsRuleItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(TsRule.class)) {
-			case DblPackage.TS_RULE__META_CLASS_NAME:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case DblPackage.TS_RULE__RHS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -218,7 +192,7 @@ public class TsRuleItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.TS_RULE__RHS,
-				 DblFactory.eINSTANCE.createRuleExpr()));
+				 DblFactory.eINSTANCE.createRhsClassifierExpr()));
 	}
 
 }

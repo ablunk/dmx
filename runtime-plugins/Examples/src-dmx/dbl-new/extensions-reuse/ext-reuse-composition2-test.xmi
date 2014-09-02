@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="ext-reuse-composition2">
+    <model href="ext-reuse-composition2.xmi#/"/>
+  </imports>
+  <modules name="C">
+    <classifiers xsi:type="dbl:Clazz" name="C">
+      <extensions xsi:type="dbl:D_DR" concreteSyntax="xd {&#xA;&#x9;&#x9;xb;&#xA;&#x9;&#x9;dpart;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <part xsi:type="dbl:B_BR" concreteSyntax="xb;" instanceOfExtensionDefinition="true"/>
+      </extensions>
+    </classifiers>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:B_BR" concreteSyntax="xb;" instanceOfExtensionDefinition="true"/>
+    </procedures>
+  </modules>
+</dbl:Model>

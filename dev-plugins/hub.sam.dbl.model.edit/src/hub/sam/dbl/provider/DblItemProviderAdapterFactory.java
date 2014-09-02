@@ -900,6 +900,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.LocalScope} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LocalScopeItemProvider localScopeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.LocalScope}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLocalScopeAdapter() {
+		if (localScopeItemProvider == null) {
+			localScopeItemProvider = new LocalScopeItemProvider(this);
+		}
+
+		return localScopeItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.LocalScopeStatement} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2096,29 +2119,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensionRule} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ExtensionRuleItemProvider extensionRuleItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ExtensionRule}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createExtensionRuleAdapter() {
-		if (extensionRuleItemProvider == null) {
-			extensionRuleItemProvider = new ExtensionRuleItemProvider(this);
-		}
-
-		return extensionRuleItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SequenceExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2303,26 +2303,26 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.RuleExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.RhsClassifierExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RuleExprItemProvider ruleExprItemProvider;
+	protected RhsClassifierExprItemProvider rhsClassifierExprItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.RuleExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.RhsClassifierExpr}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createRuleExprAdapter() {
-		if (ruleExprItemProvider == null) {
-			ruleExprItemProvider = new RuleExprItemProvider(this);
+	public Adapter createRhsClassifierExprAdapter() {
+		if (rhsClassifierExprItemProvider == null) {
+			rhsClassifierExprItemProvider = new RhsClassifierExprItemProvider(this);
 		}
 
-		return ruleExprItemProvider;
+		return rhsClassifierExprItemProvider;
 	}
 
 	/**
@@ -3081,6 +3081,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (advanceItemProvider != null) advanceItemProvider.dispose();
 		if (printItemProvider != null) printItemProvider.dispose();
 		if (ifStatementItemProvider != null) ifStatementItemProvider.dispose();
+		if (localScopeItemProvider != null) localScopeItemProvider.dispose();
 		if (localScopeStatementItemProvider != null) localScopeStatementItemProvider.dispose();
 		if (forStatementItemProvider != null) forStatementItemProvider.dispose();
 		if (whileStatementItemProvider != null) whileStatementItemProvider.dispose();
@@ -3133,7 +3134,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (extensionDefinitionItemProvider != null) extensionDefinitionItemProvider.dispose();
 		if (textualSyntaxDefItemProvider != null) textualSyntaxDefItemProvider.dispose();
 		if (tsRuleItemProvider != null) tsRuleItemProvider.dispose();
-		if (extensionRuleItemProvider != null) extensionRuleItemProvider.dispose();
 		if (sequenceExprItemProvider != null) sequenceExprItemProvider.dispose();
 		if (optionalExprItemProvider != null) optionalExprItemProvider.dispose();
 		if (runtimeExprItemProvider != null) runtimeExprItemProvider.dispose();
@@ -3142,7 +3142,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (alternativeExprItemProvider != null) alternativeExprItemProvider.dispose();
 		if (terminalExprItemProvider != null) terminalExprItemProvider.dispose();
 		if (propertyBindingExprItemProvider != null) propertyBindingExprItemProvider.dispose();
-		if (ruleExprItemProvider != null) ruleExprItemProvider.dispose();
+		if (rhsClassifierExprItemProvider != null) rhsClassifierExprItemProvider.dispose();
 		if (idPropertyTypeItemProvider != null) idPropertyTypeItemProvider.dispose();
 		if (intPropertyTypeItemProvider != null) intPropertyTypeItemProvider.dispose();
 		if (stringPropertyTypeItemProvider != null) stringPropertyTypeItemProvider.dispose();

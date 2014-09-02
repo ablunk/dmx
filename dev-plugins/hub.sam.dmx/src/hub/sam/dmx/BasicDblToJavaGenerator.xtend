@@ -49,7 +49,6 @@ import hub.sam.dbl.Procedure
 import hub.sam.dbl.ProcedureCall
 import hub.sam.dbl.PropertyBindingExpr
 import hub.sam.dbl.Reactivate
-import hub.sam.dbl.ReferableRhsType
 import hub.sam.dbl.ResetGenContextStatement
 import hub.sam.dbl.Return
 import hub.sam.dbl.SetGenContextStatement
@@ -79,6 +78,7 @@ import hub.sam.dbl.MappingPart
 import hub.sam.dbl.FixedMappingPart
 import hub.sam.dbl.DynamicMappingPart
 import hub.sam.dbl.ExtensionDefinition
+import hub.sam.dbl.LanguageConstructClassifier
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -803,8 +803,8 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		typeExpr.referencedElement.genType
 	}
 
-	def dispatch String genType(ReferableRhsType rhsType) {
-		rhsType.name
+	def dispatch String genType(LanguageConstructClassifier langClassifier) {
+		langClassifier.name
 	}
 	
 	def String genModulePrefix(EObject element) {

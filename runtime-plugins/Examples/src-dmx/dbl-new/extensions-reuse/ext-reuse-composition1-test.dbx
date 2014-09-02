@@ -1,0 +1,15 @@
+#import "ext-reuse-composition1"
+
+module C {
+
+class C {
+	xa {
+		xb;
+	}
+}
+
+void main() {
+	xb;
+}
+
+}

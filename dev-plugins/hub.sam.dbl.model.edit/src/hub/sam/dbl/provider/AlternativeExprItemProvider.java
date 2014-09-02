@@ -189,7 +189,7 @@ public class AlternativeExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ALTERNATIVE_EXPR__LEFT,
-				 DblFactory.eINSTANCE.createRuleExpr()));
+				 DblFactory.eINSTANCE.createRhsClassifierExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -234,7 +234,7 @@ public class AlternativeExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ALTERNATIVE_EXPR__RIGHT,
-				 DblFactory.eINSTANCE.createRuleExpr()));
+				 DblFactory.eINSTANCE.createRhsClassifierExpr()));
 	}
 
 	/**

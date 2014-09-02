@@ -186,9 +186,8 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.CLASSIFIER: {
 				Classifier classifier = (Classifier)theEObject;
 				T result = caseClassifier(classifier);
-				if (result == null) result = caseType(classifier);
-				if (result == null) result = caseReferableRhsType(classifier);
 				if (result == null) result = caseNamedElement(classifier);
+				if (result == null) result = caseType(classifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -224,10 +223,11 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseClazz(clazz);
 				if (result == null) result = caseClassifier(clazz);
 				if (result == null) result = caseClassSimilar(clazz);
+				if (result == null) result = caseLanguageConceptClassifier(clazz);
 				if (result == null) result = caseType(clazz);
-				if (result == null) result = caseReferableRhsType(clazz);
 				if (result == null) result = caseEmbeddableExtensionsContainer(clazz);
 				if (result == null) result = caseModifierExtensionsContainer(clazz);
+				if (result == null) result = caseLanguageConstructClassifier(clazz);
 				if (result == null) result = caseNamedElement(clazz);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -966,6 +966,8 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.EXTENSION_DEFINITION: {
 				ExtensionDefinition extensionDefinition = (ExtensionDefinition)theEObject;
 				T result = caseExtensionDefinition(extensionDefinition);
+				if (result == null) result = caseLanguageConceptClassifier(extensionDefinition);
+				if (result == null) result = caseLanguageConstructClassifier(extensionDefinition);
 				if (result == null) result = caseNamedElement(extensionDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -976,25 +978,26 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.REFERABLE_RHS_TYPE: {
-				ReferableRhsType referableRhsType = (ReferableRhsType)theEObject;
-				T result = caseReferableRhsType(referableRhsType);
-				if (result == null) result = caseNamedElement(referableRhsType);
+			case DblPackage.LANGUAGE_CONSTRUCT_CLASSIFIER: {
+				LanguageConstructClassifier languageConstructClassifier = (LanguageConstructClassifier)theEObject;
+				T result = caseLanguageConstructClassifier(languageConstructClassifier);
+				if (result == null) result = caseNamedElement(languageConstructClassifier);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.LANGUAGE_CONCEPT_CLASSIFIER: {
+				LanguageConceptClassifier languageConceptClassifier = (LanguageConceptClassifier)theEObject;
+				T result = caseLanguageConceptClassifier(languageConceptClassifier);
+				if (result == null) result = caseLanguageConstructClassifier(languageConceptClassifier);
+				if (result == null) result = caseNamedElement(languageConceptClassifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DblPackage.TS_RULE: {
 				TsRule tsRule = (TsRule)theEObject;
 				T result = caseTsRule(tsRule);
-				if (result == null) result = caseReferableRhsType(tsRule);
+				if (result == null) result = caseLanguageConstructClassifier(tsRule);
 				if (result == null) result = caseNamedElement(tsRule);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.EXTENSION_RULE: {
-				ExtensionRule extensionRule = (ExtensionRule)theEObject;
-				T result = caseExtensionRule(extensionRule);
-				if (result == null) result = caseNamedElement(extensionRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1061,10 +1064,10 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.RULE_EXPR: {
-				RuleExpr ruleExpr = (RuleExpr)theEObject;
-				T result = caseRuleExpr(ruleExpr);
-				if (result == null) result = caseRhsExpression(ruleExpr);
+			case DblPackage.RHS_CLASSIFIER_EXPR: {
+				RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr)theEObject;
+				T result = caseRhsClassifierExpr(rhsClassifierExpr);
+				if (result == null) result = caseRhsExpression(rhsClassifierExpr);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -2800,17 +2803,32 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Referable Rhs Type</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Language Construct Classifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Referable Rhs Type</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Language Construct Classifier</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseReferableRhsType(ReferableRhsType object) {
+	public T caseLanguageConstructClassifier(LanguageConstructClassifier object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Language Concept Classifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Language Concept Classifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseLanguageConceptClassifier(LanguageConceptClassifier object) {
 		return null;
 	}
 
@@ -2826,21 +2844,6 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseTsRule(TsRule object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Extension Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Extension Rule</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseExtensionRule(ExtensionRule object) {
 		return null;
 	}
 
@@ -2980,17 +2983,17 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Rule Expr</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Rhs Classifier Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Rule Expr</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Rhs Classifier Expr</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseRuleExpr(RuleExpr object) {
+	public T caseRhsClassifierExpr(RhsClassifierExpr object) {
 		return null;
 	}
 

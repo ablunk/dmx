@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -63,8 +64,31 @@ public class TextualSyntaxDefItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addStartRulePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Start Rule feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addStartRulePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_TextualSyntaxDef_startRule_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_TextualSyntaxDef_startRule_feature", "_UI_TextualSyntaxDef_type"),
+				 DblPackage.Literals.TEXTUAL_SYNTAX_DEF__START_RULE,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -79,8 +103,7 @@ public class TextualSyntaxDefItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE);
-			childrenFeatures.add(DblPackage.Literals.TEXTUAL_SYNTAX_DEF__NEW_RULES);
+			childrenFeatures.add(DblPackage.Literals.TEXTUAL_SYNTAX_DEF__RULES);
 		}
 		return childrenFeatures;
 	}
@@ -132,8 +155,7 @@ public class TextualSyntaxDefItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(TextualSyntaxDef.class)) {
-			case DblPackage.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE:
-			case DblPackage.TEXTUAL_SYNTAX_DEF__NEW_RULES:
+			case DblPackage.TEXTUAL_SYNTAX_DEF__RULES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -153,12 +175,7 @@ public class TextualSyntaxDefItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.TEXTUAL_SYNTAX_DEF__EXTENSION_RULE,
-				 DblFactory.eINSTANCE.createExtensionRule()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TEXTUAL_SYNTAX_DEF__NEW_RULES,
+				(DblPackage.Literals.TEXTUAL_SYNTAX_DEF__RULES,
 				 DblFactory.eINSTANCE.createTsRule()));
 	}
 

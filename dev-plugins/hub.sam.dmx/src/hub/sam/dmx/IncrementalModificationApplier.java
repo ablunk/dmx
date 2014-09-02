@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.eclipse.emf.common.util.EList;
 
 public class IncrementalModificationApplier {
+	
+	private static final Logger logger = Logger.getLogger(IncrementalModificationApplier.class.getName());
 
 	private final List<Modification> sortedModifications = new ArrayList<Modification>();
 	private final String originalText;
@@ -54,7 +57,8 @@ public class IncrementalModificationApplier {
 					}
 					
 					String sourceFragment = workingText.substring(start, end);
-					System.out.println("substituting source fragement: " + sourceFragment + "\nby: " + mod.getReplacementText());
+					logger.info("substituting source fragement: " + sourceFragment + Activator.lineSep
+							+ "by: " + mod.getReplacementText() + Activator.lineSep);
 					
 					workingText.replace(start, end, mod.getReplacementText());
 
@@ -66,16 +70,15 @@ public class IncrementalModificationApplier {
 					if (addition.isAddAfterPosition()) {
 						start += 1;
 					}
-					System.out.println("inserting at text position: " + start);
+					logger.info("inserting at text position: " + start);
 					
 					workingText.insert(start, addition.getReplacementText());
 
 					delta += mod.getReplacementText().length();
 				}
 				
-				System.out.println("new working text: " + workingText);
-				System.out.println("new delta: " + delta);
-				System.out.println("-----------------------------");
+				logger.info("new working text: " + workingText + Activator.lineSep
+						+ "new delta: " + delta + Activator.lineSep);
 			}
 		}
 		return workingText.toString();

@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class LocalScopeImpl extends EObjectImpl implements LocalScope {
+public class LocalScopeImpl extends EObjectImpl implements LocalScope {
 	/**
 	 * The cached value of the '{@link #getStatements() <em>Statements</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

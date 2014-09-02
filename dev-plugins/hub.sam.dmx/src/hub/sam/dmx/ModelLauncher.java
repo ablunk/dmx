@@ -34,6 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -83,6 +84,8 @@ import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.ui.part.FileEditorInput;
 
 public class ModelLauncher {
+	
+	private static final Logger logger = Logger.getLogger(ModelLauncher.class.getName());
 	
 	private final IProgressMonitor monitor;
 	private final DblTextEditor editor;
@@ -452,7 +455,7 @@ public class ModelLauncher {
 
 				if (!extensionDefinitionSemanticsGenerated.contains(extensionDefinitionName)) {
 					extensionDefinitionSemanticsGenerated.add(extensionDefinitionName);
-					System.out.println("Generating executable semantics for extension definition " + extensionDefinitionName);
+					logger.info("Generating executable semantics for extension definition " + extensionDefinitionName);
 					
 					generator.genExtensionDefinition(workingModel.getModel(), extensionDefinition);
 					javaCodeAdded = true;
@@ -558,12 +561,11 @@ public class ModelLauncher {
 			break;
 		}
 		
-		System.out.println("--------- input text ---------");
-		System.out.println(workingModel.getText());
-		System.out.println("--------- ------------- ---------");
+		logger.info("--------- input text ---------" + Activator.lineSep
+				+ workingModel.getText() + Activator.lineSep);
 			
 		if (modificationsRecord == null || modificationsRecord.getModifications().size() == 0) {
-			System.out.println("No modifications found. Skipping extension substitution.");
+			logger.info("No modifications found. Skipping extension substitution.");
 			
 			return null;
 		}
@@ -593,9 +595,8 @@ public class ModelLauncher {
 			IncrementalModificationApplier modificationApplier = new IncrementalModificationApplier(modificationsRecord.getModifications(), workingModel.getText());
 			String workingText = modificationApplier.applyAll();
 			
-			System.out.println("--------- text with extension substitutions ---------");
-			System.out.println(workingText);
-			System.out.println("--------- --------------------------------- ---------");
+			logger.info("--------- text with extension substitutions ---------" + Activator.lineSep
+					+ workingText + Activator.lineSep);
 
 			return workingText;
 		}
@@ -660,7 +661,7 @@ public class ModelLauncher {
 	}
 
 	private void cleanFolder(IFolder folder) {
-		System.out.println("Cleaning \"" + folder.toString() + "\" ...");
+		logger.info("Cleaning \"" + folder.toString() + "\" ...");
 		File dir = new File(folder.getLocation().toString());
 		if (dir.isDirectory()) {
 			cleanFolderRecursive(dir);
@@ -679,20 +680,20 @@ public class ModelLauncher {
 	private boolean compileJavaFiles(IProject project, IFolder folder) {
 		try {
 			//IFolder genFolder = getGenFolder(project);
-			System.out.println("Refresing \"" + folder.toString() + "\" ...");
+			logger.info("Refresing \"" + folder.toString() + "\" ...");
 			folder.refreshLocal(IResource.DEPTH_INFINITE, null);
 			
-			System.out.println("Compiling Java files in project \"" + project.getName() + "\" ...");
+			logger.info("Compiling Java files in project \"" + project.getName() + "\" ...");
 			project.build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor() {
 				@Override
 				public void done() {
 					super.done();
 				}
 			});
-			System.out.println("Finished compiling.");
+			logger.info("Finished compiling.");
 			return true;
 			
-			//System.out.println("Refresing \"" + project.toString() + "\" ...");
+			//logger.info("Refresing \"" + project.toString() + "\" ...");
 			//project.refreshLocal(IResource.DEPTH_INFINITE, null);
 		}
 		catch (CoreException e1) {
@@ -754,12 +755,12 @@ public class ModelLauncher {
 					}
 					vmConfig.setWorkingDirectory(workingDirectory.toString());
 					final ILaunch launch = new Launch(null, ILaunchManager.RUN_MODE, null);
-					System.out.println("Launching Java program " + className + " ... ");
+					logger.info("Launching Java program " + className + " ... ");
 					vmRunner.run(vmConfig, launch, null);
 			        final IProcess[] processes = launch.getProcesses();
 
 			        if (launch.getProcesses().length == 0) {
-						System.out.println("Program could not be launched.");
+			        	logger.severe("Program could not be launched.");
 					}
 					else {
 						final MessageConsoleStream stream = getConsoleForCurrentEditor().newMessageStream();
@@ -794,7 +795,7 @@ public class ModelLauncher {
 				                ie.printStackTrace();
 				            }
         					if (processes[0].getStreamsProxy().getErrorStreamMonitor().getContents().length() > 0) {
-        						System.out.println("Error encountered.");
+        						logger.severe("Error encountered.");
         						break;
         					}
         				}
@@ -810,7 +811,7 @@ public class ModelLauncher {
 							e.printStackTrace();
 						}
         				
-						System.out.println("Program terminated.");
+        				logger.info("Program terminated.");
 					}
 				}
 			}
@@ -899,7 +900,7 @@ public class ModelLauncher {
 		
 		try {
 			res.save(Collections.EMPTY_MAP);
-			System.out.println("saved XMI: " + xmiFile);
+			logger.info("saved XMI: " + xmiFile);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -941,7 +942,7 @@ public class ModelLauncher {
 		final IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
 		final boolean isDbxInputFile = inputFile.getFileExtension().equals("dbx");
 
-		System.out.println("Compiling and executing model " + inputFile + " ...");
+		logger.info("Compiling and executing model " + inputFile + " ...");
 
 		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
 		
@@ -953,7 +954,7 @@ public class ModelLauncher {
 
 		long estimatedTime = System.nanoTime() - startCompileTime;
 		long ms = estimatedTime / (1000 * 1000);
-		System.out.println("Overall compile time: " + ms / 1000.0 + " seconds");
+		logger.info("Overall compile time: " + ms / 1000.0 + " seconds");
 		
 		monitor.worked(40); // 95%
 
@@ -997,7 +998,7 @@ public class ModelLauncher {
 	
 	private void saveExtendedDblMetaModelIfNecessary(IProject currentProject) {
 		if (!extendedMetamodelSaved) {
-			System.out.println("Saving dbl.ecore (with extensions) to current project ...");
+			logger.info("Saving dbl.ecore (with extensions) to current project ...");
 			Resource metaModelResource = editor.getDblMetaModel().eResource();
 			URI metamodelXmiFile = URI.createFileURI(currentProject.getLocation().append("temp").append("dbl.ecore").toString());
 			
@@ -1009,7 +1010,7 @@ public class ModelLauncher {
 			try {
 				resource.save(Collections.EMPTY_MAP);
 				extendedMetamodelSaved = true;
-				System.out.println("Finished saving.");
+				logger.info("Finished saving.");
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -1024,7 +1025,7 @@ public class ModelLauncher {
 		saveExtendedDblMetaModelIfNecessary(currentProject);
 		
 		// 1.2. copy dbl.genmodel to current project by opening a stream to it in the hub.sam.dmx bundle
-		System.out.println("Copying dbl.genmodel to current project ...");
+		logger.info("Copying dbl.genmodel to current project ...");
 		URL genModelUrl = FileLocator.find(Activator.getDefault().getBundle(), new Path("resources/dbl.genmodel"), null);
 		IPath workingGenModel = tempFolder.append("dbl.genmodel");
 		try {
@@ -1042,7 +1043,7 @@ public class ModelLauncher {
 			out.close();
 			in.close();
 			
-			System.out.println("Finished copying.");
+			logger.info("Finished copying.");
 		}
 		catch (Exception e) {
 			throw new RuntimeException();
@@ -1050,7 +1051,7 @@ public class ModelLauncher {
 
 		// 1.2.1. Reload genmodel
 		
-		System.out.println("Reloading genmodel ...");
+		logger.info("Reloading genmodel ...");
 		ResourceSet resourceSet = new ResourceSetImpl();
         //resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
         URI genModelURI = URI.createFileURI(workingGenModel.toString());
@@ -1068,7 +1069,7 @@ public class ModelLauncher {
         
 		try {
 			genModelResource.save(Collections.EMPTY_MAP);
-			System.out.println("Finished reloading.");
+			logger.info("Finished reloading.");
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -1080,7 +1081,7 @@ public class ModelLauncher {
 		//       org.eclipse.emf.codegen.ecore.genmodel.generator.generateModel(...)
 		//       in plugin org.eclipse.emf.codegen.ecore
 
-		System.out.println("Generating EMF Java code ...");
+		logger.info("Generating EMF Java code ...");
 		
 		Generator emfGenerator = new Generator();
 		
@@ -1088,7 +1089,7 @@ public class ModelLauncher {
 				+ " -model"
 				+ " " + workingGenModel.toString();
 				//+ " " + currentProject.getLocation().append("gen-src");
-		System.out.println(args);
+		logger.info(args);
 		
 		StringTokenizer st = new StringTokenizer(args);
 		String[] args2 = new String[st.countTokens()];
@@ -1101,11 +1102,11 @@ public class ModelLauncher {
 		if (generatorResult instanceof Integer) {
 			Integer intGeneratorResult = (Integer) generatorResult;
 			if (intGeneratorResult.intValue() == 1) {
-				System.out.println("An error occured.");
+				logger.info("An error occured.");
 				return;
 			}
 		}
-		System.out.println("Finished generating.");
+		logger.info("Finished generating.");
 		
 		// 1.4. Compile generated EMF code
 		IProject emfProject = currentProject.getWorkspace().getRoot().getProject("hub.sam.dbl.model");

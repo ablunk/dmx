@@ -110,6 +110,7 @@ public class ClazzItemProvider
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__REPORT_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLAZZ__CONSTRUCTOR);
+			childrenFeatures.add(DblPackage.Literals.CLAZZ__BINDINGS);
 		}
 		return childrenFeatures;
 	}
@@ -178,6 +179,7 @@ public class ClazzItemProvider
 			case DblPackage.CLAZZ__REPORT_BLOCK:
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
 			case DblPackage.CLAZZ__CONSTRUCTOR:
+			case DblPackage.CLAZZ__BINDINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -949,6 +951,11 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.CLAZZ__CONSTRUCTOR,
 				 DblFactory.eINSTANCE.createConstructor()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CLAZZ__BINDINGS,
+				 DblFactory.eINSTANCE.createNativeBinding()));
 	}
 
 	/**
