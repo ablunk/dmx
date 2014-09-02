@@ -1,0 +1,1494 @@
+#import "ecore"
+
+module dbl {
+
+class ExtensibleElement
+extends 
+NamedElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ExtensibleElement"
+	}
+	
+	string concreteSyntax;
+	void setConcreteSyntax(string value) abstract;
+	boolean instanceOfExtensionDefinition;
+	void setInstanceOfExtensionDefinition(boolean value) abstract;
+}
+class Model
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Model"
+	}
+	
+	List imports;
+	List modules;
+}
+class Import
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Import"
+	}
+	
+	string file;
+	void setFile(string value) abstract;
+	Model model;
+	void setModel(Model value) abstract;
+}
+class Module
+extends 
+NamedElement,
+EmbeddableExtensionsContainer
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Module"
+	}
+	
+	List classifiers;
+	List classAugments;
+	List extensionDefs;
+	List procedures;
+	List variables;
+}
+class EmbeddableExtensionsContainer
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.EmbeddableExtensionsContainer"
+	}
+	
+	List extensions;
+}
+class ModifierExtensionsContainer
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ModifierExtensionsContainer"
+	}
+	
+	List modifierExtensions;
+}
+class Type
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Type"
+	}
+	
+	List arrayDimensions;
+}
+class TypedElement
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TypedElement"
+	}
+	
+	PrimitiveType primitiveType;
+	void setPrimitiveType(PrimitiveType value) abstract;
+	List typeArrayDimensions;
+	IdExpr classifierType;
+	void setClassifierType(IdExpr value) abstract;
+}
+class ArrayDimension
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ArrayDimension"
+	}
+	
+	Expression _size;
+	void setSize(Expression value) abstract;
+}
+class PrimitiveType
+extends 
+Type
+{
+	bindings {
+		"java" -> "hub.sam.dbl.PrimitiveType"
+	}
+	
+}
+class VoidType
+extends 
+PrimitiveType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.VoidType"
+	}
+	
+}
+class IntType
+extends 
+PrimitiveType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IntType"
+	}
+	
+}
+class BoolType
+extends 
+PrimitiveType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.BoolType"
+	}
+	
+}
+class DoubleType
+extends 
+PrimitiveType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.DoubleType"
+	}
+	
+}
+class StringType
+extends 
+PrimitiveType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.StringType"
+	}
+	
+}
+class Procedure
+extends 
+NamedElement,
+TypedElement,
+LocalScope
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Procedure"
+	}
+	
+	List parameters;
+	boolean clazz;
+	void setClazz(boolean value) abstract;
+	boolean abstract;
+	void setAbstract(boolean value) abstract;
+}
+class Classifier
+extends 
+NamedElement,
+Type
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Classifier"
+	}
+	
+}
+class NativeBinding
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.NativeBinding"
+	}
+	
+	string targetLanguage;
+	void setTargetLanguage(string value) abstract;
+	string targetType;
+	void setTargetType(string value) abstract;
+}
+class ClassSimilar
+extends 
+EmbeddableExtensionsContainer,
+ModifierExtensionsContainer
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ClassSimilar"
+	}
+	
+	List attributes;
+	List methods;
+	List superClasses;
+	ClassPart initialBlock;
+	void setInitialBlock(ClassPart value) abstract;
+	ClassPart finalBlock;
+	void setFinalBlock(ClassPart value) abstract;
+	ClassPart actionsBlock;
+	void setActionsBlock(ClassPart value) abstract;
+	ClassPart reportBlock;
+	void setReportBlock(ClassPart value) abstract;
+	ClassPart clearBlock;
+	void setClearBlock(ClassPart value) abstract;
+}
+class ClassPart
+extends 
+LocalScope
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ClassPart"
+	}
+	
+}
+class SuperClassSpecification
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SuperClassSpecification"
+	}
+	
+	Clazz clazz;
+	void setClazz(Clazz value) abstract;
+	List constructorArguments;
+}
+class Clazz
+extends 
+Classifier,
+ClassSimilar,
+LanguageConceptClassifier
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Clazz"
+	}
+	
+	boolean active;
+	void setActive(boolean value) abstract;
+	Constructor constructor;
+	void setConstructor(Constructor value) abstract;
+	List bindings;
+}
+class Constructor
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Constructor"
+	}
+	
+	List parameters;
+}
+class ClassAugment
+extends 
+ClassSimilar
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ClassAugment"
+	}
+	
+	Clazz augmentedClass;
+	void setAugmentedClass(Clazz value) abstract;
+}
+class AbstractVariable
+extends 
+NamedElement,
+TypedElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.AbstractVariable"
+	}
+	
+}
+class Variable
+extends 
+AbstractVariable,
+SimpleStatement,
+ModifierExtensionsContainer
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Variable"
+	}
+	
+	boolean control;
+	void setControl(boolean value) abstract;
+	boolean clazz;
+	void setClazz(boolean value) abstract;
+	Expression initialValue;
+	void setInitialValue(Expression value) abstract;
+}
+class Parameter
+extends 
+AbstractVariable
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Parameter"
+	}
+	
+}
+class NamedElement
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.NamedElement"
+	}
+	
+	string name;
+	void setName(string value) abstract;
+}
+class deprecated_CodeBlock
+extends 
+ExtensibleElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.deprecated_CodeBlock"
+	}
+	
+	List statements;
+}
+class Statement
+extends 
+ExtensibleElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Statement"
+	}
+	
+}
+class LoopStatement
+extends 
+Statement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LoopStatement"
+	}
+	
+}
+class SimpleStatement
+extends 
+Statement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SimpleStatement"
+	}
+	
+}
+class Assignment
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Assignment"
+	}
+	
+	VariableAccess variable;
+	void setVariable(VariableAccess value) abstract;
+	Expression value;
+	void setValue(Expression value) abstract;
+}
+class ProcedureCall
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ProcedureCall"
+	}
+	
+	IdExpr callIdExpr;
+	void setCallIdExpr(IdExpr value) abstract;
+}
+class Return
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Return"
+	}
+	
+	Expression value;
+	void setValue(Expression value) abstract;
+}
+class WaitUntil
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.WaitUntil"
+	}
+	
+	Expression condition;
+	void setCondition(Expression value) abstract;
+}
+class Terminate
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Terminate"
+	}
+	
+}
+class Yield
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Yield"
+	}
+	
+}
+class Wait
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Wait"
+	}
+	
+}
+class Reactivate
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Reactivate"
+	}
+	
+	Expression objectAccess;
+	void setObjectAccess(Expression value) abstract;
+}
+class ActivateObject
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ActivateObject"
+	}
+	
+	Expression objectAccess;
+	void setObjectAccess(Expression value) abstract;
+	int _priority;
+	void setPriority(int value) abstract;
+}
+class Advance
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Advance"
+	}
+	
+	Expression time;
+	void setTime(Expression value) abstract;
+}
+class Print
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Print"
+	}
+	
+	List outputs;
+}
+class IfStatement
+extends 
+Statement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IfStatement"
+	}
+	
+	Expression condition;
+	void setCondition(Expression value) abstract;
+	Statement trueCase;
+	void setTrueCase(Statement value) abstract;
+	Statement falseCase;
+	void setFalseCase(Statement value) abstract;
+}
+class LocalScope
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LocalScope"
+	}
+	
+	List statements;
+}
+class LocalScopeStatement
+extends 
+SimpleStatement,
+LocalScope
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LocalScopeStatement"
+	}
+	
+}
+class ForStatement
+extends 
+LoopStatement,
+LocalScope
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ForStatement"
+	}
+	
+	Expression termination;
+	void setTermination(Expression value) abstract;
+	Assignment increment;
+	void setIncrement(Assignment value) abstract;
+	Statement body;
+	void setBody(Statement value) abstract;
+}
+class WhileStatement
+extends 
+LoopStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.WhileStatement"
+	}
+	
+	Expression condition;
+	void setCondition(Expression value) abstract;
+	Statement body;
+	void setBody(Statement value) abstract;
+}
+class SwitchStatement
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SwitchStatement"
+	}
+	
+	VariableAccess variable;
+	void setVariable(VariableAccess value) abstract;
+	List cases;
+	SwitchCase defaultCase;
+	void setDefaultCase(SwitchCase value) abstract;
+}
+class SwitchCase
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SwitchCase"
+	}
+	
+	Expression value;
+	void setValue(Expression value) abstract;
+	List body;
+}
+class BreakStatement
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.BreakStatement"
+	}
+	
+}
+class ContinueStatement
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ContinueStatement"
+	}
+	
+}
+class Expression
+extends 
+TypedElement,
+ExtensibleElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Expression"
+	}
+	
+}
+class L1Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L1Expr"
+	}
+	
+}
+class BinaryOperator
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.BinaryOperator"
+	}
+	
+	Expression op1;
+	void setOp1(Expression value) abstract;
+	Expression op2;
+	void setOp2(Expression value) abstract;
+}
+class UnaryOperator
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.UnaryOperator"
+	}
+	
+	Expression op;
+	void setOp(Expression value) abstract;
+}
+class And
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.And"
+	}
+	
+}
+class Or
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Or"
+	}
+	
+}
+class Greater
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Greater"
+	}
+	
+}
+class GreaterEqual
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.GreaterEqual"
+	}
+	
+}
+class Less
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Less"
+	}
+	
+}
+class LessEqual
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LessEqual"
+	}
+	
+}
+class NotEqual
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.NotEqual"
+	}
+	
+}
+class Equal
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Equal"
+	}
+	
+}
+class InstanceOf
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.InstanceOf"
+	}
+	
+}
+class Plus
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Plus"
+	}
+	
+}
+class Minus
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Minus"
+	}
+	
+}
+class Mul
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Mul"
+	}
+	
+}
+class Mod
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Mod"
+	}
+	
+}
+class Div
+extends 
+BinaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Div"
+	}
+	
+}
+class Neg
+extends 
+UnaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Neg"
+	}
+	
+}
+class Not
+extends 
+UnaryOperator
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Not"
+	}
+	
+}
+class Cast
+extends 
+UnaryOperator,
+TypedElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Cast"
+	}
+	
+}
+class CreateObject
+extends 
+L1Expr,
+TypedElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.CreateObject"
+	}
+	
+}
+class NullLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.NullLiteral"
+	}
+	
+}
+class TimeLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TimeLiteral"
+	}
+	
+}
+class ActiveLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ActiveLiteral"
+	}
+	
+}
+class StringLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.StringLiteral"
+	}
+	
+	string value;
+	void setValue(string value) abstract;
+}
+class IntLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IntLiteral"
+	}
+	
+	int value;
+	void setValue(int value) abstract;
+}
+class TrueLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TrueLiteral"
+	}
+	
+}
+class FalseLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.FalseLiteral"
+	}
+	
+}
+class DoubleLiteral
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.DoubleLiteral"
+	}
+	
+	double value;
+	void setValue(double value) abstract;
+}
+class EvalExpr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.EvalExpr"
+	}
+	
+	Expression expr;
+	void setExpr(Expression value) abstract;
+}
+class PredefinedId
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.PredefinedId"
+	}
+	
+}
+class MeLiteral
+extends 
+PredefinedId
+{
+	bindings {
+		"java" -> "hub.sam.dbl.MeLiteral"
+	}
+	
+}
+class SuperLiteral
+extends 
+PredefinedId
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SuperLiteral"
+	}
+	
+}
+class MetaLiteral
+extends 
+PredefinedId
+{
+	bindings {
+		"java" -> "hub.sam.dbl.MetaLiteral"
+	}
+	
+}
+class TypeLiteral
+extends 
+PredefinedId
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TypeLiteral"
+	}
+	
+}
+class SizeOfArray
+extends 
+PredefinedId
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SizeOfArray"
+	}
+	
+}
+class IdExpr
+extends 
+L1Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IdExpr"
+	}
+	
+	IdExpr parentIdExpr;
+	void setParentIdExpr(IdExpr value) abstract;
+	NamedElement referencedElement;
+	void setReferencedElement(NamedElement value) abstract;
+	PredefinedId predefinedId;
+	void setPredefinedId(PredefinedId value) abstract;
+	List arrayIndex;
+	CallPart callPart;
+	void setCallPart(CallPart value) abstract;
+}
+class CallPart
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.CallPart"
+	}
+	
+	List callArguments;
+}
+class ElementAccess
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ElementAccess"
+	}
+	
+	IdExpr idExpr;
+	void setIdExpr(IdExpr value) abstract;
+}
+class VariableAccess
+extends 
+ElementAccess
+{
+	bindings {
+		"java" -> "hub.sam.dbl.VariableAccess"
+	}
+	
+}
+class MetaAccess
+extends 
+VariableAccess
+{
+	bindings {
+		"java" -> "hub.sam.dbl.MetaAccess"
+	}
+	
+}
+class TypeAccess
+extends 
+ElementAccess
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TypeAccess"
+	}
+	
+}
+class ClassContentExtension
+extends 
+ExtensibleElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ClassContentExtension"
+	}
+	
+}
+class ModuleContentExtension
+extends 
+ExtensibleElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ModuleContentExtension"
+	}
+	
+}
+class ExtensionDefinition
+extends 
+LanguageConceptClassifier
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ExtensionDefinition"
+	}
+	
+	LanguageConceptClassifier extendedConcept;
+	void setExtendedConcept(LanguageConceptClassifier value) abstract;
+	List abstractSyntaxDef;
+	TextualSyntaxDef textualSyntaxDef;
+	void setTextualSyntaxDef(TextualSyntaxDef value) abstract;
+	Mapping mappingDef;
+	void setMappingDef(Mapping value) abstract;
+}
+class TextualSyntaxDef
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TextualSyntaxDef"
+	}
+	
+	TsRule startRule;
+	void setStartRule(TsRule value) abstract;
+	List rules;
+}
+class LanguageConstructClassifier
+extends 
+NamedElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LanguageConstructClassifier"
+	}
+	
+}
+class LanguageConceptClassifier
+extends 
+LanguageConstructClassifier
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LanguageConceptClassifier"
+	}
+	
+}
+class TsRule
+extends 
+NamedElement,
+LanguageConstructClassifier
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TsRule"
+	}
+	
+	RhsExpression rhs;
+	void setRhs(RhsExpression value) abstract;
+}
+class RhsExpression
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.RhsExpression"
+	}
+	
+}
+class SequenceExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SequenceExpr"
+	}
+	
+	List sequence;
+}
+class OptionalExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.OptionalExpr"
+	}
+	
+	RhsExpression expression;
+	void setExpression(RhsExpression value) abstract;
+}
+class RuntimeExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.RuntimeExpr"
+	}
+	
+	RhsExpression expression;
+	void setExpression(RhsExpression value) abstract;
+}
+class AtLeastOneExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.AtLeastOneExpr"
+	}
+	
+	RhsExpression expression;
+	void setExpression(RhsExpression value) abstract;
+}
+class ArbitraryExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ArbitraryExpr"
+	}
+	
+	RhsExpression expression;
+	void setExpression(RhsExpression value) abstract;
+}
+class AlternativeExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.AlternativeExpr"
+	}
+	
+	RhsExpression left;
+	void setLeft(RhsExpression value) abstract;
+	RhsExpression right;
+	void setRight(RhsExpression value) abstract;
+}
+class TerminalExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TerminalExpr"
+	}
+	
+	string terminal;
+	void setTerminal(string value) abstract;
+}
+class PropertyBindingExpr
+extends 
+NamedElement,
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.PropertyBindingExpr"
+	}
+	
+	PropertyType propertyType;
+	void setPropertyType(PropertyType value) abstract;
+//	BindingExprOpKind operator;
+//	void setOperator(BindingExprOpKind value) abstract;
+}
+class RhsClassifierExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.RhsClassifierExpr"
+	}
+	
+	LanguageConstructClassifier classifier;
+	void setClassifier(LanguageConstructClassifier value) abstract;
+}
+class PropertyType
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.PropertyType"
+	}
+	
+}
+class IdPropertyType
+extends 
+PropertyType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IdPropertyType"
+	}
+	
+}
+class IntPropertyType
+extends 
+PropertyType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IntPropertyType"
+	}
+	
+}
+class StringPropertyType
+extends 
+PropertyType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.StringPropertyType"
+	}
+	
+}
+class BooleanPropertyType
+extends 
+PropertyType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.BooleanPropertyType"
+	}
+	
+	string terminal;
+	void setTerminal(string value) abstract;
+}
+class StructuredPropertyType
+extends 
+PropertyType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.StructuredPropertyType"
+	}
+	
+	LanguageConstructClassifier _type;
+	void setType(LanguageConstructClassifier value) abstract;
+}
+class CompositePropertyType
+extends 
+StructuredPropertyType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.CompositePropertyType"
+	}
+	
+	boolean list;
+	void setList(boolean value) abstract;
+}
+class ReferencePropertyType
+extends 
+StructuredPropertyType
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ReferencePropertyType"
+	}
+	
+	Pattern idResolutionPattern;
+	void setIdResolutionPattern(Pattern value) abstract;
+	boolean rawReference;
+	void setRawReference(boolean value) abstract;
+}
+class Mapping
+extends 
+LocalScopeStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Mapping"
+	}
+	
+	List parts;
+	Expression metaObject;
+	void setMetaObject(Expression value) abstract;
+}
+class MappingPart
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.MappingPart"
+	}
+	
+}
+class MetaExpr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.MetaExpr"
+	}
+	
+	Expression expr;
+	void setExpr(Expression value) abstract;
+}
+class TargetStatement
+extends 
+Statement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TargetStatement"
+	}
+	
+	Statement body;
+	void setBody(Statement value) abstract;
+}
+class MappingStatement
+extends 
+Statement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.MappingStatement"
+	}
+	
+	List parts;
+	List exprs;
+}
+class SetGenContextStatement
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SetGenContextStatement"
+	}
+	
+	Expression context;
+	void setContext(Expression value) abstract;
+	boolean addAfterContext;
+	void setAddAfterContext(boolean value) abstract;
+}
+class ResetGenContextStatement
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ResetGenContextStatement"
+	}
+	
+}
+class SaveGenStatement
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SaveGenStatement"
+	}
+	
+	Expression variable;
+	void setVariable(Expression value) abstract;
+}
+class ResumeGenStatement
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ResumeGenStatement"
+	}
+	
+	Expression variable;
+	void setVariable(Expression value) abstract;
+}
+class FixedMappingPart
+extends 
+MappingPart
+{
+	bindings {
+		"java" -> "hub.sam.dbl.FixedMappingPart"
+	}
+	
+	string code;
+	void setCode(string value) abstract;
+}
+class DynamicMappingPart
+extends 
+MappingPart
+{
+	bindings {
+		"java" -> "hub.sam.dbl.DynamicMappingPart"
+	}
+	
+	Expression expr;
+	void setExpr(Expression value) abstract;
+}
+class ExpandExpression
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ExpandExpression"
+	}
+	
+	Expression metaObject;
+	void setMetaObject(Expression value) abstract;
+}
+class ExpandStatement
+extends 
+Statement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ExpandStatement"
+	}
+	
+	Expression metaObject;
+	void setMetaObject(Expression value) abstract;
+	Expression location;
+	void setLocation(Expression value) abstract;
+}
+class CodeQuoteExpression
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.CodeQuoteExpression"
+	}
+	
+	QuotedCode quotedCode;
+	void setQuotedCode(QuotedCode value) abstract;
+}
+class QuotedCode
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.QuotedCode"
+	}
+	
+}
+class QuotedExpression
+extends 
+QuotedCode
+{
+	bindings {
+		"java" -> "hub.sam.dbl.QuotedExpression"
+	}
+	
+	Expression expression;
+	void setExpression(Expression value) abstract;
+}
+class QuotedStatements
+extends 
+QuotedCode
+{
+	bindings {
+		"java" -> "hub.sam.dbl.QuotedStatements"
+	}
+	
+	List statements;
+}
+class QuotedClassContent
+extends 
+QuotedCode,
+ClassSimilar
+{
+	bindings {
+		"java" -> "hub.sam.dbl.QuotedClassContent"
+	}
+	
+}
+class QuotedModuleContent
+extends 
+QuotedCode,
+Module
+{
+	bindings {
+		"java" -> "hub.sam.dbl.QuotedModuleContent"
+	}
+	
+}
+class Pattern
+extends 
+NamedElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Pattern"
+	}
+	
+	boolean top;
+	void setTop(boolean value) abstract;
+	Parameter context;
+	void setContext(Parameter value) abstract;
+	Statement body;
+	void setBody(Statement value) abstract;
+}
+class TestStatement
+extends 
+Statement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.TestStatement"
+	}
+	
+	int value;
+	void setValue(int value) abstract;
+}
+
+}
