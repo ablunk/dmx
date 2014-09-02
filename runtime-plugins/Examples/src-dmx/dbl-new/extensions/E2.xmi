@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../stdx">
+    <model href="../../stdx.xmi#/"/>
+  </imports>
+  <modules name="E">
+    <classifiers xsi:type="dbl:Clazz" name="E"/>
+    <extensionDefs name="SE">
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="SE">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="se"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="foreach(Statement stm in body.statements) {&#xA;&#x9;&#x9;expand stm &quot;;&quot;;&#xA;&#x9;}">
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach(Statement stm in body.statements) {&#xA;&#x9;&#x9;expand stm &quot;;&quot;;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="stm" concreteSyntax="Statement stm">
+            <classifierType concreteSyntax="Statement">
+              <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.29"/>
+            </classifierType>
+          </statements>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="body.statements">
+            <parentIdExpr concreteSyntax="body" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+            <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
+          </collection>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;expand stm &quot;;&quot;;&#xA;&#x9;}">
+            <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand stm &quot;;&quot;">
+              <parts xsi:type="dbl:DynamicMappingPart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="stm" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0/@statements.0"/>
+              </parts>
+              <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+            </statements>
+          </body>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

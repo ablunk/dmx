@@ -16,7 +16,7 @@
         </rules>
       </textualSyntaxDef>
       <mappingDef concreteSyntax="sc &quot;SB semantics&quot;;&#xA;&#x9;expand &quot;print \&quot;sb\\n\&quot;;&quot;;&#xA;&#x9;expand &quot;sc \&quot;gen statement in SB semantics\&quot;;&quot;;">
-        <statements xsi:type="dbl:SC_SCR" concreteSyntax="sc &quot;SB semantics&quot;;" instanceOfExtensionDefinition="true" usedIn="SB semantics"/>
+        <statements xsi:type="dbl:SC_SCR_extension" concreteSyntax="sc &quot;SB semantics&quot;;" instanceOfExtensionDefinition="true" usedIn="SB semantics"/>
         <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;print \&quot;sb\\n\&quot;;&quot;">
           <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;sb\\n\&quot;;"/>
         </statements>
@@ -35,7 +35,7 @@
           <referencedElement href="C.xmi#//@modules.0/@classifiers.0"/>
         </classifierType>
       </statements>
-      <statements xsi:type="dbl:SC_SCR" concreteSyntax="sc &quot;B.mb()&quot;;" instanceOfExtensionDefinition="true" usedIn="B.mb()"/>
+      <statements xsi:type="dbl:SC_SCR_extension" concreteSyntax="sc &quot;B.mb()&quot;;" instanceOfExtensionDefinition="true" usedIn="B.mb()"/>
     </procedures>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>

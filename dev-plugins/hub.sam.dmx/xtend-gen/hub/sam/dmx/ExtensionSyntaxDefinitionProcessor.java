@@ -230,16 +230,22 @@ public class ExtensionSyntaxDefinitionProcessor {
     String _name = this.extensionDefinition.getName();
     String _plus = (_name + "_");
     String _name_1 = rule.getName();
-    return (_plus + _name_1);
+    String _plus_1 = (_plus + _name_1);
+    return (_plus_1 + "_extension");
   }
   
   private String _getSyntaxRuleName(final ExtensionDefinition referencedExtDef) {
-    String _name = referencedExtDef.getName();
+    return ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(referencedExtDef);
+  }
+  
+  public static String getExtensionDefinitionSyntaxRuleName(final ExtensionDefinition extDef) {
+    String _name = extDef.getName();
     String _plus = (_name + "_");
-    TextualSyntaxDef _textualSyntaxDef = referencedExtDef.getTextualSyntaxDef();
+    TextualSyntaxDef _textualSyntaxDef = extDef.getTextualSyntaxDef();
     TsRule _startRule = _textualSyntaxDef.getStartRule();
     String _name_1 = _startRule.getName();
-    return (_plus + _name_1);
+    String _plus_1 = (_plus + _name_1);
+    return (_plus_1 + "_extension");
   }
   
   private String _getSyntaxRuleName(final Clazz clazz) {

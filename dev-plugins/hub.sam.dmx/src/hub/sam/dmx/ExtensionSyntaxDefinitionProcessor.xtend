@@ -151,11 +151,15 @@ class ExtensionSyntaxDefinitionProcessor {
 	}
 
 	private def dispatch String getSyntaxRuleName(TsRule rule) {
-		return extensionDefinition.name + "_" + rule.name
+		return extensionDefinition.name + "_" + rule.name + "_extension"
 	}
 	
 	private def dispatch String getSyntaxRuleName(ExtensionDefinition referencedExtDef) {
-		return referencedExtDef.name + "_" + referencedExtDef.textualSyntaxDef.startRule.name
+		return getExtensionDefinitionSyntaxRuleName(referencedExtDef)
+	}
+	
+	public static def String getExtensionDefinitionSyntaxRuleName(ExtensionDefinition extDef) {
+		return extDef.name + "_" + extDef.textualSyntaxDef.startRule.name + "_extension"
 	}
 
 	private def dispatch String getSyntaxRuleName(Clazz clazz) {

@@ -9,14 +9,13 @@
   <modules name="test3">
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements name="c" concreteSyntax="CCC c">
+      <statements xsi:type="dbl:Variable" name="c" concreteSyntax="CCC c">
         <classifierType concreteSyntax="CCC">
           <referencedElement href="test2.xmi#//@modules.0/@classifiers.1"/>
         </classifierType>
       </statements>
-      <statements xsi:type="dbl:S1" concreteSyntax="s12;" instanceOfExtensionDefinition="true"/>
-      <statements xsi:type="dbl:ForEach" concreteSyntax="foreach (CCC cc in c) {}" instanceOfExtensionDefinition="true">
-        <statements name="cc" concreteSyntax="CCC cc">
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (CCC cc in c) {}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="cc" concreteSyntax="CCC cc">
           <classifierType concreteSyntax="CCC">
             <referencedElement href="test2.xmi#//@modules.0/@classifiers.1"/>
           </classifierType>

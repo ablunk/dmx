@@ -15,7 +15,7 @@
       <statements xsi:type="dbl:Print">
         <outputs xsi:type="dbl:StringLiteral" value="hello"/>
       </statements>
-      <statements name="a">
+      <statements xsi:type="dbl:Variable" name="a">
         <classifierType>
           <referencedElement href="test2.xmi#//@modules.0/@classifiers.2"/>
         </classifierType>
@@ -38,7 +38,7 @@
           <op2 xsi:type="dbl:StringLiteral" value="\n"/>
         </outputs>
       </statements>
-      <statements name="aa">
+      <statements xsi:type="dbl:Variable" name="aa">
         <classifierType>
           <referencedElement href="test2.xmi#//@modules.0/@classifiers.2"/>
         </classifierType>

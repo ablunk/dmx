@@ -6,11 +6,9 @@
   <modules name="E">
     <classifiers xsi:type="dbl:Clazz" name="E"/>
     <extensionDefs name="SE">
-      <textualSyntaxDef>
-        <extensionRule name="Statement">
-          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
-        </extensionRule>
-        <newRules name="SE">
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="SE">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="se"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
@@ -19,7 +17,7 @@
               </propertyType>
             </sequence>
           </rhs>
-        </newRules>
+        </rules>
       </textualSyntaxDef>
       <mappingDef>
         <statements xsi:type="dbl:Variable" name="statements">
@@ -27,7 +25,7 @@
             <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.3"/>
           </classifierType>
           <initialValue xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
+            <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
             <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
           </initialValue>
         </statements>
@@ -42,7 +40,7 @@
             <op xsi:type="dbl:IdExpr">
               <parentIdExpr>
                 <parentIdExpr>
-                  <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
+                  <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
                   <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
                 </parentIdExpr>
                 <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.3/@methods.12"/>
@@ -59,7 +57,7 @@
           </classifierType>
           <initialValue xsi:type="dbl:IdExpr">
             <parentIdExpr>
-              <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.1"/>
+              <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
               <referencedElement href="../../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
             </parentIdExpr>
             <referencedElement href="../../stdlib.xmi#//@modules.0/@classifiers.3/@methods.12"/>

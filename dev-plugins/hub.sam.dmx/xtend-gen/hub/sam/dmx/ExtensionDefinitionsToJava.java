@@ -18,11 +18,11 @@ import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
 import hub.sam.dbl.StringPropertyType;
 import hub.sam.dbl.StructuredPropertyType;
-import hub.sam.dbl.TextualSyntaxDef;
 import hub.sam.dbl.TsRule;
 import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.Variable;
 import hub.sam.dmx.BasicDblToJavaGenerator;
+import hub.sam.dmx.ExtensionSyntaxDefinitionProcessor;
 import java.io.Writer;
 import java.util.Arrays;
 import org.eclipse.core.runtime.IPath;
@@ -433,13 +433,8 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
             EList<ExtensionDefinition> _extensionDefs = module.getExtensionDefs();
             final Function1<ExtensionDefinition,Boolean> _function = new Function1<ExtensionDefinition,Boolean>() {
               public Boolean apply(final ExtensionDefinition e) {
-                String _name = e.getName();
-                String _plus = (_name + "_");
-                TextualSyntaxDef _textualSyntaxDef = e.getTextualSyntaxDef();
-                TsRule _startRule = _textualSyntaxDef.getStartRule();
-                String _name_1 = _startRule.getName();
-                String _plus_1 = (_plus + _name_1);
-                boolean _equals = _plus_1.equals(name);
+                String _extensionDefinitionSyntaxRuleName = ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e);
+                boolean _equals = _extensionDefinitionSyntaxRuleName.equals(name);
                 return Boolean.valueOf(_equals);
               }
             };

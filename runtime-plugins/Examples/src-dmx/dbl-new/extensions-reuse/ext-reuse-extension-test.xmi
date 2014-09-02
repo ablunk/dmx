@@ -5,14 +5,14 @@
   </imports>
   <modules name="C">
     <classifiers xsi:type="dbl:Clazz" name="C">
-      <extensions xsi:type="dbl:A_AR" concreteSyntax="xa {&#xA;&#x9;&#x9;xb;&#xA;&#x9;&#x9;xc;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
-        <b xsi:type="dbl:C_CR" concreteSyntax="xc;" instanceOfExtensionDefinition="true"/>
+      <extensions xsi:type="dbl:A_AR_extension" concreteSyntax="xa {&#xA;&#x9;&#x9;xb;&#xA;&#x9;&#x9;xc;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <b xsi:type="dbl:C_CR_extension" concreteSyntax="xc;" instanceOfExtensionDefinition="true"/>
       </extensions>
     </classifiers>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:B_BR" concreteSyntax="xb;" instanceOfExtensionDefinition="true"/>
-      <statements xsi:type="dbl:C_CR" concreteSyntax="xc;" instanceOfExtensionDefinition="true"/>
+      <statements xsi:type="dbl:B_BR_extension" concreteSyntax="xb;" instanceOfExtensionDefinition="true"/>
+      <statements xsi:type="dbl:C_CR_extension" concreteSyntax="xc;" instanceOfExtensionDefinition="true"/>
     </procedures>
   </modules>
 </dbl:Model>

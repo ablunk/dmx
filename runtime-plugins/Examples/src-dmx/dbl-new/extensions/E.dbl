@@ -4,8 +4,8 @@ module E {
 
 class E {}
 
-extension SE {
-	Statement -> SE;
+extension SE extends dbl Statement {
+	start SE;
 	SE -> "se" body:LocalScopeStatement;
 }
 semantics {

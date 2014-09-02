@@ -40,7 +40,7 @@ public class DblSemanticsProvider extends DefaultSemanticsProvider {
 				
 				for (IModelContainer modelContainer: preProcessedDocument.getImportsModels()) {
 					final Resource resource = modelContainer.getResource();
-					if (resource.getURI() != null && resource.getURI().trimFileExtension().equals(fileUri.trimFileExtension())) {
+					if (resource != null && resource.getURI() != null && resource.getURI().trimFileExtension().equals(fileUri.trimFileExtension())) {
 						if (resource.getContents().size() > 0) {
 							Model model = (Model) resource.getContents().get(0);
 							

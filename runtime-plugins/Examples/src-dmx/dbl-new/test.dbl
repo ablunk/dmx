@@ -9,7 +9,6 @@ class Y {
 class X {
 }
 
-
 void main() {
 	print "hello";
 

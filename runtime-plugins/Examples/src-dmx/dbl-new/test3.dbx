@@ -4,9 +4,7 @@
 module test3 {
 
 void main() {
-	CCC c;
-	s12;
-	
+	CCC c;	
 	foreach (CCC cc in c) {}
 }
 
