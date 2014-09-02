@@ -18,6 +18,7 @@ import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
 import hub.sam.dbl.StringPropertyType;
 import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.TextualSyntaxDef;
 import hub.sam.dbl.TsRule;
 import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.Variable;
@@ -433,7 +434,12 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
             final Function1<ExtensionDefinition,Boolean> _function = new Function1<ExtensionDefinition,Boolean>() {
               public Boolean apply(final ExtensionDefinition e) {
                 String _name = e.getName();
-                boolean _equals = Objects.equal(_name, name);
+                String _plus = (_name + "_");
+                TextualSyntaxDef _textualSyntaxDef = e.getTextualSyntaxDef();
+                TsRule _startRule = _textualSyntaxDef.getStartRule();
+                String _name_1 = _startRule.getName();
+                String _plus_1 = (_plus + _name_1);
+                boolean _equals = _plus_1.equals(name);
                 return Boolean.valueOf(_equals);
               }
             };

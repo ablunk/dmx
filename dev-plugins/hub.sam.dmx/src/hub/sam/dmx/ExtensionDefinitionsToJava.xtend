@@ -291,7 +291,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		for (Import imprt: model.imports) {
 			if (imprt.model != null) {
 				for (Module module: imprt.model.modules) {
-					extDef = module.extensionDefs.findFirst[ e | e.name == name]
+					extDef = module.extensionDefs.findFirst[ e | (e.name + "_" + e.textualSyntaxDef.startRule.name).equals(name)]
 					if (extDef != null) return extDef
 				}
 				extDef = getImportedExtensionDefinition(imprt.model, name)
