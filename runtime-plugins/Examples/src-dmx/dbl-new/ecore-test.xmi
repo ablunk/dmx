@@ -3,22 +3,19 @@
   <imports file="../ecore">
     <model href="../ecore.xmi#/"/>
   </imports>
-  <imports file="../stdx">
-    <model href="../stdx.xmi#/"/>
-  </imports>
   <modules name="ecore_test">
     <classifiers xsi:type="dbl:Clazz" name="EcorePackage">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
       <attributes name="eINSTANCE" clazz="true">
         <classifierType referencedElement="//@modules.0/@classifiers.0"/>
       </attributes>
       <superClasses>
         <clazz href="../ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
     </classifiers>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements name="pkg">
+      <statements xsi:type="dbl:Variable" name="pkg">
         <classifierType>
           <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.13"/>
         </classifierType>
@@ -39,7 +36,7 @@
           <op2 xsi:type="dbl:StringLiteral" value="\n"/>
         </outputs>
       </statements>
-      <statements name="classifiers">
+      <statements xsi:type="dbl:Variable" name="classifiers">
         <classifierType>
           <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
@@ -49,7 +46,7 @@
           <callPart/>
         </initialValue>
       </statements>
-      <statements name="it">
+      <statements xsi:type="dbl:Variable" name="it">
         <classifierType>
           <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2"/>
         </classifierType>
@@ -66,7 +63,7 @@
           <callPart/>
         </condition>
         <body xsi:type="dbl:LocalScopeStatement">
-          <statements name="c">
+          <statements xsi:type="dbl:Variable" name="c">
             <classifierType>
               <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.3"/>
             </classifierType>

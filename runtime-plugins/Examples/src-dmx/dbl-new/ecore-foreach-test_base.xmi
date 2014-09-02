@@ -8,13 +8,13 @@
   </imports>
   <modules name="ecore_foreach_test">
     <classifiers xsi:type="dbl:Clazz" name="EcorePackage">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
       <attributes name="eINSTANCE" concreteSyntax="static EcorePackage eINSTANCE" clazz="true">
         <classifierType concreteSyntax="EcorePackage" referencedElement="//@modules.0/@classifiers.0"/>
       </attributes>
       <superClasses>
         <clazz href="../ecore.xmi#//@modules.0/@classifiers.13"/>
       </superClasses>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
     </classifiers>
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
