@@ -30,6 +30,7 @@ import hub.sam.dbl.Greater;
 import hub.sam.dbl.GreaterEqual;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.IfStatement;
+import hub.sam.dbl.InstanceOf;
 import hub.sam.dbl.IntLiteral;
 import hub.sam.dbl.IntType;
 import hub.sam.dbl.LanguageConstructClassifier;
@@ -1100,6 +1101,18 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _string;
   }
   
+  protected String _genExpr(final InstanceOf expr) {
+    Expression _op1 = expr.getOp1();
+    String _genExpr = this.genExpr(_op1);
+    String _plus = ("(" + _genExpr);
+    String _plus_1 = (_plus + " instanceof ");
+    Expression _op2 = expr.getOp2();
+    String _genExpr_1 = this.genExpr(_op2);
+    String _plus_2 = (_plus_1 + _genExpr_1);
+    String _plus_3 = (_plus_2 + ")");
+    return _plus_3;
+  }
+  
   protected String _genExpr(final TrueLiteral expr) {
     return "true";
   }
@@ -1786,6 +1799,8 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       return _genExpr((GreaterEqual)expr);
     } else if (expr instanceof IdExpr) {
       return _genExpr((IdExpr)expr);
+    } else if (expr instanceof InstanceOf) {
+      return _genExpr((InstanceOf)expr);
     } else if (expr instanceof IntLiteral) {
       return _genExpr((IntLiteral)expr);
     } else if (expr instanceof Less) {

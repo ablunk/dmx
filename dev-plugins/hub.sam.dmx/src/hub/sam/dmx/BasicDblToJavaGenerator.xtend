@@ -80,6 +80,7 @@ import hub.sam.dbl.DynamicMappingPart
 import hub.sam.dbl.ExtensionDefinition
 import hub.sam.dbl.LanguageConstructClassifier
 import hub.sam.dbl.AbstractVariable
+import hub.sam.dbl.InstanceOf
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -666,6 +667,10 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	
 	def dispatch String genExpr(IntLiteral expr) {
 		expr.value.toString
+	}
+	
+	def dispatch String genExpr(InstanceOf expr) {
+		"(" + expr.op1.genExpr + " instanceof " + expr.op2.genExpr + ")"
 	}
 	
 	def dispatch String genExpr(TrueLiteral expr) {
