@@ -280,9 +280,15 @@ public class DblPreProcessor {
 	protected Resource loadXmi(String fileToImport, IPath inputPath) {
 		IPath xmiToImport = inputPath.append(fileToImport).addFileExtension("xmi");
 		if (xmiToImport.toFile().exists()) {
-			Resource resource = resourceSet.getResource(getPlatformResourceURI(xmiToImport), true);
-			EcoreUtil.resolveAll(resource);
-			return resource;
+			try {
+				Resource resource = resourceSet.getResource(getPlatformResourceURI(xmiToImport), true);
+				EcoreUtil.resolveAll(resource);
+				return resource;
+			}
+			catch (RuntimeException e) {
+				logger.severe("cannot load XMI file " + xmiToImport + ": " + e.getMessage());
+				return null;
+			}
 		}
 		else {
 			logger.severe("XMI file is missing: " + xmiToImport);

@@ -1,34 +1,30 @@
-#import "../base"
+#import "../dbl"
 
 module unless {
 
-	extension UnlessX {
-		Statement -> UnlessX; // must be the same name as the extension definition name
-		UnlessX -> "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
+	extension UnlessX extends dbl Statement {
+		start UnlessX;
+		UnlessX -> "unless" "(" condition : Expression ")" body : LocalScopeStatement;
 	}
 	semantics {
 		Statement unlessStm = self;
 
-		resetGenContext;
-		gen "
-			print \"hello\";
-		";
+		resetExpansionContext;
+		expand "print \"hello\";";
 
-		EObject con = unlessStm.eContainer().eContainer();
+		Object con = unlessStm.eContainer().eContainer();
 		if (con instanceof Module) {
 			Module mod = con as Module;
-			Statement firstStatement = mod.getProcedures().first.getStatements().first;
-			setGenContext after firstStatement;
-			gen "
-				i=3;
-			";
-			resetGenContext;
+			Procedure firstP = mod.procedures.get(0) as Procedure;
+			Statement firstStatement = firstP.statements.get(0) as Statement;
+			setExpansionContext after firstStatement;
+			expand "i=3;";
+			resetExpansionContext;
+			
+			// set/reset expansion context is currently not working
 		}
 		
-		gen "
-			if (!("condition"))
-				"codeBlock"
-		";
+		expand "if (!(" condition ")) " body "";
 	}
 
 }

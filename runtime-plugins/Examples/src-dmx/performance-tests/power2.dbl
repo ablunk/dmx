@@ -1,13 +1,13 @@
-#import "../base"
+#import "../dbl"
 
 module powerExtensionDef {
 
-	extension PowerExpr {
-		L1Expr -> PowerExpr;
+	extension PowerExpr extends dbl L1Expr {
+		start PowerExpr;
 		PowerExpr -> factor:L1Expr "^" power:L1Expr;
 	}
 	semantics {
-		gen "r";
+		expand "r";
 		
 		Statement s = null;
 		EObject c = factor.eContainer();
@@ -21,10 +21,10 @@ module powerExtensionDef {
 		}
 		print s;
 	
-		setGenContext before s;
-		gen "int p=" power ";";
-		gen "int r=" factor ";";
-		gen "while (p > 1) { r=r*" factor "; p=p-1; }";
+		setExpansionContext before s;
+		expand "int p=" power ";";
+		expand "int r=" factor ";";
+		expand "while (p > 1) { r=r*" factor "; p=p-1; }";
 	}
 
 }

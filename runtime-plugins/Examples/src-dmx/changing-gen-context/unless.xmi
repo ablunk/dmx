@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="unless">
+    <extensionDefs name="UnlessX">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="UnlessX">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="unless"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="condition">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.52"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.45"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef>
+        <statements xsi:type="dbl:Variable" name="unlessStm">
+          <classifierType>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:IdExpr">
+            <predefinedId xsi:type="dbl:MeLiteral"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:ResetGenContextStatement"/>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;hello\&quot;;"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="con">
+          <classifierType>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:IdExpr">
+            <parentIdExpr>
+              <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+              <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.11/@methods.1"/>
+              <callPart/>
+            </parentIdExpr>
+            <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.11/@methods.1"/>
+            <callPart/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:IfStatement">
+          <condition xsi:type="dbl:InstanceOf">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3"/>
+            <op2 xsi:type="dbl:TypeAccess">
+              <idExpr>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.3"/>
+              </idExpr>
+            </op2>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Variable" name="mod">
+              <classifierType>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.3"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:Cast">
+                <classifierType>
+                  <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.3"/>
+                </classifierType>
+                <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="firstP">
+              <classifierType>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.15"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:Cast">
+                <classifierType>
+                  <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.15"/>
+                </classifierType>
+                <op xsi:type="dbl:IdExpr">
+                  <parentIdExpr>
+                    <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.4/@trueCase/@statements.0"/>
+                    <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.3/@attributes.3"/>
+                  </parentIdExpr>
+                  <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+                  <callPart>
+                    <callArguments xsi:type="dbl:IntLiteral"/>
+                  </callPart>
+                </op>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="firstStatement">
+              <classifierType>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:Cast">
+                <classifierType>
+                  <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+                </classifierType>
+                <op xsi:type="dbl:IdExpr">
+                  <parentIdExpr>
+                    <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.4/@trueCase/@statements.1"/>
+                    <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.44/@attributes.0"/>
+                  </parentIdExpr>
+                  <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+                  <callPart>
+                    <callArguments xsi:type="dbl:IntLiteral"/>
+                  </callPart>
+                </op>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:SetGenContextStatement" addAfterContext="true">
+              <context xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.4/@trueCase/@statements.2"/>
+            </statements>
+            <statements xsi:type="dbl:MappingStatement">
+              <parts xsi:type="dbl:FixedMappingPart" code="i=3;"/>
+            </statements>
+            <statements xsi:type="dbl:ResetGenContextStatement"/>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="if (!("/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.2"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=")) "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.4"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=""/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

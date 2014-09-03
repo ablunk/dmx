@@ -2,13 +2,12 @@
 
 module EbnfSample {
 
-	extension ExtensionUsingEbfn {
-		Statemtent -> Forever;
+	extension ExtensionUsingEbfn extends dbl Statement {
+		start Forever;
 		Forever -> "forever" "{" (stms:list(Statement))* "}";
 	}
 	semantics {
-		for (Statement stm: stms) {
-		}
+		
 	}
 
 }

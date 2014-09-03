@@ -1,9 +1,9 @@
-#import "../base"
+#import "../dbl"
 
 module EbnfExtension {
 
-	extension ManyExpr {
-		TerminalExpr -> ManyExpr;
+	extension ManyExpr extends dbl TerminalExpr {
+		start ManyExpr;
 		ManyExpr -> "(" expr:RhsExpression ")*";
 	}
 	semantics {

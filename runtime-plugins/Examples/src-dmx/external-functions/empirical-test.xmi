@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="empirical">
+    <model href="empirical.xmi#/"/>
+  </imports>
+  <modules name="EmpTest">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="x" concreteSyntax="EmpiricalInt x = new EmpiricalInt">
+        <classifierType concreteSyntax="EmpiricalInt">
+          <referencedElement href="empirical.xmi#//@modules.0/@classifiers.0"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new EmpiricalInt">
+          <classifierType concreteSyntax="EmpiricalInt">
+            <referencedElement href="empirical.xmi#//@modules.0/@classifiers.0"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ProcedureCall" concreteSyntax="x.sample()">
+        <callIdExpr concreteSyntax="x.sample()">
+          <parentIdExpr concreteSyntax="x" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          <referencedElement href="empirical.xmi#//@modules.0/@classifiers.0/@methods.0"/>
+          <callPart/>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:DiscreteEmpirical_DiscreteEmpirical_extension" name="myde" concreteSyntax="discreteEmpirical myde {&#xA;&#x9;&#x9;&#x9;10  : 450,&#xA;&#x9;&#x9;&#x9;29  : 750,&#xA;&#x9;&#x9;&#x9;61  : 1000,&#xA;&#x9;&#x9;&#x9;85  : 500,&#xA;&#x9;&#x9;&#x9;100 : 3000&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+        <entries concreteSyntax="10  : 450" instanceOfExtensionDefinition="true" cumPercent="10" value="450"/>
+        <entries concreteSyntax="29  : 750" instanceOfExtensionDefinition="true" cumPercent="29" value="750"/>
+        <entries concreteSyntax="61  : 1000" instanceOfExtensionDefinition="true" cumPercent="61" value="1000"/>
+        <entries concreteSyntax="85  : 500" instanceOfExtensionDefinition="true" cumPercent="85" value="500"/>
+        <entries concreteSyntax="100 : 3000" instanceOfExtensionDefinition="true" cumPercent="100" value="3000"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i=0">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (i &lt; 8) {&#xA;&#x9;&#x9;&#x9;print sample of myde + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;i=i+1;&#xA;&#x9;&#x9;}">
+        <condition xsi:type="dbl:Less" concreteSyntax="i &lt; 8">
+          <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.3"/>
+          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="8" value="8"/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print sample of myde + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;i=i+1;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print sample of myde + &quot;\n&quot;">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="sample of myde + &quot;\n&quot;">
+              <op1 xsi:type="dbl:SampleDiscreteEmpirical_SampleDiscreteEmpirical_extension" concreteSyntax="sample of myde" instanceOfExtensionDefinition="true" de="//@modules.0/@procedures.0/@statements.2"/>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </outputs>
+          </statements>
+          <statements xsi:type="dbl:Assignment" concreteSyntax="i=i+1">
+            <variable concreteSyntax="i">
+              <idExpr concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.3"/>
+            </variable>
+            <value xsi:type="dbl:Plus" concreteSyntax="i+1">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@procedures.0/@statements.3"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </value>
+          </statements>
+        </body>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>
