@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <modules name="BarberShop">
+    <classifiers xsi:type="dbl:Clazz" name="UniformInt">
+      <methods name="sample">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+      <constructor>
+        <parameters name="name">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+        <parameters name="min">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="max">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructor>
+      <bindings targetLanguage="desmoj" targetType="hub.sam.dmx.javasim.desmoj.dist.IntDistUniform"/>
+      <bindings targetLanguage="slx" targetType="IntDistUniform"/>
+      <bindings targetLanguage="odemx" targetType="odemx::random::dmx::Uniform"/>
+      <bindings targetLanguage="jist" targetType="hub.sam.dmx.javasim.generic.dist.IntDistUniform"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Facility">
+      <attributes name="busy">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:FalseLiteral"/>
+      </attributes>
+      <attributes name="waiting">
+        <classifierType>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.4"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <methods name="seize">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:IfStatement">
+          <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          <trueCase xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:ProcedureCall">
+              <callIdExpr referencedElement="//@modules.0/@procedures.1">
+                <callPart>
+                  <callArguments xsi:type="dbl:StringLiteral" value="facility busy. waiting."/>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:ProcedureCall">
+              <callIdExpr>
+                <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.0"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:ActiveLiteral"/>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:Wait"/>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall">
+          <callIdExpr referencedElement="//@modules.0/@procedures.1">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" value="facility seized."/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:TrueLiteral"/>
+        </statements>
+      </methods>
+      <methods name="release">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:FalseLiteral"/>
+        </statements>
+        <statements xsi:type="dbl:IfStatement">
+          <condition xsi:type="dbl:Greater">
+            <op1 xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.4"/>
+              <callPart/>
+            </op1>
+            <op2 xsi:type="dbl:IntLiteral"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Variable" name="nextWaiting">
+              <classifierType>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:IdExpr">
+                <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IntLiteral"/>
+                </callPart>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:ProcedureCall">
+              <callIdExpr referencedElement="//@modules.0/@procedures.1">
+                <callPart>
+                  <callArguments xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="activate waiting process "/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.1/@statements.1/@trueCase/@statements.0"/>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:ProcedureCall">
+              <callIdExpr>
+                <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.8"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.1/@statements.1/@trueCase/@statements.0"/>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:Reactivate">
+              <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.1/@statements.1/@trueCase/@statements.0"/>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall">
+          <callIdExpr referencedElement="//@modules.0/@procedures.1">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" value="facility released."/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Customer" active="true">
+      <actionsBlock>
+        <statements xsi:type="dbl:ProcedureCall">
+          <callIdExpr referencedElement="//@modules.0/@classifiers.1/@methods.0">
+            <parentIdExpr referencedElement="//@modules.0/@variables.4"/>
+            <callPart/>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Advance">
+          <time xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0">
+            <parentIdExpr referencedElement="//@modules.0/@variables.2"/>
+            <callPart/>
+          </time>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall">
+          <callIdExpr referencedElement="//@modules.0/@classifiers.1/@methods.1">
+            <parentIdExpr referencedElement="//@modules.0/@variables.4"/>
+            <callPart/>
+          </callIdExpr>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="CustomerArrival" active="true">
+      <actionsBlock>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:LessEqual">
+            <op1 xsi:type="dbl:TimeLiteral"/>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Advance">
+              <time xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0">
+                <parentIdExpr referencedElement="//@modules.0/@variables.1"/>
+                <callPart/>
+              </time>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="c">
+              <classifierType referencedElement="//@modules.0/@classifiers.2"/>
+              <initialValue xsi:type="dbl:CreateObject">
+                <classifierType referencedElement="//@modules.0/@classifiers.2"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:ActivateObject">
+              <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@actionsBlock/@statements.0/@body/@statements.1"/>
+            </statements>
+            <statements xsi:type="dbl:ProcedureCall">
+              <callIdExpr referencedElement="//@modules.0/@procedures.1">
+                <callPart>
+                  <callArguments xsi:type="dbl:StringLiteral" value="new customer created."/>
+                </callPart>
+              </callIdExpr>
+            </statements>
+          </body>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="arrival">
+        <classifierType referencedElement="//@modules.0/@classifiers.3"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classifiers.3"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+      </statements>
+    </procedures>
+    <procedures name="trace">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement">
+        <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.3"/>
+        <trueCase xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:Plus">
+                      <op1 xsi:type="dbl:TimeLiteral"/>
+                      <op2 xsi:type="dbl:StringLiteral" value=" - "/>
+                    </op1>
+                    <op2 xsi:type="dbl:ActiveLiteral"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" value=": "/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@parameters.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+            </outputs>
+          </statements>
+        </trueCase>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </procedures>
+    <variables name="stopTime">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="480"/>
+    </variables>
+    <variables name="arrivalTime">
+      <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+      <initialValue xsi:type="dbl:CreateObject">
+        <classifierType referencedElement="//@modules.0/@classifiers.0">
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="arrival1"/>
+            <callArguments xsi:type="dbl:IntLiteral" value="12"/>
+            <callArguments xsi:type="dbl:IntLiteral" value="24"/>
+          </callPart>
+        </classifierType>
+      </initialValue>
+    </variables>
+    <variables name="serviceTime">
+      <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+      <initialValue xsi:type="dbl:CreateObject">
+        <classifierType referencedElement="//@modules.0/@classifiers.0">
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="arrival1"/>
+            <callArguments xsi:type="dbl:IntLiteral" value="12"/>
+            <callArguments xsi:type="dbl:IntLiteral" value="18"/>
+          </callPart>
+        </classifierType>
+      </initialValue>
+    </variables>
+    <variables name="debug">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral"/>
+    </variables>
+    <variables name="joe">
+      <classifierType referencedElement="//@modules.0/@classifiers.1"/>
+      <initialValue xsi:type="dbl:CreateObject">
+        <classifierType referencedElement="//@modules.0/@classifiers.1"/>
+      </initialValue>
+    </variables>
+  </modules>
+</dbl:Model>

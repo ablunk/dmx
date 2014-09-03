@@ -1,0 +1,16 @@
+module hello_world {
+
+	class A {
+		string s = "hello world\n";
+	
+		void sayHello() {
+			print s;
+		}
+	}
+	
+	void main() {
+		A a = new A;
+		a.sayHello();
+	}
+	
+}

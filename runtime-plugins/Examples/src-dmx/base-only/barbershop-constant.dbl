@@ -1,7 +1,7 @@
+#import "../stdlib"
+
 module BarberShop {
 
-	interface Object {}
-	
 	int stopTime = 40;
 	int halfTime = stopTime / 2;
 	
@@ -27,14 +27,13 @@ module BarberShop {
 	
 	class Facility {
 		boolean busy = false;
-		list(Object) waiting;
+		List waiting = new ArrayList;
 		
 		void seize() {
 			if (busy) {
 				trace("facility busy. waiting.");
-				place active into waiting;
+				waiting.add(active);
 				wait;
-				remove active from waiting;
 			}
 			trace("facility seized.");
 			busy = true;
@@ -42,9 +41,11 @@ module BarberShop {
 		
 		void release() {
 			busy = false;
-			if (waiting.size > 0) {
-				trace("activate waiting process.");
-				reactivate waiting.first;
+			if (waiting.size() > 0) {
+				Object nextWaiting = waiting.get(0);
+				trace("activate waiting process " + nextWaiting);
+				waiting.remove(nextWaiting);
+				reactivate nextWaiting;
 			}
 			trace("facility released.");
 		}

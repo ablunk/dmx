@@ -341,16 +341,16 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
   }
   
   protected String _genSimStatement(final Yield stm) {
-    return "DefaultSimulation.DEFAULT.getCurrentProcess().base_yield();";
+    return "hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getCurrentProcess().base_yield();";
   }
   
   protected String _genSimStatement(final Wait stm) {
-    return "DefaultSimulation.DEFAULT.getCurrentProcess().passivate();";
+    return "hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getCurrentProcess().passivate();";
   }
   
   protected String _genSimStatement(final ActivateObject stm) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("((SimulationProcess) ");
+    _builder.append("((hub.sam.dmx.javasim.desmoj.SimulationProcess) ");
     Expression _objectAccess = stm.getObjectAccess();
     String _genExpr = this.genExpr(_objectAccess);
     _builder.append(_genExpr, "");
@@ -360,7 +360,7 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
   
   protected String _genSimStatement(final Reactivate stm) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("((SimulationProcess) ");
+    _builder.append("((hub.sam.dmx.javasim.desmoj.SimulationProcess) ");
     Expression _objectAccess = stm.getObjectAccess();
     String _genExpr = this.genExpr(_objectAccess);
     _builder.append(_genExpr, "");
@@ -383,11 +383,11 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
   }
   
   protected String _genSimExpr(final TimeLiteral stm) {
-    return "DefaultSimulation.DEFAULT.getPresentTime()";
+    return "hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getPresentTime()";
   }
   
   protected String _genSimExpr(final ActiveLiteral stm) {
-    return "DefaultSimulation.DEFAULT.getCurrentProcess()";
+    return "hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getCurrentProcess()";
   }
   
   public String genSimStatement(final Statement stm) {

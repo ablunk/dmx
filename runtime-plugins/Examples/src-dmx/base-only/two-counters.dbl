@@ -1,7 +1,5 @@
 module TwoCountersAdvance {
 
-	interface Object {}
-	
 	boolean debug = true;
 
 	void trace(string msg) {

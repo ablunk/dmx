@@ -35,7 +35,7 @@ class List {
 	Object get(int index) abstract;
 	int indexOf(Object e) abstract;
 	boolean isEmpty() abstract;
-	Object remove(int index) abstract;
+	//Object remove(int index) abstract; // TODO removed, beacuse method parameters are not considered yet in DblIdentificationScheme
 	boolean remove(Object e) abstract;
 	Object set(int index, Object e) abstract;
 	Object array[] toArray() abstract;

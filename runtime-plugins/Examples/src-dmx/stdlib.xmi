@@ -63,12 +63,6 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="remove" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
-        <parameters name="index">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-      </methods>
-      <methods name="remove" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
           <classifierType referencedElement="//@modules.0/@classifiers.0"/>

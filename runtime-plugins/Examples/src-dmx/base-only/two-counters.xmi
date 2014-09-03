@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="TwoCountersAdvance">
-    <classifiers xsi:type="dbl:Interface" name="Object"/>
     <classifiers xsi:type="dbl:Clazz" name="Counter" active="true">
       <attributes name="count">
         <primitiveType xsi:type="dbl:IntType"/>
@@ -10,32 +9,30 @@
       <actionsBlock>
         <statements xsi:type="dbl:WhileStatement">
           <condition xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
             <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.1"/>
           </condition>
-          <whileBlock>
+          <body xsi:type="dbl:LocalScopeStatement">
             <statements xsi:type="dbl:Advance">
               <time xsi:type="dbl:IntLiteral" value="1"/>
             </statements>
             <statements xsi:type="dbl:Assignment">
               <variable>
-                <idExpr referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+                <idExpr referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
               </variable>
               <value xsi:type="dbl:Plus">
-                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
                 <op2 xsi:type="dbl:IntLiteral" value="1"/>
               </value>
             </statements>
-          </whileBlock>
+          </body>
         </statements>
-        <statements xsi:type="dbl:ExpressionStatement">
-          <expression xsi:type="dbl:ProcedureCall">
-            <procedureAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0">
-              <arguments>
-                <arguments xsi:type="dbl:StringLiteral" value="Finished."/>
-              </arguments>
-            </procedureAccess>
-          </expression>
+        <statements xsi:type="dbl:ProcedureCall">
+          <callIdExpr referencedElement="//@modules.0/@procedures.0">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" value="Finished."/>
+            </callPart>
+          </callIdExpr>
         </statements>
       </actionsBlock>
     </classifiers>
@@ -43,7 +40,7 @@
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:IfStatement">
         <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
-        <ifCaseBlock>
+        <trueCase xsi:type="dbl:LocalScopeStatement">
           <statements xsi:type="dbl:Print">
             <outputs xsi:type="dbl:Plus">
               <op1 xsi:type="dbl:Plus">
@@ -62,7 +59,7 @@
               <op2 xsi:type="dbl:StringLiteral" value="\n"/>
             </outputs>
           </statements>
-        </ifCaseBlock>
+        </trueCase>
       </statements>
       <parameters name="msg">
         <primitiveType xsi:type="dbl:StringType"/>
@@ -71,18 +68,18 @@
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="c1">
-        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.1"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.1"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:ActivateObject">
         <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
       </statements>
       <statements xsi:type="dbl:Variable" name="c2">
-        <classifierTypeExpr referencedElement="//@modules.0/@classifiers.1"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierTypeExpr referencedElement="//@modules.0/@classifiers.1"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:ActivateObject">
@@ -101,7 +98,7 @@
     </variables>
     <variables name="limit">
       <primitiveType xsi:type="dbl:IntType"/>
-      <initialValue xsi:type="dbl:IntLiteral" value="400000"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="10"/>
     </variables>
   </modules>
 </dbl:Model>

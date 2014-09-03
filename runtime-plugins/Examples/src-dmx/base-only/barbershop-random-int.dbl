@@ -1,7 +1,7 @@
+#import "../stdlib"
+
 module BarberShop {
 
-	interface Object {}
-	
 	class UniformInt(string name, int min, int max) {
 		bindings {
 			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.IntDistUniform",
@@ -12,9 +12,9 @@ module BarberShop {
 		int sample() {}
 	}
 	
-	int stopTime = 48000*1000;
-	UniformInt arrivalTime = new UniformInt("arrival1", 12*1000, 24*1000);
-	UniformInt serviceTime = new UniformInt("arrival1", 12*1000, 18*1000);
+	int stopTime = 480;
+	UniformInt arrivalTime = new UniformInt("arrival1", 12, 24);
+	UniformInt serviceTime = new UniformInt("arrival1", 12, 18);
 	boolean debug = true;
 
 	void main() {
@@ -32,14 +32,13 @@ module BarberShop {
 	
 	class Facility {
 		boolean busy = false;
-		list(Object) waiting;
+		List waiting = new ArrayList;
 		
 		void seize() {
 			if (busy) {
 				trace("facility busy. waiting.");
-				place active into waiting;
+				waiting.add(active);
 				wait;
-				remove active from waiting;
 			}
 			trace("facility seized.");
 			busy = true;
@@ -47,9 +46,11 @@ module BarberShop {
 		
 		void release() {
 			busy = false;
-			if (waiting.size > 0) {
-				trace("activate waiting process.");
-				reactivate waiting.first;
+			if (waiting.size() > 0) {
+				Object nextWaiting = waiting.get(0);
+				trace("activate waiting process " + nextWaiting);
+				waiting.remove(nextWaiting);
+				reactivate nextWaiting;
 			}
 			trace("facility released.");
 		}
