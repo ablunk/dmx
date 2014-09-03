@@ -1,9 +1,9 @@
-#import "../base"
+#import "../dbl"
 
 module testDef {
 
-	extension Bar {
-		Statement -> Bar;
+	extension BarX extends dbl Statement {
+		start Bar;
 		Bar -> "bar" name:ID A ";";
 		A -> ;
 		A -> "(" BuzList ")";
@@ -14,8 +14,8 @@ module testDef {
 		Buz -> "i" i:INT;
 	}
 
-	extension Foo {
-		ClassContentExtension -> Foo;
+	extension Foo extends dbl ClassContentExtension {
+		start Foo;
 		Foo -> "foo" name:ID OptionalBaz ";";
 		OptionalBaz -> ;
 		OptionalBaz -> baz:list(Baz) OptionalBaz;

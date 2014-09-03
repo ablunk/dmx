@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="templates">
+    <model href="templates.xmi#/"/>
+  </imports>
+  <modules name="TemplateUse">
+    <extensions xsi:type="dbl:TListDef_TList_extension" concreteSyntax="tdef List&lt;A>" instanceOfExtensionDefinition="true">
+      <T concreteSyntax="A" referencedElement="//@modules.0/@classifiers.0"/>
+    </extensions>
+    <classifiers xsi:type="dbl:Clazz" name="A"/>
+    <procedures name="print">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <parameters name="t">
+        <classifierType xsi:type="dbl:TListUse_TList_extension" concreteSyntax="List&lt;A>" instanceOfExtensionDefinition="true">
+          <T concreteSyntax="A" referencedElement="//@modules.0/@classifiers.0"/>
+        </classifierType>
+      </parameters>
+    </procedures>
+  </modules>
+</dbl:Model>

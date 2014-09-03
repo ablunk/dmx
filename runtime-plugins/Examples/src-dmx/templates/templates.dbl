@@ -1,36 +1,32 @@
-#import "../base"
+#import "../dbl"
 
 module TemplateDef {
-
-	extension TemplateDef {
-		ModuleContentExtension -> TemplateDef;
-		TemplateDef -> "tdef" "<" typeParam1:Classifier ">" tdef:Classifier;
+	
+	extension TListUse extends dbl IdExpr {
+		start TList;
+		TList -> "List" "<" T:$Clazz ">";
 	}
 	semantics {
+		expand "List_" T ;
 	}
 	
-	extension TemplateType {
-		BareIdExpr:instantiates(IdExpr) -> TemplateType;
-		TemplateType -> "stack" "<" Type ">" ;
-		Type -> T:$Classifier;
-		Type -> ptype:PrimitiveType;
+	extension TListDef extends dbl ModuleContentExtension {
+		start TList;
+		TList -> "tdef" "List" "<" T:$Clazz ">" ";";
 	}
 	semantics {
-		gen "
-		class Stack {
-			list("T") elements;
-			int numElements;
-			
-			void push("T" e) {
-				place e into elements;
+		expand "
+			class List_" T " {
+				List list = new ArrayList;
+				
+				void add("T" object) {
+					list.add(object);
+				}
+				
+				"T" get(int index) {
+					return list.get(index) as "T";
+				}
 			}
-			
-			"T" pop() {
-				"T" e = elements.last;
-				remove e from elements;
-				return e;
-			}
-		}
 		";
 	}
 

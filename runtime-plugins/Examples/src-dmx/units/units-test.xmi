@@ -4,21 +4,21 @@
     <model href="units.xmi#/"/>
   </imports>
   <modules name="testUnits">
-    <procedures name="main" concreteSyntax="void main() {&#xA;&#x9;&#x9;print (1 in + 2 in) ft;&#x9;&#x9;&#xA;&#x9;}">
+    <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Print" concreteSyntax="print (1 in + 2 in) ft">
-        <outputs xsi:type="dbl:UnitExpr" concreteSyntax="(1 in + 2 in) ft">
+        <outputs xsi:type="dbl:UnitExpr_UnitExpr_extension" concreteSyntax="(1 in + 2 in) ft" instanceOfExtensionDefinition="true">
           <op xsi:type="dbl:Plus" concreteSyntax="1 in + 2 in">
-            <op1 xsi:type="dbl:UnitExpr" concreteSyntax="1 in">
+            <op1 xsi:type="dbl:UnitExpr_UnitExpr_extension" concreteSyntax="1 in" instanceOfExtensionDefinition="true">
               <op xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
-              <unit concreteSyntax="in"/>
+              <unit concreteSyntax="in" instanceOfExtensionDefinition="true"/>
             </op1>
-            <op2 xsi:type="dbl:UnitExpr" concreteSyntax="2 in">
+            <op2 xsi:type="dbl:UnitExpr_UnitExpr_extension" concreteSyntax="2 in" instanceOfExtensionDefinition="true">
               <op xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
-              <unit concreteSyntax="in"/>
+              <unit concreteSyntax="in" instanceOfExtensionDefinition="true"/>
             </op2>
           </op>
-          <unit concreteSyntax="ft"/>
+          <unit concreteSyntax="ft" instanceOfExtensionDefinition="true"/>
         </outputs>
       </statements>
     </procedures>

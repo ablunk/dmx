@@ -3,7 +3,7 @@
 module testUnits {
 
 	void main() {
-		print (1 in + 2 in) ft;		
+		print (1 in + 2 in) ft;
 	}
 
 }

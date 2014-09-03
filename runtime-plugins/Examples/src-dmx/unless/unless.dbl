@@ -1,21 +1,21 @@
-#import "../base"
+#import "../dbl"
 
 module unless {
 
-	extension UnlessA {
-		Statement -> UnlessA;
-		UnlessA -> "@UnlessA@" "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
+	extension UnlessA extends dbl Statement {
+		start UnlessA;
+		UnlessA -> "@UnlessA@" "unless" "(" condition : Expression ")" codeBlock : LocalScopeStatement;
 	}
 	semantics {
-		gen "if (!(" condition ")) " codeBlock "";
+		expand "if (!(" condition ")) " codeBlock "";
 	}
 
-	extension UnlessB {
-		Statement -> UnlessB;
-		UnlessB -> "@UnlessB@" "unless" "(" condition : Expression ")" codeBlock : CodeBlock;
+	extension UnlessB extends dbl Statement {
+		start UnlessB;
+		UnlessB -> "@UnlessB@" "unless" "(" condition : Expression ")" codeBlock : LocalScopeStatement;
 	}
 	semantics {
-		gen "if (!(" condition ")) " codeBlock "";
+		expand "if (!(" condition ")) " codeBlock "";
 	}
 
 }

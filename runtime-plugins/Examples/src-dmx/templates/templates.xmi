@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="TemplateDef">
+    <extensionDefs name="TListUse">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.89"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="TList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="List"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="&lt;"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="T">
+              <propertyType xsi:type="dbl:ReferencePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.21"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=">"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="List_"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.2"/>
+          </parts>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+    <extensionDefs name="TListDef">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.96"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="TList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="tdef"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="List"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="&lt;"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="T">
+              <propertyType xsi:type="dbl:ReferencePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.21"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=">"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;&#x9;class List_"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" {&#xA;&#x9;&#x9;&#x9;&#x9;List list = new ArrayList;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;void add("/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" object) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;list.add(object);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" get(int index) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;return list.get(index) as "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

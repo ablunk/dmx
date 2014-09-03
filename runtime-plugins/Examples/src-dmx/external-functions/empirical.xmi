@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <modules name="EmpiricalDef">
+    <classifiers xsi:type="dbl:Clazz" name="EmpiricalInt">
+      <methods name="sample">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+      <methods name="addEntry">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="value">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="cumFrequency">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </methods>
+      <constructor>
+        <parameters name="name">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructor>
+      <bindings targetLanguage="desmoj" targetType="hub.sam.dmx.javasim.desmoj.dist.IntDistEmpirical"/>
+    </classifiers>
+    <extensionDefs name="DiscreteEmpirical">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="DiscreteEmpirical">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="discreteEmpirical"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </rules>
+        <rules name="EntryList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="entries">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.4"/>
+          </rhs>
+        </rules>
+        <rules name="Entry">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="cumPercent">
+              <propertyType xsi:type="dbl:IntPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=":"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="value">
+              <propertyType xsi:type="dbl:IntPropertyType"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="EntryOptional">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="EntryOptional">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="expand &quot;EmpiricalInt &quot; name &quot; = new EmpiricalInt(\&quot;&quot; name &quot;\&quot;);&quot;;&#xA;&#x9;&#x9;foreach (Entry e in entries) {&#xA;&#x9;&#x9;&#x9;expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;;&#xA;&#x9;&#x9;}">
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;EmpiricalInt &quot; name &quot; = new EmpiricalInt(\&quot;&quot; name &quot;\&quot;);&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="EmpiricalInt "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" = new EmpiricalInt(\&quot;"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="\&quot;);"/>
+        </statements>
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Entry e in entries) {&#xA;&#x9;&#x9;&#x9;expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="e" concreteSyntax="Entry e">
+            <classifierType concreteSyntax="Entry" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2"/>
+          </statements>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="entries" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1/@rhs/@sequence.0"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;">
+              <parts xsi:type="dbl:DynamicMappingPart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+              </parts>
+              <parts xsi:type="dbl:FixedMappingPart" code=".addEntry("/>
+              <parts xsi:type="dbl:DynamicMappingPart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="e.value" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2/@rhs/@sequence.2">
+                  <parentIdExpr concreteSyntax="e" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1/@statements.0"/>
+                </expr>
+              </parts>
+              <parts xsi:type="dbl:FixedMappingPart" code=","/>
+              <parts xsi:type="dbl:DynamicMappingPart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="e.cumPercent" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2/@rhs/@sequence.0">
+                  <parentIdExpr concreteSyntax="e" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1/@statements.0"/>
+                </expr>
+              </parts>
+              <parts xsi:type="dbl:FixedMappingPart" code=" / 100.0);"/>
+            </statements>
+          </body>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+    <extensionDefs name="SampleDiscreteEmpirical">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.53"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="SampleDiscreteEmpirical">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="sample"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="of"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="de">
+              <propertyType xsi:type="dbl:ReferencePropertyType" rawReference="true">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.27"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="expand de.name &quot;.sample()&quot;;">
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand de.name &quot;.sample()&quot;">
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="de.name">
+              <parentIdExpr concreteSyntax="de" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.2"/>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.27/@attributes.0"/>
+            </expr>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=".sample()"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="StmExtDef">
+    <extensionDefs name="StatementExtension">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.96"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="StatementExtension">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="statement"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="firstRhs">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </rules>
+        <rules name="OtherRules">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="OtherRules">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="tsRule">
+              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.101"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code="&#xA;&#x9;&#x9;extension "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" extends dbl Statement {&#xA;&#x9;&#x9;&#x9;start "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";&#xA;&#x9;&#x9;&#x9;"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" -> "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";&#xA;&#x9;&#x9;}&#xA;&#x9;"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

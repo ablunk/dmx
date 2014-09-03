@@ -1,0 +1,14 @@
+#import "templates"
+
+module TemplateUse {
+	
+	class A {}
+	
+	tdef List<A>;
+	
+	void main() {
+		List<A> ass = new List<A>;
+		ass.add(new A); // requires extension substitution at runtime
+	}
+
+}

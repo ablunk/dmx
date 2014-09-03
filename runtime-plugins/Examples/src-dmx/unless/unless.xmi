@@ -1,80 +1,76 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../base">
-    <model href="../base.xmi#/"/>
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
   </imports>
   <modules name="unless">
     <extensionDefs name="UnlessA">
-      <textualSyntaxDef>
-        <extensionRule name="Statement">
-          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
-        </extensionRule>
-        <newRules name="UnlessA">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="UnlessA">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="@UnlessA@"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="unless"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="condition">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="codeBlock">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.34"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.45"/>
               </propertyType>
             </sequence>
           </rhs>
-        </newRules>
+        </rules>
       </textualSyntaxDef>
       <mappingDef>
         <statements xsi:type="dbl:MappingStatement">
           <parts xsi:type="dbl:FixedMappingPart" code="if (!("/>
           <parts xsi:type="dbl:DynamicMappingPart">
-            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.3"/>
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
           </parts>
           <parts xsi:type="dbl:FixedMappingPart" code=")) "/>
           <parts xsi:type="dbl:DynamicMappingPart">
-            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0/@rhs/@sequence.5"/>
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.5"/>
           </parts>
           <parts xsi:type="dbl:FixedMappingPart" code=""/>
         </statements>
       </mappingDef>
     </extensionDefs>
     <extensionDefs name="UnlessB">
-      <textualSyntaxDef>
-        <extensionRule name="Statement">
-          <firstNewRule rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0"/>
-        </extensionRule>
-        <newRules name="UnlessB">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="UnlessB">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="@UnlessB@"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="unless"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="condition">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.60"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.52"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="codeBlock">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Interface" href="../base.xmi#//@modules.0/@classifiers.34"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.45"/>
               </propertyType>
             </sequence>
           </rhs>
-        </newRules>
+        </rules>
       </textualSyntaxDef>
       <mappingDef>
         <statements xsi:type="dbl:MappingStatement">
           <parts xsi:type="dbl:FixedMappingPart" code="if (!("/>
           <parts xsi:type="dbl:DynamicMappingPart">
-            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0/@rhs/@sequence.3"/>
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
           </parts>
           <parts xsi:type="dbl:FixedMappingPart" code=")) "/>
           <parts xsi:type="dbl:DynamicMappingPart">
-            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0/@rhs/@sequence.5"/>
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.5"/>
           </parts>
           <parts xsi:type="dbl:FixedMappingPart" code=""/>
         </statements>

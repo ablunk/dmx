@@ -3,14 +3,7 @@
 module sml_application {
 
 	statement forever {
-		"forever" "{" MoreStatements "}";
-		MoreStatements -> ;
-		MoreStatements -> stm:list(Statement);
-	}
-
-	
-	void main() {
-
+		"forever" body:LocalScopeStatement;
 	}
 	
 }

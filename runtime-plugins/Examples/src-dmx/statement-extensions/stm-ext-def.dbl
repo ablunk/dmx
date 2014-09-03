@@ -1,19 +1,18 @@
-#import "../base"
+#import "../dbl"
 
 module StmExtDef {
 
-extension StatementExtension {
-	ModuleContentExtension -> StatementExtension;
-	//extensionDef:instantiates(ExtensionDefinition) -> StatementExtension;
+extension StatementExtension extends dbl ModuleContentExtension {
+	start StatementExtension;
 	StatementExtension -> "statement" name:ID "{" firstRhs:RhsExpression ";" OtherRules "}";
 	OtherRules -> ;
 	OtherRules -> tsRule:list(TsRule) OtherRules;
 }
 semantics {
-	gen "
-		extension " name " {
-			Statement -> " name ";
-			" name " -> " tsRule.first ";
+	expand "
+		extension " name " extends dbl Statement {
+			start " name ";
+			" name " -> " firstRhs ";
 		}
 	";
 }

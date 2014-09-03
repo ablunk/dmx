@@ -1,61 +1,55 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../base">
-    <model href="../base.xmi#/"/>
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
   </imports>
   <modules name="units">
-    <classifiers xsi:type="dbl:Interface" name="L1Expr"/>
-    <classifiers xsi:type="dbl:Interface" name="L2Expr"/>
     <extensionDefs name="UnitExpr">
-      <textualSyntaxDef>
-        <extensionRule name="L1Expr">
-          <firstNewRule rule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.0"/>
-        </extensionRule>
-        <newRules name="UnitExpr">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.53"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="UnitExpr">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="op">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@classifiers.0"/>
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.53"/>
+              </propertyType>
             </sequence>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="unit">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@newRules.2"/>
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2"/>
             </sequence>
           </rhs>
-        </newRules>
-        <newRules name="Unit">
+        </rules>
+        <rules name="Unit">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="ft"/>
           </rhs>
-        </newRules>
-        <newRules name="Unit">
+        </rules>
+        <rules name="Unit">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
           </rhs>
-        </newRules>
+        </rules>
       </textualSyntaxDef>
       <mappingDef/>
     </extensionDefs>
     <extensionDefs name="Feet">
-      <textualSyntaxDef>
-        <extensionRule name="L1Expr">
-          <firstNewRule rule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@newRules.0"/>
-        </extensionRule>
-        <newRules name="Feet">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.53"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="Feet">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="ft"/>
           </rhs>
-        </newRules>
+        </rules>
       </textualSyntaxDef>
     </extensionDefs>
     <extensionDefs name="Inch">
-      <textualSyntaxDef>
-        <extensionRule name="L1Expr">
-          <firstNewRule rule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@newRules.0"/>
-        </extensionRule>
-        <newRules name="Inch">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.53"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.0">
+        <rules name="Inch">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
           </rhs>
-        </newRules>
+        </rules>
       </textualSyntaxDef>
       <mappingDef/>
     </extensionDefs>

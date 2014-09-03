@@ -1,12 +1,9 @@
-#import "../base"
+#import "../dbl"
 
 module units {
 
-	interface L1Expr {}
-	interface L2Expr {}
-	
-	extension UnitExpr {
-		L1Expr -> UnitExpr;
+	extension UnitExpr extends dbl L1Expr {
+		start UnitExpr;
 		UnitExpr -> op:L1Expr unit:Unit;
 		Unit -> "ft";
 		Unit -> "in";
@@ -15,13 +12,13 @@ module units {
 		//return eval(op) * eval(unit);
 	}
 	
-	extension Feet {
-		L1Expr -> Feet;
+	extension Feet extends dbl L1Expr {
+		start Feet;
 		Feet -> "ft";
 	}
 
-	extension Inch {
-		L1Expr -> Inch;
+	extension Inch extends dbl L1Expr {
+		start Inch;
 		Inch -> "in";
 	}
 	semantics {
