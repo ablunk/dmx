@@ -79,6 +79,7 @@ import hub.sam.dbl.FixedMappingPart
 import hub.sam.dbl.DynamicMappingPart
 import hub.sam.dbl.ExtensionDefinition
 import hub.sam.dbl.LanguageConstructClassifier
+import hub.sam.dbl.AbstractVariable
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -187,19 +188,19 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	}
 	
 	def dispatch String genSimStatement(Yield stm) {
-		'DefaultSimulation.DEFAULT.getCurrentProcess().base_yield();'
+		'hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getCurrentProcess().base_yield();'
 	}
 	
 	def dispatch String genSimStatement(Wait stm) {
-		'DefaultSimulation.DEFAULT.getCurrentProcess().passivate();'
+		'hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getCurrentProcess().passivate();'
 	}
 	
 	def dispatch String genSimStatement(ActivateObject stm) {
-		'''((SimulationProcess) «stm.objectAccess.genExpr»).base_activate();'''
+		'''((hub.sam.dmx.javasim.desmoj.SimulationProcess) «stm.objectAccess.genExpr»).base_activate();'''
 	}
 	
 	def dispatch String genSimStatement(Reactivate stm) {
-		'''((SimulationProcess) «stm.objectAccess.genExpr»).base_reactivate();'''
+		'''((hub.sam.dmx.javasim.desmoj.SimulationProcess) «stm.objectAccess.genExpr»).base_reactivate();'''
 	}
 	
 	def dispatch String genSimStatement(Advance stm) {
@@ -211,11 +212,11 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	}
 
 	def dispatch String genSimExpr(TimeLiteral stm) {
-		'DefaultSimulation.DEFAULT.getPresentTime()'
+		'hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getPresentTime()'
 	}
 	
 	def dispatch String genSimExpr(ActiveLiteral stm) {
-		'DefaultSimulation.DEFAULT.getCurrentProcess()'
+		'hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getCurrentProcess()'
 	}
 	
 }
@@ -309,7 +310,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		element.javaNameQualified_for_ProcedureVariable
 	}
 	
-	def dispatch String javaNameQualified(Variable element) {
+	def dispatch String javaNameQualified(AbstractVariable element) {
 		element.javaNameQualified_for_ProcedureVariable
 	}
 	

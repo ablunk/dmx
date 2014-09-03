@@ -256,18 +256,20 @@ public class DblPreProcessor {
 	    	
 		    if (!importsOpenedInActiveEditors.containsKey(fileToImport)) {
 	    		final Resource resource = loadXmi(fileToImport, inputPath);
-	    		allImports.put(fileToImport, new IModelContainer() {
-					@Override
-					public Model getModel() {
-						return (Model) resource.getContents().get(0);
-					}
-
-					@Override
-					public Resource getResource() {
-						return resource;
-					}
-				});		
-	    		logger.info("loaded import '" + fileToImport + "'.");
+	    		if (resource != null) {
+		    		allImports.put(fileToImport, new IModelContainer() {
+						@Override
+						public Model getModel() {
+							return (Model) resource.getContents().get(0);
+						}
+	
+						@Override
+						public Resource getResource() {
+							return resource;
+						}
+					});		
+		    		logger.info("loaded import '" + fileToImport + "'.");
+	    		}
 			}
 		}
 	    catch (RuntimeException e) {
@@ -277,9 +279,15 @@ public class DblPreProcessor {
 	
 	protected Resource loadXmi(String fileToImport, IPath inputPath) {
 		IPath xmiToImport = inputPath.append(fileToImport).addFileExtension("xmi");
-		Resource resource = resourceSet.getResource(getPlatformResourceURI(xmiToImport), true);
-		EcoreUtil.resolveAll(resource);
-		return resource;
+		if (xmiToImport.toFile().exists()) {
+			Resource resource = resourceSet.getResource(getPlatformResourceURI(xmiToImport), true);
+			EcoreUtil.resolveAll(resource);
+			return resource;
+		}
+		else {
+			logger.severe("XMI file is missing: " + xmiToImport);
+			return null;
+		}
 	}
 	
 	public synchronized IModelContainer getImportedModel(String fileOfImport) {

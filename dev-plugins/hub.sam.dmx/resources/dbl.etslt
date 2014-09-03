@@ -343,7 +343,7 @@ syntax(Model) "resources/dbl.ecore" {
 	PredefinedId:element(SuperLiteral) -> "super";
 	PredefinedId:element(MetaLiteral) -> "meta";
 	PredefinedId:element(TypeLiteral) -> "type";
-	PredefinedId:element(SizeOfArray) -> "size";
+	//PredefinedId:element(SizeOfArray) -> "size";
 	
 	NamedElementRef:element(NamedElement) -> IDENTIFIER:composite(name);
 	

@@ -1,6 +1,7 @@
 package hub.sam.dmx;
 
 import com.google.common.base.Objects;
+import hub.sam.dbl.AbstractVariable;
 import hub.sam.dbl.And;
 import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.Assignment;
@@ -319,7 +320,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _javaNameQualified_for_ProcedureVariable;
   }
   
-  protected String _javaNameQualified(final Variable element) {
+  protected String _javaNameQualified(final AbstractVariable element) {
     String _javaNameQualified_for_ProcedureVariable = this.javaNameQualified_for_ProcedureVariable(element);
     return _javaNameQualified_for_ProcedureVariable;
   }
@@ -1677,12 +1678,12 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   public String javaNameQualified(final NamedElement element) {
-    if (element instanceof Variable) {
-      return _javaNameQualified((Variable)element);
-    } else if (element instanceof Clazz) {
+    if (element instanceof Clazz) {
       return _javaNameQualified((Clazz)element);
     } else if (element instanceof ExtensionDefinition) {
       return _javaNameQualified((ExtensionDefinition)element);
+    } else if (element instanceof AbstractVariable) {
+      return _javaNameQualified((AbstractVariable)element);
     } else if (element instanceof Procedure) {
       return _javaNameQualified((Procedure)element);
     } else {
