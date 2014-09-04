@@ -2,14 +2,19 @@
 
 module x {
 
-extension XEDef extends dbl SimpleStatement {
+extension EDefX extends dbl SimpleStatement {
 	start EDef;
 	EDef -> "xe" "def" name:ID ";";
 }
 
-extension XERef extends dbl SimpleStatement {
+extension ERefX extends dbl SimpleStatement {
 	start ERef;
-	ERef -> "xe" "ref" e:$$EDef ";";
+	ERef -> "xe" "ref" e:$$EDefX ";";
+}
+
+extension FDefX extends extension EDefX {
+	start FDef;
+	FDef -> "xf" "def" name:ID ";";
 }
 
 }
