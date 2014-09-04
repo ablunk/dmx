@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="sdlx2">
+    <model href="sdlx2.xmi#/"/>
+  </imports>
+  <modules name="sdlx_application">
+    <extensions xsi:type="dbl:System_System_extension" name="X" concreteSyntax="system X;&#xA;&#x9;&#x9;signal M1;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;process P;&#xA;&#x9;&#x9;&#x9;dcl int i=0, int step=1;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;timer T1;&#xA;&#x9;&#x9;&#x9;timer T2;&#xA;&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state A;&#xA;&#x9;&#x9;&#x9;&#x9;input none;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(step,T1); // PARSE PROBLEM: set(T1) not supported, use set(,T1) instead if needed&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(10*step,T2);&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;endstate A;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state A_t; // state A with Timers running&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i == 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i > 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input signal M1; // PARSE PROBLEM: added keyword signal to distingiush signal and timer&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T2;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;endstate A_t;&#x9;&#xA;&#x9;&#x9;endprocess P;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;process Q;&#xA;&#x9;&#x9;&#x9;timer T3;&#xA;&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;&#x9;set(5,T3);&#xA;&#x9;&#x9;&#x9;nextState K;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state K;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T3;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;output M1 to pset P;&#xA;&#x9;&#x9;&#x9;&#x9;nextState K;&#xA;&#x9;&#x9;&#x9;endstate K;&#xA;&#x9;&#x9;endprocess Q; // putting a correct name (like Q here) cannot be defined / enforced&#xA;&#x9;&#x9;&#xA;&#x9;endsystem;" instanceOfExtensionDefinition="true">
+      <entities xsi:type="dbl:System_SignalDefinition_extension" name="M1" concreteSyntax="signal M1;" instanceOfExtensionDefinition="true"/>
+      <entities xsi:type="dbl:System_ProcessDefinition_extension" name="P" concreteSyntax="process P;&#xA;&#x9;&#x9;&#x9;dcl int i=0, int step=1;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;timer T1;&#xA;&#x9;&#x9;&#x9;timer T2;&#xA;&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state A;&#xA;&#x9;&#x9;&#x9;&#x9;input none;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(step,T1); // PARSE PROBLEM: set(T1) not supported, use set(,T1) instead if needed&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(10*step,T2);&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;endstate A;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state A_t; // state A with Timers running&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i == 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i > 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input signal M1; // PARSE PROBLEM: added keyword signal to distingiush signal and timer&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T2;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;endstate A_t;&#x9;&#xA;&#x9;&#x9;endprocess P;" instanceOfExtensionDefinition="true" endNameRef="//@modules.0/@extensions.0/@entities.1">
+        <entities xsi:type="dbl:System_VariableDefinition_extension" concreteSyntax="dcl int i=0, int step=1;" instanceOfExtensionDefinition="true">
+          <variables name="i" concreteSyntax="int i=0">
+            <primitiveType xsi:type="dbl:IntType"/>
+            <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </variables>
+          <variables name="step" concreteSyntax="int step=1">
+            <primitiveType xsi:type="dbl:IntType"/>
+            <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </variables>
+        </entities>
+        <entities xsi:type="dbl:System_TimerDefinition_extension" name="T1" concreteSyntax="timer T1;" instanceOfExtensionDefinition="true"/>
+        <entities xsi:type="dbl:System_TimerDefinition_extension" name="T2" concreteSyntax="timer T2;" instanceOfExtensionDefinition="true"/>
+        <start concreteSyntax="start;&#xA;&#x9;&#x9;&#x9;nextState A;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.1/@states.0"/>
+        <states name="A" concreteSyntax="state A;&#xA;&#x9;&#x9;&#x9;&#x9;input none;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(step,T1); // PARSE PROBLEM: set(T1) not supported, use set(,T1) instead if needed&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(10*step,T2);&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;endstate A;" instanceOfExtensionDefinition="true" endNameRef="//@modules.0/@extensions.0/@entities.1/@states.0">
+          <events xsi:type="dbl:System_InputPart_extension" concreteSyntax="input none;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(step,T1); // PARSE PROBLEM: set(T1) not supported, use set(,T1) instead if needed&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;set(10*step,T2);&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus concreteSyntax="none" instanceOfExtensionDefinition="true"/>
+            <actions xsi:type="dbl:System_TimerSet_extension" concreteSyntax="set(step,T1);" instanceOfExtensionDefinition="true" timer="//@modules.0/@extensions.0/@entities.1/@entities.1">
+              <timeExpr xsi:type="dbl:IdExpr" concreteSyntax="step" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.1"/>
+            </actions>
+            <actions xsi:type="dbl:System_TimerSet_extension" concreteSyntax="set(10*step,T2);" instanceOfExtensionDefinition="true" timer="//@modules.0/@extensions.0/@entities.1/@entities.2">
+              <timeExpr xsi:type="dbl:Mul" concreteSyntax="10*step">
+                <op1 xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="step" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.1"/>
+              </timeExpr>
+            </actions>
+          </events>
+        </states>
+        <states name="A_t" concreteSyntax="state A_t; // state A with Timers running&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i == 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input none provided i > 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input signal M1; // PARSE PROBLEM: added keyword signal to distingiush signal and timer&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T2;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;endstate A_t;" instanceOfExtensionDefinition="true" endNameRef="//@modules.0/@extensions.0/@entities.1/@states.1">
+          <events xsi:type="dbl:System_InputPart_extension" concreteSyntax="input none provided i == 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus concreteSyntax="none provided i == 0" instanceOfExtensionDefinition="true">
+              <enablingCondition xsi:type="dbl:Equal" concreteSyntax="i == 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </enablingCondition>
+            </stimulus>
+            <actions xsi:type="dbl:System_Task_extension" concreteSyntax="task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+              <localScope concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;i is zero&quot;)">
+                  <callIdExpr concreteSyntax="trace(&quot;i is zero&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <callPart>
+                      <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is zero&quot;" value="i is zero"/>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+              </localScope>
+            </actions>
+          </events>
+          <events xsi:type="dbl:System_InputPart_extension" concreteSyntax="input none provided i > 0;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus concreteSyntax="none provided i > 0" instanceOfExtensionDefinition="true">
+              <enablingCondition xsi:type="dbl:Greater" concreteSyntax="i > 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </enablingCondition>
+            </stimulus>
+            <actions xsi:type="dbl:System_Task_extension" concreteSyntax="task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+              <localScope concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i is greater zero&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;i is greater zero&quot;)">
+                  <callIdExpr concreteSyntax="trace(&quot;i is greater zero&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <callPart>
+                      <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i is greater zero&quot;" value="i is greater zero"/>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+              </localScope>
+            </actions>
+          </events>
+          <events xsi:type="dbl:System_InputPart_extension" concreteSyntax="input signal M1; // PARSE PROBLEM: added keyword signal to distingiush signal and timer&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A_t;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.1/@states.1">
+            <stimulus concreteSyntax="signal M1" instanceOfExtensionDefinition="true" signal="//@modules.0/@extensions.0/@entities.0"/>
+            <actions xsi:type="dbl:System_Task_extension" concreteSyntax="task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+              <localScope concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;M1 received&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;i=&quot; + i); // ID RESOLUTION PROBLEM: cannot access local declared variable i&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;M1 received&quot;)">
+                  <callIdExpr concreteSyntax="trace(&quot;M1 received&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <callPart>
+                      <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;M1 received&quot;" value="M1 received"/>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+                <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;i=&quot; + i)">
+                  <callIdExpr concreteSyntax="trace(&quot;i=&quot; + i)" referencedElement="//@modules.0/@procedures.0">
+                    <callPart>
+                      <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;i=&quot; + i">
+                        <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;i=&quot;" value="i="/>
+                        <op2 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                      </callArguments>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+              </localScope>
+            </actions>
+          </events>
+          <events xsi:type="dbl:System_InputPart_extension" concreteSyntax="input timer T1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.1/@states.0">
+            <stimulus concreteSyntax="timer T1" instanceOfExtensionDefinition="true" timer="//@modules.0/@extensions.0/@entities.1/@entities.1"/>
+            <actions xsi:type="dbl:System_Task_extension" concreteSyntax="task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+              <localScope concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;1 time unit passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;i = i + 1;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;1 time unit passed.&quot;)">
+                  <callIdExpr concreteSyntax="trace(&quot;1 time unit passed.&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <callPart>
+                      <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;1 time unit passed.&quot;" value="1 time unit passed."/>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="i = i + 1">
+                  <variable concreteSyntax="i">
+                    <idExpr concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                  </variable>
+                  <value xsi:type="dbl:Plus" concreteSyntax="i + 1">
+                    <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensions.0/@entities.1/@entities.0/@variables.0"/>
+                    <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                  </value>
+                </statements>
+              </localScope>
+            </actions>
+          </events>
+          <events xsi:type="dbl:System_InputPart_extension" concreteSyntax="input timer T2;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;nextState A;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.1/@states.0">
+            <stimulus concreteSyntax="timer T2" instanceOfExtensionDefinition="true" timer="//@modules.0/@extensions.0/@entities.1/@entities.2"/>
+            <actions xsi:type="dbl:System_Task_extension" concreteSyntax="task {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+              <localScope concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;trace(&quot;10 time units passed.&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;10 time units passed.&quot;)">
+                  <callIdExpr concreteSyntax="trace(&quot;10 time units passed.&quot;)" referencedElement="//@modules.0/@procedures.0">
+                    <callPart>
+                      <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;10 time units passed.&quot;" value="10 time units passed."/>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+              </localScope>
+            </actions>
+          </events>
+        </states>
+      </entities>
+      <entities xsi:type="dbl:System_ProcessDefinition_extension" name="Q" concreteSyntax="process Q;&#xA;&#x9;&#x9;&#x9;timer T3;&#xA;&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;&#x9;set(5,T3);&#xA;&#x9;&#x9;&#x9;nextState K;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;state K;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T3;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;output M1 to pset P;&#xA;&#x9;&#x9;&#x9;&#x9;nextState K;&#xA;&#x9;&#x9;&#x9;endstate K;&#xA;&#x9;&#x9;endprocess Q;" instanceOfExtensionDefinition="true" endNameRef="//@modules.0/@extensions.0/@entities.2">
+        <entities xsi:type="dbl:System_TimerDefinition_extension" name="T3" concreteSyntax="timer T3;" instanceOfExtensionDefinition="true"/>
+        <start concreteSyntax="start;&#xA;&#x9;&#x9;&#x9;&#x9;set(5,T3);&#xA;&#x9;&#x9;&#x9;nextState K;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.2/@states.0">
+          <actions xsi:type="dbl:System_TimerSet_extension" concreteSyntax="set(5,T3);" instanceOfExtensionDefinition="true" timer="//@modules.0/@extensions.0/@entities.2/@entities.0">
+            <timeExpr xsi:type="dbl:IntLiteral" concreteSyntax="5" value="5"/>
+          </actions>
+        </start>
+        <states name="K" concreteSyntax="state K;&#xA;&#x9;&#x9;&#x9;&#x9;input timer T3;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;output M1 to pset P;&#xA;&#x9;&#x9;&#x9;&#x9;nextState K;&#xA;&#x9;&#x9;&#x9;endstate K;" instanceOfExtensionDefinition="true" endNameRef="//@modules.0/@extensions.0/@entities.2/@states.0">
+          <events xsi:type="dbl:System_InputPart_extension" concreteSyntax="input timer T3;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;output M1 to pset P;&#xA;&#x9;&#x9;&#x9;&#x9;nextState K;" instanceOfExtensionDefinition="true" nextState="//@modules.0/@extensions.0/@entities.2/@states.0">
+            <stimulus concreteSyntax="timer T3" instanceOfExtensionDefinition="true" timer="//@modules.0/@extensions.0/@entities.2/@entities.0"/>
+            <actions xsi:type="dbl:System_Output_extension" concreteSyntax="output M1 to pset P;" instanceOfExtensionDefinition="true" signal="//@modules.0/@extensions.0/@entities.0" targetProcess="//@modules.0/@extensions.0/@entities.1"/>
+          </events>
+        </states>
+      </entities>
+    </extensions>
+    <extensions xsi:type="dbl:Env_Env_extension" concreteSyntax="env {&#xA;&#x9;&#x9;trace(&quot;begin&quot;);&#xA;&#x9;&#x9;advance 12;&#xA;&#x9;&#x9;trace(&quot;after 12 time units&quot;);&#xA;&#x9;&#x9;//send M1 to pset P;&#xA;&#x9;&#x9;advance 10;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+      <localScope concreteSyntax="{&#xA;&#x9;&#x9;trace(&quot;begin&quot;);&#xA;&#x9;&#x9;advance 12;&#xA;&#x9;&#x9;trace(&quot;after 12 time units&quot;);&#xA;&#x9;&#x9;//send M1 to pset P;&#xA;&#x9;&#x9;advance 10;&#xA;&#x9;}">
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;begin&quot;)">
+          <callIdExpr concreteSyntax="trace(&quot;begin&quot;)" referencedElement="//@modules.0/@procedures.0">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;begin&quot;" value="begin"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 12">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="12" value="12"/>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="trace(&quot;after 12 time units&quot;)">
+          <callIdExpr concreteSyntax="trace(&quot;after 12 time units&quot;)" referencedElement="//@modules.0/@procedures.0">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;after 12 time units&quot;" value="after 12 time units"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+        </statements>
+      </localScope>
+    </extensions>
+    <procedures name="trace">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (debug) {&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="debug" referencedElement="//@modules.0/@variables.0"/>
+        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot;">
+                  <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot;">
+                      <op1 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+                      <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; - &quot;" value=" - "/>
+                    </op1>
+                    <op2 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;: &quot;" value=": "/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="msg" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </outputs>
+          </statements>
+        </trueCase>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </procedures>
+    <variables name="debug" concreteSyntax="boolean debug = true">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+    </variables>
+  </modules>
+</dbl:Model>

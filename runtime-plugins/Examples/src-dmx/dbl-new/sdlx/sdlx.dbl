@@ -2,15 +2,15 @@
 
 module sdlx {
 
-extension EnvSendStatement {
-	Statement -> EnvSendStatement;
-	EnvSendStatement -> "send" signal:$$SignalDefinition "to" "pset" targetSet:$$ProcessDefinition ";";
+extension EnvSendStatement extends dbl SimpleStatement {
+	start Send;
+	Send -> "send" signal:$$SignalDefinition "to" "pset" targetSet:$$ProcessDefinition ";";
 }
 semantics {
 }
 
-extension Env {
-	ModuleContentExtension -> Env;
+extension Env extends dbl ModuleContentExtension {
+	start Env;
 	Env -> "env" localScope:LocalScopeStatement;	
 }
 semantics {
@@ -31,8 +31,8 @@ extension ProcessDefinition {
 
 */
 
-extension System {
-	ModuleContentExtension -> System;
+extension System extends dbl ModuleContentExtension {
+	start System;
 	
 	System -> "system" name:ID ";" SystemEntityListOpt "endsystem" ";";
 	SystemEntityListOpt -> ;

@@ -2,22 +2,22 @@
 
 module sml {
 
-extension Signal {
-	ModuleContentExtension -> Signal;
+extension Signal extends dbl ModuleContentExtension {
+	start Signal;
 	Signal -> "signal" name:ID ";";
 }
 semantics {
 }
 
-extension SendStatement {
-	Statement -> SendStatement;
+extension SendStatement extends dbl SimpleStatement {
+	start SendStatement;
 	SendStatement -> "send" signal:Expression "to" target:Expression ";";
 }
 semantics {
 }
 
-extension StateMachine {
-	ClassContentExtension -> StateMachine;
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachine;
 	
 	StateMachine -> "stateMachine" name:ID "{" initialState:InitialState StateListOptional "}";
 	
@@ -49,8 +49,6 @@ extension StateMachine {
 	
 	TargetState -> "->" target:$$State;
 	TargetState -> "->" "final";
-}
-semantics {
 }
 
 }

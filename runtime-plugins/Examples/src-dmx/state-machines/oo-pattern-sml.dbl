@@ -1,3 +1,5 @@
+#import "../stdlib"
+
 module SmlPattern {
 
 	class Event {
@@ -19,7 +21,7 @@ module SmlPattern {
 				ctx.doEffect_fromState_a_onEvent_Start();
 				return ctx.b_state;
 			}
-			elseif (ev.name == "Resume") {
+			else if (ev.name == "Resume") {
 				return ctx.b_state;
 			}
 			return self;
@@ -39,7 +41,7 @@ module SmlPattern {
 					return null;
 				}
 			}
-			elseif (ev.name == "Pause") {
+			else if (ev.name == "Pause") {
 				return ctx.a_state;
 			}
 			return self;
@@ -47,13 +49,13 @@ module SmlPattern {
 	}
 	
 	class StateMachine {
-		list(Event) eventPool;
+		List eventPool;
 		State currentState;
 
 		actions {
 			while (true) {
-				while (eventPool.size > 0) {
-					Event ev = eventPool.first;
+				while (eventPool.size() > 0) {
+					Event ev = eventPool.get(0) as Event;
 					State nextState = currentState.handleEvent(ev);
 					currentState = nextState;
 				}
@@ -89,7 +91,7 @@ module SmlPattern {
 				Event eev = new Event;
 				eev.name = "Tick";
 				Consumer c = ctx.c;
-				place eev into c.eventPool;
+				c.eventPool.add(eev);
 				activate c;
 				
 				// create next time event
@@ -135,7 +137,7 @@ module SmlPattern {
 		
 		actions {
 			advance delay;
-			place self into triggeringMachine.eventPool;
+			triggeringMachine.eventPool.add(self);
 			activate triggeringMachine;
 		}
 	}
