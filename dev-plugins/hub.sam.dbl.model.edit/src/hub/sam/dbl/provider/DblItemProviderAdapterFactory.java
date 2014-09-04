@@ -2119,6 +2119,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.RhsExpression} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RhsExpressionItemProvider rhsExpressionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.RhsExpression}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRhsExpressionAdapter() {
+		if (rhsExpressionItemProvider == null) {
+			rhsExpressionItemProvider = new RhsExpressionItemProvider(this);
+		}
+
+		return rhsExpressionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SequenceExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3134,6 +3157,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (extensionDefinitionItemProvider != null) extensionDefinitionItemProvider.dispose();
 		if (textualSyntaxDefItemProvider != null) textualSyntaxDefItemProvider.dispose();
 		if (tsRuleItemProvider != null) tsRuleItemProvider.dispose();
+		if (rhsExpressionItemProvider != null) rhsExpressionItemProvider.dispose();
 		if (sequenceExprItemProvider != null) sequenceExprItemProvider.dispose();
 		if (optionalExprItemProvider != null) optionalExprItemProvider.dispose();
 		if (runtimeExprItemProvider != null) runtimeExprItemProvider.dispose();

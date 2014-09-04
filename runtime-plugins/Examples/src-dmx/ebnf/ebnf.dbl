@@ -6,8 +6,27 @@ module EbnfExtension {
 		start ManyExpr;
 		ManyExpr -> "(" expr:RhsExpression ")*";
 	}
-	semantics {
-		
+
+	extension AtLeastExpr extends dbl TerminalExpr {
+		start AtLeastExpr;
+		AtLeastExpr -> "(" expr:RhsExpression ")+";
+	}
+
+	extension OptionalExpr extends dbl TerminalExpr {
+		start OptionalExpr;
+		OptionalExpr -> "(" expr:RhsExpression ")?";
+	}
+
+	extension AlternativeExpr extends dbl RhsExpression {
+		start AlternativeExpr;
+		AlternativeExpr -> left:RhsExpression "|" right:SequenceExpr;
+	}
+	
+	extension BooleanTest extends dbl SimpleStatement {
+		start BTest;
+		BTest -> "btest" BOpt ";";
+		BOpt -> ;
+		BOpt -> b:"on";
 	}
 
 }

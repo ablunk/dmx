@@ -183,6 +183,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.CALL_PART: return createCallPart();
 			case DblPackage.RHS_CLASSIFIER_EXPR: return createRhsClassifierExpr();
 			case DblPackage.LOCAL_SCOPE: return createLocalScope();
+			case DblPackage.RHS_EXPRESSION: return createRhsExpression();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -1107,6 +1108,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public TsRule createTsRule() {
 		TsRuleImpl tsRule = new TsRuleImpl();
 		return tsRule;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public RhsExpression createRhsExpression() {
+		RhsExpressionImpl rhsExpression = new RhsExpressionImpl();
+		return rhsExpression;
 	}
 
 	/**

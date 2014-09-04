@@ -823,6 +823,15 @@ public interface DblFactory extends EFactory {
 	TsRule createTsRule();
 
 	/**
+	 * Returns a new object of class '<em>Rhs Expression</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Rhs Expression</em>'.
+	 * @generated
+	 */
+	RhsExpression createRhsExpression();
+
+	/**
 	 * Returns a new object of class '<em>Sequence Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

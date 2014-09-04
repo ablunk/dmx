@@ -426,26 +426,19 @@ syntax(Model) "resources/dbl.ecore" {
 	//Terminal -> "(" OptionalExpr ")?";
 	//Terminal -> "(" AtLeastOneExpr ")+";
 	//Terminal -> "(" ArbitraryExpr ")*";
-	//Terminal -> "[" RuntimeExpr "]";
 	Terminal -> PropertyBindingExpr;
-	//Terminal -> RuleExpr;
 	Terminal -> RhsClassifierExpr;
 		
 	//OptionalExpr:element(OptionalExpr) -> RhsExpression:composite(expression);
 	//AtLeastOneExpr:element(AtLeastOneExpr) -> RhsExpression:composite(expression);
 	//ArbitraryExpr:element(ArbitraryExpr) -> RhsExpression:composite(expression);
-
-	//RuntimeExpr:element(RuntimeExpr) -> RhsExpression:composite(expression);
 	
 	//AlternativeExpr:element(AlternativeExpr) -> RhsExpression:composite(left) "|" Sequence:composite(right);
 	SequenceExpr:element(SequenceExpr) -> (Terminal:composite(sequence))*;
 	TerminalExpr:element(TerminalExpr) -> STRINGDEF:composite(terminal);
 	PropertyBindingExpr:element(PropertyBindingExpr) -> IDENTIFIER:composite(name) ":" PropertyType:composite(propertyType);
 	
-	//RuleExpr:element(RuleExpr) -> TsRuleRef:reference(rule);
-	
 	RhsClassifierExpr:element(RhsClassifierExpr) -> LanguageConstructClassifierRef:reference(classifier);
-	//ExtensionDefinitionRef:element(ExtensionDefinition) -> IDENTIFIER:composite(name);
 	
 	//BindingExprOperator:constant("ASSIGN":BindingExprOpKind) -> "=";
 	//BindingExprOperator:constant("ADD":BindingExprOpKind) -> "+=";

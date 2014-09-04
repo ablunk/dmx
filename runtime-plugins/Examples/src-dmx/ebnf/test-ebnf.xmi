@@ -24,7 +24,41 @@
           </rhs>
         </rules>
       </textualSyntaxDef>
-      <mappingDef concreteSyntax=""/>
     </extensionDefs>
+    <extensionDefs name="TestX">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="Test">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="testx"/>
+            <sequence xsi:type="dbl:AtLeastExpr_AtLeastExpr_extension">
+              <expr xsi:type="dbl:AlternativeExpr_AlternativeExpr_extension">
+                <left xsi:type="dbl:AlternativeExpr_AlternativeExpr_extension">
+                  <left xsi:type="dbl:SequenceExpr">
+                    <sequence xsi:type="dbl:TerminalExpr" terminal="opt"/>
+                    <sequence xsi:type="dbl:OptionalExpr_OptionalExpr_extension">
+                      <expr xsi:type="dbl:SequenceExpr">
+                        <sequence xsi:type="dbl:TerminalExpr" terminal="n"/>
+                      </expr>
+                    </sequence>
+                  </left>
+                  <right>
+                    <sequence xsi:type="dbl:TerminalExpr" terminal="x"/>
+                  </right>
+                </left>
+                <right>
+                  <sequence xsi:type="dbl:TerminalExpr" terminal="a"/>
+                </right>
+              </expr>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefs>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:BooleanTest_BTest_extension" concreteSyntax="btest;" instanceOfExtensionDefinition="true"/>
+      <statements xsi:type="dbl:BooleanTest_BTest_extension" concreteSyntax="btest on;" instanceOfExtensionDefinition="true" b="true"/>
+    </procedures>
   </modules>
 </dbl:Model>

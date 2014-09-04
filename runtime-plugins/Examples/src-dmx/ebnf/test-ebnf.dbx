@@ -6,8 +6,18 @@ module EbnfSample {
 		start Forever;
 		Forever -> "forever" "{" (stms:list(Statement))* "}";
 	}
-	semantics {
-		
+
+	extension TestX extends dbl Statement {
+		start Test;
+		Test -> "testx" ("opt" ("n")? | "x" | "a")+;
+	}
+	
+	// .. -> .. isControl ?= "control"
+	// .. -> .. isControl : "control"
+	
+	void main() {
+		btest;
+		btest on;
 	}
 
 }

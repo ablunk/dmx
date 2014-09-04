@@ -13,7 +13,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  *
  * @see hub.sam.dbl.DblPackage#getRhsExpression()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface RhsExpression extends EObject {

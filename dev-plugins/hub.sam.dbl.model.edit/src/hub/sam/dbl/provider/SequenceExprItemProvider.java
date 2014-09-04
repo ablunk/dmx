@@ -147,6 +147,11 @@ public class SequenceExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
+				 DblFactory.eINSTANCE.createRhsExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
 				 DblFactory.eINSTANCE.createSequenceExpr()));
 
 		newChildDescriptors.add

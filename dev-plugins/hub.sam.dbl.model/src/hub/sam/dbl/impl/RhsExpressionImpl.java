@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public abstract class RhsExpressionImpl extends EObjectImpl implements RhsExpression {
+public class RhsExpressionImpl extends EObjectImpl implements RhsExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

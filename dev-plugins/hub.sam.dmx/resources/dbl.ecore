@@ -321,7 +321,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" lowerBound="1" eType="#//RhsExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RhsExpression" abstract="true">
+  <eClassifiers xsi:type="ecore:EClass" name="RhsExpression">
     <eOperations name="getSubExpressions" ordered="false" upperBound="-1" eType="#//RhsExpression"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SequenceExpr" eSuperTypes="#//RhsExpression">

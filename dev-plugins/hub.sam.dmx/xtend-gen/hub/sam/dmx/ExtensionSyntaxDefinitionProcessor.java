@@ -1,6 +1,7 @@
 package hub.sam.dmx;
 
 import com.google.common.base.Objects;
+import hub.sam.dbl.BooleanPropertyType;
 import hub.sam.dbl.Clazz;
 import hub.sam.dbl.CompositePropertyType;
 import hub.sam.dbl.DblPackage;
@@ -21,6 +22,7 @@ import hub.sam.dbl.TextualSyntaxDef;
 import hub.sam.dbl.TsRule;
 import hub.sam.dmx.DuplicatedRulesContainer;
 import hub.sam.tef.tsl.CompositeBinding;
+import hub.sam.tef.tsl.ConstantBinding;
 import hub.sam.tef.tsl.ElementBinding;
 import hub.sam.tef.tsl.FixTerminal;
 import hub.sam.tef.tsl.NonTerminal;
@@ -566,6 +568,44 @@ public class ExtensionSyntaxDefinitionProcessor {
     this.processPropertyType(_propertyType, tslRule, rhsExpr, metaClass, ruleStack);
   }
   
+  private void _processPropertyType(final BooleanPropertyType propertyType, final SimpleRule tslRule, final PropertyBindingExpr bindingExpr, final EClass metaClass, final Stack<TsRule> ruleStack) {
+    String _name = bindingExpr.getName();
+    final EAttribute metaClassAttribute = this.createAttribute(_name, metaClass);
+    metaClassAttribute.setEType(Literals.EBOOLEAN);
+    String _name_1 = this.extensionDefinition.getName();
+    String _plus = (_name_1 + "_");
+    NonTerminal _lhs = tslRule.getLhs();
+    String _name_2 = _lhs.getName();
+    String _plus_1 = (_plus + _name_2);
+    String _plus_2 = (_plus_1 + "_");
+    String _name_3 = bindingExpr.getName();
+    final String constantRuleName = (_plus_2 + _name_3);
+    final ConstantBinding constantBinding = TslFactory.eINSTANCE.createConstantBinding();
+    constantBinding.setType("EBoolean");
+    constantBinding.setValue("true");
+    final NonTerminal lhsNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
+    lhsNonTerminal.setName(constantRuleName);
+    final SimpleRule constantRule = TslFactory.eINSTANCE.createSimpleRule();
+    constantRule.setLhs(lhsNonTerminal);
+    constantRule.setValueBinding(constantBinding);
+    Syntax _syntax = this.getSyntax();
+    EList<Rule> _rules = _syntax.getRules();
+    _rules.add(constantRule);
+    this.addedRules.add(constantRule);
+    final FixTerminal rhsNonTerminal = TslFactory.eINSTANCE.createFixTerminal();
+    String _terminal = propertyType.getTerminal();
+    rhsNonTerminal.setTerminal(_terminal);
+    EList<Symbol> _rhs = constantRule.getRhs();
+    _rhs.add(rhsNonTerminal);
+    final CompositeBinding tslCompositeBinding = TslFactory.eINSTANCE.createCompositeBinding();
+    tslCompositeBinding.setProperty(metaClassAttribute);
+    final NonTerminal sourceNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
+    sourceNonTerminal.setPropertyBinding(tslCompositeBinding);
+    sourceNonTerminal.setName(constantRuleName);
+    EList<Symbol> _rhs_1 = tslRule.getRhs();
+    _rhs_1.add(sourceNonTerminal);
+  }
+  
   private void _processPropertyType(final IntPropertyType propertyType, final SimpleRule tslRule, final PropertyBindingExpr bindingExpr, final EClass metaClass, final Stack<TsRule> ruleStack) {
     final NonTerminal nonTerminal = this.createNonTerminal_for_PrimitivePropertyBinding(bindingExpr, Literals.EINT, "INTEGER", metaClass);
     EList<Symbol> _rhs = tslRule.getRhs();
@@ -916,6 +956,9 @@ public class ExtensionSyntaxDefinitionProcessor {
       return;
     } else if (propertyType instanceof ReferencePropertyType) {
       _processPropertyType((ReferencePropertyType)propertyType, tslRule, bindingExpr, metaClass, ruleStack);
+      return;
+    } else if (propertyType instanceof BooleanPropertyType) {
+      _processPropertyType((BooleanPropertyType)propertyType, tslRule, bindingExpr, metaClass, ruleStack);
       return;
     } else if (propertyType instanceof IdPropertyType) {
       _processPropertyType((IdPropertyType)propertyType, tslRule, bindingExpr, metaClass, ruleStack);

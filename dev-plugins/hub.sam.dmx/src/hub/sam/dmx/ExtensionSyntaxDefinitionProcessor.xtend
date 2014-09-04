@@ -37,6 +37,7 @@ import hub.sam.dbl.CompositePropertyType
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.EcoreUtil
 import hub.sam.dbl.TextualSyntaxDef
+import hub.sam.dbl.BooleanPropertyType
 
 class DuplicatedRulesContainer {
 	public var Collection<TsRule> rules = new HashSet<TsRule>();
@@ -377,6 +378,42 @@ class ExtensionSyntaxDefinitionProcessor {
 	
 	private def dispatch void processRhsExpr(PropertyBindingExpr rhsExpr, SimpleRule tslRule, EClass metaClass, Stack<TsRule> ruleStack) {
 		rhsExpr.propertyType.processPropertyType(tslRule, rhsExpr, metaClass, ruleStack)
+	}
+	
+	private def dispatch void processPropertyType(BooleanPropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {
+		val metaClassAttribute = createAttribute(bindingExpr.getName(), metaClass);
+		metaClassAttribute.setEType(EcorePackage.Literals.EBOOLEAN);
+		
+		// new rule: `constantRuleName` : constant("true" : EBoolean) -> "`propertyType.terminal`" ;
+		val constantRuleName = extensionDefinition.name + "_" + tslRule.lhs.name + "_" + bindingExpr.name;
+		
+		val constantBinding = TslFactory.eINSTANCE.createConstantBinding();
+		constantBinding.setType("EBoolean");
+		constantBinding.setValue("true");
+
+		val lhsNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
+		lhsNonTerminal.setName(constantRuleName);
+
+		val constantRule = TslFactory.eINSTANCE.createSimpleRule();
+		constantRule.setLhs(lhsNonTerminal)
+		constantRule.setValueBinding(constantBinding)
+		
+		getSyntax().getRules().add(constantRule);
+		addedRules.add(constantRule);		
+		
+		val rhsNonTerminal = TslFactory.eINSTANCE.createFixTerminal();
+		rhsNonTerminal.setTerminal(propertyType.terminal);
+		constantRule.rhs.add(rhsNonTerminal)
+		
+		// source position
+		val tslCompositeBinding = TslFactory.eINSTANCE.createCompositeBinding();
+		tslCompositeBinding.setProperty(metaClassAttribute);
+		
+		val sourceNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
+		sourceNonTerminal.setPropertyBinding(tslCompositeBinding);
+		sourceNonTerminal.setName(constantRuleName);
+		
+		tslRule.rhs.add(sourceNonTerminal)
 	}
 	
 	private def dispatch void processPropertyType(IntPropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {

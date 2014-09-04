@@ -147,6 +147,11 @@ public class ArbitraryExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ARBITRARY_EXPR__EXPRESSION,
+				 DblFactory.eINSTANCE.createRhsExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ARBITRARY_EXPR__EXPRESSION,
 				 DblFactory.eINSTANCE.createSequenceExpr()));
 
 		newChildDescriptors.add

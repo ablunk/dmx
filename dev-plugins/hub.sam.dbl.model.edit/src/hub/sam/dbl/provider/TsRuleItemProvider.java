@@ -152,6 +152,11 @@ public class TsRuleItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.TS_RULE__RHS,
+				 DblFactory.eINSTANCE.createRhsExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TS_RULE__RHS,
 				 DblFactory.eINSTANCE.createSequenceExpr()));
 
 		newChildDescriptors.add

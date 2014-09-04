@@ -147,6 +147,11 @@ public class OptionalExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.OPTIONAL_EXPR__EXPRESSION,
+				 DblFactory.eINSTANCE.createRhsExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.OPTIONAL_EXPR__EXPRESSION,
 				 DblFactory.eINSTANCE.createSequenceExpr()));
 
 		newChildDescriptors.add

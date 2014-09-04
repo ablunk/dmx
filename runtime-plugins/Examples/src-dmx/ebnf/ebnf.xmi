@@ -19,7 +19,80 @@
           </rhs>
         </rules>
       </textualSyntaxDef>
-      <mappingDef/>
+    </extensionDefs>
+    <extensionDefs name="AtLeastExpr">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.109"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="AtLeastExpr">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")+"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefs>
+    <extensionDefs name="OptionalExpr">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.109"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.0">
+        <rules name="OptionalExpr">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=")?"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefs>
+    <extensionDefs name="AlternativeExpr">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.3/@textualSyntaxDef/@rules.0">
+        <rules name="AlternativeExpr">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="left">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="|"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="right">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.103"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefs>
+    <extensionDefs name="BooleanTest">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.31"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@rules.0">
+        <rules name="BTest">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="btest"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.4/@textualSyntaxDef/@rules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="BOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="BOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="b">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="on"/>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
     </extensionDefs>
   </modules>
 </dbl:Model>

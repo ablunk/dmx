@@ -147,6 +147,11 @@ public class AtLeastOneExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.AT_LEAST_ONE_EXPR__EXPRESSION,
+				 DblFactory.eINSTANCE.createRhsExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.AT_LEAST_ONE_EXPR__EXPRESSION,
 				 DblFactory.eINSTANCE.createSequenceExpr()));
 
 		newChildDescriptors.add
