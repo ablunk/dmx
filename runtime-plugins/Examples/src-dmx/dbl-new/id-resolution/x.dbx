@@ -1,0 +1,15 @@
+#import "../../dbl"
+
+module x {
+
+extension XEDef extends dbl SimpleStatement {
+	start EDef;
+	EDef -> "xe" "def" name:ID ";";
+}
+
+extension XERef extends dbl SimpleStatement {
+	start ERef;
+	ERef -> "xe" "ref" e:$$EDef ";";
+}
+
+}

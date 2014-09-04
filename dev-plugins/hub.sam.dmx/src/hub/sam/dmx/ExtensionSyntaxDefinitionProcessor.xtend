@@ -36,6 +36,7 @@ import hub.sam.dbl.ReferencePropertyType
 import hub.sam.dbl.CompositePropertyType
 import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.EcoreUtil
+import hub.sam.dbl.TextualSyntaxDef
 
 class DuplicatedRulesContainer {
 	public var Collection<TsRule> rules = new HashSet<TsRule>();
@@ -151,7 +152,8 @@ class ExtensionSyntaxDefinitionProcessor {
 	}
 
 	private def dispatch String getSyntaxRuleName(TsRule rule) {
-		return extensionDefinition.name + "_" + rule.name + "_extension"
+		val extDef = (rule.eContainer as TextualSyntaxDef)?.eContainer as ExtensionDefinition
+		return (if (extDef != null) extDef.name else extensionDefinition.name) + "_" + rule.name + "_extension"
 	}
 	
 	private def dispatch String getSyntaxRuleName(ExtensionDefinition referencedExtDef) {

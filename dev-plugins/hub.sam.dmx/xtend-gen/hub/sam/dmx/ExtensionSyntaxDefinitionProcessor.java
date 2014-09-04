@@ -227,10 +227,25 @@ public class ExtensionSyntaxDefinitionProcessor {
   }
   
   private String _getSyntaxRuleName(final TsRule rule) {
-    String _name = this.extensionDefinition.getName();
-    String _plus = (_name + "_");
-    String _name_1 = rule.getName();
-    String _plus_1 = (_plus + _name_1);
+    EObject _eContainer = rule.eContainer();
+    EObject _eContainer_1 = null;
+    EObject _eContainer_2 = rule.eContainer();
+    if (((TextualSyntaxDef) _eContainer)!=null) {
+      _eContainer_1=((TextualSyntaxDef) _eContainer).eContainer();
+    }
+    final ExtensionDefinition extDef = ((ExtensionDefinition) _eContainer_1);
+    String _xifexpression = null;
+    boolean _notEquals = (!Objects.equal(extDef, null));
+    if (_notEquals) {
+      String _name = extDef.getName();
+      _xifexpression = _name;
+    } else {
+      String _name_1 = this.extensionDefinition.getName();
+      _xifexpression = _name_1;
+    }
+    String _plus = (_xifexpression + "_");
+    String _name_2 = rule.getName();
+    String _plus_1 = (_plus + _name_2);
     return (_plus_1 + "_extension");
   }
   

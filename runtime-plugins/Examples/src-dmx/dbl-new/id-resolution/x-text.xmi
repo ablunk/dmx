@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="X">
+    <model href="x.xmi#/"/>
+  </imports>
+  <modules name="x_test">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:XEDef_EDef_extension" name="a" concreteSyntax="xe def a;" instanceOfExtensionDefinition="true"/>
+      <statements xsi:type="dbl:XERef_ERef_extension" concreteSyntax="xe ref a;" instanceOfExtensionDefinition="true" e="//@modules.0/@procedures.0/@statements.0"/>
+    </procedures>
+  </modules>
+</dbl:Model>

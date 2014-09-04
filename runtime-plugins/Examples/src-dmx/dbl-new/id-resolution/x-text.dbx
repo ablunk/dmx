@@ -1,0 +1,11 @@
+#import "x"
+
+module x_test {
+
+void main() {
+	xe def a;
+	
+	xe ref a;
+}
+
+}
