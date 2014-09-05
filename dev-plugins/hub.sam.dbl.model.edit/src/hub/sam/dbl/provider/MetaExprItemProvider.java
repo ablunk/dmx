@@ -160,12 +160,62 @@ public class MetaExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.META_EXPR__EXPR,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.META_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -186,16 +236,6 @@ public class MetaExprItemProvider
 			(createChildParameter
 				(DblPackage.Literals.META_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.META_EXPR__EXPR,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.META_EXPR__EXPR,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter

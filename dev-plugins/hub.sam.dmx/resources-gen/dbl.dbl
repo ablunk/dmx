@@ -1,3 +1,5 @@
+#import "ecore"
+
 module dbl {
 
 class ExtensibleElement
@@ -97,7 +99,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.ArrayDimension"
 	}
 	
-	Expression _size;
+	Expression size;
 	void setSize(Expression value) abstract;
 }
 class PrimitiveType
@@ -317,16 +319,6 @@ extends EObject
 	string name;
 	void setName(string value) abstract;
 }
-class deprecated_CodeBlock
-extends 
-ExtensibleElement
-{
-	bindings {
-		"java" -> "hub.sam.dbl.deprecated_CodeBlock"
-	}
-	
-	List statements;
-}
 class Statement
 extends 
 ExtensibleElement
@@ -448,7 +440,7 @@ SimpleStatement
 	
 	Expression objectAccess;
 	void setObjectAccess(Expression value) abstract;
-	int _priority;
+	int priority;
 	void setPriority(int value) abstract;
 }
 class Advance
@@ -597,6 +589,78 @@ Expression
 	}
 	
 }
+class L2Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L2Expr"
+	}
+	
+}
+class L3Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L3Expr"
+	}
+	
+}
+class L4Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L4Expr"
+	}
+	
+}
+class L5Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L5Expr"
+	}
+	
+}
+class L6Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L6Expr"
+	}
+	
+}
+class L7Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L7Expr"
+	}
+	
+}
+class L8Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L8Expr"
+	}
+	
+}
+class L9Expr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L9Expr"
+	}
+	
+}
 class BinaryOperator
 extends 
 Expression
@@ -621,63 +685,30 @@ Expression
 	Expression op;
 	void setOp(Expression value) abstract;
 }
-class And
-extends 
-BinaryOperator
-{
-	bindings {
-		"java" -> "hub.sam.dbl.And"
-	}
-	
-}
 class Or
 extends 
-BinaryOperator
+BinaryOperator,
+L8Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Or"
 	}
 	
 }
-class Greater
+class And
 extends 
-BinaryOperator
+BinaryOperator,
+L7Expr
 {
 	bindings {
-		"java" -> "hub.sam.dbl.Greater"
-	}
-	
-}
-class GreaterEqual
-extends 
-BinaryOperator
-{
-	bindings {
-		"java" -> "hub.sam.dbl.GreaterEqual"
-	}
-	
-}
-class Less
-extends 
-BinaryOperator
-{
-	bindings {
-		"java" -> "hub.sam.dbl.Less"
-	}
-	
-}
-class LessEqual
-extends 
-BinaryOperator
-{
-	bindings {
-		"java" -> "hub.sam.dbl.LessEqual"
+		"java" -> "hub.sam.dbl.And"
 	}
 	
 }
 class NotEqual
 extends 
-BinaryOperator
+BinaryOperator,
+L6Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.NotEqual"
@@ -686,16 +717,58 @@ BinaryOperator
 }
 class Equal
 extends 
-BinaryOperator
+BinaryOperator,
+L6Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Equal"
 	}
 	
 }
+class Greater
+extends 
+BinaryOperator,
+L5Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Greater"
+	}
+	
+}
+class GreaterEqual
+extends 
+BinaryOperator,
+L5Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.GreaterEqual"
+	}
+	
+}
+class Less
+extends 
+BinaryOperator,
+L5Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Less"
+	}
+	
+}
+class LessEqual
+extends 
+BinaryOperator,
+L5Expr
+{
+	bindings {
+		"java" -> "hub.sam.dbl.LessEqual"
+	}
+	
+}
 class InstanceOf
 extends 
-BinaryOperator
+BinaryOperator,
+L5Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.InstanceOf"
@@ -704,7 +777,8 @@ BinaryOperator
 }
 class Plus
 extends 
-BinaryOperator
+BinaryOperator,
+L4Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Plus"
@@ -713,7 +787,8 @@ BinaryOperator
 }
 class Minus
 extends 
-BinaryOperator
+BinaryOperator,
+L4Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Minus"
@@ -722,7 +797,8 @@ BinaryOperator
 }
 class Mul
 extends 
-BinaryOperator
+BinaryOperator,
+L3Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Mul"
@@ -731,7 +807,8 @@ BinaryOperator
 }
 class Mod
 extends 
-BinaryOperator
+BinaryOperator,
+L3Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Mod"
@@ -740,7 +817,8 @@ BinaryOperator
 }
 class Div
 extends 
-BinaryOperator
+BinaryOperator,
+L3Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Div"
@@ -749,7 +827,8 @@ BinaryOperator
 }
 class Neg
 extends 
-UnaryOperator
+UnaryOperator,
+L2Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Neg"
@@ -758,7 +837,8 @@ UnaryOperator
 }
 class Not
 extends 
-UnaryOperator
+UnaryOperator,
+L2Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Not"
@@ -768,7 +848,8 @@ UnaryOperator
 class Cast
 extends 
 UnaryOperator,
-TypedElement
+TypedElement,
+L2Expr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Cast"
@@ -1075,9 +1156,27 @@ extends EObject
 	}
 	
 }
-class SequenceExpr
+class L3RhsExpr
 extends 
 RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L3RhsExpr"
+	}
+	
+}
+class L2RhsExpr
+extends 
+RhsExpression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.L2RhsExpr"
+	}
+	
+}
+class SequenceExpr
+extends 
+L2RhsExpr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.SequenceExpr"
@@ -1085,66 +1184,18 @@ RhsExpression
 	
 	List sequence;
 }
-class OptionalExpr
+class L1RhsExpr
 extends 
 RhsExpression
 {
 	bindings {
-		"java" -> "hub.sam.dbl.OptionalExpr"
+		"java" -> "hub.sam.dbl.L1RhsExpr"
 	}
 	
-	RhsExpression expression;
-	void setExpression(RhsExpression value) abstract;
-}
-class RuntimeExpr
-extends 
-RhsExpression
-{
-	bindings {
-		"java" -> "hub.sam.dbl.RuntimeExpr"
-	}
-	
-	RhsExpression expression;
-	void setExpression(RhsExpression value) abstract;
-}
-class AtLeastOneExpr
-extends 
-RhsExpression
-{
-	bindings {
-		"java" -> "hub.sam.dbl.AtLeastOneExpr"
-	}
-	
-	RhsExpression expression;
-	void setExpression(RhsExpression value) abstract;
-}
-class ArbitraryExpr
-extends 
-RhsExpression
-{
-	bindings {
-		"java" -> "hub.sam.dbl.ArbitraryExpr"
-	}
-	
-	RhsExpression expression;
-	void setExpression(RhsExpression value) abstract;
-}
-class AlternativeExpr
-extends 
-RhsExpression
-{
-	bindings {
-		"java" -> "hub.sam.dbl.AlternativeExpr"
-	}
-	
-	RhsExpression left;
-	void setLeft(RhsExpression value) abstract;
-	RhsExpression right;
-	void setRight(RhsExpression value) abstract;
 }
 class TerminalExpr
 extends 
-RhsExpression
+L1RhsExpr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.TerminalExpr"
@@ -1156,7 +1207,7 @@ RhsExpression
 class PropertyBindingExpr
 extends 
 NamedElement,
-RhsExpression
+L1RhsExpr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.PropertyBindingExpr"
@@ -1164,12 +1215,10 @@ RhsExpression
 	
 	PropertyType propertyType;
 	void setPropertyType(PropertyType value) abstract;
-	BindingExprOpKind operator;
-	void setOperator(BindingExprOpKind value) abstract;
 }
 class RhsClassifierExpr
 extends 
-RhsExpression
+L1RhsExpr
 {
 	bindings {
 		"java" -> "hub.sam.dbl.RhsClassifierExpr"
@@ -1232,7 +1281,7 @@ PropertyType
 		"java" -> "hub.sam.dbl.StructuredPropertyType"
 	}
 	
-	LanguageConstructClassifier _type;
+	LanguageConstructClassifier type;
 	void setType(LanguageConstructClassifier value) abstract;
 }
 class CompositePropertyType
@@ -1254,8 +1303,6 @@ StructuredPropertyType
 		"java" -> "hub.sam.dbl.ReferencePropertyType"
 	}
 	
-	Pattern idResolutionPattern;
-	void setIdResolutionPattern(Pattern value) abstract;
 	boolean rawReference;
 	void setRawReference(boolean value) abstract;
 }

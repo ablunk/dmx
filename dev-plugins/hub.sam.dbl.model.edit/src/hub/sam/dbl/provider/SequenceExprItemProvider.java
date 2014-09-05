@@ -30,7 +30,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class SequenceExprItemProvider
-	extends RhsExpressionItemProvider
+	extends L2RhsExprItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -152,32 +152,22 @@ public class SequenceExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
+				 DblFactory.eINSTANCE.createL3RhsExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
+				 DblFactory.eINSTANCE.createL2RhsExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
 				 DblFactory.eINSTANCE.createSequenceExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
-				 DblFactory.eINSTANCE.createOptionalExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
-				 DblFactory.eINSTANCE.createRuntimeExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
-				 DblFactory.eINSTANCE.createAtLeastOneExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
-				 DblFactory.eINSTANCE.createArbitraryExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SEQUENCE_EXPR__SEQUENCE,
-				 DblFactory.eINSTANCE.createAlternativeExpr()));
+				 DblFactory.eINSTANCE.createL1RhsExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

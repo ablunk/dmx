@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Div extends BinaryOperator {
+public interface Div extends BinaryOperator, L3Expr {
 } // Div

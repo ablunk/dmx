@@ -151,12 +151,62 @@ public class BinaryOperatorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP1,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP1,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP1,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -177,16 +227,6 @@ public class BinaryOperatorItemProvider
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP1,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.BINARY_OPERATOR__OP1,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.BINARY_OPERATOR__OP1,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -331,12 +371,62 @@ public class BinaryOperatorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP2,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP2,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.BINARY_OPERATOR__OP2,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -357,16 +447,6 @@ public class BinaryOperatorItemProvider
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP2,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.BINARY_OPERATOR__OP2,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.BINARY_OPERATOR__OP2,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter

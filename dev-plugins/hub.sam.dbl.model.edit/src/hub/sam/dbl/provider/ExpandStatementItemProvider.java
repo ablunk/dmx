@@ -162,12 +162,62 @@ public class ExpandStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -188,16 +238,6 @@ public class ExpandStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -342,12 +382,62 @@ public class ExpandStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -368,16 +458,6 @@ public class ExpandStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter

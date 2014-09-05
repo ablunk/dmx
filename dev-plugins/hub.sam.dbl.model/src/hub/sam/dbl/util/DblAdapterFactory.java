@@ -184,10 +184,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createNamedElementAdapter();
 			}
 			@Override
-			public Adapter casedeprecated_CodeBlock(deprecated_CodeBlock object) {
-				return createdeprecated_CodeBlockAdapter();
-			}
-			@Override
 			public Adapter caseStatement(Statement object) {
 				return createStatementAdapter();
 			}
@@ -288,6 +284,38 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createL1ExprAdapter();
 			}
 			@Override
+			public Adapter caseL2Expr(L2Expr object) {
+				return createL2ExprAdapter();
+			}
+			@Override
+			public Adapter caseL3Expr(L3Expr object) {
+				return createL3ExprAdapter();
+			}
+			@Override
+			public Adapter caseL4Expr(L4Expr object) {
+				return createL4ExprAdapter();
+			}
+			@Override
+			public Adapter caseL5Expr(L5Expr object) {
+				return createL5ExprAdapter();
+			}
+			@Override
+			public Adapter caseL6Expr(L6Expr object) {
+				return createL6ExprAdapter();
+			}
+			@Override
+			public Adapter caseL7Expr(L7Expr object) {
+				return createL7ExprAdapter();
+			}
+			@Override
+			public Adapter caseL8Expr(L8Expr object) {
+				return createL8ExprAdapter();
+			}
+			@Override
+			public Adapter caseL9Expr(L9Expr object) {
+				return createL9ExprAdapter();
+			}
+			@Override
 			public Adapter caseBinaryOperator(BinaryOperator object) {
 				return createBinaryOperatorAdapter();
 			}
@@ -296,12 +324,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createUnaryOperatorAdapter();
 			}
 			@Override
+			public Adapter caseOr(Or object) {
+				return createOrAdapter();
+			}
+			@Override
 			public Adapter caseAnd(And object) {
 				return createAndAdapter();
 			}
 			@Override
-			public Adapter caseOr(Or object) {
-				return createOrAdapter();
+			public Adapter caseNotEqual(NotEqual object) {
+				return createNotEqualAdapter();
+			}
+			@Override
+			public Adapter caseEqual(Equal object) {
+				return createEqualAdapter();
 			}
 			@Override
 			public Adapter caseGreater(Greater object) {
@@ -318,14 +354,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseLessEqual(LessEqual object) {
 				return createLessEqualAdapter();
-			}
-			@Override
-			public Adapter caseNotEqual(NotEqual object) {
-				return createNotEqualAdapter();
-			}
-			@Override
-			public Adapter caseEqual(Equal object) {
-				return createEqualAdapter();
 			}
 			@Override
 			public Adapter caseInstanceOf(InstanceOf object) {
@@ -484,28 +512,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createRhsExpressionAdapter();
 			}
 			@Override
+			public Adapter caseL3RhsExpr(L3RhsExpr object) {
+				return createL3RhsExprAdapter();
+			}
+			@Override
+			public Adapter caseL2RhsExpr(L2RhsExpr object) {
+				return createL2RhsExprAdapter();
+			}
+			@Override
 			public Adapter caseSequenceExpr(SequenceExpr object) {
 				return createSequenceExprAdapter();
 			}
 			@Override
-			public Adapter caseOptionalExpr(OptionalExpr object) {
-				return createOptionalExprAdapter();
-			}
-			@Override
-			public Adapter caseRuntimeExpr(RuntimeExpr object) {
-				return createRuntimeExprAdapter();
-			}
-			@Override
-			public Adapter caseAtLeastOneExpr(AtLeastOneExpr object) {
-				return createAtLeastOneExprAdapter();
-			}
-			@Override
-			public Adapter caseArbitraryExpr(ArbitraryExpr object) {
-				return createArbitraryExprAdapter();
-			}
-			@Override
-			public Adapter caseAlternativeExpr(AlternativeExpr object) {
-				return createAlternativeExprAdapter();
+			public Adapter caseL1RhsExpr(L1RhsExpr object) {
+				return createL1RhsExprAdapter();
 			}
 			@Override
 			public Adapter caseTerminalExpr(TerminalExpr object) {
@@ -1034,20 +1054,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.deprecated_CodeBlock <em>deprecated Code Block</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.deprecated_CodeBlock
-	 * @generated
-	 */
-	public Adapter createdeprecated_CodeBlockAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Statement <em>Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1394,6 +1400,118 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createL1ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L2Expr <em>L2 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L2Expr
+	 * @generated
+	 */
+	public Adapter createL2ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L3Expr <em>L3 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L3Expr
+	 * @generated
+	 */
+	public Adapter createL3ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L4Expr <em>L4 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L4Expr
+	 * @generated
+	 */
+	public Adapter createL4ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L5Expr <em>L5 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L5Expr
+	 * @generated
+	 */
+	public Adapter createL5ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L6Expr <em>L6 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L6Expr
+	 * @generated
+	 */
+	public Adapter createL6ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L7Expr <em>L7 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L7Expr
+	 * @generated
+	 */
+	public Adapter createL7ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L8Expr <em>L8 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L8Expr
+	 * @generated
+	 */
+	public Adapter createL8ExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L9Expr <em>L9 Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L9Expr
+	 * @generated
+	 */
+	public Adapter createL9ExprAdapter() {
 		return null;
 	}
 
@@ -2098,6 +2216,34 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L3RhsExpr <em>L3 Rhs Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L3RhsExpr
+	 * @generated
+	 */
+	public Adapter createL3RhsExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L2RhsExpr <em>L2 Rhs Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.L2RhsExpr
+	 * @generated
+	 */
+	public Adapter createL2RhsExprAdapter() {
+		return null;
+	}
+
+	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.SequenceExpr <em>Sequence Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -2112,72 +2258,16 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.OptionalExpr <em>Optional Expr</em>}'.
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.L1RhsExpr <em>L1 Rhs Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see hub.sam.dbl.OptionalExpr
+	 * @see hub.sam.dbl.L1RhsExpr
 	 * @generated
 	 */
-	public Adapter createOptionalExprAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.RuntimeExpr <em>Runtime Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.RuntimeExpr
-	 * @generated
-	 */
-	public Adapter createRuntimeExprAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.AtLeastOneExpr <em>At Least One Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.AtLeastOneExpr
-	 * @generated
-	 */
-	public Adapter createAtLeastOneExprAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ArbitraryExpr <em>Arbitrary Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ArbitraryExpr
-	 * @generated
-	 */
-	public Adapter createArbitraryExprAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.AlternativeExpr <em>Alternative Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.AlternativeExpr
-	 * @generated
-	 */
-	public Adapter createAlternativeExprAdapter() {
+	public Adapter createL1RhsExprAdapter() {
 		return null;
 	}
 

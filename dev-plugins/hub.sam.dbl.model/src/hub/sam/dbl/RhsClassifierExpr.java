@@ -19,7 +19,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface RhsClassifierExpr extends RhsExpression {
+public interface RhsClassifierExpr extends L1RhsExpr {
 	/**
 	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
 	 * <!-- begin-user-doc -->

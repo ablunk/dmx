@@ -10,7 +10,6 @@ import hub.sam.dbl.*;
 import hub.sam.dbl.util.DblUtil;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
@@ -95,6 +94,14 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.CONTINUE_STATEMENT: return createContinueStatement();
 			case DblPackage.EXPRESSION: return createExpression();
 			case DblPackage.L1_EXPR: return createL1Expr();
+			case DblPackage.L2_EXPR: return createL2Expr();
+			case DblPackage.L3_EXPR: return createL3Expr();
+			case DblPackage.L4_EXPR: return createL4Expr();
+			case DblPackage.L5_EXPR: return createL5Expr();
+			case DblPackage.L6_EXPR: return createL6Expr();
+			case DblPackage.L7_EXPR: return createL7Expr();
+			case DblPackage.L8_EXPR: return createL8Expr();
+			case DblPackage.L9_EXPR: return createL9Expr();
 			case DblPackage.PLUS: return createPlus();
 			case DblPackage.MINUS: return createMinus();
 			case DblPackage.MUL: return createMul();
@@ -138,12 +145,10 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.TEXTUAL_SYNTAX_DEF: return createTextualSyntaxDef();
 			case DblPackage.TS_RULE: return createTsRule();
 			case DblPackage.SEQUENCE_EXPR: return createSequenceExpr();
-			case DblPackage.OPTIONAL_EXPR: return createOptionalExpr();
-			case DblPackage.RUNTIME_EXPR: return createRuntimeExpr();
-			case DblPackage.AT_LEAST_ONE_EXPR: return createAtLeastOneExpr();
-			case DblPackage.ARBITRARY_EXPR: return createArbitraryExpr();
-			case DblPackage.ALTERNATIVE_EXPR: return createAlternativeExpr();
 			case DblPackage.TERMINAL_EXPR: return createTerminalExpr();
+			case DblPackage.L1_RHS_EXPR: return createL1RhsExpr();
+			case DblPackage.L2_RHS_EXPR: return createL2RhsExpr();
+			case DblPackage.L3_RHS_EXPR: return createL3RhsExpr();
 			case DblPackage.PROPERTY_BINDING_EXPR: return createPropertyBindingExpr();
 			case DblPackage.ID_PROPERTY_TYPE: return createIdPropertyType();
 			case DblPackage.INT_PROPERTY_TYPE: return createIntPropertyType();
@@ -187,36 +192,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object createFromString(EDataType eDataType, String initialValue) {
-		switch (eDataType.getClassifierID()) {
-			case DblPackage.BINDING_EXPR_OP_KIND:
-				return createBindingExprOpKindFromString(eDataType, initialValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
-		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String convertToString(EDataType eDataType, Object instanceValue) {
-		switch (eDataType.getClassifierID()) {
-			case DblPackage.BINDING_EXPR_OP_KIND:
-				return convertBindingExprOpKindToString(eDataType, instanceValue);
-			default:
-				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -408,16 +383,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public NamedElement createNamedElement() {
 		NamedElementImpl namedElement = new NamedElementImpl();
 		return namedElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public deprecated_CodeBlock createdeprecated_CodeBlock() {
-		deprecated_CodeBlockImpl deprecated_CodeBlock = new deprecated_CodeBlockImpl();
-		return deprecated_CodeBlock;
 	}
 
 	/**
@@ -668,6 +633,86 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public L1Expr createL1Expr() {
 		L1ExprImpl l1Expr = new L1ExprImpl();
 		return l1Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L2Expr createL2Expr() {
+		L2ExprImpl l2Expr = new L2ExprImpl();
+		return l2Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L3Expr createL3Expr() {
+		L3ExprImpl l3Expr = new L3ExprImpl();
+		return l3Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L4Expr createL4Expr() {
+		L4ExprImpl l4Expr = new L4ExprImpl();
+		return l4Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L5Expr createL5Expr() {
+		L5ExprImpl l5Expr = new L5ExprImpl();
+		return l5Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L6Expr createL6Expr() {
+		L6ExprImpl l6Expr = new L6ExprImpl();
+		return l6Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L7Expr createL7Expr() {
+		L7ExprImpl l7Expr = new L7ExprImpl();
+		return l7Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L8Expr createL8Expr() {
+		L8ExprImpl l8Expr = new L8ExprImpl();
+		return l8Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L9Expr createL9Expr() {
+		L9ExprImpl l9Expr = new L9ExprImpl();
+		return l9Expr;
 	}
 
 	/**
@@ -1125,6 +1170,26 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public L3RhsExpr createL3RhsExpr() {
+		L3RhsExprImpl l3RhsExpr = new L3RhsExprImpl();
+		return l3RhsExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L2RhsExpr createL2RhsExpr() {
+		L2RhsExprImpl l2RhsExpr = new L2RhsExprImpl();
+		return l2RhsExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public SequenceExpr createSequenceExpr() {
 		SequenceExprImpl sequenceExpr = new SequenceExprImpl();
 		return sequenceExpr;
@@ -1135,49 +1200,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OptionalExpr createOptionalExpr() {
-		OptionalExprImpl optionalExpr = new OptionalExprImpl();
-		return optionalExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RuntimeExpr createRuntimeExpr() {
-		RuntimeExprImpl runtimeExpr = new RuntimeExprImpl();
-		return runtimeExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AtLeastOneExpr createAtLeastOneExpr() {
-		AtLeastOneExprImpl atLeastOneExpr = new AtLeastOneExprImpl();
-		return atLeastOneExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ArbitraryExpr createArbitraryExpr() {
-		ArbitraryExprImpl arbitraryExpr = new ArbitraryExprImpl();
-		return arbitraryExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public AlternativeExpr createAlternativeExpr() {
-		AlternativeExprImpl alternativeExpr = new AlternativeExprImpl();
-		return alternativeExpr;
+	public L1RhsExpr createL1RhsExpr() {
+		L1RhsExprImpl l1RhsExpr = new L1RhsExprImpl();
+		return l1RhsExpr;
 	}
 
 	/**
@@ -1478,26 +1503,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Pattern createPattern() {
 		PatternImpl pattern = new PatternImpl();
 		return pattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BindingExprOpKind createBindingExprOpKindFromString(EDataType eDataType, String initialValue) {
-		BindingExprOpKind result = BindingExprOpKind.get(initialValue);
-		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-		return result;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String convertBindingExprOpKindToString(EDataType eDataType, Object instanceValue) {
-		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

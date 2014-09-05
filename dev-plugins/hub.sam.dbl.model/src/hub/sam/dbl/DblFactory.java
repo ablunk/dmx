@@ -202,15 +202,6 @@ public interface DblFactory extends EFactory {
 	NamedElement createNamedElement();
 
 	/**
-	 * Returns a new object of class '<em>deprecated Code Block</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>deprecated Code Block</em>'.
-	 * @generated
-	 */
-	deprecated_CodeBlock createdeprecated_CodeBlock();
-
-	/**
 	 * Returns a new object of class '<em>Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -434,6 +425,78 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	L1Expr createL1Expr();
+
+	/**
+	 * Returns a new object of class '<em>L2 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L2 Expr</em>'.
+	 * @generated
+	 */
+	L2Expr createL2Expr();
+
+	/**
+	 * Returns a new object of class '<em>L3 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L3 Expr</em>'.
+	 * @generated
+	 */
+	L3Expr createL3Expr();
+
+	/**
+	 * Returns a new object of class '<em>L4 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L4 Expr</em>'.
+	 * @generated
+	 */
+	L4Expr createL4Expr();
+
+	/**
+	 * Returns a new object of class '<em>L5 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L5 Expr</em>'.
+	 * @generated
+	 */
+	L5Expr createL5Expr();
+
+	/**
+	 * Returns a new object of class '<em>L6 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L6 Expr</em>'.
+	 * @generated
+	 */
+	L6Expr createL6Expr();
+
+	/**
+	 * Returns a new object of class '<em>L7 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L7 Expr</em>'.
+	 * @generated
+	 */
+	L7Expr createL7Expr();
+
+	/**
+	 * Returns a new object of class '<em>L8 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L8 Expr</em>'.
+	 * @generated
+	 */
+	L8Expr createL8Expr();
+
+	/**
+	 * Returns a new object of class '<em>L9 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L9 Expr</em>'.
+	 * @generated
+	 */
+	L9Expr createL9Expr();
 
 	/**
 	 * Returns a new object of class '<em>And</em>'.
@@ -832,6 +895,24 @@ public interface DblFactory extends EFactory {
 	RhsExpression createRhsExpression();
 
 	/**
+	 * Returns a new object of class '<em>L3 Rhs Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L3 Rhs Expr</em>'.
+	 * @generated
+	 */
+	L3RhsExpr createL3RhsExpr();
+
+	/**
+	 * Returns a new object of class '<em>L2 Rhs Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>L2 Rhs Expr</em>'.
+	 * @generated
+	 */
+	L2RhsExpr createL2RhsExpr();
+
+	/**
 	 * Returns a new object of class '<em>Sequence Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -841,49 +922,13 @@ public interface DblFactory extends EFactory {
 	SequenceExpr createSequenceExpr();
 
 	/**
-	 * Returns a new object of class '<em>Optional Expr</em>'.
+	 * Returns a new object of class '<em>L1 Rhs Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Optional Expr</em>'.
+	 * @return a new object of class '<em>L1 Rhs Expr</em>'.
 	 * @generated
 	 */
-	OptionalExpr createOptionalExpr();
-
-	/**
-	 * Returns a new object of class '<em>Runtime Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Runtime Expr</em>'.
-	 * @generated
-	 */
-	RuntimeExpr createRuntimeExpr();
-
-	/**
-	 * Returns a new object of class '<em>At Least One Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>At Least One Expr</em>'.
-	 * @generated
-	 */
-	AtLeastOneExpr createAtLeastOneExpr();
-
-	/**
-	 * Returns a new object of class '<em>Arbitrary Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Arbitrary Expr</em>'.
-	 * @generated
-	 */
-	ArbitraryExpr createArbitraryExpr();
-
-	/**
-	 * Returns a new object of class '<em>Alternative Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Alternative Expr</em>'.
-	 * @generated
-	 */
-	AlternativeExpr createAlternativeExpr();
+	L1RhsExpr createL1RhsExpr();
 
 	/**
 	 * Returns a new object of class '<em>Terminal Expr</em>'.

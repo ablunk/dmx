@@ -321,12 +321,62 @@ public class ForStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -347,16 +397,6 @@ public class ForStatementItemProvider
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter

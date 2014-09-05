@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Or extends BinaryOperator {
+public interface Or extends BinaryOperator, L8Expr {
 } // Or

@@ -160,12 +160,62 @@ public class AdvanceItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ADVANCE__TIME,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ADVANCE__TIME,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -186,16 +236,6 @@ public class AdvanceItemProvider
 			(createChildParameter
 				(DblPackage.Literals.ADVANCE__TIME,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ADVANCE__TIME,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ADVANCE__TIME,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter

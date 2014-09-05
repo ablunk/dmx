@@ -2,16 +2,12 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.BindingExprOpKind;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
-import hub.sam.dbl.RhsExpression;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -26,7 +22,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.PropertyBindingExprImpl#getPropertyType <em>Property Type</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.PropertyBindingExprImpl#getOperator <em>Operator</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,26 +37,6 @@ public class PropertyBindingExprImpl extends NamedElementImpl implements Propert
 	 * @ordered
 	 */
 	protected PropertyType propertyType;
-
-	/**
-	 * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOperator()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final BindingExprOpKind OPERATOR_EDEFAULT = BindingExprOpKind.ASSIGN;
-
-	/**
-	 * The cached value of the '{@link #getOperator() <em>Operator</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOperator()
-	 * @generated
-	 * @ordered
-	 */
-	protected BindingExprOpKind operator = OPERATOR_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -130,38 +105,6 @@ public class PropertyBindingExprImpl extends NamedElementImpl implements Propert
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BindingExprOpKind getOperator() {
-		return operator;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setOperator(BindingExprOpKind newOperator) {
-		BindingExprOpKind oldOperator = operator;
-		operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.PROPERTY_BINDING_EXPR__OPERATOR, oldOperator, operator));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<RhsExpression> getSubExpressions() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -181,8 +124,6 @@ public class PropertyBindingExprImpl extends NamedElementImpl implements Propert
 		switch (featureID) {
 			case DblPackage.PROPERTY_BINDING_EXPR__PROPERTY_TYPE:
 				return getPropertyType();
-			case DblPackage.PROPERTY_BINDING_EXPR__OPERATOR:
-				return getOperator();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -197,9 +138,6 @@ public class PropertyBindingExprImpl extends NamedElementImpl implements Propert
 		switch (featureID) {
 			case DblPackage.PROPERTY_BINDING_EXPR__PROPERTY_TYPE:
 				setPropertyType((PropertyType)newValue);
-				return;
-			case DblPackage.PROPERTY_BINDING_EXPR__OPERATOR:
-				setOperator((BindingExprOpKind)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -216,9 +154,6 @@ public class PropertyBindingExprImpl extends NamedElementImpl implements Propert
 			case DblPackage.PROPERTY_BINDING_EXPR__PROPERTY_TYPE:
 				setPropertyType((PropertyType)null);
 				return;
-			case DblPackage.PROPERTY_BINDING_EXPR__OPERATOR:
-				setOperator(OPERATOR_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -233,26 +168,8 @@ public class PropertyBindingExprImpl extends NamedElementImpl implements Propert
 		switch (featureID) {
 			case DblPackage.PROPERTY_BINDING_EXPR__PROPERTY_TYPE:
 				return propertyType != null;
-			case DblPackage.PROPERTY_BINDING_EXPR__OPERATOR:
-				return operator != OPERATOR_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (operator: ");
-		result.append(operator);
-		result.append(')');
-		return result.toString();
 	}
 
 } //PropertyBindingExprImpl

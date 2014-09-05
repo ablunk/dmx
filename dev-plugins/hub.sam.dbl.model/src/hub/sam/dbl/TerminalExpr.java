@@ -19,7 +19,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface TerminalExpr extends RhsExpression {
+public interface TerminalExpr extends L1RhsExpr {
 	/**
 	 * Returns the value of the '<em><b>Terminal</b></em>' attribute.
 	 * <!-- begin-user-doc -->

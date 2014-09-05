@@ -20,7 +20,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.ReferencePropertyTypeImpl#getIdResolutionPattern <em>Id Resolution Pattern</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ReferencePropertyTypeImpl#isRawReference <em>Raw Reference</em>}</li>
  * </ul>
  * </p>
@@ -28,16 +27,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * @generated
  */
 public class ReferencePropertyTypeImpl extends StructuredPropertyTypeImpl implements ReferencePropertyType {
-	/**
-	 * The cached value of the '{@link #getIdResolutionPattern() <em>Id Resolution Pattern</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getIdResolutionPattern()
-	 * @generated
-	 * @ordered
-	 */
-	protected Pattern idResolutionPattern;
-
 	/**
 	 * The default value of the '{@link #isRawReference() <em>Raw Reference</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -82,44 +71,6 @@ public class ReferencePropertyTypeImpl extends StructuredPropertyTypeImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Pattern getIdResolutionPattern() {
-		if (idResolutionPattern != null && idResolutionPattern.eIsProxy()) {
-			InternalEObject oldIdResolutionPattern = (InternalEObject)idResolutionPattern;
-			idResolutionPattern = (Pattern)eResolveProxy(oldIdResolutionPattern);
-			if (idResolutionPattern != oldIdResolutionPattern) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.REFERENCE_PROPERTY_TYPE__ID_RESOLUTION_PATTERN, oldIdResolutionPattern, idResolutionPattern));
-			}
-		}
-		return idResolutionPattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Pattern basicGetIdResolutionPattern() {
-		return idResolutionPattern;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setIdResolutionPattern(Pattern newIdResolutionPattern) {
-		Pattern oldIdResolutionPattern = idResolutionPattern;
-		idResolutionPattern = newIdResolutionPattern;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.REFERENCE_PROPERTY_TYPE__ID_RESOLUTION_PATTERN, oldIdResolutionPattern, idResolutionPattern));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isRawReference() {
 		return rawReference;
 	}
@@ -144,9 +95,6 @@ public class ReferencePropertyTypeImpl extends StructuredPropertyTypeImpl implem
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.REFERENCE_PROPERTY_TYPE__ID_RESOLUTION_PATTERN:
-				if (resolve) return getIdResolutionPattern();
-				return basicGetIdResolutionPattern();
 			case DblPackage.REFERENCE_PROPERTY_TYPE__RAW_REFERENCE:
 				return isRawReference();
 		}
@@ -161,9 +109,6 @@ public class ReferencePropertyTypeImpl extends StructuredPropertyTypeImpl implem
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.REFERENCE_PROPERTY_TYPE__ID_RESOLUTION_PATTERN:
-				setIdResolutionPattern((Pattern)newValue);
-				return;
 			case DblPackage.REFERENCE_PROPERTY_TYPE__RAW_REFERENCE:
 				setRawReference((Boolean)newValue);
 				return;
@@ -179,9 +124,6 @@ public class ReferencePropertyTypeImpl extends StructuredPropertyTypeImpl implem
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.REFERENCE_PROPERTY_TYPE__ID_RESOLUTION_PATTERN:
-				setIdResolutionPattern((Pattern)null);
-				return;
 			case DblPackage.REFERENCE_PROPERTY_TYPE__RAW_REFERENCE:
 				setRawReference(RAW_REFERENCE_EDEFAULT);
 				return;
@@ -197,8 +139,6 @@ public class ReferencePropertyTypeImpl extends StructuredPropertyTypeImpl implem
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.REFERENCE_PROPERTY_TYPE__ID_RESOLUTION_PATTERN:
-				return idResolutionPattern != null;
 			case DblPackage.REFERENCE_PROPERTY_TYPE__RAW_REFERENCE:
 				return rawReference != RAW_REFERENCE_EDEFAULT;
 		}

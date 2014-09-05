@@ -11,7 +11,6 @@ package hub.sam.dbl;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link hub.sam.dbl.ReferencePropertyType#getIdResolutionPattern <em>Id Resolution Pattern</em>}</li>
  *   <li>{@link hub.sam.dbl.ReferencePropertyType#isRawReference <em>Raw Reference</em>}</li>
  * </ul>
  * </p>
@@ -21,32 +20,6 @@ package hub.sam.dbl;
  * @generated
  */
 public interface ReferencePropertyType extends StructuredPropertyType {
-	/**
-	 * Returns the value of the '<em><b>Id Resolution Pattern</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Id Resolution Pattern</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Id Resolution Pattern</em>' reference.
-	 * @see #setIdResolutionPattern(Pattern)
-	 * @see hub.sam.dbl.DblPackage#getReferencePropertyType_IdResolutionPattern()
-	 * @model
-	 * @generated
-	 */
-	Pattern getIdResolutionPattern();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.ReferencePropertyType#getIdResolutionPattern <em>Id Resolution Pattern</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Id Resolution Pattern</em>' reference.
-	 * @see #getIdResolutionPattern()
-	 * @generated
-	 */
-	void setIdResolutionPattern(Pattern value);
-
 	/**
 	 * Returns the value of the '<em><b>Raw Reference</b></em>' attribute.
 	 * The default value is <code>"false"</code>.

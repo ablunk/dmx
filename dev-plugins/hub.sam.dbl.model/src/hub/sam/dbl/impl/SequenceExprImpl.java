@@ -31,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class SequenceExprImpl extends RhsExpressionImpl implements SequenceExpr {
+public class SequenceExprImpl extends L2RhsExprImpl implements SequenceExpr {
 	/**
 	 * The cached value of the '{@link #getSequence() <em>Sequence</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

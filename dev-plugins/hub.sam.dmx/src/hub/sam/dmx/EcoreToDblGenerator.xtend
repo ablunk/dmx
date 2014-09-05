@@ -14,11 +14,17 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		super(outputFolder)
 	}
 	
-	def startGenerator(String outputFile, EPackage metamodel, String javaPackagePrefix) {
+	def startGenerator(String outputFile, EPackage metamodel, String javaPackagePrefix, String[] imports) {
 		val Writer writer = beginTargetFile(outputFile);
 
 		writer.write(
 		'''
+		«IF imports != null»
+			«FOR i : imports»
+				#import "«i»"
+			«ENDFOR»
+		«ENDIF»
+		
 		module «metamodel.name» {
 		
 		'''
@@ -34,7 +40,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	
 	def void startGenerator() {
 		makeFolder("resources-gen")
-		startGenerator("resources-gen/ecore.dbl", EcorePackage.eINSTANCE, "org.eclipse.emf.ecore")
+		startGenerator("resources-gen/ecore.dbl", EcorePackage.eINSTANCE, "org.eclipse.emf.ecore", null)
 	}
 	
 	def static void main(String[] args) {

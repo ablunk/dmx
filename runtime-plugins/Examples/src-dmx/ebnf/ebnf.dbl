@@ -2,24 +2,24 @@
 
 module EbnfExtension {
 
-	extension ManyExpr extends dbl TerminalExpr {
+	extension ManyExpr extends dbl L1RhsExpr {
 		start ManyExpr;
-		ManyExpr -> "(" expr:RhsExpression ")*";
+		ManyExpr -> expr:L1RhsExpr "*";
 	}
 
-	extension AtLeastExpr extends dbl TerminalExpr {
+	extension AtLeastExpr extends dbl L1RhsExpr {
 		start AtLeastExpr;
-		AtLeastExpr -> "(" expr:RhsExpression ")+";
+		AtLeastExpr -> expr:L1RhsExpr "+";
 	}
 
-	extension OptionalExpr extends dbl TerminalExpr {
+	extension OptionalExpr extends dbl L1RhsExpr {
 		start OptionalExpr;
-		OptionalExpr -> "(" expr:RhsExpression ")?";
+		OptionalExpr -> expr:L1RhsExpr "?";
 	}
 
-	extension AlternativeExpr extends dbl RhsExpression {
+	extension AlternativeExpr extends dbl L3RhsExpr {
 		start AlternativeExpr;
-		AlternativeExpr -> left:RhsExpression "|" right:SequenceExpr;
+		AlternativeExpr -> left:RhsExpression "|" right:L2RhsExpr;
 	}
 	
 	extension BooleanTest extends dbl SimpleStatement {

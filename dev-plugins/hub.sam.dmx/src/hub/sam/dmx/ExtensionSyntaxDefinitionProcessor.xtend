@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.EReference
 import org.eclipse.emf.ecore.util.EcoreUtil
 import hub.sam.dbl.TextualSyntaxDef
 import hub.sam.dbl.BooleanPropertyType
+import hub.sam.dbl.L1RhsExpr
 
 class DuplicatedRulesContainer {
 	public var Collection<TsRule> rules = new HashSet<TsRule>();
@@ -653,11 +654,10 @@ class ExtensionSyntaxDefinitionProcessor {
 			val rhs = newRule.getRhs();
 			
 			if (rhs instanceof SequenceExpr) {
-				val sequence = rhs as SequenceExpr;
+				val sequenceExpr = rhs as SequenceExpr;
 				
-				//sequencePartsLoop:
-				for (RhsExpression sequencePart: sequence.getSequence()) {
-					sequencePart.processRhsExpr(tslRule, bindingMetaClass, ruleStack)
+				for (RhsExpression sequencePart: sequenceExpr.sequence) {
+					(sequencePart as L1RhsExpr).processRhsExpr(tslRule, bindingMetaClass, ruleStack)
 					
 					if (sequencePart instanceof PropertyBindingExpr) {
 						val propertyBindingExpr = sequencePart as PropertyBindingExpr
@@ -669,10 +669,6 @@ class ExtensionSyntaxDefinitionProcessor {
 								processAllRulesWithSameName(compositePropertyType.type as TsRule, null, ruleStack);
 							}
 						}
-					}
-					
-					if (sequencePart instanceof RhsClassifierExpr) {
-
 					}
 				}
 			}

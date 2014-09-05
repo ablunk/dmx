@@ -8,6 +8,7 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdPropertyType;
 import hub.sam.dbl.IntPropertyType;
+import hub.sam.dbl.L1RhsExpr;
 import hub.sam.dbl.LanguageConceptClassifier;
 import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.PropertyBindingExpr;
@@ -864,11 +865,11 @@ public class ExtensionSyntaxDefinitionProcessor {
       }
       final RhsExpression rhs = newRule.getRhs();
       if ((rhs instanceof SequenceExpr)) {
-        final SequenceExpr sequence = ((SequenceExpr) rhs);
-        EList<RhsExpression> _sequence = sequence.getSequence();
+        final SequenceExpr sequenceExpr = ((SequenceExpr) rhs);
+        EList<RhsExpression> _sequence = sequenceExpr.getSequence();
         for (final RhsExpression sequencePart : _sequence) {
           {
-            this.processRhsExpr(sequencePart, tslRule, bindingMetaClass, ruleStack);
+            this.processRhsExpr(((L1RhsExpr) sequencePart), tslRule, bindingMetaClass, ruleStack);
             if ((sequencePart instanceof PropertyBindingExpr)) {
               final PropertyBindingExpr propertyBindingExpr = ((PropertyBindingExpr) sequencePart);
               PropertyType _propertyType = propertyBindingExpr.getPropertyType();
@@ -881,8 +882,6 @@ public class ExtensionSyntaxDefinitionProcessor {
                   this.processAllRulesWithSameName(((TsRule) _type_1), null, ruleStack);
                 }
               }
-            }
-            if ((sequencePart instanceof RhsClassifierExpr)) {
             }
           }
         }
@@ -934,7 +933,7 @@ public class ExtensionSyntaxDefinitionProcessor {
     }
   }
   
-  private void processRhsExpr(final RhsExpression rhsExpr, final SimpleRule tslRule, final EClass metaClass, final Stack<TsRule> ruleStack) {
+  private void processRhsExpr(final L1RhsExpr rhsExpr, final SimpleRule tslRule, final EClass metaClass, final Stack<TsRule> ruleStack) {
     if (rhsExpr instanceof PropertyBindingExpr) {
       _processRhsExpr((PropertyBindingExpr)rhsExpr, tslRule, metaClass, ruleStack);
       return;

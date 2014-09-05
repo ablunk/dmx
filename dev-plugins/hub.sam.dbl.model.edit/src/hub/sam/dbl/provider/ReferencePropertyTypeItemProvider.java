@@ -57,32 +57,9 @@ public class ReferencePropertyTypeItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addIdResolutionPatternPropertyDescriptor(object);
 			addRawReferencePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Id Resolution Pattern feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addIdResolutionPatternPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ReferencePropertyType_idResolutionPattern_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ReferencePropertyType_idResolutionPattern_feature", "_UI_ReferencePropertyType_type"),
-				 DblPackage.Literals.REFERENCE_PROPERTY_TYPE__ID_RESOLUTION_PATTERN,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**

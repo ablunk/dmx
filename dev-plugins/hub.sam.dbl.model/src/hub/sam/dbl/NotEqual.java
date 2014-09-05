@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface NotEqual extends BinaryOperator {
+public interface NotEqual extends BinaryOperator, L6Expr {
 } // NotEqual

@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface And extends BinaryOperator {
+public interface And extends BinaryOperator, L7Expr {
 } // And

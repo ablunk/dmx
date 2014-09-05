@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Not extends UnaryOperator {
+public interface Not extends UnaryOperator, L2Expr {
 } // Not

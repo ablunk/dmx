@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Mul extends BinaryOperator {
+public interface Mul extends BinaryOperator, L3Expr {
 } // Mul

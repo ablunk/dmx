@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class RhsClassifierExprImpl extends RhsExpressionImpl implements RhsClassifierExpr {
+public class RhsClassifierExprImpl extends L1RhsExprImpl implements RhsClassifierExpr {
 	/**
 	 * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->

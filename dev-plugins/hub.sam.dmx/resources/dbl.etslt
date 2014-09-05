@@ -220,7 +220,7 @@ syntax(Model) "resources/dbl.ecore" {
 	VariableDefOrReference -> Assignment:composite(statements);
 
 	Expression -> L9Expr;
-	
+		
 	L9Expr -> LogicalOr;
 	
 	LogicalOr -> L8Expr;
@@ -343,7 +343,6 @@ syntax(Model) "resources/dbl.ecore" {
 	PredefinedId:element(SuperLiteral) -> "super";
 	PredefinedId:element(MetaLiteral) -> "meta";
 	PredefinedId:element(TypeLiteral) -> "type";
-	//PredefinedId:element(SizeOfArray) -> "size";
 	
 	NamedElementRef:element(NamedElement) -> IDENTIFIER:composite(name);
 	
@@ -416,33 +415,22 @@ syntax(Model) "resources/dbl.ecore" {
 
 	// EXTENSION SYNTAX
 	
-	//RhsExpression -> AlternativeExpr;
-	RhsExpression -> Sequence;
+	RhsExpression -> L3RhsExpr;
 	
-	Sequence -> SequenceExpr;
-	
-	Terminal -> TerminalExpr;
-	Terminal -> "(" RhsExpression ")";
-	//Terminal -> "(" OptionalExpr ")?";
-	//Terminal -> "(" AtLeastOneExpr ")+";
-	//Terminal -> "(" ArbitraryExpr ")*";
-	Terminal -> PropertyBindingExpr;
-	Terminal -> RhsClassifierExpr;
+	L3RhsExpr -> L2RhsExpr;
+
+	L2RhsExpr -> SequenceExpr;
 		
-	//OptionalExpr:element(OptionalExpr) -> RhsExpression:composite(expression);
-	//AtLeastOneExpr:element(AtLeastOneExpr) -> RhsExpression:composite(expression);
-	//ArbitraryExpr:element(ArbitraryExpr) -> RhsExpression:composite(expression);
+	SequenceExpr:element(SequenceExpr) -> (L1RhsExpr:composite(sequence))*;
+
+	L1RhsExpr -> TerminalExpr;
+	L1RhsExpr -> "(" RhsExpression ")";
+	L1RhsExpr -> PropertyBindingExpr;
+	L1RhsExpr -> RhsClassifierExpr;
 	
-	//AlternativeExpr:element(AlternativeExpr) -> RhsExpression:composite(left) "|" Sequence:composite(right);
-	SequenceExpr:element(SequenceExpr) -> (Terminal:composite(sequence))*;
 	TerminalExpr:element(TerminalExpr) -> STRINGDEF:composite(terminal);
 	PropertyBindingExpr:element(PropertyBindingExpr) -> IDENTIFIER:composite(name) ":" PropertyType:composite(propertyType);
-	
 	RhsClassifierExpr:element(RhsClassifierExpr) -> LanguageConstructClassifierRef:reference(classifier);
-	
-	//BindingExprOperator:constant("ASSIGN":BindingExprOpKind) -> "=";
-	//BindingExprOperator:constant("ADD":BindingExprOpKind) -> "+=";
-	//BindingExprOperator:constant("BOOL":BindingExprOpKind) -> "?=";
 	
 	PropertyType -> IdPropertyType;
 	PropertyType -> IntPropertyType;
@@ -450,15 +438,17 @@ syntax(Model) "resources/dbl.ecore" {
 	PropertyType -> BooleanPropertyType;
 	PropertyType -> CompositeOrReferencePropertyType;
 	
-	CompositeOrReferencePropertyType[0] -> ReferencePropertyType;
-	CompositeOrReferencePropertyType[1] -> CompositePropertyType;
+	CompositeOrReferencePropertyType -> ReferencePropertyType;
+	CompositeOrReferencePropertyType -> CompositePropertyType;
+//	CompositeOrReferencePropertyType[0] -> ReferencePropertyType;
+//	CompositeOrReferencePropertyType[1] -> CompositePropertyType;
 	
 	IdPropertyType:element(IdPropertyType) -> "ID";
 	IntPropertyType:element(IntPropertyType) -> "INT";
 	StringPropertyType:element(StringPropertyType) -> "STRING";
 	BooleanPropertyType:element(BooleanPropertyType) -> STRINGDEF:composite(terminal);
 
-	// raw -> variable=$$Variable	
+	// raw (global) -> variable=$$Variable	
 	ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? LanguageConstructClassifierRef:reference(type);
 	CompositePropertyType:element(CompositePropertyType) -> IsListType:composite(list) "(" LanguageConstructClassifierRef:reference(type) ")";
 	CompositePropertyType:element(CompositePropertyType) -> LanguageConstructClassifierRef:reference(type);

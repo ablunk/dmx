@@ -3,7 +3,7 @@
   <imports file="ebnf">
     <model href="ebnf.xmi#/"/>
   </imports>
-  <modules name="EbnfSample">
+  <modules name="EbnfSample1">
     <extensionDefs name="ExtensionUsingEbfn">
       <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
@@ -30,6 +30,11 @@
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
         <rules name="Test">
           <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.1"/>
+          </rhs>
+        </rules>
+        <rules name="Test1">
+          <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="testx"/>
             <sequence xsi:type="dbl:AtLeastExpr_AtLeastExpr_extension">
               <expr xsi:type="dbl:AlternativeExpr_AlternativeExpr_extension">
@@ -41,16 +46,37 @@
                         <sequence xsi:type="dbl:TerminalExpr" terminal="n"/>
                       </expr>
                     </sequence>
+                    <sequence xsi:type="dbl:OptionalExpr_OptionalExpr_extension">
+                      <expr xsi:type="dbl:TerminalExpr" terminal="n"/>
+                    </sequence>
                   </left>
-                  <right>
+                  <right xsi:type="dbl:SequenceExpr">
                     <sequence xsi:type="dbl:TerminalExpr" terminal="x"/>
                   </right>
                 </left>
-                <right>
+                <right xsi:type="dbl:SequenceExpr">
                   <sequence xsi:type="dbl:TerminalExpr" terminal="a"/>
                 </right>
               </expr>
             </sequence>
+          </rhs>
+        </rules>
+        <rules name="Test2">
+          <rhs xsi:type="dbl:AlternativeExpr_AlternativeExpr_extension">
+            <left xsi:type="dbl:AlternativeExpr_AlternativeExpr_extension">
+              <left xsi:type="dbl:SequenceExpr">
+                <sequence xsi:type="dbl:TerminalExpr" terminal="a"/>
+                <sequence xsi:type="dbl:OptionalExpr_OptionalExpr_extension">
+                  <expr xsi:type="dbl:TerminalExpr" terminal="x"/>
+                </sequence>
+              </left>
+              <right xsi:type="dbl:SequenceExpr">
+                <sequence xsi:type="dbl:TerminalExpr" terminal="b"/>
+              </right>
+            </left>
+            <right xsi:type="dbl:SequenceExpr">
+              <sequence xsi:type="dbl:TerminalExpr" terminal="c"/>
+            </right>
           </rhs>
         </rules>
       </textualSyntaxDef>

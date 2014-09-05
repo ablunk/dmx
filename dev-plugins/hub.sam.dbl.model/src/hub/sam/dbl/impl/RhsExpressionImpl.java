@@ -40,15 +40,4 @@ public class RhsExpressionImpl extends EObjectImpl implements RhsExpression {
 		return DblPackage.Literals.RHS_EXPRESSION;
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<RhsExpression> getSubExpressions() {
-		// TODO: implement this method
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
 } //RhsExpressionImpl

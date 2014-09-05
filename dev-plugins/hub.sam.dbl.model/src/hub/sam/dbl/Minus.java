@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Minus extends BinaryOperator {
+public interface Minus extends BinaryOperator, L4Expr {
 } // Minus

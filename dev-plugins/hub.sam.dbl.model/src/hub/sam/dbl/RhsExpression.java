@@ -2,8 +2,6 @@
  */
 package hub.sam.dbl;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -17,12 +15,5 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface RhsExpression extends EObject {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @model kind="operation" ordered="false"
-	 * @generated
-	 */
-	EList<RhsExpression> getSubExpressions();
 
 } // RhsExpression

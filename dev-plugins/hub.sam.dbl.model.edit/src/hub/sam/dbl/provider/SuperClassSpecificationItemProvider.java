@@ -186,12 +186,62 @@ public class SuperClassSpecificationItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createAnd()));
+				 DblFactory.eINSTANCE.createL2Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL3Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL4Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL5Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL6Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL7Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL8Expr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
 				 DblFactory.eINSTANCE.createOr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createAnd()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createNotEqual()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
+				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -212,16 +262,6 @@ public class SuperClassSpecificationItemProvider
 			(createChildParameter
 				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
 				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter

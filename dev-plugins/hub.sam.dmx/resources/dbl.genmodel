@@ -9,11 +9,6 @@
   <foreignModel>dbl.ecore</foreignModel>
   <genPackages prefix="Dbl" basePackage="hub.sam" disposableProviderFactory="true"
       ecorePackage="dbl.ecore#/">
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="dbl.ecore#//BindingExprOpKind">
-      <genEnumLiterals ecoreEnumLiteral="dbl.ecore#//BindingExprOpKind/ASSIGN"/>
-      <genEnumLiterals ecoreEnumLiteral="dbl.ecore#//BindingExprOpKind/ADD"/>
-      <genEnumLiterals ecoreEnumLiteral="dbl.ecore#//BindingExprOpKind/BOOL"/>
-    </genEnums>
     <genClasses ecoreClass="dbl.ecore#//ExtensibleElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ExtensibleElement/concreteSyntax"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ExtensibleElement/instanceOfExtensionDefinition"/>
@@ -102,9 +97,6 @@
     <genClasses ecoreClass="dbl.ecore#//NamedElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NamedElement/name"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//deprecated_CodeBlock">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//deprecated_CodeBlock/statements"/>
-    </genClasses>
     <genClasses image="false" ecoreClass="dbl.ecore#//Statement"/>
     <genClasses ecoreClass="dbl.ecore#//LoopStatement"/>
     <genClasses ecoreClass="dbl.ecore#//SimpleStatement"/>
@@ -168,6 +160,14 @@
     <genClasses ecoreClass="dbl.ecore#//ContinueStatement"/>
     <genClasses ecoreClass="dbl.ecore#//Expression"/>
     <genClasses ecoreClass="dbl.ecore#//L1Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L2Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L3Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L4Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L5Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L6Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L7Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L8Expr"/>
+    <genClasses ecoreClass="dbl.ecore#//L9Expr"/>
     <genClasses image="false" ecoreClass="dbl.ecore#//BinaryOperator">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//BinaryOperator/op1"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//BinaryOperator/op2"/>
@@ -175,14 +175,14 @@
     <genClasses image="false" ecoreClass="dbl.ecore#//UnaryOperator">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//UnaryOperator/op"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//And"/>
     <genClasses ecoreClass="dbl.ecore#//Or"/>
+    <genClasses ecoreClass="dbl.ecore#//And"/>
+    <genClasses ecoreClass="dbl.ecore#//NotEqual"/>
+    <genClasses ecoreClass="dbl.ecore#//Equal"/>
     <genClasses ecoreClass="dbl.ecore#//Greater"/>
     <genClasses ecoreClass="dbl.ecore#//GreaterEqual"/>
     <genClasses ecoreClass="dbl.ecore#//Less"/>
     <genClasses ecoreClass="dbl.ecore#//LessEqual"/>
-    <genClasses ecoreClass="dbl.ecore#//NotEqual"/>
-    <genClasses ecoreClass="dbl.ecore#//Equal"/>
     <genClasses ecoreClass="dbl.ecore#//InstanceOf"/>
     <genClasses ecoreClass="dbl.ecore#//Plus"/>
     <genClasses ecoreClass="dbl.ecore#//Minus"/>
@@ -249,34 +249,18 @@
     <genClasses ecoreClass="dbl.ecore#//TsRule">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TsRule/rhs"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//RhsExpression">
-      <genOperations ecoreOperation="dbl.ecore#//RhsExpression/getSubExpressions"/>
-    </genClasses>
+    <genClasses image="false" ecoreClass="dbl.ecore#//RhsExpression"/>
+    <genClasses ecoreClass="dbl.ecore#//L3RhsExpr"/>
+    <genClasses ecoreClass="dbl.ecore#//L2RhsExpr"/>
     <genClasses ecoreClass="dbl.ecore#//SequenceExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SequenceExpr/sequence"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//OptionalExpr">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//OptionalExpr/expression"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//RuntimeExpr">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//RuntimeExpr/expression"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//AtLeastOneExpr">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AtLeastOneExpr/expression"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//ArbitraryExpr">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ArbitraryExpr/expression"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//AlternativeExpr">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AlternativeExpr/left"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//AlternativeExpr/right"/>
-    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//L1RhsExpr"/>
     <genClasses ecoreClass="dbl.ecore#//TerminalExpr">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//TerminalExpr/terminal"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//PropertyBindingExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//PropertyBindingExpr/propertyType"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//PropertyBindingExpr/operator"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//RhsClassifierExpr">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//RhsClassifierExpr/classifier"/>
@@ -295,7 +279,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//CompositePropertyType/list"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//ReferencePropertyType">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ReferencePropertyType/idResolutionPattern"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ReferencePropertyType/rawReference"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//Mapping">

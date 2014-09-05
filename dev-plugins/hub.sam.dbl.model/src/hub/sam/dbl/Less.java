@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Less extends BinaryOperator {
+public interface Less extends BinaryOperator, L5Expr {
 } // Less

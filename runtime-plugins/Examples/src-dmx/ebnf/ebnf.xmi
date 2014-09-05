@@ -5,55 +5,52 @@
   </imports>
   <modules name="EbnfExtension">
     <extensionDefs name="ManyExpr">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.109"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.106"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="ManyExpr">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.106"/>
               </propertyType>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=")*"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="*"/>
           </rhs>
         </rules>
       </textualSyntaxDef>
     </extensionDefs>
     <extensionDefs name="AtLeastExpr">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.109"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.106"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
         <rules name="AtLeastExpr">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.106"/>
               </propertyType>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=")+"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="+"/>
           </rhs>
         </rules>
       </textualSyntaxDef>
     </extensionDefs>
     <extensionDefs name="OptionalExpr">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.109"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.106"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.0">
         <rules name="OptionalExpr">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.106"/>
               </propertyType>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=")?"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="?"/>
           </rhs>
         </rules>
       </textualSyntaxDef>
     </extensionDefs>
     <extensionDefs name="AlternativeExpr">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.102"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.103"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.3/@textualSyntaxDef/@rules.0">
         <rules name="AlternativeExpr">
           <rhs xsi:type="dbl:SequenceExpr">
@@ -65,7 +62,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="|"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="right">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.103"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.104"/>
               </propertyType>
             </sequence>
           </rhs>

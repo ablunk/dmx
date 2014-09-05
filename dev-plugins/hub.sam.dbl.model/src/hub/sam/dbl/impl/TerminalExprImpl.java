@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class TerminalExprImpl extends RhsExpressionImpl implements TerminalExpr {
+public class TerminalExprImpl extends L1RhsExprImpl implements TerminalExpr {
 	/**
 	 * The default value of the '{@link #getTerminal() <em>Terminal</em>}' attribute.
 	 * <!-- begin-user-doc -->

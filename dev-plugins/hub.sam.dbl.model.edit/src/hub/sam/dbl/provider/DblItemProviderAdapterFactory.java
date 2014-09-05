@@ -532,29 +532,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.deprecated_CodeBlock} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected deprecated_CodeBlockItemProvider deprecated_CodeBlockItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.deprecated_CodeBlock}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createdeprecated_CodeBlockAdapter() {
-		if (deprecated_CodeBlockItemProvider == null) {
-			deprecated_CodeBlockItemProvider = new deprecated_CodeBlockItemProvider(this);
-		}
-
-		return deprecated_CodeBlockItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Statement} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1127,6 +1104,190 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		}
 
 		return l1ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L2Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L2ExprItemProvider l2ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L2Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL2ExprAdapter() {
+		if (l2ExprItemProvider == null) {
+			l2ExprItemProvider = new L2ExprItemProvider(this);
+		}
+
+		return l2ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L3Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L3ExprItemProvider l3ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L3Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL3ExprAdapter() {
+		if (l3ExprItemProvider == null) {
+			l3ExprItemProvider = new L3ExprItemProvider(this);
+		}
+
+		return l3ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L4Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L4ExprItemProvider l4ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L4Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL4ExprAdapter() {
+		if (l4ExprItemProvider == null) {
+			l4ExprItemProvider = new L4ExprItemProvider(this);
+		}
+
+		return l4ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L5Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L5ExprItemProvider l5ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L5Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL5ExprAdapter() {
+		if (l5ExprItemProvider == null) {
+			l5ExprItemProvider = new L5ExprItemProvider(this);
+		}
+
+		return l5ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L6Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L6ExprItemProvider l6ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L6Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL6ExprAdapter() {
+		if (l6ExprItemProvider == null) {
+			l6ExprItemProvider = new L6ExprItemProvider(this);
+		}
+
+		return l6ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L7Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L7ExprItemProvider l7ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L7Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL7ExprAdapter() {
+		if (l7ExprItemProvider == null) {
+			l7ExprItemProvider = new L7ExprItemProvider(this);
+		}
+
+		return l7ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L8Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L8ExprItemProvider l8ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L8Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL8ExprAdapter() {
+		if (l8ExprItemProvider == null) {
+			l8ExprItemProvider = new L8ExprItemProvider(this);
+		}
+
+		return l8ExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L9Expr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L9ExprItemProvider l9ExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L9Expr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL9ExprAdapter() {
+		if (l9ExprItemProvider == null) {
+			l9ExprItemProvider = new L9ExprItemProvider(this);
+		}
+
+		return l9ExprItemProvider;
 	}
 
 	/**
@@ -2142,6 +2303,52 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L3RhsExpr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L3RhsExprItemProvider l3RhsExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L3RhsExpr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL3RhsExprAdapter() {
+		if (l3RhsExprItemProvider == null) {
+			l3RhsExprItemProvider = new L3RhsExprItemProvider(this);
+		}
+
+		return l3RhsExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L2RhsExpr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected L2RhsExprItemProvider l2RhsExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.L2RhsExpr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createL2RhsExprAdapter() {
+		if (l2RhsExprItemProvider == null) {
+			l2RhsExprItemProvider = new L2RhsExprItemProvider(this);
+		}
+
+		return l2RhsExprItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SequenceExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2165,118 +2372,26 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.OptionalExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L1RhsExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OptionalExprItemProvider optionalExprItemProvider;
+	protected L1RhsExprItemProvider l1RhsExprItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.OptionalExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.L1RhsExpr}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createOptionalExprAdapter() {
-		if (optionalExprItemProvider == null) {
-			optionalExprItemProvider = new OptionalExprItemProvider(this);
+	public Adapter createL1RhsExprAdapter() {
+		if (l1RhsExprItemProvider == null) {
+			l1RhsExprItemProvider = new L1RhsExprItemProvider(this);
 		}
 
-		return optionalExprItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.RuntimeExpr} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected RuntimeExprItemProvider runtimeExprItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.RuntimeExpr}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createRuntimeExprAdapter() {
-		if (runtimeExprItemProvider == null) {
-			runtimeExprItemProvider = new RuntimeExprItemProvider(this);
-		}
-
-		return runtimeExprItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.AtLeastOneExpr} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AtLeastOneExprItemProvider atLeastOneExprItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.AtLeastOneExpr}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAtLeastOneExprAdapter() {
-		if (atLeastOneExprItemProvider == null) {
-			atLeastOneExprItemProvider = new AtLeastOneExprItemProvider(this);
-		}
-
-		return atLeastOneExprItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ArbitraryExpr} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ArbitraryExprItemProvider arbitraryExprItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ArbitraryExpr}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createArbitraryExprAdapter() {
-		if (arbitraryExprItemProvider == null) {
-			arbitraryExprItemProvider = new ArbitraryExprItemProvider(this);
-		}
-
-		return arbitraryExprItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.AlternativeExpr} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected AlternativeExprItemProvider alternativeExprItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.AlternativeExpr}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createAlternativeExprAdapter() {
-		if (alternativeExprItemProvider == null) {
-			alternativeExprItemProvider = new AlternativeExprItemProvider(this);
-		}
-
-		return alternativeExprItemProvider;
+		return l1RhsExprItemProvider;
 	}
 
 	/**
@@ -3088,7 +3203,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (variableItemProvider != null) variableItemProvider.dispose();
 		if (parameterItemProvider != null) parameterItemProvider.dispose();
 		if (namedElementItemProvider != null) namedElementItemProvider.dispose();
-		if (deprecated_CodeBlockItemProvider != null) deprecated_CodeBlockItemProvider.dispose();
 		if (statementItemProvider != null) statementItemProvider.dispose();
 		if (loopStatementItemProvider != null) loopStatementItemProvider.dispose();
 		if (simpleStatementItemProvider != null) simpleStatementItemProvider.dispose();
@@ -3114,14 +3228,22 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (continueStatementItemProvider != null) continueStatementItemProvider.dispose();
 		if (expressionItemProvider != null) expressionItemProvider.dispose();
 		if (l1ExprItemProvider != null) l1ExprItemProvider.dispose();
-		if (andItemProvider != null) andItemProvider.dispose();
+		if (l2ExprItemProvider != null) l2ExprItemProvider.dispose();
+		if (l3ExprItemProvider != null) l3ExprItemProvider.dispose();
+		if (l4ExprItemProvider != null) l4ExprItemProvider.dispose();
+		if (l5ExprItemProvider != null) l5ExprItemProvider.dispose();
+		if (l6ExprItemProvider != null) l6ExprItemProvider.dispose();
+		if (l7ExprItemProvider != null) l7ExprItemProvider.dispose();
+		if (l8ExprItemProvider != null) l8ExprItemProvider.dispose();
+		if (l9ExprItemProvider != null) l9ExprItemProvider.dispose();
 		if (orItemProvider != null) orItemProvider.dispose();
+		if (andItemProvider != null) andItemProvider.dispose();
+		if (notEqualItemProvider != null) notEqualItemProvider.dispose();
+		if (equalItemProvider != null) equalItemProvider.dispose();
 		if (greaterItemProvider != null) greaterItemProvider.dispose();
 		if (greaterEqualItemProvider != null) greaterEqualItemProvider.dispose();
 		if (lessItemProvider != null) lessItemProvider.dispose();
 		if (lessEqualItemProvider != null) lessEqualItemProvider.dispose();
-		if (notEqualItemProvider != null) notEqualItemProvider.dispose();
-		if (equalItemProvider != null) equalItemProvider.dispose();
 		if (instanceOfItemProvider != null) instanceOfItemProvider.dispose();
 		if (plusItemProvider != null) plusItemProvider.dispose();
 		if (minusItemProvider != null) minusItemProvider.dispose();
@@ -3158,12 +3280,10 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (textualSyntaxDefItemProvider != null) textualSyntaxDefItemProvider.dispose();
 		if (tsRuleItemProvider != null) tsRuleItemProvider.dispose();
 		if (rhsExpressionItemProvider != null) rhsExpressionItemProvider.dispose();
+		if (l3RhsExprItemProvider != null) l3RhsExprItemProvider.dispose();
+		if (l2RhsExprItemProvider != null) l2RhsExprItemProvider.dispose();
 		if (sequenceExprItemProvider != null) sequenceExprItemProvider.dispose();
-		if (optionalExprItemProvider != null) optionalExprItemProvider.dispose();
-		if (runtimeExprItemProvider != null) runtimeExprItemProvider.dispose();
-		if (atLeastOneExprItemProvider != null) atLeastOneExprItemProvider.dispose();
-		if (arbitraryExprItemProvider != null) arbitraryExprItemProvider.dispose();
-		if (alternativeExprItemProvider != null) alternativeExprItemProvider.dispose();
+		if (l1RhsExprItemProvider != null) l1RhsExprItemProvider.dispose();
 		if (terminalExprItemProvider != null) terminalExprItemProvider.dispose();
 		if (propertyBindingExprItemProvider != null) propertyBindingExprItemProvider.dispose();
 		if (rhsClassifierExprItemProvider != null) rhsClassifierExprItemProvider.dispose();

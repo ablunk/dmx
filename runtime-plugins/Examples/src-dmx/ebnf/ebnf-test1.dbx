@@ -1,6 +1,6 @@
 #import "ebnf"
 
-module EbnfSample {
+module EbnfSample1 {
 
 	extension ExtensionUsingEbfn extends dbl Statement {
 		start Forever;
@@ -9,7 +9,10 @@ module EbnfSample {
 
 	extension TestX extends dbl Statement {
 		start Test;
-		Test -> "testx" ("opt" ("n")? | "x" | "a")+;
+		Test -> Test1;
+		Test -> Test2;
+		Test1 -> "testx" ("opt" ("n")? "n"? | "x" | "a")+;
+		Test2 -> "a" "x"? | "b" | "c" ;
 	}
 	
 	// .. -> .. isControl ?= "control"

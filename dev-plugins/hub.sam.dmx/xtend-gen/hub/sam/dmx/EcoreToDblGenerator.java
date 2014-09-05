@@ -24,10 +24,24 @@ public class EcoreToDblGenerator extends AbstractGenerator {
     super(outputFolder);
   }
   
-  public void startGenerator(final String outputFile, final EPackage metamodel, final String javaPackagePrefix) {
+  public void startGenerator(final String outputFile, final EPackage metamodel, final String javaPackagePrefix, final String[] imports) {
     try {
       final Writer writer = this.beginTargetFile(outputFile);
       StringConcatenation _builder = new StringConcatenation();
+      {
+        boolean _notEquals = (!Objects.equal(imports, null));
+        if (_notEquals) {
+          {
+            for(final String i : imports) {
+              _builder.append("#import \"");
+              _builder.append(i, "");
+              _builder.append("\"");
+              _builder.newLineIfNotEmpty();
+            }
+          }
+        }
+      }
+      _builder.newLine();
       _builder.append("module ");
       String _name = metamodel.getName();
       _builder.append(_name, "");
@@ -61,7 +75,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
   
   public void startGenerator() {
     this.makeFolder("resources-gen");
-    this.startGenerator("resources-gen/ecore.dbl", EcorePackage.eINSTANCE, "org.eclipse.emf.ecore");
+    this.startGenerator("resources-gen/ecore.dbl", EcorePackage.eINSTANCE, "org.eclipse.emf.ecore", null);
   }
   
   public static void main(final String[] args) {

@@ -60,31 +60,8 @@ public class PropertyBindingExprItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addOperatorPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Operator feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOperatorPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_PropertyBindingExpr_operator_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_PropertyBindingExpr_operator_feature", "_UI_PropertyBindingExpr_type"),
-				 DblPackage.Literals.PROPERTY_BINDING_EXPR__OPERATOR,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -154,9 +131,6 @@ public class PropertyBindingExprItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(PropertyBindingExpr.class)) {
-			case DblPackage.PROPERTY_BINDING_EXPR__OPERATOR:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
 			case DblPackage.PROPERTY_BINDING_EXPR__PROPERTY_TYPE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

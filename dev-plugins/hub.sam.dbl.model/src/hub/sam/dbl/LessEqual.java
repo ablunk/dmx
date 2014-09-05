@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface LessEqual extends BinaryOperator {
+public interface LessEqual extends BinaryOperator, L5Expr {
 } // LessEqual

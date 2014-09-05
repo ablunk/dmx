@@ -283,14 +283,6 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.DEPRECATED_CODE_BLOCK: {
-				deprecated_CodeBlock deprecated_CodeBlock = (deprecated_CodeBlock)theEObject;
-				T result = casedeprecated_CodeBlock(deprecated_CodeBlock);
-				if (result == null) result = caseExtensibleElement(deprecated_CodeBlock);
-				if (result == null) result = caseNamedElement(deprecated_CodeBlock);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DblPackage.STATEMENT: {
 				Statement statement = (Statement)theEObject;
 				T result = caseStatement(statement);
@@ -529,6 +521,86 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.L2_EXPR: {
+				L2Expr l2Expr = (L2Expr)theEObject;
+				T result = caseL2Expr(l2Expr);
+				if (result == null) result = caseExpression(l2Expr);
+				if (result == null) result = caseTypedElement(l2Expr);
+				if (result == null) result = caseExtensibleElement(l2Expr);
+				if (result == null) result = caseNamedElement(l2Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L3_EXPR: {
+				L3Expr l3Expr = (L3Expr)theEObject;
+				T result = caseL3Expr(l3Expr);
+				if (result == null) result = caseExpression(l3Expr);
+				if (result == null) result = caseTypedElement(l3Expr);
+				if (result == null) result = caseExtensibleElement(l3Expr);
+				if (result == null) result = caseNamedElement(l3Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L4_EXPR: {
+				L4Expr l4Expr = (L4Expr)theEObject;
+				T result = caseL4Expr(l4Expr);
+				if (result == null) result = caseExpression(l4Expr);
+				if (result == null) result = caseTypedElement(l4Expr);
+				if (result == null) result = caseExtensibleElement(l4Expr);
+				if (result == null) result = caseNamedElement(l4Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L5_EXPR: {
+				L5Expr l5Expr = (L5Expr)theEObject;
+				T result = caseL5Expr(l5Expr);
+				if (result == null) result = caseExpression(l5Expr);
+				if (result == null) result = caseTypedElement(l5Expr);
+				if (result == null) result = caseExtensibleElement(l5Expr);
+				if (result == null) result = caseNamedElement(l5Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L6_EXPR: {
+				L6Expr l6Expr = (L6Expr)theEObject;
+				T result = caseL6Expr(l6Expr);
+				if (result == null) result = caseExpression(l6Expr);
+				if (result == null) result = caseTypedElement(l6Expr);
+				if (result == null) result = caseExtensibleElement(l6Expr);
+				if (result == null) result = caseNamedElement(l6Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L7_EXPR: {
+				L7Expr l7Expr = (L7Expr)theEObject;
+				T result = caseL7Expr(l7Expr);
+				if (result == null) result = caseExpression(l7Expr);
+				if (result == null) result = caseTypedElement(l7Expr);
+				if (result == null) result = caseExtensibleElement(l7Expr);
+				if (result == null) result = caseNamedElement(l7Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L8_EXPR: {
+				L8Expr l8Expr = (L8Expr)theEObject;
+				T result = caseL8Expr(l8Expr);
+				if (result == null) result = caseExpression(l8Expr);
+				if (result == null) result = caseTypedElement(l8Expr);
+				if (result == null) result = caseExtensibleElement(l8Expr);
+				if (result == null) result = caseNamedElement(l8Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L9_EXPR: {
+				L9Expr l9Expr = (L9Expr)theEObject;
+				T result = caseL9Expr(l9Expr);
+				if (result == null) result = caseExpression(l9Expr);
+				if (result == null) result = caseTypedElement(l9Expr);
+				if (result == null) result = caseExtensibleElement(l9Expr);
+				if (result == null) result = caseNamedElement(l9Expr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.BINARY_OPERATOR: {
 				BinaryOperator binaryOperator = (BinaryOperator)theEObject;
 				T result = caseBinaryOperator(binaryOperator);
@@ -549,21 +621,11 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.AND: {
-				And and = (And)theEObject;
-				T result = caseAnd(and);
-				if (result == null) result = caseBinaryOperator(and);
-				if (result == null) result = caseExpression(and);
-				if (result == null) result = caseTypedElement(and);
-				if (result == null) result = caseExtensibleElement(and);
-				if (result == null) result = caseNamedElement(and);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DblPackage.OR: {
 				Or or = (Or)theEObject;
 				T result = caseOr(or);
 				if (result == null) result = caseBinaryOperator(or);
+				if (result == null) result = caseL8Expr(or);
 				if (result == null) result = caseExpression(or);
 				if (result == null) result = caseTypedElement(or);
 				if (result == null) result = caseExtensibleElement(or);
@@ -571,47 +633,15 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.GREATER: {
-				Greater greater = (Greater)theEObject;
-				T result = caseGreater(greater);
-				if (result == null) result = caseBinaryOperator(greater);
-				if (result == null) result = caseExpression(greater);
-				if (result == null) result = caseTypedElement(greater);
-				if (result == null) result = caseExtensibleElement(greater);
-				if (result == null) result = caseNamedElement(greater);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.GREATER_EQUAL: {
-				GreaterEqual greaterEqual = (GreaterEqual)theEObject;
-				T result = caseGreaterEqual(greaterEqual);
-				if (result == null) result = caseBinaryOperator(greaterEqual);
-				if (result == null) result = caseExpression(greaterEqual);
-				if (result == null) result = caseTypedElement(greaterEqual);
-				if (result == null) result = caseExtensibleElement(greaterEqual);
-				if (result == null) result = caseNamedElement(greaterEqual);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.LESS: {
-				Less less = (Less)theEObject;
-				T result = caseLess(less);
-				if (result == null) result = caseBinaryOperator(less);
-				if (result == null) result = caseExpression(less);
-				if (result == null) result = caseTypedElement(less);
-				if (result == null) result = caseExtensibleElement(less);
-				if (result == null) result = caseNamedElement(less);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.LESS_EQUAL: {
-				LessEqual lessEqual = (LessEqual)theEObject;
-				T result = caseLessEqual(lessEqual);
-				if (result == null) result = caseBinaryOperator(lessEqual);
-				if (result == null) result = caseExpression(lessEqual);
-				if (result == null) result = caseTypedElement(lessEqual);
-				if (result == null) result = caseExtensibleElement(lessEqual);
-				if (result == null) result = caseNamedElement(lessEqual);
+			case DblPackage.AND: {
+				And and = (And)theEObject;
+				T result = caseAnd(and);
+				if (result == null) result = caseBinaryOperator(and);
+				if (result == null) result = caseL7Expr(and);
+				if (result == null) result = caseExpression(and);
+				if (result == null) result = caseTypedElement(and);
+				if (result == null) result = caseExtensibleElement(and);
+				if (result == null) result = caseNamedElement(and);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -619,6 +649,7 @@ public class DblSwitch<T> extends Switch<T> {
 				NotEqual notEqual = (NotEqual)theEObject;
 				T result = caseNotEqual(notEqual);
 				if (result == null) result = caseBinaryOperator(notEqual);
+				if (result == null) result = caseL6Expr(notEqual);
 				if (result == null) result = caseExpression(notEqual);
 				if (result == null) result = caseTypedElement(notEqual);
 				if (result == null) result = caseExtensibleElement(notEqual);
@@ -630,6 +661,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Equal equal = (Equal)theEObject;
 				T result = caseEqual(equal);
 				if (result == null) result = caseBinaryOperator(equal);
+				if (result == null) result = caseL6Expr(equal);
 				if (result == null) result = caseExpression(equal);
 				if (result == null) result = caseTypedElement(equal);
 				if (result == null) result = caseExtensibleElement(equal);
@@ -637,10 +669,59 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.GREATER: {
+				Greater greater = (Greater)theEObject;
+				T result = caseGreater(greater);
+				if (result == null) result = caseBinaryOperator(greater);
+				if (result == null) result = caseL5Expr(greater);
+				if (result == null) result = caseExpression(greater);
+				if (result == null) result = caseTypedElement(greater);
+				if (result == null) result = caseExtensibleElement(greater);
+				if (result == null) result = caseNamedElement(greater);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.GREATER_EQUAL: {
+				GreaterEqual greaterEqual = (GreaterEqual)theEObject;
+				T result = caseGreaterEqual(greaterEqual);
+				if (result == null) result = caseBinaryOperator(greaterEqual);
+				if (result == null) result = caseL5Expr(greaterEqual);
+				if (result == null) result = caseExpression(greaterEqual);
+				if (result == null) result = caseTypedElement(greaterEqual);
+				if (result == null) result = caseExtensibleElement(greaterEqual);
+				if (result == null) result = caseNamedElement(greaterEqual);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.LESS: {
+				Less less = (Less)theEObject;
+				T result = caseLess(less);
+				if (result == null) result = caseBinaryOperator(less);
+				if (result == null) result = caseL5Expr(less);
+				if (result == null) result = caseExpression(less);
+				if (result == null) result = caseTypedElement(less);
+				if (result == null) result = caseExtensibleElement(less);
+				if (result == null) result = caseNamedElement(less);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.LESS_EQUAL: {
+				LessEqual lessEqual = (LessEqual)theEObject;
+				T result = caseLessEqual(lessEqual);
+				if (result == null) result = caseBinaryOperator(lessEqual);
+				if (result == null) result = caseL5Expr(lessEqual);
+				if (result == null) result = caseExpression(lessEqual);
+				if (result == null) result = caseTypedElement(lessEqual);
+				if (result == null) result = caseExtensibleElement(lessEqual);
+				if (result == null) result = caseNamedElement(lessEqual);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.INSTANCE_OF: {
 				InstanceOf instanceOf = (InstanceOf)theEObject;
 				T result = caseInstanceOf(instanceOf);
 				if (result == null) result = caseBinaryOperator(instanceOf);
+				if (result == null) result = caseL5Expr(instanceOf);
 				if (result == null) result = caseExpression(instanceOf);
 				if (result == null) result = caseTypedElement(instanceOf);
 				if (result == null) result = caseExtensibleElement(instanceOf);
@@ -652,6 +733,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Plus plus = (Plus)theEObject;
 				T result = casePlus(plus);
 				if (result == null) result = caseBinaryOperator(plus);
+				if (result == null) result = caseL4Expr(plus);
 				if (result == null) result = caseExpression(plus);
 				if (result == null) result = caseTypedElement(plus);
 				if (result == null) result = caseExtensibleElement(plus);
@@ -663,6 +745,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Minus minus = (Minus)theEObject;
 				T result = caseMinus(minus);
 				if (result == null) result = caseBinaryOperator(minus);
+				if (result == null) result = caseL4Expr(minus);
 				if (result == null) result = caseExpression(minus);
 				if (result == null) result = caseTypedElement(minus);
 				if (result == null) result = caseExtensibleElement(minus);
@@ -674,6 +757,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Mul mul = (Mul)theEObject;
 				T result = caseMul(mul);
 				if (result == null) result = caseBinaryOperator(mul);
+				if (result == null) result = caseL3Expr(mul);
 				if (result == null) result = caseExpression(mul);
 				if (result == null) result = caseTypedElement(mul);
 				if (result == null) result = caseExtensibleElement(mul);
@@ -685,6 +769,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Mod mod = (Mod)theEObject;
 				T result = caseMod(mod);
 				if (result == null) result = caseBinaryOperator(mod);
+				if (result == null) result = caseL3Expr(mod);
 				if (result == null) result = caseExpression(mod);
 				if (result == null) result = caseTypedElement(mod);
 				if (result == null) result = caseExtensibleElement(mod);
@@ -696,6 +781,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Div div = (Div)theEObject;
 				T result = caseDiv(div);
 				if (result == null) result = caseBinaryOperator(div);
+				if (result == null) result = caseL3Expr(div);
 				if (result == null) result = caseExpression(div);
 				if (result == null) result = caseTypedElement(div);
 				if (result == null) result = caseExtensibleElement(div);
@@ -707,6 +793,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Neg neg = (Neg)theEObject;
 				T result = caseNeg(neg);
 				if (result == null) result = caseUnaryOperator(neg);
+				if (result == null) result = caseL2Expr(neg);
 				if (result == null) result = caseExpression(neg);
 				if (result == null) result = caseTypedElement(neg);
 				if (result == null) result = caseExtensibleElement(neg);
@@ -718,6 +805,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Not not = (Not)theEObject;
 				T result = caseNot(not);
 				if (result == null) result = caseUnaryOperator(not);
+				if (result == null) result = caseL2Expr(not);
 				if (result == null) result = caseExpression(not);
 				if (result == null) result = caseTypedElement(not);
 				if (result == null) result = caseExtensibleElement(not);
@@ -729,6 +817,7 @@ public class DblSwitch<T> extends Switch<T> {
 				Cast cast = (Cast)theEObject;
 				T result = caseCast(cast);
 				if (result == null) result = caseUnaryOperator(cast);
+				if (result == null) result = caseL2Expr(cast);
 				if (result == null) result = caseExpression(cast);
 				if (result == null) result = caseTypedElement(cast);
 				if (result == null) result = caseExtensibleElement(cast);
@@ -1007,51 +1096,39 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.L3_RHS_EXPR: {
+				L3RhsExpr l3RhsExpr = (L3RhsExpr)theEObject;
+				T result = caseL3RhsExpr(l3RhsExpr);
+				if (result == null) result = caseRhsExpression(l3RhsExpr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.L2_RHS_EXPR: {
+				L2RhsExpr l2RhsExpr = (L2RhsExpr)theEObject;
+				T result = caseL2RhsExpr(l2RhsExpr);
+				if (result == null) result = caseRhsExpression(l2RhsExpr);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.SEQUENCE_EXPR: {
 				SequenceExpr sequenceExpr = (SequenceExpr)theEObject;
 				T result = caseSequenceExpr(sequenceExpr);
+				if (result == null) result = caseL2RhsExpr(sequenceExpr);
 				if (result == null) result = caseRhsExpression(sequenceExpr);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.OPTIONAL_EXPR: {
-				OptionalExpr optionalExpr = (OptionalExpr)theEObject;
-				T result = caseOptionalExpr(optionalExpr);
-				if (result == null) result = caseRhsExpression(optionalExpr);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.RUNTIME_EXPR: {
-				RuntimeExpr runtimeExpr = (RuntimeExpr)theEObject;
-				T result = caseRuntimeExpr(runtimeExpr);
-				if (result == null) result = caseRhsExpression(runtimeExpr);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.AT_LEAST_ONE_EXPR: {
-				AtLeastOneExpr atLeastOneExpr = (AtLeastOneExpr)theEObject;
-				T result = caseAtLeastOneExpr(atLeastOneExpr);
-				if (result == null) result = caseRhsExpression(atLeastOneExpr);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.ARBITRARY_EXPR: {
-				ArbitraryExpr arbitraryExpr = (ArbitraryExpr)theEObject;
-				T result = caseArbitraryExpr(arbitraryExpr);
-				if (result == null) result = caseRhsExpression(arbitraryExpr);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.ALTERNATIVE_EXPR: {
-				AlternativeExpr alternativeExpr = (AlternativeExpr)theEObject;
-				T result = caseAlternativeExpr(alternativeExpr);
-				if (result == null) result = caseRhsExpression(alternativeExpr);
+			case DblPackage.L1_RHS_EXPR: {
+				L1RhsExpr l1RhsExpr = (L1RhsExpr)theEObject;
+				T result = caseL1RhsExpr(l1RhsExpr);
+				if (result == null) result = caseRhsExpression(l1RhsExpr);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DblPackage.TERMINAL_EXPR: {
 				TerminalExpr terminalExpr = (TerminalExpr)theEObject;
 				T result = caseTerminalExpr(terminalExpr);
+				if (result == null) result = caseL1RhsExpr(terminalExpr);
 				if (result == null) result = caseRhsExpression(terminalExpr);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -1060,6 +1137,7 @@ public class DblSwitch<T> extends Switch<T> {
 				PropertyBindingExpr propertyBindingExpr = (PropertyBindingExpr)theEObject;
 				T result = casePropertyBindingExpr(propertyBindingExpr);
 				if (result == null) result = caseNamedElement(propertyBindingExpr);
+				if (result == null) result = caseL1RhsExpr(propertyBindingExpr);
 				if (result == null) result = caseRhsExpression(propertyBindingExpr);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -1067,6 +1145,7 @@ public class DblSwitch<T> extends Switch<T> {
 			case DblPackage.RHS_CLASSIFIER_EXPR: {
 				RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr)theEObject;
 				T result = caseRhsClassifierExpr(rhsClassifierExpr);
+				if (result == null) result = caseL1RhsExpr(rhsClassifierExpr);
 				if (result == null) result = caseRhsExpression(rhsClassifierExpr);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -1723,21 +1802,6 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>deprecated Code Block</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>deprecated Code Block</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T casedeprecated_CodeBlock(deprecated_CodeBlock object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2109,6 +2173,126 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseL1Expr(L1Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L2 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L2 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL2Expr(L2Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L3 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L3 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL3Expr(L3Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L4 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L4 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL4Expr(L4Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L5 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L5 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL5Expr(L5Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L6 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L6 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL6Expr(L6Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L7 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L7 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL7Expr(L7Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L8 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L8 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL8Expr(L8Expr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L9 Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L9 Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL9Expr(L9Expr object) {
 		return null;
 	}
 
@@ -2863,6 +3047,36 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L3 Rhs Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L3 Rhs Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL3RhsExpr(L3RhsExpr object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>L2 Rhs Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>L2 Rhs Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseL2RhsExpr(L2RhsExpr object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Sequence Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -2878,77 +3092,17 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Optional Expr</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>L1 Rhs Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Optional Expr</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>L1 Rhs Expr</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseOptionalExpr(OptionalExpr object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Runtime Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Runtime Expr</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseRuntimeExpr(RuntimeExpr object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>At Least One Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>At Least One Expr</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAtLeastOneExpr(AtLeastOneExpr object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Arbitrary Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Arbitrary Expr</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseArbitraryExpr(ArbitraryExpr object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Alternative Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Alternative Expr</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseAlternativeExpr(AlternativeExpr object) {
+	public T caseL1RhsExpr(L1RhsExpr object) {
 		return null;
 	}
 

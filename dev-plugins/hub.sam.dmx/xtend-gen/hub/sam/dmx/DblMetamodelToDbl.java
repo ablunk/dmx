@@ -12,7 +12,7 @@ public class DblMetamodelToDbl extends EcoreToDblGenerator {
   
   public void startGenerator() {
     this.makeFolder("resources-gen");
-    this.startGenerator("resources-gen/dbl.dbl", DblPackage.eINSTANCE, "hub.sam.dbl");
+    this.startGenerator("resources-gen/dbl.dbl", DblPackage.eINSTANCE, "hub.sam.dbl", new String[] { "ecore" });
   }
   
   public static void main(final String[] args) {

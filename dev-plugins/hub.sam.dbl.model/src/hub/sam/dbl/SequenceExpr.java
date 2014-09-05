@@ -20,7 +20,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SequenceExpr extends RhsExpression {
+public interface SequenceExpr extends L2RhsExpr {
 	/**
 	 * Returns the value of the '<em><b>Sequence</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.RhsExpression}.

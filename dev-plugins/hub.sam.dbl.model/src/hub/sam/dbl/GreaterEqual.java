@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface GreaterEqual extends BinaryOperator {
+public interface GreaterEqual extends BinaryOperator, L5Expr {
 } // GreaterEqual

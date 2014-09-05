@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Neg extends UnaryOperator {
+public interface Neg extends UnaryOperator, L2Expr {
 } // Neg

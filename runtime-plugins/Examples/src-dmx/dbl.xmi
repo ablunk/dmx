@@ -139,7 +139,7 @@
         </classifierType>
       </attributes>
       <attributes name="classifierType">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.96"/>
       </attributes>
       <methods name="setPrimitiveType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -150,7 +150,7 @@
       <methods name="setClassifierType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.96"/>
         </parameters>
       </methods>
       <superClasses>
@@ -159,13 +159,13 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypedElement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ArrayDimension">
-      <attributes name="_size">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+      <attributes name="size">
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setSize" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <superClasses>
@@ -223,7 +223,7 @@
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
       <superClasses clazz="//@modules.0/@classifiers.7"/>
-      <superClasses clazz="//@modules.0/@classifiers.44"/>
+      <superClasses clazz="//@modules.0/@classifiers.43"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Procedure"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Classifier">
@@ -321,7 +321,7 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassSimilar"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ClassPart">
-      <superClasses clazz="//@modules.0/@classifiers.44"/>
+      <superClasses clazz="//@modules.0/@classifiers.43"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassPart"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SuperClassSpecification">
@@ -370,7 +370,7 @@
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.16"/>
       <superClasses clazz="//@modules.0/@classifiers.18"/>
-      <superClasses clazz="//@modules.0/@classifiers.100"/>
+      <superClasses clazz="//@modules.0/@classifiers.107"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Clazz"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Constructor">
@@ -410,7 +410,7 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
       <attributes name="initialValue">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setControl" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -427,11 +427,11 @@
       <methods name="setInitialValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.24"/>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <superClasses clazz="//@modules.0/@classifiers.5"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Variable"/>
     </classifiers>
@@ -454,116 +454,107 @@
       </superClasses>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NamedElement"/>
     </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="deprecated_CodeBlock">
-      <attributes name="statements">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
-        </classifierType>
-      </attributes>
-      <superClasses clazz="//@modules.0/@classifiers.0"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.deprecated_CodeBlock"/>
-    </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Statement">
       <superClasses clazz="//@modules.0/@classifiers.0"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Statement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="LoopStatement">
-      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.28"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LoopStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SimpleStatement">
-      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.28"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SimpleStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Assignment">
       <attributes name="variable">
-        <classifierType referencedElement="//@modules.0/@classifiers.92"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.99"/>
       </attributes>
       <attributes name="value">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.92"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.99"/>
         </parameters>
       </methods>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Assignment"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ProcedureCall">
       <attributes name="callIdExpr">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.96"/>
       </attributes>
       <methods name="setCallIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.96"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ProcedureCall"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Return">
       <attributes name="value">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Return"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="WaitUntil">
       <attributes name="condition">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WaitUntil"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Terminate">
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Terminate"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Yield">
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Yield"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Wait">
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Wait"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Reactivate">
       <attributes name="objectAccess">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setObjectAccess" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Reactivate"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ActivateObject">
       <attributes name="objectAccess">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="_priority">
         <primitiveType xsi:type="dbl:IntType"/>
@@ -571,7 +562,7 @@
       <methods name="setObjectAccess" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <methods name="setPriority" abstract="true">
@@ -580,20 +571,20 @@
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ActivateObject"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Advance">
       <attributes name="time">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setTime" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Advance"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Print">
@@ -602,38 +593,38 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Print"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IfStatement">
       <attributes name="condition">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="trueCase">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.28"/>
       </attributes>
       <attributes name="falseCase">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.28"/>
       </attributes>
       <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <methods name="setTrueCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.28"/>
         </parameters>
       </methods>
       <methods name="setFalseCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.28"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.28"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IfStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="LocalScope">
@@ -648,67 +639,67 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScope"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="LocalScopeStatement">
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
-      <superClasses clazz="//@modules.0/@classifiers.44"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
+      <superClasses clazz="//@modules.0/@classifiers.43"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScopeStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ForStatement">
       <attributes name="termination">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="increment">
-        <classifierType referencedElement="//@modules.0/@classifiers.32"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.31"/>
       </attributes>
       <attributes name="body">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.28"/>
       </attributes>
       <methods name="setTermination" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <methods name="setIncrement" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.32"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.31"/>
         </parameters>
       </methods>
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.28"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.30"/>
-      <superClasses clazz="//@modules.0/@classifiers.44"/>
+      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.43"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ForStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="WhileStatement">
       <attributes name="condition">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="body">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.28"/>
       </attributes>
       <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.28"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.30"/>
+      <superClasses clazz="//@modules.0/@classifiers.29"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WhileStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SwitchStatement">
       <attributes name="variable">
-        <classifierType referencedElement="//@modules.0/@classifiers.92"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.99"/>
       </attributes>
       <attributes name="cases">
         <classifierType>
@@ -716,26 +707,26 @@
         </classifierType>
       </attributes>
       <attributes name="defaultCase">
-        <classifierType referencedElement="//@modules.0/@classifiers.49"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.48"/>
       </attributes>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.92"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.99"/>
         </parameters>
       </methods>
       <methods name="setDefaultCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.49"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.48"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SwitchCase">
       <attributes name="value">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="body">
         <classifierType>
@@ -745,7 +736,7 @@
       <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <superClasses>
@@ -754,11 +745,11 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchCase"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="BreakStatement">
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BreakStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ContinueStatement">
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ContinueStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Expression">
@@ -767,128 +758,177 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Expression"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="L1Expr">
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L1Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L2Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L2Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L3Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L3Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L4Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L4Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L5Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L5Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L6Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L6Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L7Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L7Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L8Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L8Expr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L9Expr">
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L9Expr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="BinaryOperator">
       <attributes name="op1">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="op2">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setOp1" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <methods name="setOp2" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BinaryOperator"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="UnaryOperator">
       <attributes name="op">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setOp" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.UnaryOperator"/>
     </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="And">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.And"/>
-    </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Or">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.59"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Or"/>
     </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="Greater">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Greater"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="GreaterEqual">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.GreaterEqual"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="Less">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Less"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="LessEqual">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.LessEqual"/>
+    <classifiers xsi:type="dbl:Clazz" name="And">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.58"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.And"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="NotEqual">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.57"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NotEqual"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Equal">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.57"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Equal"/>
     </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Greater">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.56"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Greater"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="GreaterEqual">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.56"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.GreaterEqual"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Less">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.56"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Less"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="LessEqual">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.56"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.LessEqual"/>
+    </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="InstanceOf">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.56"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.InstanceOf"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Plus">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.55"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Plus"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Minus">
-      <superClasses clazz="//@modules.0/@classifiers.54"/>
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
+      <superClasses clazz="//@modules.0/@classifiers.55"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Minus"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Mul">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
       <superClasses clazz="//@modules.0/@classifiers.54"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mul"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Mod">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
       <superClasses clazz="//@modules.0/@classifiers.54"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mod"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Div">
+      <superClasses clazz="//@modules.0/@classifiers.61"/>
       <superClasses clazz="//@modules.0/@classifiers.54"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Div"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Neg">
-      <superClasses clazz="//@modules.0/@classifiers.55"/>
+      <superClasses clazz="//@modules.0/@classifiers.62"/>
+      <superClasses clazz="//@modules.0/@classifiers.53"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Neg"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Not">
-      <superClasses clazz="//@modules.0/@classifiers.55"/>
+      <superClasses clazz="//@modules.0/@classifiers.62"/>
+      <superClasses clazz="//@modules.0/@classifiers.53"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Not"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Cast">
-      <superClasses clazz="//@modules.0/@classifiers.55"/>
+      <superClasses clazz="//@modules.0/@classifiers.62"/>
       <superClasses clazz="//@modules.0/@classifiers.7"/>
+      <superClasses clazz="//@modules.0/@classifiers.53"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Cast"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="CreateObject">
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <superClasses clazz="//@modules.0/@classifiers.7"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CreateObject"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="NullLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NullLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TimeLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TimeLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ActiveLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ActiveLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="StringLiteral">
@@ -901,7 +941,7 @@
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IntLiteral">
@@ -914,15 +954,15 @@
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TrueLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TrueLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="FalseLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.FalseLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="DoubleLiteral">
@@ -935,20 +975,20 @@
           <primitiveType xsi:type="dbl:DoubleType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="EvalExpr">
       <attributes name="expr">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.EvalExpr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="PredefinedId">
@@ -958,34 +998,34 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PredefinedId"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MeLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.83"/>
+      <superClasses clazz="//@modules.0/@classifiers.90"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MeLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SuperLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.83"/>
+      <superClasses clazz="//@modules.0/@classifiers.90"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MetaLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.83"/>
+      <superClasses clazz="//@modules.0/@classifiers.90"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TypeLiteral">
-      <superClasses clazz="//@modules.0/@classifiers.83"/>
+      <superClasses clazz="//@modules.0/@classifiers.90"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypeLiteral"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SizeOfArray">
-      <superClasses clazz="//@modules.0/@classifiers.83"/>
+      <superClasses clazz="//@modules.0/@classifiers.90"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SizeOfArray"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IdExpr">
       <attributes name="parentIdExpr">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.96"/>
       </attributes>
       <attributes name="referencedElement">
         <classifierType referencedElement="//@modules.0/@classifiers.27"/>
       </attributes>
       <attributes name="predefinedId">
-        <classifierType referencedElement="//@modules.0/@classifiers.83"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.90"/>
       </attributes>
       <attributes name="arrayIndex">
         <classifierType>
@@ -993,12 +1033,12 @@
         </classifierType>
       </attributes>
       <attributes name="callPart">
-        <classifierType referencedElement="//@modules.0/@classifiers.90"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.97"/>
       </attributes>
       <methods name="setParentIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.96"/>
         </parameters>
       </methods>
       <methods name="setReferencedElement" abstract="true">
@@ -1010,16 +1050,16 @@
       <methods name="setPredefinedId" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.83"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.90"/>
         </parameters>
       </methods>
       <methods name="setCallPart" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.90"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.97"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.53"/>
+      <superClasses clazz="//@modules.0/@classifiers.52"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdExpr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="CallPart">
@@ -1035,27 +1075,27 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ElementAccess">
       <attributes name="idExpr">
-        <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.96"/>
       </attributes>
       <methods name="setIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.89"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.96"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementAccess"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="VariableAccess">
-      <superClasses clazz="//@modules.0/@classifiers.91"/>
+      <superClasses clazz="//@modules.0/@classifiers.98"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.VariableAccess"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MetaAccess">
-      <superClasses clazz="//@modules.0/@classifiers.92"/>
+      <superClasses clazz="//@modules.0/@classifiers.99"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaAccess"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TypeAccess">
-      <superClasses clazz="//@modules.0/@classifiers.91"/>
+      <superClasses clazz="//@modules.0/@classifiers.98"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypeAccess"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ClassContentExtension">
@@ -1068,7 +1108,7 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ExtensionDefinition">
       <attributes name="extendedConcept">
-        <classifierType referencedElement="//@modules.0/@classifiers.100"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.107"/>
       </attributes>
       <attributes name="abstractSyntaxDef">
         <classifierType>
@@ -1076,35 +1116,35 @@
         </classifierType>
       </attributes>
       <attributes name="textualSyntaxDef">
-        <classifierType referencedElement="//@modules.0/@classifiers.98"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.105"/>
       </attributes>
       <attributes name="mappingDef">
-        <classifierType referencedElement="//@modules.0/@classifiers.120"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.125"/>
       </attributes>
       <methods name="setExtendedConcept" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.100"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.107"/>
         </parameters>
       </methods>
       <methods name="setTextualSyntaxDef" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.98"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.105"/>
         </parameters>
       </methods>
       <methods name="setMappingDef" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.120"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.125"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.100"/>
+      <superClasses clazz="//@modules.0/@classifiers.107"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionDefinition"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TextualSyntaxDef">
       <attributes name="startRule">
-        <classifierType referencedElement="//@modules.0/@classifiers.101"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.108"/>
       </attributes>
       <attributes name="rules">
         <classifierType>
@@ -1114,7 +1154,7 @@
       <methods name="setStartRule" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.101"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.108"/>
         </parameters>
       </methods>
       <superClasses>
@@ -1127,21 +1167,21 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LanguageConstructClassifier"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="LanguageConceptClassifier">
-      <superClasses clazz="//@modules.0/@classifiers.99"/>
+      <superClasses clazz="//@modules.0/@classifiers.106"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LanguageConceptClassifier"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TsRule">
       <attributes name="rhs">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.109"/>
       </attributes>
       <methods name="setRhs" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.102"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.109"/>
         </parameters>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
-      <superClasses clazz="//@modules.0/@classifiers.99"/>
+      <superClasses clazz="//@modules.0/@classifiers.106"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TsRule"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="RhsExpression">
@@ -1150,88 +1190,26 @@
       </superClasses>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.RhsExpression"/>
     </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L3RhsExpr">
+      <superClasses clazz="//@modules.0/@classifiers.109"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L3RhsExpr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="L2RhsExpr">
+      <superClasses clazz="//@modules.0/@classifiers.109"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L2RhsExpr"/>
+    </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SequenceExpr">
       <attributes name="sequence">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
+      <superClasses clazz="//@modules.0/@classifiers.111"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SequenceExpr"/>
     </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="OptionalExpr">
-      <attributes name="expression">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </attributes>
-      <methods name="setExpression" abstract="true">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-        </parameters>
-      </methods>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.OptionalExpr"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="RuntimeExpr">
-      <attributes name="expression">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </attributes>
-      <methods name="setExpression" abstract="true">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-        </parameters>
-      </methods>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.RuntimeExpr"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="AtLeastOneExpr">
-      <attributes name="expression">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </attributes>
-      <methods name="setExpression" abstract="true">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-        </parameters>
-      </methods>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.AtLeastOneExpr"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="ArbitraryExpr">
-      <attributes name="expression">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </attributes>
-      <methods name="setExpression" abstract="true">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-        </parameters>
-      </methods>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ArbitraryExpr"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="AlternativeExpr">
-      <attributes name="left">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </attributes>
-      <attributes name="right">
-        <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-      </attributes>
-      <methods name="setLeft" abstract="true">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-        </parameters>
-      </methods>
-      <methods name="setRight" abstract="true">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.102"/>
-        </parameters>
-      </methods>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.AlternativeExpr"/>
+    <classifiers xsi:type="dbl:Clazz" name="L1RhsExpr">
+      <superClasses clazz="//@modules.0/@classifiers.109"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.L1RhsExpr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TerminalExpr">
       <attributes name="terminal">
@@ -1243,34 +1221,34 @@
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
+      <superClasses clazz="//@modules.0/@classifiers.113"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TerminalExpr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="PropertyBindingExpr">
       <attributes name="propertyType">
-        <classifierType referencedElement="//@modules.0/@classifiers.112"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.117"/>
       </attributes>
       <methods name="setPropertyType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.112"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.117"/>
         </parameters>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
+      <superClasses clazz="//@modules.0/@classifiers.113"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PropertyBindingExpr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="RhsClassifierExpr">
       <attributes name="classifier">
-        <classifierType referencedElement="//@modules.0/@classifiers.99"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.106"/>
       </attributes>
       <methods name="setClassifier" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.99"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.106"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.102"/>
+      <superClasses clazz="//@modules.0/@classifiers.113"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.RhsClassifierExpr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="PropertyType">
@@ -1280,15 +1258,15 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IdPropertyType">
-      <superClasses clazz="//@modules.0/@classifiers.112"/>
+      <superClasses clazz="//@modules.0/@classifiers.117"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdPropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="IntPropertyType">
-      <superClasses clazz="//@modules.0/@classifiers.112"/>
+      <superClasses clazz="//@modules.0/@classifiers.117"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntPropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="StringPropertyType">
-      <superClasses clazz="//@modules.0/@classifiers.112"/>
+      <superClasses clazz="//@modules.0/@classifiers.117"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringPropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="BooleanPropertyType">
@@ -1301,20 +1279,20 @@
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.112"/>
+      <superClasses clazz="//@modules.0/@classifiers.117"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BooleanPropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="StructuredPropertyType">
       <attributes name="_type">
-        <classifierType referencedElement="//@modules.0/@classifiers.99"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.106"/>
       </attributes>
       <methods name="setType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.99"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.106"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.112"/>
+      <superClasses clazz="//@modules.0/@classifiers.117"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StructuredPropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="CompositePropertyType">
@@ -1327,29 +1305,20 @@
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.117"/>
+      <superClasses clazz="//@modules.0/@classifiers.122"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CompositePropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ReferencePropertyType">
-      <attributes name="idResolutionPattern">
-        <classifierType referencedElement="//@modules.0/@classifiers.139"/>
-      </attributes>
       <attributes name="rawReference">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="setIdResolutionPattern" abstract="true">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.139"/>
-        </parameters>
-      </methods>
       <methods name="setRawReference" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.117"/>
+      <superClasses clazz="//@modules.0/@classifiers.122"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ReferencePropertyType"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Mapping">
@@ -1359,15 +1328,15 @@
         </classifierType>
       </attributes>
       <attributes name="metaObject">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.45"/>
+      <superClasses clazz="//@modules.0/@classifiers.44"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mapping"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MappingPart">
@@ -1378,28 +1347,28 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MetaExpr">
       <attributes name="expr">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaExpr"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="TargetStatement">
       <attributes name="body">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.28"/>
       </attributes>
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.28"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.28"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TargetStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="MappingStatement">
@@ -1413,12 +1382,12 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.28"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MappingStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SetGenContextStatement">
       <attributes name="context">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="addAfterContext">
         <primitiveType xsi:type="dbl:BoolType"/>
@@ -1426,7 +1395,7 @@
       <methods name="setContext" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <methods name="setAddAfterContext" abstract="true">
@@ -1435,37 +1404,37 @@
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SetGenContextStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ResetGenContextStatement">
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ResetGenContextStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="SaveGenStatement">
       <attributes name="variable">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SaveGenStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ResumeGenStatement">
       <attributes name="variable">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.31"/>
+      <superClasses clazz="//@modules.0/@classifiers.30"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ResumeGenStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="FixedMappingPart">
@@ -1478,68 +1447,68 @@
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.121"/>
+      <superClasses clazz="//@modules.0/@classifiers.126"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.FixedMappingPart"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="DynamicMappingPart">
       <attributes name="expr">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.121"/>
+      <superClasses clazz="//@modules.0/@classifiers.126"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DynamicMappingPart"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ExpandExpression">
       <attributes name="metaObject">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpression"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="ExpandStatement">
       <attributes name="metaObject">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <attributes name="location">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
       <methods name="setLocation" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.28"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandStatement"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="CodeQuoteExpression">
       <attributes name="quotedCode">
-        <classifierType referencedElement="//@modules.0/@classifiers.134"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.139"/>
       </attributes>
       <methods name="setQuotedCode" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.134"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.139"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.52"/>
+      <superClasses clazz="//@modules.0/@classifiers.51"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CodeQuoteExpression"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedCode">
@@ -1550,15 +1519,15 @@
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedExpression">
       <attributes name="expression">
-        <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.51"/>
       </attributes>
       <methods name="setExpression" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.52"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.51"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.134"/>
+      <superClasses clazz="//@modules.0/@classifiers.139"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedExpression"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedStatements">
@@ -1567,16 +1536,16 @@
           <referencedElement href="stdlib.xmi#//@modules.0/@classifiers.3"/>
         </classifierType>
       </attributes>
-      <superClasses clazz="//@modules.0/@classifiers.134"/>
+      <superClasses clazz="//@modules.0/@classifiers.139"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedStatements"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedClassContent">
-      <superClasses clazz="//@modules.0/@classifiers.134"/>
+      <superClasses clazz="//@modules.0/@classifiers.139"/>
       <superClasses clazz="//@modules.0/@classifiers.18"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedClassContent"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="QuotedModuleContent">
-      <superClasses clazz="//@modules.0/@classifiers.134"/>
+      <superClasses clazz="//@modules.0/@classifiers.139"/>
       <superClasses clazz="//@modules.0/@classifiers.3"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedModuleContent"/>
     </classifiers>
@@ -1588,7 +1557,7 @@
         <classifierType referencedElement="//@modules.0/@classifiers.26"/>
       </attributes>
       <attributes name="body">
-        <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+        <classifierType referencedElement="//@modules.0/@classifiers.28"/>
       </attributes>
       <methods name="setTop" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -1605,7 +1574,7 @@
       <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classifiers.29"/>
+          <classifierType referencedElement="//@modules.0/@classifiers.28"/>
         </parameters>
       </methods>
       <superClasses clazz="//@modules.0/@classifiers.27"/>
@@ -1621,7 +1590,7 @@
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.29"/>
+      <superClasses clazz="//@modules.0/@classifiers.28"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TestStatement"/>
     </classifiers>
   </modules>

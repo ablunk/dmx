@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface InstanceOf extends BinaryOperator {
+public interface InstanceOf extends BinaryOperator, L5Expr {
 } // InstanceOf

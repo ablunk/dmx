@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Cast extends UnaryOperator, TypedElement {
+public interface Cast extends UnaryOperator, TypedElement, L2Expr {
 } // Cast
