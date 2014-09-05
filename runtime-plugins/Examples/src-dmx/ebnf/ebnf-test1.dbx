@@ -15,9 +15,6 @@ module EbnfSample1 {
 		Test2 -> "a" "x"? | "b" | "c" ;
 	}
 	
-	// .. -> .. isControl ?= "control"
-	// .. -> .. isControl : "control"
-	
 	void main() {
 		btest;
 		btest on;

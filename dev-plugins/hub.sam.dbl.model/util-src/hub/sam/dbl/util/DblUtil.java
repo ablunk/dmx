@@ -26,7 +26,7 @@ public class DblUtil {
 				extensibleInstance.setInstanceOfExtensionDefinition(true);
 			}
 			
-			logger.info("instantiated meta-class " + metaClass.getName() + " via first parent meta-class " + parentClass.getName() + ".");
+			logger.finest("instantiated meta-class " + metaClass.getName() + " via first parent meta-class " + parentClass.getName() + ".");
 		}
 		finally {
 			if (instance == null) {

@@ -10,7 +10,7 @@ syntax(Model) "resources/dbl.ecore" {
 	ModuleContent -> Procedure:composite(procedures);
 	ModuleContent -> Classifier:composite(classifiers);
 	ModuleContent -> ClassAugment:composite(classAugments);
-	ModuleContent -> extensionDef:composite(extensionDefs);
+	ModuleContent -> ExtensionDefinition:composite(extensionDefs);
 	ModuleContent -> ModuleContentExtension:composite(extensions);
 	
 	Classifier:element(Clazz) -> ClazzWithPredefinedModifiers;
@@ -348,7 +348,7 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	// EXTENSIONS
 	
-	extensionDef:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
+	ExtensionDefinition:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
 		"extends" ExtendedConstruct
 		TextualSyntaxDef:composite(textualSyntaxDef)
 		("semantics" "{" Mapping:composite(mappingDef) "}")?;

@@ -2,9 +2,36 @@
 
 module EbnfExtension {
 
+	TsRule getOwnerTsRule(EObject obj) {
+		EObject c = obj.eContainer();
+		while (c != null) {
+			if (c instanceof TsRule) return c as TsRule;
+			else c = obj.eContainer();
+		}
+		return null;
+	}
+
 	extension ManyExpr extends dbl L1RhsExpr {
 		start ManyExpr;
 		ManyExpr -> expr:L1RhsExpr "*";
+	}
+	semantics {
+		// source:
+		// Forever -> "forever" "{" (stms:list(Statement))* "}";
+		
+		// target:
+		// Forever -> "forever" "{" Forever_ManyOpt "}";
+		// Forever_ManyOpt -> ;
+		// Forever_ManyOpt -> stms:list(Statement) Forever_ManyOpt;
+		
+		TsRule tsRule = getOwnerTsRule(expr);
+		string newRuleName = tsRule.name + "_ManyOpt";
+		
+		expand newRuleName;
+		
+		setExpansionContext after tsRule;
+		expand newRuleName " -> ;";
+		expand newRuleName " -> " expr " " newRuleName ";";
 	}
 
 	extension AtLeastExpr extends dbl L1RhsExpr {

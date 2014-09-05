@@ -5,7 +5,7 @@
   </imports>
   <modules name="EbnfSample1">
     <extensionDefs name="ExtensionUsingEbfn">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.28"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="Forever">
           <rhs xsi:type="dbl:SequenceExpr">
@@ -15,7 +15,7 @@
               <expr xsi:type="dbl:SequenceExpr">
                 <sequence xsi:type="dbl:PropertyBindingExpr" name="stms">
                   <propertyType xsi:type="dbl:CompositePropertyType" list="true">
-                    <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+                    <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.28"/>
                   </propertyType>
                 </sequence>
               </expr>
@@ -26,11 +26,16 @@
       </textualSyntaxDef>
     </extensionDefs>
     <extensionDefs name="TestX">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.29"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.28"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
         <rules name="Test">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.1"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.2"/>
+          </rhs>
+        </rules>
+        <rules name="Test">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.3"/>
           </rhs>
         </rules>
         <rules name="Test1">
