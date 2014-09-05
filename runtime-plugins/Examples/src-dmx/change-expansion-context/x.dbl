@@ -1,0 +1,19 @@
+#import "../dbl"
+
+module x {
+
+extension FrontExec extends dbl SimpleStatement {
+	start FX;
+	FX -> "fx" stm:SimpleStatement;
+}
+semantics {
+	SimpleStatement fxStm = stm.eContainer() as SimpleStatement;
+	LocalScope ls = fxStm.eContainer() as LocalScope;
+	
+	expand " "; // empty expansion removes fx statement
+	
+	setExpansionContext before ls.statements.get(0);
+	expand stm ";";
+}
+
+}

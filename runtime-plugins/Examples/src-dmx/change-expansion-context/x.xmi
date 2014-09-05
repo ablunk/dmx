@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="x">
+    <extensionDefs name="FrontExec">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="FX">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="fx"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="stm">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef>
+        <statements xsi:type="dbl:Variable" name="fxStm">
+          <classifierType>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:Cast">
+            <classifierType>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+            </classifierType>
+            <op xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+              <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.11/@methods.1"/>
+              <callPart/>
+            </op>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="ls">
+          <classifierType>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.43"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:Cast">
+            <classifierType>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.43"/>
+            </classifierType>
+            <op xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+              <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.11/@methods.1"/>
+              <callPart/>
+            </op>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:FixedMappingPart" code=" "/>
+        </statements>
+        <statements xsi:type="dbl:SetGenContextStatement">
+          <context xsi:type="dbl:IdExpr">
+            <parentIdExpr>
+              <parentIdExpr referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.43/@attributes.0"/>
+            </parentIdExpr>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral"/>
+            </callPart>
+          </context>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement">
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

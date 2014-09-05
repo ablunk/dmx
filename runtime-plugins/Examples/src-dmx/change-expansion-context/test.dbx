@@ -1,0 +1,12 @@
+#import "x"
+
+module test {
+	
+	int i=1;
+	
+	void main() {
+		print i + "\n";
+		fx i=2;
+	}
+	
+}

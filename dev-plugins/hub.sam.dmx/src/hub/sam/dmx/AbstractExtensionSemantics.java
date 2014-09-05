@@ -158,13 +158,17 @@ public abstract class AbstractExtensionSemantics {
 		return false;
 	}
 	
-	protected void setGenContext(EObject positionObject, boolean addAfterEObject) {
-		addCurrentModification();
-		Addition addition = ModificationsFactory.eINSTANCE.createAddition();
-		currentModification = addition;
-		addition.setSourceEObjectUri(getEmfUriFragment(positionObject));
-		addition.setReplacementText("");
-		addition.setAddAfterPosition(addAfterEObject);
+	protected void setGenContext(Object positionObject, boolean addAfterEObject) {
+		if (positionObject instanceof EObject) {
+			EObject positionEObject = (EObject) positionObject;
+			
+			addCurrentModification();
+			Addition addition = ModificationsFactory.eINSTANCE.createAddition();
+			currentModification = addition;
+			addition.setSourceEObjectUri(getEmfUriFragment(positionEObject));
+			addition.setReplacementText("");
+			addition.setAddAfterPosition(addAfterEObject);
+		}
 	}
 	
 	private void addCurrentModification() {
