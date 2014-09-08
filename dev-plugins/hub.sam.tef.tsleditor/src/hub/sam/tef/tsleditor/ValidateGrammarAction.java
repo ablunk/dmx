@@ -141,4 +141,16 @@ public class ValidateGrammarAction extends ResourceAction implements ITefEditorS
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void modelChanged(TextEditor editor) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void referencedModelChanged(TextEditor editor) {
+		// TODO Auto-generated method stub
+		
+	}
 }
