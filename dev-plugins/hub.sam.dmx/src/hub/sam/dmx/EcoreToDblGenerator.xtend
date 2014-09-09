@@ -19,13 +19,13 @@ class EcoreToDblGenerator extends AbstractGenerator {
 
 		writer.write(
 		'''
-		ÇIF imports != nullÈ
-			ÇFOR i : importsÈ
-				#import "ÇiÈ"
-			ÇENDFORÈ
-		ÇENDIFÈ
+		Â«IF imports != nullÂ»
+			Â«FOR i : importsÂ»
+				#import "Â«iÂ»"
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
 		
-		module Çmetamodel.nameÈ {
+		module Â«metamodel.nameÂ» {
 		
 		'''
 		)
@@ -50,10 +50,10 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	def String genFeature(EStructuralFeature feature) {
 		val it = feature
 		'''
-		ÇgenAttributeÈ
-		ÇIF changeableÈ
-			ÇgenSetterÈ
-		ÇENDIFÈ
+		Â«genAttributeÂ»
+		Â«IF changeableÂ»
+			Â«genSetterÂ»
+		Â«ENDIFÂ»
 		'''
 	}
 
@@ -78,23 +78,23 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		val it = eClass
 		if (!name.equals("EObject")) {
 			'''
-			class ÇnameÈ
-			ÇIF ESuperTypes.emptyÈ
+			class Â«nameÂ»
+			Â«IF ESuperTypes.emptyÂ»
 				extends EObject
-			ÇELSEÈ
+			Â«ELSEÂ»
 				extends 
-				ÇFOR superClass : ESuperTypes SEPARATOR ','È
-					ÇsuperClass.nameÈ
-				ÇENDFORÈ
-			ÇENDIFÈ
+				Â«FOR superClass : ESuperTypes SEPARATOR ','Â»
+					Â«superClass.nameÂ»
+				Â«ENDFORÂ»
+			Â«ENDIFÂ»
 			{
 				bindings {
-					"java" -> "ÇjavaPackagePrefixÈ.ÇnameÈ"
+					"java" -> "Â«javaPackagePrefixÂ».Â«nameÂ»"
 				}
 				
-				ÇFOR feature : EStructuralFeaturesÈ
-					Çfeature.genFeatureÈ
-				ÇENDFORÈ
+				Â«FOR feature : EStructuralFeaturesÂ»
+					Â«feature.genFeatureÂ»
+				Â«ENDFORÂ»
 			}
 			'''
 		}
@@ -176,7 +176,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		val it = typedElement
 		if (EType != null) {
 			if (many) {
-				//'''ÇEType.nameÈ array[]'''
+				//'''Â«EType.nameÂ» array[]'''
 				'List'
 			}
 			else {

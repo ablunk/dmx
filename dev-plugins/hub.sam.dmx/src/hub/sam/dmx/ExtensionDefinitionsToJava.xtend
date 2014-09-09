@@ -112,22 +112,22 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 //		getPropertyValue(
 //		
 //		(EObject)
-//		ÇIF parentIdExpr != nullÈ
-//			ÇparentIdExpr.genSyntaxPartIdExprÈ,
-//		ÇELSEÈ
+//		Â«IF parentIdExpr != nullÂ»
+//			Â«parentIdExpr.genSyntaxPartIdExprÂ»,
+//		Â«ELSEÂ»
 //			_extensionInstance,
-//		ÇENDIFÈ
+//		Â«ENDIFÂ»
 //		
-//		ÇIF referencedElement != nullÈ
-//			"Ç
+//		Â«IF referencedElement != nullÂ»
+//			"Â«
 //			if (referencedElement.name.startsWith("_"))
 //				referencedElement.name.substring(1)
 //			else
 //				referencedElement.name
-//			È"
-//		ÇELSEÈ
-//			ÇgenIdExpr_for_PredefinedId(predefinedId)È
-//		ÇENDIFÈ
+//			Â»"
+//		Â«ELSEÂ»
+//			Â«genIdExpr_for_PredefinedId(predefinedId)Â»
+//		Â«ENDIFÂ»
 //		)
 //		'''
 //	}
@@ -165,30 +165,30 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		if (directlyRefersToSyntaxPart || refersToDblMetamodel) {
 			'''
 			(
-			ÇIF referencedElement != nullÈ
-				ÇIF referencedElementIsOfTypeListÈ
+			Â«IF referencedElement != nullÂ»
+				Â«IF referencedElementIsOfTypeListÂ»
 					(java.util.List)
-				ÇELSEÈ
+				Â«ELSEÂ»
 					(EObject)
-				ÇENDIFÈ
-			ÇENDIFÈ
+				Â«ENDIFÂ»
+			Â«ENDIFÂ»
 			getPropertyValue(
-			ÇIF parentIdExpr != nullÈ
-				ÇparentIdExpr.genIdExprWithSyntaxPartReferencesÈ
-			ÇELSEÈ
+			Â«IF parentIdExpr != nullÂ»
+				Â«parentIdExpr.genIdExprWithSyntaxPartReferencesÂ»
+			Â«ELSEÂ»
 				(EObject) _extensionInstance
-			ÇENDIFÈ
+			Â«ENDIFÂ»
 			,
-			ÇIF referencedElement != nullÈ
-				"Ç
+			Â«IF referencedElement != nullÂ»
+				"Â«
 				if (referencedElement.name.startsWith("_"))
 					referencedElement.name.substring(1)
 				else
 					referencedElement.name
-				È"
-			ÇELSEÈ
-				ÇgenIdExpr_for_PredefinedId(predefinedId)È
-			ÇENDIFÈ
+				Â»"
+			Â«ELSEÂ»
+				Â«genIdExpr_for_PredefinedId(predefinedId)Â»
+			Â«ENDIFÂ»
 			)
 			)
 			'''
@@ -208,22 +208,22 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 //
 //		if (directlyRefersToSyntaxPart || refersToDblMetamodel) {
 //			'''
-//			ÇIF parentIdExpr != nullÈ
-//				ÇparentIdExpr.genIdExprWithSyntaxPartReferencesÈ.
-//			ÇELSEÈ
+//			Â«IF parentIdExpr != nullÂ»
+//				Â«parentIdExpr.genIdExprWithSyntaxPartReferencesÂ».
+//			Â«ELSEÂ»
 //				_extensionInstance.
-//			ÇENDIFÈ
+//			Â«ENDIFÂ»
 //			
-//			ÇIF referencedElement != nullÈ
-//				getÇ
+//			Â«IF referencedElement != nullÂ»
+//				getÂ«
 //				if (referencedElement.name.startsWith("_"))
 //					referencedElement.name.substring(1).toFirstUpper
 //				else
 //					referencedElement.name.toFirstUpper
-//				È()
-//			ÇELSEÈ
-//				ÇgenIdExpr_for_PredefinedId(predefinedId)È
-//			ÇENDIFÈ
+//				Â»()
+//			Â«ELSEÂ»
+//				Â«genIdExpr_for_PredefinedId(predefinedId)Â»
+//			Â«ENDIFÂ»
 //			'''
 //		}
 //		else {
@@ -239,15 +239,15 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	override String genIdExpr(IdExpr idExpr) {
 		val it = idExpr
 		'''
-		ÇIF oneParentRefersToSyntaxPartOrDblMetamodelÈ
-			ÇIF partOfGenStatementÈ
-				getConcreteSyntax(ÇgenIdExprWithSyntaxPartReferencesÈ)
-			ÇELSEÈ
-				ÇgenIdExprWithSyntaxPartReferencesÈ
-			ÇENDIFÈ
-		ÇELSEÈ
-			Çsuper.genIdExpr(idExpr)È
-		ÇENDIFÈ
+		Â«IF oneParentRefersToSyntaxPartOrDblMetamodelÂ»
+			Â«IF partOfGenStatementÂ»
+				getConcreteSyntax(Â«genIdExprWithSyntaxPartReferencesÂ»)
+			Â«ELSEÂ»
+				Â«genIdExprWithSyntaxPartReferencesÂ»
+			Â«ENDIFÂ»
+		Â«ELSEÂ»
+			Â«super.genIdExpr(idExpr)Â»
+		Â«ENDIFÂ»
 		'''
 	}
 	
@@ -282,7 +282,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	
 	override String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, PropertyBindingExpr referencedElement) {
 		'''
-		getPropertyValue(_extensionInstance ,"ÇreferencedElement.nameÈ")
+		getPropertyValue(_extensionInstance ,"Â«referencedElement.nameÂ»")
 		'''
 	}
 	
@@ -333,21 +333,21 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		val it = extensionDefinition
 		
 		'''
-		Ç(extensionDefinition.eContainer as Module).genPackageStatementÈ
+		Â«(extensionDefinition.eContainer as Module).genPackageStatementÂ»
 		
 		import hub.sam.dmx.AbstractExtensionSemantics;
 		import hub.sam.dbl.*;
 		import org.eclipse.emf.ecore.EObject;
 
-		public class ÇnameÈSemantics extends AbstractExtensionSemantics {
+		public class Â«nameÂ»Semantics extends AbstractExtensionSemantics {
 
 			public static void main(String[] args) {
-				(new ÇnameÈSemantics()).doGenerate(args);
+				(new Â«nameÂ»Semantics()).doGenerate(args);
 			}
 
 
 			public void doGenerate(EObject _extensionInstance) {
-				ÇmappingDef.genStatementÈ
+				Â«mappingDef.genStatementÂ»
 			}
 
 		}
