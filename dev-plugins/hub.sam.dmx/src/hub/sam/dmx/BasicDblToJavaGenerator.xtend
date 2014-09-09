@@ -94,15 +94,15 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 		val mainProcedure = procedures.findFirst[name == 'main']
 		
 		'''
-		ÇgenPackageStatementÈ
+		Â«genPackageStatementÂ»
 		
 		import hub.sam.dmx.javasim.desmoj.SimulationProcess;
 		import hub.sam.dmx.javasim.desmoj.DefaultSimulation;
 		
-		public class ÇjavaClass_for_ModuleLevelElementsÈ extends SimulationProcess {
+		public class Â«javaClass_for_ModuleLevelElementsÂ» extends SimulationProcess {
 			
-			public ÇjavaClass_for_ModuleLevelElementsÈ() {
-				super("Main procedure in module 'ÇnameÈ'");
+			public Â«javaClass_for_ModuleLevelElementsÂ»() {
+				super("Main procedure in module 'Â«nameÂ»'");
 			}
 			
 			public void base_actions() {
@@ -113,16 +113,16 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 			}
 
 			public static void startMainProcedure() {
-				ÇjavaClass_for_ModuleLevelElementsÈ mainProcess = new ÇjavaClass_for_ModuleLevelElementsÈ();
+				Â«javaClass_for_ModuleLevelElementsÂ» mainProcess = new Â«javaClass_for_ModuleLevelElementsÂ»();
 				DefaultSimulation.DEFAULT.addInitialProcess(mainProcess);
 				DefaultSimulation.DEFAULT.start(0);
 			}
 		
-			Çvariables.genVariables(true)È
+			Â«variables.genVariables(true)Â»
 			
-			Çprocedures.filter[ p | p != mainProcedure ].toList.genProcedures(true)È
+			Â«procedures.filter[ p | p != mainProcedure ].toList.genProcedures(true)Â»
 			
-			public ÇmainProcedure.genÈ
+			public Â«mainProcedure.genÂ»
 		}
 		'''
 	}
@@ -134,46 +134,46 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	override def String genActiveClass(Clazz clazz) {
 		val it = clazz
 		'''
-		ÇgenPackageStatementÈ
+		Â«genPackageStatementÂ»
 		
 		import hub.sam.dmx.javasim.desmoj.SimulationProcess;
 		import hub.sam.dmx.javasim.desmoj.DefaultSimulation;
 			
-		public class ÇnameÈ
-		ÇIF superClasses.size > 1È
+		public class Â«nameÂ»
+		Â«IF superClasses.size > 1Â»
 			<! multiple inheritance is not supported for Java as a target language at the moment !>
-		ÇELSEIF superClasses.size == 1È
-			extends ÇsuperClasses.head.clazz.genTypeÈ
-		ÇELSEIF activeÈ
+		Â«ELSEIF superClasses.size == 1Â»
+			extends Â«superClasses.head.clazz.genTypeÂ»
+		Â«ELSEIF activeÂ»
 			extends SimulationProcess
-		ÇENDIFÈ
+		Â«ENDIFÂ»
 		{
 
-			public ÇnameÈ(
-			ÇIF constructor != nullÈ
-				ÇFOR cparam: constructor.parameters SEPARATOR ','È
-					Çcparam.genÈ
-				ÇENDFORÈ
-			ÇENDIFÈ
+			public Â«nameÂ»(
+			Â«IF constructor != nullÂ»
+				Â«FOR cparam: constructor.parameters SEPARATOR ','Â»
+					Â«cparam.genÂ»
+				Â«ENDFORÂ»
+			Â«ENDIFÂ»
 			) {
-				ÇIF active && superClasses.emptyÈ
-					super("ÇnameÈ");
-				ÇENDIFÈ
+				Â«IF active && superClasses.emptyÂ»
+					super("Â«nameÂ»");
+				Â«ENDIFÂ»
 			
-				ÇinitialBlock?.statements.genÈ
+				Â«initialBlock?.statements.genÂ»
 			}
 			
-			ÇIF activeÈ
+			Â«IF activeÂ»
 			public void base_actions() {
-				ÇIF actionsBlock != nullÈ
-					ÇactionsBlock.statements.genÈ
-				ÇENDIFÈ
+				Â«IF actionsBlock != nullÂ»
+					Â«actionsBlock.statements.genÂ»
+				Â«ENDIFÂ»
 			}
-			ÇENDIFÈ
+			Â«ENDIFÂ»
 		
-			Çattributes.genVariables(false)È
+			Â«attributes.genVariables(false)Â»
 
-			Çmethods.genProcedures(false)È
+			Â«methods.genProcedures(false)Â»
 		}
 		'''
 	}
@@ -197,15 +197,15 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	}
 	
 	def dispatch String genSimStatement(ActivateObject stm) {
-		'''((hub.sam.dmx.javasim.desmoj.SimulationProcess) Çstm.objectAccess.genExprÈ).base_activate();'''
+		'''((hub.sam.dmx.javasim.desmoj.SimulationProcess) Â«stm.objectAccess.genExprÂ»).base_activate();'''
 	}
 	
 	def dispatch String genSimStatement(Reactivate stm) {
-		'''((hub.sam.dmx.javasim.desmoj.SimulationProcess) Çstm.objectAccess.genExprÈ).base_reactivate();'''
+		'''((hub.sam.dmx.javasim.desmoj.SimulationProcess) Â«stm.objectAccess.genExprÂ»).base_reactivate();'''
 	}
 	
 	def dispatch String genSimStatement(Advance stm) {
-		'''base_advance(Çstm.time.genExprÈ);'''
+		'''base_advance(Â«stm.time.genExprÂ»);'''
 	}
 
 	def dispatch String genSimExpr(Expression expr) {
@@ -247,17 +247,17 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def String genModuleWithMainProcedure(Module module) {
 		val it = module
 		'''
-		ÇgenPackageStatementÈ
+		Â«genPackageStatementÂ»
 
-		public class ÇjavaClass_for_ModuleLevelElementsÈ {
+		public class Â«javaClass_for_ModuleLevelElementsÂ» {
 			
 			public static void startMainProcedure() {
 				main();
 			}
 		
-			Çvariables.genVariables(true)È
+			Â«variables.genVariables(true)Â»
 			
-			Çprocedures.genProcedures(true)È
+			Â«procedures.genProcedures(true)Â»
 		}
 		'''
 	}
@@ -353,13 +353,13 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 			val Writer javaMain = beginTargetFile(javaPackageFolder, "JavaMain.java");
 			javaMain.write(
 				'''
-				package ÇjavaPackagePrefixÈ;
+				package Â«javaPackagePrefixÂ»;
 				
 				public class JavaMain {
 					public static void main(String[] args) {
 						long startTime = System.nanoTime();
 				
-						ÇmoduleWithMainProcedure.javaNameQualified_for_Module(true)È.startMainProcedure();
+						Â«moduleWithMainProcedure.javaNameQualified_for_Module(true)Â».startMainProcedure();
 				
 						long estimatedTime = System.nanoTime() - startTime;
 						long ms = estimatedTime / (1000 * 1000);
@@ -394,29 +394,29 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		val it = module;		
 		// TODO import types used in this module
 		'''
-		ÇgenPackageStatementÈ
+		Â«genPackageStatementÂ»
 		
-		public class ÇjavaClass_for_ModuleLevelElementsÈ {
-			Çvariables.genVariables(true)È
+		public class Â«javaClass_for_ModuleLevelElementsÂ» {
+			Â«variables.genVariables(true)Â»
 			
-			Çprocedures.genProcedures(true)È
+			Â«procedures.genProcedures(true)Â»
 		}
 		'''
 	}
 	
 	def String genVariables(List<Variable> variables, boolean setStatic) {
 		'''
-		ÇFOR variable : variablesÈ
-			public ÇIF setStaticÈstaticÇENDIFÈ Çvariable.genÈ
-		ÇENDFORÈ
+		Â«FOR variable : variablesÂ»
+			public Â«IF setStaticÂ»staticÂ«ENDIFÂ» Â«variable.genÂ»
+		Â«ENDFORÂ»
 		'''
 	}
 	
 	def String genProcedures(List<Procedure> procedures, boolean setStatic) {
 		'''
-		ÇFOR p : proceduresÈ
-			public ÇIF setStaticÈstaticÇENDIFÈ Çp.genÈ
-		ÇENDFORÈ
+		Â«FOR p : proceduresÂ»
+			public Â«IF setStaticÂ»staticÂ«ENDIFÂ» Â«p.genÂ»
+		Â«ENDFORÂ»
 		'''
 	}
 
@@ -436,9 +436,9 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def dispatch String genStatement(Print print) {
 		'''
 		System.out.print(
-		ÇFOR expr : print.outputs SEPARATOR '+'È
-			Çexpr.genExprÈ
-		ÇENDFORÈ
+		Â«FOR expr : print.outputs SEPARATOR '+'Â»
+			Â«expr.genExprÂ»
+		Â«ENDFORÂ»
 		);
 		'''
 	}
@@ -446,17 +446,17 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def dispatch String genStatement(IfStatement ifStm) {
 		val it = ifStm
 		'''
-		if (Çcondition.genExprÈ)
-			ÇtrueCase.genÈ
-		ÇIF falseCase != nullÈ
+		if (Â«condition.genExprÂ»)
+			Â«trueCase.genÂ»
+		Â«IF falseCase != nullÂ»
 		else
-			ÇfalseCase.genÈ
-		ÇENDIFÈ
+			Â«falseCase.genÂ»
+		Â«ENDIFÂ»
 		'''
 	}
 	
 	def dispatch String genStatement(LocalScopeStatement stm) {
-		'''{Çstm.statements.genÈ}'''
+		'''{Â«stm.statements.genÂ»}'''
 	}
 
 	def dispatch String genStatement(Assignment stm) {
@@ -466,13 +466,13 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def String genAssignment(Assignment stm, boolean genSemicolon) {
 		val it = stm
 		'''
-		Çvariable.genExprÈ = Çvalue.genExprÈ
-		ÇIF genSemicolonÈ;ÇENDIFÈ
+		Â«variable.genExprÂ» = Â«value.genExprÂ»
+		Â«IF genSemicolonÂ»;Â«ENDIFÂ»
 		'''
 	}
 	
 	def dispatch String genStatement(Return stm) {
-		'''return Çstm.value.genExprÈ;'''
+		'''return Â«stm.value.genExprÂ»;'''
 	}
 
 	def dispatch String genStatement(BreakStatement stm) {
@@ -486,15 +486,15 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def dispatch String genStatement(SwitchStatement stm) {
 		val it = stm
 		'''
-		switch (Çvariable.genExprÈ) {
-			ÇFOR c : casesÈ
-			case Çc.value.genExprÈ:
-				Çc.body.genÈ
-			ÇENDFORÈ
-			ÇIF defaultCase != nullÈ
+		switch (Â«variable.genExprÂ») {
+			Â«FOR c : casesÂ»
+			case Â«c.value.genExprÂ»:
+				Â«c.body.genÂ»
+			Â«ENDFORÂ»
+			Â«IF defaultCase != nullÂ»
 			default:
-				ÇdefaultCase.body.genÈ
-			ÇENDIFÈ
+				Â«defaultCase.body.genÂ»
+			Â«ENDIFÂ»
 		}
 		'''
 	}
@@ -505,20 +505,20 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		val it = stm
 		'''
 		for (
-			Çstatements.head.genÈ
+			Â«statements.head.genÂ»
 
-			Çtermination.genExprÈ
+			Â«termination.genExprÂ»
 			;
-			Çincrement.genAssignment(false)È
+			Â«increment.genAssignment(false)Â»
 		)
-		Çbody.genÈ
+		Â«body.genÂ»
 		'''
 	}
 
 	def dispatch String genStatement(WhileStatement stm) {
 		val it = stm
-		'''while (Çcondition.genExprÈ)
-			Çbody.genÈ
+		'''while (Â«condition.genExprÂ»)
+			Â«body.genÂ»
 		'''
 	}
 
@@ -528,15 +528,15 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	def dispatch String genStatement(SetGenContextStatement stm) {
 		val it = stm
-		'''setGenContext(Çcontext.genExprÈ, ÇaddAfterContextÈ);'''
+		'''setGenContext(Â«context.genExprÂ», Â«addAfterContextÂ»);'''
 	}
 
 	def dispatch String genStatement(MappingStatement stm) {
 		val it = stm
 		'''gen(
-		ÇFOR part : parts SEPARATOR '+'È
-			Çpart.genMappingPartÈ
-		ÇENDFORÈ
+		Â«FOR part : parts SEPARATOR '+'Â»
+			Â«part.genMappingPartÂ»
+		Â«ENDFORÂ»
 		);'''
 	}
 	
@@ -557,20 +557,20 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		//val ListDimension ldim1 = if (isList && listDims.size() == 1) listDims.get(1) else null;
 		
 		'''
-		ÇgenTypeÈ ÇnameÈ
-		ÇIF initialValue != nullÈ
-			= ÇinitialValue.genExprÈ
-		ÇELSEIF !typeArrayDimensions.emptyÈ
-ÇÇÇ			ÇIF ldim1 != nullÈ
-ÇÇÇ				ÇIF ldim1.size > 0È
-ÇÇÇ					= new Çldim1.genTypeNoWrapOfListPrimitivesÈ[Çldim1.sizeÈ]
-ÇÇÇ				ÇELSEÈ
-ÇÇÇ					= new java.util.ArrayList<Çldim1.genTypeWrapListPrimitivesÈ>()
-ÇÇÇ				ÇENDIFÈ
-ÇÇÇ			ÇENDIFÈ
-		ÇELSEIF classifierType != nullÈ
+		Â«genTypeÂ» Â«nameÂ»
+		Â«IF initialValue != nullÂ»
+			= Â«initialValue.genExprÂ»
+		Â«ELSEIF !typeArrayDimensions.emptyÂ»
+Â«Â«Â«			Â«IF ldim1 != nullÂ»
+Â«Â«Â«				Â«IF ldim1.size > 0Â»
+Â«Â«Â«					= new Â«ldim1.genTypeNoWrapOfListPrimitivesÂ»[Â«ldim1.sizeÂ»]
+Â«Â«Â«				Â«ELSEÂ»
+Â«Â«Â«					= new java.util.ArrayList<Â«ldim1.genTypeWrapListPrimitivesÂ»>()
+Â«Â«Â«				Â«ENDIFÂ»
+Â«Â«Â«			Â«ENDIFÂ»
+		Â«ELSEIF classifierType != nullÂ»
 			= null
-		ÇENDIFÈ
+		Â«ENDIFÂ»
 		;
 		'''
 	}
@@ -637,15 +637,15 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	}
 	
 	def dispatch String genExpr(Neg expr) {
-		'''(-Çexpr.op.genExprÈ)'''
+		'''(-Â«expr.op.genExprÂ»)'''
 	}
 	
 	def dispatch String genExpr(Not expr) {
-		'''(!Çexpr.op.genExprÈ)'''
+		'''(!Â«expr.op.genExprÂ»)'''
 	}
 	
 	def dispatch String genExpr(Cast expr) {
-		'''((Çexpr.genTypeÈ) Çexpr.op.genExprÈ)'''
+		'''((Â«expr.genTypeÂ») Â«expr.op.genExprÂ»)'''
 	}
 	
 	def dispatch String genExpr(TypeAccess expr) {
@@ -661,8 +661,8 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	}
 	
 	def String quoteJavaString(String s) {
-		if (s.contains('\r\n')) '''"Çs.replaceAll('\r\n', '\\\\r\\\\n"+\r\n"')È"'''
-		else '''"Çs.replaceAll('\n','\\\\r\\\\n"+\r\n"')È"'''
+		if (s.contains('\r\n')) '''"Â«s.replaceAll('\r\n', '\\\\r\\\\n"+\r\n"')Â»"'''
+		else '''"Â«s.replaceAll('\n','\\\\r\\\\n"+\r\n"')Â»"'''
 	}
 	
 	def dispatch String genExpr(IntLiteral expr) {
@@ -691,23 +691,23 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	
 	def String genBinaryExpr(BinaryOperator expr, String op) {
 		val it = expr
-		'''(Çop1.genExprÈ ÇopÈ Çop2.genExprÈ)'''
+		'''(Â«op1.genExprÂ» Â«opÂ» Â«op2.genExprÂ»)'''
 	}
 
 	def dispatch String genExpr(CreateObject expr) {
 		val it = expr
 		'''
 		(
-			new ÇgenTypeÈ		
-		ÇIF classifierType != null && classifierType.arrayIndex.empty && typeArrayDimensions.emptyÈ
+			new Â«genTypeÂ»		
+		Â«IF classifierType != null && classifierType.arrayIndex.empty && typeArrayDimensions.emptyÂ»
 			(
-			ÇIF classifierType.callPart != nullÈ
-				ÇFOR arg : classifierType.callPart.callArguments SEPARATOR ','È
-					Çarg.genExprÈ
-				ÇENDFORÈ
-			ÇENDIFÈ
+			Â«IF classifierType.callPart != nullÂ»
+				Â«FOR arg : classifierType.callPart.callArguments SEPARATOR ','Â»
+					Â«arg.genExprÂ»
+				Â«ENDFORÂ»
+			Â«ENDIFÂ»
 			)
-		ÇENDIFÈ
+		Â«ENDIFÂ»
 		)
 		'''
 	}
@@ -720,15 +720,15 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		val it = idExpr
 
 		'''
-		ÇIF parentIdExpr != nullÈ
-			ÇparentIdExpr.genIdExprÈ.
-		ÇENDIFÈ
+		Â«IF parentIdExpr != nullÂ»
+			Â«parentIdExpr.genIdExprÂ».
+		Â«ENDIFÂ»
 		
-		ÇIF referencedElement != nullÈ
-			ÇgenIdExpr_for_ReferencedElement(referencedElement)È
-		ÇELSEÈ
-			ÇgenIdExpr_for_PredefinedId(predefinedId)È
-		ÇENDIFÈ
+		Â«IF referencedElement != nullÂ»
+			Â«genIdExpr_for_ReferencedElement(referencedElement)Â»
+		Â«ELSEÂ»
+			Â«genIdExpr_for_PredefinedId(predefinedId)Â»
+		Â«ENDIFÂ»
 		'''
 	}
 	
@@ -755,17 +755,17 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, NamedElement referencedElement) {
 		'''
-		ÇreferencedElement.javaNameQualifiedÈ
-		ÇIF idExpr.callPart != nullÈ
+		Â«referencedElement.javaNameQualifiedÂ»
+		Â«IF idExpr.callPart != nullÂ»
 			(
-			ÇFOR arg : idExpr.callPart.callArguments SEPARATOR ','È
-				Çarg.genExprÈ
-			ÇENDFORÈ
+			Â«FOR arg : idExpr.callPart.callArguments SEPARATOR ','Â»
+				Â«arg.genExprÂ»
+			Â«ENDFORÂ»
 			)
-		ÇENDIFÈ
-		ÇFOR index : idExpr.arrayIndexÈ
-			[Çindex.genExprÈ]
-		ÇENDFORÈ
+		Â«ENDIFÂ»
+		Â«FOR index : idExpr.arrayIndexÂ»
+			[Â«index.genExprÂ»]
+		Â«ENDFORÂ»
 		'''
 	}	
 	
@@ -780,16 +780,16 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def dispatch String genType(TypedElement typedElement) {
 		val it = typedElement
 		'''
-		ÇIF primitiveType != nullÈ
-			ÇprimitiveType.genTypeÈ
-		ÇELSEÈ
-			ÇclassifierType.genClassifierTypeExprÈ
-		ÇENDIFÈ
-		ÇIF !typeArrayDimensions.emptyÈ
-			ÇFOR dim : typeArrayDimensionsÈ
-				[Çdim.size.genExprÈ]
-			ÇENDFORÈ
-		ÇENDIFÈ
+		Â«IF primitiveType != nullÂ»
+			Â«primitiveType.genTypeÂ»
+		Â«ELSEÂ»
+			Â«classifierType.genClassifierTypeExprÂ»
+		Â«ENDIFÂ»
+		Â«IF !typeArrayDimensions.emptyÂ»
+			Â«FOR dim : typeArrayDimensionsÂ»
+				[Â«dim.size.genExprÂ»]
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
 		'''
 	}
 	
@@ -816,10 +816,10 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def String genModulePrefix(EObject element) {
 		val it = element
 		'''
-		ÇIF eContainer instanceof ModuleÈ
-			ÇjavaPackagePrefixÈ.
-			Ç(eContainer as Module).nameÈ.
-		ÇENDIFÈ
+		Â«IF eContainer instanceof ModuleÂ»
+			Â«javaPackagePrefixÂ».
+			Â«(eContainer as Module).nameÂ».
+		Â«ENDIFÂ»
 		'''		
 	}
 	
@@ -877,9 +877,9 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	
 	def dispatch String gen(List<Statement> statements) {
 		'''
-		ÇFOR stm : statementsÈ
-			Çstm.genStatementÈ
-		ÇENDFORÈ
+		Â«FOR stm : statementsÂ»
+			Â«stm.genStatementÂ»
+		Â«ENDFORÂ»
 		'''
 	}
 	
@@ -890,12 +890,12 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def dispatch String gen(Procedure procedure) {
 		val it = procedure
 		'''
-		ÇgenTypeÈ ÇnameÈ(
-		ÇFOR param : parameters SEPARATOR ','È
-			Çparam.genTypeÈ Çparam.nameÈ
-		ÇENDFORÈ
+		Â«genTypeÂ» Â«nameÂ»(
+		Â«FOR param : parameters SEPARATOR ','Â»
+			Â«param.genTypeÂ» Â«param.nameÂ»
+		Â«ENDFORÂ»
 		) {
-			Çstatements.genÈ
+			Â«statements.genÂ»
 		}
 		'''
 	}
@@ -910,42 +910,42 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	
 	def String genPackageStatement(Module module) {
 		'''
-		package Çmodule.javaNameQualified_for_Module(false)È;
+		package Â«module.javaNameQualified_for_Module(false)Â»;
 		'''
 	}
 
 	def String genPackageStatement(Clazz clazz) {
 		'''
-		package Ç(clazz.eContainer as Module).javaNameQualified_for_Module(false)È;
+		package Â«(clazz.eContainer as Module).javaNameQualified_for_Module(false)Â»;
 		'''
 	}
 	
 	def String genPassiveClass(Clazz clazz) {
 		val it = clazz
 		'''
-		ÇgenPackageStatementÈ
+		Â«genPackageStatementÂ»
 		
-		public class ÇnameÈ
-		ÇIF superClasses.size > 1È
+		public class Â«nameÂ»
+		Â«IF superClasses.size > 1Â»
 			<! multiple inheritance is not supported for Java as a target language at the moment !>
-		ÇELSEIF superClasses.size == 1È
-			extends ÇsuperClasses.head.clazz.genTypeÈ
-		ÇENDIFÈ
+		Â«ELSEIF superClasses.size == 1Â»
+			extends Â«superClasses.head.clazz.genTypeÂ»
+		Â«ENDIFÂ»
 		{
 
-			public ÇnameÈ(
-			ÇIF constructor != nullÈ
-				ÇFOR cparam: constructor.parameters SEPARATOR ','È
-					Çcparam.genÈ
-				ÇENDFORÈ
-			ÇENDIFÈ
+			public Â«nameÂ»(
+			Â«IF constructor != nullÂ»
+				Â«FOR cparam: constructor.parameters SEPARATOR ','Â»
+					Â«cparam.genÂ»
+				Â«ENDFORÂ»
+			Â«ENDIFÂ»
 			) {
-				ÇinitialBlock?.statements.genÈ
+				Â«initialBlock?.statements.genÂ»
 			}
 			
-			Çattributes.genVariables(false)È
+			Â«attributes.genVariables(false)Â»
 
-			Çmethods.genProcedures(false)È
+			Â«methods.genProcedures(false)Â»
 		}
 		'''
 	}
