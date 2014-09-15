@@ -332,7 +332,12 @@ public class ExpandStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -552,7 +557,12 @@ public class ExpandStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -602,6 +612,7 @@ public class ExpandStatementItemProvider
 		Object childObject = child;
 
 		boolean qualify =
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
 			childFeature == DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT ||
 			childFeature == DblPackage.Literals.EXPAND_STATEMENT__LOCATION;
 

@@ -5,7 +5,7 @@ package hub.sam.dbl.provider;
 
 import hub.sam.dbl.DblFactory;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.EvalExpr;
+import hub.sam.dbl.ExpandExpr;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,12 +24,12 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link hub.sam.dbl.EvalExpr} object.
+ * This is the item provider adapter for a {@link hub.sam.dbl.ExpandExpr} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class EvalExprItemProvider
+public class ExpandExprItemProvider
 	extends ExpressionItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -43,7 +43,7 @@ public class EvalExprItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EvalExprItemProvider(AdapterFactory adapterFactory) {
+	public ExpandExprItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -74,7 +74,7 @@ public class EvalExprItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.EVAL_EXPR__EXPR);
+			childrenFeatures.add(DblPackage.Literals.EXPAND_EXPR__EXPR);
 		}
 		return childrenFeatures;
 	}
@@ -93,14 +93,14 @@ public class EvalExprItemProvider
 	}
 
 	/**
-	 * This returns EvalExpr.gif.
+	 * This returns ExpandExpr.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/EvalExpr"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/ExpandExpr"));
 	}
 
 	/**
@@ -111,10 +111,10 @@ public class EvalExprItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((EvalExpr)object).getName();
+		String label = ((ExpandExpr)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_EvalExpr_type") :
-			getString("_UI_EvalExpr_type") + " " + label;
+			getString("_UI_ExpandExpr_type") :
+			getString("_UI_ExpandExpr_type") + " " + label;
 	}
 
 	/**
@@ -128,8 +128,8 @@ public class EvalExprItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(EvalExpr.class)) {
-			case DblPackage.EVAL_EXPR__EXPR:
+		switch (notification.getFeatureID(ExpandExpr.class)) {
+			case DblPackage.EXPAND_EXPR__EXPR:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -149,222 +149,227 @@ public class EvalExprItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createExpression()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL1Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL2Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL3Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL4Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL5Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL6Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL7Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL8Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createOr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createNotEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createGreater()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createGreaterEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createLess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createLessEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createInstanceOf()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createPlus()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createMinus()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createMul()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createMod()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createDiv()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createNeg()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createNullLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createTimeLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createIntLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createTrueLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createFalseLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createParseExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createVariableAccess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createMetaAccess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createTypeAccess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createMetaExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createExpandExpression()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EVAL_EXPR__EXPR,
+				(DblPackage.Literals.EXPAND_EXPR__EXPR,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
 	}
 
@@ -381,7 +386,8 @@ public class EvalExprItemProvider
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
-			childFeature == DblPackage.Literals.EVAL_EXPR__EXPR;
+			childFeature == DblPackage.Literals.EXPAND_EXPR__EXPR ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

@@ -2,15 +2,19 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.NamedElement;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -21,6 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ExpressionImpl#getName <em>Name</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ExpressionImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExpressionImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExpressionImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
  * </ul>
@@ -48,6 +53,16 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpandExpr()
+	 * @generated
+	 * @ordered
+	 */
+	protected ExpandExpr expandExpr;
 
 	/**
 	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
@@ -134,6 +149,49 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ExpandExpr getExpandExpr() {
+		return expandExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExpandExpr(ExpandExpr newExpandExpr, NotificationChain msgs) {
+		ExpandExpr oldExpandExpr = expandExpr;
+		expandExpr = newExpandExpr;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.EXPRESSION__EXPAND_EXPR, oldExpandExpr, newExpandExpr);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpandExpr(ExpandExpr newExpandExpr) {
+		if (newExpandExpr != expandExpr) {
+			NotificationChain msgs = null;
+			if (expandExpr != null)
+				msgs = ((InternalEObject)expandExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.EXPRESSION__EXPAND_EXPR, null, msgs);
+			if (newExpandExpr != null)
+				msgs = ((InternalEObject)newExpandExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.EXPRESSION__EXPAND_EXPR, null, msgs);
+			msgs = basicSetExpandExpr(newExpandExpr, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.EXPRESSION__EXPAND_EXPR, newExpandExpr, newExpandExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public String getConcreteSyntax() {
 		return concreteSyntax;
 	}
@@ -177,10 +235,26 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 	 * @generated
 	 */
 	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case DblPackage.EXPRESSION__EXPAND_EXPR:
+				return basicSetExpandExpr(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case DblPackage.EXPRESSION__NAME:
 				return getName();
+			case DblPackage.EXPRESSION__EXPAND_EXPR:
+				return getExpandExpr();
 			case DblPackage.EXPRESSION__CONCRETE_SYNTAX:
 				return getConcreteSyntax();
 			case DblPackage.EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION:
@@ -199,6 +273,9 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 		switch (featureID) {
 			case DblPackage.EXPRESSION__NAME:
 				setName((String)newValue);
+				return;
+			case DblPackage.EXPRESSION__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)newValue);
 				return;
 			case DblPackage.EXPRESSION__CONCRETE_SYNTAX:
 				setConcreteSyntax((String)newValue);
@@ -221,6 +298,9 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 			case DblPackage.EXPRESSION__NAME:
 				setName(NAME_EDEFAULT);
 				return;
+			case DblPackage.EXPRESSION__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)null);
+				return;
 			case DblPackage.EXPRESSION__CONCRETE_SYNTAX:
 				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
 				return;
@@ -241,6 +321,8 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 		switch (featureID) {
 			case DblPackage.EXPRESSION__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case DblPackage.EXPRESSION__EXPAND_EXPR:
+				return expandExpr != null;
 			case DblPackage.EXPRESSION__CONCRETE_SYNTAX:
 				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
 			case DblPackage.EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION:
@@ -259,6 +341,12 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 		if (baseClass == NamedElement.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.EXPRESSION__NAME: return DblPackage.NAMED_ELEMENT__NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Construct.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.EXPRESSION__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
 				default: return -1;
 			}
 		}
@@ -282,6 +370,12 @@ public class ExpressionImpl extends TypedElementImpl implements Expression {
 		if (baseClass == NamedElement.class) {
 			switch (baseFeatureID) {
 				case DblPackage.NAMED_ELEMENT__NAME: return DblPackage.EXPRESSION__NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Construct.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.EXPRESSION__EXPAND_EXPR;
 				default: return -1;
 			}
 		}

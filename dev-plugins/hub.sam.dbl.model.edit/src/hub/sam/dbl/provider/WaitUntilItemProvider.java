@@ -330,7 +330,12 @@ public class WaitUntilItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.WAIT_UNTIL__CONDITION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.WAIT_UNTIL__CONDITION,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -366,6 +371,29 @@ public class WaitUntilItemProvider
 			(createChildParameter
 				(DblPackage.Literals.WAIT_UNTIL__CONDITION,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
+			childFeature == DblPackage.Literals.WAIT_UNTIL__CONDITION;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

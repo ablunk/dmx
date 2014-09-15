@@ -4,8 +4,10 @@ package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ClassAugment;
 import hub.sam.dbl.Classifier;
+import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
+import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.Module;
@@ -14,6 +16,7 @@ import hub.sam.dbl.Variable;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -21,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -32,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensions <em>Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getClassifiers <em>Classifiers</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getClassAugments <em>Class Augments</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensionDefs <em>Extension Defs</em>}</li>
@@ -52,6 +57,16 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * @ordered
 	 */
 	protected EList<ExtensibleElement> extensions;
+
+	/**
+	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpandExpr()
+	 * @generated
+	 * @ordered
+	 */
+	protected ExpandExpr expandExpr;
 
 	/**
 	 * The cached value of the '{@link #getClassifiers() <em>Classifiers</em>}' containment reference list.
@@ -139,6 +154,49 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ExpandExpr getExpandExpr() {
+		return expandExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExpandExpr(ExpandExpr newExpandExpr, NotificationChain msgs) {
+		ExpandExpr oldExpandExpr = expandExpr;
+		expandExpr = newExpandExpr;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.MODULE__EXPAND_EXPR, oldExpandExpr, newExpandExpr);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpandExpr(ExpandExpr newExpandExpr) {
+		if (newExpandExpr != expandExpr) {
+			NotificationChain msgs = null;
+			if (expandExpr != null)
+				msgs = ((InternalEObject)expandExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.MODULE__EXPAND_EXPR, null, msgs);
+			if (newExpandExpr != null)
+				msgs = ((InternalEObject)newExpandExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.MODULE__EXPAND_EXPR, null, msgs);
+			msgs = basicSetExpandExpr(newExpandExpr, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.MODULE__EXPAND_EXPR, newExpandExpr, newExpandExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Classifier> getClassifiers() {
 		if (classifiers == null) {
 			classifiers = new EObjectContainmentEList<Classifier>(Classifier.class, this, DblPackage.MODULE__CLASSIFIERS);
@@ -204,6 +262,8 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 		switch (featureID) {
 			case DblPackage.MODULE__EXTENSIONS:
 				return ((InternalEList<?>)getExtensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__EXPAND_EXPR:
+				return basicSetExpandExpr(null, msgs);
 			case DblPackage.MODULE__CLASSIFIERS:
 				return ((InternalEList<?>)getClassifiers()).basicRemove(otherEnd, msgs);
 			case DblPackage.MODULE__CLASS_AUGMENTS:
@@ -228,6 +288,8 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 		switch (featureID) {
 			case DblPackage.MODULE__EXTENSIONS:
 				return getExtensions();
+			case DblPackage.MODULE__EXPAND_EXPR:
+				return getExpandExpr();
 			case DblPackage.MODULE__CLASSIFIERS:
 				return getClassifiers();
 			case DblPackage.MODULE__CLASS_AUGMENTS:
@@ -254,6 +316,9 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 			case DblPackage.MODULE__EXTENSIONS:
 				getExtensions().clear();
 				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
+				return;
+			case DblPackage.MODULE__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)newValue);
 				return;
 			case DblPackage.MODULE__CLASSIFIERS:
 				getClassifiers().clear();
@@ -290,6 +355,9 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 			case DblPackage.MODULE__EXTENSIONS:
 				getExtensions().clear();
 				return;
+			case DblPackage.MODULE__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)null);
+				return;
 			case DblPackage.MODULE__CLASSIFIERS:
 				getClassifiers().clear();
 				return;
@@ -319,6 +387,8 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 		switch (featureID) {
 			case DblPackage.MODULE__EXTENSIONS:
 				return extensions != null && !extensions.isEmpty();
+			case DblPackage.MODULE__EXPAND_EXPR:
+				return expandExpr != null;
 			case DblPackage.MODULE__CLASSIFIERS:
 				return classifiers != null && !classifiers.isEmpty();
 			case DblPackage.MODULE__CLASS_AUGMENTS:
@@ -346,6 +416,12 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 				default: return -1;
 			}
 		}
+		if (baseClass == Construct.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.MODULE__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -359,6 +435,12 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 		if (baseClass == EmbeddableExtensionsContainer.class) {
 			switch (baseFeatureID) {
 				case DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS: return DblPackage.MODULE__EXTENSIONS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Construct.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.MODULE__EXPAND_EXPR;
 				default: return -1;
 			}
 		}

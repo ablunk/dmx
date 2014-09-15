@@ -1,8 +1,6 @@
 package hub.sam.dmx;
 
-import hub.sam.dbl.DblFactory;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.impl.DblPackageImpl;
 import hub.sam.dmx.modifications.Addition;
 import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.ModificationsFactory;
@@ -34,6 +32,7 @@ public abstract class AbstractExtensionSemantics {
 	protected Modification currentModification;
 	protected EObject extensionInstance;
 	protected String extensionInstanceUri;
+	protected String inputPath;
 	
 	private static EStructuralFeature concreteSyntaxProperty = DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
 	
@@ -52,6 +51,7 @@ public abstract class AbstractExtensionSemantics {
 			try {
 				String modelXmiFile = args[0];
 				extensionInstanceUri = args[1];
+				if (args.length > 2) inputPath = args[2];
 
 				debugWriter.write("modelXmiFile = " + modelXmiFile + "\n");
 				debugWriter.write("extensionInstanceUri = " + extensionInstanceUri + "\n");
@@ -82,19 +82,29 @@ public abstract class AbstractExtensionSemantics {
 				URI eblProgramFileUri = URI.createFileURI(new File(modelXmiFile).getAbsolutePath());
 				Resource eblProgramResource = resourceSet.getResource(eblProgramFileUri, true);
 				
-				String modificationsXmiFile = XtendRunAction.TEMP_FOLDER_NAME + File.separator + "modifications.xmi";
-				URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());
-				Resource modificationsResource = resourceSet.getResource(modificationsFileUri, true);
+				String modificationsXmi = XtendRunAction.TEMP_FOLDER_NAME + File.separator + "modifications.xmi";
+				File modificationsXmiFile = new File(modificationsXmi);
+				URI modificationsXmiUri = URI.createFileURI(modificationsXmiFile.getAbsolutePath());
+				
+				Resource modificationsResource = null;
+				if (!modificationsXmiFile.exists()) {
+					modificationsResource = resourceSet.createResource(modificationsXmiUri);
+				}
+				else {
+					modificationsResource = resourceSet.getResource(modificationsXmiUri, true);
+				}
+				
 				if (modificationsResource.getContents().size() == 0) {
 					record = ModificationsFactory.eINSTANCE.createModificationsRecord();
 					modificationsResource.getContents().add(record);
 				}
 				else {
 					record = (ModificationsRecord) modificationsResource.getContents().get(0);
+					record.getModifications().clear();
 				}
 				
 				extensionInstance = eblProgramResource.getEObject(extensionInstanceUri);
-				resetGenContext();
+				setExpand(extensionInstance);
 				doGenerate(extensionInstance);
 				addCurrentModification();
 				
@@ -158,16 +168,29 @@ public abstract class AbstractExtensionSemantics {
 		return false;
 	}
 	
-	protected void setGenContext(Object positionObject, boolean addAfterEObject) {
-		if (positionObject instanceof EObject) {
+	protected void setExpand(Object positionObject) {
+		setExpand(positionObject, true);
+	}
+	
+	protected void setExpand(Object positionObject, boolean addAfterEObject) {
+		if (positionObject == extensionInstance) {
+			addCurrentModification();
+
+			currentModification = ModificationsFactory.eINSTANCE.createSubstitution();
+			currentModification.setSourceEObjectUri(extensionInstanceUri);
+			currentModification.setReplacementText("");
+		}
+		else if (positionObject instanceof EObject) {
 			EObject positionEObject = (EObject) positionObject;
 			
 			addCurrentModification();
+			
 			Addition addition = ModificationsFactory.eINSTANCE.createAddition();
-			currentModification = addition;
 			addition.setSourceEObjectUri(getEmfUriFragment(positionEObject));
 			addition.setReplacementText("");
 			addition.setAddAfterPosition(addAfterEObject);
+
+			currentModification = addition;
 		}
 	}
 	
@@ -176,15 +199,8 @@ public abstract class AbstractExtensionSemantics {
 			record.getModifications().add(currentModification);
 		}
 	}
-	
-	protected void resetGenContext() {
-		addCurrentModification();
-		currentModification = ModificationsFactory.eINSTANCE.createSubstitution();
-		currentModification.setSourceEObjectUri(extensionInstanceUri);
-		currentModification.setReplacementText("");
-	}
 
-	protected void gen(String str) {
+	protected void expand(String str) {
 		currentModification.setReplacementText(currentModification.getReplacementText() + str);
 	}
 	

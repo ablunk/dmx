@@ -447,7 +447,12 @@ public class ClassSimilarItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

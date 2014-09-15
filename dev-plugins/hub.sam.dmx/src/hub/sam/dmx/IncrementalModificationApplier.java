@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 
 import org.eclipse.emf.common.util.EList;
 
+@Deprecated
 public class IncrementalModificationApplier {
 	
 	private static final Logger logger = Logger.getLogger(IncrementalModificationApplier.class.getName());

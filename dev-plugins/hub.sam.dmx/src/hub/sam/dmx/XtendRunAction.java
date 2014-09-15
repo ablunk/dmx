@@ -50,8 +50,9 @@ public class XtendRunAction extends Action {
 		final IRunnableWithProgress runnable = new IRunnableWithProgress() {
 			@Override
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-				ModelLauncher launcher = new ModelLauncher(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
-				launcher.compileAndRun();
+				GroovyTest.main(null);
+				//ModelLauncher launcher = new ModelLauncher(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
+				//launcher.compileAndRun();
 				monitor.done();
 			}
 		};

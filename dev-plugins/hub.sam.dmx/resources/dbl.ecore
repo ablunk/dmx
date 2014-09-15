@@ -4,7 +4,11 @@
   <eAnnotations source="http://www.eclipse.org/OCL/Import">
     <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore#/"/>
   </eAnnotations>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtensibleElement" eSuperTypes="#//NamedElement">
+  <eClassifiers xsi:type="ecore:EClass" name="Construct">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expandExpr" lowerBound="1"
+        eType="#//ExpandExpr" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtensibleElement" eSuperTypes="#//NamedElement #//Construct">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="concreteSyntax" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="instanceOfExtensionDefinition"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
@@ -20,7 +24,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="file" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//Model"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Module" eSuperTypes="#//NamedElement #//EmbeddableExtensionsContainer">
+  <eClassifiers xsi:type="ecore:EClass" name="Module" eSuperTypes="#//NamedElement #//EmbeddableExtensionsContainer #//Construct">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifiers" upperBound="-1"
         eType="#//Classifier" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="classAugments" upperBound="-1"
@@ -101,7 +105,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructorArguments" ordered="false"
         upperBound="-1" eType="#//Expression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Clazz" eSuperTypes="#//Classifier #//ClassSimilar #//LanguageConceptClassifier">
+  <eClassifiers xsi:type="ecore:EClass" name="Clazz" eSuperTypes="#//Classifier #//ClassSimilar #//LanguageConceptClassifier #//Construct">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="active" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructor" eType="#//Constructor"
@@ -267,9 +271,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="DoubleLiteral" eSuperTypes="#//L1Expr">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EvalExpr" eSuperTypes="#//Expression">
+  <eClassifiers xsi:type="ecore:EClass" name="ExpandExpr" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" lowerBound="1" eType="#//Expression"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParseExpr" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="astPart" lowerBound="1"
+        eType="#//Construct" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PredefinedId"/>
   <eClassifiers xsi:type="ecore:EClass" name="MeLiteral" eSuperTypes="#//PredefinedId"/>

@@ -330,7 +330,12 @@ public class MetaExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.META_EXPR__EXPR,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.META_EXPR__EXPR,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -381,7 +386,8 @@ public class MetaExprItemProvider
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
-			childFeature == DblPackage.Literals.META_EXPR__EXPR;
+			childFeature == DblPackage.Literals.META_EXPR__EXPR ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

@@ -1,0 +1,29 @@
+#import "context"
+
+module forkTest {
+
+class B {
+	A obj;
+	
+	int i; // workaround for reference resolution
+
+	void test() {
+		context obj {
+			print i; // replaced by: print obj.i;
+		}
+	}
+}
+
+
+class A {
+	int i;
+}
+
+void main() {
+	A a = new A;
+	B b = new B;
+	b.a = a;
+	b.test();
+}
+
+}

@@ -22,6 +22,15 @@ public interface DblFactory extends EFactory {
 	DblFactory eINSTANCE = hub.sam.dbl.impl.DblFactoryImpl.init();
 
 	/**
+	 * Returns a new object of class '<em>Construct</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Construct</em>'.
+	 * @generated
+	 */
+	Construct createConstruct();
+
+	/**
 	 * Returns a new object of class '<em>Extensible Element</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -733,13 +742,22 @@ public interface DblFactory extends EFactory {
 	DoubleLiteral createDoubleLiteral();
 
 	/**
-	 * Returns a new object of class '<em>Eval Expr</em>'.
+	 * Returns a new object of class '<em>Expand Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Eval Expr</em>'.
+	 * @return a new object of class '<em>Expand Expr</em>'.
 	 * @generated
 	 */
-	EvalExpr createEvalExpr();
+	ExpandExpr createExpandExpr();
+
+	/**
+	 * Returns a new object of class '<em>Parse Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Parse Expr</em>'.
+	 * @generated
+	 */
+	ParseExpr createParseExpr();
 
 	/**
 	 * Returns a new object of class '<em>Predefined Id</em>'.

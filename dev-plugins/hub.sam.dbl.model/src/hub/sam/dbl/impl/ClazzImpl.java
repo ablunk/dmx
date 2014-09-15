@@ -5,9 +5,11 @@ package hub.sam.dbl.impl;
 import hub.sam.dbl.ClassPart;
 import hub.sam.dbl.ClassSimilar;
 import hub.sam.dbl.Clazz;
+import hub.sam.dbl.Construct;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
+import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.LanguageConceptClassifier;
 import hub.sam.dbl.LanguageConstructClassifier;
@@ -49,6 +51,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getActionsBlock <em>Actions Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getReportBlock <em>Report Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getClearBlock <em>Clear Block</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#isActive <em>Active</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getConstructor <em>Constructor</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getBindings <em>Bindings</em>}</li>
@@ -157,6 +160,16 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * @ordered
 	 */
 	protected ClassPart clearBlock;
+
+	/**
+	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpandExpr()
+	 * @generated
+	 * @ordered
+	 */
+	protected ExpandExpr expandExpr;
 
 	/**
 	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
@@ -497,6 +510,49 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ExpandExpr getExpandExpr() {
+		return expandExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExpandExpr(ExpandExpr newExpandExpr, NotificationChain msgs) {
+		ExpandExpr oldExpandExpr = expandExpr;
+		expandExpr = newExpandExpr;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CLAZZ__EXPAND_EXPR, oldExpandExpr, newExpandExpr);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpandExpr(ExpandExpr newExpandExpr) {
+		if (newExpandExpr != expandExpr) {
+			NotificationChain msgs = null;
+			if (expandExpr != null)
+				msgs = ((InternalEObject)expandExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.CLAZZ__EXPAND_EXPR, null, msgs);
+			if (newExpandExpr != null)
+				msgs = ((InternalEObject)newExpandExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.CLAZZ__EXPAND_EXPR, null, msgs);
+			msgs = basicSetExpandExpr(newExpandExpr, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.CLAZZ__EXPAND_EXPR, newExpandExpr, newExpandExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isActive() {
 		return active;
 	}
@@ -596,6 +652,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return basicSetReportBlock(null, msgs);
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
 				return basicSetClearBlock(null, msgs);
+			case DblPackage.CLAZZ__EXPAND_EXPR:
+				return basicSetExpandExpr(null, msgs);
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 				return basicSetConstructor(null, msgs);
 			case DblPackage.CLAZZ__BINDINGS:
@@ -632,6 +690,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return getReportBlock();
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
 				return getClearBlock();
+			case DblPackage.CLAZZ__EXPAND_EXPR:
+				return getExpandExpr();
 			case DblPackage.CLAZZ__ACTIVE:
 				return isActive();
 			case DblPackage.CLAZZ__CONSTRUCTOR:
@@ -686,6 +746,9 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
 				setClearBlock((ClassPart)newValue);
 				return;
+			case DblPackage.CLAZZ__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)newValue);
+				return;
 			case DblPackage.CLAZZ__ACTIVE:
 				setActive((Boolean)newValue);
 				return;
@@ -738,6 +801,9 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
 				setClearBlock((ClassPart)null);
 				return;
+			case DblPackage.CLAZZ__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)null);
+				return;
 			case DblPackage.CLAZZ__ACTIVE:
 				setActive(ACTIVE_EDEFAULT);
 				return;
@@ -779,6 +845,8 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return reportBlock != null;
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
 				return clearBlock != null;
+			case DblPackage.CLAZZ__EXPAND_EXPR:
+				return expandExpr != null;
 			case DblPackage.CLAZZ__ACTIVE:
 				return active != ACTIVE_EDEFAULT;
 			case DblPackage.CLAZZ__CONSTRUCTOR:
@@ -831,6 +899,12 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				default: return -1;
 			}
 		}
+		if (baseClass == Construct.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.CLAZZ__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -873,6 +947,12 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 		}
 		if (baseClass == LanguageConceptClassifier.class) {
 			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == Construct.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.CLAZZ__EXPAND_EXPR;
 				default: return -1;
 			}
 		}

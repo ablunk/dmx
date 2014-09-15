@@ -334,7 +334,12 @@ public class IfStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__CONDITION,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -694,6 +699,8 @@ public class IfStatementItemProvider
 		Object childObject = child;
 
 		boolean qualify =
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
+			childFeature == DblPackage.Literals.IF_STATEMENT__CONDITION ||
 			childFeature == DblPackage.Literals.IF_STATEMENT__TRUE_CASE ||
 			childFeature == DblPackage.Literals.IF_STATEMENT__FALSE_CASE;
 

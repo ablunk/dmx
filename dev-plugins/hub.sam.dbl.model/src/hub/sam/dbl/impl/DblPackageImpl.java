@@ -27,6 +27,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass constructEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass modelEClass = null;
 
 	/**
@@ -608,13 +615,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass evalExprEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass meLiteralEClass = null;
 
 	/**
@@ -679,6 +679,20 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass doubleLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass expandExprEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass parseExprEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1103,6 +1117,24 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		// Update the registry and return the package
 		EPackage.Registry.INSTANCE.put(DblPackage.eNS_URI, theDblPackage);
 		return theDblPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getConstruct() {
+		return constructEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConstruct_ExpandExpr() {
+		return (EReference)constructEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2460,24 +2492,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getEvalExpr() {
-		return evalExprEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getEvalExpr_Expr() {
-		return (EReference)evalExprEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getMeLiteral() {
 		return meLiteralEClass;
 	}
@@ -2588,6 +2602,42 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EAttribute getDoubleLiteral_Value() {
 		return (EAttribute)doubleLiteralEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getExpandExpr() {
+		return expandExprEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpandExpr_Expr() {
+		return (EReference)expandExprEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getParseExpr() {
+		return parseExprEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getParseExpr_AstPart() {
+		return (EReference)parseExprEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3500,6 +3550,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		isCreated = true;
 
 		// Create classes and their features
+		constructEClass = createEClass(CONSTRUCT);
+		createEReference(constructEClass, CONSTRUCT__EXPAND_EXPR);
+
 		extensibleElementEClass = createEClass(EXTENSIBLE_ELEMENT);
 		createEAttribute(extensibleElementEClass, EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX);
 		createEAttribute(extensibleElementEClass, EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION);
@@ -3750,8 +3803,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		doubleLiteralEClass = createEClass(DOUBLE_LITERAL);
 		createEAttribute(doubleLiteralEClass, DOUBLE_LITERAL__VALUE);
 
-		evalExprEClass = createEClass(EVAL_EXPR);
-		createEReference(evalExprEClass, EVAL_EXPR__EXPR);
+		expandExprEClass = createEClass(EXPAND_EXPR);
+		createEReference(expandExprEClass, EXPAND_EXPR__EXPR);
+
+		parseExprEClass = createEClass(PARSE_EXPR);
+		createEReference(parseExprEClass, PARSE_EXPR__AST_PART);
 
 		predefinedIdEClass = createEClass(PREDEFINED_ID);
 
@@ -3939,8 +3995,10 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		// Add supertypes to classes
 		extensibleElementEClass.getESuperTypes().add(this.getNamedElement());
+		extensibleElementEClass.getESuperTypes().add(this.getConstruct());
 		moduleEClass.getESuperTypes().add(this.getNamedElement());
 		moduleEClass.getESuperTypes().add(this.getEmbeddableExtensionsContainer());
+		moduleEClass.getESuperTypes().add(this.getConstruct());
 		primitiveTypeEClass.getESuperTypes().add(this.getType());
 		voidTypeEClass.getESuperTypes().add(this.getPrimitiveType());
 		intTypeEClass.getESuperTypes().add(this.getPrimitiveType());
@@ -3958,6 +4016,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		clazzEClass.getESuperTypes().add(this.getClassifier());
 		clazzEClass.getESuperTypes().add(this.getClassSimilar());
 		clazzEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
+		clazzEClass.getESuperTypes().add(this.getConstruct());
 		classAugmentEClass.getESuperTypes().add(this.getClassSimilar());
 		abstractVariableEClass.getESuperTypes().add(this.getNamedElement());
 		abstractVariableEClass.getESuperTypes().add(this.getTypedElement());
@@ -4046,7 +4105,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		trueLiteralEClass.getESuperTypes().add(this.getL1Expr());
 		falseLiteralEClass.getESuperTypes().add(this.getL1Expr());
 		doubleLiteralEClass.getESuperTypes().add(this.getL1Expr());
-		evalExprEClass.getESuperTypes().add(this.getExpression());
+		expandExprEClass.getESuperTypes().add(this.getExpression());
+		parseExprEClass.getESuperTypes().add(this.getExpression());
 		meLiteralEClass.getESuperTypes().add(this.getPredefinedId());
 		superLiteralEClass.getESuperTypes().add(this.getPredefinedId());
 		metaLiteralEClass.getESuperTypes().add(this.getPredefinedId());
@@ -4102,6 +4162,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		testStatementEClass.getESuperTypes().add(this.getStatement());
 
 		// Initialize classes and features; add operations and parameters
+		initEClass(constructEClass, Construct.class, "Construct", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getConstruct_ExpandExpr(), this.getExpandExpr(), null, "expandExpr", null, 1, 1, Construct.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(extensibleElementEClass, ExtensibleElement.class, "ExtensibleElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getExtensibleElement_ConcreteSyntax(), ecorePackage.getEString(), "concreteSyntax", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensibleElement_InstanceOfExtensionDefinition(), ecorePackage.getEBoolean(), "instanceOfExtensionDefinition", "false", 1, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4352,8 +4415,11 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(doubleLiteralEClass, DoubleLiteral.class, "DoubleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDoubleLiteral_Value(), ecorePackage.getEDouble(), "value", null, 1, 1, DoubleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(evalExprEClass, EvalExpr.class, "EvalExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getEvalExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, EvalExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(expandExprEClass, ExpandExpr.class, "ExpandExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExpandExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, ExpandExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(parseExprEClass, ParseExpr.class, "ParseExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getParseExpr_AstPart(), this.getConstruct(), null, "astPart", null, 1, 1, ParseExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(predefinedIdEClass, PredefinedId.class, "PredefinedId", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

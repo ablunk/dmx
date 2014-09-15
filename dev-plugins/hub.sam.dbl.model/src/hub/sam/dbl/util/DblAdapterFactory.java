@@ -72,6 +72,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	protected DblSwitch<Adapter> modelSwitch =
 		new DblSwitch<Adapter>() {
 			@Override
+			public Adapter caseConstruct(Construct object) {
+				return createConstructAdapter();
+			}
+			@Override
 			public Adapter caseExtensibleElement(ExtensibleElement object) {
 				return createExtensibleElementAdapter();
 			}
@@ -428,8 +432,12 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 				return createDoubleLiteralAdapter();
 			}
 			@Override
-			public Adapter caseEvalExpr(EvalExpr object) {
-				return createEvalExprAdapter();
+			public Adapter caseExpandExpr(ExpandExpr object) {
+				return createExpandExprAdapter();
+			}
+			@Override
+			public Adapter caseParseExpr(ParseExpr object) {
+				return createParseExprAdapter();
 			}
 			@Override
 			public Adapter casePredefinedId(PredefinedId object) {
@@ -674,6 +682,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 		return modelSwitch.doSwitch((EObject)target);
 	}
 
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Construct <em>Construct</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.Construct
+	 * @generated
+	 */
+	public Adapter createConstructAdapter() {
+		return null;
+	}
 
 	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.Model <em>Model</em>}'.
@@ -1838,20 +1860,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.EvalExpr <em>Eval Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.EvalExpr
-	 * @generated
-	 */
-	public Adapter createEvalExprAdapter() {
-		return null;
-	}
-
-	/**
 	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.MeLiteral <em>Me Literal</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -1988,6 +1996,34 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDoubleLiteralAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ExpandExpr <em>Expand Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.ExpandExpr
+	 * @generated
+	 */
+	public Adapter createExpandExprAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ParseExpr <em>Parse Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.ParseExpr
+	 * @generated
+	 */
+	public Adapter createParseExprAdapter() {
 		return null;
 	}
 

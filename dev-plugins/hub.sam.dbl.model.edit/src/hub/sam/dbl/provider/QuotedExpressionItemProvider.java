@@ -327,7 +327,12 @@ public class QuotedExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -1,0 +1,10 @@
+#import "x"
+
+module xt {
+
+void main() {
+	x def int i, boolean b, int j=2+i;
+	x ref i,;
+}
+
+}

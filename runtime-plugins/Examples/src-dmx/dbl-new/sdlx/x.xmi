@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <modules name="x">
+    <extensionDefs name="X">
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.44"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="R1">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="x"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="a">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.2" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="A">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.3"/>
+          </rhs>
+        </rules>
+        <rules name="A">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.4"/>
+          </rhs>
+        </rules>
+        <rules name="B">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ref"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.51"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+          </rhs>
+        </rules>
+        <rules name="C">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="def"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.5"/>
+          </rhs>
+        </rules>
+        <rules name="VarList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="statements">
+              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.7"/>
+          </rhs>
+        </rules>
+        <rules name="VarListOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="VarListOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.5"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

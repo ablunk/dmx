@@ -342,7 +342,12 @@ public class AssignmentItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ASSIGNMENT__VALUE,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ASSIGNMENT__VALUE,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -392,8 +397,9 @@ public class AssignmentItemProvider
 		Object childObject = child;
 
 		boolean qualify =
-			childFeature == DblPackage.Literals.ASSIGNMENT__VARIABLE ||
-			childFeature == DblPackage.Literals.ASSIGNMENT__VALUE;
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
+			childFeature == DblPackage.Literals.ASSIGNMENT__VALUE ||
+			childFeature == DblPackage.Literals.ASSIGNMENT__VARIABLE;
 
 		if (qualify) {
 			return getString

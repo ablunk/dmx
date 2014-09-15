@@ -45,6 +45,10 @@ public abstract class HeadlessEclipseParser {
 	private IModelCreatingContext lastModelCreationContext;
 	private String currentText;
 	
+	public HeadlessEclipseParser(IPath inputPath) {
+		this(inputPath, "<no-input-file>");	
+	}
+	
 	public HeadlessEclipseParser(IPath inputPath, String filename) {
 		this.inputPath = inputPath;
 		this.filename = filename;

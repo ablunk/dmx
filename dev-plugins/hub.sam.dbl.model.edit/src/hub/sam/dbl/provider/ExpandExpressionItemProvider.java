@@ -330,7 +330,12 @@ public class ExpandExpressionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -381,7 +386,8 @@ public class ExpandExpressionItemProvider
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
-			childFeature == DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT;
+			childFeature == DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

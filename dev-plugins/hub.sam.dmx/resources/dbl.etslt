@@ -35,7 +35,8 @@ syntax(Model) "resources/dbl.ecore" {
 	SuperClass:element(SuperClassSpecification) -> ClassRef:reference(clazz)
 					("(" Expression:composite(constructorArguments)	("," Expression:composite(constructorArguments))* ")")?;
 	
-	NamedElementName -> IDENTIFIER:composite(name) ;
+	NamedElementName -> IDENTIFIER:composite(name);
+	NamedElementName -> ExpandExpr:composite(expandExpr);
 		
 	Constructor:element(Constructor) -> "(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")";
 	
@@ -373,9 +374,6 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	SimpleStatement -> MappingStatement ";";
 	SimpleStatement -> SetGenContextStatement ";";
-	SimpleStatement -> ResetGenContextStatement ";";
-	SimpleStatement -> SaveGenStatement ";";
-	SimpleStatement -> ResumeGenStatement ";";
 	
 //	MappingStatement:element(MappingStatement) -> "expand" FixedMappingPartMiddle:composite(parts)
 //		(ws(space) DynamicMappingPart:composite(parts) ws(space) FixedMappingPartMiddle:composite(parts))*;
@@ -390,14 +388,22 @@ syntax(Model) "resources/dbl.ecore" {
 	FixedMappingPartMiddle:element(FixedMappingPart) -> STRINGDEF:composite(code);
 	DynamicMappingPart:element(DynamicMappingPart) -> IdExpr:composite(expr);
 	
-	SetGenContextStatement:element(SetGenContextStatement) -> "setExpansionContext" AddBeforeOrAfterContext;
+	SetGenContextStatement:element(SetGenContextStatement) -> "set" "expand" AddBeforeOrAfterContext;
 	AddBeforeOrAfterContext -> IsAddBeforeOrAfter:composite(addAfterContext) Expression:composite(context);
 	IsAddBeforeOrAfter:constant("true":EBoolean) -> "after";
 	IsAddBeforeOrAfter:constant("false":EBoolean) -> "before";
-	ResetGenContextStatement:element(ResetGenContextStatement) -> "resetExpansionContext";
-	SaveGenStatement:element(SaveGenStatement) -> "saveGen" Expression:composite(variable);
-	ResumeGenStatement:element(ResumeGenStatement) -> "resumeGen" Expression:composite(variable);
-		
+	
+	L1Expr -> ParseExpr;
+	
+	ParseExpr:element(ParseExpr) -> "!" AssignmentParseExpr "!";
+	AssignmentParseExpr -> "Assignment" ":" Assignment:composite(astPart);
+	AssignmentParseExpr -> "Expression" ":" Expression:composite(astPart);
+	AssignmentParseExpr -> "Module" ":" Module:composite(astPart);
+	AssignmentParseExpr -> "LocalScopeStatement" ":" LocalScopeStatement:composite(astPart);
+	
+	L1Expr -> ExpandExpr;
+	ExpandExpr:element(ExpandExpr) -> "?" Expression:composite(expr) "?";
+
 //	ExpandExpression:element(ExpandExpression) -> "?" "(" Expression:composite(metaObject) ")";
 //	CodeQuote:element(CodeQuoteExpression) -> "{" "#" QuotedCode:composite(quotedCode) "}";
 	

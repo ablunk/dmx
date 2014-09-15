@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.ui,
  hub.sam.dmx.modifications;bundle-version="1.0.0";visibility:=reexport,
  hub.sam.dmx.modifications.edit;bundle-version="1.0.0";visibility:=reexport,
  org.eclipse.xtext.xbase.lib;bundle-version="2.4.3",
- org.eclipse.xtend.lib;bundle-version="2.4.3"
+ org.eclipse.xtend.lib;bundle-version="2.4.3",
+ org.codehaus.groovy;bundle-version="2.1.8"
 Eclipse-BuddyPolicy: registered
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6

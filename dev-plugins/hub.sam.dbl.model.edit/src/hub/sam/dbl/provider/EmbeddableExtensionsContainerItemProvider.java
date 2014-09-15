@@ -436,7 +436,12 @@ public class EmbeddableExtensionsContainerItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

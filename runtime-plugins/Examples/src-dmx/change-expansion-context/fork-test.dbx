@@ -1,0 +1,51 @@
+#import "fork"
+
+module forkTest {
+
+active class A_fork1 {
+	A obj;
+
+	actions {
+		// it = obj;
+		context -> obj;
+		// print i;
+		
+		print obj.i;
+		terminate;
+	}
+}
+
+active class A_base {
+	int i;
+
+	actions {
+		i=1;
+		
+		A_fork1 f1 = new A_fork1;
+		f1.obj = self;
+		activate f1;
+		
+		i=2;
+		advance 1;
+		print i;
+	}
+}
+
+active class A {
+	int i;
+
+	actions {
+		i=1;
+		
+		fork {
+			print i;
+			terminate;
+		}
+		
+		i=2;
+		advance 1;
+		print i;
+	}
+}
+
+}

@@ -24,7 +24,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Module extends NamedElement, EmbeddableExtensionsContainer {
+public interface Module extends NamedElement, EmbeddableExtensionsContainer, Construct {
 	/**
 	 * Returns the value of the '<em><b>Classifiers</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Classifier}.

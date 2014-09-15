@@ -2,116 +2,77 @@
 
 module sdlx {
 
-extension EnvSendStatement extends dbl SimpleStatement {
-	start Send;
-	Send -> "send" signal:$$SignalDefinition "to" "pset" targetSet:$$ProcessDefinition ";";
-}
-
-extension Env extends dbl ModuleContentExtension {
-	start Env;
-	Env -> "env" localScope:LocalScopeStatement;	
-}
-
-/*
-
-extension System {
-	...
-	SystemEntity -> ProcessDefinition;
-	...
-}
-
-extension ProcessDefinition {
-	LocalScope -> ProcessDefinition;
-	ProcessDefinition -> "process" ...
-}
-
-*/
-
-extension System extends dbl ModuleContentExtension {
+extension SdlSystem extends dbl ModuleContentExtension {
 	start System;
 	
 	System -> "system" name:ID ";" SystemEntityListOpt "endsystem" ";";
 	SystemEntityListOpt -> ;
-	SystemEntityListOpt -> entities:list(SystemEntity) SystemEntityListOpt;
-	SystemEntity -> ProcessDefinition;
-	SystemEntity -> SignalDefinition;
-	SystemEntity -> TimerDefinition;
-	SystemEntity -> VariableDefinition;
+	SystemEntityListOpt -> entities:list(SdlSystemEntity) SystemEntityListOpt;
+	//SystemEntity -> pdef:SdlProcessDefinition;
+	//SystemEntity -> SignalDefinition;
+	//SystemEntity -> TimerDefinition;
+	//SystemEntity -> VariableDefinition;
 	
-	VariableDefinition -> "dcl" VariableList;
-	VariableList -> variables:list(Variable) VariableListNextOpt ";";
-	VariableListNextOpt -> ;
-	VariableListNextOpt -> "," variables:list(Variable) VariableListNextOpt;
+	//VariableDefinition -> sdlVariableDef:SdlVariableDefinition;
 	
-	// ProcessDefinition extends LocalScope -> "process" ...
-	ProcessDefinition -> "process" name:ID ";" ProcessEntityListOpt ProcessBodyOpt "endprocess" ProcessEndNameOpt ";";
+	//SignalDefinition -> "signal" name:ID FormalContextParamOpt ";";
+	//TimerDefinition -> "timer" name:ID ";";
+	
+	//FormalContextParamOpt -> ;
+	//FormalContextParamOpt -> "(" parameters:list(FormalContextParam) FormalContextParamNextOpt ")";
+	//FormalContextParamNextOpt -> ;
+	//FormalContextParamNextOpt -> "," parameters:list(FormalContextParam) FormalContextParamNextOpt;
+	//FormalContextParam -> primitiveType:PrimitiveType;
+}
+
+extension SdlSystemEntity extends dbl ModuleContentExtension {
+	start SystemEntity;
+	SystemEntity -> "noentity";
+}
+
+extension SdlTimerDefinition extends extension SdlSystemEntity {
+	start TimerDefinition;
+	TimerDefinition -> "timer" name:ID ";";
+}
+
+extension SdlProcessDefinition extends extension SdlSystemEntity {
+	start ProcessDefinition;
+	
+	ProcessDefinition -> "process" name:ID ";"
+		ProcessEntityListOpt
+		ProcessStateMachineOpt
+		"endprocess" ProcessEndNameOpt ";";
+	
 	ProcessEndNameOpt -> ;
 	ProcessEndNameOpt -> endNameRef:$$ProcessDefinition;
 	
 	ProcessEntityListOpt -> ;
-	ProcessEntityListOpt -> entities:list(ProcessEntity) ProcessEntityListOpt;
-	ProcessEntity -> SignalDefinition;
-	ProcessEntity -> TimerDefinition;
-	ProcessEntity -> VariableDefinition;
+	ProcessEntityListOpt -> entities:list(SdlSystemEntity) ProcessEntityListOpt;
+	//ProcessEntity -> SignalDefinition;
+	//ProcessEntity -> SdlTimerDefinition;
+	//ProcessEntity -> VariableDefinition;
 	
-	ProcessBodyOpt -> ;
-	ProcessBodyOpt -> start:Start StateListOpt;
-	Start -> "start" ";" Transition;
+	//VariableDefinition -> statements:list(SdlVariableDefinition);
+	
+	ProcessStateMachineOpt -> ;
+	ProcessStateMachineOpt -> stateMachine:SdlStateMachine;
+}
+
+extension SdlStateMachine extends dbl ClassContentExtension {
+	start StateMachine;
+	
+	StateMachine -> "stategraph" "{" start:Start StateListOpt "}";
+	Start -> "start" ";";
 	
 	StateListOpt -> ;
 	StateListOpt -> states:list(State) StateListOpt;
 	
-	State -> "state" name:ID ";" EventListOpt "endstate" StateEndNameOpt ";";
+	State -> "state" name:ID ";" "endstate" StateEndNameOpt ";";
 	StateEndNameOpt -> ;
 	StateEndNameOpt -> endNameRef:$$State;
 	
-	EventListOpt -> ;
-	EventListOpt -> events:list(Event) EventListOpt;
-	Event -> InputPart;
-	
-	InputPart -> "input" StimulusList ";" Transition;
-	StimulusList -> stimulus:list(Stimulus) StimulusListNextOpt;
-	StimulusListNextOpt -> ;
-	StimulusListNextOpt -> "," stimulus:list(Stimulus) StimulusListNextOpt;
-	Stimulus -> "signal" signal:$$SignalDefinition; // SignalVariableBindingsOpt;
-	Stimulus -> "timer" timer:$$TimerDefinition;
-	Stimulus -> "none" EnablingConditionOpt;
-	
-	EnablingConditionOpt -> ;
-	EnablingConditionOpt -> "provided" enablingCondition:Expression;
-	
-	Transition -> ActionListOpt TransitionTerminator;
-	ActionListOpt -> ;
-	ActionListOpt -> actions:list(Action) ActionListOpt;
-	
-	Action -> Task;
-	Action -> TimerReset;
-	Action -> TimerSet;
-	Action -> Output;
-	
-	Task -> "task" localScope:LocalScopeStatement;
-	
-	TimerReset -> "reset" "(" timer:$$TimerDefinition ")" ";";
-	TimerSet -> "set" "(" TimerExprOpt "," timer:$$TimerDefinition ")" ";";
-	TimerExprOpt -> ;
-	TimerExprOpt -> timeExpr:Expression;
-	
-	Output -> "output" signal:$$SignalDefinition OutputTargetOpt ";";
-	OutputTargetOpt -> ;
-	OutputTargetOpt -> "to" "pid" targetPid:Expression;
-	OutputTargetOpt -> "to" "pset" targetProcess:$$ProcessDefinition;
-	
-	TransitionTerminator -> "nextState" nextState:$$State ";";
-	TransitionTerminator -> "stop" ";";
-	
-	SignalDefinition -> "signal" name:ID FormalContextParamOpt ";";
-	TimerDefinition -> "timer" name:ID ";";
-	
-	FormalContextParamOpt -> ;
-	FormalContextParamOpt -> "(" parameters:list(FormalContextParam) FormalContextParamNextOpt ")";
-	FormalContextParamNextOpt -> ;
-	FormalContextParamNextOpt -> "," parameters:list(FormalContextParam) FormalContextParamNextOpt;
-	FormalContextParam -> primitiveType:PrimitiveType;
+
 }
+
 
 }

@@ -20,7 +20,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface ExtensibleElement extends NamedElement {
+public interface ExtensibleElement extends NamedElement, Construct {
 	/**
 	 * Returns the value of the '<em><b>Concrete Syntax</b></em>' attribute.
 	 * <!-- begin-user-doc -->

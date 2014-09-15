@@ -121,7 +121,8 @@ public class NotItemProvider
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
-			childFeature == DblPackage.Literals.UNARY_OPERATOR__OP;
+			childFeature == DblPackage.Literals.UNARY_OPERATOR__OP ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

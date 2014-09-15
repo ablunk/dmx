@@ -75,6 +75,7 @@ public class ModuleItemProvider
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS);
+			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
 			childrenFeatures.add(DblPackage.Literals.MODULE__CLASSIFIERS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__CLASS_AUGMENTS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_DEFS);
@@ -135,6 +136,7 @@ public class ModuleItemProvider
 
 		switch (notification.getFeatureID(Module.class)) {
 			case DblPackage.MODULE__EXTENSIONS:
+			case DblPackage.MODULE__EXPAND_EXPR:
 			case DblPackage.MODULE__CLASSIFIERS:
 			case DblPackage.MODULE__CLASS_AUGMENTS:
 			case DblPackage.MODULE__EXTENSION_DEFS:
@@ -455,7 +457,12 @@ public class ModuleItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -549,6 +556,11 @@ public class ModuleItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR,
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(DblPackage.Literals.MODULE__CLASSIFIERS,
 				 DblFactory.eINSTANCE.createClazz()));
 
@@ -586,7 +598,8 @@ public class ModuleItemProvider
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
-			childFeature == DblPackage.Literals.MODULE__VARIABLES;
+			childFeature == DblPackage.Literals.MODULE__VARIABLES ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

@@ -9,6 +9,9 @@
   <foreignModel>dbl.ecore</foreignModel>
   <genPackages prefix="Dbl" basePackage="hub.sam" disposableProviderFactory="true"
       ecorePackage="dbl.ecore#/">
+    <genClasses ecoreClass="dbl.ecore#//Construct">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Construct/expandExpr"/>
+    </genClasses>
     <genClasses ecoreClass="dbl.ecore#//ExtensibleElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ExtensibleElement/concreteSyntax"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ExtensibleElement/instanceOfExtensionDefinition"/>
@@ -207,8 +210,11 @@
     <genClasses ecoreClass="dbl.ecore#//DoubleLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//DoubleLiteral/value"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//EvalExpr">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//EvalExpr/expr"/>
+    <genClasses ecoreClass="dbl.ecore#//ExpandExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandExpr/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ParseExpr">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ParseExpr/astPart"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//PredefinedId"/>
     <genClasses ecoreClass="dbl.ecore#//MeLiteral"/>

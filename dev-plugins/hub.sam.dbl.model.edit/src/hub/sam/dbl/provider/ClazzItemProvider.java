@@ -109,6 +109,7 @@ public class ClazzItemProvider
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__ACTIONS_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__REPORT_BLOCK);
 			childrenFeatures.add(DblPackage.Literals.CLASS_SIMILAR__CLEAR_BLOCK);
+			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
 			childrenFeatures.add(DblPackage.Literals.CLAZZ__CONSTRUCTOR);
 			childrenFeatures.add(DblPackage.Literals.CLAZZ__BINDINGS);
 		}
@@ -178,6 +179,7 @@ public class ClazzItemProvider
 			case DblPackage.CLAZZ__ACTIONS_BLOCK:
 			case DblPackage.CLAZZ__REPORT_BLOCK:
 			case DblPackage.CLAZZ__CLEAR_BLOCK:
+			case DblPackage.CLAZZ__EXPAND_EXPR:
 			case DblPackage.CLAZZ__CONSTRUCTOR:
 			case DblPackage.CLAZZ__BINDINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -495,7 +497,12 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -885,7 +892,12 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -1019,6 +1031,11 @@ public class ClazzItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
+				(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR,
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
 				(DblPackage.Literals.CLAZZ__CONSTRUCTOR,
 				 DblFactory.eINSTANCE.createConstructor()));
 
@@ -1043,6 +1060,7 @@ public class ClazzItemProvider
 			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
 			childFeature == DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__ATTRIBUTES ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__INITIAL_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__FINAL_BLOCK ||
 			childFeature == DblPackage.Literals.CLASS_SIMILAR__ACTIONS_BLOCK ||

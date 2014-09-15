@@ -491,7 +491,12 @@ public class ForStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -701,6 +706,8 @@ public class ForStatementItemProvider
 		Object childObject = child;
 
 		boolean qualify =
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
+			childFeature == DblPackage.Literals.FOR_STATEMENT__TERMINATION ||
 			childFeature == DblPackage.Literals.LOCAL_SCOPE__STATEMENTS ||
 			childFeature == DblPackage.Literals.FOR_STATEMENT__BODY ||
 			childFeature == DblPackage.Literals.FOR_STATEMENT__INCREMENT;

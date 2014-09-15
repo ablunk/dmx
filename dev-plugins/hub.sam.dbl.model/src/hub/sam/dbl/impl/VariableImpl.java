@@ -2,7 +2,9 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ModifierExtensionsContainer;
@@ -32,6 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link hub.sam.dbl.impl.VariableImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#getModifierExtensions <em>Modifier Extensions</em>}</li>
@@ -44,6 +47,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * @generated
  */
 public class VariableImpl extends AbstractVariableImpl implements Variable {
+	/**
+	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpandExpr()
+	 * @generated
+	 * @ordered
+	 */
+	protected ExpandExpr expandExpr;
+
 	/**
 	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -161,6 +174,49 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	protected EClass eStaticClass() {
 		return DblPackage.Literals.VARIABLE;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpandExpr getExpandExpr() {
+		return expandExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExpandExpr(ExpandExpr newExpandExpr, NotificationChain msgs) {
+		ExpandExpr oldExpandExpr = expandExpr;
+		expandExpr = newExpandExpr;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.VARIABLE__EXPAND_EXPR, oldExpandExpr, newExpandExpr);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpandExpr(ExpandExpr newExpandExpr) {
+		if (newExpandExpr != expandExpr) {
+			NotificationChain msgs = null;
+			if (expandExpr != null)
+				msgs = ((InternalEObject)expandExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.VARIABLE__EXPAND_EXPR, null, msgs);
+			if (newExpandExpr != null)
+				msgs = ((InternalEObject)newExpandExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.VARIABLE__EXPAND_EXPR, null, msgs);
+			msgs = basicSetExpandExpr(newExpandExpr, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.VARIABLE__EXPAND_EXPR, newExpandExpr, newExpandExpr));
 	}
 
 	/**
@@ -310,6 +366,8 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__EXPAND_EXPR:
+				return basicSetExpandExpr(null, msgs);
 			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
 				return ((InternalEList<?>)getModifierExtensions()).basicRemove(otherEnd, msgs);
 			case DblPackage.VARIABLE__INITIAL_VALUE:
@@ -326,6 +384,8 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__EXPAND_EXPR:
+				return getExpandExpr();
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				return getConcreteSyntax();
 			case DblPackage.VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION:
@@ -351,6 +411,9 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)newValue);
+				return;
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				setConcreteSyntax((String)newValue);
 				return;
@@ -382,6 +445,9 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)null);
+				return;
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
 				return;
@@ -412,6 +478,8 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
+			case DblPackage.VARIABLE__EXPAND_EXPR:
+				return expandExpr != null;
 			case DblPackage.VARIABLE__CONCRETE_SYNTAX:
 				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
 			case DblPackage.VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION:
@@ -435,6 +503,12 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+		if (baseClass == Construct.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.VARIABLE__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
 		if (baseClass == ExtensibleElement.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.VARIABLE__CONCRETE_SYNTAX: return DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
@@ -468,6 +542,12 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+		if (baseClass == Construct.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.VARIABLE__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
 		if (baseClass == ExtensibleElement.class) {
 			switch (baseFeatureID) {
 				case DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX: return DblPackage.VARIABLE__CONCRETE_SYNTAX;

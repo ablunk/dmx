@@ -87,14 +87,14 @@ public class DblParser extends HeadlessEclipseParser {
 		});
 	}
 	
-	protected DblPreProcessor _preProcessor;
+	protected IPreProcessor _preProcessor;
 	
-	protected DblPreProcessor getPreProcessor() {
+	protected IPreProcessor getPreProcessor() {
 		return _preProcessor;
 	}
 	
 	protected void initPreProcessor() {
-		_preProcessor = new DblPreProcessor(filename, null);
+		_preProcessor = new SimpleDblPreProcessor();
 	}
 
 	@Override

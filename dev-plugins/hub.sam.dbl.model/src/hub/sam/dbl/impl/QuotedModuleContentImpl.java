@@ -4,8 +4,10 @@ package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ClassAugment;
 import hub.sam.dbl.Classifier;
+import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.EmbeddableExtensionsContainer;
+import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.Module;
@@ -38,6 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExtensions <em>Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getClassifiers <em>Classifiers</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getClassAugments <em>Class Augments</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExtensionDefs <em>Extension Defs</em>}</li>
@@ -78,6 +81,16 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 	 * @ordered
 	 */
 	protected EList<ExtensibleElement> extensions;
+
+	/**
+	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpandExpr()
+	 * @generated
+	 * @ordered
+	 */
+	protected ExpandExpr expandExpr;
 
 	/**
 	 * The cached value of the '{@link #getClassifiers() <em>Classifiers</em>}' containment reference list.
@@ -186,6 +199,49 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ExpandExpr getExpandExpr() {
+		return expandExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExpandExpr(ExpandExpr newExpandExpr, NotificationChain msgs) {
+		ExpandExpr oldExpandExpr = expandExpr;
+		expandExpr = newExpandExpr;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR, oldExpandExpr, newExpandExpr);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpandExpr(ExpandExpr newExpandExpr) {
+		if (newExpandExpr != expandExpr) {
+			NotificationChain msgs = null;
+			if (expandExpr != null)
+				msgs = ((InternalEObject)expandExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR, null, msgs);
+			if (newExpandExpr != null)
+				msgs = ((InternalEObject)newExpandExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR, null, msgs);
+			msgs = basicSetExpandExpr(newExpandExpr, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR, newExpandExpr, newExpandExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EList<Classifier> getClassifiers() {
 		if (classifiers == null) {
 			classifiers = new EObjectContainmentEList<Classifier>(Classifier.class, this, DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS);
@@ -251,6 +307,8 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 		switch (featureID) {
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
 				return ((InternalEList<?>)getExtensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR:
+				return basicSetExpandExpr(null, msgs);
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS:
 				return ((InternalEList<?>)getClassifiers()).basicRemove(otherEnd, msgs);
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASS_AUGMENTS:
@@ -277,6 +335,8 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				return getName();
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
 				return getExtensions();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR:
+				return getExpandExpr();
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS:
 				return getClassifiers();
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASS_AUGMENTS:
@@ -306,6 +366,9 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
 				getExtensions().clear();
 				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
+				return;
+			case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)newValue);
 				return;
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS:
 				getClassifiers().clear();
@@ -345,6 +408,9 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
 				getExtensions().clear();
 				return;
+			case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)null);
+				return;
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS:
 				getClassifiers().clear();
 				return;
@@ -376,6 +442,8 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
 				return extensions != null && !extensions.isEmpty();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR:
+				return expandExpr != null;
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS:
 				return classifiers != null && !classifiers.isEmpty();
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASS_AUGMENTS:
@@ -409,6 +477,12 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				default: return -1;
 			}
 		}
+		if (baseClass == Construct.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
 		if (baseClass == Module.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.QUOTED_MODULE_CONTENT__CLASSIFIERS: return DblPackage.MODULE__CLASSIFIERS;
@@ -438,6 +512,12 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 		if (baseClass == EmbeddableExtensionsContainer.class) {
 			switch (baseFeatureID) {
 				case DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS: return DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Construct.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR;
 				default: return -1;
 			}
 		}

@@ -168,6 +168,7 @@ public class VariableItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
 			childrenFeatures.add(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.VARIABLE__INITIAL_VALUE);
 		}
@@ -230,6 +231,7 @@ public class VariableItemProvider
 			case DblPackage.VARIABLE__CLAZZ:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
+			case DblPackage.VARIABLE__EXPAND_EXPR:
 			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
 			case DblPackage.VARIABLE__INITIAL_VALUE:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -248,6 +250,11 @@ public class VariableItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR,
+				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -547,7 +554,12 @@ public class VariableItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -822,7 +834,12 @@ public class VariableItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.VARIABLE__INITIAL_VALUE,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.VARIABLE__INITIAL_VALUE,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -874,7 +891,8 @@ public class VariableItemProvider
 		boolean qualify =
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
 			childFeature == DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS ||
-			childFeature == DblPackage.Literals.VARIABLE__INITIAL_VALUE;
+			childFeature == DblPackage.Literals.VARIABLE__INITIAL_VALUE ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

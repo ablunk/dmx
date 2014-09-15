@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="context">
+    <model href="context.xmi#/"/>
+  </imports>
+  <modules name="forkTest">
+    <classifiers xsi:type="dbl:Clazz" name="B">
+      <attributes name="obj" concreteSyntax="A obj">
+        <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classifiers.1"/>
+      </attributes>
+      <attributes name="i" concreteSyntax="int i">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <methods name="test">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Context_Context_extension" concreteSyntax="context obj {&#xA;&#x9;&#x9;&#x9;print i; // replaced by print obj.i;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <context xsi:type="dbl:IdExpr" concreteSyntax="obj" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print i; // replaced by print obj.i;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Print" concreteSyntax="print i">
+              <outputs xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            </statements>
+          </body>
+        </statements>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="A">
+      <attributes name="i" concreteSyntax="int i">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classifiers>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a" concreteSyntax="A a = new A">
+        <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classifiers.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A">
+          <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classifiers.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="b" concreteSyntax="B b = new B">
+        <classifierType concreteSyntax="B" referencedElement="//@modules.0/@classifiers.0"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new B">
+          <classifierType concreteSyntax="B" referencedElement="//@modules.0/@classifiers.0"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="b.a = a">
+        <variable concreteSyntax="b.a">
+          <idExpr concreteSyntax="b.a" referencedElement="//@modules.0/@procedures.0/@statements.0">
+            <parentIdExpr concreteSyntax="b" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" concreteSyntax="a" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:ProcedureCall" concreteSyntax="b.test()">
+        <callIdExpr concreteSyntax="b.test()" referencedElement="//@modules.0/@classifiers.0/@methods.0">
+          <parentIdExpr concreteSyntax="b" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+          <callPart/>
+        </callIdExpr>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

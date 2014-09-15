@@ -2,48 +2,48 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.EvalExpr;
-import hub.sam.dbl.Expression;
 
+import hub.sam.dbl.ExpandExpr;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Eval Expr</b></em>'.
+ * An implementation of the model object '<em><b>Construct</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.EvalExprImpl#getExpr <em>Expr</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ConstructImpl#getExpandExpr <em>Expand Expr</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
+public class ConstructImpl extends EObjectImpl implements Construct {
 	/**
-	 * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.
+	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExpr()
+	 * @see #getExpandExpr()
 	 * @generated
 	 * @ordered
 	 */
-	protected Expression expr;
+	protected ExpandExpr expandExpr;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EvalExprImpl() {
+	protected ConstructImpl() {
 		super();
 	}
 
@@ -54,7 +54,7 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return DblPackage.Literals.EVAL_EXPR;
+		return DblPackage.Literals.CONSTRUCT;
 	}
 
 	/**
@@ -62,8 +62,8 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Expression getExpr() {
-		return expr;
+	public ExpandExpr getExpandExpr() {
+		return expandExpr;
 	}
 
 	/**
@@ -71,11 +71,11 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetExpr(Expression newExpr, NotificationChain msgs) {
-		Expression oldExpr = expr;
-		expr = newExpr;
+	public NotificationChain basicSetExpandExpr(ExpandExpr newExpandExpr, NotificationChain msgs) {
+		ExpandExpr oldExpandExpr = expandExpr;
+		expandExpr = newExpandExpr;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.EVAL_EXPR__EXPR, oldExpr, newExpr);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.CONSTRUCT__EXPAND_EXPR, oldExpandExpr, newExpandExpr);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -86,18 +86,18 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setExpr(Expression newExpr) {
-		if (newExpr != expr) {
+	public void setExpandExpr(ExpandExpr newExpandExpr) {
+		if (newExpandExpr != expandExpr) {
 			NotificationChain msgs = null;
-			if (expr != null)
-				msgs = ((InternalEObject)expr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.EVAL_EXPR__EXPR, null, msgs);
-			if (newExpr != null)
-				msgs = ((InternalEObject)newExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.EVAL_EXPR__EXPR, null, msgs);
-			msgs = basicSetExpr(newExpr, msgs);
+			if (expandExpr != null)
+				msgs = ((InternalEObject)expandExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.CONSTRUCT__EXPAND_EXPR, null, msgs);
+			if (newExpandExpr != null)
+				msgs = ((InternalEObject)newExpandExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.CONSTRUCT__EXPAND_EXPR, null, msgs);
+			msgs = basicSetExpandExpr(newExpandExpr, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.EVAL_EXPR__EXPR, newExpr, newExpr));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.CONSTRUCT__EXPAND_EXPR, newExpandExpr, newExpandExpr));
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.EVAL_EXPR__EXPR:
-				return basicSetExpr(null, msgs);
+			case DblPackage.CONSTRUCT__EXPAND_EXPR:
+				return basicSetExpandExpr(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -122,8 +122,8 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.EVAL_EXPR__EXPR:
-				return getExpr();
+			case DblPackage.CONSTRUCT__EXPAND_EXPR:
+				return getExpandExpr();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -136,8 +136,8 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.EVAL_EXPR__EXPR:
-				setExpr((Expression)newValue);
+			case DblPackage.CONSTRUCT__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -151,8 +151,8 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.EVAL_EXPR__EXPR:
-				setExpr((Expression)null);
+			case DblPackage.CONSTRUCT__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -166,10 +166,10 @@ public class EvalExprImpl extends ExpressionImpl implements EvalExpr {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.EVAL_EXPR__EXPR:
-				return expr != null;
+			case DblPackage.CONSTRUCT__EXPAND_EXPR:
+				return expandExpr != null;
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //EvalExprImpl
+} //ConstructImpl

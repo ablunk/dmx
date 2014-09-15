@@ -29,6 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -57,6 +58,7 @@ import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.emf.codegen.ecore.Generator;
 import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
 import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -213,6 +215,10 @@ public class ModelLauncher {
 			return objectPositions.getPosition(eObject);
 		}
 		
+		public void setObjectPosition(EObject eObject, Position position) {
+			objectPositions.setPosition(eObject, position);
+		}
+		
 		public Resource getResource() {
 			return resource;
 		}
@@ -233,6 +239,137 @@ public class ModelLauncher {
 				throw new RuntimeException(e);
 			}
 		}
+	}
+	
+	/**
+	 * substitutes a set of leaf extensions one after the other.
+	 * 
+	 * @author blunk
+	 *
+	 */
+	private class SharedLeafExtensionsFirstModificationApplier {
+		
+		private final ParsedWorkingCopyModel workingModel;
+		private final StringBuffer workingText;
+		
+		public SharedLeafExtensionsFirstModificationApplier(StringBuffer originalText, ParsedWorkingCopyModel originalModel) {
+			this.workingText = originalText;
+			this.workingModel = originalModel;			
+		}
+		
+		public StringBuffer getWorkingText() {
+			return workingText;
+		}
+		
+		private EObject setStartLength(Modification mod) {
+			EObject positionObject = workingModel.getResource().getEObject(mod.getSourceEObjectUri());
+			
+			Position position = workingModel.getObjectPosition(positionObject);
+			
+			if (mod instanceof Substitution) {
+				Substitution sub = (Substitution) mod;
+				sub.setSourceStart(position.getOffset());
+				sub.setSourceLength(position.getLength());
+			}
+			else if (mod instanceof Addition) {
+				Addition addition = (Addition) mod;
+				if (addition.isAddAfterPosition()) {
+					addition.setSourceStart(position.getOffset() + position.getLength());
+				}
+				else {
+					addition.setSourceStart(position.getOffset());
+				}
+			}
+			
+			return positionObject;
+		}
+		
+		private void shiftObjects(EObject referenceObject, boolean after, int v, boolean includeRefObjectChilds) {
+			TreeIterator<EObject> containerContentsTree = referenceObject.eContainer().eAllContents();
+			
+			EObject c = null;
+
+			// omit preceding objects
+			while (containerContentsTree.hasNext()) {
+				c = containerContentsTree.next();
+
+				if (c == referenceObject) {
+					if (!includeRefObjectChilds) containerContentsTree.prune();
+					break;
+				}
+			}
+			
+			if (!containerContentsTree.hasNext()) {
+				return;
+			}
+			
+			if (after) {
+				c = containerContentsTree.next();
+			}
+			
+			logger.info("shifting objects after " + c.eResource().getURIFragment(c) + " by " + v + " characters");
+			
+			{
+				Position p = workingModel.getObjectPosition(c);
+				p.setOffset(p.getOffset() + v);
+			}
+			
+			// adjust positions
+			while (containerContentsTree.hasNext()) {
+				c = containerContentsTree.next();
+
+				Position p = workingModel.getObjectPosition(c);
+				p.setOffset(p.getOffset() + v);
+			}
+		}
+		
+		private boolean substitutionApplied = false;
+		
+		public void applyAll(EList<Modification> unsortedModifications) {
+			// apply modifications, adjust positions for other constructs						
+			for (Modification mod: unsortedModifications) {
+				
+				EObject positionObject = setStartLength(mod);
+				int startPos = mod.getSourceStart();
+				
+				if (mod instanceof Addition) {
+					Addition addition = (Addition) mod;
+					
+					logger.info("inserting at text position: " + startPos + ", just after ... " + Activator.lineSep
+							+ workingText.substring((startPos - 20 < 0 ? 0 : startPos - 20), startPos) + Activator.lineSep);
+					
+					workingText.insert(startPos, addition.getReplacementText());
+
+					// adjust positions for other constructs
+					shiftObjects(positionObject, addition.isAddAfterPosition(), addition.getReplacementText().length(), false);
+				}
+				else if (mod instanceof Substitution) {
+					if (substitutionApplied) {
+						logger.severe("there are at least 2 substitution modifications. an extension can only be substituted once.");
+						throw new RuntimeException();
+					}
+					substitutionApplied = true;
+					
+					Substitution sub = (Substitution) mod;
+					
+					int endPos = startPos + sub.getSourceLength();
+					
+					String sourceFragment = workingText.substring(startPos, endPos);					
+					logger.info("substituting source fragement: " + Activator.lineSep +
+							sourceFragment + Activator.lineSep
+							+ "by: " + Activator.lineSep +
+							mod.getReplacementText() + Activator.lineSep);
+					
+					workingText.replace(startPos, endPos, mod.getReplacementText());
+
+					shiftObjects(positionObject, true, mod.getReplacementText().length() - sub.getSourceLength(), false);
+				}				
+
+				logger.info("new working text: " + Activator.lineSep
+						+ workingText + Activator.lineSep);
+			}
+		}
+		
 	}
 	
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
@@ -386,7 +523,7 @@ public class ModelLauncher {
 		return false;
 	}
 	
-	private Map<String, Collection<ExtensibleElement>> getExtensionInstances(Model inputModel) {
+	private Map<String, Collection<ExtensibleElement>> getLeafExtensionInstances(Model inputModel) {
 		Map<String, Collection<ExtensibleElement>> extensionDefinitionNames_to_extensionInstances = new HashMap<String, Collection<ExtensibleElement>>();
 		
 		TreeIterator<EObject> allContents = inputModel.eAllContents();
@@ -432,87 +569,101 @@ public class ModelLauncher {
 	}
 	
 	/**
-	 * substitutes all extensions directly contained in inputModel by the result of executing their semantics definitions.
+	 * substitutes all extensions by processing leaf extensions first
 	 * 
 	 * @param inputModel model containing extension instances
 	 * @return workingModel either the inputModel or a copy of the inputModel with extension instances replaced
 	 */
 	private ParsedWorkingCopyModel substituteExtensions(ParsedWorkingCopyModel inputModel) {
+		final IProject currentProject = getCurrentProject();
+		final IJavaProject currentJavaProject = JavaCore.create(currentProject);
+
 		ParsedWorkingCopyModel workingModel = inputModel;
 		
-		Map<String, Collection<ExtensibleElement>> extensionInstances = getExtensionInstances(workingModel.getModel());
-		while (extensionInstances.size() > 0) {
-					
-			ExtensionDefinitionsToJava generator = getExtensionDefinitionGenerator();
-
+		Map<String, Collection<ExtensibleElement>> leafExtensionInstances = getLeafExtensionInstances(workingModel.getModel());
+		while (leafExtensionInstances.size() > 0) {
+			
+			SharedLeafExtensionsFirstModificationApplier sharedModificationApplier = new SharedLeafExtensionsFirstModificationApplier(
+					new StringBuffer(workingModel.getText()), workingModel);
+			
+			boolean javaCodeAdded = false;
 			Map<String, ExtensionDefinition> extensionDefinitions = new HashMap<String, ExtensionDefinition>();
 			
-			// generate Java code for extension semantics
-			boolean javaCodeAdded = false;
-			for (String extensionDefinitionName: extensionInstances.keySet()) {
-				ExtensionDefinition extensionDefinition = generator.getImportedExtensionDefinition(workingModel.getModel(), extensionDefinitionName);
+			for (String extensionDefinitionName: leafExtensionInstances.keySet()) {
+
+				// generate executable code from extension definition semantics
+				ExtensionDefinition extensionDefinition = getExtensionDefinitionGenerator().getImportedExtensionDefinition(workingModel.getModel(), extensionDefinitionName);
 				extensionDefinitions.put(extensionDefinitionName, extensionDefinition);
 
 				if (!extensionDefinitionSemanticsGenerated.contains(extensionDefinitionName)) {
 					extensionDefinitionSemanticsGenerated.add(extensionDefinitionName);
 					logger.info("Generating executable semantics for extension definition " + extensionDefinitionName);
 					
-					generator.genExtensionDefinition(workingModel.getModel(), extensionDefinition);
+					getExtensionDefinitionGenerator().genExtensionDefinition(workingModel.getModel(), extensionDefinition);
 					javaCodeAdded = true;
 				}
 			}
 			
-			IProject currentProject = getCurrentProject();
-
-			// compile Java code
 			if (javaCodeAdded) {
+				// compile all extension definitions used by extension instances ONCE
 				compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
 			}
 
-			// execute generated extension definition semantics with extension instance
-			createEmptyModificationsXmi(currentProject);
-			
-			// a copy of the extended DBL metamodel is needed as well.
-			// this is because the semantics of extension definitions access added metamodel classes and properties.
-			saveExtendedDblMetaModelIfNecessary(currentProject);
-			
-			IJavaProject currentJavaProject = JavaCore.create(currentProject);
-			IPath workingDirectory = currentProject.getLocation();
+			IPath inputPath = getXmiRawLocation(workingModel.getResource().getURI().trimSegments(1));
 
-			for (String extensionDefinitionName: extensionInstances.keySet()) {
-				for (ExtensibleElement extensionInstance: extensionInstances.get(extensionDefinitionName)) {
+			for (String extensionDefinitionName: leafExtensionInstances.keySet()) {
+				for (ExtensibleElement extensionInstance: leafExtensionInstances.get(extensionDefinitionName)) {
+					
+					// a copy of the extended DBL metamodel is needed as well.
+					// this is because the semantics of extension definitions access added metamodel classes and properties.
+					saveExtendedDblMetaModelIfNecessary(currentProject);
+					
+					IPath workingDirectory = currentProject.getLocation();
+
+					// get modifications of extension instance by executing the semantics definition
 					try {			
 						String[] arguments = new String[] {
 								getXmiRawLocation(workingModel.getResource().getURI()).toString(),
-								AbstractExtensionSemantics.getEmfUriFragment(extensionInstance)
+								AbstractExtensionSemantics.getEmfUriFragment(extensionInstance),
+								inputPath.toString()
 							};
-						String qualifiedExtensionDefinitionName = generator.javaNameQualified(extensionDefinitions.get(extensionDefinitionName));
+						String qualifiedExtensionDefinitionName = getExtensionDefinitionGenerator().javaNameQualified(extensionDefinitions.get(extensionDefinitionName));
 						launchJavaProgram(true, currentJavaProject, workingDirectory, qualifiedExtensionDefinitionName + "Semantics", arguments);
 					}
 					catch (CoreException e) {
 						e.printStackTrace();
 					}
+					
+					// text substitute extension instances by result of semantics executions
+					EList<Modification> storedModifications = getLastStoredModifications();
+					
+					monitor.subTask("Applying modifications");
+					
+					logger.info("--------- input text ---------" + Activator.lineSep
+							+ workingModel.getText() + Activator.lineSep);
+						
+					if (storedModifications == null || storedModifications.size() == 0) {
+						logger.info("No modifications found. Skipping extension substitution.");
+						continue;
+					}
+					else {									
+						sharedModificationApplier.applyAll(storedModifications);
+					}
 				}
 			}
 			
-			// text substitute extension instances by result of semantics executions
-			String substitutedText = textSubstituteExtensionInstances(workingModel);
-			
-			if (substitutedText == null) {
-				throw new RuntimeException();
-			}
-			
-			// parse text with substituted parts with headless DBL parser to >>workingModel<<
-			IPath inputPath = getXmiRawLocation(workingModel.getResource().getURI().trimSegments(1));
+			// after leaf extensions have been substituted:
+			// parse text with headless DBL parser to >>workingModel<<
 			String filename = workingModel.getResource().getURI().trimFileExtension().appendFileExtension("dbx").lastSegment();
 
 			HeadlessEclipseParser parser = new DbxParser(inputPath, filename);
 			
 			try {
 				//lastInputModelContext = parser.parse("module test { void main() { print \"hello\"; } }");
-				IModelCreatingContext modelCreationContext = parser.parse(substitutedText);
+				IModelCreatingContext modelCreationContext = parser.parse(sharedModificationApplier.getWorkingText().toString());
+				
 				if (modelCreationContext.getErrors().size() > 0) {
-					printParseErrorsToEditorConsole(modelCreationContext, filename, substitutedText);
+					printParseErrorsToEditorConsole(modelCreationContext, filename, sharedModificationApplier.getWorkingText().toString());
 					throw new RuntimeException(modelCreationContext.getErrors().iterator().next().getMessage());
 				}
 				else {
@@ -526,7 +677,9 @@ public class ModelLauncher {
 			
 			// repeat the process until the model does not contain extension instances anymore,
 			// i.e. no extension instances occur in code generated by extension semantics anymore
-			extensionInstances = getExtensionInstances(workingModel.getModel());
+			
+			// get the new leaf extensions (which were node extensions before)
+			leafExtensionInstances = getLeafExtensionInstances(workingModel.getModel());
 		}
 		
 		return workingModel;
@@ -542,8 +695,28 @@ public class ModelLauncher {
 			}
 		}
 	}
+		
+	private EList<Modification> getLastStoredModifications() {
+		// get all the modifications from <temp-folder>/modifications.xmi
+		ResourceSet resourceSet = new ResourceSetImpl();
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
+
+    	String modificationsXmiFile = getTempFolder(getCurrentProject()).getLocation().append("modifications.xmi").toString();
+		URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());		
+		
+		Resource modificationsResource = resourceSet.getResource(modificationsFileUri, true);
+		ModificationsRecord modificationsRecord = null;
+		for (EObject rootObject: modificationsResource.getContents()) {
+			modificationsRecord = (ModificationsRecord) rootObject;
+			return modificationsRecord.getModifications();
+		}
+
+		return null;
+	}
 	
-	private String textSubstituteExtensionInstances(ParsedWorkingCopyModel workingModel) {
+	@Deprecated
+	private String textSubstituteExtensionInstances_old(ParsedWorkingCopyModel workingModel) {
 		monitor.subTask("Applying modifications");
 		
 		// get all the modifications from <temp-folder>/modifications.xmi
@@ -640,24 +813,6 @@ public class ModelLauncher {
 		}
 		
 		return workingCopyResource;
-	}
-	
-	private void createEmptyModificationsXmi(IProject currentProject) {
-		ResourceSet resourceSet = new ResourceSetImpl();
-		//resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
-
-    	String modificationsXmiFile = getTempFolder(currentProject).getLocation().append("modifications.xmi").toString();
-		URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());		
-		
-		Resource modificationsResource = resourceSet.createResource(modificationsFileUri);
-		
-		try {
-			modificationsResource.save(Collections.EMPTY_MAP);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void cleanFolder(IFolder folder) {

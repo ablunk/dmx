@@ -2,6 +2,8 @@
 
 module x {
 
+class StateMachine {}
+
 extension FrontExec extends dbl SimpleStatement {
 	start FX;
 	FX -> "fx" stm:SimpleStatement;
@@ -10,10 +12,62 @@ semantics {
 	SimpleStatement fxStm = stm.eContainer() as SimpleStatement;
 	LocalScope ls = fxStm.eContainer() as LocalScope;
 	
-	expand " "; // empty expansion removes fx statement
+	//expand " "; // empty expansion removes fx statement
 	
-	setExpansionContext before ls.statements.get(0);
+	// insert inside extension
+	if (stm instanceof Assignment) {
+		Assignment a = stm as Assignment;
+		set expand before a.value;
+		expand "7"; // TODO update concrete syntax property of extension instance and its contents
+		
+		// idExpr = !Expression: ?context?.?idExpr?!;
+		
+		// class !ID: ?name? + "_StateMachine"! { void bla() { !LocalScopeStatement: ?body?! } }
+		// !IdExpr: ?someType?! bla() { }
+
+		// class ?name + "_StateMachine"? { void bla() { ?body? } }
+		// ?someType? bla() { }
+		string name;
+		Module mSnipped = !Module:module _ {
+			class ?name + "_StateMachine"? extends StateMachine {
+				void bla() {
+					//?stm?;
+				}
+			}
+		}!; // der teil in module muss standalone während der semantikausführung
+		    // geparsed werden. dazu muss die grammatik irgendwie modifiziert werden,
+		    // so dass Module zur Startregel wird.
+		
+		// expand ?mSnipped.classifiers.get(0)?;
+		// vielleicht es besser nur noch das expandieren von AST-objekten
+		// an bestimmten stellen zu erlauben. so wird immer korrekter code eingefügt
+		// und man kann nicht beliebig andere teile des programms verändern.
+		
+		// Procedure p = !Procedure: ?someType? bla() { }!;
+
+		// parse-expression !...! zur Erzeugung von AST-Objekten
+		// Assignment aneu = !Assignment: i=i+1!;
+		// fxStm.setStm(aneu);
+		// in der Grammatik gibt es eine Regel der Form
+		// ParseExpression -> "!" "Assignment" ":" ast:composite(Assigment) "!" ;
+		// für jedes Konzept. Erweiterungen fügen automatisch eine entsprechende Regel hinzu.
+		Assignment aneu = !Assignment:a=a+1!;
+		Module m = !Module:module _ { class A_StateMachine extends StateMachine {} }!;
+		
+		LocalScopeStatement lSnipped = !LocalScopeStatement: {int i; i=10*7+a.value;}!; // TODO: 10*7 + ?a.value?
+		// expand ?lSnipped.statements.get(1)?;
+		
+		// text-expression ?..? zum Einfügen der konkreten Syntax eines AST-Objektes
+		// in expand passiert das bereits automatisch:
+		// expand astObj; ist identisch mit expand ?astObj?;
+	}
 	expand stm ";";
+	
+	set expand before ls.statements.get(0); // insert before extension
+	expand stm ";";
+	
+	set expand before ls.statements.get(ls.statements.size() - 1); // insert after extension
+	expand "i=9;";
 }
 
 }

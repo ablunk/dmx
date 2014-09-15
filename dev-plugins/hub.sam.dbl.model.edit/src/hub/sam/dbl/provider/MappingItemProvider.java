@@ -342,7 +342,12 @@ public class MappingItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MAPPING__META_OBJECT,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MAPPING__META_OBJECT,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -378,6 +383,29 @@ public class MappingItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MAPPING__META_OBJECT,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify =
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
+			childFeature == DblPackage.Literals.MAPPING__META_OBJECT;
+
+		if (qualify) {
+			return getString
+				("_UI_CreateChild_text2",
+				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

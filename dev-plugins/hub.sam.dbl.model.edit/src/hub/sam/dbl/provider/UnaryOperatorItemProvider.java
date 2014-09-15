@@ -319,7 +319,12 @@ public class UnaryOperatorItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -370,7 +375,8 @@ public class UnaryOperatorItemProvider
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
-			childFeature == DblPackage.Literals.UNARY_OPERATOR__OP;
+			childFeature == DblPackage.Literals.UNARY_OPERATOR__OP ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

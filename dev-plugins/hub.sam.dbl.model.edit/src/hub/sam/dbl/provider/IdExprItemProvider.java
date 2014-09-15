@@ -395,7 +395,12 @@ public class IdExprItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -452,7 +457,8 @@ public class IdExprItemProvider
 		boolean qualify =
 			childFeature == DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE ||
 			childFeature == DblPackage.Literals.ID_EXPR__PARENT_ID_EXPR ||
-			childFeature == DblPackage.Literals.ID_EXPR__ARRAY_INDEX;
+			childFeature == DblPackage.Literals.ID_EXPR__ARRAY_INDEX ||
+			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR;
 
 		if (qualify) {
 			return getString

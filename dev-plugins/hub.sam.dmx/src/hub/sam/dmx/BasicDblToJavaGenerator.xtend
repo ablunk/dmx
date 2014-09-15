@@ -528,12 +528,12 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	def dispatch String genStatement(SetGenContextStatement stm) {
 		val it = stm
-		'''setGenContext(«context.genExpr», «addAfterContext»);'''
+		'''setExpand(«context.genExpr», «addAfterContext»);'''
 	}
 
 	def dispatch String genStatement(MappingStatement stm) {
 		val it = stm
-		'''gen(
+		'''expand(
 		«FOR part : parts SEPARATOR '+'»
 			«part.genMappingPart»
 		«ENDFOR»

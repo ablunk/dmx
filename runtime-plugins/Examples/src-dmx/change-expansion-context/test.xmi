@@ -6,11 +6,20 @@
   <modules name="test">
     <procedures name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Print" concreteSyntax="print i + &quot;\n&quot;">
-        <outputs xsi:type="dbl:Plus" concreteSyntax="i + &quot;\n&quot;">
-          <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@variables.0"/>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;1: &quot; + i + &quot;\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;1: &quot; + i + &quot;\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;1: &quot; + i">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;1: &quot;" value="1: "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@variables.0"/>
+          </op1>
           <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
         </outputs>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="i=1">
+        <variable concreteSyntax="i">
+          <idExpr concreteSyntax="i" referencedElement="//@modules.0/@variables.0"/>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
       </statements>
       <statements xsi:type="dbl:FrontExec_FX_extension" concreteSyntax="fx i=2;" instanceOfExtensionDefinition="true">
         <stm xsi:type="dbl:Assignment" concreteSyntax="i=2">
@@ -19,6 +28,30 @@
           </variable>
           <value xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
         </stm>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;2: &quot; + i + &quot;\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;2: &quot; + i + &quot;\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;2: &quot; + i">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;2: &quot;" value="2: "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@variables.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="i=3">
+        <variable concreteSyntax="i">
+          <idExpr concreteSyntax="i" referencedElement="//@modules.0/@variables.0"/>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;3: &quot; + i + &quot;\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;3: &quot; + i + &quot;\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;3: &quot; + i">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;3: &quot;" value="3: "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@variables.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+        </outputs>
       </statements>
     </procedures>
     <variables name="i" concreteSyntax="int i=1">

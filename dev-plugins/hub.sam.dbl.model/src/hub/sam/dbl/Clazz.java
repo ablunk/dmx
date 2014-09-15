@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Clazz extends Classifier, ClassSimilar, LanguageConceptClassifier {
+public interface Clazz extends Classifier, ClassSimilar, LanguageConceptClassifier, Construct {
 	/**
 	 * Returns the value of the '<em><b>Active</b></em>' attribute.
 	 * The default value is <code>"false"</code>.

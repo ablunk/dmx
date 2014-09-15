@@ -332,7 +332,12 @@ public class CallPartItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CALL_PART__CALL_ARGUMENTS,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CALL_PART__CALL_ARGUMENTS,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

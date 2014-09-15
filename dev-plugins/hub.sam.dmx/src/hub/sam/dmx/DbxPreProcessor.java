@@ -27,7 +27,7 @@ public class DbxPreProcessor extends DblPreProcessor {
 	private Collection<String> processedFileImports = new HashSet<String>();
 	
 	private boolean processExtensionDefinitionsOutsideToInside(String inputText, IPath inputPath) {
-		Pattern importRegex = Pattern.compile("#import \"(.+)\"");
+		Pattern importRegex = Pattern.compile("^#import \"(.+)\"", Pattern.MULTILINE);
 		Matcher matcher = importRegex.matcher(inputText);
 		boolean added = false;
 		

@@ -72,6 +72,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Construct} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConstructItemProvider constructItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.Construct}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createConstructAdapter() {
+		if (constructItemProvider == null) {
+			constructItemProvider = new ConstructItemProvider(this);
+		}
+
+		return constructItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensibleElement} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1889,26 +1912,49 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.EvalExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExpandExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected EvalExprItemProvider evalExprItemProvider;
+	protected ExpandExprItemProvider expandExprItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.EvalExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ExpandExpr}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createEvalExprAdapter() {
-		if (evalExprItemProvider == null) {
-			evalExprItemProvider = new EvalExprItemProvider(this);
+	public Adapter createExpandExprAdapter() {
+		if (expandExprItemProvider == null) {
+			expandExprItemProvider = new ExpandExprItemProvider(this);
 		}
 
-		return evalExprItemProvider;
+		return expandExprItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ParseExpr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ParseExprItemProvider parseExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.ParseExpr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createParseExprAdapter() {
+		if (parseExprItemProvider == null) {
+			parseExprItemProvider = new ParseExprItemProvider(this);
+		}
+
+		return parseExprItemProvider;
 	}
 
 	/**
@@ -3183,6 +3229,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	 * @generated
 	 */
 	public void dispose() {
+		if (constructItemProvider != null) constructItemProvider.dispose();
 		if (extensibleElementItemProvider != null) extensibleElementItemProvider.dispose();
 		if (modelItemProvider != null) modelItemProvider.dispose();
 		if (importItemProvider != null) importItemProvider.dispose();
@@ -3262,7 +3309,8 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (trueLiteralItemProvider != null) trueLiteralItemProvider.dispose();
 		if (falseLiteralItemProvider != null) falseLiteralItemProvider.dispose();
 		if (doubleLiteralItemProvider != null) doubleLiteralItemProvider.dispose();
-		if (evalExprItemProvider != null) evalExprItemProvider.dispose();
+		if (expandExprItemProvider != null) expandExprItemProvider.dispose();
+		if (parseExprItemProvider != null) parseExprItemProvider.dispose();
 		if (predefinedIdItemProvider != null) predefinedIdItemProvider.dispose();
 		if (meLiteralItemProvider != null) meLiteralItemProvider.dispose();
 		if (superLiteralItemProvider != null) superLiteralItemProvider.dispose();

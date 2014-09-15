@@ -849,7 +849,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     {
       final SetGenContextStatement it = stm;
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("setGenContext(");
+      _builder.append("setExpand(");
       Expression _context = it.getContext();
       String _genExpr = this.genExpr(_context);
       _builder.append(_genExpr, "");
@@ -867,7 +867,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     {
       final MappingStatement it = stm;
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("gen(");
+      _builder.append("expand(");
       _builder.newLine();
       {
         EList<MappingPart> _parts = it.getParts();

@@ -29,7 +29,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
-public class DblPreProcessor {
+public class DblPreProcessor implements IPreProcessor {
 	
 	private final DblTextEditor editor;
 	private final String filename; // the file that is pre-processed by this pre-processor
@@ -158,7 +158,7 @@ public class DblPreProcessor {
 	
 	public void preProcess(String inputText, IPath inputPath) {
 		if (inputText != null) {
-			Pattern importRegex = Pattern.compile("#import \"(.+)\"");
+			Pattern importRegex = Pattern.compile("^#import \"(.+)\"", Pattern.MULTILINE);
 			Matcher matcher = importRegex.matcher(inputText);
 			
 			while (matcher.find()) {
@@ -209,7 +209,7 @@ public class DblPreProcessor {
 								setResult(otherEditor);
 							}
 						}
-						else if (editor == null && filename.equals(otherEditor.getPartName())) {
+						else if (editor == null && filename != null && filename.equals(otherEditor.getPartName())) {
 							setResult(otherEditor);
 						}
 						

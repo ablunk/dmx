@@ -123,7 +123,8 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.NULL_LITERAL: return createNullLiteral();
 			case DblPackage.TIME_LITERAL: return createTimeLiteral();
 			case DblPackage.ACTIVE_LITERAL: return createActiveLiteral();
-			case DblPackage.EVAL_EXPR: return createEvalExpr();
+			case DblPackage.PARSE_EXPR: return createParseExpr();
+			case DblPackage.CONSTRUCT: return createConstruct();
 			case DblPackage.ME_LITERAL: return createMeLiteral();
 			case DblPackage.SUPER_LITERAL: return createSuperLiteral();
 			case DblPackage.META_LITERAL: return createMetaLiteral();
@@ -189,10 +190,21 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.RHS_CLASSIFIER_EXPR: return createRhsClassifierExpr();
 			case DblPackage.LOCAL_SCOPE: return createLocalScope();
 			case DblPackage.RHS_EXPRESSION: return createRhsExpression();
+			case DblPackage.EXPAND_EXPR: return createExpandExpr();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
 		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Construct createConstruct() {
+		ConstructImpl construct = new ConstructImpl();
+		return construct;
 	}
 
 	/**
@@ -930,16 +942,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EvalExpr createEvalExpr() {
-		EvalExprImpl evalExpr = new EvalExprImpl();
-		return evalExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public MeLiteral createMeLiteral() {
 		MeLiteralImpl meLiteral = new MeLiteralImpl();
 		return meLiteral;
@@ -1033,6 +1035,26 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public DoubleLiteral createDoubleLiteral() {
 		DoubleLiteralImpl doubleLiteral = new DoubleLiteralImpl();
 		return doubleLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpandExpr createExpandExpr() {
+		ExpandExprImpl expandExpr = new ExpandExprImpl();
+		return expandExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ParseExpr createParseExpr() {
+		ParseExprImpl parseExpr = new ParseExprImpl();
+		return parseExpr;
 	}
 
 	/**

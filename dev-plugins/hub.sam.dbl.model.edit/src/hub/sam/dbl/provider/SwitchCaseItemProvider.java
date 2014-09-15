@@ -334,7 +334,12 @@ public class SwitchCaseItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SWITCH_CASE__VALUE,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SWITCH_CASE__VALUE,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

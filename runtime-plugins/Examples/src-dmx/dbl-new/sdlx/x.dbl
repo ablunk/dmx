@@ -1,0 +1,18 @@
+#import "../../dbl"
+
+module x {
+
+extension X extends dbl LocalScopeStatement {
+	start R1;
+	R1 -> "x" a:list(A) ";";
+	A -> B;
+	A -> C;
+	B -> "ref" expr:Expression ",";
+	C -> "def" VarList;
+	//C extends LocalScope -> "c";
+	VarList -> statements:list(Variable) VarListOpt;
+	VarListOpt -> ;
+	VarListOpt -> "," VarList;
+}
+
+}

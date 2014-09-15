@@ -327,7 +327,12 @@ public class DynamicMappingPartItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
-				 DblFactory.eINSTANCE.createEvalExpr()));
+				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.DYNAMIC_MAPPING_PART__EXPR,
+				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -1,0 +1,14 @@
+#import "../dbl"
+#import "../stdx"
+
+module fork {
+
+extension Fork extends dbl SimpleStatement {
+	start Fork;
+	Fork -> "fork" body:LocalScopeStatement;
+}
+semantics {
+	
+}
+
+}
