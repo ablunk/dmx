@@ -2,11 +2,17 @@ package hub.sam.dmx;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.part.FileEditorInput;
 
 public class XtendRunAction extends Action {
 
@@ -44,13 +50,20 @@ public class XtendRunAction extends Action {
 	
 	private Display currentDisplay;
 	
+	private IProject getCurrentProject() {
+		IFile file = ((FileEditorInput) editor.getEditorInput()).getFile();
+		return file.getProject();
+	}
+	
 	public void run() {
 		currentDisplay = Display.getCurrent();
 
 		final IRunnableWithProgress runnable = new IRunnableWithProgress() {
 			@Override
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-				GroovyTest.main(null);
+				getCurrentProject().getRawLocation();
+				//IPath xmiRawLocation = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiPath).getRawLocation();
+				//GroovyTest.main(null);
 				//ModelLauncher launcher = new ModelLauncher(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
 				//launcher.compileAndRun();
 				monitor.done();

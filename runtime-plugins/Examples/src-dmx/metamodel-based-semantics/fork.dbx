@@ -1,0 +1,50 @@
+#import "../dbl"
+#import "../stdx"
+
+module x {
+
+class StateMachine {}
+
+void rewrite(EObject obj) {
+	if (obj instanceof IdExpr) {
+		IdExpr idExpr = obj as IdExpr;
+		while (idExpr.parentIdExpr != null) {
+			idExpr = idExpr.parentIdExpr;
+		}
+
+		LocalScopeStatement snippet = !LocalScopeStatement:
+		{
+			Object contextObj;
+			contextObj = null;
+		}!;
+		
+		Assignment objVariable = snippet.statements.get(1) as Assignment;
+		idExpr.parentIdExpr = objVariable.variable.idExpr;
+	}
+	else {
+		foreach (EObject content in obj.eContents()) {
+			rewrite(content);
+		}	
+	}
+}
+
+extension ForkX extends dbl SimpleStatement {
+	start Fork;
+	Fork -> "fork" body:LocalScopeStatement;
+}
+semantics {
+	rewrite(body);
+
+	Clazz ownerClass; // TODO navigate to owner
+	Module snippet = !Module:module _ {
+		active class ?ownerClass.name + "_Fork"? {
+			// ?ownerClass? contextObj;
+			actions {
+				// ?body?
+			}
+		}
+	}!;
+	// expand ?snippet.classifiers.get(0)?;
+}
+
+}

@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <modules name="semaphores">
+    <classifiers xsi:type="dbl:Clazz" name="Semaphore">
+      <attributes name="count" concreteSyntax="control int count = _initCount" control="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="_initCount" referencedElement="//@modules.0/@classifiers.0/@constructor/@parameters.0"/>
+      </attributes>
+      <attributes name="fifoList" concreteSyntax="List fifoList">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <methods name="takeForever" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="takeTimeout" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="_timeout">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </methods>
+      <methods name="give" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+      <methods name="wakeUpWaiting">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Object obj in fifoList) {&#xA;&#x9;&#x9;&#x9;reactivate obj;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="obj" concreteSyntax="Object obj">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+            </classifierType>
+          </statements>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;reactivate obj;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Reactivate" concreteSyntax="reactivate obj">
+              <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="obj" referencedElement="//@modules.0/@classifiers.0/@methods.3/@statements.0/@statements.0"/>
+            </statements>
+          </body>
+        </statements>
+      </methods>
+      <constructor>
+        <parameters name="_initCount">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructor>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="Timer" active="true">
+      <attributes name="caller" concreteSyntax="Object caller">
+        <classifierType concreteSyntax="Object">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+        </classifierType>
+      </attributes>
+      <attributes name="t" concreteSyntax="double t">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </attributes>
+      <attributes name="enabled" concreteSyntax="boolean enabled = true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance t">
+          <time xsi:type="dbl:IdExpr" concreteSyntax="t" referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (enabled) reactivate caller;">
+          <condition xsi:type="dbl:IdExpr" concreteSyntax="enabled" referencedElement="//@modules.0/@classifiers.1/@attributes.2"/>
+          <trueCase xsi:type="dbl:Reactivate" concreteSyntax="reactivate caller">
+            <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="caller" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="enabled = false">
+          <variable concreteSyntax="enabled">
+            <idExpr concreteSyntax="enabled" referencedElement="//@modules.0/@classifiers.1/@attributes.2"/>
+          </variable>
+          <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="PrioritySemaphore">
+      <methods name="takeForever">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.add(active)">
+          <callIdExpr concreteSyntax="fifoList.add(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (count == 0) {&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Equal" concreteSyntax="count == 0">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
+          </body>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.remove(active)">
+          <callIdExpr concreteSyntax="fifoList.remove(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.8"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="count = count - 1">
+          <variable concreteSyntax="count">
+            <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Minus" concreteSyntax="count - 1">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return true">
+          <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+        </statements>
+      </methods>
+      <methods name="give">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="count = count + 1">
+          <variable concreteSyntax="count">
+            <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Plus" concreteSyntax="count + 1">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="wakeUpWaiting()">
+          <callIdExpr concreteSyntax="wakeUpWaiting()" referencedElement="//@modules.0/@classifiers.0/@methods.3">
+            <callPart/>
+          </callIdExpr>
+        </statements>
+      </methods>
+      <methods name="takeTimeout">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.add(active)">
+          <callIdExpr concreteSyntax="fifoList.add(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (count == 0) {&#xA;&#x9;&#x9;&#x9;// fork would be handy here&#xA;&#x9;&#x9;&#x9;if (timeout > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else return false;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if (count == 0) return false;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Equal" concreteSyntax="count == 0">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;// fork would be handy here&#xA;&#x9;&#x9;&#x9;if (timeout > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else return false;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if (count == 0) return false;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (timeout > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else return false;">
+              <condition xsi:type="dbl:Greater" concreteSyntax="timeout > 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="timeout" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.8/@rhs/@sequence.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </condition>
+              <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Variable" name="timer" concreteSyntax="Timer timer = new Timer">
+                  <classifierType concreteSyntax="Timer" referencedElement="//@modules.0/@classifiers.1"/>
+                  <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Timer">
+                    <classifierType concreteSyntax="Timer" referencedElement="//@modules.0/@classifiers.1"/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="timer.t = timeout">
+                  <variable concreteSyntax="timer.t">
+                    <idExpr concreteSyntax="timer.t" referencedElement="//@modules.0/@classifiers.1/@attributes.1">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.2/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:IdExpr" concreteSyntax="timeout" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.8/@rhs/@sequence.0"/>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="timer.caller = active">
+                  <variable concreteSyntax="timer.caller">
+                    <idExpr concreteSyntax="timer.caller" referencedElement="//@modules.0/@classifiers.1/@attributes.0">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.2/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                </statements>
+                <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate timer">
+                  <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.2/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                </statements>
+                <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (count == 0 or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                  <condition xsi:type="dbl:Or" concreteSyntax="count == 0 or timer.enabled">
+                    <op1 xsi:type="dbl:Equal" concreteSyntax="count == 0">
+                      <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+                      <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                    </op1>
+                    <op2 xsi:type="dbl:IdExpr" concreteSyntax="timer.enabled" referencedElement="//@modules.0/@classifiers.1/@attributes.2">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.2/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </op2>
+                  </condition>
+                  <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                    <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
+                  </body>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="timer.enabled = false">
+                  <variable concreteSyntax="timer.enabled">
+                    <idExpr concreteSyntax="timer.enabled" referencedElement="//@modules.0/@classifiers.1/@attributes.2">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.2/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+                </statements>
+              </trueCase>
+              <falseCase xsi:type="dbl:Return" concreteSyntax="return false">
+                <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+              </falseCase>
+            </statements>
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (count == 0) return false;">
+              <condition xsi:type="dbl:Equal" concreteSyntax="count == 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </condition>
+              <trueCase xsi:type="dbl:Return" concreteSyntax="return false">
+                <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+              </trueCase>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.remove(active)">
+          <callIdExpr concreteSyntax="fifoList.remove(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.8"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="count = count - 1">
+          <variable concreteSyntax="count">
+            <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Minus" concreteSyntax="count - 1">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return true">
+          <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+        </statements>
+        <parameters name="timout">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </methods>
+      <superClasses clazz="//@modules.0/@classifiers.0"/>
+      <constructor>
+        <parameters name="initCount">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructor>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="FifoSemaphore">
+      <attributes name="frontObject" concreteSyntax="Object frontObject">
+        <classifierType concreteSyntax="Object">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+        </classifierType>
+      </attributes>
+      <methods name="takeForever">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.add(active)">
+          <callIdExpr concreteSyntax="fifoList.add(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (count == 0) {&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Equal" concreteSyntax="count == 0">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
+          </body>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.remove(active)">
+          <callIdExpr concreteSyntax="fifoList.remove(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.8"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="count = count - 1">
+          <variable concreteSyntax="count">
+            <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Minus" concreteSyntax="count - 1">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return true">
+          <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+        </statements>
+      </methods>
+      <methods name="give">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="count = count + 1">
+          <variable concreteSyntax="count">
+            <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Plus" concreteSyntax="count + 1">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (fifoList.size() > 0) {&#xA;&#x9;&#x9;&#x9;frontObject = fifoList.get(0);&#xA;&#x9;&#x9;&#x9;reactivate frontObject;&#xA;&#x9;&#x9;&#x9;// it might be that the front object will not get the semaphore&#xA;&#x9;&#x9;&#x9;// if another object with a higher priority is scheduled at the current model time&#xA;&#x9;&#x9;&#x9;// and executes take() before the front object is executed.&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Greater" concreteSyntax="fifoList.size() > 0">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="fifoList.size()">
+              <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.4"/>
+              <callPart/>
+            </op1>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;frontObject = fifoList.get(0);&#xA;&#x9;&#x9;&#x9;reactivate frontObject;&#xA;&#x9;&#x9;&#x9;// it might be that the front object will not get the semaphore&#xA;&#x9;&#x9;&#x9;// if another object with a higher priority is scheduled at the current model time&#xA;&#x9;&#x9;&#x9;// and executes take() before the front object is executed.&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Assignment" concreteSyntax="frontObject = fifoList.get(0)">
+              <variable concreteSyntax="frontObject">
+                <idExpr concreteSyntax="frontObject" referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+              </variable>
+              <value xsi:type="dbl:IdExpr" concreteSyntax="fifoList.get(0)">
+                <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                </callPart>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:Reactivate" concreteSyntax="reactivate frontObject">
+              <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="frontObject" referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+            </statements>
+          </trueCase>
+        </statements>
+      </methods>
+      <methods name="takeTimeout">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.add(active)">
+          <callIdExpr concreteSyntax="fifoList.add(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (count == 0) {&#xA;&#x9;&#x9;&#x9;// fork would be handy here&#xA;&#x9;&#x9;&#x9;if (timeout > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 and frontObject != active or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 and frontObject = active&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else return false;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if (count == 0) return false;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Equal" concreteSyntax="count == 0">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;// fork would be handy here&#xA;&#x9;&#x9;&#x9;if (timeout > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 and frontObject != active or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 and frontObject = active&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else return false;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;if (count == 0) return false;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (timeout > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 and frontObject != active or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 and frontObject = active&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;else return false;">
+              <condition xsi:type="dbl:Greater" concreteSyntax="timeout > 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="timeout" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.8/@rhs/@sequence.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </condition>
+              <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Timer timer = new Timer;&#xA;&#x9;&#x9;&#x9;&#x9;timer.t = timeout;&#xA;&#x9;&#x9;&#x9;&#x9;timer.caller = active;&#xA;&#x9;&#x9;&#x9;&#x9;activate timer;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;while (count == 0 and frontObject != active or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 and frontObject = active&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;timer.enabled = false;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Variable" name="timer" concreteSyntax="Timer timer = new Timer">
+                  <classifierType concreteSyntax="Timer" referencedElement="//@modules.0/@classifiers.1"/>
+                  <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Timer">
+                    <classifierType concreteSyntax="Timer" referencedElement="//@modules.0/@classifiers.1"/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="timer.t = timeout">
+                  <variable concreteSyntax="timer.t">
+                    <idExpr concreteSyntax="timer.t" referencedElement="//@modules.0/@classifiers.1/@attributes.1">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.3/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:IdExpr" concreteSyntax="timeout" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.8/@rhs/@sequence.0"/>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="timer.caller = active">
+                  <variable concreteSyntax="timer.caller">
+                    <idExpr concreteSyntax="timer.caller" referencedElement="//@modules.0/@classifiers.1/@attributes.0">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.3/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                </statements>
+                <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate timer">
+                  <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.3/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                </statements>
+                <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (count == 0 and frontObject != active or timer.enabled) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 and frontObject = active&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                  <condition xsi:type="dbl:Or" concreteSyntax="count == 0 and frontObject != active or timer.enabled">
+                    <op1 xsi:type="dbl:And" concreteSyntax="count == 0 and frontObject != active">
+                      <op1 xsi:type="dbl:Equal" concreteSyntax="count == 0">
+                        <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+                        <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                      </op1>
+                      <op2 xsi:type="dbl:NotEqual" concreteSyntax="frontObject != active">
+                        <op1 xsi:type="dbl:IdExpr" concreteSyntax="frontObject" referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+                        <op2 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                      </op2>
+                    </op1>
+                    <op2 xsi:type="dbl:IdExpr" concreteSyntax="timer.enabled" referencedElement="//@modules.0/@classifiers.1/@attributes.2">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.3/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </op2>
+                  </condition>
+                  <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// reactivated if either count > 0 and frontObject = active&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;// or timer times out&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                    <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
+                  </body>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="timer.enabled = false">
+                  <variable concreteSyntax="timer.enabled">
+                    <idExpr concreteSyntax="timer.enabled" referencedElement="//@modules.0/@classifiers.1/@attributes.2">
+                      <parentIdExpr concreteSyntax="timer" referencedElement="//@modules.0/@classifiers.3/@methods.2/@statements.1/@trueCase/@statements.0/@trueCase/@statements.0"/>
+                    </idExpr>
+                  </variable>
+                  <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+                </statements>
+              </trueCase>
+              <falseCase xsi:type="dbl:Return" concreteSyntax="return false">
+                <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+              </falseCase>
+            </statements>
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (count == 0) return false;">
+              <condition xsi:type="dbl:Equal" concreteSyntax="count == 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </condition>
+              <trueCase xsi:type="dbl:Return" concreteSyntax="return false">
+                <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+              </trueCase>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="fifoList.remove(active)">
+          <callIdExpr concreteSyntax="fifoList.remove(active)">
+            <parentIdExpr concreteSyntax="fifoList" referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.8"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="count = count - 1">
+          <variable concreteSyntax="count">
+            <idExpr concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Minus" concreteSyntax="count - 1">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="count" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return true">
+          <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+        </statements>
+        <parameters name="timout">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </methods>
+      <superClasses clazz="//@modules.0/@classifiers.0"/>
+    </classifiers>
+    <extensionDefs name="SemaphoreDefinition">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.103"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="SemDef">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="semaphore"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="kind">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.3"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="SemKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.4"/>
+          </rhs>
+        </rules>
+        <rules name="SemKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.13"/>
+          </rhs>
+        </rules>
+        <rules name="SemKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.18"/>
+          </rhs>
+        </rules>
+        <rules name="SemBinary">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="BINARY"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.6"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.9"/>
+          </rhs>
+        </rules>
+        <rules name="SemPolicyOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="SemPolicyOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="policy">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.8"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemPolicy">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="fifo">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="FIFO"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemPolicy">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="prio">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="PRIO"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemInitialOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="SemInitialOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="initState">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.12"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemInitialKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="empty">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="EMPTY"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemInitialKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="full">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="FULL"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemMutex">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="MUTEX"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.6"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.15"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.17"/>
+          </rhs>
+        </rules>
+        <rules name="DeleteSafeOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="DeleteSafeOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="deleteSafe">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="DELETE_SAFE"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="InversionSafeOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="InversionSafeOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="inversionSafe">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="INVERSION_SAFE"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemCounting">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="COUNTING"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.6"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.20"/>
+          </rhs>
+        </rules>
+        <rules name="InitialCountOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="InitialCountOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="initial"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="initialCount">
+              <propertyType xsi:type="dbl:IntPropertyType"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemaphoreDefinition_SemPolicyOpt_extension_SemaphoreDefinition_SemMutex_extension">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="policy">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.8"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemaphoreDefinition_SemPolicyOpt_extension_SemaphoreDefinition_SemMutex_extension">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="SemaphoreDefinition_SemPolicyOpt_extension_SemaphoreDefinition_SemCounting_extension">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="policy">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.8"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemaphoreDefinition_SemPolicyOpt_extension_SemaphoreDefinition_SemCounting_extension">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="LocalScopeStatement objectCreation = !LocalScopeStatement: {&#xA;&#x9;&#x9;//Semaphore ?name + &quot;_semaphore&quot;? = new PrioritySemaphore;&#xA;&#x9;}!;">
+        <statements xsi:type="dbl:Variable" name="objectCreation" concreteSyntax="LocalScopeStatement objectCreation = !LocalScopeStatement: {&#xA;&#x9;&#x9;//Semaphore ?name + &quot;_semaphore&quot;? = new PrioritySemaphore;&#xA;&#x9;}!">
+          <classifierType concreteSyntax="LocalScopeStatement">
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.44"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:ParseExpr" concreteSyntax="!LocalScopeStatement: {&#xA;&#x9;&#x9;//Semaphore ?name + &quot;_semaphore&quot;? = new PrioritySemaphore;&#xA;&#x9;}!">
+            <astPart xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;//Semaphore ?name + &quot;_semaphore&quot;? = new PrioritySemaphore;&#xA;&#x9;}"/>
+          </initialValue>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+    <extensionDefs name="SemaphoreAction">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.10">
+        <rules name="SemAction">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.2"/>
+          </rhs>
+        </rules>
+        <rules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.3"/>
+          </rhs>
+        </rules>
+        <rules name="Action">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.13"/>
+          </rhs>
+        </rules>
+        <rules name="SemaphoreTake">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="take"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="semaphore">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.0" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="waitKind">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.6"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.4"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="SemActionOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="SemActionOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="on"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="actions">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.10" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.4"/>
+          </rhs>
+        </rules>
+        <rules name="WaitKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="waitForever">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="and wait"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="WaitKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="noWait">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="and dont wait"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="WaitKind">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="timeout">
+              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="and timeout after"/>
+            </sequence>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="after">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.51"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemAction">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.11"/>
+          </rhs>
+        </rules>
+        <rules name="SemAction">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.12"/>
+          </rhs>
+        </rules>
+        <rules name="SemActionOK">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="OK"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.44"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemActionError">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ERROR"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.44"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="SemaphoreGive">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="give"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="semaphore">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.0" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="SemaphoreAction_SemActionOpt_extension_SemaphoreAction_SemaphoreTake_extension">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="on"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="actions">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.10" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.4"/>
+          </rhs>
+        </rules>
+        <rules name="SemaphoreAction_SemActionOpt_extension_SemaphoreAction_SemaphoreTake_extension">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax=""/>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

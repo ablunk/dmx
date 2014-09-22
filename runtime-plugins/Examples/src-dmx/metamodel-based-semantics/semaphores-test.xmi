@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="semaphores">
+    <model href="semaphores.xmi#/"/>
+  </imports>
+  <modules name="semtest">
+    <extensions xsi:type="dbl:SemaphoreDefinition_SemDef_extension" name="s1" concreteSyntax="semaphore s1 BINARY FIFO;" instanceOfExtensionDefinition="true">
+      <kind xsi:type="dbl:SemaphoreDefinition_SemBinary_extension" concreteSyntax="BINARY FIFO" instanceOfExtensionDefinition="true">
+        <policy concreteSyntax="FIFO" instanceOfExtensionDefinition="true" fifo="true"/>
+      </kind>
+    </extensions>
+    <extensions xsi:type="dbl:SemaphoreDefinition_SemDef_extension" name="s2" concreteSyntax="semaphore s2 COUNTING PRIO initial=10;" instanceOfExtensionDefinition="true">
+      <kind xsi:type="dbl:SemaphoreDefinition_SemCounting_extension" concreteSyntax="COUNTING PRIO initial=10" instanceOfExtensionDefinition="true" initialCount="10">
+        <policy concreteSyntax="PRIO" instanceOfExtensionDefinition="true" prio="true"/>
+      </kind>
+    </extensions>
+    <extensions xsi:type="dbl:SemaphoreDefinition_SemDef_extension" name="s3" concreteSyntax="semaphore s3 MUTEX DELETE_SAFE;" instanceOfExtensionDefinition="true">
+      <kind xsi:type="dbl:SemaphoreDefinition_SemMutex_extension" concreteSyntax="MUTEX DELETE_SAFE" instanceOfExtensionDefinition="true" deleteSafe="true"/>
+    </extensions>
+    <classifiers xsi:type="dbl:Clazz" name="P1" active="true">
+      <actionsBlock>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreTake_extension" concreteSyntax="take s1 and wait;" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.0">
+          <waitKind concreteSyntax="and wait" instanceOfExtensionDefinition="true" waitForever="true"/>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 5">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="5" value="5"/>
+        </statements>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreGive_extension" concreteSyntax="give s1;" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.0"/>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreTake_extension" concreteSyntax="take s1 and wait;" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.0">
+          <waitKind concreteSyntax="and wait" instanceOfExtensionDefinition="true" waitForever="true"/>
+        </statements>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreTake_extension" concreteSyntax="take s1 and dont wait;" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.0">
+          <waitKind concreteSyntax="and dont wait" instanceOfExtensionDefinition="true" noWait="true"/>
+        </statements>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreTake_extension" concreteSyntax="take s2 and timeout after 10;" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.1">
+          <waitKind concreteSyntax="and timeout after 10" instanceOfExtensionDefinition="true" timeout="true">
+            <after xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+          </waitKind>
+        </statements>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreTake_extension" concreteSyntax="take s2 and dont wait&#xA;&#x9;&#x9;&#x9;on ERROR {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;s2 not available&quot;;&#xA;&#x9;&#x9;&#x9;};" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.1">
+          <waitKind concreteSyntax="and dont wait" instanceOfExtensionDefinition="true" noWait="true"/>
+          <actions xsi:type="dbl:SemaphoreAction_SemActionError_extension" concreteSyntax="ERROR {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;s2 not available&quot;;&#xA;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+            <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;s2 not available&quot;;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Print" concreteSyntax="print &quot;s2 not available&quot;">
+                <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;s2 not available&quot;" value="s2 not available"/>
+              </statements>
+            </body>
+          </actions>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="waitTime" concreteSyntax="double waitTime = 20">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+          <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="20" value="20"/>
+        </statements>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreTake_extension" concreteSyntax="take s3 and timeout after waitTime&#xA;&#x9;&#x9;&#x9;on ERROR {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;s3 not available&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;on OK {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;got s3&quot;;&#xA;&#x9;&#x9;&#x9;};" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.2">
+          <waitKind concreteSyntax="and timeout after waitTime" instanceOfExtensionDefinition="true" timeout="true">
+            <after xsi:type="dbl:IdExpr" concreteSyntax="waitTime" referencedElement="//@modules.0/@classifiers.0/@actionsBlock/@statements.7"/>
+          </waitKind>
+          <actions xsi:type="dbl:SemaphoreAction_SemActionError_extension" concreteSyntax="ERROR {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;s3 not available&quot;;&#xA;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+            <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;s3 not available&quot;;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Print" concreteSyntax="print &quot;s3 not available&quot;">
+                <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;s3 not available&quot;" value="s3 not available"/>
+              </statements>
+            </body>
+          </actions>
+          <actions xsi:type="dbl:SemaphoreAction_SemActionOK_extension" concreteSyntax="OK {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;got s3&quot;;&#xA;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+            <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;got s3&quot;;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Print" concreteSyntax="print &quot;got s3&quot;">
+                <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;got s3&quot;" value="got s3"/>
+              </statements>
+            </body>
+          </actions>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="P2" active="true">
+      <actionsBlock>
+        <statements xsi:type="dbl:SemaphoreAction_SemaphoreTake_extension" concreteSyntax="take s1 and wait;" instanceOfExtensionDefinition="true" semaphore="//@modules.0/@extensions.0">
+          <waitKind concreteSyntax="and wait" instanceOfExtensionDefinition="true" waitForever="true"/>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+  </modules>
+</dbl:Model>

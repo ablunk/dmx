@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <modules name="x">
+    <classifiers xsi:type="dbl:Clazz" name="StateMachine"/>
+    <extensionDefs name="ForkX">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="Fork">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="fork"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.44"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="rewrite(body);&#xA;&#xA;&#x9;Clazz ownerClass; // TODO navigate&#xA;&#x9;Module snippet = !Module:module _ {&#xA;&#x9;&#x9;active class ?ownerClass.name + &quot;_Fork&quot;? {&#xA;&#x9;&#x9;&#x9;// ?ownerClass? contextObj;&#xA;&#x9;&#x9;&#x9;actions {&#xA;&#x9;&#x9;&#x9;&#x9;// ?body?&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}!;">
+        <statements xsi:type="dbl:ProcedureCall" concreteSyntax="rewrite(body)">
+          <callIdExpr concreteSyntax="rewrite(body)" referencedElement="//@modules.0/@procedures.0">
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="ownerClass" concreteSyntax="Clazz ownerClass">
+          <classifierType concreteSyntax="Clazz">
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.21"/>
+          </classifierType>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="snippet" concreteSyntax="Module snippet = !Module:module _ {&#xA;&#x9;&#x9;active class ?ownerClass.name + &quot;_Fork&quot;? {&#xA;&#x9;&#x9;&#x9;// ?ownerClass? contextObj;&#xA;&#x9;&#x9;&#x9;actions {&#xA;&#x9;&#x9;&#x9;&#x9;// ?body?&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}!">
+          <classifierType concreteSyntax="Module">
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.3"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:ParseExpr" concreteSyntax="!Module:module _ {&#xA;&#x9;&#x9;active class ?ownerClass.name + &quot;_Fork&quot;? {&#xA;&#x9;&#x9;&#x9;// ?ownerClass? contextObj;&#xA;&#x9;&#x9;&#x9;actions {&#xA;&#x9;&#x9;&#x9;&#x9;// ?body?&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}!">
+            <astPart xsi:type="dbl:Module" name="_">
+              <classifiers xsi:type="dbl:Clazz" active="true">
+                <actionsBlock/>
+                <expandExpr concreteSyntax="?ownerClass.name + &quot;_Fork&quot;?">
+                  <expr xsi:type="dbl:Plus" concreteSyntax="ownerClass.name + &quot;_Fork&quot;">
+                    <op1 xsi:type="dbl:IdExpr" concreteSyntax="ownerClass.name">
+                      <parentIdExpr concreteSyntax="ownerClass" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+                      <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.27/@attributes.0"/>
+                    </op1>
+                    <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;_Fork&quot;" value="_Fork"/>
+                  </expr>
+                </expandExpr>
+              </classifiers>
+            </astPart>
+          </initialValue>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+    <procedures name="rewrite">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (obj instanceof IdExpr) {&#xA;&#x9;&#x9;IdExpr idExpr = obj as IdExpr;&#xA;&#x9;&#x9;while (idExpr.parentIdExpr != null) {&#xA;&#x9;&#x9;&#x9;idExpr = idExpr.parentIdExpr;&#xA;&#x9;&#x9;}&#xA;&#xA;&#x9;&#x9;LocalScopeStatement snippet = !LocalScopeStatement:&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;Object contextObj;&#xA;&#x9;&#x9;&#x9;contextObj = null;&#xA;&#x9;&#x9;}!;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Assignment objVariable = snippet.statements.get(1) as Assignment;&#xA;&#x9;&#x9;idExpr.parentIdExpr = objVariable.variable.idExpr;&#xA;&#x9;}&#xA;&#x9;else {&#xA;&#x9;&#x9;foreach (EObject content in obj.eContents()) {&#xA;&#x9;&#x9;&#x9;rewrite(content);&#xA;&#x9;&#x9;}&#x9;&#xA;&#x9;}">
+        <condition xsi:type="dbl:InstanceOf" concreteSyntax="obj instanceof IdExpr">
+          <op1 xsi:type="dbl:IdExpr" concreteSyntax="obj" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+          <op2 xsi:type="dbl:TypeAccess" concreteSyntax="IdExpr">
+            <idExpr concreteSyntax="IdExpr">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.96"/>
+            </idExpr>
+          </op2>
+        </condition>
+        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;IdExpr idExpr = obj as IdExpr;&#xA;&#x9;&#x9;while (idExpr.parentIdExpr != null) {&#xA;&#x9;&#x9;&#x9;idExpr = idExpr.parentIdExpr;&#xA;&#x9;&#x9;}&#xA;&#xA;&#x9;&#x9;LocalScopeStatement snippet = !LocalScopeStatement:&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;Object contextObj;&#xA;&#x9;&#x9;&#x9;contextObj = null;&#xA;&#x9;&#x9;}!;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Assignment objVariable = snippet.statements.get(1) as Assignment;&#xA;&#x9;&#x9;idExpr.parentIdExpr = objVariable.variable.idExpr;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Variable" name="idExpr" concreteSyntax="IdExpr idExpr = obj as IdExpr">
+            <classifierType concreteSyntax="IdExpr">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.96"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="obj as IdExpr">
+              <classifierType concreteSyntax="IdExpr">
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.96"/>
+              </classifierType>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="obj" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (idExpr.parentIdExpr != null) {&#xA;&#x9;&#x9;&#x9;idExpr = idExpr.parentIdExpr;&#xA;&#x9;&#x9;}">
+            <condition xsi:type="dbl:NotEqual" concreteSyntax="idExpr.parentIdExpr != null">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="idExpr.parentIdExpr">
+                <parentIdExpr concreteSyntax="idExpr" referencedElement="//@modules.0/@procedures.0/@statements.0/@trueCase/@statements.0"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.96/@attributes.0"/>
+              </op1>
+              <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+            </condition>
+            <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;idExpr = idExpr.parentIdExpr;&#xA;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Assignment" concreteSyntax="idExpr = idExpr.parentIdExpr">
+                <variable concreteSyntax="idExpr">
+                  <idExpr concreteSyntax="idExpr" referencedElement="//@modules.0/@procedures.0/@statements.0/@trueCase/@statements.0"/>
+                </variable>
+                <value xsi:type="dbl:IdExpr" concreteSyntax="idExpr.parentIdExpr">
+                  <parentIdExpr concreteSyntax="idExpr" referencedElement="//@modules.0/@procedures.0/@statements.0/@trueCase/@statements.0"/>
+                  <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.96/@attributes.0"/>
+                </value>
+              </statements>
+            </body>
+          </statements>
+          <statements xsi:type="dbl:Variable" name="snippet" concreteSyntax="LocalScopeStatement snippet = !LocalScopeStatement:&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;Object contextObj;&#xA;&#x9;&#x9;&#x9;contextObj = null;&#xA;&#x9;&#x9;}!">
+            <classifierType concreteSyntax="LocalScopeStatement">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.44"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:ParseExpr" concreteSyntax="!LocalScopeStatement:&#xA;&#x9;&#x9;{&#xA;&#x9;&#x9;&#x9;Object contextObj;&#xA;&#x9;&#x9;&#x9;contextObj = null;&#xA;&#x9;&#x9;}!">
+              <astPart xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;Object contextObj;&#xA;&#x9;&#x9;&#x9;contextObj = null;&#xA;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Variable" name="contextObj" concreteSyntax="Object contextObj">
+                  <classifierType concreteSyntax="Object">
+                    <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+                  </classifierType>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="contextObj = null">
+                  <variable concreteSyntax="contextObj">
+                    <idExpr concreteSyntax="contextObj" referencedElement="//@modules.0/@procedures.0/@statements.0/@trueCase/@statements.2/@initialValue/@astPart/@statements.0"/>
+                  </variable>
+                  <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+                </statements>
+              </astPart>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Variable" name="objVariable" concreteSyntax="Assignment objVariable = snippet.statements.get(1) as Assignment">
+            <classifierType concreteSyntax="Assignment">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.31"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="snippet.statements.get(1) as Assignment">
+              <classifierType concreteSyntax="Assignment">
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.31"/>
+              </classifierType>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="snippet.statements.get(1)">
+                <parentIdExpr concreteSyntax="snippet.statements">
+                  <parentIdExpr concreteSyntax="snippet" referencedElement="//@modules.0/@procedures.0/@statements.0/@trueCase/@statements.2"/>
+                  <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.43/@attributes.0"/>
+                </parentIdExpr>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </callPart>
+              </op>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Assignment" concreteSyntax="idExpr.parentIdExpr = objVariable.variable.idExpr">
+            <variable concreteSyntax="idExpr.parentIdExpr">
+              <idExpr concreteSyntax="idExpr.parentIdExpr">
+                <parentIdExpr concreteSyntax="idExpr" referencedElement="//@modules.0/@procedures.0/@statements.0/@trueCase/@statements.0"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.96/@attributes.0"/>
+              </idExpr>
+            </variable>
+            <value xsi:type="dbl:IdExpr" concreteSyntax="objVariable.variable.idExpr">
+              <parentIdExpr concreteSyntax="objVariable.variable">
+                <parentIdExpr concreteSyntax="objVariable" referencedElement="//@modules.0/@procedures.0/@statements.0/@trueCase/@statements.3"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.31/@attributes.0"/>
+              </parentIdExpr>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.98/@attributes.0"/>
+            </value>
+          </statements>
+        </trueCase>
+        <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;foreach (EObject content in obj.eContents()) {&#xA;&#x9;&#x9;&#x9;rewrite(content);&#xA;&#x9;&#x9;}&#x9;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (EObject content in obj.eContents()) {&#xA;&#x9;&#x9;&#x9;rewrite(content);&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+            <statements xsi:type="dbl:Variable" name="content" concreteSyntax="EObject content">
+              <classifierType concreteSyntax="EObject">
+                <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.11"/>
+              </classifierType>
+            </statements>
+            <collection xsi:type="dbl:IdExpr" concreteSyntax="obj.eContents()">
+              <parentIdExpr concreteSyntax="obj" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+              <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.11/@methods.4"/>
+              <callPart/>
+            </collection>
+            <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;rewrite(content);&#xA;&#x9;&#x9;}">
+              <statements xsi:type="dbl:ProcedureCall" concreteSyntax="rewrite(content)">
+                <callIdExpr concreteSyntax="rewrite(content)" referencedElement="//@modules.0/@procedures.0">
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="content" referencedElement="//@modules.0/@procedures.0/@statements.0/@falseCase/@statements.0/@statements.0"/>
+                  </callPart>
+                </callIdExpr>
+              </statements>
+            </body>
+          </statements>
+        </falseCase>
+      </statements>
+      <parameters name="obj">
+        <classifierType concreteSyntax="EObject">
+          <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.11"/>
+        </classifierType>
+      </parameters>
+    </procedures>
+  </modules>
+</dbl:Model>

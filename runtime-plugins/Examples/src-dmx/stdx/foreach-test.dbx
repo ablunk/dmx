@@ -2,11 +2,20 @@
 
 module stdx_foreach_test {
 
-void test() {
-	List l;
-	foreach (Object x in l) {
-		Object x2 = x;
-	}
+void f1(List l) {
+
+	Iterator it = l.iterator();
+	while (it.hasNext()) {
+		Object item = it.next();
+		print item as string;
+	}	
+}
+
+void f2(List l) {
+
+	foreach (Object item in l) {
+		print item as string;
+	}	
 }
 
 }

@@ -1,0 +1,104 @@
+#import "../dbl"
+
+module x {
+
+class StateMachine {}
+
+extension FrontExec extends dbl SimpleStatement {
+	start FX;
+	FX -> "fx" stm:SimpleStatement;
+}
+semantics {
+	SimpleStatement fxStm = stm.eContainer() as SimpleStatement;
+	LocalScope ls = fxStm.eContainer() as LocalScope;
+		
+	// insert inside extension
+	if (stm instanceof Assignment) {
+		Assignment a = stm as Assignment;
+
+		// AS-Snippet, Code-Snippet
+		// !<Modellteil>: <konkrete Syntax in geparster Form>! ist Code-Snippet-Ausdruck (Code-Schnipsel)
+		// Dieser enthält einen Teil eines DBL-Modells in geparster Form.
+		// Der Wert ist ein AST des Modellteils.
+		// Dabei können Teile des Modells variabel in Form von Expand-Ausdrücken hinterlegt sein.
+		// Sobald der Snippet-Ausdruck in einer Expand-Anweisung verwendet wird, müssen alle
+		// Expand-Ausdrücke durch ihre konkrete Syntax ersetzt werden.
+		// JSE Code Quote
+		
+		// CS-Ausdruck (Concrete Syntax)
+		// ?<AST-Objekt oder Referenz>? ist ein Expand-Ausdruck
+		// Der Wert eines Expand-Ausdrucks ist die konkrete Syntax (also Text) des AST-Objektes.
+		// Dieser wird berechnet sobald dies erforderlich ist und ersetzt dann den Expand-Ausdruck.
+		// JSE Parameterized Insertion
+		
+		// Beispiel 1
+		LocalScopeStatement s1 = !LocalScopeStatement:
+		{
+			// ?stm?;
+			print ?a.value?;
+		}!;
+		// expand ?s1?;
+		
+		// Beispiel 2
+		
+		//int i=1;
+		//print i;
+		
+		LocalScopeStatement s2 = !LocalScopeStatement: { int i=1; print i; }!;
+		//exec ?s2?;
+		// Führt das Ergebnis von s2 im aktuellen Kontext aus, so als wäre es direkt enthalten.
+		// s2 muss ein Statement sein.
+		
+		// Beispiel 3
+		// foreach kann man verwenden um in einer Schleife mehrere Schnipsel zu erzeugen
+		
+		// Beispiel 4: mehrfache Anwendung
+		// exec ?!Statement: print "hallo"; !?;
+		// exec ?!Statement: ?!Statement: print "hallo";!?; !?;
+		
+		print ?!LocalScopeStatement: { int i=1; print i; }!?;
+		
+		// class ?name + "_StateMachine"? { void bla() { ?body? } }
+		// ?someType? bla() { }
+		string name;
+		Module mSnipped = !Module:module _ {
+			class ?name + "_StateMachine"? extends StateMachine {
+				void bla() {
+					//?stm?;
+				}
+			}
+		}!;
+		
+		// expand ?mSnipped.classifiers.get(0)?;
+		// vielleicht es besser nur noch das expandieren von AST-objekten
+		// an bestimmten stellen zu erlauben. so wird immer korrekter code eingefügt
+		// und man kann nicht beliebig andere teile des programms verändern.
+		
+		// Procedure p = !Procedure: ?someType? bla() { }!;
+
+		// parse-expression !...! zur Erzeugung von AST-Objekten
+		// Assignment aneu = !Assignment: i=i+1!;
+		// fxStm.setStm(aneu);
+		// in der Grammatik gibt es eine Regel der Form
+		// ParseExpression -> "!" "Assignment" ":" ast:composite(Assigment) "!" ;
+		// für jedes Konzept. Erweiterungen fügen automatisch eine entsprechende Regel hinzu.
+		Assignment aneu = !Assignment:a=a+1!;
+		Module m = !Module:module _ { class A_StateMachine extends StateMachine {} }!;
+		
+		LocalScopeStatement lSnipped = !LocalScopeStatement: {int i; i=10*7+a.value;}!; // TODO: 10*7 + ?a.value?
+		// expand ?lSnipped.statements.get(1)?;
+		
+		// text-expression ?..? zum Einfügen der konkreten Syntax eines AST-Objektes
+		// in expand passiert das bereits automatisch:
+		// expand astObj; ist identisch mit expand ?astObj?;
+	}
+	expand stm ";";
+	
+	set expand before ls.statements.get(0); // insert before extension
+	expand stm ";";
+	
+	set expand before ls.statements.get(ls.statements.size() - 1); // insert after extension
+	expand "i=9;";
+}
+
+}

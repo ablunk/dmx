@@ -1,0 +1,23 @@
+#import "oox"
+
+module ooxTest {
+
+oox extension Y extends dbl SimpleStatement {
+	start Y;
+	Y -> "y" ";";
+}
+
+extension X extends dbl SimpleStatement {
+	start X;
+	X -> "x" ";"
+	{
+		X copy() {
+			return new X;
+		}
+	};
+}
+semantics {
+	//
+}
+
+}

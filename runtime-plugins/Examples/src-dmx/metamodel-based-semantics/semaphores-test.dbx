@@ -1,0 +1,41 @@
+#import "semaphores"
+
+module semtest {
+
+semaphore s1 BINARY FIFO;
+semaphore s2 COUNTING PRIO initial=10;
+semaphore s3 MUTEX DELETE_SAFE;
+
+active class P1 {
+	actions {
+		take s1 and wait;
+		advance 5;
+		give s1;
+		
+		take s1 and wait;
+		take s1 and dont wait;
+		take s2 and timeout after 10;
+		
+		take s2 and dont wait
+			on ERROR {
+				print "s2 not available";
+			};
+
+		double waitTime = 20;
+		take s3 and timeout after waitTime
+			on ERROR {
+				print "s3 not available";
+			}
+			on OK {
+				print "got s3";
+			};
+	}
+}
+
+active class P2 {
+	actions {
+		take s1 and wait;
+	}
+}
+
+}

@@ -1,0 +1,220 @@
+#import "../dbl"
+#import "../stdx"
+
+module semaphores {
+
+class Semaphore(int _initCount) {
+
+	control int count = _initCount;
+	List fifoList;
+		
+	boolean takeForever() abstract;
+	boolean takeTimeout(double _timeout) abstract;
+	void give() abstract;
+	
+	void wakeUpWaiting() {
+		foreach (Object obj in fifoList) {
+			reactivate obj;
+		}
+	}
+}
+
+active class Timer {
+	Object caller;
+	double t;
+	boolean enabled = true;
+	
+	actions {
+		advance t;
+		if (enabled) reactivate caller;
+		enabled = false;
+	}
+}
+
+class PrioritySemaphore(int initCount) extends Semaphore {
+
+	boolean takeForever() {
+		fifoList.add(active);
+		
+		while (count == 0) {
+			wait;
+		}
+		
+		fifoList.remove(active);
+		count = count - 1;
+		return true;
+	}
+		
+	void give() {
+		count = count + 1;
+		wakeUpWaiting();
+	}
+	
+	boolean takeTimeout(double timout) {
+		fifoList.add(active);
+
+		if (count == 0) {
+			// fork would be handy here
+			if (timeout > 0) {
+				Timer timer = new Timer;
+				timer.t = timeout;
+				timer.caller = active;
+				activate timer;
+				
+				while (count == 0 or timer.enabled) {
+					wait;
+					// reactivated if either count > 0 or timer times out
+				}
+				timer.enabled = false;
+			}
+			else return false;
+			
+			if (count == 0) return false;
+		}
+
+		fifoList.remove(active);
+		count = count - 1;
+		return true;
+	}
+}
+
+class FifoSemaphore extends Semaphore {
+
+	Object frontObject;
+
+	boolean takeForever() {
+		fifoList.add(active);
+		
+		while (count == 0) {
+			wait;
+		}
+		
+		fifoList.remove(active);
+		count = count - 1;
+		return true;
+	}
+	
+	void give() {
+		count = count + 1;
+		
+		if (fifoList.size() > 0) {
+			frontObject = fifoList.get(0);
+			reactivate frontObject;
+			// it might be that the front object will not get the semaphore
+			// if another object with a higher priority is scheduled at the current model time
+			// and executes take() before the front object is executed.
+		}
+	}
+	
+	boolean takeTimeout(double timout) {
+		fifoList.add(active);
+
+		if (count == 0) {
+			// fork would be handy here
+			if (timeout > 0) {
+				Timer timer = new Timer;
+				timer.t = timeout;
+				timer.caller = active;
+				activate timer;
+				
+				while (count == 0 and frontObject != active or timer.enabled) {
+					wait;
+					// reactivated if either count > 0 and frontObject = active
+					// or timer times out
+				}
+				timer.enabled = false;
+			}
+			else return false;
+			
+			if (count == 0) return false;
+		}
+
+		fifoList.remove(active);
+		count = count - 1;
+		return true;
+	}
+}
+
+extension SemaphoreDefinition extends dbl ModuleContentExtension {
+	start SemDef;
+	
+	SemDef -> "semaphore" name:ID kind:SemKind ";";
+	SemKind -> SemBinary;
+	SemKind -> SemMutex;
+	SemKind -> SemCounting;
+	
+	SemBinary -> "BINARY" SemPolicyOpt SemInitialOpt;
+
+	SemPolicyOpt -> ;
+	SemPolicyOpt -> policy:SemPolicy;
+	SemPolicy -> fifo:"FIFO";
+	SemPolicy -> prio:"PRIO";
+
+	SemInitialOpt -> ;
+	SemInitialOpt -> initState:SemInitialKind;
+
+	SemInitialKind -> empty:"EMPTY";
+	SemInitialKind -> full:"FULL";
+	
+	SemMutex -> "MUTEX" SemPolicyOpt DeleteSafeOpt InversionSafeOpt;
+	
+	DeleteSafeOpt -> ;
+	DeleteSafeOpt -> deleteSafe:"DELETE_SAFE";
+
+	InversionSafeOpt -> ;
+	InversionSafeOpt -> inversionSafe:"INVERSION_SAFE";
+
+	SemCounting -> "COUNTING" SemPolicyOpt InitialCountOpt;
+	InitialCountOpt -> ;
+	InitialCountOpt -> "initial" "=" initialCount:INT;
+}
+semantics {
+	LocalScopeStatement objectCreation = !LocalScopeStatement: {
+		//Semaphore ?name + "_semaphore"? = new PrioritySemaphore;
+	}!;
+	
+	/*
+	Variable instanceVar = !Variable: Semaphore ?name + "_semaphore"? = new PrioritySemaphore;!
+	--> instanceVar has to be used by extensions which need to refer to this extension in DBL code
+	question is how to make instanceVar available to them?
+	
+	*/
+	
+	// bind extension reference to objectCreation.statements.get(0);
+	// --> ?reference(extension)? maps to a reference to the variable
+	
+	// oo-extension might be handy here as it creates a DBL object which can be referenced.
+	
+	// expand objectCreation.statements.get(0);
+}
+
+extension SemaphoreAction extends dbl SimpleStatement {
+	start SemAction;
+
+	SemAction -> Action;
+
+	Action -> SemaphoreTake;
+	Action -> SemaphoreGive;
+	
+	SemaphoreTake -> "take" semaphore:$$SemaphoreDefinition waitKind:WaitKind SemActionOpt ";";
+
+	SemActionOpt -> ;
+	SemActionOpt -> "on" actions:list(SemAction) SemActionOpt;
+	
+	WaitKind -> waitForever:"and wait";
+	WaitKind -> noWait:"and dont wait";
+	WaitKind -> timeout:"and timeout after" after:Expression;
+
+	SemAction -> SemActionOK;
+	SemAction -> SemActionError;
+	SemActionOK -> "OK" body:LocalScopeStatement;
+	SemActionError -> "ERROR" body:LocalScopeStatement;
+	
+	SemaphoreGive -> "give" semaphore:$$SemaphoreDefinition ";";
+}
+semantics {	
+
+}
+
+
+}

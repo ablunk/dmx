@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="fork">
+    <model href="fork.xmi#/"/>
+  </imports>
+  <modules name="forkTest">
+    <classifiers xsi:type="dbl:Clazz" name="A_fork1" active="true">
+      <attributes name="obj" concreteSyntax="A obj">
+        <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classifiers.2"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Print" concreteSyntax="print obj.i">
+          <outputs xsi:type="dbl:IdExpr" concreteSyntax="obj.i" referencedElement="//@modules.0/@classifiers.2/@attributes.0">
+            <parentIdExpr concreteSyntax="obj" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          </outputs>
+        </statements>
+        <statements xsi:type="dbl:Terminate" concreteSyntax="terminate"/>
+      </actionsBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="A_base" active="true">
+      <attributes name="i" concreteSyntax="int i">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="i=1">
+          <variable concreteSyntax="i">
+            <idExpr concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="f1" concreteSyntax="A_fork1 f1 = new A_fork1">
+          <classifierType concreteSyntax="A_fork1" referencedElement="//@modules.0/@classifiers.0"/>
+          <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A_fork1">
+            <classifierType concreteSyntax="A_fork1" referencedElement="//@modules.0/@classifiers.0"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="f1.obj = self">
+          <variable concreteSyntax="f1.obj">
+            <idExpr concreteSyntax="f1.obj" referencedElement="//@modules.0/@classifiers.0/@attributes.0">
+              <parentIdExpr concreteSyntax="f1" referencedElement="//@modules.0/@classifiers.1/@actionsBlock/@statements.1"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="self">
+            <predefinedId xsi:type="dbl:MeLiteral"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate f1">
+          <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="f1" referencedElement="//@modules.0/@classifiers.1/@actionsBlock/@statements.1"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="i=2">
+          <variable concreteSyntax="i">
+            <idExpr concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 1">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+        </statements>
+        <statements xsi:type="dbl:Print" concreteSyntax="print i">
+          <outputs xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="A" active="true">
+      <attributes name="i" concreteSyntax="int i">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="i=1">
+          <variable concreteSyntax="i">
+            <idExpr concreteSyntax="i" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+        </statements>
+        <statements xsi:type="dbl:ForkX_Fork_extension" concreteSyntax="fork {&#xA;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;terminate;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;terminate;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Print" concreteSyntax="print i">
+              <outputs xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+            </statements>
+            <statements xsi:type="dbl:Terminate" concreteSyntax="terminate"/>
+          </body>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="i=2">
+          <variable concreteSyntax="i">
+            <idExpr concreteSyntax="i" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 1">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+        </statements>
+        <statements xsi:type="dbl:Print" concreteSyntax="print i">
+          <outputs xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+  </modules>
+</dbl:Model>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <modules name="oox">
+    <extensionDefs name="OOX">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.103"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="OOX">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="oox"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="extDef">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.104"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="Module containerModule;&#xA;&#x9;foreach (TsRule rule in extDef.textualSyntaxDef.rules) {&#xA;&#x9;&#x9;Module m = !Module: module _ {&#xA;&#x9;&#x9;&#x9;class ?rule.name? {&#xA;&#x9;&#x9;&#x9;&#x9;// XFOR syntax parts ...&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}!;&#xA;&#x9;&#x9;// expand meta m.classifiers.get(0) in containerModule.classifiers;&#xA;&#x9;&#x9;// TODO expand only once for rules with same name&#xA;&#x9;}">
+        <statements xsi:type="dbl:Variable" name="containerModule" concreteSyntax="Module containerModule">
+          <classifierType concreteSyntax="Module">
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.3"/>
+          </classifierType>
+        </statements>
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (TsRule rule in extDef.textualSyntaxDef.rules) {&#xA;&#x9;&#x9;Module m = !Module: module _ {&#xA;&#x9;&#x9;&#x9;class ?rule.name? {&#xA;&#x9;&#x9;&#x9;&#x9;// XFOR syntax parts ...&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}!;&#xA;&#x9;&#x9;// expand meta m.classifiers.get(0) in containerModule.classifiers;&#xA;&#x9;&#x9;// TODO expand only once for rules with same name&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="rule" concreteSyntax="TsRule rule">
+            <classifierType concreteSyntax="TsRule">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.108"/>
+            </classifierType>
+          </statements>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="extDef.textualSyntaxDef.rules">
+            <parentIdExpr concreteSyntax="extDef.textualSyntaxDef">
+              <parentIdExpr concreteSyntax="extDef" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.104/@attributes.2"/>
+            </parentIdExpr>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.105/@attributes.1"/>
+          </collection>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;Module m = !Module: module _ {&#xA;&#x9;&#x9;&#x9;class ?rule.name? {&#xA;&#x9;&#x9;&#x9;&#x9;// XFOR syntax parts ...&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}!;&#xA;&#x9;&#x9;// expand meta m.classifiers.get(0) in containerModule.classifiers;&#xA;&#x9;&#x9;// TODO expand only once for rules with same name&#xA;&#x9;}">
+            <statements xsi:type="dbl:Variable" name="m" concreteSyntax="Module m = !Module: module _ {&#xA;&#x9;&#x9;&#x9;class ?rule.name? {&#xA;&#x9;&#x9;&#x9;&#x9;// XFOR syntax parts ...&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}!">
+              <classifierType concreteSyntax="Module">
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.3"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:ParseExpr" concreteSyntax="!Module: module _ {&#xA;&#x9;&#x9;&#x9;class ?rule.name? {&#xA;&#x9;&#x9;&#x9;&#x9;// XFOR syntax parts ...&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}!">
+                <astPart xsi:type="dbl:Module" name="_">
+                  <classifiers xsi:type="dbl:Clazz">
+                    <expandExpr concreteSyntax="?rule.name?">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="rule.name">
+                        <parentIdExpr concreteSyntax="rule" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1/@statements.0"/>
+                        <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.27/@attributes.0"/>
+                      </expr>
+                    </expandExpr>
+                  </classifiers>
+                </astPart>
+              </initialValue>
+            </statements>
+          </body>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+    <extensionDefs name="OOTsRule">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.108"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="OOTsRule">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="->"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="rhs">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.109"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="OperationsPartOpt">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="OperationsPartOpt">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.3"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </rules>
+        <rules name="OperationsList">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="OperationsList">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="operations">
+              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.15"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.3"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

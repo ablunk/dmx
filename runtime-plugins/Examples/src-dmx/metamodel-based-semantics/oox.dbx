@@ -1,0 +1,32 @@
+#import "../dbl"
+#import "../stdx"
+
+module oox {
+
+extension OOX extends dbl ModuleContentExtension {
+	start OOX;
+	OOX -> "oox" extDef:ExtensionDefinition;
+}
+semantics {
+	Module containerModule;
+	foreach (TsRule rule in extDef.textualSyntaxDef.rules) {
+		Module m = !Module: module _ {
+			class ?rule.name? {
+				// XFOR syntax parts ...
+			}
+		}!;
+		// expand meta m.classifiers.get(0) in containerModule.classifiers;
+		// TODO expand only once for rules with same name
+	}
+}
+
+extension OOTsRule extends dbl TsRule {
+	start OOTsRule;
+	OOTsRule -> name:ID "->" rhs:RhsExpression OperationsPartOpt ";";
+	OperationsPartOpt -> ;
+	OperationsPartOpt -> "{" OperationsList "}";
+	OperationsList -> ;
+	OperationsList -> operations:list(Procedure) OperationsList;
+}
+
+}

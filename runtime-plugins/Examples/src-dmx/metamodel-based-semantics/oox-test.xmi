@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="oox">
+    <model href="oox.xmi#/"/>
+  </imports>
+  <modules name="ooxTest">
+    <extensions xsi:type="dbl:OOX_OOX_extension" concreteSyntax="oox extension Y extends dbl SimpleStatement {&#xA;&#x9;start Y;&#xA;&#x9;Y -> &quot;y&quot; &quot;;&quot;;&#xA;}" instanceOfExtensionDefinition="true">
+      <extDef name="Y">
+        <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+        <textualSyntaxDef startRule="//@modules.0/@extensions.0/@extDef/@textualSyntaxDef/@rules.0">
+          <rules name="Y">
+            <rhs xsi:type="dbl:SequenceExpr">
+              <sequence xsi:type="dbl:TerminalExpr" terminal="y"/>
+              <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            </rhs>
+          </rules>
+        </textualSyntaxDef>
+      </extDef>
+    </extensions>
+    <extensionDefs name="X">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules xsi:type="dbl:OOTsRule_OOTsRule_extension" name="X">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="x"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+          <operations name="copy">
+            <classifierType concreteSyntax="X" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0"/>
+            <statements xsi:type="dbl:Return" concreteSyntax="return new X">
+              <value xsi:type="dbl:CreateObject" concreteSyntax="new X">
+                <classifierType concreteSyntax="X" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0"/>
+              </value>
+            </statements>
+          </operations>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax=""/>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

@@ -7,12 +7,7 @@ extension ForEach extends dbl LocalScopeStatement {
 	start ForEach;
 	ForEach -> "foreach" "(" statements:list(Variable) "in" collection:Expression ")" body:LocalScopeStatement;
 }
-semantics {
-	
-	// syntax part definitions of list type, i.e. part:list(type)
-	// are accessed in semantics definitions as variables of type of stdlib.List, e.g.
-	// Type x = part.get(0) as Type
-	
+semantics {	
 	Variable varDef = statements.get(0) as Variable;
 	
 	expand "Iterator it = " collection ".iterator();";

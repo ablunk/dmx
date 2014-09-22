@@ -19,4 +19,14 @@ void main() {
 	}	
 }
 
+void test(List l) {
+
+	Iterator it = l.iterator();
+	while (it.hasNext()) {
+		Object item = it.next();
+		print item as string;
+	}	
+
+}
+
 }
