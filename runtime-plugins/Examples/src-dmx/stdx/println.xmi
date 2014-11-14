@@ -15,7 +15,7 @@
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="PrintLn">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="printn"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="println"/>
             <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>

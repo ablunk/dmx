@@ -1,7 +1,9 @@
+#import "println"
+
 module stdx_println_test {
 
 void main() {
-	print "hello";
+	println "hello";
 }
 
 }

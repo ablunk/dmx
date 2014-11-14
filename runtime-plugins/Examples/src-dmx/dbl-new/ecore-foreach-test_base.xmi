@@ -49,7 +49,7 @@
             <referencedElement href="../ecore.xmi#//@modules.0/@classifiers.13/@methods.6"/>
             <callPart/>
           </parentIdExpr>
-          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.12"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.11"/>
           <callPart/>
         </initialValue>
       </statements>
