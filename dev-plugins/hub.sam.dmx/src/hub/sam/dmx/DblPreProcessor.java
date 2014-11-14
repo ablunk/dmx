@@ -209,7 +209,8 @@ public class DblPreProcessor implements IPreProcessor {
 								setResult(otherEditor);
 							}
 						}
-						else if (editor == null && filename != null && filename.equals(otherEditor.getPartName())) {
+						else if (editor == null && fileToImport != null && (fileToImportDbl.equals(otherEditor.getPartName())
+								|| fileToImportDbx.equals(otherEditor.getPartName())) ) {
 							setResult(otherEditor);
 						}
 						
