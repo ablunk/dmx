@@ -40,11 +40,10 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
     {
       final Module it = module;
       EList<Procedure> _procedures = it.getProcedures();
-      final Function1<Procedure,Boolean> _function = new Function1<Procedure,Boolean>() {
+      final Function1<Procedure, Boolean> _function = new Function1<Procedure, Boolean>() {
         public Boolean apply(final Procedure it) {
           String _name = it.getName();
-          boolean _equals = Objects.equal(_name, "main");
-          return Boolean.valueOf(_equals);
+          return Boolean.valueOf(Objects.equal(_name, "main"));
         }
       };
       final Procedure mainProcedure = IterableExtensions.<Procedure>findFirst(_procedures, _function);
@@ -66,13 +65,13 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.newLine();
       _builder.append("\t");
       _builder.append("public ");
-      _builder.append(this.javaClass_for_ModuleLevelElements, "	");
+      _builder.append(this.javaClass_for_ModuleLevelElements, "\t");
       _builder.append("() {");
       _builder.newLineIfNotEmpty();
       _builder.append("\t\t");
       _builder.append("super(\"Main procedure in module \'");
       String _name = it.getName();
-      _builder.append(_name, "		");
+      _builder.append(_name, "\t\t");
       _builder.append("\'\");");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
@@ -102,9 +101,9 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.append("public static void startMainProcedure() {");
       _builder.newLine();
       _builder.append("\t\t");
-      _builder.append(this.javaClass_for_ModuleLevelElements, "		");
+      _builder.append(this.javaClass_for_ModuleLevelElements, "\t\t");
       _builder.append(" mainProcess = new ");
-      _builder.append(this.javaClass_for_ModuleLevelElements, "		");
+      _builder.append(this.javaClass_for_ModuleLevelElements, "\t\t");
       _builder.append("();");
       _builder.newLineIfNotEmpty();
       _builder.append("\t\t");
@@ -120,33 +119,32 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.append("\t");
       EList<Variable> _variables = it.getVariables();
       String _genVariables = this.genVariables(_variables, true);
-      _builder.append(_genVariables, "	");
+      _builder.append(_genVariables, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.newLine();
       _builder.append("\t");
       EList<Procedure> _procedures_1 = it.getProcedures();
-      final Function1<Procedure,Boolean> _function_1 = new Function1<Procedure,Boolean>() {
+      final Function1<Procedure, Boolean> _function_1 = new Function1<Procedure, Boolean>() {
         public Boolean apply(final Procedure p) {
-          boolean _notEquals = (!Objects.equal(p, mainProcedure));
-          return Boolean.valueOf(_notEquals);
+          return Boolean.valueOf((!Objects.equal(p, mainProcedure)));
         }
       };
       Iterable<Procedure> _filter = IterableExtensions.<Procedure>filter(_procedures_1, _function_1);
       List<Procedure> _list = IterableExtensions.<Procedure>toList(_filter);
       String _genProcedures = this.genProcedures(_list, true);
-      _builder.append(_genProcedures, "	");
+      _builder.append(_genProcedures, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.newLine();
       _builder.append("\t");
       _builder.append("public ");
       String _gen = this.gen(mainProcedure);
-      _builder.append(_gen, "	");
+      _builder.append(_gen, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
       _builder.newLine();
-      _xblockexpression = (_builder.toString());
+      _xblockexpression = _builder.toString();
     }
     return _xblockexpression;
   }
@@ -208,7 +206,7 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.append("\t");
       _builder.append("public ");
       String _name_1 = it.getName();
-      _builder.append(_name_1, "	");
+      _builder.append(_name_1, "\t");
       _builder.append("(");
       _builder.newLineIfNotEmpty();
       {
@@ -223,11 +221,11 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
               if (!_hasElements) {
                 _hasElements = true;
               } else {
-                _builder.appendImmediate(",", "	");
+                _builder.appendImmediate(",", "\t");
               }
               _builder.append("\t");
               String _gen = this.gen(cparam);
-              _builder.append(_gen, "	");
+              _builder.append(_gen, "\t");
               _builder.newLineIfNotEmpty();
             }
           }
@@ -244,13 +242,13 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
         } else {
           EList<SuperClassSpecification> _superClasses_3 = it.getSuperClasses();
           boolean _isEmpty = _superClasses_3.isEmpty();
-          _and = (_isActive_1 && _isEmpty);
+          _and = _isEmpty;
         }
         if (_and) {
           _builder.append("\t\t");
           _builder.append("super(\"");
           String _name_2 = it.getName();
-          _builder.append(_name_2, "		");
+          _builder.append(_name_2, "\t\t");
           _builder.append("\");");
           _builder.newLineIfNotEmpty();
         }
@@ -264,7 +262,7 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
         _statements=_initialBlock.getStatements();
       }
       String _gen_1 = this.gen(_statements);
-      _builder.append(_gen_1, "		");
+      _builder.append(_gen_1, "\t\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.append("}");
@@ -286,7 +284,7 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
               ClassPart _actionsBlock_1 = it.getActionsBlock();
               EList<Statement> _statements_1 = _actionsBlock_1.getStatements();
               String _gen_2 = this.gen(_statements_1);
-              _builder.append(_gen_2, "		");
+              _builder.append(_gen_2, "\t\t");
               _builder.newLineIfNotEmpty();
             }
           }
@@ -299,17 +297,17 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.append("\t");
       EList<Variable> _attributes = it.getAttributes();
       String _genVariables = this.genVariables(_attributes, false);
-      _builder.append(_genVariables, "	");
+      _builder.append(_genVariables, "\t");
       _builder.newLineIfNotEmpty();
       _builder.newLine();
       _builder.append("\t");
       EList<Procedure> _methods = it.getMethods();
       String _genProcedures = this.genProcedures(_methods, false);
-      _builder.append(_genProcedures, "	");
+      _builder.append(_genProcedures, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
       _builder.newLine();
-      _xblockexpression = (_builder.toString());
+      _xblockexpression = _builder.toString();
     }
     return _xblockexpression;
   }
@@ -317,19 +315,16 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
   public String forwardGen(final EObject eObj) {
     String _xifexpression = null;
     if ((eObj instanceof Statement)) {
-      String _genSimStatement = this.genSimStatement(((Statement) eObj));
-      _xifexpression = _genSimStatement;
+      _xifexpression = this.genSimStatement(((Statement) eObj));
     } else {
       String _xifexpression_1 = null;
       if ((eObj instanceof Expression)) {
-        String _genSimExpr = this.genSimExpr(((Expression) eObj));
-        _xifexpression_1 = _genSimExpr;
+        _xifexpression_1 = this.genSimExpr(((Expression) eObj));
       } else {
         EClass _eClass = eObj.eClass();
         String _name = _eClass.getName();
         String _plus = ("<! unknown element " + _name);
-        String _plus_1 = (_plus + " !>");
-        _xifexpression_1 = _plus_1;
+        _xifexpression_1 = (_plus + " !>");
       }
       _xifexpression = _xifexpression_1;
     }

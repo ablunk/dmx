@@ -51,56 +51,25 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
-import org.eclipse.emf.ecore.EcorePackage.Literals;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.xbase.lib.Functions.Function0;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class ExtensionSyntaxDefinitionProcessor {
-  private final Collection<Rule> addedRules = new Function0<Collection<Rule>>() {
-    public Collection<Rule> apply() {
-      HashSet<Rule> _hashSet = new HashSet<Rule>();
-      return _hashSet;
-    }
-  }.apply();
+  private final Collection<Rule> addedRules = new HashSet<Rule>();
   
-  private final Collection<EClass> addedMetaClasses = new Function0<Collection<EClass>>() {
-    public Collection<EClass> apply() {
-      HashSet<EClass> _hashSet = new HashSet<EClass>();
-      return _hashSet;
-    }
-  }.apply();
+  private final Collection<EClass> addedMetaClasses = new HashSet<EClass>();
   
-  private final Map<String,EClass> allMetaClasses = new Function0<Map<String,EClass>>() {
-    public Map<String,EClass> apply() {
-      HashMap<String,EClass> _hashMap = new HashMap<String, EClass>();
-      return _hashMap;
-    }
-  }.apply();
+  private final Map<String, EClass> allMetaClasses = new HashMap<String, EClass>();
   
-  private final Collection<TsRule> processedRules = new Function0<Collection<TsRule>>() {
-    public Collection<TsRule> apply() {
-      HashSet<TsRule> _hashSet = new HashSet<TsRule>();
-      return _hashSet;
-    }
-  }.apply();
+  private final Collection<TsRule> processedRules = new HashSet<TsRule>();
   
-  private final Map<String,DuplicatedRulesContainer> duplicatedRules = new Function0<Map<String,DuplicatedRulesContainer>>() {
-    public Map<String,DuplicatedRulesContainer> apply() {
-      HashMap<String,DuplicatedRulesContainer> _hashMap = new HashMap<String, DuplicatedRulesContainer>();
-      return _hashMap;
-    }
-  }.apply();
+  private final Map<String, DuplicatedRulesContainer> duplicatedRules = new HashMap<String, DuplicatedRulesContainer>();
   
-  private final Collection<TsRule> completelyProcessedRules = new Function0<Collection<TsRule>>() {
-    public Collection<TsRule> apply() {
-      HashSet<TsRule> _hashSet = new HashSet<TsRule>();
-      return _hashSet;
-    }
-  }.apply();
+  private final Collection<TsRule> completelyProcessedRules = new HashSet<TsRule>();
   
   private ExtensionDefinition extensionDefinition;
   
@@ -112,13 +81,7 @@ public class ExtensionSyntaxDefinitionProcessor {
   
   private EClass _instantiableDblEClass;
   
-  private final Logger logger = new Function0<Logger>() {
-    public Logger apply() {
-      String _name = ExtensionSyntaxDefinitionProcessor.class.getName();
-      Logger _logger = Logger.getLogger(_name);
-      return _logger;
-    }
-  }.apply();
+  private final Logger logger = Logger.getLogger(ExtensionSyntaxDefinitionProcessor.class.getName());
   
   public ExtensionSyntaxDefinitionProcessor(final ExtensionDefinition extensionDefinition, final Syntax syntax, final DblPackage dblMetaModel) {
     this.extensionDefinition = extensionDefinition;
@@ -152,17 +115,14 @@ public class ExtensionSyntaxDefinitionProcessor {
       EList<Rule> _rules = _syntax.getRules();
       _rules.add(startTslRule);
       this.addedRules.add(startTslRule);
-      Stack<TsRule> _stack = new Stack<TsRule>();
-      final Stack<TsRule> ruleStack = _stack;
+      final Stack<TsRule> ruleStack = new Stack<TsRule>();
       TextualSyntaxDef _textualSyntaxDef_2 = this.extensionDefinition.getTextualSyntaxDef();
       EList<TsRule> _rules_1 = _textualSyntaxDef_2.getRules();
       TsRule _get = _rules_1.get(0);
       this.processAllRulesWithSameName(_get, null, ruleStack);
-      boolean _dowhile = false;
       do {
         {
-          HashMap<String,DuplicatedRulesContainer> _hashMap = new HashMap<String, DuplicatedRulesContainer>(this.duplicatedRules);
-          final Map<String,DuplicatedRulesContainer> processingDuplicatedRules = _hashMap;
+          final Map<String, DuplicatedRulesContainer> processingDuplicatedRules = new HashMap<String, DuplicatedRulesContainer>(this.duplicatedRules);
           this.duplicatedRules.clear();
           Set<String> _keySet = processingDuplicatedRules.keySet();
           for (final String ruleName : _keySet) {
@@ -176,10 +136,7 @@ public class ExtensionSyntaxDefinitionProcessor {
             }
           }
         }
-        int _size = this.duplicatedRules.size();
-        boolean _greaterThan = (_size > 0);
-        _dowhile = _greaterThan;
-      } while(_dowhile);
+      } while((this.duplicatedRules.size() > 0));
       return true;
     }
     return false;
@@ -199,8 +156,7 @@ public class ExtensionSyntaxDefinitionProcessor {
   }
   
   private NonTerminal _createNonTerminal(final EObject object) {
-    RuntimeException _runtimeException = new RuntimeException();
-    throw _runtimeException;
+    throw new RuntimeException();
   }
   
   private NonTerminal _createNonTerminal(final TsRule rule) {
@@ -225,14 +181,12 @@ public class ExtensionSyntaxDefinitionProcessor {
   }
   
   private String _getSyntaxRuleName(final EObject object) {
-    RuntimeException _runtimeException = new RuntimeException();
-    throw _runtimeException;
+    throw new RuntimeException();
   }
   
   private String _getSyntaxRuleName(final TsRule rule) {
     EObject _eContainer = rule.eContainer();
     EObject _eContainer_1 = null;
-    EObject _eContainer_2 = rule.eContainer();
     if (((TextualSyntaxDef) _eContainer)!=null) {
       _eContainer_1=((TextualSyntaxDef) _eContainer).eContainer();
     }
@@ -240,15 +194,13 @@ public class ExtensionSyntaxDefinitionProcessor {
     String _xifexpression = null;
     boolean _notEquals = (!Objects.equal(extDef, null));
     if (_notEquals) {
-      String _name = extDef.getName();
-      _xifexpression = _name;
+      _xifexpression = extDef.getName();
     } else {
-      String _name_1 = this.extensionDefinition.getName();
-      _xifexpression = _name_1;
+      _xifexpression = this.extensionDefinition.getName();
     }
     String _plus = (_xifexpression + "_");
-    String _name_2 = rule.getName();
-    String _plus_1 = (_plus + _name_2);
+    String _name = rule.getName();
+    String _plus_1 = (_plus + _name);
     return (_plus_1 + "_extension");
   }
   
@@ -287,7 +239,7 @@ public class ExtensionSyntaxDefinitionProcessor {
       } else {
         boolean _contains = this.completelyProcessedRules.contains(otherRule);
         boolean _not = (!_contains);
-        _and = (_equals && _not);
+        _and = _not;
       }
       if (_and) {
         this.processSingleRule(otherRule, metaClass, ruleStack);
@@ -322,11 +274,9 @@ public class ExtensionSyntaxDefinitionProcessor {
     boolean _equals = Objects.equal(this._instantiableDblEClass, null);
     if (_equals) {
       LanguageConceptClassifier conceptClassifier = this.extensionDefinition.getExtendedConcept();
-      boolean _while = (conceptClassifier instanceof ExtensionDefinition);
-      while (_while) {
+      while ((conceptClassifier instanceof ExtensionDefinition)) {
         LanguageConceptClassifier _extendedConcept = ((ExtensionDefinition) conceptClassifier).getExtendedConcept();
         conceptClassifier = _extendedConcept;
-        _while = (conceptClassifier instanceof ExtensionDefinition);
       }
       EClass _metaClass = this.getMetaClass(((Clazz) conceptClassifier));
       this._instantiableDblEClass = _metaClass;
@@ -362,7 +312,7 @@ public class ExtensionSyntaxDefinitionProcessor {
       if (!_notEquals) {
         _and = false;
       } else {
-        _and = (_notEquals && (metaClassifier instanceof EClass));
+        _and = (metaClassifier instanceof EClass);
       }
       if (_and) {
         metaClass = ((EClass) metaClassifier);
@@ -370,18 +320,15 @@ public class ExtensionSyntaxDefinitionProcessor {
         String _plus = ("using existing meta-class with classifier-ID " + Integer.valueOf(_classifierID));
         this.logger.info(_plus);
       } else {
-        String _plus_1 = ("creating new meta-class " + name);
-        this.logger.info(_plus_1);
+        this.logger.info(("creating new meta-class " + name));
         EClass _createEClass = EcoreFactory.eINSTANCE.createEClass();
         metaClass = _createEClass;
         metaClass.setName(name);
         if ((langConstructClassifier instanceof ExtensionDefinition)) {
           LanguageConceptClassifier conceptClassifier = ((ExtensionDefinition) langConstructClassifier).getExtendedConcept();
-          boolean _while = (conceptClassifier instanceof ExtensionDefinition);
-          while (_while) {
+          while ((conceptClassifier instanceof ExtensionDefinition)) {
             LanguageConceptClassifier _extendedConcept = ((ExtensionDefinition) conceptClassifier).getExtendedConcept();
             conceptClassifier = _extendedConcept;
-            _while = (conceptClassifier instanceof ExtensionDefinition);
           }
           EList<EClass> _eSuperTypes = metaClass.getESuperTypes();
           EClass _metaClass = this.getMetaClass(((Clazz) conceptClassifier));
@@ -397,7 +344,7 @@ public class ExtensionSyntaxDefinitionProcessor {
         final EClass fMetaClass = metaClass;
         TextualSyntaxDef _textualSyntaxDef = this.extensionDefinition.getTextualSyntaxDef();
         EList<TsRule> _rules = _textualSyntaxDef.getRules();
-        final Function1<TsRule,Boolean> _function = new Function1<TsRule,Boolean>() {
+        final Function1<TsRule, Boolean> _function = new Function1<TsRule, Boolean>() {
           public Boolean apply(final TsRule it) {
             boolean _and = false;
             boolean _and_1 = false;
@@ -409,7 +356,7 @@ public class ExtensionSyntaxDefinitionProcessor {
               EList<RhsExpression> _sequence = ((SequenceExpr) _rhs_1).getSequence();
               int _size = _sequence.size();
               boolean _equals = (_size == 1);
-              _and_1 = ((_rhs instanceof SequenceExpr) && _equals);
+              _and_1 = _equals;
             }
             if (!_and_1) {
               _and = false;
@@ -417,7 +364,7 @@ public class ExtensionSyntaxDefinitionProcessor {
               RhsExpression _rhs_2 = it.getRhs();
               EList<RhsExpression> _sequence_1 = ((SequenceExpr) _rhs_2).getSequence();
               RhsExpression _get = _sequence_1.get(0);
-              _and = (_and_1 && (_get instanceof RhsClassifierExpr));
+              _and = (_get instanceof RhsClassifierExpr);
             }
             return Boolean.valueOf(_and);
           }
@@ -435,10 +382,7 @@ public class ExtensionSyntaxDefinitionProcessor {
               final EClass superMetaClass = ExtensionSyntaxDefinitionProcessor.this.getMetaClass(directReductionRule);
               EList<EClass> _eSuperTypes = fMetaClass.getESuperTypes();
               _eSuperTypes.add(superMetaClass);
-              String _plus = ("added super-class " + superMetaClass);
-              String _plus_1 = (_plus + " to meta-class ");
-              String _plus_2 = (_plus_1 + name);
-              ExtensionSyntaxDefinitionProcessor.this.logger.info(_plus_2);
+              ExtensionSyntaxDefinitionProcessor.this.logger.info(((("added super-class " + superMetaClass) + " to meta-class ") + name));
             }
           }
         };
@@ -467,9 +411,8 @@ public class ExtensionSyntaxDefinitionProcessor {
     boolean _matched = false;
     if (!_matched) {
       if (type instanceof TsRule) {
-        final TsRule _tsRule = (TsRule)type;
         _matched=true;
-        TsRule rule = _tsRule;
+        TsRule rule = ((TsRule)type);
         final EObject rhsContainer = rhsExpr.eContainer();
         if ((rhsContainer instanceof SequenceExpr)) {
           final SequenceExpr sequenceExpr = ((SequenceExpr) rhsContainer);
@@ -484,18 +427,17 @@ public class ExtensionSyntaxDefinitionProcessor {
             } else {
               boolean _contains_1 = ruleStack.contains(rule);
               boolean _not = (!_contains_1);
-              _and = (_contains && _not);
+              _and = _not;
             }
             if (_and) {
-              String _syntaxRuleName = this.getSyntaxRuleName(_tsRule);
+              String _syntaxRuleName = this.getSyntaxRuleName(type);
               String _plus = (_syntaxRuleName + "_");
               String _name = metaClass.getName();
               final String dupRuleName = (_plus + _name);
-              final Function1<TsRule,Boolean> _function = new Function1<TsRule,Boolean>() {
+              final Function1<TsRule, Boolean> _function = new Function1<TsRule, Boolean>() {
                 public Boolean apply(final TsRule it) {
                   String _name = it.getName();
-                  boolean _equals = _name.equals(dupRuleName);
-                  return Boolean.valueOf(_equals);
+                  return Boolean.valueOf(_name.equals(dupRuleName));
                 }
               };
               final TsRule dupRule = IterableExtensions.<TsRule>findFirst(this.processedRules, _function);
@@ -505,18 +447,16 @@ public class ExtensionSyntaxDefinitionProcessor {
                 NonTerminal _createNonTerminal = this.createNonTerminal(dupRule);
                 _rhs.add(_createNonTerminal);
               } else {
-                DuplicatedRulesContainer _duplicatedRulesContainer = new DuplicatedRulesContainer();
-                final DuplicatedRulesContainer duplicatedRules = _duplicatedRulesContainer;
+                final DuplicatedRulesContainer duplicatedRules = new DuplicatedRulesContainer();
                 duplicatedRules.metaClass = metaClass;
                 final TsRule fRule = rule;
                 TextualSyntaxDef _textualSyntaxDef = this.extensionDefinition.getTextualSyntaxDef();
                 EList<TsRule> _rules = _textualSyntaxDef.getRules();
-                final Function1<TsRule,Boolean> _function_1 = new Function1<TsRule,Boolean>() {
+                final Function1<TsRule, Boolean> _function_1 = new Function1<TsRule, Boolean>() {
                   public Boolean apply(final TsRule it) {
                     String _name = it.getName();
                     String _name_1 = fRule.getName();
-                    boolean _equals = _name.equals(_name_1);
-                    return Boolean.valueOf(_equals);
+                    return Boolean.valueOf(_name.equals(_name_1));
                   }
                 };
                 final Iterable<TsRule> sameNameRules = IterableExtensions.<TsRule>filter(_rules, _function_1);
@@ -555,10 +495,9 @@ public class ExtensionSyntaxDefinitionProcessor {
     }
     if (!_matched) {
       if (type instanceof ExtensionDefinition) {
-        final ExtensionDefinition _extensionDefinition = (ExtensionDefinition)type;
         _matched=true;
         EList<Symbol> _rhs = tslRule.getRhs();
-        NonTerminal _createNonTerminal = this.createNonTerminal(_extensionDefinition);
+        NonTerminal _createNonTerminal = this.createNonTerminal(type);
         _rhs.add(_createNonTerminal);
       }
     }
@@ -572,7 +511,7 @@ public class ExtensionSyntaxDefinitionProcessor {
   private void _processPropertyType(final BooleanPropertyType propertyType, final SimpleRule tslRule, final PropertyBindingExpr bindingExpr, final EClass metaClass, final Stack<TsRule> ruleStack) {
     String _name = bindingExpr.getName();
     final EAttribute metaClassAttribute = this.createAttribute(_name, metaClass);
-    metaClassAttribute.setEType(Literals.EBOOLEAN);
+    metaClassAttribute.setEType(EcorePackage.Literals.EBOOLEAN);
     String _name_1 = this.extensionDefinition.getName();
     String _plus = (_name_1 + "_");
     NonTerminal _lhs = tslRule.getLhs();
@@ -608,13 +547,13 @@ public class ExtensionSyntaxDefinitionProcessor {
   }
   
   private void _processPropertyType(final IntPropertyType propertyType, final SimpleRule tslRule, final PropertyBindingExpr bindingExpr, final EClass metaClass, final Stack<TsRule> ruleStack) {
-    final NonTerminal nonTerminal = this.createNonTerminal_for_PrimitivePropertyBinding(bindingExpr, Literals.EINT, "INTEGER", metaClass);
+    final NonTerminal nonTerminal = this.createNonTerminal_for_PrimitivePropertyBinding(bindingExpr, EcorePackage.Literals.EINT, "INTEGER", metaClass);
     EList<Symbol> _rhs = tslRule.getRhs();
     _rhs.add(nonTerminal);
   }
   
   private void _processPropertyType(final StringPropertyType propertyType, final SimpleRule tslRule, final PropertyBindingExpr bindingExpr, final EClass metaClass, final Stack<TsRule> ruleStack) {
-    final NonTerminal nonTerminal = this.createNonTerminal_for_PrimitivePropertyBinding(bindingExpr, Literals.ESTRING, "STRINGDEF", metaClass);
+    final NonTerminal nonTerminal = this.createNonTerminal_for_PrimitivePropertyBinding(bindingExpr, EcorePackage.Literals.ESTRING, "STRINGDEF", metaClass);
     EList<Symbol> _rhs = tslRule.getRhs();
     _rhs.add(nonTerminal);
   }
@@ -622,13 +561,13 @@ public class ExtensionSyntaxDefinitionProcessor {
   private void _processPropertyType(final IdPropertyType propertyType, final SimpleRule tslRule, final PropertyBindingExpr bindingExpr, final EClass metaClass, final Stack<TsRule> ruleStack) {
     EStructuralFeature metaClassFeature = null;
     EList<EStructuralFeature> _eAllStructuralFeatures = metaClass.getEAllStructuralFeatures();
-    boolean _contains = _eAllStructuralFeatures.contains(hub.sam.dbl.DblPackage.Literals.NAMED_ELEMENT__NAME);
+    boolean _contains = _eAllStructuralFeatures.contains(DblPackage.Literals.NAMED_ELEMENT__NAME);
     boolean _not = (!_contains);
     if (_not) {
       EList<EClass> _eSuperTypes = metaClass.getESuperTypes();
-      _eSuperTypes.add(hub.sam.dbl.DblPackage.Literals.NAMED_ELEMENT);
+      _eSuperTypes.add(DblPackage.Literals.NAMED_ELEMENT);
     }
-    metaClassFeature = hub.sam.dbl.DblPackage.Literals.NAMED_ELEMENT__NAME;
+    metaClassFeature = DblPackage.Literals.NAMED_ELEMENT__NAME;
     final CompositeBinding tslPropertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
     tslPropertyBinding.setProperty(metaClassFeature);
     final NonTerminal propertyNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
@@ -678,12 +617,11 @@ public class ExtensionSyntaxDefinitionProcessor {
     propertyNonTerminal.setName(refNonTerminalName);
     Syntax _syntax = this.getSyntax();
     EList<Rule> _rules = _syntax.getRules();
-    final Function1<Rule,Boolean> _function = new Function1<Rule,Boolean>() {
+    final Function1<Rule, Boolean> _function = new Function1<Rule, Boolean>() {
       public Boolean apply(final Rule it) {
         NonTerminal _lhs = it.getLhs();
         String _name = _lhs.getName();
-        boolean _equals = _name.equals(refNonTerminalName);
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf(_name.equals(refNonTerminalName));
       }
     };
     Iterable<Rule> _filter = IterableExtensions.<Rule>filter(_rules, _function);
@@ -701,11 +639,10 @@ public class ExtensionSyntaxDefinitionProcessor {
       idNonTerminal.setName("IDENTIFIER");
       final CompositeBinding nameBinding = TslFactory.eINSTANCE.createCompositeBinding();
       EList<EAttribute> _eAllAttributes = bindingMetaClass.getEAllAttributes();
-      final Function1<EAttribute,Boolean> _function_1 = new Function1<EAttribute,Boolean>() {
+      final Function1<EAttribute, Boolean> _function_1 = new Function1<EAttribute, Boolean>() {
         public Boolean apply(final EAttribute it) {
           String _name = it.getName();
-          boolean _equals = _name.equals("name");
-          return Boolean.valueOf(_equals);
+          return Boolean.valueOf(_name.equals("name"));
         }
       };
       Iterable<EAttribute> _filter_1 = IterableExtensions.<EAttribute>filter(_eAllAttributes, _function_1);
@@ -714,7 +651,7 @@ public class ExtensionSyntaxDefinitionProcessor {
       if (_notEquals) {
         nameBinding.setProperty(nameAttribute);
       } else {
-        nameBinding.setProperty(hub.sam.dbl.DblPackage.Literals.NAMED_ELEMENT__NAME);
+        nameBinding.setProperty(DblPackage.Literals.NAMED_ELEMENT__NAME);
       }
       idNonTerminal.setPropertyBinding(nameBinding);
       EList<Symbol> _rhs = refNonTerminalRule.getRhs();
@@ -732,7 +669,7 @@ public class ExtensionSyntaxDefinitionProcessor {
     reference.setLowerBound(0);
     reference.setUpperBound(1);
     reference.setContainment(true);
-    final EClass propertyType = hub.sam.dbl.DblPackage.Literals.ID_EXPR;
+    final EClass propertyType = DblPackage.Literals.ID_EXPR;
     final NonTerminal propertyNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
     propertyNonTerminal.setName("IdExpr");
     EClassifier _eType = reference.getEType();
@@ -756,8 +693,7 @@ public class ExtensionSyntaxDefinitionProcessor {
     final NonTerminal propertyNonTerminal = this.createNonTerminal(_type);
     boolean _isList = propertyType.isList();
     if (_isList) {
-      int _minus = (-1);
-      property.setUpperBound(_minus);
+      property.setUpperBound((-1));
     }
     LanguageConstructClassifier _type_1 = propertyType.getType();
     final EClass bindingMetaClass = this.getMetaClass(_type_1);
@@ -791,20 +727,17 @@ public class ExtensionSyntaxDefinitionProcessor {
       if ((structuralFeature instanceof EAttribute)) {
         return ((EAttribute) structuralFeature);
       } else {
-        RuntimeException _runtimeException = new RuntimeException();
-        throw _runtimeException;
+        throw new RuntimeException();
       }
     }
     final EAttribute attribute = EcoreFactory.eINSTANCE.createEAttribute();
     attribute.setName(name);
     EList<EStructuralFeature> _eStructuralFeatures = metaClass.getEStructuralFeatures();
     _eStructuralFeatures.add(attribute);
-    String _plus = ("adding attribute \'" + name);
-    String _plus_1 = (_plus + "\' to meta-class \'");
     String _name = metaClass.getName();
-    String _plus_2 = (_plus_1 + _name);
-    String _plus_3 = (_plus_2 + "\'");
-    this.logger.info(_plus_3);
+    String _plus = ((("adding attribute \'" + name) + "\' to meta-class \'") + _name);
+    String _plus_1 = (_plus + "\'");
+    this.logger.info(_plus_1);
     return attribute;
   }
   
@@ -815,20 +748,17 @@ public class ExtensionSyntaxDefinitionProcessor {
       if ((structuralFeature instanceof EReference)) {
         return ((EReference) structuralFeature);
       } else {
-        RuntimeException _runtimeException = new RuntimeException();
-        throw _runtimeException;
+        throw new RuntimeException();
       }
     }
     final EReference reference = EcoreFactory.eINSTANCE.createEReference();
     reference.setName(name);
     EList<EStructuralFeature> _eStructuralFeatures = metaClass.getEStructuralFeatures();
     _eStructuralFeatures.add(reference);
-    String _plus = ("adding reference \'" + name);
-    String _plus_1 = (_plus + "\' to meta-class \'");
     String _name = metaClass.getName();
-    String _plus_2 = (_plus_1 + _name);
-    String _plus_3 = (_plus_2 + "\'");
-    this.logger.info(_plus_3);
+    String _plus = ((("adding reference \'" + name) + "\' to meta-class \'") + _name);
+    String _plus_1 = (_plus + "\'");
+    this.logger.info(_plus_1);
     return reference;
   }
   

@@ -17,8 +17,7 @@ public abstract class AbstractGenerator {
   
   protected void makeFolder(final IPath folder) {
     String _string = folder.toString();
-    File _file = new File(_string);
-    final File folder_fileObject = _file;
+    final File folder_fileObject = new File(_string);
     boolean _and = false;
     boolean _exists = folder_fileObject.exists();
     boolean _not = (!_exists);
@@ -27,17 +26,15 @@ public abstract class AbstractGenerator {
     } else {
       boolean _mkdirs = folder_fileObject.mkdirs();
       boolean _not_1 = (!_mkdirs);
-      _and = (_not && _not_1);
+      _and = _not_1;
     }
     if (_and) {
-      RuntimeException _runtimeException = new RuntimeException("could not create java package folder structure.");
-      throw _runtimeException;
+      throw new RuntimeException("could not create java package folder structure.");
     }
   }
   
   protected void makeFolder(final String folder) {
-    File _file = new File(folder);
-    final File folder_fileObject = _file;
+    final File folder_fileObject = new File(folder);
     boolean _and = false;
     boolean _exists = folder_fileObject.exists();
     boolean _not = (!_exists);
@@ -46,28 +43,24 @@ public abstract class AbstractGenerator {
     } else {
       boolean _mkdirs = folder_fileObject.mkdirs();
       boolean _not_1 = (!_mkdirs);
-      _and = (_not && _not_1);
+      _and = _not_1;
     }
     if (_and) {
-      RuntimeException _runtimeException = new RuntimeException("could not create java package folder structure.");
-      throw _runtimeException;
+      throw new RuntimeException("could not create java package folder structure.");
     }
   }
   
   protected Writer beginTargetFile(final String fileName) {
     try {
-      File _file = new File(fileName);
-      final File file = _file;
+      final File file = new File(fileName);
       boolean _exists = file.exists();
       boolean _not = (!_exists);
       if (_not) {
         file.createNewFile();
       }
       File _absoluteFile = file.getAbsoluteFile();
-      FileWriter _fileWriter = new FileWriter(_absoluteFile);
-      final FileWriter fileWriter = _fileWriter;
-      BufferedWriter _bufferedWriter = new BufferedWriter(fileWriter);
-      final BufferedWriter bufferedWriter = _bufferedWriter;
+      final FileWriter fileWriter = new FileWriter(_absoluteFile);
+      final BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
       return bufferedWriter;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
@@ -78,18 +71,15 @@ public abstract class AbstractGenerator {
     try {
       IPath _append = folder.append(fileName);
       String _string = _append.toString();
-      File _file = new File(_string);
-      final File file = _file;
+      final File file = new File(_string);
       boolean _exists = file.exists();
       boolean _not = (!_exists);
       if (_not) {
         file.createNewFile();
       }
       File _absoluteFile = file.getAbsoluteFile();
-      FileWriter _fileWriter = new FileWriter(_absoluteFile);
-      final FileWriter fileWriter = _fileWriter;
-      BufferedWriter _bufferedWriter = new BufferedWriter(fileWriter);
-      final BufferedWriter bufferedWriter = _bufferedWriter;
+      final FileWriter fileWriter = new FileWriter(_absoluteFile);
+      final BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
       return bufferedWriter;
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);

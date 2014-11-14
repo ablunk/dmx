@@ -63,7 +63,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
             _and = false;
           } else {
             NamedElement _referencedElement_2 = it.getReferencedElement();
-            _and = (_notEquals && (_referencedElement_2 instanceof TypedElement));
+            _and = (_referencedElement_2 instanceof TypedElement);
           }
           if (_and) {
             NamedElement _referencedElement_3 = it.getReferencedElement();
@@ -85,16 +85,15 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
           boolean _notEquals_2 = (!Objects.equal(_parentIdExpr, null));
           if (_notEquals_2) {
             IdExpr _parentIdExpr_1 = it.getParentIdExpr();
-            boolean _oneParentRefersToSyntaxPartOrDblMetamodel = this.oneParentRefersToSyntaxPartOrDblMetamodel(_parentIdExpr_1);
-            _xifexpression_1 = _oneParentRefersToSyntaxPartOrDblMetamodel;
+            _xifexpression_1 = this.oneParentRefersToSyntaxPartOrDblMetamodel(_parentIdExpr_1);
           } else {
             _xifexpression_1 = false;
           }
-          _xblockexpression_1 = (_xifexpression_1);
+          _xblockexpression_1 = _xifexpression_1;
         }
         _xifexpression = _xblockexpression_1;
       }
-      _xblockexpression = (_xifexpression);
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
@@ -119,9 +118,9 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
         Module _containerObjectOfType = this.<Module>getContainerObjectOfType(_referencedElement_1, Module.class);
         String _name = _containerObjectOfType.getName();
         boolean _equals = _name.equals("dbl");
-        _and = (_notEquals && _equals);
+        _and = _equals;
       }
-      _xblockexpression = (_and);
+      _xblockexpression = _and;
     }
     return _xblockexpression;
   }
@@ -174,7 +173,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       } else {
         _xifexpression = false;
       }
-      _xblockexpression = (_xifexpression);
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
@@ -195,7 +194,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
           return (type instanceof LanguageConstructClassifier);
         }
       }
-      _xblockexpression = (false);
+      _xblockexpression = false;
     }
     return _xblockexpression;
   }
@@ -237,13 +236,12 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       Module _containerObjectOfType = this.<Module>getContainerObjectOfType(type, Module.class);
       String _name = _containerObjectOfType.getName();
       boolean _equals = _name.equals("dbl");
-      _or = ((type instanceof TsRule) || _equals);
+      _or = _equals;
     }
     if (_or) {
       return "EObject";
     } else {
-      String _genType = super.genType(type);
-      _xifexpression = _genType;
+      _xifexpression = super.genType(type);
     }
     return _xifexpression;
   }
@@ -259,7 +257,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
         _or = true;
       } else {
         boolean _refersToDblMetamodel = this.refersToDblMetamodel(it);
-        _or = (_directlyRefersToSyntaxPart || _refersToDblMetamodel);
+        _or = _refersToDblMetamodel;
       }
       if (_or) {
         StringConcatenation _builder = new StringConcatenation();
@@ -310,12 +308,10 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
             if (_startsWith) {
               NamedElement _referencedElement_3 = it.getReferencedElement();
               String _name_1 = _referencedElement_3.getName();
-              String _substring = _name_1.substring(1);
-              _xifexpression_1 = _substring;
+              _xifexpression_1 = _name_1.substring(1);
             } else {
               NamedElement _referencedElement_4 = it.getReferencedElement();
-              String _name_2 = _referencedElement_4.getName();
-              _xifexpression_1 = _name_2;
+              _xifexpression_1 = _referencedElement_4.getName();
             }
             _builder.append(_xifexpression_1, "");
             _builder.append("\"");
@@ -342,16 +338,14 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
           String _plus = (_genIdExprWithSyntaxPartReferences_1 + ".");
           NamedElement _referencedElement_5 = it.getReferencedElement();
           String _genIdExpr_for_ReferencedElement = this.genIdExpr_for_ReferencedElement(it, _referencedElement_5);
-          String _plus_1 = (_plus + _genIdExpr_for_ReferencedElement);
-          _xifexpression_2 = _plus_1;
+          _xifexpression_2 = (_plus + _genIdExpr_for_ReferencedElement);
         } else {
           NamedElement _referencedElement_6 = it.getReferencedElement();
-          String _genIdExpr_for_ReferencedElement_1 = this.genIdExpr_for_ReferencedElement(it, _referencedElement_6);
-          _xifexpression_2 = _genIdExpr_for_ReferencedElement_1;
+          _xifexpression_2 = this.genIdExpr_for_ReferencedElement(it, _referencedElement_6);
         }
         _xifexpression = _xifexpression_2;
       }
-      _xblockexpression = (_xifexpression);
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
@@ -384,7 +378,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
           _builder.newLineIfNotEmpty();
         }
       }
-      _xblockexpression = (_builder.toString());
+      _xblockexpression = _builder.toString();
     }
     return _xblockexpression;
   }
@@ -431,11 +425,10 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
         for (final Module module : _modules) {
           {
             EList<ExtensionDefinition> _extensionDefs = module.getExtensionDefs();
-            final Function1<ExtensionDefinition,Boolean> _function = new Function1<ExtensionDefinition,Boolean>() {
+            final Function1<ExtensionDefinition, Boolean> _function = new Function1<ExtensionDefinition, Boolean>() {
               public Boolean apply(final ExtensionDefinition e) {
                 String _extensionDefinitionSyntaxRuleName = ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e);
-                boolean _equals = _extensionDefinitionSyntaxRuleName.equals(name);
-                return Boolean.valueOf(_equals);
+                return Boolean.valueOf(_extensionDefinitionSyntaxRuleName.equals(name));
               }
             };
             ExtensionDefinition _findFirst = IterableExtensions.<ExtensionDefinition>findFirst(_extensionDefs, _function);
@@ -484,7 +477,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
         _and = false;
       } else {
         boolean _notEquals_1 = (!Objects.equal(result, ""));
-        _and = (_notEquals && _notEquals_1);
+        _and = _notEquals_1;
       }
       if (_and) {
         String _name_2 = extensionDefinition.getName();
@@ -528,7 +521,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.append("\t\t");
       _builder.append("(new ");
       String _name_1 = it.getName();
-      _builder.append(_name_1, "		");
+      _builder.append(_name_1, "\t\t");
       _builder.append("Semantics()).doGenerate(args);");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
@@ -542,7 +535,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.append("\t\t");
       Mapping _mappingDef = it.getMappingDef();
       String _genStatement = this.genStatement(_mappingDef);
-      _builder.append(_genStatement, "		");
+      _builder.append(_genStatement, "\t\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.append("}");
@@ -550,7 +543,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.newLine();
       _builder.append("}");
       _builder.newLine();
-      _xblockexpression = (_builder.toString());
+      _xblockexpression = _builder.toString();
     }
     return _xblockexpression;
   }

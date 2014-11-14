@@ -99,7 +99,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
           _builder.newLineIfNotEmpty();
         }
       }
-      _xblockexpression = (_builder.toString());
+      _xblockexpression = _builder.toString();
     }
     return _xblockexpression;
   }
@@ -112,8 +112,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
       String _plus = (_genType + " ");
       String _name = it.getName();
       String _plus_1 = (_plus + _name);
-      String _plus_2 = (_plus_1 + ";");
-      _xblockexpression = (_plus_2);
+      _xblockexpression = (_plus_1 + ";");
     }
     return _xblockexpression;
   }
@@ -137,8 +136,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
       String _name_1 = it.getName();
       String _firstUpper = StringExtensions.toFirstUpper(_name_1);
       String _plus_2 = (_plus_1 + _firstUpper);
-      String _plus_3 = (_plus_2 + "() abstract;");
-      _xblockexpression = (_plus_3);
+      _xblockexpression = (_plus_2 + "() abstract;");
     }
     return _xblockexpression;
   }
@@ -157,10 +155,9 @@ public class EcoreToDblGenerator extends AbstractGenerator {
         String _plus_1 = (_plus + "(");
         String _genType = this.genType(it);
         String _plus_2 = (_plus_1 + _genType);
-        String _plus_3 = (_plus_2 + " value) abstract;");
-        _xifexpression = _plus_3;
+        _xifexpression = (_plus_2 + " value) abstract;");
       }
-      _xblockexpression = (_xifexpression);
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
@@ -211,10 +208,10 @@ public class EcoreToDblGenerator extends AbstractGenerator {
         _builder.newLine();
         _builder.append("\t\t");
         _builder.append("\"java\" -> \"");
-        _builder.append(javaPackagePrefix, "		");
+        _builder.append(javaPackagePrefix, "\t\t");
         _builder.append(".");
         String _name_3 = it.getName();
-        _builder.append(_name_3, "		");
+        _builder.append(_name_3, "\t\t");
         _builder.append("\"");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
@@ -227,7 +224,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
           for(final EStructuralFeature feature : _eStructuralFeatures) {
             _builder.append("\t");
             String _genFeature = this.genFeature(feature);
-            _builder.append(_genFeature, "	");
+            _builder.append(_genFeature, "\t");
             _builder.newLineIfNotEmpty();
           }
         }
@@ -403,7 +400,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
         _builder_1.newLine();
         _xifexpression = _builder_1.toString();
       }
-      _xblockexpression = (_xifexpression);
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
@@ -424,60 +421,58 @@ public class EcoreToDblGenerator extends AbstractGenerator {
           String _switchResult = null;
           EClassifier _eType_1 = it.getEType();
           String _name = _eType_1.getName();
-          final String _switchValue = _name;
           boolean _matched = false;
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EInt")) {
+            if (Objects.equal(_name, "EInt")) {
               _matched=true;
               _switchResult = "int";
             }
           }
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EBigInteger")) {
+            if (Objects.equal(_name, "EBigInteger")) {
               _matched=true;
               _switchResult = "int";
             }
           }
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EDouble")) {
+            if (Objects.equal(_name, "EDouble")) {
               _matched=true;
               _switchResult = "double";
             }
           }
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EBoolean")) {
+            if (Objects.equal(_name, "EBoolean")) {
               _matched=true;
               _switchResult = "boolean";
             }
           }
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EString")) {
+            if (Objects.equal(_name, "EString")) {
               _matched=true;
               _switchResult = "string";
             }
           }
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EJavaObject")) {
+            if (Objects.equal(_name, "EJavaObject")) {
               _matched=true;
               _switchResult = "Object";
             }
           }
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EJavaClass")) {
+            if (Objects.equal(_name, "EJavaClass")) {
               _matched=true;
               _switchResult = "Class";
             }
           }
           if (!_matched) {
-            if (Objects.equal(_switchValue,"EEnumerator")) {
+            if (Objects.equal(_name, "EEnumerator")) {
               _matched=true;
               _switchResult = "Enumerator";
             }
           }
           if (!_matched) {
             EClassifier _eType_2 = it.getEType();
-            String _name_1 = _eType_2.getName();
-            _switchResult = _name_1;
+            _switchResult = _eType_2.getName();
           }
           _xifexpression_1 = _switchResult;
         }
@@ -485,7 +480,7 @@ public class EcoreToDblGenerator extends AbstractGenerator {
       } else {
         _xifexpression = "void";
       }
-      _xblockexpression = (_xifexpression);
+      _xblockexpression = _xifexpression;
     }
     return _xblockexpression;
   }
