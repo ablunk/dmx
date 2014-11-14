@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface Construct extends EObject {
-
 	/**
 	 * Returns the value of the '<em><b>Expand Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
@@ -47,4 +46,5 @@ public interface Construct extends EObject {
 	 * @generated
 	 */
 	void setExpandExpr(ExpandExpr value);
+
 } // Construct

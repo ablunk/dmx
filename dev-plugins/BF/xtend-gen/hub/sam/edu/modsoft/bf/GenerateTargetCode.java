@@ -16,12 +16,12 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.Resource.Factory.Registry;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
@@ -35,13 +35,12 @@ import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 @SuppressWarnings("all")
 public class GenerateTargetCode {
   public static void main(final String[] args) {
-    ResourceSetImpl _resourceSetImpl = new ResourceSetImpl();
-    final ResourceSet resourceSet = _resourceSetImpl;
-    Registry _resourceFactoryRegistry = resourceSet.getResourceFactoryRegistry();
-    Map<String,Object> _extensionToFactoryMap = _resourceFactoryRegistry.getExtensionToFactoryMap();
+    final ResourceSet resourceSet = new ResourceSetImpl();
+    Resource.Factory.Registry _resourceFactoryRegistry = resourceSet.getResourceFactoryRegistry();
+    Map<String, Object> _extensionToFactoryMap = _resourceFactoryRegistry.getExtensionToFactoryMap();
     XMIResourceFactoryImpl _xMIResourceFactoryImpl = new XMIResourceFactoryImpl();
     _extensionToFactoryMap.put("bf", _xMIResourceFactoryImpl);
-    org.eclipse.emf.ecore.EPackage.Registry _packageRegistry = resourceSet.getPackageRegistry();
+    EPackage.Registry _packageRegistry = resourceSet.getPackageRegistry();
     _packageRegistry.put(BfPackage.eNS_URI, BfPackage.eINSTANCE);
     File _file = new File("resources/test.bf");
     String _absolutePath = _file.getAbsolutePath();
@@ -77,11 +76,10 @@ public class GenerateTargetCode {
     _contents_1.add(item);
     item.eSet(nameAttribute, "blub");
     EList<EStructuralFeature> _eAllStructuralFeatures = itemClass.getEAllStructuralFeatures();
-    final Function1<EStructuralFeature,Boolean> _function = new Function1<EStructuralFeature,Boolean>() {
+    final Function1<EStructuralFeature, Boolean> _function = new Function1<EStructuralFeature, Boolean>() {
       public Boolean apply(final EStructuralFeature sf) {
         String _name = sf.getName();
-        boolean _equals = _name.equals("name");
-        return Boolean.valueOf(_equals);
+        return Boolean.valueOf(_name.equals("name"));
       }
     };
     EStructuralFeature _findFirst = IterableExtensions.<EStructuralFeature>findFirst(_eAllStructuralFeatures, _function);
@@ -129,30 +127,28 @@ public class GenerateTargetCode {
         _builder.append("\t");
         EClass _eClass_1 = eObject.eClass();
         EList<EStructuralFeature> _eAllStructuralFeatures = _eClass_1.getEAllStructuralFeatures();
-        final Function1<EStructuralFeature,Boolean> _function = new Function1<EStructuralFeature,Boolean>() {
+        final Function1<EStructuralFeature, Boolean> _function = new Function1<EStructuralFeature, Boolean>() {
           public Boolean apply(final EStructuralFeature sf) {
             String _name = sf.getName();
-            boolean _equals = _name.equals("itemName");
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(_name.equals("itemName"));
           }
         };
         EStructuralFeature _findFirst = IterableExtensions.<EStructuralFeature>findFirst(_eAllStructuralFeatures, _function);
         Object _eGet = eObject.eGet(_findFirst);
-        _builder.append(_eGet, "	");
+        _builder.append(_eGet, "\t");
         _builder.newLineIfNotEmpty();
         _builder.append("\t");
         EClass _eClass_2 = eObject.eClass();
         EList<EStructuralFeature> _eAllStructuralFeatures_1 = _eClass_2.getEAllStructuralFeatures();
-        final Function1<EStructuralFeature,Boolean> _function_1 = new Function1<EStructuralFeature,Boolean>() {
+        final Function1<EStructuralFeature, Boolean> _function_1 = new Function1<EStructuralFeature, Boolean>() {
           public Boolean apply(final EStructuralFeature sf) {
             String _name = sf.getName();
-            boolean _equals = _name.equals("name");
-            return Boolean.valueOf(_equals);
+            return Boolean.valueOf(_name.equals("name"));
           }
         };
         EStructuralFeature _findFirst_1 = IterableExtensions.<EStructuralFeature>findFirst(_eAllStructuralFeatures_1, _function_1);
         Object _eGet_1 = eObject.eGet(_findFirst_1);
-        _builder.append(_eGet_1, "	");
+        _builder.append(_eGet_1, "\t");
         _builder.newLineIfNotEmpty();
         _builder.append(".");
         _builder.newLine();
@@ -186,17 +182,17 @@ public class GenerateTargetCode {
             if (!_hasElements) {
               _hasElements = true;
             } else {
-              _builder_1.appendImmediate(", ", "	");
+              _builder_1.appendImmediate(", ", "\t");
             }
             _builder_1.append("\t");
             _builder_1.append("flow from ");
             Box _sourceBox = flow.getSourceBox();
             String _name_1 = _sourceBox.getName();
-            _builder_1.append(_name_1, "	");
+            _builder_1.append(_name_1, "\t");
             _builder_1.append(" to ");
             Box _targetBox = flow.getTargetBox();
             String _name_2 = _targetBox.getName();
-            _builder_1.append(_name_2, "	");
+            _builder_1.append(_name_2, "\t");
             _builder_1.newLineIfNotEmpty();
           }
         }
@@ -206,8 +202,7 @@ public class GenerateTargetCode {
     _builder_1.newLineIfNotEmpty();
     String _string = _builder_1.toString();
     String _trim = _string.trim();
-    String _plus = (_builder.toString() + _trim);
-    return _plus;
+    return (_builder.toString() + _trim);
   }
   
   public CharSequence compile(final EObject box) {
