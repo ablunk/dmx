@@ -80,6 +80,9 @@ module sdl0_application {
 				nextState K;
 			endstate K;
 		endprocess Q; // putting a correct name (like Q here) cannot be defined / enforced
+	endsystem;
+	
+	system T;
 		
 		semaphore SEM, kind=BINARY, policy=FIFO, initial=FULL;
 		
@@ -99,10 +102,6 @@ module sdl0_application {
 					}
 				;
 				take SEM with timeout=10;
-				take SEM with timeout=10,
-					on ERROR {
-					}
-				;
 				take SEM FOREVER;
 				give SEM;
 			stop;

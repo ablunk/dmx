@@ -5,7 +5,7 @@
   </imports>
   <modules name="sdlx">
     <extensionDefs name="EnvSendStatement">
-      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.31"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.30"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="Send">
           <rhs xsi:type="dbl:SequenceExpr">
@@ -25,14 +25,14 @@
       <mappingDef/>
     </extensionDefs>
     <extensionDefs name="Env">
-      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.96"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.103"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
         <rules name="Env">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="env"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="localScope">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.44"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -41,7 +41,7 @@
       <mappingDef/>
     </extensionDefs>
     <extensionDefs name="System">
-      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.96"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.103"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.0">
         <rules name="System">
           <rhs xsi:type="dbl:SequenceExpr">
@@ -293,7 +293,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="provided"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="enablingCondition">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.51"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -340,7 +340,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="task"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="localScope">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.45"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.44"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -376,7 +376,7 @@
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="timeExpr">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.51"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -400,7 +400,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="pid"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="targetPid">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.51"/>
               </propertyType>
             </sequence>
           </rhs>
@@ -637,7 +637,7 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="="/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="timeExpr">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.52"/>
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.51"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.90"/>
@@ -688,99 +688,6 @@
             <sequence xsi:type="dbl:PropertyBindingExpr" name="semaphore">
               <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.65" rawReference="true"/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
-          </rhs>
-        </rules>
-        <rules name="System_Transition_extension_System_InputPart_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.41"/>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.56"/>
-          </rhs>
-        </rules>
-        <rules name="System_VariableListNextOpt_extension_System_VariableDefinition_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="variables">
-              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
-                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
-              </propertyType>
-            </sequence>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.9"/>
-          </rhs>
-        </rules>
-        <rules name="System_VariableListNextOpt_extension_System_VariableDefinition_extension">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="System_StateListOpt_extension_System_ProcessDefinition_extension">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="System_StateListOpt_extension_System_ProcessDefinition_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="states">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.24" list="true"/>
-            </sequence>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.22"/>
-          </rhs>
-        </rules>
-        <rules name="System_SemActionOpt_extension_System_SemTimeoutNoWait_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="on"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="semAction">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.91" list="true"/>
-            </sequence>
-          </rhs>
-        </rules>
-        <rules name="System_SemActionOpt_extension_System_SemTimeoutNoWait_extension">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="System_SemActionOpt_extension_System_SemTimeoutTime_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="on"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="semAction">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.91" list="true"/>
-            </sequence>
-          </rhs>
-        </rules>
-        <rules name="System_SemActionOpt_extension_System_SemTimeoutTime_extension">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="System_StimulusListNextOpt_extension_System_InputPart_extension">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="System_StimulusListNextOpt_extension_System_InputPart_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="stimulus">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.36" list="true"/>
-            </sequence>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.32"/>
-          </rhs>
-        </rules>
-        <rules name="System_ActionListOpt_extension_System_InputPart_extension">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="System_ActionListOpt_extension_System_InputPart_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="actions">
-              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.43" list="true"/>
-            </sequence>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.108"/>
-          </rhs>
-        </rules>
-        <rules name="System_TransitionTerminator_extension_System_InputPart_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="nextState"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="nextState">
-              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.2/@textualSyntaxDef/@rules.24" rawReference="true"/>
-            </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
-          </rhs>
-        </rules>
-        <rules name="System_TransitionTerminator_extension_System_InputPart_extension">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="stop"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>
         </rules>

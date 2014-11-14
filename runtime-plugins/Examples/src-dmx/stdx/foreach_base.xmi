@@ -8,7 +8,7 @@
   </imports>
   <modules name="stdx_foreach">
     <extensionDefs name="ForEach">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.45"/>
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.44"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="ForEach">
           <rhs xsi:type="dbl:SequenceExpr">
@@ -22,13 +22,13 @@
             <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="collection">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.52"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.51"/>
               </propertyType>
             </sequence>
             <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.45"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.44"/>
               </propertyType>
             </sequence>
           </rhs>

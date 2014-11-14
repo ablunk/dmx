@@ -1,9 +1,7 @@
-#import "println"
-
 module stdx_println_test {
 
-void test() {
-	println "hello";
+void main() {
+	print "hello";
 }
 
 }

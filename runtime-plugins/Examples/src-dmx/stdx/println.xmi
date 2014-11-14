@@ -15,7 +15,7 @@
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="PrintLn">
           <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="println"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="printn"/>
             <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>
@@ -54,7 +54,8 @@
               <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.51"/>
             </classifierType>
           </statements>
-          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}">
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="outputs" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1/@rhs/@sequence.0"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}">
             <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;">
               <condition xsi:type="dbl:Not" concreteSyntax="!first">
                 <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
@@ -75,7 +76,6 @@
               </parts>
             </statements>
           </body>
-          <collection xsi:type="dbl:IdExpr" concreteSyntax="outputs" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1/@rhs/@sequence.0"/>
         </statements>
         <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;">
           <condition xsi:type="dbl:Not" concreteSyntax="!first">

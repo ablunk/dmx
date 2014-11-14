@@ -4,7 +4,7 @@
     <classifiers xsi:type="dbl:Clazz" name="A">
       <attributes name="s">
         <primitiveType xsi:type="dbl:StringType"/>
-        <initialValue xsi:type="dbl:StringLiteral" value="hello world\n"/>
+        <initialValue xsi:type="dbl:StringLiteral" value="hhhhello world\n"/>
       </attributes>
       <methods name="sayHello">
         <primitiveType xsi:type="dbl:VoidType"/>

@@ -1,7 +1,7 @@
 module hello_world {
 
 	class A {
-		string s = "hello world\n";
+		string s = "hhhhello world\n";
 	
 		void sayHello() {
 			print s;
