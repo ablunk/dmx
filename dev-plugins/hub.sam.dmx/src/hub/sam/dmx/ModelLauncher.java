@@ -344,10 +344,10 @@ public class ModelLauncher {
 					shiftObjects(positionObject, addition.isAddAfterPosition(), addition.getReplacementText().length(), false);
 				}
 				else if (mod instanceof Substitution) {
-					if (substitutionApplied) {
-						logger.severe("there are at least 2 substitution modifications. an extension can only be substituted once.");
-						throw new RuntimeException();
-					}
+//					if (substitutionApplied) {
+//						logger.severe("there are at least 2 substitution modifications. an extension can only be substituted once.");
+//						throw new RuntimeException();
+//					}
 					substitutionApplied = true;
 					
 					Substitution sub = (Substitution) mod;
