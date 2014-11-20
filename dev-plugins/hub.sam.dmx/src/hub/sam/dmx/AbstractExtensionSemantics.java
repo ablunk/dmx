@@ -142,6 +142,9 @@ public abstract class AbstractExtensionSemantics {
 			EObject singlePropertyValue = (EObject) propertyValue;
 			return (String) singlePropertyValue.eGet(concreteSyntaxProperty);
 		}
+		else if (propertyValue instanceof String) {
+			return (String) propertyValue;
+		}
 		else {
 			return "";
 		}

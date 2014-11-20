@@ -5,6 +5,7 @@ import hub.sam.dbl.CompositePropertyType;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.IdExpr;
+import hub.sam.dbl.IdPropertyType;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.IntPropertyType;
 import hub.sam.dbl.LanguageConstructClassifier;
@@ -14,6 +15,7 @@ import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.PredefinedId;
+import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
 import hub.sam.dbl.StringPropertyType;
@@ -227,6 +229,33 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
     return false;
   }
   
+  public boolean referencedElementIsOfTypePrimitive(final IdExpr idExpr) {
+    final NamedElement referencedElement = idExpr.getReferencedElement();
+    boolean _notEquals = (!Objects.equal(referencedElement, null));
+    if (_notEquals) {
+      if ((referencedElement instanceof TypedElement)) {
+        final TypedElement typedElement = ((TypedElement) referencedElement);
+        PrimitiveType _primitiveType = typedElement.getPrimitiveType();
+        return (!Objects.equal(_primitiveType, null));
+      } else {
+        if ((referencedElement instanceof PropertyBindingExpr)) {
+          final PropertyBindingExpr propertyBinding = ((PropertyBindingExpr) referencedElement);
+          final PropertyType propertyType = propertyBinding.getPropertyType();
+          boolean _or = false;
+          if ((propertyType instanceof IdPropertyType)) {
+            _or = true;
+          } else {
+            _or = (propertyType instanceof StringPropertyType);
+          }
+          if (_or) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+  
   public String genType(final EObject type) {
     String _xifexpression = null;
     boolean _or = false;
@@ -273,8 +302,13 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
                 _builder.append("(java.util.List)");
                 _builder.newLine();
               } else {
-                _builder.append("(EObject)");
-                _builder.newLine();
+                boolean _referencedElementIsOfTypePrimitive = this.referencedElementIsOfTypePrimitive(it);
+                if (_referencedElementIsOfTypePrimitive) {
+                  _builder.newLine();
+                } else {
+                  _builder.append("(EObject)");
+                  _builder.newLine();
+                }
               }
             }
           }

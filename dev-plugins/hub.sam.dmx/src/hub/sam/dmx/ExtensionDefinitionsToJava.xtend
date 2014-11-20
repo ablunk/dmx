@@ -20,6 +20,7 @@ import hub.sam.dbl.TypedElement
 import hub.sam.dbl.TsRule
 import hub.sam.dbl.CompositePropertyType
 import hub.sam.dbl.LanguageConstructClassifier
+import hub.sam.dbl.IdPropertyType
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -154,6 +155,24 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		return false
 	}
 	
+	def boolean referencedElementIsOfTypePrimitive(IdExpr idExpr) {
+		val referencedElement = idExpr.referencedElement
+		if (referencedElement != null) {
+			if (referencedElement instanceof TypedElement) {
+				val typedElement = referencedElement as TypedElement
+				return typedElement.primitiveType != null;
+			}
+			else if (referencedElement instanceof PropertyBindingExpr) {
+				val propertyBinding = referencedElement as PropertyBindingExpr
+				val propertyType = propertyBinding.propertyType
+				if (propertyType instanceof IdPropertyType || propertyType instanceof StringPropertyType) {
+					return true
+				}
+			}
+		}
+		return false
+	}
+	
 	override String genType(EObject type) {
 		if (type instanceof TsRule || type.getContainerObjectOfType(Module).name.equals("dbl")) return "EObject"
 		else super.genType(type)
@@ -168,6 +187,8 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 			«IF referencedElement != null»
 				«IF referencedElementIsOfTypeList»
 					(java.util.List)
+				«ELSEIF referencedElementIsOfTypePrimitive»
+				
 				«ELSE»
 					(EObject)
 				«ENDIF»
