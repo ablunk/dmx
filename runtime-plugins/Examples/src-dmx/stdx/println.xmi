@@ -10,7 +10,7 @@
     <model href="foreach.xmi#/"/>
   </imports>
   <modules name="stdx_println">
-    <extensionDefs name="PrintLn">
+    <extensionDefs name="PrintLn" concreteSyntax="extension PrintLn extends dbl SimpleStatement {&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}&#xA;semantics {&#xA;&#x9;expand &quot;print &quot;;&#xA;&#x9;&#xA;&#x9;boolean first = true;&#xA;&#x9;foreach (Expression output in outputs) {&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;expand &quot;\&quot;\\n\&quot;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;;&quot;;&#xA;}">
       <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="PrintLn">

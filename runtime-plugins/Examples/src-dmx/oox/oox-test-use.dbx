@@ -1,0 +1,9 @@
+#import "oox-test"
+
+module ooxTestUse {
+
+void main() {
+	ax "blow";
+}
+
+}

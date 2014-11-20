@@ -7,7 +7,7 @@
     <model href="../stdlib.xmi#/"/>
   </imports>
   <modules name="stdx_forever">
-    <extensionDefs name="Forever">
+    <extensionDefs name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}&#xA;semantics {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}">
       <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="Forever">

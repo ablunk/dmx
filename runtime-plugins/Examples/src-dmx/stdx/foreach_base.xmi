@@ -7,7 +7,7 @@
     <model href="../stdlib.xmi#/"/>
   </imports>
   <modules name="stdx_foreach">
-    <extensionDefs name="ForEach">
+    <extensionDefs name="ForEach" concreteSyntax="extension ForEach extends dbl LocalScopeStatement {&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements:list(Variable) &quot;in&quot; collection:Expression &quot;)&quot; body:LocalScopeStatement;&#xA;}&#xA;semantics {&#x9;&#xA;&#x9;Variable varDef = statements.get(0) as Variable;&#xA;&#x9;&#xA;&#x9;expand &quot;Iterator it = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;expand &quot;while (it.hasNext()) {&quot;;&#xA;&#x9;expand &quot;&#x9;Object object = it.next();&quot;;&#xA;&#x9;expand &#x9;&#x9;varDef &quot; = object as &quot; varDef.classifierType &quot;;&quot;;&#xA;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;expand &quot;}&quot;;&#xA;}">
       <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.44"/>
       <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
         <rules name="ForEach">

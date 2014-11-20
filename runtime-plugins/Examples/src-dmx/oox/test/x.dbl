@@ -1,0 +1,22 @@
+#import "../../dbl"
+
+module x {
+
+class StateMachine {}
+
+extension FrontExec extends dbl SimpleStatement {
+	start FX;
+	FX -> "fx" stm:SimpleStatement;
+}
+semantics {
+	SimpleStatement fxStm = stm.eContainer() as SimpleStatement;
+	LocalScope ls = fxStm.eContainer() as LocalScope;
+	
+	set expand before ls.statements.get(0); // insert before extension
+	expand stm ";";
+	
+	//set expand before ls.statements.get(ls.statements.size() - 1); // insert after extension
+	//expand "i=9;";
+}
+
+}

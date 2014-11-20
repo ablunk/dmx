@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="oox">
+    <model href="oox.xmi#/"/>
+  </imports>
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="ooxTest">
+    <classifiers xsi:type="dbl:Clazz" name="A">
+      <attributes name="s" concreteSyntax="string s">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="A">
+      <attributes name="s" concreteSyntax="string s">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+    </classifiers>
+    <extensionDefs name="A" concreteSyntax="extension A extends dbl SimpleStatement {&#xA;&#x9;start A;&#xA;&#x9;A -> &quot;ax&quot; s:STRING &quot;;&quot;;&#xA;}&#xA;semantics {&#xA;&#x9;expand &quot;A extensionInstanceDblObject = new A;&quot;;&#xA;&#x9;expand &quot;extensionInstanceDblObject.s = \&quot;&quot; s &quot;\&quot;;&quot;;&#xA;&#x9;expand &quot;print extensionInstanceDblObject.s;&quot;;&#xA;}">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
+      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="A">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ax"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="s">
+              <propertyType xsi:type="dbl:StringPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="expand &quot;A extensionInstanceDblObject = new A;&quot;;&#xA;&#x9;expand &quot;extensionInstanceDblObject.s = \&quot;&quot; s &quot;\&quot;;&quot;;&#xA;&#x9;expand &quot;print extensionInstanceDblObject.s;&quot;;">
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;A extensionInstanceDblObject = new A;&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="A extensionInstanceDblObject = new A;"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;extensionInstanceDblObject.s = \&quot;&quot; s &quot;\&quot;;&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="extensionInstanceDblObject.s = \&quot;"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="s" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="\&quot;;"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;print extensionInstanceDblObject.s;&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="print extensionInstanceDblObject.s;"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;Hello&quot;">
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Hello&quot;" value="Hello"/>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="foreach">
+    <model href="foreach.xmi#/"/>
+  </imports>
+  <modules name="stdx_foreach_test">
+    <procedures name="f1">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = l.iterator()">
+        <classifierType concreteSyntax="Iterator">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="l.iterator()">
+          <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@procedures.0/@parameters.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.11"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#xA;&#x9;&#x9;Object item = it.next();&#xA;&#x9;&#x9;print item as string;&#xA;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
+          <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.0"/>
+          <callPart/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;Object item = it.next();&#xA;&#x9;&#x9;print item as string;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Variable" name="item" concreteSyntax="Object item = it.next()">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
+              <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.1"/>
+              <callPart/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Print" concreteSyntax="print item as string">
+            <outputs xsi:type="dbl:Cast" concreteSyntax="item as string">
+              <primitiveType xsi:type="dbl:StringType"/>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@procedures.0/@statements.1/@body/@statements.0"/>
+            </outputs>
+          </statements>
+        </body>
+      </statements>
+      <parameters name="l">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </parameters>
+    </procedures>
+    <procedures name="f2">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = l.iterator()">
+        <classifierType concreteSyntax="Iterator">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="l.iterator()">
+          <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@procedures.1/@parameters.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.11"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#x9;Object object = it.next();Object item = object as Object;{&#xA;&#x9;&#x9;print item as string;&#xA;&#x9;}}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
+          <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.0"/>
+          <callPart/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object object = it.next();Object item = object as Object;{&#xA;&#x9;&#x9;print item as string;&#xA;&#x9;}}">
+          <statements xsi:type="dbl:Variable" name="object" concreteSyntax="Object object = it.next()">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
+              <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@procedures.1/@statements.0"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.1"/>
+              <callPart/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Variable" name="item" concreteSyntax="Object item = object as Object">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="object as Object">
+              <classifierType concreteSyntax="Object">
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+              </classifierType>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="object" referencedElement="//@modules.0/@procedures.1/@statements.1/@body/@statements.0"/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print item as string;&#xA;&#x9;}">
+            <statements xsi:type="dbl:Print" concreteSyntax="print item as string">
+              <outputs xsi:type="dbl:Cast" concreteSyntax="item as string">
+                <primitiveType xsi:type="dbl:StringType"/>
+                <op xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@procedures.1/@statements.1/@body/@statements.1"/>
+              </outputs>
+            </statements>
+          </statements>
+        </body>
+      </statements>
+      <parameters name="l">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
+        </classifierType>
+      </parameters>
+    </procedures>
+  </modules>
+</dbl:Model>

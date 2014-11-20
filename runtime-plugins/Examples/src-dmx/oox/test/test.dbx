@@ -1,0 +1,16 @@
+#import "x"
+
+module test {
+	
+	int i=1;
+	
+	void main() {
+		print "1: " + i + "\n";
+		i=1;
+		fx i=2;
+		print "2: " + i + "\n";
+		i=3;
+		print "3: " + i + "\n";
+	}
+	
+}
