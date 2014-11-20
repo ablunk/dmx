@@ -4270,6 +4270,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		classContentExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
 		moduleContentExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
 		extensionDefinitionEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
+		extensionDefinitionEClass.getESuperTypes().add(this.getExtensibleElement());
 		languageConstructClassifierEClass.getESuperTypes().add(this.getNamedElement());
 		languageConceptClassifierEClass.getESuperTypes().add(this.getLanguageConstructClassifier());
 		tsRuleEClass.getESuperTypes().add(this.getNamedElement());
@@ -4747,7 +4748,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		  (this, 
 		   source, 
 		   new String[] {
-			 "ecore", "http://www.eclipse.org/emf/2002/Ecore#/"
+			 "ecore", "http://www.eclipse.org/emf/2002/Ecore"
 		   });
 	}
 

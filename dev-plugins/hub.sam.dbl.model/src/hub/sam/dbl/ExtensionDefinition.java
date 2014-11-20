@@ -23,7 +23,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ExtensionDefinition extends LanguageConceptClassifier {
+public interface ExtensionDefinition extends LanguageConceptClassifier, ExtensibleElement {
 	/**
 	 * Returns the value of the '<em><b>Extended Concept</b></em>' reference.
 	 * <!-- begin-user-doc -->

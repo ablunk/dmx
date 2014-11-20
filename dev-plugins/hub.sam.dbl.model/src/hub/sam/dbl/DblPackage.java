@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EReference;
  * <!-- end-user-doc -->
  * @see hub.sam.dbl.DblFactory
  * @model kind="package"
- *        annotation="http://www.eclipse.org/OCL/Import ecore='http://www.eclipse.org/emf/2002/Ecore#/'"
+ *        annotation="http://www.eclipse.org/OCL/Import ecore='http://www.eclipse.org/emf/2002/Ecore'"
  * @generated
  */
 public interface DblPackage extends EPackage {
@@ -7412,13 +7412,40 @@ public interface DblPackage extends EPackage {
 	int EXTENSION_DEFINITION__NAME = LANGUAGE_CONCEPT_CLASSIFIER__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSION_DEFINITION__EXPAND_EXPR = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSION_DEFINITION__CONCRETE_SYNTAX = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EXTENSION_DEFINITION__INSTANCE_OF_EXTENSION_DEFINITION = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Extended Concept</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__EXTENDED_CONCEPT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 0;
+	int EXTENSION_DEFINITION__EXTENDED_CONCEPT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Abstract Syntax Def</b></em>' containment reference list.
@@ -7427,7 +7454,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 1;
+	int EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Textual Syntax Def</b></em>' containment reference.
@@ -7436,7 +7463,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 2;
+	int EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Mapping Def</b></em>' containment reference.
@@ -7445,7 +7472,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__MAPPING_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 3;
+	int EXTENSION_DEFINITION__MAPPING_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Extension Definition</em>' class.
@@ -7454,7 +7481,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION_FEATURE_COUNT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 4;
+	int EXTENSION_DEFINITION_FEATURE_COUNT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TextualSyntaxDefImpl <em>Textual Syntax Def</em>}' class.

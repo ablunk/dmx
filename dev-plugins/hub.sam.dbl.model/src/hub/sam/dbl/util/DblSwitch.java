@@ -1144,7 +1144,9 @@ public class DblSwitch<T> extends Switch<T> {
 				ExtensionDefinition extensionDefinition = (ExtensionDefinition)theEObject;
 				T result = caseExtensionDefinition(extensionDefinition);
 				if (result == null) result = caseLanguageConceptClassifier(extensionDefinition);
+				if (result == null) result = caseExtensibleElement(extensionDefinition);
 				if (result == null) result = caseLanguageConstructClassifier(extensionDefinition);
+				if (result == null) result = caseConstruct(extensionDefinition);
 				if (result == null) result = caseNamedElement(extensionDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;

@@ -22,6 +22,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -53,9 +54,55 @@ public class ExtensionDefinitionItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addConcreteSyntaxPropertyDescriptor(object);
+			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
 			addExtendedConceptPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Concrete Syntax feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addConcreteSyntaxPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_concreteSyntax_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_concreteSyntax_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Instance Of Extension Definition feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInstanceOfExtensionDefinitionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExtensibleElement_instanceOfExtensionDefinition_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_instanceOfExtensionDefinition_feature", "_UI_ExtensibleElement_type"),
+				 DblPackage.Literals.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -92,6 +139,7 @@ public class ExtensionDefinitionItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
 			childrenFeatures.add(DblPackage.Literals.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF);
 			childrenFeatures.add(DblPackage.Literals.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF);
 			childrenFeatures.add(DblPackage.Literals.EXTENSION_DEFINITION__MAPPING_DEF);
@@ -138,6 +186,11 @@ public class ExtensionDefinitionItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ExtensionDefinition.class)) {
+			case DblPackage.EXTENSION_DEFINITION__CONCRETE_SYNTAX:
+			case DblPackage.EXTENSION_DEFINITION__INSTANCE_OF_EXTENSION_DEFINITION:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case DblPackage.EXTENSION_DEFINITION__EXPAND_EXPR:
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
 			case DblPackage.EXTENSION_DEFINITION__MAPPING_DEF:
@@ -157,6 +210,11 @@ public class ExtensionDefinitionItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR,
+				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

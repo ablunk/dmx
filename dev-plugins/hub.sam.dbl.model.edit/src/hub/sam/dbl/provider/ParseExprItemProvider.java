@@ -489,6 +489,11 @@ public class ParseExprItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
+				 DblFactory.eINSTANCE.createExtensionDefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PARSE_EXPR__AST_PART,
 				 DblFactory.eINSTANCE.createMapping()));
 
 		newChildDescriptors.add

@@ -531,6 +531,11 @@ public class ClazzItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createExtensionDefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createMapping()));
 
 		newChildDescriptors.add
@@ -922,6 +927,11 @@ public class ClazzItemProvider
 			(createChildParameter
 				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
 				 DblFactory.eINSTANCE.createModuleContentExtension()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS,
+				 DblFactory.eINSTANCE.createExtensionDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -476,6 +476,11 @@ public class EmbeddableExtensionsContainerItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
+				 DblFactory.eINSTANCE.createExtensionDefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
 				 DblFactory.eINSTANCE.createMapping()));
 
 		newChildDescriptors.add
