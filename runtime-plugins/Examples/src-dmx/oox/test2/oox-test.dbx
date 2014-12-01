@@ -1,0 +1,14 @@
+#import "oox"
+#import "../../dbl"
+
+module ooxTest {
+
+oox extension A extends dbl SimpleStatement {
+	start A;
+	A -> "ax" s:STRING ";";
+}
+semantics {
+	expand "print \"" s "\";";
+}
+
+}

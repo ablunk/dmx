@@ -10,6 +10,7 @@ class GroovyTest {
 		GroovyShell shell = new GroovyShell(binding);
 
 		Object value = shell.evaluate("println 'Hello World!'; x = 123; return foo * 10");
+		
 		assert value.equals(new Integer(20));
 		assert binding.getVariable("x").equals(new Integer(123));
 	}

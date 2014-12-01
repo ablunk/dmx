@@ -27,6 +27,7 @@ import hub.sam.tef.tsl.ConstantBinding;
 import hub.sam.tef.tsl.ElementBinding;
 import hub.sam.tef.tsl.FixTerminal;
 import hub.sam.tef.tsl.NonTerminal;
+import hub.sam.tef.tsl.PropertyBinding;
 import hub.sam.tef.tsl.ReferenceBinding;
 import hub.sam.tef.tsl.Rule;
 import hub.sam.tef.tsl.SimpleRule;
@@ -410,6 +411,77 @@ public class ExtensionSyntaxDefinitionProcessor {
     EClass metaClass = _metaClass;
     boolean _matched = false;
     if (!_matched) {
+      if (type instanceof ExtensionDefinition) {
+        _matched=true;
+        EList<Symbol> _rhs = tslRule.getRhs();
+        NonTerminal _createNonTerminal = this.createNonTerminal(type);
+        _rhs.add(_createNonTerminal);
+      }
+    }
+    if (!_matched) {
+      if (type instanceof Clazz) {
+        _matched=true;
+        Syntax _syntax = this.getSyntax();
+        EList<Rule> _rules = _syntax.getRules();
+        final Function1<Rule, Boolean> _function = new Function1<Rule, Boolean>() {
+          public Boolean apply(final Rule it) {
+            NonTerminal _lhs = it.getLhs();
+            String _name = _lhs.getName();
+            String _name_1 = ((Clazz)type).getName();
+            return Boolean.valueOf(_name.equals(_name_1));
+          }
+        };
+        final Rule firstRuleWithClassName = IterableExtensions.<Rule>findFirst(_rules, _function);
+        if ((firstRuleWithClassName instanceof SimpleRule)) {
+          SimpleRule actualRule = ((SimpleRule) firstRuleWithClassName);
+          boolean _and = false;
+          boolean _and_1 = false;
+          EList<Symbol> _rhs = actualRule.getRhs();
+          int _size = _rhs.size();
+          boolean _equals = (_size == 1);
+          if (!_equals) {
+            _and_1 = false;
+          } else {
+            EList<Symbol> _rhs_1 = actualRule.getRhs();
+            Symbol _head = IterableExtensions.<Symbol>head(_rhs_1);
+            _and_1 = (_head instanceof NonTerminal);
+          }
+          if (!_and_1) {
+            _and = false;
+          } else {
+            EList<Symbol> _rhs_2 = actualRule.getRhs();
+            Symbol _head_1 = IterableExtensions.<Symbol>head(_rhs_2);
+            PropertyBinding _propertyBinding = _head_1.getPropertyBinding();
+            boolean _equals_1 = Objects.equal(_propertyBinding, null);
+            _and = _equals_1;
+          }
+          if (_and) {
+            final SimpleRule fActualRule = actualRule;
+            Syntax _syntax_1 = this.getSyntax();
+            EList<Rule> _rules_1 = _syntax_1.getRules();
+            final Function1<Rule, Boolean> _function_1 = new Function1<Rule, Boolean>() {
+              public Boolean apply(final Rule it) {
+                NonTerminal _lhs = it.getLhs();
+                String _name = _lhs.getName();
+                EList<Symbol> _rhs = fActualRule.getRhs();
+                Symbol _head = IterableExtensions.<Symbol>head(_rhs);
+                String _name_1 = ((NonTerminal) _head).getName();
+                return Boolean.valueOf(_name.equals(_name_1));
+              }
+            };
+            Rule _findFirst = IterableExtensions.<Rule>findFirst(_rules_1, _function_1);
+            actualRule = ((SimpleRule) _findFirst);
+          }
+          final EcoreUtil.Copier copier = new EcoreUtil.Copier();
+          EList<Symbol> _rhs_3 = actualRule.getRhs();
+          final Collection<Symbol> rhsCopy = copier.<Symbol>copyAll(_rhs_3);
+          copier.copyReferences();
+          EList<Symbol> _rhs_4 = tslRule.getRhs();
+          _rhs_4.addAll(rhsCopy);
+        }
+      }
+    }
+    if (!_matched) {
       if (type instanceof TsRule) {
         _matched=true;
         TsRule rule = ((TsRule)type);
@@ -491,14 +563,6 @@ public class ExtensionSyntaxDefinitionProcessor {
           _rhs_1.add(_createNonTerminal_1);
           this.processAllRulesWithSameName(rule, metaClass, ruleStack);
         }
-      }
-    }
-    if (!_matched) {
-      if (type instanceof ExtensionDefinition) {
-        _matched=true;
-        EList<Symbol> _rhs = tslRule.getRhs();
-        NonTerminal _createNonTerminal = this.createNonTerminal(type);
-        _rhs.add(_createNonTerminal);
       }
     }
   }
@@ -817,6 +881,8 @@ public class ExtensionSyntaxDefinitionProcessor {
         }
       }
       ruleStack.pop();
+      String _string = tslRule.toString();
+      this.logger.info(_string);
     }
   }
   

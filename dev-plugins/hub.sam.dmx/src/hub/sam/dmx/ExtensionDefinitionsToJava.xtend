@@ -21,6 +21,7 @@ import hub.sam.dbl.TsRule
 import hub.sam.dbl.CompositePropertyType
 import hub.sam.dbl.LanguageConstructClassifier
 import hub.sam.dbl.IdPropertyType
+import java.util.logging.Logger
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -28,6 +29,8 @@ import hub.sam.dbl.IdPropertyType
  * (extension definitions available by import are not considered).
  */
 class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
+	
+	private static final Logger logger = Logger.getLogger(ExtensionDefinitionsToJava.getName());
 	
 	new(IPath outputFolder) {
 		super(outputFolder)
@@ -41,10 +44,12 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		else {
 			if (referencedElement != null && referencedElement instanceof TypedElement) {
 				val typedReferencedElement = referencedElement as TypedElement
-				val referencedElementClassifierType = typedReferencedElement.classifierType
-				if (referencedElementClassifierType != null) {
-					val dblType = referencedElementClassifierType.referencedElement.getContainerObjectOfType(Module).name.equals("dbl")
-					if (dblType) return true;
+				if (referencedElement.getContainerObjectOfType(Module).name.equals("dbl")) {
+					return true;
+				}
+				else if (typedReferencedElement.classifierType != null) {
+					// local variable of DBL metaclass type?	
+					return typedReferencedElement.classifierType.referencedElement.getContainerObjectOfType(Module).name.equals("dbl")
 				}
 			}
 			
@@ -352,6 +357,10 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 
 	def String genExtensionDefinition(ExtensionDefinition extensionDefinition) {
 		val it = extensionDefinition
+		
+		if (mappingDef.statements.empty) {
+			logger.severe("extension instance will not be replaced because semantics part of " + extensionDefinition.name + " is empty.")
+		}
 		
 		'''
 		«(extensionDefinition.eContainer as Module).genPackageStatement»

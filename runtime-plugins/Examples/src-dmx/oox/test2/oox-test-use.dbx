@@ -1,0 +1,11 @@
+#import "../../dbl"
+#import "oox-test"
+
+module ooxTestUse {
+
+void main() {
+	print "hello";
+	ax "world";
+}
+
+}

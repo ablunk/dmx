@@ -63,6 +63,17 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	// returns all the objects that the given identifier identifies in the given context
 	@Override
 	public Object[] getGlobalIdentities(Object identifier, EObject context, EClassifier type) {
+		try {
+			return getGlobalIdentities_save(identifier, context, type);
+		}
+		catch (RuntimeException e) {
+			System.out.println(e);
+			return null;
+		}
+	}
+	
+	// returns all the objects that the given identifier identifies in the given context
+	public Object[] getGlobalIdentities_save(Object identifier, EObject context, EClassifier type) {
 		Collection<Object> allIds = new HashSet<Object>();
 		
 		if (identifier instanceof NamedElement) {
@@ -776,9 +787,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				}
 				return idsAdded;
 			}
-			else {
-				// TODO
-				return false;
+			else if (langClassifier instanceof Clazz) {
+				Clazz clazz = (Clazz) langClassifier;
+				return addIdsForAttributes(clazz, eObjectId, allIds);
 			}
 		}
 		else {
@@ -791,6 +802,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			}
 			return idsAdded;
 		}
+
+		return false;
 	}
 
 //	private boolean addIdsForParentContainers(EObject context, NamedElement eObjectId, Collection allIds) {
@@ -1116,7 +1129,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	
 	private <E extends NamedElement> boolean addId(String identifier, E object, Collection allIds) {
 		boolean idsAdded = false;
-		if (((NamedElement) object).getName().equals(identifier)) {
+		final String objectName = ((NamedElement) object).getName();
+		if (objectName != null && objectName.equals(identifier)) {
 			allIds.add(getIdentitiy((EObject) object));
 			idsAdded = true;
 		}

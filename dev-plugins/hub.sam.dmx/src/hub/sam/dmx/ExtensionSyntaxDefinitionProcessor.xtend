@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil
 import hub.sam.dbl.TextualSyntaxDef
 import hub.sam.dbl.BooleanPropertyType
 import hub.sam.dbl.L1RhsExpr
+import org.eclipse.emf.ecore.util.EcoreUtil.Copier
 
 class DuplicatedRulesContainer {
 	public var Collection<TsRule> rules = new HashSet<TsRule>();
@@ -296,6 +297,34 @@ class ExtensionSyntaxDefinitionProcessor {
 		var metaClass = _metaClass
 		
 		switch (type) {
+			ExtensionDefinition: {
+				tslRule.getRhs().add(createNonTerminal(type));
+			}
+			Clazz: {
+
+				// copy rhs of the rule identified by the name of type to this rule's rhs
+				val firstRuleWithClassName = syntax.rules.findFirst[lhs.name.equals(type.name)]
+				// TODO: if multiple rules exist...
+				
+				if (firstRuleWithClassName instanceof SimpleRule) {
+					var actualRule = firstRuleWithClassName as SimpleRule
+					if (actualRule.rhs.size == 1 && actualRule.rhs.head instanceof NonTerminal &&
+						actualRule.rhs.head.propertyBinding == null
+					) {
+						// another indirection: `simpleRule` -> `actualRule`; `actualRule`:element(...) -> ...;
+						val fActualRule = actualRule;
+						actualRule = syntax.rules.findFirst[lhs.name.equals((fActualRule.rhs.head as NonTerminal).name)] as SimpleRule
+					}
+					
+					val copier = new EcoreUtil.Copier()
+					val rhsCopy = copier.copyAll(actualRule.rhs)
+					copier.copyReferences
+					tslRule.rhs.addAll(rhsCopy)
+				}
+				
+				//tslRule.getRhs().add(createNonTerminal(type));
+				//tslRule.valueBinding = null
+			}
 			TsRule: {
 				var rule = type
 				
@@ -370,9 +399,6 @@ class ExtensionSyntaxDefinitionProcessor {
 				
 					processAllRulesWithSameName(rule, metaClass, ruleStack);
 				}
-			}
-			ExtensionDefinition: {
-				tslRule.getRhs().add(createNonTerminal(type));
 			}
 		}
 	}
@@ -673,6 +699,8 @@ class ExtensionSyntaxDefinitionProcessor {
 				}
 			}
 			ruleStack.pop();
+			
+			logger.info(tslRule.toString)
 		}
 			
 	}

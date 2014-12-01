@@ -18,6 +18,7 @@ import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.PropertyType;
+import hub.sam.dbl.Statement;
 import hub.sam.dbl.StringPropertyType;
 import hub.sam.dbl.StructuredPropertyType;
 import hub.sam.dbl.TsRule;
@@ -27,6 +28,7 @@ import hub.sam.dmx.BasicDblToJavaGenerator;
 import hub.sam.dmx.ExtensionSyntaxDefinitionProcessor;
 import java.io.Writer;
 import java.util.Arrays;
+import java.util.logging.Logger;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -43,6 +45,8 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
  */
 @SuppressWarnings("all")
 public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
+  private final static Logger logger = Logger.getLogger(ExtensionDefinitionsToJava.class.getName());
+  
   public ExtensionDefinitionsToJava(final IPath outputFolder) {
     super(outputFolder);
   }
@@ -70,15 +74,21 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
           if (_and) {
             NamedElement _referencedElement_3 = it.getReferencedElement();
             final TypedElement typedReferencedElement = ((TypedElement) _referencedElement_3);
-            final IdExpr referencedElementClassifierType = typedReferencedElement.getClassifierType();
-            boolean _notEquals_1 = (!Objects.equal(referencedElementClassifierType, null));
-            if (_notEquals_1) {
-              NamedElement _referencedElement_4 = referencedElementClassifierType.getReferencedElement();
-              Module _containerObjectOfType = this.<Module>getContainerObjectOfType(_referencedElement_4, Module.class);
-              String _name = _containerObjectOfType.getName();
-              final boolean dblType = _name.equals("dbl");
-              if (dblType) {
-                return true;
+            NamedElement _referencedElement_4 = it.getReferencedElement();
+            Module _containerObjectOfType = this.<Module>getContainerObjectOfType(_referencedElement_4, Module.class);
+            String _name = _containerObjectOfType.getName();
+            boolean _equals = _name.equals("dbl");
+            if (_equals) {
+              return true;
+            } else {
+              IdExpr _classifierType = typedReferencedElement.getClassifierType();
+              boolean _notEquals_1 = (!Objects.equal(_classifierType, null));
+              if (_notEquals_1) {
+                IdExpr _classifierType_1 = typedReferencedElement.getClassifierType();
+                NamedElement _referencedElement_5 = _classifierType_1.getReferencedElement();
+                Module _containerObjectOfType_1 = this.<Module>getContainerObjectOfType(_referencedElement_5, Module.class);
+                String _name_1 = _containerObjectOfType_1.getName();
+                return _name_1.equals("dbl");
               }
             }
           }
@@ -530,6 +540,15 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
     String _xblockexpression = null;
     {
       final ExtensionDefinition it = extensionDefinition;
+      Mapping _mappingDef = it.getMappingDef();
+      EList<Statement> _statements = _mappingDef.getStatements();
+      boolean _isEmpty = _statements.isEmpty();
+      if (_isEmpty) {
+        String _name = extensionDefinition.getName();
+        String _plus = ("extension instance will not be replaced because semantics part of " + _name);
+        String _plus_1 = (_plus + " is empty.");
+        ExtensionDefinitionsToJava.logger.severe(_plus_1);
+      }
       StringConcatenation _builder = new StringConcatenation();
       EObject _eContainer = extensionDefinition.eContainer();
       String _genPackageStatement = this.genPackageStatement(((Module) _eContainer));
@@ -544,8 +563,8 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.newLine();
       _builder.newLine();
       _builder.append("public class ");
-      String _name = it.getName();
-      _builder.append(_name, "");
+      String _name_1 = it.getName();
+      _builder.append(_name_1, "");
       _builder.append("Semantics extends AbstractExtensionSemantics {");
       _builder.newLineIfNotEmpty();
       _builder.newLine();
@@ -554,8 +573,8 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("(new ");
-      String _name_1 = it.getName();
-      _builder.append(_name_1, "\t\t");
+      String _name_2 = it.getName();
+      _builder.append(_name_2, "\t\t");
       _builder.append("Semantics()).doGenerate(args);");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
@@ -567,8 +586,8 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.append("public void doGenerate(EObject _extensionInstance) {");
       _builder.newLine();
       _builder.append("\t\t");
-      Mapping _mappingDef = it.getMappingDef();
-      String _genStatement = this.genStatement(_mappingDef);
+      Mapping _mappingDef_1 = it.getMappingDef();
+      String _genStatement = this.genStatement(_mappingDef_1);
       _builder.append(_genStatement, "\t\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");

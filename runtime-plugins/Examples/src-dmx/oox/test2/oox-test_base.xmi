@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="oox">
+    <model href="oox.xmi#/"/>
+  </imports>
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <modules name="ooxTest">
+    <classifiers xsi:type="dbl:Clazz" name="A" concreteSyntax="class A {}"/>
+    <extensionDefs name="A" concreteSyntax="extension A extends dbl SimpleStatement  {&#xA;&#x9;start A;&#xA;&#x9;A -> &quot;ax&quot; s:STRING &quot;;&quot;;&#xA;} semantics { expand &quot;print \&quot;&quot; s &quot;\&quot;;&quot;; }">
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.30"/>
+      <textualSyntaxDef concreteSyntax="  {&#xA;&#x9;start A;&#xA;&#x9;A -> &quot;ax&quot; s:STRING &quot;;&quot;;&#xA;}" startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="A" concreteSyntax="A -> &quot;ax&quot; s:STRING &quot;;&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="ax"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="s">
+              <propertyType xsi:type="dbl:StringPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="expand &quot;print \&quot;&quot; s &quot;\&quot;;&quot;;">
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;print \&quot;&quot; s &quot;\&quot;;&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="print \&quot;"/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="s" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="\&quot;;"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

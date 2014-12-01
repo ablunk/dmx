@@ -445,7 +445,7 @@ public class ModelLauncher {
 			
 			
 			// 2.a. forward translation to imported models, so that extensions used in imported models are translated
-			// 2.b. replaced imported models by translated imported models
+			// 2.b. replace imported models by translated imported models
 			for (Import imprt: parsedWorkingModel.getModel().getImports()) {
 				Model importedModel = imprt.getModel();
 				if (importedModel != null) {
@@ -593,14 +593,19 @@ public class ModelLauncher {
 
 				// generate executable code from extension definition semantics
 				ExtensionDefinition extensionDefinition = getExtensionDefinitionGenerator().getImportedExtensionDefinition(workingModel.getModel(), extensionDefinitionName);
-				extensionDefinitions.put(extensionDefinitionName, extensionDefinition);
-
-				if (!extensionDefinitionSemanticsGenerated.contains(extensionDefinitionName)) {
-					extensionDefinitionSemanticsGenerated.add(extensionDefinitionName);
-					logger.info("Generating executable semantics for extension definition " + extensionDefinitionName);
-					
-					getExtensionDefinitionGenerator().genExtensionDefinition(workingModel.getModel(), extensionDefinition);
-					javaCodeAdded = true;
+				if (extensionDefinition == null) {
+					logger.severe("cannot find the extension definition " + extensionDefinitionName + " by import anymore. possibly the extension definition itself was replaced.");
+					throw new RuntimeException();
+				}else {
+					extensionDefinitions.put(extensionDefinitionName, extensionDefinition);
+	
+					if (!extensionDefinitionSemanticsGenerated.contains(extensionDefinitionName)) {
+						extensionDefinitionSemanticsGenerated.add(extensionDefinitionName);
+						logger.info("Generating executable semantics for extension definition " + extensionDefinitionName);
+						
+						getExtensionDefinitionGenerator().genExtensionDefinition(workingModel.getModel(), extensionDefinition);
+						javaCodeAdded = true;
+					}
 				}
 			}
 			
@@ -612,7 +617,7 @@ public class ModelLauncher {
 			IPath inputPath = getXmiRawLocation(workingModel.getResource().getURI().trimSegments(1));
 
 			for (String extensionDefinitionName: leafExtensionInstances.keySet()) {
-				for (ExtensibleElement extensionInstance: leafExtensionInstances.get(extensionDefinitionName)) {
+				extensionInstanceLoop: for (ExtensibleElement extensionInstance: leafExtensionInstances.get(extensionDefinitionName)) {
 					
 					// a copy of the extended DBL metamodel is needed as well.
 					// this is because the semantics of extension definitions access added metamodel classes and properties.
@@ -643,8 +648,8 @@ public class ModelLauncher {
 							+ workingModel.getText() + Activator.lineSep);
 						
 					if (storedModifications == null || storedModifications.size() == 0) {
-						logger.info("No modifications found. Skipping extension substitution.");
-						continue;
+						logger.severe("No modifications found after executing semantics description of extension definition " + extensionDefinitionName + ".");
+						continue extensionInstanceLoop;
 					}
 					else {									
 						sharedModificationApplier.applyAll(storedModifications);
