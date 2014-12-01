@@ -232,12 +232,13 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseClassifier(clazz);
 				if (result == null) result = caseClassSimilar(clazz);
 				if (result == null) result = caseLanguageConceptClassifier(clazz);
-				if (result == null) result = caseConstruct(clazz);
 				if (result == null) result = caseType(clazz);
 				if (result == null) result = caseEmbeddableExtensionsContainer(clazz);
 				if (result == null) result = caseModifierExtensionsContainer(clazz);
 				if (result == null) result = caseLanguageConstructClassifier(clazz);
+				if (result == null) result = caseExtensibleElement(clazz);
 				if (result == null) result = caseNamedElement(clazz);
+				if (result == null) result = caseConstruct(clazz);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1144,23 +1145,28 @@ public class DblSwitch<T> extends Switch<T> {
 				ExtensionDefinition extensionDefinition = (ExtensionDefinition)theEObject;
 				T result = caseExtensionDefinition(extensionDefinition);
 				if (result == null) result = caseLanguageConceptClassifier(extensionDefinition);
-				if (result == null) result = caseExtensibleElement(extensionDefinition);
 				if (result == null) result = caseLanguageConstructClassifier(extensionDefinition);
-				if (result == null) result = caseConstruct(extensionDefinition);
+				if (result == null) result = caseExtensibleElement(extensionDefinition);
 				if (result == null) result = caseNamedElement(extensionDefinition);
+				if (result == null) result = caseConstruct(extensionDefinition);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DblPackage.TEXTUAL_SYNTAX_DEF: {
 				TextualSyntaxDef textualSyntaxDef = (TextualSyntaxDef)theEObject;
 				T result = caseTextualSyntaxDef(textualSyntaxDef);
+				if (result == null) result = caseExtensibleElement(textualSyntaxDef);
+				if (result == null) result = caseNamedElement(textualSyntaxDef);
+				if (result == null) result = caseConstruct(textualSyntaxDef);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DblPackage.LANGUAGE_CONSTRUCT_CLASSIFIER: {
 				LanguageConstructClassifier languageConstructClassifier = (LanguageConstructClassifier)theEObject;
 				T result = caseLanguageConstructClassifier(languageConstructClassifier);
+				if (result == null) result = caseExtensibleElement(languageConstructClassifier);
 				if (result == null) result = caseNamedElement(languageConstructClassifier);
+				if (result == null) result = caseConstruct(languageConstructClassifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1168,7 +1174,9 @@ public class DblSwitch<T> extends Switch<T> {
 				LanguageConceptClassifier languageConceptClassifier = (LanguageConceptClassifier)theEObject;
 				T result = caseLanguageConceptClassifier(languageConceptClassifier);
 				if (result == null) result = caseLanguageConstructClassifier(languageConceptClassifier);
+				if (result == null) result = caseExtensibleElement(languageConceptClassifier);
 				if (result == null) result = caseNamedElement(languageConceptClassifier);
+				if (result == null) result = caseConstruct(languageConceptClassifier);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1176,7 +1184,9 @@ public class DblSwitch<T> extends Switch<T> {
 				TsRule tsRule = (TsRule)theEObject;
 				T result = caseTsRule(tsRule);
 				if (result == null) result = caseLanguageConstructClassifier(tsRule);
+				if (result == null) result = caseExtensibleElement(tsRule);
 				if (result == null) result = caseNamedElement(tsRule);
+				if (result == null) result = caseConstruct(tsRule);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

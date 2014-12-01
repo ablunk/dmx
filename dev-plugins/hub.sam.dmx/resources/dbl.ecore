@@ -319,14 +319,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="mappingDef" eType="#//Mapping"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TextualSyntaxDef">
+  <eClassifiers xsi:type="ecore:EClass" name="TextualSyntaxDef" eSuperTypes="#//ExtensibleElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="startRule" lowerBound="1"
         eType="#//TsRule"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
         eType="#//TsRule" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LanguageConstructClassifier" abstract="true"
-      eSuperTypes="#//NamedElement"/>
+      eSuperTypes="#//NamedElement #//ExtensibleElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="LanguageConceptClassifier" abstract="true"
       eSuperTypes="#//LanguageConstructClassifier"/>
   <eClassifiers xsi:type="ecore:EClass" name="TsRule" eSuperTypes="#//NamedElement #//LanguageConstructClassifier">

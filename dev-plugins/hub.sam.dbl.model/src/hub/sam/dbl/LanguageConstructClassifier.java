@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model abstract="true"
  * @generated
  */
-public interface LanguageConstructClassifier extends NamedElement {
+public interface LanguageConstructClassifier extends NamedElement, ExtensibleElement {
 } // LanguageConstructClassifier

@@ -221,6 +221,9 @@ syntax(Model) "resources/dbl.ecore" {
 	VariableDefOrReference -> Assignment:composite(statements);
 
 	Expression -> L9Expr;
+	
+	// Expression -> L10Expr;
+	// L10Expr -> L9Expr;
 		
 	L9Expr -> LogicalOr;
 	
@@ -349,7 +352,9 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	// EXTENSIONS
 	
-	ExtensionDefinition:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
+	ExtensionDefinition -> ExtensionDefinition_actual;
+
+	ExtensionDefinition_actual:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
 		"extends" ExtendedConstruct
 		TextualSyntaxDef:composite(textualSyntaxDef)
 		("semantics" "{" Mapping:composite(mappingDef) "}")?;

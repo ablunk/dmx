@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class TextualSyntaxDefImpl extends EObjectImpl implements TextualSyntaxDef {
+public class TextualSyntaxDefImpl extends ExtensibleElementImpl implements TextualSyntaxDef {
 	/**
 	 * The cached value of the '{@link #getStartRule() <em>Start Rule</em>}' reference.
 	 * <!-- begin-user-doc -->

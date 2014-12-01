@@ -1154,13 +1154,31 @@ public interface DblPackage extends EPackage {
 	int CLAZZ__EXPAND_EXPR = CLASSIFIER_FEATURE_COUNT + 10;
 
 	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLAZZ__CONCRETE_SYNTAX = CLASSIFIER_FEATURE_COUNT + 11;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION = CLASSIFIER_FEATURE_COUNT + 12;
+
+	/**
 	 * The feature id for the '<em><b>Active</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__ACTIVE = CLASSIFIER_FEATURE_COUNT + 11;
+	int CLAZZ__ACTIVE = CLASSIFIER_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Constructor</b></em>' containment reference.
@@ -1169,7 +1187,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__CONSTRUCTOR = CLASSIFIER_FEATURE_COUNT + 12;
+	int CLAZZ__CONSTRUCTOR = CLASSIFIER_FEATURE_COUNT + 14;
 
 	/**
 	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
@@ -1178,7 +1196,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ__BINDINGS = CLASSIFIER_FEATURE_COUNT + 13;
+	int CLAZZ__BINDINGS = CLASSIFIER_FEATURE_COUNT + 15;
 
 	/**
 	 * The number of structural features of the '<em>Clazz</em>' class.
@@ -1187,7 +1205,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLAZZ_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 14;
+	int CLAZZ_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 16;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ConstructorImpl <em>Constructor</em>}' class.
@@ -7356,13 +7374,40 @@ public interface DblPackage extends EPackage {
 	int LANGUAGE_CONSTRUCT_CLASSIFIER__NAME = NAMED_ELEMENT__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONSTRUCT_CLASSIFIER__EXPAND_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONSTRUCT_CLASSIFIER__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONSTRUCT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Language Construct Classifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int LANGUAGE_CONSTRUCT_CLASSIFIER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.LanguageConceptClassifierImpl <em>Language Concept Classifier</em>}' class.
@@ -7382,6 +7427,33 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int LANGUAGE_CONCEPT_CLASSIFIER__NAME = LANGUAGE_CONSTRUCT_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONCEPT_CLASSIFIER__EXPAND_EXPR = LANGUAGE_CONSTRUCT_CLASSIFIER__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONCEPT_CLASSIFIER__CONCRETE_SYNTAX = LANGUAGE_CONSTRUCT_CLASSIFIER__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LANGUAGE_CONCEPT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION = LANGUAGE_CONSTRUCT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The number of structural features of the '<em>Language Concept Classifier</em>' class.
@@ -7418,7 +7490,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__EXPAND_EXPR = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 0;
+	int EXTENSION_DEFINITION__EXPAND_EXPR = LANGUAGE_CONCEPT_CLASSIFIER__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -7427,7 +7499,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__CONCRETE_SYNTAX = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 1;
+	int EXTENSION_DEFINITION__CONCRETE_SYNTAX = LANGUAGE_CONCEPT_CLASSIFIER__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -7436,7 +7508,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__INSTANCE_OF_EXTENSION_DEFINITION = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 2;
+	int EXTENSION_DEFINITION__INSTANCE_OF_EXTENSION_DEFINITION = LANGUAGE_CONCEPT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Extended Concept</b></em>' reference.
@@ -7445,7 +7517,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__EXTENDED_CONCEPT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 3;
+	int EXTENSION_DEFINITION__EXTENDED_CONCEPT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Abstract Syntax Def</b></em>' containment reference list.
@@ -7454,7 +7526,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 4;
+	int EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Textual Syntax Def</b></em>' containment reference.
@@ -7463,7 +7535,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 5;
+	int EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Mapping Def</b></em>' containment reference.
@@ -7472,7 +7544,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__MAPPING_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 6;
+	int EXTENSION_DEFINITION__MAPPING_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Extension Definition</em>' class.
@@ -7481,7 +7553,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION_FEATURE_COUNT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 7;
+	int EXTENSION_DEFINITION_FEATURE_COUNT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TextualSyntaxDefImpl <em>Textual Syntax Def</em>}' class.
@@ -7494,13 +7566,49 @@ public interface DblPackage extends EPackage {
 	int TEXTUAL_SYNTAX_DEF = 107;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXTUAL_SYNTAX_DEF__NAME = EXTENSIBLE_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXTUAL_SYNTAX_DEF__EXPAND_EXPR = EXTENSIBLE_ELEMENT__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXTUAL_SYNTAX_DEF__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TEXTUAL_SYNTAX_DEF__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
 	 * The feature id for the '<em><b>Start Rule</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__START_RULE = 0;
+	int TEXTUAL_SYNTAX_DEF__START_RULE = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
@@ -7509,7 +7617,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__RULES = 1;
+	int TEXTUAL_SYNTAX_DEF__RULES = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Textual Syntax Def</em>' class.
@@ -7518,7 +7626,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF_FEATURE_COUNT = 2;
+	int TEXTUAL_SYNTAX_DEF_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TsRuleImpl <em>Ts Rule</em>}' class.
@@ -7540,13 +7648,40 @@ public interface DblPackage extends EPackage {
 	int TS_RULE__NAME = NAMED_ELEMENT__NAME;
 
 	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TS_RULE__EXPAND_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TS_RULE__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TS_RULE__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__RHS = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int TS_RULE__RHS = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>Ts Rule</em>' class.
@@ -7555,7 +7690,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int TS_RULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.RhsExpressionImpl <em>Rhs Expression</em>}' class.

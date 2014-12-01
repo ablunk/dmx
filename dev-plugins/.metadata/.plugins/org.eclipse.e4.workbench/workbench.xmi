@@ -3,7 +3,7 @@
   <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workbench>&#xA;&lt;mruList/>&#xA;&lt;/workbench>"/>
   <tags>activeSchemeId:org.eclipse.ui.defaultAcceleratorConfiguration</tags>
   <tags>ModelMigrationProcessor.001</tags>
-  <children xsi:type="basic:TrimmedWindow" xmi:id="_wCX10m9EEeSQPoz7utivRQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_wZbD4W9EEeSQPoz7utivRQ" label="%trimmedwindow.label.eclipseSDK" x="396" y="170" width="1240" height="961">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_wCX10m9EEeSQPoz7utivRQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.platform" selectedElement="_wZbD4W9EEeSQPoz7utivRQ" label="%trimmedwindow.label.eclipseSDK" x="401" y="170" width="1240" height="961">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="true"/>
     <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
@@ -67,6 +67,10 @@
           <tags>persp.newWizSC:org.eclipse.xtend.ide.wizards.NewXtendInterfaceWizard</tags>
           <tags>persp.newWizSC:org.eclipse.xtend.ide.wizards.NewXtendEnumWizard</tags>
           <tags>persp.newWizSC:org.eclipse.xtend.ide.wizards.NewXtendAnnotationWizard</tags>
+          <tags>persp.actionSet:org.codehaus.groovy.eclipse.quickfix.actionSet</tags>
+          <tags>persp.actionSet:org.codehaus.groovy.eclipse.ui.groovyElementCreation</tags>
+          <tags>persp.actionSet:Fonts.actionSet</tags>
+          <tags>persp.actionSet:org.codehaus.groovy.eclipse.conversion</tags>
           <children xsi:type="basic:PartSashContainer" xmi:id="_whPjIW9EEeSQPoz7utivRQ" selectedElement="_whPjIm9EEeSQPoz7utivRQ" horizontal="true">
             <children xsi:type="basic:PartSashContainer" xmi:id="_whPjIm9EEeSQPoz7utivRQ" containerData="2500" selectedElement="_whPjI29EEeSQPoz7utivRQ">
               <children xsi:type="basic:PartStack" xmi:id="_whPjI29EEeSQPoz7utivRQ" elementId="left" containerData="6000" selectedElement="_whPjJG9EEeSQPoz7utivRQ">
@@ -231,11 +235,14 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_wa6RoG9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_wa_xMG9EEeSQPoz7utivRQ" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_wDCkR29EEeSQPoz7utivRQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_edU4AHSlEeSxZ6MmXt6zAw" elementId="print" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" enabled="false" command="_wDCkR29EEeSQPoz7utivRQ"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_wa6RoW9EEeSQPoz7utivRQ" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
         <children xsi:type="menu:ToolBarSeparator" xmi:id="_wa6Rom9EEeSQPoz7utivRQ" elementId="additions" toBeRendered="false"/>
+      </children>
+      <children xsi:type="menu:ToolBar" xmi:id="_eg8zwHSlEeSxZ6MmXt6zAw" elementId="Fonts.actionSet">
+        <tags>Draggable</tags>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_wpx0EG9EEeSQPoz7utivRQ" elementId="org.eclipse.debug.ui.launchActionSet">
         <tags>Draggable</tags>
@@ -252,7 +259,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_wa64sG9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_wbDblG9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_wC6ogG9EEeSQPoz7utivRQ"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_edZwg3SlEeSxZ6MmXt6zAw" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_wC6ogG9EEeSQPoz7utivRQ"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_wa64sW9EEeSQPoz7utivRQ" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -566,7 +573,11 @@
       <tags>platform:cocoa</tags>
     </bindings>
     <bindings xmi:id="_wEIwYG9EEeSQPoz7utivRQ" keySequence="ALT+CTRL+H" command="_wC72nm9EEeSQPoz7utivRQ"/>
-    <bindings xmi:id="_wETvg29EEeSQPoz7utivRQ" keySequence="COMMAND+CTRL+F" command="_wETvgW9EEeSQPoz7utivRQ"/>
+    <bindings xmi:id="_d-_WMHSlEeSxZ6MmXt6zAw" keySequence="ALT+SHIFT+D G" command="_d-YSN3SlEeSxZ6MmXt6zAw"/>
+    <bindings xmi:id="_d_Zl4HSlEeSxZ6MmXt6zAw" keySequence="ALT+SHIFT+X G" command="_d-Y5SHSlEeSxZ6MmXt6zAw"/>
+    <bindings xmi:id="_d_dQQnSlEeSxZ6MmXt6zAw" keySequence="ALT+G J" command="_d-YSPHSlEeSxZ6MmXt6zAw"/>
+    <bindings xmi:id="_d_eeYHSlEeSxZ6MmXt6zAw" keySequence="ALT+J G" command="_d-YSOHSlEeSxZ6MmXt6zAw"/>
+    <bindings xmi:id="_d_4uEHSlEeSxZ6MmXt6zAw" keySequence="COMMAND+CTRL+F" command="_wETvgW9EEeSQPoz7utivRQ"/>
   </bindingTables>
   <bindingTables xmi:id="_wDmk4W9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.textEditorScope" bindingContext="_wDKgBW9EEeSQPoz7utivRQ">
     <bindings xmi:id="_wDmk4m9EEeSQPoz7utivRQ" keySequence="COMMAND+SHIFT+NUMPAD_MULTIPLY" command="_wC7PfG9EEeSQPoz7utivRQ"/>
@@ -647,6 +658,8 @@
     <bindings xmi:id="_wEIwY29EEeSQPoz7utivRQ" keySequence="COMMAND+SHIFT+ARROW_RIGHT" command="_wC6obW9EEeSQPoz7utivRQ">
       <tags>platform:cocoa</tags>
     </bindings>
+    <bindings xmi:id="_d_MxkXSlEeSxZ6MmXt6zAw" keySequence="CTRL+-" command="_d-YSMXSlEeSxZ6MmXt6zAw"/>
+    <bindings xmi:id="_d_VUcHSlEeSxZ6MmXt6zAw" keySequence="CTRL+=" command="_d-Y5RHSlEeSxZ6MmXt6zAw"/>
   </bindingTables>
   <bindingTables xmi:id="_wDnL829EEeSQPoz7utivRQ" elementId="org.eclipse.xtext.ui.embeddedTextEditorScope" bindingContext="_wDJ49W9EEeSQPoz7utivRQ">
     <bindings xmi:id="_wDnL9G9EEeSQPoz7utivRQ" keySequence="COMMAND+SHIFT+J" command="_wDB9IG9EEeSQPoz7utivRQ"/>
@@ -936,7 +949,7 @@
     <bindings xmi:id="_wEIJVW9EEeSQPoz7utivRQ" keySequence="CTRL+D" command="_wC-56m9EEeSQPoz7utivRQ"/>
   </bindingTables>
   <bindingTables xmi:id="_wEUWk29EEeSQPoz7utivRQ" contributorURI="platform:/fragment/org.eclipse.e4.ui.workbench.renderers.swt.cocoa" bindingContext="_wCX1129EEeSQPoz7utivRQ">
-    <bindings xmi:id="_wEUWlG9EEeSQPoz7utivRQ" keySequence="M1+W" command="_wEUWkW9EEeSQPoz7utivRQ"/>
+    <bindings xmi:id="_d_5VIHSlEeSxZ6MmXt6zAw" keySequence="M1+W" command="_wEUWkW9EEeSQPoz7utivRQ"/>
   </bindingTables>
   <bindingTables xmi:id="_wg7aEG9EEeSQPoz7utivRQ" bindingContext="_wg6zAG9EEeSQPoz7utivRQ"/>
   <bindingTables xmi:id="_wg7aEm9EEeSQPoz7utivRQ" bindingContext="_wg7aEW9EEeSQPoz7utivRQ"/>
@@ -968,6 +981,24 @@
   <bindingTables xmi:id="_whA5o29EEeSQPoz7utivRQ" bindingContext="_whA5om9EEeSQPoz7utivRQ"/>
   <bindingTables xmi:id="_whBgsW9EEeSQPoz7utivRQ" bindingContext="_whBgsG9EEeSQPoz7utivRQ"/>
   <bindingTables xmi:id="_whBgs29EEeSQPoz7utivRQ" bindingContext="_whBgsm9EEeSQPoz7utivRQ"/>
+  <bindingTables xmi:id="_d_HSAHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.editor.groovyEditorScope" bindingContext="_d-cjoHSlEeSxZ6MmXt6zAw">
+    <bindings xmi:id="_d_HSAXSlEeSxZ6MmXt6zAw" keySequence="ALT+COMMAND+Z" command="_d-Y5RnSlEeSxZ6MmXt6zAw">
+      <tags>platform:cocoa</tags>
+    </bindings>
+    <bindings xmi:id="_d_MxkHSlEeSxZ6MmXt6zAw" keySequence="COMMAND+SHIFT+U" command="_d-YSOXSlEeSxZ6MmXt6zAw"/>
+    <bindings xmi:id="_d_OmwHSlEeSxZ6MmXt6zAw" keySequence="ALT+COMMAND+R" command="_d-YSM3SlEeSxZ6MmXt6zAw">
+      <tags>platform:cocoa</tags>
+    </bindings>
+    <bindings xmi:id="_d_PN0HSlEeSxZ6MmXt6zAw" keySequence="ALT+COMMAND+I" command="_d-YSRnSlEeSxZ6MmXt6zAw">
+      <tags>platform:cocoa</tags>
+    </bindings>
+    <bindings xmi:id="_d_dQQHSlEeSxZ6MmXt6zAw" keySequence="ALT+G F" command="_d-YSQHSlEeSxZ6MmXt6zAw"/>
+    <bindings xmi:id="_d_dQQXSlEeSxZ6MmXt6zAw" keySequence="ALT+G M" command="_d-Y5R3SlEeSxZ6MmXt6zAw"/>
+  </bindingTables>
+  <bindingTables xmi:id="_ea09oXSlEeSxZ6MmXt6zAw" bindingContext="_ea09oHSlEeSxZ6MmXt6zAw"/>
+  <bindingTables xmi:id="_ea1ksHSlEeSxZ6MmXt6zAw" bindingContext="_ea09onSlEeSxZ6MmXt6zAw"/>
+  <bindingTables xmi:id="_ea1ksnSlEeSxZ6MmXt6zAw" bindingContext="_ea1ksXSlEeSxZ6MmXt6zAw"/>
+  <bindingTables xmi:id="_ea1ktHSlEeSxZ6MmXt6zAw" bindingContext="_ea1ks3SlEeSxZ6MmXt6zAw"/>
   <rootContext xmi:id="_wCX11G9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.contexts.dialogAndWindow" contributorURI="platform:/plugin/org.eclipse.platform" name="In Dialogs and Windows" description="Either a dialog or a window is open">
     <children xmi:id="_wCX11W9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.contexts.window" contributorURI="platform:/plugin/org.eclipse.platform" name="In Windows" description="A window is open">
       <children xmi:id="_wCX11m9EEeSQPoz7utivRQ" elementId="org.eclipse.e4.ui.contexts.views" contributorURI="platform:/plugin/org.eclipse.platform" name="%bindingcontext.name.bindingView"/>
@@ -999,13 +1030,16 @@
           <children xmi:id="_wDKgHW9EEeSQPoz7utivRQ" elementId="org.eclipse.wst.xml.dependencies" name="XML Source Dependencies" description="XML Source Dependencies"/>
           <children xmi:id="_wDKgHm9EEeSQPoz7utivRQ" elementId="org.eclipse.wst.xml.expand" name="XML Source Expand/Collapse" description="XML Source Expand/Collapse"/>
         </children>
-        <children xmi:id="_wDKgEW9EEeSQPoz7utivRQ" elementId="org.eclipse.jdt.ui.javaEditorScope" name="Editing Java Source" description="Editing Java Source Context"/>
+        <children xmi:id="_wDKgEW9EEeSQPoz7utivRQ" elementId="org.eclipse.jdt.ui.javaEditorScope" name="Editing Java Source" description="Editing Java Source Context">
+          <children xmi:id="_d-cjoHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.editor.groovyEditorScope" name="Editing Groovy Source" description="Editing Groovy Source Context"/>
+        </children>
         <children xmi:id="_wDKgEm9EEeSQPoz7utivRQ" elementId="org.eclipse.pde.ui.pdeEditorContext" name="PDE editor" description="The context used by PDE editors"/>
         <children xmi:id="_wDKgFm9EEeSQPoz7utivRQ" elementId="org.eclipse.wst.xsd.ui.text.editor.context" name="Editing XSD context"/>
         <children xmi:id="_wDKgGW9EEeSQPoz7utivRQ" elementId="org.eclipse.jdt.ui.propertiesEditorScope" name="Editing Properties Files" description="Editing Properties Files Context"/>
       </children>
       <children xmi:id="_wDKgF29EEeSQPoz7utivRQ" elementId="org.eclipse.debug.ui.memoryview" name="In Memory View" description="In memory view"/>
       <children xmi:id="_wDKgGm9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.console.ConsoleView" name="In Console View" description="In Console View"/>
+      <children xmi:id="_d-cjoXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.console.xtext.embededxtextEditor.context" name="Embedded Essential OCL Xtext Editor"/>
     </children>
     <children xmi:id="_wCX1129EEeSQPoz7utivRQ" elementId="org.eclipse.ui.contexts.dialog" contributorURI="platform:/plugin/org.eclipse.platform" name="In Dialogs" description="A dialog is open"/>
     <children xmi:id="_wDJ49W9EEeSQPoz7utivRQ" elementId="org.eclipse.xtext.ui.embeddedTextEditorScope" name="Embedded Xtext Editor context" description="Embedded Xtext Editor is active"/>
@@ -1045,6 +1079,10 @@
   <rootContext xmi:id="_whA5om9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.WorkingSetActionSet" name="Auto::org.eclipse.ui.WorkingSetActionSet"/>
   <rootContext xmi:id="_whBgsG9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.actionSet.openFiles" name="Auto::org.eclipse.ui.actionSet.openFiles"/>
   <rootContext xmi:id="_whBgsm9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.edit.text.actionSet.presentation" name="Auto::org.eclipse.ui.edit.text.actionSet.presentation"/>
+  <rootContext xmi:id="_ea09oHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.quickfix.actionSet" name="Auto::org.codehaus.groovy.eclipse.quickfix.actionSet"/>
+  <rootContext xmi:id="_ea09onSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.ui.groovyElementCreation" name="Auto::org.codehaus.groovy.eclipse.ui.groovyElementCreation"/>
+  <rootContext xmi:id="_ea1ksXSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.conversion" name="Auto::org.codehaus.groovy.eclipse.conversion"/>
+  <rootContext xmi:id="_ea1ks3SlEeSxZ6MmXt6zAw" elementId="Fonts.actionSet" name="Auto::Fonts.actionSet"/>
   <descriptors xmi:id="_wGuKUG9EEeSQPoz7utivRQ" elementId="org.eclipse.e4.ui.compatibility.editor" allowMultiple="true" category="org.eclipse.e4.primaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor">
     <tags>Editor</tags>
   </descriptors>
@@ -1291,6 +1329,18 @@
   <descriptors xmi:id="_wHltAG9EEeSQPoz7utivRQ" elementId="org.eclipse.xtext.xtext.ui.graph.view" label="Xtext Syntax Graph" iconURI="platform:/plugin/org.eclipse.xtext.xtext.ui.graph/icons/railroad.png" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
     <tags>View</tags>
     <tags>categoryTag:Xtext</tags>
+  </descriptors>
+  <descriptors xmi:id="_eDrB4HSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.emf.validation.validity.ui.validity" label="ValidityView" iconURI="platform:/plugin/org.eclipse.ocl.examples.emf.validation.validity.ui/icons/validation.gif" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:OCL</tags>
+  </descriptors>
+  <descriptors xmi:id="_eDteIHSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.modelregistry.registrations" label="Registrations View" iconURI="platform:/plugin/org.eclipse.ocl.examples.modelregistry.ui/icons/sample.gif" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:OCL</tags>
+  </descriptors>
+  <descriptors xmi:id="_eDusQHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.astviews.ASTView" label="Groovy AST Viewer" iconURI="platform:/plugin/org.codehaus.groovy.eclipse.astviews/icons/tiny.png" category="org.eclipse.e4.secondaryDataStack" closeable="true" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView">
+    <tags>View</tags>
+    <tags>categoryTag:Groovy</tags>
   </descriptors>
   <trimContributions xmi:id="_2r10UF9tEeO-yojH_y4TJA" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
     <children xsi:type="menu:ToolControl" xmi:id="_76uUAF9tEeO-yojH_y4TJA" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
@@ -2187,6 +2237,58 @@
   <commands xmi:id="_wY9J0W9EEeSQPoz7utivRQ" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.DisplayViewActions/org.eclipse.jdt.debug.ui.displayViewToolbar.Display" commandName="Display" description="Display Result of Evaluating Selected Text" category="_wC4zQG9EEeSQPoz7utivRQ"/>
   <commands xmi:id="_wY9J0m9EEeSQPoz7utivRQ" elementId="AUTOGEN:::org.eclipse.jdt.debug.ui.DisplayViewActions/org.eclipse.jdt.debug.ui.displayViewToolbar.Inspect" commandName="Inspect" description="Inspect Result of Evaluating Selected Text" category="_wC4zQG9EEeSQPoz7utivRQ"/>
   <commands xmi:id="_wY9J029EEeSQPoz7utivRQ" elementId="AUTOGEN:::org.eclipse.pde.ui.logViewActions/org.eclipse.jdt.debug.ui.LogViewActions.showStackTrace" commandName="Show Stack Trace in Console View" description="Show Stack Trace in Console View" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-XrIHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.dsl.command.type_check" commandName="Type check" description="Perform static type checking on selected resources" category="_d-XEEXSlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-XrIXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.debug.ui.DebugHandler" commandName="Debug..." description="Debug..." category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-XrInSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.debug.ui.groovyShellLaunchShortcut.debug" commandName="Debug Groovy Shell" description="Debug Groovy Shell" category="_wC4zNm9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-XrI3SlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.outline.SaveAsOCLinEcoreCommand" commandName="Save As OCLinEcore Command" description="Save file changing format to OCLinEcore" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-XrJHSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.interpreter.ShowEcoreConsoleAction" commandName="Show &amp;OCL Console" description="Show &amp;OCL Console" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-XrJXSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.ui.fixCompilerMismatch" commandName="Fix Groovy Compiler Mismatches" description="Opens a dialog to fix all projects that use a compielr version different from what the workspace provides." category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-XrJnSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.editor.commands.Format" commandName="Format" description="Format the current Groovy File or the Source in the current selection" category="_d-XEEnSlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-XrJ3SlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.outline.SaveAsPivotCommand" commandName="Save As Pivot Command" description="Save file changing format to Pivot" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-XrKHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.dsl.command.refresh" commandName="Refresh DSLDs" description="Refresh DSLD files for the given project" category="_d-XEEXSlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSMHSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.console.ShowEcoreConsoleAction" commandName="Show Xtext &amp;OCL Console" description="%_UI_ShowOCLConsole_tooltip" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSMXSlEeSxZ6MmXt6zAw" elementId="fonts.commands.decrease" commandName="Fonts Decrease" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSMnSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclstdlib.OCLstdlib.validate" commandName="Validate" description="Trigger expensive validation" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSM3SlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.refactoring.command.rename" commandName="Rename - Refactoring" category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSNHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.editor.commands.Indentation" commandName="Correct Indentation" description="Correct the indentation of code" category="_d-XEEnSlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSNXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.base.ui.SaveASCommand" commandName="Save Abstract Syntax" description="Save the Abstract Syntax representation to an XMI file " category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSNnSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.dsl.command.type_check.remove" commandName="Remove type checking annotations" description="Removes type checking annotations from selected resources" category="_d-XEEXSlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSN3SlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.groovyScriptLaunchShortcut.debug" commandName="Debug Groovy Script" description="Debug Groovy Script" category="_wC4zNm9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSOHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.ui.convertToGroovy" commandName="Convert to Groovy" description="Converts a file with a java extension to a file with a groovy extension" category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSOXSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.ui.findOccurrences" commandName="Find occurrences in current file" description="Populates the search view with all occurrecnes of currently selected token in the file" category="_d-XEEnSlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSOnSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.base.ui.ValidateCommand" commandName="Validate the OCL" description="Validate the OCL associated with the selection" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSO3SlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.essentialocl.EssentialOCL.validate" commandName="Validate" description="Trigger expensive validation" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSPHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.ui.convertToJava" commandName="Convert to Java" description="Converts a file with a groovy extension to a file with a java extension" category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSPXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.commands.SetExportDelegateURICommand_Virtual" commandName="Set Virtual Export Delegate URI Command" description="Specify the virtual Delegate URI to be used when saving to Ecore" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSPnSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.completeocl.loadresource" commandName="Load Document" description="Load Complete OCL Document to contribute validation" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSP3SlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.groovyConsoleLaunchShortcut.debug" commandName="Debug Groovy Console" description="Debug Groovy Console" category="_wC4zNm9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSQHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.ui.convertToClosure" commandName="Convert to closure" description="Convert a method declaration to a closure" category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSQXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.commands.SetExportDelegateURICommand_LPG" commandName="Set LPG Export Delegate URI Command" description="Specify use of the LPG Delegate URI to be used when saving to Ecore" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSQnSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.completeocl.CompleteOCL.validate" commandName="Validate" description="Trigger expensive validation" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSQ3SlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.refactoring.command.extractMethod" commandName="Extract Method..." category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSRHSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.markup.Markup.validate" commandName="Validate" description="Trigger expensive validation" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSRXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.outline.CreateDynamicInstanceCommand" commandName="Create Dynamic Instance Command" description="Create a new Model containing a Dynamic Instance of this Class" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSRnSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.refactoring.command.inlineMethod" commandName="Inline Method..." category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-YSR3SlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.commands.SetExportDelegateURICommand_Pivot" commandName="Set Pivot Export Delegate URI Command" description="Specify use of the Pivot Delegate URI to be used when saving to Ecore" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSSHSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.outline.SaveAsUMLCommand" commandName="Save As UML Command" description="Save file changing format to UML" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSSXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.outline.SaveInEcoreCommand" commandName="Save In Ecore Command" description="Save file changing format to Ecore (String stays as String)" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-YSSnSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.groovyConsoleLaunchShortcut.run" commandName="Run Groovy Console" description="Run Groovy Console" category="_wC4zNm9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5QHSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.base.ui.SaveCSCommand" commandName="Save Concrete (Xtext) Syntax" description="Save the Concrete (Xtext) Syntax representation to an XMI file" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5QXSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.debug.ui.groovyShellLaunchShortcut.run" commandName="Run Groovy Shell" description="Run Groovy Shell" category="_wC4zNm9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5QnSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.OCLinEcore.validate" commandName="Validate" description="Trigger expensive validation" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5Q3SlEeSxZ6MmXt6zAw" elementId="org.eclipse.emf.validation.ShowValidityViewAction" commandName="Show Validity View" description="Show Validity View" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5RHSlEeSxZ6MmXt6zAw" elementId="fonts.commands.increase" commandName="Fonts Increase" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5RXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.interpreter.ShowUMLConsoleAction" commandName="Show &amp;OCL Console" description="Show &amp;OCL Console" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5RnSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.quickfix.surround.with.quickMenu" commandName="Groovy code templates" category="_d-XEEnSlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-Y5R3SlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.ui.convertToMethod" commandName="Convert to method" description="Convert a closure declaration to a method" category="_d-XEE3SlEeSxZ6MmXt6zAw"/>
+  <commands xmi:id="_d-Y5SHSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.groovyScriptLaunchShortcut.run" commandName="Run Groovy Script" description="Run Groovy Script" category="_wC4zNm9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_d-Y5SXSlEeSxZ6MmXt6zAw" elementId="org.eclipse.ocl.examples.xtext.oclinecore.ui.outline.SaveAsEcoreCommand" commandName="Save As Ecore Command" description="Save file changing to Ecore (String changes to EString)" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_eaN5oHSlEeSxZ6MmXt6zAw" elementId="AUTOGEN:::org.codehaus.groovy.eclipse.ui.groovyElementCreation/opengroovyprojectwizard" commandName="Groovy Project..." description="New Groovy Project" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_eaOgsHSlEeSxZ6MmXt6zAw" elementId="AUTOGEN:::Fonts.actionSet/fonts.actions.FontsIncreaseSizeAction" commandName="Increase fonts size" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_eaPHwHSlEeSxZ6MmXt6zAw" elementId="AUTOGEN:::Fonts.actionSet/fonts.actions.FontsDecreaseSizeAction" commandName="Decrease fonts size" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_eaRkAHSlEeSxZ6MmXt6zAw" elementId="AUTOGEN:::org.eclipse.debug.ui.OCLBreakpointRulerActions/org.eclipse.ocl.examples.debug.ui.actions.RulerToggleBreakpointAction" commandName="OCL Toggle Breakpoint" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_eaSLEHSlEeSxZ6MmXt6zAw" elementId="AUTOGEN:::org.codehaus.groovy.editor.actions/org.groovy.codehaus.eclipse.ui.actions.ManageBreakpointRulerAction" commandName="Toggle Breakpoint" category="_wC4zQG9EEeSQPoz7utivRQ"/>
+  <commands xmi:id="_eaSLEXSlEeSxZ6MmXt6zAw" elementId="AUTOGEN:::org.codehaus.groovy.editor.actions/org.eclipse.jdt.internal.ui.javaeditor.JavaSelectRulerAction" commandName="Select Annotation ruler" category="_wC4zQG9EEeSQPoz7utivRQ"/>
   <addons xmi:id="_wCX12G9EEeSQPoz7utivRQ" elementId="org.eclipse.e4.core.commands.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
   <addons xmi:id="_wCX12W9EEeSQPoz7utivRQ" elementId="org.eclipse.e4.ui.contexts.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
   <addons xmi:id="_wCX12m9EEeSQPoz7utivRQ" elementId="org.eclipse.e4.ui.bindings.service" contributorURI="platform:/plugin/org.eclipse.platform" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
@@ -2226,4 +2328,8 @@
   <categories xmi:id="_wC4zRm9EEeSQPoz7utivRQ" elementId="org.eclipse.ui.category.navigate" name="Navigate"/>
   <categories xmi:id="_wC4zR29EEeSQPoz7utivRQ" elementId="org.eclipse.jdt.ui.category.source" name="Source" description="Java Source Actions"/>
   <categories xmi:id="_wC4zSG9EEeSQPoz7utivRQ" elementId="org.eclipse.jdt.ui.category.refactoring" name="Refactor - Java" description="Java Refactoring Actions"/>
+  <categories xmi:id="_d-XEEXSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.dsl.command.category" name="DSLD-related commands" description="Commands related to DSLD management"/>
+  <categories xmi:id="_d-XEEnSlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.editor.category.source" name="Groovy Source Commands" description="Source"/>
+  <categories xmi:id="_d-XEE3SlEeSxZ6MmXt6zAw" elementId="org.codehaus.groovy.eclipse.refactoring.commands.refactoring" name="Groovy Refactoring Commands" description="Refactorings"/>
+  <categories xmi:id="_d-XEFHSlEeSxZ6MmXt6zAw" elementId="fonts.commands.category" name="Fonts Size"/>
 </application:Application>

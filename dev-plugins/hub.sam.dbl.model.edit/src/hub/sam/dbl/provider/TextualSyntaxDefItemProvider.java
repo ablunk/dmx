@@ -36,13 +36,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class TextualSyntaxDefItemProvider
-	extends ItemProviderAdapter
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+	extends ExtensibleElementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -140,7 +134,10 @@ public class TextualSyntaxDefItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_TextualSyntaxDef_type");
+		String label = ((TextualSyntaxDef)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_TextualSyntaxDef_type") :
+			getString("_UI_TextualSyntaxDef_type") + " " + label;
 	}
 
 	/**
@@ -177,17 +174,6 @@ public class TextualSyntaxDefItemProvider
 			(createChildParameter
 				(DblPackage.Literals.TEXTUAL_SYNTAX_DEF__RULES,
 				 DblFactory.eINSTANCE.createTsRule()));
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return dblEditPlugin.INSTANCE;
 	}
 
 }

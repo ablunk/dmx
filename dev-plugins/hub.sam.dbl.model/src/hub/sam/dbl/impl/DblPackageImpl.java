@@ -4271,7 +4271,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		moduleContentExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
 		extensionDefinitionEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
 		extensionDefinitionEClass.getESuperTypes().add(this.getExtensibleElement());
+		textualSyntaxDefEClass.getESuperTypes().add(this.getExtensibleElement());
 		languageConstructClassifierEClass.getESuperTypes().add(this.getNamedElement());
+		languageConstructClassifierEClass.getESuperTypes().add(this.getExtensibleElement());
 		languageConceptClassifierEClass.getESuperTypes().add(this.getLanguageConstructClassifier());
 		tsRuleEClass.getESuperTypes().add(this.getNamedElement());
 		tsRuleEClass.getESuperTypes().add(this.getLanguageConstructClassifier());

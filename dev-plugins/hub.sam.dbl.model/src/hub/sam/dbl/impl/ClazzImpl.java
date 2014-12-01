@@ -52,6 +52,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getReportBlock <em>Report Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getClearBlock <em>Clear Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getExpandExpr <em>Expand Expr</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ClazzImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#isActive <em>Active</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getConstructor <em>Constructor</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClazzImpl#getBindings <em>Bindings</em>}</li>
@@ -170,6 +172,46 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * @ordered
 	 */
 	protected ExpandExpr expandExpr;
+
+	/**
+	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONCRETE_SYNTAX_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 * @ordered
+	 */
+	protected String concreteSyntax = CONCRETE_SYNTAX_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInstanceOfExtensionDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInstanceOfExtensionDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean instanceOfExtensionDefinition = INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
@@ -553,6 +595,48 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getConcreteSyntax() {
+		return concreteSyntax;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConcreteSyntax(String newConcreteSyntax) {
+		String oldConcreteSyntax = concreteSyntax;
+		concreteSyntax = newConcreteSyntax;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.CLAZZ__CONCRETE_SYNTAX, oldConcreteSyntax, concreteSyntax));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isInstanceOfExtensionDefinition() {
+		return instanceOfExtensionDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInstanceOfExtensionDefinition(boolean newInstanceOfExtensionDefinition) {
+		boolean oldInstanceOfExtensionDefinition = instanceOfExtensionDefinition;
+		instanceOfExtensionDefinition = newInstanceOfExtensionDefinition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION, oldInstanceOfExtensionDefinition, instanceOfExtensionDefinition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public boolean isActive() {
 		return active;
 	}
@@ -692,6 +776,10 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return getClearBlock();
 			case DblPackage.CLAZZ__EXPAND_EXPR:
 				return getExpandExpr();
+			case DblPackage.CLAZZ__CONCRETE_SYNTAX:
+				return getConcreteSyntax();
+			case DblPackage.CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION:
+				return isInstanceOfExtensionDefinition();
 			case DblPackage.CLAZZ__ACTIVE:
 				return isActive();
 			case DblPackage.CLAZZ__CONSTRUCTOR:
@@ -749,6 +837,12 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__EXPAND_EXPR:
 				setExpandExpr((ExpandExpr)newValue);
 				return;
+			case DblPackage.CLAZZ__CONCRETE_SYNTAX:
+				setConcreteSyntax((String)newValue);
+				return;
+			case DblPackage.CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION:
+				setInstanceOfExtensionDefinition((Boolean)newValue);
+				return;
 			case DblPackage.CLAZZ__ACTIVE:
 				setActive((Boolean)newValue);
 				return;
@@ -804,6 +898,12 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 			case DblPackage.CLAZZ__EXPAND_EXPR:
 				setExpandExpr((ExpandExpr)null);
 				return;
+			case DblPackage.CLAZZ__CONCRETE_SYNTAX:
+				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
+				return;
+			case DblPackage.CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION:
+				setInstanceOfExtensionDefinition(INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT);
+				return;
 			case DblPackage.CLAZZ__ACTIVE:
 				setActive(ACTIVE_EDEFAULT);
 				return;
@@ -847,6 +947,10 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				return clearBlock != null;
 			case DblPackage.CLAZZ__EXPAND_EXPR:
 				return expandExpr != null;
+			case DblPackage.CLAZZ__CONCRETE_SYNTAX:
+				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
+			case DblPackage.CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION:
+				return instanceOfExtensionDefinition != INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
 			case DblPackage.CLAZZ__ACTIVE:
 				return active != ACTIVE_EDEFAULT;
 			case DblPackage.CLAZZ__CONSTRUCTOR:
@@ -889,6 +993,19 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				default: return -1;
 			}
 		}
+		if (baseClass == Construct.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.CLAZZ__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
+		if (baseClass == ExtensibleElement.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.CLAZZ__CONCRETE_SYNTAX: return DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+				case DblPackage.CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+				default: return -1;
+			}
+		}
 		if (baseClass == LanguageConstructClassifier.class) {
 			switch (derivedFeatureID) {
 				default: return -1;
@@ -896,12 +1013,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 		}
 		if (baseClass == LanguageConceptClassifier.class) {
 			switch (derivedFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == Construct.class) {
-			switch (derivedFeatureID) {
-				case DblPackage.CLAZZ__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
 				default: return -1;
 			}
 		}
@@ -940,6 +1051,19 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 				default: return -1;
 			}
 		}
+		if (baseClass == Construct.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.CLAZZ__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
+		if (baseClass == ExtensibleElement.class) {
+			switch (baseFeatureID) {
+				case DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX: return DblPackage.CLAZZ__CONCRETE_SYNTAX;
+				case DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.CLAZZ__INSTANCE_OF_EXTENSION_DEFINITION;
+				default: return -1;
+			}
+		}
 		if (baseClass == LanguageConstructClassifier.class) {
 			switch (baseFeatureID) {
 				default: return -1;
@@ -947,12 +1071,6 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 		}
 		if (baseClass == LanguageConceptClassifier.class) {
 			switch (baseFeatureID) {
-				default: return -1;
-			}
-		}
-		if (baseClass == Construct.class) {
-			switch (baseFeatureID) {
-				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.CLAZZ__EXPAND_EXPR;
 				default: return -1;
 			}
 		}
@@ -969,7 +1087,11 @@ public class ClazzImpl extends ClassifierImpl implements Clazz {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (active: ");
+		result.append(" (concreteSyntax: ");
+		result.append(concreteSyntax);
+		result.append(", instanceOfExtensionDefinition: ");
+		result.append(instanceOfExtensionDefinition);
+		result.append(", active: ");
 		result.append(active);
 		result.append(')');
 		return result.toString();

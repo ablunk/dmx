@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface TextualSyntaxDef extends EObject {
+public interface TextualSyntaxDef extends ExtensibleElement {
 	/**
 	 * Returns the value of the '<em><b>Start Rule</b></em>' reference.
 	 * <!-- begin-user-doc -->
