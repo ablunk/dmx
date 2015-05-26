@@ -823,7 +823,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'''		
 	}
 	
-	def dispatch String genType(Classifier type) {
+	def dispatch String genType(Clazz type) {
 		type.javaNameQualified
 	}
 

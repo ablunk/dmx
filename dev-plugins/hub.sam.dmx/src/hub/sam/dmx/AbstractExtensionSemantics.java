@@ -152,7 +152,12 @@ public abstract class AbstractExtensionSemantics {
 	
 	protected Object getPropertyValue(EObject eObject, String propertyName) {
 		EStructuralFeature property = eObject.eClass().getEStructuralFeature(propertyName);
-		return eObject.eGet(property, true);
+		if (property == null) {
+			throw new RuntimeException(eObject.eClass().getName() + " has no structural feature " + propertyName + ".");
+		}
+		else {
+			return eObject.eGet(property, true);
+		}
 	}
 	
 	static String getEmfUriFragment(EObject eObject) {

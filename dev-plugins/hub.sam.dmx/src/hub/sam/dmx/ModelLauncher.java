@@ -146,7 +146,10 @@ public class ModelLauncher {
 			@Override
 			protected EObject createCopy(EObject original) {
 				EObject copy = super.createCopy(original);
-				copyObjectPositions.setPosition(copy, originalObjectPositions.getPosition(original));
+				Position originalPosition = originalObjectPositions.getPosition(original);
+				if (originalPosition != null) {
+					copyObjectPositions.setPosition(copy, new PositionWithNegative(originalPosition));
+				}
 				return copy;
 			}
 			
@@ -287,39 +290,26 @@ public class ModelLauncher {
 		private void shiftObjects(EObject referenceObject, boolean after, int v, boolean includeRefObjectChilds) {
 			TreeIterator<EObject> containerContentsTree = referenceObject.eContainer().eAllContents();
 			
-			EObject c = null;
+			EObject current = null;
+			Position referenceObjectPosition = workingModel.getObjectPosition(referenceObject);
 
-			// omit preceding objects
+			// shift all objects before referenceObject
 			while (containerContentsTree.hasNext()) {
-				c = containerContentsTree.next();
+				current = containerContentsTree.next();
+				Position currentPosition = workingModel.getObjectPosition(current);
 
-				if (c == referenceObject) {
+				if (current == referenceObject) {
 					if (!includeRefObjectChilds) containerContentsTree.prune();
-					break;
+					
+					if (!after) {
+						logger.info("shifting object " + current.eResource().getURIFragment(current) + " by " + v + " characters");
+						currentPosition.setOffset(currentPosition.getOffset() + v);
+					}
 				}
-			}
-			
-			if (!containerContentsTree.hasNext()) {
-				return;
-			}
-			
-			if (after) {
-				c = containerContentsTree.next();
-			}
-			
-			logger.info("shifting objects after " + c.eResource().getURIFragment(c) + " by " + v + " characters");
-			
-			{
-				Position p = workingModel.getObjectPosition(c);
-				p.setOffset(p.getOffset() + v);
-			}
-			
-			// adjust positions
-			while (containerContentsTree.hasNext()) {
-				c = containerContentsTree.next();
-
-				Position p = workingModel.getObjectPosition(c);
-				p.setOffset(p.getOffset() + v);
+				else if (currentPosition.getOffset() > referenceObjectPosition.getOffset()) {
+					logger.info("shifting object " + current.eResource().getURIFragment(current) + " by " + v + " characters");
+					currentPosition.setOffset(currentPosition.getOffset() + v);
+				}
 			}
 		}
 		
