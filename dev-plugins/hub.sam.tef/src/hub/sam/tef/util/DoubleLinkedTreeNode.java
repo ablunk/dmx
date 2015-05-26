@@ -8,8 +8,8 @@ import java.util.List;
 @SuppressWarnings("unchecked")
 public class DoubleLinkedTreeNode<T extends DoubleLinkedTreeNode> {
 		
-	private T fParent;
-	private final List<T> fChildren = new ArrayList<T>();
+	protected T fParent;
+	protected final List<T> fChildren = new ArrayList<T>();
 		
 	public void addChild(T child) {
 		fChildren.add(child);
@@ -44,7 +44,7 @@ public class DoubleLinkedTreeNode<T extends DoubleLinkedTreeNode> {
 		fChildren.remove(fChildren.size() - 1);
 	}
 	
-	private Collection<T> collectLeaves(Collection<T> leaves) {
+	protected Collection<T> collectLeaves(Collection<T> leaves) {
 		if (isLeave()) {
 			leaves.add((T)this);
 		} else {

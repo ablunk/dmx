@@ -25,7 +25,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.codegen.ecore;bundle-version="2.10.2"
 Eclipse-BuddyPolicy: registered
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: hub.sam.dmx,
  hub.sam.dmx.javasim,
  hub.sam.dmx.javasim.desmoj,

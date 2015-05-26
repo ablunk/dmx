@@ -167,5 +167,5 @@ Export-Package: hub.sam.tef;
  hub.sam.tef.util;uses:="org.eclipse.emf.ecore"
 Bundle-ClassPath: .
 Bundle-Vendor: Markus Scheidgen and others, Humboldt University Berlin, Germany
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
