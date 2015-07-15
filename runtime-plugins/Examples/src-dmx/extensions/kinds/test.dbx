@@ -1,0 +1,16 @@
+#import "kinds"
+
+module testKinds {
+
+mc;
+
+class A {
+	cc;
+}
+
+void main() {
+	sx;
+	print(ex);
+}
+
+}

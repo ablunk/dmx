@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <modules name="ooxdef">
+    <extensionDefs name="OOX" concreteSyntax="extension OOX extends dbl ExtensionDefinition {&#xA;&#x9;start OOX;&#xA;&#x9;OOX -> &quot;oox&quot; ExtensionDefinition;&#xA;}&#xA;semantics {&#xA;&#x9;TsRule startRule = textualSyntaxDef.startRule;&#xA;&#x9;expand &quot;class &quot; startRule.name &quot; {&quot;;&#xA;&#x9;RhsExpression startRuleRhs = startRule.rhs;&#xA;&#x9;if (startRuleRhs instanceof SequenceExpr) {&#xA;&#x9;&#x9;SequenceExpr seqExpr = startRuleRhs as SequenceExpr;&#xA;&#x9;&#x9;List sequence = seqExpr.sequence;&#xA;&#x9;&#x9;Iterator it = sequence.iterator();while (it.hasNext()) {&#x9;Object object = it.next();L1RhsExpr subExpr = object as L1RhsExpr;{&#xA;&#x9;&#x9;&#x9;if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}}&#xA;&#x9;}&#xA;&#x9;expand &quot;}&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;extension &quot; name &quot; extends dbl &quot; extendedConcept.name &quot; &quot;&#xA;&#x9;&#x9;textualSyntaxDef &quot; semantics { &quot; mappingDef &quot; }&quot;&#xA;&#x9;;&#xA;}">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.104"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start OOX;&#xA;&#x9;OOX -> &quot;oox&quot; ExtensionDefinition;&#xA;}" startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="OOX" concreteSyntax="OOX -> &quot;oox&quot; ExtensionDefinition;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="oox"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr">
+              <classifier xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.104"/>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="TsRule startRule = textualSyntaxDef.startRule;&#xA;&#x9;expand &quot;class &quot; startRule.name &quot; {&quot;;&#xA;&#x9;RhsExpression startRuleRhs = startRule.rhs;&#xA;&#x9;if (startRuleRhs instanceof SequenceExpr) {&#xA;&#x9;&#x9;SequenceExpr seqExpr = startRuleRhs as SequenceExpr;&#xA;&#x9;&#x9;List sequence = seqExpr.sequence;&#xA;&#x9;&#x9;Iterator it = sequence.iterator();while (it.hasNext()) {&#x9;Object object = it.next();L1RhsExpr subExpr = object as L1RhsExpr;{&#xA;&#x9;&#x9;&#x9;if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}}&#xA;&#x9;}&#xA;&#x9;expand &quot;}&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;extension &quot; name &quot; extends dbl &quot; extendedConcept.name &quot; &quot;&#xA;&#x9;&#x9;textualSyntaxDef &quot; semantics { &quot; mappingDef &quot; }&quot;&#xA;&#x9;;">
+        <statements xsi:type="dbl:Variable" name="startRule" concreteSyntax="TsRule startRule = textualSyntaxDef.startRule">
+          <classifierType concreteSyntax="TsRule">
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.108"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:IdExpr" concreteSyntax="textualSyntaxDef.startRule">
+            <parentIdExpr concreteSyntax="textualSyntaxDef">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.104/@attributes.2"/>
+            </parentIdExpr>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.105/@attributes.0"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;class &quot; startRule.name &quot; {&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="class "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="startRule.name">
+              <parentIdExpr concreteSyntax="startRule" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.27/@attributes.0"/>
+            </expr>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" {"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="startRuleRhs" concreteSyntax="RhsExpression startRuleRhs = startRule.rhs">
+          <classifierType concreteSyntax="RhsExpression">
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.109"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:IdExpr" concreteSyntax="startRule.rhs">
+            <parentIdExpr concreteSyntax="startRule" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.108/@attributes.0"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (startRuleRhs instanceof SequenceExpr) {&#xA;&#x9;&#x9;SequenceExpr seqExpr = startRuleRhs as SequenceExpr;&#xA;&#x9;&#x9;List sequence = seqExpr.sequence;&#xA;&#x9;&#x9;Iterator it = sequence.iterator();while (it.hasNext()) {&#x9;Object object = it.next();L1RhsExpr subExpr = object as L1RhsExpr;{&#xA;&#x9;&#x9;&#x9;if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}}&#xA;&#x9;}">
+          <condition xsi:type="dbl:InstanceOf" concreteSyntax="startRuleRhs instanceof SequenceExpr">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="startRuleRhs" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
+            <op2 xsi:type="dbl:TypeAccess" concreteSyntax="SequenceExpr">
+              <idExpr concreteSyntax="SequenceExpr">
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.112"/>
+              </idExpr>
+            </op2>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;SequenceExpr seqExpr = startRuleRhs as SequenceExpr;&#xA;&#x9;&#x9;List sequence = seqExpr.sequence;&#xA;&#x9;&#x9;Iterator it = sequence.iterator();while (it.hasNext()) {&#x9;Object object = it.next();L1RhsExpr subExpr = object as L1RhsExpr;{&#xA;&#x9;&#x9;&#x9;if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}}&#xA;&#x9;}">
+            <statements xsi:type="dbl:Variable" name="seqExpr" concreteSyntax="SequenceExpr seqExpr = startRuleRhs as SequenceExpr">
+              <classifierType concreteSyntax="SequenceExpr">
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.112"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:Cast" concreteSyntax="startRuleRhs as SequenceExpr">
+                <classifierType concreteSyntax="SequenceExpr">
+                  <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.112"/>
+                </classifierType>
+                <op xsi:type="dbl:IdExpr" concreteSyntax="startRuleRhs" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="sequence" concreteSyntax="List sequence = seqExpr.sequence">
+              <classifierType concreteSyntax="List">
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:IdExpr" concreteSyntax="seqExpr.sequence">
+                <parentIdExpr concreteSyntax="seqExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.0"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.112/@attributes.0"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = sequence.iterator()">
+              <classifierType concreteSyntax="Iterator">
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:IdExpr" concreteSyntax="sequence.iterator()">
+                <parentIdExpr concreteSyntax="sequence" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.11"/>
+                <callPart/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#x9;Object object = it.next();L1RhsExpr subExpr = object as L1RhsExpr;{&#xA;&#x9;&#x9;&#x9;if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}}">
+              <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
+                <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.2"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.0"/>
+                <callPart/>
+              </condition>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object object = it.next();L1RhsExpr subExpr = object as L1RhsExpr;{&#xA;&#x9;&#x9;&#x9;if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}}">
+                <statements xsi:type="dbl:Variable" name="object" concreteSyntax="Object object = it.next()">
+                  <classifierType concreteSyntax="Object">
+                    <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+                  </classifierType>
+                  <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
+                    <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.2"/>
+                    <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.1"/>
+                    <callPart/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:Variable" name="subExpr" concreteSyntax="L1RhsExpr subExpr = object as L1RhsExpr">
+                  <classifierType concreteSyntax="L1RhsExpr">
+                    <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.113"/>
+                  </classifierType>
+                  <initialValue xsi:type="dbl:Cast" concreteSyntax="object as L1RhsExpr">
+                    <classifierType concreteSyntax="L1RhsExpr">
+                      <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.113"/>
+                    </classifierType>
+                    <op xsi:type="dbl:IdExpr" concreteSyntax="object" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.3/@body/@statements.0"/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}">
+                  <statements xsi:type="dbl:IfStatement" concreteSyntax="if (subExpr instanceof PropertyBindingExpr) {&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}">
+                    <condition xsi:type="dbl:InstanceOf" concreteSyntax="subExpr instanceof PropertyBindingExpr">
+                      <op1 xsi:type="dbl:IdExpr" concreteSyntax="subExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.3/@body/@statements.1"/>
+                      <op2 xsi:type="dbl:TypeAccess" concreteSyntax="PropertyBindingExpr">
+                        <idExpr concreteSyntax="PropertyBindingExpr">
+                          <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.115"/>
+                        </idExpr>
+                      </op2>
+                    </condition>
+                    <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;&#xA;&#x9;&#x9;&#x9;&#x9;PropertyType pbExprType = pbExpr.propertyType;&#xA;&#x9;&#x9;&#x9;&#x9;if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;expand pbExpr.name &quot;;&quot;;&#xA;&#x9;&#x9;&#x9;}">
+                      <statements xsi:type="dbl:Variable" name="pbExpr" concreteSyntax="PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr">
+                        <classifierType concreteSyntax="PropertyBindingExpr">
+                          <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.115"/>
+                        </classifierType>
+                        <initialValue xsi:type="dbl:Cast" concreteSyntax="subExpr as PropertyBindingExpr">
+                          <classifierType concreteSyntax="PropertyBindingExpr">
+                            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.115"/>
+                          </classifierType>
+                          <op xsi:type="dbl:IdExpr" concreteSyntax="subExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.3/@body/@statements.1"/>
+                        </initialValue>
+                      </statements>
+                      <statements xsi:type="dbl:Variable" name="pbExprType" concreteSyntax="PropertyType pbExprType = pbExpr.propertyType">
+                        <classifierType concreteSyntax="PropertyType">
+                          <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.117"/>
+                        </classifierType>
+                        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="pbExpr.propertyType">
+                          <parentIdExpr concreteSyntax="pbExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.3/@body/@statements.2/@statements.0/@trueCase/@statements.0"/>
+                          <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.115/@attributes.0"/>
+                        </initialValue>
+                      </statements>
+                      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (pbExprType instanceof StringPropertyType) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                        <condition xsi:type="dbl:InstanceOf" concreteSyntax="pbExprType instanceof StringPropertyType">
+                          <op1 xsi:type="dbl:IdExpr" concreteSyntax="pbExprType" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.3/@body/@statements.2/@statements.0/@trueCase/@statements.1"/>
+                          <op2 xsi:type="dbl:TypeAccess" concreteSyntax="StringPropertyType">
+                            <idExpr concreteSyntax="StringPropertyType">
+                              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.120"/>
+                            </idExpr>
+                          </op2>
+                        </condition>
+                        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;expand &quot;string &quot;;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                          <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;string &quot;">
+                            <parts xsi:type="dbl:FixedMappingPart" code="string "/>
+                          </statements>
+                        </trueCase>
+                      </statements>
+                      <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand pbExpr.name &quot;;&quot;">
+                        <parts xsi:type="dbl:DynamicMappingPart">
+                          <expr xsi:type="dbl:IdExpr" concreteSyntax="pbExpr.name">
+                            <parentIdExpr concreteSyntax="pbExpr" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@trueCase/@statements.3/@body/@statements.2/@statements.0/@trueCase/@statements.0"/>
+                            <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.27/@attributes.0"/>
+                          </expr>
+                        </parts>
+                        <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+                      </statements>
+                    </trueCase>
+                  </statements>
+                </statements>
+              </body>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;}&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="}"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;extension &quot; name &quot; extends dbl &quot; extendedConcept.name &quot; &quot;&#xA;&#x9;&#x9;textualSyntaxDef &quot; semantics { &quot; mappingDef &quot; }&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="extension "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="name">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.27/@attributes.0"/>
+            </expr>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" extends dbl "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="extendedConcept.name">
+              <parentIdExpr concreteSyntax="extendedConcept">
+                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.104/@attributes.0"/>
+              </parentIdExpr>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.27/@attributes.0"/>
+            </expr>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="textualSyntaxDef">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.104/@attributes.2"/>
+            </expr>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" semantics { "/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="mappingDef">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.104/@attributes.3"/>
+            </expr>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=" }"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

@@ -1,0 +1,46 @@
+#import "../../dbl"
+#import "../../stdlib"
+
+module lang_uml {
+
+extension Property extends dbl Variable {
+	start Property;
+	Property -> "property" Variable;
+}
+semantics {
+	//expand variable;
+}
+
+extension PropertyAssign extends dbl Assignment {
+	start PropertyAssign;
+	PropertyAssign -> "assign" property:$$Property "to" value:Expression;
+}
+semantics {
+}
+
+extension CreateLink extends dbl SimpleStatement {
+	start CreateLink;
+	CreateLink -> "link" end1Obj:$Variable "," end2Obj:$Variable "via" assoc:$$Association ";";
+}
+semantics {
+	string aEnd1Name = assoc.end1.name as string;
+	string aEnd2Name = assoc.end2.name as string;
+	
+	expand end1Obj "." aEnd1Name "=" end2Obj ";";
+	expand end2Obj "." aEnd2Name "=" end1Obj ";";
+}
+
+extension Association extends dbl ModuleContentExtension {
+	start Assoc;
+	Assoc -> "assoc" AssocNameOptional
+		"role" end1:$$Variable "in" end1Class:$$Clazz ";"
+		"role" end2:$$Variable "in" end2Class:$$Clazz ";"
+		"end" ";";
+	AssocNameOptional -> name:ID;
+	AssocNameOptional -> ;
+}
+semantics {
+	expand "// empty";
+}
+
+}

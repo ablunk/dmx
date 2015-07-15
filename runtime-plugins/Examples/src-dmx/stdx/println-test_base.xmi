@@ -4,12 +4,12 @@
     <model href="println.xmi#/"/>
   </imports>
   <modules name="stdx_println_test">
-    <procedures name="main">
+    <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Print" concreteSyntax="print &quot;hello&quot;,&quot;\n&quot;">
         <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;hello&quot;" value="hello"/>
         <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
       </statements>
-    </procedures>
+    </functions>
   </modules>
 </dbl:Model>

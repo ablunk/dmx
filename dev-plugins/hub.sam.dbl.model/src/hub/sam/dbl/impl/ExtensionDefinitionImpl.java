@@ -2,31 +2,16 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.Classifier;
-import hub.sam.dbl.Clazz;
-import hub.sam.dbl.Construct;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.ExpandExpr;
-import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.LanguageConceptClassifier;
-import hub.sam.dbl.Mapping;
 import hub.sam.dbl.TextualSyntaxDef;
-
-import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,7 +23,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getExtendedConcept <em>Extended Concept</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getAbstractSyntaxDef <em>Abstract Syntax Def</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getTextualSyntaxDef <em>Textual Syntax Def</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ExtensionDefinitionImpl#getMappingDef <em>Mapping Def</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,14 +40,14 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 	protected LanguageConceptClassifier extendedConcept;
 
 	/**
-	 * The cached value of the '{@link #getAbstractSyntaxDef() <em>Abstract Syntax Def</em>}' containment reference list.
+	 * The cached value of the '{@link #getAbstractSyntaxDef() <em>Abstract Syntax Def</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getAbstractSyntaxDef()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Classifier> abstractSyntaxDef;
+	protected hub.sam.dbl.Class abstractSyntaxDef;
 
 	/**
 	 * The cached value of the '{@link #getTextualSyntaxDef() <em>Textual Syntax Def</em>}' containment reference.
@@ -74,16 +58,6 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 	 * @ordered
 	 */
 	protected TextualSyntaxDef textualSyntaxDef;
-
-	/**
-	 * The cached value of the '{@link #getMappingDef() <em>Mapping Def</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getMappingDef()
-	 * @generated
-	 * @ordered
-	 */
-	protected Mapping mappingDef;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -147,11 +121,42 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Classifier> getAbstractSyntaxDef() {
-		if (abstractSyntaxDef == null) {
-			abstractSyntaxDef = new EObjectContainmentEList<Classifier>(Classifier.class, this, DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF);
-		}
+	public hub.sam.dbl.Class getAbstractSyntaxDef() {
 		return abstractSyntaxDef;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAbstractSyntaxDef(hub.sam.dbl.Class newAbstractSyntaxDef, NotificationChain msgs) {
+		hub.sam.dbl.Class oldAbstractSyntaxDef = abstractSyntaxDef;
+		abstractSyntaxDef = newAbstractSyntaxDef;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF, oldAbstractSyntaxDef, newAbstractSyntaxDef);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAbstractSyntaxDef(hub.sam.dbl.Class newAbstractSyntaxDef) {
+		if (newAbstractSyntaxDef != abstractSyntaxDef) {
+			NotificationChain msgs = null;
+			if (abstractSyntaxDef != null)
+				msgs = ((InternalEObject)abstractSyntaxDef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF, null, msgs);
+			if (newAbstractSyntaxDef != null)
+				msgs = ((InternalEObject)newAbstractSyntaxDef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF, null, msgs);
+			msgs = basicSetAbstractSyntaxDef(newAbstractSyntaxDef, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF, newAbstractSyntaxDef, newAbstractSyntaxDef));
 	}
 
 	/**
@@ -202,58 +207,13 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Mapping getMappingDef() {
-		return mappingDef;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetMappingDef(Mapping newMappingDef, NotificationChain msgs) {
-		Mapping oldMappingDef = mappingDef;
-		mappingDef = newMappingDef;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.EXTENSION_DEFINITION__MAPPING_DEF, oldMappingDef, newMappingDef);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setMappingDef(Mapping newMappingDef) {
-		if (newMappingDef != mappingDef) {
-			NotificationChain msgs = null;
-			if (mappingDef != null)
-				msgs = ((InternalEObject)mappingDef).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.EXTENSION_DEFINITION__MAPPING_DEF, null, msgs);
-			if (newMappingDef != null)
-				msgs = ((InternalEObject)newMappingDef).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.EXTENSION_DEFINITION__MAPPING_DEF, null, msgs);
-			msgs = basicSetMappingDef(newMappingDef, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.EXTENSION_DEFINITION__MAPPING_DEF, newMappingDef, newMappingDef));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
-				return ((InternalEList<?>)getAbstractSyntaxDef()).basicRemove(otherEnd, msgs);
+				return basicSetAbstractSyntaxDef(null, msgs);
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
 				return basicSetTextualSyntaxDef(null, msgs);
-			case DblPackage.EXTENSION_DEFINITION__MAPPING_DEF:
-				return basicSetMappingDef(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -273,8 +233,6 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 				return getAbstractSyntaxDef();
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
 				return getTextualSyntaxDef();
-			case DblPackage.EXTENSION_DEFINITION__MAPPING_DEF:
-				return getMappingDef();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -292,14 +250,10 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 				setExtendedConcept((LanguageConceptClassifier)newValue);
 				return;
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
-				getAbstractSyntaxDef().clear();
-				getAbstractSyntaxDef().addAll((Collection<? extends Classifier>)newValue);
+				setAbstractSyntaxDef((hub.sam.dbl.Class)newValue);
 				return;
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
 				setTextualSyntaxDef((TextualSyntaxDef)newValue);
-				return;
-			case DblPackage.EXTENSION_DEFINITION__MAPPING_DEF:
-				setMappingDef((Mapping)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -317,13 +271,10 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 				setExtendedConcept((LanguageConceptClassifier)null);
 				return;
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
-				getAbstractSyntaxDef().clear();
+				setAbstractSyntaxDef((hub.sam.dbl.Class)null);
 				return;
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
 				setTextualSyntaxDef((TextualSyntaxDef)null);
-				return;
-			case DblPackage.EXTENSION_DEFINITION__MAPPING_DEF:
-				setMappingDef((Mapping)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -340,11 +291,9 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 			case DblPackage.EXTENSION_DEFINITION__EXTENDED_CONCEPT:
 				return extendedConcept != null;
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
-				return abstractSyntaxDef != null && !abstractSyntaxDef.isEmpty();
+				return abstractSyntaxDef != null;
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
 				return textualSyntaxDef != null;
-			case DblPackage.EXTENSION_DEFINITION__MAPPING_DEF:
-				return mappingDef != null;
 		}
 		return super.eIsSet(featureID);
 	}

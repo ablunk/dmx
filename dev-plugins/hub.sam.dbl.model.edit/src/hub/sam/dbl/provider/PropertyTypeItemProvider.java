@@ -27,7 +27,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PropertyTypeItemProvider
+public class PropertyTypeItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -70,6 +70,7 @@ public class PropertyTypeItemProvider
 	public String getText(Object object) {
 		return getString("_UI_PropertyType_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

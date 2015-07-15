@@ -1,0 +1,25 @@
+#import "../../dbl"
+
+module kinds {
+
+extension MC extends dbl ModuleContent {
+	start MC;
+	MC -> "mc" ";";
+}
+
+extension CC extends dbl ClassContent {
+	start CC;
+	CC -> "cc" ";";
+}
+
+extension S extends dbl Statement {
+	start S;
+	S -> "sx" ";";
+}
+
+extension E extends dbl Expression {
+	start E;
+	E -> "ex";
+}
+
+}

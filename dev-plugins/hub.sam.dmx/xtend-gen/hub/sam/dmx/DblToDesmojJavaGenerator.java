@@ -4,13 +4,12 @@ import com.google.common.base.Objects;
 import hub.sam.dbl.ActivateObject;
 import hub.sam.dbl.ActiveLiteral;
 import hub.sam.dbl.Advance;
-import hub.sam.dbl.ClassPart;
-import hub.sam.dbl.Clazz;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.Expression;
+import hub.sam.dbl.Function;
+import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.Parameter;
-import hub.sam.dbl.Procedure;
 import hub.sam.dbl.Reactivate;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.SuperClassSpecification;
@@ -39,14 +38,14 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
     String _xblockexpression = null;
     {
       final Module it = module;
-      EList<Procedure> _procedures = it.getProcedures();
-      final Function1<Procedure, Boolean> _function = new Function1<Procedure, Boolean>() {
-        public Boolean apply(final Procedure it) {
+      EList<Function> _functions = it.getFunctions();
+      final Function1<Function, Boolean> _function = new Function1<Function, Boolean>() {
+        public Boolean apply(final Function it) {
           String _name = it.getName();
           return Boolean.valueOf(Objects.equal(_name, "main"));
         }
       };
-      final Procedure mainProcedure = IterableExtensions.<Procedure>findFirst(_procedures, _function);
+      final Function mainProcedure = IterableExtensions.<Function>findFirst(_functions, _function);
       StringConcatenation _builder = new StringConcatenation();
       String _genPackageStatement = this.genPackageStatement(it);
       _builder.append(_genPackageStatement, "");
@@ -124,16 +123,16 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.append("\t");
       _builder.newLine();
       _builder.append("\t");
-      EList<Procedure> _procedures_1 = it.getProcedures();
-      final Function1<Procedure, Boolean> _function_1 = new Function1<Procedure, Boolean>() {
-        public Boolean apply(final Procedure p) {
+      EList<Function> _functions_1 = it.getFunctions();
+      final Function1<Function, Boolean> _function_1 = new Function1<Function, Boolean>() {
+        public Boolean apply(final Function p) {
           return Boolean.valueOf((!Objects.equal(p, mainProcedure)));
         }
       };
-      Iterable<Procedure> _filter = IterableExtensions.<Procedure>filter(_procedures_1, _function_1);
-      List<Procedure> _list = IterableExtensions.<Procedure>toList(_filter);
-      String _genProcedures = this.genProcedures(_list, true);
-      _builder.append(_genProcedures, "\t");
+      Iterable<Function> _filter = IterableExtensions.<Function>filter(_functions_1, _function_1);
+      List<Function> _list = IterableExtensions.<Function>toList(_filter);
+      String _genFunctions = this.genFunctions(_list, true);
+      _builder.append(_genFunctions, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.newLine();
@@ -153,10 +152,10 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
     return "desmoj";
   }
   
-  public String genActiveClass(final Clazz clazz) {
+  public String genActiveClass(final hub.sam.dbl.Class clazz) {
     String _xblockexpression = null;
     {
-      final Clazz it = clazz;
+      final hub.sam.dbl.Class it = clazz;
       StringConcatenation _builder = new StringConcatenation();
       String _genPackageStatement = this.genPackageStatement(it);
       _builder.append(_genPackageStatement, "");
@@ -175,47 +174,32 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       {
         EList<SuperClassSpecification> _superClasses = it.getSuperClasses();
         int _size = _superClasses.size();
-        boolean _greaterThan = (_size > 1);
+        boolean _greaterThan = (_size > 0);
         if (_greaterThan) {
-          _builder.append("<! multiple inheritance is not supported for Java as a target language at the moment !>");
+          _builder.append("<! inheritance is not supported for ACTIVE classes at the moment !>");
           _builder.newLine();
         } else {
-          EList<SuperClassSpecification> _superClasses_1 = it.getSuperClasses();
-          int _size_1 = _superClasses_1.size();
-          boolean _equals = (_size_1 == 1);
-          if (_equals) {
-            _builder.append("extends ");
-            EList<SuperClassSpecification> _superClasses_2 = it.getSuperClasses();
-            SuperClassSpecification _head = IterableExtensions.<SuperClassSpecification>head(_superClasses_2);
-            Clazz _clazz = _head.getClazz();
-            String _genType = this.genType(_clazz);
-            _builder.append(_genType, "");
-            _builder.newLineIfNotEmpty();
-          } else {
-            boolean _isActive = it.isActive();
-            if (_isActive) {
-              _builder.append("extends SimulationProcess");
-              _builder.newLine();
-            }
+          boolean _isActive = it.isActive();
+          if (_isActive) {
+            _builder.append("extends SimulationProcess");
+            _builder.newLine();
           }
         }
       }
       _builder.append("{");
       _builder.newLine();
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("public ");
-      String _name_1 = it.getName();
-      _builder.append(_name_1, "\t");
-      _builder.append("(");
-      _builder.newLineIfNotEmpty();
       {
-        Constructor _constructor = it.getConstructor();
-        boolean _notEquals = (!Objects.equal(_constructor, null));
-        if (_notEquals) {
+        EList<Constructor> _constructors = it.getConstructors();
+        for(final Constructor constructor : _constructors) {
+          _builder.append("\t");
+          _builder.append("public ");
+          String _name_1 = it.getName();
+          _builder.append(_name_1, "\t");
+          _builder.append("(");
+          _builder.newLineIfNotEmpty();
           {
-            Constructor _constructor_1 = it.getConstructor();
-            EList<Parameter> _parameters = _constructor_1.getParameters();
+            EList<Parameter> _parameters = constructor.getParameters();
             boolean _hasElements = false;
             for(final Parameter cparam : _parameters) {
               if (!_hasElements) {
@@ -229,44 +213,42 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
               _builder.newLineIfNotEmpty();
             }
           }
-        }
-      }
-      _builder.append("\t");
-      _builder.append(") {");
-      _builder.newLine();
-      {
-        boolean _and = false;
-        boolean _isActive_1 = it.isActive();
-        if (!_isActive_1) {
-          _and = false;
-        } else {
-          EList<SuperClassSpecification> _superClasses_3 = it.getSuperClasses();
-          boolean _isEmpty = _superClasses_3.isEmpty();
-          _and = _isEmpty;
-        }
-        if (_and) {
-          _builder.append("\t\t");
-          _builder.append("super(\"");
-          String _name_2 = it.getName();
-          _builder.append(_name_2, "\t\t");
-          _builder.append("\");");
+          _builder.append("\t");
+          _builder.append(") {");
+          _builder.newLine();
+          {
+            boolean _and = false;
+            boolean _isActive_1 = it.isActive();
+            if (!_isActive_1) {
+              _and = false;
+            } else {
+              EList<SuperClassSpecification> _superClasses_1 = it.getSuperClasses();
+              boolean _isEmpty = _superClasses_1.isEmpty();
+              _and = _isEmpty;
+            }
+            if (_and) {
+              _builder.append("\t");
+              _builder.append("\t");
+              _builder.append("super(\"");
+              String _name_2 = it.getName();
+              _builder.append(_name_2, "\t\t");
+              _builder.append("\");");
+              _builder.newLineIfNotEmpty();
+            }
+          }
+          _builder.append("\t");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("\t");
+          EList<Statement> _statements = constructor.getStatements();
+          String _gen_1 = this.gen(_statements);
+          _builder.append(_gen_1, "\t\t");
           _builder.newLineIfNotEmpty();
+          _builder.append("\t");
+          _builder.append("}");
+          _builder.newLine();
         }
       }
-      _builder.append("\t");
-      _builder.newLine();
-      _builder.append("\t\t");
-      ClassPart _initialBlock = it.getInitialBlock();
-      EList<Statement> _statements = null;
-      if (_initialBlock!=null) {
-        _statements=_initialBlock.getStatements();
-      }
-      String _gen_1 = this.gen(_statements);
-      _builder.append(_gen_1, "\t\t");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("}");
-      _builder.newLine();
       _builder.append("\t");
       _builder.newLine();
       {
@@ -276,12 +258,12 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
           _builder.append("public void base_actions() {");
           _builder.newLine();
           {
-            ClassPart _actionsBlock = it.getActionsBlock();
-            boolean _notEquals_1 = (!Objects.equal(_actionsBlock, null));
-            if (_notEquals_1) {
+            LocalScope _actionsBlock = it.getActionsBlock();
+            boolean _notEquals = (!Objects.equal(_actionsBlock, null));
+            if (_notEquals) {
               _builder.append("\t");
               _builder.append("\t");
-              ClassPart _actionsBlock_1 = it.getActionsBlock();
+              LocalScope _actionsBlock_1 = it.getActionsBlock();
               EList<Statement> _statements_1 = _actionsBlock_1.getStatements();
               String _gen_2 = this.gen(_statements_1);
               _builder.append(_gen_2, "\t\t");
@@ -301,9 +283,9 @@ public class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
       _builder.newLineIfNotEmpty();
       _builder.newLine();
       _builder.append("\t");
-      EList<Procedure> _methods = it.getMethods();
-      String _genProcedures = this.genProcedures(_methods, false);
-      _builder.append(_genProcedures, "\t");
+      EList<Function> _methods = it.getMethods();
+      String _genFunctions = this.genFunctions(_methods, false);
+      _builder.append(_genFunctions, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
       _builder.newLine();

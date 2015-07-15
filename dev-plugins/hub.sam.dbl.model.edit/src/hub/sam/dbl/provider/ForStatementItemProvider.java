@@ -15,12 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -29,8 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ForStatementItemProvider
-	extends LoopStatementItemProvider {
+public class ForStatementItemProvider extends LoopStatementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -113,6 +107,7 @@ public class ForStatementItemProvider
 			getString("_UI_ForStatement_type") :
 			getString("_UI_ForStatement_type") + " " + label;
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -175,7 +170,7 @@ public class ForStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createProcedureCall()));
+				 DblFactory.eINSTANCE.createFunctionCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -260,27 +255,17 @@ public class ForStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createMappingStatement()));
+				 DblFactory.eINSTANCE.createExpansionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createSetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -560,7 +545,7 @@ public class ForStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createProcedureCall()));
+				 DblFactory.eINSTANCE.createFunctionCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -645,27 +630,17 @@ public class ForStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__BODY,
 				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createMappingStatement()));
+				 DblFactory.eINSTANCE.createExpansionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createSetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

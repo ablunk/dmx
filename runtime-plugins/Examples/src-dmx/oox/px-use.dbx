@@ -1,0 +1,10 @@
+#import "oox-use-px-def"
+
+module pxUse {
+
+void main() {
+	print "hello";
+	px "world";
+}
+
+}

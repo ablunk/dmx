@@ -1,0 +1,16 @@
+#import "ebnf"
+
+module EbnfSample1 {
+
+	extension ExtensionUsingEbfn extends dbl Statement {
+		start Forever;
+		Forever -> "forever" "{" (stms:list(Statement) | "blu")* "}"*;
+	}
+
+	void main() {
+		int i = (1+2)*3;
+		btest;
+		btest on;
+	}
+
+}

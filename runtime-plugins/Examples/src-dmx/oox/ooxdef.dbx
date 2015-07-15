@@ -1,0 +1,34 @@
+#import "../stdx"
+
+module ooxdef {
+
+extension OOX extends dbl ExtensionDefinition {
+	start OOX;
+	OOX -> "oox" ExtensionDefinition;
+}
+semantics {
+	TsRule startRule = textualSyntaxDef.startRule;
+	expand "class " startRule.name " {";
+	RhsExpression startRuleRhs = startRule.rhs;
+	if (startRuleRhs instanceof SequenceExpr) {
+		SequenceExpr seqExpr = startRuleRhs as SequenceExpr;
+		List sequence = seqExpr.sequence;
+		foreach (L1RhsExpr subExpr in sequence) {
+			if (subExpr instanceof PropertyBindingExpr) {
+				PropertyBindingExpr pbExpr = subExpr as PropertyBindingExpr;
+				PropertyType pbExprType = pbExpr.propertyType;
+				if (pbExprType instanceof StringPropertyType) {
+					expand "string ";
+				}
+				expand pbExpr.name ";";
+			}
+		}
+	}
+	expand "}";
+	
+	expand "extension " name " extends dbl " extendedConcept.name " "
+		textualSyntaxDef " semantics { " mappingDef " }"
+	;
+}
+
+}

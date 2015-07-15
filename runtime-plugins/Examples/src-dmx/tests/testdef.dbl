@@ -14,7 +14,7 @@ module testDef {
 		Buz -> "i" i:INT;
 	}
 
-	extension Foo extends dbl ClassContentExtension {
+	extension Foo extends dbl Statement {
 		start Foo;
 		Foo -> "foo" name:ID OptionalBaz ";";
 		OptionalBaz -> ;
@@ -36,12 +36,6 @@ module testDef {
 		//B -> "b";
 		//C -> "c";
 		//D -> name:ID;
-	}
-	semantics {
-		//A a;
-		//B b = a.b; // TODO
-		
-		//print a.name;
 	}
 
 }

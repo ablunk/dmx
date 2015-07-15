@@ -36,7 +36,7 @@ public class ExtensionDefinitionManager implements IExtensionDefinitionApplier {
 	public boolean addExtensionDefinitions(Model model) {
 		boolean extensionDefinitionsAdded = false;
 		for (Module module: model.getModules()) {
-			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
+			for (ExtensionDefinition extensionDef: module.getExtensionDefinitions()) {
 				if (!extensionDefsProcessed.containsKey(extensionDef.getName())) {
 					extensionDefinitionsAdded |= addExtensionDefinition(extensionDef);;
 				}
@@ -48,7 +48,7 @@ public class ExtensionDefinitionManager implements IExtensionDefinitionApplier {
 	@Override
 	public void unwindExtensionDefinitionEffects(Model model) {
 		for (Module module: model.getModules()) {
-			for (ExtensionDefinition extensionDef: module.getExtensionDefs()) {
+			for (ExtensionDefinition extensionDef: module.getExtensionDefinitions()) {
 				if (extensionDefsProcessed.containsKey(extensionDef.getName())) {
 					logger.info("unwinding extension definition '" + extensionDef.getName() + "' ...");
 					extensionDefsProcessed.get(extensionDef.getName()).revert();

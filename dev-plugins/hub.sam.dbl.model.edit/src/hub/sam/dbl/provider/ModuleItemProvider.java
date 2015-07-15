@@ -15,12 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -29,8 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModuleItemProvider
-	extends NamedElementItemProvider {
+public class ModuleItemProvider extends NamedElementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -68,12 +62,12 @@ public class ModuleItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS);
+			childrenFeatures.add(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
-			childrenFeatures.add(DblPackage.Literals.MODULE__CLASSIFIERS);
-			childrenFeatures.add(DblPackage.Literals.MODULE__CLASS_AUGMENTS);
-			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_DEFS);
-			childrenFeatures.add(DblPackage.Literals.MODULE__PROCEDURES);
+			childrenFeatures.add(DblPackage.Literals.MODULE__CLASSES);
+			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_DEFINITIONS);
+			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS_DEFINITIONS);
+			childrenFeatures.add(DblPackage.Literals.MODULE__FUNCTIONS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__VARIABLES);
 		}
 		return childrenFeatures;
@@ -116,6 +110,7 @@ public class ModuleItemProvider
 			getString("_UI_Module_type") :
 			getString("_UI_Module_type") + " " + label;
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -129,12 +124,12 @@ public class ModuleItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Module.class)) {
-			case DblPackage.MODULE__EXTENSIONS:
+			case DblPackage.MODULE__CONTENT_EXTENSIONS:
 			case DblPackage.MODULE__EXPAND_EXPR:
-			case DblPackage.MODULE__CLASSIFIERS:
-			case DblPackage.MODULE__CLASS_AUGMENTS:
-			case DblPackage.MODULE__EXTENSION_DEFS:
-			case DblPackage.MODULE__PROCEDURES:
+			case DblPackage.MODULE__CLASSES:
+			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
+			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
+			case DblPackage.MODULE__FUNCTIONS:
 			case DblPackage.MODULE__VARIABLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
@@ -155,418 +150,18 @@ public class ModuleItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExtensibleElement()));
+				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
+				 DblFactory.eINSTANCE.createConstructiveExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createClazz()));
+				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
+				 DblFactory.eINSTANCE.createModuleContent()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createVariable()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createLoopStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createSimpleStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createProcedureCall()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createReturn()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createWaitUntil()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTerminate()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createYield()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createWait()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createReactivate()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createActivateObject()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createAdvance()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createPrint()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createIfStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createLocalScopeStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createForStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createWhileStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createSwitchStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createBreakStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createContinueStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL1Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL2Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL3Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL4Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL5Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL6Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL7Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL8Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createL9Expr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createOr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createAnd()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createNotEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createGreater()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createGreaterEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createLess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createLessEqual()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createInstanceOf()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createPlus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createMinus()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createMul()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createMod()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createDiv()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createNeg()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createNot()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createCast()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createCreateObject()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createNullLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTimeLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createActiveLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createStringLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createIntLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTrueLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createFalseLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createDoubleLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpandExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createParseExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createVariableAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createMetaAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTypeAccess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createClassContentExtension()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createModuleContentExtension()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExtensionDefinition()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTextualSyntaxDef()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTsRule()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createMetaExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTargetStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createMappingStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createSetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createResetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpandExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createExpandStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS,
-				 DblFactory.eINSTANCE.createTestStatement()));
+				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
+				 DblFactory.eINSTANCE.createClassContent()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -575,54 +170,33 @@ public class ModuleItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__CLASSIFIERS,
-				 DblFactory.eINSTANCE.createClazz()));
+				(DblPackage.Literals.MODULE__CLASSES,
+				 DblFactory.eINSTANCE.createClass()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__CLASS_AUGMENTS,
-				 DblFactory.eINSTANCE.createClassAugment()));
+				(DblPackage.Literals.MODULE__CLASSES,
+				 DblFactory.eINSTANCE.createQuotedClassContent()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__EXTENSION_DEFS,
+				(DblPackage.Literals.MODULE__EXTENSION_DEFINITIONS,
 				 DblFactory.eINSTANCE.createExtensionDefinition()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__PROCEDURES,
-				 DblFactory.eINSTANCE.createProcedure()));
+				(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS_DEFINITIONS,
+				 DblFactory.eINSTANCE.createExtensionSemanticsDefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODULE__FUNCTIONS,
+				 DblFactory.eINSTANCE.createFunction()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.MODULE__VARIABLES,
 				 DblFactory.eINSTANCE.createVariable()));
-	}
-
-	/**
-	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
-		Object childFeature = feature;
-		Object childObject = child;
-
-		boolean qualify =
-			childFeature == DblPackage.Literals.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS ||
-			childFeature == DblPackage.Literals.MODULE__CLASSIFIERS ||
-			childFeature == DblPackage.Literals.MODULE__VARIABLES ||
-			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
-			childFeature == DblPackage.Literals.MODULE__EXTENSION_DEFS;
-
-		if (qualify) {
-			return getString
-				("_UI_CreateChild_text2",
-				 new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
-		}
-		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

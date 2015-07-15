@@ -7,7 +7,8 @@ extension ForEach extends dbl LocalScopeStatement {
 	start ForEach;
 	ForEach -> "foreach" "(" statements:list(Variable) "in" collection:Expression ")" body:LocalScopeStatement;
 }
-semantics {	
+
+semantics for ForEach {	
 	Variable varDef = statements.get(0) as Variable;
 	
 	expand "Iterator it = " collection ".iterator();";

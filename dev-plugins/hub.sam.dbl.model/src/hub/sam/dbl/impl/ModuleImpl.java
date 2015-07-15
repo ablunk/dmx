@@ -2,28 +2,24 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.ClassAugment;
-import hub.sam.dbl.Classifier;
 import hub.sam.dbl.Construct;
+import hub.sam.dbl.ConstructiveExtension;
+import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.EmbeddableExtensionsContainer;
 import hub.sam.dbl.ExpandExpr;
-import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Function;
 import hub.sam.dbl.Module;
-import hub.sam.dbl.Procedure;
 import hub.sam.dbl.Variable;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -35,12 +31,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensions <em>Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getContentExtensions <em>Content Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExpandExpr <em>Expand Expr</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getClassifiers <em>Classifiers</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getClassAugments <em>Class Augments</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensionDefs <em>Extension Defs</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getProcedures <em>Procedures</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getClasses <em>Classes</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensionDefinitions <em>Extension Definitions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensionSemanticsDefinitions <em>Extension Semantics Definitions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getVariables <em>Variables</em>}</li>
  * </ul>
  * </p>
@@ -49,14 +45,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class ModuleImpl extends NamedElementImpl implements Module {
 	/**
-	 * The cached value of the '{@link #getExtensions() <em>Extensions</em>}' containment reference list.
+	 * The cached value of the '{@link #getContentExtensions() <em>Content Extensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensions()
+	 * @see #getContentExtensions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensibleElement> extensions;
+	protected EList<ConstructiveExtension> contentExtensions;
 
 	/**
 	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
@@ -69,44 +65,44 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	protected ExpandExpr expandExpr;
 
 	/**
-	 * The cached value of the '{@link #getClassifiers() <em>Classifiers</em>}' containment reference list.
+	 * The cached value of the '{@link #getClasses() <em>Classes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getClassifiers()
+	 * @see #getClasses()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Classifier> classifiers;
+	protected EList<hub.sam.dbl.Class> classes;
 
 	/**
-	 * The cached value of the '{@link #getClassAugments() <em>Class Augments</em>}' containment reference list.
+	 * The cached value of the '{@link #getExtensionDefinitions() <em>Extension Definitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getClassAugments()
+	 * @see #getExtensionDefinitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ClassAugment> classAugments;
+	protected EList<ExtensionDefinition> extensionDefinitions;
 
 	/**
-	 * The cached value of the '{@link #getExtensionDefs() <em>Extension Defs</em>}' containment reference list.
+	 * The cached value of the '{@link #getExtensionSemanticsDefinitions() <em>Extension Semantics Definitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensionDefs()
+	 * @see #getExtensionSemanticsDefinitions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensionDefinition> extensionDefs;
+	protected EList<ExtensionSemanticsDefinition> extensionSemanticsDefinitions;
 
 	/**
-	 * The cached value of the '{@link #getProcedures() <em>Procedures</em>}' containment reference list.
+	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getProcedures()
+	 * @see #getFunctions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Procedure> procedures;
+	protected EList<Function> functions;
 
 	/**
 	 * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
@@ -142,11 +138,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensibleElement> getExtensions() {
-		if (extensions == null) {
-			extensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.MODULE__EXTENSIONS);
+	public EList<ConstructiveExtension> getContentExtensions() {
+		if (contentExtensions == null) {
+			contentExtensions = new EObjectContainmentEList<ConstructiveExtension>(ConstructiveExtension.class, this, DblPackage.MODULE__CONTENT_EXTENSIONS);
 		}
-		return extensions;
+		return contentExtensions;
 	}
 
 	/**
@@ -197,11 +193,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Classifier> getClassifiers() {
-		if (classifiers == null) {
-			classifiers = new EObjectContainmentEList<Classifier>(Classifier.class, this, DblPackage.MODULE__CLASSIFIERS);
+	public EList<hub.sam.dbl.Class> getClasses() {
+		if (classes == null) {
+			classes = new EObjectContainmentEList<hub.sam.dbl.Class>(hub.sam.dbl.Class.class, this, DblPackage.MODULE__CLASSES);
 		}
-		return classifiers;
+		return classes;
 	}
 
 	/**
@@ -209,11 +205,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ClassAugment> getClassAugments() {
-		if (classAugments == null) {
-			classAugments = new EObjectContainmentEList<ClassAugment>(ClassAugment.class, this, DblPackage.MODULE__CLASS_AUGMENTS);
+	public EList<ExtensionDefinition> getExtensionDefinitions() {
+		if (extensionDefinitions == null) {
+			extensionDefinitions = new EObjectContainmentEList<ExtensionDefinition>(ExtensionDefinition.class, this, DblPackage.MODULE__EXTENSION_DEFINITIONS);
 		}
-		return classAugments;
+		return extensionDefinitions;
 	}
 
 	/**
@@ -221,11 +217,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensionDefinition> getExtensionDefs() {
-		if (extensionDefs == null) {
-			extensionDefs = new EObjectContainmentEList<ExtensionDefinition>(ExtensionDefinition.class, this, DblPackage.MODULE__EXTENSION_DEFS);
+	public EList<ExtensionSemanticsDefinition> getExtensionSemanticsDefinitions() {
+		if (extensionSemanticsDefinitions == null) {
+			extensionSemanticsDefinitions = new EObjectContainmentEList<ExtensionSemanticsDefinition>(ExtensionSemanticsDefinition.class, this, DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS);
 		}
-		return extensionDefs;
+		return extensionSemanticsDefinitions;
 	}
 
 	/**
@@ -233,11 +229,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Procedure> getProcedures() {
-		if (procedures == null) {
-			procedures = new EObjectContainmentEList<Procedure>(Procedure.class, this, DblPackage.MODULE__PROCEDURES);
+	public EList<Function> getFunctions() {
+		if (functions == null) {
+			functions = new EObjectContainmentEList<Function>(Function.class, this, DblPackage.MODULE__FUNCTIONS);
 		}
-		return procedures;
+		return functions;
 	}
 
 	/**
@@ -260,18 +256,18 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.MODULE__EXTENSIONS:
-				return ((InternalEList<?>)getExtensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__CONTENT_EXTENSIONS:
+				return ((InternalEList<?>)getContentExtensions()).basicRemove(otherEnd, msgs);
 			case DblPackage.MODULE__EXPAND_EXPR:
 				return basicSetExpandExpr(null, msgs);
-			case DblPackage.MODULE__CLASSIFIERS:
-				return ((InternalEList<?>)getClassifiers()).basicRemove(otherEnd, msgs);
-			case DblPackage.MODULE__CLASS_AUGMENTS:
-				return ((InternalEList<?>)getClassAugments()).basicRemove(otherEnd, msgs);
-			case DblPackage.MODULE__EXTENSION_DEFS:
-				return ((InternalEList<?>)getExtensionDefs()).basicRemove(otherEnd, msgs);
-			case DblPackage.MODULE__PROCEDURES:
-				return ((InternalEList<?>)getProcedures()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__CLASSES:
+				return ((InternalEList<?>)getClasses()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
+				return ((InternalEList<?>)getExtensionDefinitions()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
+				return ((InternalEList<?>)getExtensionSemanticsDefinitions()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__FUNCTIONS:
+				return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
 			case DblPackage.MODULE__VARIABLES:
 				return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
 		}
@@ -286,18 +282,18 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.MODULE__EXTENSIONS:
-				return getExtensions();
+			case DblPackage.MODULE__CONTENT_EXTENSIONS:
+				return getContentExtensions();
 			case DblPackage.MODULE__EXPAND_EXPR:
 				return getExpandExpr();
-			case DblPackage.MODULE__CLASSIFIERS:
-				return getClassifiers();
-			case DblPackage.MODULE__CLASS_AUGMENTS:
-				return getClassAugments();
-			case DblPackage.MODULE__EXTENSION_DEFS:
-				return getExtensionDefs();
-			case DblPackage.MODULE__PROCEDURES:
-				return getProcedures();
+			case DblPackage.MODULE__CLASSES:
+				return getClasses();
+			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
+				return getExtensionDefinitions();
+			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
+				return getExtensionSemanticsDefinitions();
+			case DblPackage.MODULE__FUNCTIONS:
+				return getFunctions();
 			case DblPackage.MODULE__VARIABLES:
 				return getVariables();
 		}
@@ -313,28 +309,28 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.MODULE__EXTENSIONS:
-				getExtensions().clear();
-				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
+			case DblPackage.MODULE__CONTENT_EXTENSIONS:
+				getContentExtensions().clear();
+				getContentExtensions().addAll((Collection<? extends ConstructiveExtension>)newValue);
 				return;
 			case DblPackage.MODULE__EXPAND_EXPR:
 				setExpandExpr((ExpandExpr)newValue);
 				return;
-			case DblPackage.MODULE__CLASSIFIERS:
-				getClassifiers().clear();
-				getClassifiers().addAll((Collection<? extends Classifier>)newValue);
+			case DblPackage.MODULE__CLASSES:
+				getClasses().clear();
+				getClasses().addAll((Collection<? extends hub.sam.dbl.Class>)newValue);
 				return;
-			case DblPackage.MODULE__CLASS_AUGMENTS:
-				getClassAugments().clear();
-				getClassAugments().addAll((Collection<? extends ClassAugment>)newValue);
+			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
+				getExtensionDefinitions().clear();
+				getExtensionDefinitions().addAll((Collection<? extends ExtensionDefinition>)newValue);
 				return;
-			case DblPackage.MODULE__EXTENSION_DEFS:
-				getExtensionDefs().clear();
-				getExtensionDefs().addAll((Collection<? extends ExtensionDefinition>)newValue);
+			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
+				getExtensionSemanticsDefinitions().clear();
+				getExtensionSemanticsDefinitions().addAll((Collection<? extends ExtensionSemanticsDefinition>)newValue);
 				return;
-			case DblPackage.MODULE__PROCEDURES:
-				getProcedures().clear();
-				getProcedures().addAll((Collection<? extends Procedure>)newValue);
+			case DblPackage.MODULE__FUNCTIONS:
+				getFunctions().clear();
+				getFunctions().addAll((Collection<? extends Function>)newValue);
 				return;
 			case DblPackage.MODULE__VARIABLES:
 				getVariables().clear();
@@ -352,23 +348,23 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.MODULE__EXTENSIONS:
-				getExtensions().clear();
+			case DblPackage.MODULE__CONTENT_EXTENSIONS:
+				getContentExtensions().clear();
 				return;
 			case DblPackage.MODULE__EXPAND_EXPR:
 				setExpandExpr((ExpandExpr)null);
 				return;
-			case DblPackage.MODULE__CLASSIFIERS:
-				getClassifiers().clear();
+			case DblPackage.MODULE__CLASSES:
+				getClasses().clear();
 				return;
-			case DblPackage.MODULE__CLASS_AUGMENTS:
-				getClassAugments().clear();
+			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
+				getExtensionDefinitions().clear();
 				return;
-			case DblPackage.MODULE__EXTENSION_DEFS:
-				getExtensionDefs().clear();
+			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
+				getExtensionSemanticsDefinitions().clear();
 				return;
-			case DblPackage.MODULE__PROCEDURES:
-				getProcedures().clear();
+			case DblPackage.MODULE__FUNCTIONS:
+				getFunctions().clear();
 				return;
 			case DblPackage.MODULE__VARIABLES:
 				getVariables().clear();
@@ -385,18 +381,18 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.MODULE__EXTENSIONS:
-				return extensions != null && !extensions.isEmpty();
+			case DblPackage.MODULE__CONTENT_EXTENSIONS:
+				return contentExtensions != null && !contentExtensions.isEmpty();
 			case DblPackage.MODULE__EXPAND_EXPR:
 				return expandExpr != null;
-			case DblPackage.MODULE__CLASSIFIERS:
-				return classifiers != null && !classifiers.isEmpty();
-			case DblPackage.MODULE__CLASS_AUGMENTS:
-				return classAugments != null && !classAugments.isEmpty();
-			case DblPackage.MODULE__EXTENSION_DEFS:
-				return extensionDefs != null && !extensionDefs.isEmpty();
-			case DblPackage.MODULE__PROCEDURES:
-				return procedures != null && !procedures.isEmpty();
+			case DblPackage.MODULE__CLASSES:
+				return classes != null && !classes.isEmpty();
+			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
+				return extensionDefinitions != null && !extensionDefinitions.isEmpty();
+			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
+				return extensionSemanticsDefinitions != null && !extensionSemanticsDefinitions.isEmpty();
+			case DblPackage.MODULE__FUNCTIONS:
+				return functions != null && !functions.isEmpty();
 			case DblPackage.MODULE__VARIABLES:
 				return variables != null && !variables.isEmpty();
 		}
@@ -410,9 +406,9 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == EmbeddableExtensionsContainer.class) {
+		if (baseClass == ConstructiveExtensionAtContentExtensionPoint.class) {
 			switch (derivedFeatureID) {
-				case DblPackage.MODULE__EXTENSIONS: return DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS;
+				case DblPackage.MODULE__CONTENT_EXTENSIONS: return DblPackage.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS;
 				default: return -1;
 			}
 		}
@@ -432,9 +428,9 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == EmbeddableExtensionsContainer.class) {
+		if (baseClass == ConstructiveExtensionAtContentExtensionPoint.class) {
 			switch (baseFeatureID) {
-				case DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS: return DblPackage.MODULE__EXTENSIONS;
+				case DblPackage.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS: return DblPackage.MODULE__CONTENT_EXTENSIONS;
 				default: return -1;
 			}
 		}

@@ -67,6 +67,33 @@ public interface DblFactory extends EFactory {
 	Module createModule();
 
 	/**
+	 * Returns a new object of class '<em>Constructive Extension</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Constructive Extension</em>'.
+	 * @generated
+	 */
+	ConstructiveExtension createConstructiveExtension();
+
+	/**
+	 * Returns a new object of class '<em>Module Content</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Module Content</em>'.
+	 * @generated
+	 */
+	ModuleContent createModuleContent();
+
+	/**
+	 * Returns a new object of class '<em>Class Content</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Class Content</em>'.
+	 * @generated
+	 */
+	ClassContent createClassContent();
+
+	/**
 	 * Returns a new object of class '<em>Array Dimension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -121,13 +148,13 @@ public interface DblFactory extends EFactory {
 	StringType createStringType();
 
 	/**
-	 * Returns a new object of class '<em>Procedure</em>'.
+	 * Returns a new object of class '<em>Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Procedure</em>'.
+	 * @return a new object of class '<em>Function</em>'.
 	 * @generated
 	 */
-	Procedure createProcedure();
+	Function createFunction();
 
 	/**
 	 * Returns a new object of class '<em>Native Binding</em>'.
@@ -139,15 +166,6 @@ public interface DblFactory extends EFactory {
 	NativeBinding createNativeBinding();
 
 	/**
-	 * Returns a new object of class '<em>Class Part</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Class Part</em>'.
-	 * @generated
-	 */
-	ClassPart createClassPart();
-
-	/**
 	 * Returns a new object of class '<em>Super Class Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -157,13 +175,13 @@ public interface DblFactory extends EFactory {
 	SuperClassSpecification createSuperClassSpecification();
 
 	/**
-	 * Returns a new object of class '<em>Clazz</em>'.
+	 * Returns a new object of class '<em>Class</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Clazz</em>'.
+	 * @return a new object of class '<em>Class</em>'.
 	 * @generated
 	 */
-	Clazz createClazz();
+	Class createClass();
 
 	/**
 	 * Returns a new object of class '<em>Constructor</em>'.
@@ -173,15 +191,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	Constructor createConstructor();
-
-	/**
-	 * Returns a new object of class '<em>Class Augment</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Class Augment</em>'.
-	 * @generated
-	 */
-	ClassAugment createClassAugment();
 
 	/**
 	 * Returns a new object of class '<em>Variable</em>'.
@@ -247,13 +256,13 @@ public interface DblFactory extends EFactory {
 	Assignment createAssignment();
 
 	/**
-	 * Returns a new object of class '<em>Procedure Call</em>'.
+	 * Returns a new object of class '<em>Function Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Procedure Call</em>'.
+	 * @return a new object of class '<em>Function Call</em>'.
 	 * @generated
 	 */
-	ProcedureCall createProcedureCall();
+	FunctionCall createFunctionCall();
 
 	/**
 	 * Returns a new object of class '<em>Return</em>'.
@@ -886,6 +895,15 @@ public interface DblFactory extends EFactory {
 	ExtensionDefinition createExtensionDefinition();
 
 	/**
+	 * Returns a new object of class '<em>Extension Semantics Definition</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Extension Semantics Definition</em>'.
+	 * @generated
+	 */
+	ExtensionSemanticsDefinition createExtensionSemanticsDefinition();
+
+	/**
 	 * Returns a new object of class '<em>Textual Syntax Def</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1039,15 +1057,6 @@ public interface DblFactory extends EFactory {
 	ReferencePropertyType createReferencePropertyType();
 
 	/**
-	 * Returns a new object of class '<em>Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Mapping</em>'.
-	 * @generated
-	 */
-	Mapping createMapping();
-
-	/**
 	 * Returns a new object of class '<em>Meta Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1066,31 +1075,40 @@ public interface DblFactory extends EFactory {
 	TargetStatement createTargetStatement();
 
 	/**
-	 * Returns a new object of class '<em>Mapping Statement</em>'.
+	 * Returns a new object of class '<em>Expansion Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Mapping Statement</em>'.
+	 * @return a new object of class '<em>Expansion Statement</em>'.
 	 * @generated
 	 */
-	MappingStatement createMappingStatement();
+	ExpansionStatement createExpansionStatement();
 
 	/**
-	 * Returns a new object of class '<em>Set Gen Context Statement</em>'.
+	 * Returns a new object of class '<em>Expand Text Part</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Set Gen Context Statement</em>'.
+	 * @return a new object of class '<em>Expand Text Part</em>'.
 	 * @generated
 	 */
-	SetGenContextStatement createSetGenContextStatement();
+	ExpandTextPart createExpandTextPart();
 
 	/**
-	 * Returns a new object of class '<em>Reset Gen Context Statement</em>'.
+	 * Returns a new object of class '<em>Expand Variable Part</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Reset Gen Context Statement</em>'.
+	 * @return a new object of class '<em>Expand Variable Part</em>'.
 	 * @generated
 	 */
-	ResetGenContextStatement createResetGenContextStatement();
+	ExpandVariablePart createExpandVariablePart();
+
+	/**
+	 * Returns a new object of class '<em>Set Expansion Context Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Set Expansion Context Statement</em>'.
+	 * @generated
+	 */
+	SetExpansionContextStatement createSetExpansionContextStatement();
 
 	/**
 	 * Returns a new object of class '<em>Save Gen Statement</em>'.
@@ -1109,24 +1127,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	ResumeGenStatement createResumeGenStatement();
-
-	/**
-	 * Returns a new object of class '<em>Fixed Mapping Part</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Fixed Mapping Part</em>'.
-	 * @generated
-	 */
-	FixedMappingPart createFixedMappingPart();
-
-	/**
-	 * Returns a new object of class '<em>Dynamic Mapping Part</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Dynamic Mapping Part</em>'.
-	 * @generated
-	 */
-	DynamicMappingPart createDynamicMappingPart();
 
 	/**
 	 * Returns a new object of class '<em>Expand Expression</em>'.

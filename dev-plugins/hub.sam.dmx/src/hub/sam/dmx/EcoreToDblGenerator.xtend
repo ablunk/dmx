@@ -19,6 +19,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 
 		writer.write(
 		'''
+		#import "stdlib"
 		«IF imports != null»
 			«FOR i : imports»
 				#import "«i»"
@@ -56,22 +57,26 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		«ENDIF»
 		'''
 	}
+	
+	def String escapeName(String name) {
+		name
+	}
 
 	def String genAttribute(EStructuralFeature feature) {
 		val it = feature
-		genType + ' ' + name + ';'
+		genType + ' ' + name.escapeName + ';'
 	}
 
 	def String genGetter(EStructuralFeature feature) {
 		val it = feature
 		genType + ' '
 		+ (if (EType.name.equals("EBoolean")) 'is' else 'get')
-		+ name.toFirstUpper + '() abstract;'
+		+ name.escapeName.toFirstUpper + '() abstract;'
 	}
 
 	def String genSetter(EStructuralFeature feature) {
 		val it = feature
-		if (!feature.many) 'void set' + name.toFirstUpper + '(' + genType + ' value) abstract;'
+		if (!feature.many) 'void set' + name.escapeName.toFirstUpper + '(' + genType + ' value) abstract;'
 	}
 	
 	def String genEClass(EClass eClass, String javaPackagePrefix) {
@@ -100,52 +105,10 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		}
 		else {
 			'''
-			class Object {
-				bindings {
-					"java" -> "java.lang.Object"
-				}
-			}
-			
-			class Class {
-				bindings {
-					"java" -> "java.lang.Class"
-				}
-			}
-			
 			class Enumerator {
 				bindings {
 					"java" -> "org.eclipse.emf.common.util.Enumerator"
 				}
-			}
-			
-			class ListIterator {
-				bindings {
-					"java" -> "java.util.Iterator"
-				}
-
-				boolean hasNext() abstract;
-				Object next() abstract;
-				void remove() abstract;
-			}
-
-			class List {
-				bindings {
-					"java" -> "java.util.List"
-				}
-
-			boolean add(Object e) abstract;
-			boolean add(int index, Object e) abstract;
-			void clear() abstract;
-			boolean contains(Object e) abstract;
-			int size() abstract;
-			Object get(int index) abstract;
-			int indexOf(Object e) abstract;
-			boolean isEmpty() abstract;
-			Object remove(int index) abstract;
-			boolean remove(Object e) abstract;
-			Object set(int index, Object e) abstract;
-			Object array[] toArray() abstract;
-			ListIterator iterator() abstract;
 			}
 
 			class EObject {

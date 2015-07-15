@@ -1,9 +1,0 @@
-#import "b"
-
-module A {
-
-	class A {
-		int i;
-	}
-
-}

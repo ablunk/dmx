@@ -15,14 +15,15 @@ public class TestA {
 			}
 		}
 		
+		public static class Class {
+			public Class(int i) {}
+			int _class;
+		}
+		
 		public static void main(String[] args) {
 			for (int i=0; i<3; i++) {
 				A a = new A();
 				a.p();
 			}
-		}
-		
-		public static void main() {
-			
 		}
 }

@@ -16,13 +16,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EStructuralFeature;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
-import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -31,8 +25,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ExtensionDefinitionItemProvider
-	extends LanguageConceptClassifierItemProvider {
+public class ExtensionDefinitionItemProvider extends LanguageConceptClassifierItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,7 +88,6 @@ public class ExtensionDefinitionItemProvider
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(DblPackage.Literals.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF);
 			childrenFeatures.add(DblPackage.Literals.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF);
-			childrenFeatures.add(DblPackage.Literals.EXTENSION_DEFINITION__MAPPING_DEF);
 		}
 		return childrenFeatures;
 	}
@@ -126,6 +118,7 @@ public class ExtensionDefinitionItemProvider
 			getString("_UI_ExtensionDefinition_type") :
 			getString("_UI_ExtensionDefinition_type") + " " + label;
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -141,7 +134,6 @@ public class ExtensionDefinitionItemProvider
 		switch (notification.getFeatureID(ExtensionDefinition.class)) {
 			case DblPackage.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF:
 			case DblPackage.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF:
-			case DblPackage.EXTENSION_DEFINITION__MAPPING_DEF:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -162,17 +154,17 @@ public class ExtensionDefinitionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF,
-				 DblFactory.eINSTANCE.createClazz()));
+				 DblFactory.eINSTANCE.createClass()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF,
+				 DblFactory.eINSTANCE.createQuotedClassContent()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF,
 				 DblFactory.eINSTANCE.createTextualSyntaxDef()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXTENSION_DEFINITION__MAPPING_DEF,
-				 DblFactory.eINSTANCE.createMapping()));
 	}
 
 }

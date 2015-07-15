@@ -35,6 +35,7 @@ public interface NativeBinding extends EObject {
 	 * @see #setTargetLanguage(String)
 	 * @see hub.sam.dbl.DblPackage#getNativeBinding_TargetLanguage()
 	 * @model required="true"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='SuperClassSpecification' unique='false' upper='*'"
 	 * @generated
 	 */
 	String getTargetLanguage();
@@ -61,6 +62,7 @@ public interface NativeBinding extends EObject {
 	 * @see #setTargetType(String)
 	 * @see hub.sam.dbl.DblPackage#getNativeBinding_TargetType()
 	 * @model required="true"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='SuperClassSpecification'"
 	 * @generated
 	 */
 	String getTargetType();

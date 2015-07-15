@@ -154,7 +154,22 @@ public class ParseExprItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
-				 DblFactory.eINSTANCE.createClazz()));
+				 DblFactory.eINSTANCE.createConstructiveExtension()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PARSE_EXPR__AST_PART,
+				 DblFactory.eINSTANCE.createModuleContent()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PARSE_EXPR__AST_PART,
+				 DblFactory.eINSTANCE.createClassContent()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PARSE_EXPR__AST_PART,
+				 DblFactory.eINSTANCE.createClass()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -184,7 +199,7 @@ public class ParseExprItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
-				 DblFactory.eINSTANCE.createProcedureCall()));
+				 DblFactory.eINSTANCE.createFunctionCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -494,17 +509,17 @@ public class ParseExprItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
+				 DblFactory.eINSTANCE.createExtensionSemanticsDefinition()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PARSE_EXPR__AST_PART,
 				 DblFactory.eINSTANCE.createTextualSyntaxDef()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
 				 DblFactory.eINSTANCE.createTsRule()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PARSE_EXPR__AST_PART,
-				 DblFactory.eINSTANCE.createMapping()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -519,17 +534,12 @@ public class ParseExprItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
-				 DblFactory.eINSTANCE.createMappingStatement()));
+				 DblFactory.eINSTANCE.createExpansionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
-				 DblFactory.eINSTANCE.createSetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PARSE_EXPR__AST_PART,
-				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -555,6 +565,11 @@ public class ParseExprItemProvider extends ExpressionItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.PARSE_EXPR__AST_PART,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PARSE_EXPR__AST_PART,
+				 DblFactory.eINSTANCE.createQuotedClassContent()));
 
 		newChildDescriptors.add
 			(createChildParameter

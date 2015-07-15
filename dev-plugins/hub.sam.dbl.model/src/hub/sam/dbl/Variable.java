@@ -12,7 +12,7 @@ package hub.sam.dbl;
  * The following features are supported:
  * <ul>
  *   <li>{@link hub.sam.dbl.Variable#isControl <em>Control</em>}</li>
- *   <li>{@link hub.sam.dbl.Variable#isClazz <em>Clazz</em>}</li>
+ *   <li>{@link hub.sam.dbl.Variable#isClass <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.Variable#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
  * </p>
@@ -21,7 +21,7 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Variable extends AbstractVariable, SimpleStatement, ModifierExtensionsContainer {
+public interface Variable extends AbstractVariable, SimpleStatement {
 	/**
 	 * Returns the value of the '<em><b>Control</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
@@ -50,31 +50,31 @@ public interface Variable extends AbstractVariable, SimpleStatement, ModifierExt
 	void setControl(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Clazz</b></em>' attribute.
+	 * Returns the value of the '<em><b>Class</b></em>' attribute.
 	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Clazz</em>' attribute isn't clear,
+	 * If the meaning of the '<em>Class</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Clazz</em>' attribute.
-	 * @see #setClazz(boolean)
-	 * @see hub.sam.dbl.DblPackage#getVariable_Clazz()
+	 * @return the value of the '<em>Class</em>' attribute.
+	 * @see #setClass(boolean)
+	 * @see hub.sam.dbl.DblPackage#getVariable_Class()
 	 * @model default="false" required="true"
 	 * @generated
 	 */
-	boolean isClazz();
+	boolean isClass();
 
 	/**
-	 * Sets the value of the '{@link hub.sam.dbl.Variable#isClazz <em>Clazz</em>}' attribute.
+	 * Sets the value of the '{@link hub.sam.dbl.Variable#isClass <em>Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Clazz</em>' attribute.
-	 * @see #isClazz()
+	 * @param value the new value of the '<em>Class</em>' attribute.
+	 * @see #isClass()
 	 * @generated
 	 */
-	void setClazz(boolean value);
+	void setClass(boolean value);
 
 	/**
 	 * Returns the value of the '<em><b>Initial Value</b></em>' containment reference.

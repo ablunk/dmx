@@ -1,0 +1,28 @@
+#import "uml"
+
+module uml_test {
+
+class A {
+	B b;
+}
+
+class B {
+	A a;
+}
+
+assoc A_b_B_a
+	role b in A;
+	role a in B;
+end;
+
+void main() {
+	A a1 = new A;
+	B b1 = new B;
+	
+	link a1, b1 via A_b_B_a;
+	
+	print a1.b + "\n";
+	print b1.a + "\n";
+}
+
+}

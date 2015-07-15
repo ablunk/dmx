@@ -2,7 +2,6 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.Clazz;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.SuperClassSpecification;
@@ -11,15 +10,11 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,7 +25,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.SuperClassSpecificationImpl#getClazz <em>Clazz</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.SuperClassSpecificationImpl#getClass_ <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.SuperClassSpecificationImpl#getConstructorArguments <em>Constructor Arguments</em>}</li>
  * </ul>
  * </p>
@@ -39,14 +34,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class SuperClassSpecificationImpl extends EObjectImpl implements SuperClassSpecification {
 	/**
-	 * The cached value of the '{@link #getClazz() <em>Clazz</em>}' reference.
+	 * The cached value of the '{@link #getClass_() <em>Class</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getClazz()
+	 * @see #getClass_()
 	 * @generated
 	 * @ordered
 	 */
-	protected Clazz clazz;
+	protected hub.sam.dbl.Class class_;
 
 	/**
 	 * The cached value of the '{@link #getConstructorArguments() <em>Constructor Arguments</em>}' containment reference list.
@@ -82,16 +77,16 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Clazz getClazz() {
-		if (clazz != null && clazz.eIsProxy()) {
-			InternalEObject oldClazz = (InternalEObject)clazz;
-			clazz = (Clazz)eResolveProxy(oldClazz);
-			if (clazz != oldClazz) {
+	public hub.sam.dbl.Class getClass_() {
+		if (class_ != null && class_.eIsProxy()) {
+			InternalEObject oldClass = (InternalEObject)class_;
+			class_ = (hub.sam.dbl.Class)eResolveProxy(oldClass);
+			if (class_ != oldClass) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.SUPER_CLASS_SPECIFICATION__CLAZZ, oldClazz, clazz));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, DblPackage.SUPER_CLASS_SPECIFICATION__CLASS, oldClass, class_));
 			}
 		}
-		return clazz;
+		return class_;
 	}
 
 	/**
@@ -99,8 +94,8 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Clazz basicGetClazz() {
-		return clazz;
+	public hub.sam.dbl.Class basicGetClass() {
+		return class_;
 	}
 
 	/**
@@ -108,11 +103,11 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setClazz(Clazz newClazz) {
-		Clazz oldClazz = clazz;
-		clazz = newClazz;
+	public void setClass(hub.sam.dbl.Class newClass) {
+		hub.sam.dbl.Class oldClass = class_;
+		class_ = newClass;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.SUPER_CLASS_SPECIFICATION__CLAZZ, oldClazz, clazz));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.SUPER_CLASS_SPECIFICATION__CLASS, oldClass, class_));
 	}
 
 	/**
@@ -149,9 +144,9 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.SUPER_CLASS_SPECIFICATION__CLAZZ:
-				if (resolve) return getClazz();
-				return basicGetClazz();
+			case DblPackage.SUPER_CLASS_SPECIFICATION__CLASS:
+				if (resolve) return getClass_();
+				return basicGetClass();
 			case DblPackage.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS:
 				return getConstructorArguments();
 		}
@@ -167,8 +162,8 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.SUPER_CLASS_SPECIFICATION__CLAZZ:
-				setClazz((Clazz)newValue);
+			case DblPackage.SUPER_CLASS_SPECIFICATION__CLASS:
+				setClass((hub.sam.dbl.Class)newValue);
 				return;
 			case DblPackage.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS:
 				getConstructorArguments().clear();
@@ -186,8 +181,8 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.SUPER_CLASS_SPECIFICATION__CLAZZ:
-				setClazz((Clazz)null);
+			case DblPackage.SUPER_CLASS_SPECIFICATION__CLASS:
+				setClass((hub.sam.dbl.Class)null);
 				return;
 			case DblPackage.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS:
 				getConstructorArguments().clear();
@@ -204,8 +199,8 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.SUPER_CLASS_SPECIFICATION__CLAZZ:
-				return clazz != null;
+			case DblPackage.SUPER_CLASS_SPECIFICATION__CLASS:
+				return class_ != null;
 			case DblPackage.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS:
 				return constructorArguments != null && !constructorArguments.isEmpty();
 		}

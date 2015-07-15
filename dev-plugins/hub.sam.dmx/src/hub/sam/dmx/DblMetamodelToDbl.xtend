@@ -2,6 +2,7 @@ package hub.sam.dmx
 
 import hub.sam.dbl.DblPackage
 import org.eclipse.core.runtime.IPath
+import org.eclipse.emf.ecore.EStructuralFeature
 
 class DblMetamodelToDbl extends EcoreToDblGenerator {
 	
@@ -17,5 +18,12 @@ class DblMetamodelToDbl extends EcoreToDblGenerator {
 	def static void main(String[] args) {
 		(new DblMetamodelToDbl(null)).startGenerator
 	}
+	
+	override String escapeName(String name) {
+		if (name.equals("priority") || name.equals("type")) {
+			name + "_"
+		}
+	}
+	
 	
 }

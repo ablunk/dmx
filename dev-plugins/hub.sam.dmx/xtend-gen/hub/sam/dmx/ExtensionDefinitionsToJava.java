@@ -2,15 +2,15 @@ package hub.sam.dmx;
 
 import com.google.common.base.Objects;
 import hub.sam.dbl.CompositePropertyType;
+import hub.sam.dbl.ExpansionStatement;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.ExtensionSemanticsDefinition;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.IdPropertyType;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.IntPropertyType;
 import hub.sam.dbl.LanguageConstructClassifier;
-import hub.sam.dbl.Mapping;
-import hub.sam.dbl.MappingStatement;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
@@ -168,7 +168,7 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
   }
   
   public boolean isPartOfGenStatement(final IdExpr idExpr) {
-    MappingStatement _containerObjectOfType = this.<MappingStatement>getContainerObjectOfType(idExpr, MappingStatement.class);
+    ExpansionStatement _containerObjectOfType = this.<ExpansionStatement>getContainerObjectOfType(idExpr, ExpansionStatement.class);
     return (!Objects.equal(_containerObjectOfType, null));
   }
   
@@ -468,14 +468,14 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
         EList<Module> _modules = _model_1.getModules();
         for (final Module module : _modules) {
           {
-            EList<ExtensionDefinition> _extensionDefs = module.getExtensionDefs();
+            EList<ExtensionDefinition> _extensionDefinitions = module.getExtensionDefinitions();
             final Function1<ExtensionDefinition, Boolean> _function = new Function1<ExtensionDefinition, Boolean>() {
               public Boolean apply(final ExtensionDefinition e) {
                 String _extensionDefinitionSyntaxRuleName = ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e);
                 return Boolean.valueOf(_extensionDefinitionSyntaxRuleName.equals(name));
               }
             };
-            ExtensionDefinition _findFirst = IterableExtensions.<ExtensionDefinition>findFirst(_extensionDefs, _function);
+            ExtensionDefinition _findFirst = IterableExtensions.<ExtensionDefinition>findFirst(_extensionDefinitions, _function);
             extDef = _findFirst;
             boolean _notEquals_1 = (!Objects.equal(extDef, null));
             if (_notEquals_1) {
@@ -495,26 +495,66 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
     return extDef;
   }
   
+  public ExtensionSemanticsDefinition getImportedExtensionSemanticsDefinition(final Model model, final String name) {
+    ExtensionSemanticsDefinition semanticsDef = null;
+    EList<Import> _imports = model.getImports();
+    for (final Import imprt : _imports) {
+      Model _model = imprt.getModel();
+      boolean _notEquals = (!Objects.equal(_model, null));
+      if (_notEquals) {
+        Model _model_1 = imprt.getModel();
+        EList<Module> _modules = _model_1.getModules();
+        for (final Module module : _modules) {
+          {
+            EList<ExtensionSemanticsDefinition> _extensionSemanticsDefinitions = module.getExtensionSemanticsDefinitions();
+            final Function1<ExtensionSemanticsDefinition, Boolean> _function = new Function1<ExtensionSemanticsDefinition, Boolean>() {
+              public Boolean apply(final ExtensionSemanticsDefinition sd) {
+                ExtensionDefinition _syntaxDefinition = sd.getSyntaxDefinition();
+                String _extensionDefinitionSyntaxRuleName = ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(_syntaxDefinition);
+                return Boolean.valueOf(_extensionDefinitionSyntaxRuleName.equals(name));
+              }
+            };
+            ExtensionSemanticsDefinition _findFirst = IterableExtensions.<ExtensionSemanticsDefinition>findFirst(_extensionSemanticsDefinitions, _function);
+            semanticsDef = _findFirst;
+            boolean _notEquals_1 = (!Objects.equal(semanticsDef, null));
+            if (_notEquals_1) {
+              return semanticsDef;
+            }
+          }
+        }
+        Model _model_2 = imprt.getModel();
+        ExtensionSemanticsDefinition _importedExtensionSemanticsDefinition = this.getImportedExtensionSemanticsDefinition(_model_2, name);
+        semanticsDef = _importedExtensionSemanticsDefinition;
+        boolean _notEquals_1 = (!Objects.equal(semanticsDef, null));
+        if (_notEquals_1) {
+          return semanticsDef;
+        }
+      }
+    }
+    return semanticsDef;
+  }
+  
   public void genExtensionDefinition(final Model model, final String extensionDefinitionName) {
-    ExtensionDefinition extensionDefinition = this.getImportedExtensionDefinition(model, extensionDefinitionName);
-    boolean _notEquals = (!Objects.equal(extensionDefinition, null));
+    final ExtensionSemanticsDefinition semanticsDef = this.getImportedExtensionSemanticsDefinition(model, extensionDefinitionName);
+    boolean _notEquals = (!Objects.equal(semanticsDef, null));
     if (_notEquals) {
-      this.genExtensionDefinition(model, extensionDefinition);
+      this.genExtensionSemanticsDefinition(model, semanticsDef);
     }
   }
   
-  public void genExtensionDefinition(final Model model, final ExtensionDefinition extensionDefinition) {
+  public void genExtensionSemanticsDefinition(final Model model, final ExtensionSemanticsDefinition semanticsDef) {
     try {
-      String _name = extensionDefinition.getName();
+      ExtensionDefinition _syntaxDefinition = semanticsDef.getSyntaxDefinition();
+      String _name = _syntaxDefinition.getName();
       String _plus = ("Generating Java code for extension definition " + _name);
       String _plus_1 = (_plus + " ... ");
       InputOutput.<String>print(_plus_1);
-      EObject _eContainer = extensionDefinition.eContainer();
+      EObject _eContainer = semanticsDef.eContainer();
       final Module module = ((Module) _eContainer);
       String _name_1 = module.getName();
       final IPath moduleFolder = this.javaPackageFolder.append(_name_1);
       this.makeFolder(moduleFolder);
-      final String result = this.genExtensionDefinition(extensionDefinition);
+      final String result = this.genExtensionSemanticsDefinition(semanticsDef);
       boolean _and = false;
       boolean _notEquals = (!Objects.equal(result, null));
       if (!_notEquals) {
@@ -524,7 +564,8 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
         _and = _notEquals_1;
       }
       if (_and) {
-        String _name_2 = extensionDefinition.getName();
+        ExtensionDefinition _syntaxDefinition_1 = semanticsDef.getSyntaxDefinition();
+        String _name_2 = _syntaxDefinition_1.getName();
         String _plus_2 = (_name_2 + "Semantics.java");
         final Writer writer = this.beginTargetFile(moduleFolder, _plus_2);
         writer.write(result);
@@ -536,21 +577,21 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
     }
   }
   
-  public String genExtensionDefinition(final ExtensionDefinition extensionDefinition) {
+  public String genExtensionSemanticsDefinition(final ExtensionSemanticsDefinition semanticsDef) {
     String _xblockexpression = null;
     {
-      final ExtensionDefinition it = extensionDefinition;
-      Mapping _mappingDef = it.getMappingDef();
-      EList<Statement> _statements = _mappingDef.getStatements();
+      final ExtensionSemanticsDefinition it = semanticsDef;
+      EList<Statement> _statements = it.getStatements();
       boolean _isEmpty = _statements.isEmpty();
       if (_isEmpty) {
-        String _name = extensionDefinition.getName();
+        ExtensionDefinition _syntaxDefinition = semanticsDef.getSyntaxDefinition();
+        String _name = _syntaxDefinition.getName();
         String _plus = ("extension instance will not be replaced because semantics part of " + _name);
         String _plus_1 = (_plus + " is empty.");
         ExtensionDefinitionsToJava.logger.severe(_plus_1);
       }
       StringConcatenation _builder = new StringConcatenation();
-      EObject _eContainer = extensionDefinition.eContainer();
+      EObject _eContainer = semanticsDef.eContainer();
       String _genPackageStatement = this.genPackageStatement(((Module) _eContainer));
       _builder.append(_genPackageStatement, "");
       _builder.newLineIfNotEmpty();
@@ -563,7 +604,8 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.newLine();
       _builder.newLine();
       _builder.append("public class ");
-      String _name_1 = it.getName();
+      ExtensionDefinition _syntaxDefinition_1 = it.getSyntaxDefinition();
+      String _name_1 = _syntaxDefinition_1.getName();
       _builder.append(_name_1, "");
       _builder.append("Semantics extends AbstractExtensionSemantics {");
       _builder.newLineIfNotEmpty();
@@ -573,7 +615,8 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.newLine();
       _builder.append("\t\t");
       _builder.append("(new ");
-      String _name_2 = it.getName();
+      ExtensionDefinition _syntaxDefinition_2 = it.getSyntaxDefinition();
+      String _name_2 = _syntaxDefinition_2.getName();
       _builder.append(_name_2, "\t\t");
       _builder.append("Semantics()).doGenerate(args);");
       _builder.newLineIfNotEmpty();
@@ -586,9 +629,9 @@ public class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
       _builder.append("public void doGenerate(EObject _extensionInstance) {");
       _builder.newLine();
       _builder.append("\t\t");
-      Mapping _mappingDef_1 = it.getMappingDef();
-      String _genStatement = this.genStatement(_mappingDef_1);
-      _builder.append(_genStatement, "\t\t");
+      EList<Statement> _statements_1 = it.getStatements();
+      String _gen = this.gen(_statements_1);
+      _builder.append(_gen, "\t\t");
       _builder.newLineIfNotEmpty();
       _builder.append("\t");
       _builder.append("}");

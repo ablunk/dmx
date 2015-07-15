@@ -1,0 +1,41 @@
+#import "../../stdlib"
+
+module assoc_pattern {
+
+class A {
+	B b;
+	List manyBs = new ArrayList;
+	int i;
+}
+
+class B {
+	A a;
+	List manyAs = new ArrayList;
+	int i;
+}
+
+void main() {
+	A a1 = new A;
+	a1.i = 1;
+	B b1 = new B;
+	b1.i = 2;
+	
+	// Die Semantik von Assignment kann nicht verändert werden, sie kann nur erweitert werden.
+	// Man könnte z.b. ein spezielles Assignment mit einer anderen Syntax einführen.
+	// uml: a.b = b;
+	
+	// link a1, b1 via A_b__B_a;
+	a1.b = b1;
+	if (b != null) {
+		b1.a = a;
+	} else {
+		b1.a = null;
+	}
+	
+	// sinnvoll wäre eine createLink-Anweisung
+	a.manyBs.add(b);
+	
+	print b.a.i + "\n";
+}
+
+}

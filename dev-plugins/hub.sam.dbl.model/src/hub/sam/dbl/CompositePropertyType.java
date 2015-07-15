@@ -33,6 +33,8 @@ public interface CompositePropertyType extends StructuredPropertyType {
 	 * @see #setList(boolean)
 	 * @see hub.sam.dbl.DblPackage#getCompositePropertyType_List()
 	 * @model default="false" required="true"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='MetaExpr'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='StructuredPropertyType' unique='false' upper='*'"
 	 * @generated
 	 */
 	boolean isList();

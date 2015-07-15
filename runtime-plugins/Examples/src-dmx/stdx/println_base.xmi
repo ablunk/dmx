@@ -10,120 +10,120 @@
     <model href="foreach.xmi#/"/>
   </imports>
   <modules name="stdx_println">
-    <extensionDefs name="PrintLn" concreteSyntax="extension PrintLn extends dbl SimpleStatement {&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}&#xA;semantics {&#xA;&#x9;expand &quot;print &quot;;&#xA;&#x9;&#xA;&#x9;boolean first = true;&#xA;&#x9;Iterator it = outputs.iterator();while (it.hasNext()) {&#x9;Object object = it.next();Expression output = object as Expression;{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}}&#xA;&#x9;&#xA;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;expand &quot;\&quot;\\n\&quot;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;;&quot;;&#xA;}">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
-        <rules name="PrintLn">
+    <extensionDefinitions name="PrintLn" concreteSyntax="extension PrintLn extends dbl SimpleStatement {&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}">
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.28"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
+        <rules name="PrintLn" concreteSyntax="PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="println"/>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1"/>
             <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
           </rhs>
         </rules>
-        <rules name="PrintLnOutputs">
+        <rules name="PrintLnOutputs" concreteSyntax="PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:PropertyBindingExpr" name="outputs">
               <propertyType xsi:type="dbl:CompositePropertyType" list="true">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.51"/>
+                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.49"/>
               </propertyType>
             </sequence>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.3"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.3"/>
           </rhs>
         </rules>
-        <rules name="PrintLnOutputsOptional">
+        <rules name="PrintLnOutputsOptional" concreteSyntax="PrintLnOutputsOptional -> ;">
           <rhs xsi:type="dbl:SequenceExpr"/>
         </rules>
-        <rules name="PrintLnOutputsOptional">
+        <rules name="PrintLnOutputsOptional" concreteSyntax="PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1"/>
           </rhs>
         </rules>
       </textualSyntaxDef>
-      <mappingDef concreteSyntax="expand &quot;print &quot;;&#xA;&#x9;&#xA;&#x9;boolean first = true;&#xA;&#x9;Iterator it = outputs.iterator();while (it.hasNext()) {&#x9;Object object = it.next();Expression output = object as Expression;{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}}&#xA;&#x9;&#xA;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;expand &quot;\&quot;\\n\&quot;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;;&quot;;">
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;print &quot;">
-          <parts xsi:type="dbl:FixedMappingPart" code="print "/>
-        </statements>
-        <statements xsi:type="dbl:Variable" name="first" concreteSyntax="boolean first = true">
-          <primitiveType xsi:type="dbl:BoolType"/>
-          <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
-        </statements>
-        <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = outputs.iterator()">
-          <classifierType concreteSyntax="Iterator">
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2"/>
-          </classifierType>
-          <initialValue xsi:type="dbl:IdExpr" concreteSyntax="outputs.iterator()">
-            <parentIdExpr concreteSyntax="outputs" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.1/@rhs/@sequence.0"/>
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.11"/>
-            <callPart/>
-          </initialValue>
-        </statements>
-        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#x9;Object object = it.next();Expression output = object as Expression;{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}}">
-          <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
-            <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.0"/>
-            <callPart/>
-          </condition>
-          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object object = it.next();Expression output = object as Expression;{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}}">
-            <statements xsi:type="dbl:Variable" name="object" concreteSyntax="Object object = it.next()">
-              <classifierType concreteSyntax="Object">
-                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
-              </classifierType>
-              <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
-                <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.2"/>
-                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.2/@methods.1"/>
-                <callPart/>
-              </initialValue>
-            </statements>
-            <statements xsi:type="dbl:Variable" name="output" concreteSyntax="Expression output = object as Expression">
+    </extensionDefinitions>
+    <extensionSemanticsDefinitions concreteSyntax="semantics for PrintLn {&#xA;&#x9;expand &quot;print &quot;;&#xA;&#x9;&#xA;&#x9;boolean first = true;&#xA;&#x9;Iterator it = outputs.iterator();while (it.hasNext()) {&#x9;Object object = it.next();Expression output = object as Expression;{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}}&#xA;&#x9;&#xA;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;expand &quot;\&quot;\\n\&quot;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;;&quot;;&#xA;}" syntaxDefinition="//@modules.0/@extensionDefinitions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;print &quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="print "/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="first" concreteSyntax="boolean first = true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = outputs.iterator()">
+        <classifierType concreteSyntax="Iterator">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="outputs.iterator()">
+          <parentIdExpr concreteSyntax="outputs" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1/@rhs/@sequence.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.11"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#x9;Object object = it.next();Expression output = object as Expression;{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
+          <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.2"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.0"/>
+          <callPart/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object object = it.next();Expression output = object as Expression;{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}}">
+          <statements xsi:type="dbl:Variable" name="object" concreteSyntax="Object object = it.next()">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
+              <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.2"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.1"/>
+              <callPart/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Variable" name="output" concreteSyntax="Expression output = object as Expression">
+            <classifierType concreteSyntax="Expression">
+              <referencedElement href="../dbl.xmi#//@modules.0/@classes.49"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="object as Expression">
               <classifierType concreteSyntax="Expression">
-                <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.51"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classes.49"/>
               </classifierType>
-              <initialValue xsi:type="dbl:Cast" concreteSyntax="object as Expression">
-                <classifierType concreteSyntax="Expression">
-                  <referencedElement href="../dbl.xmi#//@modules.0/@classifiers.51"/>
-                </classifierType>
-                <op xsi:type="dbl:IdExpr" concreteSyntax="object" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@body/@statements.0"/>
-              </initialValue>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="object" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.3/@body/@statements.0"/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}">
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;">
+              <condition xsi:type="dbl:Not" concreteSyntax="!first">
+                <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
+              </condition>
+              <trueCase xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;,&quot;">
+                <parts xsi:type="dbl:ExpandTextPart" text=","/>
+              </trueCase>
+              <falseCase xsi:type="dbl:Assignment" concreteSyntax="first = false">
+                <variable concreteSyntax="first">
+                  <idExpr concreteSyntax="first" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
+                </variable>
+                <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+              </falseCase>
             </statements>
-            <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}">
-              <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;">
-                <condition xsi:type="dbl:Not" concreteSyntax="!first">
-                  <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
-                </condition>
-                <trueCase xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;,&quot;">
-                  <parts xsi:type="dbl:FixedMappingPart" code=","/>
-                </trueCase>
-                <falseCase xsi:type="dbl:Assignment" concreteSyntax="first = false">
-                  <variable concreteSyntax="first">
-                    <idExpr concreteSyntax="first" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
-                  </variable>
-                  <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
-                </falseCase>
-              </statements>
-              <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand output">
-                <parts xsi:type="dbl:DynamicMappingPart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="output" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.3/@body/@statements.1"/>
-                </parts>
-              </statements>
+            <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand output">
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="output" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.3/@body/@statements.1"/>
+              </parts>
             </statements>
-          </body>
-        </statements>
-        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;">
-          <condition xsi:type="dbl:Not" concreteSyntax="!first">
-            <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
-          </condition>
-          <trueCase xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;,&quot;">
-            <parts xsi:type="dbl:FixedMappingPart" code=","/>
-          </trueCase>
-        </statements>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;\&quot;\\n\&quot;&quot;">
-          <parts xsi:type="dbl:FixedMappingPart" code="\&quot;\\n\&quot;"/>
-        </statements>
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;;&quot;">
-          <parts xsi:type="dbl:FixedMappingPart" code=";"/>
-        </statements>
-      </mappingDef>
-    </extensionDefs>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;">
+        <condition xsi:type="dbl:Not" concreteSyntax="!first">
+          <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
+        </condition>
+        <trueCase xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;,&quot;">
+          <parts xsi:type="dbl:ExpandTextPart" text=","/>
+        </trueCase>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;\&quot;\\n\&quot;&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="\&quot;\\n\&quot;"/>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;;&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+      </statements>
+    </extensionSemanticsDefinitions>
   </modules>
 </dbl:Model>

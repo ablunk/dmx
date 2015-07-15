@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="hello_world">
-    <classifiers xsi:type="dbl:Clazz" name="A">
+    <classes name="A">
       <attributes name="s">
         <primitiveType xsi:type="dbl:StringType"/>
         <initialValue xsi:type="dbl:StringLiteral" value="hhhhello world\n"/>
@@ -9,24 +9,24 @@
       <methods name="sayHello">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
         </statements>
       </methods>
-    </classifiers>
-    <procedures name="main">
+    </classes>
+    <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="a">
-        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:ProcedureCall">
-        <callIdExpr referencedElement="//@modules.0/@classifiers.0/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
           <callPart/>
         </callIdExpr>
       </statements>
-    </procedures>
+    </functions>
   </modules>
 </dbl:Model>

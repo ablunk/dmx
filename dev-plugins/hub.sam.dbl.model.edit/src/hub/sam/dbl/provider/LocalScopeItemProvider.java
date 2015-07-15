@@ -34,7 +34,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class LocalScopeItemProvider
+public class LocalScopeItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -107,6 +107,7 @@ public class LocalScopeItemProvider
 	public String getText(Object object) {
 		return getString("_UI_LocalScope_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -166,7 +167,7 @@ public class LocalScopeItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createProcedureCall()));
+				 DblFactory.eINSTANCE.createFunctionCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -251,27 +252,17 @@ public class LocalScopeItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createMappingStatement()));
+				 DblFactory.eINSTANCE.createExpansionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createSetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

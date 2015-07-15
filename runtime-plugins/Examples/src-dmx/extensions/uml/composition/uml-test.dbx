@@ -1,0 +1,27 @@
+#import "uml"
+
+module uml_test {
+
+class A {
+	B b;
+	property B ownedB;
+}
+
+class B {
+	A a;
+}
+
+assoc A_b_B_a
+	role b in A;
+	role a in B;
+end;
+
+void main() {
+	A a1 = new A;
+	B b1 = new B;
+	
+	a1.ownedB = b1;
+	assign ownedB to b1;
+}
+
+}

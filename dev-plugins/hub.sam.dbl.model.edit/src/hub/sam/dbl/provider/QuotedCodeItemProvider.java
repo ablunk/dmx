@@ -27,7 +27,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
  * <!-- end-user-doc -->
  * @generated
  */
-public class QuotedCodeItemProvider
+public class QuotedCodeItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -81,6 +81,7 @@ public class QuotedCodeItemProvider
 	public String getText(Object object) {
 		return getString("_UI_QuotedCode_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

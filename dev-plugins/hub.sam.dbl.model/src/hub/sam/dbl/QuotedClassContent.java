@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface QuotedClassContent extends QuotedCode, ClassSimilar {
+public interface QuotedClassContent extends QuotedCode, hub.sam.dbl.Class {
 } // QuotedClassContent

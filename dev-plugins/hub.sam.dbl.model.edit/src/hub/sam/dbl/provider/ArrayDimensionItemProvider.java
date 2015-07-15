@@ -34,7 +34,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ArrayDimensionItemProvider
+public class ArrayDimensionItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -118,6 +118,7 @@ public class ArrayDimensionItemProvider
 	public String getText(Object object) {
 		return getString("_UI_ArrayDimension_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

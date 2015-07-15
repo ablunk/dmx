@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <modules name="lang_uml">
+    <extensionDefs name="CreateLink" concreteSyntax="extension CreateLink extends dbl SimpleStatement {&#xA;&#x9;start CreateLink;&#xA;&#x9;CreateLink -> &quot;link&quot; end1Obj:$Variable &quot;,&quot; end2Obj:$Variable &quot;via&quot; assoc:$$Association &quot;;&quot;;&#xA;}&#xA;semantics {&#xA;&#x9;string aEnd1Name = assoc.end1.name as string;&#xA;&#x9;string aEnd2Name = assoc.end2.name as string;&#xA;&#x9;&#xA;&#x9;expand end1Obj &quot;.&quot; aEnd1Name &quot;=&quot; end2Obj &quot;;&quot;;&#xA;&#x9;expand end2Obj &quot;.&quot; aEnd2Name &quot;=&quot; end1Obj &quot;;&quot;;&#xA;}">
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.30"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start CreateLink;&#xA;&#x9;CreateLink -> &quot;link&quot; end1Obj:$Variable &quot;,&quot; end2Obj:$Variable &quot;via&quot; assoc:$$Association &quot;;&quot;;&#xA;}" startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
+        <rules name="CreateLink" concreteSyntax="CreateLink -> &quot;link&quot; end1Obj:$Variable &quot;,&quot; end2Obj:$Variable &quot;via&quot; assoc:$$Association &quot;;&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="link"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="end1Obj">
+              <propertyType xsi:type="dbl:ReferencePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="end2Obj">
+              <propertyType xsi:type="dbl:ReferencePropertyType">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="via"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="assoc">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefs.1" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="string aEnd1Name = assoc.end1.name as string;&#xA;&#x9;string aEnd2Name = assoc.end2.name as string;&#xA;&#x9;&#xA;&#x9;expand end1Obj &quot;.&quot; aEnd1Name &quot;=&quot; end2Obj &quot;;&quot;;&#xA;&#x9;expand end2Obj &quot;.&quot; aEnd2Name &quot;=&quot; end1Obj &quot;;&quot;;">
+        <statements xsi:type="dbl:Variable" name="aEnd1Name" concreteSyntax="string aEnd1Name = assoc.end1.name as string">
+          <primitiveType xsi:type="dbl:StringType"/>
+          <initialValue xsi:type="dbl:Cast" concreteSyntax="assoc.end1.name as string">
+            <primitiveType xsi:type="dbl:StringType"/>
+            <op xsi:type="dbl:IdExpr" concreteSyntax="assoc.end1.name" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.1/@rhs/@sequence.0">
+              <parentIdExpr concreteSyntax="assoc.end1" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.3">
+                <parentIdExpr concreteSyntax="assoc" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.5"/>
+              </parentIdExpr>
+            </op>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="aEnd2Name" concreteSyntax="string aEnd2Name = assoc.end2.name as string">
+          <primitiveType xsi:type="dbl:StringType"/>
+          <initialValue xsi:type="dbl:Cast" concreteSyntax="assoc.end2.name as string">
+            <primitiveType xsi:type="dbl:StringType"/>
+            <op xsi:type="dbl:IdExpr" concreteSyntax="assoc.end2.name" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.1/@rhs/@sequence.0">
+              <parentIdExpr concreteSyntax="assoc.end2" referencedElement="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0/@rhs/@sequence.8">
+                <parentIdExpr concreteSyntax="assoc" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.5"/>
+              </parentIdExpr>
+            </op>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand end1Obj &quot;.&quot; aEnd1Name &quot;=&quot; end2Obj &quot;;&quot;">
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="end1Obj" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="."/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="aEnd1Name" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.0"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="="/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="end2Obj" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+        </statements>
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand end2Obj &quot;.&quot; aEnd2Name &quot;=&quot; end1Obj &quot;;&quot;">
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="end2Obj" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.3"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="."/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="aEnd2Name" referencedElement="//@modules.0/@extensionDefs.0/@mappingDef/@statements.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code="="/>
+          <parts xsi:type="dbl:DynamicMappingPart">
+            <expr xsi:type="dbl:IdExpr" concreteSyntax="end1Obj" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          </parts>
+          <parts xsi:type="dbl:FixedMappingPart" code=";"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+    <extensionDefs name="Association" concreteSyntax="extension Association extends dbl ModuleContentExtension {&#xA;&#x9;start Assoc;&#xA;&#x9;Assoc -> &quot;assoc&quot; AssocNameOptional&#xA;&#x9;&#x9;&quot;role&quot; end1:$$Variable &quot;in&quot; end1Class:$$Clazz &quot;;&quot;&#xA;&#x9;&#x9;&quot;role&quot; end2:$$Variable &quot;in&quot; end2Class:$$Clazz &quot;;&quot;&#xA;&#x9;&#x9;&quot;end&quot; &quot;;&quot;;&#xA;&#x9;AssocNameOptional -> name:ID;&#xA;&#x9;AssocNameOptional -> ;&#xA;}&#xA;semantics {&#xA;&#x9;expand &quot;// empty&quot;;&#xA;}">
+      <extendedConcept xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.103"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start Assoc;&#xA;&#x9;Assoc -> &quot;assoc&quot; AssocNameOptional&#xA;&#x9;&#x9;&quot;role&quot; end1:$$Variable &quot;in&quot; end1Class:$$Clazz &quot;;&quot;&#xA;&#x9;&#x9;&quot;role&quot; end2:$$Variable &quot;in&quot; end2Class:$$Clazz &quot;;&quot;&#xA;&#x9;&#x9;&quot;end&quot; &quot;;&quot;;&#xA;&#x9;AssocNameOptional -> name:ID;&#xA;&#x9;AssocNameOptional -> ;&#xA;}" startRule="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.0">
+        <rules name="Assoc" concreteSyntax="Assoc -> &quot;assoc&quot; AssocNameOptional&#xA;&#x9;&#x9;&quot;role&quot; end1:$$Variable &quot;in&quot; end1Class:$$Clazz &quot;;&quot;&#xA;&#x9;&#x9;&quot;role&quot; end2:$$Variable &quot;in&quot; end2Class:$$Clazz &quot;;&quot;&#xA;&#x9;&#x9;&quot;end&quot; &quot;;&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="assoc"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefs.1/@textualSyntaxDef/@rules.1"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="role"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="end1">
+              <propertyType xsi:type="dbl:ReferencePropertyType" rawReference="true">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="end1Class">
+              <propertyType xsi:type="dbl:ReferencePropertyType" rawReference="true">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.21"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="role"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="end2">
+              <propertyType xsi:type="dbl:ReferencePropertyType" rawReference="true">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.25"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="end2Class">
+              <propertyType xsi:type="dbl:ReferencePropertyType" rawReference="true">
+                <type xsi:type="dbl:Clazz" href="../../dbl.xmi#//@modules.0/@classifiers.21"/>
+              </propertyType>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="end"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="AssocNameOptional" concreteSyntax="AssocNameOptional -> name:ID;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="AssocNameOptional" concreteSyntax="AssocNameOptional -> ;">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+      </textualSyntaxDef>
+      <mappingDef concreteSyntax="expand &quot;// empty&quot;;">
+        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;// empty&quot;">
+          <parts xsi:type="dbl:FixedMappingPart" code="// empty"/>
+        </statements>
+      </mappingDef>
+    </extensionDefs>
+  </modules>
+</dbl:Model>

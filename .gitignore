@@ -12,4 +12,4 @@ dev-plugins/**/src-gen/*
 dev-plugins/**/resources/gen/*
 unversioned/
 dev-plugins/DESMO-J/docs/
-dev-plugins/**/xtend-gen/*
+dev-plugins/hub.sam.dmx/xtend-gen/

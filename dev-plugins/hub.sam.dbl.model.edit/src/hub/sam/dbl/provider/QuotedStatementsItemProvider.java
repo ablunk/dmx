@@ -15,12 +15,7 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
-import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
-import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
-import org.eclipse.emf.edit.provider.IItemPropertySource;
-import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
-import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -29,8 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class QuotedStatementsItemProvider
-	extends QuotedCodeItemProvider {
+public class QuotedStatementsItemProvider extends QuotedCodeItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -107,6 +101,7 @@ public class QuotedStatementsItemProvider
 	public String getText(Object object) {
 		return getString("_UI_QuotedStatements_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -166,7 +161,7 @@ public class QuotedStatementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createProcedureCall()));
+				 DblFactory.eINSTANCE.createFunctionCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -251,27 +246,17 @@ public class QuotedStatementsItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
 				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createMappingStatement()));
+				 DblFactory.eINSTANCE.createExpansionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createSetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

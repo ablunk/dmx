@@ -7,7 +7,8 @@ extension Forever extends dbl SimpleStatement {
 	start Forever;
 	Forever -> "forever" body:LocalScopeStatement;
 }
-semantics {
+
+semantics for Forever {
 	expand "while (true) " body;
 }
 

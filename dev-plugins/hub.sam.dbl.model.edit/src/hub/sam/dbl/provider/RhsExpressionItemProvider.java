@@ -27,7 +27,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RhsExpressionItemProvider
+public class RhsExpressionItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -70,6 +70,7 @@ public class RhsExpressionItemProvider
 	public String getText(Object object) {
 		return getString("_UI_RhsExpression_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

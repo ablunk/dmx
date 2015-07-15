@@ -3,119 +3,89 @@ syntax(Model) "resources/dbl.ecore" {
 	Model:element(Model) -> (Import:composite(imports))* (Module:composite(modules))*;
 
 	Import:element(Import) -> "#import" STRINGDEF:composite(file);
-
-	Module:element(Module) -> "module" IDENTIFIER:composite(name) "{" (ModuleContent)* "}";
+	Module:element(Module) -> "module" IDENTIFIER:composite(name) "{" (ModuleElement)* "}";
 	
-	ModuleContent -> Variable:composite(variables) ";";
-	ModuleContent -> Procedure:composite(procedures);
-	ModuleContent -> Classifier:composite(classifiers);
-	ModuleContent -> ClassAugment:composite(classAugments);
-	ModuleContent -> ExtensionDefinition:composite(extensionDefs);
-	ModuleContent -> ModuleContentExtension:composite(extensions);
+	ModuleElement -> Variable:composite(variables) ";";
+	ModuleElement -> Function:composite(functions);
+	ModuleElement -> Class:composite(classes);
+	ModuleElement -> ExtensionDefinition:composite(extensionDefinitions);
+	ModuleElement -> ExtensionSemanticsDefinition:composite(extensionSemanticsDefinitions);
+	ModuleElement -> ModuleContent:composite(contentExtensions);
+	ModuleContent:element(ModuleContent) -> "moduleContent39758";
 	
-	Classifier:element(Clazz) -> ClazzWithPredefinedModifiers;
+	Class:element(Class) -> ClassWithOptionalModifiers;
 	
-	ClazzWithPredefinedModifiers -> IsActiveClass:composite(active) ClazzWithExtendedModifiers;
-	ClazzWithPredefinedModifiers -> ClazzWithExtendedModifiers;
-	
-	ClazzWithExtendedModifiers -> ClazzModifier:composite(modifierExtensions) ClazzWithExtendedModifiers;
-	ClazzWithExtendedModifiers -> ClazzTail;
-	
-	ClazzModifier -> EmptyClazzModifier;
-	EmptyClazzModifier:element(ExtensibleElement) -> "void743859743453";
-	
-	ClazzTail ->
+	ClassWithOptionalModifiers -> IsActiveClass:composite(active) ClassDefinition;
+	ClassWithOptionalModifiers -> ClassDefinition;
+	ClassDefinition ->
 		"class" ws(space) NamedElementName ws(empty)
-			(Constructor:composite(constructor))?
 			(ws(space) "extends" ws(space) SuperClass:composite(superClasses) ("," SuperClass:composite(superClasses) )*)? ws(space)
 			"{"
-				(ClassContent)*
+				(ClassElement)*
 			"}";
 		
-	SuperClass:element(SuperClassSpecification) -> ClassRef:reference(clazz)
+	SuperClass:element(SuperClassSpecification) -> ClassRef:reference(class)
 					("(" Expression:composite(constructorArguments)	("," Expression:composite(constructorArguments))* ")")?;
 	
 	NamedElementName -> IDENTIFIER:composite(name);
 	NamedElementName -> ExpandExpr:composite(expandExpr);
 		
-	Constructor:element(Constructor) -> "(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")";
+	Constructor:element(Constructor) -> "new" "(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
+		"{" (Statement:composite(statements))* "}";
 	
 	IsActiveClass:constant("true":EBoolean) -> "active";
 
-	ClassContent ->	Variable:composite(attributes) ";";
-	ClassContent ->	BindingsPart;
-	ClassContent ->	InitialPart;
-	ClassContent ->	FinalPart;
-	ClassContent ->	ActionsPart;
-	ClassContent ->	ReportPart;
-	ClassContent ->	ClearPart;
-	ClassContent -> Procedure:composite(methods);
-	ClassContent -> ClassContentExtension:composite(extensions);
+	ClassElement ->	Variable:composite(attributes) ";";
+	ClassElement -> Constructor:composite(constructors);
+	ClassElement ->	BindingsPart;
+	ClassElement ->	ActionsPart;
+	ClassElement -> Function:composite(methods);
+	ClassElement -> ClassContent:composite(contentExtensions);
+	ClassContent:element(ClassContent) -> "classContent39758";
 	
-	InitialPart -> "initial" ClassPart:composite(initialBlock);
-	FinalPart -> "final" ClassPart:composite(finalBlock);
-	ActionsPart -> "actions" ClassPart:composite(actionsBlock);
-	ReportPart -> "report" ClassPart:composite(reportBlock);
-	ClearPart -> "clear" ClassPart:composite(clearBlock);
-	
-	ClassPart:element(ClassPart) -> "{" (Statement:composite(statements))* "}";
+	ActionsPart -> "actions" LocalScope:composite(actionsBlock);
+	LocalScope:element(LocalScope) -> "{" (Statement:composite(statements))* "}";
 	
 	BindingsPart -> "bindings" "{" NativeBinding:composite(bindings) ("," NativeBinding:composite(bindings))* "}";
 	NativeBinding:element(NativeBinding) -> STRINGDEF:composite(targetLanguage) "->" STRINGDEF:composite(targetType);
-	
-	ModuleContentExtension -> EmptyExtension;
-	ClassContentExtension -> EmptyExtension;
-	EmptyExtension:element(ExtensibleElement) -> "void743859743451";
-	
-	ClassAugment:element(ClassAugment) -> "augment" ClassRef:reference(augmentedClass)
-		ws(space) "{"
-			(ClassContent)*
-		"}";
-	
-	Procedure:element(Procedure) -> TypedElementParts NamedElementName
+		
+	Function:element(Function) -> TypedElementParts NamedElementName
 		"(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
-		(ClassElement:composite(clazz))?
-		ProcedureBody;
-	ProcedureBody -> AbstractProcedure:composite(abstract) ";";
-	ProcedureBody -> "{" (Statement:composite(statements))* "}";
+		(ClassElement:composite(class))?
+		FunctionBody;
+	FunctionBody -> AbstractProcedure:composite(abstract) ";";
+	FunctionBody -> "{" (Statement:composite(statements))* "}";
 	
 	AbstractProcedure:constant("true":EBoolean) -> "abstract";
 
 	Parameter:element(Parameter) -> TypedElementParts ws(space) IDENTIFIER:composite(name);
 
-	Variable:element(Variable) -> Variable1;
+	Variable -> Variable_actual;
+	Variable_actual:element(Variable) -> Variable1;
 	
-	Variable1 -> ClassElement:composite(clazz) Variable2 ;
+	Variable1 -> ClassAttribute:composite(class) Variable2;
+	ClassAttribute:constant("true":EBoolean) -> "static";
 	Variable1 -> Variable2;
 
-	Variable2 -> ControlVariable:composite(control) Variable3;
-	Variable2 -> Variable3;
-	
-	Variable3 -> VariableModifier:composite(modifierExtensions) Variable3;
-	Variable3 -> VariableTail;
-		
-	VariableModifier -> EmptyVariableModifier;
-	EmptyVariableModifier:element(ExtensibleElement) -> "void743859743452";
+	Variable2 -> ControlVariable:composite(control) VariableTail;
+	ControlVariable:constant("true":EBoolean) -> "control";
+	Variable2 -> VariableTail;
 		
 	VariableTail -> TypedElementParts ws(space) IDENTIFIER:composite(name) ws(space)
 		("=" Expression:composite(initialValue))? ;
-
-	ControlVariable:constant("true":EBoolean) -> "control";
-	ClassElement:constant("true":EBoolean) -> "static";
 	
-	TypedElementParts -> IdExpr:composite(classifierType) (ArrayDimensions)?;
-	TypedElementParts -> PrimitiveType:composite(primitiveType) (ArrayDimensions)?;
+	TypedElementParts -> IdExpr:composite(classifierType) (ArrayDimensionsEmptySizePart)?;
+	TypedElementParts -> PrimitiveType:composite(primitiveType) (ArrayDimensionsEmptySizePart)?;
 
-	ArrayDimensions -> "array" (ArrayDimensionEmptyOptional:composite(typeArrayDimensions))*;
+	ArrayDimensionsEmptySizePart -> "array" (ArrayDimensionsEmptySize:composite(typeArrayDimensions))+;
+	ArrayDimensionsEmptySize:element(ArrayDimension) -> "[" "]";
 
 //	Type -> BareIdExpr:composite(classifierType);
 //	Type -> PrimitiveType:composite(primitiveType);
 
 	//ArrayDimension:element(ArrayDimension) -> "[" Expression:composite(size) "]";
-	//ArrayDimensionEmpty:element(ArrayDimension) -> "[" "]";
-	ArrayDimensionEmptyOptional:element(ArrayDimension) -> "[" (Expression:composite(size))? "]";
 	
-	ClassRef:element(Clazz) -> IDENTIFIER:composite(name);
+	ClassRef:element(Class) -> IDENTIFIER:composite(name);
 	//ClassifierRef:element(Classifier) -> IDENTIFIER:composite(name);
 
 	PrimitiveType:element(VoidType) -> "void";
@@ -128,7 +98,7 @@ syntax(Model) "resources/dbl.ecore" {
 	//Statement -> Unless2_extension;
 	//Unless2_extension:element(Unless2) -> "unless2" "(" Expression:composite(condition) ")" CodeBlock:composite(codeBlock);
 
-	SimpleStatement -> ProcedureCall ";";
+	SimpleStatement -> FunctionCall ";";
 	SimpleStatement -> Assignment ";";
 	SimpleStatement -> Variable ";";
 	SimpleStatement -> Return ";";
@@ -305,21 +275,18 @@ syntax(Model) "resources/dbl.ecore" {
 	StringLiteral:element(StringLiteral) -> STRINGDEF:composite(value);
 	TrueLiteral:element(TrueLiteral) -> "true";
 	FalseLiteral:element(FalseLiteral) -> "false";
-	DoubleLiteral:element(DoubleLiteral) -> FLOAT:composite(value); // TODO
+	DoubleLiteral:element(DoubleLiteral) -> FLOAT:composite(value);
 	NullLiteral:element(NullLiteral) -> "null";
 	TimeLiteral:element(TimeLiteral) -> "time";
 	ActiveLiteral:element(ActiveLiteral) -> "active";
 	
-	//CreateObject:element(CreateObject) -> "new" ws(space) TypeRule
-	//	("(" Expression:composite(arguments) ("," Expression:composite(arguments))* ")")?;
-	CreateObject:element(CreateObject) -> "new" ws(space) TypedElementParts;
-//		("(" ArgumentExpression:composite(arguments) ")")?;
+	CreateObject:element(CreateObject) -> "new" ws(space) TypedElementPartsWithArrayDimensionSize;
 
-	//CreateObjectType -> IdExpr:composite(classifierTypeExpr) (ArrayDimension:composite(arrayDimensions))*;
-	//CreateObjectType -> PrimitiveType:composite(primitiveType) (ArrayDimension:composite(arrayDimensions))*;	
-		
-	//IdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleIdExpr;
-	//IdExpr:element(IdExpr) -> SimpleIdExpr;
+	TypedElementPartsWithArrayDimensionSize -> IdExpr:composite(classifierType) (ArrayDimensionsSizePart)?;
+	TypedElementPartsWithArrayDimensionSize -> PrimitiveType:composite(primitiveType) (ArrayDimensionsSizePart)?;
+
+	ArrayDimensionsSizePart -> "array" (ArrayDimensionsSize:composite(typeArrayDimensions))+;
+	ArrayDimensionsSize:element(ArrayDimension) -> "[" (Expression:composite(size))? "]";
 
 	IdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleIdExpr;
 	IdExpr:element(IdExpr) -> SimpleIdExpr;
@@ -341,7 +308,7 @@ syntax(Model) "resources/dbl.ecore" {
 		
 	// it is difficult to distinguish a procedure call syntactically from a variable access.
 	// therefore, variable access should be disallowed by a constraint.
-	ProcedureCall:element(ProcedureCall) -> IdExpr:composite(callIdExpr);
+	FunctionCall:element(FunctionCall) -> IdExpr:composite(callIdExpr);
 	
 	PredefinedId:element(MeLiteral) -> "self";
 	PredefinedId:element(SuperLiteral) -> "super";
@@ -357,7 +324,10 @@ syntax(Model) "resources/dbl.ecore" {
 	ExtensionDefinition_actual:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
 		"extends" ExtendedConstruct
 		TextualSyntaxDef:composite(textualSyntaxDef)
-		("semantics" "{" Mapping:composite(mappingDef) "}")?;
+	;
+		
+	ExtensionSemanticsDefinition:element(ExtensionSemanticsDefinition) -> "semantics" "for" ExtensionDefinitionRef:reference(syntaxDefinition)
+		"{" (Statement:composite(statements))* "}";
 	
 	TextualSyntaxDef:element(TextualSyntaxDef) -> ("textual")? "{"
 		"start" TsRuleRef:reference(startRule) ";" (TsRule:composite(rules))* "}";
@@ -374,26 +344,23 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	// EXTENSION MAPPING
 	
-	Mapping:element(Mapping) -> (Statement:composite(statements))*;
-	//Mapping:element(Mapping) -> Expression:composite(metaObject);
-	
-	SimpleStatement -> MappingStatement ";";
-	SimpleStatement -> SetGenContextStatement ";";
+	SimpleStatement -> ExpansionStatement ";";
+	SimpleStatement -> SetExpansionContextStatement ";";
 	
 //	MappingStatement:element(MappingStatement) -> "expand" FixedMappingPartMiddle:composite(parts)
 //		(ws(space) DynamicMappingPart:composite(parts) ws(space) FixedMappingPartMiddle:composite(parts))*;
-	
-	MappingStatement:element(MappingStatement) -> "expand" MappingPart:composite(parts)
-		(ws(space) MappingPart:composite(parts))*;
-	
-	MappingPart -> FixedMappingPartMiddle;
-	MappingPart -> DynamicMappingPart;
 
-	FixedMappingPartMiddle:element(FixedMappingPart) -> CODE:composite(code);
-	FixedMappingPartMiddle:element(FixedMappingPart) -> STRINGDEF:composite(code);
-	DynamicMappingPart:element(DynamicMappingPart) -> IdExpr:composite(expr);
+	ExpansionStatement:element(ExpansionStatement) -> "expand" ExpansionPart:composite(parts)
+		(ws(space) ExpansionPart:composite(parts))*;
 	
-	SetGenContextStatement:element(SetGenContextStatement) -> "set" "expand" AddBeforeOrAfterContext;
+	ExpansionPart -> ExpandTextPart;
+	ExpansionPart -> ExpandVariablePart;	
+
+	ExpandTextPart:element(ExpandTextPart) -> CODE:composite(text);
+	ExpandTextPart:element(ExpandTextPart) -> STRINGDEF:composite(text);
+	ExpandVariablePart:element(ExpandVariablePart) -> IdExpr:composite(expr);
+	
+	SetExpansionContextStatement:element(SetExpansionContextStatement) -> "set" "expand" AddBeforeOrAfterContext;
 	AddBeforeOrAfterContext -> IsAddBeforeOrAfter:composite(addAfterContext) Expression:composite(context);
 	IsAddBeforeOrAfter:constant("true":EBoolean) -> "after";
 	IsAddBeforeOrAfter:constant("false":EBoolean) -> "before";
@@ -425,15 +392,15 @@ syntax(Model) "resources/dbl.ecore" {
 //	ExpandSectionCodeBlock:element(CodeBlock) -> "{" "+" (Statement:composite(statements))* "}";	
 
 	// EXTENSION SYNTAX
-	
+
 	RhsExpression -> L3RhsExpr;
 	
 	L3RhsExpr -> L2RhsExpr;
-
-	L2RhsExpr -> SequenceExpr;
-		
+	
+	L2RhsExpr -> SequenceExpr;		
+	
 	SequenceExpr:element(SequenceExpr) -> (L1RhsExpr:composite(sequence))*;
-
+	
 	L1RhsExpr -> TerminalExpr;
 	L1RhsExpr -> "(" RhsExpression ")";
 	L1RhsExpr -> PropertyBindingExpr;

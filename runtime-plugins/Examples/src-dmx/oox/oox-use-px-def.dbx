@@ -1,0 +1,16 @@
+#import "ooxdef"
+
+module ooxUse1 {
+
+oox extension PX extends dbl SimpleStatement {
+	start PX;
+	PX -> "px" s:STRING ";";
+}
+semantics {
+	expand "PX extension = new PX;";
+	expand "extension.s = \"" s "\";";
+
+	expand "print extension.s;";
+}
+
+}

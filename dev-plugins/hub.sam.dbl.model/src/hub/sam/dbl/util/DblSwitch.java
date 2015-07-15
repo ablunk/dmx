@@ -10,7 +10,6 @@ import hub.sam.dbl.*;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
 
 /**
@@ -100,20 +99,43 @@ public class DblSwitch<T> extends Switch<T> {
 				Module module = (Module)theEObject;
 				T result = caseModule(module);
 				if (result == null) result = caseNamedElement(module);
-				if (result == null) result = caseEmbeddableExtensionsContainer(module);
+				if (result == null) result = caseConstructiveExtensionAtContentExtensionPoint(module);
 				if (result == null) result = caseConstruct(module);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER: {
-				EmbeddableExtensionsContainer embeddableExtensionsContainer = (EmbeddableExtensionsContainer)theEObject;
-				T result = caseEmbeddableExtensionsContainer(embeddableExtensionsContainer);
+			case DblPackage.CONSTRUCTIVE_EXTENSION: {
+				ConstructiveExtension constructiveExtension = (ConstructiveExtension)theEObject;
+				T result = caseConstructiveExtension(constructiveExtension);
+				if (result == null) result = caseExtensibleElement(constructiveExtension);
+				if (result == null) result = caseNamedElement(constructiveExtension);
+				if (result == null) result = caseConstruct(constructiveExtension);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.MODIFIER_EXTENSIONS_CONTAINER: {
-				ModifierExtensionsContainer modifierExtensionsContainer = (ModifierExtensionsContainer)theEObject;
-				T result = caseModifierExtensionsContainer(modifierExtensionsContainer);
+			case DblPackage.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT: {
+				ConstructiveExtensionAtContentExtensionPoint constructiveExtensionAtContentExtensionPoint = (ConstructiveExtensionAtContentExtensionPoint)theEObject;
+				T result = caseConstructiveExtensionAtContentExtensionPoint(constructiveExtensionAtContentExtensionPoint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.MODULE_CONTENT: {
+				ModuleContent moduleContent = (ModuleContent)theEObject;
+				T result = caseModuleContent(moduleContent);
+				if (result == null) result = caseConstructiveExtension(moduleContent);
+				if (result == null) result = caseExtensibleElement(moduleContent);
+				if (result == null) result = caseNamedElement(moduleContent);
+				if (result == null) result = caseConstruct(moduleContent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.CLASS_CONTENT: {
+				ClassContent classContent = (ClassContent)theEObject;
+				T result = caseClassContent(classContent);
+				if (result == null) result = caseConstructiveExtension(classContent);
+				if (result == null) result = caseExtensibleElement(classContent);
+				if (result == null) result = caseNamedElement(classContent);
+				if (result == null) result = caseConstruct(classContent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -182,20 +204,12 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.PROCEDURE: {
-				Procedure procedure = (Procedure)theEObject;
-				T result = caseProcedure(procedure);
-				if (result == null) result = caseNamedElement(procedure);
-				if (result == null) result = caseTypedElement(procedure);
-				if (result == null) result = caseLocalScope(procedure);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.CLASSIFIER: {
-				Classifier classifier = (Classifier)theEObject;
-				T result = caseClassifier(classifier);
-				if (result == null) result = caseNamedElement(classifier);
-				if (result == null) result = caseType(classifier);
+			case DblPackage.FUNCTION: {
+				Function function = (Function)theEObject;
+				T result = caseFunction(function);
+				if (result == null) result = caseNamedElement(function);
+				if (result == null) result = caseTypedElement(function);
+				if (result == null) result = caseLocalScope(function);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -205,55 +219,29 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.CLASS_SIMILAR: {
-				ClassSimilar classSimilar = (ClassSimilar)theEObject;
-				T result = caseClassSimilar(classSimilar);
-				if (result == null) result = caseEmbeddableExtensionsContainer(classSimilar);
-				if (result == null) result = caseModifierExtensionsContainer(classSimilar);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.CLASS_PART: {
-				ClassPart classPart = (ClassPart)theEObject;
-				T result = caseClassPart(classPart);
-				if (result == null) result = caseLocalScope(classPart);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DblPackage.SUPER_CLASS_SPECIFICATION: {
 				SuperClassSpecification superClassSpecification = (SuperClassSpecification)theEObject;
 				T result = caseSuperClassSpecification(superClassSpecification);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.CLAZZ: {
-				Clazz clazz = (Clazz)theEObject;
-				T result = caseClazz(clazz);
-				if (result == null) result = caseClassifier(clazz);
-				if (result == null) result = caseClassSimilar(clazz);
-				if (result == null) result = caseLanguageConceptClassifier(clazz);
-				if (result == null) result = caseType(clazz);
-				if (result == null) result = caseEmbeddableExtensionsContainer(clazz);
-				if (result == null) result = caseModifierExtensionsContainer(clazz);
-				if (result == null) result = caseLanguageConstructClassifier(clazz);
-				if (result == null) result = caseExtensibleElement(clazz);
-				if (result == null) result = caseNamedElement(clazz);
-				if (result == null) result = caseConstruct(clazz);
+			case DblPackage.CLASS: {
+				hub.sam.dbl.Class class_ = (hub.sam.dbl.Class)theEObject;
+				T result = caseClass(class_);
+				if (result == null) result = caseType(class_);
+				if (result == null) result = caseConstructiveExtensionAtContentExtensionPoint(class_);
+				if (result == null) result = caseLanguageConceptClassifier(class_);
+				if (result == null) result = caseLanguageConstructClassifier(class_);
+				if (result == null) result = caseExtensibleElement(class_);
+				if (result == null) result = caseNamedElement(class_);
+				if (result == null) result = caseConstruct(class_);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DblPackage.CONSTRUCTOR: {
 				Constructor constructor = (Constructor)theEObject;
 				T result = caseConstructor(constructor);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.CLASS_AUGMENT: {
-				ClassAugment classAugment = (ClassAugment)theEObject;
-				T result = caseClassAugment(classAugment);
-				if (result == null) result = caseClassSimilar(classAugment);
-				if (result == null) result = caseEmbeddableExtensionsContainer(classAugment);
-				if (result == null) result = caseModifierExtensionsContainer(classAugment);
+				if (result == null) result = caseLocalScope(constructor);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -270,7 +258,6 @@ public class DblSwitch<T> extends Switch<T> {
 				T result = caseVariable(variable);
 				if (result == null) result = caseAbstractVariable(variable);
 				if (result == null) result = caseSimpleStatement(variable);
-				if (result == null) result = caseModifierExtensionsContainer(variable);
 				if (result == null) result = caseTypedElement(variable);
 				if (result == null) result = caseStatement(variable);
 				if (result == null) result = caseExtensibleElement(variable);
@@ -334,14 +321,14 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.PROCEDURE_CALL: {
-				ProcedureCall procedureCall = (ProcedureCall)theEObject;
-				T result = caseProcedureCall(procedureCall);
-				if (result == null) result = caseSimpleStatement(procedureCall);
-				if (result == null) result = caseStatement(procedureCall);
-				if (result == null) result = caseExtensibleElement(procedureCall);
-				if (result == null) result = caseNamedElement(procedureCall);
-				if (result == null) result = caseConstruct(procedureCall);
+			case DblPackage.FUNCTION_CALL: {
+				FunctionCall functionCall = (FunctionCall)theEObject;
+				T result = caseFunctionCall(functionCall);
+				if (result == null) result = caseSimpleStatement(functionCall);
+				if (result == null) result = caseStatement(functionCall);
+				if (result == null) result = caseExtensibleElement(functionCall);
+				if (result == null) result = caseNamedElement(functionCall);
+				if (result == null) result = caseConstruct(functionCall);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1152,6 +1139,16 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case DblPackage.EXTENSION_SEMANTICS_DEFINITION: {
+				ExtensionSemanticsDefinition extensionSemanticsDefinition = (ExtensionSemanticsDefinition)theEObject;
+				T result = caseExtensionSemanticsDefinition(extensionSemanticsDefinition);
+				if (result == null) result = caseExtensibleElement(extensionSemanticsDefinition);
+				if (result == null) result = caseLocalScope(extensionSemanticsDefinition);
+				if (result == null) result = caseNamedElement(extensionSemanticsDefinition);
+				if (result == null) result = caseConstruct(extensionSemanticsDefinition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case DblPackage.TEXTUAL_SYNTAX_DEF: {
 				TextualSyntaxDef textualSyntaxDef = (TextualSyntaxDef)theEObject;
 				T result = caseTextualSyntaxDef(textualSyntaxDef);
@@ -1307,25 +1304,6 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.MAPPING: {
-				Mapping mapping = (Mapping)theEObject;
-				T result = caseMapping(mapping);
-				if (result == null) result = caseLocalScopeStatement(mapping);
-				if (result == null) result = caseSimpleStatement(mapping);
-				if (result == null) result = caseLocalScope(mapping);
-				if (result == null) result = caseStatement(mapping);
-				if (result == null) result = caseExtensibleElement(mapping);
-				if (result == null) result = caseNamedElement(mapping);
-				if (result == null) result = caseConstruct(mapping);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.MAPPING_PART: {
-				MappingPart mappingPart = (MappingPart)theEObject;
-				T result = caseMappingPart(mappingPart);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			case DblPackage.META_EXPR: {
 				MetaExpr metaExpr = (MetaExpr)theEObject;
 				T result = caseMetaExpr(metaExpr);
@@ -1347,35 +1325,44 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.MAPPING_STATEMENT: {
-				MappingStatement mappingStatement = (MappingStatement)theEObject;
-				T result = caseMappingStatement(mappingStatement);
-				if (result == null) result = caseStatement(mappingStatement);
-				if (result == null) result = caseExtensibleElement(mappingStatement);
-				if (result == null) result = caseNamedElement(mappingStatement);
-				if (result == null) result = caseConstruct(mappingStatement);
+			case DblPackage.EXPANSION_STATEMENT: {
+				ExpansionStatement expansionStatement = (ExpansionStatement)theEObject;
+				T result = caseExpansionStatement(expansionStatement);
+				if (result == null) result = caseStatement(expansionStatement);
+				if (result == null) result = caseExtensibleElement(expansionStatement);
+				if (result == null) result = caseNamedElement(expansionStatement);
+				if (result == null) result = caseConstruct(expansionStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.SET_GEN_CONTEXT_STATEMENT: {
-				SetGenContextStatement setGenContextStatement = (SetGenContextStatement)theEObject;
-				T result = caseSetGenContextStatement(setGenContextStatement);
-				if (result == null) result = caseSimpleStatement(setGenContextStatement);
-				if (result == null) result = caseStatement(setGenContextStatement);
-				if (result == null) result = caseExtensibleElement(setGenContextStatement);
-				if (result == null) result = caseNamedElement(setGenContextStatement);
-				if (result == null) result = caseConstruct(setGenContextStatement);
+			case DblPackage.EXPANSION_PART: {
+				ExpansionPart expansionPart = (ExpansionPart)theEObject;
+				T result = caseExpansionPart(expansionPart);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DblPackage.RESET_GEN_CONTEXT_STATEMENT: {
-				ResetGenContextStatement resetGenContextStatement = (ResetGenContextStatement)theEObject;
-				T result = caseResetGenContextStatement(resetGenContextStatement);
-				if (result == null) result = caseSimpleStatement(resetGenContextStatement);
-				if (result == null) result = caseStatement(resetGenContextStatement);
-				if (result == null) result = caseExtensibleElement(resetGenContextStatement);
-				if (result == null) result = caseNamedElement(resetGenContextStatement);
-				if (result == null) result = caseConstruct(resetGenContextStatement);
+			case DblPackage.EXPAND_TEXT_PART: {
+				ExpandTextPart expandTextPart = (ExpandTextPart)theEObject;
+				T result = caseExpandTextPart(expandTextPart);
+				if (result == null) result = caseExpansionPart(expandTextPart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.EXPAND_VARIABLE_PART: {
+				ExpandVariablePart expandVariablePart = (ExpandVariablePart)theEObject;
+				T result = caseExpandVariablePart(expandVariablePart);
+				if (result == null) result = caseExpansionPart(expandVariablePart);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.SET_EXPANSION_CONTEXT_STATEMENT: {
+				SetExpansionContextStatement setExpansionContextStatement = (SetExpansionContextStatement)theEObject;
+				T result = caseSetExpansionContextStatement(setExpansionContextStatement);
+				if (result == null) result = caseSimpleStatement(setExpansionContextStatement);
+				if (result == null) result = caseStatement(setExpansionContextStatement);
+				if (result == null) result = caseExtensibleElement(setExpansionContextStatement);
+				if (result == null) result = caseNamedElement(setExpansionContextStatement);
+				if (result == null) result = caseConstruct(setExpansionContextStatement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1398,20 +1385,6 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseExtensibleElement(resumeGenStatement);
 				if (result == null) result = caseNamedElement(resumeGenStatement);
 				if (result == null) result = caseConstruct(resumeGenStatement);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.FIXED_MAPPING_PART: {
-				FixedMappingPart fixedMappingPart = (FixedMappingPart)theEObject;
-				T result = caseFixedMappingPart(fixedMappingPart);
-				if (result == null) result = caseMappingPart(fixedMappingPart);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case DblPackage.DYNAMIC_MAPPING_PART: {
-				DynamicMappingPart dynamicMappingPart = (DynamicMappingPart)theEObject;
-				T result = caseDynamicMappingPart(dynamicMappingPart);
-				if (result == null) result = caseMappingPart(dynamicMappingPart);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1471,9 +1444,14 @@ public class DblSwitch<T> extends Switch<T> {
 				QuotedClassContent quotedClassContent = (QuotedClassContent)theEObject;
 				T result = caseQuotedClassContent(quotedClassContent);
 				if (result == null) result = caseQuotedCode(quotedClassContent);
-				if (result == null) result = caseClassSimilar(quotedClassContent);
-				if (result == null) result = caseEmbeddableExtensionsContainer(quotedClassContent);
-				if (result == null) result = caseModifierExtensionsContainer(quotedClassContent);
+				if (result == null) result = caseClass(quotedClassContent);
+				if (result == null) result = caseType(quotedClassContent);
+				if (result == null) result = caseConstructiveExtensionAtContentExtensionPoint(quotedClassContent);
+				if (result == null) result = caseLanguageConceptClassifier(quotedClassContent);
+				if (result == null) result = caseLanguageConstructClassifier(quotedClassContent);
+				if (result == null) result = caseExtensibleElement(quotedClassContent);
+				if (result == null) result = caseNamedElement(quotedClassContent);
+				if (result == null) result = caseConstruct(quotedClassContent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1483,7 +1461,7 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseQuotedCode(quotedModuleContent);
 				if (result == null) result = caseModule(quotedModuleContent);
 				if (result == null) result = caseNamedElement(quotedModuleContent);
-				if (result == null) result = caseEmbeddableExtensionsContainer(quotedModuleContent);
+				if (result == null) result = caseConstructiveExtensionAtContentExtensionPoint(quotedModuleContent);
 				if (result == null) result = caseConstruct(quotedModuleContent);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -1570,32 +1548,62 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Embeddable Extensions Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Constructive Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Embeddable Extensions Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Constructive Extension</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseEmbeddableExtensionsContainer(EmbeddableExtensionsContainer object) {
+	public T caseConstructiveExtension(ConstructiveExtension object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Modifier Extensions Container</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Constructive Extension At Content Extension Point</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Modifier Extensions Container</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Constructive Extension At Content Extension Point</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseModifierExtensionsContainer(ModifierExtensionsContainer object) {
+	public T caseConstructiveExtensionAtContentExtensionPoint(ConstructiveExtensionAtContentExtensionPoint object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Module Content</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Module Content</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseModuleContent(ModuleContent object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Class Content</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Class Content</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseClassContent(ClassContent object) {
 		return null;
 	}
 
@@ -1735,32 +1743,17 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Procedure</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Function</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Procedure</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Function</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseProcedure(Procedure object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Classifier</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Classifier</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseClassifier(Classifier object) {
+	public T caseFunction(Function object) {
 		return null;
 	}
 
@@ -1780,36 +1773,6 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Class Similar</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Class Similar</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseClassSimilar(ClassSimilar object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Class Part</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Class Part</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseClassPart(ClassPart object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Super Class Specification</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -1825,17 +1788,17 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Clazz</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Class</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Clazz</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Class</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseClazz(Clazz object) {
+	public T caseClass(hub.sam.dbl.Class object) {
 		return null;
 	}
 
@@ -1851,21 +1814,6 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseConstructor(Constructor object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Class Augment</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Class Augment</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseClassAugment(ClassAugment object) {
 		return null;
 	}
 
@@ -1990,17 +1938,17 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Procedure Call</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Function Call</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Procedure Call</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Function Call</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseProcedureCall(ProcedureCall object) {
+	public T caseFunctionCall(FunctionCall object) {
 		return null;
 	}
 
@@ -3055,21 +3003,6 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Extensible Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Extensible Element</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseExtensibleElement(ExtensibleElement object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Class Content Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -3100,6 +3033,21 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Extensible Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Extensible Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExtensibleElement(ExtensibleElement object) {
+		return null;
+	}
+
+	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Extension Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -3111,6 +3059,21 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseExtensionDefinition(ExtensionDefinition object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Extension Semantics Definition</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Extension Semantics Definition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExtensionSemanticsDefinition(ExtensionSemanticsDefinition object) {
 		return null;
 	}
 
@@ -3415,36 +3378,6 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Mapping</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Mapping</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMapping(Mapping object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Mapping Part</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Mapping Part</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseMappingPart(MappingPart object) {
-		return null;
-	}
-
-	/**
 	 * Returns the result of interpreting the object as an instance of '<em>Meta Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
@@ -3475,47 +3408,77 @@ public class DblSwitch<T> extends Switch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Mapping Statement</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Expansion Statement</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Mapping Statement</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Expansion Statement</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseMappingStatement(MappingStatement object) {
+	public T caseExpansionStatement(ExpansionStatement object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Set Gen Context Statement</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Expansion Part</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Set Gen Context Statement</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Expansion Part</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSetGenContextStatement(SetGenContextStatement object) {
+	public T caseExpansionPart(ExpansionPart object) {
 		return null;
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Reset Gen Context Statement</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Expand Text Part</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Reset Gen Context Statement</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Expand Text Part</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseResetGenContextStatement(ResetGenContextStatement object) {
+	public T caseExpandTextPart(ExpandTextPart object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Expand Variable Part</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Expand Variable Part</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseExpandVariablePart(ExpandVariablePart object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Set Expansion Context Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Set Expansion Context Statement</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseSetExpansionContextStatement(SetExpansionContextStatement object) {
 		return null;
 	}
 
@@ -3546,36 +3509,6 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseResumeGenStatement(ResumeGenStatement object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Fixed Mapping Part</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Fixed Mapping Part</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseFixedMappingPart(FixedMappingPart object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Dynamic Mapping Part</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Dynamic Mapping Part</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseDynamicMappingPart(DynamicMappingPart object) {
 		return null;
 	}
 

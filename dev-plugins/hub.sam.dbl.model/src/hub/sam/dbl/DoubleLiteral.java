@@ -32,6 +32,7 @@ public interface DoubleLiteral extends L1Expr {
 	 * @see #setValue(double)
 	 * @see hub.sam.dbl.DblPackage#getDoubleLiteral_Value()
 	 * @model required="true"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='ExpandExpr'"
 	 * @generated
 	 */
 	double getValue();

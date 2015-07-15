@@ -1,0 +1,35 @@
+#import "../dbl"
+
+module TemplateDef {
+	
+	extension TListUse extends dbl IdExpr {
+		start TList;
+		TList -> "List" "<" T:$Class ">";
+	}
+
+	semantics for TListUse {
+		expand "List_" T ;
+	}
+	
+	extension TClassDef extends dbl ModuleContent {
+		start TClass;
+		TClass -> "tclass" name:ID "<" T:$Class ">" ";";
+	}
+	
+	semantics for TClassDef {
+		expand "
+			class " name "_" T " {
+				List list = new ArrayList;
+				
+				void add("T" object) {
+					list.add(object);
+				}
+				
+				"T" get(int index) {
+					return list.get(index) as "T";
+				}
+			}
+		";
+	}
+
+}

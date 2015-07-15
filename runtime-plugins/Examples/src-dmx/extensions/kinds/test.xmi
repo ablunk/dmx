@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="kinds">
+    <model href="kinds.xmi#/"/>
+  </imports>
+  <modules name="testKinds">
+    <contentExtensions xsi:type="dbl:MC_MC_extension" concreteSyntax="mc;" instanceOfExtensionDefinition="true"/>
+    <classes name="A" concreteSyntax="class A {&#xA;&#x9;cc;&#xA;}">
+      <contentExtensions xsi:type="dbl:CC_CC_extension" concreteSyntax="cc;" instanceOfExtensionDefinition="true"/>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:S_S_extension" concreteSyntax="sx;" instanceOfExtensionDefinition="true"/>
+      <statements xsi:type="dbl:Print" concreteSyntax="print(ex)">
+        <outputs xsi:type="dbl:E_E_extension" concreteSyntax="ex" instanceOfExtensionDefinition="true"/>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

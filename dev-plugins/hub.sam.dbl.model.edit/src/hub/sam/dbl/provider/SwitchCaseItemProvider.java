@@ -34,7 +34,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SwitchCaseItemProvider
+public class SwitchCaseItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -119,6 +119,7 @@ public class SwitchCaseItemProvider
 	public String getText(Object object) {
 		return getString("_UI_SwitchCase_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached
@@ -404,7 +405,7 @@ public class SwitchCaseItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createProcedureCall()));
+				 DblFactory.eINSTANCE.createFunctionCall()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -489,27 +490,17 @@ public class SwitchCaseItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createMapping()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createTargetStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createMappingStatement()));
+				 DblFactory.eINSTANCE.createExpansionStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createSetGenContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createResetGenContextStatement()));
+				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

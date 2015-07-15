@@ -19,4 +19,20 @@ public class DblMetamodelToDbl extends EcoreToDblGenerator {
     DblMetamodelToDbl _dblMetamodelToDbl = new DblMetamodelToDbl(null);
     _dblMetamodelToDbl.startGenerator();
   }
+  
+  public String escapeName(final String name) {
+    String _xifexpression = null;
+    boolean _or = false;
+    boolean _equals = name.equals("priority");
+    if (_equals) {
+      _or = true;
+    } else {
+      boolean _equals_1 = name.equals("type");
+      _or = _equals_1;
+    }
+    if (_or) {
+      _xifexpression = (name + "_");
+    }
+    return _xifexpression;
+  }
 }

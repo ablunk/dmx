@@ -1,0 +1,40 @@
+#import "../../stdx/foreach"
+
+module oox {
+
+void test() {
+	int i;
+	foreach (int j in i) {
+	}
+}
+
+extension OOX extends dbl ExtensionDefinition {
+	start OOX;
+	OOX -> "oox" ExtensionDefinition;
+}
+semantics {
+	TsRule startRule = textualSyntaxDef.startRule;
+	expand "class " startRule.name " {";
+	RhsExpression startRuleRhs = startRule.rhs;
+	if (startRuleRhs instanceof SequenceExpr) {
+		SequenceExpr seq = startRuleRhs as SequenceExpr;
+//		foreach (L1RhsExpr subExpr in seq) {
+//		}
+	}
+	expand "}";
+	//expand "class " xdef.name " { string s; }";
+	
+	expand "extension " name " extends dbl " extendedConcept.name " "
+		textualSyntaxDef " semantics { " mappingDef " }"
+	;
+	
+	// TODO set expand inside semantics {...}
+	//expand "semantics { " xdef.name " extensionInstanceDblObject = new " xdef.name "; }";
+	
+	
+//	ExtensionDefinition ooxDef = xdef.eContainer() as ExtensionDefinition;
+//	set expand before ooxDef;
+	
+}
+
+}

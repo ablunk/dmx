@@ -1,0 +1,33 @@
+module assoc_pattern {
+
+class A {
+	B b;
+	int i;
+	
+	void setB(B b) {
+		self.b = b;
+		b.a = self;
+	}
+}
+
+class B {
+	A a;
+	int i;
+	
+	void setA(A a) {
+		self.a = a;
+		a.b = self;
+	}
+}
+
+void main() {
+	A a = new A;
+	a.i = 1;
+	B b = new B;
+	b.i = 2;
+	a.setB(b);
+	
+	print b.a.i + "\n";
+}
+
+}

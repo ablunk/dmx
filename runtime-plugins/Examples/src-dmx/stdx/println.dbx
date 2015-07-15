@@ -11,7 +11,8 @@ extension PrintLn extends dbl SimpleStatement {
 	PrintLnOutputsOptional -> ;
 	PrintLnOutputsOptional -> "," PrintLnOutputs;
 }
-semantics {
+
+semantics for PrintLn {
 	expand "print ";
 	
 	boolean first = true;

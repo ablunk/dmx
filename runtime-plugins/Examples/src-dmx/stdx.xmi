@@ -16,8 +16,8 @@
     <model href="stdx/forever.xmi#/"/>
   </imports>
   <modules name="stdx">
-    <procedures name="test">
+    <functions name="test">
       <primitiveType xsi:type="dbl:VoidType"/>
-    </procedures>
+    </functions>
   </modules>
 </dbl:Model>

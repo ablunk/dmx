@@ -33,7 +33,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class NativeBindingItemProvider
+public class NativeBindingItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -136,6 +136,7 @@ public class NativeBindingItemProvider
 			getString("_UI_NativeBinding_type") :
 			getString("_UI_NativeBinding_type") + " " + label;
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

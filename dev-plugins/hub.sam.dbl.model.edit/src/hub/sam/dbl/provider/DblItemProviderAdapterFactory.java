@@ -187,6 +187,75 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ConstructiveExtension} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ConstructiveExtensionItemProvider constructiveExtensionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.ConstructiveExtension}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createConstructiveExtensionAdapter() {
+		if (constructiveExtensionItemProvider == null) {
+			constructiveExtensionItemProvider = new ConstructiveExtensionItemProvider(this);
+		}
+
+		return constructiveExtensionItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ModuleContent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ModuleContentItemProvider moduleContentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.ModuleContent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createModuleContentAdapter() {
+		if (moduleContentItemProvider == null) {
+			moduleContentItemProvider = new ModuleContentItemProvider(this);
+		}
+
+		return moduleContentItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ClassContent} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ClassContentItemProvider classContentItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.ClassContent}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createClassContentAdapter() {
+		if (classContentItemProvider == null) {
+			classContentItemProvider = new ClassContentItemProvider(this);
+		}
+
+		return classContentItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ArrayDimension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -325,26 +394,26 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Procedure} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Function} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ProcedureItemProvider procedureItemProvider;
+	protected FunctionItemProvider functionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.Procedure}.
+	 * This creates an adapter for a {@link hub.sam.dbl.Function}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createProcedureAdapter() {
-		if (procedureItemProvider == null) {
-			procedureItemProvider = new ProcedureItemProvider(this);
+	public Adapter createFunctionAdapter() {
+		if (functionItemProvider == null) {
+			functionItemProvider = new FunctionItemProvider(this);
 		}
 
-		return procedureItemProvider;
+		return functionItemProvider;
 	}
 
 	/**
@@ -371,29 +440,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ClassPart} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ClassPartItemProvider classPartItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ClassPart}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createClassPartAdapter() {
-		if (classPartItemProvider == null) {
-			classPartItemProvider = new ClassPartItemProvider(this);
-		}
-
-		return classPartItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SuperClassSpecification} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -417,26 +463,26 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Clazz} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Class} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ClazzItemProvider clazzItemProvider;
+	protected ClassItemProvider classItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.Clazz}.
+	 * This creates an adapter for a {@link hub.sam.dbl.Class}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createClazzAdapter() {
-		if (clazzItemProvider == null) {
-			clazzItemProvider = new ClazzItemProvider(this);
+	public Adapter createClassAdapter() {
+		if (classItemProvider == null) {
+			classItemProvider = new ClassItemProvider(this);
 		}
 
-		return clazzItemProvider;
+		return classItemProvider;
 	}
 
 	/**
@@ -460,29 +506,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		}
 
 		return constructorItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ClassAugment} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ClassAugmentItemProvider classAugmentItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ClassAugment}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createClassAugmentAdapter() {
-		if (classAugmentItemProvider == null) {
-			classAugmentItemProvider = new ClassAugmentItemProvider(this);
-		}
-
-		return classAugmentItemProvider;
 	}
 
 	/**
@@ -647,26 +670,26 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ProcedureCall} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.FunctionCall} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ProcedureCallItemProvider procedureCallItemProvider;
+	protected FunctionCallItemProvider functionCallItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ProcedureCall}.
+	 * This creates an adapter for a {@link hub.sam.dbl.FunctionCall}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createProcedureCallAdapter() {
-		if (procedureCallItemProvider == null) {
-			procedureCallItemProvider = new ProcedureCallItemProvider(this);
+	public Adapter createFunctionCallAdapter() {
+		if (functionCallItemProvider == null) {
+			functionCallItemProvider = new FunctionCallItemProvider(this);
 		}
 
-		return procedureCallItemProvider;
+		return functionCallItemProvider;
 	}
 
 	/**
@@ -1314,6 +1337,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Or} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OrItemProvider orItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.Or}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOrAdapter() {
+		if (orItemProvider == null) {
+			orItemProvider = new OrItemProvider(this);
+		}
+
+		return orItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.And} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1337,26 +1383,49 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Or} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.NotEqual} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected OrItemProvider orItemProvider;
+	protected NotEqualItemProvider notEqualItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.Or}.
+	 * This creates an adapter for a {@link hub.sam.dbl.NotEqual}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createOrAdapter() {
-		if (orItemProvider == null) {
-			orItemProvider = new OrItemProvider(this);
+	public Adapter createNotEqualAdapter() {
+		if (notEqualItemProvider == null) {
+			notEqualItemProvider = new NotEqualItemProvider(this);
 		}
 
-		return orItemProvider;
+		return notEqualItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Equal} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected EqualItemProvider equalItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.Equal}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createEqualAdapter() {
+		if (equalItemProvider == null) {
+			equalItemProvider = new EqualItemProvider(this);
+		}
+
+		return equalItemProvider;
 	}
 
 	/**
@@ -1449,52 +1518,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		}
 
 		return lessEqualItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.NotEqual} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected NotEqualItemProvider notEqualItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.NotEqual}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createNotEqualAdapter() {
-		if (notEqualItemProvider == null) {
-			notEqualItemProvider = new NotEqualItemProvider(this);
-		}
-
-		return notEqualItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Equal} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected EqualItemProvider equalItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.Equal}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createEqualAdapter() {
-		if (equalItemProvider == null) {
-			equalItemProvider = new EqualItemProvider(this);
-		}
-
-		return equalItemProvider;
 	}
 
 	/**
@@ -2280,6 +2303,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensionSemanticsDefinition} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected ExtensionSemanticsDefinitionItemProvider extensionSemanticsDefinitionItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.ExtensionSemanticsDefinition}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createExtensionSemanticsDefinitionAdapter() {
+		if (extensionSemanticsDefinitionItemProvider == null) {
+			extensionSemanticsDefinitionItemProvider = new ExtensionSemanticsDefinitionItemProvider(this);
+		}
+
+		return extensionSemanticsDefinitionItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.TextualSyntaxDef} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2671,29 +2717,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Mapping} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected MappingItemProvider mappingItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.Mapping}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createMappingAdapter() {
-		if (mappingItemProvider == null) {
-			mappingItemProvider = new MappingItemProvider(this);
-		}
-
-		return mappingItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.MetaExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2740,72 +2763,95 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.MappingStatement} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExpansionStatement} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected MappingStatementItemProvider mappingStatementItemProvider;
+	protected ExpansionStatementItemProvider expansionStatementItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.MappingStatement}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ExpansionStatement}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createMappingStatementAdapter() {
-		if (mappingStatementItemProvider == null) {
-			mappingStatementItemProvider = new MappingStatementItemProvider(this);
+	public Adapter createExpansionStatementAdapter() {
+		if (expansionStatementItemProvider == null) {
+			expansionStatementItemProvider = new ExpansionStatementItemProvider(this);
 		}
 
-		return mappingStatementItemProvider;
+		return expansionStatementItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SetGenContextStatement} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExpandTextPart} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SetGenContextStatementItemProvider setGenContextStatementItemProvider;
+	protected ExpandTextPartItemProvider expandTextPartItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.SetGenContextStatement}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ExpandTextPart}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createSetGenContextStatementAdapter() {
-		if (setGenContextStatementItemProvider == null) {
-			setGenContextStatementItemProvider = new SetGenContextStatementItemProvider(this);
+	public Adapter createExpandTextPartAdapter() {
+		if (expandTextPartItemProvider == null) {
+			expandTextPartItemProvider = new ExpandTextPartItemProvider(this);
 		}
 
-		return setGenContextStatementItemProvider;
+		return expandTextPartItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ResetGenContextStatement} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExpandVariablePart} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ResetGenContextStatementItemProvider resetGenContextStatementItemProvider;
+	protected ExpandVariablePartItemProvider expandVariablePartItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ResetGenContextStatement}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ExpandVariablePart}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createResetGenContextStatementAdapter() {
-		if (resetGenContextStatementItemProvider == null) {
-			resetGenContextStatementItemProvider = new ResetGenContextStatementItemProvider(this);
+	public Adapter createExpandVariablePartAdapter() {
+		if (expandVariablePartItemProvider == null) {
+			expandVariablePartItemProvider = new ExpandVariablePartItemProvider(this);
 		}
 
-		return resetGenContextStatementItemProvider;
+		return expandVariablePartItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SetExpansionContextStatement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected SetExpansionContextStatementItemProvider setExpansionContextStatementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.SetExpansionContextStatement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createSetExpansionContextStatementAdapter() {
+		if (setExpansionContextStatementItemProvider == null) {
+			setExpansionContextStatementItemProvider = new SetExpansionContextStatementItemProvider(this);
+		}
+
+		return setExpansionContextStatementItemProvider;
 	}
 
 	/**
@@ -2852,52 +2898,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		}
 
 		return resumeGenStatementItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.FixedMappingPart} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected FixedMappingPartItemProvider fixedMappingPartItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.FixedMappingPart}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createFixedMappingPartAdapter() {
-		if (fixedMappingPartItemProvider == null) {
-			fixedMappingPartItemProvider = new FixedMappingPartItemProvider(this);
-		}
-
-		return fixedMappingPartItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.DynamicMappingPart} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected DynamicMappingPartItemProvider dynamicMappingPartItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.DynamicMappingPart}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createDynamicMappingPartAdapter() {
-		if (dynamicMappingPartItemProvider == null) {
-			dynamicMappingPartItemProvider = new DynamicMappingPartItemProvider(this);
-		}
-
-		return dynamicMappingPartItemProvider;
 	}
 
 	/**
@@ -3234,19 +3234,20 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (modelItemProvider != null) modelItemProvider.dispose();
 		if (importItemProvider != null) importItemProvider.dispose();
 		if (moduleItemProvider != null) moduleItemProvider.dispose();
+		if (constructiveExtensionItemProvider != null) constructiveExtensionItemProvider.dispose();
+		if (moduleContentItemProvider != null) moduleContentItemProvider.dispose();
+		if (classContentItemProvider != null) classContentItemProvider.dispose();
 		if (arrayDimensionItemProvider != null) arrayDimensionItemProvider.dispose();
 		if (voidTypeItemProvider != null) voidTypeItemProvider.dispose();
 		if (intTypeItemProvider != null) intTypeItemProvider.dispose();
 		if (boolTypeItemProvider != null) boolTypeItemProvider.dispose();
 		if (doubleTypeItemProvider != null) doubleTypeItemProvider.dispose();
 		if (stringTypeItemProvider != null) stringTypeItemProvider.dispose();
-		if (procedureItemProvider != null) procedureItemProvider.dispose();
+		if (functionItemProvider != null) functionItemProvider.dispose();
 		if (nativeBindingItemProvider != null) nativeBindingItemProvider.dispose();
-		if (classPartItemProvider != null) classPartItemProvider.dispose();
 		if (superClassSpecificationItemProvider != null) superClassSpecificationItemProvider.dispose();
-		if (clazzItemProvider != null) clazzItemProvider.dispose();
+		if (classItemProvider != null) classItemProvider.dispose();
 		if (constructorItemProvider != null) constructorItemProvider.dispose();
-		if (classAugmentItemProvider != null) classAugmentItemProvider.dispose();
 		if (variableItemProvider != null) variableItemProvider.dispose();
 		if (parameterItemProvider != null) parameterItemProvider.dispose();
 		if (namedElementItemProvider != null) namedElementItemProvider.dispose();
@@ -3254,7 +3255,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (loopStatementItemProvider != null) loopStatementItemProvider.dispose();
 		if (simpleStatementItemProvider != null) simpleStatementItemProvider.dispose();
 		if (assignmentItemProvider != null) assignmentItemProvider.dispose();
-		if (procedureCallItemProvider != null) procedureCallItemProvider.dispose();
+		if (functionCallItemProvider != null) functionCallItemProvider.dispose();
 		if (returnItemProvider != null) returnItemProvider.dispose();
 		if (waitUntilItemProvider != null) waitUntilItemProvider.dispose();
 		if (terminateItemProvider != null) terminateItemProvider.dispose();
@@ -3325,6 +3326,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (classContentExtensionItemProvider != null) classContentExtensionItemProvider.dispose();
 		if (moduleContentExtensionItemProvider != null) moduleContentExtensionItemProvider.dispose();
 		if (extensionDefinitionItemProvider != null) extensionDefinitionItemProvider.dispose();
+		if (extensionSemanticsDefinitionItemProvider != null) extensionSemanticsDefinitionItemProvider.dispose();
 		if (textualSyntaxDefItemProvider != null) textualSyntaxDefItemProvider.dispose();
 		if (tsRuleItemProvider != null) tsRuleItemProvider.dispose();
 		if (rhsExpressionItemProvider != null) rhsExpressionItemProvider.dispose();
@@ -3342,16 +3344,14 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (structuredPropertyTypeItemProvider != null) structuredPropertyTypeItemProvider.dispose();
 		if (compositePropertyTypeItemProvider != null) compositePropertyTypeItemProvider.dispose();
 		if (referencePropertyTypeItemProvider != null) referencePropertyTypeItemProvider.dispose();
-		if (mappingItemProvider != null) mappingItemProvider.dispose();
 		if (metaExprItemProvider != null) metaExprItemProvider.dispose();
 		if (targetStatementItemProvider != null) targetStatementItemProvider.dispose();
-		if (mappingStatementItemProvider != null) mappingStatementItemProvider.dispose();
-		if (setGenContextStatementItemProvider != null) setGenContextStatementItemProvider.dispose();
-		if (resetGenContextStatementItemProvider != null) resetGenContextStatementItemProvider.dispose();
+		if (expansionStatementItemProvider != null) expansionStatementItemProvider.dispose();
+		if (expandTextPartItemProvider != null) expandTextPartItemProvider.dispose();
+		if (expandVariablePartItemProvider != null) expandVariablePartItemProvider.dispose();
+		if (setExpansionContextStatementItemProvider != null) setExpansionContextStatementItemProvider.dispose();
 		if (saveGenStatementItemProvider != null) saveGenStatementItemProvider.dispose();
 		if (resumeGenStatementItemProvider != null) resumeGenStatementItemProvider.dispose();
-		if (fixedMappingPartItemProvider != null) fixedMappingPartItemProvider.dispose();
-		if (dynamicMappingPartItemProvider != null) dynamicMappingPartItemProvider.dispose();
 		if (expandExpressionItemProvider != null) expandExpressionItemProvider.dispose();
 		if (expandStatementItemProvider != null) expandStatementItemProvider.dispose();
 		if (codeQuoteExpressionItemProvider != null) codeQuoteExpressionItemProvider.dispose();

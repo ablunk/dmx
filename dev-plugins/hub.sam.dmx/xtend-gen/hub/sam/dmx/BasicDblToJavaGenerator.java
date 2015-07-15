@@ -10,22 +10,23 @@ import hub.sam.dbl.BoolType;
 import hub.sam.dbl.BreakStatement;
 import hub.sam.dbl.CallPart;
 import hub.sam.dbl.Cast;
-import hub.sam.dbl.ClassPart;
-import hub.sam.dbl.Classifier;
-import hub.sam.dbl.Clazz;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.ContinueStatement;
 import hub.sam.dbl.CreateObject;
 import hub.sam.dbl.Div;
 import hub.sam.dbl.DoubleLiteral;
 import hub.sam.dbl.DoubleType;
-import hub.sam.dbl.DynamicMappingPart;
 import hub.sam.dbl.Equal;
+import hub.sam.dbl.ExpandTextPart;
+import hub.sam.dbl.ExpandVariablePart;
+import hub.sam.dbl.ExpansionPart;
+import hub.sam.dbl.ExpansionStatement;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensionDefinition;
 import hub.sam.dbl.FalseLiteral;
-import hub.sam.dbl.FixedMappingPart;
 import hub.sam.dbl.ForStatement;
+import hub.sam.dbl.Function;
+import hub.sam.dbl.FunctionCall;
 import hub.sam.dbl.Greater;
 import hub.sam.dbl.GreaterEqual;
 import hub.sam.dbl.IdExpr;
@@ -37,8 +38,6 @@ import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.Less;
 import hub.sam.dbl.LessEqual;
 import hub.sam.dbl.LocalScopeStatement;
-import hub.sam.dbl.MappingPart;
-import hub.sam.dbl.MappingStatement;
 import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.Minus;
 import hub.sam.dbl.Mod;
@@ -57,12 +56,9 @@ import hub.sam.dbl.Plus;
 import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.Print;
-import hub.sam.dbl.Procedure;
-import hub.sam.dbl.ProcedureCall;
 import hub.sam.dbl.PropertyBindingExpr;
-import hub.sam.dbl.ResetGenContextStatement;
 import hub.sam.dbl.Return;
-import hub.sam.dbl.SetGenContextStatement;
+import hub.sam.dbl.SetExpansionContextStatement;
 import hub.sam.dbl.SizeOfArray;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.StringLiteral;
@@ -114,7 +110,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     this.makeFolder(this.javaPackageFolder);
   }
   
-  public String genActiveClass(final Clazz clazz) {
+  public String genActiveClass(final hub.sam.dbl.Class clazz) {
     return "<! active classes are not support in basic DBL models !>";
   }
   
@@ -151,9 +147,9 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       _builder.append("\t");
       _builder.newLine();
       _builder.append("\t");
-      EList<Procedure> _procedures = it.getProcedures();
-      String _genProcedures = this.genProcedures(_procedures, true);
-      _builder.append(_genProcedures, "\t");
+      EList<Function> _functions = it.getFunctions();
+      String _genFunctions = this.genFunctions(_functions, true);
+      _builder.append(_genFunctions, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
       _builder.newLine();
@@ -214,10 +210,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected String _javaNameQualified(final Clazz element) {
+  protected String _javaNameQualified(final hub.sam.dbl.Class element) {
     String _xblockexpression = null;
     {
-      final Clazz it = element;
+      final hub.sam.dbl.Class it = element;
       String _xifexpression = null;
       EList<NativeBinding> _bindings = it.getBindings();
       boolean _isEmpty = _bindings.isEmpty();
@@ -240,10 +236,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  public String javaNameBound(final Clazz clazz) {
+  public String javaNameBound(final hub.sam.dbl.Class clazz) {
     String _xblockexpression = null;
     {
-      final Clazz it = clazz;
+      final hub.sam.dbl.Class it = clazz;
       EList<NativeBinding> _bindings = it.getBindings();
       final Function1<NativeBinding, Boolean> _function = new Function1<NativeBinding, Boolean>() {
         public Boolean apply(final NativeBinding it) {
@@ -300,7 +296,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected String _javaNameQualified(final Procedure element) {
+  protected String _javaNameQualified(final Function element) {
     return this.javaNameQualified_for_ProcedureVariable(element);
   }
   
@@ -340,14 +336,14 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
         EList<Module> _modules = model.getModules();
         final Function1<Module, Boolean> _function = new Function1<Module, Boolean>() {
           public Boolean apply(final Module it) {
-            EList<Procedure> _procedures = it.getProcedures();
-            final Function1<Procedure, Boolean> _function = new Function1<Procedure, Boolean>() {
-              public Boolean apply(final Procedure it) {
+            EList<Function> _functions = it.getFunctions();
+            final Function1<Function, Boolean> _function = new Function1<Function, Boolean>() {
+              public Boolean apply(final Function it) {
                 String _name = it.getName();
                 return Boolean.valueOf(Objects.equal(_name, "main"));
               }
             };
-            return Boolean.valueOf(IterableExtensions.<Procedure>exists(_procedures, _function));
+            return Boolean.valueOf(IterableExtensions.<Function>exists(_functions, _function));
           }
         };
         _xifexpression = IterableExtensions.<Module>findFirst(_modules, _function);
@@ -379,11 +375,11 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
             }
             moduleWriter.write(_xifexpression);
             BasicDblToJavaGenerator.this.endTargetFile(moduleWriter);
-            EList<Classifier> _classifiers = module.getClassifiers();
-            final Procedure1<Classifier> _function = new Procedure1<Classifier>() {
-              public void apply(final Classifier classifier) {
+            EList<hub.sam.dbl.Class> _classes = module.getClasses();
+            final Procedure1<hub.sam.dbl.Class> _function = new Procedure1<hub.sam.dbl.Class>() {
+              public void apply(final hub.sam.dbl.Class class_) {
                 try {
-                  final String result = BasicDblToJavaGenerator.this.gen(classifier);
+                  final String result = BasicDblToJavaGenerator.this.gen(class_);
                   boolean _and = false;
                   boolean _notEquals = (!Objects.equal(result, null));
                   if (!_notEquals) {
@@ -393,7 +389,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
                     _and = _notEquals_1;
                   }
                   if (_and) {
-                    String _name = classifier.getName();
+                    String _name = class_.getName();
                     String _plus = (_name + ".java");
                     final Writer classifierWriter = BasicDblToJavaGenerator.this.beginTargetFile(moduleFolder, _plus);
                     classifierWriter.write(result);
@@ -404,7 +400,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
                 }
               }
             };
-            IterableExtensions.<Classifier>forEach(_classifiers, _function);
+            IterableExtensions.<hub.sam.dbl.Class>forEach(_classes, _function);
           } catch (Throwable _e) {
             throw Exceptions.sneakyThrow(_e);
           }
@@ -477,26 +473,19 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     }
   }
   
-  protected String _gen(final Classifier c) {
-    EClass _eClass = c.eClass();
-    String _name = _eClass.getName();
-    String _plus = ("<! unknown classifier " + _name);
-    return (_plus + " !>");
-  }
-  
   protected String _gen(final Void e) {
     return "";
   }
   
   public boolean isMainModule(final Module module) {
-    EList<Procedure> _procedures = module.getProcedures();
-    final Function1<Procedure, Boolean> _function = new Function1<Procedure, Boolean>() {
-      public Boolean apply(final Procedure it) {
+    EList<Function> _functions = module.getFunctions();
+    final Function1<Function, Boolean> _function = new Function1<Function, Boolean>() {
+      public Boolean apply(final Function it) {
         String _name = it.getName();
         return Boolean.valueOf(Objects.equal(_name, "main"));
       }
     };
-    return IterableExtensions.<Procedure>exists(_procedures, _function);
+    return IterableExtensions.<Function>exists(_functions, _function);
   }
   
   protected String _gen(final Module module) {
@@ -520,9 +509,9 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       _builder.append("\t");
       _builder.newLine();
       _builder.append("\t");
-      EList<Procedure> _procedures = it.getProcedures();
-      String _genProcedures = this.genProcedures(_procedures, true);
-      _builder.append(_genProcedures, "\t");
+      EList<Function> _functions = it.getFunctions();
+      String _genFunctions = this.genFunctions(_functions, true);
+      _builder.append(_genFunctions, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
       _builder.newLine();
@@ -550,10 +539,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _builder.toString();
   }
   
-  public String genProcedures(final List<Procedure> procedures, final boolean setStatic) {
+  public String genFunctions(final List<Function> functions, final boolean setStatic) {
     StringConcatenation _builder = new StringConcatenation();
     {
-      for(final Procedure p : procedures) {
+      for(final Function p : functions) {
         _builder.append("public ");
         {
           if (setStatic) {
@@ -577,7 +566,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return this.forwardGen(stm);
   }
   
-  protected String _genStatement(final ProcedureCall call) {
+  protected String _genStatement(final FunctionCall call) {
     IdExpr _callIdExpr = call.getCallIdExpr();
     String _genExpr = this.genExpr(_callIdExpr);
     return (_genExpr + ";");
@@ -807,14 +796,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected String _genStatement(final ResetGenContextStatement stm) {
-    return "resetGenContext();";
-  }
-  
-  protected String _genStatement(final SetGenContextStatement stm) {
+  protected String _genStatement(final SetExpansionContextStatement stm) {
     String _xblockexpression = null;
     {
-      final SetGenContextStatement it = stm;
+      final SetExpansionContextStatement it = stm;
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("setExpand(");
       Expression _context = it.getContext();
@@ -829,17 +814,17 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected String _genStatement(final MappingStatement stm) {
+  protected String _genStatement(final ExpansionStatement stm) {
     String _xblockexpression = null;
     {
-      final MappingStatement it = stm;
+      final ExpansionStatement it = stm;
       StringConcatenation _builder = new StringConcatenation();
       _builder.append("expand(");
       _builder.newLine();
       {
-        EList<MappingPart> _parts = it.getParts();
+        EList<ExpansionPart> _parts = it.getParts();
         boolean _hasElements = false;
-        for(final MappingPart part : _parts) {
+        for(final ExpansionPart part : _parts) {
           if (!_hasElements) {
             _hasElements = true;
           } else {
@@ -858,16 +843,16 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected String _genMappingPart(final MappingPart part) {
+  protected String _genMappingPart(final ExpansionPart part) {
     return "< unknown mapping part >";
   }
   
-  protected String _genMappingPart(final FixedMappingPart part) {
-    String _code = part.getCode();
-    return this.quoteJavaString(_code);
+  protected String _genMappingPart(final ExpandTextPart part) {
+    String _text = part.getText();
+    return this.quoteJavaString(_text);
   }
   
-  protected String _genMappingPart(final DynamicMappingPart part) {
+  protected String _genMappingPart(final ExpandVariablePart part) {
     Expression _expr = part.getExpr();
     return this.genExpr(_expr);
   }
@@ -893,17 +878,11 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
           _builder.append(_genExpr, "");
           _builder.newLineIfNotEmpty();
         } else {
-          EList<ArrayDimension> _typeArrayDimensions = it.getTypeArrayDimensions();
-          boolean _isEmpty = _typeArrayDimensions.isEmpty();
-          boolean _not = (!_isEmpty);
-          if (_not) {
-          } else {
-            IdExpr _classifierType = it.getClassifierType();
-            boolean _notEquals_1 = (!Objects.equal(_classifierType, null));
-            if (_notEquals_1) {
-              _builder.append("= null");
-              _builder.newLine();
-            }
+          IdExpr _classifierType = it.getClassifierType();
+          boolean _notEquals_1 = (!Objects.equal(_classifierType, null));
+          if (_notEquals_1) {
+            _builder.append("= null");
+            _builder.newLine();
           }
         }
       }
@@ -1106,58 +1085,59 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       _builder.newLine();
       _builder.append("\t");
       _builder.append("new ");
-      String _genType = this.genType(it);
+      String _genType = this.genType(it, true);
       _builder.append(_genType, "\t");
-      _builder.append("\t\t");
       _builder.newLineIfNotEmpty();
       {
-        boolean _and = false;
-        boolean _and_1 = false;
         IdExpr _classifierType = it.getClassifierType();
         boolean _notEquals = (!Objects.equal(_classifierType, null));
-        if (!_notEquals) {
-          _and_1 = false;
-        } else {
-          IdExpr _classifierType_1 = it.getClassifierType();
-          EList<Expression> _arrayIndex = _classifierType_1.getArrayIndex();
-          boolean _isEmpty = _arrayIndex.isEmpty();
-          _and_1 = _isEmpty;
-        }
-        if (!_and_1) {
-          _and = false;
-        } else {
-          EList<ArrayDimension> _typeArrayDimensions = it.getTypeArrayDimensions();
-          boolean _isEmpty_1 = _typeArrayDimensions.isEmpty();
-          _and = _isEmpty_1;
-        }
-        if (_and) {
-          _builder.append("(");
-          _builder.newLine();
+        if (_notEquals) {
           {
-            IdExpr _classifierType_2 = it.getClassifierType();
-            CallPart _callPart = _classifierType_2.getCallPart();
-            boolean _notEquals_1 = (!Objects.equal(_callPart, null));
-            if (_notEquals_1) {
+            EList<ArrayDimension> _typeArrayDimensions = it.getTypeArrayDimensions();
+            boolean _isEmpty = _typeArrayDimensions.isEmpty();
+            if (_isEmpty) {
+              _builder.append("\t");
+              _builder.append("(");
+              _builder.newLine();
               {
-                IdExpr _classifierType_3 = it.getClassifierType();
-                CallPart _callPart_1 = _classifierType_3.getCallPart();
-                EList<Expression> _callArguments = _callPart_1.getCallArguments();
-                boolean _hasElements = false;
-                for(final Expression arg : _callArguments) {
-                  if (!_hasElements) {
-                    _hasElements = true;
-                  } else {
-                    _builder.appendImmediate(",", "");
+                IdExpr _classifierType_1 = it.getClassifierType();
+                CallPart _callPart = _classifierType_1.getCallPart();
+                boolean _notEquals_1 = (!Objects.equal(_callPart, null));
+                if (_notEquals_1) {
+                  {
+                    IdExpr _classifierType_2 = it.getClassifierType();
+                    CallPart _callPart_1 = _classifierType_2.getCallPart();
+                    EList<Expression> _callArguments = _callPart_1.getCallArguments();
+                    boolean _hasElements = false;
+                    for(final Expression arg : _callArguments) {
+                      if (!_hasElements) {
+                        _hasElements = true;
+                      } else {
+                        _builder.appendImmediate(",", "\t\t");
+                      }
+                      _builder.append("\t");
+                      _builder.append("\t");
+                      String _genExpr = this.genExpr(arg);
+                      _builder.append(_genExpr, "\t\t");
+                      _builder.newLineIfNotEmpty();
+                    }
                   }
-                  String _genExpr = this.genExpr(arg);
-                  _builder.append(_genExpr, "");
-                  _builder.newLineIfNotEmpty();
                 }
+              }
+              _builder.append("\t");
+              _builder.append(")");
+              _builder.newLine();
+            } else {
+              IdExpr _classifierType_3 = it.getClassifierType();
+              CallPart _callPart_2 = _classifierType_3.getCallPart();
+              boolean _notEquals_2 = (!Objects.equal(_callPart_2, null));
+              if (_notEquals_2) {
+                _builder.append("\t");
+                _builder.append("<! arrays of a class type cannot be initialized by a general constructor call !>");
+                _builder.newLine();
               }
             }
           }
-          _builder.append(")");
-          _builder.newLine();
         }
       }
       _builder.append(")");
@@ -1288,6 +1268,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   protected String _genType(final TypedElement typedElement) {
+    return this.genType(typedElement, false);
+  }
+  
+  public String genType(final TypedElement typedElement, final boolean genArraySizeDimensions) {
     String _xblockexpression = null;
     {
       final TypedElement it = typedElement;
@@ -1316,9 +1300,13 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
             EList<ArrayDimension> _typeArrayDimensions_1 = it.getTypeArrayDimensions();
             for(final ArrayDimension dim : _typeArrayDimensions_1) {
               _builder.append("[");
-              Expression _size = dim.getSize();
-              String _genExpr = this.genExpr(_size);
-              _builder.append(_genExpr, "");
+              {
+                if (genArraySizeDimensions) {
+                  Expression _size = dim.getSize();
+                  String _genExpr = this.genExpr(_size);
+                  _builder.append(_genExpr, "");
+                }
+              }
               _builder.append("]");
               _builder.newLineIfNotEmpty();
             }
@@ -1362,7 +1350,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected String _genType(final Classifier type) {
+  protected String _genType(final hub.sam.dbl.Class type) {
     return this.javaNameQualified(type);
   }
   
@@ -1437,10 +1425,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return str.replaceAll(_quoteReplacement, "");
   }
   
-  protected String _gen(final Procedure procedure) {
+  protected String _gen(final Function function) {
     String _xblockexpression = null;
     {
-      final Procedure it = procedure;
+      final Function it = function;
       StringConcatenation _builder = new StringConcatenation();
       String _genType = this.genType(it);
       _builder.append(_genType, "");
@@ -1480,10 +1468,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
-  protected String _gen(final Clazz clazz) {
+  protected String _gen(final hub.sam.dbl.Class clazz) {
     String _xblockexpression = null;
     {
-      final Clazz it = clazz;
+      final hub.sam.dbl.Class it = clazz;
       String _xifexpression = null;
       EList<NativeBinding> _bindings = clazz.getBindings();
       boolean _isEmpty = _bindings.isEmpty();
@@ -1502,6 +1490,21 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
+  protected String _gen(final Parameter param) {
+    String _xblockexpression = null;
+    {
+      final Parameter it = param;
+      StringConcatenation _builder = new StringConcatenation();
+      String _genType = this.genType(it);
+      _builder.append(_genType, "");
+      _builder.append(" ");
+      String _name = it.getName();
+      _builder.append(_name, "");
+      _xblockexpression = _builder.toString();
+    }
+    return _xblockexpression;
+  }
+  
   public String genPackageStatement(final Module module) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package ");
@@ -1512,7 +1515,7 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _builder.toString();
   }
   
-  public String genPackageStatement(final Clazz clazz) {
+  public String genPackageStatement(final hub.sam.dbl.Class clazz) {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("package ");
     EObject _eContainer = clazz.eContainer();
@@ -1523,10 +1526,10 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     return _builder.toString();
   }
   
-  public String genPassiveClass(final Clazz clazz) {
+  public String genPassiveClass(final hub.sam.dbl.Class clazz) {
     String _xblockexpression = null;
     {
-      final Clazz it = clazz;
+      final hub.sam.dbl.Class it = clazz;
       StringConcatenation _builder = new StringConcatenation();
       String _genPackageStatement = this.genPackageStatement(it);
       _builder.append(_genPackageStatement, "");
@@ -1551,8 +1554,8 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
             _builder.append("extends ");
             EList<SuperClassSpecification> _superClasses_2 = it.getSuperClasses();
             SuperClassSpecification _head = IterableExtensions.<SuperClassSpecification>head(_superClasses_2);
-            Clazz _clazz = _head.getClazz();
-            String _genType = this.genType(_clazz);
+            hub.sam.dbl.Class _class_ = _head.getClass_();
+            String _genType = this.genType(_class_);
             _builder.append(_genType, "");
             _builder.newLineIfNotEmpty();
           }
@@ -1561,19 +1564,17 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       _builder.append("{");
       _builder.newLine();
       _builder.newLine();
-      _builder.append("\t");
-      _builder.append("public ");
-      String _name_1 = it.getName();
-      _builder.append(_name_1, "\t");
-      _builder.append("(");
-      _builder.newLineIfNotEmpty();
       {
-        Constructor _constructor = it.getConstructor();
-        boolean _notEquals = (!Objects.equal(_constructor, null));
-        if (_notEquals) {
+        EList<Constructor> _constructors = it.getConstructors();
+        for(final Constructor constructor : _constructors) {
+          _builder.append("\t");
+          _builder.append("public ");
+          String _name_1 = it.getName();
+          _builder.append(_name_1, "\t");
+          _builder.append("(");
+          _builder.newLineIfNotEmpty();
           {
-            Constructor _constructor_1 = it.getConstructor();
-            EList<Parameter> _parameters = _constructor_1.getParameters();
+            EList<Parameter> _parameters = constructor.getParameters();
             boolean _hasElements = false;
             for(final Parameter cparam : _parameters) {
               if (!_hasElements) {
@@ -1587,24 +1588,20 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
               _builder.newLineIfNotEmpty();
             }
           }
+          _builder.append("\t");
+          _builder.append(") {");
+          _builder.newLine();
+          _builder.append("\t");
+          _builder.append("\t");
+          EList<Statement> _statements = constructor.getStatements();
+          String _gen_1 = this.gen(_statements);
+          _builder.append(_gen_1, "\t\t");
+          _builder.newLineIfNotEmpty();
+          _builder.append("\t");
+          _builder.append("}");
+          _builder.newLine();
         }
       }
-      _builder.append("\t");
-      _builder.append(") {");
-      _builder.newLine();
-      _builder.append("\t\t");
-      ClassPart _initialBlock = it.getInitialBlock();
-      EList<Statement> _statements = null;
-      if (_initialBlock!=null) {
-        _statements=_initialBlock.getStatements();
-      }
-      String _gen_1 = this.gen(_statements);
-      _builder.append(_gen_1, "\t\t");
-      _builder.newLineIfNotEmpty();
-      _builder.append("\t");
-      _builder.append("}");
-      _builder.newLine();
-      _builder.append("\t");
       _builder.newLine();
       _builder.append("\t");
       EList<Variable> _attributes = it.getAttributes();
@@ -1613,9 +1610,9 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       _builder.newLineIfNotEmpty();
       _builder.newLine();
       _builder.append("\t");
-      EList<Procedure> _methods = it.getMethods();
-      String _genProcedures = this.genProcedures(_methods, false);
-      _builder.append(_genProcedures, "\t");
+      EList<Function> _methods = it.getMethods();
+      String _genFunctions = this.genFunctions(_methods, false);
+      _builder.append(_genFunctions, "\t");
       _builder.newLineIfNotEmpty();
       _builder.append("}");
       _builder.newLine();
@@ -1625,14 +1622,14 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   public String javaNameQualified(final NamedElement element) {
-    if (element instanceof Clazz) {
-      return _javaNameQualified((Clazz)element);
+    if (element instanceof hub.sam.dbl.Class) {
+      return _javaNameQualified((hub.sam.dbl.Class)element);
     } else if (element instanceof ExtensionDefinition) {
       return _javaNameQualified((ExtensionDefinition)element);
     } else if (element instanceof AbstractVariable) {
       return _javaNameQualified((AbstractVariable)element);
-    } else if (element instanceof Procedure) {
-      return _javaNameQualified((Procedure)element);
+    } else if (element instanceof Function) {
+      return _javaNameQualified((Function)element);
     } else {
       throw new IllegalArgumentException("Unhandled parameter types: " +
         Arrays.<Object>asList(element).toString());
@@ -1640,16 +1637,16 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   public String gen(final Object clazz) {
-    if (clazz instanceof Clazz) {
-      return _gen((Clazz)clazz);
+    if (clazz instanceof hub.sam.dbl.Class) {
+      return _gen((hub.sam.dbl.Class)clazz);
+    } else if (clazz instanceof Parameter) {
+      return _gen((Parameter)clazz);
     } else if (clazz instanceof Statement) {
       return _gen((Statement)clazz);
-    } else if (clazz instanceof Classifier) {
-      return _gen((Classifier)clazz);
+    } else if (clazz instanceof Function) {
+      return _gen((Function)clazz);
     } else if (clazz instanceof Module) {
       return _gen((Module)clazz);
-    } else if (clazz instanceof Procedure) {
-      return _gen((Procedure)clazz);
     } else if (clazz instanceof List) {
       return _gen((List<Statement>)clazz);
     } else if (clazz == null) {
@@ -1669,28 +1666,26 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
       return _genStatement((ContinueStatement)stm);
     } else if (stm instanceof ForStatement) {
       return _genStatement((ForStatement)stm);
+    } else if (stm instanceof FunctionCall) {
+      return _genStatement((FunctionCall)stm);
     } else if (stm instanceof LocalScopeStatement) {
       return _genStatement((LocalScopeStatement)stm);
     } else if (stm instanceof Print) {
       return _genStatement((Print)stm);
-    } else if (stm instanceof ProcedureCall) {
-      return _genStatement((ProcedureCall)stm);
-    } else if (stm instanceof ResetGenContextStatement) {
-      return _genStatement((ResetGenContextStatement)stm);
     } else if (stm instanceof Return) {
       return _genStatement((Return)stm);
-    } else if (stm instanceof SetGenContextStatement) {
-      return _genStatement((SetGenContextStatement)stm);
+    } else if (stm instanceof SetExpansionContextStatement) {
+      return _genStatement((SetExpansionContextStatement)stm);
     } else if (stm instanceof SwitchStatement) {
       return _genStatement((SwitchStatement)stm);
     } else if (stm instanceof Variable) {
       return _genStatement((Variable)stm);
     } else if (stm instanceof WhileStatement) {
       return _genStatement((WhileStatement)stm);
+    } else if (stm instanceof ExpansionStatement) {
+      return _genStatement((ExpansionStatement)stm);
     } else if (stm instanceof IfStatement) {
       return _genStatement((IfStatement)stm);
-    } else if (stm instanceof MappingStatement) {
-      return _genStatement((MappingStatement)stm);
     } else if (stm != null) {
       return _genStatement(stm);
     } else {
@@ -1699,11 +1694,11 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
     }
   }
   
-  public String genMappingPart(final MappingPart part) {
-    if (part instanceof DynamicMappingPart) {
-      return _genMappingPart((DynamicMappingPart)part);
-    } else if (part instanceof FixedMappingPart) {
-      return _genMappingPart((FixedMappingPart)part);
+  public String genMappingPart(final ExpansionPart part) {
+    if (part instanceof ExpandTextPart) {
+      return _genMappingPart((ExpandTextPart)part);
+    } else if (part instanceof ExpandVariablePart) {
+      return _genMappingPart((ExpandVariablePart)part);
     } else if (part != null) {
       return _genMappingPart(part);
     } else {
@@ -1804,20 +1799,20 @@ public class BasicDblToJavaGenerator extends AbstractGenerator {
   }
   
   public String genType(final EObject type) {
-    if (type instanceof BoolType) {
+    if (type instanceof hub.sam.dbl.Class) {
+      return _genType((hub.sam.dbl.Class)type);
+    } else if (type instanceof BoolType) {
       return _genType((BoolType)type);
     } else if (type instanceof DoubleType) {
       return _genType((DoubleType)type);
     } else if (type instanceof IntType) {
       return _genType((IntType)type);
+    } else if (type instanceof LanguageConstructClassifier) {
+      return _genType((LanguageConstructClassifier)type);
     } else if (type instanceof StringType) {
       return _genType((StringType)type);
     } else if (type instanceof VoidType) {
       return _genType((VoidType)type);
-    } else if (type instanceof Classifier) {
-      return _genType((Classifier)type);
-    } else if (type instanceof LanguageConstructClassifier) {
-      return _genType((LanguageConstructClassifier)type);
     } else if (type instanceof Type) {
       return _genType((Type)type);
     } else if (type instanceof TypedElement) {

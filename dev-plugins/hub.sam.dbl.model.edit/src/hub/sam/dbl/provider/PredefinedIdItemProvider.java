@@ -27,7 +27,7 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
  * <!-- end-user-doc -->
  * @generated
  */
-public class PredefinedIdItemProvider
+public class PredefinedIdItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -81,6 +81,7 @@ public class PredefinedIdItemProvider
 	public String getText(Object object) {
 		return getString("_UI_PredefinedId_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

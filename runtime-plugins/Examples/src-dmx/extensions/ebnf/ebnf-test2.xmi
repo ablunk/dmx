@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="ebnf">
+    <model href="ebnf.xmi#/"/>
+  </imports>
+  <modules name="EbnfSample1">
+    <extensionDefinitions name="ExtensionUsingEbfn" concreteSyntax="extension ExtensionUsingEbfn extends dbl Statement {&#xA;&#x9;&#x9;start Forever;&#xA;&#x9;&#x9;Forever -> &quot;forever&quot; &quot;{&quot; (stms:list(Statement) | &quot;blu&quot;)* &quot;}&quot;*;&#xA;&#x9;}">
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.26"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;&#x9;start Forever;&#xA;&#x9;&#x9;Forever -> &quot;forever&quot; &quot;{&quot; (stms:list(Statement) | &quot;blu&quot;)* &quot;}&quot;*;&#xA;&#x9;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
+        <rules name="Forever" concreteSyntax="Forever -> &quot;forever&quot; &quot;{&quot; (stms:list(Statement) | &quot;blu&quot;)* &quot;}&quot;*;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="forever"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:ManyExpr_ManyExpr_extension">
+              <exprSeq xsi:type="dbl:AlternativeExpr_AlternativeExpr_extension">
+                <left xsi:type="dbl:SequenceExpr">
+                  <sequence xsi:type="dbl:PropertyBindingExpr" name="stms">
+                    <propertyType xsi:type="dbl:CompositePropertyType" list="true">
+                      <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.26"/>
+                    </propertyType>
+                  </sequence>
+                </left>
+                <right xsi:type="dbl:SequenceExpr">
+                  <sequence xsi:type="dbl:TerminalExpr" terminal="blu"/>
+                </right>
+              </exprSeq>
+            </sequence>
+            <sequence xsi:type="dbl:ManyExpr_ManyExpr_extension">
+              <expr xsi:type="dbl:TerminalExpr" terminal="}"/>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefinitions>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i = (1+2)*3">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:Mul" concreteSyntax="(1+2)*3">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="1+2">
+            <op1 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+          </op1>
+          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:BooleanTest_BTest_extension" concreteSyntax="btest;" instanceOfExtensionDefinition="true"/>
+      <statements xsi:type="dbl:BooleanTest_BTest_extension" concreteSyntax="btest on;" instanceOfExtensionDefinition="true" b="true"/>
+    </functions>
+  </modules>
+</dbl:Model>

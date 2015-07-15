@@ -6,6 +6,140 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.ActivateObject;
+import hub.sam.dbl.ActiveLiteral;
+import hub.sam.dbl.Advance;
+import hub.sam.dbl.And;
+import hub.sam.dbl.ArrayDimension;
+import hub.sam.dbl.Assignment;
+import hub.sam.dbl.BoolType;
+import hub.sam.dbl.BooleanPropertyType;
+import hub.sam.dbl.BreakStatement;
+import hub.sam.dbl.CallPart;
+import hub.sam.dbl.Cast;
+import hub.sam.dbl.ClassContent;
+import hub.sam.dbl.ClassContentExtension;
+import hub.sam.dbl.CodeQuoteExpression;
+import hub.sam.dbl.CompositePropertyType;
+import hub.sam.dbl.Construct;
+import hub.sam.dbl.ConstructiveExtension;
+import hub.sam.dbl.Constructor;
+import hub.sam.dbl.ContinueStatement;
+import hub.sam.dbl.CreateObject;
+import hub.sam.dbl.DblFactory;
+import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Div;
+import hub.sam.dbl.DoubleLiteral;
+import hub.sam.dbl.DoubleType;
+import hub.sam.dbl.Equal;
+import hub.sam.dbl.ExpandExpr;
+import hub.sam.dbl.ExpandExpression;
+import hub.sam.dbl.ExpandStatement;
+import hub.sam.dbl.ExpandTextPart;
+import hub.sam.dbl.ExpandVariablePart;
+import hub.sam.dbl.ExpansionStatement;
+import hub.sam.dbl.Expression;
+import hub.sam.dbl.ExtensibleElement;
+import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.FalseLiteral;
+import hub.sam.dbl.ForStatement;
+import hub.sam.dbl.Function;
+import hub.sam.dbl.FunctionCall;
+import hub.sam.dbl.Greater;
+import hub.sam.dbl.GreaterEqual;
+import hub.sam.dbl.IdExpr;
+import hub.sam.dbl.IdPropertyType;
+import hub.sam.dbl.IfStatement;
+import hub.sam.dbl.Import;
+import hub.sam.dbl.InstanceOf;
+import hub.sam.dbl.IntLiteral;
+import hub.sam.dbl.IntPropertyType;
+import hub.sam.dbl.IntType;
+import hub.sam.dbl.L1Expr;
+import hub.sam.dbl.L1RhsExpr;
+import hub.sam.dbl.L2Expr;
+import hub.sam.dbl.L2RhsExpr;
+import hub.sam.dbl.L3Expr;
+import hub.sam.dbl.L3RhsExpr;
+import hub.sam.dbl.L4Expr;
+import hub.sam.dbl.L5Expr;
+import hub.sam.dbl.L6Expr;
+import hub.sam.dbl.L7Expr;
+import hub.sam.dbl.L8Expr;
+import hub.sam.dbl.L9Expr;
+import hub.sam.dbl.Less;
+import hub.sam.dbl.LessEqual;
+import hub.sam.dbl.LocalScope;
+import hub.sam.dbl.LocalScopeStatement;
+import hub.sam.dbl.LoopStatement;
+import hub.sam.dbl.MeLiteral;
+import hub.sam.dbl.MetaAccess;
+import hub.sam.dbl.MetaExpr;
+import hub.sam.dbl.MetaLiteral;
+import hub.sam.dbl.Minus;
+import hub.sam.dbl.Mod;
+import hub.sam.dbl.Model;
+import hub.sam.dbl.Module;
+import hub.sam.dbl.ModuleContent;
+import hub.sam.dbl.ModuleContentExtension;
+import hub.sam.dbl.Mul;
+import hub.sam.dbl.NamedElement;
+import hub.sam.dbl.NativeBinding;
+import hub.sam.dbl.Neg;
+import hub.sam.dbl.Not;
+import hub.sam.dbl.NotEqual;
+import hub.sam.dbl.NullLiteral;
+import hub.sam.dbl.Or;
+import hub.sam.dbl.Parameter;
+import hub.sam.dbl.ParseExpr;
+import hub.sam.dbl.Pattern;
+import hub.sam.dbl.Plus;
+import hub.sam.dbl.PredefinedId;
+import hub.sam.dbl.Print;
+import hub.sam.dbl.PropertyBindingExpr;
+import hub.sam.dbl.QuotedClassContent;
+import hub.sam.dbl.QuotedCode;
+import hub.sam.dbl.QuotedExpression;
+import hub.sam.dbl.QuotedModuleContent;
+import hub.sam.dbl.QuotedStatements;
+import hub.sam.dbl.Reactivate;
+import hub.sam.dbl.ReferencePropertyType;
+import hub.sam.dbl.ResumeGenStatement;
+import hub.sam.dbl.Return;
+import hub.sam.dbl.RhsClassifierExpr;
+import hub.sam.dbl.RhsExpression;
+import hub.sam.dbl.SaveGenStatement;
+import hub.sam.dbl.SequenceExpr;
+import hub.sam.dbl.SetExpansionContextStatement;
+import hub.sam.dbl.SimpleStatement;
+import hub.sam.dbl.SizeOfArray;
+import hub.sam.dbl.Statement;
+import hub.sam.dbl.StringLiteral;
+import hub.sam.dbl.StringPropertyType;
+import hub.sam.dbl.StringType;
+import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.SuperClassSpecification;
+import hub.sam.dbl.SuperLiteral;
+import hub.sam.dbl.SwitchCase;
+import hub.sam.dbl.SwitchStatement;
+import hub.sam.dbl.TargetStatement;
+import hub.sam.dbl.TerminalExpr;
+import hub.sam.dbl.Terminate;
+import hub.sam.dbl.TestStatement;
+import hub.sam.dbl.TextualSyntaxDef;
+import hub.sam.dbl.TimeLiteral;
+import hub.sam.dbl.TrueLiteral;
+import hub.sam.dbl.TsRule;
+import hub.sam.dbl.TypeAccess;
+import hub.sam.dbl.TypeLiteral;
+import hub.sam.dbl.Variable;
+import hub.sam.dbl.VariableAccess;
+import hub.sam.dbl.VoidType;
+import hub.sam.dbl.Wait;
+import hub.sam.dbl.WaitUntil;
+import hub.sam.dbl.WhileStatement;
+import hub.sam.dbl.Yield;
 import hub.sam.dbl.*;
 import hub.sam.dbl.util.DblUtil;
 
@@ -67,19 +201,18 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.BOOL_TYPE: return createBoolType();
 			case DblPackage.DOUBLE_TYPE: return createDoubleType();
 			case DblPackage.STRING_TYPE: return createStringType();
-			case DblPackage.PROCEDURE: return createProcedure();
+			case DblPackage.FUNCTION: return createFunction();
 			case DblPackage.FOR_STATEMENT: return createForStatement();
 			case DblPackage.NATIVE_BINDING: return createNativeBinding();
-			case DblPackage.CLAZZ: return createClazz();
+			case DblPackage.CLASS: return createClass();
 			case DblPackage.CONSTRUCTOR: return createConstructor();
-			case DblPackage.CLASS_AUGMENT: return createClassAugment();
 			case DblPackage.VARIABLE: return createVariable();
 			case DblPackage.PARAMETER: return createParameter();
 			case DblPackage.NAMED_ELEMENT: return createNamedElement();
 			case DblPackage.STATEMENT: return createStatement();
 			case DblPackage.SIMPLE_STATEMENT: return createSimpleStatement();
 			case DblPackage.ASSIGNMENT: return createAssignment();
-			case DblPackage.PROCEDURE_CALL: return createProcedureCall();
+			case DblPackage.FUNCTION_CALL: return createFunctionCall();
 			case DblPackage.RETURN: return createReturn();
 			case DblPackage.WAIT_UNTIL: return createWaitUntil();
 			case DblPackage.TERMINATE: return createTerminate();
@@ -140,8 +273,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.META_ACCESS: return createMetaAccess();
 			case DblPackage.TYPE_ACCESS: return createTypeAccess();
 			case DblPackage.EXTENSIBLE_ELEMENT: return createExtensibleElement();
-			case DblPackage.CLASS_CONTENT_EXTENSION: return createClassContentExtension();
-			case DblPackage.MODULE_CONTENT_EXTENSION: return createModuleContentExtension();
+			case DblPackage.CONSTRUCTIVE_EXTENSION: return createConstructiveExtension();
 			case DblPackage.EXTENSION_DEFINITION: return createExtensionDefinition();
 			case DblPackage.TEXTUAL_SYNTAX_DEF: return createTextualSyntaxDef();
 			case DblPackage.TS_RULE: return createTsRule();
@@ -158,16 +290,15 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.STRUCTURED_PROPERTY_TYPE: return createStructuredPropertyType();
 			case DblPackage.COMPOSITE_PROPERTY_TYPE: return createCompositePropertyType();
 			case DblPackage.REFERENCE_PROPERTY_TYPE: return createReferencePropertyType();
-			case DblPackage.MAPPING: return createMapping();
+			case DblPackage.EXTENSION_SEMANTICS_DEFINITION: return createExtensionSemanticsDefinition();
 			case DblPackage.META_EXPR: return createMetaExpr();
 			case DblPackage.TARGET_STATEMENT: return createTargetStatement();
-			case DblPackage.MAPPING_STATEMENT: return createMappingStatement();
-			case DblPackage.SET_GEN_CONTEXT_STATEMENT: return createSetGenContextStatement();
-			case DblPackage.RESET_GEN_CONTEXT_STATEMENT: return createResetGenContextStatement();
+			case DblPackage.EXPANSION_STATEMENT: return createExpansionStatement();
+			case DblPackage.SET_EXPANSION_CONTEXT_STATEMENT: return createSetExpansionContextStatement();
 			case DblPackage.SAVE_GEN_STATEMENT: return createSaveGenStatement();
 			case DblPackage.RESUME_GEN_STATEMENT: return createResumeGenStatement();
-			case DblPackage.FIXED_MAPPING_PART: return createFixedMappingPart();
-			case DblPackage.DYNAMIC_MAPPING_PART: return createDynamicMappingPart();
+			case DblPackage.EXPAND_TEXT_PART: return createExpandTextPart();
+			case DblPackage.EXPAND_VARIABLE_PART: return createExpandVariablePart();
 			case DblPackage.EXPAND_EXPRESSION: return createExpandExpression();
 			case DblPackage.EXPAND_STATEMENT: return createExpandStatement();
 			case DblPackage.CODE_QUOTE_EXPRESSION: return createCodeQuoteExpression();
@@ -185,12 +316,13 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.SWITCH_STATEMENT: return createSwitchStatement();
 			case DblPackage.SIZE_OF_ARRAY: return createSizeOfArray();
 			case DblPackage.LOCAL_SCOPE_STATEMENT: return createLocalScopeStatement();
-			case DblPackage.CLASS_PART: return createClassPart();
 			case DblPackage.CALL_PART: return createCallPart();
 			case DblPackage.RHS_CLASSIFIER_EXPR: return createRhsClassifierExpr();
 			case DblPackage.LOCAL_SCOPE: return createLocalScope();
 			case DblPackage.RHS_EXPRESSION: return createRhsExpression();
 			case DblPackage.EXPAND_EXPR: return createExpandExpr();
+			case DblPackage.CLASS_CONTENT: return createClassContent();
+			case DblPackage.MODULE_CONTENT: return createModuleContent();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -235,6 +367,36 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Module createModule() {
 		ModuleImpl module = new ModuleImpl();
 		return module;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConstructiveExtension createConstructiveExtension() {
+		ConstructiveExtensionImpl constructiveExtension = new ConstructiveExtensionImpl();
+		return constructiveExtension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ModuleContent createModuleContent() {
+		ModuleContentImpl moduleContent = new ModuleContentImpl();
+		return moduleContent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ClassContent createClassContent() {
+		ClassContentImpl classContent = new ClassContentImpl();
+		return classContent;
 	}
 
 	/**
@@ -302,9 +464,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Procedure createProcedure() {
-		ProcedureImpl procedure = new ProcedureImpl();
-		return procedure;
+	public Function createFunction() {
+		FunctionImpl function = new FunctionImpl();
+		return function;
 	}
 
 	/**
@@ -322,16 +484,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ClassPart createClassPart() {
-		ClassPartImpl classPart = new ClassPartImpl();
-		return classPart;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public SuperClassSpecification createSuperClassSpecification() {
 		SuperClassSpecificationImpl superClassSpecification = new SuperClassSpecificationImpl();
 		return superClassSpecification;
@@ -342,9 +494,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Clazz createClazz() {
-		ClazzImpl clazz = new ClazzImpl();
-		return clazz;
+	public hub.sam.dbl.Class createClass() {
+		ClassImpl class_ = new ClassImpl();
+		return class_;
 	}
 
 	/**
@@ -355,16 +507,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Constructor createConstructor() {
 		ConstructorImpl constructor = new ConstructorImpl();
 		return constructor;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ClassAugment createClassAugment() {
-		ClassAugmentImpl classAugment = new ClassAugmentImpl();
-		return classAugment;
 	}
 
 	/**
@@ -442,9 +584,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ProcedureCall createProcedureCall() {
-		ProcedureCallImpl procedureCall = new ProcedureCallImpl();
-		return procedureCall;
+	public FunctionCall createFunctionCall() {
+		FunctionCallImpl functionCall = new FunctionCallImpl();
+		return functionCall;
 	}
 
 	/**
@@ -1122,16 +1264,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ExtensibleElement createExtensibleElement() {
-		ExtensibleElementImpl extensibleElement = new ExtensibleElementImpl();
-		return extensibleElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ClassContentExtension createClassContentExtension() {
 		ClassContentExtensionImpl classContentExtension = new ClassContentExtensionImpl();
 		return classContentExtension;
@@ -1152,9 +1284,29 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ExtensibleElement createExtensibleElement() {
+		ExtensibleElementImpl extensibleElement = new ExtensibleElementImpl();
+		return extensibleElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ExtensionDefinition createExtensionDefinition() {
 		ExtensionDefinitionImpl extensionDefinition = new ExtensionDefinitionImpl();
 		return extensionDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExtensionSemanticsDefinition createExtensionSemanticsDefinition() {
+		ExtensionSemanticsDefinitionImpl extensionSemanticsDefinition = new ExtensionSemanticsDefinitionImpl();
+		return extensionSemanticsDefinition;
 	}
 
 	/**
@@ -1332,16 +1484,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Mapping createMapping() {
-		MappingImpl mapping = new MappingImpl();
-		return mapping;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public MetaExpr createMetaExpr() {
 		MetaExprImpl metaExpr = new MetaExprImpl();
 		return metaExpr;
@@ -1362,9 +1504,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public MappingStatement createMappingStatement() {
-		MappingStatementImpl mappingStatement = new MappingStatementImpl();
-		return mappingStatement;
+	public ExpansionStatement createExpansionStatement() {
+		ExpansionStatementImpl expansionStatement = new ExpansionStatementImpl();
+		return expansionStatement;
 	}
 
 	/**
@@ -1372,9 +1514,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public SetGenContextStatement createSetGenContextStatement() {
-		SetGenContextStatementImpl setGenContextStatement = new SetGenContextStatementImpl();
-		return setGenContextStatement;
+	public ExpandTextPart createExpandTextPart() {
+		ExpandTextPartImpl expandTextPart = new ExpandTextPartImpl();
+		return expandTextPart;
 	}
 
 	/**
@@ -1382,9 +1524,19 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ResetGenContextStatement createResetGenContextStatement() {
-		ResetGenContextStatementImpl resetGenContextStatement = new ResetGenContextStatementImpl();
-		return resetGenContextStatement;
+	public ExpandVariablePart createExpandVariablePart() {
+		ExpandVariablePartImpl expandVariablePart = new ExpandVariablePartImpl();
+		return expandVariablePart;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SetExpansionContextStatement createSetExpansionContextStatement() {
+		SetExpansionContextStatementImpl setExpansionContextStatement = new SetExpansionContextStatementImpl();
+		return setExpansionContextStatement;
 	}
 
 	/**
@@ -1405,26 +1557,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public ResumeGenStatement createResumeGenStatement() {
 		ResumeGenStatementImpl resumeGenStatement = new ResumeGenStatementImpl();
 		return resumeGenStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public FixedMappingPart createFixedMappingPart() {
-		FixedMappingPartImpl fixedMappingPart = new FixedMappingPartImpl();
-		return fixedMappingPart;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public DynamicMappingPart createDynamicMappingPart() {
-		DynamicMappingPartImpl dynamicMappingPart = new DynamicMappingPartImpl();
-		return dynamicMappingPart;
 	}
 
 	/**

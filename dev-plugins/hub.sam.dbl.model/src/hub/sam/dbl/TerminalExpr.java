@@ -32,6 +32,9 @@ public interface TerminalExpr extends L1RhsExpr {
 	 * @see #setTerminal(String)
 	 * @see hub.sam.dbl.DblPackage#getTerminalExpr_Terminal()
 	 * @model required="true"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='PropertyBindingExpr'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='PropertyBindingExpr'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='PropertyBindingExpr'"
 	 * @generated
 	 */
 	String getTerminal();

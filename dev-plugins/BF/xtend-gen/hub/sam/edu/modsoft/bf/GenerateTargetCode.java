@@ -125,31 +125,11 @@ public class GenerateTargetCode {
         _builder.append("Item");
         _builder.newLine();
         _builder.append("\t");
-        EClass _eClass_1 = eObject.eClass();
-        EList<EStructuralFeature> _eAllStructuralFeatures = _eClass_1.getEAllStructuralFeatures();
-        final Function1<EStructuralFeature, Boolean> _function = new Function1<EStructuralFeature, Boolean>() {
-          public Boolean apply(final EStructuralFeature sf) {
-            String _name = sf.getName();
-            return Boolean.valueOf(_name.equals("itemName"));
-          }
-        };
-        EStructuralFeature _findFirst = IterableExtensions.<EStructuralFeature>findFirst(_eAllStructuralFeatures, _function);
-        Object _eGet = eObject.eGet(_findFirst);
-        _builder.append(_eGet, "\t");
-        _builder.newLineIfNotEmpty();
+        _builder.append("�eObject.eGet(eObject.eClass.EAllStructuralFeatures.findFirst[ sf | sf.name.equals(\"itemName\") ])�");
+        _builder.newLine();
         _builder.append("\t");
-        EClass _eClass_2 = eObject.eClass();
-        EList<EStructuralFeature> _eAllStructuralFeatures_1 = _eClass_2.getEAllStructuralFeatures();
-        final Function1<EStructuralFeature, Boolean> _function_1 = new Function1<EStructuralFeature, Boolean>() {
-          public Boolean apply(final EStructuralFeature sf) {
-            String _name = sf.getName();
-            return Boolean.valueOf(_name.equals("name"));
-          }
-        };
-        EStructuralFeature _findFirst_1 = IterableExtensions.<EStructuralFeature>findFirst(_eAllStructuralFeatures_1, _function_1);
-        Object _eGet_1 = eObject.eGet(_findFirst_1);
-        _builder.append(_eGet_1, "\t");
-        _builder.newLineIfNotEmpty();
+        _builder.append("�eObject.eGet(eObject.eClass.EAllStructuralFeatures.findFirst[ sf | sf.name.equals(\"name\") ])�");
+        _builder.newLine();
         _builder.append(".");
         _builder.newLine();
         _switchResult = _builder;
@@ -163,43 +143,21 @@ public class GenerateTargetCode {
   
   public CharSequence _compile(final Box box) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("Box ");
-    String _name = box.getName();
-    _builder.append(_name, "");
-    _builder.append(" ");
+    _builder.append("Box �box.name� ");
     StringConcatenation _builder_1 = new StringConcatenation();
-    {
-      EList<Flow> _flows = box.getFlows();
-      boolean _isEmpty = _flows.isEmpty();
-      boolean _not = (!_isEmpty);
-      if (_not) {
-        _builder_1.append("with");
-        _builder_1.newLineIfNotEmpty();
-        {
-          EList<Flow> _flows_1 = box.getFlows();
-          boolean _hasElements = false;
-          for(final Flow flow : _flows_1) {
-            if (!_hasElements) {
-              _hasElements = true;
-            } else {
-              _builder_1.appendImmediate(", ", "\t");
-            }
-            _builder_1.append("\t");
-            _builder_1.append("flow from ");
-            Box _sourceBox = flow.getSourceBox();
-            String _name_1 = _sourceBox.getName();
-            _builder_1.append(_name_1, "\t");
-            _builder_1.append(" to ");
-            Box _targetBox = flow.getTargetBox();
-            String _name_2 = _targetBox.getName();
-            _builder_1.append(_name_2, "\t");
-            _builder_1.newLineIfNotEmpty();
-          }
-        }
-      }
-    }
-    _builder_1.append(".");
-    _builder_1.newLineIfNotEmpty();
+    _builder_1.append("�IF !box.flows.empty�with");
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("�FOR flow : box.flows SEPARATOR \', \'�");
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("flow from �flow.sourceBox.name� to �flow.targetBox.name�");
+    _builder_1.newLine();
+    _builder_1.append("\t");
+    _builder_1.append("�ENDFOR�");
+    _builder_1.newLine();
+    _builder_1.append("�ENDIF�.");
+    _builder_1.newLine();
     String _string = _builder_1.toString();
     String _trim = _string.trim();
     return (_builder.toString() + _trim);

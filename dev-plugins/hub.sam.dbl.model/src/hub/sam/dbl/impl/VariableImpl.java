@@ -7,25 +7,15 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.ModifierExtensionsContainer;
 import hub.sam.dbl.SimpleStatement;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.Variable;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -37,9 +27,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.VariableImpl#getModifierExtensions <em>Modifier Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#isControl <em>Control</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.VariableImpl#isClazz <em>Clazz</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.VariableImpl#isClass <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.VariableImpl#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
  * </p>
@@ -98,16 +87,6 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	protected boolean instanceOfExtensionDefinition = INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getModifierExtensions() <em>Modifier Extensions</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getModifierExtensions()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<ExtensibleElement> modifierExtensions;
-
-	/**
 	 * The default value of the '{@link #isControl() <em>Control</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -128,24 +107,24 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	protected boolean control = CONTROL_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #isClazz() <em>Clazz</em>}' attribute.
+	 * The default value of the '{@link #isClass() <em>Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isClazz()
+	 * @see #isClass()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean CLAZZ_EDEFAULT = false;
+	protected static final boolean CLASS_EDEFAULT = false;
 
 	/**
-	 * The cached value of the '{@link #isClazz() <em>Clazz</em>}' attribute.
+	 * The cached value of the '{@link #isClass() <em>Class</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #isClazz()
+	 * @see #isClass()
 	 * @generated
 	 * @ordered
 	 */
-	protected boolean clazz = CLAZZ_EDEFAULT;
+	protected boolean class_ = CLASS_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' containment reference.
@@ -266,18 +245,6 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensibleElement> getModifierExtensions() {
-		if (modifierExtensions == null) {
-			modifierExtensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.VARIABLE__MODIFIER_EXTENSIONS);
-		}
-		return modifierExtensions;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isControl() {
 		return control;
 	}
@@ -299,8 +266,8 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isClazz() {
-		return clazz;
+	public boolean isClass() {
+		return class_;
 	}
 
 	/**
@@ -308,11 +275,11 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setClazz(boolean newClazz) {
-		boolean oldClazz = clazz;
-		clazz = newClazz;
+	public void setClass(boolean newClass) {
+		boolean oldClass = class_;
+		class_ = newClass;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.VARIABLE__CLAZZ, oldClazz, clazz));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.VARIABLE__CLASS, oldClass, class_));
 	}
 
 	/**
@@ -368,8 +335,6 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 		switch (featureID) {
 			case DblPackage.VARIABLE__EXPAND_EXPR:
 				return basicSetExpandExpr(null, msgs);
-			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
-				return ((InternalEList<?>)getModifierExtensions()).basicRemove(otherEnd, msgs);
 			case DblPackage.VARIABLE__INITIAL_VALUE:
 				return basicSetInitialValue(null, msgs);
 		}
@@ -390,12 +355,10 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 				return getConcreteSyntax();
 			case DblPackage.VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION:
 				return isInstanceOfExtensionDefinition();
-			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
-				return getModifierExtensions();
 			case DblPackage.VARIABLE__CONTROL:
 				return isControl();
-			case DblPackage.VARIABLE__CLAZZ:
-				return isClazz();
+			case DblPackage.VARIABLE__CLASS:
+				return isClass();
 			case DblPackage.VARIABLE__INITIAL_VALUE:
 				return getInitialValue();
 		}
@@ -420,15 +383,11 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 			case DblPackage.VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION:
 				setInstanceOfExtensionDefinition((Boolean)newValue);
 				return;
-			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
-				getModifierExtensions().clear();
-				getModifierExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
-				return;
 			case DblPackage.VARIABLE__CONTROL:
 				setControl((Boolean)newValue);
 				return;
-			case DblPackage.VARIABLE__CLAZZ:
-				setClazz((Boolean)newValue);
+			case DblPackage.VARIABLE__CLASS:
+				setClass((Boolean)newValue);
 				return;
 			case DblPackage.VARIABLE__INITIAL_VALUE:
 				setInitialValue((Expression)newValue);
@@ -454,14 +413,11 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 			case DblPackage.VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION:
 				setInstanceOfExtensionDefinition(INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT);
 				return;
-			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
-				getModifierExtensions().clear();
-				return;
 			case DblPackage.VARIABLE__CONTROL:
 				setControl(CONTROL_EDEFAULT);
 				return;
-			case DblPackage.VARIABLE__CLAZZ:
-				setClazz(CLAZZ_EDEFAULT);
+			case DblPackage.VARIABLE__CLASS:
+				setClass(CLASS_EDEFAULT);
 				return;
 			case DblPackage.VARIABLE__INITIAL_VALUE:
 				setInitialValue((Expression)null);
@@ -484,12 +440,10 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
 			case DblPackage.VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION:
 				return instanceOfExtensionDefinition != INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
-			case DblPackage.VARIABLE__MODIFIER_EXTENSIONS:
-				return modifierExtensions != null && !modifierExtensions.isEmpty();
 			case DblPackage.VARIABLE__CONTROL:
 				return control != CONTROL_EDEFAULT;
-			case DblPackage.VARIABLE__CLAZZ:
-				return clazz != CLAZZ_EDEFAULT;
+			case DblPackage.VARIABLE__CLASS:
+				return class_ != CLASS_EDEFAULT;
 			case DblPackage.VARIABLE__INITIAL_VALUE:
 				return initialValue != null;
 		}
@@ -526,12 +480,6 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 				default: return -1;
 			}
 		}
-		if (baseClass == ModifierExtensionsContainer.class) {
-			switch (derivedFeatureID) {
-				case DblPackage.VARIABLE__MODIFIER_EXTENSIONS: return DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS;
-				default: return -1;
-			}
-		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -565,12 +513,6 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 				default: return -1;
 			}
 		}
-		if (baseClass == ModifierExtensionsContainer.class) {
-			switch (baseFeatureID) {
-				case DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS: return DblPackage.VARIABLE__MODIFIER_EXTENSIONS;
-				default: return -1;
-			}
-		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
@@ -590,8 +532,8 @@ public class VariableImpl extends AbstractVariableImpl implements Variable {
 		result.append(instanceOfExtensionDefinition);
 		result.append(", control: ");
 		result.append(control);
-		result.append(", clazz: ");
-		result.append(clazz);
+		result.append(", class: ");
+		result.append(class_);
 		result.append(')');
 		return result.toString();
 	}

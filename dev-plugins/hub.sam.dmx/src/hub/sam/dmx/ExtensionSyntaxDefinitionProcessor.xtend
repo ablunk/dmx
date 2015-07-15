@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EcoreFactory
 import hub.sam.dbl.SequenceExpr
 import hub.sam.dbl.RhsClassifierExpr
 import java.util.logging.Logger
-import hub.sam.dbl.Clazz
+import hub.sam.dbl.Class
 import hub.sam.dbl.LanguageConstructClassifier
 import hub.sam.dbl.TerminalExpr
 import hub.sam.dbl.PropertyBindingExpr
@@ -144,7 +144,7 @@ class ExtensionSyntaxDefinitionProcessor {
 		return nonTerminal
 	}
 	
-	private def dispatch NonTerminal createNonTerminal(Clazz clazz) {
+	private def dispatch NonTerminal createNonTerminal(Class clazz) {
 		val nonTerminal = TslFactory.eINSTANCE.createNonTerminal()
 		nonTerminal.setName(clazz.syntaxRuleName)
 		return nonTerminal
@@ -167,7 +167,7 @@ class ExtensionSyntaxDefinitionProcessor {
 		return extDef.name + "_" + extDef.textualSyntaxDef.startRule.name + "_extension"
 	}
 
-	private def dispatch String getSyntaxRuleName(Clazz clazz) {
+	private def dispatch String getSyntaxRuleName(Class clazz) {
 		return clazz.name
 	}
 
@@ -213,12 +213,12 @@ class ExtensionSyntaxDefinitionProcessor {
 			while (conceptClassifier instanceof ExtensionDefinition) {
 				conceptClassifier = (conceptClassifier as ExtensionDefinition).extendedConcept
 			}
-			_instantiableDblEClass = (conceptClassifier as Clazz).metaClass
+			_instantiableDblEClass = (conceptClassifier as Class).metaClass
 		}
 		return _instantiableDblEClass;
 	}
 	
-	private def dispatch EClass getMetaClass(Clazz conceptClassifier) {
+	private def dispatch EClass getMetaClass(Class conceptClassifier) {
 		return _getMetaClass_general(conceptClassifier.syntaxRuleName, conceptClassifier)
 	}
 	
@@ -253,7 +253,7 @@ class ExtensionSyntaxDefinitionProcessor {
 					while (conceptClassifier instanceof ExtensionDefinition) {
 						conceptClassifier = (conceptClassifier as ExtensionDefinition).extendedConcept
 					}
-					metaClass.getESuperTypes().add((conceptClassifier as Clazz).metaClass);
+					metaClass.getESuperTypes().add((conceptClassifier as Class).metaClass);
 				}
 				else {
 					metaClass.getESuperTypes().add(instantiableDblEClass);
@@ -300,7 +300,7 @@ class ExtensionSyntaxDefinitionProcessor {
 			ExtensionDefinition: {
 				tslRule.getRhs().add(createNonTerminal(type));
 			}
-			Clazz: {
+			Class: {
 
 				// copy rhs of the rule identified by the name of type to this rule's rhs
 				val firstRuleWithClassName = syntax.rules.findFirst[lhs.name.equals(type.name)]

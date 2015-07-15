@@ -28,6 +28,8 @@ public class EcoreToDblGenerator extends AbstractGenerator {
     try {
       final Writer writer = this.beginTargetFile(outputFile);
       StringConcatenation _builder = new StringConcatenation();
+      _builder.append("#import \"stdlib\"");
+      _builder.newLine();
       {
         boolean _notEquals = (!Objects.equal(imports, null));
         if (_notEquals) {
@@ -104,6 +106,10 @@ public class EcoreToDblGenerator extends AbstractGenerator {
     return _xblockexpression;
   }
   
+  public String escapeName(final String name) {
+    return name;
+  }
+  
   public String genAttribute(final EStructuralFeature feature) {
     String _xblockexpression = null;
     {
@@ -111,7 +117,8 @@ public class EcoreToDblGenerator extends AbstractGenerator {
       String _genType = this.genType(it);
       String _plus = (_genType + " ");
       String _name = it.getName();
-      String _plus_1 = (_plus + _name);
+      String _escapeName = this.escapeName(_name);
+      String _plus_1 = (_plus + _escapeName);
       _xblockexpression = (_plus_1 + ";");
     }
     return _xblockexpression;
@@ -134,7 +141,8 @@ public class EcoreToDblGenerator extends AbstractGenerator {
       }
       String _plus_1 = (_plus + _xifexpression);
       String _name_1 = it.getName();
-      String _firstUpper = StringExtensions.toFirstUpper(_name_1);
+      String _escapeName = this.escapeName(_name_1);
+      String _firstUpper = StringExtensions.toFirstUpper(_escapeName);
       String _plus_2 = (_plus_1 + _firstUpper);
       _xblockexpression = (_plus_2 + "() abstract;");
     }
@@ -150,7 +158,8 @@ public class EcoreToDblGenerator extends AbstractGenerator {
       boolean _not = (!_isMany);
       if (_not) {
         String _name = it.getName();
-        String _firstUpper = StringExtensions.toFirstUpper(_name);
+        String _escapeName = this.escapeName(_name);
+        String _firstUpper = StringExtensions.toFirstUpper(_escapeName);
         String _plus = ("void set" + _firstUpper);
         String _plus_1 = (_plus + "(");
         String _genType = this.genType(it);
@@ -233,34 +242,6 @@ public class EcoreToDblGenerator extends AbstractGenerator {
         _xifexpression = _builder.toString();
       } else {
         StringConcatenation _builder_1 = new StringConcatenation();
-        _builder_1.append("class Object {");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("bindings {");
-        _builder_1.newLine();
-        _builder_1.append("\t\t");
-        _builder_1.append("\"java\" -> \"java.lang.Object\"");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.newLine();
-        _builder_1.append("class Class {");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("bindings {");
-        _builder_1.newLine();
-        _builder_1.append("\t\t");
-        _builder_1.append("\"java\" -> \"java.lang.Class\"");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.newLine();
         _builder_1.append("class Enumerator {");
         _builder_1.newLine();
         _builder_1.append("\t");
@@ -271,71 +252,6 @@ public class EcoreToDblGenerator extends AbstractGenerator {
         _builder_1.newLine();
         _builder_1.append("\t");
         _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.newLine();
-        _builder_1.append("class ListIterator {");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("bindings {");
-        _builder_1.newLine();
-        _builder_1.append("\t\t");
-        _builder_1.append("\"java\" -> \"java.util.Iterator\"");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("boolean hasNext() abstract;");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("Object next() abstract;");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("void remove() abstract;");
-        _builder_1.newLine();
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.newLine();
-        _builder_1.append("class List {");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("bindings {");
-        _builder_1.newLine();
-        _builder_1.append("\t\t");
-        _builder_1.append("\"java\" -> \"java.util.List\"");
-        _builder_1.newLine();
-        _builder_1.append("\t");
-        _builder_1.append("}");
-        _builder_1.newLine();
-        _builder_1.newLine();
-        _builder_1.append("boolean add(Object e) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("boolean add(int index, Object e) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("void clear() abstract;");
-        _builder_1.newLine();
-        _builder_1.append("boolean contains(Object e) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("int size() abstract;");
-        _builder_1.newLine();
-        _builder_1.append("Object get(int index) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("int indexOf(Object e) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("boolean isEmpty() abstract;");
-        _builder_1.newLine();
-        _builder_1.append("Object remove(int index) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("boolean remove(Object e) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("Object set(int index, Object e) abstract;");
-        _builder_1.newLine();
-        _builder_1.append("Object array[] toArray() abstract;");
-        _builder_1.newLine();
-        _builder_1.append("ListIterator iterator() abstract;");
         _builder_1.newLine();
         _builder_1.append("}");
         _builder_1.newLine();

@@ -15,7 +15,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link hub.sam.dbl.ExtensionDefinition#getExtendedConcept <em>Extended Concept</em>}</li>
  *   <li>{@link hub.sam.dbl.ExtensionDefinition#getAbstractSyntaxDef <em>Abstract Syntax Def</em>}</li>
  *   <li>{@link hub.sam.dbl.ExtensionDefinition#getTextualSyntaxDef <em>Textual Syntax Def</em>}</li>
- *   <li>{@link hub.sam.dbl.ExtensionDefinition#getMappingDef <em>Mapping Def</em>}</li>
  * </ul>
  * </p>
  *
@@ -51,20 +50,30 @@ public interface ExtensionDefinition extends LanguageConceptClassifier, Extensib
 	void setExtendedConcept(LanguageConceptClassifier value);
 
 	/**
-	 * Returns the value of the '<em><b>Abstract Syntax Def</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.Classifier}.
+	 * Returns the value of the '<em><b>Abstract Syntax Def</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Abstract Syntax Def</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Abstract Syntax Def</em>' containment reference list.
+	 * @return the value of the '<em>Abstract Syntax Def</em>' containment reference.
+	 * @see #setAbstractSyntaxDef(hub.sam.dbl.Class)
 	 * @see hub.sam.dbl.DblPackage#getExtensionDefinition_AbstractSyntaxDef()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Classifier> getAbstractSyntaxDef();
+	hub.sam.dbl.Class getAbstractSyntaxDef();
+
+	/**
+	 * Sets the value of the '{@link hub.sam.dbl.ExtensionDefinition#getAbstractSyntaxDef <em>Abstract Syntax Def</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Abstract Syntax Def</em>' containment reference.
+	 * @see #getAbstractSyntaxDef()
+	 * @generated
+	 */
+	void setAbstractSyntaxDef(hub.sam.dbl.Class value);
 
 	/**
 	 * Returns the value of the '<em><b>Textual Syntax Def</b></em>' containment reference.
@@ -91,31 +100,5 @@ public interface ExtensionDefinition extends LanguageConceptClassifier, Extensib
 	 * @generated
 	 */
 	void setTextualSyntaxDef(TextualSyntaxDef value);
-
-	/**
-	 * Returns the value of the '<em><b>Mapping Def</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Mapping Def</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Mapping Def</em>' containment reference.
-	 * @see #setMappingDef(Mapping)
-	 * @see hub.sam.dbl.DblPackage#getExtensionDefinition_MappingDef()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Mapping getMappingDef();
-
-	/**
-	 * Sets the value of the '{@link hub.sam.dbl.ExtensionDefinition#getMappingDef <em>Mapping Def</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Mapping Def</em>' containment reference.
-	 * @see #getMappingDef()
-	 * @generated
-	 */
-	void setMappingDef(Mapping value);
 
 } // ExtensionDefinition

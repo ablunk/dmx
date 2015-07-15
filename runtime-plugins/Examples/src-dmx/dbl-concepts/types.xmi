@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <modules name="types">
+    <classes name="A"/>
+    <classes name="String">
+      <bindings targetLanguage="java" targetType="java.lang.String"/>
+      <methods name="length" abstract="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.3"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <typeArrayDimensions>
+            <size xsi:type="dbl:IntLiteral" value="10"/>
+          </typeArrayDimensions>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.4"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <typeArrayDimensions>
+            <size xsi:type="dbl:IntLiteral" value="2"/>
+          </typeArrayDimensions>
+          <typeArrayDimensions>
+            <size xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+          </typeArrayDimensions>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.3">
+            <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" value="1"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.4">
+            <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
+            <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" value="1"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.5"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject">
+          <typeArrayDimensions>
+            <size xsi:type="dbl:IntLiteral" value="10"/>
+          </typeArrayDimensions>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.5">
+            <arrayIndex xsi:type="dbl:IntLiteral"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@variables.6"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4"/>
+          </classifierType>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@variables.6"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:CreateObject">
+              <classifierType referencedElement="//@modules.0/@classes.0"/>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0">
+            <parentIdExpr referencedElement="//@modules.0/@variables.8"/>
+            <callPart/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+    </functions>
+    <variables name="i">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="2"/>
+    </variables>
+    <variables name="d">
+      <primitiveType xsi:type="dbl:DoubleType"/>
+      <initialValue xsi:type="dbl:DoubleLiteral" value="2.5"/>
+    </variables>
+    <variables name="b">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral"/>
+    </variables>
+    <variables name="iArray1">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <typeArrayDimensions/>
+    </variables>
+    <variables name="iArray2">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <typeArrayDimensions/>
+      <typeArrayDimensions/>
+    </variables>
+    <variables name="aArray">
+      <typeArrayDimensions/>
+      <classifierType referencedElement="//@modules.0/@classes.0"/>
+    </variables>
+    <variables name="iList">
+      <classifierType>
+        <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3"/>
+      </classifierType>
+    </variables>
+    <variables name="s">
+      <primitiveType xsi:type="dbl:StringType"/>
+      <initialValue xsi:type="dbl:StringLiteral" value="hello"/>
+    </variables>
+    <variables name="stringObject">
+      <classifierType referencedElement="//@modules.0/@classes.1"/>
+      <initialValue xsi:type="dbl:StringLiteral" value="hello"/>
+    </variables>
+  </modules>
+</dbl:Model>

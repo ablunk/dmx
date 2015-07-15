@@ -7,28 +7,28 @@
     <model href="../stdlib.xmi#/"/>
   </imports>
   <modules name="stdx_forever">
-    <extensionDefs name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}&#xA;semantics {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.30"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0">
-        <rules name="Forever">
+    <extensionDefinitions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}">
+      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@clazzes.28"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
+        <rules name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="forever"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@classifiers.44"/>
+                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@clazzes.42"/>
               </propertyType>
             </sequence>
           </rhs>
         </rules>
       </textualSyntaxDef>
-      <mappingDef concreteSyntax="expand &quot;while (true) &quot; body;">
-        <statements xsi:type="dbl:MappingStatement" concreteSyntax="expand &quot;while (true) &quot; body">
-          <parts xsi:type="dbl:FixedMappingPart" code="while (true) "/>
-          <parts xsi:type="dbl:DynamicMappingPart">
-            <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefs.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
-          </parts>
-        </statements>
-      </mappingDef>
-    </extensionDefs>
+    </extensionDefinitions>
+    <extensionSemanticsDefinitions concreteSyntax="semantics for Forever {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}" syntaxDefinition="//@modules.0/@extensionDefinitions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (true) &quot; body">
+        <parts xsi:type="dbl:ExpandTextPart" text="while (true) "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+        </parts>
+      </statements>
+    </extensionSemanticsDefinitions>
   </modules>
 </dbl:Model>

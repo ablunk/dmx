@@ -5,7 +5,6 @@ import hub.sam.dbl.ExtensionDefinition
 import hub.sam.dbl.IdExpr
 import hub.sam.dbl.Import
 import hub.sam.dbl.IntPropertyType
-import hub.sam.dbl.MappingStatement
 import hub.sam.dbl.Model
 import hub.sam.dbl.Module
 import hub.sam.dbl.PropertyBindingExpr
@@ -22,6 +21,8 @@ import hub.sam.dbl.CompositePropertyType
 import hub.sam.dbl.LanguageConstructClassifier
 import hub.sam.dbl.IdPropertyType
 import java.util.logging.Logger
+import hub.sam.dbl.ExpansionStatement
+import hub.sam.dbl.ExtensionSemanticsDefinition
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -88,7 +89,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	}
 	
 	def boolean isPartOfGenStatement(IdExpr idExpr) {
-		return idExpr.getContainerObjectOfType(MappingStatement) != null
+		return idExpr.getContainerObjectOfType(ExpansionStatement) != null
 	}
 	
 	def boolean refersToSyntaxPart_ofType_StructuredPropertyType(IdExpr idExpr) {
@@ -317,7 +318,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		for (Import imprt: model.imports) {
 			if (imprt.model != null) {
 				for (Module module: imprt.model.modules) {
-					extDef = module.extensionDefs.findFirst[
+					extDef = module.extensionDefinitions.findFirst[
 						e | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e).equals(name)
 					]
 					if (extDef != null) return extDef
@@ -328,56 +329,74 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		}
 		return extDef
 	}
+
+	def ExtensionSemanticsDefinition getImportedExtensionSemanticsDefinition(Model model, String name) {
+		var ExtensionSemanticsDefinition semanticsDef;
+		for (Import imprt: model.imports) {
+			if (imprt.model != null) {
+				for (Module module: imprt.model.modules) {
+					semanticsDef = module.extensionSemanticsDefinitions.findFirst[
+						sd | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(sd.syntaxDefinition).equals(name)
+					]
+					if (semanticsDef != null) return semanticsDef
+				}
+				semanticsDef = getImportedExtensionSemanticsDefinition(imprt.model, name)
+				if (semanticsDef != null) return semanticsDef
+			}
+		}
+		return semanticsDef
+	}
 	
 	def void genExtensionDefinition(Model model, String extensionDefinitionName) {
 		// look for extension definition in all imported models
-		var ExtensionDefinition extensionDefinition = model.getImportedExtensionDefinition(extensionDefinitionName)
+		//var ExtensionDefinition extensionDefinition = model.getImportedExtensionDefinition(extensionDefinitionName)
+		val ExtensionSemanticsDefinition semanticsDef = model.getImportedExtensionSemanticsDefinition(extensionDefinitionName)
 		
-		if (extensionDefinition != null) {
-			model.genExtensionDefinition(extensionDefinition)
+		if (semanticsDef != null) {
+			model.genExtensionSemanticsDefinition(semanticsDef)
 		}
 	}
 	
-	def void genExtensionDefinition(Model model, ExtensionDefinition extensionDefinition) {
-		print("Generating Java code for extension definition " + extensionDefinition.name + " ... ");
+	def void genExtensionSemanticsDefinition(Model model, ExtensionSemanticsDefinition semanticsDef) {
+		print("Generating Java code for extension definition " + semanticsDef.syntaxDefinition.name + " ... ");
 
 		// generate Java code
-		val Module module = extensionDefinition.eContainer as Module;
+		val Module module = semanticsDef.eContainer as Module;
 		val moduleFolder = javaPackageFolder.append(module.name)
 		makeFolder(moduleFolder)
 
-		val String result = extensionDefinition.genExtensionDefinition
+		val String result = semanticsDef.genExtensionSemanticsDefinition
 		if (result != null && result != "") {
-			val Writer writer = beginTargetFile(moduleFolder, extensionDefinition.name + "Semantics.java");
+			val Writer writer = beginTargetFile(moduleFolder, semanticsDef.syntaxDefinition.name + "Semantics.java");
 			writer.write(result)
 			endTargetFile(writer)
 			println("ok.");
 		}
 	}
 
-	def String genExtensionDefinition(ExtensionDefinition extensionDefinition) {
-		val it = extensionDefinition
+	def String genExtensionSemanticsDefinition(ExtensionSemanticsDefinition semanticsDef) {
+		val it = semanticsDef
 		
-		if (mappingDef.statements.empty) {
-			logger.severe("extension instance will not be replaced because semantics part of " + extensionDefinition.name + " is empty.")
+		if (statements.empty) {
+			logger.severe("extension instance will not be replaced because semantics part of " + semanticsDef.syntaxDefinition.name + " is empty.")
 		}
 		
 		'''
-		«(extensionDefinition.eContainer as Module).genPackageStatement»
+		«(semanticsDef.eContainer as Module).genPackageStatement»
 		
 		import hub.sam.dmx.AbstractExtensionSemantics;
 		import hub.sam.dbl.*;
 		import org.eclipse.emf.ecore.EObject;
 
-		public class «name»Semantics extends AbstractExtensionSemantics {
+		public class «syntaxDefinition.name»Semantics extends AbstractExtensionSemantics {
 
 			public static void main(String[] args) {
-				(new «name»Semantics()).doGenerate(args);
+				(new «syntaxDefinition.name»Semantics()).doGenerate(args);
 			}
 
 
 			public void doGenerate(EObject _extensionInstance) {
-				«mappingDef.genStatement»
+				«statements.gen»
 			}
 
 		}

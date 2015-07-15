@@ -3,6 +3,7 @@ package hub.sam.dmx;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.ExtensionSemanticsDefinition;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.Model;
 import hub.sam.dmx.modifications.Addition;
@@ -582,18 +583,18 @@ public class ModelLauncher {
 			for (String extensionDefinitionName: leafExtensionInstances.keySet()) {
 
 				// generate executable code from extension definition semantics
-				ExtensionDefinition extensionDefinition = getExtensionDefinitionGenerator().getImportedExtensionDefinition(workingModel.getModel(), extensionDefinitionName);
-				if (extensionDefinition == null) {
-					logger.severe("cannot find the extension definition " + extensionDefinitionName + " by import anymore. possibly the extension definition itself was replaced.");
+				ExtensionSemanticsDefinition semanticsDefinition = getExtensionDefinitionGenerator().getImportedExtensionSemanticsDefinition(workingModel.getModel(), extensionDefinitionName);
+				if (semanticsDefinition == null) {
+					logger.severe("cannot find semantics of extension definition " + extensionDefinitionName + " by import anymore. possibly the extension definition itself was replaced.");
 					throw new RuntimeException();
 				}else {
-					extensionDefinitions.put(extensionDefinitionName, extensionDefinition);
+					extensionDefinitions.put(extensionDefinitionName, semanticsDefinition.getSyntaxDefinition());
 	
 					if (!extensionDefinitionSemanticsGenerated.contains(extensionDefinitionName)) {
 						extensionDefinitionSemanticsGenerated.add(extensionDefinitionName);
 						logger.info("Generating executable semantics for extension definition " + extensionDefinitionName);
 						
-						getExtensionDefinitionGenerator().genExtensionDefinition(workingModel.getModel(), extensionDefinition);
+						getExtensionDefinitionGenerator().genExtensionSemanticsDefinition(workingModel.getModel(), semanticsDefinition);
 						javaCodeAdded = true;
 					}
 				}

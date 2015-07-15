@@ -35,7 +35,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SuperClassSpecificationItemProvider
+public class SuperClassSpecificationItemProvider 
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -64,25 +64,25 @@ public class SuperClassSpecificationItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addClazzPropertyDescriptor(object);
+			addClassPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
 
 	/**
-	 * This adds a property descriptor for the Clazz feature.
+	 * This adds a property descriptor for the Class feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addClazzPropertyDescriptor(Object object) {
+	protected void addClassPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_SuperClassSpecification_clazz_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_SuperClassSpecification_clazz_feature", "_UI_SuperClassSpecification_type"),
-				 DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CLAZZ,
+				 getString("_UI_SuperClassSpecification_class_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_SuperClassSpecification_class_feature", "_UI_SuperClassSpecification_type"),
+				 DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CLASS,
 				 true,
 				 false,
 				 true,
@@ -142,6 +142,7 @@ public class SuperClassSpecificationItemProvider
 	public String getText(Object object) {
 		return getString("_UI_SuperClassSpecification_type");
 	}
+	
 
 	/**
 	 * This handles model notifications by calling {@link #updateChildren} to update any cached

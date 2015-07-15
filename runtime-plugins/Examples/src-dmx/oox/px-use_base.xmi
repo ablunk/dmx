@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="oox-use-px-def">
+    <model href="oox-use-px-def.xmi#/"/>
+  </imports>
+  <modules name="pxUse">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;hello&quot;">
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;hello&quot;" value="hello"/>
+      </statements>
+      <statements xsi:type="dbl:PX_PX_extension" concreteSyntax="px &quot;world&quot;;" instanceOfExtensionDefinition="true" s="world"/>
+    </procedures>
+  </modules>
+</dbl:Model>

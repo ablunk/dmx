@@ -2,7 +2,6 @@ package hub.sam.dmx;
 
 import com.google.common.base.Objects;
 import hub.sam.dbl.BooleanPropertyType;
-import hub.sam.dbl.Clazz;
 import hub.sam.dbl.CompositePropertyType;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensionDefinition;
@@ -174,7 +173,7 @@ public class ExtensionSyntaxDefinitionProcessor {
     return nonTerminal;
   }
   
-  private NonTerminal _createNonTerminal(final Clazz clazz) {
+  private NonTerminal _createNonTerminal(final hub.sam.dbl.Class clazz) {
     final NonTerminal nonTerminal = TslFactory.eINSTANCE.createNonTerminal();
     String _syntaxRuleName = this.getSyntaxRuleName(clazz);
     nonTerminal.setName(_syntaxRuleName);
@@ -219,7 +218,7 @@ public class ExtensionSyntaxDefinitionProcessor {
     return (_plus_1 + "_extension");
   }
   
-  private String _getSyntaxRuleName(final Clazz clazz) {
+  private String _getSyntaxRuleName(final hub.sam.dbl.Class clazz) {
     return clazz.getName();
   }
   
@@ -279,13 +278,13 @@ public class ExtensionSyntaxDefinitionProcessor {
         LanguageConceptClassifier _extendedConcept = ((ExtensionDefinition) conceptClassifier).getExtendedConcept();
         conceptClassifier = _extendedConcept;
       }
-      EClass _metaClass = this.getMetaClass(((Clazz) conceptClassifier));
+      EClass _metaClass = this.getMetaClass(((hub.sam.dbl.Class) conceptClassifier));
       this._instantiableDblEClass = _metaClass;
     }
     return this._instantiableDblEClass;
   }
   
-  private EClass _getMetaClass(final Clazz conceptClassifier) {
+  private EClass _getMetaClass(final hub.sam.dbl.Class conceptClassifier) {
     String _syntaxRuleName = this.getSyntaxRuleName(conceptClassifier);
     return this._getMetaClass_general(_syntaxRuleName, conceptClassifier);
   }
@@ -332,7 +331,7 @@ public class ExtensionSyntaxDefinitionProcessor {
             conceptClassifier = _extendedConcept;
           }
           EList<EClass> _eSuperTypes = metaClass.getESuperTypes();
-          EClass _metaClass = this.getMetaClass(((Clazz) conceptClassifier));
+          EClass _metaClass = this.getMetaClass(((hub.sam.dbl.Class) conceptClassifier));
           _eSuperTypes.add(_metaClass);
         } else {
           EList<EClass> _eSuperTypes_1 = metaClass.getESuperTypes();
@@ -419,7 +418,7 @@ public class ExtensionSyntaxDefinitionProcessor {
       }
     }
     if (!_matched) {
-      if (type instanceof Clazz) {
+      if (type instanceof hub.sam.dbl.Class) {
         _matched=true;
         Syntax _syntax = this.getSyntax();
         EList<Rule> _rules = _syntax.getRules();
@@ -427,7 +426,7 @@ public class ExtensionSyntaxDefinitionProcessor {
           public Boolean apply(final Rule it) {
             NonTerminal _lhs = it.getLhs();
             String _name = _lhs.getName();
-            String _name_1 = ((Clazz)type).getName();
+            String _name_1 = ((hub.sam.dbl.Class)type).getName();
             return Boolean.valueOf(_name.equals(_name_1));
           }
         };
@@ -887,8 +886,8 @@ public class ExtensionSyntaxDefinitionProcessor {
   }
   
   private NonTerminal createNonTerminal(final EObject clazz) {
-    if (clazz instanceof Clazz) {
-      return _createNonTerminal((Clazz)clazz);
+    if (clazz instanceof hub.sam.dbl.Class) {
+      return _createNonTerminal((hub.sam.dbl.Class)clazz);
     } else if (clazz instanceof ExtensionDefinition) {
       return _createNonTerminal((ExtensionDefinition)clazz);
     } else if (clazz instanceof TsRule) {
@@ -902,8 +901,8 @@ public class ExtensionSyntaxDefinitionProcessor {
   }
   
   private String getSyntaxRuleName(final EObject clazz) {
-    if (clazz instanceof Clazz) {
-      return _getSyntaxRuleName((Clazz)clazz);
+    if (clazz instanceof hub.sam.dbl.Class) {
+      return _getSyntaxRuleName((hub.sam.dbl.Class)clazz);
     } else if (clazz instanceof ExtensionDefinition) {
       return _getSyntaxRuleName((ExtensionDefinition)clazz);
     } else if (clazz instanceof TsRule) {
@@ -917,8 +916,8 @@ public class ExtensionSyntaxDefinitionProcessor {
   }
   
   private EClass getMetaClass(final LanguageConstructClassifier conceptClassifier) {
-    if (conceptClassifier instanceof Clazz) {
-      return _getMetaClass((Clazz)conceptClassifier);
+    if (conceptClassifier instanceof hub.sam.dbl.Class) {
+      return _getMetaClass((hub.sam.dbl.Class)conceptClassifier);
     } else if (conceptClassifier instanceof ExtensionDefinition) {
       return _getMetaClass((ExtensionDefinition)conceptClassifier);
     } else if (conceptClassifier instanceof TsRule) {

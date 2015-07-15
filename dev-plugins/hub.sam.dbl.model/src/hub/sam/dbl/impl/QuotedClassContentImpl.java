@@ -2,29 +2,33 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.ClassPart;
-import hub.sam.dbl.ClassSimilar;
+import hub.sam.dbl.ArrayDimension;
+import hub.sam.dbl.Construct;
+import hub.sam.dbl.ConstructiveExtension;
+import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
+import hub.sam.dbl.Constructor;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.EmbeddableExtensionsContainer;
+import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.ModifierExtensionsContainer;
-import hub.sam.dbl.Procedure;
+import hub.sam.dbl.Function;
+import hub.sam.dbl.LanguageConceptClassifier;
+import hub.sam.dbl.LanguageConstructClassifier;
+import hub.sam.dbl.LocalScope;
+import hub.sam.dbl.NamedElement;
+import hub.sam.dbl.NativeBinding;
 import hub.sam.dbl.QuotedClassContent;
 import hub.sam.dbl.SuperClassSpecification;
+import hub.sam.dbl.Type;
 import hub.sam.dbl.Variable;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -35,16 +39,19 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getExtensions <em>Extensions</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getModifierExtensions <em>Modifier Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getName <em>Name</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getArrayDimensions <em>Array Dimensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getContentExtensions <em>Content Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getExpandExpr <em>Expand Expr</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#isActive <em>Active</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getBindings <em>Bindings</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getSuperClasses <em>Super Classes</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getConstructors <em>Constructors</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getAttributes <em>Attributes</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getMethods <em>Methods</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getSuperClasses <em>Super Classes</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getInitialBlock <em>Initial Block</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getFinalBlock <em>Final Block</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getActionsBlock <em>Actions Block</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getReportBlock <em>Report Block</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getClearBlock <em>Clear Block</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,24 +59,144 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClassContent {
 	/**
-	 * The cached value of the '{@link #getExtensions() <em>Extensions</em>}' containment reference list.
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensions()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensibleElement> extensions;
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
-	 * The cached value of the '{@link #getModifierExtensions() <em>Modifier Extensions</em>}' containment reference list.
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getModifierExtensions()
+	 * @see #getName()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensibleElement> modifierExtensions;
+	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimensions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArrayDimensions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ArrayDimension> arrayDimensions;
+
+	/**
+	 * The cached value of the '{@link #getContentExtensions() <em>Content Extensions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getContentExtensions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ConstructiveExtension> contentExtensions;
+
+	/**
+	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExpandExpr()
+	 * @generated
+	 * @ordered
+	 */
+	protected ExpandExpr expandExpr;
+
+	/**
+	 * The default value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String CONCRETE_SYNTAX_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getConcreteSyntax() <em>Concrete Syntax</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConcreteSyntax()
+	 * @generated
+	 * @ordered
+	 */
+	protected String concreteSyntax = CONCRETE_SYNTAX_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInstanceOfExtensionDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isInstanceOfExtensionDefinition() <em>Instance Of Extension Definition</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isInstanceOfExtensionDefinition()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean instanceOfExtensionDefinition = INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean ACTIVE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isActive()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean active = ACTIVE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getBindings() <em>Bindings</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBindings()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<NativeBinding> bindings;
+
+	/**
+	 * The cached value of the '{@link #getSuperClasses() <em>Super Classes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSuperClasses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SuperClassSpecification> superClasses;
+
+	/**
+	 * The cached value of the '{@link #getConstructors() <em>Constructors</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConstructors()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Constructor> constructors;
 
 	/**
 	 * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
@@ -89,37 +216,7 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Procedure> methods;
-
-	/**
-	 * The cached value of the '{@link #getSuperClasses() <em>Super Classes</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSuperClasses()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<SuperClassSpecification> superClasses;
-
-	/**
-	 * The cached value of the '{@link #getInitialBlock() <em>Initial Block</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getInitialBlock()
-	 * @generated
-	 * @ordered
-	 */
-	protected ClassPart initialBlock;
-
-	/**
-	 * The cached value of the '{@link #getFinalBlock() <em>Final Block</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getFinalBlock()
-	 * @generated
-	 * @ordered
-	 */
-	protected ClassPart finalBlock;
+	protected EList<Function> methods;
 
 	/**
 	 * The cached value of the '{@link #getActionsBlock() <em>Actions Block</em>}' containment reference.
@@ -129,27 +226,7 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * @generated
 	 * @ordered
 	 */
-	protected ClassPart actionsBlock;
-
-	/**
-	 * The cached value of the '{@link #getReportBlock() <em>Report Block</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getReportBlock()
-	 * @generated
-	 * @ordered
-	 */
-	protected ClassPart reportBlock;
-
-	/**
-	 * The cached value of the '{@link #getClearBlock() <em>Clear Block</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getClearBlock()
-	 * @generated
-	 * @ordered
-	 */
-	protected ClassPart clearBlock;
+	protected LocalScope actionsBlock;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -175,11 +252,8 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensibleElement> getExtensions() {
-		if (extensions == null) {
-			extensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS);
-		}
-		return extensions;
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -187,11 +261,153 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensibleElement> getModifierExtensions() {
-		if (modifierExtensions == null) {
-			modifierExtensions = new EObjectContainmentEList<ExtensibleElement>(ExtensibleElement.class, this, DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS);
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ArrayDimension> getArrayDimensions() {
+		if (arrayDimensions == null) {
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this, DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS);
 		}
-		return modifierExtensions;
+		return arrayDimensions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ConstructiveExtension> getContentExtensions() {
+		if (contentExtensions == null) {
+			contentExtensions = new EObjectContainmentEList<ConstructiveExtension>(ConstructiveExtension.class, this, DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS);
+		}
+		return contentExtensions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExpandExpr getExpandExpr() {
+		return expandExpr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetExpandExpr(ExpandExpr newExpandExpr, NotificationChain msgs) {
+		ExpandExpr oldExpandExpr = expandExpr;
+		expandExpr = newExpandExpr;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR, oldExpandExpr, newExpandExpr);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setExpandExpr(ExpandExpr newExpandExpr) {
+		if (newExpandExpr != expandExpr) {
+			NotificationChain msgs = null;
+			if (expandExpr != null)
+				msgs = ((InternalEObject)expandExpr).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR, null, msgs);
+			if (newExpandExpr != null)
+				msgs = ((InternalEObject)newExpandExpr).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR, null, msgs);
+			msgs = basicSetExpandExpr(newExpandExpr, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR, newExpandExpr, newExpandExpr));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getConcreteSyntax() {
+		return concreteSyntax;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConcreteSyntax(String newConcreteSyntax) {
+		String oldConcreteSyntax = concreteSyntax;
+		concreteSyntax = newConcreteSyntax;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__CONCRETE_SYNTAX, oldConcreteSyntax, concreteSyntax));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isInstanceOfExtensionDefinition() {
+		return instanceOfExtensionDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setInstanceOfExtensionDefinition(boolean newInstanceOfExtensionDefinition) {
+		boolean oldInstanceOfExtensionDefinition = instanceOfExtensionDefinition;
+		instanceOfExtensionDefinition = newInstanceOfExtensionDefinition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION, oldInstanceOfExtensionDefinition, instanceOfExtensionDefinition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isActive() {
+		return active;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setActive(boolean newActive) {
+		boolean oldActive = active;
+		active = newActive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__ACTIVE, oldActive, active));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<NativeBinding> getBindings() {
+		if (bindings == null) {
+			bindings = new EObjectContainmentEList<NativeBinding>(NativeBinding.class, this, DblPackage.QUOTED_CLASS_CONTENT__BINDINGS);
+		}
+		return bindings;
 	}
 
 	/**
@@ -211,9 +427,9 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Procedure> getMethods() {
+	public EList<Function> getMethods() {
 		if (methods == null) {
-			methods = new EObjectContainmentEList<Procedure>(Procedure.class, this, DblPackage.QUOTED_CLASS_CONTENT__METHODS);
+			methods = new EObjectContainmentEList<Function>(Function.class, this, DblPackage.QUOTED_CLASS_CONTENT__METHODS);
 		}
 		return methods;
 	}
@@ -235,23 +451,11 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ClassPart getInitialBlock() {
-		return initialBlock;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetInitialBlock(ClassPart newInitialBlock, NotificationChain msgs) {
-		ClassPart oldInitialBlock = initialBlock;
-		initialBlock = newInitialBlock;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK, oldInitialBlock, newInitialBlock);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
+	public EList<Constructor> getConstructors() {
+		if (constructors == null) {
+			constructors = new EObjectContainmentEList<Constructor>(Constructor.class, this, DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS);
 		}
-		return msgs;
+		return constructors;
 	}
 
 	/**
@@ -259,69 +463,7 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInitialBlock(ClassPart newInitialBlock) {
-		if (newInitialBlock != initialBlock) {
-			NotificationChain msgs = null;
-			if (initialBlock != null)
-				msgs = ((InternalEObject)initialBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK, null, msgs);
-			if (newInitialBlock != null)
-				msgs = ((InternalEObject)newInitialBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK, null, msgs);
-			msgs = basicSetInitialBlock(newInitialBlock, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK, newInitialBlock, newInitialBlock));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ClassPart getFinalBlock() {
-		return finalBlock;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetFinalBlock(ClassPart newFinalBlock, NotificationChain msgs) {
-		ClassPart oldFinalBlock = finalBlock;
-		finalBlock = newFinalBlock;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK, oldFinalBlock, newFinalBlock);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setFinalBlock(ClassPart newFinalBlock) {
-		if (newFinalBlock != finalBlock) {
-			NotificationChain msgs = null;
-			if (finalBlock != null)
-				msgs = ((InternalEObject)finalBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK, null, msgs);
-			if (newFinalBlock != null)
-				msgs = ((InternalEObject)newFinalBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK, null, msgs);
-			msgs = basicSetFinalBlock(newFinalBlock, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK, newFinalBlock, newFinalBlock));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ClassPart getActionsBlock() {
+	public LocalScope getActionsBlock() {
 		return actionsBlock;
 	}
 
@@ -330,8 +472,8 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetActionsBlock(ClassPart newActionsBlock, NotificationChain msgs) {
-		ClassPart oldActionsBlock = actionsBlock;
+	public NotificationChain basicSetActionsBlock(LocalScope newActionsBlock, NotificationChain msgs) {
+		LocalScope oldActionsBlock = actionsBlock;
 		actionsBlock = newActionsBlock;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK, oldActionsBlock, newActionsBlock);
@@ -345,7 +487,7 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setActionsBlock(ClassPart newActionsBlock) {
+	public void setActionsBlock(LocalScope newActionsBlock) {
 		if (newActionsBlock != actionsBlock) {
 			NotificationChain msgs = null;
 			if (actionsBlock != null)
@@ -364,115 +506,27 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ClassPart getReportBlock() {
-		return reportBlock;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetReportBlock(ClassPart newReportBlock, NotificationChain msgs) {
-		ClassPart oldReportBlock = reportBlock;
-		reportBlock = newReportBlock;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK, oldReportBlock, newReportBlock);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setReportBlock(ClassPart newReportBlock) {
-		if (newReportBlock != reportBlock) {
-			NotificationChain msgs = null;
-			if (reportBlock != null)
-				msgs = ((InternalEObject)reportBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK, null, msgs);
-			if (newReportBlock != null)
-				msgs = ((InternalEObject)newReportBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK, null, msgs);
-			msgs = basicSetReportBlock(newReportBlock, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK, newReportBlock, newReportBlock));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ClassPart getClearBlock() {
-		return clearBlock;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetClearBlock(ClassPart newClearBlock, NotificationChain msgs) {
-		ClassPart oldClearBlock = clearBlock;
-		clearBlock = newClearBlock;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK, oldClearBlock, newClearBlock);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setClearBlock(ClassPart newClearBlock) {
-		if (newClearBlock != clearBlock) {
-			NotificationChain msgs = null;
-			if (clearBlock != null)
-				msgs = ((InternalEObject)clearBlock).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK, null, msgs);
-			if (newClearBlock != null)
-				msgs = ((InternalEObject)newClearBlock).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK, null, msgs);
-			msgs = basicSetClearBlock(newClearBlock, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK, newClearBlock, newClearBlock));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS:
-				return ((InternalEList<?>)getExtensions()).basicRemove(otherEnd, msgs);
-			case DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS:
-				return ((InternalEList<?>)getModifierExtensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS:
+				return ((InternalEList<?>)getArrayDimensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS:
+				return ((InternalEList<?>)getContentExtensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR:
+				return basicSetExpandExpr(null, msgs);
+			case DblPackage.QUOTED_CLASS_CONTENT__BINDINGS:
+				return ((InternalEList<?>)getBindings()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				return ((InternalEList<?>)getSuperClasses()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS:
+				return ((InternalEList<?>)getConstructors()).basicRemove(otherEnd, msgs);
 			case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES:
 				return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				return ((InternalEList<?>)getMethods()).basicRemove(otherEnd, msgs);
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
-				return ((InternalEList<?>)getSuperClasses()).basicRemove(otherEnd, msgs);
-			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
-				return basicSetInitialBlock(null, msgs);
-			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
-				return basicSetFinalBlock(null, msgs);
 			case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK:
 				return basicSetActionsBlock(null, msgs);
-			case DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK:
-				return basicSetReportBlock(null, msgs);
-			case DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK:
-				return basicSetClearBlock(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -485,26 +539,32 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS:
-				return getExtensions();
-			case DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS:
-				return getModifierExtensions();
+			case DblPackage.QUOTED_CLASS_CONTENT__NAME:
+				return getName();
+			case DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS:
+				return getArrayDimensions();
+			case DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS:
+				return getContentExtensions();
+			case DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR:
+				return getExpandExpr();
+			case DblPackage.QUOTED_CLASS_CONTENT__CONCRETE_SYNTAX:
+				return getConcreteSyntax();
+			case DblPackage.QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION:
+				return isInstanceOfExtensionDefinition();
+			case DblPackage.QUOTED_CLASS_CONTENT__ACTIVE:
+				return isActive();
+			case DblPackage.QUOTED_CLASS_CONTENT__BINDINGS:
+				return getBindings();
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				return getSuperClasses();
+			case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS:
+				return getConstructors();
 			case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES:
 				return getAttributes();
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				return getMethods();
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
-				return getSuperClasses();
-			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
-				return getInitialBlock();
-			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
-				return getFinalBlock();
 			case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK:
 				return getActionsBlock();
-			case DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK:
-				return getReportBlock();
-			case DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK:
-				return getClearBlock();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -518,13 +578,40 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS:
-				getExtensions().clear();
-				getExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
+			case DblPackage.QUOTED_CLASS_CONTENT__NAME:
+				setName((String)newValue);
 				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS:
-				getModifierExtensions().clear();
-				getModifierExtensions().addAll((Collection<? extends ExtensibleElement>)newValue);
+			case DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS:
+				getArrayDimensions().clear();
+				getArrayDimensions().addAll((Collection<? extends ArrayDimension>)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS:
+				getContentExtensions().clear();
+				getContentExtensions().addAll((Collection<? extends ConstructiveExtension>)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__CONCRETE_SYNTAX:
+				setConcreteSyntax((String)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION:
+				setInstanceOfExtensionDefinition((Boolean)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__ACTIVE:
+				setActive((Boolean)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__BINDINGS:
+				getBindings().clear();
+				getBindings().addAll((Collection<? extends NativeBinding>)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				getSuperClasses().clear();
+				getSuperClasses().addAll((Collection<? extends SuperClassSpecification>)newValue);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS:
+				getConstructors().clear();
+				getConstructors().addAll((Collection<? extends Constructor>)newValue);
 				return;
 			case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES:
 				getAttributes().clear();
@@ -532,26 +619,10 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 				return;
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				getMethods().clear();
-				getMethods().addAll((Collection<? extends Procedure>)newValue);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
-				getSuperClasses().clear();
-				getSuperClasses().addAll((Collection<? extends SuperClassSpecification>)newValue);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
-				setInitialBlock((ClassPart)newValue);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
-				setFinalBlock((ClassPart)newValue);
+				getMethods().addAll((Collection<? extends Function>)newValue);
 				return;
 			case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK:
-				setActionsBlock((ClassPart)newValue);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK:
-				setReportBlock((ClassPart)newValue);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK:
-				setClearBlock((ClassPart)newValue);
+				setActionsBlock((LocalScope)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -565,11 +636,35 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS:
-				getExtensions().clear();
+			case DblPackage.QUOTED_CLASS_CONTENT__NAME:
+				setName(NAME_EDEFAULT);
 				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS:
-				getModifierExtensions().clear();
+			case DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS:
+				getArrayDimensions().clear();
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS:
+				getContentExtensions().clear();
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR:
+				setExpandExpr((ExpandExpr)null);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__CONCRETE_SYNTAX:
+				setConcreteSyntax(CONCRETE_SYNTAX_EDEFAULT);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION:
+				setInstanceOfExtensionDefinition(INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__ACTIVE:
+				setActive(ACTIVE_EDEFAULT);
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__BINDINGS:
+				getBindings().clear();
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				getSuperClasses().clear();
+				return;
+			case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS:
+				getConstructors().clear();
 				return;
 			case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES:
 				getAttributes().clear();
@@ -577,23 +672,8 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				getMethods().clear();
 				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
-				getSuperClasses().clear();
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
-				setInitialBlock((ClassPart)null);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
-				setFinalBlock((ClassPart)null);
-				return;
 			case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK:
-				setActionsBlock((ClassPart)null);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK:
-				setReportBlock((ClassPart)null);
-				return;
-			case DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK:
-				setClearBlock((ClassPart)null);
+				setActionsBlock((LocalScope)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -607,26 +687,32 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS:
-				return extensions != null && !extensions.isEmpty();
-			case DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS:
-				return modifierExtensions != null && !modifierExtensions.isEmpty();
+			case DblPackage.QUOTED_CLASS_CONTENT__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS:
+				return arrayDimensions != null && !arrayDimensions.isEmpty();
+			case DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS:
+				return contentExtensions != null && !contentExtensions.isEmpty();
+			case DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR:
+				return expandExpr != null;
+			case DblPackage.QUOTED_CLASS_CONTENT__CONCRETE_SYNTAX:
+				return CONCRETE_SYNTAX_EDEFAULT == null ? concreteSyntax != null : !CONCRETE_SYNTAX_EDEFAULT.equals(concreteSyntax);
+			case DblPackage.QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION:
+				return instanceOfExtensionDefinition != INSTANCE_OF_EXTENSION_DEFINITION_EDEFAULT;
+			case DblPackage.QUOTED_CLASS_CONTENT__ACTIVE:
+				return active != ACTIVE_EDEFAULT;
+			case DblPackage.QUOTED_CLASS_CONTENT__BINDINGS:
+				return bindings != null && !bindings.isEmpty();
+			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
+				return superClasses != null && !superClasses.isEmpty();
+			case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS:
+				return constructors != null && !constructors.isEmpty();
 			case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES:
 				return attributes != null && !attributes.isEmpty();
 			case DblPackage.QUOTED_CLASS_CONTENT__METHODS:
 				return methods != null && !methods.isEmpty();
-			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
-				return superClasses != null && !superClasses.isEmpty();
-			case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK:
-				return initialBlock != null;
-			case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK:
-				return finalBlock != null;
 			case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK:
 				return actionsBlock != null;
-			case DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK:
-				return reportBlock != null;
-			case DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK:
-				return clearBlock != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -638,28 +724,56 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == EmbeddableExtensionsContainer.class) {
+		if (baseClass == NamedElement.class) {
 			switch (derivedFeatureID) {
-				case DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS: return DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS;
+				case DblPackage.QUOTED_CLASS_CONTENT__NAME: return DblPackage.NAMED_ELEMENT__NAME;
 				default: return -1;
 			}
 		}
-		if (baseClass == ModifierExtensionsContainer.class) {
+		if (baseClass == Type.class) {
 			switch (derivedFeatureID) {
-				case DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS: return DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS;
+				case DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS: return DblPackage.TYPE__ARRAY_DIMENSIONS;
 				default: return -1;
 			}
 		}
-		if (baseClass == ClassSimilar.class) {
+		if (baseClass == ConstructiveExtensionAtContentExtensionPoint.class) {
 			switch (derivedFeatureID) {
-				case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES: return DblPackage.CLASS_SIMILAR__ATTRIBUTES;
-				case DblPackage.QUOTED_CLASS_CONTENT__METHODS: return DblPackage.CLASS_SIMILAR__METHODS;
-				case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES: return DblPackage.CLASS_SIMILAR__SUPER_CLASSES;
-				case DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK: return DblPackage.CLASS_SIMILAR__INITIAL_BLOCK;
-				case DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK: return DblPackage.CLASS_SIMILAR__FINAL_BLOCK;
-				case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK: return DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK;
-				case DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK: return DblPackage.CLASS_SIMILAR__REPORT_BLOCK;
-				case DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK: return DblPackage.CLASS_SIMILAR__CLEAR_BLOCK;
+				case DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS: return DblPackage.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Construct.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR: return DblPackage.CONSTRUCT__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
+		if (baseClass == ExtensibleElement.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.QUOTED_CLASS_CONTENT__CONCRETE_SYNTAX: return DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+				case DblPackage.QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+				default: return -1;
+			}
+		}
+		if (baseClass == LanguageConstructClassifier.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == LanguageConceptClassifier.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == hub.sam.dbl.Class.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.QUOTED_CLASS_CONTENT__ACTIVE: return DblPackage.CLASS__ACTIVE;
+				case DblPackage.QUOTED_CLASS_CONTENT__BINDINGS: return DblPackage.CLASS__BINDINGS;
+				case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES: return DblPackage.CLASS__SUPER_CLASSES;
+				case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS: return DblPackage.CLASS__CONSTRUCTORS;
+				case DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES: return DblPackage.CLASS__ATTRIBUTES;
+				case DblPackage.QUOTED_CLASS_CONTENT__METHODS: return DblPackage.CLASS__METHODS;
+				case DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK: return DblPackage.CLASS__ACTIONS_BLOCK;
 				default: return -1;
 			}
 		}
@@ -673,32 +787,82 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == EmbeddableExtensionsContainer.class) {
+		if (baseClass == NamedElement.class) {
 			switch (baseFeatureID) {
-				case DblPackage.EMBEDDABLE_EXTENSIONS_CONTAINER__EXTENSIONS: return DblPackage.QUOTED_CLASS_CONTENT__EXTENSIONS;
+				case DblPackage.NAMED_ELEMENT__NAME: return DblPackage.QUOTED_CLASS_CONTENT__NAME;
 				default: return -1;
 			}
 		}
-		if (baseClass == ModifierExtensionsContainer.class) {
+		if (baseClass == Type.class) {
 			switch (baseFeatureID) {
-				case DblPackage.MODIFIER_EXTENSIONS_CONTAINER__MODIFIER_EXTENSIONS: return DblPackage.QUOTED_CLASS_CONTENT__MODIFIER_EXTENSIONS;
+				case DblPackage.TYPE__ARRAY_DIMENSIONS: return DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS;
 				default: return -1;
 			}
 		}
-		if (baseClass == ClassSimilar.class) {
+		if (baseClass == ConstructiveExtensionAtContentExtensionPoint.class) {
 			switch (baseFeatureID) {
-				case DblPackage.CLASS_SIMILAR__ATTRIBUTES: return DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES;
-				case DblPackage.CLASS_SIMILAR__METHODS: return DblPackage.QUOTED_CLASS_CONTENT__METHODS;
-				case DblPackage.CLASS_SIMILAR__SUPER_CLASSES: return DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES;
-				case DblPackage.CLASS_SIMILAR__INITIAL_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__INITIAL_BLOCK;
-				case DblPackage.CLASS_SIMILAR__FINAL_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__FINAL_BLOCK;
-				case DblPackage.CLASS_SIMILAR__ACTIONS_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK;
-				case DblPackage.CLASS_SIMILAR__REPORT_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__REPORT_BLOCK;
-				case DblPackage.CLASS_SIMILAR__CLEAR_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__CLEAR_BLOCK;
+				case DblPackage.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS: return DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS;
+				default: return -1;
+			}
+		}
+		if (baseClass == Construct.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CONSTRUCT__EXPAND_EXPR: return DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR;
+				default: return -1;
+			}
+		}
+		if (baseClass == ExtensibleElement.class) {
+			switch (baseFeatureID) {
+				case DblPackage.EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX: return DblPackage.QUOTED_CLASS_CONTENT__CONCRETE_SYNTAX;
+				case DblPackage.EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION: return DblPackage.QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION;
+				default: return -1;
+			}
+		}
+		if (baseClass == LanguageConstructClassifier.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == LanguageConceptClassifier.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == hub.sam.dbl.Class.class) {
+			switch (baseFeatureID) {
+				case DblPackage.CLASS__ACTIVE: return DblPackage.QUOTED_CLASS_CONTENT__ACTIVE;
+				case DblPackage.CLASS__BINDINGS: return DblPackage.QUOTED_CLASS_CONTENT__BINDINGS;
+				case DblPackage.CLASS__SUPER_CLASSES: return DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES;
+				case DblPackage.CLASS__CONSTRUCTORS: return DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS;
+				case DblPackage.CLASS__ATTRIBUTES: return DblPackage.QUOTED_CLASS_CONTENT__ATTRIBUTES;
+				case DblPackage.CLASS__METHODS: return DblPackage.QUOTED_CLASS_CONTENT__METHODS;
+				case DblPackage.CLASS__ACTIONS_BLOCK: return DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK;
 				default: return -1;
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(", concreteSyntax: ");
+		result.append(concreteSyntax);
+		result.append(", instanceOfExtensionDefinition: ");
+		result.append(instanceOfExtensionDefinition);
+		result.append(", active: ");
+		result.append(active);
+		result.append(')');
+		return result.toString();
 	}
 
 } //QuotedClassContentImpl

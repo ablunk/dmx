@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="uml">
+    <model href="uml.xmi#/"/>
+  </imports>
+  <modules name="uml_test">
+    <classifiers xsi:type="dbl:Clazz" name="A" concreteSyntax="class A {&#xA;&#x9;B b;&#xA;&#x9;B ownedB;&#xA;}">
+      <attributes name="b" concreteSyntax="B b">
+        <classifierType concreteSyntax="B" referencedElement="//@modules.0/@classifiers.1"/>
+      </attributes>
+      <attributes name="ownedB" concreteSyntax="B ownedB">
+        <classifierType concreteSyntax="B" referencedElement="//@modules.0/@classifiers.1"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Clazz" name="B" concreteSyntax="class B {&#xA;&#x9;A a;&#xA;}">
+      <attributes name="a" concreteSyntax="A a">
+        <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classifiers.0"/>
+      </attributes>
+    </classifiers>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a1" concreteSyntax="A a1 = new A">
+        <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classifiers.0"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A">
+          <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classifiers.0"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="b1" concreteSyntax="B b1 = new B">
+        <classifierType concreteSyntax="B" referencedElement="//@modules.0/@classifiers.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new B">
+          <classifierType concreteSyntax="B" referencedElement="//@modules.0/@classifiers.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="a1.ownedB = b1">
+        <variable concreteSyntax="a1.ownedB">
+          <idExpr concreteSyntax="a1.ownedB" referencedElement="//@modules.0/@classifiers.0/@attributes.1">
+            <parentIdExpr concreteSyntax="a1" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" concreteSyntax="b1" referencedElement="//@modules.0/@procedures.0/@statements.1"/>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>
