@@ -1,0 +1,39 @@
+module example{
+	
+	class Example (int x, string y){
+		int attribute1;
+		string attribute2;
+		
+		initial{
+			print "Example starts here";
+			attribute1 = x;
+			attribute2 = y;
+		}
+		
+		final{
+			print "Example ends here";
+		}
+		
+		int procedure1(int a, int b, int c){
+			return a+b+c;		
+		}
+		
+		double procedure2(int a, int b){
+			return a+b;
+		}
+		
+		string procedure3(int a, string b){
+			return b;
+		}	
+		
+		void procedure4(){
+			print "bar";
+		}
+	}
+	
+	int main(){
+		Example e = new Example(1, "foo");
+		print (e.procedure1(1,2,3));
+	}
+	
+}

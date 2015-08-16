@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../stdlib">
-    <model href="../stdlib.xmi#/"/>
+  <imports file="lib">
+    <model href="lib.xmi#/"/>
   </imports>
   <modules name="BarberShop">
     <classifiers xsi:type="dbl:Clazz" name="UniformReal">
@@ -19,8 +19,6 @@
           <primitiveType xsi:type="dbl:DoubleType"/>
         </parameters>
       </constructor>
-      <bindings targetLanguage="desmoj" targetType="hub.sam.dmx.javasim.desmoj.dist.RealDistUniform"/>
-      <bindings targetLanguage="jist" targetType="hub.sam.dmx.javasim.generic.dist.RealDistUniform"/>
     </classifiers>
     <classifiers xsi:type="dbl:Clazz" name="Facility">
       <attributes name="busy">
@@ -29,11 +27,11 @@
       </attributes>
       <attributes name="waiting">
         <classifierType>
-          <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3"/>
+          <referencedElement href="lib.xmi#//@modules.0/@classifiers.2"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.4"/>
+            <referencedElement href="lib.xmi#//@modules.0/@classifiers.2"/>
           </classifierType>
         </initialValue>
       </attributes>
@@ -42,6 +40,11 @@
         <statements xsi:type="dbl:IfStatement">
           <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
           <trueCase xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Variable" name="e">
+              <classifierType>
+                <referencedElement href="lib.xmi#//@modules.0/@classifiers.0"/>
+              </classifierType>
+            </statements>
             <statements xsi:type="dbl:ProcedureCall">
               <callIdExpr referencedElement="//@modules.0/@procedures.1">
                 <callPart>
@@ -52,9 +55,10 @@
             <statements xsi:type="dbl:ProcedureCall">
               <callIdExpr>
                 <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
-                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.0"/>
+                <referencedElement href="lib.xmi#//@modules.0/@classifiers.2/@methods.4"/>
                 <callPart>
-                  <callArguments xsi:type="dbl:ActiveLiteral"/>
+                  <callArguments xsi:type="dbl:IntLiteral" value="3"/>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.0/@statements.0/@trueCase/@statements.0"/>
                 </callPart>
               </callIdExpr>
             </statements>
@@ -87,7 +91,7 @@
           <condition xsi:type="dbl:Greater">
             <op1 xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
-              <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.4"/>
+              <referencedElement href="lib.xmi#//@modules.0/@classifiers.2/@methods.2"/>
               <callPart/>
             </op1>
             <op2 xsi:type="dbl:IntLiteral"/>
@@ -95,11 +99,11 @@
           <trueCase xsi:type="dbl:LocalScopeStatement">
             <statements xsi:type="dbl:Variable" name="nextWaiting">
               <classifierType>
-                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.0"/>
+                <referencedElement href="lib.xmi#//@modules.0/@classifiers.0"/>
               </classifierType>
               <initialValue xsi:type="dbl:IdExpr">
                 <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
-                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.5"/>
+                <referencedElement href="lib.xmi#//@modules.0/@classifiers.2/@methods.5"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IntLiteral"/>
                 </callPart>
@@ -118,7 +122,7 @@
             <statements xsi:type="dbl:ProcedureCall">
               <callIdExpr>
                 <parentIdExpr referencedElement="//@modules.0/@classifiers.1/@attributes.1"/>
-                <referencedElement href="../stdlib.xmi#//@modules.0/@classifiers.3/@methods.8"/>
+                <referencedElement href="lib.xmi#//@modules.0/@classifiers.2/@methods.7"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.1/@statements.1/@trueCase/@statements.0"/>
                 </callPart>
@@ -215,22 +219,12 @@
         <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.3"/>
         <trueCase xsi:type="dbl:LocalScopeStatement">
           <statements xsi:type="dbl:Print">
-            <outputs xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:Plus">
-                <op1 xsi:type="dbl:Plus">
-                  <op1 xsi:type="dbl:Plus">
-                    <op1 xsi:type="dbl:Plus">
-                      <op1 xsi:type="dbl:TimeLiteral"/>
-                      <op2 xsi:type="dbl:StringLiteral" value=" - "/>
-                    </op1>
-                    <op2 xsi:type="dbl:ActiveLiteral"/>
-                  </op1>
-                  <op2 xsi:type="dbl:StringLiteral" value=": "/>
-                </op1>
-                <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@parameters.0"/>
-              </op1>
-              <op2 xsi:type="dbl:StringLiteral" value="\n"/>
-            </outputs>
+            <outputs xsi:type="dbl:TimeLiteral"/>
+            <outputs xsi:type="dbl:StringLiteral" value=" - "/>
+            <outputs xsi:type="dbl:ActiveLiteral"/>
+            <outputs xsi:type="dbl:StringLiteral" value=": "/>
+            <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.1/@parameters.0"/>
+            <outputs xsi:type="dbl:StringLiteral" value="\n"/>
           </statements>
         </trueCase>
       </statements>

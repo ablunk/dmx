@@ -1,17 +1,19 @@
 module TwoCountersAdvance {
 
 	boolean debug = true;
+	int limit = 10;
 
 	void trace(string msg) {
 		if (debug) {
-			print time + " - " + active + ": " + msg + "\n";
+			print time , ": " , msg , "\n";
 		}
 	}
-	
-	int limit = 10;
 
-	active class Counter {
-		int count = 0;		
+	active class Counter(int prio, string label){
+		int count = 0; 
+		double count2 = 5;	
+		string buf = "hello";
+				
 		actions {
 			while (count < limit) {
 				advance 1;
@@ -22,10 +24,10 @@ module TwoCountersAdvance {
 	}
 	
 	void main() {
-		Counter c1 = new Counter;
+		Counter c1 = new Counter(1,"Counter");
 		activate c1;
 		
-		Counter c2 = new Counter;
+		Counter c2 = new Counter(1,"Counter");
 		activate c2;
 
 		advance limit+10;

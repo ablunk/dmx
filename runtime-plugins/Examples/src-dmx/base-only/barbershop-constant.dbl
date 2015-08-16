@@ -1,4 +1,4 @@
-#import "../stdlib"
+#import "lib"
 
 module BarberShop {
 
@@ -13,7 +13,7 @@ module BarberShop {
 	boolean debug = true;
 
 	void main() {
-		CustomerArrival arrival = new CustomerArrival;
+		CustomerArrival arrival = new CustomerArrival(1,"CustomerArrival");
 		activate arrival;
 		
 		advance stopTime;
@@ -25,14 +25,14 @@ module BarberShop {
 		}
 	}
 	
-	class Facility {
+	active class Facility(int prio2, string label2) {
 		boolean busy = false;
 		List waiting = new ArrayList;
 		
 		void seize() {
 			if (busy) {
 				trace("facility busy. waiting.");
-				waiting.add(active);
+				waiting.insert(waiting.begin(),active);
 				wait;
 			}
 			trace("facility seized.");
@@ -42,18 +42,18 @@ module BarberShop {
 		void release() {
 			busy = false;
 			if (waiting.size() > 0) {
-				Object nextWaiting = waiting.get(0);
+				Object nextWaiting = waiting.at(0);
 				trace("activate waiting process " + nextWaiting);
-				waiting.remove(nextWaiting);
+				waiting.erase(waiting.begin());
 				reactivate nextWaiting;
 			}
 			trace("facility released.");
 		}
 	}
 	
-	Facility joe = new Facility;
+	Facility joe = new Facility(1,"Facility");
 
-	active class Customer {		
+	active class Customer(int prio, string label) {		
 		actions {
 			joe.seize();
 			if (time < halfTime) {
@@ -66,7 +66,7 @@ module BarberShop {
 		}
 	}
 	
-	active class CustomerArrival {
+	active class CustomerArrival(int prio3, string label3) {
 		actions {
 			while (time <= stopTime) {
 				if (time < halfTime) {
@@ -75,7 +75,7 @@ module BarberShop {
 				else {
 					advance a2;
 				}
-				Customer c = new Customer;
+				Customer c = new Customer(1,"Customer");
 				activate c;
 				trace("new customer created.");
 			}

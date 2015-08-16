@@ -1,0 +1,27 @@
+module polymorphie{
+
+	class spectator{
+		base array [2] elements;
+		initial{
+		elements[0] = new child1;
+		elements[1] = new child2;
+		
+		for(int i = 0;i < 2;i = i+1){
+			elements[i].f();
+		}
+		
+		}
+	}
+	class base{
+		void f() abstract;
+	}
+	class child1 extends base{
+		void f(){print "child1";}
+	}
+	class child2 extends base{
+		void f(){print "child2";}
+	}	
+	int main(){
+	spectator b = new spectator;
+	}
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="Clocks">
+    <classifiers xsi:type="dbl:Clazz" name="Timer" active="true">
+      <attributes name="t">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="19"/>
+      </attributes>
+      <initialBlock>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="timer created"/>
+        </statements>
+      </initialBlock>
+      <finalBlock>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="timer terminated"/>
+        </statements>
+      </finalBlock>
+      <actionsBlock>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:Less">
+            <op1 xsi:type="dbl:TimeLiteral"/>
+            <op2 xsi:type="dbl:IntLiteral" value="1000"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Yield"/>
+            <statements xsi:type="dbl:Advance">
+              <time xsi:type="dbl:IntLiteral" value="1"/>
+            </statements>
+          </body>
+        </statements>
+      </actionsBlock>
+      <constructor>
+        <parameters name="prio">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="label">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructor>
+    </classifiers>
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <statements xsi:type="dbl:Variable" name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="1"/>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement">
+        <condition xsi:type="dbl:LessEqual">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+          <op2 xsi:type="dbl:IntLiteral" value="10000"/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:ActivateObject">
+            <objectAccess xsi:type="dbl:CreateObject">
+              <classifierType referencedElement="//@modules.0/@classifiers.0">
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+                  <callArguments xsi:type="dbl:StringLiteral" value="Timer"/>
+                </callPart>
+              </classifierType>
+            </objectAccess>
+          </statements>
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+            </variable>
+            <value xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+              <op2 xsi:type="dbl:IntLiteral" value="1"/>
+            </value>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:IntLiteral" value="1000"/>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

@@ -1,0 +1,132 @@
+#import "lib"
+
+module test {
+	boolean ran = true;
+	boolean zum = false;
+	string array [15] ser;
+	Moped m;
+	Auto a;
+	int number;
+	Auto array [5] autos;
+	
+	int sayHello(Point b){
+		return 5;
+	}
+	
+	Auto setCar(){
+		a = new Auto(15);
+		autos[0] = a;
+		return a;
+	}
+	
+	class Auto (int pe){
+		Auto array [10] autobahn;
+		int array [6][3] arr;
+		int bu = 20;
+		int oelstand;
+		Point m = new Point(13,21);
+		boolean t;
+		Point x;
+		string l = "bye";
+		List waiting = new List;
+		
+		initial{
+			waiting.add(self);
+			waiting.add(1,self);
+			print(waiting.isEmpty());
+			print(waiting.size());
+			autobahn[0] = self;
+			static int y = 3;
+			oelstand = pe;
+			arr[0][0] = bu;
+			arr[1][1] = oelstand;
+			arr[2][2] = y;
+			ser[3] = l;
+		}
+		
+		void umbenennen (int newName){
+			bu = newName;
+		}
+		
+		void display(){
+			for(int temp = 0; temp<6;temp = temp + 1){
+				for(int temp2 = 0; temp2<3;temp2 = temp2 + 1){
+					print arr[temp][temp2];
+				}
+			}
+		}
+		
+		final{
+		}
+	}
+	
+	class Moped (int stand, int autoname2) extends Auto(stand){
+		static int i;
+
+		Auto b;
+		string s;
+		
+		initial{
+			s = "hallo";
+			autos[1] = self;
+		}
+		
+		Auto setCar(){
+			b = new Auto(number);
+			print s;
+			return b;
+		}
+		
+		void rammtAuto(Auto truck){
+			bu = truck.bu;
+			truck.umbenennen(8);
+			Auto r = self.setCar();
+			i = super.oelstand;
+			
+			if(truck instanceof Auto){
+				print "Oelstand des Autos: ", truck.oelstand;
+			}
+			
+		}
+	}
+}
+module test2{
+
+int x;
+List bu = new List;
+
+int sayHi(Auto c){
+	print bu.isEmpty();
+	return 5;
+}
+
+class Point (int xa, int yy) {
+	int coordx = xa;
+	int coordy = yy;
+	
+	string contArr(){
+	return ser[3];
+	print bu.isEmpty();
+	}
+}
+
+int main(){
+	print bu.isEmpty();
+	Auto audi = new Auto(50);
+	bu.add(0,audi);
+	sayHi(audi);
+	setCar();
+	audi.umbenennen(23);
+	audi.display();
+	Moped mop = new Moped(13,13);
+	bu.add(0,mop);
+	mop.rammtAuto(audi);
+	Point p = new Point(4,3);
+	print p.contArr();
+	print autos[0].oelstand;
+	bu.add(0,autos[0]);
+	print bu.size();
+	//Moped m = autos[1] as Moped;
+	//print m.s;
+}
+}

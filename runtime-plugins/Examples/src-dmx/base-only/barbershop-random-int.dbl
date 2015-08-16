@@ -1,4 +1,4 @@
-#import "../stdlib"
+#import "lib"
 
 module BarberShop {
 
@@ -32,7 +32,7 @@ module BarberShop {
 	
 	class Facility {
 		boolean busy = false;
-		List waiting = new ArrayList;
+		List waiting = new List;
 		
 		void seize() {
 			if (busy) {
