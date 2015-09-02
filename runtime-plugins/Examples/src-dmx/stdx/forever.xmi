@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <modules name="stdx_forever">
+    <extensionDefinitions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}">
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.28"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
+        <rules name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="forever"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
+              <propertyType xsi:type="dbl:CompositePropertyType">
+                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.42"/>
+              </propertyType>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefinitions>
+    <extensionSemanticsDefinitions concreteSyntax="semantics for Forever {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}" syntaxDefinition="//@modules.0/@extensionDefinitions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (true) &quot; body">
+        <parts xsi:type="dbl:ExpandTextPart" text="while (true) "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+        </parts>
+      </statements>
+    </extensionSemanticsDefinitions>
+  </modules>
+</dbl:Model>
