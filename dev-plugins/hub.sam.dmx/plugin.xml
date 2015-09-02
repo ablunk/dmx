@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="hub.sam.dmx.DblTextEditor"
+            class="hub.sam.dmx.editor.DblTextEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="dbl"
             icon="icons/TSL.gif"
@@ -15,7 +15,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="hub.sam.dmx.DbxTextEditor"
+            class="hub.sam.dmx.editor.DbxTextEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="dbx"
             icon="icons/TSL.gif"
@@ -34,7 +34,7 @@
    <extension
          point="hub.sam.tef.primitivetypedescriptor">
       <primitivetypedescriptor
-            class="hub.sam.dmx.tokens.MiddleTargetCode"
+            class="hub.sam.dmx.editor.tokens.MiddleTargetCode"
             rccsymbol="code"
             symbolname="CODE">
       </primitivetypedescriptor>

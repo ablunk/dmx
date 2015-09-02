@@ -37,7 +37,7 @@ public class Activator extends AbstractUIPlugin {
 		return ResourceBundle.getBundle("resources/messages");
 	}
 
-	static final String lineSep = System.getProperty("line.separator");
+	public static final String lineSep = System.getProperty("line.separator");
 
 	public static class VerySimpleFormatter extends Formatter {
 		
