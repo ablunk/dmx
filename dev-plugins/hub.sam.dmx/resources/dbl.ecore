@@ -111,7 +111,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="superClasses" upperBound="-1"
         eType="#//SuperClassSpecification" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructors" upperBound="-1"
-        eType="#//Constructor" containment="true"/>
+        eType="#//Constructor" containment="true" eOpposite="#//Constructor/owningClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//Variable" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
@@ -122,6 +122,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Constructor" eSuperTypes="#//LocalScope">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" ordered="false"
         upperBound="-1" eType="#//Parameter" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="owningClass" lowerBound="1"
+        eType="#//Class" eOpposite="#//Class/constructors"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement #//TypedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//AbstractVariable #//SimpleStatement">

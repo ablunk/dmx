@@ -1264,26 +1264,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ClassContentExtension createClassContentExtension() {
-		ClassContentExtensionImpl classContentExtension = new ClassContentExtensionImpl();
-		return classContentExtension;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ModuleContentExtension createModuleContentExtension() {
-		ModuleContentExtensionImpl moduleContentExtension = new ModuleContentExtensionImpl();
-		return moduleContentExtension;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ExtensibleElement createExtensibleElement() {
 		ExtensibleElementImpl extensibleElement = new ExtensibleElementImpl();
 		return extensibleElement;

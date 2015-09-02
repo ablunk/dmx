@@ -41,7 +41,6 @@ public interface Class extends NamedElement, Type, ConstructiveExtensionAtConten
 	 * @see hub.sam.dbl.DblPackage#getClass_Active()
 	 * @model default="false" required="true"
 	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='Constructor'"
-	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='SuperClassSpecification' unique='false' upper='*'"
 	 * @generated
 	 */
 	boolean isActive();
@@ -91,6 +90,7 @@ public interface Class extends NamedElement, Type, ConstructiveExtensionAtConten
 	/**
 	 * Returns the value of the '<em><b>Constructors</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Constructor}.
+	 * It is bidirectional and its opposite is '{@link hub.sam.dbl.Constructor#getOwningClass <em>Owning Class</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Constructors</em>' containment reference list isn't clear,
@@ -99,7 +99,8 @@ public interface Class extends NamedElement, Type, ConstructiveExtensionAtConten
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Constructors</em>' containment reference list.
 	 * @see hub.sam.dbl.DblPackage#getClass_Constructors()
-	 * @model containment="true"
+	 * @see hub.sam.dbl.Constructor#getOwningClass
+	 * @model opposite="owningClass" containment="true"
 	 * @generated
 	 */
 	EList<Constructor> getConstructors();

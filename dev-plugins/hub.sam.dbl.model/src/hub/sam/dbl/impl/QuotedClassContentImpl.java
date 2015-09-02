@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -453,7 +454,7 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 	 */
 	public EList<Constructor> getConstructors() {
 		if (constructors == null) {
-			constructors = new EObjectContainmentEList<Constructor>(Constructor.class, this, DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS);
+			constructors = new EObjectContainmentWithInverseEList<Constructor>(Constructor.class, this, DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS, DblPackage.CONSTRUCTOR__OWNING_CLASS);
 		}
 		return constructors;
 	}
@@ -499,6 +500,21 @@ public class QuotedClassContentImpl extends QuotedCodeImpl implements QuotedClas
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.QUOTED_CLASS_CONTENT__ACTIONS_BLOCK, newActionsBlock, newActionsBlock));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getConstructors()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**

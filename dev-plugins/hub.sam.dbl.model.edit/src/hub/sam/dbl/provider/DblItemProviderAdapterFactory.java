@@ -2234,52 +2234,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ClassContentExtension} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ClassContentExtensionItemProvider classContentExtensionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ClassContentExtension}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createClassContentExtensionAdapter() {
-		if (classContentExtensionItemProvider == null) {
-			classContentExtensionItemProvider = new ClassContentExtensionItemProvider(this);
-		}
-
-		return classContentExtensionItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ModuleContentExtension} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ModuleContentExtensionItemProvider moduleContentExtensionItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ModuleContentExtension}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createModuleContentExtensionAdapter() {
-		if (moduleContentExtensionItemProvider == null) {
-			moduleContentExtensionItemProvider = new ModuleContentExtensionItemProvider(this);
-		}
-
-		return moduleContentExtensionItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensionDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3323,8 +3277,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (variableAccessItemProvider != null) variableAccessItemProvider.dispose();
 		if (metaAccessItemProvider != null) metaAccessItemProvider.dispose();
 		if (typeAccessItemProvider != null) typeAccessItemProvider.dispose();
-		if (classContentExtensionItemProvider != null) classContentExtensionItemProvider.dispose();
-		if (moduleContentExtensionItemProvider != null) moduleContentExtensionItemProvider.dispose();
 		if (extensionDefinitionItemProvider != null) extensionDefinitionItemProvider.dispose();
 		if (extensionSemanticsDefinitionItemProvider != null) extensionSemanticsDefinitionItemProvider.dispose();
 		if (textualSyntaxDefItemProvider != null) textualSyntaxDefItemProvider.dispose();

@@ -6,6 +6,149 @@
  */
 package hub.sam.dbl.util;
 
+import hub.sam.dbl.AbstractVariable;
+import hub.sam.dbl.ActivateObject;
+import hub.sam.dbl.ActiveLiteral;
+import hub.sam.dbl.Advance;
+import hub.sam.dbl.And;
+import hub.sam.dbl.ArrayDimension;
+import hub.sam.dbl.Assignment;
+import hub.sam.dbl.BinaryOperator;
+import hub.sam.dbl.BoolType;
+import hub.sam.dbl.BooleanPropertyType;
+import hub.sam.dbl.BreakStatement;
+import hub.sam.dbl.CallPart;
+import hub.sam.dbl.Cast;
+import hub.sam.dbl.ClassContent;
+import hub.sam.dbl.CodeQuoteExpression;
+import hub.sam.dbl.CompositePropertyType;
+import hub.sam.dbl.Construct;
+import hub.sam.dbl.ConstructiveExtension;
+import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
+import hub.sam.dbl.Constructor;
+import hub.sam.dbl.ContinueStatement;
+import hub.sam.dbl.CreateObject;
+import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Div;
+import hub.sam.dbl.DoubleLiteral;
+import hub.sam.dbl.DoubleType;
+import hub.sam.dbl.ElementAccess;
+import hub.sam.dbl.Equal;
+import hub.sam.dbl.ExpandExpr;
+import hub.sam.dbl.ExpandExpression;
+import hub.sam.dbl.ExpandStatement;
+import hub.sam.dbl.ExpandTextPart;
+import hub.sam.dbl.ExpandVariablePart;
+import hub.sam.dbl.ExpansionPart;
+import hub.sam.dbl.ExpansionStatement;
+import hub.sam.dbl.Expression;
+import hub.sam.dbl.ExtensibleElement;
+import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.FalseLiteral;
+import hub.sam.dbl.ForStatement;
+import hub.sam.dbl.Function;
+import hub.sam.dbl.FunctionCall;
+import hub.sam.dbl.Greater;
+import hub.sam.dbl.GreaterEqual;
+import hub.sam.dbl.IdExpr;
+import hub.sam.dbl.IdPropertyType;
+import hub.sam.dbl.IfStatement;
+import hub.sam.dbl.Import;
+import hub.sam.dbl.InstanceOf;
+import hub.sam.dbl.IntLiteral;
+import hub.sam.dbl.IntPropertyType;
+import hub.sam.dbl.IntType;
+import hub.sam.dbl.L1Expr;
+import hub.sam.dbl.L1RhsExpr;
+import hub.sam.dbl.L2Expr;
+import hub.sam.dbl.L2RhsExpr;
+import hub.sam.dbl.L3Expr;
+import hub.sam.dbl.L3RhsExpr;
+import hub.sam.dbl.L4Expr;
+import hub.sam.dbl.L5Expr;
+import hub.sam.dbl.L6Expr;
+import hub.sam.dbl.L7Expr;
+import hub.sam.dbl.L8Expr;
+import hub.sam.dbl.L9Expr;
+import hub.sam.dbl.LanguageConceptClassifier;
+import hub.sam.dbl.LanguageConstructClassifier;
+import hub.sam.dbl.Less;
+import hub.sam.dbl.LessEqual;
+import hub.sam.dbl.LocalScope;
+import hub.sam.dbl.LocalScopeStatement;
+import hub.sam.dbl.LoopStatement;
+import hub.sam.dbl.MeLiteral;
+import hub.sam.dbl.MetaAccess;
+import hub.sam.dbl.MetaExpr;
+import hub.sam.dbl.MetaLiteral;
+import hub.sam.dbl.Minus;
+import hub.sam.dbl.Mod;
+import hub.sam.dbl.Model;
+import hub.sam.dbl.Module;
+import hub.sam.dbl.ModuleContent;
+import hub.sam.dbl.Mul;
+import hub.sam.dbl.NamedElement;
+import hub.sam.dbl.NativeBinding;
+import hub.sam.dbl.Neg;
+import hub.sam.dbl.Not;
+import hub.sam.dbl.NotEqual;
+import hub.sam.dbl.NullLiteral;
+import hub.sam.dbl.Or;
+import hub.sam.dbl.Parameter;
+import hub.sam.dbl.ParseExpr;
+import hub.sam.dbl.Pattern;
+import hub.sam.dbl.Plus;
+import hub.sam.dbl.PredefinedId;
+import hub.sam.dbl.PrimitiveType;
+import hub.sam.dbl.Print;
+import hub.sam.dbl.PropertyBindingExpr;
+import hub.sam.dbl.PropertyType;
+import hub.sam.dbl.QuotedClassContent;
+import hub.sam.dbl.QuotedCode;
+import hub.sam.dbl.QuotedExpression;
+import hub.sam.dbl.QuotedModuleContent;
+import hub.sam.dbl.QuotedStatements;
+import hub.sam.dbl.Reactivate;
+import hub.sam.dbl.ReferencePropertyType;
+import hub.sam.dbl.ResumeGenStatement;
+import hub.sam.dbl.Return;
+import hub.sam.dbl.RhsClassifierExpr;
+import hub.sam.dbl.RhsExpression;
+import hub.sam.dbl.SaveGenStatement;
+import hub.sam.dbl.SequenceExpr;
+import hub.sam.dbl.SetExpansionContextStatement;
+import hub.sam.dbl.SimpleStatement;
+import hub.sam.dbl.SizeOfArray;
+import hub.sam.dbl.Statement;
+import hub.sam.dbl.StringLiteral;
+import hub.sam.dbl.StringPropertyType;
+import hub.sam.dbl.StringType;
+import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.SuperClassSpecification;
+import hub.sam.dbl.SuperLiteral;
+import hub.sam.dbl.SwitchCase;
+import hub.sam.dbl.SwitchStatement;
+import hub.sam.dbl.TargetStatement;
+import hub.sam.dbl.TerminalExpr;
+import hub.sam.dbl.Terminate;
+import hub.sam.dbl.TestStatement;
+import hub.sam.dbl.TextualSyntaxDef;
+import hub.sam.dbl.TimeLiteral;
+import hub.sam.dbl.TrueLiteral;
+import hub.sam.dbl.TsRule;
+import hub.sam.dbl.Type;
+import hub.sam.dbl.TypeAccess;
+import hub.sam.dbl.TypeLiteral;
+import hub.sam.dbl.TypedElement;
+import hub.sam.dbl.UnaryOperator;
+import hub.sam.dbl.Variable;
+import hub.sam.dbl.VariableAccess;
+import hub.sam.dbl.VoidType;
+import hub.sam.dbl.Wait;
+import hub.sam.dbl.WaitUntil;
+import hub.sam.dbl.WhileStatement;
+import hub.sam.dbl.Yield;
 import hub.sam.dbl.*;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -476,14 +619,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseTypeAccess(TypeAccess object) {
 				return createTypeAccessAdapter();
-			}
-			@Override
-			public Adapter caseClassContentExtension(ClassContentExtension object) {
-				return createClassContentExtensionAdapter();
-			}
-			@Override
-			public Adapter caseModuleContentExtension(ModuleContentExtension object) {
-				return createModuleContentExtensionAdapter();
 			}
 			@Override
 			public Adapter caseExtensionDefinition(ExtensionDefinition object) {
@@ -2094,34 +2229,6 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createExtensibleElementAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ClassContentExtension <em>Class Content Extension</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ClassContentExtension
-	 * @generated
-	 */
-	public Adapter createClassContentExtensionAdapter() {
-		return null;
-	}
-
-	/**
-	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.ModuleContentExtension <em>Module Content Extension</em>}'.
-	 * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-	 * @return the new adapter.
-	 * @see hub.sam.dbl.ModuleContentExtension
-	 * @generated
-	 */
-	public Adapter createModuleContentExtensionAdapter() {
 		return null;
 	}
 

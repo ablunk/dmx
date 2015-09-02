@@ -1,7 +1,6 @@
 package hub.sam.dmx
 
-import hub.sam.dbl.Classifier
-import hub.sam.dbl.Clazz
+import hub.sam.dbl.Class
 import hub.sam.dbl.Model
 import hub.sam.dbl.Module
 import java.io.Writer
@@ -18,11 +17,9 @@ import hub.sam.dbl.DoubleType
 import hub.sam.dbl.IdExpr
 import java.util.List
 import hub.sam.dbl.Variable
-import hub.sam.dbl.Procedure
 import hub.sam.dbl.Statement
 import hub.sam.dbl.Print
 import org.eclipse.emf.ecore.EObject
-import hub.sam.dbl.ProcedureCall
 import hub.sam.dbl.Expression
 import hub.sam.dbl.IfStatement
 import hub.sam.dbl.LocalScopeStatement
@@ -33,12 +30,6 @@ import hub.sam.dbl.ContinueStatement
 import hub.sam.dbl.SwitchStatement
 import hub.sam.dbl.ForStatement
 import hub.sam.dbl.WhileStatement
-import hub.sam.dbl.ResetGenContextStatement
-import hub.sam.dbl.SetGenContextStatement
-import hub.sam.dbl.MappingStatement
-import hub.sam.dbl.MappingPart
-import hub.sam.dbl.FixedMappingPart
-import hub.sam.dbl.DynamicMappingPart
 import hub.sam.dbl.Or
 import hub.sam.dbl.And
 import hub.sam.dbl.Equal
@@ -79,6 +70,16 @@ import hub.sam.dbl.Advance
 import hub.sam.dbl.TimeLiteral
 import hub.sam.dbl.ActiveLiteral
 import hub.sam.dbl.Parameter
+import hub.sam.dbl.Function
+import hub.sam.dbl.FunctionCall
+import hub.sam.dbl.SetExpansionContextStatement
+import hub.sam.dbl.ExpansionStatement
+import hub.sam.dbl.ExpansionPart
+import hub.sam.dbl.ExpandTextPart
+import hub.sam.dbl.ExpandVariablePart
+import hub.sam.dbl.Construct
+import hub.sam.dbl.Constructor
+
 // simulation specific part
 class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	
@@ -90,76 +91,72 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 		'labelsAsValues'
 	}
 	
-	override String genHeaderActiveClass(Clazz clazz) {
+	override String genHeaderActiveClass(Class clazz) {
 		val it = clazz
 		'''
-		#ifndef «name.toUpperCase() + "_H"»
-		#define «name.toUpperCase() + "_H"»
+		#ifndef Â«name.toUpperCase() + "_H"Â»
+		#define Â«name.toUpperCase() + "_H"Â»
 		#include "GotoExecution.h"		
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
-		«IF !objectCreated && superClasses.size < 1»
+		Â«IF allPlaceholders != nullÂ»
+			Â«FOR p : allPlaceholdersÂ»
+				Â«setPlaceholderÂ»
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
+		Â«IF !objectCreated && superClasses.size < 1Â»
 		#include "Object.h"
-		«ENDIF»
+		Â«ENDIFÂ»
 		
-		class «name» «IF superClasses.size >= 1»:«FOR SuperClassSpecification: superClasses SEPARATOR ','» public «SuperClassSpecification.clazz.genType»«ENDFOR»«ELSE»: «IF !objectCreated»public Object,«ENDIF» public GotoExecution«ENDIF»
+		class Â«nameÂ» Â«IF superClasses.size >= 1Â»:Â«FOR SuperClassSpecification: superClasses SEPARATOR ','Â» public Â«SuperClassSpecification.class_.genTypeÂ»Â«ENDFORÂ»Â«ELSEÂ»: Â«IF !objectCreatedÂ»public Object,Â«ENDIFÂ» public GotoExecutionÂ«ENDIFÂ»
 		{
 			public:
-			«IF superClasses.size >= 1»typedef «(superClasses.findFirst[clazz.name != ""]).clazz.name» super; «ENDIF»
+			Â«IF superClasses.size >= 1Â»typedef Â«(superClasses.findFirst[clazz.name != ""]).class_.nameÂ» super; Â«ENDIFÂ»
 		// Konstruktoren der Klasse
-			«IF constructor != null»
-				«genConstructor(header)»
-			«ENDIF» 
-			«genStandardConstructors(header)»
-		«IF methods.size != 0»	
+			Â«FOR constructor: constructorsÂ»
+				Â«constructor.genConstructor(header)Â»
+			Â«ENDFORÂ» 
+			Â«genStandardConstructors(header)Â»
+		Â«IF methods.size != 0Â»	
 		// Funktionen der Klasse	
-			«methods.genProcedures(header)»
-		«ENDIF»	
+			Â«methods.genFunctions(header)Â»
+		Â«ENDIFÂ»	
 		// Attribute der Klasse	
-			«attributes.genVariables(header)»
-			«IF reportBlock != null»void report();«ENDIF»
-			«IF clearBlock != null»void clear();«ENDIF»
+			Â«attributes.genVariables(header)Â»
 		};
 
 		#endif
 		'''
 	}
 	
-	override String genActiveClass(Clazz clazz) {
+	override String genActiveClass(Class clazz) {
 		val it = clazz	
 		'''	
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		Â«IF allPlaceholders != nullÂ»
+			Â«FOR p : allPlaceholdersÂ»
+				Â«setPlaceholderÂ»
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
 		#include "GotoExecution.h"
 		#include "Scheduler.h"
 		
 		// Konstruktoren der Klasse
-		«IF constructor != null»
-			«genConstructor(nonheader)»
-		«ENDIF» 
-			«genStandardConstructors(nonheader)»	
-		«IF methods.size != 0»
+		Â«FOR constructor: constructorsÂ»
+			Â«constructor.genConstructor(nonheader)Â»
+		Â«ENDFORÂ» 
+			Â«genStandardConstructors(nonheader)Â»	
+		Â«IF methods.size != 0Â»
 			// Funktionen der Klasse	
-			«methods.genProcedures(nonheader)»
-		«ENDIF»	
-			«FOR a: attributes»
-				«IF a.clazz»
-					«a.genVariable(nonheader, false)»
-				«ENDIF»
-			«ENDFOR»
+			Â«methods.genFunctions(nonheader)Â»
+		Â«ENDIFÂ»	
+			Â«FOR a: attributesÂ»
+				Â«IF a.isClass()Â»
+					Â«a.genVariable(nonheader, false)Â»
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
 		// Properties der Klasse	
-		«IF reportBlock != null»void report(){}«ENDIF»
-		«IF clearBlock != null»void clear(){}«ENDIF»
 		'''
 	}
 	
-	override String genMainProcedureActive(Procedure p, List<Module> modules){
+	override String genMainFunctionActive(Function p, List<Module> modules){
 		val it = p
 		var string = '''
 		void simulate(){
@@ -167,33 +164,33 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 			cx = new GotoExecution(0, &&main_actions);
 			cx->setScheduledTime(0);
 			main_actions:;
-			«statements.gen»
+			Â«statements.genÂ»
 			goto program_end;
 		'''
 		marker = true;
 		'''	
-			«string»
-			«FOR m:modules»
-				«FOR c: m.classifiers»
-					«IF (c as Clazz) != null && (c as Clazz).active»
-						«c.name»:;
-						«IF (c as Clazz).actionsBlock != null»
+			Â«stringÂ»
+			Â«FOR m:modulesÂ»
+				Â«FOR c: m.classesÂ»
+					Â«IF (c as Class) != null && (c as Class).activeÂ»
+						Â«c.nameÂ»:;
+						Â«IF (c as Class).actionsBlock != nullÂ»
 							// create some mem for variables on stack
-							«IF (c as Clazz).actionsBlock.statements.exists[statement| statement instanceof Variable]»
-								cx->push(nullptr, «(c as Clazz).name.toUpperCase()»_variables_size);
-							«ENDIF»
-							«(c as Clazz).actionsBlock.statements.gen()»
+							Â«IF (c as Class).actionsBlock.statements.exists[statement| statement instanceof Variable]Â»
+								cx->push(nullptr, Â«(c as Class).name.toUpperCase()Â»_variables_size);
+							Â«ENDIFÂ»
+							Â«(c as Class).actionsBlock.statements.gen()Â»
 						TERMINATE;
-						«ELSE»;
-						«ENDIF»
-					«ENDIF»
-				«ENDFOR»
-			«ENDFOR»
-			«FOR procedure:all_Functions_containing_sched»
-				«procedure.name.toUpperCase»:;
-				«procedure.statements.gen»
-				RETURN(«(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size);
-			«ENDFOR»
+						Â«ELSEÂ»;
+						Â«ENDIFÂ»
+					Â«ENDIFÂ»
+				Â«ENDFORÂ»
+			Â«ENDFORÂ»
+			Â«FOR procedure:all_Functions_containing_schedÂ»
+				Â«procedure.name.toUpperCaseÂ»:;
+				Â«procedure.statements.genÂ»
+				RETURN(Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size);
+			Â«ENDFORÂ»
 			program_end:;
 			}
 			
@@ -221,51 +218,51 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	
 	def dispatch String genSimStatement(Yield stm) {
 		var boolean isActiveClass = false;
-		var Clazz activeClass = getActiveClass(stm.eContainer)
+		var Class activeClass = getActiveClass(stm.eContainer)
 		
 		if (activeClass != null) isActiveClass = true
-		checkAndAddProcedureIfContainingSchedOperation(stm.eContainer, isActiveClass)
+		checkAndAddFunctionIfContainingSchedOperation(stm.eContainer, isActiveClass)
 		
 		id++
 		'''
-		cx->cont = &&«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»;
-		YIELD;«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»:;
+		cx->cont = &&Â«IF !isActiveClassÂ»MainÂ«ELSEÂ»Â«activeClass.nameÂ»Â«ENDIFÂ»_lÂ«idÂ»;
+		YIELD;Â«IF !isActiveClassÂ»MainÂ«ELSEÂ»Â«activeClass.nameÂ»Â«ENDIFÂ»_lÂ«idÂ»:;
 		'''
 	}
 	
 	def dispatch String genSimStatement(Wait stm) {
 		var boolean isActiveClass = false;
-		var Clazz activeClass = getActiveClass(stm.eContainer)
+		var Class activeClass = getActiveClass(stm.eContainer)
 		
 		if (activeClass != null) isActiveClass = true
-		checkAndAddProcedureIfContainingSchedOperation(stm.eContainer, isActiveClass)
+		checkAndAddFunctionIfContainingSchedOperation(stm.eContainer, isActiveClass)
 		
 		id++
 		'''
-		cx->cont = &&«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»;
-		WAIT;«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»:;
+		cx->cont = &&Â«IF !isActiveClassÂ»MainÂ«ELSEÂ»Â«activeClass.nameÂ»Â«ENDIFÂ»_lÂ«idÂ»;
+		WAIT;Â«IF !isActiveClassÂ»MainÂ«ELSEÂ»Â«activeClass.nameÂ»Â«ENDIFÂ»_lÂ«idÂ»:;
 		'''
 	}
 	
 	def dispatch String genSimStatement(ActivateObject stm) {
-		'''sched->activate(«stm.objectAccess.genExpr»);'''
+		'''sched->activate(Â«stm.objectAccess.genExprÂ»);'''
 	}
 	
 	def dispatch String genSimStatement(Reactivate stm) {
-		'''sched->reactivate(«stm.objectAccess.genExpr»);'''
+		'''sched->reactivate(Â«stm.objectAccess.genExprÂ»);'''
 	}
 	
 	def dispatch String genSimStatement(Advance stm) {
 		var boolean isActiveClass = false;
-		var Clazz activeClass = getActiveClass(stm.eContainer)
+		var Class activeClass = getActiveClass(stm.eContainer)
 		
 		if (activeClass != null) isActiveClass = true
-		checkAndAddProcedureIfContainingSchedOperation(stm.eContainer, isActiveClass)
+		checkAndAddFunctionIfContainingSchedOperation(stm.eContainer, isActiveClass)
 		
 		id++;
 		'''
-		cx->cont = &&«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»;
-		ADVANCE(«stm.time.genExpr»);«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»:;
+		cx->cont = &&Â«IF !isActiveClassÂ»MainÂ«ELSEÂ»Â«activeClass.nameÂ»Â«ENDIFÂ»_lÂ«idÂ»;
+		ADVANCE(Â«stm.time.genExprÂ»);Â«IF !isActiveClassÂ»MainÂ«ELSEÂ»Â«activeClass.nameÂ»Â«ENDIFÂ»_lÂ«idÂ»:;
 		'''
 	}
 
@@ -279,20 +276,20 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	
 	def dispatch String genSimExpr(ActiveLiteral stm) {
 		var boolean isActiveClass = false;
-		var Clazz activeClass = getActiveClass(stm.eContainer)
+		var Class activeClass = getActiveClass(stm.eContainer)
 		
 		if (activeClass != null) isActiveClass = true
 		
-		'''«IF isActiveClass»static_cast<«activeClass.name»*> (cx)«ELSE»cx«ENDIF»'''
+		'''Â«IF isActiveClassÂ»static_cast<Â«activeClass.nameÂ»*> (cx)Â«ELSEÂ»cxÂ«ENDIFÂ»'''
 	}
 	
-	def void checkAndAddProcedureIfContainingSchedOperation(EObject obj, boolean isActiveClass) {
+	def void checkAndAddFunctionIfContainingSchedOperation(EObject obj, boolean isActiveClass) {
 		var EObject object = obj
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if (obj instanceof Procedure && isActiveClass){
-			if(!all_Functions_containing_sched.contains((object as Procedure))) all_Functions_containing_sched.add((object as Procedure));
+		if (obj instanceof Function && isActiveClass){
+			if(!all_Functions_containing_sched.contains((object as Function))) all_Functions_containing_sched.add((object as Function));
 		}
 	}
 }
@@ -314,13 +311,13 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	protected val List<String> otherCLibs = newArrayList("cout", "instanceof", "string", "namespace", "vector", "object");
 	protected var List<String> allPlaceholders; 
 	protected var List<String> allImportedClassesNames = newArrayList(); 
-	protected var List<Clazz> allImportedClasses = newArrayList(); 
+	protected var List<Class> allImportedClasses = newArrayList(); 
 	protected var List<String> allPointerToObjects = newArrayList();
 	protected var List<String> allCppFiles = newArrayList();
 	protected var List<String> allActiveClasses = newArrayList();
 	protected var List<Variable> all_Var_main_actions = newArrayList();
 	protected var List<Variable> all_Var_f = newArrayList();
-	protected var List<Procedure> all_Functions_containing_sched = newArrayList();
+	protected var List<Function> all_Functions_containing_sched = newArrayList();
 	protected var List<String> all_Macros = newArrayList();
 	/* if scheduler_var = false, scheduler will iterate over one map which is sorted by priority
 	*  and time, otherwise scheduler will own two maps, one is sorted by priority(moving map) and the
@@ -346,10 +343,10 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	
 	def void genModel(Model model, boolean mainModel){
 		// if there are active classes, additional c++ classes needed
-		val moduleWithActiveClasses = model.modules.filter[classifiers != null].filter[classifiers.findFirstActiveClass()].empty
+		val moduleWithActiveClasses = model.modules.filter[classes != null].filter[classes.findFirstActiveClass()].empty
 			if (!moduleWithActiveClasses) {
-				model.modules.forEach[ module | module.classifiers.forEach[ classifier |
-				if((classifier as Clazz).active) allActiveClasses.add(classifier.name)
+				model.modules.forEach[ module | module.classes.forEach[ class_ |
+				if(class_.active) allActiveClasses.add(class_.name)
 				]]
 				createAdditionalClasses()
 				allCppFiles.add("Execution.cpp") 
@@ -364,14 +361,14 @@ class BasicDblToCGenerator extends AbstractGenerator {
 			}
 		
 		if(mainModel){
-			model.modules.forEach[ module | module.classifiers.forEach[ classifier |
-				allClassesInWorkspace.add(classifier.name)
+			model.modules.forEach[ module | module.classes.forEach[ class_ |
+				allClassesInWorkspace.add(class_.name)
 			]]
 			model.modules.forEach[module | allModulesInWorkspace.add(module.name)]
 		}
-		model.imports.forEach[import | if(import.model != null) import.model.modules.forEach[module | module.classifiers.forEach
-		[classifier | if ((classifier as Clazz).bindings != null && ((classifier as Clazz).bindings.findFirst[binding | binding.targetLanguage == "c++"] != null)){
-				(classifier as Clazz).bindings.forEach[binding | 
+		model.imports.forEach[import | if(import.model != null) import.model.modules.forEach[module | module.classes.forEach
+		[class_ | if (class_.bindings != null && (class_.bindings.findFirst[binding | binding.targetLanguage == "c++"] != null)){
+				class_.bindings.forEach[binding | 
 					// import handling plus include of wrapper classes and add Files for compiler
 					if (binding.targetType == "ListWrapper"){
 						createListWrapper();
@@ -381,22 +378,22 @@ class BasicDblToCGenerator extends AbstractGenerator {
 						createObjectClass();
 					}
 				]
-				allImportedClassesNames.add((classifier as Clazz).name);
-				allImportedClasses.add(classifier as Clazz);
+				allImportedClassesNames.add(class_.name);
+				allImportedClasses.add(class_);
 			}
 		]]]
 				
-		val ModulsWithMains = model.modules.filter[procedures.exists[name == 'main']]
+		val ModulsWithMains = model.modules.filter[functions.exists[name == 'main']]
 		if (ModulsWithMains.size > 1) logger.info("more than one main-procedure, aborting translation")
 		else{ 
 		allPlaceholders = newArrayList(allClassesInWorkspace+allModulesInWorkspace+otherCLibs+allImportedClassesNames);
-		val Module moduleWithMainProcedure = if (mainModel) model.modules.findFirst[ procedures.exists[ name == 'main' ] ] else null
+		val Module moduleWithMainFunction = if (mainModel) model.modules.findFirst[ functions.exists[ name == 'main' ] ] else null
 		// fuer jedes Modul wird Datei angelegt
 		model.modules.forEach[ module | 
 		
-			if(!(module.variables.size == 0 && module.procedures.size == 1 && module.procedures.exists[name == 'main'])){
+			if(!(module.variables.size == 0 && module.functions.size == 1 && module.functions.exists[name == 'main'])){
 				// generate header files for modules
-				if (module.variables.size > 0 || module.procedures.size > 0)
+				if (module.variables.size > 0 || module.functions.size > 0)
 				{ 
 					val Writer moduleHeaderWriter = beginTargetFile(cPackageFolder, module.name + ".h");
 					moduleHeaderWriter.write(
@@ -414,22 +411,21 @@ class BasicDblToCGenerator extends AbstractGenerator {
 			}
 			
 			// generate header files for classes
-			module.classifiers.forEach[ classifier |
-			val clazz = classifier as Clazz	
-				if(classifier.gen(header) != null && classifier.gen(header) != ""){
-					actualClassesInWorkspace.add(classifier.name);
+			module.classes.forEach[ class_ |
+				if(class_.gen(header) != null && class_.gen(header) != ""){
+					actualClassesInWorkspace.add(class_.name);
 					
-					val Writer classifierHeaderWriter = beginTargetFile(cPackageFolder, classifier.name + ".h");
+					val Writer classifierHeaderWriter = beginTargetFile(cPackageFolder, class_.name + ".h");
 					classifierHeaderWriter.write(
-						dynamicImportClassifier(classifier.gen(header), model.modules, clazz, header)
+						dynamicImportClassifier(class_.gen(header), model.modules, class_, header)
 					)
 					endTargetFile(classifierHeaderWriter)
 				}
-				if(classifier.gen(nonheader) != null && classifier.gen(nonheader) != ""){	
-					allCppFiles.add(classifier.name+".cpp")
-					val Writer classifierCppWriter = beginTargetFile(cPackageFolder, classifier.name + ".cpp");
+				if(class_.gen(nonheader) != null && class_.gen(nonheader) != ""){	
+					allCppFiles.add(class_.name+".cpp")
+					val Writer classifierCppWriter = beginTargetFile(cPackageFolder, class_.name + ".cpp");
 					classifierCppWriter.write(
-						dynamicImportClassifier(classifier.gen(nonheader), model.modules, clazz, nonheader)
+						dynamicImportClassifier(class_.gen(nonheader), model.modules, class_, nonheader)
 					)
 					endTargetFile(classifierCppWriter)
 				}
@@ -437,14 +433,14 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		]
 		
 		// generates main.cpp
-		if (mainModel && moduleWithMainProcedure != null) {
+		if (mainModel && moduleWithMainFunction != null) {
 			// main Java class with main function
 			val Writer cMain = beginTargetFile(cPackageFolder, "Main.cpp");
-			val moduleMain = model.modules.findFirst[ procedures.exists[ name == 'main' ] ];
-			val prodecureMain = moduleMain.procedures.findFirst[name == 'main'];
+			val moduleMain = model.modules.findFirst[ functions.exists[ name == 'main' ] ];
+			val prodecureMain = moduleMain.functions.findFirst[name == 'main'];
 			cMain.write(
 				'''
-				«IF (!moduleWithActiveClasses)»
+				Â«IF (!moduleWithActiveClasses)Â»
 				#define STACK_SIZE 32*1024
 				#include "Log.h"
 				#include "GotoExecution.h"
@@ -484,31 +480,31 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				#define LRV_POINTER  (cx->lrv.pv)	
 				
 				#include <string>
-				«macros_for_main_actionsParts(model)»
-				«macros_for_functions()»
+				Â«macros_for_main_actionsParts(model)Â»
+				Â«macros_for_functions()Â»
 				
-				«ENDIF»
-				«FOR Module: model.modules»
-					 «IF(!(Module.variables.size == 0 && Module.procedures.size == 1 && Module.procedures.exists[name == 'main']))» 
-					 «IF (Module.variables.size > 0 || Module.procedures.size > 0)»
-					 	«Module.genIncludeStatement»
-					 «ENDIF»	
-					«ENDIF»
-					«FOR Clazz: Module.classifiers»
-						«Clazz.genIncludeStatement»
-					«ENDFOR»
-				«ENDFOR»
+				Â«ENDIFÂ»
+				Â«FOR Module: model.modulesÂ»
+					 Â«IF(!(Module.variables.size == 0 && Module.functions.size == 1 && Module.functions.exists[name == 'main']))Â» 
+					 Â«IF (Module.variables.size > 0 || Module.functions.size > 0)Â»
+					 	Â«Module.genIncludeStatementÂ»
+					 Â«ENDIFÂ»	
+					Â«ENDIFÂ»
+					Â«FOR Class: Module.classesÂ»
+						Â«Class.genIncludeStatementÂ»
+					Â«ENDFORÂ»
+				Â«ENDFORÂ»
 				// import header files standard library
 				#include <iostream>
 				#include <ctime>
 				using namespace std;
-				«IF !listWrapper» 
+				Â«IF !listWrapperÂ» 
 				#include "ListWrapper.h"
 				#include "Object.h"
-				«ELSEIF !objectCreated»
+				Â«ELSEIF !objectCreatedÂ»
 				#include "Object.h"
-				«ENDIF»		
-				«IF (moduleWithActiveClasses)»«prodecureMain.genMainProcedure»«ELSE»«prodecureMain.genMainProcedureActive(model.modules)»«ENDIF»
+				Â«ENDIFÂ»		
+				Â«IF (moduleWithActiveClasses)Â»Â«prodecureMain.genMainFunctionÂ»Â«ELSEÂ»Â«prodecureMain.genMainFunctionActive(model.modules)Â»Â«ENDIFÂ»
 				'''			
 			);
 			endTargetFile(cMain);
@@ -520,7 +516,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		// precalculation to mark every variable declaration
 		marker = true;
 		for(p:all_Functions_containing_sched){
-			p.genProcedure(nonheader);
+			p.genFunction(nonheader);
 		}
 		marker = false;
 		
@@ -535,63 +531,63 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					
 		'''
 		//variable size for all variables and parameters in all methods in all active classes 
-		«FOR procedure:all_Functions_containing_sched»
-			«FOR p:procedure.parameters»
-				#define PARAMETER_«(p.eContainer.eContainer as Clazz).name.toUpperCase()»_«(p.eContainer as Procedure).name.toUpperCase()»_«p.name.toUpperCase()»_size sizeof(«p.genType»«IF p.primitiveType == null»«ENDIF»)
-			«ENDFOR»
-			«FOR s: all_Var_f»
-				«IF s.getProcedureName == procedure.name»
-					#define VARIABLE_«getClassName(s).toUpperCase()»_«getProcedureName(s).toUpperCase()»_«(s as Variable).name.toUpperCase()»_size sizeof(«(s as Variable).genType»«IF (s as Variable).primitiveType == null»«ENDIF»)
-				«ENDIF»
-			«ENDFOR»
+		Â«FOR procedure:all_Functions_containing_schedÂ»
+			Â«FOR p:procedure.parametersÂ»
+				#define PARAMETER_Â«(p.eContainer.eContainer as Class).name.toUpperCase()Â»_Â«(p.eContainer as Function).name.toUpperCase()Â»_Â«p.name.toUpperCase()Â»_size sizeof(Â«p.genTypeÂ»Â«IF p.primitiveType == nullÂ»Â«ENDIFÂ»)
+			Â«ENDFORÂ»
+			Â«FOR s: all_Var_fÂ»
+				Â«IF s.getFunctionName == procedure.nameÂ»
+					#define VARIABLE_Â«getClassName(s).toUpperCase()Â»_Â«getFunctionName(s).toUpperCase()Â»_Â«(s as Variable).name.toUpperCase()Â»_size sizeof(Â«(s as Variable).genTypeÂ»Â«IF (s as Variable).primitiveType == nullÂ»Â«ENDIFÂ»)
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
 			
-		«ENDFOR»
+		Â«ENDFORÂ»
 		//sum of variable size for all variables in methods of all active classes
-		«FOR procedure:all_Functions_containing_sched»
-			«IF procedure.parameters.size != 0»
-				#define «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size («calculateSizeProcedure(procedure)»
-			«ELSE»
-				#define «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size 0
-			«ENDIF»
-		«ENDFOR»
+		Â«FOR procedure:all_Functions_containing_schedÂ»
+			Â«IF procedure.parameters.size != 0Â»
+				#define Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size (Â«calculateSizeFunction(procedure)Â»
+			Â«ELSEÂ»
+				#define Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size 0
+			Â«ENDIFÂ»
+		Â«ENDFORÂ»
 		//macro for the access to the variables in all methods of all active classes
-		«FOR procedure:all_Functions_containing_sched»
-			«FOR p:procedure.parameters»
-				#define «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«p.name.toUpperCase()» (* reinterpret_cast<«p.genType»*>(cx->top - «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size «calculatePlaceFunction(procedure,p,true)»))	
-				#define «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«p.name.toUpperCase()»_PASSOVER «IF calculatePlaceFunction(procedure,p,false) != ""» «calculatePlaceFunction(procedure,p,false)»«ELSE» 0 «ENDIF»				
-			«ENDFOR»
+		Â«FOR procedure:all_Functions_containing_schedÂ»
+			Â«FOR p:procedure.parametersÂ»
+				#define Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«p.name.toUpperCase()Â» (* reinterpret_cast<Â«p.genTypeÂ»*>(cx->top - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size Â«calculatePlaceFunction(procedure,p,true)Â»))	
+				#define Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«p.name.toUpperCase()Â»_PASSOVER Â«IF calculatePlaceFunction(procedure,p,false) != ""Â» Â«calculatePlaceFunction(procedure,p,false)Â»Â«ELSEÂ» 0 Â«ENDIFÂ»				
+			Â«ENDFORÂ»
 			
-			«FOR s: all_Var_f»
-				«IF s.getProcedureName == procedure.name»
-					#define «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«(s as Variable).name.toUpperCase()» (* reinterpret_cast<«(s as Variable).genType»*>(cx->top - «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size «calculatePlaceFunction(procedure,s,true)»))
-					#define «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«(s as Variable).name.toUpperCase()»_PASSOVER «IF calculatePlaceFunction(procedure,s,false) != ""» «calculatePlaceFunction(procedure,s,false)» «ELSE» 0 «ENDIF»
-				«ENDIF»
+			Â«FOR s: all_Var_fÂ»
+				Â«IF s.getFunctionName == procedure.nameÂ»
+					#define Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«(s as Variable).name.toUpperCase()Â» (* reinterpret_cast<Â«(s as Variable).genTypeÂ»*>(cx->top - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size Â«calculatePlaceFunction(procedure,s,true)Â»))
+					#define Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«(s as Variable).name.toUpperCase()Â»_PASSOVER Â«IF calculatePlaceFunction(procedure,s,false) != ""Â» Â«calculatePlaceFunction(procedure,s,false)Â» Â«ELSEÂ» 0 Â«ENDIFÂ»
+				Â«ENDIFÂ»
 				
-			«ENDFOR»
+			Â«ENDFORÂ»
 			
-		«ENDFOR»
+		Â«ENDFORÂ»
 		'''
 	}
 	
-	def String getProcedureName(EObject variable) {
+	def String getFunctionName(EObject variable) {
 		var object = variable.eContainer;
 		
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if(object instanceof Procedure) return ((object as Procedure).name)
+		if(object instanceof Function) return ((object as Function).name)
 	}
 	
 	def String getClassName(EObject s) {
 		var object = s.eContainer;
 		
-		while (!(object instanceof Module || object instanceof Clazz)){
+		while (!(object instanceof Module || object instanceof Class)){
 			object = object.eContainer;
 		}
-		if(object instanceof Clazz) return ((object as Clazz).name)
+		if(object instanceof Class) return ((object as Class).name)
 	}
 	
-	def String calculatePlaceFunction(Procedure procedure, EObject variableOrParameter, boolean state2) {
+	def String calculatePlaceFunction(Function procedure, EObject variableOrParameter, boolean state2) {
 		
 		var String result = ""
 		var boolean state = false;
@@ -604,7 +600,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 						state = true;
 					}	
 					else{
-						result = result + ''' «IF state2 || !initial»+«ENDIF» PARAMETER_«(p.eContainer.eContainer as Clazz).name.toUpperCase()»_«(p.eContainer as Procedure).name.toUpperCase()»_«p.name.toUpperCase()»_size'''
+						result = result + ''' Â«IF state2 || !initialÂ»+Â«ENDIFÂ» PARAMETER_Â«(p.eContainer.eContainer as Class).name.toUpperCase()Â»_Â«(p.eContainer as Function).name.toUpperCase()Â»_Â«p.name.toUpperCase()Â»_size'''
 						initial = false; 
 					}
 				}
@@ -612,16 +608,16 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		else{
 			for (p:procedure.parameters){
-				result = result + '''«IF state2 || !initial»+«ENDIF» PARAMETER_«p.getClassName.toUpperCase()»_«p.getProcedureName.toUpperCase()»_«p.name.toUpperCase()»_size'''
+				result = result + '''Â«IF state2 || !initialÂ»+Â«ENDIFÂ» PARAMETER_Â«p.getClassName.toUpperCase()Â»_Â«p.getFunctionName.toUpperCase()Â»_Â«p.name.toUpperCase()Â»_size'''
 				initial = false;
 			}
 			for (s: all_Var_f){
-				if (s.getProcedureName == procedure.name && !state){
+				if (s.getFunctionName == procedure.name && !state){
 						if(variableOrParameter as Variable == s){
 							state = true;
 						}
 						else{
-							result = result + ''' + VARIABLE_«s.getClassName.toUpperCase()»_«s.getProcedureName.toUpperCase()»_«(s as Variable).name.toUpperCase()»_size'''
+							result = result + ''' + VARIABLE_Â«s.getClassName.toUpperCase()Â»_Â«s.getFunctionName.toUpperCase()Â»_Â«(s as Variable).name.toUpperCase()Â»_size'''
 						}
 				} 
 			}
@@ -634,9 +630,9 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		//to find all declarations in the mainPart of active classes
 		marker = true
 		for (m: modell.modules){
-			for(c:m.classifiers){
-				if((c as Clazz).active){
-					((c as Clazz).actionsBlock).statements.gen
+			for(c:m.classes){
+				if((c as Class).active){
+					((c as Class).actionsBlock).statements.gen
 				}
 			}
 		}
@@ -648,71 +644,71 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				
 		'''		
 		//variable size for all variables in action parts of all active classes 		
-		«FOR m: modell.modules»
-			«FOR c:m.classifiers»
-				«IF (c as Clazz).active»
-					«FOR v: all_Var_main_actions»
-						«IF	v.getClassName == (c as Clazz).name»
-							#define «(c as Clazz).name.toUpperCase()»_«v.name.toUpperCase()»_size sizeof(«v.genType»«IF v.primitiveType == null»«ENDIF»)
-						«ENDIF»
-					«ENDFOR»
+		Â«FOR m: modell.modulesÂ»
+			Â«FOR c:m.classesÂ»
+				Â«IF (c as Class).activeÂ»
+					Â«FOR v: all_Var_main_actionsÂ»
+						Â«IF	v.getClassName == (c as Class).nameÂ»
+							#define Â«(c as Class).name.toUpperCase()Â»_Â«v.name.toUpperCase()Â»_size sizeof(Â«v.genTypeÂ»Â«IF v.primitiveType == nullÂ»Â«ENDIFÂ»)
+						Â«ENDIFÂ»
+					Â«ENDFORÂ»
 					
-				«ENDIF»
-			«ENDFOR»
-		«ENDFOR»
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
+		Â«ENDFORÂ»
 		//sum of variable size for all variables in action parts of all active classes 
-		«FOR m: modell.modules»
-			«FOR c:m.classifiers»
-				«IF (c as Clazz).active»
-					«IF (c as Clazz).actionsBlock.statements.exists[statement| statement instanceof Variable]»
-						#define «(c as Clazz).name.toUpperCase()»_variables_size («calculateSize(c as Clazz)»
-					«ENDIF»
-				«ENDIF»
-			«ENDFOR»
-		«ENDFOR»
+		Â«FOR m: modell.modulesÂ»
+			Â«FOR c:m.classesÂ»
+				Â«IF (c as Class).activeÂ»
+					Â«IF (c as Class).actionsBlock.statements.exists[statement| statement instanceof Variable]Â»
+						#define Â«(c as Class).name.toUpperCase()Â»_variables_size (Â«calculateSize(c as Class)Â»
+					Â«ENDIFÂ»
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
+		Â«ENDFORÂ»
 		//macro for the access to the variables in actions parts of all active classes
-		«FOR m: modell.modules»
-			«FOR c:m.classifiers»
-				«IF (c as Clazz).active»
-					«FOR v: all_Var_main_actions»
-						«IF	v.getClassName == (c as Clazz).name»
-							#define «(c as Clazz).name.toUpperCase()»_«v.name.toUpperCase()» (* reinterpret_cast<«IF v.genType == "string"»string*>«ELSE»«v.genType»*>«ENDIF»(cx->top - «(c as Clazz).name.toUpperCase()»_variables_size «calculatePlace(v,(c as Clazz),true)»))
-							#define «(c as Clazz).name.toUpperCase()»_«v.name.toUpperCase()»_PASSOVER «IF calculatePlace(v,(c as Clazz),false) != ""» «calculatePlace(v,(c as Clazz),false)» «ELSE» 0 «ENDIF»
-						«ENDIF»
-					«ENDFOR»
+		Â«FOR m: modell.modulesÂ»
+			Â«FOR c:m.classesÂ»
+				Â«IF (c as Class).activeÂ»
+					Â«FOR v: all_Var_main_actionsÂ»
+						Â«IF	v.getClassName == (c as Class).nameÂ»
+							#define Â«(c as Class).name.toUpperCase()Â»_Â«v.name.toUpperCase()Â» (* reinterpret_cast<Â«IF v.genType == "string"Â»string*>Â«ELSEÂ»Â«v.genTypeÂ»*>Â«ENDIFÂ»(cx->top - Â«(c as Class).name.toUpperCase()Â»_variables_size Â«calculatePlace(v,(c as Class),true)Â»))
+							#define Â«(c as Class).name.toUpperCase()Â»_Â«v.name.toUpperCase()Â»_PASSOVER Â«IF calculatePlace(v,(c as Class),false) != ""Â» Â«calculatePlace(v,(c as Class),false)Â» Â«ELSEÂ» 0 Â«ENDIFÂ»
+						Â«ENDIFÂ»
+					Â«ENDFORÂ»
 					
-				«ENDIF»
-			«ENDFOR»
-		«ENDFOR»
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
+		Â«ENDFORÂ»
 		'''
 
 	}
 	
-	def String calculateSizeProcedure(Procedure p) {
+	def String calculateSizeFunction(Function p) {
 		val it = p
 		var int temp = -1;
 		
 		for (s: all_Var_f)
-			if (s.getProcedureName == p.name)
+			if (s.getFunctionName == p.name)
 				temp = all_Var_f.indexOf(s);
 		'''
-			«IF parameters != null»
-				«FOR param:parameters SEPARATOR "+"»
-					PARAMETER_«param.getClassName.toUpperCase()»_«param.getProcedureName.toUpperCase()»_«param.name.toUpperCase()»_size«ENDFOR»«ENDIF»«IF parameters != null && temp!=-1»+«FOR s:all_Var_f»«IF s.getProcedureName == p.name»VARIABLE_«s.getClassName.toUpperCase()»_«s.getProcedureName.toUpperCase()»_«(s as Variable).name.toUpperCase()»_size«IF all_Var_f.indexOf(s) < temp»+«ELSE»«ENDIF»«ENDIF»«ENDFOR»«ENDIF»)
+			Â«IF parameters != nullÂ»
+				Â«FOR param:parameters SEPARATOR "+"Â»
+					PARAMETER_Â«param.getClassName.toUpperCase()Â»_Â«param.getFunctionName.toUpperCase()Â»_Â«param.name.toUpperCase()Â»_sizeÂ«ENDFORÂ»Â«ENDIFÂ»Â«IF parameters != null && temp!=-1Â»+Â«FOR s:all_Var_fÂ»Â«IF s.getFunctionName == p.nameÂ»VARIABLE_Â«s.getClassName.toUpperCase()Â»_Â«s.getFunctionName.toUpperCase()Â»_Â«(s as Variable).name.toUpperCase()Â»_sizeÂ«IF all_Var_f.indexOf(s) < tempÂ»+Â«ELSEÂ»Â«ENDIFÂ»Â«ENDIFÂ»Â«ENDFORÂ»Â«ENDIFÂ»)
 		'''
 	}
 	
-	def String calculateSize(Clazz actionsClass) {
+	def String calculateSize(Class actionsClass) {
 		var int temp = 0;
 		for (s: all_Var_main_actions)
 			if (s.getClassName == actionsClass.name)
 				temp = all_Var_main_actions.indexOf(s);
 		'''
-			«FOR action:all_Var_main_actions»«IF action.getClassName == actionsClass.name» «actionsClass.name.toUpperCase()»_«action.name.toUpperCase()»_size «IF all_Var_main_actions.indexOf(action) < temp»+«ELSE»«ENDIF»«ENDIF»«ENDFOR»)
+			Â«FOR action:all_Var_main_actionsÂ»Â«IF action.getClassName == actionsClass.nameÂ» Â«actionsClass.name.toUpperCase()Â»_Â«action.name.toUpperCase()Â»_size Â«IF all_Var_main_actions.indexOf(action) < tempÂ»+Â«ELSEÂ»Â«ENDIFÂ»Â«ENDIFÂ»Â«ENDFORÂ»)
 		'''
 	}
 	
-	def String calculatePlace(Variable s, Clazz actionsClass, boolean state2) {
+	def String calculatePlace(Variable s, Class actionsClass, boolean state2) {
 		var String result = ""
 		var boolean state = false;
 		var boolean initial = true;
@@ -723,7 +719,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					state = true;
 				}
 				else{
-					result = result + ''' «IF state2 || !initial»+«ENDIF» «actionsClass.name.toUpperCase()»_«t.name.toUpperCase()»_size'''
+					result = result + ''' Â«IF state2 || !initialÂ»+Â«ENDIFÂ» Â«actionsClass.name.toUpperCase()Â»_Â«t.name.toUpperCase()Â»_size'''
 					initial = false;
 				}
 			} 
@@ -1134,11 +1130,11 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		
 				// Variante1:
 				#include "EventNodeCompareTimeAndPriority.h"
-				«IF scheduler_var»
+				Â«IF scheduler_varÂ»
 				// Variante2:
 				//#include "EventNodeCompareTime.h"
 				#include "EventNodeComparePriority.h"
-				«ENDIF»
+				Â«ENDIFÂ»
 				#include <map>
 				
 				class TimeRedBlackTree : public EventSet {
@@ -1147,14 +1143,14 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				// Variante1: only one map, events sorted by priority and time
 				std::map<EventNode, Execution*, EventNodeCompareTimeAndPriority> map;
 				typedef std::map<EventNode, Execution*, EventNodeCompareTimeAndPriority>::iterator MapIteratorTimeAndPriority;
-				«IF scheduler_var»
+				Â«IF scheduler_varÂ»
 				//Variante2: moving map sorted by priority and future map sorted by time
 				std::map<EventNode, Execution*, EventNodeComparePriority> movingMap;
 				typedef std::map<EventNode, Execution*, EventNodeComparePriority>::iterator MapIteratorPriority;
 				
 				std::map<EventNode, Execution*, EventNodeCompareTimeAndPriority> futureMap;
 				//typedef std::map<EventNode, Execution*, EventNodeCompareTime>::iterator MapIteratorTime;
-				«ENDIF»
+				Â«ENDIFÂ»
 				
 				typedef std::pair<EventNode, Execution*> MapPairType;
 				
@@ -1165,11 +1161,11 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				void remove(Execution* e);
 				bool empty();
 				void printState();
-				«IF scheduler_var»
+				Â«IF scheduler_varÂ»
 				void insertFuture(Execution* e);
 				void insertMoving(Execution* e);
 				Execution* pickMovingMap();
-				«ENDIF»
+				Â«ENDIFÂ»
 				};
 				#endif
 				''');
@@ -1185,7 +1181,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				
 				extern Execution* cx;
 				
-				«IF scheduler_var»
+				Â«IF scheduler_varÂ»
 				//Variante2: insert in moving map
 				void TimeRedBlackTree::insertMoving(Execution* e) {
 					if(!empty()){
@@ -1229,8 +1225,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				
 				Execution* TimeRedBlackTree::pick() {
 					Execution* v;
-				«IF debug»	std::cout << "before pick" << std::endl; 
-					printState(); «ENDIF»
+				Â«IF debugÂ»	std::cout << "before pick" << std::endl; 
+					printState(); Â«ENDIFÂ»
 					if(empty()){
 						if(!futureMap.empty()){
 							EventNode k = futureMap.begin()->first;
@@ -1249,8 +1245,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 							insertMoving(v); 	
 						}
 					}
-				«IF debug»	std::cout << "in the middle of pick" << std::endl;
-					printState(); «ENDIF»
+				Â«IF debugÂ»	std::cout << "in the middle of pick" << std::endl;
+					printState(); Â«ENDIFÂ»
 					return pickMovingMap();
 				}
 				
@@ -1270,8 +1266,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					else {
 						movingMap.erase(k);
 					}
-					«IF debug» std::cout << "after pick" << std::endl;
-					printState(); «ENDIF»
+					Â«IF debugÂ» std::cout << "after pick" << std::endl;
+					printState(); Â«ENDIFÂ»
 					return v;
 				}
 				
@@ -1315,7 +1311,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					}
 					std::cout << "---------------" << std::endl;
 				}
-				«ELSE»
+				Â«ELSEÂ»
 				Execution* TimeRedBlackTree::pick() {
 					EventNode k = map.begin()->first;
 					Execution* v = map.begin()->second;
@@ -1359,7 +1355,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					}
 					std::cout << "---------------" << std::endl;
 				}
-				«ENDIF»
+				Â«ENDIFÂ»
 				
 				//Variante1:
 				void TimeRedBlackTree::insert(Execution* e) {
@@ -1409,13 +1405,13 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				}
 				
 				bool TimeRedBlackTree::empty() {
-					«IF !scheduler_var»
+					Â«IF !scheduler_varÂ»
 					//Variante1:
 					return map.empty();
-					«ELSE»
+					Â«ELSEÂ»
 					//Variante2:
 					return movingMap.empty();
-					«ENDIF»
+					Â«ENDIFÂ»
 				}
 				''');
 			endTargetFile(timeRedBlackTree_CPP);
@@ -1604,21 +1600,21 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				}
 
 				Execution* Scheduler::advance(double time) {
-					«IF debug» std::cout << "before advance"<< std::endl;
-					eventSet.printState(); «ENDIF»
-					«IF scheduler_var»
+					Â«IF debugÂ» std::cout << "before advance"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
+					Â«IF scheduler_varÂ»
 					//Variante2:
 					if(time > 0) {
 						cx->setScheduledTime(modelTime + time);
 						eventSet.insertFuture(cx);
 					}
 					else eventSet.insertMoving(cx);
-					«ELSE»
+					Â«ELSEÂ»
 					//Variante1:
 					if(time < 0) time = 0.0;
 					cx->setScheduledTime(modelTime + time);
 					eventSet.insert(cx);	
-					«ENDIF»		
+					Â«ENDIFÂ»		
 
 				Execution* nextEvent = pickNextEvent();
 
@@ -1626,35 +1622,35 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					modelTime = nextEvent->getScheduledTime();
 					log2("model time changes to: " << modelTime);
 				}
-				«IF debug»std::cout << "after advance"<< std::endl;
-				eventSet.printState(); «ENDIF»
+				Â«IF debugÂ»std::cout << "after advance"<< std::endl;
+				eventSet.printState(); Â«ENDIFÂ»
 				return nextEvent;
 				}
 
 				Execution* Scheduler::yield() {
-				«IF debug»	std::cout << "before yield"<< std::endl;
-					eventSet.printState(); «ENDIF»
-					«IF !scheduler_var»
+				Â«IF debugÂ»	std::cout << "before yield"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
+					Â«IF !scheduler_varÂ»
 					//Variante1:
 					eventSet.insert(cx);
-					«ELSE»
+					Â«ELSEÂ»
 					//Variante2:
 					eventSet.insertMoving(cx);
-					«ENDIF»
-					«IF debug»std::cout << "after yield"<< std::endl;
-					eventSet.printState(); «ENDIF»
+					Â«ENDIFÂ»
+					Â«IF debugÂ»std::cout << "after yield"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
 				return pickNextEvent();
 				}
 				// cannot be used in DBL
 				Execution* Scheduler::yieldTo(Execution* e) {
 					eventSet.remove(e);
-					«IF !scheduler_var»
+					Â«IF !scheduler_varÂ»
 					//Variante1:
 					eventSet.insert(cx);
-					«ELSE»
+					Â«ELSEÂ»
 					//Variante2:
 					eventSet.insertMoving(cx);
-					«ENDIF»
+					Â«ENDIFÂ»
 				return e;
 				}
 
@@ -1675,8 +1671,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				}
 
 				Execution* Scheduler::wait() {
-					«IF debug»std::cout << "before wait"<< std::endl;
-					eventSet.printState(); «ENDIF»
+					Â«IF debugÂ»std::cout << "before wait"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
 					cx->isWaiting = true;
 					waitingList.push_front(cx);
 				
@@ -1691,8 +1687,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 						modelTime = nextEvent->getScheduledTime();
 						log2("model time changes to: " << modelTime);
 					}
-					«IF debug» std::cout << "after wait"<< std::endl;
-					eventSet.printState(); «ENDIF»
+					Â«IF debugÂ» std::cout << "after wait"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
 
 				return nextEvent;
 				}
@@ -1725,35 +1721,35 @@ class BasicDblToCGenerator extends AbstractGenerator {
 				}
 
 				void Scheduler::activate(Execution* e) {
-				«IF debug»	std::cout << "before activate"<< std::endl;
-					eventSet.printState(); «ENDIF»
+				Â«IF debugÂ»	std::cout << "before activate"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
 					e->setScheduledTime(modelTime);
-					«IF !scheduler_var»
+					Â«IF !scheduler_varÂ»
 					// Variante1:
 					eventSet.insert(e);	
-					«ELSE»
+					Â«ELSEÂ»
 					// Variante2:
 					eventSet.insertMoving(e);
-					«ENDIF»
-				«IF debug»	std::cout << "after activate"<< std::endl;
-					eventSet.printState(); «ENDIF»
+					Â«ENDIFÂ»
+				Â«IF debugÂ»	std::cout << "after activate"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
 				}
 
 				void Scheduler::reactivate(Execution* e) {
-				«IF debug»	std::cout << "before reactivate"<< std::endl;
-					eventSet.printState(); «ENDIF»
+				Â«IF debugÂ»	std::cout << "before reactivate"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
 					e->setScheduledTime(modelTime);
 					e->isWaiting = false;
 					waitingList.remove(e);
-					«IF !scheduler_var»
+					Â«IF !scheduler_varÂ»
 					// Variante1:
 					 eventSet.insert(e);	
-					 «ELSE»
+					 Â«ELSEÂ»
 					// Variante2:
 					eventSet.insertMoving(e);
-					«ENDIF»
-				«IF debug»	std::cout << "after reactivate"<< std::endl;
-					eventSet.printState(); «ENDIF»
+					Â«ENDIFÂ»
+				Â«IF debugÂ»	std::cout << "after reactivate"<< std::endl;
+					eventSet.printState(); Â«ENDIFÂ»
 				}
 				// cannot be used in DBL
 				void Scheduler::interrupt(Execution* e) {
@@ -1769,13 +1765,13 @@ class BasicDblToCGenerator extends AbstractGenerator {
 						e->setScheduledTime(modelTime);
 						e->isInterrupted = false;
 						interruptedList.remove(e);
-						«IF !scheduler_var»
+						Â«IF !scheduler_varÂ»
 						// Variante1:
 						 eventSet.insert(e);	
-						 «ELSE»
+						 Â«ELSEÂ»
 						// Variante2:
 						eventSet.insertMoving(e);
-						«ENDIF»
+						Â«ENDIFÂ»
 					}
 					else {
 						std::cerr << "ERROR: Cannot resume an execution which was not interrupted before." << std::endl;
@@ -1787,9 +1783,9 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					// reschedule scheduled execution
 					eventSet.remove(e);
 					e->setScheduledTime(modelTime + time);
-					«IF scheduler_var»
+					Â«IF scheduler_varÂ»
 					eventSet.insertFuture(e);
-					«ENDIF»
+					Â«ENDIFÂ»
 				}
 				'''
 			);
@@ -1821,7 +1817,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 			endTargetFile(log_H);
 	}
 	
-	def String dynamicImportClassifier(String result, List<Module> modules, Clazz clazz, boolean header) {
+	def String dynamicImportClassifier(String result, List<Module> modules, Class clazz, boolean header) {
 		var result2 = result
 			if(result2.contains("string") || result2.contains("\""))
 					result2 = result2.replaceFirst("placeholder", "#include <string>")
@@ -1832,8 +1828,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					result2 = result2.replaceFirst("placeholder", "#include <iostream>")	
 					for(module:modules){
 							var List<String> procedureAndVariablesNamesOfModule = newArrayList()
-							if (module.procedures != null) {
-								for (p:module.procedures) procedureAndVariablesNamesOfModule.add(p.name)	
+							if (module.functions != null) {
+								for (p:module.functions) procedureAndVariablesNamesOfModule.add(p.name)	
 							}
 								
 							if (module.variables != null) {
@@ -1916,29 +1912,29 @@ class BasicDblToCGenerator extends AbstractGenerator {
 			return result2
 	}
 	
-	def boolean findFirstActiveClass(Iterable<Classifier> classifiers) {
-		for (c : classifiers) {
-			if ((c as Clazz).active == true) return true	
+	def boolean findFirstActiveClass(Iterable<Class> classes) {
+		for (c : classes) {
+			if (c.active == true) return true	
 		}
 		return false;
 	}
 	//currently only for main procedure
 	def dispatch String genIncludeStatement(Module module) {
 		'''
-		#include «module.cNameQualified»
+		#include Â«module.cNameQualifiedÂ»
 		'''
 	}
 	//currently only for main procedure
-	def dispatch String genIncludeStatement(Clazz clazz) {
+	def dispatch String genIncludeStatement(Class clazz) {
 		val it = clazz
 		if (bindings.empty) {
 			'''
-			#include «clazz.cNameQualified»
+			#include Â«clazz.cNameQualifiedÂ»
 			'''
 		}
 	}
 	
-	def String cNameBound(Clazz clazz) {
+	def String cNameBound(Class clazz) {
 		val it = clazz
 		var targetType = bindings.findFirst[targetLanguage == simLibName]?.targetType
 		if (targetType != null) targetType
@@ -1953,7 +1949,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		"\"" +module.name+ ".h\""
 	}
 	
-	def dispatch String cNameQualified(Clazz clazz){
+	def dispatch String cNameQualified(Class clazz){
 		val it = clazz
 	
 		if (bindings.empty) {
@@ -1964,7 +1960,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	 	}
 	}
 	
-	def String adaptName(Clazz clazz) {
+	def String adaptName(Class clazz) {
 		val it = clazz
 		var targetType = bindings.findFirst[targetLanguage == simLibName]?.targetType
 		if (targetType != null) targetType
@@ -1979,7 +1975,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		element.name
 	}
 	
-	def String genActiveClass(Clazz clazz) {
+	def String genActiveClass(Class clazz) {
 		// no active classes in basic generator
 	}
 	
@@ -1987,63 +1983,66 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		"placeholder \n"
 	}
 	
-	def String genPassiveClass(Clazz clazz) {
+	def String genPassiveClass(Class clazz) {
 		val it = clazz	
 		'''
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		Â«IF allPlaceholders != nullÂ»
+			Â«FOR p : allPlaceholdersÂ»
+				Â«setPlaceholderÂ»
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
 		
 		// Konstruktoren der Klasse
-		«IF constructor != null»
-			«genConstructor(nonheader)»
-		«ENDIF» 
-			«genStandardConstructors(nonheader)»	
-		«IF methods.size != 0»
+		Â«FOR constructor: constructorsÂ»
+			Â«genConstructor(constructor, nonheader)Â»
+		Â«ENDFORÂ» 
+		
+		Â«genStandardConstructors(nonheader)Â»	
+		
+		Â«IF methods.size != 0Â»
 			// Funktionen der Klasse	
-			«methods.genProcedures(nonheader)»
-		«ENDIF»	
-			«FOR a: attributes»
-				«IF a.clazz»
-					«a.genVariable(nonheader, false)»
-				«ENDIF»
-			«ENDFOR»
+			Â«methods.genFunctions(nonheader)Â»
+		Â«ENDIFÂ»	
+		
+		Â«FOR a: attributesÂ»
+			Â«IF a.isClass()Â»
+				Â«a.genVariable(nonheader, false)Â»
+			Â«ENDIFÂ»
+		Â«ENDFORÂ»
 		'''
 	}
 	
 	def dispatch String gen(Module module){
 		val it = module
 		'''
-		#include "«name + ".h\""»
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
-		«IF module.classifiers.exists[classifier| (classifier as Clazz).active]»
+		#include "Â«name + ".h\""Â»
+		Â«IF allPlaceholders != nullÂ»
+			Â«FOR p : allPlaceholdersÂ»
+				Â«setPlaceholderÂ»
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
+		Â«IF module.classes.exists[class_| class_.active]Â»
 		#include "Scheduler.h"
 		#include "GotoExecution.h"
 		Scheduler* sched = Scheduler::getSingleInstance();
 		extern GotoExecution* cx;
-		«ENDIF»
-		«IF variables.size != 0»	
+		Â«ENDIFÂ»
+		Â«IF variables.size != 0Â»	
 		// Attribute des Moduls
-			«variables.genVariables(nonheader)»
-		«ENDIF»
-		«IF procedures.size != 0»
+			Â«variables.genVariables(nonheader)Â»
+		Â«ENDIFÂ»
+		Â«IF functions.size != 0Â»
 		
 		// Funktionen des Moduls	
-			«procedures.genProcedures(nonheader)»
-		«ENDIF»
+			Â«functions.genFunctions(nonheader)Â»
+		Â«ENDIFÂ»
 		
 		'''
 	}
 	
 	def dispatch String gen(List <Statement> statements){
 		'''
-		«FOR stm : statements»«stm.genStatement»«ENDFOR»
+		Â«FOR stm : statementsÂ»Â«stm.genStatementÂ»Â«ENDFORÂ»
 		'''
 	}
 	
@@ -2061,20 +2060,20 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		stm.forwardGen
 	}
 	
-	def dispatch String genStatement(ProcedureCall call) {
+	def dispatch String genStatement(FunctionCall call) {
 		var boolean contain = false;
 		var boolean contain2 = false;
-		var Clazz activeClass;
-		var Procedure procedure;
-		var Procedure procedureCall;
+		var Class activeClass;
+		var Function procedure;
+		var Function procedureCall;
 		var object = call.eContainer;
 		
-		while (!(object instanceof Module || object instanceof Clazz)){
+		while (!(object instanceof Module || object instanceof Class)){
 			object = object.eContainer;
 		}
 		
-		if (object instanceof Clazz){
-			activeClass = (object) as Clazz;
+		if (object instanceof Class){
+			activeClass = (object) as Class;
 				if(activeClass.active && activeClass.methods.exists[name == call.callIdExpr.referencedElement.cNameQualified]){
 					contain = true
 					for(m:activeClass.methods){
@@ -2086,14 +2085,14 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		
 		object = call.eContainer;
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if (object instanceof Procedure && contain){
-			// to mark procedures that contain scheduling operations
-			genProcedure(procedureCall, nonheader)
+		if (object instanceof Function && contain){
+			// to mark functions that contain scheduling operations
+			genFunction(procedureCall, nonheader)
 			if(all_Functions_containing_sched.contains(procedureCall))
-				if(!all_Functions_containing_sched.contains(object as Procedure)) all_Functions_containing_sched.add(object as Procedure);
+				if(!all_Functions_containing_sched.contains(object as Function)) all_Functions_containing_sched.add(object as Function);
 		}
 		
 		for(p:all_Functions_containing_sched){
@@ -2103,61 +2102,61 @@ class BasicDblToCGenerator extends AbstractGenerator {
 			}
 		}
 		var boolean Mainf = false;
-		var Procedure prev = null;
+		var Function prev = null;
 		object = call.eContainer;
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if(object instanceof Clazz) Mainf = true	
-		if(object instanceof Procedure) prev = object as Procedure	
+		if(object instanceof Class) Mainf = true	
+		if(object instanceof Function) prev = object as Function	
 		id++;
 			
 		if(contain2){
 			'''	
-			cx->push(&&RETURN_«procedure.name.toUpperCase»_«id», «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size);
-			«FOR param:procedure.parameters»
-				«(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«param.name.toUpperCase()» =
-				«IF ((call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) instanceof IdExpr) && (call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement != null)»
-					«IF all_Macros.contains((call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name)»
-						«IF Mainf»
-							(* reinterpret_cast<«param.genType»*>(cx->top - sizeof(class Frame) - «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size - «(procedure.eContainer as Clazz).name.toUpperCase()»_variables_size + («(procedure.eContainer as Clazz).name.toUpperCase()»_«(call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()»_PASSOVER)));
-						«ELSE»
-							(* reinterpret_cast<«param.genType»*>(cx->top - sizeof(class Frame) - «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size - «(procedure.eContainer as Clazz).name.toUpperCase()»_«prev.name.toUpperCase()»_variables_size + («(procedure.eContainer as Clazz).name.toUpperCase()»_«prev.name.toUpperCase()»_«(call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()»_PASSOVER)));
-						«ENDIF»
-					«ELSE»
-						«call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExpr»;
-					«ENDIF»
-				«ELSE»
-					«call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExpr»;
-				«ENDIF»
-			«ENDFOR»
-			goto «procedure.name.toUpperCase»;
-			RETURN_«procedure.name.toUpperCase»_«id»:;
+			cx->push(&&RETURN_Â«procedure.name.toUpperCaseÂ»_Â«idÂ», Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size);
+			Â«FOR param:procedure.parametersÂ»
+				Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«param.name.toUpperCase()Â» =
+				Â«IF ((call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) instanceof IdExpr) && (call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement != null)Â»
+					Â«IF all_Macros.contains((call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name)Â»
+						Â«IF MainfÂ»
+							(* reinterpret_cast<Â«param.genTypeÂ»*>(cx->top - sizeof(class Frame) - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_variables_size + (Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«(call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()Â»_PASSOVER)));
+						Â«ELSEÂ»
+							(* reinterpret_cast<Â«param.genTypeÂ»*>(cx->top - sizeof(class Frame) - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«prev.name.toUpperCase()Â»_variables_size + (Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«prev.name.toUpperCase()Â»_Â«(call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()Â»_PASSOVER)));
+						Â«ENDIFÂ»
+					Â«ELSEÂ»
+						Â«call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExprÂ»;
+					Â«ENDIFÂ»
+				Â«ELSEÂ»
+					Â«call.callIdExpr.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExprÂ»;
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
+			goto Â«procedure.name.toUpperCaseÂ»;
+			RETURN_Â«procedure.name.toUpperCaseÂ»_Â«idÂ»:;
         	'''
 		}
 		else{
-			'''«IF contain && marker»static_cast<«activeClass.name»*> (cx)->«ENDIF»«call.callIdExpr.genExpr»;'''
+			'''Â«IF contain && markerÂ»static_cast<Â«activeClass.nameÂ»*> (cx)->Â«ENDIFÂ»Â«call.callIdExpr.genExprÂ»;'''
 		}
 	}
 	
 	def dispatch String genStatement(Print print){
 		'''
-		cout <<«FOR expr : print.outputs SEPARATOR '<<'»«expr.genExpr»«ENDFOR»<< endl;
+		cout <<Â«FOR expr : print.outputs SEPARATOR '<<'Â»Â«expr.genExprÂ»Â«ENDFORÂ»<< endl;
 		'''
 	}
 	
 	def dispatch String genStatement(IfStatement ifStm) {
 		val it = ifStm
 		'''
-		if («condition.genExpr») «trueCase.gen»
-		«IF falseCase != null»
-		else {«falseCase.gen»}
-		«ENDIF»
+		if (Â«condition.genExprÂ») Â«trueCase.genÂ»
+		Â«IF falseCase != nullÂ»
+		else {Â«falseCase.genÂ»}
+		Â«ENDIFÂ»
 		'''
 	}
 	
 	def dispatch String genStatement(LocalScopeStatement stm) {
-		'''{«stm.statements.gen»«stm.statements.genDeleteStatements»}'''
+		'''{Â«stm.statements.genÂ»Â«stm.statements.genDeleteStatementsÂ»}'''
 	}
 	
 	def dispatch String genStatement(Assignment stm) {
@@ -2167,44 +2166,44 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	def String genAssignment(Assignment stm, boolean genSemicolon) {
 		val it = stm
 		'''
-		«variable.genExpr» = «value.genExpr»«IF genSemicolon»;«ENDIF»
+		Â«variable.genExprÂ» = Â«value.genExprÂ»Â«IF genSemicolonÂ»;Â«ENDIFÂ»
 		'''
 	}
 	
 	def dispatch String genStatement(Return stm) {
-		var Procedure procedure = getProcedure(stm.eContainer)
+		var Function procedure = getFunction(stm.eContainer)
 		
 		if (procedure != null){		
 			if(all_Functions_containing_sched.contains(procedure)){
 			'''
-			«genReturnType(procedure.genType)» = «stm.value.genExpr»;
+			Â«genReturnType(procedure.genType)Â» = Â«stm.value.genExprÂ»;
 			'''
 			}
 		}
 		else
-			'''return «stm.value.genExpr»;'''
+			'''return Â«stm.value.genExprÂ»;'''
 	}
 	
 	def String genReturnType(String t){
 		'''
-		«IF (t == "int")»
+		Â«IF (t == "int")Â»
 				LRV_INT 
-			«ELSEIF (t == "bool")»
+			Â«ELSEIF (t == "bool")Â»
 				LRV_BOOL 
-			«ELSEIF (t == "double")»
+			Â«ELSEIF (t == "double")Â»
 				LRV_DOUBLE 
-			«ELSE»
+			Â«ELSEÂ»
 				LRV_POINTER 
-		«ENDIF»	
+		Â«ENDIFÂ»	
 		'''
 	}
 	
-	def Procedure getProcedure(EObject procedure){
+	def Function getFunction(EObject procedure){
 		var object = procedure
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if(object instanceof Procedure) return (object as Procedure)
+		if(object instanceof Function) return (object as Function)
 		else return null
 	}
 
@@ -2219,15 +2218,15 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	def dispatch String genStatement(SwitchStatement stm) {
 		val it = stm
 		'''
-		switch («variable.genExpr») {
-			«FOR c : cases»
-			case «c.value.genExpr»:
-				«c.body.gen»
-			«ENDFOR»
-			«IF defaultCase != null»
+		switch (Â«variable.genExprÂ») {
+			Â«FOR c : casesÂ»
+			case Â«c.value.genExprÂ»:
+				Â«c.body.genÂ»
+			Â«ENDFORÂ»
+			Â«IF defaultCase != nullÂ»
 			default:
-				«defaultCase.body.gen»
-			«ENDIF»
+				Â«defaultCase.body.genÂ»
+			Â«ENDIFÂ»
 		}
 		'''
 	}
@@ -2235,45 +2234,41 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	def dispatch String genStatement(ForStatement stm) {
 		val it = stm
 		'''
-		for («statements.head.gen» «termination.genExpr»;«increment.genAssignment(false)»)
-		«body.gen»
+		for (Â«statements.head.genÂ» Â«termination.genExprÂ»;Â«increment.genAssignment(false)Â»)
+		Â«body.genÂ»
 		'''
 	}
 
 	def dispatch String genStatement(WhileStatement stm) {
 		val it = stm
-		'''while («condition.genExpr»)
-			«body.gen»
+		'''while (Â«condition.genExprÂ»)
+			Â«body.genÂ»
 		'''
 	}
-
-	def dispatch String genStatement(ResetGenContextStatement stm) {
-		'resetGenContext();'
-	}
 	
-	def dispatch String genStatement(SetGenContextStatement stm) {
+	def dispatch String genStatement(SetExpansionContextStatement stm) {
 		val it = stm
-		'''setGenContext(«context.genExpr», «addAfterContext»);'''
+		'''setExpand(Â«context.genExprÂ», Â«addAfterContextÂ»);'''
 	}
 
-	def dispatch String genStatement(MappingStatement stm) {
+	def dispatch String genStatement(ExpansionStatement stm) {
 		val it = stm
-		'''gen(
-		«FOR part : parts SEPARATOR '+'»
-			«part.genMappingPart»
-		«ENDFOR»
+		'''expand(
+		Â«FOR part : parts SEPARATOR '+'Â»
+			Â«part.genMappingPartÂ»
+		Â«ENDFORÂ»
 		);'''
 	}
 	
-	def dispatch String genMappingPart(MappingPart part) {
+	def dispatch String genMappingPart(ExpansionPart part) {
 		'< unknown mapping part >'
 	}
 
-	def dispatch String genMappingPart(FixedMappingPart part) {
-		quoteCString(part.code)
+	def dispatch String genMappingPart(ExpandTextPart part) {
+		quoteCString(part.text)
 	}
 
-	def dispatch String genMappingPart(DynamicMappingPart part) {
+	def dispatch String genMappingPart(ExpandVariablePart part) {
 		part.expr.genExpr
 	}
 
@@ -2281,27 +2276,27 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		val it = variable
 		if(!marker){
 			if(initialValue instanceof IdExpr && (initialValue as IdExpr).predefinedId instanceof MeLiteral || classifierType instanceof IdExpr)
-				'''«genType»* «name»«IF initialValue != null»{«initialValue.genExpr»}«ELSEIF classifierType != null» {«autoInitial»}«ENDIF»;'''
+				'''Â«genTypeÂ»* Â«nameÂ»Â«IF initialValue != nullÂ»{Â«initialValue.genExprÂ»}Â«ELSEIF classifierType != nullÂ» {Â«autoInitialÂ»}Â«ENDIFÂ»;'''
 			else if(initialValue instanceof CreateObject ) {
 				if(!allPointerToObjects.contains(name)) allPointerToObjects.add(name)
-					'''«genType»* «name»«IF initialValue != null» {«initialValue.genExpr»}«ELSEIF classifierType != null» {«autoInitial»}«ENDIF»;'''
+					'''Â«genTypeÂ»* Â«nameÂ»Â«IF initialValue != nullÂ» {Â«initialValue.genExprÂ»}Â«ELSEIF classifierType != nullÂ» {Â«autoInitialÂ»}Â«ENDIFÂ»;'''
 				}
 				else	
-					'''«genType» «name»«IF initialValue != null» {«initialValue.genExpr»}«ELSEIF classifierType != null» {«autoInitial»}«ENDIF»;'''
+					'''Â«genTypeÂ» Â«nameÂ»Â«IF initialValue != nullÂ» {Â«initialValue.genExprÂ»}Â«ELSEIF classifierType != nullÂ» {Â«autoInitialÂ»}Â«ENDIFÂ»;'''
 		}
 		else{
-			var Clazz activeClass;
+			var Class activeClass;
 			var object = variable.eContainer;
 		
-			while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+			while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 				object = object.eContainer;
 			}
 			
 			var boolean found = false
 			if(variable.initialValue instanceof IdExpr && (variable.initialValue as IdExpr).referencedElement != null){
-			var Procedure p;
-			if(object instanceof Procedure){
-				p = object as Procedure;
+			var Function p;
+			if(object instanceof Function){
+				p = object as Function;
 				for(param:p.parameters){
 					if(param.name == (variable.initialValue as IdExpr).referencedElement.name)
 						found = true
@@ -2309,64 +2304,64 @@ class BasicDblToCGenerator extends AbstractGenerator {
 			}
 			}
 		
-			if (object instanceof Clazz){
+			if (object instanceof Class){
 				if(!all_Var_main_actions.contains(variable)) all_Var_main_actions.add(variable);
-				activeClass = (object) as Clazz;
+				activeClass = (object) as Class;
 				if(initialValue instanceof IdExpr && (initialValue as IdExpr).callPart != null){
 				'''
-					«genProcedureCallStatements(initialValue as IdExpr)»
-					«activeClass.name.toUpperCase()»_«variable.name.toUpperCase()» = «genReturnType(getCalledProcedure((initialValue as IdExpr)).genType)»;
+					Â«genFunctionCallStatements(initialValue as IdExpr)Â»
+					Â«activeClass.name.toUpperCase()Â»_Â«variable.name.toUpperCase()Â» = Â«genReturnType(getCalledFunction((initialValue as IdExpr)).genType)Â»;
 				'''
 				}
 				else if((initialValue instanceof CreateObject || initialValue instanceof IdExpr && (initialValue as IdExpr).referencedElement != null && variable.primitiveType == null))
-					'''«activeClass.name.toUpperCase()»_«variable.name.toUpperCase()» «IF initialValue != null»= *(«initialValue.genExpr»«ELSEIF classifierType != null» = «autoInitial»«ENDIF»);'''
+					'''Â«activeClass.name.toUpperCase()Â»_Â«variable.name.toUpperCase()Â» Â«IF initialValue != nullÂ»= *(Â«initialValue.genExprÂ»Â«ELSEIF classifierType != nullÂ» = Â«autoInitialÂ»Â«ENDIFÂ»);'''
 				else
-					'''«activeClass.name.toUpperCase()»_«variable.name.toUpperCase()» «IF initialValue != null»= «initialValue.genExpr»«ELSEIF classifierType != null» = «autoInitial»«ENDIF»;'''
+					'''Â«activeClass.name.toUpperCase()Â»_Â«variable.name.toUpperCase()Â» Â«IF initialValue != nullÂ»= Â«initialValue.genExprÂ»Â«ELSEIF classifierType != nullÂ» = Â«autoInitialÂ»Â«ENDIFÂ»;'''
 			}	
-			else if(object instanceof Procedure){
-				var Procedure procedure = object as Procedure;
+			else if(object instanceof Function){
+				var Function procedure = object as Function;
 				if(!all_Var_f.contains(variable)) all_Var_f.add(variable);
 				
 				if(all_Functions_containing_sched.contains(object)){
 					if(initialValue instanceof IdExpr && (initialValue as IdExpr).callPart != null){
 					'''
-						«genProcedureCallStatements(initialValue as IdExpr)»
-						«(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«variable.name.toUpperCase()» = «genReturnType(getCalledProcedure((initialValue as IdExpr)).genType)»;
+						Â«genFunctionCallStatements(initialValue as IdExpr)Â»
+						Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«variable.name.toUpperCase()Â» = Â«genReturnType(getCalledFunction((initialValue as IdExpr)).genType)Â»;
 					'''
 					}
 					else if(initialValue instanceof CreateObject || initialValue instanceof IdExpr && (initialValue as IdExpr).parentIdExpr == null && !found && variable.primitiveType == null)
-					'''«(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«variable.name.toUpperCase()» «IF initialValue != null»= *(«initialValue.genExpr»«ELSEIF classifierType != null» = «autoInitial»«ENDIF»);'''
+					'''Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«variable.name.toUpperCase()Â» Â«IF initialValue != nullÂ»= *(Â«initialValue.genExprÂ»Â«ELSEIF classifierType != nullÂ» = Â«autoInitialÂ»Â«ENDIFÂ»);'''
 					else
-					'''«(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«variable.name.toUpperCase()» «IF initialValue != null»= «initialValue.genExpr»«ELSEIF classifierType != null» = «autoInitial»«ENDIF»;'''	
+					'''Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«variable.name.toUpperCase()Â» Â«IF initialValue != nullÂ»= Â«initialValue.genExprÂ»Â«ELSEIF classifierType != nullÂ» = Â«autoInitialÂ»Â«ENDIFÂ»;'''	
 				}
 			}
 		}
 	}
 	
-	def Procedure getCalledProcedure(IdExpr nameOfProcedure) {
-		var Clazz activeClass;
-		var Procedure procedure;
-		var object = nameOfProcedure.eContainer;
+	def Function getCalledFunction(IdExpr nameOfFunction) {
+		var Class activeClass;
+		var Function procedure;
+		var object = nameOfFunction.eContainer;
 		var Module module;
 		while (!(object instanceof Module)){
 			object = object.eContainer;
 		}
 		module = object as Module;
 		
-		activeClass = module.classifiers.findFirst[class | (class as Clazz).active && (class as Clazz).methods.exists[name == nameOfProcedure.referencedElement.cNameQualified]] as Clazz
+		activeClass = module.classes.findFirst[class_ | class_.active && class_.methods.exists[name == nameOfFunction.referencedElement.cNameQualified]] as Class
 		if (activeClass != null) {
-			procedure = activeClass.methods.findFirst[method | method.name == nameOfProcedure.referencedElement.cNameQualified] 
+			procedure = activeClass.methods.findFirst[method | method.name == nameOfFunction.referencedElement.cNameQualified] 
 			return procedure;
 		}	
 		return null
 	}
 	
-	def String genProcedureCallStatements(IdExpr initialValue) {
+	def String genFunctionCallStatements(IdExpr initialValue) {
 		var boolean contain = false;
 		var boolean contain2 = false;
-		var Clazz activeClass;
-		var Procedure procedure;
-		var Procedure procedureCall;
+		var Class activeClass;
+		var Function procedure;
+		var Function procedureCall;
 		var object = initialValue.eContainer;
 		var Module module;
 		
@@ -2375,20 +2370,20 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		module = object as Module;
 		
-		activeClass = module.classifiers.findFirst[class | (class as Clazz).active && (class as Clazz).methods.exists[name == initialValue.referencedElement.cNameQualified]] as Clazz
+		activeClass = module.classes.findFirst[class_ | class_.active && class_.methods.exists[name == initialValue.referencedElement.cNameQualified]] as Class
 		if (activeClass != null) contain = true
 		
 		procedureCall = activeClass.methods.findFirst[method | method.name == initialValue.referencedElement.cNameQualified] 
 		
 	 	object = initialValue.eContainer;
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if (object instanceof Procedure && contain){
-			// to mark procedures that contain scheduling operations
-			genProcedure(procedureCall, nonheader)
+		if (object instanceof Function && contain){
+			// to mark functions that contain scheduling operations
+			genFunction(procedureCall, nonheader)
 			if(all_Functions_containing_sched.contains(procedureCall))
-				if(!all_Functions_containing_sched.contains(object as Procedure)) all_Functions_containing_sched.add(object as Procedure);
+				if(!all_Functions_containing_sched.contains(object as Function)) all_Functions_containing_sched.add(object as Function);
 		}
 		
 		for(p:all_Functions_containing_sched){
@@ -2399,40 +2394,40 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
  
 		var boolean Mainf = false;
-		var Procedure prev = null;
+		var Function prev = null;
 		object = initialValue.eContainer;
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if(object instanceof Clazz) Mainf = true	
-		if(object instanceof Procedure) prev = object as Procedure	
+		if(object instanceof Class) Mainf = true	
+		if(object instanceof Function) prev = object as Function	
 		id++;
 			
 		if(contain2){
 			'''	
-			cx->push(&&RETURN_«procedure.name.toUpperCase»_«id», «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size);
-			«FOR param:procedure.parameters»
-				«(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«param.name.toUpperCase()» =
-				«IF ((initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) instanceof IdExpr) && (initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement != null)»
-					«IF all_Macros.contains((initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name)»
-						«IF Mainf»
-							(* reinterpret_cast<«param.genType»*>(cx->top - sizeof(class Frame) - «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size - «(procedure.eContainer as Clazz).name.toUpperCase()»_variables_size + («(procedure.eContainer as Clazz).name.toUpperCase()»_«(initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()»_PASSOVER)));
-						«ELSE»
-							(* reinterpret_cast<«param.genType»*>(cx->top - sizeof(class Frame) - «(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size - «(procedure.eContainer as Clazz).name.toUpperCase()»_«prev.name.toUpperCase()»_variables_size + («(procedure.eContainer as Clazz).name.toUpperCase()»_«prev.name.toUpperCase()»_«(initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()»_PASSOVER)));
-						«ENDIF»
-					«ELSE»
-						«initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExpr»;
-					«ENDIF»
-				«ELSE»
-					«initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExpr»;
-				«ENDIF»
-			«ENDFOR»
-			goto «procedure.name.toUpperCase»;
-			RETURN_«procedure.name.toUpperCase»_«id»:;
+			cx->push(&&RETURN_Â«procedure.name.toUpperCaseÂ»_Â«idÂ», Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size);
+			Â«FOR param:procedure.parametersÂ»
+				Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«param.name.toUpperCase()Â» =
+				Â«IF ((initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) instanceof IdExpr) && (initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement != null)Â»
+					Â«IF all_Macros.contains((initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name)Â»
+						Â«IF MainfÂ»
+							(* reinterpret_cast<Â«param.genTypeÂ»*>(cx->top - sizeof(class Frame) - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_variables_size + (Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«(initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()Â»_PASSOVER)));
+						Â«ELSEÂ»
+							(* reinterpret_cast<Â«param.genTypeÂ»*>(cx->top - sizeof(class Frame) - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_variables_size - Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«prev.name.toUpperCase()Â»_variables_size + (Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«prev.name.toUpperCase()Â»_Â«(initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)) as IdExpr).referencedElement.name.toUpperCase()Â»_PASSOVER)));
+						Â«ENDIFÂ»
+					Â«ELSEÂ»
+						Â«initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExprÂ»;
+					Â«ENDIFÂ»
+				Â«ELSEÂ»
+					Â«initialValue.callPart.callArguments.get(procedure.parameters.indexOf(param)).genExprÂ»;
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
+			goto Â«procedure.name.toUpperCaseÂ»;
+			RETURN_Â«procedure.name.toUpperCaseÂ»_Â«idÂ»:;
         	'''
 		}
 		else{
-			'''«IF contain && marker»static_cast<«activeClass.name»*> (cx)->«ENDIF»«initialValue.genExpr»;'''
+			'''Â«IF contain && markerÂ»static_cast<Â«activeClass.nameÂ»*> (cx)->Â«ENDIFÂ»Â«initialValue.genExprÂ»;'''
 		}
 	}
 	
@@ -2502,7 +2497,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	}
 
 	def dispatch String genExpr(InstanceOf expr) {
-		'''typeid(«IF expr.op1 instanceof IdExpr»*«ENDIF»«expr.op1.genExpr») == typeid(«IF expr.op2 instanceof IdExpr»*«ENDIF»«expr.op2.genExpr»)'''
+		'''typeid(Â«IF expr.op1 instanceof IdExprÂ»*Â«ENDIFÂ»Â«expr.op1.genExprÂ») == typeid(Â«IF expr.op2 instanceof IdExprÂ»*Â«ENDIFÂ»Â«expr.op2.genExprÂ»)'''
 	}
 	
 	def dispatch String genExpr(TrueLiteral expr) {
@@ -2538,20 +2533,20 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	}
 	
 	def String quoteCString(String s){
-		if (s.contains('\r\n')) '''"«s.replaceAll('\r\n', '\\\\r\\\\n"+\r\n"')»"'''
-		else '''"«s.replaceAll('\n','\\\\r\\\\n"+\r\n"')»"'''
+		if (s.contains('\r\n')) '''"Â«s.replaceAll('\r\n', '\\\\r\\\\n"+\r\n"')Â»"'''
+		else '''"Â«s.replaceAll('\n','\\\\r\\\\n"+\r\n"')Â»"'''
 	}
 	
 	def dispatch String genExpr(Neg expr) {
-		'''(-«expr.op.genExpr»)'''
+		'''(-Â«expr.op.genExprÂ»)'''
 	}
 	
 	def dispatch String genExpr(Not expr) {
-		'''(!«expr.op.genExpr»)'''
+		'''(!Â«expr.op.genExprÂ»)'''
 	}
 	
 	def dispatch String genExpr(Cast expr) {
-		'''dynamic_cast<«expr.genType»*> («expr.op.genExpr»)'''
+		'''dynamic_cast<Â«expr.genTypeÂ»*> (Â«expr.op.genExprÂ»)'''
 	}
 	
 	def dispatch String genExpr(CreateObject expr) {
@@ -2564,11 +2559,11 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		
 		'''
-		«IF !allActiveClasses.contains(genType)»
-		new «mappedString»«IF classifierType != null && classifierType.arrayIndex.empty && typeArrayDimensions.empty»(«IF classifierType.callPart != null»«FOR arg : classifierType.callPart.callArguments SEPARATOR ','»«arg.genExpr»«ENDFOR»«ENDIF»)«ENDIF»
-		«ELSE»
-		new «mappedString»«IF classifierType != null && classifierType.arrayIndex.empty && typeArrayDimensions.empty»(«IF classifierType.callPart != null»«classifierType.callPart.callArguments.get(0).genExpr»,&&«genType»«ENDIF»)«ENDIF»
-		«ENDIF»
+		Â«IF !allActiveClasses.contains(genType)Â»
+		new Â«mappedStringÂ»Â«IF classifierType != null && classifierType.arrayIndex.empty && typeArrayDimensions.emptyÂ»(Â«IF classifierType.callPart != nullÂ»Â«FOR arg : classifierType.callPart.callArguments SEPARATOR ','Â»Â«arg.genExprÂ»Â«ENDFORÂ»Â«ENDIFÂ»)Â«ENDIFÂ»
+		Â«ELSEÂ»
+		new Â«mappedStringÂ»Â«IF classifierType != null && classifierType.arrayIndex.empty && typeArrayDimensions.emptyÂ»(Â«IF classifierType.callPart != nullÂ»Â«classifierType.callPart.callArguments.get(0).genExprÂ»,&&Â«genTypeÂ»Â«ENDIFÂ»)Â«ENDIFÂ»
+		Â«ENDIFÂ»
 		'''
 	}
 	
@@ -2584,14 +2579,14 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		var boolean isParameterFunction = false
 		var Variable varMain
 		var Variable varFunction
-		var Procedure procedure;
+		var Function procedure;
 		var Parameter parameter;
 		var IdExpr refElement;
 		
 		if(parentIdExpr != null) refElement = parentIdExpr
 		else refElement = idExpr
 		
-		var Clazz activeClass = getActiveClass(refElement.eContainer)
+		var Class activeClass = getActiveClass(refElement.eContainer)
 		if (activeClass != null) isActiveClass = true
 		
 		if(checkLocationOfVariable(refElement.eContainer) == 0 && isActiveClass) {
@@ -2601,7 +2596,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		else if (checkLocationOfVariable(refElement.eContainer) == 1 && isActiveClass) {
 			val IdExpr temp = refElement
-			procedure = getProcedure(idExpr.eContainer)
+			procedure = getFunction(idExpr.eContainer)
 			parameter = procedure.parameters.findFirst[param| param.name == temp.referencedElement.cNameQualified]
 			if (parameter != null) isParameterFunction = true
 			else{ 
@@ -2611,34 +2606,34 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		
 		'''
-		«IF marker»
-			«IF (parentIdExpr != null)»
-				«IF (parentIdExpr.predefinedId instanceof SuperLiteral)» 
-					«parentIdExpr.genIdExpr»::
-				«ELSEIF isParameterFunction || isVariableFunction || isVariableMain»
-					«parentIdExpr.genIdExpr».
-				«ELSE»
-					«parentIdExpr.genIdExpr»->
-				«ENDIF»
-			«ENDIF»
-			«IF (referencedElement != null)»
-				«IF idExpr.parentIdExpr == null»
-				 	«IF isParameterFunction» («(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«parameter.name.toUpperCase()»)
-						«ELSEIF isVariableFunction» («(procedure.eContainer as Clazz).name.toUpperCase()»_«procedure.name.toUpperCase()»_«varFunction.name.toUpperCase()»)
-						«ELSEIF isVariableMain» («activeClass.name.toUpperCase()»_«varMain.name.toUpperCase()»)
-						«ELSEIF idExpr.callPart != null» «idExpr.genIdExprPassive»
-						«ELSEIF activeClass.attributes.findFirst[name == idExpr.referencedElement.cNameQualified] == null» «genIdExpr_for_ReferencedElement(referencedElement)»
-					«ELSE» static_cast<«activeClass.name»*> (cx)->«idExpr.genIdExprPassive»
-					«ENDIF»
-				«ELSE»
-					«genIdExpr_for_ReferencedElement(referencedElement)»
-				«ENDIF»
-			«ELSE»
-				 «genIdExpr_for_PredefinedId(predefinedId)»
-			«ENDIF»
-		«ELSE» 
-			«idExpr.genIdExprPassive»
-		«ENDIF»
+		Â«IF markerÂ»
+			Â«IF (parentIdExpr != null)Â»
+				Â«IF (parentIdExpr.predefinedId instanceof SuperLiteral)Â» 
+					Â«parentIdExpr.genIdExprÂ»::
+				Â«ELSEIF isParameterFunction || isVariableFunction || isVariableMainÂ»
+					Â«parentIdExpr.genIdExprÂ».
+				Â«ELSEÂ»
+					Â«parentIdExpr.genIdExprÂ»->
+				Â«ENDIFÂ»
+			Â«ENDIFÂ»
+			Â«IF (referencedElement != null)Â»
+				Â«IF idExpr.parentIdExpr == nullÂ»
+				 	Â«IF isParameterFunctionÂ» (Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«parameter.name.toUpperCase()Â»)
+						Â«ELSEIF isVariableFunctionÂ» (Â«(procedure.eContainer as Class).name.toUpperCase()Â»_Â«procedure.name.toUpperCase()Â»_Â«varFunction.name.toUpperCase()Â»)
+						Â«ELSEIF isVariableMainÂ» (Â«activeClass.name.toUpperCase()Â»_Â«varMain.name.toUpperCase()Â»)
+						Â«ELSEIF idExpr.callPart != nullÂ» Â«idExpr.genIdExprPassiveÂ»
+						Â«ELSEIF activeClass.attributes.findFirst[name == idExpr.referencedElement.cNameQualified] == nullÂ» Â«genIdExpr_for_ReferencedElement(referencedElement)Â»
+					Â«ELSEÂ» static_cast<Â«activeClass.nameÂ»*> (cx)->Â«idExpr.genIdExprPassiveÂ»
+					Â«ENDIFÂ»
+				Â«ELSEÂ»
+					Â«genIdExpr_for_ReferencedElement(referencedElement)Â»
+				Â«ENDIFÂ»
+			Â«ELSEÂ»
+				 Â«genIdExpr_for_PredefinedId(predefinedId)Â»
+			Â«ENDIFÂ»
+		Â«ELSEÂ» 
+			Â«idExpr.genIdExprPassiveÂ»
+		Â«ENDIFÂ»
 		'''
 	}
 	
@@ -2646,19 +2641,19 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		val it = idExpr
 
 		'''
-		«IF parentIdExpr != null»
-			«IF (parentIdExpr.predefinedId instanceof SuperLiteral)» 
-				«parentIdExpr.genIdExpr»::
-			«ELSE»
-				«parentIdExpr.genIdExpr»->
-			«ENDIF»
-		«ENDIF»
+		Â«IF parentIdExpr != nullÂ»
+			Â«IF (parentIdExpr.predefinedId instanceof SuperLiteral)Â» 
+				Â«parentIdExpr.genIdExprÂ»::
+			Â«ELSEÂ»
+				Â«parentIdExpr.genIdExprÂ»->
+			Â«ENDIFÂ»
+		Â«ENDIFÂ»
 		
-		«IF referencedElement != null»
-			«genIdExpr_for_ReferencedElement(referencedElement)»
-		«ELSE»
-			«genIdExpr_for_PredefinedId(predefinedId)»
-		«ENDIF»
+		Â«IF referencedElement != nullÂ»
+			Â«genIdExpr_for_ReferencedElement(referencedElement)Â»
+		Â«ELSEÂ»
+			Â«genIdExpr_for_PredefinedId(predefinedId)Â»
+		Â«ENDIFÂ»
 		'''
 	}
 	
@@ -2681,55 +2676,51 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	
 	def String genIdExpr_for_ReferencedElement(IdExpr idExpr, NamedElement referencedElement) {
 		'''
-		«referencedElement.cNameQualified»
-			«IF idExpr.callPart != null»(«FOR arg : idExpr.callPart.callArguments SEPARATOR ','»«arg.genExpr»«ENDFOR»)
-			«ENDIF»
-			«FOR index : idExpr.arrayIndex»
-				[«index.genExpr»]
-			«ENDFOR»
+		Â«referencedElement.cNameQualifiedÂ»
+			Â«IF idExpr.callPart != nullÂ»(Â«FOR arg : idExpr.callPart.callArguments SEPARATOR ','Â»Â«arg.genExprÂ»Â«ENDFORÂ»)
+			Â«ENDIFÂ»
+			Â«FOR index : idExpr.arrayIndexÂ»
+				[Â«index.genExprÂ»]
+			Â«ENDFORÂ»
 		'''
 	}	
 	
 	def String genHeader(Module module) {	
 		val it = module
 		'''
-		#ifndef «name.toUpperCase() + "_H"»
-		#define «name.toUpperCase() + "_H"»
+		#ifndef Â«name.toUpperCase() + "_H"Â»
+		#define Â«name.toUpperCase() + "_H"Â»
 		
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		Â«IF allPlaceholders != nullÂ»
+			Â«FOR p : allPlaceholdersÂ»
+				Â«setPlaceholderÂ»
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
 		
 		// global variables
-		«IF variables.size != 0»	
-		 	«variables.genGlobalVariables»
-		«ENDIF»
+		Â«IF variables.size != 0Â»	
+		 	Â«variables.genGlobalVariablesÂ»
+		Â«ENDIFÂ»
 		
-		// global procedures
-		«IF procedures.size != 0»
-			«procedures.genGlobalProcedures(header)»
-		«ENDIF»
+		// global functions
+		Â«IF functions.size != 0Â»
+			Â«functions.genGlobalFunctions(header)Â»
+		Â«ENDIFÂ»
 		#endif
 		'''
 	}
 	
-	def dispatch String gen(Classifier c, boolean header) {
-		'<! unknown classifier ' + c.eClass.name + ' !>'
-	}
-	
-	def dispatch String gen(Clazz clazz, boolean header) {
+	def String gen(Class clazz, boolean header) {
 		val it = clazz
 		
 		if (header){
 			if (clazz.bindings.empty) {
 				if (clazz.active) {
 					/* precalculation:
-					** to see if procedures contains sched-operations 
+					** to see if functions contains sched-operations 
 					** its easier to mark them this way, than doing a search algorithm	
 					**/
-					methods.genProcedures(nonheader)
+					methods.genFunctions(nonheader)
 					genHeaderActiveClass()
 				}
 				else genHeaderPassiveClass()
@@ -2743,118 +2734,274 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 	}
 	
-	def String genHeaderActiveClass(Clazz clazz) {
+	def String genHeaderActiveClass(Class clazz) {
 		// no active classes in basegenerator
 	}
 	
-	def String genHeaderPassiveClass(Clazz clazz) {
+	def String genHeaderPassiveClass(Class clazz) {
 		val it = clazz
 		'''
-		#ifndef «name.toUpperCase() + "_H"»
-		#define «name.toUpperCase() + "_H"»
+		#ifndef Â«name.toUpperCase() + "_H"Â»
+		#define Â«name.toUpperCase() + "_H"Â»
 		
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
-		«IF !objectCreated && superClasses.size < 1»
+		Â«IF allPlaceholders != nullÂ»
+			Â«FOR p : allPlaceholdersÂ»
+				Â«setPlaceholderÂ»
+			Â«ENDFORÂ»
+		Â«ENDIFÂ»
+		Â«IF !objectCreated && superClasses.size < 1Â»
 		#include "Object.h"
-		«ENDIF»
+		Â«ENDIFÂ»
 		
-		class «name» «IF superClasses.size >= 1»:«FOR SuperClassSpecification: superClasses SEPARATOR ','» public «SuperClassSpecification.clazz.genType»«ENDFOR»«ELSE»«IF !objectCreated»: public Object«ENDIF»«ENDIF»
+		class Â«nameÂ» Â«IF superClasses.size >= 1Â»:Â«FOR SuperClassSpecification: superClasses SEPARATOR ','Â» public Â«SuperClassSpecification.class_.genTypeÂ»Â«ENDFORÂ»Â«ELSEÂ»Â«IF !objectCreatedÂ»: public ObjectÂ«ENDIFÂ»Â«ENDIFÂ»
 		{
 		public:
-			«IF superClasses.size >= 1»typedef «(superClasses.findFirst[clazz.name != ""]).clazz.name» super; «ENDIF»
+			Â«IF superClasses.size >= 1Â»typedef Â«(superClasses.findFirst[clazz.name != ""]).class_.nameÂ» super; Â«ENDIFÂ»
 		// Konstruktoren der Klasse
-			«IF constructor != null»
-				«genConstructor(header)»
-			«ENDIF» 
-			«genStandardConstructors(header)»
-		«IF methods.size != 0»
+			Â«FOR constructor: constructorsÂ»
+				Â«constructor.genConstructor(header)Â»
+			Â«ENDFORÂ» 
+			Â«genStandardConstructors(header)Â»
+		Â«IF methods.size != 0Â»
 		// Funktionen der Klasse	
-			«methods.genProcedures(header)»
-		«ENDIF»	
+			Â«methods.genFunctions(header)Â»
+		Â«ENDIFÂ»	
 		// Attribute der Klasse	
-			«attributes.genVariables(header)»
-			«IF reportBlock != null»void report();«ENDIF»
-			«IF clearBlock != null»void clear();«ENDIF»
+			Â«attributes.genVariables(header)Â»
 		};
 
 		#endif
 		'''
 	}
 	
-	def String genConstructor (Clazz clazzObject, boolean isHeader){
-		val it = clazzObject
-		if(isHeader){
+	def String genConstructor (Constructor constructor, boolean isHeader) {
+		val it = constructor.owningClass
+		
+		if (isHeader) {
 			'''
-			«IF !active»
-				«name»(«FOR cparam: constructor.parameters SEPARATOR ','»«cparam.genType»«IF((cparam as TypedElement).classifierType instanceof IdExpr)»*«ENDIF» «cparam.name»«ENDFOR»);
-			«ELSE»
-				«name»(«IF constructor.parameters.size == 2»«constructor.parameters.get(0).genType» «constructor.parameters.get(0).name», void* Label);«ELSE»«ENDIF»
-			«ENDIF»
+			Â«IF !activeÂ»
+				Â«nameÂ»(
+					Â«FOR cparam: constructor.parameters SEPARATOR ','Â»
+						Â«cparam.genTypeÂ»
+						Â«IF((cparam as TypedElement).classifierType instanceof IdExpr)Â»*Â«ENDIFÂ» Â«cparam.nameÂ»
+					Â«ENDFORÂ»
+					);
+			Â«ELSEÂ»
+				Â«nameÂ»(
+					Â«IF constructor.parameters.size == 2Â»
+						Â«constructor.parameters.get(0).genTypeÂ» Â«constructor.parameters.get(0).nameÂ», void* Label);
+					Â«ELSEÂ»
+					Â«ENDIFÂ»
+			Â«ENDIFÂ»
 			'''
 		}
 		else{
-			
 			'''
-			«IF !active»
-				«clazzObject.name»::«name»(«FOR cparam: constructor.parameters SEPARATOR ','»«cparam.genType»«IF((cparam as TypedElement).classifierType instanceof IdExpr)»*«ENDIF» «cparam.name»«ENDFOR»)
-					«IF superClasses.size != 0»:«FOR sc:superClasses SEPARATOR ','»«IF sc.constructorArguments != null»«sc.clazz.name»::«sc.clazz.name»(«FOR expr: sc.constructorArguments SEPARATOR ','»«expr.genExpr»«ENDFOR»)«ELSE»«sc.clazz.name»::«sc.clazz.name»()«ENDIF»«ENDFOR»«ENDIF»
-				«IF clazzObject.attributes.exists[name != ""] || initialBlock != null»
-					«IF superClasses.size == 0»«IF clazzObject.active»:GotoExecution::GotoExecution(«IF constructor.parameters.size == 2» «constructor.parameters.get(0).name», &&«clazzObject.name»«ELSE»«ENDIF»)«ENDIF»«ELSE»«ENDIF»
-					«IF clazzObject.attributes.exists[name != ""] && !clazzObject.active && superClasses.size == 0»:«ELSE»,«ENDIF»«genInitializerList»
-				«ELSE»«IF superClasses.size == 0» = default;«ELSE»{}«ENDIF»
-			«ENDIF»
-			«ELSE»
-			«clazzObject.name»::«name»(«constructor.parameters.get(0).genType» «constructor.parameters.get(0).name», void* label)«IF superClasses.size == 0»: GotoExecution(«constructor.parameters.get(0).name»,label)«ELSE»«ENDIF»
-			«IF superClasses.size != 0»:«FOR sc:superClasses SEPARATOR ','»«IF sc.constructorArguments != null»«sc.clazz.name»::«sc.clazz.name»(«FOR expr: sc.constructorArguments SEPARATOR ','»«expr.genExpr»«ENDFOR»)«ELSE»«sc.clazz.name»::«sc.clazz.name»()«ENDIF»«ENDFOR»«ENDIF»
-			«IF clazzObject.attributes.exists[name != ""] || initialBlock != null»
-				«IF clazzObject.attributes.exists[name != ""]»,«ENDIF» «genInitializerList»
-			«ELSE» {};
-			«ENDIF»
-			«ENDIF»
+			Â«IF !activeÂ»
+				Â«nameÂ»::Â«nameÂ»(
+					Â«FOR cparam: constructor.parameters SEPARATOR ','Â»
+						Â«cparam.genTypeÂ»
+						Â«IF((cparam as TypedElement).classifierType instanceof IdExpr)Â»*Â«ENDIFÂ» Â«cparam.nameÂ»
+					Â«ENDFORÂ»
+				)
+				
+				Â«IF superClasses.size != 0Â» : 
+					Â«FOR sc : superClasses SEPARATOR ','Â»
+						Â«IF sc.constructorArguments != nullÂ»
+							Â«sc.class_.nameÂ»::Â«sc.class_.nameÂ»(
+								Â«FOR expr : sc.constructorArguments SEPARATOR ','Â»
+									Â«expr.genExprÂ»
+								Â«ENDFORÂ»
+							)
+						Â«ELSEÂ»
+							Â«sc.class_.nameÂ»::Â«sc.class_.nameÂ»()
+						Â«ENDIFÂ»
+					Â«ENDFORÂ»
+				Â«ENDIFÂ»
+				
+				Â«IF attributes.exists[name != ""] || !constructor.statements.emptyÂ»
+					Â«IF superClasses.size == 0Â»
+						Â«IF activeÂ» : GotoExecution::GotoExecution(
+							Â«IF constructor.parameters.size == 2Â» 
+								Â«constructor.parameters.get(0).nameÂ», &&Â«nameÂ»
+							Â«ELSEÂ»
+							Â«ENDIFÂ»
+						)
+						Â«ENDIFÂ»
+					Â«ELSEÂ»
+					Â«ENDIFÂ»
+					
+					Â«IF attributes.exists[name != ""] && !active && superClasses.size == 0Â»
+						:
+					Â«ELSEÂ»
+						,
+					Â«ENDIFÂ»
+					Â«constructor.genInitializerListÂ»
+				Â«ELSEÂ»
+					Â«IF superClasses.size == 0Â»
+						 = default;
+					Â«ELSEÂ»
+						{}
+					Â«ENDIFÂ»
+				Â«ENDIFÂ»
+			Â«ELSEÂ»
+				Â«nameÂ»::Â«nameÂ»(
+					Â«constructor.parameters.get(0).genTypeÂ» Â«constructor.parameters.get(0).nameÂ», void* label
+				)
+				Â«IF superClasses.size == 0Â»
+					: GotoExecution(Â«constructor.parameters.get(0).nameÂ»,label)
+				Â«ELSEÂ»
+				Â«ENDIFÂ»
+				
+				Â«IF superClasses.size != 0Â»
+					:
+					Â«FOR sc:superClasses SEPARATOR ','Â»
+						Â«IF sc.constructorArguments != nullÂ»
+							Â«sc.class_.nameÂ»::Â«sc.class_.nameÂ»(
+								Â«FOR expr: sc.constructorArguments SEPARATOR ','Â»
+									Â«expr.genExprÂ»
+								Â«ENDFORÂ»
+							)
+						Â«ELSEÂ»
+							Â«sc.class_.nameÂ»::Â«sc.class_.nameÂ»()
+						Â«ENDIFÂ»
+					Â«ENDFORÂ»
+				Â«ENDIFÂ»
+				
+				Â«IF attributes.exists[name != ""] || !constructor.statements.emptyÂ»
+					Â«IF attributes.exists[name != ""]Â»
+						,
+					Â«ENDIFÂ» 
+					Â«constructor.genInitializerListÂ»
+				Â«ELSEÂ»
+					{};
+				Â«ENDIFÂ»
+			Â«ENDIFÂ»
 			'''
 		}
 	}
 	
-	def String genStandardConstructors (Clazz clazzObject, boolean isHeader){
+	def String genStandardConstructors(Class clazzObject, boolean isHeader) {
 		val it = clazzObject
-		if (isHeader){
+		
+		if (isHeader) {
 			'''
-			«IF constructor == null»«IF !active»«name»();«ELSE»«name»(int priority, void* Label);«ENDIF»«ENDIF»
-			«name»(const «name»& a);
-			«IF (inheritedBaseClass(clazzObject))»virtual «ENDIF»~«name»();
+			Â«IF constructors.emptyÂ»
+				Â«IF !activeÂ»
+					Â«nameÂ»();
+				Â«ELSEÂ»
+					Â«nameÂ»(int priority, void* Label);
+				Â«ENDIFÂ»
+			Â«ENDIFÂ»
+			
+			Â«nameÂ»(const Â«nameÂ»& a);
+			
+			Â«IF (inheritedBaseClass(clazzObject))Â»
+				virtual 
+			Â«ENDIFÂ»
+			
+			~Â«nameÂ»();
 			'''
 		}
 		else {
 			'''
-			«IF constructor == null»
-			«IF !active»
-			«clazzObject.name»::«name»()
-			«IF superClasses.size != 0»:«FOR sc:superClasses SEPARATOR ','»«IF sc.constructorArguments != null»«sc.clazz.name»::«sc.clazz.name»(«FOR expr: sc.constructorArguments SEPARATOR ','»«expr.genExpr»«ENDFOR»)«ELSE»«sc.clazz.name»::«sc.clazz.name»()«ENDIF»«ENDFOR»«ENDIF»
-			«IF clazzObject.attributes.exists[name != ""] || initialBlock != null»
-			«IF superClasses.size == 0»:«IF clazzObject.active»GotoExecution::GotoExecution(«IF constructor.parameters.size == 2» «constructor.parameters.get(0).name», &«constructor.parameters.get(1).name»«ELSE»«ENDIF»),«ENDIF»«ELSE»«ENDIF»
-				«IF clazzObject.attributes.exists[name != ""] && superClasses.size != 0»,«ENDIF» «genInitializerList»
-			«ELSE» «IF superClasses.size == 0» = default;«ELSE»{}«ENDIF»
-			«ENDIF»
-			«ELSE»
-			«clazzObject.name»::«name»(«constructor.parameters.get(0).genType» «constructor.parameters.get(0).name», void* label)«IF superClasses.size == 0»: GotoExecution(«constructor.parameters.get(0).name»,label)«ELSE»«ENDIF»
-			«IF superClasses.size != 0»:«FOR sc:superClasses SEPARATOR ','»«IF sc.constructorArguments != null»«sc.clazz.name»::«sc.clazz.name»(«FOR expr: sc.constructorArguments SEPARATOR ','»«expr.genExpr»«ENDFOR»)«ELSE»«sc.clazz.name»::«sc.clazz.name»()«ENDIF»«ENDFOR»«ENDIF»
-			«IF clazzObject.attributes.exists[name != ""] || initialBlock != null»
-				«IF clazzObject.attributes.exists[name != ""]»,«ENDIF» «genInitializerList»
-			«ELSE» {};
-			«ENDIF»
-			«ENDIF»
-			«ENDIF»
-			«clazzObject.name»::«name»(const «name»& a) = default;
-			«clazzObject.name»::~«name»()«IF finalBlock != null && finalBlock.statements.size > 0»{«finalBlock.statements.gen»«finalBlock.statements.genDeleteStatements»}«ELSE»= default;«ENDIF»
+			Â«IF constructors.emptyÂ»
+				Â«IF !activeÂ»
+					Â«clazzObject.nameÂ»::Â«nameÂ»()
+					
+					Â«IF superClasses.size != 0Â»
+						:
+						Â«FOR sc:superClasses SEPARATOR ','Â»
+							Â«IF sc.constructorArguments != nullÂ»
+								Â«sc.class_.nameÂ»::Â«sc.class_.nameÂ»(
+									Â«FOR expr: sc.constructorArguments SEPARATOR ','Â»
+										Â«expr.genExprÂ»
+									Â«ENDFORÂ»
+								)
+							Â«ELSEÂ»
+								Â«sc.class_.nameÂ»::Â«sc.class_.nameÂ»()
+							Â«ENDIFÂ»
+						Â«ENDFORÂ»
+					Â«ENDIFÂ»
+					
+					Â«IF clazzObject.attributes.exists[name != ""] || initialBlock != nullÂ»
+						Â«IF superClasses.size == 0Â»
+							:
+							Â«IF clazzObject.activeÂ»
+								GotoExecution::GotoExecution(
+									Â«IF constructor.parameters.size == 2Â» 
+										Â«constructor.parameters.get(0).nameÂ», &Â«constructor.parameters.get(1).nameÂ»
+									Â«ELSEÂ»
+									Â«ENDIFÂ»
+								),
+							Â«ENDIFÂ»
+							Â«ELSEÂ»
+						Â«ENDIFÂ»
+						
+						Â«IF clazzObject.attributes.exists[name != ""] && superClasses.size != 0Â»
+							,
+						Â«ENDIFÂ» 
+						Â«genInitializerListÂ»
+					Â«ELSEÂ»
+					
+						Â«IF superClasses.size == 0Â»
+							= default;
+						Â«ELSEÂ»
+							{}
+						Â«ENDIFÂ»
+					Â«ENDIFÂ»
+				Â«ELSEÂ»
+					Â«clazzObject.nameÂ»::Â«nameÂ»(
+						Â«constructor.parameters.get(0).genTypeÂ» Â«constructor.parameters.get(0).nameÂ», void* label
+					)
+					Â«IF superClasses.size == 0Â»
+						: GotoExecution(Â«constructor.parameters.get(0).nameÂ»,label)
+					Â«ELSEÂ»
+					Â«ENDIFÂ»
+					
+					Â«IF superClasses.size != 0Â»
+						:
+						Â«FOR sc:superClasses SEPARATOR ','Â»
+							Â«IF sc.constructorArguments != nullÂ»
+								Â«sc.clazz.nameÂ»::Â«sc.clazz.nameÂ»(
+									Â«FOR expr: sc.constructorArguments SEPARATOR ','Â»
+										Â«expr.genExprÂ»
+									Â«ENDFORÂ»
+								)
+							Â«ELSEÂ»
+								Â«sc.clazz.nameÂ»::Â«sc.clazz.nameÂ»()
+							Â«ENDIFÂ»
+						Â«ENDFORÂ»
+					Â«ENDIFÂ»
+					
+					Â«IF clazzObject.attributes.exists[name != ""] || initialBlock != nullÂ»
+						Â«IF clazzObject.attributes.exists[name != ""]Â»
+							,
+						Â«ENDIFÂ» 
+						Â«genInitializerListÂ»
+					Â«ELSEÂ»
+						{};
+					Â«ENDIFÂ»
+				Â«ENDIFÂ»
+			Â«ENDIFÂ»
+			Â«clazzObject.nameÂ»::Â«nameÂ»(const Â«nameÂ»& a) = default;
+			
+			Â«clazzObject.nameÂ»::~Â«nameÂ»()
+			
+Â«Â«Â«			Â«IF finalBlock != null && finalBlock.statements.size > 0Â»
+Â«Â«Â«				{Â«finalBlock.statements.genÂ»
+Â«Â«Â«				Â«finalBlock.statements.genDeleteStatementsÂ»
+Â«Â«Â«				}
+Â«Â«Â«			Â«ELSEÂ»
+Â«Â«Â«				= default;
+Â«Â«Â«			Â«ENDIFÂ»
+
+			= default;
 			'''
 		}
 	}
 	
-	def boolean inheritedBaseClass(Clazz clazz) {
+	def boolean inheritedBaseClass(Class clazz) {
 		var object = clazz.eContainer;
 		var Model model;
 		while (!(object instanceof Model)){
@@ -2863,8 +3010,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		model = (object) as Model;
 
 		for(module:model.modules){
-			for(class:module.classifiers){
-				if ((class as Clazz).superClasses.findFirst[superclass | (superclass.clazz).name == clazz.name] != null) return true;	
+			for(class:module.classes){
+				if ((class as Class).superClasses.findFirst[superclass | (superclass.class_).name == clazz.name] != null) return true;	
 			}
 		}
 		return false;
@@ -2872,17 +3019,17 @@ class BasicDblToCGenerator extends AbstractGenerator {
 
 	def String genGlobalVariables(List<Variable> variables) {
 		'''
-		«FOR v : variables»
-			extern «v.genVariable(header, false)»
-		«ENDFOR»
+		Â«FOR v : variablesÂ»
+			extern Â«v.genVariable(header, false)Â»
+		Â«ENDFORÂ»
 		'''
 	}
 	
 	def String genVariables(List<Variable> variables, boolean isHeader) {
 		'''
-		«FOR v : variables»
-			«v.genVariable(isHeader, false)»
-		«ENDFOR»
+		Â«FOR v : variablesÂ»
+			Â«v.genVariable(isHeader, false)Â»
+		Â«ENDFORÂ»
 		'''
 	}
 	
@@ -2890,53 +3037,54 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		val it = variable
 		if(isHeader){
 			'''
-				«genVariableDeclaration(isHeader, isConstructor)»	
+				Â«genVariableDeclaration(isHeader, isConstructor)Â»	
 			'''
 		}
 		else{
 		'''
-			«IF typeArrayDimensions.size == 0»
-				«IF initialValue != null»
-					«genVariableDeclaration(isHeader, isConstructor)» = «initialValue.genExpr»;
-				«ELSE»
-					«genVariableDeclaration(isHeader, isConstructor)» = «autoInitial»;
-				«ENDIF»
-			«ELSE»
-				«variable.genType»«IF variable.classifierType instanceof IdExpr»* «ENDIF» «variable.name»«FOR dim:variable.typeArrayDimensions»[«dim.size.genExpr»]«ENDFOR»;
-			«ENDIF»
+			Â«IF typeArrayDimensions.size == 0Â»
+				Â«IF initialValue != nullÂ»
+					Â«genVariableDeclaration(isHeader, isConstructor)Â» = Â«initialValue.genExprÂ»;
+				Â«ELSEÂ»
+					Â«genVariableDeclaration(isHeader, isConstructor)Â» = Â«autoInitialÂ»;
+				Â«ENDIFÂ»
+			Â«ELSEÂ»
+				Â«variable.genTypeÂ»Â«IF variable.classifierType instanceof IdExprÂ»* Â«ENDIFÂ» Â«variable.nameÂ»Â«FOR dim:variable.typeArrayDimensionsÂ»[Â«dim.size.genExprÂ»]Â«ENDFORÂ»;
+			Â«ENDIFÂ»
 		'''
 		}
 	}
 	
 	def String genVariableDeclarations(List<Variable> variables, boolean isHeader) {
 		'''
-		«FOR v : variables»
-			«v.genVariableDeclaration(isHeader, false)»
-		«ENDFOR»
+		Â«FOR v : variablesÂ»
+			Â«v.genVariableDeclaration(isHeader, false)Â»
+		Â«ENDFORÂ»
 		'''
 	}
 	
-	def String genInitializerList(Clazz clazz){
-		val it = clazz 
+	def String genInitializerList(Constructor constructor){
+		val it = constructor.owningClass 
 		var int temp = 0;
 		
 		// get largest index of non-static variable
-		for(attribute: clazz.attributes){
-			if(!attribute.clazz){
-				temp = clazz.attributes.indexOf(attribute)
+		for(attribute: attributes){
+			if(!attribute.isClass()){
+				temp = attributes.indexOf(attribute)
 			}
 		}
 		
 		'''
-			«FOR attribute: clazz.attributes»
-				«IF !attribute.clazz»
-					«attribute.name»(«attribute.initialValue.genExpr»)«IF clazz.attributes.indexOf(attribute) < temp»,«ELSE»«ENDIF»
-				«ENDIF»
-			«ENDFOR»
+			Â«FOR attribute: attributesÂ»
+				Â«IF !attribute.isClass()Â»
+					Â«attribute.nameÂ»(Â«attribute.initialValue.genExprÂ»)Â«IF attributes.indexOf(attribute) < tempÂ»,Â«ELSEÂ»Â«ENDIFÂ»
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
 				{
-				«IF initialBlock != null && initialBlock.statements.size > 0»
-					«initialBlock.statements.gen»«initialBlock.statements.genDeleteStatements»
-				«ENDIF»
+				Â«IF constructor.statements.size > 0Â»
+					Â«constructor.statements.genÂ»
+					Â«constructor.statements.genDeleteStatementsÂ»
+				Â«ENDIFÂ»
 				}
 		'''
 	}
@@ -2946,84 +3094,84 @@ class BasicDblToCGenerator extends AbstractGenerator {
 			{
 				if(variable.typeArrayDimensions.size != 0){
 				'''
-				«variable.genType»«IF variable.classifierType instanceof IdExpr»* «ENDIF» «variable.name»«FOR dim:variable.typeArrayDimensions»[«dim.size.genExpr»]«ENDFOR»;
+				Â«variable.genTypeÂ»Â«IF variable.classifierType instanceof IdExprÂ»* Â«ENDIFÂ» Â«variable.nameÂ»Â«FOR dim:variable.typeArrayDimensionsÂ»[Â«dim.size.genExprÂ»]Â«ENDFORÂ»;
 				'''
 				}
 				else{
 					'''
-					«IF variable.clazz && isHeader»static «ENDIF»«IF !isConstructor»«variable.genType»*«ENDIF» «IF variable.clazz && !isHeader»«(variable.eContainer as Clazz).name»::«ENDIF»«variable.name»«IF isHeader»;«ENDIF»
+					Â«IF variable.isClass() && isHeaderÂ»static Â«ENDIFÂ»Â«IF !isConstructorÂ»Â«variable.genTypeÂ»*Â«ENDIFÂ» Â«IF variable.isClass() && !isHeaderÂ»Â«(variable.eContainer as Class).nameÂ»::Â«ENDIFÂ»Â«variable.nameÂ»Â«IF isHeaderÂ»;Â«ENDIFÂ»
 					'''
 				}
 			}
 		else if(variable.typeArrayDimensions.size != 0){
 			'''
-				«variable.genType»«IF variable.classifierType instanceof IdExpr»* «ENDIF» «variable.name»«FOR dim:variable.typeArrayDimensions»[«dim.size.genExpr»]«ENDFOR»;
+				Â«variable.genTypeÂ»Â«IF variable.classifierType instanceof IdExprÂ»* Â«ENDIFÂ» Â«variable.nameÂ»Â«FOR dim:variable.typeArrayDimensionsÂ»[Â«dim.size.genExprÂ»]Â«ENDFORÂ»;
 			'''
 		}
 		else
 			{ 
 				'''
-				«IF variable.clazz && isHeader»static «ENDIF»«IF !isConstructor»«variable.genType»«ENDIF» «IF variable.clazz && !isHeader»«(variable.eContainer as Clazz).name»::«ENDIF»«variable.name»«IF isHeader»;«ENDIF»
+				Â«IF variable.isClass() && isHeaderÂ»static Â«ENDIFÂ»Â«IF !isConstructorÂ»Â«variable.genTypeÂ»Â«ENDIFÂ» Â«IF variable.isClass() && !isHeaderÂ»Â«(variable.eContainer as Class).nameÂ»::Â«ENDIFÂ»Â«variable.nameÂ»Â«IF isHeaderÂ»;Â«ENDIFÂ»
 				'''
 			}
 	}
 		
 	def String autoInitial(Variable v){
 		'''
-		«IF (v.primitiveType != null)»
-			«IF (v.primitiveType instanceof IntType)»0
-			«ENDIF»
-			«IF (v.primitiveType instanceof StringType)»""
-			«ENDIF»
-			«IF (v.primitiveType instanceof BoolType)»false
-			«ENDIF»
-			«IF (v.primitiveType instanceof DoubleType)»0.0
-			«ENDIF»
-		«ELSE»nullptr
-		«ENDIF»
+		Â«IF (v.primitiveType != null)Â»
+			Â«IF (v.primitiveType instanceof IntType)Â»0
+			Â«ENDIFÂ»
+			Â«IF (v.primitiveType instanceof StringType)Â»""
+			Â«ENDIFÂ»
+			Â«IF (v.primitiveType instanceof BoolType)Â»false
+			Â«ENDIFÂ»
+			Â«IF (v.primitiveType instanceof DoubleType)Â»0.0
+			Â«ENDIFÂ»
+		Â«ELSEÂ»nullptr
+		Â«ENDIFÂ»
 		'''
 	}
 	
-	def String genGlobalProcedures(List<Procedure> procedures, boolean isHeader) {
+	def String genGlobalFunctions(List<Function> functions, boolean isHeader) {
 		'''
-		«FOR p : procedures»
-			«IF p.name != "main"»
-				extern«p.genProcedure(isHeader)»  
-			«ENDIF»
-		«ENDFOR»
-		'''
-	}
-	
-	def String genProcedures(List<Procedure> procedures, boolean isHeader) {
-		'''
-		«FOR p : procedures»
-			«IF p.name != "main" && !all_Functions_containing_sched.contains(p)»
-				«p.genProcedure(isHeader)»
-			«ENDIF»
-		«ENDFOR»
+		Â«FOR p : functionsÂ»
+			Â«IF p.name != "main"Â»
+				externÂ«p.genFunction(isHeader)Â»  
+			Â«ENDIFÂ»
+		Â«ENDFORÂ»
 		'''
 	}
 	
-	def String genProcedure(Procedure p, boolean isHeader){
+	def String genFunctions(List<Function> functions, boolean isHeader) {
+		'''
+		Â«FOR p : functionsÂ»
+			Â«IF p.name != "main" && !all_Functions_containing_sched.contains(p)Â»
+				Â«p.genFunction(isHeader)Â»
+			Â«ENDIFÂ»
+		Â«ENDFORÂ»
+		'''
+	}
+	
+	def String genFunction(Function p, boolean isHeader){
 		val it = p
 		'''
-		«IF (abstract) && isHeader»virtual«ENDIF» «IF (!((abstract) && !isHeader))»«genType»«IF((p as TypedElement).classifierType instanceof IdExpr)»*«ENDIF» «IF p.eContainer instanceof Clazz && !isHeader»«(p.eContainer as Clazz).name»::«ENDIF»«name»(«FOR parameter: p.parameters SEPARATOR ','»«parameter.genType»«IF((parameter as TypedElement).classifierType instanceof IdExpr)»*«ENDIF» «parameter.name»«ENDFOR»)«IF (abstract) && isHeader» = 0«ENDIF»«IF isHeader»;«ELSE»{«statements.gen»}«ENDIF»«ENDIF»
+		Â«IF (abstract) && isHeaderÂ»virtualÂ«ENDIFÂ» Â«IF (!((abstract) && !isHeader))Â»Â«genTypeÂ»Â«IF((p as TypedElement).classifierType instanceof IdExpr)Â»*Â«ENDIFÂ» Â«IF p.eContainer instanceof Class && !isHeaderÂ»Â«(p.eContainer as Class).nameÂ»::Â«ENDIFÂ»Â«nameÂ»(Â«FOR parameter: p.parameters SEPARATOR ','Â»Â«parameter.genTypeÂ»Â«IF((parameter as TypedElement).classifierType instanceof IdExpr)Â»*Â«ENDIFÂ» Â«parameter.nameÂ»Â«ENDFORÂ»)Â«IF (abstract) && isHeaderÂ» = 0Â«ENDIFÂ»Â«IF isHeaderÂ»;Â«ELSEÂ»{Â«statements.genÂ»}Â«ENDIFÂ»Â«ENDIFÂ»
 		'''	
 	}
 	
-	def String genMainProcedureActive(Procedure p, List<Module> variables){
+	def String genMainFunctionActive(Function p, List<Module> variables){
 		// no active classes in basegenerator
 	}
 	
-	def String genMainProcedure(Procedure p){
+	def String genMainFunction(Function p){
 		val it = p;
 		'''
 			int main()
 			{
 			float elapsed;
 			clock_t start = clock();
-			«statements.gen»
-			«statements.genDeleteStatements»
+			Â«statements.genÂ»
+			Â«statements.genDeleteStatementsÂ»
 			elapsed = (float)(clock() - start) / CLOCKS_PER_SEC;
 			cout << "Overall execution time: " << elapsed << " sec." << endl;
 			
@@ -3034,15 +3182,15 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	
 	def String genDeleteStatements(List<Statement> s) {
 		'''
-			«FOR statement:s»
-				«IF statement instanceof Variable»
-					«IF (statement as Variable).initialValue instanceof CreateObject»
-						delete «(statement as Variable).name»;
-					«ELSEIF ((statement as Variable).initialValue instanceof IdExpr && ((statement as Variable).initialValue as IdExpr).callPart != null && all_Functions_containing_sched.contains(getCalledProcedure((statement as Variable).initialValue as IdExpr)) && getCalledProcedure(((statement as Variable).initialValue as IdExpr)).primitiveType == null) »
-						delete «(statement as Variable).name»;
-					«ENDIF»
-				«ENDIF»
-			«ENDFOR»
+			Â«FOR statement:sÂ»
+				Â«IF statement instanceof VariableÂ»
+					Â«IF (statement as Variable).initialValue instanceof CreateObjectÂ»
+						delete Â«(statement as Variable).nameÂ»;
+					Â«ELSEIF ((statement as Variable).initialValue instanceof IdExpr && ((statement as Variable).initialValue as IdExpr).callPart != null && all_Functions_containing_sched.contains(getCalledFunction((statement as Variable).initialValue as IdExpr)) && getCalledFunction(((statement as Variable).initialValue as IdExpr)).primitiveType == null) Â»
+						delete Â«(statement as Variable).nameÂ»;
+					Â«ENDIFÂ»
+				Â«ENDIFÂ»
+			Â«ENDFORÂ»
 		'''
 	}
 
@@ -3093,15 +3241,15 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	}	
 	
 	// helper functions to get the corresponding object of active class
-	def Clazz getActiveClass(EObject obj) {
+	def Class getActiveClass(EObject obj) {
 		var EObject object = obj
-		var Clazz activeClass;
+		var Class activeClass;
 		
-		while (!(object instanceof Module || object instanceof Clazz)){
+		while (!(object instanceof Module || object instanceof Class)){
 			object = object.eContainer;
 		}
-		if (object instanceof Clazz){
-			    activeClass = (object) as Clazz;
+		if (object instanceof Class){
+			    activeClass = (object) as Class;
 				if(activeClass.active){
 					return activeClass
 				}
@@ -3112,13 +3260,13 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	def int checkLocationOfVariable(EObject obj) {
 		var EObject object = obj
 
-		while (!(object instanceof Module || object instanceof Clazz || object instanceof Procedure)){
+		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
 		}
-		if (object instanceof Clazz){
+		if (object instanceof Class){
 			return 0;
 		}
-		if (object instanceof Procedure){
+		if (object instanceof Function){
 			return 1;
 		}
 		else return 2;

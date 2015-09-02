@@ -85,6 +85,7 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
 
   Class Constructor -> LocalScope
     Reference parameters : Parameter<<0..*>>
+    Reference owningClass : Class<<1..1>>
 
   Class AbstractVariable -> NamedElement, TypedElement
 
@@ -286,10 +287,6 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
   Class MetaAccess -> VariableAccess
 
   Class TypeAccess -> ElementAccess
-
-  Class ClassContentExtension -> ExtensibleElement
-
-  Class ModuleContentExtension -> ExtensibleElement
 
   Class ExtensionDefinition -> LanguageConceptClassifier, ExtensibleElement
     Reference extendedConcept : LanguageConceptClassifier<<1..1>>

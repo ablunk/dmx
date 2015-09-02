@@ -33,9 +33,7 @@ public interface ReferencePropertyType extends StructuredPropertyType {
 	 * @see #setRawReference(boolean)
 	 * @see hub.sam.dbl.DblPackage#getReferencePropertyType_RawReference()
 	 * @model default="false" required="true"
-	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='MetaExpr'"
-	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='Mapping'"
-	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='Mapping'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='StructuredPropertyType' unique='false' upper='*'"
 	 * @generated
 	 */
 	boolean isRawReference();

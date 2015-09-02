@@ -6,6 +6,150 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.AbstractVariable;
+import hub.sam.dbl.ActivateObject;
+import hub.sam.dbl.ActiveLiteral;
+import hub.sam.dbl.Advance;
+import hub.sam.dbl.And;
+import hub.sam.dbl.ArrayDimension;
+import hub.sam.dbl.Assignment;
+import hub.sam.dbl.BinaryOperator;
+import hub.sam.dbl.BoolType;
+import hub.sam.dbl.BooleanPropertyType;
+import hub.sam.dbl.BreakStatement;
+import hub.sam.dbl.CallPart;
+import hub.sam.dbl.Cast;
+import hub.sam.dbl.ClassContent;
+import hub.sam.dbl.CodeQuoteExpression;
+import hub.sam.dbl.CompositePropertyType;
+import hub.sam.dbl.Construct;
+import hub.sam.dbl.ConstructiveExtension;
+import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
+import hub.sam.dbl.Constructor;
+import hub.sam.dbl.ContinueStatement;
+import hub.sam.dbl.CreateObject;
+import hub.sam.dbl.DblFactory;
+import hub.sam.dbl.DblPackage;
+import hub.sam.dbl.Div;
+import hub.sam.dbl.DoubleLiteral;
+import hub.sam.dbl.DoubleType;
+import hub.sam.dbl.ElementAccess;
+import hub.sam.dbl.Equal;
+import hub.sam.dbl.ExpandExpr;
+import hub.sam.dbl.ExpandExpression;
+import hub.sam.dbl.ExpandStatement;
+import hub.sam.dbl.ExpandTextPart;
+import hub.sam.dbl.ExpandVariablePart;
+import hub.sam.dbl.ExpansionPart;
+import hub.sam.dbl.ExpansionStatement;
+import hub.sam.dbl.Expression;
+import hub.sam.dbl.ExtensibleElement;
+import hub.sam.dbl.ExtensionDefinition;
+import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.FalseLiteral;
+import hub.sam.dbl.ForStatement;
+import hub.sam.dbl.Function;
+import hub.sam.dbl.FunctionCall;
+import hub.sam.dbl.Greater;
+import hub.sam.dbl.GreaterEqual;
+import hub.sam.dbl.IdExpr;
+import hub.sam.dbl.IdPropertyType;
+import hub.sam.dbl.IfStatement;
+import hub.sam.dbl.Import;
+import hub.sam.dbl.InstanceOf;
+import hub.sam.dbl.IntLiteral;
+import hub.sam.dbl.IntPropertyType;
+import hub.sam.dbl.IntType;
+import hub.sam.dbl.L1Expr;
+import hub.sam.dbl.L1RhsExpr;
+import hub.sam.dbl.L2Expr;
+import hub.sam.dbl.L2RhsExpr;
+import hub.sam.dbl.L3Expr;
+import hub.sam.dbl.L3RhsExpr;
+import hub.sam.dbl.L4Expr;
+import hub.sam.dbl.L5Expr;
+import hub.sam.dbl.L6Expr;
+import hub.sam.dbl.L7Expr;
+import hub.sam.dbl.L8Expr;
+import hub.sam.dbl.L9Expr;
+import hub.sam.dbl.LanguageConceptClassifier;
+import hub.sam.dbl.LanguageConstructClassifier;
+import hub.sam.dbl.Less;
+import hub.sam.dbl.LessEqual;
+import hub.sam.dbl.LocalScope;
+import hub.sam.dbl.LocalScopeStatement;
+import hub.sam.dbl.LoopStatement;
+import hub.sam.dbl.MeLiteral;
+import hub.sam.dbl.MetaAccess;
+import hub.sam.dbl.MetaExpr;
+import hub.sam.dbl.MetaLiteral;
+import hub.sam.dbl.Minus;
+import hub.sam.dbl.Mod;
+import hub.sam.dbl.Model;
+import hub.sam.dbl.Module;
+import hub.sam.dbl.ModuleContent;
+import hub.sam.dbl.Mul;
+import hub.sam.dbl.NamedElement;
+import hub.sam.dbl.NativeBinding;
+import hub.sam.dbl.Neg;
+import hub.sam.dbl.Not;
+import hub.sam.dbl.NotEqual;
+import hub.sam.dbl.NullLiteral;
+import hub.sam.dbl.Or;
+import hub.sam.dbl.Parameter;
+import hub.sam.dbl.ParseExpr;
+import hub.sam.dbl.Pattern;
+import hub.sam.dbl.Plus;
+import hub.sam.dbl.PredefinedId;
+import hub.sam.dbl.PrimitiveType;
+import hub.sam.dbl.Print;
+import hub.sam.dbl.PropertyBindingExpr;
+import hub.sam.dbl.PropertyType;
+import hub.sam.dbl.QuotedClassContent;
+import hub.sam.dbl.QuotedCode;
+import hub.sam.dbl.QuotedExpression;
+import hub.sam.dbl.QuotedModuleContent;
+import hub.sam.dbl.QuotedStatements;
+import hub.sam.dbl.Reactivate;
+import hub.sam.dbl.ReferencePropertyType;
+import hub.sam.dbl.ResumeGenStatement;
+import hub.sam.dbl.Return;
+import hub.sam.dbl.RhsClassifierExpr;
+import hub.sam.dbl.RhsExpression;
+import hub.sam.dbl.SaveGenStatement;
+import hub.sam.dbl.SequenceExpr;
+import hub.sam.dbl.SetExpansionContextStatement;
+import hub.sam.dbl.SimpleStatement;
+import hub.sam.dbl.SizeOfArray;
+import hub.sam.dbl.Statement;
+import hub.sam.dbl.StringLiteral;
+import hub.sam.dbl.StringPropertyType;
+import hub.sam.dbl.StringType;
+import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.SuperClassSpecification;
+import hub.sam.dbl.SuperLiteral;
+import hub.sam.dbl.SwitchCase;
+import hub.sam.dbl.SwitchStatement;
+import hub.sam.dbl.TargetStatement;
+import hub.sam.dbl.TerminalExpr;
+import hub.sam.dbl.Terminate;
+import hub.sam.dbl.TestStatement;
+import hub.sam.dbl.TextualSyntaxDef;
+import hub.sam.dbl.TimeLiteral;
+import hub.sam.dbl.TrueLiteral;
+import hub.sam.dbl.TsRule;
+import hub.sam.dbl.Type;
+import hub.sam.dbl.TypeAccess;
+import hub.sam.dbl.TypeLiteral;
+import hub.sam.dbl.TypedElement;
+import hub.sam.dbl.UnaryOperator;
+import hub.sam.dbl.Variable;
+import hub.sam.dbl.VariableAccess;
+import hub.sam.dbl.VoidType;
+import hub.sam.dbl.Wait;
+import hub.sam.dbl.WaitUntil;
+import hub.sam.dbl.WhileStatement;
+import hub.sam.dbl.Yield;
 import static hub.sam.dbl.DblPackage.CLASS;
 import hub.sam.dbl.*;
 
@@ -735,20 +879,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass extensibleElementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass classContentExtensionEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass moduleContentExtensionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1573,6 +1703,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EReference getConstructor_Parameters() {
 		return (EReference)constructorEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConstructor_OwningClass() {
+		return (EReference)constructorEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2705,24 +2844,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getClassContentExtension() {
-		return classContentExtensionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getModuleContentExtension() {
-		return moduleContentExtensionEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getExtensionDefinition() {
 		return extensionDefinitionEClass;
 	}
@@ -3508,6 +3629,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		constructorEClass = createEClass(CONSTRUCTOR);
 		createEReference(constructorEClass, CONSTRUCTOR__PARAMETERS);
+		createEReference(constructorEClass, CONSTRUCTOR__OWNING_CLASS);
 
 		abstractVariableEClass = createEClass(ABSTRACT_VARIABLE);
 
@@ -3709,10 +3831,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		metaAccessEClass = createEClass(META_ACCESS);
 
 		typeAccessEClass = createEClass(TYPE_ACCESS);
-
-		classContentExtensionEClass = createEClass(CLASS_CONTENT_EXTENSION);
-
-		moduleContentExtensionEClass = createEClass(MODULE_CONTENT_EXTENSION);
 
 		extensionDefinitionEClass = createEClass(EXTENSION_DEFINITION);
 		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__EXTENDED_CONCEPT);
@@ -3981,8 +4099,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		variableAccessEClass.getESuperTypes().add(this.getElementAccess());
 		metaAccessEClass.getESuperTypes().add(this.getVariableAccess());
 		typeAccessEClass.getESuperTypes().add(this.getElementAccess());
-		classContentExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
-		moduleContentExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
 		extensionDefinitionEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
 		extensionDefinitionEClass.getESuperTypes().add(this.getExtensibleElement());
 		extensionSemanticsDefinitionEClass.getESuperTypes().add(this.getExtensibleElement());
@@ -4100,13 +4216,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEAttribute(getClass_Active(), ecorePackage.getEBoolean(), "active", "false", 1, 1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Bindings(), this.getNativeBinding(), null, "bindings", null, 0, -1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_SuperClasses(), this.getSuperClassSpecification(), null, "superClasses", null, 0, -1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getClass_Constructors(), this.getConstructor(), null, "constructors", null, 0, -1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getClass_Constructors(), this.getConstructor(), this.getConstructor_OwningClass(), "constructors", null, 0, -1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Attributes(), this.getVariable(), null, "attributes", null, 0, -1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_Methods(), this.getFunction(), null, "methods", null, 0, -1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getClass_ActionsBlock(), this.getLocalScope(), null, "actionsBlock", null, 0, 1, hub.sam.dbl.Class.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constructorEClass, Constructor.class, "Constructor", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConstructor_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Constructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConstructor_OwningClass(), this.getClass_(), this.getClass_Constructors(), "owningClass", null, 1, 1, Constructor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(abstractVariableEClass, AbstractVariable.class, "AbstractVariable", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -4309,10 +4426,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(typeAccessEClass, TypeAccess.class, "TypeAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(classContentExtensionEClass, ClassContentExtension.class, "ClassContentExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-		initEClass(moduleContentExtensionEClass, ModuleContentExtension.class, "ModuleContentExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
 		initEClass(extensionDefinitionEClass, ExtensionDefinition.class, "ExtensionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExtensionDefinition_ExtendedConcept(), this.getLanguageConceptClassifier(), null, "extendedConcept", null, 1, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExtensionDefinition_AbstractSyntaxDef(), this.getClass_(), null, "abstractSyntaxDef", null, 0, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4491,14 +4604,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 			 "body", "Constructor"
 		   });	
 		addAnnotation
-		  (getClass_Active(), 
-		   source, 
-		   new String[] {
-			 "body", "SuperClassSpecification",
-			 "unique", "false",
-			 "upper", "*"
-		   });	
-		addAnnotation
 		  (getDoubleLiteral_Value(), 
 		   source, 
 		   new String[] {
@@ -4508,49 +4613,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		  (getTerminalExpr_Terminal(), 
 		   source, 
 		   new String[] {
-			 "body", "PropertyBindingExpr"
-		   });	
-		addAnnotation
-		  (getTerminalExpr_Terminal(), 
-		   source, 
-		   new String[] {
-			 "body", "PropertyBindingExpr"
-		   });	
-		addAnnotation
-		  (getTerminalExpr_Terminal(), 
-		   source, 
-		   new String[] {
-			 "body", "PropertyBindingExpr"
-		   });	
-		addAnnotation
-		  (getBooleanPropertyType_Terminal(), 
-		   source, 
-		   new String[] {
-			 "body", "StructuredPropertyType",
-			 "unique", "false",
-			 "upper", "*"
-		   });	
-		addAnnotation
-		  (getBooleanPropertyType_Terminal(), 
-		   source, 
-		   new String[] {
-			 "body", "StructuredPropertyType",
-			 "unique", "false",
-			 "upper", "*"
-		   });	
-		addAnnotation
-		  (getBooleanPropertyType_Terminal(), 
-		   source, 
-		   new String[] {
-			 "body", "StructuredPropertyType",
-			 "unique", "false",
-			 "upper", "*"
-		   });	
-		addAnnotation
-		  (getCompositePropertyType_List(), 
-		   source, 
-		   new String[] {
-			 "body", "MetaExpr"
+			 "body", "SequenceExpr"
 		   });	
 		addAnnotation
 		  (getCompositePropertyType_List(), 
@@ -4564,31 +4627,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		  (getReferencePropertyType_RawReference(), 
 		   source, 
 		   new String[] {
-			 "body", "MetaExpr"
-		   });	
-		addAnnotation
-		  (getReferencePropertyType_RawReference(), 
-		   source, 
-		   new String[] {
-			 "body", "Mapping"
-		   });	
-		addAnnotation
-		  (getReferencePropertyType_RawReference(), 
-		   source, 
-		   new String[] {
-			 "body", "Mapping"
+			 "body", "StructuredPropertyType",
+			 "unique", "false",
+			 "upper", "*"
 		   });	
 		addAnnotation
 		  (getExpandTextPart_Text(), 
 		   source, 
 		   new String[] {
-			 "body", "ExpandVariablePart"
-		   });	
-		addAnnotation
-		  (getExpandTextPart_Text(), 
-		   source, 
-		   new String[] {
-			 "body", "DynamicMappingPart"
+			 "body", "ExpansionStatement"
 		   });
 	}
 
