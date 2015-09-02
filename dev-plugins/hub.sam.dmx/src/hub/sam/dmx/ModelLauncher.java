@@ -88,10 +88,9 @@ import org.eclipse.ui.part.FileEditorInput;
 
 public class ModelLauncher {
 	
-	private static final Logger logger = Logger.getLogger(ModelLauncher.class.getName());
-	
-	private final IProgressMonitor monitor;
-	private final DblTextEditor editor;
+	protected static final Logger logger = Logger.getLogger(ModelLauncher.class.getName());
+	protected final IProgressMonitor monitor;
+	protected final DblTextEditor editor;
 	private final Display associatedDisplay;
 	private final String targetSimLib;
 	private final String targetLanguage;
@@ -107,7 +106,7 @@ public class ModelLauncher {
 		this.targetLanguage = targetLanguage;
 	}
 	
-	private IProject getCurrentProject() {
+	protected IProject getCurrentProject() {
 		IFile file = ((FileEditorInput) editor.getEditorInput()).getFile();
 		return file.getProject();
 	}
@@ -494,7 +493,7 @@ public class ModelLauncher {
 		return null;
 	}
 	
-	private void refreshCurrentProject() {
+	protected void refreshCurrentProject() {
 		try {
 			getCurrentProject().refreshLocal(IResource.DEPTH_INFINITE, null);
 		}
@@ -811,7 +810,7 @@ public class ModelLauncher {
 		return workingCopyResource;
 	}
 
-	private void cleanFolder(IFolder folder) {
+	protected void cleanFolder(IFolder folder) {
 		logger.info("Cleaning \"" + folder.toString() + "\" ...");
 		File dir = new File(folder.getLocation().toString());
 		if (dir.isDirectory()) {
@@ -969,7 +968,7 @@ public class ModelLauncher {
 		}
 	}
 	
-	private void resetConsole() {
+	protected void resetConsole() {
 		MessageConsole console = getConsoleForCurrentEditor();
 		console.clearConsole();
 		console.activate();

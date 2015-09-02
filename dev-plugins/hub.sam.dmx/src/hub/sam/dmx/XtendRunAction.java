@@ -61,23 +61,16 @@ public class XtendRunAction extends Action {
 		final IRunnableWithProgress runnable = new IRunnableWithProgress() {
 			@Override
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+				ModelLauncher launcher;
+				if (getTargetLanguage() == "c++") launcher = new ModelLauncherC(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
+				else launcher = new ModelLauncher(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
 				//getCurrentProject().getRawLocation();
 				//IPath xmiRawLocation = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiPath).getRawLocation();
 				//GroovyTest.main(null);
-				ModelLauncher launcher = new ModelLauncher(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
 				launcher.compileAndRun();
 				monitor.done();
 			}
 		};
-		
-//		final Job job = new Job("Compile & Run") {
-//			@Override
-//			protected IStatus run(IProgressMonitor monitor) {
-//				runnable.run(monitor);
-//				return Status.OK_STATUS;
-//			}
-//		};
-//		job.schedule();
 		
 		ProgressMonitorDialog dialog = new ProgressMonitorDialog(currentDisplay.getActiveShell());
         try {

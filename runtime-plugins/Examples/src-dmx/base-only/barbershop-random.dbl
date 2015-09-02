@@ -1,12 +1,8 @@
-#import "../stdlib"
+#import "lib"
 
 module BarberShop {
 	
 	class UniformReal(string name, double lower, double upper) {
-		bindings {
-			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.RealDistUniform",
-			"jist" -> "hub.sam.dmx.javasim.generic.dist.RealDistUniform"
-		}
 		double sample() {}
 	}
 	
@@ -24,18 +20,19 @@ module BarberShop {
 
 	void trace(string msg) {
 		if (debug) {
-			print time + " - " + active + ": " + msg + "\n";
+			print time , " - " , active , ": " , msg , "\n";
 		}
 	}
 	
 	class Facility {
 		boolean busy = false;
-		List waiting = new ArrayList;
+		List waiting = new List;
 		
 		void seize() {
 			if (busy) {
+				Object e;
 				trace("facility busy. waiting.");
-				waiting.add(active);
+				waiting.add(3,e);
 				wait;
 			}
 			trace("facility seized.");

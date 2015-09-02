@@ -1,0 +1,199 @@
+#import "lib"
+
+module hello_world {
+	int array [3] integers; 
+	Foobar f;
+	Ape a;
+	int timer;
+	int timer2;
+	
+	void create(int x){
+		integers[0] = 4;
+		Foobar temp;
+		for(int i = 0; i<x; i=i+1){
+			if(i == 0){
+				Foobar s = new Foobar("fu");
+				print s.name;
+				temp = s;
+			}
+			else{
+				Foobar s = new Foobar("fu");
+				print s.name;
+			}
+		}
+
+	}	
+
+	int global_f(){
+		int s = 15;
+		return s*2*3;
+	}
+
+	class Ape() {
+		int id = 10;
+		int leo = global_f2(2,1);
+		string gattung = "Affe";
+		Farbe bi;
+		Power pow;
+		int timer;
+		
+		Mensch moe;
+		List waiting = new ArrayList;
+		
+		int foo(int x){
+			return x*global_f();
+		}
+		
+		initial{
+			create(3);
+			print "hello Ape";
+			bi = new Farbe(15);
+			moe = new Mensch(20);
+			pow = new Power(15);
+			waiting.insert(waiting.begin(),bi);
+			waiting.insert(waiting.begin(),moe);
+			waiting.insert(waiting.begin(),pow);
+		}
+		
+		actions{
+			print "Affe wird geboren";
+			while(timer <= 100) {
+				timer = timer +1;
+			}
+			print "Affe ist jetzt 100 Jahre alt";
+		}
+		
+		Object listElement(List x, int i){
+			return x.at(i);
+		}
+		
+		boolean isEmpty(List x){
+			return x.empty();
+		}
+		
+		void removeElement(int i){
+			waiting.erase(waiting.begin()+i);
+		}
+		
+		final {
+			print "Bye Ape";
+		}
+	}
+	
+	class Farbe(int a){
+		string farbe = "rot";
+		Ape bu;
+		int id2 = a;
+		int timer2;
+		
+		initial{
+			print "hello Farbe: ", id2;
+		}
+		
+		void boo(){
+			bu = new Ape();
+		}
+		
+		actions{
+			print "Farbe wird erstellt";
+			while(timer2 <= 100) {
+				timer2 = timer2 +1;
+			}
+			print "Farbe rot wurde erfolgreich gemischt";
+		}
+		
+		final {
+			print "Bye Farbe: ", id2;
+		}
+	}
+	
+	class Mensch(int z) extends Farbe(25){
+		string name = "Mensch";
+		Farbe picture;
+		int fu = z;
+		int bar(int x, int y){
+			return x * y;
+		}
+		
+		initial{
+			print "hello Mensch: ",fu;
+			picture = new Farbe(25);
+		}
+		final {
+			print "Bye Mensch; ",fu;
+		}
+	}
+
+	class Schimpanse (int x) {
+		static int hi = 0;
+		int asl;
+		static int lo = 0;
+		double xuu;
+	}
+	
+	class Power(int x) extends Schimpanse(32){
+		Schimpanse friendApe;
+		int idel = 10;
+		initial{
+			print "bu";
+			friendApe = new Schimpanse(15);
+		}
+		final{
+			print "haha";
+		}
+	}
+}
+module hello_world2{
+
+	int global_f2(int fuuu, int baaa){
+		return fuuu*baaa;
+	}
+
+	class Foobar(string s){
+		Schimpanse bibo;
+		string name;
+		initial{
+		name = s;
+		print (global_f2(5,5));
+		}
+	}
+	
+	int main() {
+		Power chimpy = new Power(54);
+		create(3);
+		Ape monkey = new Ape();
+		print(monkey.waiting.size());
+		if(monkey.waiting.empty()){
+			print("Liste ist leer");
+		}
+		else{
+			print("Liste ist nicht leer");
+		}
+		print monkey.waiting.empty();
+		Object mensch = monkey.listElement(monkey.waiting,1);
+		Mensch moe =  mensch as Mensch;
+
+		print(monkey.waiting.size());
+		Power chu;
+		for(int i = 0; i < monkey.waiting.size();i=i+1){
+			if(monkey.waiting.at(i) instanceof Power){
+				print "Power";
+				chu = monkey.waiting.at(i) as Power;
+			}
+			else if(monkey.waiting.at(i) instanceof Mensch){
+				print "Mensch";
+				Mensch m = (monkey.waiting.at(i) as Mensch);
+				print m.bar(5,2);
+			}
+			else if(monkey.waiting.at(i) instanceof Farbe){
+				print "Farbe";
+				Farbe f = (monkey.waiting.at(i) as Farbe);
+				print f.farbe;
+			}
+			else{print "wooooo";}
+		}
+
+		print(moe.name);
+		print(chu.idel);
+	}
+}

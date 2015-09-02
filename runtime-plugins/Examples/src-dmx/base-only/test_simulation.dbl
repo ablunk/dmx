@@ -1,0 +1,25 @@
+module Clocks{
+	active class Timer(int prio, string label){		
+		int t = 19;
+		initial{
+			print "timer created";
+		}
+		actions{
+			while(time < 1000){
+				yield;
+				advance 1;
+			}
+		}
+		final{
+			print "timer terminated";
+		}
+	}
+	int main(){
+		int x = 1;
+		while (x <= 10000) {
+			activate (new Timer(x, "Timer"));
+			x = x+1;
+		}
+		advance 1000;
+	}
+}

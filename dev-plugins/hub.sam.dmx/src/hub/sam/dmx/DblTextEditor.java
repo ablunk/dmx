@@ -172,7 +172,8 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		saveXmiAction = new SaveXmiAction(this);
 		setAction(SaveXmiAction.ACTION_DEFINITION_ID, saveXmiAction);
 		
-		addRunAction("DESMO-J", "desmoj", "java");		
+		addRunAction("DESMO-J", "desmoj", "java");	
+		addRunAction("C++", "targetsimLib", "c++");
 //		addRunAction("JiST-Pro (using Acceleo)", "jist");
 //		addRunAction("jDisco (using Acceleo)", "jdisco");
 	}
