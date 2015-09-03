@@ -77,11 +77,9 @@ import hub.sam.dbl.ExpansionStatement
 import hub.sam.dbl.ExpansionPart
 import hub.sam.dbl.ExpandTextPart
 import hub.sam.dbl.ExpandVariablePart
-import hub.sam.dbl.Construct
 import hub.sam.dbl.Constructor
 import hub.sam.dmx.semantics.AbstractGenerator
 
-// simulation specific part
 class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	
 	new(IPath outputFolder) {
@@ -97,20 +95,26 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 		'''
 		#ifndef «name.toUpperCase() + "_H"»
 		#define «name.toUpperCase() + "_H"»
-		#include "GotoExecution.h"		
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		#include "GotoExecution.h"	
+			
+		«genPlaceholder»
 		«IF !objectCreated && superClasses.size < 1»
-		#include "Object.h"
+			#include "Object.h"
 		«ENDIF»
 		
-		class «name» «IF superClasses.size >= 1»:«FOR SuperClassSpecification: superClasses SEPARATOR ','» public «SuperClassSpecification.class_.genType»«ENDFOR»«ELSE»: «IF !objectCreated»public Object,«ENDIF» public GotoExecution«ENDIF»
+		class «name» 
+		«IF superClasses.size >= 1»:
+			«FOR SuperClassSpecification: superClasses SEPARATOR ','» public «SuperClassSpecification.class_.genType»
+			«ENDFOR»
+		«ELSE»: 
+			«IF !objectCreated»public Object,
+			«ENDIF» 
+			public GotoExecution
+		«ENDIF»
 		{
 			public:
-			«IF superClasses.size >= 1»typedef «(superClasses.findFirst[clazz.name != ""]).class_.name» super; «ENDIF»
+			«IF superClasses.size >= 1»typedef «(superClasses.findFirst[clazz.name != ""]).class_.name» super; 
+			«ENDIF»
 		// Konstruktoren der Klasse
 			«FOR constructor: constructors»
 				«constructor.genConstructor(header)»
@@ -120,10 +124,10 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 		// Funktionen der Klasse	
 			«methods.genFunctions(header)»
 		«ENDIF»	
+		    private:
 		// Attribute der Klasse	
 			«attributes.genVariables(header)»
 		};
-
 		#endif
 		'''
 	}
@@ -131,67 +135,35 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	override String genActiveClass(Class clazz) {
 		val it = clazz	
 		'''	
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		«genPlaceholder»
 		#include "GotoExecution.h"
 		#include "Scheduler.h"
 		
 		// Konstruktoren der Klasse
 		«FOR constructor: constructors»
-			«constructor.genConstructor(nonheader)»
+			«constructor.genConstructor(!header)»
 		«ENDFOR» 
-			«genStandardConstructors(nonheader)»	
+			«genStandardConstructors(!header)»	
 		«IF methods.size != 0»
 			// Funktionen der Klasse	
-			«methods.genFunctions(nonheader)»
+			«methods.genFunctions(!header)»
 		«ENDIF»	
 			«FOR a: attributes»
 				«IF a.isClass()»
-					«a.genVariable(nonheader, false)»
+					«a.genVariable(!header, false)»
 				«ENDIF»
 			«ENDFOR»
-		// Properties der Klasse	
 		'''
 	}
 	
 	override String genMainFunctionActive(Function p, List<Module> modules){
 		val it = p
-		var string = '''
-		void simulate(){
-			Scheduler* sched = Scheduler::getSingleInstance();
-			cx = new GotoExecution(0, &&main_actions);
-			cx->setScheduledTime(0);
-			main_actions:;
-			«statements.gen»
-			goto program_end;
-		'''
+		var String beginningMain = genSchedulerAndActionsMain
 		marker = true;
 		'''	
-			«string»
-			«FOR m:modules»
-				«FOR c: m.classes»
-					«IF (c as Class) != null && (c as Class).active»
-						«c.name»:;
-						«IF (c as Class).actionsBlock != null»
-							// create some mem for variables on stack
-							«IF (c as Class).actionsBlock.statements.exists[statement| statement instanceof Variable]»
-								cx->push(nullptr, «(c as Class).name.toUpperCase()»_variables_size);
-							«ENDIF»
-							«(c as Class).actionsBlock.statements.gen()»
-						TERMINATE;
-						«ELSE»;
-						«ENDIF»
-					«ENDIF»
-				«ENDFOR»
-			«ENDFOR»
-			«FOR procedure:all_Functions_containing_sched»
-				«procedure.name.toUpperCase»:;
-				«procedure.statements.gen»
-				RETURN(«(procedure.eContainer as Class).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size);
-			«ENDFOR»
+			«beginningMain»
+			«modules.genActionsPartActiveClasses»
+			«genProceduresContainingSched»
 			program_end:;
 			}
 			
@@ -205,7 +177,52 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 			
 			return 0;
 			}
-			'''
+		'''
+	}
+	
+	private def String genSchedulerAndActionsMain(Function p){
+		val it = p;
+		return 
+		'''
+		void simulate(){
+			Scheduler* sched = Scheduler::getSingleInstance();
+			cx = new GotoExecution(0, &&main_actions);
+			cx->setScheduledTime(0);
+			main_actions:;
+			«statements.gen»
+			goto program_end;
+		'''
+	}
+	
+	private def String genActionsPartActiveClasses(List <Module> modules) {
+		return '''
+		«FOR m:modules»
+			«FOR c: m.classes»
+				«IF (c as Class) != null && (c as Class).active»
+					«c.name»:;
+					«IF (c as Class).actionsBlock != null»
+						// create some mem for variables on stack
+						«IF (c as Class).actionsBlock.statements.exists[statement| statement instanceof Variable]»
+							cx->push(nullptr, «(c as Class).name.toUpperCase()»_variables_size);
+						«ENDIF»
+						«(c as Class).actionsBlock.statements.gen()»
+						TERMINATE;
+					«ELSE»;
+					«ENDIF»
+				«ENDIF»
+			«ENDFOR»
+		«ENDFOR»
+		'''
+	}
+	
+	private def String genProceduresContainingSched(){
+		return '''
+		«FOR procedure:all_Functions_containing_sched»
+				«procedure.name.toUpperCase»:;
+				«procedure.statements.gen»
+				RETURN(«(procedure.eContainer as Class).name.toUpperCase()»_«procedure.name.toUpperCase()»_variables_size);
+		«ENDFOR»
+		'''
 	}
 	
 	override String forwardGen(EObject eObj) {
@@ -218,31 +235,11 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	}
 	
 	def dispatch String genSimStatement(Yield stm) {
-		var boolean isActiveClass = false;
-		var Class activeClass = getActiveClass(stm.eContainer)
-		
-		if (activeClass != null) isActiveClass = true
-		checkAndAddFunctionIfContainingSchedOperation(stm.eContainer, isActiveClass)
-		
-		id++
-		'''
-		cx->cont = &&«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»;
-		YIELD;«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»:;
-		'''
+		genYieldWaitAdvance(stm)
 	}
 	
 	def dispatch String genSimStatement(Wait stm) {
-		var boolean isActiveClass = false;
-		var Class activeClass = getActiveClass(stm.eContainer)
-		
-		if (activeClass != null) isActiveClass = true
-		checkAndAddFunctionIfContainingSchedOperation(stm.eContainer, isActiveClass)
-		
-		id++
-		'''
-		cx->cont = &&«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»;
-		WAIT;«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»:;
-		'''
+		genYieldWaitAdvance(stm)
 	}
 	
 	def dispatch String genSimStatement(ActivateObject stm) {
@@ -254,17 +251,7 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	}
 	
 	def dispatch String genSimStatement(Advance stm) {
-		var boolean isActiveClass = false;
-		var Class activeClass = getActiveClass(stm.eContainer)
-		
-		if (activeClass != null) isActiveClass = true
-		checkAndAddFunctionIfContainingSchedOperation(stm.eContainer, isActiveClass)
-		
-		id++;
-		'''
-		cx->cont = &&«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»;
-		ADVANCE(«stm.time.genExpr»);«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»:;
-		'''
+		genYieldWaitAdvance(stm)
 	}
 
 	def dispatch String genSimExpr(Expression expr) {
@@ -284,7 +271,25 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 		'''«IF isActiveClass»static_cast<«activeClass.name»*> (cx)«ELSE»cx«ENDIF»'''
 	}
 	
-	def void checkAndAddFunctionIfContainingSchedOperation(EObject obj, boolean isActiveClass) {
+	private def String genYieldWaitAdvance(Statement stm) {
+		var boolean isActiveClass = false;
+		var Class activeClass = getActiveClass(stm.eContainer)
+		
+		if (activeClass != null) isActiveClass = true
+		checkAndAddFunctionIfContainingSchedOperation(stm.eContainer, isActiveClass)
+		
+		id++
+		'''
+		cx->cont = &&«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»;
+		«IF stm instanceof Yield» YIELD 
+		«ELSEIF stm instanceof Wait» WAIT 
+		«ELSE» ADVANCE(«(stm as Advance).time.genExpr»)
+		«ENDIF»;
+		«IF !isActiveClass»Main«ELSE»«activeClass.name»«ENDIF»_l«id»:;
+		'''
+	}
+	
+	private def void checkAndAddFunctionIfContainingSchedOperation(EObject obj, boolean isActiveClass) {
 		var EObject object = obj
 		while (!(object instanceof Module || object instanceof Class || object instanceof Function)){
 			object = object.eContainer;
@@ -297,15 +302,20 @@ class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 // base c++ generator, imports are not considered (just for the specified the model)
 class BasicDblToCGenerator extends AbstractGenerator {
 	protected static final Logger logger = Logger.getLogger(BasicDblToCGenerator.getName());
+	// for creating folder structure
 	protected val cPackagePrefix = "hub.sam.dmx.csim.gen"
 	protected val cPackageFolderPrefix = cPackagePrefix.replaceAll("\\.", "/")
 	protected var IPath cPackageFolder;
-	protected val boolean nonheader = false;
+	/* to separate between header and implementation files */ 
 	protected val boolean header = true;
+	/* marker is used for special handling for simulation ( for example using macros instead of used variable names) */ 
 	protected var marker = false;
+	/* listWrapper and objectCreated are boolean flags for listWrapper and object class integration*/ 
 	protected var boolean listWrapper = true;
 	protected var boolean objectCreated = true;
+	/*id for label generation */
 	protected static var id = 0;
+	// help variables for determining properties of the metamodell 
 	protected val List<String> allClassesInWorkspace = newArrayList();
 	protected val List<String> actualClassesInWorkspace = newArrayList();
 	protected val List<String> allModulesInWorkspace = newArrayList();
@@ -314,17 +324,21 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	protected var List<String> allImportedClassesNames = newArrayList(); 
 	protected var List<Class> allImportedClasses = newArrayList(); 
 	protected var List<String> allPointerToObjects = newArrayList();
-	var List<String> allCppFiles = newArrayList();
 	protected var List<String> allActiveClasses = newArrayList();
 	protected var List<Variable> all_Var_main_actions = newArrayList();
 	protected var List<Variable> all_Var_f = newArrayList();
+	/* all_Functions_containing_sched contains all function EObjects that contain transitive sched-operations */
 	protected var List<Function> all_Functions_containing_sched = newArrayList();
+	/* all_Macros contains names of variables and parameter that are saved in call stack for processes*/   
 	protected var List<String> all_Macros = newArrayList();
+	/* allCppFiles list of class names that is returned and used by the compiler*/ 
+	public var List<String> allCppFiles = newArrayList();
 	/* if scheduler_var = false, scheduler will iterate over one map which is sorted by priority
 	*  and time, otherwise scheduler will own two maps, one is sorted by priority(moving map) and the
 	* other one is sorted by time (future map)
 	*/
 	protected var boolean scheduler_var = false; 
+	/* debug flag to display scheduler logs */ 
 	protected var boolean debug = false;
 	
 	new(IPath outputFolder) {
@@ -341,7 +355,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 	def String getLanguageName() {
 		'c++'
 	}
-	
+	// TODO:
 	def void genModel(Model model, boolean mainModel){
 		// if there are active classes, additional c++ classes needed
 		val moduleWithActiveClasses = model.modules.filter[classes != null].filter[classes.findFirstActiveClass()].empty
@@ -405,7 +419,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					val Writer moduleCPPWriter = beginTargetFile(cPackageFolder, module.name + ".cpp");
 					allCppFiles.add(module.name+".cpp")
 					moduleCPPWriter.write(
-						dynamicImportModule(module.gen, nonheader)
+						dynamicImportModule(module.gen, !header)
 					)
 					endTargetFile(moduleCPPWriter)				
 				}
@@ -422,11 +436,11 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					)
 					endTargetFile(classifierHeaderWriter)
 				}
-				if(class_.gen(nonheader) != null && class_.gen(nonheader) != ""){	
+				if(class_.gen(!header) != null && class_.gen(!header) != ""){	
 					allCppFiles.add(class_.name+".cpp")
 					val Writer classifierCppWriter = beginTargetFile(cPackageFolder, class_.name + ".cpp");
 					classifierCppWriter.write(
-						dynamicImportClassifier(class_.gen(nonheader), model.modules, class_, nonheader)
+						dynamicImportClassifier(class_.gen(!header), model.modules, class_, !header)
 					)
 					endTargetFile(classifierCppWriter)
 				}
@@ -517,7 +531,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		// precalculation to mark every variable declaration
 		marker = true;
 		for(p:all_Functions_containing_sched){
-			p.genFunction(nonheader);
+			p.genFunction(!header);
 		}
 		marker = false;
 		
@@ -1980,34 +1994,35 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		// no active classes in basic generator
 	}
 	
-	def String setPlaceholder(){
-		"placeholder \n"
+	def String genPlaceholder(){
+		return '''
+		«IF allPlaceholders != null»
+			«FOR p : allPlaceholders»
+				placeholder
+			«ENDFOR»
+		«ENDIF»
+		'''
 	}
 	
 	def String genPassiveClass(Class clazz) {
 		val it = clazz	
 		'''
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
-		
+		«genPlaceholder»
 		// Konstruktoren der Klasse
 		«FOR constructor: constructors»
-			«genConstructor(constructor, nonheader)»
+			«genConstructor(constructor, !header)»
 		«ENDFOR» 
 		
-		«genStandardConstructors(nonheader)»	
+		«genStandardConstructors(!header)»	
 		
 		«IF methods.size != 0»
 			// Funktionen der Klasse	
-			«methods.genFunctions(nonheader)»
+			«methods.genFunctions(!header)»
 		«ENDIF»	
 		
 		«FOR a: attributes»
 			«IF a.isClass()»
-				«a.genVariable(nonheader, false)»
+				«a.genVariable(!header, false)»
 			«ENDIF»
 		«ENDFOR»
 		'''
@@ -2017,11 +2032,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		val it = module
 		'''
 		#include "«name + ".h\""»
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		«genPlaceholder»
 		«IF module.classes.exists[class_| class_.active]»
 		#include "Scheduler.h"
 		#include "GotoExecution.h"
@@ -2030,12 +2041,12 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		«ENDIF»
 		«IF variables.size != 0»	
 		// Attribute des Moduls
-			«variables.genVariables(nonheader)»
+			«variables.genVariables(!header)»
 		«ENDIF»
 		«IF functions.size != 0»
 		
 		// Funktionen des Moduls	
-			«functions.genFunctions(nonheader)»
+			«functions.genFunctions(!header)»
 		«ENDIF»
 		
 		'''
@@ -2091,7 +2102,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		if (object instanceof Function && contain){
 			// to mark functions that contain scheduling operations
-			genFunction(procedureCall, nonheader)
+			genFunction(procedureCall, !header)
 			if(all_Functions_containing_sched.contains(procedureCall))
 				if(!all_Functions_containing_sched.contains(object as Function)) all_Functions_containing_sched.add(object as Function);
 		}
@@ -2382,7 +2393,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		}
 		if (object instanceof Function && contain){
 			// to mark functions that contain scheduling operations
-			genFunction(procedureCall, nonheader)
+			genFunction(procedureCall, !header)
 			if(all_Functions_containing_sched.contains(procedureCall))
 				if(!all_Functions_containing_sched.contains(object as Function)) all_Functions_containing_sched.add(object as Function);
 		}
@@ -2692,11 +2703,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		#ifndef «name.toUpperCase() + "_H"»
 		#define «name.toUpperCase() + "_H"»
 		
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		«genPlaceholder»
 		
 		// global variables
 		«IF variables.size != 0»	
@@ -2721,7 +2728,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 					** to see if functions contains sched-operations 
 					** its easier to mark them this way, than doing a search algorithm	
 					**/
-					methods.genFunctions(nonheader)
+					methods.genFunctions(!header)
 					genHeaderActiveClass()
 				}
 				else genHeaderPassiveClass()
@@ -2745,11 +2752,7 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		#ifndef «name.toUpperCase() + "_H"»
 		#define «name.toUpperCase() + "_H"»
 		
-		«IF allPlaceholders != null»
-			«FOR p : allPlaceholders»
-				«setPlaceholder»
-			«ENDFOR»
-		«ENDIF»
+		«genPlaceholder»
 		«IF !objectCreated && superClasses.size < 1»
 		#include "Object.h"
 		«ENDIF»
