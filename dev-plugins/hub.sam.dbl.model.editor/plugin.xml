@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated dbl -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="hub.sam.dbl.presentation.DblModelWizardID"
+            name="%_UI_DblModelWizard_label"
+            class="hub.sam.dbl.presentation.DblModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/DblModelFile.gif">
+         <description>%_UI_DblModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated dbl -->
+      <editor
+            id="hub.sam.dbl.presentation.DblEditorID"
+            name="%_UI_DblEditor_label"
+            icon="icons/full/obj16/DblModelFile.gif"
+            extensions="dbl"
+            class="hub.sam.dbl.presentation.DblEditor"
+            contributorClass="hub.sam.dbl.presentation.DblActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

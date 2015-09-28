@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="passiveClass">
+    <classes name="Example">
+      <constructors>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@constructors.0/@parameters.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@constructors.0/@parameters.1"/>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@constructors.0/@parameters.1"/>
+          <outputs xsi:type="dbl:StringLiteral" value=" Example, ID: "/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+        </statements>
+        <parameters name="x">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="y">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+      <attributes name="id">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="attribute2">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <statements xsi:type="dbl:Variable" name="e">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" value="1"/>
+              <callArguments xsi:type="dbl:StringLiteral" value="hi"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

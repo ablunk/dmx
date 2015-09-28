@@ -1,39 +1,55 @@
-module example{
+#import "lib"
+
+module Container2{
+	ArrayList lizz = new ArrayList;
+	Object om;
+	class Safari{
 	
-	class Example (int x, string y){
-		int attribute1;
-		string attribute2;
-		
-		initial{
+	new(){
+	}
+	
+	int f(string par){
+		print par;
+		om = self;
+		lizz.add(self);
+		lizz.add(om);
+	}
+	}
+}
+
+module Container{
+	Object o;
+
+	class Zuper{
+		Example beo = new Example();
+		anotherClass lup = new anotherClass();
+		int f(){
+		}
+	}
+
+	class Example{
+		Zuper z;
+		Safari s;
+		new() {
 			print "Example starts here";
-			attribute1 = x;
-			attribute2 = y;
 		}
-		
-		final{
-			print "Example ends here";
+		anotherClass procedure (){
+			return new anotherClass();
 		}
-		
-		int procedure1(int a, int b, int c){
-			return a+b+c;		
-		}
-		
-		double procedure2(int a, int b){
-			return a+b;
-		}
-		
-		string procedure3(int a, string b){
-			return b;
-		}	
-		
-		void procedure4(){
-			print "bar";
+	}
+	
+	class anotherClass{
+		Example ef = new Example;
+		new() {
+			print "anotherClass starts here";
 		}
 	}
 	
 	int main(){
-		Example e = new Example(1, "foo");
-		print (e.procedure1(1,2,3));
+		anotherClass ex = new anotherClass();
+		anotherClass ex2 = ex.ef.procedure();
+		Zuper z = new Zuper();
+		Safari s = new Safari();
+		s.f("b");
 	}
-	
 }

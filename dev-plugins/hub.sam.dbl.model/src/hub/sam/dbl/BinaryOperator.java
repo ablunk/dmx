@@ -10,11 +10,11 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.BinaryOperator#getOp1 <em>Op1</em>}</li>
  *   <li>{@link hub.sam.dbl.BinaryOperator#getOp2 <em>Op2</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getBinaryOperator()
  * @model abstract="true"

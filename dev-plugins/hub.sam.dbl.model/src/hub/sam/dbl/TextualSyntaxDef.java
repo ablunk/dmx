@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.TextualSyntaxDef#getStartRule <em>Start Rule</em>}</li>
  *   <li>{@link hub.sam.dbl.TextualSyntaxDef#getRules <em>Rules</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getTextualSyntaxDef()
  * @model

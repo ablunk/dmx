@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ClassImpl#getArrayDimensions <em>Array Dimensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassImpl#getContentExtensions <em>Content Extensions</em>}</li>
@@ -55,7 +56,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.ClassImpl#getMethods <em>Methods</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ClassImpl#getActionsBlock <em>Actions Block</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

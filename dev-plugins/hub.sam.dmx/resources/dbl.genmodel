@@ -8,7 +8,7 @@
     complianceLevel="6.0" editPluginID="hub.sam.dbl.model.edit" editorPluginID="hub.sam.dbl.model.editor">
   <foreignModel>dbl.ecore</foreignModel>
   <genPackages prefix="Dbl" basePackage="hub.sam" disposableProviderFactory="true"
-      ecorePackage="dbl.ecore#/">
+      ecorePackage="dbl.ecore#/" publicationLocation="">
     <genClasses ecoreClass="dbl.ecore#//Construct">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Construct/expandExpr"/>
     </genClasses>
@@ -25,18 +25,18 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//Import/model"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//Module">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/classifiers"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/classAugments"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/extensionDefs"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/procedures"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/classes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/extensionDefinitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/extensionSemanticsDefinitions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/functions"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Module/variables"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//EmbeddableExtensionsContainer">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//EmbeddableExtensionsContainer/extensions"/>
+    <genClasses ecoreClass="dbl.ecore#//ConstructiveExtension"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//ConstructiveExtensionAtContentExtensionPoint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ConstructiveExtensionAtContentExtensionPoint/contentExtensions"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//ModifierExtensionsContainer">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ModifierExtensionsContainer/modifierExtensions"/>
-    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ModuleContent"/>
+    <genClasses ecoreClass="dbl.ecore#//ClassContent"/>
     <genClasses image="false" ecoreClass="dbl.ecore#//Type">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Type/arrayDimensions"/>
     </genClasses>
@@ -54,46 +54,36 @@
     <genClasses ecoreClass="dbl.ecore#//BoolType"/>
     <genClasses ecoreClass="dbl.ecore#//DoubleType"/>
     <genClasses ecoreClass="dbl.ecore#//StringType"/>
-    <genClasses ecoreClass="dbl.ecore#//Procedure">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Procedure/parameters"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Procedure/clazz"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Procedure/abstract"/>
+    <genClasses ecoreClass="dbl.ecore#//Function">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Function/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Function/class"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Function/abstract"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//Classifier"/>
     <genClasses ecoreClass="dbl.ecore#//NativeBinding">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NativeBinding/targetLanguage"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//NativeBinding/targetType"/>
     </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//ClassSimilar">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/attributes"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/methods"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/superClasses"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/initialBlock"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/finalBlock"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/actionsBlock"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/reportBlock"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassSimilar/clearBlock"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//ClassPart"/>
     <genClasses ecoreClass="dbl.ecore#//SuperClassSpecification">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//SuperClassSpecification/clazz"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//SuperClassSpecification/class"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SuperClassSpecification/constructorArguments"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//Clazz">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Clazz/active"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Clazz/constructor"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Clazz/bindings"/>
+    <genClasses ecoreClass="dbl.ecore#//Class">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Class/active"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Class/bindings"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Class/superClasses"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Class/constructors"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Class/attributes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Class/methods"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Class/actionsBlock"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//Constructor">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Constructor/parameters"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//ClassAugment">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ClassAugment/augmentedClass"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference dbl.ecore#//Constructor/owningClass"/>
     </genClasses>
     <genClasses image="false" ecoreClass="dbl.ecore#//AbstractVariable"/>
     <genClasses ecoreClass="dbl.ecore#//Variable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Variable/control"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Variable/clazz"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//Variable/class"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Variable/initialValue"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//Parameter"/>
@@ -107,8 +97,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Assignment/variable"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Assignment/value"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//ProcedureCall">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ProcedureCall/callIdExpr"/>
+    <genClasses ecoreClass="dbl.ecore#//FunctionCall">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//FunctionCall/callIdExpr"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//Return">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Return/value"/>
@@ -238,13 +228,13 @@
     <genClasses ecoreClass="dbl.ecore#//VariableAccess"/>
     <genClasses ecoreClass="dbl.ecore#//MetaAccess"/>
     <genClasses ecoreClass="dbl.ecore#//TypeAccess"/>
-    <genClasses ecoreClass="dbl.ecore#//ClassContentExtension"/>
-    <genClasses ecoreClass="dbl.ecore#//ModuleContentExtension"/>
     <genClasses image="false" ecoreClass="dbl.ecore#//ExtensionDefinition">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/extendedConcept"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/abstractSyntaxDef"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/textualSyntaxDef"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionDefinition/mappingDef"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//ExtensionSemanticsDefinition">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//ExtensionSemanticsDefinition/syntaxDefinition"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//TextualSyntaxDef">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference dbl.ecore#//TextualSyntaxDef/startRule"/>
@@ -287,37 +277,32 @@
     <genClasses ecoreClass="dbl.ecore#//ReferencePropertyType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ReferencePropertyType/rawReference"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//Mapping">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Mapping/parts"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Mapping/metaObject"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="dbl.ecore#//MappingPart"/>
     <genClasses ecoreClass="dbl.ecore#//MetaExpr">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//MetaExpr/expr"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//TargetStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//TargetStatement/body"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//MappingStatement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//MappingStatement/parts"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//MappingStatement/exprs"/>
+    <genClasses ecoreClass="dbl.ecore#//ExpansionStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpansionStatement/parts"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpansionStatement/exprs"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//SetGenContextStatement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SetGenContextStatement/context"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//SetGenContextStatement/addAfterContext"/>
+    <genClasses image="false" ecoreClass="dbl.ecore#//ExpansionPart"/>
+    <genClasses ecoreClass="dbl.ecore#//ExpandTextPart">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//ExpandTextPart/text"/>
     </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//ResetGenContextStatement"/>
+    <genClasses ecoreClass="dbl.ecore#//ExpandVariablePart">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandVariablePart/expr"/>
+    </genClasses>
+    <genClasses ecoreClass="dbl.ecore#//SetExpansionContextStatement">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SetExpansionContextStatement/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//SetExpansionContextStatement/addAfterContext"/>
+    </genClasses>
     <genClasses ecoreClass="dbl.ecore#//SaveGenStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//SaveGenStatement/variable"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//ResumeGenStatement">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ResumeGenStatement/variable"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//FixedMappingPart">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute dbl.ecore#//FixedMappingPart/code"/>
-    </genClasses>
-    <genClasses ecoreClass="dbl.ecore#//DynamicMappingPart">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//DynamicMappingPart/expr"/>
     </genClasses>
     <genClasses ecoreClass="dbl.ecore#//ExpandExpression">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//ExpandExpression/metaObject"/>

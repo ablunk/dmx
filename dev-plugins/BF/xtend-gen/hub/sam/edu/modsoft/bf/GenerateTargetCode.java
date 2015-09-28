@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -30,7 +31,6 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class GenerateTargetCode {
@@ -77,6 +77,7 @@ public class GenerateTargetCode {
     item.eSet(nameAttribute, "blub");
     EList<EStructuralFeature> _eAllStructuralFeatures = itemClass.getEAllStructuralFeatures();
     final Function1<EStructuralFeature, Boolean> _function = new Function1<EStructuralFeature, Boolean>() {
+      @Override
       public Boolean apply(final EStructuralFeature sf) {
         String _name = sf.getName();
         return Boolean.valueOf(_name.equals("name"));
@@ -103,13 +104,14 @@ public class GenerateTargetCode {
   
   public void generate(final Resource res) {
     EList<EObject> _contents = res.getContents();
-    final Procedure1<EObject> _function = new Procedure1<EObject>() {
-      public void apply(final EObject eObject) {
+    final Consumer<EObject> _function = new Consumer<EObject>() {
+      @Override
+      public void accept(final EObject eObject) {
         CharSequence _compile = GenerateTargetCode.this.compile(eObject);
         InputOutput.<CharSequence>println(_compile);
       }
     };
-    IterableExtensions.<EObject>forEach(_contents, _function);
+    _contents.forEach(_function);
   }
   
   public CharSequence _compile(final EObject eObject) {
@@ -125,10 +127,10 @@ public class GenerateTargetCode {
         _builder.append("Item");
         _builder.newLine();
         _builder.append("\t");
-        _builder.append("ï¿½eObject.eGet(eObject.eClass.EAllStructuralFeatures.findFirst[ sf | sf.name.equals(\"itemName\") ])ï¿½");
+        _builder.append("ÇeObject.eGet(eObject.eClass.EAllStructuralFeatures.findFirst[ sf | sf.name.equals(\"itemName\") ])È");
         _builder.newLine();
         _builder.append("\t");
-        _builder.append("ï¿½eObject.eGet(eObject.eClass.EAllStructuralFeatures.findFirst[ sf | sf.name.equals(\"name\") ])ï¿½");
+        _builder.append("ÇeObject.eGet(eObject.eClass.EAllStructuralFeatures.findFirst[ sf | sf.name.equals(\"name\") ])È");
         _builder.newLine();
         _builder.append(".");
         _builder.newLine();
@@ -143,20 +145,20 @@ public class GenerateTargetCode {
   
   public CharSequence _compile(final Box box) {
     StringConcatenation _builder = new StringConcatenation();
-    _builder.append("Box ï¿½box.nameï¿½ ");
+    _builder.append("Box Çbox.nameÈ ");
     StringConcatenation _builder_1 = new StringConcatenation();
-    _builder_1.append("ï¿½IF !box.flows.emptyï¿½with");
+    _builder_1.append("ÇIF !box.flows.emptyÈwith");
     _builder_1.newLine();
     _builder_1.append("\t");
-    _builder_1.append("ï¿½FOR flow : box.flows SEPARATOR \', \'ï¿½");
+    _builder_1.append("ÇFOR flow : box.flows SEPARATOR \', \'È");
     _builder_1.newLine();
     _builder_1.append("\t");
-    _builder_1.append("flow from ï¿½flow.sourceBox.nameï¿½ to ï¿½flow.targetBox.nameï¿½");
+    _builder_1.append("flow from Çflow.sourceBox.nameÈ to Çflow.targetBox.nameÈ");
     _builder_1.newLine();
     _builder_1.append("\t");
-    _builder_1.append("ï¿½ENDFORï¿½");
+    _builder_1.append("ÇENDFORÈ");
     _builder_1.newLine();
-    _builder_1.append("ï¿½ENDIFï¿½.");
+    _builder_1.append("ÇENDIFÈ.");
     _builder_1.newLine();
     String _string = _builder_1.toString();
     String _trim = _string.trim();

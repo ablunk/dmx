@@ -24,11 +24,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.SuperClassSpecificationImpl#getClass_ <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.SuperClassSpecificationImpl#getConstructorArguments <em>Constructor Arguments</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

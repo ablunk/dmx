@@ -10,11 +10,11 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.WhileStatement#getCondition <em>Condition</em>}</li>
  *   <li>{@link hub.sam.dbl.WhileStatement#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getWhileStatement()
  * @model

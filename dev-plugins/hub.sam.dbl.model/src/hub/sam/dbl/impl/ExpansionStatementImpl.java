@@ -25,11 +25,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ExpansionStatementImpl#getParts <em>Parts</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExpansionStatementImpl#getExprs <em>Exprs</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Function#getParameters <em>Parameters</em>}</li>
  *   <li>{@link hub.sam.dbl.Function#isClass <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.Function#isAbstract <em>Abstract</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getFunction()
  * @model

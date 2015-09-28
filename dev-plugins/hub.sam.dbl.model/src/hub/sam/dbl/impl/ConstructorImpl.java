@@ -29,11 +29,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ConstructorImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ConstructorImpl#getOwningClass <em>Owning Class</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

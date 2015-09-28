@@ -1,0 +1,15 @@
+module passiveClass{
+	class Example{
+		int id;
+		string attribute2;
+		
+		new (int x, string y){
+			id = x;
+			attribute2 = y;
+			print y," Example, ID: ",id;
+		}
+	}
+	int main(){
+		Example e = new Example(1,"hi");
+	}
+}

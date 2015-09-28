@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getParentIdExpr <em>Parent Id Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getReferencedElement <em>Referenced Element</em>}</li>
@@ -37,7 +38,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getArrayIndex <em>Array Index</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.IdExprImpl#getCallPart <em>Call Part</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

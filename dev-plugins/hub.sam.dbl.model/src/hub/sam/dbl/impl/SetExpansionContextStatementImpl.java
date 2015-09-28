@@ -20,11 +20,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.SetExpansionContextStatementImpl#getContext <em>Context</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.SetExpansionContextStatementImpl#isAddAfterContext <em>Add After Context</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

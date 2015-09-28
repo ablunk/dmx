@@ -21,11 +21,11 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.NativeBindingImpl#getTargetLanguage <em>Target Language</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.NativeBindingImpl#getTargetType <em>Target Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

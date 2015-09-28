@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.PatternImpl#isTop <em>Top</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.PatternImpl#getContext <em>Context</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.PatternImpl#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

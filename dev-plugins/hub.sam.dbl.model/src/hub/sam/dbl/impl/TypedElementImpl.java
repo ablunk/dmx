@@ -30,12 +30,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#getPrimitiveType <em>Primitive Type</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#getTypeArrayDimensions <em>Type Array Dimensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.TypedElementImpl#getClassifierType <em>Classifier Type</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

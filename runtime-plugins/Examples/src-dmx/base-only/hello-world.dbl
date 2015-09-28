@@ -1,7 +1,27 @@
 module hello_world {
-
-	class A {
+	
+	int hello = 6;
+	int array [] st = new st[3];
+	
+	double function(int x, string t){
+		string s = t;
+		print x+"/n";
+		print s;
+	}
+	
+	string function2(double t, int x){
+		print "bubu";
+	}
+	
+	active class A{
+		int y = 15;
 		string s = "hhhhello world\n";
+		static int counter;
+		
+		actions{
+			int x = 3;
+			counter = counter +1;
+		}
 	
 		void sayHello() {
 			print s;

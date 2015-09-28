@@ -1,121 +1,171 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <modules name="example">
-    <classifiers xsi:type="dbl:Clazz" name="Example">
-      <attributes name="attribute1">
+  <imports file="lib">
+    <model href="lib.xmi#/"/>
+  </imports>
+  <modules name="Container2">
+    <classes name="Safari">
+      <constructors/>
+      <methods name="f">
         <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
-      <attributes name="attribute2">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <methods name="procedure1">
-        <primitiveType xsi:type="dbl:IntType"/>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0/@parameters.0"/>
-              <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0/@parameters.1"/>
-            </op1>
-            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0/@parameters.2"/>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@methods.0/@parameters.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@variables.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr">
+            <predefinedId xsi:type="dbl:MeLiteral"/>
           </value>
         </statements>
-        <parameters name="a">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-        <parameters name="b">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-        <parameters name="c">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-      </methods>
-      <methods name="procedure2">
-        <primitiveType xsi:type="dbl:DoubleType"/>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.1/@parameters.0"/>
-            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.1/@parameters.1"/>
-          </value>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@variables.0"/>
+            <referencedElement href="lib.xmi#//@modules.0/@classes.3/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
         </statements>
-        <parameters name="a">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-        <parameters name="b">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-      </methods>
-      <methods name="procedure3">
-        <primitiveType xsi:type="dbl:StringType"/>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.2/@parameters.1"/>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@variables.0"/>
+            <referencedElement href="lib.xmi#//@modules.0/@classes.3/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.1"/>
+            </callPart>
+          </callIdExpr>
         </statements>
-        <parameters name="a">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-        <parameters name="b">
+        <parameters name="par">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <methods name="procedure4">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:StringLiteral" value="bar"/>
-        </statements>
+    </classes>
+    <variables name="lizz">
+      <classifierType>
+        <referencedElement href="lib.xmi#//@modules.0/@classes.4"/>
+      </classifierType>
+      <initialValue xsi:type="dbl:CreateObject">
+        <classifierType>
+          <referencedElement href="lib.xmi#//@modules.0/@classes.4"/>
+        </classifierType>
+      </initialValue>
+    </variables>
+    <variables name="om">
+      <classifierType>
+        <referencedElement href="lib.xmi#//@modules.0/@classes.0"/>
+      </classifierType>
+    </variables>
+  </modules>
+  <modules name="Container">
+    <classes name="Zuper">
+      <attributes name="beo">
+        <classifierType referencedElement="//@modules.1/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.1/@classes.1">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="lup">
+        <classifierType referencedElement="//@modules.1/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.1/@classes.2">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <methods name="f">
+        <primitiveType xsi:type="dbl:IntType"/>
       </methods>
-      <initialBlock>
+    </classes>
+    <classes name="Example">
+      <constructors>
         <statements xsi:type="dbl:Print">
           <outputs xsi:type="dbl:StringLiteral" value="Example starts here"/>
         </statements>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
-          </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@constructor/@parameters.0"/>
+      </constructors>
+      <attributes name="z">
+        <classifierType referencedElement="//@modules.1/@classes.0"/>
+      </attributes>
+      <attributes name="s">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+      </attributes>
+      <methods name="procedure">
+        <classifierType referencedElement="//@modules.1/@classes.2"/>
+        <statements xsi:type="dbl:Return">
+          <value xsi:type="dbl:CreateObject">
+            <classifierType referencedElement="//@modules.1/@classes.2">
+              <callPart/>
+            </classifierType>
+          </value>
         </statements>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@modules.0/@classifiers.0/@attributes.1"/>
-          </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@constructor/@parameters.1"/>
-        </statements>
-      </initialBlock>
-      <finalBlock>
+      </methods>
+    </classes>
+    <classes name="anotherClass">
+      <constructors>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:StringLiteral" value="Example ends here"/>
+          <outputs xsi:type="dbl:StringLiteral" value="anotherClass starts here"/>
         </statements>
-      </finalBlock>
-      <constructor>
-        <parameters name="x">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-        <parameters name="y">
-          <primitiveType xsi:type="dbl:StringType"/>
-        </parameters>
-      </constructor>
-    </classifiers>
-    <procedures name="main">
-      <primitiveType xsi:type="dbl:IntType"/>
-      <statements xsi:type="dbl:Variable" name="e">
-        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+      </constructors>
+      <attributes name="ef">
+        <classifierType referencedElement="//@modules.1/@classes.1"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.0">
-            <callPart>
-              <callArguments xsi:type="dbl:IntLiteral" value="1"/>
-              <callArguments xsi:type="dbl:StringLiteral" value="foo"/>
-            </callPart>
+          <classifierType referencedElement="//@modules.1/@classes.1"/>
+        </initialValue>
+      </attributes>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <statements xsi:type="dbl:Variable" name="ex">
+        <classifierType referencedElement="//@modules.1/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.1/@classes.2">
+            <callPart/>
           </classifierType>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
-          <callPart>
-            <callArguments xsi:type="dbl:IntLiteral" value="1"/>
-            <callArguments xsi:type="dbl:IntLiteral" value="2"/>
-            <callArguments xsi:type="dbl:IntLiteral" value="3"/>
-          </callPart>
-        </outputs>
+      <statements xsi:type="dbl:Variable" name="ex2">
+        <classifierType referencedElement="//@modules.1/@classes.2"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@classes.1/@methods.0">
+          <parentIdExpr referencedElement="//@modules.1/@classes.2/@attributes.0">
+            <parentIdExpr referencedElement="//@modules.1/@functions.0/@statements.0"/>
+          </parentIdExpr>
+          <callPart/>
+        </initialValue>
       </statements>
-    </procedures>
+      <statements xsi:type="dbl:Variable" name="z">
+        <classifierType referencedElement="//@modules.1/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.1/@classes.0">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="s">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
+          <parentIdExpr referencedElement="//@modules.1/@functions.0/@statements.3"/>
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value=""/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+    </functions>
+    <variables name="o">
+      <classifierType>
+        <referencedElement href="lib.xmi#//@modules.0/@classes.0"/>
+      </classifierType>
+    </variables>
   </modules>
 </dbl:Model>

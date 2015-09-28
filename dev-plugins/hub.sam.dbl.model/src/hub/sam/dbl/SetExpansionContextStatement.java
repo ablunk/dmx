@@ -10,11 +10,11 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.SetExpansionContextStatement#getContext <em>Context</em>}</li>
  *   <li>{@link hub.sam.dbl.SetExpansionContextStatement#isAddAfterContext <em>Add After Context</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getSetExpansionContextStatement()
  * @model

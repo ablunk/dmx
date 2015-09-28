@@ -1,18 +1,74 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="hello_world">
-    <classes name="A">
+    <classes name="A" active="true">
+      <attributes name="y">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="15"/>
+      </attributes>
       <attributes name="s">
         <primitiveType xsi:type="dbl:StringType"/>
         <initialValue xsi:type="dbl:StringLiteral" value="hhhhello world\n"/>
       </attributes>
+      <attributes name="counter" class="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
       <methods name="sayHello">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.1"/>
         </statements>
       </methods>
+      <actionsBlock>
+        <statements xsi:type="dbl:Variable" name="x">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:IntLiteral" value="3"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+          </variable>
+          <value xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+            <op2 xsi:type="dbl:IntLiteral" value="1"/>
+          </value>
+        </statements>
+      </actionsBlock>
     </classes>
+    <functions name="function">
+      <primitiveType xsi:type="dbl:DoubleType"/>
+      <statements xsi:type="dbl:Variable" name="s">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@parameters.1"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@parameters.0"/>
+          <op2 xsi:type="dbl:StringLiteral" value="/n"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+      </statements>
+      <parameters name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </parameters>
+      <parameters name="t">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </functions>
+    <functions name="function2">
+      <primitiveType xsi:type="dbl:StringType"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="bubu"/>
+      </statements>
+      <parameters name="t">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </parameters>
+      <parameters name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </parameters>
+    </functions>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="a">
@@ -23,10 +79,23 @@
       </statements>
       <statements xsi:type="dbl:FunctionCall">
         <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          <parentIdExpr referencedElement="//@modules.0/@functions.2/@statements.0"/>
           <callPart/>
         </callIdExpr>
       </statements>
     </functions>
+    <variables name="hello">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="6"/>
+    </variables>
+    <variables name="st">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <typeArrayDimensions/>
+      <initialValue xsi:type="dbl:CreateObject">
+        <classifierType referencedElement="//@modules.0/@variables.1">
+          <arrayIndex xsi:type="dbl:IntLiteral" value="3"/>
+        </classifierType>
+      </initialValue>
+    </variables>
   </modules>
 </dbl:Model>
