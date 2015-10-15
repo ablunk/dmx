@@ -4,17 +4,12 @@ module diamond{
 class A{
 	int a = 1;
 	int f() {print a; return a;}
+	F g;
 }
 
 class B extends A{
 	double b = a*2.0;
 	double g(){print b; return b;}
-	int f(){super.f(); print a; return a;}
-}
-
-class C extends A{
-	double c = a*3.0;
-	double g(){print c; return c;}
 	int f(){super.f(); print a; return a;}
 }
 
@@ -24,6 +19,16 @@ class D extends B,C{
 	print d;
 	return d;
 	}
+}
+
+class C extends A{
+	double c = a*3.0;
+	double g(){print c; return c;}
+	int f(){super.f(); print a; return a;}
+}
+
+class F {
+	A a;
 }
 
 int main(){
@@ -37,7 +42,7 @@ int main(){
 	print c.a;
 	print (c.f());
 	D d = new D();
-	print (d.f());	
+//	print (d.f());	
 }
 
 }

@@ -1,96 +1,40 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="polymorphie">
-    <classifiers xsi:type="dbl:Clazz" name="spectator">
-      <attributes name="elements">
-        <typeArrayDimensions>
-          <size xsi:type="dbl:IntLiteral" value="2"/>
-        </typeArrayDimensions>
-        <classifierType referencedElement="//@modules.0/@classifiers.1"/>
-      </attributes>
-      <initialBlock>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@modules.0/@classifiers.0/@attributes.0">
-              <arrayIndex xsi:type="dbl:IntLiteral"/>
-            </idExpr>
-          </variable>
-          <value xsi:type="dbl:CreateObject">
-            <classifierType referencedElement="//@modules.0/@classifiers.2"/>
-          </value>
-        </statements>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@modules.0/@classifiers.0/@attributes.0">
-              <arrayIndex xsi:type="dbl:IntLiteral" value="1"/>
-            </idExpr>
-          </variable>
-          <value xsi:type="dbl:CreateObject">
-            <classifierType referencedElement="//@modules.0/@classifiers.3"/>
-          </value>
-        </statements>
-        <statements xsi:type="dbl:ForStatement">
-          <statements xsi:type="dbl:Variable" name="i">
-            <primitiveType xsi:type="dbl:IntType"/>
-            <initialValue xsi:type="dbl:IntLiteral"/>
-          </statements>
-          <termination xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@initialBlock/@statements.2/@statements.0"/>
-            <op2 xsi:type="dbl:IntLiteral" value="2"/>
-          </termination>
-          <increment>
-            <variable>
-              <idExpr referencedElement="//@modules.0/@classifiers.0/@initialBlock/@statements.2/@statements.0"/>
-            </variable>
-            <value xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@initialBlock/@statements.2/@statements.0"/>
-              <op2 xsi:type="dbl:IntLiteral" value="1"/>
-            </value>
-          </increment>
-          <body xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:ProcedureCall">
-              <callIdExpr referencedElement="//@modules.0/@classifiers.1/@methods.0">
-                <parentIdExpr referencedElement="//@modules.0/@classifiers.0/@attributes.0">
-                  <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@initialBlock/@statements.2/@statements.0"/>
-                </parentIdExpr>
-                <callPart/>
-              </callIdExpr>
-            </statements>
-          </body>
-        </statements>
-      </initialBlock>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="base">
+    <classes name="spectator">
+      <constructors/>
+    </classes>
+    <classes name="base">
       <methods name="f" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
       </methods>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="child1">
+    </classes>
+    <classes name="child1">
+      <superClasses class="//@modules.0/@classes.1"/>
       <methods name="f">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:Print">
           <outputs xsi:type="dbl:StringLiteral" value="child1"/>
         </statements>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.1"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="child2">
+    </classes>
+    <classes name="child2">
+      <superClasses class="//@modules.0/@classes.1"/>
       <methods name="f">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:Print">
           <outputs xsi:type="dbl:StringLiteral" value="child2"/>
         </statements>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.1"/>
-    </classifiers>
-    <procedures name="main">
+    </classes>
+    <functions name="main">
       <primitiveType xsi:type="dbl:IntType"/>
       <statements xsi:type="dbl:Variable" name="b">
-        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
         </initialValue>
       </statements>
-    </procedures>
+    </functions>
   </modules>
 </dbl:Model>

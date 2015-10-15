@@ -1,12 +1,10 @@
-
-
-module simulation2{
-	// global id for printjobs
+module simulation{
 	int PrintJobId = 0;
+	int PrintJobTime = 50;
 	int PrintJobCount = 10;
-	
-	active class Printer(int prio, string label){		
-		initial{print "Printer started";}
+
+	active class Printer{		
+		new(int prio, string label){print "Printer started";}
 		actions{
 			int i = 0; 
 			while(i < PrintJobCount){
@@ -15,25 +13,23 @@ module simulation2{
 				i = i + 1;
 			}
 		}
-		final{print "Printer finished";}
 	}
-	active class PrintJob(int prio2, string label2){	
+	active class PrintJob{	
 		int myId = PrintJobId;
-		initial{
+		new(int prio, string label){
 			print "Printjob:", myId ," created"; 
 			PrintJobId = PrintJobId + 1;
 		}
 		actions{
-			advance 10;
+			advance PrintJobTime;
 			print "Simulationszeit: ", time;
 			reactivate p;
 		}
-		final{print "Printjob:", myId ," finished";}
 	}
 	
 	int main(){
 		Printer p = new Printer(1, "Printer");
 		activate p;
-		advance 50*PrintJobCount;
+		advance PrintJobTime*PrintJobCount;
 	}
 }

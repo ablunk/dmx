@@ -1,27 +1,25 @@
 module function_call_stack{
 
-	active class Process2(int prio, string label2){
+	active class Process2{
 		int result;
-		initial{
+		new(int prio, string label2){
 			result = prio * 5;
 		}
 		actions{
-			reactivate p;
+			reactivate pro;
 			advance 5;
 			print "Process2 is alive";
 		}
-		final{ print "Process2 terminated";}
 	}
 
-	active class Process(int prio, string label2){
-	
+	active class Process{
 		int count = 0;
-	
-		double pass(int a,int g, int h, point test, point test2){
-			print test.x;
-			print test.y;
-			print test2.x;
-			print test2.y;
+		double pass(point test){
+			//point test = new point(1,1,1);
+			int a = 1;
+			double g = 2;
+			int z = 3 ;
+			double h;
 			advance 1;
 			int n = g(a,g,h,test);
 			print n;
@@ -38,47 +36,44 @@ module function_call_stack{
 			return 15;
 		}
 		
-		initial{
+		new(int prio, string label2){
 			int result = prio * 5;
 		}
 		actions{
 			int s = 13;
 			int t = 12;
 			int l = 10;
-			point p1 = new point(1,2);
-			point p2 = new point(3,4);
+			point p1 = new point(1,2,3);
+			point p2 = new point(3,4,4);
 			print p1.x;
 			print p1.y;
 			print p2.x;
 			print p2.y;
 			wait;
 			while(time < 8){
-				double gr = pass(l,s,t,p1,p2);
+				double gr = pass(p1);
 				print gr;
 				count=count+1;
 				print time;
 			}
 		}
-		final{print "Process1 terminated";}
 	}
 	
-	class point(int a, int b){
+	class point{
 	int x;
 	int y; 
-	initial{
+	new(int a, int c,int b){
 		x = a;
 		y = b;
 		print "Point created";
 	}
-	final{
-		print "Point destroyed";
-	}
 	}
 	
 	int main(){
-		Process p = new Process(1, "Process");
-		Process2 pro;
-		activate p;
+		Process pro = new Process(1, "Process");
+		Process2 pro2 = new Process2(1, "Process2");
+		activate pro;
+		activate pro2;
 		advance 50;
 		print "Modellzeit Ende: ",time;
 	}

@@ -1,15 +1,51 @@
-module passiveClass{
-	class Example{
-		int id;
-		string attribute2;
-		
-		new (int x, string y){
-			id = x;
-			attribute2 = y;
-			print y," Example, ID: ",id;
-		}
+#import "lib"
+
+module mod2{
+	int func(){int x;}
+	int zer;
+	
+	class ber{
+	
 	}
+}
+
+module passiveClass{
+	int tet;
+	class base{
+		new(){
+			second s;
+			Object t;
+			if(true){
+				s = new second(2);
+				t = objFunc();
+				print s.id;
+			}
+			print s.id;
+		}
+		
+		Object objFunc (){
+			Object o = new Object;
+			return o;
+		}
+	
+		void f(int value){
+			print value*2;
+		}
+ 	}
+ 	
+ 	class second{
+ 		int id;
+ 		new(int x){id=x;}
+ 		new(){}
+ 	}
+ 	
 	int main(){
-		Example e = new Example(1,"hi");
+		string s = "hallo";
+		base b = new base();
+		if(b instanceof s) print s;
+		second e;
+		ber cer;
+		func();
+		tet = 15;
 	}
 }

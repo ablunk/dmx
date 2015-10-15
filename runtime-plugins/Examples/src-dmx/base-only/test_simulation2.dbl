@@ -2,10 +2,10 @@ module formel1{
 	
 	int counter = 0;
 	
-	active class RacingCar(int prio, string label){
+	active class RacingCar{
 		int p = prio;
 		
-		initial{
+		new (int prio, string label){
 			int result = prio * 5;
 		}
 		actions{
@@ -14,13 +14,12 @@ module formel1{
 				advance 1;
 			}
 		}
-		final{ print "bye Car1";}
 	}
 	
-	active class Super(int prio2, string label2){
+	active class Super{
 		int p2 = prio2;
 		
-		initial{
+		new(int prio2, string label2){
 			int result2 = prio2 * 5;
 		}
 		actions{
@@ -30,7 +29,6 @@ module formel1{
 				counter = counter + 1;
 			}
 		}
-		final{ print "bye Car2";}
 	}
 	
 	int main(){
