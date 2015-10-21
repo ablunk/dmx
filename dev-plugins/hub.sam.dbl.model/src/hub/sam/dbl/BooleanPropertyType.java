@@ -32,6 +32,7 @@ public interface BooleanPropertyType extends PropertyType {
 	 * @see #setTerminal(String)
 	 * @see hub.sam.dbl.DblPackage#getBooleanPropertyType_Terminal()
 	 * @model required="true"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='StructuredPropertyType' unique='false' upper='*'"
 	 * @generated
 	 */
 	String getTerminal();

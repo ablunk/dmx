@@ -3,6 +3,7 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ArrayDimension;
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 
@@ -28,7 +29,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class ArrayDimensionImpl extends EObjectImpl implements ArrayDimension {
+public class ArrayDimensionImpl extends DblEObjectImpl implements ArrayDimension {
 	/**
 	 * The cached value of the '{@link #getSize() <em>Size</em>}' containment reference.
 	 * <!-- begin-user-doc -->

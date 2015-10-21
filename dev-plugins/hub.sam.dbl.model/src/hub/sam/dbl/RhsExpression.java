@@ -12,8 +12,9 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getRhsExpression()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface RhsExpression extends EObject {
+public interface RhsExpression extends DblEObject {
 
 } // RhsExpression

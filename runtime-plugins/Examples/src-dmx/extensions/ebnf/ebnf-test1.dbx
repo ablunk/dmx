@@ -1,4 +1,4 @@
-#import "ebnf"
+#import "ebnf-old"
 
 module EbnfSample1 {
 

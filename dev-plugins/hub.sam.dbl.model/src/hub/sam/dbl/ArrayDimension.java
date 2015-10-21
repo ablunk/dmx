@@ -18,9 +18,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getArrayDimension()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface ArrayDimension extends EObject {
+public interface ArrayDimension extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Size</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

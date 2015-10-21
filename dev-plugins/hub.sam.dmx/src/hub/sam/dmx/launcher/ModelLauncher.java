@@ -71,6 +71,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -593,7 +594,10 @@ public class ModelLauncher {
 				// generate executable code from extension definition semantics
 				ExtensionSemanticsDefinition semanticsDefinition = getExtensionDefinitionGenerator().getImportedExtensionSemanticsDefinition(workingModel.getModel(), extensionDefinitionName);
 				if (semanticsDefinition == null) {
-					logger.severe("cannot find semantics of extension definition " + extensionDefinitionName + " by import anymore. possibly the extension definition itself was replaced.");
+					logger.severe("cannot find semantics of extension definition " + extensionDefinitionName + " by import anymore."
+							+ "maybe the extension definition itself was replaced."
+							+ "if " + extensionDefinitionName + " is a newly introduced metaclass, "
+							+ "please make sure to update the factory method hub.sam.dbl.DblFactoryImpl.create(EClass).");
 					throw new RuntimeException();
 				}else {
 					extensionDefinitions.put(extensionDefinitionName, semanticsDefinition.getSyntaxDefinition());

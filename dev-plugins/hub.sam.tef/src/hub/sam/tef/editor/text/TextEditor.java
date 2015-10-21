@@ -376,9 +376,15 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 					restoreExpandState(expandState);
 				}
 				fireEditorStatus();
+				
+				postUpdateCurrentModel(context);
 			}
 
 		});
+	}
+	
+	protected void postUpdateCurrentModel(final IModelCreatingContext context) {
+		
 	}
 	
 	protected String getResourceFile() {

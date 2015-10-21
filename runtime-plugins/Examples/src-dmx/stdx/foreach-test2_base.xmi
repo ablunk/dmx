@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="foreach">
+    <model href="foreach.xmi#/"/>
+  </imports>
+  <modules name="stdx_foreach_test">
+    <functions name="f1">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = l.iterator()">
+        <classifierType concreteSyntax="Iterator">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="l.iterator()">
+          <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@functions.0/@parameters.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.11"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#xA;&#x9;&#x9;Object item = it.next();&#xA;&#x9;&#x9;print &quot;iterator: &quot; + item + &quot;\n&quot;;&#xA;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
+          <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.0"/>
+          <callPart/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;Object item = it.next();&#xA;&#x9;&#x9;print &quot;iterator: &quot; + item + &quot;\n&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Variable" name="item" concreteSyntax="Object item = it.next()">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
+              <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.1"/>
+              <callPart/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Print" concreteSyntax="print &quot;iterator: &quot; + item + &quot;\n&quot;">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;iterator: &quot; + item + &quot;\n&quot;">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;iterator: &quot; + item">
+                <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;iterator: &quot;" value="iterator: "/>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@functions.0/@statements.1/@body/@statements.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </outputs>
+          </statements>
+        </body>
+      </statements>
+      <parameters name="l">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3"/>
+        </classifierType>
+      </parameters>
+    </functions>
+    <functions name="f2">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="it____modules_0__functions_1__statements_0" concreteSyntax="Iterator it____modules_0__functions_1__statements_0 = l.iterator()">
+        <classifierType concreteSyntax="Iterator">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="l.iterator()">
+          <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@functions.1/@parameters.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.11"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it____modules_0__functions_1__statements_0.hasNext()) {&#x9;Object item____modules_0__functions_1__statements_0 = it____modules_0__functions_1__statements_0.next();Object item = item____modules_0__functions_1__statements_0 as Object;{&#xA;&#x9;&#x9;print &quot;foreach: &quot; + item + &quot;\n&quot;;&#xA;&#x9;}}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="it____modules_0__functions_1__statements_0.hasNext()">
+          <parentIdExpr concreteSyntax="it____modules_0__functions_1__statements_0" referencedElement="//@modules.0/@functions.1/@statements.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.0"/>
+          <callPart/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object item____modules_0__functions_1__statements_0 = it____modules_0__functions_1__statements_0.next();Object item = item____modules_0__functions_1__statements_0 as Object;{&#xA;&#x9;&#x9;print &quot;foreach: &quot; + item + &quot;\n&quot;;&#xA;&#x9;}}">
+          <statements xsi:type="dbl:Variable" name="item____modules_0__functions_1__statements_0" concreteSyntax="Object item____modules_0__functions_1__statements_0 = it____modules_0__functions_1__statements_0.next()">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it____modules_0__functions_1__statements_0.next()">
+              <parentIdExpr concreteSyntax="it____modules_0__functions_1__statements_0" referencedElement="//@modules.0/@functions.1/@statements.0"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.1"/>
+              <callPart/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:Variable" name="item" concreteSyntax="Object item = item____modules_0__functions_1__statements_0 as Object">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.0"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="item____modules_0__functions_1__statements_0 as Object">
+              <classifierType concreteSyntax="Object">
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classes.0"/>
+              </classifierType>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="item____modules_0__functions_1__statements_0" referencedElement="//@modules.0/@functions.1/@statements.1/@body/@statements.0"/>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print &quot;foreach: &quot; + item + &quot;\n&quot;;&#xA;&#x9;}">
+            <statements xsi:type="dbl:Print" concreteSyntax="print &quot;foreach: &quot; + item + &quot;\n&quot;">
+              <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;foreach: &quot; + item + &quot;\n&quot;">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;foreach: &quot; + item">
+                  <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;foreach: &quot;" value="foreach: "/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@functions.1/@statements.1/@body/@statements.1"/>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+              </outputs>
+            </statements>
+          </statements>
+        </body>
+      </statements>
+      <parameters name="l">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3"/>
+        </classifierType>
+      </parameters>
+    </functions>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="l" concreteSyntax="ArrayList l = new ArrayList">
+        <classifierType concreteSyntax="ArrayList">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+          <classifierType concreteSyntax="ArrayList">
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="l.add(1)">
+        <callIdExpr concreteSyntax="l.add(1)">
+          <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@functions.2/@statements.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="l.add(2)">
+        <callIdExpr concreteSyntax="l.add(2)">
+          <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@functions.2/@statements.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="l.add(3)">
+        <callIdExpr concreteSyntax="l.add(3)">
+          <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@functions.2/@statements.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="f1(l)">
+        <callIdExpr concreteSyntax="f1(l)" referencedElement="//@modules.0/@functions.0">
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" concreteSyntax="l" referencedElement="//@modules.0/@functions.2/@statements.0"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="f2(l)">
+        <callIdExpr concreteSyntax="f2(l)" referencedElement="//@modules.0/@functions.1">
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" concreteSyntax="l" referencedElement="//@modules.0/@functions.2/@statements.0"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

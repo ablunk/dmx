@@ -13,6 +13,15 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="instanceOfExtensionDefinition"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder1" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder2" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder3" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder4" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder5" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder6" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder8" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder9" eType="#//ExtensibleElement"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder10" eType="#//ExtensibleElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
@@ -279,6 +288,10 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UniqueIdExpr" eSuperTypes="#//Expression">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpandExpr" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" lowerBound="1" eType="#//Expression"
         containment="true"/>
@@ -353,6 +366,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminal" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="PropertyBindingExpr"/>
+      </eAnnotations>
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
         <details key="body" value="SequenceExpr"/>
       </eAnnotations>
     </eStructuralFeatures>
@@ -371,7 +387,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="StringPropertyType" eSuperTypes="#//PropertyType"/>
   <eClassifiers xsi:type="ecore:EClass" name="BooleanPropertyType" eSuperTypes="#//PropertyType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminal" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="StructuredPropertyType"/>
+        <details key="unique" value="false"/>
+        <details key="upper" value="*"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StructuredPropertyType" eSuperTypes="#//PropertyType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//LanguageConstructClassifier"/>
@@ -389,6 +411,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ReferencePropertyType" eSuperTypes="#//StructuredPropertyType">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="rawReference" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false">
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="MetaExpr"/>
+      </eAnnotations>
       <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
         <details key="body" value="StructuredPropertyType"/>
         <details key="unique" value="false"/>
@@ -413,6 +438,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ExpansionPart" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExpandTextPart" eSuperTypes="#//ExpansionPart">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="ExpandVariablePart"/>
+      </eAnnotations>
       <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
         <details key="body" value="ExpansionStatement"/>
       </eAnnotations>

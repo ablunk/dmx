@@ -246,6 +246,7 @@ syntax(Model) "resources/dbl.ecore" {
 	L1Expr -> CreateObject;
 	L1Expr -> TimeLiteral;
 	L1Expr -> ActiveLiteral;
+	L1Expr -> UniqueIdExpr;
 	L1Expr -> "(" ws(empty) Expression ws(empty) ")";
 	
 	Or:element(Or)   -> LogicalOr:composite(op1) ws(space) "or" ws(space) LogicalAnd:composite(op2);
@@ -314,6 +315,7 @@ syntax(Model) "resources/dbl.ecore" {
 	PredefinedId:element(SuperLiteral) -> "super";
 	PredefinedId:element(MetaLiteral) -> "meta";
 	PredefinedId:element(TypeLiteral) -> "type";
+	PredefinedId:element(SizeOfArray) -> "length";
 	
 	NamedElementRef:element(NamedElement) -> IDENTIFIER:composite(name);
 	
@@ -354,11 +356,14 @@ syntax(Model) "resources/dbl.ecore" {
 		(ws(space) ExpansionPart:composite(parts))*;
 	
 	ExpansionPart -> ExpandTextPart;
-	ExpansionPart -> ExpandVariablePart;	
+	ExpansionPart -> ExpandVariablePart;
 
 	ExpandTextPart:element(ExpandTextPart) -> CODE:composite(text);
 	ExpandTextPart:element(ExpandTextPart) -> STRINGDEF:composite(text);
 	ExpandVariablePart:element(ExpandVariablePart) -> IdExpr:composite(expr);
+	ExpandVariablePart:element(ExpandVariablePart) -> UniqueIdExpr:composite(expr);
+
+	UniqueIdExpr:element(UniqueIdExpr) -> IDENTIFIER:composite(identifier) "=" "ID";
 	
 	SetExpansionContextStatement:element(SetExpansionContextStatement) -> "set" "expand" AddBeforeOrAfterContext;
 	AddBeforeOrAfterContext -> IsAddBeforeOrAfter:composite(addAfterContext) Expression:composite(context);

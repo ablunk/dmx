@@ -14,6 +14,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -106,7 +107,7 @@ public class ConstructorImpl extends LocalScopeImpl implements Constructor {
 	 */
 	public void setOwningClass(hub.sam.dbl.Class newOwningClass) {
 		if (newOwningClass != eInternalContainer() || (eContainerFeatureID() != DblPackage.CONSTRUCTOR__OWNING_CLASS && newOwningClass != null)) {
-			if (EcoreUtil.isAncestor(this, newOwningClass))
+			if (EcoreUtil.isAncestor(this, (EObject)newOwningClass))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
 			NotificationChain msgs = null;
 			if (eInternalContainer() != null)

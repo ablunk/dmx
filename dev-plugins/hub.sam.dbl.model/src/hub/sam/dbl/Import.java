@@ -19,9 +19,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getImport()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface Import extends EObject {
+public interface Import extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>File</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -5,18 +5,36 @@ module stdx_foreach {
 
 extension ForEach extends dbl LocalScopeStatement {
 	start ForEach;
-	ForEach -> "foreach" "(" statements:list(Variable) "in" collection:Expression ")" body:LocalScopeStatement;
+	ForEach -> "foreach" "(" statements:list(Variable) "in" collection:Expression ")"
+		body:LocalScopeStatement;
 }
 
 semantics for ForEach {	
-	Variable varDef = statements.get(0) as Variable;
+	Variable itemVariable = statements.get(0) as Variable;
 	
-	expand "Iterator it = " collection ".iterator();";
-	expand "while (it.hasNext()) {";
-	expand "	Object object = it.next();";
-	expand 		varDef " = object as " varDef.classifierType ";";
-	expand		body;
-	expand "}";
+	boolean collectionRefersToArray = false;
+	IdExpr collectionIdExpr = collection as IdExpr;
+	if (collectionIdExpr.referencedElement instanceof Variable) {
+		Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;
+		if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {
+			collectionRefersToArray = true;
+		}
+	}
+	
+	if (collectionRefersToArray) {
+		expand "for (int " i=ID " = 0; " i=ID " < " collection ".length; " i=ID "=" i=ID "+1) {";
+		expand 		itemVariable " = " collection "[" i=ID "];";
+		expand		body;
+		expand "}";
+	}
+	else { 
+		expand "Iterator " it=ID " = " collection ".iterator();";
+		expand "while (" it=ID ".hasNext()) {";
+		expand "	Object " item=ID " = " it=ID ".next();";
+		expand 		itemVariable " = " item=ID " as " itemVariable.classifierType ";";
+		expand		body;
+		expand "}";
+	}
 }
 
 }

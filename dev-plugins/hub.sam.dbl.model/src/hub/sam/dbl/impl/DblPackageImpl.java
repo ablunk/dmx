@@ -143,6 +143,7 @@ import hub.sam.dbl.TypeAccess;
 import hub.sam.dbl.TypeLiteral;
 import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.UnaryOperator;
+import hub.sam.dbl.UniqueIdExpr;
 import hub.sam.dbl.Variable;
 import hub.sam.dbl.VariableAccess;
 import hub.sam.dbl.VoidType;
@@ -809,6 +810,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass doubleLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass uniqueIdExprEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -2655,6 +2663,24 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getUniqueIdExpr() {
+		return uniqueIdExprEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getUniqueIdExpr_Identifier() {
+		return (EAttribute)uniqueIdExprEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getExpandExpr() {
 		return expandExprEClass;
 	}
@@ -2837,6 +2863,87 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EAttribute getExtensibleElement_InstanceOfExtensionDefinition() {
 		return (EAttribute)extensibleElementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder1() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder2() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder3() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder4() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder5() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder6() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder8() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(8);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder9() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExtensibleElement_PlaceHolder10() {
+		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(10);
 	}
 
 	/**
@@ -3557,6 +3664,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		extensibleElementEClass = createEClass(EXTENSIBLE_ELEMENT);
 		createEAttribute(extensibleElementEClass, EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX);
 		createEAttribute(extensibleElementEClass, EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER1);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER2);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER3);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER4);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER5);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER6);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER8);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER9);
+		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER10);
 
 		modelEClass = createEClass(MODEL);
 		createEReference(modelEClass, MODEL__IMPORTS);
@@ -3794,6 +3910,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		doubleLiteralEClass = createEClass(DOUBLE_LITERAL);
 		createEAttribute(doubleLiteralEClass, DOUBLE_LITERAL__VALUE);
+
+		uniqueIdExprEClass = createEClass(UNIQUE_ID_EXPR);
+		createEAttribute(uniqueIdExprEClass, UNIQUE_ID_EXPR__IDENTIFIER);
 
 		expandExprEClass = createEClass(EXPAND_EXPR);
 		createEReference(expandExprEClass, EXPAND_EXPR__EXPR);
@@ -4087,6 +4206,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		trueLiteralEClass.getESuperTypes().add(this.getL1Expr());
 		falseLiteralEClass.getESuperTypes().add(this.getL1Expr());
 		doubleLiteralEClass.getESuperTypes().add(this.getL1Expr());
+		uniqueIdExprEClass.getESuperTypes().add(this.getExpression());
 		expandExprEClass.getESuperTypes().add(this.getExpression());
 		parseExprEClass.getESuperTypes().add(this.getExpression());
 		meLiteralEClass.getESuperTypes().add(this.getPredefinedId());
@@ -4151,6 +4271,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(extensibleElementEClass, ExtensibleElement.class, "ExtensibleElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getExtensibleElement_ConcreteSyntax(), ecorePackage.getEString(), "concreteSyntax", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensibleElement_InstanceOfExtensionDefinition(), ecorePackage.getEBoolean(), "instanceOfExtensionDefinition", "false", 1, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder1(), this.getExtensibleElement(), null, "placeHolder1", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder2(), this.getExtensibleElement(), null, "placeHolder2", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder3(), this.getExtensibleElement(), null, "placeHolder3", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder4(), this.getExtensibleElement(), null, "placeHolder4", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder5(), this.getExtensibleElement(), null, "placeHolder5", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder6(), this.getExtensibleElement(), null, "placeHolder6", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder8(), this.getExtensibleElement(), null, "placeHolder8", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder9(), this.getExtensibleElement(), null, "placeHolder9", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtensibleElement_PlaceHolder10(), this.getExtensibleElement(), null, "placeHolder10", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModel_Imports(), this.getImport(), null, "imports", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4389,6 +4518,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(doubleLiteralEClass, DoubleLiteral.class, "DoubleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDoubleLiteral_Value(), ecorePackage.getEDouble(), "value", null, 1, 1, DoubleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(uniqueIdExprEClass, UniqueIdExpr.class, "UniqueIdExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getUniqueIdExpr_Identifier(), ecorePackage.getEString(), "identifier", null, 1, 1, UniqueIdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		initEClass(expandExprEClass, ExpandExpr.class, "ExpandExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpandExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, ExpandExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4613,7 +4745,21 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		  (getTerminalExpr_Terminal(), 
 		   source, 
 		   new String[] {
+			 "body", "PropertyBindingExpr"
+		   });	
+		addAnnotation
+		  (getTerminalExpr_Terminal(), 
+		   source, 
+		   new String[] {
 			 "body", "SequenceExpr"
+		   });	
+		addAnnotation
+		  (getBooleanPropertyType_Terminal(), 
+		   source, 
+		   new String[] {
+			 "body", "StructuredPropertyType",
+			 "unique", "false",
+			 "upper", "*"
 		   });	
 		addAnnotation
 		  (getCompositePropertyType_List(), 
@@ -4627,9 +4773,21 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		  (getReferencePropertyType_RawReference(), 
 		   source, 
 		   new String[] {
+			 "body", "MetaExpr"
+		   });	
+		addAnnotation
+		  (getReferencePropertyType_RawReference(), 
+		   source, 
+		   new String[] {
 			 "body", "StructuredPropertyType",
 			 "unique", "false",
 			 "upper", "*"
+		   });	
+		addAnnotation
+		  (getExpandTextPart_Text(), 
+		   source, 
+		   new String[] {
+			 "body", "ExpandVariablePart"
 		   });	
 		addAnnotation
 		  (getExpandTextPart_Text(), 

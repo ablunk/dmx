@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.NamedElement;
 
@@ -25,7 +26,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class NamedElementImpl extends EObjectImpl implements NamedElement {
+public class NamedElementImpl extends DblEObjectImpl implements NamedElement {
 	/**
 	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
 	 * <!-- begin-user-doc -->

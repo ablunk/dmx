@@ -633,6 +633,26 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		}
 		return null;
 	}
+	
+	private void addPlainNames_new(String identifier, EObject context, Collection<Object> allIds) {
+		for (EObject content: context.eResource().getContents()) {
+			addContainedObjectNames(identifier, content, allIds);
+		}
+	}
+	
+	private void addContainedObjectNames(String identifier, EObject containerObject, Collection<Object> allIds) {
+		for (EObject content: containerObject.eContents()) {
+			if (content instanceof NamedElement) {
+				Object nameValue = content.eGet(DblPackage.Literals.NAMED_ELEMENT__NAME);
+				if (nameValue != null && ((String) nameValue).equals(identifier)) {
+					allIds.add(getIdentitiy((NamedElement) content));
+				}
+			}
+			else {
+				addContainedObjectNames(identifier, content, allIds);
+			}
+		}
+	}
 
 	private void addPlainNames(String identifier, EObject context, Collection<Object> allIds) {
 		MyIterable<EObject> allObjects = new MyIterable<EObject>(context.eResource().getAllContents());

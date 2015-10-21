@@ -319,6 +319,11 @@ public class WaitUntilItemProvider extends SimpleStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.WAIT_UNTIL__CONDITION,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.WAIT_UNTIL__CONDITION,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

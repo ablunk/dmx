@@ -319,6 +319,11 @@ public class ReturnItemProvider extends SimpleStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.RETURN__VALUE,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.RETURN__VALUE,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

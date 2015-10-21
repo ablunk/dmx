@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.Model;
@@ -35,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class ModelImpl extends EObjectImpl implements Model {
+public class ModelImpl extends DblEObjectImpl implements Model {
 	/**
 	 * The cached value of the '{@link #getImports() <em>Imports</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

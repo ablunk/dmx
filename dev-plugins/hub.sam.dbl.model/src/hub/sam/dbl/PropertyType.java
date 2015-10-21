@@ -12,7 +12,8 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getPropertyType()
  * @model abstract="true"
+ * @extends DblEObject
  * @generated
  */
-public interface PropertyType extends EObject {
+public interface PropertyType extends DblEObject {
 } // PropertyType

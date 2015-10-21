@@ -20,9 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getNativeBinding()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface NativeBinding extends EObject {
+public interface NativeBinding extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Target Language</b></em>' attribute.
 	 * <!-- begin-user-doc -->

@@ -12,10 +12,10 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="expandExpr">
         <classifierType referencedElement="//@modules.0/@classes.88"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setExpandExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.88"/>
@@ -26,19 +26,19 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensibleElement"/>
       <superClasses class="//@modules.0/@classes.26"/>
       <superClasses class="//@modules.0/@classes.0"/>
-      <attributes name="null">
+      <attributes name="concreteSyntax">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="instanceOfExtensionDefinition">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setConcreteSyntax" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setInstanceOfExtensionDefinition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
@@ -50,12 +50,12 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="imports">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="modules">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -66,19 +66,19 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="file">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="model">
         <classifierType referencedElement="//@modules.0/@classes.2"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setFile" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setModel" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.2"/>
@@ -90,27 +90,27 @@
       <superClasses class="//@modules.0/@classes.26"/>
       <superClasses class="//@modules.0/@classes.6"/>
       <superClasses class="//@modules.0/@classes.0"/>
-      <attributes name="null">
+      <attributes name="classes">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="extensionDefinitions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="extensionSemanticsDefinitions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="functions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="variables">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -125,7 +125,7 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="contentExtensions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -144,7 +144,7 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="arrayDimensions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -155,24 +155,24 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="primitiveType">
         <classifierType referencedElement="//@modules.0/@classes.12"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="typeArrayDimensions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="classifierType">
         <classifierType referencedElement="//@modules.0/@classes.96"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setPrimitiveType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.12"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setClassifierType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.96"/>
@@ -184,10 +184,10 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="size">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setSize" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -223,24 +223,24 @@
       <superClasses class="//@modules.0/@classes.26"/>
       <superClasses class="//@modules.0/@classes.10"/>
       <superClasses class="//@modules.0/@classes.42"/>
-      <attributes name="null">
+      <attributes name="parameters">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="class">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="abstract">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setClass" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setAbstract" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
@@ -252,19 +252,19 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="targetLanguage">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="targetType">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setTargetLanguage" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setTargetType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -276,15 +276,15 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="class">
         <classifierType referencedElement="//@modules.0/@classes.21"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="constructorArguments">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setClass" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.21"/>
@@ -296,46 +296,46 @@
       <superClasses class="//@modules.0/@classes.26"/>
       <superClasses class="//@modules.0/@classes.9"/>
       <superClasses class="//@modules.0/@classes.6"/>
-      <superClasses class="//@modules.0/@classes.108"/>
+      <superClasses class="//@modules.0/@classes.106"/>
       <superClasses class="//@modules.0/@classes.0"/>
-      <attributes name="null">
+      <attributes name="active">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="bindings">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="superClasses">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="constructors">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="attributes">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="methods">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="actionsBlock">
         <classifierType referencedElement="//@modules.0/@classes.42"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setActive" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setActionsBlock" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.42"/>
@@ -345,11 +345,20 @@
     <classes name="Constructor">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Constructor"/>
       <superClasses class="//@modules.0/@classes.42"/>
-      <attributes name="null">
+      <attributes name="parameters">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
+      <attributes name="owningClass">
+        <classifierType referencedElement="//@modules.0/@classes.21"/>
+      </attributes>
+      <methods name="setOwningClass" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="value">
+          <classifierType referencedElement="//@modules.0/@classes.21"/>
+        </parameters>
+      </methods>
     </classes>
     <classes name="AbstractVariable">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AbstractVariable"/>
@@ -360,28 +369,28 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Variable"/>
       <superClasses class="//@modules.0/@classes.23"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="control">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="class">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="initialValue">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setControl" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setClass" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setInitialValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -397,10 +406,10 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="name">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setName" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -422,19 +431,19 @@
     <classes name="Assignment">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Assignment"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.99"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.99"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -444,10 +453,10 @@
     <classes name="FunctionCall">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.FunctionCall"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="callIdExpr">
         <classifierType referencedElement="//@modules.0/@classes.96"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setCallIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.96"/>
@@ -457,10 +466,10 @@
     <classes name="Return">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Return"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -470,10 +479,10 @@
     <classes name="WaitUntil">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WaitUntil"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="condition">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -495,10 +504,10 @@
     <classes name="Reactivate">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Reactivate"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="objectAccess">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setObjectAccess" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -508,13 +517,13 @@
     <classes name="ActivateObject">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ActivateObject"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="objectAccess">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
       <attributes name="priority_">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setObjectAccess" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -530,10 +539,10 @@
     <classes name="Advance">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Advance"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="time">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setTime" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -543,7 +552,7 @@
     <classes name="Print">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Print"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="outputs">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -552,28 +561,28 @@
     <classes name="IfStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IfStatement"/>
       <superClasses class="//@modules.0/@classes.27"/>
-      <attributes name="null">
+      <attributes name="condition">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="trueCase">
         <classifierType referencedElement="//@modules.0/@classes.27"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="falseCase">
         <classifierType referencedElement="//@modules.0/@classes.27"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setTrueCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.27"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setFalseCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.27"/>
@@ -585,7 +594,7 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="statements">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -600,28 +609,28 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ForStatement"/>
       <superClasses class="//@modules.0/@classes.28"/>
       <superClasses class="//@modules.0/@classes.42"/>
-      <attributes name="null">
+      <attributes name="termination">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="increment">
         <classifierType referencedElement="//@modules.0/@classes.30"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classes.27"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setTermination" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setIncrement" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.30"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.27"/>
@@ -631,19 +640,19 @@
     <classes name="WhileStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WhileStatement"/>
       <superClasses class="//@modules.0/@classes.28"/>
-      <attributes name="null">
+      <attributes name="condition">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classes.27"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setCondition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.27"/>
@@ -653,24 +662,24 @@
     <classes name="SwitchStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchStatement"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.99"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="cases">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="defaultCase">
         <classifierType referencedElement="//@modules.0/@classes.47"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.99"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setDefaultCase" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.47"/>
@@ -682,15 +691,15 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="body">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -749,19 +758,19 @@
     <classes name="BinaryOperator">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BinaryOperator"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
+      <attributes name="op1">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="op2">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setOp1" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setOp2" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -771,10 +780,10 @@
     <classes name="UnaryOperator">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.UnaryOperator"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
+      <attributes name="op">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setOp" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -887,10 +896,10 @@
     <classes name="StringLiteral">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringLiteral"/>
       <superClasses class="//@modules.0/@classes.51"/>
-      <attributes name="null">
+      <attributes name="value">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -900,10 +909,10 @@
     <classes name="IntLiteral">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntLiteral"/>
       <superClasses class="//@modules.0/@classes.51"/>
-      <attributes name="null">
+      <attributes name="value">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:IntType"/>
@@ -921,10 +930,10 @@
     <classes name="DoubleLiteral">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleLiteral"/>
       <superClasses class="//@modules.0/@classes.51"/>
-      <attributes name="null">
+      <attributes name="value">
         <primitiveType xsi:type="dbl:DoubleType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:DoubleType"/>
@@ -934,10 +943,10 @@
     <classes name="ExpandExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpr"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
+      <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -947,10 +956,10 @@
     <classes name="ParseExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ParseExpr"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
+      <attributes name="astPart">
         <classifierType referencedElement="//@modules.0/@classes.0"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setAstPart" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.0"/>
@@ -986,42 +995,42 @@
     <classes name="IdExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdExpr"/>
       <superClasses class="//@modules.0/@classes.51"/>
-      <attributes name="null">
+      <attributes name="parentIdExpr">
         <classifierType referencedElement="//@modules.0/@classes.96"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="referencedElement">
         <classifierType referencedElement="//@modules.0/@classes.26"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="predefinedId">
         <classifierType referencedElement="//@modules.0/@classes.90"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="arrayIndex">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="callPart">
         <classifierType referencedElement="//@modules.0/@classes.97"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setParentIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.96"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setReferencedElement" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.26"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setPredefinedId" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.90"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setCallPart" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.97"/>
@@ -1033,7 +1042,7 @@
       <superClasses>
         <class href="ecore.xmi#//@modules.0/@classes.11"/>
       </superClasses>
-      <attributes name="null">
+      <attributes name="callArguments">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -1042,10 +1051,10 @@
     <classes name="ElementAccess">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementAccess"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
+      <attributes name="idExpr">
         <classifierType referencedElement="//@modules.0/@classes.96"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setIdExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.96"/>
@@ -1064,43 +1073,35 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypeAccess"/>
       <superClasses class="//@modules.0/@classes.98"/>
     </classes>
-    <classes name="ClassContentExtension">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassContentExtension"/>
-      <superClasses class="//@modules.0/@classes.1"/>
-    </classes>
-    <classes name="ModuleContentExtension">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ModuleContentExtension"/>
-      <superClasses class="//@modules.0/@classes.1"/>
-    </classes>
     <classes name="ExtensionDefinition">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionDefinition"/>
-      <superClasses class="//@modules.0/@classes.108"/>
+      <superClasses class="//@modules.0/@classes.106"/>
       <superClasses class="//@modules.0/@classes.1"/>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.108"/>
-      </attributes>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.21"/>
-      </attributes>
-      <attributes name="null">
+      <attributes name="extendedConcept">
         <classifierType referencedElement="//@modules.0/@classes.106"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <attributes name="abstractSyntaxDef">
+        <classifierType referencedElement="//@modules.0/@classes.21"/>
+      </attributes>
+      <attributes name="textualSyntaxDef">
+        <classifierType referencedElement="//@modules.0/@classes.104"/>
+      </attributes>
+      <methods name="setExtendedConcept" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.108"/>
+          <classifierType referencedElement="//@modules.0/@classes.106"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setAbstractSyntaxDef" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.21"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setTextualSyntaxDef" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.106"/>
+          <classifierType referencedElement="//@modules.0/@classes.104"/>
         </parameters>
       </methods>
     </classes>
@@ -1108,31 +1109,31 @@
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionSemanticsDefinition"/>
       <superClasses class="//@modules.0/@classes.1"/>
       <superClasses class="//@modules.0/@classes.42"/>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.104"/>
+      <attributes name="syntaxDefinition">
+        <classifierType referencedElement="//@modules.0/@classes.102"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setSyntaxDefinition" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.104"/>
+          <classifierType referencedElement="//@modules.0/@classes.102"/>
         </parameters>
       </methods>
     </classes>
     <classes name="TextualSyntaxDef">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TextualSyntaxDef"/>
       <superClasses class="//@modules.0/@classes.1"/>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.109"/>
+      <attributes name="startRule">
+        <classifierType referencedElement="//@modules.0/@classes.107"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="rules">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setStartRule" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.109"/>
+          <classifierType referencedElement="//@modules.0/@classes.107"/>
         </parameters>
       </methods>
     </classes>
@@ -1143,19 +1144,19 @@
     </classes>
     <classes name="LanguageConceptClassifier">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LanguageConceptClassifier"/>
-      <superClasses class="//@modules.0/@classes.107"/>
+      <superClasses class="//@modules.0/@classes.105"/>
     </classes>
     <classes name="TsRule">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TsRule"/>
       <superClasses class="//@modules.0/@classes.26"/>
-      <superClasses class="//@modules.0/@classes.107"/>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.110"/>
+      <superClasses class="//@modules.0/@classes.105"/>
+      <attributes name="rhs">
+        <classifierType referencedElement="//@modules.0/@classes.108"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setRhs" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.110"/>
+          <classifierType referencedElement="//@modules.0/@classes.108"/>
         </parameters>
       </methods>
     </classes>
@@ -1167,16 +1168,16 @@
     </classes>
     <classes name="L3RhsExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L3RhsExpr"/>
-      <superClasses class="//@modules.0/@classes.110"/>
+      <superClasses class="//@modules.0/@classes.108"/>
     </classes>
     <classes name="L2RhsExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L2RhsExpr"/>
-      <superClasses class="//@modules.0/@classes.110"/>
+      <superClasses class="//@modules.0/@classes.108"/>
     </classes>
     <classes name="SequenceExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SequenceExpr"/>
-      <superClasses class="//@modules.0/@classes.112"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.110"/>
+      <attributes name="sequence">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -1184,15 +1185,15 @@
     </classes>
     <classes name="L1RhsExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L1RhsExpr"/>
-      <superClasses class="//@modules.0/@classes.110"/>
+      <superClasses class="//@modules.0/@classes.108"/>
     </classes>
     <classes name="TerminalExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TerminalExpr"/>
-      <superClasses class="//@modules.0/@classes.114"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.112"/>
+      <attributes name="terminal">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setTerminal" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -1202,27 +1203,27 @@
     <classes name="PropertyBindingExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PropertyBindingExpr"/>
       <superClasses class="//@modules.0/@classes.26"/>
-      <superClasses class="//@modules.0/@classes.114"/>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.118"/>
+      <superClasses class="//@modules.0/@classes.112"/>
+      <attributes name="propertyType">
+        <classifierType referencedElement="//@modules.0/@classes.116"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setPropertyType" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.118"/>
+          <classifierType referencedElement="//@modules.0/@classes.116"/>
         </parameters>
       </methods>
     </classes>
     <classes name="RhsClassifierExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.RhsClassifierExpr"/>
-      <superClasses class="//@modules.0/@classes.114"/>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.107"/>
+      <superClasses class="//@modules.0/@classes.112"/>
+      <attributes name="classifier">
+        <classifierType referencedElement="//@modules.0/@classes.105"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setClassifier" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.107"/>
+          <classifierType referencedElement="//@modules.0/@classes.105"/>
         </parameters>
       </methods>
     </classes>
@@ -1234,23 +1235,23 @@
     </classes>
     <classes name="IdPropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdPropertyType"/>
-      <superClasses class="//@modules.0/@classes.118"/>
+      <superClasses class="//@modules.0/@classes.116"/>
     </classes>
     <classes name="IntPropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntPropertyType"/>
-      <superClasses class="//@modules.0/@classes.118"/>
+      <superClasses class="//@modules.0/@classes.116"/>
     </classes>
     <classes name="StringPropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringPropertyType"/>
-      <superClasses class="//@modules.0/@classes.118"/>
+      <superClasses class="//@modules.0/@classes.116"/>
     </classes>
     <classes name="BooleanPropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BooleanPropertyType"/>
-      <superClasses class="//@modules.0/@classes.118"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.116"/>
+      <attributes name="terminal">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setTerminal" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -1259,24 +1260,24 @@
     </classes>
     <classes name="StructuredPropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StructuredPropertyType"/>
-      <superClasses class="//@modules.0/@classes.118"/>
+      <superClasses class="//@modules.0/@classes.116"/>
       <attributes name="type_">
-        <classifierType referencedElement="//@modules.0/@classes.107"/>
+        <classifierType referencedElement="//@modules.0/@classes.105"/>
       </attributes>
       <methods name="setType_" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.107"/>
+          <classifierType referencedElement="//@modules.0/@classes.105"/>
         </parameters>
       </methods>
     </classes>
     <classes name="CompositePropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CompositePropertyType"/>
-      <superClasses class="//@modules.0/@classes.123"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.121"/>
+      <attributes name="list">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setList" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
@@ -1285,11 +1286,11 @@
     </classes>
     <classes name="ReferencePropertyType">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ReferencePropertyType"/>
-      <superClasses class="//@modules.0/@classes.123"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.121"/>
+      <attributes name="rawReference">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setRawReference" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
@@ -1299,10 +1300,10 @@
     <classes name="MetaExpr">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaExpr"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
+      <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -1312,10 +1313,10 @@
     <classes name="TargetStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TargetStatement"/>
       <superClasses class="//@modules.0/@classes.27"/>
-      <attributes name="null">
+      <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classes.27"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.27"/>
@@ -1325,12 +1326,12 @@
     <classes name="ExpansionStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpansionStatement"/>
       <superClasses class="//@modules.0/@classes.27"/>
-      <attributes name="null">
+      <attributes name="parts">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
-      <attributes name="null">
+      <attributes name="exprs">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -1344,11 +1345,11 @@
     </classes>
     <classes name="ExpandTextPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandTextPart"/>
-      <superClasses class="//@modules.0/@classes.129"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.127"/>
+      <attributes name="text">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setText" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -1357,11 +1358,11 @@
     </classes>
     <classes name="ExpandVariablePart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandVariablePart"/>
-      <superClasses class="//@modules.0/@classes.129"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.127"/>
+      <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setExpr" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -1371,19 +1372,19 @@
     <classes name="SetExpansionContextStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SetExpansionContextStatement"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="context">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="addAfterContext">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setContext" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setAddAfterContext" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
@@ -1393,10 +1394,10 @@
     <classes name="SaveGenStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SaveGenStatement"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -1406,10 +1407,10 @@
     <classes name="ResumeGenStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ResumeGenStatement"/>
       <superClasses class="//@modules.0/@classes.29"/>
-      <attributes name="null">
+      <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setVariable" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -1419,10 +1420,10 @@
     <classes name="ExpandExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpression"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
+      <attributes name="metaObject">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -1432,19 +1433,19 @@
     <classes name="ExpandStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandStatement"/>
       <superClasses class="//@modules.0/@classes.27"/>
-      <attributes name="null">
+      <attributes name="metaObject">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="location">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setMetaObject" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setLocation" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -1454,13 +1455,13 @@
     <classes name="CodeQuoteExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CodeQuoteExpression"/>
       <superClasses class="//@modules.0/@classes.50"/>
-      <attributes name="null">
-        <classifierType referencedElement="//@modules.0/@classes.138"/>
+      <attributes name="quotedCode">
+        <classifierType referencedElement="//@modules.0/@classes.136"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setQuotedCode" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
-          <classifierType referencedElement="//@modules.0/@classes.138"/>
+          <classifierType referencedElement="//@modules.0/@classes.136"/>
         </parameters>
       </methods>
     </classes>
@@ -1472,11 +1473,11 @@
     </classes>
     <classes name="QuotedExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedExpression"/>
-      <superClasses class="//@modules.0/@classes.138"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.136"/>
+      <attributes name="expression">
         <classifierType referencedElement="//@modules.0/@classes.50"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setExpression" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.50"/>
@@ -1485,8 +1486,8 @@
     </classes>
     <classes name="QuotedStatements">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedStatements"/>
-      <superClasses class="//@modules.0/@classes.138"/>
-      <attributes name="null">
+      <superClasses class="//@modules.0/@classes.136"/>
+      <attributes name="statements">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
@@ -1494,39 +1495,39 @@
     </classes>
     <classes name="QuotedClassContent">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedClassContent"/>
-      <superClasses class="//@modules.0/@classes.138"/>
+      <superClasses class="//@modules.0/@classes.136"/>
       <superClasses class="//@modules.0/@classes.21"/>
     </classes>
     <classes name="QuotedModuleContent">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedModuleContent"/>
-      <superClasses class="//@modules.0/@classes.138"/>
+      <superClasses class="//@modules.0/@classes.136"/>
       <superClasses class="//@modules.0/@classes.4"/>
     </classes>
     <classes name="Pattern">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Pattern"/>
       <superClasses class="//@modules.0/@classes.26"/>
-      <attributes name="null">
+      <attributes name="top">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="context">
         <classifierType referencedElement="//@modules.0/@classes.25"/>
       </attributes>
-      <attributes name="null">
+      <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classes.27"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setTop" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:BoolType"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setContext" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.25"/>
         </parameters>
       </methods>
-      <methods name="setnull" abstract="true">
+      <methods name="setBody" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <classifierType referencedElement="//@modules.0/@classes.27"/>
@@ -1536,10 +1537,10 @@
     <classes name="TestStatement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TestStatement"/>
       <superClasses class="//@modules.0/@classes.27"/>
-      <attributes name="null">
+      <attributes name="value">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
-      <methods name="setnull" abstract="true">
+      <methods name="setValue" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:IntType"/>

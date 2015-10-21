@@ -23,6 +23,9 @@ class DblMetamodelToDbl extends EcoreToDblGenerator {
 		if (name.equals("priority") || name.equals("type")) {
 			name + "_"
 		}
+		else {
+			name
+		}
 	}
 	
 	

@@ -21,9 +21,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getSwitchCase()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface SwitchCase extends EObject {
+public interface SwitchCase extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Value</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

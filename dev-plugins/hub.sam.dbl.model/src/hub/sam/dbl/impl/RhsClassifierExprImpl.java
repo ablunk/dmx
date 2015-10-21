@@ -9,6 +9,7 @@ import hub.sam.dbl.RhsClassifierExpr;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -62,7 +63,7 @@ public class RhsClassifierExprImpl extends L1RhsExprImpl implements RhsClassifie
 	 * @generated
 	 */
 	public LanguageConstructClassifier getClassifier() {
-		if (classifier != null && classifier.eIsProxy()) {
+		if (classifier != null && ((EObject)classifier).eIsProxy()) {
 			InternalEObject oldClassifier = (InternalEObject)classifier;
 			classifier = (LanguageConstructClassifier)eResolveProxy(oldClassifier);
 			if (classifier != oldClassifier) {

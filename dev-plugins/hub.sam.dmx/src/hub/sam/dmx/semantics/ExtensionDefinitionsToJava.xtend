@@ -24,6 +24,9 @@ import java.util.logging.Logger
 import hub.sam.dbl.ExpansionStatement
 import hub.sam.dbl.ExtensionSemanticsDefinition
 import hub.sam.dmx.editor.semantics.ExtensionSyntaxDefinitionProcessor
+import hub.sam.dbl.DblEObject
+import hub.sam.dbl.Cast
+import hub.sam.dbl.UniqueIdExpr
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -180,10 +183,34 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		return false
 	}
 	
-	override String genType(EObject type) {
+	override String genType(DblEObject type) {
 		if (type instanceof TsRule || type.getContainerObjectOfType(Module).name.equals("dbl")) return "EObject"
 		else super.genType(type)
 	}
+	
+	override def String genClassifierTypeExpr(IdExpr typeExpr) {
+		if (typeExpr.refersToDblMetamodel) {
+			"EObject"
+		}
+		else {
+			typeExpr.referencedElement.genType
+		}
+	}
+	
+	override def dispatch String genExpr(Cast expr) {
+		'''
+		«IF expr.classifierType != null && expr.classifierType.refersToDblMetamodel»
+			((EObject) «expr.op.genExpr»)
+		«ELSE»
+			((«expr.genType») «expr.op.genExpr»)
+		«ENDIF»
+		'''
+	}
+	
+	override def dispatch String genExpr(UniqueIdExpr expr) {
+		'''getUniqueID("«expr.identifier»")'''
+	}
+	
 	
 	def String genIdExprWithSyntaxPartReferences(IdExpr idExpr) {
 		val it = idExpr
@@ -385,7 +412,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		'''
 		«(semanticsDef.eContainer as Module).genPackageStatement»
 		
-		import hub.sam.dmx.AbstractExtensionSemantics;
+		import hub.sam.dmx.semantics.AbstractExtensionSemantics;
 		import hub.sam.dbl.*;
 		import org.eclipse.emf.ecore.EObject;
 

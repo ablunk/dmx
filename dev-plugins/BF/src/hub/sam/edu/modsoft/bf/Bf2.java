@@ -7,6 +7,7 @@ import hub.sam.edu.modsoft.bfmodel.bf.Box;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.function.Consumer;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -43,14 +44,16 @@ public class Bf2 {
 		boxD.setName("A.B.D");
 		boxB.getOwnedBoxes().add(boxD);
 		
-		TreeIterator<EObject> contentIterator = boxA.eAllContents();
-		while (contentIterator.hasNext()) {
-			EObject current = contentIterator.next();
-			if (current instanceof Box) {
-				Box b = (Box) current;
-				System.out.println("Box " + b.getName() + ".");
-			}
-		}
+//		TreeIterator<EObject> contentIterator = boxA.eAllContents();
+//		while (contentIterator.hasNext()) {
+//			EObject current = contentIterator.next();
+//			if (current instanceof Box) {
+//				Box b = (Box) current;
+//				System.out.println("Box " + b.getName() + ".");
+//			}
+//		}
+		
+		printBoxContents(boxA);
 		
 		try {
 			res.save(Collections.EMPTY_MAP);
@@ -59,6 +62,16 @@ public class Bf2 {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static void printBoxContents(EObject eObject) {
+		for (EObject content: eObject.eContents()) {
+			if (content instanceof Box) {
+				Box b = (Box) content;
+				System.out.println("Box " + b.getName() + ".");
+				printBoxContents(b);
+			}
+		}
 	}
 
 }

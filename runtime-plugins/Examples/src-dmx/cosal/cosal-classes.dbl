@@ -1,0 +1,33 @@
+#import "../dbl"
+#import "../stdlib"
+
+module CosalClasses {
+
+class CosalType extends NamedElement {
+	List states; // TODO: requires inside out template extension
+}
+
+class State extends NamedElement {
+	List outgoing;
+}
+
+class NormaleState extends State {
+}
+
+class InitialState extends State {
+}
+
+class FinalState extends State {
+}
+
+class Transition {
+	string input;
+	State target;
+}
+
+class CosalInstance extends NamedElement {
+	CosalType cosalType;
+	State currentState; // part of runtime state
+}
+
+}

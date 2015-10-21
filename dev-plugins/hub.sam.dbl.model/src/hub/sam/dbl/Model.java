@@ -21,9 +21,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getModel()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface Model extends EObject {
+public interface Model extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Imports</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Import}.

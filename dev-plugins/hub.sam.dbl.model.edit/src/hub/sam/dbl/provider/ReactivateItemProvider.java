@@ -319,6 +319,11 @@ public class ReactivateItemProvider extends SimpleStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.REACTIVATE__OBJECT_ACCESS,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.REACTIVATE__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

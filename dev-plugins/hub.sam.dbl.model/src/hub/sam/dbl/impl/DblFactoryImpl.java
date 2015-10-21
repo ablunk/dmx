@@ -133,6 +133,7 @@ import hub.sam.dbl.TrueLiteral;
 import hub.sam.dbl.TsRule;
 import hub.sam.dbl.TypeAccess;
 import hub.sam.dbl.TypeLiteral;
+import hub.sam.dbl.UniqueIdExpr;
 import hub.sam.dbl.Variable;
 import hub.sam.dbl.VariableAccess;
 import hub.sam.dbl.VoidType;
@@ -323,6 +324,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.EXPAND_EXPR: return createExpandExpr();
 			case DblPackage.CLASS_CONTENT: return createClassContent();
 			case DblPackage.MODULE_CONTENT: return createModuleContent();
+			case DblPackage.UNIQUE_ID_EXPR: return createUniqueIdExpr();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -1177,6 +1179,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public DoubleLiteral createDoubleLiteral() {
 		DoubleLiteralImpl doubleLiteral = new DoubleLiteralImpl();
 		return doubleLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UniqueIdExpr createUniqueIdExpr() {
+		UniqueIdExprImpl uniqueIdExpr = new UniqueIdExprImpl();
+		return uniqueIdExpr;
 	}
 
 	/**

@@ -319,6 +319,11 @@ public class SaveGenStatementItemProvider extends SimpleStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SAVE_GEN_STATEMENT__VARIABLE,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SAVE_GEN_STATEMENT__VARIABLE,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

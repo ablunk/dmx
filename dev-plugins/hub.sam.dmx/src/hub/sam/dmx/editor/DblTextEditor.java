@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IPartListener2;
@@ -37,9 +38,9 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 	private SaveXmiAction saveXmiAction;
 	private List<Action> runActions = new ArrayList<Action>();
 	
-	protected DblPreProcessor _preProcessor;
+	protected IPreProcessor _preProcessor;
 	
-	protected DblPreProcessor getPreProcessor() {
+	protected IPreProcessor getPreProcessor() {
 		return _preProcessor;
 	}
 	
@@ -84,7 +85,7 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		initPreProcessor();
 		super.preProcessDocument();
 		IPath inputFile = ((FileEditorInput) getEditorInput()).getFile().getLocation();
-		getPreProcessor().preProcess(getCurrentText(), inputFile.removeLastSegments(1));		
+		getPreProcessor().preProcess(getCurrentText(), inputFile.removeLastSegments(1));
 	}
 	
 	public synchronized Collection<IModelContainer> getImportedModels() {

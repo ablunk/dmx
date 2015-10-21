@@ -1935,6 +1935,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.UniqueIdExpr} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected UniqueIdExprItemProvider uniqueIdExprItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.UniqueIdExpr}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createUniqueIdExprAdapter() {
+		if (uniqueIdExprItemProvider == null) {
+			uniqueIdExprItemProvider = new UniqueIdExprItemProvider(this);
+		}
+
+		return uniqueIdExprItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExpandExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3264,6 +3287,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (trueLiteralItemProvider != null) trueLiteralItemProvider.dispose();
 		if (falseLiteralItemProvider != null) falseLiteralItemProvider.dispose();
 		if (doubleLiteralItemProvider != null) doubleLiteralItemProvider.dispose();
+		if (uniqueIdExprItemProvider != null) uniqueIdExprItemProvider.dispose();
 		if (expandExprItemProvider != null) expandExprItemProvider.dispose();
 		if (parseExprItemProvider != null) parseExprItemProvider.dispose();
 		if (predefinedIdItemProvider != null) predefinedIdItemProvider.dispose();

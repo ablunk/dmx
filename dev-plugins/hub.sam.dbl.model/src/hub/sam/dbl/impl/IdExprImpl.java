@@ -3,6 +3,7 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.CallPart;
+import hub.sam.dbl.DblElementVisitor;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.IdExpr;
@@ -13,14 +14,11 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -120,6 +118,11 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 		return parentIdExpr;
 	}
 
+	@Override
+	public void accept(DblElementVisitor visitor) {
+		visitor.visitIdExpr(this);
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -160,7 +163,7 @@ public class IdExprImpl extends L1ExprImpl implements IdExpr {
 	 * @generated
 	 */
 	public NamedElement getReferencedElement() {
-		if (referencedElement != null && referencedElement.eIsProxy()) {
+		if (referencedElement != null && ((EObject)referencedElement).eIsProxy()) {
 			InternalEObject oldReferencedElement = (InternalEObject)referencedElement;
 			referencedElement = (NamedElement)eResolveProxy(oldReferencedElement);
 			if (referencedElement != oldReferencedElement) {

@@ -10,6 +10,7 @@ import hub.sam.dbl.TextualSyntaxDef;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -84,7 +85,7 @@ public class ExtensionDefinitionImpl extends LanguageConceptClassifierImpl imple
 	 * @generated
 	 */
 	public LanguageConceptClassifier getExtendedConcept() {
-		if (extendedConcept != null && extendedConcept.eIsProxy()) {
+		if (extendedConcept != null && ((EObject)extendedConcept).eIsProxy()) {
 			InternalEObject oldExtendedConcept = (InternalEObject)extendedConcept;
 			extendedConcept = (LanguageConceptClassifier)eResolveProxy(oldExtendedConcept);
 			if (extendedConcept != oldExtendedConcept) {

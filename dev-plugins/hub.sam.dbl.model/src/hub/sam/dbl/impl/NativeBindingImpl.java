@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.NativeBinding;
 
@@ -29,7 +30,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  *
  * @generated
  */
-public class NativeBindingImpl extends EObjectImpl implements NativeBinding {
+public class NativeBindingImpl extends DblEObjectImpl implements NativeBinding {
 	/**
 	 * The default value of the '{@link #getTargetLanguage() <em>Target Language</em>}' attribute.
 	 * <!-- begin-user-doc -->

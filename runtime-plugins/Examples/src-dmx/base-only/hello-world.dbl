@@ -1,16 +1,26 @@
 module hello_world {
 
-	class A {
-		string s = "hhhhello world\n";
+	class Hello {
+		string s;
+		
+		new() {
+			s = "hello";
+		}
+		
+		new(string s_) {
+			s = s_;
+		}
 	
-		void sayHello() {
-			print s;
+		void greet(string receiver) {
+			print s + " " + receiver + "\n";
 		}
 	}
 	
 	void main() {
-		A a = new A;
-		a.sayHello();
+		Hello h = new Hello();
+		h.greet("world");
+		h = new Hello("bonjour");
+		h.greet("monde");
 	}
 	
 }

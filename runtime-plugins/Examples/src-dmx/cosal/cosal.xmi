@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="CosalExtension">
+    <extensionDefinitions name="CosalType" concreteSyntax="extension CosalType extends dbl Class {&#xA;&#x9;start CosalType;&#xA;&#x9;CosalType -> &quot;cosal&quot; name:ID &quot;{&quot; StatesOptional &quot;}&quot;;&#xA;&#x9;&#xA;&#x9;StatesOptional -> states:State StatesOptional;&#xA;&#x9;StatesOptional -> ;&#xA;&#x9;&#xA;&#x9;State -> NormalState;&#xA;&#x9;State -> InitialState;&#xA;&#x9;State -> FinalState;&#xA;&#x9;NormalState -> &quot;state&quot; name:ID OutgoingOptionalFirst;&#xA;&#x9;InitialState -> &quot;initial&quot; outgoing:list(Transition);&#xA;&#x9;FinalState -> &quot;final&quot; name:ID;&#xA;&#x9;&#xA;&#x9;OutgoingOptionalFirst -> &quot;;&quot;;&#xA;&#x9;OutgoingOptionalFirst -> &quot;{&quot; OutgoingOptional &quot;}&quot;;&#xA;&#x9;OutgoingOptional -> outgoing:list(Transition) OutgoingOptional;&#xA;&#x9;OutgoingOptional -> ;&#xA;&#x9;&#xA;&#x9;//Transition -> &quot;on&quot; input:STRING &quot;to&quot; target:$$State;&#xA;&#x9;//Transition -> &quot;to&quot; target:$$State;&#xA;&#x9;&#xA;&#x9;Transition -> InputOptional &quot;to&quot; target:$$State;&#xA;&#x9;InputOptional -> &quot;on&quot; input:STRING;&#xA;&#x9;InputOptional -> ;&#xA;}">
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.21"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start CosalType;&#xA;&#x9;CosalType -> &quot;cosal&quot; name:ID &quot;{&quot; StatesOptional &quot;}&quot;;&#xA;&#x9;&#xA;&#x9;StatesOptional -> states:State StatesOptional;&#xA;&#x9;StatesOptional -> ;&#xA;&#x9;&#xA;&#x9;State -> NormalState;&#xA;&#x9;State -> InitialState;&#xA;&#x9;State -> FinalState;&#xA;&#x9;NormalState -> &quot;state&quot; name:ID OutgoingOptionalFirst;&#xA;&#x9;InitialState -> &quot;initial&quot; outgoing:list(Transition);&#xA;&#x9;FinalState -> &quot;final&quot; name:ID;&#xA;&#x9;&#xA;&#x9;OutgoingOptionalFirst -> &quot;;&quot;;&#xA;&#x9;OutgoingOptionalFirst -> &quot;{&quot; OutgoingOptional &quot;}&quot;;&#xA;&#x9;OutgoingOptional -> outgoing:list(Transition) OutgoingOptional;&#xA;&#x9;OutgoingOptional -> ;&#xA;&#x9;&#xA;&#x9;//Transition -> &quot;on&quot; input:STRING &quot;to&quot; target:$$State;&#xA;&#x9;//Transition -> &quot;to&quot; target:$$State;&#xA;&#x9;&#xA;&#x9;Transition -> InputOptional &quot;to&quot; target:$$State;&#xA;&#x9;InputOptional -> &quot;on&quot; input:STRING;&#xA;&#x9;InputOptional -> ;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
+        <rules name="CosalType" concreteSyntax="CosalType -> &quot;cosal&quot; name:ID &quot;{&quot; StatesOptional &quot;}&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="cosal"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </rules>
+        <rules name="StatesOptional" concreteSyntax="StatesOptional -> states:State StatesOptional;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="states">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.4"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.2"/>
+          </rhs>
+        </rules>
+        <rules name="StatesOptional" concreteSyntax="StatesOptional -> ;">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="State" concreteSyntax="State -> NormalState;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.6"/>
+          </rhs>
+        </rules>
+        <rules name="State" concreteSyntax="State -> InitialState;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.7"/>
+          </rhs>
+        </rules>
+        <rules name="State" concreteSyntax="State -> FinalState;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.8"/>
+          </rhs>
+        </rules>
+        <rules name="NormalState" concreteSyntax="NormalState -> &quot;state&quot; name:ID OutgoingOptionalFirst;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="state"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.10"/>
+          </rhs>
+        </rules>
+        <rules name="InitialState" concreteSyntax="InitialState -> &quot;initial&quot; outgoing:list(Transition);">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="initial"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="outgoing">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.13" list="true"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="FinalState" concreteSyntax="FinalState -> &quot;final&quot; name:ID;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="final"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="OutgoingOptionalFirst" concreteSyntax="OutgoingOptionalFirst -> &quot;;&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="OutgoingOptionalFirst" concreteSyntax="OutgoingOptionalFirst -> &quot;{&quot; OutgoingOptional &quot;}&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="{"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.11"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="}"/>
+          </rhs>
+        </rules>
+        <rules name="OutgoingOptional" concreteSyntax="OutgoingOptional -> outgoing:list(Transition) OutgoingOptional;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="outgoing">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.13" list="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.11"/>
+          </rhs>
+        </rules>
+        <rules name="OutgoingOptional" concreteSyntax="OutgoingOptional -> ;">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="Transition" concreteSyntax="Transition -> InputOptional &quot;to&quot; target:$$State;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.14"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="target">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.4" rawReference="true"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="InputOptional" concreteSyntax="InputOptional -> &quot;on&quot; input:STRING;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="on"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="input">
+              <propertyType xsi:type="dbl:StringPropertyType"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="InputOptional" concreteSyntax="InputOptional -> ;">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefinitions>
+    <extensionDefinitions name="CosalInstance" concreteSyntax="extension CosalInstance extends dbl Variable {&#xA;&#x9;start CosalInstance;&#xA;&#x9;CosalInstance -> &quot;cosalInstance&quot; cosalType:$$CosalType name:ID;&#xA;}">
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.24"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start CosalInstance;&#xA;&#x9;CosalInstance -> &quot;cosalInstance&quot; cosalType:$$CosalType name:ID;&#xA;}" startRule="//@modules.0/@extensionDefinitions.1/@textualSyntaxDef/@rules.0">
+        <rules name="CosalInstance" concreteSyntax="CosalInstance -> &quot;cosalInstance&quot; cosalType:$$CosalType name:ID;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="cosalInstance"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="cosalType">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefinitions.0" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="name">
+              <propertyType xsi:type="dbl:IdPropertyType"/>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefinitions>
+    <extensionDefinitions name="CosalInputList" concreteSyntax="extension CosalInputList extends dbl Statement {&#xA;&#x9;start CosalInputList;&#xA;&#x9;CosalInputList -> &quot;send&quot; inputs:Input MoreInputs &quot;to&quot; cosalInstance:$$CosalInstance &quot;;&quot;;&#xA;&#x9;MoreInputs -> inputs:Input MoreInputs;&#xA;&#x9;MoreInputs -> ;&#xA;&#x9;Input -> input:STRING;&#xA;}">
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.27"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start CosalInputList;&#xA;&#x9;CosalInputList -> &quot;send&quot; inputs:Input MoreInputs &quot;to&quot; cosalInstance:$$CosalInstance &quot;;&quot;;&#xA;&#x9;MoreInputs -> inputs:Input MoreInputs;&#xA;&#x9;MoreInputs -> ;&#xA;&#x9;Input -> input:STRING;&#xA;}" startRule="//@modules.0/@extensionDefinitions.2/@textualSyntaxDef/@rules.0">
+        <rules name="CosalInputList" concreteSyntax="CosalInputList -> &quot;send&quot; inputs:Input MoreInputs &quot;to&quot; cosalInstance:$$CosalInstance &quot;;&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="send"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="inputs">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefinitions.2/@textualSyntaxDef/@rules.3"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.2/@textualSyntaxDef/@rules.2"/>
+            <sequence xsi:type="dbl:TerminalExpr" terminal="to"/>
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="cosalInstance">
+              <propertyType xsi:type="dbl:ReferencePropertyType" type="//@modules.0/@extensionDefinitions.1" rawReference="true"/>
+            </sequence>
+            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
+          </rhs>
+        </rules>
+        <rules name="MoreInputs" concreteSyntax="MoreInputs -> inputs:Input MoreInputs;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="inputs">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefinitions.2/@textualSyntaxDef/@rules.3"/>
+            </sequence>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.2/@textualSyntaxDef/@rules.2"/>
+          </rhs>
+        </rules>
+        <rules name="MoreInputs" concreteSyntax="MoreInputs -> ;">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="Input" concreteSyntax="Input -> input:STRING;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="input">
+              <propertyType xsi:type="dbl:StringPropertyType"/>
+            </sequence>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefinitions>
+  </modules>
+</dbl:Model>

@@ -347,6 +347,11 @@ public class SetExpansionContextStatementItemProvider extends SimpleStatementIte
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SET_EXPANSION_CONTEXT_STATEMENT__CONTEXT,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SET_EXPANSION_CONTEXT_STATEMENT__CONTEXT,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

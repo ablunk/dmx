@@ -319,6 +319,11 @@ public class ResumeGenStatementItemProvider extends SimpleStatementItemProvider 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.RESUME_GEN_STATEMENT__VARIABLE,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.RESUME_GEN_STATEMENT__VARIABLE,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

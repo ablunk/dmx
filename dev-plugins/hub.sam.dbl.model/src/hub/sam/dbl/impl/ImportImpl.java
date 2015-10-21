@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.Model;
@@ -9,6 +10,7 @@ import hub.sam.dbl.Model;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -28,7 +30,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class ImportImpl extends EObjectImpl implements Import {
+public class ImportImpl extends DblEObjectImpl implements Import {
 	/**
 	 * The default value of the '{@link #getFile() <em>File</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -105,7 +107,7 @@ public class ImportImpl extends EObjectImpl implements Import {
 	 * @generated
 	 */
 	public Model getModel() {
-		if (model != null && model.eIsProxy()) {
+		if (model != null && ((EObject)model).eIsProxy()) {
 			InternalEObject oldModel = (InternalEObject)model;
 			model = (Model)eResolveProxy(oldModel);
 			if (model != oldModel) {

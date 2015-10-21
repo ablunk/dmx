@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.SuperClassSpecification;
@@ -12,6 +13,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
@@ -32,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class SuperClassSpecificationImpl extends EObjectImpl implements SuperClassSpecification {
+public class SuperClassSpecificationImpl extends DblEObjectImpl implements SuperClassSpecification {
 	/**
 	 * The cached value of the '{@link #getClass_() <em>Class</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -78,7 +80,7 @@ public class SuperClassSpecificationImpl extends EObjectImpl implements SuperCla
 	 * @generated
 	 */
 	public hub.sam.dbl.Class getClass_() {
-		if (class_ != null && class_.eIsProxy()) {
+		if (class_ != null && ((EObject)class_).eIsProxy()) {
 			InternalEObject oldClass = (InternalEObject)class_;
 			class_ = (hub.sam.dbl.Class)eResolveProxy(oldClass);
 			if (class_ != oldClass) {

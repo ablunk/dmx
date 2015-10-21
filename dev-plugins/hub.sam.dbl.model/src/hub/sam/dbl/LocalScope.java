@@ -20,9 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getLocalScope()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface LocalScope extends EObject {
+public interface LocalScope extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Statements</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Statement}.

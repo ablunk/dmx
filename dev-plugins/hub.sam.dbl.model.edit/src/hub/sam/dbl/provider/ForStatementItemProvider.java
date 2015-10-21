@@ -470,6 +470,11 @@ public class ForStatementItemProvider extends LoopStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

@@ -20,9 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getConstructiveExtensionAtContentExtensionPoint()
  * @model abstract="true"
+ * @extends DblEObject
  * @generated
  */
-public interface ConstructiveExtensionAtContentExtensionPoint extends EObject {
+public interface ConstructiveExtensionAtContentExtensionPoint extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Content Extensions</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.ConstructiveExtension}.

@@ -14,6 +14,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -82,7 +83,7 @@ public class TextualSyntaxDefImpl extends ExtensibleElementImpl implements Textu
 	 * @generated
 	 */
 	public TsRule getStartRule() {
-		if (startRule != null && startRule.eIsProxy()) {
+		if (startRule != null && ((EObject)startRule).eIsProxy()) {
 			InternalEObject oldStartRule = (InternalEObject)startRule;
 			startRule = (TsRule)eResolveProxy(oldStartRule);
 			if (startRule != oldStartRule) {

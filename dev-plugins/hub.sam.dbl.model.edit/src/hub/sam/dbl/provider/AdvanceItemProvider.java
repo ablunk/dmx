@@ -319,6 +319,11 @@ public class AdvanceItemProvider extends SimpleStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ADVANCE__TIME,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ADVANCE__TIME,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

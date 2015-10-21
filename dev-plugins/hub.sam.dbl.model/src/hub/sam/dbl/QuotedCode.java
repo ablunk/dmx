@@ -12,7 +12,8 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getQuotedCode()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface QuotedCode extends EObject {
+public interface QuotedCode extends DblEObject {
 } // QuotedCode

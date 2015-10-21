@@ -122,6 +122,10 @@ public abstract class AbstractExtensionSemantics {
 			e1.printStackTrace();
 		}
 	}
+	
+	protected String getUniqueID(String identifier) {
+		return identifier + "_" + extensionInstanceUri.replaceAll("[/@\\.]", "_");
+	}
 
 	protected String getConcreteSyntax(EObject extensionInstance, String propertyName) {
 		EStructuralFeature property = extensionInstance.eClass().getEStructuralFeature(propertyName);

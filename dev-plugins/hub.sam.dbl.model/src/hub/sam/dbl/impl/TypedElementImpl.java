@@ -3,6 +3,7 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ArrayDimension;
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.PrimitiveType;
@@ -39,7 +40,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class TypedElementImpl extends EObjectImpl implements TypedElement {
+public abstract class TypedElementImpl extends DblEObjectImpl implements TypedElement {
 	/**
 	 * The cached value of the '{@link #getPrimitiveType() <em>Primitive Type</em>}' containment reference.
 	 * <!-- begin-user-doc -->

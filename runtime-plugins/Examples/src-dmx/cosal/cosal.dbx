@@ -1,0 +1,45 @@
+#import "../dbl"
+
+module CosalExtension {
+
+extension CosalType extends dbl Class {
+	start CosalType;
+	CosalType -> "cosal" name:ID "{" StatesOptional "}";
+	
+	StatesOptional -> states:State StatesOptional;
+	StatesOptional -> ;
+	
+	State -> NormalState;
+	State -> InitialState;
+	State -> FinalState;
+	NormalState -> "state" name:ID OutgoingOptionalFirst;
+	InitialState -> "initial" outgoing:list(Transition);
+	FinalState -> "final" name:ID;
+	
+	OutgoingOptionalFirst -> ";";
+	OutgoingOptionalFirst -> "{" OutgoingOptional "}";
+	OutgoingOptional -> outgoing:list(Transition) OutgoingOptional;
+	OutgoingOptional -> ;
+	
+	//Transition -> "on" input:STRING "to" target:$$State;
+	//Transition -> "to" target:$$State;
+	
+	Transition -> InputOptional "to" target:$$State;
+	InputOptional -> "on" input:STRING;
+	InputOptional -> ;
+}
+
+extension CosalInstance extends dbl Variable {
+	start CosalInstance;
+	CosalInstance -> "cosalInstance" cosalType:$$CosalType name:ID;
+}
+
+extension CosalInputList extends dbl Statement {
+	start CosalInputList;
+	CosalInputList -> "send" inputs:Input MoreInputs "to" cosalInstance:$$CosalInstance ";";
+	MoreInputs -> inputs:Input MoreInputs;
+	MoreInputs -> ;
+	Input -> input:STRING;
+}
+
+}

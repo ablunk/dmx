@@ -8,6 +8,7 @@ import hub.sam.dbl.StructuredPropertyType;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
@@ -60,7 +61,7 @@ public class StructuredPropertyTypeImpl extends PropertyTypeImpl implements Stru
 	 * @generated
 	 */
 	public LanguageConstructClassifier getType() {
-		if (type != null && type.eIsProxy()) {
+		if (type != null && ((EObject)type).eIsProxy()) {
 			InternalEObject oldType = (InternalEObject)type;
 			type = (LanguageConstructClassifier)eResolveProxy(oldType);
 			if (type != oldType) {

@@ -1,0 +1,19 @@
+#import "cosal"
+
+module CosalApp1 {
+
+cosal hhw {
+	initial to h
+	state h {
+		on "h" to h
+		on "w" to end
+	}
+	final end
+}
+
+void main() {
+	cosalInstance hhw hhw1;
+	send "h" "h" "h" "w" to hhw1;
+}
+
+}

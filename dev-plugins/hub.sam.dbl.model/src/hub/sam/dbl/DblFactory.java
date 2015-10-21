@@ -751,6 +751,15 @@ public interface DblFactory extends EFactory {
 	DoubleLiteral createDoubleLiteral();
 
 	/**
+	 * Returns a new object of class '<em>Unique Id Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Unique Id Expr</em>'.
+	 * @generated
+	 */
+	UniqueIdExpr createUniqueIdExpr();
+
+	/**
 	 * Returns a new object of class '<em>Expand Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

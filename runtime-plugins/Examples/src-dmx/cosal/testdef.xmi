@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="TestDef">
+    <classes name="C" concreteSyntax="class C {&#xA;}"/>
+    <extensionDefinitions name="TestDef" concreteSyntax="extension TestDef extends dbl Statement {&#xA;&#x9;start TestDef;&#xA;&#x9;TestDef -> &quot;test&quot; A;&#xA;&#x9;A -> n:N;&#xA;&#x9;N -> ;&#xA;&#x9;N -> &quot;key&quot;;&#xA;}">
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.27"/>
+      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start TestDef;&#xA;&#x9;TestDef -> &quot;test&quot; A;&#xA;&#x9;A -> n:N;&#xA;&#x9;N -> ;&#xA;&#x9;N -> &quot;key&quot;;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
+        <rules name="TestDef" concreteSyntax="TestDef -> &quot;test&quot; A;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="test"/>
+            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1"/>
+          </rhs>
+        </rules>
+        <rules name="A" concreteSyntax="A -> n:N;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:PropertyBindingExpr" name="n">
+              <propertyType xsi:type="dbl:CompositePropertyType" type="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.3"/>
+            </sequence>
+          </rhs>
+        </rules>
+        <rules name="N" concreteSyntax="N -> ;">
+          <rhs xsi:type="dbl:SequenceExpr"/>
+        </rules>
+        <rules name="N" concreteSyntax="N -> &quot;key&quot;;">
+          <rhs xsi:type="dbl:SequenceExpr">
+            <sequence xsi:type="dbl:TerminalExpr" terminal="key"/>
+          </rhs>
+        </rules>
+      </textualSyntaxDef>
+    </extensionDefinitions>
+  </modules>
+</dbl:Model>

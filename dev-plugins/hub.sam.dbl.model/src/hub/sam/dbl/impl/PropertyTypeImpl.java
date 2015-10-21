@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.PropertyType;
 
@@ -18,7 +19,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public abstract class PropertyTypeImpl extends EObjectImpl implements PropertyType {
+public abstract class PropertyTypeImpl extends DblEObjectImpl implements PropertyType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

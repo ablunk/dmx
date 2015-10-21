@@ -43,6 +43,12 @@ void main() {
 	iList.add(new A);
 	
 	print(stringObject.length() + "\n");
+	
+	for (int i=0; i<iArray1.length; i=i+1) {
+		int item = iArray1[i];
+		print item + "\n";
+	}
+	print(iArray1.length);
 }
 
 }

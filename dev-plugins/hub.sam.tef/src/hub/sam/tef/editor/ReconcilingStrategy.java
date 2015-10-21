@@ -82,12 +82,20 @@ public class ReconcilingStrategy implements IReconcilingStrategy {
 		fParser = new Parser(editor.getSyntax());
 		fEditor = editor;
 	}
+	
+	protected IDocument getDocument() {
+		return document;
+	}
+	
+	protected String getInputText() {
+		return getDocument().get();
+	}
 
 	/**
 	 * Performs the actual reconciling.
 	 */
 	private void reconcileWithExceptions() throws ModelCreatingException {
-		final String text = document.get();
+		final String text = getInputText();
 		final IModelCreatingContext context = fEditor
 				.createModelCreatingContext();
 

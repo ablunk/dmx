@@ -74,7 +74,9 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 			
 		public class «name»
 		«IF superClasses.size > 0»
-			<! inheritance is not supported for ACTIVE classes at the moment !>
+			extends «superClasses.head.class_.genType»
+		«ELSEIF superClasses.size > 1»
+			<! multiple inheritance is not supported at the moment !>
 		«ELSEIF active»
 			extends SimulationProcess
 		«ENDIF»
@@ -93,6 +95,12 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 					«constructor.statements.gen»
 				}
 			«ENDFOR»
+			
+			«IF constructors.empty»
+				public «name»() {
+					super("«name»");
+				}
+			«ENDIF»
 			
 			«IF active»
 			public void base_actions() {

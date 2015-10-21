@@ -16,6 +16,7 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
@@ -95,7 +96,7 @@ public class ExtensionSemanticsDefinitionImpl extends ExtensibleElementImpl impl
 	 * @generated
 	 */
 	public ExtensionDefinition getSyntaxDefinition() {
-		if (syntaxDefinition != null && syntaxDefinition.eIsProxy()) {
+		if (syntaxDefinition != null && ((EObject)syntaxDefinition).eIsProxy()) {
 			InternalEObject oldSyntaxDefinition = (InternalEObject)syntaxDefinition;
 			syntaxDefinition = (ExtensionDefinition)eResolveProxy(oldSyntaxDefinition);
 			if (syntaxDefinition != oldSyntaxDefinition) {

@@ -1,0 +1,13 @@
+#import "../dbl"
+
+module TestDef {
+
+extension TestDef extends dbl Statement {
+	start TestDef;
+	TestDef -> "test" A;
+	A -> n:N;
+	N -> ;
+	N -> "key";
+}
+
+}

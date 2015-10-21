@@ -4,6 +4,7 @@ package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ConstructiveExtension;
 import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 
 import java.util.Collection;
@@ -33,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class ConstructiveExtensionAtContentExtensionPointImpl extends EObjectImpl implements ConstructiveExtensionAtContentExtensionPoint {
+public abstract class ConstructiveExtensionAtContentExtensionPointImpl extends DblEObjectImpl implements ConstructiveExtensionAtContentExtensionPoint {
 	/**
 	 * The cached value of the '{@link #getContentExtensions() <em>Content Extensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

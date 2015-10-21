@@ -21,9 +21,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getSuperClassSpecification()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface SuperClassSpecification extends EObject {
+public interface SuperClassSpecification extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Class</b></em>' reference.
 	 * <!-- begin-user-doc -->

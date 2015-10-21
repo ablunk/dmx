@@ -2,19 +2,38 @@ package hub.sam.dmx.editor;
 
 import java.util.logging.Logger;
 
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.source.ISourceViewer;
 
+import hub.sam.dmx.editor.InsideOutDocumentProvider.InsideOutSubstitutedDocument;
 import hub.sam.tef.editor.ReconcilingStrategy;
 import hub.sam.tef.editor.text.ITefEditorStatusListener;
 import hub.sam.tef.editor.text.TextEditor;
 
-public class ModelReferenceAwareReconcilingStrategy extends ReconcilingStrategy {
+public class DblReconcilingStrategy extends ReconcilingStrategy {
 	
-	private final static Logger logger = Logger.getLogger(ModelReferenceAwareReconcilingStrategy.class.getName());
+	private final static Logger logger = Logger.getLogger(DblReconcilingStrategy.class.getName());
 	
 	final DblTextEditor editor;
 
-	public ModelReferenceAwareReconcilingStrategy(DblTextEditor editor, final ISourceViewer sourceViewer) {
+	@Override
+	protected String getInputText() {
+		IDocument doc = getDocument();
+		if (doc instanceof InsideOutSubstitutedDocument) {
+			InsideOutSubstitutedDocument subDoc = (InsideOutSubstitutedDocument) doc;
+			if (subDoc.textWithSubstitutions != null) {
+				return subDoc.textWithSubstitutions;
+			}
+			else {
+				return subDoc.get();
+			}
+		}
+		else {
+			return super.getInputText();
+		}
+	}
+
+	public DblReconcilingStrategy(DblTextEditor editor, final ISourceViewer sourceViewer) {
 		super(editor, sourceViewer);
 		this.editor = editor;
 		

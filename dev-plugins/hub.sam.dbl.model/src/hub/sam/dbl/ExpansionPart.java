@@ -12,7 +12,8 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getExpansionPart()
  * @model abstract="true"
+ * @extends DblEObject
  * @generated
  */
-public interface ExpansionPart extends EObject {
+public interface ExpansionPart extends DblEObject {
 } // ExpansionPart

@@ -3,6 +3,7 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.ArrayDimension;
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Type;
 
@@ -33,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class TypeImpl extends EObjectImpl implements Type {
+public abstract class TypeImpl extends DblEObjectImpl implements Type {
 	/**
 	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

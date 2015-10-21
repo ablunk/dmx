@@ -142,6 +142,7 @@ import hub.sam.dbl.TypeAccess;
 import hub.sam.dbl.TypeLiteral;
 import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.UnaryOperator;
+import hub.sam.dbl.UniqueIdExpr;
 import hub.sam.dbl.Variable;
 import hub.sam.dbl.VariableAccess;
 import hub.sam.dbl.VoidType;
@@ -1121,6 +1122,17 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseExtensibleElement(doubleLiteral);
 				if (result == null) result = caseNamedElement(doubleLiteral);
 				if (result == null) result = caseConstruct(doubleLiteral);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.UNIQUE_ID_EXPR: {
+				UniqueIdExpr uniqueIdExpr = (UniqueIdExpr)theEObject;
+				T result = caseUniqueIdExpr(uniqueIdExpr);
+				if (result == null) result = caseExpression(uniqueIdExpr);
+				if (result == null) result = caseTypedElement(uniqueIdExpr);
+				if (result == null) result = caseExtensibleElement(uniqueIdExpr);
+				if (result == null) result = caseNamedElement(uniqueIdExpr);
+				if (result == null) result = caseConstruct(uniqueIdExpr);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -2989,6 +3001,21 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseDoubleLiteral(DoubleLiteral object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Unique Id Expr</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Unique Id Expr</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUniqueIdExpr(UniqueIdExpr object) {
 		return null;
 	}
 

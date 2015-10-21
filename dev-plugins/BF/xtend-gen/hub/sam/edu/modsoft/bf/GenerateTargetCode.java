@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Consumer;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -30,7 +31,6 @@ import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
 import org.eclipse.xtext.xbase.lib.InputOutput;
 import org.eclipse.xtext.xbase.lib.IterableExtensions;
-import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
 public class GenerateTargetCode {
@@ -103,13 +103,13 @@ public class GenerateTargetCode {
   
   public void generate(final Resource res) {
     EList<EObject> _contents = res.getContents();
-    final Procedure1<EObject> _function = new Procedure1<EObject>() {
-      public void apply(final EObject eObject) {
+    final Consumer<EObject> _function = new Consumer<EObject>() {
+      public void accept(final EObject eObject) {
         CharSequence _compile = GenerateTargetCode.this.compile(eObject);
         InputOutput.<CharSequence>println(_compile);
       }
     };
-    IterableExtensions.<EObject>forEach(_contents, _function);
+    _contents.forEach(_function);
   }
   
   public CharSequence _compile(final EObject eObject) {

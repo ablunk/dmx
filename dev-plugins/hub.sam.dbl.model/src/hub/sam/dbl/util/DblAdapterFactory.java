@@ -142,6 +142,7 @@ import hub.sam.dbl.TypeAccess;
 import hub.sam.dbl.TypeLiteral;
 import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.UnaryOperator;
+import hub.sam.dbl.UniqueIdExpr;
 import hub.sam.dbl.Variable;
 import hub.sam.dbl.VariableAccess;
 import hub.sam.dbl.VoidType;
@@ -563,6 +564,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseDoubleLiteral(DoubleLiteral object) {
 				return createDoubleLiteralAdapter();
+			}
+			@Override
+			public Adapter caseUniqueIdExpr(UniqueIdExpr object) {
+				return createUniqueIdExprAdapter();
 			}
 			@Override
 			public Adapter caseExpandExpr(ExpandExpr object) {
@@ -2089,6 +2094,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createDoubleLiteralAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.UniqueIdExpr <em>Unique Id Expr</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.UniqueIdExpr
+	 * @generated
+	 */
+	public Adapter createUniqueIdExprAdapter() {
 		return null;
 	}
 

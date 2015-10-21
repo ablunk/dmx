@@ -20,7 +20,7 @@ public class DblSourceViewerConfiguration extends SourceViewerConfiguration {
 
 	@Override
 	public IReconciler getReconciler(ISourceViewer sourceViewer) {	
-		IReconcilingStrategy strategy = new ModelReferenceAwareReconcilingStrategy(editor, sourceViewer); 
+		IReconcilingStrategy strategy = new DblReconcilingStrategy(editor, sourceViewer); 
 		MonoReconciler reconciler= new Reconciler(editor, strategy, false);		
 		reconciler.setIsIncrementalReconciler(false);
 		reconciler.setProgressMonitor(new NullProgressMonitor());

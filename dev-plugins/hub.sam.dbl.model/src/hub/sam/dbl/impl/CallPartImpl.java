@@ -3,6 +3,7 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.CallPart;
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 
@@ -33,7 +34,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class CallPartImpl extends EObjectImpl implements CallPart {
+public class CallPartImpl extends DblEObjectImpl implements CallPart {
 	/**
 	 * The cached value of the '{@link #getCallArguments() <em>Call Arguments</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

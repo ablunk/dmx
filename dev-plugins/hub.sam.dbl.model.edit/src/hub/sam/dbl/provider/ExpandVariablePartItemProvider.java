@@ -316,6 +316,11 @@ public class ExpandVariablePartItemProvider extends ExpansionPartItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_VARIABLE_PART__EXPR,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPAND_VARIABLE_PART__EXPR,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

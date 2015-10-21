@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.QuotedCode;
 
@@ -18,7 +19,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class QuotedCodeImpl extends EObjectImpl implements QuotedCode {
+public class QuotedCodeImpl extends DblEObjectImpl implements QuotedCode {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

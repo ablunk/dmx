@@ -1,0 +1,9 @@
+#import "testdef"
+
+module TestDefApp {
+
+void main() {
+	test key
+}
+
+}

@@ -8,14 +8,14 @@
   </imports>
   <modules name="stdx_forever">
     <extensionDefinitions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}">
-      <extendedConcept xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@clazzes.28"/>
+      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.29"/>
       <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
         <rules name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
           <rhs xsi:type="dbl:SequenceExpr">
             <sequence xsi:type="dbl:TerminalExpr" terminal="forever"/>
             <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
               <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Clazz" href="../dbl.xmi#//@modules.0/@clazzes.42"/>
+                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.43"/>
               </propertyType>
             </sequence>
           </rhs>

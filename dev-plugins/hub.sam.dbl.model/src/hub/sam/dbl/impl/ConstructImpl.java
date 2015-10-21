@@ -3,6 +3,7 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.Construct;
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExpandExpr;
 
@@ -28,7 +29,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class ConstructImpl extends EObjectImpl implements Construct {
+public class ConstructImpl extends DblEObjectImpl implements Construct {
 	/**
 	 * The cached value of the '{@link #getExpandExpr() <em>Expand Expr</em>}' containment reference.
 	 * <!-- begin-user-doc -->

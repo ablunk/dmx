@@ -18,9 +18,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getConstruct()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface Construct extends EObject {
+public interface Construct extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Expand Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

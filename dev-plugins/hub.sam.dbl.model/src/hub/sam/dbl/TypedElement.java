@@ -22,9 +22,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getTypedElement()
  * @model abstract="true"
+ * @extends DblEObject
  * @generated
  */
-public interface TypedElement extends EObject {
+public interface TypedElement extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Primitive Type</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

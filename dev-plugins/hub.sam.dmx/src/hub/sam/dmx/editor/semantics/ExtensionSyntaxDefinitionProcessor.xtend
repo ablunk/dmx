@@ -80,11 +80,38 @@ class ExtensionSyntaxDefinitionProcessor {
 		return _dblMetaModel;
 	}
 	
+	private Collection<CompositePropertyType> listParts = new HashSet<CompositePropertyType>()
+	
+	private def rewriteListParts(TextualSyntaxDef syntaxDef) {
+		syntaxDef.rules.forEach[rule | 
+			if (rule.rhs instanceof SequenceExpr) {
+				val rhsSequenceExpr = rule.rhs as SequenceExpr
+				if (rhsSequenceExpr.sequence.size > 0) {
+					// case a)
+					if (rhsSequenceExpr.sequence.filter(RhsClassifierExpr).exists[classifier.name.equals(rule.name)]) {
+						// rewrite all composite parts
+						rhsSequenceExpr.sequence.filter(PropertyBindingExpr).forEach[bindingExpr | 
+							if (bindingExpr.propertyType instanceof CompositePropertyType) {
+								val cpt = bindingExpr.propertyType as CompositePropertyType
+								listParts.add(cpt)
+								logger.info("found list part " + bindingExpr.name + " in rule " + rule.name)
+							}
+						]
+					}
+					
+					// TODO case b)
+				}
+			}
+		]
+	}
+	
 	def boolean addToDbl() {
 		if (extensionDefinition.getTextualSyntaxDef().getStartRule() != null) {
 			// the first rule must refer to an existent rule in the syntax.
 			// the right side must consist of one new rule.
 			// `existent-rule` -> `new-rule`;
+			
+			rewriteListParts(extensionDefinition.textualSyntaxDef)
 			
 			// start rule
 			val startRule = extensionDefinition.getTextualSyntaxDef().getStartRule();		
@@ -255,27 +282,43 @@ class ExtensionSyntaxDefinitionProcessor {
 					}
 					metaClass.getESuperTypes().add((conceptClassifier as Class).metaClass);
 				}
-				else {
-					metaClass.getESuperTypes().add(instantiableDblEClass);
+				else if (langConstructClassifier instanceof TsRule) {
+					val tsRule = langConstructClassifier as TsRule
+					if (tsRule.syntaxRuleName.equals(extensionDefinition.textualSyntaxDef.startRule.syntaxRuleName)) {
+						metaClass.getESuperTypes().add(instantiableDblEClass)
+					}
+					else {
+						metaClass.getESuperTypes().add(DblPackage.Literals.EXTENSIBLE_ELEMENT);
+						//metaClass.getESuperTypes().add(instantiableDblEClass)
+					}
+				}
+				else if (langConstructClassifier instanceof Class) {
+					// it cannot be a DBL metaclass from the dbl module because getDblMetaModel().getEClassifier(name)
+					// would have return the metaclass.
+					
+					// it could be a regular DBL class
+					metaClass.getESuperTypes().add(DblPackage.Literals.CONSTRUCT);
+					// then it has be at least a Construct so that instances can be created
 				}
 
-				metaClass.getESuperTypes().add(extendedConceptMetaClass);
+				//metaClass.getESuperTypes().add(extendedConceptMetaClass);
 				
 				// in case, the langConstructClassifier is used in a direct reduction rule, e.g. "directReductionRule" -> "langConstructClassifier":
 				// the meta-class of "directReductionRule" is added as a super-class of the meta-class of "langConstructClassifier".
 				val fMetaClass = metaClass
-				extensionDefinition.getTextualSyntaxDef().rules.
+				var directReductionRules = extensionDefinition.getTextualSyntaxDef().rules.
 					filter[
 						rhs instanceof SequenceExpr && (rhs as SequenceExpr).sequence.size == 1
 							&& (rhs as SequenceExpr).sequence.get(0) instanceof RhsClassifierExpr
-					].forEach[ directReductionRule | 
-						val directReductionConstructClassifier = ((directReductionRule.rhs as SequenceExpr).sequence.get(0) as RhsClassifierExpr).classifier
-						if (directReductionConstructClassifier.name.equals(name)) {
-							val superMetaClass = directReductionRule.metaClass
-							fMetaClass.getESuperTypes().add(superMetaClass)
-							logger.info("added super-class " + superMetaClass + " to meta-class "+ name)
-						}
 					]
+				directReductionRules.forEach[ directReductionRule | 
+					val reductionTarget = ((directReductionRule.rhs as SequenceExpr).sequence.get(0) as RhsClassifierExpr).classifier
+					if (reductionTarget.syntaxRuleName.equals(name)) {
+						val superMetaClass = directReductionRule.metaClass
+						fMetaClass.getESuperTypes().add(superMetaClass)
+						logger.info("added super-class " + superMetaClass + " to meta-class "+ name)
+					}
+				]
 				
 				getDblMetaModel().getEClassifiers().add(metaClass);
 				addedMetaClasses.add(metaClass);
@@ -590,7 +633,7 @@ class ExtensionSyntaxDefinitionProcessor {
 		property.setContainment(true);	
 		
 		val propertyNonTerminal = createNonTerminal(propertyType.type);
-		if (propertyType.list) {
+		if (propertyType.list || listParts.contains(propertyType)) {
 			property.setUpperBound(-1);
 		}
 		

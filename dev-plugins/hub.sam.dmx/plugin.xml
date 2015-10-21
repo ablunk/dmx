@@ -15,6 +15,17 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
+            class="hub.sam.dmx.editor.InsideOutTextEditor"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            extensions="dblout"
+            icon="icons/TSL.gif"
+            id="hub.sam.dmx.dblout.editor"
+            name="DBL Inside Out Editor ">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
             class="hub.sam.dmx.editor.DbxTextEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
             extensions="dbx"

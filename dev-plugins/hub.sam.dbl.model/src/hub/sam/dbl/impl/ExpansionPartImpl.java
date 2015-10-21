@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExpansionPart;
 
@@ -18,7 +19,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public abstract class ExpansionPartImpl extends EObjectImpl implements ExpansionPart {
+public abstract class ExpansionPartImpl extends DblEObjectImpl implements ExpansionPart {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

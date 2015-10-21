@@ -384,6 +384,11 @@ public class IdExprItemProvider extends L1ExprItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ID_EXPR__ARRAY_INDEX,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

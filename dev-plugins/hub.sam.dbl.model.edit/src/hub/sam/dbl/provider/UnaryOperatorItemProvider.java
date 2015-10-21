@@ -308,6 +308,11 @@ public class UnaryOperatorItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.UNARY_OPERATOR__OP,
+				 DblFactory.eINSTANCE.createUniqueIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.UNARY_OPERATOR__OP,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

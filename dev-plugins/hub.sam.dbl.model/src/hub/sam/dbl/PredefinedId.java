@@ -12,7 +12,8 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getPredefinedId()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface PredefinedId extends EObject {
+public interface PredefinedId extends DblEObject {
 } // PredefinedId

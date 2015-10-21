@@ -20,9 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getCallPart()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface CallPart extends EObject {
+public interface CallPart extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Call Arguments</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.Expression}.

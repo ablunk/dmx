@@ -20,9 +20,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getType()
  * @model abstract="true"
+ * @extends DblEObject
  * @generated
  */
-public interface Type extends EObject {
+public interface Type extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Array Dimensions</b></em>' containment reference list.
 	 * The list contents are of type {@link hub.sam.dbl.ArrayDimension}.

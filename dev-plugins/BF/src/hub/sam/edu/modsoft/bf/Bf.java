@@ -6,6 +6,7 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.EcoreFactory;
 import org.eclipse.emf.ecore.EcorePackage;
@@ -34,13 +35,14 @@ public class Bf {
 		id.setEType(EcorePackage.Literals.EINT);
 		boxClass.getEStructuralFeatures().add(id);
 
-		EAttribute listAttr = EcoreFactory.eINSTANCE.createEAttribute();
-		listAttr.setName("boxes");
-		listAttr.setEType(boxClass);
-		listAttr.setLowerBound(0);
-		listAttr.setUpperBound(-1);
-		listAttr.setOrdered(true);
-		boxClass.getEStructuralFeatures().add(listAttr);
+		EReference listRef = EcoreFactory.eINSTANCE.createEReference();
+		listRef.setName("boxes");
+		listRef.setEType(boxClass);
+		listRef.setLowerBound(0);
+		listRef.setUpperBound(-1);
+		listRef.setOrdered(true);
+		listRef.setContainment(true);
+		boxClass.getEStructuralFeatures().add(listRef);
 
 		// model
 		EObjectImpl box = (EObjectImpl) EcoreFactory.eINSTANCE.createEObject();
@@ -50,7 +52,7 @@ public class Bf {
 
 		EList<EObject> listValue = new BasicEList<EObject>();
 		listValue.add(box);
-		box.eSet(listAttr, listValue);
+		box.eSet(listRef, listValue);
 		
 		String nameValue = getPropertyValue(box, "name", String.class);
 		Integer idValue = getPropertyValue(box, "id", Integer.class);

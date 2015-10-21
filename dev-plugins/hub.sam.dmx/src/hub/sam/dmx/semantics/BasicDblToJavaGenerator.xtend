@@ -73,6 +73,7 @@ import java.util.List
 import java.util.regex.Matcher
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
+import hub.sam.dbl.UniqueIdExpr
 
 /**
  * Generates Java code for the specified model only (i.e. imported models are not considered).
@@ -525,6 +526,10 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'null'
 	}
 	
+	def dispatch String genExpr(UniqueIdExpr expr) {
+		expr.identifier
+	}
+	
 	def String genBinaryExpr(BinaryOperator expr, String op) {
 		val it = expr
 		'''(«op1.genExpr» «op» «op2.genExpr»)'''
@@ -590,7 +595,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, SizeOfArray predefinedId) {
 		if (idExpr.callPart == null) 'length'
-		else 'size()'
+		else 'length()'
 	}
 
 	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, NamedElement referencedElement) {

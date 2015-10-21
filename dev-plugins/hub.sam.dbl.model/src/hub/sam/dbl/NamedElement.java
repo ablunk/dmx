@@ -18,9 +18,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * @see hub.sam.dbl.DblPackage#getNamedElement()
  * @model
+ * @extends DblEObject
  * @generated
  */
-public interface NamedElement extends EObject {
+public interface NamedElement extends DblEObject {
 	/**
 	 * Returns the value of the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->

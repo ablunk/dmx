@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="testdef">
+    <model href="testdef.xmi#/"/>
+  </imports>
+  <modules name="TestDefApp">
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:TestDef_TestDef_extension" concreteSyntax="test key" instanceOfExtensionDefinition="true">
+        <n concreteSyntax="key" instanceOfExtensionDefinition="true"/>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

@@ -2,6 +2,7 @@
  */
 package hub.sam.dbl.impl;
 
+import hub.sam.dbl.DblEObjectImpl;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.PredefinedId;
 
@@ -18,7 +19,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class PredefinedIdImpl extends EObjectImpl implements PredefinedId {
+public class PredefinedIdImpl extends DblEObjectImpl implements PredefinedId {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

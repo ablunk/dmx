@@ -26,10 +26,12 @@ Require-Bundle: org.eclipse.ui,
 Eclipse-BuddyPolicy: registered
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: hub.sam.dmx,
+Export-Package: hub.sam.dbl,
+ hub.sam.dmx,
  hub.sam.dmx.javasim,
  hub.sam.dmx.javasim.desmoj,
  hub.sam.dmx.javasim.desmoj.dist,
  hub.sam.dmx.javasim.generic.dist,
  hub.sam.dmx.javasim.jdisco,
- hub.sam.dmx.javasim.jist
+ hub.sam.dmx.javasim.jist,
+ hub.sam.dmx.semantics
