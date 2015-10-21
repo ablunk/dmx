@@ -86,11 +86,11 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 	          
 	            if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
 	            	//Windows
-	            	prefix = java.util.Arrays.asList("CMD", "/C", "g++", "-std=c++11","-Wno-parentheses-equality", "-o", "my_program", "Main.cpp");
+	            	prefix = java.util.Arrays.asList("CMD", "/C", "g++", "-O3", "-std=c++11","-o", "my_program", "Main.cpp");
 	            }
 	            else{
 	            	//Mac
-	            	prefix = java.util.Arrays.asList("g++", "-std=c++11","-Wno-parentheses-equality", "-o", "my_program", "Main.cpp");
+	            	prefix = java.util.Arrays.asList("g++","-O3", "-std=c++11","-Wno-parentheses-equality", "-o", "my_program", "Main.cpp");
 	            }
 		        command.addAll(prefix);
 	            command.addAll(cppNames);
@@ -155,10 +155,7 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 	            pb.redirectErrorStream(true);
 	           
 	            Process shell = pb.start();
-				try {
-					shell.waitFor();
-				} catch (InterruptedException e) {
-				}
+				
 				// read output from shell
 				String line;
 				BufferedReader inContent = new BufferedReader(new InputStreamReader(shell.getInputStream()));
@@ -166,6 +163,11 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		        while((line = inContent.readLine()) != null) 
 		        	System.out.println(line);
 		        inContent.close();
+		        
+		        try {
+					shell.waitFor();
+				} catch (InterruptedException e) {
+				}
 		        
 		        logger.info("Finished execution.");
 	        }

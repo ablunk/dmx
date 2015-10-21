@@ -3,11 +3,11 @@
 module test {
 	boolean ran = true;
 	boolean zum = false;
-	string array [15] ser;
+	string array [] ser;
 	Moped m;
 	Auto a;
 	int number;
-	Auto array [5] autos;
+	Auto array [] autos;
 	
 	int sayHello(Point b){
 		return 5;
@@ -19,7 +19,9 @@ module test {
 		return a;
 	}
 	
-	class Auto (int pe){
+	class Auto{
+		Auto (string a){;}
+		
 		Auto array [10] autobahn;
 		int array [6][3] arr;
 		int bu = 20;

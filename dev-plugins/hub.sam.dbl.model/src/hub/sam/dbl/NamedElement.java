@@ -11,10 +11,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.NamedElement#getName <em>Name</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getNamedElement()
  * @model

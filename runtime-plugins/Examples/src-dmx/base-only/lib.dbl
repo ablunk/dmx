@@ -2,7 +2,8 @@ module lib {
 
 class Object {
 	bindings {
-		"java" -> "java.lang.Object"
+		"java" -> "java.lang.Object",
+		"c++" -> "Object"
 	}
 }
 
@@ -41,5 +42,12 @@ class List {
 	//Object set(int index, Object e) abstract;
 	Object array[] toArray() abstract;
 	//Iterator iterator() abstract;
+}
+
+class ArrayList extends List{
+	bindings {
+		"java" -> "java.util.List",
+		"c++" -> "ListWrapper"
+	}
 }
 }

@@ -10,10 +10,10 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.TargetStatement#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getTargetStatement()
  * @model

@@ -9,7 +9,7 @@
     complianceLevel="6.0" editPluginID="hub.sam.dbl.model.edit" editorPluginID="hub.sam.dbl.model.editor">
   <foreignModel>dbl.ecore</foreignModel>
   <genPackages prefix="Dbl" basePackage="hub.sam" disposableProviderFactory="true"
-      ecorePackage="dbl.ecore#/">
+      ecorePackage="dbl.ecore#/" publicationLocation="">
     <genClasses ecoreClass="dbl.ecore#//Construct">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference dbl.ecore#//Construct/expandExpr"/>
     </genClasses>

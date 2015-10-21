@@ -1,7 +1,7 @@
 #import "lib"
 
 module hello_world {
-	int array [3] integers; 
+	int array [] integers = new integers[3]; 
 	Foobar f;
 	Ape a;
 	int timer;

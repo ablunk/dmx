@@ -2,9 +2,14 @@
 #import "lib"
 
 module simulation{
-	active class Superprinter(int prio, string label2){
-		int p = prio;
-		List waiting = new List;
+	
+	active class Superprinter{
+		int p;
+		List waiting = new List;		
+		
+		new(int prio, string label2){
+			int result = prio * 5;
+		}
 		
 		void h(int k, int n){
 			print "YIELD in Funktion h";
@@ -40,10 +45,6 @@ module simulation{
 			}
 			else return 0;
 		}
-		
-		initial{
-			int result = prio * 5;
-		}
 		actions{
 			double s = 0.96;
 			int t = 12;
@@ -75,13 +76,13 @@ module simulation{
 			print "SuperPrinter ADVANCE 1";
 			advance 1;
 		}
-		final{}
 	}
 	
-	active class Printer(int prio2, string label) extends Superprinter(prio2, label){
-		int number = prio2;
+	active class Printer extends Superprinter(prio2, label){
+		int number = 3;
 		
-		initial{
+		new(int prio2, string label){
+			number = prio2;
 			print "hallo drucker: ",prio2;
 		}
 		actions{
@@ -92,28 +93,30 @@ module simulation{
 			advance 3;
 			print "Modellzeit Printer: ",time;
 		}
-		final{}
 	}
 	
-	active class HuiBu(int prio3, string label3){
-		int cru = prio3;
+	active class HuiBu{
+		int cru = 20;
+		string id;
 		
-		initial{
+		new (int prio3, string label3){
+			cru = prio3;
 		}
+		new (int prio, string label5, string var){
+			id = var;
+		}
+		
 		actions{
 			print "ADVANCE HuiBu, 2";
 			advance 2;
-		}
-		final{
-		}
-		
+		}	
 	}
 	
-	class Bibu(int x, double y){
+	class Bibu{
 		int number;
 		double real;
 		
-		initial{
+		new(int x, double y){
 			number = x;
 			real = y;
 		}

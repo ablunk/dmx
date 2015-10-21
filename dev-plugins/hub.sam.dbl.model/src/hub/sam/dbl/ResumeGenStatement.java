@@ -10,10 +10,10 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.ResumeGenStatement#getVariable <em>Variable</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getResumeGenStatement()
  * @model

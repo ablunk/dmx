@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Module#getClasses <em>Classes</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getExtensionDefinitions <em>Extension Definitions</em>}</li>
@@ -18,7 +19,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link hub.sam.dbl.Module#getFunctions <em>Functions</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getVariables <em>Variables</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getModule()
  * @model

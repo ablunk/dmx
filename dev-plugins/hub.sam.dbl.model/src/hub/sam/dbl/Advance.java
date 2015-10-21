@@ -10,10 +10,10 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Advance#getTime <em>Time</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getAdvance()
  * @model

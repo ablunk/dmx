@@ -10,12 +10,12 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.IfStatement#getCondition <em>Condition</em>}</li>
  *   <li>{@link hub.sam.dbl.IfStatement#getTrueCase <em>True Case</em>}</li>
  *   <li>{@link hub.sam.dbl.IfStatement#getFalseCase <em>False Case</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getIfStatement()
  * @model

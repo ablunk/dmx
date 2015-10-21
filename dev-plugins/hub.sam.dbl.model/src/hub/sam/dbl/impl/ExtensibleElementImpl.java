@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ExtensibleElementImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensibleElementImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
@@ -36,7 +37,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link hub.sam.dbl.impl.ExtensibleElementImpl#getPlaceHolder9 <em>Place Holder9</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensibleElementImpl#getPlaceHolder10 <em>Place Holder10</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

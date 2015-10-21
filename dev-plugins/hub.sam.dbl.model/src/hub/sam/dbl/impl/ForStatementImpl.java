@@ -28,13 +28,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getStatements <em>Statements</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getTermination <em>Termination</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getIncrement <em>Increment</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ForStatementImpl#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

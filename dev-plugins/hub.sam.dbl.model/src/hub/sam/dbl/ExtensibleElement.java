@@ -10,6 +10,7 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.ExtensibleElement#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.ExtensibleElement#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
@@ -23,7 +24,6 @@ package hub.sam.dbl;
  *   <li>{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder9 <em>Place Holder9</em>}</li>
  *   <li>{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder10 <em>Place Holder10</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getExtensibleElement()
  * @model

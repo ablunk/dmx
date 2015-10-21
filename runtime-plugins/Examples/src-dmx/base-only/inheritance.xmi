@@ -1,42 +1,46 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="diamond">
-    <classifiers xsi:type="dbl:Clazz" name="A">
+    <classes name="A">
       <attributes name="a">
         <primitiveType xsi:type="dbl:IntType"/>
         <initialValue xsi:type="dbl:IntLiteral" value="1"/>
       </attributes>
+      <attributes name="f">
+        <classifierType referencedElement="//@modules.0/@classes.4"/>
+      </attributes>
       <methods name="f">
         <primitiveType xsi:type="dbl:IntType"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
         </statements>
         <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
         </statements>
       </methods>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="B">
+    </classes>
+    <classes name="B">
+      <superClasses class="//@modules.0/@classes.0"/>
       <attributes name="b">
         <primitiveType xsi:type="dbl:DoubleType"/>
         <initialValue xsi:type="dbl:Mul">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
           <op2 xsi:type="dbl:DoubleLiteral" value="2.0"/>
         </initialValue>
       </attributes>
       <methods name="g">
         <primitiveType xsi:type="dbl:DoubleType"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.0"/>
         </statements>
         <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.0"/>
         </statements>
       </methods>
       <methods name="f">
         <primitiveType xsi:type="dbl:IntType"/>
-        <statements xsi:type="dbl:ProcedureCall">
-          <callIdExpr referencedElement="//@modules.0/@classifiers.0/@methods.0">
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
             <parentIdExpr>
               <predefinedId xsi:type="dbl:SuperLiteral"/>
             </parentIdExpr>
@@ -44,35 +48,35 @@
           </callIdExpr>
         </statements>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
         </statements>
         <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
         </statements>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.0"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="C">
+    </classes>
+    <classes name="C">
+      <superClasses class="//@modules.0/@classes.0"/>
       <attributes name="c">
         <primitiveType xsi:type="dbl:DoubleType"/>
         <initialValue xsi:type="dbl:Mul">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
           <op2 xsi:type="dbl:DoubleLiteral" value="3.0"/>
         </initialValue>
       </attributes>
       <methods name="g">
         <primitiveType xsi:type="dbl:DoubleType"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
         </statements>
         <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
         </statements>
       </methods>
       <methods name="f">
         <primitiveType xsi:type="dbl:IntType"/>
-        <statements xsi:type="dbl:ProcedureCall">
-          <callIdExpr referencedElement="//@modules.0/@classifiers.0/@methods.0">
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
             <parentIdExpr>
               <predefinedId xsi:type="dbl:SuperLiteral"/>
             </parentIdExpr>
@@ -80,108 +84,106 @@
           </callIdExpr>
         </statements>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
         </statements>
         <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
         </statements>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.0"/>
-    </classifiers>
-    <classifiers xsi:type="dbl:Clazz" name="D">
+    </classes>
+    <classes name="D">
+      <superClasses class="//@modules.0/@classes.1"/>
+      <superClasses class="//@modules.0/@classes.2"/>
       <attributes name="d">
         <primitiveType xsi:type="dbl:IntType"/>
         <initialValue xsi:type="dbl:Mul">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@attributes.0"/>
-          <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@attributes.0"/>
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.0"/>
+          <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
         </initialValue>
       </attributes>
       <methods name="f">
         <primitiveType xsi:type="dbl:IntType"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
         </statements>
         <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@attributes.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
         </statements>
       </methods>
-      <superClasses clazz="//@modules.0/@classifiers.1"/>
-      <superClasses clazz="//@modules.0/@classifiers.2"/>
-    </classifiers>
-    <procedures name="main">
+    </classes>
+    <classes name="F">
+      <attributes name="a">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+      </attributes>
+    </classes>
+    <functions name="main">
       <primitiveType xsi:type="dbl:IntType"/>
       <statements xsi:type="dbl:Variable" name="a">
-        <classifierType referencedElement="//@modules.0/@classifiers.0"/>
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.0">
+          <classifierType referencedElement="//@modules.0/@classes.0">
             <callPart/>
           </classifierType>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
           <callPart/>
         </outputs>
       </statements>
       <statements xsi:type="dbl:Variable" name="b">
-        <classifierType referencedElement="//@modules.0/@classifiers.1"/>
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.1">
+          <classifierType referencedElement="//@modules.0/@classes.1">
             <callPart/>
           </classifierType>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.2"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.2"/>
         </outputs>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.1">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.2"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.1">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.2"/>
           <callPart/>
         </outputs>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.1/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.2"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.2"/>
           <callPart/>
         </outputs>
       </statements>
       <statements xsi:type="dbl:Variable" name="c">
-        <classifierType referencedElement="//@modules.0/@classifiers.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.2">
+          <classifierType referencedElement="//@modules.0/@classes.2">
             <callPart/>
           </classifierType>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.0/@attributes.0">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.6"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.6"/>
         </outputs>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.2/@methods.1">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.6"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@methods.1">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.6"/>
           <callPart/>
         </outputs>
       </statements>
       <statements xsi:type="dbl:Variable" name="d">
-        <classifierType referencedElement="//@modules.0/@classifiers.3"/>
+        <classifierType referencedElement="//@modules.0/@classes.3"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classifiers.3">
+          <classifierType referencedElement="//@modules.0/@classes.3">
             <callPart/>
           </classifierType>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classifiers.3/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.9"/>
-          <callPart/>
-        </outputs>
-      </statements>
-    </procedures>
+    </functions>
   </modules>
 </dbl:Model>

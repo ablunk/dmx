@@ -77,6 +77,7 @@ public class GenerateTargetCode {
     item.eSet(nameAttribute, "blub");
     EList<EStructuralFeature> _eAllStructuralFeatures = itemClass.getEAllStructuralFeatures();
     final Function1<EStructuralFeature, Boolean> _function = new Function1<EStructuralFeature, Boolean>() {
+      @Override
       public Boolean apply(final EStructuralFeature sf) {
         String _name = sf.getName();
         return Boolean.valueOf(_name.equals("name"));
@@ -104,6 +105,7 @@ public class GenerateTargetCode {
   public void generate(final Resource res) {
     EList<EObject> _contents = res.getContents();
     final Consumer<EObject> _function = new Consumer<EObject>() {
+      @Override
       public void accept(final EObject eObject) {
         CharSequence _compile = GenerateTargetCode.this.compile(eObject);
         InputOutput.<CharSequence>println(_compile);

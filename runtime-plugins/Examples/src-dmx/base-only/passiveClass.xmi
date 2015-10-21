@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="lib">
+    <model href="lib.xmi#/"/>
+  </imports>
+  <modules name="mod2">
+    <classes name="ber"/>
+    <functions name="func">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <statements xsi:type="dbl:Variable" name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </statements>
+    </functions>
+    <variables name="zer">
+      <primitiveType xsi:type="dbl:IntType"/>
+    </variables>
+  </modules>
+  <modules name="passiveClass">
+    <classes name="base">
+      <constructors>
+        <statements xsi:type="dbl:Variable" name="s">
+          <classifierType referencedElement="//@modules.1/@classes.1"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="t">
+          <classifierType>
+            <referencedElement href="lib.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </statements>
+        <statements xsi:type="dbl:IfStatement">
+          <condition xsi:type="dbl:TrueLiteral"/>
+          <trueCase xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Assignment">
+              <variable>
+                <idExpr referencedElement="//@modules.1/@classes.0/@constructors.0/@statements.0"/>
+              </variable>
+              <value xsi:type="dbl:CreateObject">
+                <classifierType referencedElement="//@modules.1/@classes.1">
+                  <callPart>
+                    <callArguments xsi:type="dbl:IntLiteral" value="2"/>
+                  </callPart>
+                </classifierType>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:Assignment">
+              <variable>
+                <idExpr referencedElement="//@modules.1/@classes.0/@constructors.0/@statements.1"/>
+              </variable>
+              <value xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@classes.0/@methods.0">
+                <callPart/>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:Print">
+              <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@classes.1/@attributes.0">
+                <parentIdExpr referencedElement="//@modules.1/@classes.0/@constructors.0/@statements.0"/>
+              </outputs>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@classes.1/@attributes.0">
+            <parentIdExpr referencedElement="//@modules.1/@classes.0/@constructors.0/@statements.0"/>
+          </outputs>
+        </statements>
+      </constructors>
+      <methods name="objFunc">
+        <classifierType>
+          <referencedElement href="lib.xmi#//@modules.0/@classes.0"/>
+        </classifierType>
+        <statements xsi:type="dbl:Variable" name="o">
+          <classifierType>
+            <referencedElement href="lib.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:CreateObject">
+            <classifierType>
+              <referencedElement href="lib.xmi#//@modules.0/@classes.0"/>
+            </classifierType>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Return">
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@classes.0/@methods.0/@statements.0"/>
+        </statements>
+      </methods>
+      <methods name="f">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:Mul">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@classes.0/@methods.1/@parameters.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="2"/>
+          </outputs>
+        </statements>
+        <parameters name="value">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+    </classes>
+    <classes name="second">
+      <constructors>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.1/@classes.1/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@classes.1/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="x">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+      <constructors/>
+      <attributes name="id">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <statements xsi:type="dbl:Variable" name="s">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:StringLiteral" value="hallo"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="b">
+        <classifierType referencedElement="//@modules.1/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.1/@classes.0">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:IfStatement">
+        <condition xsi:type="dbl:InstanceOf">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@functions.0/@statements.1"/>
+          <op2 xsi:type="dbl:TypeAccess">
+            <idExpr referencedElement="//@modules.1/@functions.0/@statements.0"/>
+          </op2>
+        </condition>
+        <trueCase xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.1/@functions.0/@statements.0"/>
+        </trueCase>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="e">
+        <classifierType referencedElement="//@modules.1/@classes.1"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="cer">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr referencedElement="//@modules.0/@functions.0">
+          <callPart/>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.1/@variables.0"/>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" value="15"/>
+      </statements>
+    </functions>
+    <variables name="tet">
+      <primitiveType xsi:type="dbl:IntType"/>
+    </variables>
+  </modules>
+</dbl:Model>
