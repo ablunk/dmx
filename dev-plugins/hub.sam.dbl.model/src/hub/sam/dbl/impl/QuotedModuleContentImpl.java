@@ -7,8 +7,8 @@ import hub.sam.dbl.ConstructiveExtension;
 import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExpandExpr;
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.Function;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
@@ -19,10 +19,14 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -32,17 +36,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getContentExtensions <em>Content Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getClasses <em>Classes</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExtensionDefinitions <em>Extension Definitions</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExtensionSemanticsDefinitions <em>Extension Semantics Definitions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExtensions <em>Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getExtensionSemantics <em>Extension Semantics</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getVariables <em>Variables</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -98,24 +102,24 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 	protected EList<hub.sam.dbl.Class> classes;
 
 	/**
-	 * The cached value of the '{@link #getExtensionDefinitions() <em>Extension Definitions</em>}' containment reference list.
+	 * The cached value of the '{@link #getExtensions() <em>Extensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensionDefinitions()
+	 * @see #getExtensions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensionDefinition> extensionDefinitions;
+	protected EList<Extension> extensions;
 
 	/**
-	 * The cached value of the '{@link #getExtensionSemanticsDefinitions() <em>Extension Semantics Definitions</em>}' containment reference list.
+	 * The cached value of the '{@link #getExtensionSemantics() <em>Extension Semantics</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensionSemanticsDefinitions()
+	 * @see #getExtensionSemantics()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensionSemanticsDefinition> extensionSemanticsDefinitions;
+	protected EList<ExtensionSemantics> extensionSemantics;
 
 	/**
 	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
@@ -249,11 +253,11 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensionDefinition> getExtensionDefinitions() {
-		if (extensionDefinitions == null) {
-			extensionDefinitions = new EObjectContainmentEList<ExtensionDefinition>(ExtensionDefinition.class, this, DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS);
+	public EList<Extension> getExtensions() {
+		if (extensions == null) {
+			extensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS);
 		}
-		return extensionDefinitions;
+		return extensions;
 	}
 
 	/**
@@ -261,11 +265,11 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensionSemanticsDefinition> getExtensionSemanticsDefinitions() {
-		if (extensionSemanticsDefinitions == null) {
-			extensionSemanticsDefinitions = new EObjectContainmentEList<ExtensionSemanticsDefinition>(ExtensionSemanticsDefinition.class, this, DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS);
+	public EList<ExtensionSemantics> getExtensionSemantics() {
+		if (extensionSemantics == null) {
+			extensionSemantics = new EObjectContainmentEList<ExtensionSemantics>(ExtensionSemantics.class, this, DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS);
 		}
-		return extensionSemanticsDefinitions;
+		return extensionSemantics;
 	}
 
 	/**
@@ -306,10 +310,10 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				return basicSetExpandExpr(null, msgs);
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSES:
 				return ((InternalEList<?>)getClasses()).basicRemove(otherEnd, msgs);
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS:
-				return ((InternalEList<?>)getExtensionDefinitions()).basicRemove(otherEnd, msgs);
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS:
-				return ((InternalEList<?>)getExtensionSemanticsDefinitions()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
+				return ((InternalEList<?>)getExtensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS:
+				return ((InternalEList<?>)getExtensionSemantics()).basicRemove(otherEnd, msgs);
 			case DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS:
 				return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
 			case DblPackage.QUOTED_MODULE_CONTENT__VARIABLES:
@@ -334,10 +338,10 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				return getExpandExpr();
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSES:
 				return getClasses();
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS:
-				return getExtensionDefinitions();
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS:
-				return getExtensionSemanticsDefinitions();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
+				return getExtensions();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS:
+				return getExtensionSemantics();
 			case DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS:
 				return getFunctions();
 			case DblPackage.QUOTED_MODULE_CONTENT__VARIABLES:
@@ -369,13 +373,13 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				getClasses().clear();
 				getClasses().addAll((Collection<? extends hub.sam.dbl.Class>)newValue);
 				return;
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS:
-				getExtensionDefinitions().clear();
-				getExtensionDefinitions().addAll((Collection<? extends ExtensionDefinition>)newValue);
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
+				getExtensions().clear();
+				getExtensions().addAll((Collection<? extends Extension>)newValue);
 				return;
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS:
-				getExtensionSemanticsDefinitions().clear();
-				getExtensionSemanticsDefinitions().addAll((Collection<? extends ExtensionSemanticsDefinition>)newValue);
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS:
+				getExtensionSemantics().clear();
+				getExtensionSemantics().addAll((Collection<? extends ExtensionSemantics>)newValue);
 				return;
 			case DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS:
 				getFunctions().clear();
@@ -409,11 +413,11 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSES:
 				getClasses().clear();
 				return;
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS:
-				getExtensionDefinitions().clear();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
+				getExtensions().clear();
 				return;
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS:
-				getExtensionSemanticsDefinitions().clear();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS:
+				getExtensionSemantics().clear();
 				return;
 			case DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS:
 				getFunctions().clear();
@@ -441,10 +445,10 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 				return expandExpr != null;
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSES:
 				return classes != null && !classes.isEmpty();
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS:
-				return extensionDefinitions != null && !extensionDefinitions.isEmpty();
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS:
-				return extensionSemanticsDefinitions != null && !extensionSemanticsDefinitions.isEmpty();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
+				return extensions != null && !extensions.isEmpty();
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS:
+				return extensionSemantics != null && !extensionSemantics.isEmpty();
 			case DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS:
 				return functions != null && !functions.isEmpty();
 			case DblPackage.QUOTED_MODULE_CONTENT__VARIABLES:
@@ -481,8 +485,8 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 		if (baseClass == Module.class) {
 			switch (derivedFeatureID) {
 				case DblPackage.QUOTED_MODULE_CONTENT__CLASSES: return DblPackage.MODULE__CLASSES;
-				case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS: return DblPackage.MODULE__EXTENSION_DEFINITIONS;
-				case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS: return DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS;
+				case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS: return DblPackage.MODULE__EXTENSIONS;
+				case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS: return DblPackage.MODULE__EXTENSION_SEMANTICS;
 				case DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS: return DblPackage.MODULE__FUNCTIONS;
 				case DblPackage.QUOTED_MODULE_CONTENT__VARIABLES: return DblPackage.MODULE__VARIABLES;
 				default: return -1;
@@ -519,8 +523,8 @@ public class QuotedModuleContentImpl extends QuotedCodeImpl implements QuotedMod
 		if (baseClass == Module.class) {
 			switch (baseFeatureID) {
 				case DblPackage.MODULE__CLASSES: return DblPackage.QUOTED_MODULE_CONTENT__CLASSES;
-				case DblPackage.MODULE__EXTENSION_DEFINITIONS: return DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS;
-				case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS: return DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS;
+				case DblPackage.MODULE__EXTENSIONS: return DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS;
+				case DblPackage.MODULE__EXTENSION_SEMANTICS: return DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS;
 				case DblPackage.MODULE__FUNCTIONS: return DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS;
 				case DblPackage.MODULE__VARIABLES: return DblPackage.QUOTED_MODULE_CONTENT__VARIABLES;
 				default: return -1;

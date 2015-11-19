@@ -19,7 +19,7 @@ import hub.sam.dbl.ExpandVariablePart
 import hub.sam.dbl.ExpansionPart
 import hub.sam.dbl.ExpansionStatement
 import hub.sam.dbl.Expression
-import hub.sam.dbl.ExtensionDefinition
+import hub.sam.dbl.Extension
 import hub.sam.dbl.FalseLiteral
 import hub.sam.dbl.ForStatement
 import hub.sam.dbl.Function
@@ -31,7 +31,6 @@ import hub.sam.dbl.IfStatement
 import hub.sam.dbl.InstanceOf
 import hub.sam.dbl.IntLiteral
 import hub.sam.dbl.IntType
-import hub.sam.dbl.LanguageConstructClassifier
 import hub.sam.dbl.Less
 import hub.sam.dbl.LessEqual
 import hub.sam.dbl.LocalScopeStatement
@@ -51,15 +50,15 @@ import hub.sam.dbl.Parameter
 import hub.sam.dbl.Plus
 import hub.sam.dbl.PredefinedId
 import hub.sam.dbl.Print
-import hub.sam.dbl.PropertyBindingExpr
 import hub.sam.dbl.Return
-import hub.sam.dbl.SetExpansionContextStatement
 import hub.sam.dbl.SizeOfArray
 import hub.sam.dbl.Statement
 import hub.sam.dbl.StringLiteral
 import hub.sam.dbl.StringType
+import hub.sam.dbl.StructuralSymbolReference
 import hub.sam.dbl.SuperLiteral
 import hub.sam.dbl.SwitchStatement
+import hub.sam.dbl.SyntaxSymbolClassifier
 import hub.sam.dbl.TrueLiteral
 import hub.sam.dbl.Type
 import hub.sam.dbl.TypeAccess
@@ -73,7 +72,6 @@ import java.util.List
 import java.util.regex.Matcher
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
-import hub.sam.dbl.UniqueIdExpr
 
 /**
  * Generates Java code for the specified model only (i.e. imported models are not considered).
@@ -134,7 +132,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		else javaPackagePrefix + "." + name
 	}
 
-	def dispatch String javaNameQualified(ExtensionDefinition element) {
+	def dispatch String javaNameQualified(Extension element) {
 		val it = element
 		val owner = element.eContainer as Module;
 		owner.javaNameQualified_for_Module(false) + "." + name
@@ -371,18 +369,8 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'''
 	}
 
-	def dispatch String genStatement(SetExpansionContextStatement stm) {
-		val it = stm
-		'''setExpand(«context.genExpr», «addAfterContext»);'''
-	}
-
 	def dispatch String genStatement(ExpansionStatement stm) {
-		val it = stm
-		'''expand(
-		«FOR part : parts SEPARATOR '+'»
-			«part.genMappingPart»
-		«ENDFOR»
-		);'''
+		'''<!-- expand is not allowed outside extension semantics definitions -->'''
 	}
 	
 	def dispatch String genMappingPart(ExpansionPart part) {
@@ -526,10 +514,6 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'null'
 	}
 	
-	def dispatch String genExpr(UniqueIdExpr expr) {
-		expr.identifier
-	}
-	
 	def String genBinaryExpr(BinaryOperator expr, String op) {
 		val it = expr
 		'''(«op1.genExpr» «op» «op2.genExpr»)'''
@@ -614,11 +598,11 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'''
 	}	
 	
-	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, PropertyBindingExpr referencedElement) {
+	def dispatch String genIdExpr_for_ReferencedElement(IdExpr idExpr, StructuralSymbolReference referencedElement) {
 		idExpr.genIdExpr_for_PropertyBindingExpr(referencedElement)
 	}
 	
-	def String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, PropertyBindingExpr referencedElement) {
+	def String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, StructuralSymbolReference referencedElement) {
 		// empty for DBL models
 	}
 	
@@ -658,8 +642,8 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		typeExpr.referencedElement.genType
 	}
 
-	def dispatch String genType(LanguageConstructClassifier langClassifier) {
-		langClassifier.name
+	def dispatch String genType(SyntaxSymbolClassifier symbolClassifier) {
+		symbolClassifier.name
 	}
 	
 	def String genModulePrefix(EObject element) {

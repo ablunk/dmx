@@ -1,0 +1,453 @@
+syntax(Model) "resources/dbl.ecore" {
+
+	Model:element(Model) -> (Import:composite(imports))* (Module:composite(modules))*;
+
+	Import:element(Import) -> "#import" STRINGDEF:composite(file);
+	Module:element(Module) -> "module" IDENTIFIER:composite(name) "{" (ModuleElement)* "}";
+	
+	ModuleElement -> Variable:composite(variables) ";";
+	ModuleElement -> Function:composite(functions);
+	ModuleElement -> Class:composite(classes);
+	ModuleElement -> ExtensionDefinition:composite(extensionDefinitions);
+	ModuleElement -> ExtensionSemanticsDefinition:composite(extensionSemanticsDefinitions);
+	ModuleElement -> ModuleContent:composite(contentExtensions);
+	ModuleContent:element(ModuleContent) -> "moduleContent39758";
+	
+	Class:element(Class) -> ClassWithOptionalModifiers;
+	
+	ClassWithOptionalModifiers -> IsActiveClass:composite(active) ClassDefinition;
+	ClassWithOptionalModifiers -> ClassDefinition;
+	ClassDefinition ->
+		"class" ws(space) NamedElementName ws(empty)
+			(ws(space) "extends" ws(space) SuperClass:composite(superClasses) ("," SuperClass:composite(superClasses) )*)? ws(space)
+			"{"
+				(ClassElement)*
+			"}";
+		
+	SuperClass:element(SuperClassSpecification) -> ClassRef:reference(class)
+					("(" Expression:composite(constructorArguments)	("," Expression:composite(constructorArguments))* ")")?;
+	
+	NamedElementName -> IDENTIFIER:composite(name);
+	NamedElementName -> ExpandExpr:composite(expandExpr);
+		
+	Constructor:element(Constructor) -> "new" "(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
+		"{" (Statement:composite(statements))* "}";
+	
+	IsActiveClass:constant("true":EBoolean) -> "active";
+
+	ClassElement ->	Variable:composite(attributes) ";";
+	ClassElement -> Constructor:composite(constructors);
+	ClassElement ->	BindingsPart;
+	ClassElement ->	ActionsPart;
+	ClassElement -> Function:composite(methods);
+	ClassElement -> ClassContent:composite(contentExtensions);
+	ClassContent:element(ClassContent) -> "classContent39758";
+	
+	ActionsPart -> "actions" LocalScope:composite(actionsBlock);
+	LocalScope:element(LocalScope) -> "{" (Statement:composite(statements))* "}";
+	
+	BindingsPart -> "bindings" "{" NativeBinding:composite(bindings) ("," NativeBinding:composite(bindings))* "}";
+	NativeBinding:element(NativeBinding) -> STRINGDEF:composite(targetLanguage) "->" STRINGDEF:composite(targetType);
+		
+	Function:element(Function) -> TypedElementParts NamedElementName
+		"(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
+		(ClassElement:composite(class))?
+		FunctionBody;
+	FunctionBody -> AbstractProcedure:composite(abstract) ";";
+	FunctionBody -> "{" (Statement:composite(statements))* "}";
+	
+	AbstractProcedure:constant("true":EBoolean) -> "abstract";
+
+	Parameter:element(Parameter) -> TypedElementParts ws(space) IDENTIFIER:composite(name);
+
+	Variable -> Variable_actual;
+	Variable_actual:element(Variable) -> Variable1;
+	
+	Variable1 -> ClassAttribute:composite(class) Variable2;
+	ClassAttribute:constant("true":EBoolean) -> "static";
+	Variable1 -> Variable2;
+
+	Variable2 -> ControlVariable:composite(control) VariableTail;
+	ControlVariable:constant("true":EBoolean) -> "control";
+	Variable2 -> VariableTail;
+		
+	VariableTail -> TypedElementParts ws(space) IDENTIFIER:composite(name) ws(space)
+		("=" Expression:composite(initialValue))? ;
+	
+	TypedElementParts -> IdExpr:composite(classifierType) (ArrayDimensionsEmptySizePart)?;
+	TypedElementParts -> PrimitiveType:composite(primitiveType) (ArrayDimensionsEmptySizePart)?;
+
+	ArrayDimensionsEmptySizePart -> "array" (ArrayDimensionsEmptySize:composite(typeArrayDimensions))+;
+	ArrayDimensionsEmptySize:element(ArrayDimension) -> "[" "]";
+
+//	Type -> BareIdExpr:composite(classifierType);
+//	Type -> PrimitiveType:composite(primitiveType);
+
+	//ArrayDimension:element(ArrayDimension) -> "[" Expression:composite(size) "]";
+	
+	ClassRef:element(Class) -> IDENTIFIER:composite(name);
+	//ClassifierRef:element(Classifier) -> IDENTIFIER:composite(name);
+
+	PrimitiveType:element(VoidType) -> "void";
+	PrimitiveType:element(IntType) -> "int";
+	PrimitiveType:element(BoolType) -> "boolean";
+	PrimitiveType:element(DoubleType) -> "double";	
+	PrimitiveType:element(StringType) -> "string";
+	
+	// test
+	//Statement -> Unless2_extension;
+	//Unless2_extension:element(Unless2) -> "unless2" "(" Expression:composite(condition) ")" CodeBlock:composite(codeBlock);
+
+	SimpleStatement -> FunctionCall ";";
+	SimpleStatement -> Assignment ";";
+	SimpleStatement -> Variable ";";
+	SimpleStatement -> Return ";";
+	SimpleStatement -> Print ";";
+	SimpleStatement -> BreakStatement ";";
+	SimpleStatement -> ContinueStatement ";";
+	SimpleStatement -> LocalScopeStatement;
+	SimpleStatement -> SwitchStatement;
+
+	SimpleStatement -> Advance ";";
+	SimpleStatement -> Terminate ";";
+	SimpleStatement -> Yield ";";
+	SimpleStatement -> Wait ";";
+	SimpleStatement -> Reactivate ";";
+	SimpleStatement -> ActivateObject ";";
+	SimpleStatement -> WaitUntil ";";
+
+	LocalScopeStatement:element(LocalScopeStatement) -> "{" (Statement:composite(statements))* "}";
+
+	Assignment:element(Assignment) -> VariableAccess:composite(variable) "=" Expression:composite(value);
+	Return:element(Return) -> "return" Expression:composite(value);
+	Print:element(Print) -> "print" Expression:composite(outputs) ("," Expression:composite(outputs))*;
+	BreakStatement:element(BreakStatement) -> "break";
+	ContinueStatement:element(ContinueStatement) -> "continue";
+
+	Advance:element(Advance) -> "advance" Expression:composite(time);
+	Terminate:element(Terminate) -> "terminate";
+	Yield:element(Yield) -> "yield";
+	Wait:element(Wait) -> "wait";
+	Reactivate:element(Reactivate) -> "reactivate" Expression:composite(objectAccess);
+	ActivateObject:element(ActivateObject) -> "activate" Expression:composite(objectAccess) ("priority" INTEGER:composite(priority))?;
+	WaitUntil:element(WaitUntil) -> "wait" "until" Expression:composite(condition);
+	
+	// the following rules solve the dangling-else ambiguity.
+	// an "open statement" contains at least one if which is not paired with a following else.
+	// a "closed statement" either does not contain an if at all or the if is paired with a following else.
+	// see http://www.parsifalsoft.com/ifelse.html
+	Statement -> Statement_open;
+	Statement -> Statement_closed;
+	
+	Loop_open -> While_open;
+	Loop_open -> For_open;
+	Loop_closed -> While_closed;
+	Loop_closed -> For_closed;
+	
+	Statement_open -> If_open;
+	Statement_open -> If_closed_open;
+	Statement_open -> Loop_open;
+	
+	Statement_closed -> SimpleStatement;
+	Statement_closed -> If_closed_closed;
+	Statement_closed -> Loop_closed;
+
+	If_open:element(IfStatement) -> IfHeader Statement:composite(trueCase);
+	IfHeader -> "if" "(" Expression:composite(condition) ")";
+	
+	If_closed_open:element(IfStatement) -> IfHeader Statement_closed:composite(trueCase)
+		"else" Statement_open:composite(falseCase);
+
+	If_closed_closed:element(IfStatement) -> IfHeader Statement_closed:composite(trueCase)
+		"else" Statement_closed:composite(falseCase);
+	
+	SwitchStatement:element(SwitchStatement) -> "switch" "(" VariableAccess:composite(variable) ")"
+		"{"
+			(SwitchCase:composite(cases))*
+			(DefaultSwitchCase:composite(defaultCase))?
+		"}";
+	
+	SwitchCase:element(SwitchCase) -> "case" Expression:composite(value) ":"
+		(Statement:composite(body))*;
+		
+	DefaultSwitchCase:element(SwitchCase) -> "default" ":"
+		(Statement:composite(body))*;
+
+	While_open:element(WhileStatement) -> WhileHead Statement_open:composite(body);
+	While_closed:element(WhileStatement) -> WhileHead Statement_closed:composite(body);
+	WhileHead -> "while" "(" Expression:composite(condition) ")";
+
+	For_open:element(ForStatement) -> ForHead Statement_open:composite(body);
+	For_closed:element(ForStatement) -> ForHead Statement_closed:composite(body);
+	ForHead -> "for" "("
+			(VariableDefOrReference)? ";"
+			Expression:composite(termination) ";"
+			Assignment:composite(increment)
+		")";
+		
+	//VariableDefOrReference -> Variable:composite(countVariableDefinition);
+	//VariableDefOrReference -> Assignment:composite(countVariableReference);
+	VariableDefOrReference -> Variable:composite(statements);
+	VariableDefOrReference -> Assignment:composite(statements);
+
+	Expression -> L9Expr;
+	
+	// Expression -> L10Expr;
+	// L10Expr -> L9Expr;
+		
+	L9Expr -> LogicalOr;
+	
+	LogicalOr -> L8Expr;
+	L8Expr -> Or;
+	L8Expr -> LogicalAnd;
+
+	LogicalAnd -> L7Expr;
+	L7Expr -> And;
+	L7Expr -> Equality;
+	
+	Equality -> L6Expr;
+	L6Expr -> Equal;
+	L6Expr -> NotEqual;
+	L6Expr -> Relational;
+
+	Relational -> L5Expr;
+	L5Expr -> Greater;
+	L5Expr -> GreaterEqual;
+	L5Expr -> Less;
+	L5Expr -> LessEqual;
+	L5Expr -> InstanceOf;
+	L5Expr -> Additive;
+	
+	Additive -> L4Expr;
+	L4Expr -> Plus;
+	L4Expr -> Minus;
+	L4Expr -> Multiplicative;
+	
+	Multiplicative -> L3Expr;
+	L3Expr -> Mul;
+	L3Expr -> Div;
+	L3Expr -> Mod;
+	L3Expr -> Unary;
+	
+	Unary -> L2Expr;
+	L2Expr -> Neg;
+	L2Expr -> Not;
+	L2Expr -> Cast;
+	L2Expr -> Factor;
+	
+	Factor -> L1Expr;
+	L1Expr -> IdExpr;
+	L1Expr -> IntLiteral;
+	L1Expr -> StringLiteral;
+	L1Expr -> TrueLiteral;
+	L1Expr -> FalseLiteral;
+	L1Expr -> DoubleLiteral;
+	L1Expr -> NullLiteral;
+	L1Expr -> CreateObject;
+	L1Expr -> TimeLiteral;
+	L1Expr -> ActiveLiteral;
+	L1Expr -> UniqueIdExpr;
+	L1Expr -> "(" ws(empty) Expression ws(empty) ")";
+	
+	Or:element(Or)   -> LogicalOr:composite(op1) ws(space) "or" ws(space) LogicalAnd:composite(op2);
+	And:element(And)   -> LogicalAnd:composite(op1) ws(space) "and" ws(space) Equality:composite(op2);
+	
+	Equal:element(Equal)   -> Equality:composite(op1) ws(space) "==" ws(space) Relational:composite(op2);
+	NotEqual:element(NotEqual)   -> Equality:composite(op1) ws(space) "!=" ws(space) Relational:composite(op2);
+
+	Greater:element(Greater)   -> Relational:composite(op1) ws(space) ">" ws(space) Additive:composite(op2);
+	GreaterEqual:element(GreaterEqual)   -> Relational:composite(op1) ws(space) ">=" ws(space) Additive:composite(op2);
+	Less:element(Less)   -> Relational:composite(op1) ws(space) "<" ws(space) Additive:composite(op2);
+	LessEqual:element(LessEqual)   -> Relational:composite(op1) ws(space) "<=" ws(space) Additive:composite(op2);
+	InstanceOf:element(InstanceOf) -> Relational:composite(op1) ws(space) "instanceof" ws(space) TypeAccess:composite(op2);
+	
+	Plus:element(Plus)   -> Additive:composite(op1) ws(space) "+" ws(space) Multiplicative:composite(op2);
+	Minus:element(Minus) -> Additive:composite(op1) ws(space) "-" ws(space) Multiplicative:composite(op2);
+	
+	Mul:element(Mul)     -> Multiplicative:composite(op1) ws(space) "*" ws(space) Unary:composite(op2);
+	Div:element(Div)     -> Multiplicative:composite(op1) ws(space) "/" ws(space) Unary:composite(op2);
+	Mod:element(Mod)     -> Multiplicative:composite(op1) ws(space) "%" ws(space) Unary:composite(op2);
+	
+	Neg:element(Neg)     -> "-" ws(space) Unary:composite(op);
+	Not:element(Not)     -> "!" ws(space) Unary:composite(op);
+	Cast:element(Cast) -> Factor:composite(op) ws(space) "as" ws(space) TypedElementParts;
+
+	IntLiteral:element(IntLiteral) -> INTEGER:composite(value);
+	StringLiteral:element(StringLiteral) -> STRINGDEF:composite(value);
+	TrueLiteral:element(TrueLiteral) -> "true";
+	FalseLiteral:element(FalseLiteral) -> "false";
+	DoubleLiteral:element(DoubleLiteral) -> FLOAT:composite(value);
+	NullLiteral:element(NullLiteral) -> "null";
+	TimeLiteral:element(TimeLiteral) -> "time";
+	ActiveLiteral:element(ActiveLiteral) -> "active";
+	
+	CreateObject:element(CreateObject) -> "new" ws(space) TypedElementPartsWithArrayDimensionSize;
+
+	TypedElementPartsWithArrayDimensionSize -> IdExpr:composite(classifierType) (ArrayDimensionsSizePart)?;
+	TypedElementPartsWithArrayDimensionSize -> PrimitiveType:composite(primitiveType) (ArrayDimensionsSizePart)?;
+
+	ArrayDimensionsSizePart -> "array" (ArrayDimensionsSize:composite(typeArrayDimensions))+;
+	ArrayDimensionsSize:element(ArrayDimension) -> "[" (Expression:composite(size))? "]";
+
+	IdExpr:element(IdExpr) -> IdExpr:composite(parentIdExpr) "." SimpleIdExpr;
+	IdExpr:element(IdExpr) -> SimpleIdExpr;
+
+//	UnqualifiedIdExpr:element(IdExpr) -> BareSimpleIdExpr;
+//	BareSimpleIdExpr -> NamedElementRef:reference(referencedElement);
+	
+	SimpleIdExpr -> NamedElementRef:reference(referencedElement) (IdExprArgs)? (IdExprIndexAt)*;
+	SimpleIdExpr -> PredefinedId:composite(predefinedId) (IdExprArgs)? (IdExprIndexAt)*;
+
+	IdExprArgs -> "(" CallPart:composite(callPart) ")";
+	CallPart:element(CallPart) -> (Expression:composite(callArguments) ("," Expression:composite(callArguments))* )?;
+	
+	IdExprIndexAt -> "[" Expression:composite(arrayIndex) "]";
+	
+	VariableAccess:element(VariableAccess) -> IdExpr:composite(idExpr);
+	
+	TypeAccess:element(TypeAccess) -> IdExpr:composite(idExpr);
+		
+	// it is difficult to distinguish a procedure call syntactically from a variable access.
+	// therefore, variable access should be disallowed by a constraint.
+	FunctionCall:element(FunctionCall) -> IdExpr:composite(callIdExpr);
+	
+	PredefinedId:element(MeLiteral) -> "self";
+	PredefinedId:element(SuperLiteral) -> "super";
+	PredefinedId:element(MetaLiteral) -> "meta";
+	PredefinedId:element(TypeLiteral) -> "type";
+	PredefinedId:element(SizeOfArray) -> "length";
+	
+	NamedElementRef:element(NamedElement) -> IDENTIFIER:composite(name);
+	
+	// EXTENSIONS
+	
+	ExtensionDefinition -> ExtensionDefinition_actual;
+
+	ExtensionDefinition_actual:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
+		"extends" ExtendedConstruct
+		TextualSyntaxDef:composite(textualSyntaxDef)
+	;
+		
+	ExtensionSemanticsDefinition:element(ExtensionSemanticsDefinition) -> "semantics" "for" ExtensionDefinitionRef:reference(syntaxDefinition)
+		"{" (Statement:composite(statements))* "}";
+	
+	TextualSyntaxDef:element(TextualSyntaxDef) -> ("textual")? "{"
+		"start" TsRuleRef:reference(startRule) ";" (TsRule:composite(rules))* "}";
+	
+	ExtendedConstruct -> ExtendedDblConcept;
+	ExtendedConstruct -> ExtendedExtension;
+	
+	ExtendedDblConcept -> "dbl" ClassRef:reference(extendedConcept);
+	ExtendedExtension -> "extension" ExtensionDefinitionRef:reference(extendedConcept);
+	
+	ExtensionDefinitionRef:element(ExtensionDefinition) -> IDENTIFIER:composite(name);
+	
+	TsRule:element(TsRule) -> IDENTIFIER:composite(name) "->" RhsExpression:composite(rhs) ";";
+	
+	// EXTENSION MAPPING
+	
+	SimpleStatement -> ExpansionStatement ";";
+	SimpleStatement -> SetExpansionContextStatement ";";
+	
+//	MappingStatement:element(MappingStatement) -> "expand" FixedMappingPartMiddle:composite(parts)
+//		(ws(space) DynamicMappingPart:composite(parts) ws(space) FixedMappingPartMiddle:composite(parts))*;
+
+	ExpansionStatement:element(ExpansionStatement) -> "expand" ExpansionPart:composite(parts)
+		(ws(space) ExpansionPart:composite(parts))*;
+	
+	ExpansionPart -> ExpandTextPart;
+	ExpansionPart -> ExpandVariablePart;
+
+	ExpandTextPart:element(ExpandTextPart) -> CODE:composite(text);
+	ExpandTextPart:element(ExpandTextPart) -> STRINGDEF:composite(text);
+	ExpandVariablePart:element(ExpandVariablePart) -> IdExpr:composite(expr);
+	ExpandVariablePart:element(ExpandVariablePart) -> UniqueIdExpr:composite(expr);
+
+	UniqueIdExpr:element(UniqueIdExpr) -> IDENTIFIER:composite(identifier) "=" "ID";
+	
+	SetExpansionContextStatement:element(SetExpansionContextStatement) -> "set" "expand" AddBeforeOrAfterContext;
+	AddBeforeOrAfterContext -> IsAddBeforeOrAfter:composite(addAfterContext) Expression:composite(context);
+	IsAddBeforeOrAfter:constant("true":EBoolean) -> "after";
+	IsAddBeforeOrAfter:constant("false":EBoolean) -> "before";
+	
+	L1Expr -> ParseExpr;
+	
+	ParseExpr:element(ParseExpr) -> "!" AssignmentParseExpr "!";
+	AssignmentParseExpr -> "Assignment" ":" Assignment:composite(astPart);
+	AssignmentParseExpr -> "Expression" ":" Expression:composite(astPart);
+	AssignmentParseExpr -> "Module" ":" Module:composite(astPart);
+	AssignmentParseExpr -> "LocalScopeStatement" ":" LocalScopeStatement:composite(astPart);
+	
+	L1Expr -> ExpandExpr;
+	ExpandExpr:element(ExpandExpr) -> "?" Expression:composite(expr) "?";
+
+//	ExpandExpression:element(ExpandExpression) -> "?" "(" Expression:composite(metaObject) ")";
+//	CodeQuote:element(CodeQuoteExpression) -> "{" "#" QuotedCode:composite(quotedCode) "}";
+	
+//	ExpandStatement:element(ExpandStatement) -> "expand" Expression:composite(metaObject) ("after" Expression:composite(location))?;
+	//ExpandStatement:element(ExpandStatement) -> "expand" Expression:composite(metaObject);
+//	ExpandStatement:element(ExpandStatement) -> "{" "=" ">" Expression:composite(metaObject) "}";
+	
+//	QuotedCode:element(QuotedExpression) -> "E" ":" Expression:composite(expression);
+//	QuotedCode:element(QuotedStatements) -> "S" ":" (Statement:composite(statements))*;
+//	QuotedCode:element(QuotedClassContent) -> "CC" ":" (ClassContent)*;
+//	QuotedCode:element(QuotedModuleContent) -> "MC" ":" (ModuleContent)*;
+
+//	ExpandSection:element(ExpandSection) -> ExpandSectionCodeBlock:composite(codeBlock);
+//	ExpandSectionCodeBlock:element(CodeBlock) -> "{" "+" (Statement:composite(statements))* "}";	
+
+	// EXTENSION SYNTAX
+
+	RhsExpression -> L3RhsExpr;
+	
+	L3RhsExpr -> L2RhsExpr;
+	
+	L2RhsExpr -> SequenceExpr;		
+	
+	SequenceExpr:element(SequenceExpr) -> (L1RhsExpr:composite(sequence))*;
+	
+	L1RhsExpr -> TerminalExpr;
+	L1RhsExpr -> "(" RhsExpression ")";
+	L1RhsExpr -> PropertyBindingExpr;
+	L1RhsExpr -> RhsClassifierExpr;
+	
+	TerminalExpr:element(TerminalExpr) -> STRINGDEF:composite(terminal);
+	PropertyBindingExpr:element(PropertyBindingExpr) -> IDENTIFIER:composite(name) ":" PropertyType:composite(propertyType);
+	RhsClassifierExpr:element(RhsClassifierExpr) -> LanguageConstructClassifierRef:reference(classifier);
+	
+	PropertyType -> IdPropertyType;
+	PropertyType -> IntPropertyType;
+	PropertyType -> StringPropertyType;
+	PropertyType -> BooleanPropertyType;
+	PropertyType -> CompositeOrReferencePropertyType;
+	
+	CompositeOrReferencePropertyType -> ReferencePropertyType;
+	CompositeOrReferencePropertyType -> CompositePropertyType;
+//	CompositeOrReferencePropertyType[0] -> ReferencePropertyType;
+//	CompositeOrReferencePropertyType[1] -> CompositePropertyType;
+	
+	IdPropertyType:element(IdPropertyType) -> "ID";
+	IntPropertyType:element(IntPropertyType) -> "INT";
+	StringPropertyType:element(StringPropertyType) -> "STRING";
+	BooleanPropertyType:element(BooleanPropertyType) -> STRINGDEF:composite(terminal);
+
+	// raw (global) -> variable=$$Variable	
+	ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? LanguageConstructClassifierRef:reference(type);
+	CompositePropertyType:element(CompositePropertyType) -> IsListType:composite(list) "(" LanguageConstructClassifierRef:reference(type) ")";
+	CompositePropertyType:element(CompositePropertyType) -> LanguageConstructClassifierRef:reference(type);
+
+	IsListType:constant("true":EBoolean) -> "list";
+	IsRawReference:constant("true":EBoolean) -> "$";
+	
+	LanguageConstructClassifierRef:element(LanguageConstructClassifier) -> IDENTIFIER:composite(name);
+	TsRuleRef:element(TsRule) -> IDENTIFIER:composite(name);
+
+	Statement -> Test7349549;
+	Test7349549:element(TestStatement) -> "Test7349549" INTEGER:composite(value) ";";
+	// the above is needed for extensions defining variables of type INT, dont know why just leave it here ...
+	
+	token () {
+		"`cstylecomment`";
+	}
+
+}

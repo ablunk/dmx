@@ -7,7 +7,7 @@ active class A {
 		forever {
 			print time + "\n";
 			advance 1;
-			if (time > 10) break;
+			if (time > 3) break;
 		}
 	}
 }

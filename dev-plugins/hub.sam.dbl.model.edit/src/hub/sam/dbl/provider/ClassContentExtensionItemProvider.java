@@ -19,7 +19,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ClassContentExtensionItemProvider extends ExtensibleElementItemProvider {
+public class ClassContentExtensionItemProvider extends ConstructiveExtensionItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

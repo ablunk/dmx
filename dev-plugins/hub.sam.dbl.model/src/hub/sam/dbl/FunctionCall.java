@@ -10,10 +10,10 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.FunctionCall#getCallIdExpr <em>Call Id Expr</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getFunctionCall()
  * @model

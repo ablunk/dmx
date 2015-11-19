@@ -12,11 +12,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.NativeBinding#getTargetLanguage <em>Target Language</em>}</li>
  *   <li>{@link hub.sam.dbl.NativeBinding#getTargetType <em>Target Type</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getNativeBinding()
  * @model

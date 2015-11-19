@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="cosal">
+    <model href="cosal.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <modules name="CosalSemanticsNonOO">
+    <classes name="CosalClassifierMetaClass" concreteSyntax="class CosalClassifierMetaClass {&#xA;&#x9;string name;&#xA;&#x9;List inputs = new ArrayList;&#xA;&#x9;string currentStateName;&#xA;&#x9;boolean endStateReached = false;&#xA;&#x9;&#xA;&#x9;void consumeInputs() abstract;&#xA;}">
+      <attributes name="name" concreteSyntax="string name">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="inputs" concreteSyntax="List inputs = new ArrayList">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+          <classifierType concreteSyntax="ArrayList">
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="currentStateName" concreteSyntax="string currentStateName">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="endStateReached" concreteSyntax="boolean endStateReached = false">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+      </attributes>
+      <methods name="consumeInputs" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+    </classes>
+    <extensionSemantics concreteSyntax="semantics for CosalClassifier {&#xA;&#x9;expand &quot;class &quot; name &quot;_CosalClassifierMetaClass&quot;&#xA;&#x9;&#x9;&quot; extends CosalClassifierMetaClass {&quot;&#xA;&#x9;&#x9;&quot;&#x9;new () {&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;name = \&quot;&quot; name &quot;\&quot;;&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;currentStateName = \&quot;&quot; initial.outgoing.target &quot;\&quot;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;@debug(positionObject=\&quot;&quot; initial.outgoing.target.@meta &quot;\&quot;)&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;;&quot;&#xA;&#x9;&#x9;&quot;&#x9;}&quot;&#xA;&#x9;&#x9;&quot;&#x9;void consumeInputs() {&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;while (inputs.size() > 0 and !endStateReached) {&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;&#x9;string input = inputs.get(0) as string;&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;&#x9;inputs.remove(input);&quot;&#xA;&#x9;;&#xA;&#x9;&#xA;&#x9;foreach (State s in states) {&#xA;&#x9;&#x9;expand&#x9;&quot;&#x9;if (currentStateName == \&quot;&quot; s &quot;\&quot;) {&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand&#x9;&quot;&#x9;}&quot;;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;expand&#xA;&#x9;&#x9;&quot;&#x9;}&quot;&#xA;&#x9;&#x9;&quot;}&quot;;&#xA;}">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;class &quot; name &quot;_CosalClassifierMetaClass&quot;&#xA;&#x9;&#x9;&quot; extends CosalClassifierMetaClass {&quot;&#xA;&#x9;&#x9;&quot;&#x9;new () {&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;name = \&quot;&quot; name &quot;\&quot;;&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;currentStateName = \&quot;&quot; initial.outgoing.target &quot;\&quot;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;@debug(positionObject=\&quot;&quot; initial.outgoing.target.@meta &quot;\&quot;)&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;;&quot;&#xA;&#x9;&#x9;&quot;&#x9;}&quot;&#xA;&#x9;&#x9;&quot;&#x9;void consumeInputs() {&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;while (inputs.size() > 0 and !endStateReached) {&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;&#x9;string input = inputs.get(0) as string;&quot;&#xA;&#x9;&#x9;&quot;&#x9;&#x9;&#x9;inputs.remove(input);&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="class "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="name">
+            <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
+          </expr>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text="_CosalClassifierMetaClass"/>
+        <parts xsi:type="dbl:ExpandTextPart" text=" extends CosalClassifierMetaClass {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;new () {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;&#x9;name = \&quot;"/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="name">
+            <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
+          </expr>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text="\&quot;;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;&#x9;currentStateName = \&quot;"/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="initial.outgoing.target">
+            <parentIdExpr concreteSyntax="initial.outgoing">
+              <parentIdExpr concreteSyntax="initial">
+                <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
+              </parentIdExpr>
+              <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.6/@possibleSyntax/@sequence.1"/>
+            </parentIdExpr>
+            <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.12/@possibleSyntax/@sequence.2"/>
+          </expr>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text="\&quot;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="@debug(positionObject=\&quot;"/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="initial.outgoing.target.@meta">
+            <parentIdExpr concreteSyntax="initial.outgoing.target">
+              <parentIdExpr concreteSyntax="initial.outgoing">
+                <parentIdExpr concreteSyntax="initial">
+                  <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
+                </parentIdExpr>
+                <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.6/@possibleSyntax/@sequence.1"/>
+              </parentIdExpr>
+              <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.12/@possibleSyntax/@sequence.2"/>
+            </parentIdExpr>
+            <predefinedId xsi:type="dbl:AnnotationLiteral" name="meta"/>
+          </expr>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text="\&quot;)"/>
+        <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;}"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;void consumeInputs() {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;&#x9;while (inputs.size() > 0 and !endStateReached) {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;&#x9;&#x9;string input = inputs.get(0) as string;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;&#x9;&#x9;inputs.remove(input);"/>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (State s in states) {&#xA;&#x9;&#x9;expand&#x9;&quot;&#x9;if (currentStateName == \&quot;&quot; s &quot;\&quot;) {&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand&#x9;&quot;&#x9;}&quot;;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="s" concreteSyntax="State s">
+          <classifierType concreteSyntax="State">
+            <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.3"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="states">
+          <referencedElement href="cosal.xmi#//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1/@possibleSyntax/@sequence.0"/>
+        </collection>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;expand&#x9;&quot;&#x9;if (currentStateName == \&quot;&quot; s &quot;\&quot;) {&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand&#x9;&quot;&#x9;}&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#x9;&quot;&#x9;if (currentStateName == \&quot;&quot; s &quot;\&quot;) {&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="&#x9;if (currentStateName == \&quot;"/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="s" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1/@statements.0"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="\&quot;) {"/>
+          </statements>
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#x9;&quot;&#x9;}&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="&#x9;}"/>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#xA;&#x9;&#x9;&quot;&#x9;}&quot;&#xA;&#x9;&#x9;&quot;}&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="&#x9;}"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+      </statements>
+      <syntaxDefinition href="cosal.xmi#//@modules.0/@extensions.0"/>
+    </extensionSemantics>
+  </modules>
+</dbl:Model>

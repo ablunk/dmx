@@ -10,12 +10,12 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.ForStatement#getTermination <em>Termination</em>}</li>
  *   <li>{@link hub.sam.dbl.ForStatement#getIncrement <em>Increment</em>}</li>
  *   <li>{@link hub.sam.dbl.ForStatement#getBody <em>Body</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getForStatement()
  * @model

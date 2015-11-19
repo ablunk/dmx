@@ -1,0 +1,100 @@
+#import "../dbl"
+#import "../stdlib"
+
+module cosal {
+
+class CosalClassifier {
+	string name;
+	
+	List inputs = new ArrayList
+		@debug(state="Eingangspuffer")
+	;
+	
+	string currentStateName;
+	
+	boolean endStateReached = false
+		@debug(state="Endzustand erreicht")
+	;
+	
+	void consumeInputs() abstract;
+}
+
+class hhw_CosalClassifier extends CosalClassifier
+@debug(context="app1.xmi#//@modules.0/@classes.0")
+// der Kontext ist eine Erweiterungsinstanz.
+// Bedeutung: Werden Anweisungen in diesem Kontext ausgeführt, so wird immer das
+// festgelegte positionObject vom Debugger verwendet.
+{
+	new() {
+		name = "hhw";
+		
+		currentStateName = "h"
+			@debug(positionObject="app1.xmi#//@modules.0/@classes.0/@states.1")
+		;
+		// Annotation an Variable currentStateName:
+		// @db(positionObject = "app1.xmi#/@modules.0/@classes.0/@states.1")
+		// - positionObject verweist auf ein EObject in der Erweiterungsinstanz
+		// - bei Wertänderung von currentStateName ändert sich auch die position
+	}
+	
+	void consumeInputs() {
+		while (inputs.size() > 0 and !endStateReached) {
+			string input = inputs.get(0) as string; // es werden nur strings abgelegt ;)
+			inputs.remove(input);
+			
+			if (currentStateName == "h") {
+				if (input == "h") {
+					currentStateName = "h"
+						@debug(positionObject="app1.xmi#//@modules.0/@classes.0/@states.1")
+					;
+					input = null;
+				}
+				else if (input == "e") {
+					currentStateName = "e"
+						@debug(positionObject="app1.xmi#//@modules.0/@classes.0/@states.2")
+					;
+					input = null;
+				}
+				else if (input == "w") {
+					currentStateName = "end";
+					endStateReached = true;
+					input = null;
+				}
+			}
+			else if (currentStateName == "e") {
+				if (input == "e") {
+					currentStateName = "e";
+					input = null;
+				}
+				else if (input == "w") {
+					currentStateName = "end";
+					endStateReached = true;
+					input = null;
+				}
+			}
+			if (input == null) {
+				print "consumed: " + "h\n";
+			}
+			else {
+				print "discarded: " + "h\n";
+			}
+		}
+	}
+}
+
+void main() {
+	hhw_CosalClassifier hhw1 = new hhw_CosalClassifier;
+	hhw_CosalClassifier hhw2 = new hhw_CosalClassifier;
+	
+	hhw1.inputs.add("h");
+	hhw1.inputs.add("h");
+	hhw1.inputs.add("h");
+	hhw1.inputs.add("w");
+	hhw1.consumeInputs();
+
+	hhw2.inputs.add("h");
+	hhw2.inputs.add("e");
+	hhw2.consumeInputs();
+}
+
+}

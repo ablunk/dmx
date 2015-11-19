@@ -2,23 +2,21 @@ package hub.sam.dmx.launcher;
 
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.Model;
 import hub.sam.dmx.Activator;
 import hub.sam.dmx.editor.DblTextEditor;
 import hub.sam.dmx.editor.modelcreation.DbxParser;
-import hub.sam.dmx.modifications.Addition;
+import hub.sam.dmx.modelcreation.DblModelWorkingCopy;
 import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.ModificationsPackage;
 import hub.sam.dmx.modifications.ModificationsRecord;
-import hub.sam.dmx.modifications.Substitution;
 import hub.sam.dmx.semantics.AbstractExtensionSemantics;
 import hub.sam.dmx.semantics.BasicDblToJavaGenerator;
 import hub.sam.dmx.semantics.ExtensionDefinitionsToJava;
 import hub.sam.dmx.semantics.IncrementalModificationApplier;
-import hub.sam.dmx.semantics.PositionWithNegative;
 import hub.sam.dmx.targetcode.DblToDesmojJavaGenerator;
 import hub.sam.tef.modelcreating.HeadlessEclipseParser;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
@@ -39,7 +37,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -71,7 +68,6 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -121,257 +117,6 @@ public class ModelLauncher {
 		return file.getProject();
 	}
 	
-	private class ParsedWorkingCopyModel {
-		
-		private final Resource resource;
-		private final String text;
-		private final ObjectPositionsContainer objectPositions;
-
-		public ParsedWorkingCopyModel(ParsedWorkingCopyModel formerWorkingModel, Resource newResource, IModelCreatingContext newResourceCreationContext) {
-			resource = formerWorkingModel.getResource();
-			resource.getContents().clear();
-			resource.getContents().addAll(newResource.getContents());
-			
-			text = newResourceCreationContext.getText();
-			
-			try {
-				resource.save(Collections.EMPTY_MAP);
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			this.objectPositions = new ModelCreatingContextObjectPositionsContainer(newResourceCreationContext);
-		}
-		
-		private class ObjectPositionCopier extends EcoreUtil.Copier {
-			
-			private final ObjectPositionsContainer originalObjectPositions;
-			private final ObjectPositionsContainer copyObjectPositions = new ObjectPositionsContainer();
-			
-			public ObjectPositionCopier(ObjectPositionsContainer originalObjectPositions) {
-				this.originalObjectPositions = originalObjectPositions;
-			}
-
-			@Override
-			protected EObject createCopy(EObject original) {
-				EObject copy = super.createCopy(original);
-				Position originalPosition = originalObjectPositions.getPosition(original);
-				if (originalPosition != null) {
-					copyObjectPositions.setPosition(copy, new PositionWithNegative(originalPosition));
-				}
-				return copy;
-			}
-			
-			public ObjectPositionsContainer getCopyObjectPositions() {
-				return copyObjectPositions;
-			}
-			
-		}
-		
-		private class ObjectPositionsContainer {
-			
-			private Map<EObject, Position> positions = new HashMap<EObject, Position>();
-			
-			public Position getPosition(EObject eObject) {
-				return positions.get(eObject);
-			}
-			
-			public void setPosition(EObject eObject, Position position) {
-				positions.put(eObject, position);
-			}
-		}
-		
-		private class ModelCreatingContextObjectPositionsContainer extends ObjectPositionsContainer {
-			private final IModelCreatingContext resourceCreationContext;
-			
-			public ModelCreatingContextObjectPositionsContainer(IModelCreatingContext resourceCreationContext) {
-				this.resourceCreationContext = resourceCreationContext;
-			}
-
-			@Override
-			public Position getPosition(EObject eObject) {
-				return resourceCreationContext.getTreeNodeForObject(eObject).getPosition();
-			}
-		}
-		
-		public ParsedWorkingCopyModel(URI originalUri, Resource originalResource, boolean copy, IModelCreatingContext originalResourceCreationContext) {
-			String workingCopyXmiName = originalUri.trimFileExtension() + "_base.xmi";
-			URI workingCopyXmiUri = URI.createURI(workingCopyXmiName);
-			
-			resource = workingCopiesResourceSet.createResource(workingCopyXmiUri);
-			resource.getContents().clear();
-			
-			if (copy) {
-				ObjectPositionCopier copier = new ObjectPositionCopier(new ModelCreatingContextObjectPositionsContainer(originalResourceCreationContext));
-				Collection<EObject> contentCopy = copier.copyAll(originalResource.getContents());
-				copier.copyReferences();
-				resource.getContents().addAll(contentCopy);
-				objectPositions = copier.getCopyObjectPositions();
-			}
-			else {
-				resource.getContents().addAll(originalResource.getContents());
-				objectPositions = new ModelCreatingContextObjectPositionsContainer(originalResourceCreationContext);
-			}
-			
-			text = originalResourceCreationContext.getText();
-			
-			try {
-				resource.save(Collections.EMPTY_MAP);
-			}
-			catch (IOException e) {
-				e.printStackTrace();
-			}			
-		}
-
-		public Position getObjectPosition(EObject eObject) {
-			return objectPositions.getPosition(eObject);
-		}
-		
-		public void setObjectPosition(EObject eObject, Position position) {
-			objectPositions.setPosition(eObject, position);
-		}
-		
-		public Resource getResource() {
-			return resource;
-		}
-		
-		public String getText() {
-			return text;
-		}
-		
-		public Model getModel() {
-			return (Model) resource.getContents().get(0);
-		}
-		
-		public void save() {
-			try {
-				resource.save(Collections.EMPTY_MAP);
-			}
-			catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-		}
-	}
-	
-	/**
-	 * substitutes a set of leaf extensions one after the other.
-	 * 
-	 * @author blunk
-	 *
-	 */
-	private class SharedLeafExtensionsFirstModificationApplier {
-		
-		private final ParsedWorkingCopyModel workingModel;
-		private final StringBuffer workingText;
-		
-		public SharedLeafExtensionsFirstModificationApplier(StringBuffer originalText, ParsedWorkingCopyModel originalModel) {
-			this.workingText = originalText;
-			this.workingModel = originalModel;			
-		}
-		
-		public StringBuffer getWorkingText() {
-			return workingText;
-		}
-		
-		private EObject setStartLength(Modification mod) {
-			EObject positionObject = workingModel.getResource().getEObject(mod.getSourceEObjectUri());
-			
-			Position position = workingModel.getObjectPosition(positionObject);
-			
-			if (mod instanceof Substitution) {
-				Substitution sub = (Substitution) mod;
-				sub.setSourceStart(position.getOffset());
-				sub.setSourceLength(position.getLength());
-			}
-			else if (mod instanceof Addition) {
-				Addition addition = (Addition) mod;
-				if (addition.isAddAfterPosition()) {
-					addition.setSourceStart(position.getOffset() + position.getLength());
-				}
-				else {
-					addition.setSourceStart(position.getOffset());
-				}
-			}
-			
-			return positionObject;
-		}
-		
-		private void shiftObjects(EObject referenceObject, boolean after, int v, boolean includeRefObjectChilds) {
-			TreeIterator<EObject> containerContentsTree = referenceObject.eContainer().eAllContents();
-			
-			EObject current = null;
-			Position referenceObjectPosition = workingModel.getObjectPosition(referenceObject);
-
-			// shift all objects before referenceObject
-			while (containerContentsTree.hasNext()) {
-				current = containerContentsTree.next();
-				Position currentPosition = workingModel.getObjectPosition(current);
-
-				if (current == referenceObject) {
-					if (!includeRefObjectChilds) containerContentsTree.prune();
-					
-					if (!after) {
-						logger.info("shifting object " + current.eResource().getURIFragment(current) + " by " + v + " characters");
-						currentPosition.setOffset(currentPosition.getOffset() + v);
-					}
-				}
-				else if (currentPosition.getOffset() > referenceObjectPosition.getOffset()) {
-					logger.info("shifting object " + current.eResource().getURIFragment(current) + " by " + v + " characters");
-					currentPosition.setOffset(currentPosition.getOffset() + v);
-				}
-			}
-		}
-		
-		private boolean substitutionApplied = false;
-		
-		public void applyAll(EList<Modification> unsortedModifications) {
-			// apply modifications, adjust positions for other constructs						
-			for (Modification mod: unsortedModifications) {
-				
-				EObject positionObject = setStartLength(mod);
-				int startPos = mod.getSourceStart();
-				
-				if (mod instanceof Addition) {
-					Addition addition = (Addition) mod;
-					
-					logger.info("inserting at text position: " + startPos + ", just after ... " + Activator.lineSep
-							+ workingText.substring((startPos - 20 < 0 ? 0 : startPos - 20), startPos) + Activator.lineSep);
-					
-					workingText.insert(startPos, addition.getReplacementText());
-
-					// adjust positions for other constructs
-					shiftObjects(positionObject, addition.isAddAfterPosition(), addition.getReplacementText().length(), false);
-				}
-				else if (mod instanceof Substitution) {
-//					if (substitutionApplied) {
-//						logger.severe("there are at least 2 substitution modifications. an extension can only be substituted once.");
-//						throw new RuntimeException();
-//					}
-					substitutionApplied = true;
-					
-					Substitution sub = (Substitution) mod;
-					
-					int endPos = startPos + sub.getSourceLength();
-					
-					String sourceFragment = workingText.substring(startPos, endPos);					
-					logger.info("substituting source fragement: " + Activator.lineSep +
-							sourceFragment + Activator.lineSep
-							+ "by: " + Activator.lineSep +
-							mod.getReplacementText() + Activator.lineSep);
-					
-					workingText.replace(startPos, endPos, mod.getReplacementText());
-
-					shiftObjects(positionObject, true, mod.getReplacementText().length() - sub.getSourceLength(), false);
-				}				
-
-				logger.info("new working text: " + Activator.lineSep
-						+ workingText + Activator.lineSep);
-			}
-		}
-		
-	}
-	
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
 
 	private Model translate(Model inputModel, boolean rootModel, BasicDblToJavaGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
@@ -413,7 +158,7 @@ public class ModelLauncher {
 		if (!processedModels.containsKey(inputModel)) {
 			
 			// 1. create working copy of input model
-			ParsedWorkingCopyModel parsedWorkingModel = null;
+			DblModelWorkingCopy parsedWorkingModel = null;
 			
 			// parse model (text) with headless parser! we need the object positions of imported models during substitution later ;-(
 
@@ -428,8 +173,10 @@ public class ModelLauncher {
 							throw new RuntimeException(creationContext.getErrors().iterator().next().getMessage());
 						}
 						else {
-							parsedWorkingModel = new ParsedWorkingCopyModel(inputModel.eResource().getURI(),
-									creationContext.getResource(), false, creationContext);
+							parsedWorkingModel = new DblModelWorkingCopy(
+									inputModel.eResource().getURI(),
+									creationContext.getResource(), false, creationContext,
+									workingCopiesResourceSet);
 						}
 					}
 					catch (ModelCreatingException e) {
@@ -439,8 +186,9 @@ public class ModelLauncher {
 			}
 			else {
 				// model is currently opened in active editor
-				parsedWorkingModel = new ParsedWorkingCopyModel(inputModel.eResource().getURI(),
-						inputModel.eResource(), true, editor.getLastModelCreatingContext());
+				parsedWorkingModel = new DblModelWorkingCopy(inputModel.eResource().getURI(),
+						inputModel.eResource(), true, editor.getLastModelCreatingContext(),
+						workingCopiesResourceSet);
 			}
 			
 			
@@ -574,25 +322,26 @@ public class ModelLauncher {
 	 * @param inputModel model containing extension instances
 	 * @return workingModel either the inputModel or a copy of the inputModel with extension instances replaced
 	 */
-	private ParsedWorkingCopyModel substituteExtensions(ParsedWorkingCopyModel inputModel) {
+	private DblModelWorkingCopy substituteExtensions(DblModelWorkingCopy inputModel) {
 		final IProject currentProject = getCurrentProject();
 		final IJavaProject currentJavaProject = JavaCore.create(currentProject);
 
-		ParsedWorkingCopyModel workingModel = inputModel;
+		DblModelWorkingCopy workingModel = inputModel;
 		
 		Map<String, Collection<ExtensibleElement>> leafExtensionInstances = getLeafExtensionInstances(workingModel.getModel());
 		while (leafExtensionInstances.size() > 0) {
 			
-			SharedLeafExtensionsFirstModificationApplier sharedModificationApplier = new SharedLeafExtensionsFirstModificationApplier(
-					new StringBuffer(workingModel.getText()), workingModel);
+			IncrementalModificationApplier modificationApplier = new IncrementalModificationApplier(
+					new StringBuffer(workingModel.getText()), workingModel.getAllObjectPositions(),
+					workingModel.getResource());
 			
 			boolean javaCodeAdded = false;
-			Map<String, ExtensionDefinition> extensionDefinitions = new HashMap<String, ExtensionDefinition>();
+			Map<String, Extension> extensionDefinitions = new HashMap<String, Extension>();
 			
 			for (String extensionDefinitionName: leafExtensionInstances.keySet()) {
 
 				// generate executable code from extension definition semantics
-				ExtensionSemanticsDefinition semanticsDefinition = getExtensionDefinitionGenerator().getImportedExtensionSemanticsDefinition(workingModel.getModel(), extensionDefinitionName);
+				ExtensionSemantics semanticsDefinition = getExtensionDefinitionGenerator().getImportedExtensionSemanticsDefinition(workingModel.getModel(), extensionDefinitionName);
 				if (semanticsDefinition == null) {
 					logger.severe("cannot find semantics of extension definition " + extensionDefinitionName + " by import anymore."
 							+ "maybe the extension definition itself was replaced."
@@ -648,14 +397,14 @@ public class ModelLauncher {
 					monitor.subTask("Applying modifications");
 					
 					logger.info("--------- input text ---------" + Activator.lineSep
-							+ workingModel.getText() + Activator.lineSep);
+							+ modificationApplier.getWorkingText() + Activator.lineSep);
 						
 					if (storedModifications == null || storedModifications.size() == 0) {
 						logger.severe("No modifications found after executing semantics description of extension definition " + extensionDefinitionName + ".");
 						continue extensionInstanceLoop;
 					}
 					else {									
-						sharedModificationApplier.applyAll(storedModifications);
+						modificationApplier.applyAll(storedModifications);
 					}
 				}
 			}
@@ -668,14 +417,14 @@ public class ModelLauncher {
 			
 			try {
 				//lastInputModelContext = parser.parse("module test { void main() { print \"hello\"; } }");
-				IModelCreatingContext modelCreationContext = parser.parse(sharedModificationApplier.getWorkingText().toString());
+				IModelCreatingContext modelCreationContext = parser.parse(modificationApplier.getWorkingText().toString());
 				
 				if (modelCreationContext.getErrors().size() > 0) {
-					printParseErrorsToEditorConsole(modelCreationContext, filename, sharedModificationApplier.getWorkingText().toString());
+					printParseErrorsToEditorConsole(modelCreationContext, filename, modificationApplier.getWorkingText().toString());
 					throw new RuntimeException(modelCreationContext.getErrors().iterator().next().getMessage());
 				}
 				else {
-					workingModel = new ParsedWorkingCopyModel(workingModel,
+					workingModel = new DblModelWorkingCopy(workingModel,
 							modelCreationContext.getResource(), modelCreationContext);
 				}
 			}
@@ -723,65 +472,65 @@ public class ModelLauncher {
 		return null;
 	}
 	
-	@Deprecated
-	private String textSubstituteExtensionInstances_old(ParsedWorkingCopyModel workingModel) {
-		monitor.subTask("Applying modifications");
-		
-		// get all the modifications from <temp-folder>/modifications.xmi
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
-    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
-
-    	String modificationsXmiFile = getTempFolder(getCurrentProject()).getLocation().append("modifications.xmi").toString();
-		URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());		
-		
-		Resource modificationsResource = resourceSet.getResource(modificationsFileUri, true);
-		ModificationsRecord modificationsRecord = null;
-		for (EObject rootObject: modificationsResource.getContents()) {
-			modificationsRecord = (ModificationsRecord) rootObject;
-			break;
-		}
-		
-		logger.info("--------- input text ---------" + Activator.lineSep
-				+ workingModel.getText() + Activator.lineSep);
-			
-		if (modificationsRecord == null || modificationsRecord.getModifications().size() == 0) {
-			logger.info("No modifications found. Skipping extension substitution.");
-			
-			return null;
-		}
-		else {
-			// compute text positions from position objects
-			for (Modification mod: modificationsRecord.getModifications()) {
-				EObject positionObject = workingModel.getResource().getEObject(mod.getSourceEObjectUri());
-				
-				Position position = workingModel.getObjectPosition(positionObject);
-				
-				if (mod instanceof Substitution) {
-					Substitution sub = (Substitution) mod;
-					sub.setSourceStart(position.getOffset());
-					sub.setSourceLength(position.getLength());
-				}
-				else if (mod instanceof Addition) {
-					Addition addition = (Addition) mod;
-					if (addition.isAddAfterPosition()) {
-						addition.setSourceStart(position.getOffset() + position.getLength());
-					}
-					else {
-						addition.setSourceStart(position.getOffset());
-					}
-				}				
-			}
-			
-			IncrementalModificationApplier modificationApplier = new IncrementalModificationApplier(modificationsRecord.getModifications(), workingModel.getText());
-			String workingText = modificationApplier.applyAll();
-			
-			logger.info("--------- text with extension substitutions ---------" + Activator.lineSep
-					+ workingText + Activator.lineSep);
-
-			return workingText;
-		}
-	}
+//	@Deprecated
+//	private String textSubstituteExtensionInstances_old(ParsedWorkingCopyModel workingModel) {
+//		monitor.subTask("Applying modifications");
+//		
+//		// get all the modifications from <temp-folder>/modifications.xmi
+//		ResourceSet resourceSet = new ResourceSetImpl();
+//		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
+//    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
+//
+//    	String modificationsXmiFile = getTempFolder(getCurrentProject()).getLocation().append("modifications.xmi").toString();
+//		URI modificationsFileUri = URI.createFileURI(new File(modificationsXmiFile).getAbsolutePath());		
+//		
+//		Resource modificationsResource = resourceSet.getResource(modificationsFileUri, true);
+//		ModificationsRecord modificationsRecord = null;
+//		for (EObject rootObject: modificationsResource.getContents()) {
+//			modificationsRecord = (ModificationsRecord) rootObject;
+//			break;
+//		}
+//		
+//		logger.info("--------- input text ---------" + Activator.lineSep
+//				+ workingModel.getText() + Activator.lineSep);
+//			
+//		if (modificationsRecord == null || modificationsRecord.getModifications().size() == 0) {
+//			logger.info("No modifications found. Skipping extension substitution.");
+//			
+//			return null;
+//		}
+//		else {
+//			// compute text positions from position objects
+//			for (Modification mod: modificationsRecord.getModifications()) {
+//				EObject positionObject = workingModel.getResource().getEObject(mod.getSourceEObjectUri());
+//				
+//				Position position = workingModel.getObjectPosition(positionObject);
+//				
+//				if (mod instanceof Substitution) {
+//					Substitution sub = (Substitution) mod;
+//					sub.setSourceStart(position.getOffset());
+//					sub.setSourceLength(position.getLength());
+//				}
+//				else if (mod instanceof Addition) {
+//					Addition addition = (Addition) mod;
+//					if (addition.isAddAfterPosition()) {
+//						addition.setSourceStart(position.getOffset() + position.getLength());
+//					}
+//					else {
+//						addition.setSourceStart(position.getOffset());
+//					}
+//				}				
+//			}
+//			
+//			SequentialModificationApplier modificationApplier = new SequentialModificationApplier(modificationsRecord.getModifications(), workingModel.getText());
+//			String workingText = modificationApplier.applyAll();
+//			
+//			logger.info("--------- text with extension substitutions ---------" + Activator.lineSep
+//					+ workingText + Activator.lineSep);
+//
+//			return workingText;
+//		}
+//	}
 	
 	private IPath getXmiRawLocation(URI xmiUri) {
 		IPath xmiPath = new Path(xmiUri.toPlatformString(true));

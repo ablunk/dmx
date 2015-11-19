@@ -1,86 +1,85 @@
 package hub.sam.dmx.targetcode
 
-import hub.sam.dbl.Class
-import hub.sam.dbl.Model
-import hub.sam.dbl.Module
-import java.io.Writer
-import java.util.logging.Logger
-import org.eclipse.core.runtime.IPath
-import hub.sam.dbl.LanguageConstructClassifier
-import hub.sam.dbl.TypedElement
-import hub.sam.dbl.Type
-import hub.sam.dbl.IntType
-import hub.sam.dbl.VoidType
-import hub.sam.dbl.StringType
-import hub.sam.dbl.BoolType
-import hub.sam.dbl.DoubleType
-import hub.sam.dbl.IdExpr
-import java.util.List
-import hub.sam.dbl.Variable
-import hub.sam.dbl.Statement
-import hub.sam.dbl.Print
-import org.eclipse.emf.ecore.EObject
-import hub.sam.dbl.Expression
-import hub.sam.dbl.IfStatement
-import hub.sam.dbl.LocalScopeStatement
-import hub.sam.dbl.Assignment
-import hub.sam.dbl.Return
-import hub.sam.dbl.BreakStatement
-import hub.sam.dbl.ContinueStatement
-import hub.sam.dbl.SwitchStatement
-import hub.sam.dbl.ForStatement
-import hub.sam.dbl.WhileStatement
-import hub.sam.dbl.Or
-import hub.sam.dbl.And
-import hub.sam.dbl.Equal
-import hub.sam.dbl.NotEqual
-import hub.sam.dbl.Greater
-import hub.sam.dbl.GreaterEqual
-import hub.sam.dbl.Less
-import hub.sam.dbl.LessEqual
-import hub.sam.dbl.Plus
-import hub.sam.dbl.Minus
-import hub.sam.dbl.Mul
-import hub.sam.dbl.Div
-import hub.sam.dbl.Mod
-import hub.sam.dbl.BinaryOperator
-import hub.sam.dbl.IntLiteral
-import hub.sam.dbl.TrueLiteral
-import hub.sam.dbl.FalseLiteral
-import hub.sam.dbl.DoubleLiteral
-import hub.sam.dbl.NullLiteral
-import hub.sam.dbl.TypeAccess
-import hub.sam.dbl.VariableAccess
-import hub.sam.dbl.StringLiteral
-import hub.sam.dbl.Cast
-import hub.sam.dbl.Not
-import hub.sam.dbl.Neg
-import hub.sam.dbl.CreateObject
-import hub.sam.dbl.PredefinedId
-import hub.sam.dbl.MeLiteral
-import hub.sam.dbl.SuperLiteral
-import hub.sam.dbl.SizeOfArray
-import hub.sam.dbl.NamedElement
-import hub.sam.dbl.InstanceOf
-import hub.sam.dbl.Yield
-import hub.sam.dbl.Wait
 import hub.sam.dbl.ActivateObject
-import hub.sam.dbl.Reactivate
-import hub.sam.dbl.Advance
-import hub.sam.dbl.TimeLiteral
 import hub.sam.dbl.ActiveLiteral
-import hub.sam.dbl.Parameter
-import hub.sam.dbl.Function
-import hub.sam.dbl.FunctionCall
-import hub.sam.dbl.SetExpansionContextStatement
-import hub.sam.dbl.ExpansionStatement
-import hub.sam.dbl.ExpansionPart
+import hub.sam.dbl.Advance
+import hub.sam.dbl.And
+import hub.sam.dbl.Assignment
+import hub.sam.dbl.BinaryOperator
+import hub.sam.dbl.BoolType
+import hub.sam.dbl.BreakStatement
+import hub.sam.dbl.Cast
+import hub.sam.dbl.Class
+import hub.sam.dbl.Constructor
+import hub.sam.dbl.ContinueStatement
+import hub.sam.dbl.CreateObject
+import hub.sam.dbl.Div
+import hub.sam.dbl.DoubleLiteral
+import hub.sam.dbl.DoubleType
+import hub.sam.dbl.Equal
 import hub.sam.dbl.ExpandTextPart
 import hub.sam.dbl.ExpandVariablePart
-import hub.sam.dbl.Constructor
-import hub.sam.dmx.semantics.AbstractGenerator
+import hub.sam.dbl.ExpansionPart
+import hub.sam.dbl.ExpansionStatement
+import hub.sam.dbl.Expression
+import hub.sam.dbl.FalseLiteral
+import hub.sam.dbl.ForStatement
+import hub.sam.dbl.Function
+import hub.sam.dbl.FunctionCall
+import hub.sam.dbl.Greater
+import hub.sam.dbl.GreaterEqual
+import hub.sam.dbl.IdExpr
+import hub.sam.dbl.IfStatement
+import hub.sam.dbl.InstanceOf
+import hub.sam.dbl.IntLiteral
+import hub.sam.dbl.IntType
+import hub.sam.dbl.Less
+import hub.sam.dbl.LessEqual
+import hub.sam.dbl.LocalScopeStatement
+import hub.sam.dbl.MeLiteral
+import hub.sam.dbl.Minus
+import hub.sam.dbl.Mod
+import hub.sam.dbl.Model
+import hub.sam.dbl.Module
+import hub.sam.dbl.Mul
+import hub.sam.dbl.NamedElement
+import hub.sam.dbl.Neg
+import hub.sam.dbl.Not
+import hub.sam.dbl.NotEqual
+import hub.sam.dbl.NullLiteral
+import hub.sam.dbl.Or
+import hub.sam.dbl.Parameter
+import hub.sam.dbl.Plus
+import hub.sam.dbl.PredefinedId
+import hub.sam.dbl.Print
+import hub.sam.dbl.Reactivate
+import hub.sam.dbl.Return
+import hub.sam.dbl.SizeOfArray
+import hub.sam.dbl.Statement
+import hub.sam.dbl.StringLiteral
+import hub.sam.dbl.StringType
 import hub.sam.dbl.SuperClassSpecification
+import hub.sam.dbl.SuperLiteral
+import hub.sam.dbl.SwitchStatement
+import hub.sam.dbl.SyntaxSymbolClassifier
+import hub.sam.dbl.TimeLiteral
+import hub.sam.dbl.TrueLiteral
+import hub.sam.dbl.Type
+import hub.sam.dbl.TypeAccess
+import hub.sam.dbl.TypedElement
+import hub.sam.dbl.Variable
+import hub.sam.dbl.VariableAccess
+import hub.sam.dbl.VoidType
+import hub.sam.dbl.Wait
+import hub.sam.dbl.WhileStatement
+import hub.sam.dbl.Yield
+import hub.sam.dmx.semantics.AbstractGenerator
+import java.io.Writer
+import java.util.List
+import java.util.logging.Logger
+import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.ecore.EObject
 
 class ExtendedDblToCGenerator extends BasicDblToCGenerator{
 	
@@ -1088,18 +1087,8 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		'''
 	}
 	
-	def dispatch String genStatement(SetExpansionContextStatement stm) {
-		val it = stm
-		'''setExpand(«context.genExpr», «addAfterContext»);'''
-	}
-
 	def dispatch String genStatement(ExpansionStatement stm) {
-		val it = stm
-		'''expand(
-		«FOR part : parts SEPARATOR '+'»
-			«part.genMappingPart»
-		«ENDFOR»
-		);'''
+		// empty
 	}
 	
 	def dispatch String genMappingPart(ExpansionPart part) {
@@ -1769,9 +1758,9 @@ class BasicDblToCGenerator extends AbstractGenerator {
 		'''
 	}
 
-	def dispatch String genType(LanguageConstructClassifier langClassifier) {
-		var mappedString = genImportType(langClassifier.name);
-		if (mappedString == "") langClassifier.name
+	def dispatch String genType(SyntaxSymbolClassifier symbolClassifier) {
+		var mappedString = genImportType(symbolClassifier.name);
+		if (mappedString == "") symbolClassifier.name
 		else mappedString
 	}
 	

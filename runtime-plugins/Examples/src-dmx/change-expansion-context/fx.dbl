@@ -1,0 +1,26 @@
+#import "../dbl"
+
+module fxExtension {
+
+extension FX extends dbl SimpleStatement {
+	start FX;
+	FX -> "fx" name:ID ";";
+}
+
+semantics for FX {
+	expand "A " name " = new A();";
+	Module containerModule = getContainerModule(self);
+	expand class "class A {}" in containerModule;
+}	
+
+Module getContainerModule(EObject metaObject) {
+	EObject container = metaObject.eContainer();
+	if (container instanceof Module) {
+		return container as Module;
+	}
+	else {
+		return getContainerModule(container);
+	}
+}
+
+}

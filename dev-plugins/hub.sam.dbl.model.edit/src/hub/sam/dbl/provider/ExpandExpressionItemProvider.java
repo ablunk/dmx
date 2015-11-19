@@ -319,11 +319,6 @@ public class ExpandExpressionItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_EXPRESSION__META_OBJECT,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

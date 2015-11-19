@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractVariable extends NamedElement, TypedElement {
+public interface AbstractVariable extends NamedElement, TypedElement, AnnotateableElement {
 } // AbstractVariable

@@ -1,0 +1,41 @@
+#import "cosal"
+#import "../stdx"
+
+module CosalSemanticsNonOO {
+
+class CosalClassifierMetaClass {
+	string name;
+	List inputs = new ArrayList;
+	string currentStateName;
+	boolean endStateReached = false;
+	
+	void consumeInputs() abstract;
+}
+
+semantics for CosalClassifier {
+	expand "class " name "_CosalClassifierMetaClass"
+		" extends CosalClassifierMetaClass {"
+		"	new () {"
+		"		name = \"" name "\";"
+		"		currentStateName = \"" initial.outgoing.target "\""
+					"@debug(positionObject=\"" getURI(initial.outgoing.target) "\")"
+				";"
+		"	}"
+		"	void consumeInputs() {"
+		"		while (inputs.size() > 0 and !endStateReached) {"
+		"			string input = inputs.get(0) as string;"
+		"			inputs.remove(input);"
+	;
+	
+	foreach (State s in states) {
+		expand	"	if (currentStateName == \"" s "\") {";
+		
+		expand	"	}";
+	}
+	
+	expand
+		"	}"
+		"}";
+}
+
+}

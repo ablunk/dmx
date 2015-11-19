@@ -60,10 +60,41 @@ Construct
 	}
 	
 	List classes;
-	List extensionDefinitions;
-	List extensionSemanticsDefinitions;
+	List extensions;
+	List extensionSemantics;
 	List functions;
 	List variables;
+}
+class Annotation
+extends 
+NamedElement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Annotation"
+	}
+	
+	List items;
+}
+class AnnotationItem
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.AnnotationItem"
+	}
+	
+	string key;
+	void setKey(string value) abstract;
+	string value;
+	void setValue(string value) abstract;
+}
+class AnnotateableElement
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.AnnotateableElement"
+	}
+	
+	List annotations;
 }
 class ConstructiveExtension
 extends 
@@ -83,21 +114,21 @@ extends EObject
 	
 	List contentExtensions;
 }
-class ModuleContent
+class ModuleContentExtension
 extends 
 ConstructiveExtension
 {
 	bindings {
-		"java" -> "hub.sam.dbl.ModuleContent"
+		"java" -> "hub.sam.dbl.ModuleContentExtension"
 	}
 	
 }
-class ClassContent
+class ClassContentExtension
 extends 
 ConstructiveExtension
 {
 	bindings {
-		"java" -> "hub.sam.dbl.ClassContent"
+		"java" -> "hub.sam.dbl.ClassContentExtension"
 	}
 	
 }
@@ -231,8 +262,9 @@ extends
 NamedElement,
 Type,
 ConstructiveExtensionAtContentExtensionPoint,
-LanguageConceptClassifier,
-Construct
+Concept,
+Construct,
+AnnotateableElement
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Class"
@@ -263,7 +295,8 @@ LocalScope
 class AbstractVariable
 extends 
 NamedElement,
-TypedElement
+TypedElement,
+AnnotateableElement
 {
 	bindings {
 		"java" -> "hub.sam.dbl.AbstractVariable"
@@ -307,7 +340,8 @@ extends EObject
 }
 class Statement
 extends 
-ExtensibleElement
+ExtensibleElement,
+AnnotateableElement
 {
 	bindings {
 		"java" -> "hub.sam.dbl.Statement"
@@ -930,6 +964,17 @@ L1Expr
 	double value;
 	void setValue(double value) abstract;
 }
+class UniqueIdExpr
+extends 
+Expression
+{
+	bindings {
+		"java" -> "hub.sam.dbl.UniqueIdExpr"
+	}
+	
+	string identifier;
+	void setIdentifier(string value) abstract;
+}
 class ExpandExpr
 extends 
 Expression
@@ -1070,234 +1115,206 @@ ElementAccess
 	}
 	
 }
-class ExtensionDefinition
+class Extension
 extends 
-LanguageConceptClassifier,
+Concept,
 ExtensibleElement
 {
 	bindings {
-		"java" -> "hub.sam.dbl.ExtensionDefinition"
+		"java" -> "hub.sam.dbl.Extension"
 	}
 	
-	LanguageConceptClassifier extendedConcept;
-	void setExtendedConcept(LanguageConceptClassifier value) abstract;
-	Class abstractSyntaxDef;
-	void setAbstractSyntaxDef(Class value) abstract;
-	TextualSyntaxDef textualSyntaxDef;
-	void setTextualSyntaxDef(TextualSyntaxDef value) abstract;
+	Concept extensionPoint;
+	void setExtensionPoint(Concept value) abstract;
+	SyntaxDefinition syntaxDefinition;
+	void setSyntaxDefinition(SyntaxDefinition value) abstract;
 }
-class ExtensionSemanticsDefinition
+class ExtensionSemantics
 extends 
 ExtensibleElement,
 LocalScope
 {
 	bindings {
-		"java" -> "hub.sam.dbl.ExtensionSemanticsDefinition"
+		"java" -> "hub.sam.dbl.ExtensionSemantics"
 	}
 	
-	ExtensionDefinition syntaxDefinition;
-	void setSyntaxDefinition(ExtensionDefinition value) abstract;
+	Extension syntaxDefinition;
+	void setSyntaxDefinition(Extension value) abstract;
 }
-class TextualSyntaxDef
+class SyntaxDefinition
 extends 
 ExtensibleElement
 {
 	bindings {
-		"java" -> "hub.sam.dbl.TextualSyntaxDef"
+		"java" -> "hub.sam.dbl.SyntaxDefinition"
 	}
 	
-	TsRule startRule;
-	void setStartRule(TsRule value) abstract;
-	List rules;
+	MetaSymbol startSymbol;
+	void setStartSymbol(MetaSymbol value) abstract;
+	List symbols;
 }
-class LanguageConstructClassifier
+class SyntaxSymbolClassifier
 extends 
 NamedElement,
 ExtensibleElement
 {
 	bindings {
-		"java" -> "hub.sam.dbl.LanguageConstructClassifier"
+		"java" -> "hub.sam.dbl.SyntaxSymbolClassifier"
 	}
 	
 }
-class LanguageConceptClassifier
+class ComplexSymbol
 extends 
-LanguageConstructClassifier
+SyntaxSymbolClassifier
 {
 	bindings {
-		"java" -> "hub.sam.dbl.LanguageConceptClassifier"
+		"java" -> "hub.sam.dbl.ComplexSymbol"
 	}
 	
 }
-class TsRule
+class Concept
+extends 
+ComplexSymbol
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Concept"
+	}
+	
+}
+class MetaSymbol
 extends 
 NamedElement,
-LanguageConstructClassifier
+ComplexSymbol
 {
 	bindings {
-		"java" -> "hub.sam.dbl.TsRule"
+		"java" -> "hub.sam.dbl.MetaSymbol"
 	}
 	
-	RhsExpression rhs;
-	void setRhs(RhsExpression value) abstract;
+	SyntaxExpression possibleSyntax;
+	void setPossibleSyntax(SyntaxExpression value) abstract;
 }
-class RhsExpression
+class SyntaxExpression
 extends EObject
 {
 	bindings {
-		"java" -> "hub.sam.dbl.RhsExpression"
+		"java" -> "hub.sam.dbl.SyntaxExpression"
 	}
 	
 }
-class L3RhsExpr
+class L3SyntaxExpression
 extends 
-RhsExpression
+SyntaxExpression
 {
 	bindings {
-		"java" -> "hub.sam.dbl.L3RhsExpr"
+		"java" -> "hub.sam.dbl.L3SyntaxExpression"
 	}
 	
 }
-class L2RhsExpr
+class L2SyntaxExpression
 extends 
-RhsExpression
+SyntaxExpression
 {
 	bindings {
-		"java" -> "hub.sam.dbl.L2RhsExpr"
+		"java" -> "hub.sam.dbl.L2SyntaxExpression"
 	}
 	
 }
-class SequenceExpr
+class SymbolSequence
 extends 
-L2RhsExpr
+L2SyntaxExpression
 {
 	bindings {
-		"java" -> "hub.sam.dbl.SequenceExpr"
+		"java" -> "hub.sam.dbl.SymbolSequence"
 	}
 	
 	List sequence;
 }
-class L1RhsExpr
+class L1SyntaxExpression
 extends 
-RhsExpression
+SyntaxExpression
 {
 	bindings {
-		"java" -> "hub.sam.dbl.L1RhsExpr"
+		"java" -> "hub.sam.dbl.L1SyntaxExpression"
 	}
 	
 }
-class TerminalExpr
-extends 
-L1RhsExpr
-{
-	bindings {
-		"java" -> "hub.sam.dbl.TerminalExpr"
-	}
-	
-	string terminal;
-	void setTerminal(string value) abstract;
-}
-class PropertyBindingExpr
+class StructuralSymbolReference
 extends 
 NamedElement,
-L1RhsExpr
+PlainSymbolReference
 {
 	bindings {
-		"java" -> "hub.sam.dbl.PropertyBindingExpr"
-	}
-	
-	PropertyType propertyType;
-	void setPropertyType(PropertyType value) abstract;
-}
-class RhsClassifierExpr
-extends 
-L1RhsExpr
-{
-	bindings {
-		"java" -> "hub.sam.dbl.RhsClassifierExpr"
-	}
-	
-	LanguageConstructClassifier classifier;
-	void setClassifier(LanguageConstructClassifier value) abstract;
-}
-class PropertyType
-extends EObject
-{
-	bindings {
-		"java" -> "hub.sam.dbl.PropertyType"
-	}
-	
-}
-class IdPropertyType
-extends 
-PropertyType
-{
-	bindings {
-		"java" -> "hub.sam.dbl.IdPropertyType"
-	}
-	
-}
-class IntPropertyType
-extends 
-PropertyType
-{
-	bindings {
-		"java" -> "hub.sam.dbl.IntPropertyType"
-	}
-	
-}
-class StringPropertyType
-extends 
-PropertyType
-{
-	bindings {
-		"java" -> "hub.sam.dbl.StringPropertyType"
-	}
-	
-}
-class BooleanPropertyType
-extends 
-PropertyType
-{
-	bindings {
-		"java" -> "hub.sam.dbl.BooleanPropertyType"
-	}
-	
-	string terminal;
-	void setTerminal(string value) abstract;
-}
-class StructuredPropertyType
-extends 
-PropertyType
-{
-	bindings {
-		"java" -> "hub.sam.dbl.StructuredPropertyType"
-	}
-	
-	LanguageConstructClassifier type_;
-	void setType_(LanguageConstructClassifier value) abstract;
-}
-class CompositePropertyType
-extends 
-StructuredPropertyType
-{
-	bindings {
-		"java" -> "hub.sam.dbl.CompositePropertyType"
+		"java" -> "hub.sam.dbl.StructuralSymbolReference"
 	}
 	
 	boolean list;
 	void setList(boolean value) abstract;
+	boolean composite;
+	boolean localScopedReference;
+	void setLocalScopedReference(boolean value) abstract;
+	boolean globalScopedReference;
+	void setGlobalScopedReference(boolean value) abstract;
 }
-class ReferencePropertyType
+class PlainSymbolReference
 extends 
-StructuredPropertyType
+L1SyntaxExpression
 {
 	bindings {
-		"java" -> "hub.sam.dbl.ReferencePropertyType"
+		"java" -> "hub.sam.dbl.PlainSymbolReference"
 	}
 	
-	boolean rawReference;
-	void setRawReference(boolean value) abstract;
+	SyntaxSymbolClassifier classifier;
+	SyntaxSymbolClassifier ownedClassifier;
+	void setOwnedClassifier(SyntaxSymbolClassifier value) abstract;
+	SyntaxSymbolClassifier referencedClassifier;
+	void setReferencedClassifier(SyntaxSymbolClassifier value) abstract;
+}
+class ElementarySymbol
+extends 
+SyntaxSymbolClassifier
+{
+	bindings {
+		"java" -> "hub.sam.dbl.ElementarySymbol"
+	}
+	
+}
+class IdSymbol
+extends 
+ElementarySymbol
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IdSymbol"
+	}
+	
+}
+class IntSymbol
+extends 
+ElementarySymbol
+{
+	bindings {
+		"java" -> "hub.sam.dbl.IntSymbol"
+	}
+	
+}
+class StringSymbol
+extends 
+ElementarySymbol
+{
+	bindings {
+		"java" -> "hub.sam.dbl.StringSymbol"
+	}
+	
+}
+class Keyword
+extends 
+ElementarySymbol
+{
+	bindings {
+		"java" -> "hub.sam.dbl.Keyword"
+	}
+	
+	string keyword;
+	void setKeyword(string value) abstract;
 }
 class MetaExpr
 extends 

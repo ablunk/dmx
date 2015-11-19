@@ -10,10 +10,10 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.UnaryOperator#getOp <em>Op</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getUnaryOperator()
  * @model abstract="true"

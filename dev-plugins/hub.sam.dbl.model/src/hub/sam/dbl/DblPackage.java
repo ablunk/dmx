@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EReference;
  * @see hub.sam.dbl.DblFactory
  * @model kind="package"
  *        annotation="http://www.eclipse.org/OCL/Import ecore='http://www.eclipse.org/emf/2002/Ecore'"
+ *        annotation="http://www.eclipse.org/emf/2002/Ecore invocationDelegates='http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot' settingDelegates='http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot' validationDelegates='http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot'"
  * @generated
  */
 public interface DblPackage extends EPackage {
@@ -93,7 +94,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNamedElement()
 	 * @generated
 	 */
-	int NAMED_ELEMENT = 26;
+	int NAMED_ELEMENT = 29;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -160,94 +161,13 @@ public interface DblPackage extends EPackage {
 	int EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER1 = NAMED_ELEMENT_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER2 = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER3 = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER4 = NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER5 = NAMED_ELEMENT_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER6 = NAMED_ELEMENT_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER8 = NAMED_ELEMENT_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER9 = NAMED_ELEMENT_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSIBLE_ELEMENT__PLACE_HOLDER10 = NAMED_ELEMENT_FEATURE_COUNT + 11;
-
-	/**
 	 * The number of structural features of the '<em>Extensible Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSIBLE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 12;
+	int EXTENSIBLE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ModelImpl <em>Model</em>}' class.
@@ -370,22 +290,22 @@ public interface DblPackage extends EPackage {
 	int MODULE__CLASSES = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Extension Definitions</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE__EXTENSION_DEFINITIONS = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int MODULE__EXTENSIONS = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Extension Semantics Definitions</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Extension Semantics</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE__EXTENSION_SEMANTICS_DEFINITIONS = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int MODULE__EXTENSION_SEMANTICS = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
@@ -415,6 +335,108 @@ public interface DblPackage extends EPackage {
 	int MODULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.AnnotationImpl <em>Annotation</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.AnnotationImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotation()
+	 * @generated
+	 */
+	int ANNOTATION = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION__NAME = NAMED_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION__ITEMS = NAMED_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Annotation</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.AnnotationItemImpl <em>Annotation Item</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.AnnotationItemImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotationItem()
+	 * @generated
+	 */
+	int ANNOTATION_ITEM = 6;
+
+	/**
+	 * The feature id for the '<em><b>Key</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_ITEM__KEY = 0;
+
+	/**
+	 * The feature id for the '<em><b>Value</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_ITEM__VALUE = 1;
+
+	/**
+	 * The number of structural features of the '<em>Annotation Item</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_ITEM_FEATURE_COUNT = 2;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.AnnotateableElementImpl <em>Annotateable Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.AnnotateableElementImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotateableElement()
+	 * @generated
+	 */
+	int ANNOTATEABLE_ELEMENT = 7;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATEABLE_ELEMENT__ANNOTATIONS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Annotateable Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATEABLE_ELEMENT_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ConstructiveExtensionImpl <em>Constructive Extension</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -422,7 +444,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getConstructiveExtension()
 	 * @generated
 	 */
-	int CONSTRUCTIVE_EXTENSION = 5;
+	int CONSTRUCTIVE_EXTENSION = 8;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -461,87 +483,6 @@ public interface DblPackage extends EPackage {
 	int CONSTRUCTIVE_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER1 = EXTENSIBLE_ELEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER2 = EXTENSIBLE_ELEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER3 = EXTENSIBLE_ELEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER4 = EXTENSIBLE_ELEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER5 = EXTENSIBLE_ELEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER6 = EXTENSIBLE_ELEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER8 = EXTENSIBLE_ELEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER9 = EXTENSIBLE_ELEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONSTRUCTIVE_EXTENSION__PLACE_HOLDER10 = EXTENSIBLE_ELEMENT__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>Constructive Extension</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -558,7 +499,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getConstructiveExtensionAtContentExtensionPoint()
 	 * @generated
 	 */
-	int CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT = 6;
+	int CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT = 9;
 
 	/**
 	 * The feature id for the '<em><b>Content Extensions</b></em>' containment reference list.
@@ -579,14 +520,14 @@ public interface DblPackage extends EPackage {
 	int CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT_FEATURE_COUNT = 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ModuleContentImpl <em>Module Content</em>}' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ModuleContentExtensionImpl <em>Module Content Extension</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ModuleContentImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getModuleContent()
+	 * @see hub.sam.dbl.impl.ModuleContentExtensionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getModuleContentExtension()
 	 * @generated
 	 */
-	int MODULE_CONTENT = 7;
+	int MODULE_CONTENT_EXTENSION = 10;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -595,7 +536,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_CONTENT__NAME = CONSTRUCTIVE_EXTENSION__NAME;
+	int MODULE_CONTENT_EXTENSION__NAME = CONSTRUCTIVE_EXTENSION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -604,7 +545,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_CONTENT__EXPAND_EXPR = CONSTRUCTIVE_EXTENSION__EXPAND_EXPR;
+	int MODULE_CONTENT_EXTENSION__EXPAND_EXPR = CONSTRUCTIVE_EXTENSION__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -613,7 +554,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_CONTENT__CONCRETE_SYNTAX = CONSTRUCTIVE_EXTENSION__CONCRETE_SYNTAX;
+	int MODULE_CONTENT_EXTENSION__CONCRETE_SYNTAX = CONSTRUCTIVE_EXTENSION__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -622,107 +563,26 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION = CONSTRUCTIVE_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION;
+	int MODULE_CONTENT_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION = CONSTRUCTIVE_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The number of structural features of the '<em>Module Content Extension</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODULE_CONTENT__PLACE_HOLDER1 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER1;
+	int MODULE_CONTENT_EXTENSION_FEATURE_COUNT = CONSTRUCTIVE_EXTENSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ClassContentExtensionImpl <em>Class Content Extension</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER2 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER3 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER4 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER5 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER6 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER8 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER9 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT__PLACE_HOLDER10 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER10;
-
-	/**
-	 * The number of structural features of the '<em>Module Content</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MODULE_CONTENT_FEATURE_COUNT = CONSTRUCTIVE_EXTENSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ClassContentImpl <em>Class Content</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ClassContentImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getClassContent()
+	 * @see hub.sam.dbl.impl.ClassContentExtensionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getClassContentExtension()
 	 * @generated
 	 */
-	int CLASS_CONTENT = 8;
+	int CLASS_CONTENT_EXTENSION = 11;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -731,7 +591,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_CONTENT__NAME = CONSTRUCTIVE_EXTENSION__NAME;
+	int CLASS_CONTENT_EXTENSION__NAME = CONSTRUCTIVE_EXTENSION__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -740,7 +600,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_CONTENT__EXPAND_EXPR = CONSTRUCTIVE_EXTENSION__EXPAND_EXPR;
+	int CLASS_CONTENT_EXTENSION__EXPAND_EXPR = CONSTRUCTIVE_EXTENSION__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -749,7 +609,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_CONTENT__CONCRETE_SYNTAX = CONSTRUCTIVE_EXTENSION__CONCRETE_SYNTAX;
+	int CLASS_CONTENT_EXTENSION__CONCRETE_SYNTAX = CONSTRUCTIVE_EXTENSION__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -758,97 +618,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION = CONSTRUCTIVE_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION;
+	int CLASS_CONTENT_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION = CONSTRUCTIVE_EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The number of structural features of the '<em>Class Content Extension</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_CONTENT__PLACE_HOLDER1 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER2 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER3 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER4 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER5 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER6 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER8 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER9 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT__PLACE_HOLDER10 = CONSTRUCTIVE_EXTENSION__PLACE_HOLDER10;
-
-	/**
-	 * The number of structural features of the '<em>Class Content</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS_CONTENT_FEATURE_COUNT = CONSTRUCTIVE_EXTENSION_FEATURE_COUNT + 0;
+	int CLASS_CONTENT_EXTENSION_FEATURE_COUNT = CONSTRUCTIVE_EXTENSION_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.TypeImpl <em>Type</em>}' class.
@@ -858,7 +637,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getType()
 	 * @generated
 	 */
-	int TYPE = 9;
+	int TYPE = 12;
 
 	/**
 	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
@@ -886,7 +665,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTypedElement()
 	 * @generated
 	 */
-	int TYPED_ELEMENT = 10;
+	int TYPED_ELEMENT = 13;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -932,7 +711,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getArrayDimension()
 	 * @generated
 	 */
-	int ARRAY_DIMENSION = 11;
+	int ARRAY_DIMENSION = 14;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -960,7 +739,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPrimitiveType()
 	 * @generated
 	 */
-	int PRIMITIVE_TYPE = 12;
+	int PRIMITIVE_TYPE = 15;
 
 	/**
 	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
@@ -988,7 +767,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getVoidType()
 	 * @generated
 	 */
-	int VOID_TYPE = 13;
+	int VOID_TYPE = 16;
 
 	/**
 	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
@@ -1016,7 +795,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntType()
 	 * @generated
 	 */
-	int INT_TYPE = 14;
+	int INT_TYPE = 17;
 
 	/**
 	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
@@ -1044,7 +823,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBoolType()
 	 * @generated
 	 */
-	int BOOL_TYPE = 15;
+	int BOOL_TYPE = 18;
 
 	/**
 	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
@@ -1072,7 +851,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDoubleType()
 	 * @generated
 	 */
-	int DOUBLE_TYPE = 16;
+	int DOUBLE_TYPE = 19;
 
 	/**
 	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
@@ -1100,7 +879,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringType()
 	 * @generated
 	 */
-	int STRING_TYPE = 17;
+	int STRING_TYPE = 20;
 
 	/**
 	 * The feature id for the '<em><b>Array Dimensions</b></em>' containment reference list.
@@ -1128,7 +907,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getFunction()
 	 * @generated
 	 */
-	int FUNCTION = 18;
+	int FUNCTION = 21;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1219,7 +998,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNativeBinding()
 	 * @generated
 	 */
-	int NATIVE_BINDING = 19;
+	int NATIVE_BINDING = 22;
 
 	/**
 	 * The feature id for the '<em><b>Target Language</b></em>' attribute.
@@ -1256,7 +1035,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLocalScope()
 	 * @generated
 	 */
-	int LOCAL_SCOPE = 42;
+	int LOCAL_SCOPE = 45;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.SuperClassSpecificationImpl <em>Super Class Specification</em>}' class.
@@ -1266,7 +1045,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSuperClassSpecification()
 	 * @generated
 	 */
-	int SUPER_CLASS_SPECIFICATION = 20;
+	int SUPER_CLASS_SPECIFICATION = 23;
 
 	/**
 	 * The feature id for the '<em><b>Class</b></em>' reference.
@@ -1303,7 +1082,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getClass_()
 	 * @generated
 	 */
-	int CLASS = 21;
+	int CLASS = 24;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1360,85 +1139,13 @@ public interface DblPackage extends EPackage {
 	int CLASS__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__PLACE_HOLDER1 = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER2 = NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER3 = NAMED_ELEMENT_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER4 = NAMED_ELEMENT_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER5 = NAMED_ELEMENT_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER6 = NAMED_ELEMENT_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER8 = NAMED_ELEMENT_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER9 = NAMED_ELEMENT_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CLASS__PLACE_HOLDER10 = NAMED_ELEMENT_FEATURE_COUNT + 13;
+	int CLASS__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -1447,7 +1154,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__ACTIVE = NAMED_ELEMENT_FEATURE_COUNT + 14;
+	int CLASS__ACTIVE = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
@@ -1456,7 +1163,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__BINDINGS = NAMED_ELEMENT_FEATURE_COUNT + 15;
+	int CLASS__BINDINGS = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Super Classes</b></em>' containment reference list.
@@ -1465,7 +1172,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__SUPER_CLASSES = NAMED_ELEMENT_FEATURE_COUNT + 16;
+	int CLASS__SUPER_CLASSES = NAMED_ELEMENT_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Constructors</b></em>' containment reference list.
@@ -1474,7 +1181,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__CONSTRUCTORS = NAMED_ELEMENT_FEATURE_COUNT + 17;
+	int CLASS__CONSTRUCTORS = NAMED_ELEMENT_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -1483,7 +1190,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__ATTRIBUTES = NAMED_ELEMENT_FEATURE_COUNT + 18;
+	int CLASS__ATTRIBUTES = NAMED_ELEMENT_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
@@ -1492,7 +1199,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__METHODS = NAMED_ELEMENT_FEATURE_COUNT + 19;
+	int CLASS__METHODS = NAMED_ELEMENT_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Actions Block</b></em>' containment reference.
@@ -1501,7 +1208,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS__ACTIONS_BLOCK = NAMED_ELEMENT_FEATURE_COUNT + 20;
+	int CLASS__ACTIONS_BLOCK = NAMED_ELEMENT_FEATURE_COUNT + 12;
 
 	/**
 	 * The number of structural features of the '<em>Class</em>' class.
@@ -1510,7 +1217,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int CLASS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 21;
+	int CLASS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 13;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1538,7 +1245,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getConstructor()
 	 * @generated
 	 */
-	int CONSTRUCTOR = 22;
+	int CONSTRUCTOR = 25;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -1584,7 +1291,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAbstractVariable()
 	 * @generated
 	 */
-	int ABSTRACT_VARIABLE = 23;
+	int ABSTRACT_VARIABLE = 26;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1623,13 +1330,22 @@ public interface DblPackage extends EPackage {
 	int ABSTRACT_VARIABLE__CLASSIFIER_TYPE = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ABSTRACT_VARIABLE__ANNOTATIONS = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Abstract Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ABSTRACT_VARIABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int ABSTRACT_VARIABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.VariableImpl <em>Variable</em>}' class.
@@ -1639,7 +1355,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getVariable()
 	 * @generated
 	 */
-	int VARIABLE = 24;
+	int VARIABLE = 27;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1678,6 +1394,15 @@ public interface DblPackage extends EPackage {
 	int VARIABLE__CLASSIFIER_TYPE = ABSTRACT_VARIABLE__CLASSIFIER_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__ANNOTATIONS = ABSTRACT_VARIABLE__ANNOTATIONS;
+
+	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1705,94 +1430,13 @@ public interface DblPackage extends EPackage {
 	int VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION = ABSTRACT_VARIABLE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER1 = ABSTRACT_VARIABLE_FEATURE_COUNT + 3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER2 = ABSTRACT_VARIABLE_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER3 = ABSTRACT_VARIABLE_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER4 = ABSTRACT_VARIABLE_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER5 = ABSTRACT_VARIABLE_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER6 = ABSTRACT_VARIABLE_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER8 = ABSTRACT_VARIABLE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER9 = ABSTRACT_VARIABLE_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__PLACE_HOLDER10 = ABSTRACT_VARIABLE_FEATURE_COUNT + 11;
-
-	/**
 	 * The feature id for the '<em><b>Control</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__CONTROL = ABSTRACT_VARIABLE_FEATURE_COUNT + 12;
+	int VARIABLE__CONTROL = ABSTRACT_VARIABLE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Class</b></em>' attribute.
@@ -1801,7 +1445,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__CLASS = ABSTRACT_VARIABLE_FEATURE_COUNT + 13;
+	int VARIABLE__CLASS = ABSTRACT_VARIABLE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
@@ -1810,7 +1454,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__INITIAL_VALUE = ABSTRACT_VARIABLE_FEATURE_COUNT + 14;
+	int VARIABLE__INITIAL_VALUE = ABSTRACT_VARIABLE_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Variable</em>' class.
@@ -1819,7 +1463,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 15;
+	int VARIABLE_FEATURE_COUNT = ABSTRACT_VARIABLE_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ParameterImpl <em>Parameter</em>}' class.
@@ -1829,7 +1473,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getParameter()
 	 * @generated
 	 */
-	int PARAMETER = 25;
+	int PARAMETER = 28;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1868,6 +1512,15 @@ public interface DblPackage extends EPackage {
 	int PARAMETER__CLASSIFIER_TYPE = ABSTRACT_VARIABLE__CLASSIFIER_TYPE;
 
 	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PARAMETER__ANNOTATIONS = ABSTRACT_VARIABLE__ANNOTATIONS;
+
+	/**
 	 * The number of structural features of the '<em>Parameter</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1884,7 +1537,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStatement()
 	 * @generated
 	 */
-	int STATEMENT = 27;
+	int STATEMENT = 30;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1923,85 +1576,13 @@ public interface DblPackage extends EPackage {
 	int STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMENT__PLACE_HOLDER1 = EXTENSIBLE_ELEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER2 = EXTENSIBLE_ELEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER3 = EXTENSIBLE_ELEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER4 = EXTENSIBLE_ELEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER5 = EXTENSIBLE_ELEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER6 = EXTENSIBLE_ELEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER8 = EXTENSIBLE_ELEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER9 = EXTENSIBLE_ELEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STATEMENT__PLACE_HOLDER10 = EXTENSIBLE_ELEMENT__PLACE_HOLDER10;
+	int STATEMENT__ANNOTATIONS = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Statement</em>' class.
@@ -2010,7 +1591,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int STATEMENT_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
+	int STATEMENT_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.LoopStatementImpl <em>Loop Statement</em>}' class.
@@ -2020,7 +1601,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLoopStatement()
 	 * @generated
 	 */
-	int LOOP_STATEMENT = 28;
+	int LOOP_STATEMENT = 31;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2059,85 +1640,13 @@ public interface DblPackage extends EPackage {
 	int LOOP_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOOP_STATEMENT__PLACE_HOLDER1 = STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER2 = STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER3 = STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER4 = STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER5 = STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER6 = STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER8 = STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER9 = STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOOP_STATEMENT__PLACE_HOLDER10 = STATEMENT__PLACE_HOLDER10;
+	int LOOP_STATEMENT__ANNOTATIONS = STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>Loop Statement</em>' class.
@@ -2156,7 +1665,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSimpleStatement()
 	 * @generated
 	 */
-	int SIMPLE_STATEMENT = 29;
+	int SIMPLE_STATEMENT = 32;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2195,85 +1704,13 @@ public interface DblPackage extends EPackage {
 	int SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER1 = STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER2 = STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER3 = STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER4 = STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER5 = STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER6 = STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER8 = STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER9 = STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SIMPLE_STATEMENT__PLACE_HOLDER10 = STATEMENT__PLACE_HOLDER10;
+	int SIMPLE_STATEMENT__ANNOTATIONS = STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>Simple Statement</em>' class.
@@ -2292,7 +1729,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAssignment()
 	 * @generated
 	 */
-	int ASSIGNMENT = 30;
+	int ASSIGNMENT = 33;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2331,85 +1768,13 @@ public interface DblPackage extends EPackage {
 	int ASSIGNMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ASSIGNMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ASSIGNMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int ASSIGNMENT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -2446,7 +1811,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getFunctionCall()
 	 * @generated
 	 */
-	int FUNCTION_CALL = 31;
+	int FUNCTION_CALL = 34;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2485,85 +1850,13 @@ public interface DblPackage extends EPackage {
 	int FUNCTION_CALL__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FUNCTION_CALL__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FUNCTION_CALL__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int FUNCTION_CALL__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Call Id Expr</b></em>' containment reference.
@@ -2591,7 +1884,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getReturn()
 	 * @generated
 	 */
-	int RETURN = 32;
+	int RETURN = 35;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2630,85 +1923,13 @@ public interface DblPackage extends EPackage {
 	int RETURN__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RETURN__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RETURN__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int RETURN__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -2736,7 +1957,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getWaitUntil()
 	 * @generated
 	 */
-	int WAIT_UNTIL = 33;
+	int WAIT_UNTIL = 36;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2775,85 +1996,13 @@ public interface DblPackage extends EPackage {
 	int WAIT_UNTIL__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WAIT_UNTIL__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT_UNTIL__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int WAIT_UNTIL__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -2881,7 +2030,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTerminate()
 	 * @generated
 	 */
-	int TERMINATE = 34;
+	int TERMINATE = 37;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2920,85 +2069,13 @@ public interface DblPackage extends EPackage {
 	int TERMINATE__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINATE__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINATE__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int TERMINATE__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>Terminate</em>' class.
@@ -3017,7 +2094,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getYield()
 	 * @generated
 	 */
-	int YIELD = 35;
+	int YIELD = 38;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3056,85 +2133,13 @@ public interface DblPackage extends EPackage {
 	int YIELD__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int YIELD__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int YIELD__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int YIELD__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>Yield</em>' class.
@@ -3153,7 +2158,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getWait()
 	 * @generated
 	 */
-	int WAIT = 36;
+	int WAIT = 39;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3192,85 +2197,13 @@ public interface DblPackage extends EPackage {
 	int WAIT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WAIT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WAIT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int WAIT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>Wait</em>' class.
@@ -3289,7 +2222,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getReactivate()
 	 * @generated
 	 */
-	int REACTIVATE = 37;
+	int REACTIVATE = 40;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3328,85 +2261,13 @@ public interface DblPackage extends EPackage {
 	int REACTIVATE__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REACTIVATE__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int REACTIVATE__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int REACTIVATE__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Object Access</b></em>' containment reference.
@@ -3434,7 +2295,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getActivateObject()
 	 * @generated
 	 */
-	int ACTIVATE_OBJECT = 38;
+	int ACTIVATE_OBJECT = 41;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3473,85 +2334,13 @@ public interface DblPackage extends EPackage {
 	int ACTIVATE_OBJECT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVATE_OBJECT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int ACTIVATE_OBJECT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Object Access</b></em>' containment reference.
@@ -3588,7 +2377,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAdvance()
 	 * @generated
 	 */
-	int ADVANCE = 39;
+	int ADVANCE = 42;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3627,85 +2416,13 @@ public interface DblPackage extends EPackage {
 	int ADVANCE__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int ADVANCE__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ADVANCE__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int ADVANCE__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Time</b></em>' containment reference.
@@ -3733,7 +2450,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPrint()
 	 * @generated
 	 */
-	int PRINT = 40;
+	int PRINT = 43;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3772,85 +2489,13 @@ public interface DblPackage extends EPackage {
 	int PRINT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PRINT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PRINT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int PRINT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Outputs</b></em>' containment reference list.
@@ -3878,7 +2523,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIfStatement()
 	 * @generated
 	 */
-	int IF_STATEMENT = 41;
+	int IF_STATEMENT = 44;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -3917,85 +2562,13 @@ public interface DblPackage extends EPackage {
 	int IF_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int IF_STATEMENT__PLACE_HOLDER1 = STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER2 = STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER3 = STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER4 = STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER5 = STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER6 = STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER8 = STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER9 = STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int IF_STATEMENT__PLACE_HOLDER10 = STATEMENT__PLACE_HOLDER10;
+	int IF_STATEMENT__ANNOTATIONS = STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -4041,7 +2614,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLocalScopeStatement()
 	 * @generated
 	 */
-	int LOCAL_SCOPE_STATEMENT = 43;
+	int LOCAL_SCOPE_STATEMENT = 46;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4080,85 +2653,13 @@ public interface DblPackage extends EPackage {
 	int LOCAL_SCOPE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LOCAL_SCOPE_STATEMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int LOCAL_SCOPE_STATEMENT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -4186,7 +2687,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getForStatement()
 	 * @generated
 	 */
-	int FOR_STATEMENT = 44;
+	int FOR_STATEMENT = 47;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4225,85 +2726,13 @@ public interface DblPackage extends EPackage {
 	int FOR_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = LOOP_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FOR_STATEMENT__PLACE_HOLDER1 = LOOP_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER2 = LOOP_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER3 = LOOP_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER4 = LOOP_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER5 = LOOP_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER6 = LOOP_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER8 = LOOP_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER9 = LOOP_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FOR_STATEMENT__PLACE_HOLDER10 = LOOP_STATEMENT__PLACE_HOLDER10;
+	int FOR_STATEMENT__ANNOTATIONS = LOOP_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -4358,7 +2787,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getWhileStatement()
 	 * @generated
 	 */
-	int WHILE_STATEMENT = 45;
+	int WHILE_STATEMENT = 48;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4397,85 +2826,13 @@ public interface DblPackage extends EPackage {
 	int WHILE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = LOOP_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int WHILE_STATEMENT__PLACE_HOLDER1 = LOOP_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER2 = LOOP_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER3 = LOOP_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER4 = LOOP_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER5 = LOOP_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER6 = LOOP_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER8 = LOOP_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER9 = LOOP_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int WHILE_STATEMENT__PLACE_HOLDER10 = LOOP_STATEMENT__PLACE_HOLDER10;
+	int WHILE_STATEMENT__ANNOTATIONS = LOOP_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
@@ -4512,7 +2869,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSwitchStatement()
 	 * @generated
 	 */
-	int SWITCH_STATEMENT = 46;
+	int SWITCH_STATEMENT = 49;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4551,85 +2908,13 @@ public interface DblPackage extends EPackage {
 	int SWITCH_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SWITCH_STATEMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int SWITCH_STATEMENT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
@@ -4675,7 +2960,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSwitchCase()
 	 * @generated
 	 */
-	int SWITCH_CASE = 47;
+	int SWITCH_CASE = 50;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -4712,7 +2997,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBreakStatement()
 	 * @generated
 	 */
-	int BREAK_STATEMENT = 48;
+	int BREAK_STATEMENT = 51;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4751,85 +3036,13 @@ public interface DblPackage extends EPackage {
 	int BREAK_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BREAK_STATEMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BREAK_STATEMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int BREAK_STATEMENT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>Break Statement</em>' class.
@@ -4848,7 +3061,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getContinueStatement()
 	 * @generated
 	 */
-	int CONTINUE_STATEMENT = 49;
+	int CONTINUE_STATEMENT = 52;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -4887,85 +3100,13 @@ public interface DblPackage extends EPackage {
 	int CONTINUE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CONTINUE_STATEMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
+	int CONTINUE_STATEMENT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The number of structural features of the '<em>Continue Statement</em>' class.
@@ -4984,7 +3125,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpression()
 	 * @generated
 	 */
-	int EXPRESSION = 50;
+	int EXPRESSION = 53;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -5050,94 +3191,13 @@ public interface DblPackage extends EPackage {
 	int EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION = TYPED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER1 = TYPED_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER2 = TYPED_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER3 = TYPED_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER4 = TYPED_ELEMENT_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER5 = TYPED_ELEMENT_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER6 = TYPED_ELEMENT_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER8 = TYPED_ELEMENT_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER9 = TYPED_ELEMENT_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPRESSION__PLACE_HOLDER10 = TYPED_ELEMENT_FEATURE_COUNT + 12;
-
-	/**
 	 * The number of structural features of the '<em>Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPRESSION_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 13;
+	int EXPRESSION_FEATURE_COUNT = TYPED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.L1ExprImpl <em>L1 Expr</em>}' class.
@@ -5147,7 +3207,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL1Expr()
 	 * @generated
 	 */
-	int L1_EXPR = 51;
+	int L1_EXPR = 54;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -5213,87 +3273,6 @@ public interface DblPackage extends EPackage {
 	int L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L1 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5310,7 +3289,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL2Expr()
 	 * @generated
 	 */
-	int L2_EXPR = 52;
+	int L2_EXPR = 55;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -5376,87 +3355,6 @@ public interface DblPackage extends EPackage {
 	int L2_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L2 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5473,7 +3371,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL3Expr()
 	 * @generated
 	 */
-	int L3_EXPR = 53;
+	int L3_EXPR = 56;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -5539,87 +3437,6 @@ public interface DblPackage extends EPackage {
 	int L3_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L3 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5636,7 +3453,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL4Expr()
 	 * @generated
 	 */
-	int L4_EXPR = 54;
+	int L4_EXPR = 57;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -5702,87 +3519,6 @@ public interface DblPackage extends EPackage {
 	int L4_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L4_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L4 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5799,7 +3535,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL5Expr()
 	 * @generated
 	 */
-	int L5_EXPR = 55;
+	int L5_EXPR = 58;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -5865,87 +3601,6 @@ public interface DblPackage extends EPackage {
 	int L5_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L5_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L5 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -5962,7 +3617,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL6Expr()
 	 * @generated
 	 */
-	int L6_EXPR = 56;
+	int L6_EXPR = 59;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -6028,87 +3683,6 @@ public interface DblPackage extends EPackage {
 	int L6_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L6_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L6 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6125,7 +3699,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL7Expr()
 	 * @generated
 	 */
-	int L7_EXPR = 57;
+	int L7_EXPR = 60;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -6191,87 +3765,6 @@ public interface DblPackage extends EPackage {
 	int L7_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L7_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L7 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6288,7 +3781,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL8Expr()
 	 * @generated
 	 */
-	int L8_EXPR = 58;
+	int L8_EXPR = 61;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -6354,87 +3847,6 @@ public interface DblPackage extends EPackage {
 	int L8_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L8_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L8 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6451,7 +3863,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getL9Expr()
 	 * @generated
 	 */
-	int L9_EXPR = 59;
+	int L9_EXPR = 62;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -6517,87 +3929,6 @@ public interface DblPackage extends EPackage {
 	int L9_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L9_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>L9 Expr</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6614,7 +3945,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getBinaryOperator()
 	 * @generated
 	 */
-	int BINARY_OPERATOR = 60;
+	int BINARY_OPERATOR = 63;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -6680,87 +4011,6 @@ public interface DblPackage extends EPackage {
 	int BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BINARY_OPERATOR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6795,7 +4045,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getUnaryOperator()
 	 * @generated
 	 */
-	int UNARY_OPERATOR = 61;
+	int UNARY_OPERATOR = 64;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -6861,87 +4111,6 @@ public interface DblPackage extends EPackage {
 	int UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNARY_OPERATOR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -6967,7 +4136,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnd()
 	 * @generated
 	 */
-	int AND = 63;
+	int AND = 66;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.OrImpl <em>Or</em>}' class.
@@ -6977,7 +4146,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getOr()
 	 * @generated
 	 */
-	int OR = 62;
+	int OR = 65;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -7041,87 +4210,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int OR__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OR__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -7214,87 +4302,6 @@ public interface DblPackage extends EPackage {
 	int AND__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int AND__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7329,7 +4336,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getGreater()
 	 * @generated
 	 */
-	int GREATER = 66;
+	int GREATER = 69;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.GreaterEqualImpl <em>Greater Equal</em>}' class.
@@ -7339,7 +4346,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getGreaterEqual()
 	 * @generated
 	 */
-	int GREATER_EQUAL = 67;
+	int GREATER_EQUAL = 70;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.LessImpl <em>Less</em>}' class.
@@ -7349,7 +4356,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLess()
 	 * @generated
 	 */
-	int LESS = 68;
+	int LESS = 71;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.LessEqualImpl <em>Less Equal</em>}' class.
@@ -7359,7 +4366,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getLessEqual()
 	 * @generated
 	 */
-	int LESS_EQUAL = 69;
+	int LESS_EQUAL = 72;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.NotEqualImpl <em>Not Equal</em>}' class.
@@ -7369,7 +4376,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNotEqual()
 	 * @generated
 	 */
-	int NOT_EQUAL = 64;
+	int NOT_EQUAL = 67;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -7435,87 +4442,6 @@ public interface DblPackage extends EPackage {
 	int NOT_EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT_EQUAL__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7550,7 +4476,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getEqual()
 	 * @generated
 	 */
-	int EQUAL = 65;
+	int EQUAL = 68;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -7614,87 +4540,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EQUAL__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -7787,87 +4632,6 @@ public interface DblPackage extends EPackage {
 	int GREATER__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -7956,87 +4720,6 @@ public interface DblPackage extends EPackage {
 	 * @ordered
 	 */
 	int GREATER_EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int GREATER_EQUAL__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
 
 	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
@@ -8129,87 +4812,6 @@ public interface DblPackage extends EPackage {
 	int LESS__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8300,87 +4902,6 @@ public interface DblPackage extends EPackage {
 	int LESS_EQUAL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LESS_EQUAL__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8415,7 +4936,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getInstanceOf()
 	 * @generated
 	 */
-	int INSTANCE_OF = 70;
+	int INSTANCE_OF = 73;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -8481,87 +5002,6 @@ public interface DblPackage extends EPackage {
 	int INSTANCE_OF__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INSTANCE_OF__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8596,7 +5036,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPlus()
 	 * @generated
 	 */
-	int PLUS = 71;
+	int PLUS = 74;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -8662,87 +5102,6 @@ public interface DblPackage extends EPackage {
 	int PLUS__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PLUS__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8777,7 +5136,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMinus()
 	 * @generated
 	 */
-	int MINUS = 72;
+	int MINUS = 75;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -8843,87 +5202,6 @@ public interface DblPackage extends EPackage {
 	int MINUS__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MINUS__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -8958,7 +5236,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMul()
 	 * @generated
 	 */
-	int MUL = 73;
+	int MUL = 76;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -9024,87 +5302,6 @@ public interface DblPackage extends EPackage {
 	int MUL__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MUL__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9139,7 +5336,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMod()
 	 * @generated
 	 */
-	int MOD = 74;
+	int MOD = 77;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -9205,87 +5402,6 @@ public interface DblPackage extends EPackage {
 	int MOD__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int MOD__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9320,7 +5436,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDiv()
 	 * @generated
 	 */
-	int DIV = 75;
+	int DIV = 78;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -9386,87 +5502,6 @@ public interface DblPackage extends EPackage {
 	int DIV__INSTANCE_OF_EXTENSION_DEFINITION = BINARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER1 = BINARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER2 = BINARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER3 = BINARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER4 = BINARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER5 = BINARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER6 = BINARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER8 = BINARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER9 = BINARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DIV__PLACE_HOLDER10 = BINARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op1</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9501,7 +5536,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNeg()
 	 * @generated
 	 */
-	int NEG = 76;
+	int NEG = 79;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -9567,87 +5602,6 @@ public interface DblPackage extends EPackage {
 	int NEG__INSTANCE_OF_EXTENSION_DEFINITION = UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER1 = UNARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER2 = UNARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER3 = UNARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER4 = UNARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER5 = UNARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER6 = UNARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER8 = UNARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER9 = UNARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NEG__PLACE_HOLDER10 = UNARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9673,7 +5627,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNot()
 	 * @generated
 	 */
-	int NOT = 77;
+	int NOT = 80;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -9739,87 +5693,6 @@ public interface DblPackage extends EPackage {
 	int NOT__INSTANCE_OF_EXTENSION_DEFINITION = UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER1 = UNARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER2 = UNARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER3 = UNARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER4 = UNARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER5 = UNARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER6 = UNARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER8 = UNARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER9 = UNARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NOT__PLACE_HOLDER10 = UNARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -9845,7 +5718,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCast()
 	 * @generated
 	 */
-	int CAST = 78;
+	int CAST = 81;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -9911,87 +5784,6 @@ public interface DblPackage extends EPackage {
 	int CAST__INSTANCE_OF_EXTENSION_DEFINITION = UNARY_OPERATOR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER1 = UNARY_OPERATOR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER2 = UNARY_OPERATOR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER3 = UNARY_OPERATOR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER4 = UNARY_OPERATOR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER5 = UNARY_OPERATOR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER6 = UNARY_OPERATOR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER8 = UNARY_OPERATOR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER9 = UNARY_OPERATOR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CAST__PLACE_HOLDER10 = UNARY_OPERATOR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Op</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10017,7 +5809,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCreateObject()
 	 * @generated
 	 */
-	int CREATE_OBJECT = 79;
+	int CREATE_OBJECT = 82;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -10083,87 +5875,6 @@ public interface DblPackage extends EPackage {
 	int CREATE_OBJECT__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREATE_OBJECT__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>Create Object</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10180,7 +5891,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getNullLiteral()
 	 * @generated
 	 */
-	int NULL_LITERAL = 80;
+	int NULL_LITERAL = 83;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -10246,87 +5957,6 @@ public interface DblPackage extends EPackage {
 	int NULL_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int NULL_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>Null Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10343,7 +5973,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTimeLiteral()
 	 * @generated
 	 */
-	int TIME_LITERAL = 81;
+	int TIME_LITERAL = 84;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -10409,87 +6039,6 @@ public interface DblPackage extends EPackage {
 	int TIME_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TIME_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>Time Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10506,7 +6055,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getActiveLiteral()
 	 * @generated
 	 */
-	int ACTIVE_LITERAL = 82;
+	int ACTIVE_LITERAL = 85;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -10572,87 +6121,6 @@ public interface DblPackage extends EPackage {
 	int ACTIVE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ACTIVE_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>Active Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10669,7 +6137,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringLiteral()
 	 * @generated
 	 */
-	int STRING_LITERAL = 83;
+	int STRING_LITERAL = 86;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -10735,87 +6203,6 @@ public interface DblPackage extends EPackage {
 	int STRING_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -10841,7 +6228,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntLiteral()
 	 * @generated
 	 */
-	int INT_LITERAL = 84;
+	int INT_LITERAL = 87;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -10907,87 +6294,6 @@ public interface DblPackage extends EPackage {
 	int INT_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11013,7 +6319,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTrueLiteral()
 	 * @generated
 	 */
-	int TRUE_LITERAL = 85;
+	int TRUE_LITERAL = 88;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -11079,87 +6385,6 @@ public interface DblPackage extends EPackage {
 	int TRUE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TRUE_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>True Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11176,7 +6401,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getFalseLiteral()
 	 * @generated
 	 */
-	int FALSE_LITERAL = 86;
+	int FALSE_LITERAL = 89;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -11242,87 +6467,6 @@ public interface DblPackage extends EPackage {
 	int FALSE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int FALSE_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The number of structural features of the '<em>False Literal</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11339,7 +6483,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getDoubleLiteral()
 	 * @generated
 	 */
-	int DOUBLE_LITERAL = 87;
+	int DOUBLE_LITERAL = 90;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -11405,87 +6549,6 @@ public interface DblPackage extends EPackage {
 	int DOUBLE_LITERAL__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int DOUBLE_LITERAL__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11504,178 +6567,6 @@ public interface DblPackage extends EPackage {
 	int DOUBLE_LITERAL_FEATURE_COUNT = L1_EXPR_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.UniqueIdExprImpl <em>Unique Id Expr</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.UniqueIdExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getUniqueIdExpr()
-	 * @generated
-	 */
-	int UNIQUE_ID_EXPR = 88;
-
-	/**
-	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PRIMITIVE_TYPE = EXPRESSION__PRIMITIVE_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Type Array Dimensions</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__TYPE_ARRAY_DIMENSIONS = EXPRESSION__TYPE_ARRAY_DIMENSIONS;
-
-	/**
-	 * The feature id for the '<em><b>Classifier Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__CLASSIFIER_TYPE = EXPRESSION__CLASSIFIER_TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__NAME = EXPRESSION__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__EXPAND_EXPR = EXPRESSION__EXPAND_EXPR;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__CONCRETE_SYNTAX = EXPRESSION__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
-	 * The feature id for the '<em><b>Identifier</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR__IDENTIFIER = EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Unique Id Expr</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int UNIQUE_ID_EXPR_FEATURE_COUNT = EXPRESSION_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExpandExprImpl <em>Expand Expr</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11683,7 +6574,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandExpr()
 	 * @generated
 	 */
-	int EXPAND_EXPR = 89;
+	int EXPAND_EXPR = 91;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -11749,87 +6640,6 @@ public interface DblPackage extends EPackage {
 	int EXPAND_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -11855,7 +6665,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getParseExpr()
 	 * @generated
 	 */
-	int PARSE_EXPR = 90;
+	int PARSE_EXPR = 92;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -11921,87 +6731,6 @@ public interface DblPackage extends EPackage {
 	int PARSE_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PARSE_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Ast Part</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12027,7 +6756,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPredefinedId()
 	 * @generated
 	 */
-	int PREDEFINED_ID = 91;
+	int PREDEFINED_ID = 93;
 
 	/**
 	 * The number of structural features of the '<em>Predefined Id</em>' class.
@@ -12046,7 +6775,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMeLiteral()
 	 * @generated
 	 */
-	int ME_LITERAL = 92;
+	int ME_LITERAL = 94;
 
 	/**
 	 * The number of structural features of the '<em>Me Literal</em>' class.
@@ -12065,7 +6794,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSuperLiteral()
 	 * @generated
 	 */
-	int SUPER_LITERAL = 93;
+	int SUPER_LITERAL = 95;
 
 	/**
 	 * The number of structural features of the '<em>Super Literal</em>' class.
@@ -12084,7 +6813,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaLiteral()
 	 * @generated
 	 */
-	int META_LITERAL = 94;
+	int META_LITERAL = 96;
 
 	/**
 	 * The number of structural features of the '<em>Meta Literal</em>' class.
@@ -12103,7 +6832,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTypeLiteral()
 	 * @generated
 	 */
-	int TYPE_LITERAL = 95;
+	int TYPE_LITERAL = 97;
 
 	/**
 	 * The number of structural features of the '<em>Type Literal</em>' class.
@@ -12122,7 +6851,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getSizeOfArray()
 	 * @generated
 	 */
-	int SIZE_OF_ARRAY = 96;
+	int SIZE_OF_ARRAY = 98;
 
 	/**
 	 * The number of structural features of the '<em>Size Of Array</em>' class.
@@ -12134,6 +6863,43 @@ public interface DblPackage extends EPackage {
 	int SIZE_OF_ARRAY_FEATURE_COUNT = PREDEFINED_ID_FEATURE_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.AnnotationLiteralImpl <em>Annotation Literal</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.AnnotationLiteralImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotationLiteral()
+	 * @generated
+	 */
+	int ANNOTATION_LITERAL = 99;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_LITERAL__NAME = PREDEFINED_ID_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Items</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_LITERAL__ITEMS = PREDEFINED_ID_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Annotation Literal</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ANNOTATION_LITERAL_FEATURE_COUNT = PREDEFINED_ID_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.IdExprImpl <em>Id Expr</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12141,7 +6907,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getIdExpr()
 	 * @generated
 	 */
-	int ID_EXPR = 97;
+	int ID_EXPR = 100;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -12207,87 +6973,6 @@ public interface DblPackage extends EPackage {
 	int ID_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = L1_EXPR__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER1 = L1_EXPR__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER2 = L1_EXPR__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER3 = L1_EXPR__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER4 = L1_EXPR__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER5 = L1_EXPR__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER6 = L1_EXPR__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER8 = L1_EXPR__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER9 = L1_EXPR__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_EXPR__PLACE_HOLDER10 = L1_EXPR__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Parent Id Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12349,7 +7034,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCallPart()
 	 * @generated
 	 */
-	int CALL_PART = 98;
+	int CALL_PART = 101;
 
 	/**
 	 * The feature id for the '<em><b>Call Arguments</b></em>' containment reference list.
@@ -12377,7 +7062,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getElementAccess()
 	 * @generated
 	 */
-	int ELEMENT_ACCESS = 99;
+	int ELEMENT_ACCESS = 102;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -12443,87 +7128,6 @@ public interface DblPackage extends EPackage {
 	int ELEMENT_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ELEMENT_ACCESS__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12549,7 +7153,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getVariableAccess()
 	 * @generated
 	 */
-	int VARIABLE_ACCESS = 100;
+	int VARIABLE_ACCESS = 103;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -12615,87 +7219,6 @@ public interface DblPackage extends EPackage {
 	int VARIABLE_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENT_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER1 = ELEMENT_ACCESS__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER2 = ELEMENT_ACCESS__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER3 = ELEMENT_ACCESS__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER4 = ELEMENT_ACCESS__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER5 = ELEMENT_ACCESS__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER6 = ELEMENT_ACCESS__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER8 = ELEMENT_ACCESS__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER9 = ELEMENT_ACCESS__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE_ACCESS__PLACE_HOLDER10 = ELEMENT_ACCESS__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12721,7 +7244,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaAccess()
 	 * @generated
 	 */
-	int META_ACCESS = 101;
+	int META_ACCESS = 104;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -12787,87 +7310,6 @@ public interface DblPackage extends EPackage {
 	int META_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = VARIABLE_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER1 = VARIABLE_ACCESS__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER2 = VARIABLE_ACCESS__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER3 = VARIABLE_ACCESS__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER4 = VARIABLE_ACCESS__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER5 = VARIABLE_ACCESS__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER6 = VARIABLE_ACCESS__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER8 = VARIABLE_ACCESS__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER9 = VARIABLE_ACCESS__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_ACCESS__PLACE_HOLDER10 = VARIABLE_ACCESS__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -12893,7 +7335,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTypeAccess()
 	 * @generated
 	 */
-	int TYPE_ACCESS = 102;
+	int TYPE_ACCESS = 105;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -12959,87 +7401,6 @@ public interface DblPackage extends EPackage {
 	int TYPE_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENT_ACCESS__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER1 = ELEMENT_ACCESS__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER2 = ELEMENT_ACCESS__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER3 = ELEMENT_ACCESS__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER4 = ELEMENT_ACCESS__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER5 = ELEMENT_ACCESS__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER6 = ELEMENT_ACCESS__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER8 = ELEMENT_ACCESS__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER9 = ELEMENT_ACCESS__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TYPE_ACCESS__PLACE_HOLDER10 = ELEMENT_ACCESS__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Id Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -13058,14 +7419,14 @@ public interface DblPackage extends EPackage {
 	int TYPE_ACCESS_FEATURE_COUNT = ELEMENT_ACCESS_FEATURE_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.LanguageConstructClassifierImpl <em>Language Construct Classifier</em>}' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SyntaxSymbolClassifierImpl <em>Syntax Symbol Classifier</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.LanguageConstructClassifierImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConstructClassifier()
+	 * @see hub.sam.dbl.impl.SyntaxSymbolClassifierImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSyntaxSymbolClassifier()
 	 * @generated
 	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER = 106;
+	int SYNTAX_SYMBOL_CLASSIFIER = 109;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -13074,7 +7435,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__NAME = NAMED_ELEMENT__NAME;
+	int SYNTAX_SYMBOL_CLASSIFIER__NAME = NAMED_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -13083,7 +7444,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__EXPAND_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int SYNTAX_SYMBOL_CLASSIFIER__EXPAND_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -13092,7 +7453,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int SYNTAX_SYMBOL_CLASSIFIER__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -13101,107 +7462,26 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int SYNTAX_SYMBOL_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The number of structural features of the '<em>Syntax Symbol Classifier</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER1 = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int SYNTAX_SYMBOL_CLASSIFIER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ComplexSymbolImpl <em>Complex Symbol</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER2 = NAMED_ELEMENT_FEATURE_COUNT + 4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER3 = NAMED_ELEMENT_FEATURE_COUNT + 5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER4 = NAMED_ELEMENT_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER5 = NAMED_ELEMENT_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER6 = NAMED_ELEMENT_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER8 = NAMED_ELEMENT_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER9 = NAMED_ELEMENT_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER10 = NAMED_ELEMENT_FEATURE_COUNT + 11;
-
-	/**
-	 * The number of structural features of the '<em>Language Construct Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONSTRUCT_CLASSIFIER_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 12;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.LanguageConceptClassifierImpl <em>Language Concept Classifier</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.LanguageConceptClassifierImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConceptClassifier()
+	 * @see hub.sam.dbl.impl.ComplexSymbolImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getComplexSymbol()
 	 * @generated
 	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER = 107;
+	int COMPLEX_SYMBOL = 110;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -13210,7 +7490,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__NAME = LANGUAGE_CONSTRUCT_CLASSIFIER__NAME;
+	int COMPLEX_SYMBOL__NAME = SYNTAX_SYMBOL_CLASSIFIER__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -13219,7 +7499,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__EXPAND_EXPR = LANGUAGE_CONSTRUCT_CLASSIFIER__EXPAND_EXPR;
+	int COMPLEX_SYMBOL__EXPAND_EXPR = SYNTAX_SYMBOL_CLASSIFIER__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -13228,7 +7508,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__CONCRETE_SYNTAX = LANGUAGE_CONSTRUCT_CLASSIFIER__CONCRETE_SYNTAX;
+	int COMPLEX_SYMBOL__CONCRETE_SYNTAX = SYNTAX_SYMBOL_CLASSIFIER__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -13237,107 +7517,26 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION = LANGUAGE_CONSTRUCT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION;
+	int COMPLEX_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION = SYNTAX_SYMBOL_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The number of structural features of the '<em>Complex Symbol</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER1 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER1;
+	int COMPLEX_SYMBOL_FEATURE_COUNT = SYNTAX_SYMBOL_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ConceptImpl <em>Concept</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER2 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER3 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER4 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER5 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER6 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER8 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER9 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER10 = LANGUAGE_CONSTRUCT_CLASSIFIER__PLACE_HOLDER10;
-
-	/**
-	 * The number of structural features of the '<em>Language Concept Classifier</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT = LANGUAGE_CONSTRUCT_CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ExtensionDefinitionImpl <em>Extension Definition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ExtensionDefinitionImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionDefinition()
+	 * @see hub.sam.dbl.impl.ConceptImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getConcept()
 	 * @generated
 	 */
-	int EXTENSION_DEFINITION = 103;
+	int CONCEPT = 111;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -13346,7 +7545,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__NAME = LANGUAGE_CONCEPT_CLASSIFIER__NAME;
+	int CONCEPT__NAME = COMPLEX_SYMBOL__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -13355,7 +7554,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__EXPAND_EXPR = LANGUAGE_CONCEPT_CLASSIFIER__EXPAND_EXPR;
+	int CONCEPT__EXPAND_EXPR = COMPLEX_SYMBOL__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -13364,7 +7563,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__CONCRETE_SYNTAX = LANGUAGE_CONCEPT_CLASSIFIER__CONCRETE_SYNTAX;
+	int CONCEPT__CONCRETE_SYNTAX = COMPLEX_SYMBOL__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -13373,134 +7572,26 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__INSTANCE_OF_EXTENSION_DEFINITION = LANGUAGE_CONCEPT_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION;
+	int CONCEPT__INSTANCE_OF_EXTENSION_DEFINITION = COMPLEX_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The number of structural features of the '<em>Concept</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER1 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER1;
+	int CONCEPT_FEATURE_COUNT = COMPLEX_SYMBOL_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ExtensionImpl <em>Extension</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER2 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER3 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER4 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER5 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER6 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER8 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER9 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__PLACE_HOLDER10 = LANGUAGE_CONCEPT_CLASSIFIER__PLACE_HOLDER10;
-
-	/**
-	 * The feature id for the '<em><b>Extended Concept</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__EXTENDED_CONCEPT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Abstract Syntax Def</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 1;
-
-	/**
-	 * The feature id for the '<em><b>Textual Syntax Def</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 2;
-
-	/**
-	 * The number of structural features of the '<em>Extension Definition</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_DEFINITION_FEATURE_COUNT = LANGUAGE_CONCEPT_CLASSIFIER_FEATURE_COUNT + 3;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ExtensionSemanticsDefinitionImpl <em>Extension Semantics Definition</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ExtensionSemanticsDefinitionImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionSemanticsDefinition()
+	 * @see hub.sam.dbl.impl.ExtensionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtension()
 	 * @generated
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION = 104;
+	int EXTENSION = 106;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -13509,7 +7600,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__NAME = EXTENSIBLE_ELEMENT__NAME;
+	int EXTENSION__NAME = CONCEPT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -13518,7 +7609,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__EXPAND_EXPR = EXTENSIBLE_ELEMENT__EXPAND_EXPR;
+	int EXTENSION__EXPAND_EXPR = CONCEPT__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -13527,7 +7618,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+	int EXTENSION__CONCRETE_SYNTAX = CONCEPT__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -13536,88 +7627,80 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+	int EXTENSION__INSTANCE_OF_EXTENSION_DEFINITION = CONCEPT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Extension Point</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER1 = EXTENSIBLE_ELEMENT__PLACE_HOLDER1;
+	int EXTENSION__EXTENSION_POINT = CONCEPT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The feature id for the '<em><b>Syntax Definition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER2 = EXTENSIBLE_ELEMENT__PLACE_HOLDER2;
+	int EXTENSION__SYNTAX_DEFINITION = CONCEPT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
+	 * The number of structural features of the '<em>Extension</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER3 = EXTENSIBLE_ELEMENT__PLACE_HOLDER3;
+	int EXTENSION_FEATURE_COUNT = CONCEPT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ExtensionSemanticsImpl <em>Extension Semantics</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.ExtensionSemanticsImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionSemantics()
+	 * @generated
+	 */
+	int EXTENSION_SEMANTICS = 107;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER4 = EXTENSIBLE_ELEMENT__PLACE_HOLDER4;
+	int EXTENSION_SEMANTICS__NAME = EXTENSIBLE_ELEMENT__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER5 = EXTENSIBLE_ELEMENT__PLACE_HOLDER5;
+	int EXTENSION_SEMANTICS__EXPAND_EXPR = EXTENSIBLE_ELEMENT__EXPAND_EXPR;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER6 = EXTENSIBLE_ELEMENT__PLACE_HOLDER6;
+	int EXTENSION_SEMANTICS__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER8 = EXTENSIBLE_ELEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER9 = EXTENSIBLE_ELEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXTENSION_SEMANTICS_DEFINITION__PLACE_HOLDER10 = EXTENSIBLE_ELEMENT__PLACE_HOLDER10;
+	int EXTENSION_SEMANTICS__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -13626,7 +7709,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__STATEMENTS = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
+	int EXTENSION_SEMANTICS__STATEMENTS = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Syntax Definition</b></em>' reference.
@@ -13635,26 +7718,26 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION__SYNTAX_DEFINITION = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
+	int EXTENSION_SEMANTICS__SYNTAX_DEFINITION = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The number of structural features of the '<em>Extension Semantics Definition</em>' class.
+	 * The number of structural features of the '<em>Extension Semantics</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXTENSION_SEMANTICS_DEFINITION_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
+	int EXTENSION_SEMANTICS_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.TextualSyntaxDefImpl <em>Textual Syntax Def</em>}' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SyntaxDefinitionImpl <em>Syntax Definition</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.TextualSyntaxDefImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getTextualSyntaxDef()
+	 * @see hub.sam.dbl.impl.SyntaxDefinitionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSyntaxDefinition()
 	 * @generated
 	 */
-	int TEXTUAL_SYNTAX_DEF = 105;
+	int SYNTAX_DEFINITION = 108;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -13663,7 +7746,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__NAME = EXTENSIBLE_ELEMENT__NAME;
+	int SYNTAX_DEFINITION__NAME = EXTENSIBLE_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -13672,7 +7755,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__EXPAND_EXPR = EXTENSIBLE_ELEMENT__EXPAND_EXPR;
+	int SYNTAX_DEFINITION__EXPAND_EXPR = EXTENSIBLE_ELEMENT__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -13681,7 +7764,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
+	int SYNTAX_DEFINITION__CONCRETE_SYNTAX = EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -13690,125 +7773,44 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+	int SYNTAX_DEFINITION__INSTANCE_OF_EXTENSION_DEFINITION = EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Start Symbol</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER1 = EXTENSIBLE_ELEMENT__PLACE_HOLDER1;
+	int SYNTAX_DEFINITION__START_SYMBOL = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The feature id for the '<em><b>Symbols</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER2 = EXTENSIBLE_ELEMENT__PLACE_HOLDER2;
+	int SYNTAX_DEFINITION__SYMBOLS = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
+	 * The number of structural features of the '<em>Syntax Definition</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER3 = EXTENSIBLE_ELEMENT__PLACE_HOLDER3;
+	int SYNTAX_DEFINITION_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.MetaSymbolImpl <em>Meta Symbol</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER4 = EXTENSIBLE_ELEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER5 = EXTENSIBLE_ELEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER6 = EXTENSIBLE_ELEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER8 = EXTENSIBLE_ELEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER9 = EXTENSIBLE_ELEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__PLACE_HOLDER10 = EXTENSIBLE_ELEMENT__PLACE_HOLDER10;
-
-	/**
-	 * The feature id for the '<em><b>Start Rule</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__START_RULE = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Rules</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF__RULES = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Textual Syntax Def</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEXTUAL_SYNTAX_DEF_FEATURE_COUNT = EXTENSIBLE_ELEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.TsRuleImpl <em>Ts Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.TsRuleImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getTsRule()
+	 * @see hub.sam.dbl.impl.MetaSymbolImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaSymbol()
 	 * @generated
 	 */
-	int TS_RULE = 108;
+	int META_SYMBOL = 112;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -13817,7 +7819,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__NAME = NAMED_ELEMENT__NAME;
+	int META_SYMBOL__NAME = NAMED_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -13826,7 +7828,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__EXPAND_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 0;
+	int META_SYMBOL__EXPAND_EXPR = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -13835,7 +7837,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 1;
+	int META_SYMBOL__CONCRETE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -13844,173 +7846,92 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 2;
+	int META_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Possible Syntax</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__PLACE_HOLDER1 = NAMED_ELEMENT_FEATURE_COUNT + 3;
+	int META_SYMBOL__POSSIBLE_SYNTAX = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The number of structural features of the '<em>Meta Symbol</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__PLACE_HOLDER2 = NAMED_ELEMENT_FEATURE_COUNT + 4;
+	int META_SYMBOL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SyntaxExpressionImpl <em>Syntax Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.SyntaxExpressionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSyntaxExpression()
+	 * @generated
+	 */
+	int SYNTAX_EXPRESSION = 113;
+
+	/**
+	 * The number of structural features of the '<em>Syntax Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__PLACE_HOLDER3 = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int SYNTAX_EXPRESSION_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.L3SyntaxExpressionImpl <em>L3 Syntax Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.L3SyntaxExpressionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getL3SyntaxExpression()
+	 * @generated
+	 */
+	int L3_SYNTAX_EXPRESSION = 114;
+
+	/**
+	 * The number of structural features of the '<em>L3 Syntax Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__PLACE_HOLDER4 = NAMED_ELEMENT_FEATURE_COUNT + 6;
+	int L3_SYNTAX_EXPRESSION_FEATURE_COUNT = SYNTAX_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.L2SyntaxExpressionImpl <em>L2 Syntax Expression</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.L2SyntaxExpressionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getL2SyntaxExpression()
+	 * @generated
+	 */
+	int L2_SYNTAX_EXPRESSION = 115;
+
+	/**
+	 * The number of structural features of the '<em>L2 Syntax Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TS_RULE__PLACE_HOLDER5 = NAMED_ELEMENT_FEATURE_COUNT + 7;
+	int L2_SYNTAX_EXPRESSION_FEATURE_COUNT = SYNTAX_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.SymbolSequenceImpl <em>Symbol Sequence</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE__PLACE_HOLDER6 = NAMED_ELEMENT_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE__PLACE_HOLDER8 = NAMED_ELEMENT_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE__PLACE_HOLDER9 = NAMED_ELEMENT_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE__PLACE_HOLDER10 = NAMED_ELEMENT_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Rhs</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE__RHS = NAMED_ELEMENT_FEATURE_COUNT + 12;
-
-	/**
-	 * The number of structural features of the '<em>Ts Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TS_RULE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 13;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.RhsExpressionImpl <em>Rhs Expression</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.RhsExpressionImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getRhsExpression()
+	 * @see hub.sam.dbl.impl.SymbolSequenceImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getSymbolSequence()
 	 * @generated
 	 */
-	int RHS_EXPRESSION = 109;
-
-	/**
-	 * The number of structural features of the '<em>Rhs Expression</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RHS_EXPRESSION_FEATURE_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.L3RhsExprImpl <em>L3 Rhs Expr</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.L3RhsExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getL3RhsExpr()
-	 * @generated
-	 */
-	int L3_RHS_EXPR = 110;
-
-	/**
-	 * The number of structural features of the '<em>L3 Rhs Expr</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L3_RHS_EXPR_FEATURE_COUNT = RHS_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.L2RhsExprImpl <em>L2 Rhs Expr</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.L2RhsExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getL2RhsExpr()
-	 * @generated
-	 */
-	int L2_RHS_EXPR = 111;
-
-	/**
-	 * The number of structural features of the '<em>L2 Rhs Expr</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L2_RHS_EXPR_FEATURE_COUNT = RHS_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.SequenceExprImpl <em>Sequence Expr</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.SequenceExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getSequenceExpr()
-	 * @generated
-	 */
-	int SEQUENCE_EXPR = 112;
+	int SYMBOL_SEQUENCE = 116;
 
 	/**
 	 * The feature id for the '<em><b>Sequence</b></em>' containment reference list.
@@ -14019,73 +7940,45 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int SEQUENCE_EXPR__SEQUENCE = L2_RHS_EXPR_FEATURE_COUNT + 0;
+	int SYMBOL_SEQUENCE__SEQUENCE = L2_SYNTAX_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Sequence Expr</em>' class.
+	 * The number of structural features of the '<em>Symbol Sequence</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SEQUENCE_EXPR_FEATURE_COUNT = L2_RHS_EXPR_FEATURE_COUNT + 1;
+	int SYMBOL_SEQUENCE_FEATURE_COUNT = L2_SYNTAX_EXPRESSION_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.L1RhsExprImpl <em>L1 Rhs Expr</em>}' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.L1SyntaxExpressionImpl <em>L1 Syntax Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.L1RhsExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getL1RhsExpr()
+	 * @see hub.sam.dbl.impl.L1SyntaxExpressionImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getL1SyntaxExpression()
 	 * @generated
 	 */
-	int L1_RHS_EXPR = 113;
+	int L1_SYNTAX_EXPRESSION = 117;
 
 	/**
-	 * The number of structural features of the '<em>L1 Rhs Expr</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int L1_RHS_EXPR_FEATURE_COUNT = RHS_EXPRESSION_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.TerminalExprImpl <em>Terminal Expr</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.TerminalExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getTerminalExpr()
-	 * @generated
-	 */
-	int TERMINAL_EXPR = 114;
-
-	/**
-	 * The feature id for the '<em><b>Terminal</b></em>' attribute.
+	 * The number of structural features of the '<em>L1 Syntax Expression</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TERMINAL_EXPR__TERMINAL = L1_RHS_EXPR_FEATURE_COUNT + 0;
+	int L1_SYNTAX_EXPRESSION_FEATURE_COUNT = SYNTAX_EXPRESSION_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Terminal Expr</em>' class.
+	 * The meta object id for the '{@link hub.sam.dbl.impl.StructuralSymbolReferenceImpl <em>Structural Symbol Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TERMINAL_EXPR_FEATURE_COUNT = L1_RHS_EXPR_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.PropertyBindingExprImpl <em>Property Binding Expr</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.PropertyBindingExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getPropertyBindingExpr()
+	 * @see hub.sam.dbl.impl.StructuralSymbolReferenceImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getStructuralSymbolReference()
 	 * @generated
 	 */
-	int PROPERTY_BINDING_EXPR = 115;
+	int STRUCTURAL_SYMBOL_REFERENCE = 118;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -14094,35 +7987,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_BINDING_EXPR__NAME = NAMED_ELEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Property Type</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_BINDING_EXPR__PROPERTY_TYPE = NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Property Binding Expr</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPERTY_BINDING_EXPR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.RhsClassifierExprImpl <em>Rhs Classifier Expr</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.RhsClassifierExprImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getRhsClassifierExpr()
-	 * @generated
-	 */
-	int RHS_CLASSIFIER_EXPR = 116;
+	int STRUCTURAL_SYMBOL_REFERENCE__NAME = NAMED_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Classifier</b></em>' reference.
@@ -14131,167 +7996,25 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RHS_CLASSIFIER_EXPR__CLASSIFIER = L1_RHS_EXPR_FEATURE_COUNT + 0;
+	int STRUCTURAL_SYMBOL_REFERENCE__CLASSIFIER = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>Rhs Classifier Expr</em>' class.
+	 * The feature id for the '<em><b>Owned Classifier</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RHS_CLASSIFIER_EXPR_FEATURE_COUNT = L1_RHS_EXPR_FEATURE_COUNT + 1;
+	int STRUCTURAL_SYMBOL_REFERENCE__OWNED_CLASSIFIER = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.PropertyTypeImpl <em>Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.PropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getPropertyType()
-	 * @generated
-	 */
-	int PROPERTY_TYPE = 117;
-
-	/**
-	 * The number of structural features of the '<em>Property Type</em>' class.
+	 * The feature id for the '<em><b>Referenced Classifier</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPERTY_TYPE_FEATURE_COUNT = 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.IdPropertyTypeImpl <em>Id Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.IdPropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getIdPropertyType()
-	 * @generated
-	 */
-	int ID_PROPERTY_TYPE = 118;
-
-	/**
-	 * The number of structural features of the '<em>Id Property Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int ID_PROPERTY_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.IntPropertyTypeImpl <em>Int Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.IntPropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntPropertyType()
-	 * @generated
-	 */
-	int INT_PROPERTY_TYPE = 119;
-
-	/**
-	 * The number of structural features of the '<em>Int Property Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INT_PROPERTY_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.StringPropertyTypeImpl <em>String Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.StringPropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringPropertyType()
-	 * @generated
-	 */
-	int STRING_PROPERTY_TYPE = 120;
-
-	/**
-	 * The number of structural features of the '<em>String Property Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRING_PROPERTY_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.BooleanPropertyTypeImpl <em>Boolean Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.BooleanPropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getBooleanPropertyType()
-	 * @generated
-	 */
-	int BOOLEAN_PROPERTY_TYPE = 121;
-
-	/**
-	 * The feature id for the '<em><b>Terminal</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BOOLEAN_PROPERTY_TYPE__TERMINAL = PROPERTY_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Boolean Property Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int BOOLEAN_PROPERTY_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.StructuredPropertyTypeImpl <em>Structured Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.StructuredPropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getStructuredPropertyType()
-	 * @generated
-	 */
-	int STRUCTURED_PROPERTY_TYPE = 122;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_PROPERTY_TYPE__TYPE = PROPERTY_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Structured Property Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURED_PROPERTY_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.CompositePropertyTypeImpl <em>Composite Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.CompositePropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getCompositePropertyType()
-	 * @generated
-	 */
-	int COMPOSITE_PROPERTY_TYPE = 123;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int COMPOSITE_PROPERTY_TYPE__TYPE = STRUCTURED_PROPERTY_TYPE__TYPE;
+	int STRUCTURAL_SYMBOL_REFERENCE__REFERENCED_CLASSIFIER = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>List</b></em>' attribute.
@@ -14300,53 +8023,373 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOSITE_PROPERTY_TYPE__LIST = STRUCTURED_PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int STRUCTURAL_SYMBOL_REFERENCE__LIST = NAMED_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The number of structural features of the '<em>Composite Property Type</em>' class.
+	 * The feature id for the '<em><b>Composite</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPOSITE_PROPERTY_TYPE_FEATURE_COUNT = STRUCTURED_PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int STRUCTURAL_SYMBOL_REFERENCE__COMPOSITE = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ReferencePropertyTypeImpl <em>Reference Property Type</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ReferencePropertyTypeImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getReferencePropertyType()
-	 * @generated
-	 */
-	int REFERENCE_PROPERTY_TYPE = 124;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' reference.
+	 * The feature id for the '<em><b>Local Scoped Reference</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_PROPERTY_TYPE__TYPE = STRUCTURED_PROPERTY_TYPE__TYPE;
+	int STRUCTURAL_SYMBOL_REFERENCE__LOCAL_SCOPED_REFERENCE = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Raw Reference</b></em>' attribute.
+	 * The feature id for the '<em><b>Global Scoped Reference</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_PROPERTY_TYPE__RAW_REFERENCE = STRUCTURED_PROPERTY_TYPE_FEATURE_COUNT + 0;
+	int STRUCTURAL_SYMBOL_REFERENCE__GLOBAL_SCOPED_REFERENCE = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
-	 * The number of structural features of the '<em>Reference Property Type</em>' class.
+	 * The number of structural features of the '<em>Structural Symbol Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int REFERENCE_PROPERTY_TYPE_FEATURE_COUNT = STRUCTURED_PROPERTY_TYPE_FEATURE_COUNT + 1;
+	int STRUCTURAL_SYMBOL_REFERENCE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.PlainSymbolReferenceImpl <em>Plain Symbol Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.PlainSymbolReferenceImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getPlainSymbolReference()
+	 * @generated
+	 */
+	int PLAIN_SYMBOL_REFERENCE = 119;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_SYMBOL_REFERENCE__CLASSIFIER = L1_SYNTAX_EXPRESSION_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Classifier</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_SYMBOL_REFERENCE__OWNED_CLASSIFIER = L1_SYNTAX_EXPRESSION_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Referenced Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_SYMBOL_REFERENCE__REFERENCED_CLASSIFIER = L1_SYNTAX_EXPRESSION_FEATURE_COUNT + 2;
+
+	/**
+	 * The number of structural features of the '<em>Plain Symbol Reference</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PLAIN_SYMBOL_REFERENCE_FEATURE_COUNT = L1_SYNTAX_EXPRESSION_FEATURE_COUNT + 3;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.ElementarySymbolImpl <em>Elementary Symbol</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.ElementarySymbolImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getElementarySymbol()
+	 * @generated
+	 */
+	int ELEMENTARY_SYMBOL = 120;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENTARY_SYMBOL__NAME = SYNTAX_SYMBOL_CLASSIFIER__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENTARY_SYMBOL__EXPAND_EXPR = SYNTAX_SYMBOL_CLASSIFIER__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENTARY_SYMBOL__CONCRETE_SYNTAX = SYNTAX_SYMBOL_CLASSIFIER__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENTARY_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION = SYNTAX_SYMBOL_CLASSIFIER__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
+	 * The number of structural features of the '<em>Elementary Symbol</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ELEMENTARY_SYMBOL_FEATURE_COUNT = SYNTAX_SYMBOL_CLASSIFIER_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.IdSymbolImpl <em>Id Symbol</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.IdSymbolImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getIdSymbol()
+	 * @generated
+	 */
+	int ID_SYMBOL = 121;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ID_SYMBOL__NAME = ELEMENTARY_SYMBOL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ID_SYMBOL__EXPAND_EXPR = ELEMENTARY_SYMBOL__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ID_SYMBOL__CONCRETE_SYNTAX = ELEMENTARY_SYMBOL__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ID_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENTARY_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
+	 * The number of structural features of the '<em>Id Symbol</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ID_SYMBOL_FEATURE_COUNT = ELEMENTARY_SYMBOL_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.IntSymbolImpl <em>Int Symbol</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.IntSymbolImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getIntSymbol()
+	 * @generated
+	 */
+	int INT_SYMBOL = 122;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_SYMBOL__NAME = ELEMENTARY_SYMBOL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_SYMBOL__EXPAND_EXPR = ELEMENTARY_SYMBOL__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_SYMBOL__CONCRETE_SYNTAX = ELEMENTARY_SYMBOL__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENTARY_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
+	 * The number of structural features of the '<em>Int Symbol</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INT_SYMBOL_FEATURE_COUNT = ELEMENTARY_SYMBOL_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.StringSymbolImpl <em>String Symbol</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.StringSymbolImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getStringSymbol()
+	 * @generated
+	 */
+	int STRING_SYMBOL = 123;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_SYMBOL__NAME = ELEMENTARY_SYMBOL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_SYMBOL__EXPAND_EXPR = ELEMENTARY_SYMBOL__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_SYMBOL__CONCRETE_SYNTAX = ELEMENTARY_SYMBOL__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENTARY_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
+	 * The number of structural features of the '<em>String Symbol</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int STRING_SYMBOL_FEATURE_COUNT = ELEMENTARY_SYMBOL_FEATURE_COUNT + 0;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.KeywordImpl <em>Keyword</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.KeywordImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getKeyword()
+	 * @generated
+	 */
+	int KEYWORD = 124;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KEYWORD__NAME = ELEMENTARY_SYMBOL__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KEYWORD__EXPAND_EXPR = ELEMENTARY_SYMBOL__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KEYWORD__CONCRETE_SYNTAX = ELEMENTARY_SYMBOL__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KEYWORD__INSTANCE_OF_EXTENSION_DEFINITION = ELEMENTARY_SYMBOL__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
+	 * The feature id for the '<em><b>Keyword</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KEYWORD__KEYWORD = ELEMENTARY_SYMBOL_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Keyword</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int KEYWORD_FEATURE_COUNT = ELEMENTARY_SYMBOL_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.MetaExprImpl <em>Meta Expr</em>}' class.
@@ -14422,87 +8465,6 @@ public interface DblPackage extends EPackage {
 	int META_EXPR__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int META_EXPR__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -14537,7 +8499,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_STATEMENT__NAME = STATEMENT__NAME;
+	int TARGET_STATEMENT__NAME = SIMPLE_STATEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -14546,7 +8508,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_STATEMENT__EXPAND_EXPR = STATEMENT__EXPAND_EXPR;
+	int TARGET_STATEMENT__EXPAND_EXPR = SIMPLE_STATEMENT__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -14555,7 +8517,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
+	int TARGET_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -14564,88 +8526,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+	int TARGET_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_STATEMENT__PLACE_HOLDER1 = STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER2 = STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER3 = STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER4 = STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER5 = STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER6 = STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER8 = STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER9 = STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TARGET_STATEMENT__PLACE_HOLDER10 = STATEMENT__PLACE_HOLDER10;
+	int TARGET_STATEMENT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -14654,7 +8544,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_STATEMENT__BODY = STATEMENT_FEATURE_COUNT + 0;
+	int TARGET_STATEMENT__BODY = SIMPLE_STATEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Target Statement</em>' class.
@@ -14663,7 +8553,125 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TARGET_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 1;
+	int TARGET_STATEMENT_FEATURE_COUNT = SIMPLE_STATEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link hub.sam.dbl.impl.CreateIdStatementImpl <em>Create Id Statement</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see hub.sam.dbl.impl.CreateIdStatementImpl
+	 * @see hub.sam.dbl.impl.DblPackageImpl#getCreateIdStatement()
+	 * @generated
+	 */
+	int CREATE_ID_STATEMENT = 127;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__NAME = VARIABLE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__PRIMITIVE_TYPE = VARIABLE__PRIMITIVE_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Type Array Dimensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__TYPE_ARRAY_DIMENSIONS = VARIABLE__TYPE_ARRAY_DIMENSIONS;
+
+	/**
+	 * The feature id for the '<em><b>Classifier Type</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__CLASSIFIER_TYPE = VARIABLE__CLASSIFIER_TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__ANNOTATIONS = VARIABLE__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__EXPAND_EXPR = VARIABLE__EXPAND_EXPR;
+
+	/**
+	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__CONCRETE_SYNTAX = VARIABLE__CONCRETE_SYNTAX;
+
+	/**
+	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = VARIABLE__INSTANCE_OF_EXTENSION_DEFINITION;
+
+	/**
+	 * The feature id for the '<em><b>Control</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__CONTROL = VARIABLE__CONTROL;
+
+	/**
+	 * The feature id for the '<em><b>Class</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__CLASS = VARIABLE__CLASS;
+
+	/**
+	 * The feature id for the '<em><b>Initial Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT__INITIAL_VALUE = VARIABLE__INITIAL_VALUE;
+
+	/**
+	 * The number of structural features of the '<em>Create Id Statement</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREATE_ID_STATEMENT_FEATURE_COUNT = VARIABLE_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExpansionStatementImpl <em>Expansion Statement</em>}' class.
@@ -14673,7 +8681,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpansionStatement()
 	 * @generated
 	 */
-	int EXPANSION_STATEMENT = 127;
+	int EXPANSION_STATEMENT = 128;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -14682,7 +8690,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__NAME = STATEMENT__NAME;
+	int EXPANSION_STATEMENT__NAME = SIMPLE_STATEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
@@ -14691,7 +8699,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__EXPAND_EXPR = STATEMENT__EXPAND_EXPR;
+	int EXPANSION_STATEMENT__EXPAND_EXPR = SIMPLE_STATEMENT__EXPAND_EXPR;
 
 	/**
 	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
@@ -14700,7 +8708,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__CONCRETE_SYNTAX = STATEMENT__CONCRETE_SYNTAX;
+	int EXPANSION_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
 
 	/**
 	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
@@ -14709,88 +8717,52 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
+	int EXPANSION_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER1 = STATEMENT__PLACE_HOLDER1;
+	int EXPANSION_STATEMENT__ANNOTATIONS = SIMPLE_STATEMENT__ANNOTATIONS;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
+	 * The feature id for the '<em><b>Class Context</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER2 = STATEMENT__PLACE_HOLDER2;
+	int EXPANSION_STATEMENT__CLASS_CONTEXT = SIMPLE_STATEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
+	 * The feature id for the '<em><b>Function Context</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER3 = STATEMENT__PLACE_HOLDER3;
+	int EXPANSION_STATEMENT__FUNCTION_CONTEXT = SIMPLE_STATEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
+	 * The feature id for the '<em><b>Variable Context</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER4 = STATEMENT__PLACE_HOLDER4;
+	int EXPANSION_STATEMENT__VARIABLE_CONTEXT = SIMPLE_STATEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
+	 * The feature id for the '<em><b>Differing Context</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER5 = STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER6 = STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER8 = STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER9 = STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPANSION_STATEMENT__PLACE_HOLDER10 = STATEMENT__PLACE_HOLDER10;
+	int EXPANSION_STATEMENT__DIFFERING_CONTEXT = SIMPLE_STATEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Parts</b></em>' containment reference list.
@@ -14799,7 +8771,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__PARTS = STATEMENT_FEATURE_COUNT + 0;
+	int EXPANSION_STATEMENT__PARTS = SIMPLE_STATEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Exprs</b></em>' containment reference list.
@@ -14808,7 +8780,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT__EXPRS = STATEMENT_FEATURE_COUNT + 1;
+	int EXPANSION_STATEMENT__EXPRS = SIMPLE_STATEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The number of structural features of the '<em>Expansion Statement</em>' class.
@@ -14817,7 +8789,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EXPANSION_STATEMENT_FEATURE_COUNT = STATEMENT_FEATURE_COUNT + 2;
+	int EXPANSION_STATEMENT_FEATURE_COUNT = SIMPLE_STATEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExpansionPartImpl <em>Expansion Part</em>}' class.
@@ -14827,7 +8799,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpansionPart()
 	 * @generated
 	 */
-	int EXPANSION_PART = 128;
+	int EXPANSION_PART = 129;
 
 	/**
 	 * The number of structural features of the '<em>Expansion Part</em>' class.
@@ -14846,7 +8818,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandTextPart()
 	 * @generated
 	 */
-	int EXPAND_TEXT_PART = 129;
+	int EXPAND_TEXT_PART = 130;
 
 	/**
 	 * The feature id for the '<em><b>Text</b></em>' attribute.
@@ -14874,7 +8846,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandVariablePart()
 	 * @generated
 	 */
-	int EXPAND_VARIABLE_PART = 130;
+	int EXPAND_VARIABLE_PART = 131;
 
 	/**
 	 * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -14895,450 +8867,6 @@ public interface DblPackage extends EPackage {
 	int EXPAND_VARIABLE_PART_FEATURE_COUNT = EXPANSION_PART_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.SetExpansionContextStatementImpl <em>Set Expansion Context Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.SetExpansionContextStatementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getSetExpansionContextStatement()
-	 * @generated
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT = 131;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__NAME = SIMPLE_STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__EXPAND_EXPR = SIMPLE_STATEMENT__EXPAND_EXPR;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
-
-	/**
-	 * The feature id for the '<em><b>Context</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__CONTEXT = SIMPLE_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Add After Context</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT__ADD_AFTER_CONTEXT = SIMPLE_STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The number of structural features of the '<em>Set Expansion Context Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SET_EXPANSION_CONTEXT_STATEMENT_FEATURE_COUNT = SIMPLE_STATEMENT_FEATURE_COUNT + 2;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.SaveGenStatementImpl <em>Save Gen Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.SaveGenStatementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getSaveGenStatement()
-	 * @generated
-	 */
-	int SAVE_GEN_STATEMENT = 132;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__NAME = SIMPLE_STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__EXPAND_EXPR = SIMPLE_STATEMENT__EXPAND_EXPR;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
-
-	/**
-	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT__VARIABLE = SIMPLE_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Save Gen Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SAVE_GEN_STATEMENT_FEATURE_COUNT = SIMPLE_STATEMENT_FEATURE_COUNT + 1;
-
-	/**
-	 * The meta object id for the '{@link hub.sam.dbl.impl.ResumeGenStatementImpl <em>Resume Gen Statement</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see hub.sam.dbl.impl.ResumeGenStatementImpl
-	 * @see hub.sam.dbl.impl.DblPackageImpl#getResumeGenStatement()
-	 * @generated
-	 */
-	int RESUME_GEN_STATEMENT = 133;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__NAME = SIMPLE_STATEMENT__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Expand Expr</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__EXPAND_EXPR = SIMPLE_STATEMENT__EXPAND_EXPR;
-
-	/**
-	 * The feature id for the '<em><b>Concrete Syntax</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__CONCRETE_SYNTAX = SIMPLE_STATEMENT__CONCRETE_SYNTAX;
-
-	/**
-	 * The feature id for the '<em><b>Instance Of Extension Definition</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = SIMPLE_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER1 = SIMPLE_STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER2 = SIMPLE_STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER3 = SIMPLE_STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER4 = SIMPLE_STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER5 = SIMPLE_STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER6 = SIMPLE_STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER8 = SIMPLE_STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER9 = SIMPLE_STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__PLACE_HOLDER10 = SIMPLE_STATEMENT__PLACE_HOLDER10;
-
-	/**
-	 * The feature id for the '<em><b>Variable</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT__VARIABLE = SIMPLE_STATEMENT_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Resume Gen Statement</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RESUME_GEN_STATEMENT_FEATURE_COUNT = SIMPLE_STATEMENT_FEATURE_COUNT + 1;
-
-	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.ExpandExpressionImpl <em>Expand Expression</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15346,7 +8874,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandExpression()
 	 * @generated
 	 */
-	int EXPAND_EXPRESSION = 134;
+	int EXPAND_EXPRESSION = 132;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -15412,87 +8940,6 @@ public interface DblPackage extends EPackage {
 	int EXPAND_EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_EXPRESSION__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Meta Object</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15518,7 +8965,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getExpandStatement()
 	 * @generated
 	 */
-	int EXPAND_STATEMENT = 135;
+	int EXPAND_STATEMENT = 133;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -15557,85 +9004,13 @@ public interface DblPackage extends EPackage {
 	int EXPAND_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER1 = STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER2 = STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER3 = STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER4 = STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER5 = STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER6 = STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER8 = STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER9 = STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int EXPAND_STATEMENT__PLACE_HOLDER10 = STATEMENT__PLACE_HOLDER10;
+	int EXPAND_STATEMENT__ANNOTATIONS = STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Meta Object</b></em>' containment reference.
@@ -15672,7 +9047,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getCodeQuoteExpression()
 	 * @generated
 	 */
-	int CODE_QUOTE_EXPRESSION = 136;
+	int CODE_QUOTE_EXPRESSION = 134;
 
 	/**
 	 * The feature id for the '<em><b>Primitive Type</b></em>' containment reference.
@@ -15738,87 +9113,6 @@ public interface DblPackage extends EPackage {
 	int CODE_QUOTE_EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION = EXPRESSION__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER1 = EXPRESSION__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER2 = EXPRESSION__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER3 = EXPRESSION__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER4 = EXPRESSION__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER5 = EXPRESSION__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER6 = EXPRESSION__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER8 = EXPRESSION__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER9 = EXPRESSION__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CODE_QUOTE_EXPRESSION__PLACE_HOLDER10 = EXPRESSION__PLACE_HOLDER10;
-
-	/**
 	 * The feature id for the '<em><b>Quoted Code</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -15844,7 +9138,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedCode()
 	 * @generated
 	 */
-	int QUOTED_CODE = 137;
+	int QUOTED_CODE = 135;
 
 	/**
 	 * The number of structural features of the '<em>Quoted Code</em>' class.
@@ -15863,7 +9157,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedExpression()
 	 * @generated
 	 */
-	int QUOTED_EXPRESSION = 138;
+	int QUOTED_EXPRESSION = 136;
 
 	/**
 	 * The feature id for the '<em><b>Expression</b></em>' containment reference.
@@ -15891,7 +9185,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedStatements()
 	 * @generated
 	 */
-	int QUOTED_STATEMENTS = 139;
+	int QUOTED_STATEMENTS = 137;
 
 	/**
 	 * The feature id for the '<em><b>Statements</b></em>' containment reference list.
@@ -15919,7 +9213,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedClassContent()
 	 * @generated
 	 */
-	int QUOTED_CLASS_CONTENT = 140;
+	int QUOTED_CLASS_CONTENT = 138;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -15976,85 +9270,13 @@ public interface DblPackage extends EPackage {
 	int QUOTED_CLASS_CONTENT__INSTANCE_OF_EXTENSION_DEFINITION = QUOTED_CODE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER1 = QUOTED_CODE_FEATURE_COUNT + 6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER2 = QUOTED_CODE_FEATURE_COUNT + 7;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER3 = QUOTED_CODE_FEATURE_COUNT + 8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER4 = QUOTED_CODE_FEATURE_COUNT + 9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER5 = QUOTED_CODE_FEATURE_COUNT + 10;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER6 = QUOTED_CODE_FEATURE_COUNT + 11;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER8 = QUOTED_CODE_FEATURE_COUNT + 12;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER9 = QUOTED_CODE_FEATURE_COUNT + 13;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int QUOTED_CLASS_CONTENT__PLACE_HOLDER10 = QUOTED_CODE_FEATURE_COUNT + 14;
+	int QUOTED_CLASS_CONTENT__ANNOTATIONS = QUOTED_CODE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -16063,7 +9285,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__ACTIVE = QUOTED_CODE_FEATURE_COUNT + 15;
+	int QUOTED_CLASS_CONTENT__ACTIVE = QUOTED_CODE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Bindings</b></em>' containment reference list.
@@ -16072,7 +9294,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__BINDINGS = QUOTED_CODE_FEATURE_COUNT + 16;
+	int QUOTED_CLASS_CONTENT__BINDINGS = QUOTED_CODE_FEATURE_COUNT + 8;
 
 	/**
 	 * The feature id for the '<em><b>Super Classes</b></em>' containment reference list.
@@ -16081,7 +9303,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__SUPER_CLASSES = QUOTED_CODE_FEATURE_COUNT + 17;
+	int QUOTED_CLASS_CONTENT__SUPER_CLASSES = QUOTED_CODE_FEATURE_COUNT + 9;
 
 	/**
 	 * The feature id for the '<em><b>Constructors</b></em>' containment reference list.
@@ -16090,7 +9312,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__CONSTRUCTORS = QUOTED_CODE_FEATURE_COUNT + 18;
+	int QUOTED_CLASS_CONTENT__CONSTRUCTORS = QUOTED_CODE_FEATURE_COUNT + 10;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
@@ -16099,7 +9321,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__ATTRIBUTES = QUOTED_CODE_FEATURE_COUNT + 19;
+	int QUOTED_CLASS_CONTENT__ATTRIBUTES = QUOTED_CODE_FEATURE_COUNT + 11;
 
 	/**
 	 * The feature id for the '<em><b>Methods</b></em>' containment reference list.
@@ -16108,7 +9330,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__METHODS = QUOTED_CODE_FEATURE_COUNT + 20;
+	int QUOTED_CLASS_CONTENT__METHODS = QUOTED_CODE_FEATURE_COUNT + 12;
 
 	/**
 	 * The feature id for the '<em><b>Actions Block</b></em>' containment reference.
@@ -16117,7 +9339,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT__ACTIONS_BLOCK = QUOTED_CODE_FEATURE_COUNT + 21;
+	int QUOTED_CLASS_CONTENT__ACTIONS_BLOCK = QUOTED_CODE_FEATURE_COUNT + 13;
 
 	/**
 	 * The number of structural features of the '<em>Quoted Class Content</em>' class.
@@ -16126,7 +9348,7 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_CLASS_CONTENT_FEATURE_COUNT = QUOTED_CODE_FEATURE_COUNT + 22;
+	int QUOTED_CLASS_CONTENT_FEATURE_COUNT = QUOTED_CODE_FEATURE_COUNT + 14;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.dbl.impl.QuotedModuleContentImpl <em>Quoted Module Content</em>}' class.
@@ -16136,7 +9358,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getQuotedModuleContent()
 	 * @generated
 	 */
-	int QUOTED_MODULE_CONTENT = 141;
+	int QUOTED_MODULE_CONTENT = 139;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -16175,22 +9397,22 @@ public interface DblPackage extends EPackage {
 	int QUOTED_MODULE_CONTENT__CLASSES = QUOTED_CODE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Extension Definitions</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS = QUOTED_CODE_FEATURE_COUNT + 4;
+	int QUOTED_MODULE_CONTENT__EXTENSIONS = QUOTED_CODE_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Extension Semantics Definitions</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Extension Semantics</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS = QUOTED_CODE_FEATURE_COUNT + 5;
+	int QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS = QUOTED_CODE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Functions</b></em>' containment reference list.
@@ -16227,7 +9449,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getPattern()
 	 * @generated
 	 */
-	int PATTERN = 142;
+	int PATTERN = 140;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -16282,7 +9504,7 @@ public interface DblPackage extends EPackage {
 	 * @see hub.sam.dbl.impl.DblPackageImpl#getTestStatement()
 	 * @generated
 	 */
-	int TEST_STATEMENT = 143;
+	int TEST_STATEMENT = 141;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -16321,85 +9543,13 @@ public interface DblPackage extends EPackage {
 	int TEST_STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION = STATEMENT__INSTANCE_OF_EXTENSION_DEFINITION;
 
 	/**
-	 * The feature id for the '<em><b>Place Holder1</b></em>' reference.
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TEST_STATEMENT__PLACE_HOLDER1 = STATEMENT__PLACE_HOLDER1;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder2</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER2 = STATEMENT__PLACE_HOLDER2;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder3</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER3 = STATEMENT__PLACE_HOLDER3;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder4</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER4 = STATEMENT__PLACE_HOLDER4;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder5</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER5 = STATEMENT__PLACE_HOLDER5;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder6</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER6 = STATEMENT__PLACE_HOLDER6;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder8</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER8 = STATEMENT__PLACE_HOLDER8;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder9</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER9 = STATEMENT__PLACE_HOLDER9;
-
-	/**
-	 * The feature id for the '<em><b>Place Holder10</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TEST_STATEMENT__PLACE_HOLDER10 = STATEMENT__PLACE_HOLDER10;
+	int TEST_STATEMENT__ANNOTATIONS = STATEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -16471,105 +9621,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getExtensibleElement_InstanceOfExtensionDefinition();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder1 <em>Place Holder1</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder1</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder1()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder1();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder2 <em>Place Holder2</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder2</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder2()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder2();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder3 <em>Place Holder3</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder3</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder3()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder3();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder4 <em>Place Holder4</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder4</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder4()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder4();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder5 <em>Place Holder5</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder5</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder5()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder5();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder6 <em>Place Holder6</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder6</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder6()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder6();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder8 <em>Place Holder8</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder8</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder8()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder8();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder9 <em>Place Holder9</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder9</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder9()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder9();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensibleElement#getPlaceHolder10 <em>Place Holder10</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Place Holder10</em>'.
-	 * @see hub.sam.dbl.ExtensibleElement#getPlaceHolder10()
-	 * @see #getExtensibleElement()
-	 * @generated
-	 */
-	EReference getExtensibleElement_PlaceHolder10();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Model <em>Model</em>}'.
@@ -16657,26 +9708,26 @@ public interface DblPackage extends EPackage {
 	EReference getModule_Classes();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Module#getExtensionDefinitions <em>Extension Definitions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Module#getExtensions <em>Extensions</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Extension Definitions</em>'.
-	 * @see hub.sam.dbl.Module#getExtensionDefinitions()
+	 * @return the meta object for the containment reference list '<em>Extensions</em>'.
+	 * @see hub.sam.dbl.Module#getExtensions()
 	 * @see #getModule()
 	 * @generated
 	 */
-	EReference getModule_ExtensionDefinitions();
+	EReference getModule_Extensions();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Module#getExtensionSemanticsDefinitions <em>Extension Semantics Definitions</em>}'.
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Module#getExtensionSemantics <em>Extension Semantics</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Extension Semantics Definitions</em>'.
-	 * @see hub.sam.dbl.Module#getExtensionSemanticsDefinitions()
+	 * @return the meta object for the containment reference list '<em>Extension Semantics</em>'.
+	 * @see hub.sam.dbl.Module#getExtensionSemantics()
 	 * @see #getModule()
 	 * @generated
 	 */
-	EReference getModule_ExtensionSemanticsDefinitions();
+	EReference getModule_ExtensionSemantics();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Module#getFunctions <em>Functions</em>}'.
@@ -16699,6 +9750,80 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getModule_Variables();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.Annotation <em>Annotation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotation</em>'.
+	 * @see hub.sam.dbl.Annotation
+	 * @generated
+	 */
+	EClass getAnnotation();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.Annotation#getItems <em>Items</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Items</em>'.
+	 * @see hub.sam.dbl.Annotation#getItems()
+	 * @see #getAnnotation()
+	 * @generated
+	 */
+	EReference getAnnotation_Items();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.AnnotationItem <em>Annotation Item</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotation Item</em>'.
+	 * @see hub.sam.dbl.AnnotationItem
+	 * @generated
+	 */
+	EClass getAnnotationItem();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.AnnotationItem#getKey <em>Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Key</em>'.
+	 * @see hub.sam.dbl.AnnotationItem#getKey()
+	 * @see #getAnnotationItem()
+	 * @generated
+	 */
+	EAttribute getAnnotationItem_Key();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.AnnotationItem#getValue <em>Value</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Value</em>'.
+	 * @see hub.sam.dbl.AnnotationItem#getValue()
+	 * @see #getAnnotationItem()
+	 * @generated
+	 */
+	EAttribute getAnnotationItem_Value();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.AnnotateableElement <em>Annotateable Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotateable Element</em>'.
+	 * @see hub.sam.dbl.AnnotateableElement
+	 * @generated
+	 */
+	EClass getAnnotateableElement();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.AnnotateableElement#getAnnotations <em>Annotations</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Annotations</em>'.
+	 * @see hub.sam.dbl.AnnotateableElement#getAnnotations()
+	 * @see #getAnnotateableElement()
+	 * @generated
+	 */
+	EReference getAnnotateableElement_Annotations();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.ConstructiveExtension <em>Constructive Extension</em>}'.
@@ -16732,24 +9857,24 @@ public interface DblPackage extends EPackage {
 	EReference getConstructiveExtensionAtContentExtensionPoint_ContentExtensions();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ModuleContent <em>Module Content</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.ModuleContentExtension <em>Module Content Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Module Content</em>'.
-	 * @see hub.sam.dbl.ModuleContent
+	 * @return the meta object for class '<em>Module Content Extension</em>'.
+	 * @see hub.sam.dbl.ModuleContentExtension
 	 * @generated
 	 */
-	EClass getModuleContent();
+	EClass getModuleContentExtension();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ClassContent <em>Class Content</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.ClassContentExtension <em>Class Content Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Class Content</em>'.
-	 * @see hub.sam.dbl.ClassContent
+	 * @return the meta object for class '<em>Class Content Extension</em>'.
+	 * @see hub.sam.dbl.ClassContentExtension
 	 * @generated
 	 */
-	EClass getClassContent();
+	EClass getClassContentExtension();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.Type <em>Type</em>}'.
@@ -18147,27 +11272,6 @@ public interface DblPackage extends EPackage {
 	EAttribute getDoubleLiteral_Value();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.UniqueIdExpr <em>Unique Id Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Unique Id Expr</em>'.
-	 * @see hub.sam.dbl.UniqueIdExpr
-	 * @generated
-	 */
-	EClass getUniqueIdExpr();
-
-	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.UniqueIdExpr#getIdentifier <em>Identifier</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Identifier</em>'.
-	 * @see hub.sam.dbl.UniqueIdExpr#getIdentifier()
-	 * @see #getUniqueIdExpr()
-	 * @generated
-	 */
-	EAttribute getUniqueIdExpr_Identifier();
-
-	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.ExpandExpr <em>Expand Expr</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18268,6 +11372,16 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getSizeOfArray();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.AnnotationLiteral <em>Annotation Literal</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Annotation Literal</em>'.
+	 * @see hub.sam.dbl.AnnotationLiteral
+	 * @generated
+	 */
+	EClass getAnnotationLiteral();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.IdExpr <em>Id Expr</em>}'.
@@ -18407,389 +11521,359 @@ public interface DblPackage extends EPackage {
 	EClass getTypeAccess();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ExtensionDefinition <em>Extension Definition</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.Extension <em>Extension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Extension Definition</em>'.
-	 * @see hub.sam.dbl.ExtensionDefinition
+	 * @return the meta object for class '<em>Extension</em>'.
+	 * @see hub.sam.dbl.Extension
 	 * @generated
 	 */
-	EClass getExtensionDefinition();
+	EClass getExtension();
 
 	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensionDefinition#getExtendedConcept <em>Extended Concept</em>}'.
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.Extension#getExtensionPoint <em>Extension Point</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Extended Concept</em>'.
-	 * @see hub.sam.dbl.ExtensionDefinition#getExtendedConcept()
-	 * @see #getExtensionDefinition()
+	 * @return the meta object for the reference '<em>Extension Point</em>'.
+	 * @see hub.sam.dbl.Extension#getExtensionPoint()
+	 * @see #getExtension()
 	 * @generated
 	 */
-	EReference getExtensionDefinition_ExtendedConcept();
+	EReference getExtension_ExtensionPoint();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ExtensionDefinition#getAbstractSyntaxDef <em>Abstract Syntax Def</em>}'.
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.Extension#getSyntaxDefinition <em>Syntax Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Abstract Syntax Def</em>'.
-	 * @see hub.sam.dbl.ExtensionDefinition#getAbstractSyntaxDef()
-	 * @see #getExtensionDefinition()
+	 * @return the meta object for the containment reference '<em>Syntax Definition</em>'.
+	 * @see hub.sam.dbl.Extension#getSyntaxDefinition()
+	 * @see #getExtension()
 	 * @generated
 	 */
-	EReference getExtensionDefinition_AbstractSyntaxDef();
+	EReference getExtension_SyntaxDefinition();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ExtensionDefinition#getTextualSyntaxDef <em>Textual Syntax Def</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.ExtensionSemantics <em>Extension Semantics</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Textual Syntax Def</em>'.
-	 * @see hub.sam.dbl.ExtensionDefinition#getTextualSyntaxDef()
-	 * @see #getExtensionDefinition()
+	 * @return the meta object for class '<em>Extension Semantics</em>'.
+	 * @see hub.sam.dbl.ExtensionSemantics
 	 * @generated
 	 */
-	EReference getExtensionDefinition_TextualSyntaxDef();
+	EClass getExtensionSemantics();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ExtensionSemanticsDefinition <em>Extension Semantics Definition</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Extension Semantics Definition</em>'.
-	 * @see hub.sam.dbl.ExtensionSemanticsDefinition
-	 * @generated
-	 */
-	EClass getExtensionSemanticsDefinition();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensionSemanticsDefinition#getSyntaxDefinition <em>Syntax Definition</em>}'.
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.ExtensionSemantics#getSyntaxDefinition <em>Syntax Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the reference '<em>Syntax Definition</em>'.
-	 * @see hub.sam.dbl.ExtensionSemanticsDefinition#getSyntaxDefinition()
-	 * @see #getExtensionSemanticsDefinition()
+	 * @see hub.sam.dbl.ExtensionSemantics#getSyntaxDefinition()
+	 * @see #getExtensionSemantics()
 	 * @generated
 	 */
-	EReference getExtensionSemanticsDefinition_SyntaxDefinition();
+	EReference getExtensionSemantics_SyntaxDefinition();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.TextualSyntaxDef <em>Textual Syntax Def</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.SyntaxDefinition <em>Syntax Definition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Textual Syntax Def</em>'.
-	 * @see hub.sam.dbl.TextualSyntaxDef
+	 * @return the meta object for class '<em>Syntax Definition</em>'.
+	 * @see hub.sam.dbl.SyntaxDefinition
 	 * @generated
 	 */
-	EClass getTextualSyntaxDef();
+	EClass getSyntaxDefinition();
 
 	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.TextualSyntaxDef#getStartRule <em>Start Rule</em>}'.
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.SyntaxDefinition#getStartSymbol <em>Start Symbol</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Start Rule</em>'.
-	 * @see hub.sam.dbl.TextualSyntaxDef#getStartRule()
-	 * @see #getTextualSyntaxDef()
+	 * @return the meta object for the reference '<em>Start Symbol</em>'.
+	 * @see hub.sam.dbl.SyntaxDefinition#getStartSymbol()
+	 * @see #getSyntaxDefinition()
 	 * @generated
 	 */
-	EReference getTextualSyntaxDef_StartRule();
+	EReference getSyntaxDefinition_StartSymbol();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.TextualSyntaxDef#getRules <em>Rules</em>}'.
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.SyntaxDefinition#getSymbols <em>Symbols</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Rules</em>'.
-	 * @see hub.sam.dbl.TextualSyntaxDef#getRules()
-	 * @see #getTextualSyntaxDef()
+	 * @return the meta object for the containment reference list '<em>Symbols</em>'.
+	 * @see hub.sam.dbl.SyntaxDefinition#getSymbols()
+	 * @see #getSyntaxDefinition()
 	 * @generated
 	 */
-	EReference getTextualSyntaxDef_Rules();
+	EReference getSyntaxDefinition_Symbols();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.LanguageConstructClassifier <em>Language Construct Classifier</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.SyntaxSymbolClassifier <em>Syntax Symbol Classifier</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Language Construct Classifier</em>'.
-	 * @see hub.sam.dbl.LanguageConstructClassifier
+	 * @return the meta object for class '<em>Syntax Symbol Classifier</em>'.
+	 * @see hub.sam.dbl.SyntaxSymbolClassifier
 	 * @generated
 	 */
-	EClass getLanguageConstructClassifier();
+	EClass getSyntaxSymbolClassifier();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.LanguageConceptClassifier <em>Language Concept Classifier</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.ComplexSymbol <em>Complex Symbol</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Language Concept Classifier</em>'.
-	 * @see hub.sam.dbl.LanguageConceptClassifier
+	 * @return the meta object for class '<em>Complex Symbol</em>'.
+	 * @see hub.sam.dbl.ComplexSymbol
 	 * @generated
 	 */
-	EClass getLanguageConceptClassifier();
+	EClass getComplexSymbol();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.TsRule <em>Ts Rule</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.Concept <em>Concept</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Ts Rule</em>'.
-	 * @see hub.sam.dbl.TsRule
+	 * @return the meta object for class '<em>Concept</em>'.
+	 * @see hub.sam.dbl.Concept
 	 * @generated
 	 */
-	EClass getTsRule();
+	EClass getConcept();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.TsRule#getRhs <em>Rhs</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.MetaSymbol <em>Meta Symbol</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Rhs</em>'.
-	 * @see hub.sam.dbl.TsRule#getRhs()
-	 * @see #getTsRule()
+	 * @return the meta object for class '<em>Meta Symbol</em>'.
+	 * @see hub.sam.dbl.MetaSymbol
 	 * @generated
 	 */
-	EReference getTsRule_Rhs();
+	EClass getMetaSymbol();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.RhsExpression <em>Rhs Expression</em>}'.
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.MetaSymbol#getPossibleSyntax <em>Possible Syntax</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rhs Expression</em>'.
-	 * @see hub.sam.dbl.RhsExpression
+	 * @return the meta object for the containment reference '<em>Possible Syntax</em>'.
+	 * @see hub.sam.dbl.MetaSymbol#getPossibleSyntax()
+	 * @see #getMetaSymbol()
 	 * @generated
 	 */
-	EClass getRhsExpression();
+	EReference getMetaSymbol_PossibleSyntax();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.L3RhsExpr <em>L3 Rhs Expr</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.SyntaxExpression <em>Syntax Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>L3 Rhs Expr</em>'.
-	 * @see hub.sam.dbl.L3RhsExpr
+	 * @return the meta object for class '<em>Syntax Expression</em>'.
+	 * @see hub.sam.dbl.SyntaxExpression
 	 * @generated
 	 */
-	EClass getL3RhsExpr();
+	EClass getSyntaxExpression();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.L2RhsExpr <em>L2 Rhs Expr</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.L3SyntaxExpression <em>L3 Syntax Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>L2 Rhs Expr</em>'.
-	 * @see hub.sam.dbl.L2RhsExpr
+	 * @return the meta object for class '<em>L3 Syntax Expression</em>'.
+	 * @see hub.sam.dbl.L3SyntaxExpression
 	 * @generated
 	 */
-	EClass getL2RhsExpr();
+	EClass getL3SyntaxExpression();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.SequenceExpr <em>Sequence Expr</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.L2SyntaxExpression <em>L2 Syntax Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Sequence Expr</em>'.
-	 * @see hub.sam.dbl.SequenceExpr
+	 * @return the meta object for class '<em>L2 Syntax Expression</em>'.
+	 * @see hub.sam.dbl.L2SyntaxExpression
 	 * @generated
 	 */
-	EClass getSequenceExpr();
+	EClass getL2SyntaxExpression();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.SequenceExpr#getSequence <em>Sequence</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.SymbolSequence <em>Symbol Sequence</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Symbol Sequence</em>'.
+	 * @see hub.sam.dbl.SymbolSequence
+	 * @generated
+	 */
+	EClass getSymbolSequence();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.SymbolSequence#getSequence <em>Sequence</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Sequence</em>'.
-	 * @see hub.sam.dbl.SequenceExpr#getSequence()
-	 * @see #getSequenceExpr()
+	 * @see hub.sam.dbl.SymbolSequence#getSequence()
+	 * @see #getSymbolSequence()
 	 * @generated
 	 */
-	EReference getSequenceExpr_Sequence();
+	EReference getSymbolSequence_Sequence();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.L1RhsExpr <em>L1 Rhs Expr</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.L1SyntaxExpression <em>L1 Syntax Expression</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>L1 Rhs Expr</em>'.
-	 * @see hub.sam.dbl.L1RhsExpr
+	 * @return the meta object for class '<em>L1 Syntax Expression</em>'.
+	 * @see hub.sam.dbl.L1SyntaxExpression
 	 * @generated
 	 */
-	EClass getL1RhsExpr();
+	EClass getL1SyntaxExpression();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.TerminalExpr <em>Terminal Expr</em>}'.
+	 * Returns the meta object for class '{@link hub.sam.dbl.StructuralSymbolReference <em>Structural Symbol Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Terminal Expr</em>'.
-	 * @see hub.sam.dbl.TerminalExpr
+	 * @return the meta object for class '<em>Structural Symbol Reference</em>'.
+	 * @see hub.sam.dbl.StructuralSymbolReference
 	 * @generated
 	 */
-	EClass getTerminalExpr();
+	EClass getStructuralSymbolReference();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.TerminalExpr#getTerminal <em>Terminal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Terminal</em>'.
-	 * @see hub.sam.dbl.TerminalExpr#getTerminal()
-	 * @see #getTerminalExpr()
-	 * @generated
-	 */
-	EAttribute getTerminalExpr_Terminal();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.PropertyBindingExpr <em>Property Binding Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Property Binding Expr</em>'.
-	 * @see hub.sam.dbl.PropertyBindingExpr
-	 * @generated
-	 */
-	EClass getPropertyBindingExpr();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.PropertyBindingExpr#getPropertyType <em>Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Property Type</em>'.
-	 * @see hub.sam.dbl.PropertyBindingExpr#getPropertyType()
-	 * @see #getPropertyBindingExpr()
-	 * @generated
-	 */
-	EReference getPropertyBindingExpr_PropertyType();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.RhsClassifierExpr <em>Rhs Classifier Expr</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Rhs Classifier Expr</em>'.
-	 * @see hub.sam.dbl.RhsClassifierExpr
-	 * @generated
-	 */
-	EClass getRhsClassifierExpr();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.RhsClassifierExpr#getClassifier <em>Classifier</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Classifier</em>'.
-	 * @see hub.sam.dbl.RhsClassifierExpr#getClassifier()
-	 * @see #getRhsClassifierExpr()
-	 * @generated
-	 */
-	EReference getRhsClassifierExpr_Classifier();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.PropertyType <em>Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Property Type</em>'.
-	 * @see hub.sam.dbl.PropertyType
-	 * @generated
-	 */
-	EClass getPropertyType();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.IdPropertyType <em>Id Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Id Property Type</em>'.
-	 * @see hub.sam.dbl.IdPropertyType
-	 * @generated
-	 */
-	EClass getIdPropertyType();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.IntPropertyType <em>Int Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Int Property Type</em>'.
-	 * @see hub.sam.dbl.IntPropertyType
-	 * @generated
-	 */
-	EClass getIntPropertyType();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.StringPropertyType <em>String Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>String Property Type</em>'.
-	 * @see hub.sam.dbl.StringPropertyType
-	 * @generated
-	 */
-	EClass getStringPropertyType();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.BooleanPropertyType <em>Boolean Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Boolean Property Type</em>'.
-	 * @see hub.sam.dbl.BooleanPropertyType
-	 * @generated
-	 */
-	EClass getBooleanPropertyType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.BooleanPropertyType#getTerminal <em>Terminal</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Terminal</em>'.
-	 * @see hub.sam.dbl.BooleanPropertyType#getTerminal()
-	 * @see #getBooleanPropertyType()
-	 * @generated
-	 */
-	EAttribute getBooleanPropertyType_Terminal();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.StructuredPropertyType <em>Structured Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Structured Property Type</em>'.
-	 * @see hub.sam.dbl.StructuredPropertyType
-	 * @generated
-	 */
-	EClass getStructuredPropertyType();
-
-	/**
-	 * Returns the meta object for the reference '{@link hub.sam.dbl.StructuredPropertyType#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Type</em>'.
-	 * @see hub.sam.dbl.StructuredPropertyType#getType()
-	 * @see #getStructuredPropertyType()
-	 * @generated
-	 */
-	EReference getStructuredPropertyType_Type();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.CompositePropertyType <em>Composite Property Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Composite Property Type</em>'.
-	 * @see hub.sam.dbl.CompositePropertyType
-	 * @generated
-	 */
-	EClass getCompositePropertyType();
-
-	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.CompositePropertyType#isList <em>List</em>}'.
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.StructuralSymbolReference#isList <em>List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>List</em>'.
-	 * @see hub.sam.dbl.CompositePropertyType#isList()
-	 * @see #getCompositePropertyType()
+	 * @see hub.sam.dbl.StructuralSymbolReference#isList()
+	 * @see #getStructuralSymbolReference()
 	 * @generated
 	 */
-	EAttribute getCompositePropertyType_List();
+	EAttribute getStructuralSymbolReference_List();
 
 	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ReferencePropertyType <em>Reference Property Type</em>}'.
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.StructuralSymbolReference#isComposite <em>Composite</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Reference Property Type</em>'.
-	 * @see hub.sam.dbl.ReferencePropertyType
+	 * @return the meta object for the attribute '<em>Composite</em>'.
+	 * @see hub.sam.dbl.StructuralSymbolReference#isComposite()
+	 * @see #getStructuralSymbolReference()
 	 * @generated
 	 */
-	EClass getReferencePropertyType();
+	EAttribute getStructuralSymbolReference_Composite();
 
 	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ReferencePropertyType#isRawReference <em>Raw Reference</em>}'.
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.StructuralSymbolReference#isLocalScopedReference <em>Local Scoped Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Raw Reference</em>'.
-	 * @see hub.sam.dbl.ReferencePropertyType#isRawReference()
-	 * @see #getReferencePropertyType()
+	 * @return the meta object for the attribute '<em>Local Scoped Reference</em>'.
+	 * @see hub.sam.dbl.StructuralSymbolReference#isLocalScopedReference()
+	 * @see #getStructuralSymbolReference()
 	 * @generated
 	 */
-	EAttribute getReferencePropertyType_RawReference();
+	EAttribute getStructuralSymbolReference_LocalScopedReference();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.StructuralSymbolReference#isGlobalScopedReference <em>Global Scoped Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Global Scoped Reference</em>'.
+	 * @see hub.sam.dbl.StructuralSymbolReference#isGlobalScopedReference()
+	 * @see #getStructuralSymbolReference()
+	 * @generated
+	 */
+	EAttribute getStructuralSymbolReference_GlobalScopedReference();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.PlainSymbolReference <em>Plain Symbol Reference</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Plain Symbol Reference</em>'.
+	 * @see hub.sam.dbl.PlainSymbolReference
+	 * @generated
+	 */
+	EClass getPlainSymbolReference();
+
+	/**
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.PlainSymbolReference#getClassifier <em>Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Classifier</em>'.
+	 * @see hub.sam.dbl.PlainSymbolReference#getClassifier()
+	 * @see #getPlainSymbolReference()
+	 * @generated
+	 */
+	EReference getPlainSymbolReference_Classifier();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.PlainSymbolReference#getOwnedClassifier <em>Owned Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Owned Classifier</em>'.
+	 * @see hub.sam.dbl.PlainSymbolReference#getOwnedClassifier()
+	 * @see #getPlainSymbolReference()
+	 * @generated
+	 */
+	EReference getPlainSymbolReference_OwnedClassifier();
+
+	/**
+	 * Returns the meta object for the reference '{@link hub.sam.dbl.PlainSymbolReference#getReferencedClassifier <em>Referenced Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Referenced Classifier</em>'.
+	 * @see hub.sam.dbl.PlainSymbolReference#getReferencedClassifier()
+	 * @see #getPlainSymbolReference()
+	 * @generated
+	 */
+	EReference getPlainSymbolReference_ReferencedClassifier();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.ElementarySymbol <em>Elementary Symbol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Elementary Symbol</em>'.
+	 * @see hub.sam.dbl.ElementarySymbol
+	 * @generated
+	 */
+	EClass getElementarySymbol();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.IdSymbol <em>Id Symbol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Id Symbol</em>'.
+	 * @see hub.sam.dbl.IdSymbol
+	 * @generated
+	 */
+	EClass getIdSymbol();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.IntSymbol <em>Int Symbol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Int Symbol</em>'.
+	 * @see hub.sam.dbl.IntSymbol
+	 * @generated
+	 */
+	EClass getIntSymbol();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.StringSymbol <em>String Symbol</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>String Symbol</em>'.
+	 * @see hub.sam.dbl.StringSymbol
+	 * @generated
+	 */
+	EClass getStringSymbol();
+
+	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.Keyword <em>Keyword</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Keyword</em>'.
+	 * @see hub.sam.dbl.Keyword
+	 * @generated
+	 */
+	EClass getKeyword();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.Keyword#getKeyword <em>Keyword</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Keyword</em>'.
+	 * @see hub.sam.dbl.Keyword#getKeyword()
+	 * @see #getKeyword()
+	 * @generated
+	 */
+	EAttribute getKeyword_Keyword();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.MetaExpr <em>Meta Expr</em>}'.
@@ -18834,6 +11918,16 @@ public interface DblPackage extends EPackage {
 	EReference getTargetStatement_Body();
 
 	/**
+	 * Returns the meta object for class '{@link hub.sam.dbl.CreateIdStatement <em>Create Id Statement</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Create Id Statement</em>'.
+	 * @see hub.sam.dbl.CreateIdStatement
+	 * @generated
+	 */
+	EClass getCreateIdStatement();
+
+	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.ExpansionStatement <em>Expansion Statement</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -18842,6 +11936,50 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getExpansionStatement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ExpansionStatement#isClassContext <em>Class Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Class Context</em>'.
+	 * @see hub.sam.dbl.ExpansionStatement#isClassContext()
+	 * @see #getExpansionStatement()
+	 * @generated
+	 */
+	EAttribute getExpansionStatement_ClassContext();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ExpansionStatement#isFunctionContext <em>Function Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Function Context</em>'.
+	 * @see hub.sam.dbl.ExpansionStatement#isFunctionContext()
+	 * @see #getExpansionStatement()
+	 * @generated
+	 */
+	EAttribute getExpansionStatement_FunctionContext();
+
+	/**
+	 * Returns the meta object for the attribute '{@link hub.sam.dbl.ExpansionStatement#isVariableContext <em>Variable Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Variable Context</em>'.
+	 * @see hub.sam.dbl.ExpansionStatement#isVariableContext()
+	 * @see #getExpansionStatement()
+	 * @generated
+	 */
+	EAttribute getExpansionStatement_VariableContext();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ExpansionStatement#getDifferingContext <em>Differing Context</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Differing Context</em>'.
+	 * @see hub.sam.dbl.ExpansionStatement#getDifferingContext()
+	 * @see #getExpansionStatement()
+	 * @generated
+	 */
+	EReference getExpansionStatement_DifferingContext();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link hub.sam.dbl.ExpansionStatement#getParts <em>Parts</em>}'.
@@ -18916,80 +12054,6 @@ public interface DblPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getExpandVariablePart_Expr();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.SetExpansionContextStatement <em>Set Expansion Context Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Set Expansion Context Statement</em>'.
-	 * @see hub.sam.dbl.SetExpansionContextStatement
-	 * @generated
-	 */
-	EClass getSetExpansionContextStatement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.SetExpansionContextStatement#getContext <em>Context</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Context</em>'.
-	 * @see hub.sam.dbl.SetExpansionContextStatement#getContext()
-	 * @see #getSetExpansionContextStatement()
-	 * @generated
-	 */
-	EReference getSetExpansionContextStatement_Context();
-
-	/**
-	 * Returns the meta object for the attribute '{@link hub.sam.dbl.SetExpansionContextStatement#isAddAfterContext <em>Add After Context</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Add After Context</em>'.
-	 * @see hub.sam.dbl.SetExpansionContextStatement#isAddAfterContext()
-	 * @see #getSetExpansionContextStatement()
-	 * @generated
-	 */
-	EAttribute getSetExpansionContextStatement_AddAfterContext();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.SaveGenStatement <em>Save Gen Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Save Gen Statement</em>'.
-	 * @see hub.sam.dbl.SaveGenStatement
-	 * @generated
-	 */
-	EClass getSaveGenStatement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.SaveGenStatement#getVariable <em>Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Variable</em>'.
-	 * @see hub.sam.dbl.SaveGenStatement#getVariable()
-	 * @see #getSaveGenStatement()
-	 * @generated
-	 */
-	EReference getSaveGenStatement_Variable();
-
-	/**
-	 * Returns the meta object for class '{@link hub.sam.dbl.ResumeGenStatement <em>Resume Gen Statement</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Resume Gen Statement</em>'.
-	 * @see hub.sam.dbl.ResumeGenStatement
-	 * @generated
-	 */
-	EClass getResumeGenStatement();
-
-	/**
-	 * Returns the meta object for the containment reference '{@link hub.sam.dbl.ResumeGenStatement#getVariable <em>Variable</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Variable</em>'.
-	 * @see hub.sam.dbl.ResumeGenStatement#getVariable()
-	 * @see #getResumeGenStatement()
-	 * @generated
-	 */
-	EReference getResumeGenStatement_Variable();
 
 	/**
 	 * Returns the meta object for class '{@link hub.sam.dbl.ExpandExpression <em>Expand Expression</em>}'.
@@ -19268,78 +12332,6 @@ public interface DblPackage extends EPackage {
 		EAttribute EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION = eINSTANCE.getExtensibleElement_InstanceOfExtensionDefinition();
 
 		/**
-		 * The meta object literal for the '<em><b>Place Holder1</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER1 = eINSTANCE.getExtensibleElement_PlaceHolder1();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder2</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER2 = eINSTANCE.getExtensibleElement_PlaceHolder2();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder3</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER3 = eINSTANCE.getExtensibleElement_PlaceHolder3();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder4</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER4 = eINSTANCE.getExtensibleElement_PlaceHolder4();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder5</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER5 = eINSTANCE.getExtensibleElement_PlaceHolder5();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder6</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER6 = eINSTANCE.getExtensibleElement_PlaceHolder6();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder8</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER8 = eINSTANCE.getExtensibleElement_PlaceHolder8();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder9</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER9 = eINSTANCE.getExtensibleElement_PlaceHolder9();
-
-		/**
-		 * The meta object literal for the '<em><b>Place Holder10</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference EXTENSIBLE_ELEMENT__PLACE_HOLDER10 = eINSTANCE.getExtensibleElement_PlaceHolder10();
-
-		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ModelImpl <em>Model</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -19410,20 +12402,20 @@ public interface DblPackage extends EPackage {
 		EReference MODULE__CLASSES = eINSTANCE.getModule_Classes();
 
 		/**
-		 * The meta object literal for the '<em><b>Extension Definitions</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Extensions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODULE__EXTENSION_DEFINITIONS = eINSTANCE.getModule_ExtensionDefinitions();
+		EReference MODULE__EXTENSIONS = eINSTANCE.getModule_Extensions();
 
 		/**
-		 * The meta object literal for the '<em><b>Extension Semantics Definitions</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Extension Semantics</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODULE__EXTENSION_SEMANTICS_DEFINITIONS = eINSTANCE.getModule_ExtensionSemanticsDefinitions();
+		EReference MODULE__EXTENSION_SEMANTICS = eINSTANCE.getModule_ExtensionSemantics();
 
 		/**
 		 * The meta object literal for the '<em><b>Functions</b></em>' containment reference list feature.
@@ -19440,6 +12432,68 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EReference MODULE__VARIABLES = eINSTANCE.getModule_Variables();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.AnnotationImpl <em>Annotation</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.AnnotationImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotation()
+		 * @generated
+		 */
+		EClass ANNOTATION = eINSTANCE.getAnnotation();
+
+		/**
+		 * The meta object literal for the '<em><b>Items</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNOTATION__ITEMS = eINSTANCE.getAnnotation_Items();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.AnnotationItemImpl <em>Annotation Item</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.AnnotationItemImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotationItem()
+		 * @generated
+		 */
+		EClass ANNOTATION_ITEM = eINSTANCE.getAnnotationItem();
+
+		/**
+		 * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANNOTATION_ITEM__KEY = eINSTANCE.getAnnotationItem_Key();
+
+		/**
+		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute ANNOTATION_ITEM__VALUE = eINSTANCE.getAnnotationItem_Value();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.AnnotateableElementImpl <em>Annotateable Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.AnnotateableElementImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotateableElement()
+		 * @generated
+		 */
+		EClass ANNOTATEABLE_ELEMENT = eINSTANCE.getAnnotateableElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Annotations</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ANNOTATEABLE_ELEMENT__ANNOTATIONS = eINSTANCE.getAnnotateableElement_Annotations();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ConstructiveExtensionImpl <em>Constructive Extension</em>}' class.
@@ -19470,24 +12524,24 @@ public interface DblPackage extends EPackage {
 		EReference CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS = eINSTANCE.getConstructiveExtensionAtContentExtensionPoint_ContentExtensions();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ModuleContentImpl <em>Module Content</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ModuleContentExtensionImpl <em>Module Content Extension</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ModuleContentImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getModuleContent()
+		 * @see hub.sam.dbl.impl.ModuleContentExtensionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getModuleContentExtension()
 		 * @generated
 		 */
-		EClass MODULE_CONTENT = eINSTANCE.getModuleContent();
+		EClass MODULE_CONTENT_EXTENSION = eINSTANCE.getModuleContentExtension();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ClassContentImpl <em>Class Content</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ClassContentExtensionImpl <em>Class Content Extension</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ClassContentImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getClassContent()
+		 * @see hub.sam.dbl.impl.ClassContentExtensionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getClassContentExtension()
 		 * @generated
 		 */
-		EClass CLASS_CONTENT = eINSTANCE.getClassContent();
+		EClass CLASS_CONTENT_EXTENSION = eINSTANCE.getClassContentExtension();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.TypeImpl <em>Type</em>}' class.
@@ -20720,24 +13774,6 @@ public interface DblPackage extends EPackage {
 		EAttribute DOUBLE_LITERAL__VALUE = eINSTANCE.getDoubleLiteral_Value();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.UniqueIdExprImpl <em>Unique Id Expr</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.UniqueIdExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getUniqueIdExpr()
-		 * @generated
-		 */
-		EClass UNIQUE_ID_EXPR = eINSTANCE.getUniqueIdExpr();
-
-		/**
-		 * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute UNIQUE_ID_EXPR__IDENTIFIER = eINSTANCE.getUniqueIdExpr_Identifier();
-
-		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExpandExprImpl <em>Expand Expr</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -20832,6 +13868,16 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EClass SIZE_OF_ARRAY = eINSTANCE.getSizeOfArray();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.AnnotationLiteralImpl <em>Annotation Literal</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.AnnotationLiteralImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getAnnotationLiteral()
+		 * @generated
+		 */
+		EClass ANNOTATION_LITERAL = eINSTANCE.getAnnotationLiteral();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.IdExprImpl <em>Id Expr</em>}' class.
@@ -20950,48 +13996,40 @@ public interface DblPackage extends EPackage {
 		EClass TYPE_ACCESS = eINSTANCE.getTypeAccess();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExtensionDefinitionImpl <em>Extension Definition</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExtensionImpl <em>Extension</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ExtensionDefinitionImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionDefinition()
+		 * @see hub.sam.dbl.impl.ExtensionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getExtension()
 		 * @generated
 		 */
-		EClass EXTENSION_DEFINITION = eINSTANCE.getExtensionDefinition();
+		EClass EXTENSION = eINSTANCE.getExtension();
 
 		/**
-		 * The meta object literal for the '<em><b>Extended Concept</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Extension Point</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EXTENSION_DEFINITION__EXTENDED_CONCEPT = eINSTANCE.getExtensionDefinition_ExtendedConcept();
+		EReference EXTENSION__EXTENSION_POINT = eINSTANCE.getExtension_ExtensionPoint();
 
 		/**
-		 * The meta object literal for the '<em><b>Abstract Syntax Def</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Syntax Definition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF = eINSTANCE.getExtensionDefinition_AbstractSyntaxDef();
+		EReference EXTENSION__SYNTAX_DEFINITION = eINSTANCE.getExtension_SyntaxDefinition();
 
 		/**
-		 * The meta object literal for the '<em><b>Textual Syntax Def</b></em>' containment reference feature.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExtensionSemanticsImpl <em>Extension Semantics</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.ExtensionSemanticsImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionSemantics()
 		 * @generated
 		 */
-		EReference EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF = eINSTANCE.getExtensionDefinition_TextualSyntaxDef();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExtensionSemanticsDefinitionImpl <em>Extension Semantics Definition</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ExtensionSemanticsDefinitionImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getExtensionSemanticsDefinition()
-		 * @generated
-		 */
-		EClass EXTENSION_SEMANTICS_DEFINITION = eINSTANCE.getExtensionSemanticsDefinition();
+		EClass EXTENSION_SEMANTICS = eINSTANCE.getExtensionSemantics();
 
 		/**
 		 * The meta object literal for the '<em><b>Syntax Definition</b></em>' reference feature.
@@ -20999,111 +14037,121 @@ public interface DblPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference EXTENSION_SEMANTICS_DEFINITION__SYNTAX_DEFINITION = eINSTANCE.getExtensionSemanticsDefinition_SyntaxDefinition();
+		EReference EXTENSION_SEMANTICS__SYNTAX_DEFINITION = eINSTANCE.getExtensionSemantics_SyntaxDefinition();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.TextualSyntaxDefImpl <em>Textual Syntax Def</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.SyntaxDefinitionImpl <em>Syntax Definition</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.TextualSyntaxDefImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getTextualSyntaxDef()
+		 * @see hub.sam.dbl.impl.SyntaxDefinitionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getSyntaxDefinition()
 		 * @generated
 		 */
-		EClass TEXTUAL_SYNTAX_DEF = eINSTANCE.getTextualSyntaxDef();
+		EClass SYNTAX_DEFINITION = eINSTANCE.getSyntaxDefinition();
 
 		/**
-		 * The meta object literal for the '<em><b>Start Rule</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TEXTUAL_SYNTAX_DEF__START_RULE = eINSTANCE.getTextualSyntaxDef_StartRule();
-
-		/**
-		 * The meta object literal for the '<em><b>Rules</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Start Symbol</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TEXTUAL_SYNTAX_DEF__RULES = eINSTANCE.getTextualSyntaxDef_Rules();
+		EReference SYNTAX_DEFINITION__START_SYMBOL = eINSTANCE.getSyntaxDefinition_StartSymbol();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.LanguageConstructClassifierImpl <em>Language Construct Classifier</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.LanguageConstructClassifierImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConstructClassifier()
-		 * @generated
-		 */
-		EClass LANGUAGE_CONSTRUCT_CLASSIFIER = eINSTANCE.getLanguageConstructClassifier();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.LanguageConceptClassifierImpl <em>Language Concept Classifier</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.LanguageConceptClassifierImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getLanguageConceptClassifier()
-		 * @generated
-		 */
-		EClass LANGUAGE_CONCEPT_CLASSIFIER = eINSTANCE.getLanguageConceptClassifier();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.TsRuleImpl <em>Ts Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.TsRuleImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getTsRule()
-		 * @generated
-		 */
-		EClass TS_RULE = eINSTANCE.getTsRule();
-
-		/**
-		 * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Symbols</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TS_RULE__RHS = eINSTANCE.getTsRule_Rhs();
+		EReference SYNTAX_DEFINITION__SYMBOLS = eINSTANCE.getSyntaxDefinition_Symbols();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.RhsExpressionImpl <em>Rhs Expression</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.SyntaxSymbolClassifierImpl <em>Syntax Symbol Classifier</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.RhsExpressionImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getRhsExpression()
+		 * @see hub.sam.dbl.impl.SyntaxSymbolClassifierImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getSyntaxSymbolClassifier()
 		 * @generated
 		 */
-		EClass RHS_EXPRESSION = eINSTANCE.getRhsExpression();
+		EClass SYNTAX_SYMBOL_CLASSIFIER = eINSTANCE.getSyntaxSymbolClassifier();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.L3RhsExprImpl <em>L3 Rhs Expr</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ComplexSymbolImpl <em>Complex Symbol</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.L3RhsExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getL3RhsExpr()
+		 * @see hub.sam.dbl.impl.ComplexSymbolImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getComplexSymbol()
 		 * @generated
 		 */
-		EClass L3_RHS_EXPR = eINSTANCE.getL3RhsExpr();
+		EClass COMPLEX_SYMBOL = eINSTANCE.getComplexSymbol();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.L2RhsExprImpl <em>L2 Rhs Expr</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ConceptImpl <em>Concept</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.L2RhsExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getL2RhsExpr()
+		 * @see hub.sam.dbl.impl.ConceptImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getConcept()
 		 * @generated
 		 */
-		EClass L2_RHS_EXPR = eINSTANCE.getL2RhsExpr();
+		EClass CONCEPT = eINSTANCE.getConcept();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.SequenceExprImpl <em>Sequence Expr</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.MetaSymbolImpl <em>Meta Symbol</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.SequenceExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getSequenceExpr()
+		 * @see hub.sam.dbl.impl.MetaSymbolImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getMetaSymbol()
 		 * @generated
 		 */
-		EClass SEQUENCE_EXPR = eINSTANCE.getSequenceExpr();
+		EClass META_SYMBOL = eINSTANCE.getMetaSymbol();
+
+		/**
+		 * The meta object literal for the '<em><b>Possible Syntax</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference META_SYMBOL__POSSIBLE_SYNTAX = eINSTANCE.getMetaSymbol_PossibleSyntax();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.SyntaxExpressionImpl <em>Syntax Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.SyntaxExpressionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getSyntaxExpression()
+		 * @generated
+		 */
+		EClass SYNTAX_EXPRESSION = eINSTANCE.getSyntaxExpression();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.L3SyntaxExpressionImpl <em>L3 Syntax Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.L3SyntaxExpressionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getL3SyntaxExpression()
+		 * @generated
+		 */
+		EClass L3_SYNTAX_EXPRESSION = eINSTANCE.getL3SyntaxExpression();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.L2SyntaxExpressionImpl <em>L2 Syntax Expression</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.L2SyntaxExpressionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getL2SyntaxExpression()
+		 * @generated
+		 */
+		EClass L2_SYNTAX_EXPRESSION = eINSTANCE.getL2SyntaxExpression();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.SymbolSequenceImpl <em>Symbol Sequence</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.SymbolSequenceImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getSymbolSequence()
+		 * @generated
+		 */
+		EClass SYMBOL_SEQUENCE = eINSTANCE.getSymbolSequence();
 
 		/**
 		 * The meta object literal for the '<em><b>Sequence</b></em>' containment reference list feature.
@@ -21111,157 +14159,27 @@ public interface DblPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SEQUENCE_EXPR__SEQUENCE = eINSTANCE.getSequenceExpr_Sequence();
+		EReference SYMBOL_SEQUENCE__SEQUENCE = eINSTANCE.getSymbolSequence_Sequence();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.L1RhsExprImpl <em>L1 Rhs Expr</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.L1SyntaxExpressionImpl <em>L1 Syntax Expression</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.L1RhsExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getL1RhsExpr()
+		 * @see hub.sam.dbl.impl.L1SyntaxExpressionImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getL1SyntaxExpression()
 		 * @generated
 		 */
-		EClass L1_RHS_EXPR = eINSTANCE.getL1RhsExpr();
+		EClass L1_SYNTAX_EXPRESSION = eINSTANCE.getL1SyntaxExpression();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.TerminalExprImpl <em>Terminal Expr</em>}' class.
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.StructuralSymbolReferenceImpl <em>Structural Symbol Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.TerminalExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getTerminalExpr()
+		 * @see hub.sam.dbl.impl.StructuralSymbolReferenceImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getStructuralSymbolReference()
 		 * @generated
 		 */
-		EClass TERMINAL_EXPR = eINSTANCE.getTerminalExpr();
-
-		/**
-		 * The meta object literal for the '<em><b>Terminal</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TERMINAL_EXPR__TERMINAL = eINSTANCE.getTerminalExpr_Terminal();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.PropertyBindingExprImpl <em>Property Binding Expr</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.PropertyBindingExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getPropertyBindingExpr()
-		 * @generated
-		 */
-		EClass PROPERTY_BINDING_EXPR = eINSTANCE.getPropertyBindingExpr();
-
-		/**
-		 * The meta object literal for the '<em><b>Property Type</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PROPERTY_BINDING_EXPR__PROPERTY_TYPE = eINSTANCE.getPropertyBindingExpr_PropertyType();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.RhsClassifierExprImpl <em>Rhs Classifier Expr</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.RhsClassifierExprImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getRhsClassifierExpr()
-		 * @generated
-		 */
-		EClass RHS_CLASSIFIER_EXPR = eINSTANCE.getRhsClassifierExpr();
-
-		/**
-		 * The meta object literal for the '<em><b>Classifier</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RHS_CLASSIFIER_EXPR__CLASSIFIER = eINSTANCE.getRhsClassifierExpr_Classifier();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.PropertyTypeImpl <em>Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.PropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getPropertyType()
-		 * @generated
-		 */
-		EClass PROPERTY_TYPE = eINSTANCE.getPropertyType();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.IdPropertyTypeImpl <em>Id Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.IdPropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getIdPropertyType()
-		 * @generated
-		 */
-		EClass ID_PROPERTY_TYPE = eINSTANCE.getIdPropertyType();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.IntPropertyTypeImpl <em>Int Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.IntPropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getIntPropertyType()
-		 * @generated
-		 */
-		EClass INT_PROPERTY_TYPE = eINSTANCE.getIntPropertyType();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.StringPropertyTypeImpl <em>String Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.StringPropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getStringPropertyType()
-		 * @generated
-		 */
-		EClass STRING_PROPERTY_TYPE = eINSTANCE.getStringPropertyType();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.BooleanPropertyTypeImpl <em>Boolean Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.BooleanPropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getBooleanPropertyType()
-		 * @generated
-		 */
-		EClass BOOLEAN_PROPERTY_TYPE = eINSTANCE.getBooleanPropertyType();
-
-		/**
-		 * The meta object literal for the '<em><b>Terminal</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute BOOLEAN_PROPERTY_TYPE__TERMINAL = eINSTANCE.getBooleanPropertyType_Terminal();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.StructuredPropertyTypeImpl <em>Structured Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.StructuredPropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getStructuredPropertyType()
-		 * @generated
-		 */
-		EClass STRUCTURED_PROPERTY_TYPE = eINSTANCE.getStructuredPropertyType();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference STRUCTURED_PROPERTY_TYPE__TYPE = eINSTANCE.getStructuredPropertyType_Type();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.CompositePropertyTypeImpl <em>Composite Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.CompositePropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getCompositePropertyType()
-		 * @generated
-		 */
-		EClass COMPOSITE_PROPERTY_TYPE = eINSTANCE.getCompositePropertyType();
+		EClass STRUCTURAL_SYMBOL_REFERENCE = eINSTANCE.getStructuralSymbolReference();
 
 		/**
 		 * The meta object literal for the '<em><b>List</b></em>' attribute feature.
@@ -21269,25 +14187,123 @@ public interface DblPackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute COMPOSITE_PROPERTY_TYPE__LIST = eINSTANCE.getCompositePropertyType_List();
+		EAttribute STRUCTURAL_SYMBOL_REFERENCE__LIST = eINSTANCE.getStructuralSymbolReference_List();
 
 		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ReferencePropertyTypeImpl <em>Reference Property Type</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ReferencePropertyTypeImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getReferencePropertyType()
-		 * @generated
-		 */
-		EClass REFERENCE_PROPERTY_TYPE = eINSTANCE.getReferencePropertyType();
-
-		/**
-		 * The meta object literal for the '<em><b>Raw Reference</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Composite</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute REFERENCE_PROPERTY_TYPE__RAW_REFERENCE = eINSTANCE.getReferencePropertyType_RawReference();
+		EAttribute STRUCTURAL_SYMBOL_REFERENCE__COMPOSITE = eINSTANCE.getStructuralSymbolReference_Composite();
+
+		/**
+		 * The meta object literal for the '<em><b>Local Scoped Reference</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRUCTURAL_SYMBOL_REFERENCE__LOCAL_SCOPED_REFERENCE = eINSTANCE.getStructuralSymbolReference_LocalScopedReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Global Scoped Reference</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute STRUCTURAL_SYMBOL_REFERENCE__GLOBAL_SCOPED_REFERENCE = eINSTANCE.getStructuralSymbolReference_GlobalScopedReference();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.PlainSymbolReferenceImpl <em>Plain Symbol Reference</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.PlainSymbolReferenceImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getPlainSymbolReference()
+		 * @generated
+		 */
+		EClass PLAIN_SYMBOL_REFERENCE = eINSTANCE.getPlainSymbolReference();
+
+		/**
+		 * The meta object literal for the '<em><b>Classifier</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PLAIN_SYMBOL_REFERENCE__CLASSIFIER = eINSTANCE.getPlainSymbolReference_Classifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Owned Classifier</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PLAIN_SYMBOL_REFERENCE__OWNED_CLASSIFIER = eINSTANCE.getPlainSymbolReference_OwnedClassifier();
+
+		/**
+		 * The meta object literal for the '<em><b>Referenced Classifier</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PLAIN_SYMBOL_REFERENCE__REFERENCED_CLASSIFIER = eINSTANCE.getPlainSymbolReference_ReferencedClassifier();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.ElementarySymbolImpl <em>Elementary Symbol</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.ElementarySymbolImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getElementarySymbol()
+		 * @generated
+		 */
+		EClass ELEMENTARY_SYMBOL = eINSTANCE.getElementarySymbol();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.IdSymbolImpl <em>Id Symbol</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.IdSymbolImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getIdSymbol()
+		 * @generated
+		 */
+		EClass ID_SYMBOL = eINSTANCE.getIdSymbol();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.IntSymbolImpl <em>Int Symbol</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.IntSymbolImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getIntSymbol()
+		 * @generated
+		 */
+		EClass INT_SYMBOL = eINSTANCE.getIntSymbol();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.StringSymbolImpl <em>String Symbol</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.StringSymbolImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getStringSymbol()
+		 * @generated
+		 */
+		EClass STRING_SYMBOL = eINSTANCE.getStringSymbol();
+
+		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.KeywordImpl <em>Keyword</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.KeywordImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getKeyword()
+		 * @generated
+		 */
+		EClass KEYWORD = eINSTANCE.getKeyword();
+
+		/**
+		 * The meta object literal for the '<em><b>Keyword</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute KEYWORD__KEYWORD = eINSTANCE.getKeyword_Keyword();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.MetaExprImpl <em>Meta Expr</em>}' class.
@@ -21326,6 +14342,16 @@ public interface DblPackage extends EPackage {
 		EReference TARGET_STATEMENT__BODY = eINSTANCE.getTargetStatement_Body();
 
 		/**
+		 * The meta object literal for the '{@link hub.sam.dbl.impl.CreateIdStatementImpl <em>Create Id Statement</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see hub.sam.dbl.impl.CreateIdStatementImpl
+		 * @see hub.sam.dbl.impl.DblPackageImpl#getCreateIdStatement()
+		 * @generated
+		 */
+		EClass CREATE_ID_STATEMENT = eINSTANCE.getCreateIdStatement();
+
+		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExpansionStatementImpl <em>Expansion Statement</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -21334,6 +14360,38 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EClass EXPANSION_STATEMENT = eINSTANCE.getExpansionStatement();
+
+		/**
+		 * The meta object literal for the '<em><b>Class Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXPANSION_STATEMENT__CLASS_CONTEXT = eINSTANCE.getExpansionStatement_ClassContext();
+
+		/**
+		 * The meta object literal for the '<em><b>Function Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXPANSION_STATEMENT__FUNCTION_CONTEXT = eINSTANCE.getExpansionStatement_FunctionContext();
+
+		/**
+		 * The meta object literal for the '<em><b>Variable Context</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute EXPANSION_STATEMENT__VARIABLE_CONTEXT = eINSTANCE.getExpansionStatement_VariableContext();
+
+		/**
+		 * The meta object literal for the '<em><b>Differing Context</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EXPANSION_STATEMENT__DIFFERING_CONTEXT = eINSTANCE.getExpansionStatement_DifferingContext();
 
 		/**
 		 * The meta object literal for the '<em><b>Parts</b></em>' containment reference list feature.
@@ -21396,68 +14454,6 @@ public interface DblPackage extends EPackage {
 		 * @generated
 		 */
 		EReference EXPAND_VARIABLE_PART__EXPR = eINSTANCE.getExpandVariablePart_Expr();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.SetExpansionContextStatementImpl <em>Set Expansion Context Statement</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.SetExpansionContextStatementImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getSetExpansionContextStatement()
-		 * @generated
-		 */
-		EClass SET_EXPANSION_CONTEXT_STATEMENT = eINSTANCE.getSetExpansionContextStatement();
-
-		/**
-		 * The meta object literal for the '<em><b>Context</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SET_EXPANSION_CONTEXT_STATEMENT__CONTEXT = eINSTANCE.getSetExpansionContextStatement_Context();
-
-		/**
-		 * The meta object literal for the '<em><b>Add After Context</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute SET_EXPANSION_CONTEXT_STATEMENT__ADD_AFTER_CONTEXT = eINSTANCE.getSetExpansionContextStatement_AddAfterContext();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.SaveGenStatementImpl <em>Save Gen Statement</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.SaveGenStatementImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getSaveGenStatement()
-		 * @generated
-		 */
-		EClass SAVE_GEN_STATEMENT = eINSTANCE.getSaveGenStatement();
-
-		/**
-		 * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference SAVE_GEN_STATEMENT__VARIABLE = eINSTANCE.getSaveGenStatement_Variable();
-
-		/**
-		 * The meta object literal for the '{@link hub.sam.dbl.impl.ResumeGenStatementImpl <em>Resume Gen Statement</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see hub.sam.dbl.impl.ResumeGenStatementImpl
-		 * @see hub.sam.dbl.impl.DblPackageImpl#getResumeGenStatement()
-		 * @generated
-		 */
-		EClass RESUME_GEN_STATEMENT = eINSTANCE.getResumeGenStatement();
-
-		/**
-		 * The meta object literal for the '<em><b>Variable</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference RESUME_GEN_STATEMENT__VARIABLE = eINSTANCE.getResumeGenStatement_Variable();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.dbl.impl.ExpandExpressionImpl <em>Expand Expression</em>}' class.

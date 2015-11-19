@@ -4,9 +4,6 @@
     <classes name="Object">
       <bindings targetLanguage="java" targetType="java.lang.Object"/>
     </classes>
-    <classes name="Class">
-      <bindings targetLanguage="java" targetType="java.lang.Class"/>
-    </classes>
     <classes name="Iterator">
       <bindings targetLanguage="java" targetType="java.util.Iterator"/>
       <methods name="hasNext" abstract="true">
@@ -19,8 +16,58 @@
         <primitiveType xsi:type="dbl:VoidType"/>
       </methods>
     </classes>
+    <classes name="RList">
+      <bindings targetLanguage="java" targetType="java.util.List"/>
+      <methods name="add" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="add" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="index">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="contains" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="size" abstract="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+      <methods name="get" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <parameters name="index">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="indexOf" abstract="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <parameters name="e">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="isEmpty" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+      <methods name="toArray" abstract="true">
+        <typeArrayDimensions/>
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+      </methods>
+      <methods name="iterator" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+      </methods>
+    </classes>
     <classes name="List">
       <bindings targetLanguage="java" targetType="java.util.List"/>
+      <superClasses class="//@modules.0/@classes.2"/>
       <methods name="add" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
@@ -83,7 +130,7 @@
         <classifierType referencedElement="//@modules.0/@classes.0"/>
       </methods>
       <methods name="iterator" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
       </methods>
     </classes>
     <classes name="ArrayList">

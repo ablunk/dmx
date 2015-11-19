@@ -14,13 +14,13 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
 
 import hub.sam.dbl.Model;
-import hub.sam.dmx.editor.semantics.IExtensionDefinitionApplier;
+import hub.sam.dmx.editor.semantics.IExtensionApplier;
 
 public class DbxPreProcessor extends DblPreProcessor {
 
-	private IExtensionDefinitionApplier extensionDefinitionApplier;
+	private IExtensionApplier extensionDefinitionApplier;
 	
-	public DbxPreProcessor(IExtensionDefinitionApplier extensionDefinitionApplier, String filename, DbxTextEditor openedEditor) {
+	public DbxPreProcessor(IExtensionApplier extensionDefinitionApplier, String filename, DbxTextEditor openedEditor) {
 		super(filename, openedEditor);
 		this.extensionDefinitionApplier = extensionDefinitionApplier;
 	}
@@ -63,7 +63,7 @@ public class DbxPreProcessor extends DblPreProcessor {
 				
 				// add extension definitions contained in import -> requires ecore model
 				if (resourceForImport != null) {
-					added |= extensionDefinitionApplier.addExtensionDefinitions((Model) resourceForImport.getContents().get(0));
+					added |= extensionDefinitionApplier.addExtensions((Model) resourceForImport.getContents().get(0));
 				}
 			}
 		}
@@ -124,7 +124,7 @@ public class DbxPreProcessor extends DblPreProcessor {
 
 	@Override
 	protected void importedModelChanged(Model model) {
-		extensionDefinitionApplier.unwindExtensionDefinitionEffects(model);
+		extensionDefinitionApplier.unwindExtensionEffects(model);
 		extensionDefinitionApplier.syntaxChanged();
 		
 		super.importedModelChanged(model);

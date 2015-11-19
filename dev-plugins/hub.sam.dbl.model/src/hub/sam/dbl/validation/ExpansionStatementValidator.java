@@ -7,6 +7,7 @@ package hub.sam.dbl.validation;
 import hub.sam.dbl.ExpansionPart;
 import hub.sam.dbl.Expression;
 
+import hub.sam.dbl.IdExpr;
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -17,6 +18,14 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface ExpansionStatementValidator {
 	boolean validate();
+
+	boolean validateClassContext(boolean value);
+
+	boolean validateFunctionContext(boolean value);
+
+	boolean validateVariableContext(boolean value);
+
+	boolean validateDifferingContext(IdExpr value);
 
 	boolean validateParts(EList<ExpansionPart> value);
 	boolean validateExprs(EList<Expression> value);

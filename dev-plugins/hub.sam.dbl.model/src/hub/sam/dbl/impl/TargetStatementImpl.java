@@ -20,14 +20,14 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.TargetStatementImpl#getBody <em>Body</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
-public class TargetStatementImpl extends StatementImpl implements TargetStatement {
+public class TargetStatementImpl extends SimpleStatementImpl implements TargetStatement {
 	/**
 	 * The cached value of the '{@link #getBody() <em>Body</em>}' containment reference.
 	 * <!-- begin-user-doc -->

@@ -357,11 +357,6 @@ public class SuperClassSpecificationItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SUPER_CLASS_SPECIFICATION__CONSTRUCTOR_ARGUMENTS,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

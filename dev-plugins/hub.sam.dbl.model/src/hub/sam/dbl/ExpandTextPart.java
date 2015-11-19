@@ -10,10 +10,10 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.ExpandTextPart#getText <em>Text</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getExpandTextPart()
  * @model
@@ -32,8 +32,6 @@ public interface ExpandTextPart extends ExpansionPart {
 	 * @see #setText(String)
 	 * @see hub.sam.dbl.DblPackage#getExpandTextPart_Text()
 	 * @model required="true"
-	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='ExpandVariablePart'"
-	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='ExpansionStatement'"
 	 * @generated
 	 */
 	String getText();

@@ -147,12 +147,12 @@ public class ConstructiveExtensionAtContentExtensionPointItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createModuleContent()));
+				 DblFactory.eINSTANCE.createModuleContentExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createClassContent()));
+				 DblFactory.eINSTANCE.createClassContentExtension()));
 	}
 
 	/**

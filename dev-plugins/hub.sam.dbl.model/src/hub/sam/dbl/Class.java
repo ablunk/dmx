@@ -11,7 +11,6 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Class#isActive <em>Active</em>}</li>
  *   <li>{@link hub.sam.dbl.Class#getBindings <em>Bindings</em>}</li>
@@ -21,12 +20,13 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link hub.sam.dbl.Class#getMethods <em>Methods</em>}</li>
  *   <li>{@link hub.sam.dbl.Class#getActionsBlock <em>Actions Block</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getClass_()
  * @model
  * @generated
  */
-public interface Class extends NamedElement, Type, ConstructiveExtensionAtContentExtensionPoint, LanguageConceptClassifier, Construct {
+public interface Class extends NamedElement, Type, ConstructiveExtensionAtContentExtensionPoint, Concept, Construct, AnnotateableElement {
 	/**
 	 * Returns the value of the '<em><b>Active</b></em>' attribute.
 	 * The default value is <code>"false"</code>.

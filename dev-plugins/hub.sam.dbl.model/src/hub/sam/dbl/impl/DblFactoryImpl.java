@@ -10,21 +10,25 @@ import hub.sam.dbl.ActivateObject;
 import hub.sam.dbl.ActiveLiteral;
 import hub.sam.dbl.Advance;
 import hub.sam.dbl.And;
+import hub.sam.dbl.AnnotateableElement;
+import hub.sam.dbl.Annotation;
+import hub.sam.dbl.AnnotationItem;
+import hub.sam.dbl.AnnotationLiteral;
 import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.Assignment;
 import hub.sam.dbl.BoolType;
-import hub.sam.dbl.BooleanPropertyType;
 import hub.sam.dbl.BreakStatement;
 import hub.sam.dbl.CallPart;
 import hub.sam.dbl.Cast;
-import hub.sam.dbl.ClassContent;
 import hub.sam.dbl.ClassContentExtension;
 import hub.sam.dbl.CodeQuoteExpression;
-import hub.sam.dbl.CompositePropertyType;
+import hub.sam.dbl.ComplexSymbol;
+import hub.sam.dbl.Concept;
 import hub.sam.dbl.Construct;
 import hub.sam.dbl.ConstructiveExtension;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.ContinueStatement;
+import hub.sam.dbl.CreateIdStatement;
 import hub.sam.dbl.CreateObject;
 import hub.sam.dbl.DblFactory;
 import hub.sam.dbl.DblPackage;
@@ -40,8 +44,8 @@ import hub.sam.dbl.ExpandVariablePart;
 import hub.sam.dbl.ExpansionStatement;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.FalseLiteral;
 import hub.sam.dbl.ForStatement;
 import hub.sam.dbl.Function;
@@ -49,19 +53,20 @@ import hub.sam.dbl.FunctionCall;
 import hub.sam.dbl.Greater;
 import hub.sam.dbl.GreaterEqual;
 import hub.sam.dbl.IdExpr;
-import hub.sam.dbl.IdPropertyType;
+import hub.sam.dbl.IdSymbol;
 import hub.sam.dbl.IfStatement;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.InstanceOf;
 import hub.sam.dbl.IntLiteral;
-import hub.sam.dbl.IntPropertyType;
+import hub.sam.dbl.IntSymbol;
 import hub.sam.dbl.IntType;
+import hub.sam.dbl.Keyword;
 import hub.sam.dbl.L1Expr;
-import hub.sam.dbl.L1RhsExpr;
+import hub.sam.dbl.L1SyntaxExpression;
 import hub.sam.dbl.L2Expr;
-import hub.sam.dbl.L2RhsExpr;
+import hub.sam.dbl.L2SyntaxExpression;
 import hub.sam.dbl.L3Expr;
-import hub.sam.dbl.L3RhsExpr;
+import hub.sam.dbl.L3SyntaxExpression;
 import hub.sam.dbl.L4Expr;
 import hub.sam.dbl.L5Expr;
 import hub.sam.dbl.L6Expr;
@@ -77,11 +82,11 @@ import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaAccess;
 import hub.sam.dbl.MetaExpr;
 import hub.sam.dbl.MetaLiteral;
+import hub.sam.dbl.MetaSymbol;
 import hub.sam.dbl.Minus;
 import hub.sam.dbl.Mod;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
-import hub.sam.dbl.ModuleContent;
 import hub.sam.dbl.ModuleContentExtension;
 import hub.sam.dbl.Mul;
 import hub.sam.dbl.NamedElement;
@@ -94,46 +99,39 @@ import hub.sam.dbl.Or;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.ParseExpr;
 import hub.sam.dbl.Pattern;
+import hub.sam.dbl.PlainSymbolReference;
 import hub.sam.dbl.Plus;
 import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.Print;
-import hub.sam.dbl.PropertyBindingExpr;
 import hub.sam.dbl.QuotedClassContent;
 import hub.sam.dbl.QuotedCode;
 import hub.sam.dbl.QuotedExpression;
 import hub.sam.dbl.QuotedModuleContent;
 import hub.sam.dbl.QuotedStatements;
 import hub.sam.dbl.Reactivate;
-import hub.sam.dbl.ReferencePropertyType;
-import hub.sam.dbl.ResumeGenStatement;
 import hub.sam.dbl.Return;
-import hub.sam.dbl.RhsClassifierExpr;
-import hub.sam.dbl.RhsExpression;
-import hub.sam.dbl.SaveGenStatement;
-import hub.sam.dbl.SequenceExpr;
-import hub.sam.dbl.SetExpansionContextStatement;
 import hub.sam.dbl.SimpleStatement;
 import hub.sam.dbl.SizeOfArray;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.StringLiteral;
-import hub.sam.dbl.StringPropertyType;
+import hub.sam.dbl.StringSymbol;
 import hub.sam.dbl.StringType;
-import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.StructuralSymbolReference;
 import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.SuperLiteral;
 import hub.sam.dbl.SwitchCase;
 import hub.sam.dbl.SwitchStatement;
+import hub.sam.dbl.SymbolSequence;
+import hub.sam.dbl.SyntaxDefinition;
+import hub.sam.dbl.SyntaxExpression;
+import hub.sam.dbl.SyntaxSymbolClassifier;
 import hub.sam.dbl.TargetStatement;
-import hub.sam.dbl.TerminalExpr;
 import hub.sam.dbl.Terminate;
 import hub.sam.dbl.TestStatement;
-import hub.sam.dbl.TextualSyntaxDef;
 import hub.sam.dbl.TimeLiteral;
 import hub.sam.dbl.TrueLiteral;
-import hub.sam.dbl.TsRule;
 import hub.sam.dbl.TypeAccess;
 import hub.sam.dbl.TypeLiteral;
-import hub.sam.dbl.UniqueIdExpr;
 import hub.sam.dbl.Variable;
 import hub.sam.dbl.VariableAccess;
 import hub.sam.dbl.VoidType;
@@ -275,29 +273,22 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.TYPE_ACCESS: return createTypeAccess();
 			case DblPackage.EXTENSIBLE_ELEMENT: return createExtensibleElement();
 			case DblPackage.CONSTRUCTIVE_EXTENSION: return createConstructiveExtension();
-			case DblPackage.EXTENSION_DEFINITION: return createExtensionDefinition();
-			case DblPackage.TEXTUAL_SYNTAX_DEF: return createTextualSyntaxDef();
-			case DblPackage.TS_RULE: return createTsRule();
-			case DblPackage.SEQUENCE_EXPR: return createSequenceExpr();
-			case DblPackage.TERMINAL_EXPR: return createTerminalExpr();
-			case DblPackage.L1_RHS_EXPR: return createL1RhsExpr();
-			case DblPackage.L2_RHS_EXPR: return createL2RhsExpr();
-			case DblPackage.L3_RHS_EXPR: return createL3RhsExpr();
-			case DblPackage.PROPERTY_BINDING_EXPR: return createPropertyBindingExpr();
-			case DblPackage.ID_PROPERTY_TYPE: return createIdPropertyType();
-			case DblPackage.INT_PROPERTY_TYPE: return createIntPropertyType();
-			case DblPackage.STRING_PROPERTY_TYPE: return createStringPropertyType();
-			case DblPackage.BOOLEAN_PROPERTY_TYPE: return createBooleanPropertyType();
-			case DblPackage.STRUCTURED_PROPERTY_TYPE: return createStructuredPropertyType();
-			case DblPackage.COMPOSITE_PROPERTY_TYPE: return createCompositePropertyType();
-			case DblPackage.REFERENCE_PROPERTY_TYPE: return createReferencePropertyType();
-			case DblPackage.EXTENSION_SEMANTICS_DEFINITION: return createExtensionSemanticsDefinition();
+			case DblPackage.EXTENSION: return createExtension();
+			case DblPackage.SYNTAX_DEFINITION: return createSyntaxDefinition();
+			case DblPackage.META_SYMBOL: return createMetaSymbol();
+			case DblPackage.SYMBOL_SEQUENCE: return createSymbolSequence();
+			case DblPackage.KEYWORD: return createKeyword();
+			case DblPackage.L1_SYNTAX_EXPRESSION: return createL1SyntaxExpression();
+			case DblPackage.L2_SYNTAX_EXPRESSION: return createL2SyntaxExpression();
+			case DblPackage.L3_SYNTAX_EXPRESSION: return createL3SyntaxExpression();
+			case DblPackage.STRUCTURAL_SYMBOL_REFERENCE: return createStructuralSymbolReference();
+			case DblPackage.ID_SYMBOL: return createIdSymbol();
+			case DblPackage.INT_SYMBOL: return createIntSymbol();
+			case DblPackage.STRING_SYMBOL: return createStringSymbol();
+			case DblPackage.EXTENSION_SEMANTICS: return createExtensionSemantics();
 			case DblPackage.META_EXPR: return createMetaExpr();
 			case DblPackage.TARGET_STATEMENT: return createTargetStatement();
 			case DblPackage.EXPANSION_STATEMENT: return createExpansionStatement();
-			case DblPackage.SET_EXPANSION_CONTEXT_STATEMENT: return createSetExpansionContextStatement();
-			case DblPackage.SAVE_GEN_STATEMENT: return createSaveGenStatement();
-			case DblPackage.RESUME_GEN_STATEMENT: return createResumeGenStatement();
 			case DblPackage.EXPAND_TEXT_PART: return createExpandTextPart();
 			case DblPackage.EXPAND_VARIABLE_PART: return createExpandVariablePart();
 			case DblPackage.EXPAND_EXPRESSION: return createExpandExpression();
@@ -318,13 +309,19 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.SIZE_OF_ARRAY: return createSizeOfArray();
 			case DblPackage.LOCAL_SCOPE_STATEMENT: return createLocalScopeStatement();
 			case DblPackage.CALL_PART: return createCallPart();
-			case DblPackage.RHS_CLASSIFIER_EXPR: return createRhsClassifierExpr();
+			case DblPackage.PLAIN_SYMBOL_REFERENCE: return createPlainSymbolReference();
 			case DblPackage.LOCAL_SCOPE: return createLocalScope();
-			case DblPackage.RHS_EXPRESSION: return createRhsExpression();
+			case DblPackage.SYNTAX_EXPRESSION: return createSyntaxExpression();
 			case DblPackage.EXPAND_EXPR: return createExpandExpr();
-			case DblPackage.CLASS_CONTENT: return createClassContent();
-			case DblPackage.MODULE_CONTENT: return createModuleContent();
-			case DblPackage.UNIQUE_ID_EXPR: return createUniqueIdExpr();
+			case DblPackage.CLASS_CONTENT_EXTENSION: return createClassContentExtension();
+			case DblPackage.MODULE_CONTENT_EXTENSION: return createModuleContentExtension();
+			case DblPackage.ANNOTATION: return createAnnotation();
+			case DblPackage.ANNOTATION_ITEM: return createAnnotationItem();
+			case DblPackage.CONCEPT: return createConcept();
+			case DblPackage.SYNTAX_SYMBOL_CLASSIFIER: return createSyntaxSymbolClassifier();
+			case DblPackage.COMPLEX_SYMBOL: return createComplexSymbol();
+			case DblPackage.ANNOTATION_LITERAL: return createAnnotationLiteral();
+			case DblPackage.CREATE_ID_STATEMENT: return createCreateIdStatement();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -376,6 +373,36 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Annotation createAnnotation() {
+		AnnotationImpl annotation = new AnnotationImpl();
+		return annotation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnnotationItem createAnnotationItem() {
+		AnnotationItemImpl annotationItem = new AnnotationItemImpl();
+		return annotationItem;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public AnnotateableElement createAnnotateableElement() {
+		AnnotateableElementImpl annotateableElement = new AnnotateableElementImpl();
+		return annotateableElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ConstructiveExtension createConstructiveExtension() {
 		ConstructiveExtensionImpl constructiveExtension = new ConstructiveExtensionImpl();
 		return constructiveExtension;
@@ -386,9 +413,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ModuleContent createModuleContent() {
-		ModuleContentImpl moduleContent = new ModuleContentImpl();
-		return moduleContent;
+	public ModuleContentExtension createModuleContentExtension() {
+		ModuleContentExtensionImpl moduleContentExtension = new ModuleContentExtensionImpl();
+		return moduleContentExtension;
 	}
 
 	/**
@@ -396,9 +423,9 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ClassContent createClassContent() {
-		ClassContentImpl classContent = new ClassContentImpl();
-		return classContent;
+	public ClassContentExtension createClassContentExtension() {
+		ClassContentExtensionImpl classContentExtension = new ClassContentExtensionImpl();
+		return classContentExtension;
 	}
 
 	/**
@@ -1136,6 +1163,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AnnotationLiteral createAnnotationLiteral() {
+		AnnotationLiteralImpl annotationLiteral = new AnnotationLiteralImpl();
+		return annotationLiteral;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public StringLiteral createStringLiteral() {
 		StringLiteralImpl stringLiteral = new StringLiteralImpl();
 		return stringLiteral;
@@ -1179,16 +1216,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public DoubleLiteral createDoubleLiteral() {
 		DoubleLiteralImpl doubleLiteral = new DoubleLiteralImpl();
 		return doubleLiteral;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public UniqueIdExpr createUniqueIdExpr() {
-		UniqueIdExprImpl uniqueIdExpr = new UniqueIdExprImpl();
-		return uniqueIdExpr;
 	}
 
 	/**
@@ -1276,199 +1303,189 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Extension createExtension() {
+		ExtensionImpl extension = new ExtensionImpl();
+		return extension;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ExtensionSemantics createExtensionSemantics() {
+		ExtensionSemanticsImpl extensionSemantics = new ExtensionSemanticsImpl();
+		return extensionSemantics;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SyntaxDefinition createSyntaxDefinition() {
+		SyntaxDefinitionImpl syntaxDefinition = new SyntaxDefinitionImpl();
+		return syntaxDefinition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SyntaxSymbolClassifier createSyntaxSymbolClassifier() {
+		SyntaxSymbolClassifierImpl syntaxSymbolClassifier = new SyntaxSymbolClassifierImpl();
+		return syntaxSymbolClassifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComplexSymbol createComplexSymbol() {
+		ComplexSymbolImpl complexSymbol = new ComplexSymbolImpl();
+		return complexSymbol;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Concept createConcept() {
+		ConceptImpl concept = new ConceptImpl();
+		return concept;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public MetaSymbol createMetaSymbol() {
+		MetaSymbolImpl metaSymbol = new MetaSymbolImpl();
+		return metaSymbol;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SyntaxExpression createSyntaxExpression() {
+		SyntaxExpressionImpl syntaxExpression = new SyntaxExpressionImpl();
+		return syntaxExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L3SyntaxExpression createL3SyntaxExpression() {
+		L3SyntaxExpressionImpl l3SyntaxExpression = new L3SyntaxExpressionImpl();
+		return l3SyntaxExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L2SyntaxExpression createL2SyntaxExpression() {
+		L2SyntaxExpressionImpl l2SyntaxExpression = new L2SyntaxExpressionImpl();
+		return l2SyntaxExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SymbolSequence createSymbolSequence() {
+		SymbolSequenceImpl symbolSequence = new SymbolSequenceImpl();
+		return symbolSequence;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public L1SyntaxExpression createL1SyntaxExpression() {
+		L1SyntaxExpressionImpl l1SyntaxExpression = new L1SyntaxExpressionImpl();
+		return l1SyntaxExpression;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StructuralSymbolReference createStructuralSymbolReference() {
+		StructuralSymbolReferenceImpl structuralSymbolReference = new StructuralSymbolReferenceImpl();
+		return structuralSymbolReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PlainSymbolReference createPlainSymbolReference() {
+		PlainSymbolReferenceImpl plainSymbolReference = new PlainSymbolReferenceImpl();
+		return plainSymbolReference;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IdSymbol createIdSymbol() {
+		IdSymbolImpl idSymbol = new IdSymbolImpl();
+		return idSymbol;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public IntSymbol createIntSymbol() {
+		IntSymbolImpl intSymbol = new IntSymbolImpl();
+		return intSymbol;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StringSymbol createStringSymbol() {
+		StringSymbolImpl stringSymbol = new StringSymbolImpl();
+		return stringSymbol;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Keyword createKeyword() {
+		KeywordImpl keyword = new KeywordImpl();
+		return keyword;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ExtensibleElement createExtensibleElement() {
 		ExtensibleElementImpl extensibleElement = new ExtensibleElementImpl();
 		return extensibleElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ExtensionDefinition createExtensionDefinition() {
-		ExtensionDefinitionImpl extensionDefinition = new ExtensionDefinitionImpl();
-		return extensionDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ExtensionSemanticsDefinition createExtensionSemanticsDefinition() {
-		ExtensionSemanticsDefinitionImpl extensionSemanticsDefinition = new ExtensionSemanticsDefinitionImpl();
-		return extensionSemanticsDefinition;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TextualSyntaxDef createTextualSyntaxDef() {
-		TextualSyntaxDefImpl textualSyntaxDef = new TextualSyntaxDefImpl();
-		return textualSyntaxDef;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TsRule createTsRule() {
-		TsRuleImpl tsRule = new TsRuleImpl();
-		return tsRule;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RhsExpression createRhsExpression() {
-		RhsExpressionImpl rhsExpression = new RhsExpressionImpl();
-		return rhsExpression;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public L3RhsExpr createL3RhsExpr() {
-		L3RhsExprImpl l3RhsExpr = new L3RhsExprImpl();
-		return l3RhsExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public L2RhsExpr createL2RhsExpr() {
-		L2RhsExprImpl l2RhsExpr = new L2RhsExprImpl();
-		return l2RhsExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SequenceExpr createSequenceExpr() {
-		SequenceExprImpl sequenceExpr = new SequenceExprImpl();
-		return sequenceExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public L1RhsExpr createL1RhsExpr() {
-		L1RhsExprImpl l1RhsExpr = new L1RhsExprImpl();
-		return l1RhsExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TerminalExpr createTerminalExpr() {
-		TerminalExprImpl terminalExpr = new TerminalExprImpl();
-		return terminalExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PropertyBindingExpr createPropertyBindingExpr() {
-		PropertyBindingExprImpl propertyBindingExpr = new PropertyBindingExprImpl();
-		return propertyBindingExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RhsClassifierExpr createRhsClassifierExpr() {
-		RhsClassifierExprImpl rhsClassifierExpr = new RhsClassifierExprImpl();
-		return rhsClassifierExpr;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IdPropertyType createIdPropertyType() {
-		IdPropertyTypeImpl idPropertyType = new IdPropertyTypeImpl();
-		return idPropertyType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public IntPropertyType createIntPropertyType() {
-		IntPropertyTypeImpl intPropertyType = new IntPropertyTypeImpl();
-		return intPropertyType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StringPropertyType createStringPropertyType() {
-		StringPropertyTypeImpl stringPropertyType = new StringPropertyTypeImpl();
-		return stringPropertyType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BooleanPropertyType createBooleanPropertyType() {
-		BooleanPropertyTypeImpl booleanPropertyType = new BooleanPropertyTypeImpl();
-		return booleanPropertyType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public StructuredPropertyType createStructuredPropertyType() {
-		StructuredPropertyTypeImpl structuredPropertyType = new StructuredPropertyTypeImpl();
-		return structuredPropertyType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompositePropertyType createCompositePropertyType() {
-		CompositePropertyTypeImpl compositePropertyType = new CompositePropertyTypeImpl();
-		return compositePropertyType;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ReferencePropertyType createReferencePropertyType() {
-		ReferencePropertyTypeImpl referencePropertyType = new ReferencePropertyTypeImpl();
-		return referencePropertyType;
 	}
 
 	/**
@@ -1489,6 +1506,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public TargetStatement createTargetStatement() {
 		TargetStatementImpl targetStatement = new TargetStatementImpl();
 		return targetStatement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CreateIdStatement createCreateIdStatement() {
+		CreateIdStatementImpl createIdStatement = new CreateIdStatementImpl();
+		return createIdStatement;
 	}
 
 	/**
@@ -1519,36 +1546,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public ExpandVariablePart createExpandVariablePart() {
 		ExpandVariablePartImpl expandVariablePart = new ExpandVariablePartImpl();
 		return expandVariablePart;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SetExpansionContextStatement createSetExpansionContextStatement() {
-		SetExpansionContextStatementImpl setExpansionContextStatement = new SetExpansionContextStatementImpl();
-		return setExpansionContextStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SaveGenStatement createSaveGenStatement() {
-		SaveGenStatementImpl saveGenStatement = new SaveGenStatementImpl();
-		return saveGenStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ResumeGenStatement createResumeGenStatement() {
-		ResumeGenStatementImpl resumeGenStatement = new ResumeGenStatementImpl();
-		return resumeGenStatement;
 	}
 
 	/**

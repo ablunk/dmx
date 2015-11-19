@@ -1,32 +1,32 @@
 package hub.sam.dmx.semantics
 
+import hub.sam.dbl.Cast
+import hub.sam.dbl.ComplexSymbol
+import hub.sam.dbl.CreateIdStatement
+import hub.sam.dbl.DblEObject
+import hub.sam.dbl.ExpansionStatement
 import hub.sam.dbl.ExtensibleElement
-import hub.sam.dbl.ExtensionDefinition
+import hub.sam.dbl.Extension
+import hub.sam.dbl.ExtensionSemantics
 import hub.sam.dbl.IdExpr
+import hub.sam.dbl.IdSymbol
 import hub.sam.dbl.Import
-import hub.sam.dbl.IntPropertyType
+import hub.sam.dbl.IntSymbol
+import hub.sam.dbl.Keyword
+import hub.sam.dbl.MetaSymbol
 import hub.sam.dbl.Model
 import hub.sam.dbl.Module
-import hub.sam.dbl.PropertyBindingExpr
-import hub.sam.dbl.PropertyType
-import hub.sam.dbl.StringPropertyType
-import hub.sam.dbl.StructuredPropertyType
+import hub.sam.dbl.PlainSymbolReference
+import hub.sam.dbl.StringSymbol
+import hub.sam.dbl.StructuralSymbolReference
+import hub.sam.dbl.SyntaxSymbolClassifier
+import hub.sam.dbl.TypedElement
 import hub.sam.dbl.Variable
+import hub.sam.dmx.editor.semantics.ExtensionSyntaxDefinitionProcessor
 import java.io.Writer
+import java.util.logging.Logger
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
-import hub.sam.dbl.TypedElement
-import hub.sam.dbl.TsRule
-import hub.sam.dbl.CompositePropertyType
-import hub.sam.dbl.LanguageConstructClassifier
-import hub.sam.dbl.IdPropertyType
-import java.util.logging.Logger
-import hub.sam.dbl.ExpansionStatement
-import hub.sam.dbl.ExtensionSemanticsDefinition
-import hub.sam.dmx.editor.semantics.ExtensionSyntaxDefinitionProcessor
-import hub.sam.dbl.DblEObject
-import hub.sam.dbl.Cast
-import hub.sam.dbl.UniqueIdExpr
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -43,7 +43,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	
 	def boolean oneParentRefersToSyntaxPartOrDblMetamodel(IdExpr idExpr) {
 		val it = idExpr
-		if (referencedElement instanceof PropertyBindingExpr) {
+		if (referencedElement instanceof StructuralSymbolReference) {
 			true
 		}
 		else {
@@ -69,12 +69,16 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	
 	def boolean directlyRefersToSyntaxPart(IdExpr idExpr) {
 		val it = idExpr
-		return referencedElement instanceof PropertyBindingExpr
+		return referencedElement instanceof StructuralSymbolReference
 	}
 	
 	def boolean refersToDblMetamodel(IdExpr idExpr) {
 		val it = idExpr
-		referencedElement != null && referencedElement.getContainerObjectOfType(Module).name.equals("dbl")
+		if (referencedElement != null) {
+			val containerModule = referencedElement.getContainerObjectOfType(Module)
+			return containerModule.name.equals("dbl")
+		}
+		return false
 	}
 
 	def boolean hasSyntaxType(IdExpr idExpr) {
@@ -98,8 +102,8 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	
 	def boolean refersToSyntaxPart_ofType_StructuredPropertyType(IdExpr idExpr) {
 		val it = idExpr
-		if (referencedElement instanceof PropertyBindingExpr) {
-			return (referencedElement as PropertyBindingExpr).propertyType instanceof StructuredPropertyType
+		if (referencedElement instanceof StructuralSymbolReference) {
+			return (referencedElement as StructuralSymbolReference).classifier instanceof ComplexSymbol
 		}
 		else false
 	}
@@ -110,7 +114,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 			val variable = referencedElement as Variable;
 			if (variable.classifierType != null) {
 				val type = variable.classifierType.referencedElement
-				return type instanceof LanguageConstructClassifier
+				return type instanceof SyntaxSymbolClassifier
 			}
 		}
 		false
@@ -153,13 +157,9 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 					return referencedClassifierType.name.equals("List")
 				}
 			}
-			else if (referencedElement instanceof PropertyBindingExpr) {
-				val propertyBinding = referencedElement as PropertyBindingExpr
-				val propertyType = propertyBinding.propertyType
-				if (propertyType instanceof CompositePropertyType) {
-					val compositePropertyType = propertyType as CompositePropertyType
-					return compositePropertyType.list
-				}
+			else if (referencedElement instanceof StructuralSymbolReference) {
+				val structuralSymbolRef = referencedElement as StructuralSymbolReference
+				return structuralSymbolRef.list
 			}
 		}
 		return false
@@ -172,19 +172,18 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 				val typedElement = referencedElement as TypedElement
 				return typedElement.primitiveType != null;
 			}
-			else if (referencedElement instanceof PropertyBindingExpr) {
-				val propertyBinding = referencedElement as PropertyBindingExpr
-				val propertyType = propertyBinding.propertyType
-				if (propertyType instanceof IdPropertyType || propertyType instanceof StringPropertyType) {
-					return true
-				}
+			else if (referencedElement instanceof PlainSymbolReference) {
+				val symbolRef = referencedElement as PlainSymbolReference
+				val classifier = symbolRef.classifier
+				return classifier instanceof IdSymbol || classifier instanceof StringSymbol || classifier instanceof IntSymbol
+					|| classifier instanceof Keyword
 			}
 		}
 		return false
 	}
 	
 	override String genType(DblEObject type) {
-		if (type instanceof TsRule || type.getContainerObjectOfType(Module).name.equals("dbl")) return "EObject"
+		if (type instanceof MetaSymbol || type.getContainerObjectOfType(Module).name.equals("dbl")) return "EObject"
 		else super.genType(type)
 	}
 	
@@ -198,6 +197,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	}
 	
 	override def dispatch String genExpr(Cast expr) {
+		// TODO metaclass must be checked for EObjects !!
 		'''
 		«IF expr.classifierType != null && expr.classifierType.refersToDblMetamodel»
 			((EObject) «expr.op.genExpr»)
@@ -207,10 +207,32 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		'''
 	}
 	
-	override def dispatch String genExpr(UniqueIdExpr expr) {
-		'''getUniqueID("«expr.identifier»")'''
+	def dispatch String genStatement(CreateIdStatement createIdStatement) {
+		val it = createIdStatement		
+		'''
+		String «name» = getUniqueID("«name»");
+		'''
 	}
 	
+	override def dispatch String genStatement(ExpansionStatement stm) {
+		val it = stm
+		
+		if (differingContext == null) {
+			'''expandAtExtensionPosition(
+			«FOR part : parts SEPARATOR '+'»
+				«part.genMappingPart»
+			«ENDFOR»
+			);'''
+		}
+		else {
+			'''expandAtDifferentPosition(
+			«FOR part : parts SEPARATOR '+'»
+				«part.genMappingPart»
+			«ENDFOR»
+			, «differingContext.genExpr»
+			);'''
+		}
+	}
 	
 	def String genIdExprWithSyntaxPartReferences(IdExpr idExpr) {
 		val it = idExpr
@@ -300,32 +322,38 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 			«ELSE»
 				«genIdExprWithSyntaxPartReferences»
 			«ENDIF»
+		«ELSEIF refersToCreateIdStatement»
+			getUniqueID("«idExpr.referencedElement.name»")
 		«ELSE»
 			«super.genIdExpr(idExpr)»
 		«ENDIF»
 		'''
 	}
 	
+	def boolean refersToCreateIdStatement(IdExpr idExpr) {
+		idExpr.referencedElement instanceof CreateIdStatement
+	}
+	
 	override String genIdExpr_for_PredefinedId_meLiteral() {
 		'_extensionInstance'
 	}
 	
-	def dispatch String genPropertyType(PropertyType type) {
-		'<unkown property type>'
-	}
-	
-	def dispatch String genPropertyType(IntPropertyType type) {
-		'Integer'
-	}
-	
-	def dispatch String genPropertyType(StringPropertyType type) {
-		'String'
-	}
-	
-	def dispatch String genPropertyType(StructuredPropertyType type) {
-		//type.type.genReferableRhsType
-		'EObject'
-	}
+//	def dispatch String genPropertyType(PropertyType type) {
+//		'<unkown property type>'
+//	}
+//	
+//	def dispatch String genPropertyType(IntSymbol type) {
+//		'Integer'
+//	}
+//	
+//	def dispatch String genPropertyType(StringSymbol type) {
+//		'String'
+//	}
+//	
+//	def dispatch String genPropertyType(StructuredPropertyType type) {
+//		//type.type.genReferableRhsType
+//		'EObject'
+//	}
 	
 //	def dispatch String genReferableRhsType(ReferableRhsType type) {
 //		type.name
@@ -335,18 +363,18 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 //		type.genType
 //	}
 	
-	override String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, PropertyBindingExpr referencedElement) {
+	override String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, StructuralSymbolReference referencedElement) {
 		'''
 		getPropertyValue(_extensionInstance ,"«referencedElement.name»")
 		'''
 	}
 	
-	def ExtensionDefinition getImportedExtensionDefinition(Model model, String name) {
-		var ExtensionDefinition extDef;
+	def Extension getImportedExtensionDefinition(Model model, String name) {
+		var Extension extDef;
 		for (Import imprt: model.imports) {
 			if (imprt.model != null) {
 				for (Module module: imprt.model.modules) {
-					extDef = module.extensionDefinitions.findFirst[
+					extDef = module.extensions.findFirst[
 						e | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e).equals(name)
 					]
 					if (extDef != null) return extDef
@@ -358,12 +386,12 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		return extDef
 	}
 
-	def ExtensionSemanticsDefinition getImportedExtensionSemanticsDefinition(Model model, String name) {
-		var ExtensionSemanticsDefinition semanticsDef;
+	def ExtensionSemantics getImportedExtensionSemanticsDefinition(Model model, String name) {
+		var ExtensionSemantics semanticsDef;
 		for (Import imprt: model.imports) {
 			if (imprt.model != null) {
 				for (Module module: imprt.model.modules) {
-					semanticsDef = module.extensionSemanticsDefinitions.findFirst[
+					semanticsDef = module.extensionSemantics.findFirst[
 						sd | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(sd.syntaxDefinition).equals(name)
 					]
 					if (semanticsDef != null) return semanticsDef
@@ -377,15 +405,15 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	
 	def void genExtensionDefinition(Model model, String extensionDefinitionName) {
 		// look for extension definition in all imported models
-		//var ExtensionDefinition extensionDefinition = model.getImportedExtensionDefinition(extensionDefinitionName)
-		val ExtensionSemanticsDefinition semanticsDef = model.getImportedExtensionSemanticsDefinition(extensionDefinitionName)
+		//var hub.sam.dbl.Extension extensionDefinition = model.getImportedExtensionDefinition(extensionDefinitionName)
+		val ExtensionSemantics semanticsDef = model.getImportedExtensionSemanticsDefinition(extensionDefinitionName)
 		
 		if (semanticsDef != null) {
 			model.genExtensionSemanticsDefinition(semanticsDef)
 		}
 	}
 	
-	def void genExtensionSemanticsDefinition(Model model, ExtensionSemanticsDefinition semanticsDef) {
+	def void genExtensionSemanticsDefinition(Model model, ExtensionSemantics semanticsDef) {
 		print("Generating Java code for extension definition " + semanticsDef.syntaxDefinition.name + " ... ");
 
 		// generate Java code
@@ -402,7 +430,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		}
 	}
 
-	def String genExtensionSemanticsDefinition(ExtensionSemanticsDefinition semanticsDef) {
+	def String genExtensionSemanticsDefinition(ExtensionSemantics semanticsDef) {
 		val it = semanticsDef
 		
 		if (statements.empty) {

@@ -254,22 +254,12 @@ public class LocalScopeStatementItemProvider extends SimpleStatementItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

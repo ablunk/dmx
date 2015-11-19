@@ -67,6 +67,33 @@ public interface DblFactory extends EFactory {
 	Module createModule();
 
 	/**
+	 * Returns a new object of class '<em>Annotation</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotation</em>'.
+	 * @generated
+	 */
+	Annotation createAnnotation();
+
+	/**
+	 * Returns a new object of class '<em>Annotation Item</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotation Item</em>'.
+	 * @generated
+	 */
+	AnnotationItem createAnnotationItem();
+
+	/**
+	 * Returns a new object of class '<em>Annotateable Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotateable Element</em>'.
+	 * @generated
+	 */
+	AnnotateableElement createAnnotateableElement();
+
+	/**
 	 * Returns a new object of class '<em>Constructive Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -76,22 +103,22 @@ public interface DblFactory extends EFactory {
 	ConstructiveExtension createConstructiveExtension();
 
 	/**
-	 * Returns a new object of class '<em>Module Content</em>'.
+	 * Returns a new object of class '<em>Module Content Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Module Content</em>'.
+	 * @return a new object of class '<em>Module Content Extension</em>'.
 	 * @generated
 	 */
-	ModuleContent createModuleContent();
+	ModuleContentExtension createModuleContentExtension();
 
 	/**
-	 * Returns a new object of class '<em>Class Content</em>'.
+	 * Returns a new object of class '<em>Class Content Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Class Content</em>'.
+	 * @return a new object of class '<em>Class Content Extension</em>'.
 	 * @generated
 	 */
-	ClassContent createClassContent();
+	ClassContentExtension createClassContentExtension();
 
 	/**
 	 * Returns a new object of class '<em>Array Dimension</em>'.
@@ -751,15 +778,6 @@ public interface DblFactory extends EFactory {
 	DoubleLiteral createDoubleLiteral();
 
 	/**
-	 * Returns a new object of class '<em>Unique Id Expr</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Unique Id Expr</em>'.
-	 * @generated
-	 */
-	UniqueIdExpr createUniqueIdExpr();
-
-	/**
 	 * Returns a new object of class '<em>Expand Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -832,6 +850,15 @@ public interface DblFactory extends EFactory {
 	SizeOfArray createSizeOfArray();
 
 	/**
+	 * Returns a new object of class '<em>Annotation Literal</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Annotation Literal</em>'.
+	 * @generated
+	 */
+	AnnotationLiteral createAnnotationLiteral();
+
+	/**
 	 * Returns a new object of class '<em>Id Expr</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -877,175 +904,166 @@ public interface DblFactory extends EFactory {
 	TypeAccess createTypeAccess();
 
 	/**
-	 * Returns a new object of class '<em>Extension Definition</em>'.
+	 * Returns a new object of class '<em>Extension</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Extension Definition</em>'.
+	 * @return a new object of class '<em>Extension</em>'.
 	 * @generated
 	 */
-	ExtensionDefinition createExtensionDefinition();
+	Extension createExtension();
 
 	/**
-	 * Returns a new object of class '<em>Extension Semantics Definition</em>'.
+	 * Returns a new object of class '<em>Extension Semantics</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Extension Semantics Definition</em>'.
+	 * @return a new object of class '<em>Extension Semantics</em>'.
 	 * @generated
 	 */
-	ExtensionSemanticsDefinition createExtensionSemanticsDefinition();
+	ExtensionSemantics createExtensionSemantics();
 
 	/**
-	 * Returns a new object of class '<em>Textual Syntax Def</em>'.
+	 * Returns a new object of class '<em>Syntax Definition</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Textual Syntax Def</em>'.
+	 * @return a new object of class '<em>Syntax Definition</em>'.
 	 * @generated
 	 */
-	TextualSyntaxDef createTextualSyntaxDef();
+	SyntaxDefinition createSyntaxDefinition();
 
 	/**
-	 * Returns a new object of class '<em>Ts Rule</em>'.
+	 * Returns a new object of class '<em>Syntax Symbol Classifier</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Ts Rule</em>'.
+	 * @return a new object of class '<em>Syntax Symbol Classifier</em>'.
 	 * @generated
 	 */
-	TsRule createTsRule();
+	SyntaxSymbolClassifier createSyntaxSymbolClassifier();
 
 	/**
-	 * Returns a new object of class '<em>Rhs Expression</em>'.
+	 * Returns a new object of class '<em>Complex Symbol</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Rhs Expression</em>'.
+	 * @return a new object of class '<em>Complex Symbol</em>'.
 	 * @generated
 	 */
-	RhsExpression createRhsExpression();
+	ComplexSymbol createComplexSymbol();
 
 	/**
-	 * Returns a new object of class '<em>L3 Rhs Expr</em>'.
+	 * Returns a new object of class '<em>Concept</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>L3 Rhs Expr</em>'.
+	 * @return a new object of class '<em>Concept</em>'.
 	 * @generated
 	 */
-	L3RhsExpr createL3RhsExpr();
+	Concept createConcept();
 
 	/**
-	 * Returns a new object of class '<em>L2 Rhs Expr</em>'.
+	 * Returns a new object of class '<em>Meta Symbol</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>L2 Rhs Expr</em>'.
+	 * @return a new object of class '<em>Meta Symbol</em>'.
 	 * @generated
 	 */
-	L2RhsExpr createL2RhsExpr();
+	MetaSymbol createMetaSymbol();
 
 	/**
-	 * Returns a new object of class '<em>Sequence Expr</em>'.
+	 * Returns a new object of class '<em>Syntax Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Sequence Expr</em>'.
+	 * @return a new object of class '<em>Syntax Expression</em>'.
 	 * @generated
 	 */
-	SequenceExpr createSequenceExpr();
+	SyntaxExpression createSyntaxExpression();
 
 	/**
-	 * Returns a new object of class '<em>L1 Rhs Expr</em>'.
+	 * Returns a new object of class '<em>L3 Syntax Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>L1 Rhs Expr</em>'.
+	 * @return a new object of class '<em>L3 Syntax Expression</em>'.
 	 * @generated
 	 */
-	L1RhsExpr createL1RhsExpr();
+	L3SyntaxExpression createL3SyntaxExpression();
 
 	/**
-	 * Returns a new object of class '<em>Terminal Expr</em>'.
+	 * Returns a new object of class '<em>L2 Syntax Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Terminal Expr</em>'.
+	 * @return a new object of class '<em>L2 Syntax Expression</em>'.
 	 * @generated
 	 */
-	TerminalExpr createTerminalExpr();
+	L2SyntaxExpression createL2SyntaxExpression();
 
 	/**
-	 * Returns a new object of class '<em>Property Binding Expr</em>'.
+	 * Returns a new object of class '<em>Symbol Sequence</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Property Binding Expr</em>'.
+	 * @return a new object of class '<em>Symbol Sequence</em>'.
 	 * @generated
 	 */
-	PropertyBindingExpr createPropertyBindingExpr();
+	SymbolSequence createSymbolSequence();
 
 	/**
-	 * Returns a new object of class '<em>Rhs Classifier Expr</em>'.
+	 * Returns a new object of class '<em>L1 Syntax Expression</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Rhs Classifier Expr</em>'.
+	 * @return a new object of class '<em>L1 Syntax Expression</em>'.
 	 * @generated
 	 */
-	RhsClassifierExpr createRhsClassifierExpr();
+	L1SyntaxExpression createL1SyntaxExpression();
 
 	/**
-	 * Returns a new object of class '<em>Id Property Type</em>'.
+	 * Returns a new object of class '<em>Structural Symbol Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Id Property Type</em>'.
+	 * @return a new object of class '<em>Structural Symbol Reference</em>'.
 	 * @generated
 	 */
-	IdPropertyType createIdPropertyType();
+	StructuralSymbolReference createStructuralSymbolReference();
 
 	/**
-	 * Returns a new object of class '<em>Int Property Type</em>'.
+	 * Returns a new object of class '<em>Plain Symbol Reference</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Int Property Type</em>'.
+	 * @return a new object of class '<em>Plain Symbol Reference</em>'.
 	 * @generated
 	 */
-	IntPropertyType createIntPropertyType();
+	PlainSymbolReference createPlainSymbolReference();
 
 	/**
-	 * Returns a new object of class '<em>String Property Type</em>'.
+	 * Returns a new object of class '<em>Id Symbol</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>String Property Type</em>'.
+	 * @return a new object of class '<em>Id Symbol</em>'.
 	 * @generated
 	 */
-	StringPropertyType createStringPropertyType();
+	IdSymbol createIdSymbol();
 
 	/**
-	 * Returns a new object of class '<em>Boolean Property Type</em>'.
+	 * Returns a new object of class '<em>Int Symbol</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Boolean Property Type</em>'.
+	 * @return a new object of class '<em>Int Symbol</em>'.
 	 * @generated
 	 */
-	BooleanPropertyType createBooleanPropertyType();
+	IntSymbol createIntSymbol();
 
 	/**
-	 * Returns a new object of class '<em>Structured Property Type</em>'.
+	 * Returns a new object of class '<em>String Symbol</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Structured Property Type</em>'.
+	 * @return a new object of class '<em>String Symbol</em>'.
 	 * @generated
 	 */
-	StructuredPropertyType createStructuredPropertyType();
+	StringSymbol createStringSymbol();
 
 	/**
-	 * Returns a new object of class '<em>Composite Property Type</em>'.
+	 * Returns a new object of class '<em>Keyword</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Composite Property Type</em>'.
+	 * @return a new object of class '<em>Keyword</em>'.
 	 * @generated
 	 */
-	CompositePropertyType createCompositePropertyType();
-
-	/**
-	 * Returns a new object of class '<em>Reference Property Type</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Reference Property Type</em>'.
-	 * @generated
-	 */
-	ReferencePropertyType createReferencePropertyType();
+	Keyword createKeyword();
 
 	/**
 	 * Returns a new object of class '<em>Meta Expr</em>'.
@@ -1064,6 +1082,15 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	TargetStatement createTargetStatement();
+
+	/**
+	 * Returns a new object of class '<em>Create Id Statement</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Create Id Statement</em>'.
+	 * @generated
+	 */
+	CreateIdStatement createCreateIdStatement();
 
 	/**
 	 * Returns a new object of class '<em>Expansion Statement</em>'.
@@ -1091,33 +1118,6 @@ public interface DblFactory extends EFactory {
 	 * @generated
 	 */
 	ExpandVariablePart createExpandVariablePart();
-
-	/**
-	 * Returns a new object of class '<em>Set Expansion Context Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Set Expansion Context Statement</em>'.
-	 * @generated
-	 */
-	SetExpansionContextStatement createSetExpansionContextStatement();
-
-	/**
-	 * Returns a new object of class '<em>Save Gen Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Save Gen Statement</em>'.
-	 * @generated
-	 */
-	SaveGenStatement createSaveGenStatement();
-
-	/**
-	 * Returns a new object of class '<em>Resume Gen Statement</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Resume Gen Statement</em>'.
-	 * @generated
-	 */
-	ResumeGenStatement createResumeGenStatement();
 
 	/**
 	 * Returns a new object of class '<em>Expand Expression</em>'.

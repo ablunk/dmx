@@ -24,7 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class TargetStatementItemProvider extends StatementItemProvider {
+public class TargetStatementItemProvider extends SimpleStatementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -254,22 +254,12 @@ public class TargetStatementItemProvider extends StatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.TARGET_STATEMENT__BODY,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TARGET_STATEMENT__BODY,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TARGET_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TARGET_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.TARGET_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

@@ -260,22 +260,12 @@ public class ForStatementItemProvider extends LoopStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -470,11 +460,6 @@ public class ForStatementItemProvider extends LoopStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__TERMINATION,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
@@ -640,22 +625,12 @@ public class ForStatementItemProvider extends LoopStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__BODY,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.FOR_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

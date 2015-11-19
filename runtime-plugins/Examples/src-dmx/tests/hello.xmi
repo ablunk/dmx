@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="hello">
+    <extensions name="Hello">
+      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.29"/>
+      <syntaxDefinition startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="HelloSyntax">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="Hello"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="!"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics syntaxDefinition="//@modules.0/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement">
+        <parts xsi:type="dbl:ExpandTextPart" text="print \&quot;Hello "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text="\n\&quot;;"/>
+      </statements>
+    </extensionSemantics>
+  </modules>
+</dbl:Model>

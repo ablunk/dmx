@@ -10,10 +10,10 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.DoubleLiteral#getValue <em>Value</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getDoubleLiteral()
  * @model

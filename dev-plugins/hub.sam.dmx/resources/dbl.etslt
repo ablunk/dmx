@@ -8,10 +8,10 @@ syntax(Model) "resources/dbl.ecore" {
 	ModuleElement -> Variable:composite(variables) ";";
 	ModuleElement -> Function:composite(functions);
 	ModuleElement -> Class:composite(classes);
-	ModuleElement -> ExtensionDefinition:composite(extensionDefinitions);
-	ModuleElement -> ExtensionSemanticsDefinition:composite(extensionSemanticsDefinitions);
+	ModuleElement -> Extension:composite(extensions);
+	ModuleElement -> ExtensionSemantics:composite(extensionSemantics);
 	ModuleElement -> ModuleContent:composite(contentExtensions);
-	ModuleContent:element(ModuleContent) -> "moduleContent39758";
+	ModuleContent:element(ModuleContentExtension) -> "moduleContent39758";
 	
 	Class:element(Class) -> ClassWithOptionalModifiers;
 	
@@ -20,6 +20,7 @@ syntax(Model) "resources/dbl.ecore" {
 	ClassDefinition ->
 		"class" ws(space) NamedElementName ws(empty)
 			(ws(space) "extends" ws(space) SuperClass:composite(superClasses) ("," SuperClass:composite(superClasses) )*)? ws(space)
+			(Annotations)?
 			"{"
 				(ClassElement)*
 			"}";
@@ -41,7 +42,8 @@ syntax(Model) "resources/dbl.ecore" {
 	ClassElement ->	ActionsPart;
 	ClassElement -> Function:composite(methods);
 	ClassElement -> ClassContent:composite(contentExtensions);
-	ClassContent:element(ClassContent) -> "classContent39758";
+	ClassContent -> ClassContentExtension;
+	ClassContentExtension:element(ClassContentExtension) -> "classContent39758";
 	
 	ActionsPart -> "actions" LocalScope:composite(actionsBlock);
 	LocalScope:element(LocalScope) -> "{" (Statement:composite(statements))* "}";
@@ -72,7 +74,7 @@ syntax(Model) "resources/dbl.ecore" {
 	Variable2 -> VariableTail;
 		
 	VariableTail -> TypedElementParts ws(space) IDENTIFIER:composite(name) ws(space)
-		("=" Expression:composite(initialValue))? ;
+		("=" Expression:composite(initialValue))? (Annotations)?;
 	
 	TypedElementParts -> IdExpr:composite(classifierType) (ArrayDimensionsEmptySizePart)?;
 	TypedElementParts -> PrimitiveType:composite(primitiveType) (ArrayDimensionsEmptySizePart)?;
@@ -118,7 +120,7 @@ syntax(Model) "resources/dbl.ecore" {
 
 	LocalScopeStatement:element(LocalScopeStatement) -> "{" (Statement:composite(statements))* "}";
 
-	Assignment:element(Assignment) -> VariableAccess:composite(variable) "=" Expression:composite(value);
+	Assignment:element(Assignment) -> VariableAccess:composite(variable) "=" Expression:composite(value) (Annotations)?;
 	Return:element(Return) -> "return" Expression:composite(value);
 	Print:element(Print) -> "print" Expression:composite(outputs) ("," Expression:composite(outputs))*;
 	BreakStatement:element(BreakStatement) -> "break";
@@ -132,13 +134,19 @@ syntax(Model) "resources/dbl.ecore" {
 	ActivateObject:element(ActivateObject) -> "activate" Expression:composite(objectAccess) ("priority" INTEGER:composite(priority))?;
 	WaitUntil:element(WaitUntil) -> "wait" "until" Expression:composite(condition);
 	
+	Annotations -> Annotation:composite(annotations) ("," Annotation:composite(annotations))*;
+	Annotation:element(Annotation) -> "@" IDENTIFIER:composite(name)
+		"(" (AnnotationItem:composite(items))? ("," AnnotationItem:composite(items))* ")";
+	
+	AnnotationItem:element(AnnotationItem) -> IDENTIFIER:composite(key) "=" STRINGDEF:composite(value);
+
 	// the following rules solve the dangling-else ambiguity.
 	// an "open statement" contains at least one if which is not paired with a following else.
 	// a "closed statement" either does not contain an if at all or the if is paired with a following else.
 	// see http://www.parsifalsoft.com/ifelse.html
 	Statement -> Statement_open;
-	Statement -> Statement_closed;
-	
+	Statement -> Statement_closed;	
+
 	Loop_open -> While_open;
 	Loop_open -> For_open;
 	Loop_closed -> While_closed;
@@ -246,7 +254,6 @@ syntax(Model) "resources/dbl.ecore" {
 	L1Expr -> CreateObject;
 	L1Expr -> TimeLiteral;
 	L1Expr -> ActiveLiteral;
-	L1Expr -> UniqueIdExpr;
 	L1Expr -> "(" ws(empty) Expression ws(empty) ")";
 	
 	Or:element(Or)   -> LogicalOr:composite(op1) ws(space) "or" ws(space) LogicalAnd:composite(op2);
@@ -313,62 +320,68 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	PredefinedId:element(MeLiteral) -> "self";
 	PredefinedId:element(SuperLiteral) -> "super";
+	PredefinedId:element(SizeOfArray) -> "length";
+
 	PredefinedId:element(MetaLiteral) -> "meta";
 	PredefinedId:element(TypeLiteral) -> "type";
-	PredefinedId:element(SizeOfArray) -> "length";
+	PredefinedId:element(AnnotationLiteral) -> "@" IDENTIFIER:composite(name);
 	
 	NamedElementRef:element(NamedElement) -> IDENTIFIER:composite(name);
 	
 	// EXTENSIONS
 	
-	ExtensionDefinition -> ExtensionDefinition_actual;
+	Extension -> Extension_actual;
 
-	ExtensionDefinition_actual:element(ExtensionDefinition) -> "extension" IDENTIFIER:composite(name)
+	Extension_actual:element(Extension) -> "extension" IDENTIFIER:composite(name)
 		"extends" ExtendedConstruct
-		TextualSyntaxDef:composite(textualSyntaxDef)
+		SyntaxDefinition:composite(syntaxDefinition)
 	;
 		
-	ExtensionSemanticsDefinition:element(ExtensionSemanticsDefinition) -> "semantics" "for" ExtensionDefinitionRef:reference(syntaxDefinition)
+	ExtensionSemantics:element(ExtensionSemantics) -> "semantics" "for" ExtensionRef:reference(syntaxDefinition)
 		"{" (Statement:composite(statements))* "}";
 	
-	TextualSyntaxDef:element(TextualSyntaxDef) -> ("textual")? "{"
-		"start" TsRuleRef:reference(startRule) ";" (TsRule:composite(rules))* "}";
+	SyntaxDefinition:element(SyntaxDefinition) -> "{"
+		"start" MetaSymbolRef:reference(startSymbol) ";" (MetaSymbol:composite(symbols))* "}";
 	
 	ExtendedConstruct -> ExtendedDblConcept;
 	ExtendedConstruct -> ExtendedExtension;
 	
-	ExtendedDblConcept -> "dbl" ClassRef:reference(extendedConcept);
-	ExtendedExtension -> "extension" ExtensionDefinitionRef:reference(extendedConcept);
+	ExtendedDblConcept -> "dbl" ClassRef:reference(extensionPoint);
+	ExtendedExtension -> "extension" ExtensionRef:reference(extensionPoint);
 	
-	ExtensionDefinitionRef:element(ExtensionDefinition) -> IDENTIFIER:composite(name);
+	ExtensionRef:element(Extension) -> IDENTIFIER:composite(name);
 	
-	TsRule:element(TsRule) -> IDENTIFIER:composite(name) "->" RhsExpression:composite(rhs) ";";
+	MetaSymbol:element(MetaSymbol) -> IDENTIFIER:composite(name) "->" SyntaxExpression:composite(possibleSyntax) ";";
 	
 	// EXTENSION MAPPING
 	
 	SimpleStatement -> ExpansionStatement ";";
-	SimpleStatement -> SetExpansionContextStatement ";";
+	SimpleStatement -> CreateIdStatement ";";
 	
 //	MappingStatement:element(MappingStatement) -> "expand" FixedMappingPartMiddle:composite(parts)
 //		(ws(space) DynamicMappingPart:composite(parts) ws(space) FixedMappingPartMiddle:composite(parts))*;
 
-	ExpansionStatement:element(ExpansionStatement) -> "expand" ExpansionPart:composite(parts)
-		(ws(space) ExpansionPart:composite(parts))*;
+	CreateIdStatement:element(CreateIdStatement) -> "ID" IDENTIFIER:composite(name);
+
+	ExpansionStatement:element(ExpansionStatement) -> "expand" (ContextType)? ExpansionPart:composite(parts)
+		(ws(space) ExpansionPart:composite(parts))* (DifferingContext)?;
 	
 	ExpansionPart -> ExpandTextPart;
 	ExpansionPart -> ExpandVariablePart;
+	
+	ContextType -> IsAddClass:composite(classContext);
+	ContextType -> IsAddFunction:composite(functionContext);
+	ContextType -> IsAddVariable:composite(variableContext);
+	
+	DifferingContext -> "in" IdExpr:composite(differingContext);
 
-	ExpandTextPart:element(ExpandTextPart) -> CODE:composite(text);
+	//ExpandTextPart:element(ExpandTextPart) -> CODE:composite(text);
 	ExpandTextPart:element(ExpandTextPart) -> STRINGDEF:composite(text);
 	ExpandVariablePart:element(ExpandVariablePart) -> IdExpr:composite(expr);
-	ExpandVariablePart:element(ExpandVariablePart) -> UniqueIdExpr:composite(expr);
-
-	UniqueIdExpr:element(UniqueIdExpr) -> IDENTIFIER:composite(identifier) "=" "ID";
 	
-	SetExpansionContextStatement:element(SetExpansionContextStatement) -> "set" "expand" AddBeforeOrAfterContext;
-	AddBeforeOrAfterContext -> IsAddBeforeOrAfter:composite(addAfterContext) Expression:composite(context);
-	IsAddBeforeOrAfter:constant("true":EBoolean) -> "after";
-	IsAddBeforeOrAfter:constant("false":EBoolean) -> "before";
+	IsAddClass:constant("true":EBoolean) -> "class";
+	IsAddFunction:constant("true":EBoolean) -> "function";
+	IsAddVariable:constant("true":EBoolean) -> "variable";
 	
 	L1Expr -> ParseExpr;
 	
@@ -398,49 +411,55 @@ syntax(Model) "resources/dbl.ecore" {
 
 	// EXTENSION SYNTAX
 
-	RhsExpression -> L3RhsExpr;
+	SyntaxExpression -> L3RhsExpr;
 	
 	L3RhsExpr -> L2RhsExpr;
 	
-	L2RhsExpr -> SequenceExpr;		
+	L2RhsExpr -> SymbolSequence;		
 	
-	SequenceExpr:element(SequenceExpr) -> (L1RhsExpr:composite(sequence))*;
+	SymbolSequence:element(SymbolSequence) -> (L1RhsExpr:composite(sequence))*;
 	
-	L1RhsExpr -> TerminalExpr;
-	L1RhsExpr -> "(" RhsExpression ")";
-	L1RhsExpr -> PropertyBindingExpr;
-	L1RhsExpr -> RhsClassifierExpr;
+	L1RhsExpr -> "(" SyntaxExpression ")";
+	L1RhsExpr -> StructuralSymbolReference;
+	L1RhsExpr -> PlainSymbolReference;
 	
-	TerminalExpr:element(TerminalExpr) -> STRINGDEF:composite(terminal);
-	PropertyBindingExpr:element(PropertyBindingExpr) -> IDENTIFIER:composite(name) ":" PropertyType:composite(propertyType);
-	RhsClassifierExpr:element(RhsClassifierExpr) -> LanguageConstructClassifierRef:reference(classifier);
+	StructuralSymbolReference:element(StructuralSymbolReference) -> IDENTIFIER:composite(name) ":" 
+		(IsListType:composite(list))? (ReferenceSemanticsOptional)? SyntaxSymbolClassifier;
 	
-	PropertyType -> IdPropertyType;
-	PropertyType -> IntPropertyType;
-	PropertyType -> StringPropertyType;
-	PropertyType -> BooleanPropertyType;
-	PropertyType -> CompositeOrReferencePropertyType;
+	SyntaxSymbolClassifier -> ElementarySymbol:composite(ownedClassifier);
+	SyntaxSymbolClassifier -> SyntaxSymbolClassifierRef:reference(referencedClassifier);
 	
-	CompositeOrReferencePropertyType -> ReferencePropertyType;
-	CompositeOrReferencePropertyType -> CompositePropertyType;
+	PlainSymbolReference:element(PlainSymbolReference) -> SyntaxSymbolClassifier;
+	
+	ReferenceSemanticsOptional -> IsLocalReference:composite(localScopedReference);
+	ReferenceSemanticsOptional -> IsGlobalReference:composite(globalScopedReference);
+	
+	ElementarySymbol -> IdSymbol;
+	ElementarySymbol -> IntSymbol;
+	ElementarySymbol -> StringSymbol;
+	ElementarySymbol -> Keyword;
+	
+	//CompositeOrReferencePropertyType -> ReferencePropertyType;
+	//CompositeOrReferencePropertyType -> CompositePropertyType;
 //	CompositeOrReferencePropertyType[0] -> ReferencePropertyType;
 //	CompositeOrReferencePropertyType[1] -> CompositePropertyType;
 	
-	IdPropertyType:element(IdPropertyType) -> "ID";
-	IntPropertyType:element(IntPropertyType) -> "INT";
-	StringPropertyType:element(StringPropertyType) -> "STRING";
-	BooleanPropertyType:element(BooleanPropertyType) -> STRINGDEF:composite(terminal);
+	IdSymbol:element(IdSymbol) -> "ID";
+	IntSymbol:element(IntSymbol) -> "INT";
+	StringSymbol:element(StringSymbol) -> "STRING";
+	Keyword:element(Keyword) -> STRINGDEF:composite(keyword);
 
 	// raw (global) -> variable=$$Variable	
-	ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? LanguageConstructClassifierRef:reference(type);
-	CompositePropertyType:element(CompositePropertyType) -> IsListType:composite(list) "(" LanguageConstructClassifierRef:reference(type) ")";
-	CompositePropertyType:element(CompositePropertyType) -> LanguageConstructClassifierRef:reference(type);
+	//ReferencePropertyType:element(ReferencePropertyType) -> "$" (IsRawReference:composite(rawReference))? SyntaxSymbolClassifierRef:reference(type);
+	//CompositePropertyType:element(CompositePropertyType) -> IsListType:composite(list) "(" SyntaxSymbolClassifierRef:reference(type) ")";
+	//CompositePropertyType:element(CompositePropertyType) -> SyntaxSymbolClassifierRef:reference(type);
 
 	IsListType:constant("true":EBoolean) -> "list";
-	IsRawReference:constant("true":EBoolean) -> "$";
+	IsLocalReference:constant("true":EBoolean) -> "$";
+	IsGlobalReference:constant("true":EBoolean) -> "$$";
 	
-	LanguageConstructClassifierRef:element(LanguageConstructClassifier) -> IDENTIFIER:composite(name);
-	TsRuleRef:element(TsRule) -> IDENTIFIER:composite(name);
+	SyntaxSymbolClassifierRef:element(ComplexSymbol) -> IDENTIFIER:composite(name);
+	MetaSymbolRef:element(MetaSymbol) -> IDENTIFIER:composite(name);
 
 	Statement -> Test7349549;
 	Test7349549:element(TestStatement) -> "Test7349549" INTEGER:composite(value) ";";

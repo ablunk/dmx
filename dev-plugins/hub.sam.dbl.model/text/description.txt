@@ -13,15 +13,6 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
   Class ExtensibleElement -> NamedElement, Construct
     Attribute concreteSyntax : EString
     Attribute instanceOfExtensionDefinition : EBoolean<<1..1>>
-    Reference placeHolder1 : ExtensibleElement
-    Reference placeHolder2 : ExtensibleElement
-    Reference placeHolder3 : ExtensibleElement
-    Reference placeHolder4 : ExtensibleElement
-    Reference placeHolder5 : ExtensibleElement
-    Reference placeHolder6 : ExtensibleElement
-    Reference placeHolder8 : ExtensibleElement
-    Reference placeHolder9 : ExtensibleElement
-    Reference placeHolder10 : ExtensibleElement
 
   Class Model
     Reference imports : Import<<0..*>>
@@ -33,19 +24,29 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
 
   Class Module -> NamedElement, ConstructiveExtensionAtContentExtensionPoint, Construct
     Reference classes : Class<<0..*>>
-    Reference extensionDefinitions : ExtensionDefinition<<0..*>>
-    Reference extensionSemanticsDefinitions : ExtensionSemanticsDefinition<<0..*>>
+    Reference extensions : Extension<<0..*>>
+    Reference extensionSemantics : ExtensionSemantics<<0..*>>
     Reference functions : Function<<0..*>>
     Reference variables : Variable<<0..*>>
+
+  Class Annotation -> NamedElement
+    Reference items : AnnotationItem<<0..*>>
+
+  Class AnnotationItem
+    Attribute key : EString<<1..1>>
+    Attribute value : EString<<1..1>>
+
+  Class AnnotateableElement
+    Reference annotations : Annotation<<0..*>>
 
   Class ConstructiveExtension -> ExtensibleElement
 
   Class ConstructiveExtensionAtContentExtensionPoint
     Reference contentExtensions : ConstructiveExtension<<0..*>>
 
-  Class ModuleContent -> ConstructiveExtension
+  Class ModuleContentExtension -> ConstructiveExtension
 
-  Class ClassContent -> ConstructiveExtension
+  Class ClassContentExtension -> ConstructiveExtension
 
   Class Type
     Reference arrayDimensions : ArrayDimension<<0..*>>
@@ -83,7 +84,7 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
     Reference class : Class<<1..1>>
     Reference constructorArguments : Expression<<0..*>>
 
-  Class Class -> NamedElement, Type, ConstructiveExtensionAtContentExtensionPoint, LanguageConceptClassifier, Construct
+  Class Class -> NamedElement, Type, ConstructiveExtensionAtContentExtensionPoint, Concept, Construct, AnnotateableElement
     Attribute active : EBoolean<<1..1>>
     Reference bindings : NativeBinding<<0..*>>
     Reference superClasses : SuperClassSpecification<<0..*>>
@@ -96,7 +97,7 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
     Reference parameters : Parameter<<0..*>>
     Reference owningClass : Class<<1..1>>
 
-  Class AbstractVariable -> NamedElement, TypedElement
+  Class AbstractVariable -> NamedElement, TypedElement, AnnotateableElement
 
   Class Variable -> AbstractVariable, SimpleStatement
     Attribute control : EBoolean<<1..1>>
@@ -108,7 +109,7 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
   Class NamedElement
     Attribute name : EString
 
-  Class Statement -> ExtensibleElement
+  Class Statement -> ExtensibleElement, AnnotateableElement
 
   Class LoopStatement -> Statement
 
@@ -260,9 +261,6 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
   Class DoubleLiteral -> L1Expr
     Attribute value : EDouble<<1..1>>
 
-  Class UniqueIdExpr -> Expression
-    Attribute identifier : EString<<1..1>>
-
   Class ExpandExpr -> Expression
     Reference expr : Expression<<1..1>>
 
@@ -280,6 +278,8 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
   Class TypeLiteral -> PredefinedId
 
   Class SizeOfArray -> PredefinedId
+
+  Class AnnotationLiteral -> PredefinedId, Annotation
 
   Class IdExpr -> L1Expr
     Reference parentIdExpr : IdExpr
@@ -300,72 +300,72 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
 
   Class TypeAccess -> ElementAccess
 
-  Class ExtensionDefinition -> LanguageConceptClassifier, ExtensibleElement
-    Reference extendedConcept : LanguageConceptClassifier<<1..1>>
-    Reference abstractSyntaxDef : Class
-    Reference textualSyntaxDef : TextualSyntaxDef<<1..1>>
+  Class Extension -> Concept, ExtensibleElement
+    Reference extensionPoint : Concept<<1..1>>
+    Reference syntaxDefinition : SyntaxDefinition<<1..1>>
 
-  Class ExtensionSemanticsDefinition -> ExtensibleElement, LocalScope
-    Reference syntaxDefinition : ExtensionDefinition<<1..1>>
+  Class ExtensionSemantics -> ExtensibleElement, LocalScope
+    Reference syntaxDefinition : Extension<<1..1>>
 
-  Class TextualSyntaxDef -> ExtensibleElement
-    Reference startRule : TsRule<<1..1>>
-    Reference rules : TsRule<<0..*>>
+  Class SyntaxDefinition -> ExtensibleElement
+    Reference startSymbol : MetaSymbol<<1..1>>
+    Reference symbols : MetaSymbol<<0..*>>
 
-  Class LanguageConstructClassifier -> NamedElement, ExtensibleElement
+  Class SyntaxSymbolClassifier -> NamedElement, ExtensibleElement
 
-  Class LanguageConceptClassifier -> LanguageConstructClassifier
+  Class ComplexSymbol -> SyntaxSymbolClassifier
 
-  Class TsRule -> NamedElement, LanguageConstructClassifier
-    Reference rhs : RhsExpression<<1..1>>
+  Class Concept -> ComplexSymbol
 
-  Class RhsExpression
+  Class MetaSymbol -> NamedElement, ComplexSymbol
+    Reference possibleSyntax : SyntaxExpression<<1..1>>
 
-  Class L3RhsExpr -> RhsExpression
+  Class SyntaxExpression
 
-  Class L2RhsExpr -> RhsExpression
+  Class L3SyntaxExpression -> SyntaxExpression
 
-  Class SequenceExpr -> L2RhsExpr
-    Reference sequence : RhsExpression<<0..*>>
+  Class L2SyntaxExpression -> SyntaxExpression
 
-  Class L1RhsExpr -> RhsExpression
+  Class SymbolSequence -> L2SyntaxExpression
+    Reference sequence : SyntaxExpression<<0..*>>
 
-  Class TerminalExpr -> L1RhsExpr
-    Attribute terminal : EString<<1..1>>
+  Class L1SyntaxExpression -> SyntaxExpression
 
-  Class PropertyBindingExpr -> NamedElement, L1RhsExpr
-    Reference propertyType : PropertyType<<1..1>>
-
-  Class RhsClassifierExpr -> L1RhsExpr
-    Reference classifier : LanguageConstructClassifier<<1..1>>
-
-  Class PropertyType
-
-  Class IdPropertyType -> PropertyType
-
-  Class IntPropertyType -> PropertyType
-
-  Class StringPropertyType -> PropertyType
-
-  Class BooleanPropertyType -> PropertyType
-    Attribute terminal : EString<<1..1>>
-
-  Class StructuredPropertyType -> PropertyType
-    Reference type : LanguageConstructClassifier<<1..1>>
-
-  Class CompositePropertyType -> StructuredPropertyType
+  Class StructuralSymbolReference -> NamedElement, PlainSymbolReference
     Attribute list : EBoolean<<1..1>>
+    Attribute /composite : EBoolean<<1..1>>
+    Attribute localScopedReference : EBoolean<<1..1>>
+    Attribute globalScopedReference : EBoolean<<1..1>>
 
-  Class ReferencePropertyType -> StructuredPropertyType
-    Attribute rawReference : EBoolean<<1..1>>
+  Class PlainSymbolReference -> L1SyntaxExpression
+    Reference /classifier : SyntaxSymbolClassifier<<1..1>>
+    Reference ownedClassifier : SyntaxSymbolClassifier
+    Reference referencedClassifier : SyntaxSymbolClassifier
+
+  Class ElementarySymbol -> SyntaxSymbolClassifier
+
+  Class IdSymbol -> ElementarySymbol
+
+  Class IntSymbol -> ElementarySymbol
+
+  Class StringSymbol -> ElementarySymbol
+
+  Class Keyword -> ElementarySymbol
+    Attribute keyword : EString<<1..1>>
 
   Class MetaExpr -> Expression
     Reference expr : Expression<<1..1>>
 
-  Class TargetStatement -> Statement
+  Class TargetStatement -> SimpleStatement
     Reference body : Statement<<1..1>>
 
-  Class ExpansionStatement -> Statement
+  Class CreateIdStatement -> Variable
+
+  Class ExpansionStatement -> SimpleStatement
+    Attribute classContext : EBoolean<<1..1>>
+    Attribute functionContext : EBoolean<<1..1>>
+    Attribute variableContext : EBoolean<<1..1>>
+    Reference differingContext : IdExpr
     Reference parts : ExpansionPart<<0..*>>
     Reference exprs : Expression<<0..*>>
 
@@ -376,16 +376,6 @@ Package dbl <http://www.informatik.hu-berlin.de/sam/dbl>
 
   Class ExpandVariablePart -> ExpansionPart
     Reference expr : Expression<<1..1>>
-
-  Class SetExpansionContextStatement -> SimpleStatement
-    Reference context : Expression<<1..1>>
-    Attribute addAfterContext : EBoolean<<1..1>>
-
-  Class SaveGenStatement -> SimpleStatement
-    Reference variable : Expression<<1..1>>
-
-  Class ResumeGenStatement -> SimpleStatement
-    Reference variable : Expression<<1..1>>
 
   Class ExpandExpression -> Expression
     Reference metaObject : Expression<<1..1>>

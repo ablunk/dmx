@@ -15,7 +15,9 @@ import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
@@ -24,7 +26,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ExpansionStatementItemProvider extends StatementItemProvider {
+public class ExpansionStatementItemProvider extends SimpleStatementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -46,8 +48,77 @@ public class ExpansionStatementItemProvider extends StatementItemProvider {
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addClassContextPropertyDescriptor(object);
+			addFunctionContextPropertyDescriptor(object);
+			addVariableContextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Class Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addClassContextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExpansionStatement_classContext_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpansionStatement_classContext_feature", "_UI_ExpansionStatement_type"),
+				 DblPackage.Literals.EXPANSION_STATEMENT__CLASS_CONTEXT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Function Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFunctionContextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExpansionStatement_functionContext_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpansionStatement_functionContext_feature", "_UI_ExpansionStatement_type"),
+				 DblPackage.Literals.EXPANSION_STATEMENT__FUNCTION_CONTEXT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Variable Context feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVariableContextPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_ExpansionStatement_variableContext_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ExpansionStatement_variableContext_feature", "_UI_ExpansionStatement_type"),
+				 DblPackage.Literals.EXPANSION_STATEMENT__VARIABLE_CONTEXT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -62,6 +133,7 @@ public class ExpansionStatementItemProvider extends StatementItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
+			childrenFeatures.add(DblPackage.Literals.EXPANSION_STATEMENT__DIFFERING_CONTEXT);
 			childrenFeatures.add(DblPackage.Literals.EXPANSION_STATEMENT__PARTS);
 			childrenFeatures.add(DblPackage.Literals.EXPANSION_STATEMENT__EXPRS);
 		}
@@ -119,6 +191,12 @@ public class ExpansionStatementItemProvider extends StatementItemProvider {
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(ExpansionStatement.class)) {
+			case DblPackage.EXPANSION_STATEMENT__CLASS_CONTEXT:
+			case DblPackage.EXPANSION_STATEMENT__FUNCTION_CONTEXT:
+			case DblPackage.EXPANSION_STATEMENT__VARIABLE_CONTEXT:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+			case DblPackage.EXPANSION_STATEMENT__DIFFERING_CONTEXT:
 			case DblPackage.EXPANSION_STATEMENT__PARTS:
 			case DblPackage.EXPANSION_STATEMENT__EXPRS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -137,6 +215,11 @@ public class ExpansionStatementItemProvider extends StatementItemProvider {
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.EXPANSION_STATEMENT__DIFFERING_CONTEXT,
+				 DblFactory.eINSTANCE.createIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -331,11 +414,6 @@ public class ExpansionStatementItemProvider extends StatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPANSION_STATEMENT__EXPRS,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPANSION_STATEMENT__EXPRS,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
@@ -392,7 +470,8 @@ public class ExpansionStatementItemProvider extends StatementItemProvider {
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
-			childFeature == DblPackage.Literals.EXPANSION_STATEMENT__EXPRS;
+			childFeature == DblPackage.Literals.EXPANSION_STATEMENT__EXPRS ||
+			childFeature == DblPackage.Literals.EXPANSION_STATEMENT__DIFFERING_CONTEXT;
 
 		if (qualify) {
 			return getString

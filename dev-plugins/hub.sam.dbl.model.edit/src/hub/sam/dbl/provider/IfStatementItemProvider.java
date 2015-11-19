@@ -323,11 +323,6 @@ public class IfStatementItemProvider extends StatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__CONDITION,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__CONDITION,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
@@ -488,22 +483,12 @@ public class IfStatementItemProvider extends StatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -633,22 +618,12 @@ public class IfStatementItemProvider extends StatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

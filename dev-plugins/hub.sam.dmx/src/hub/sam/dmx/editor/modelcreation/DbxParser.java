@@ -1,7 +1,7 @@
 package hub.sam.dmx.editor.modelcreation;
 
 import hub.sam.dmx.editor.DbxPreProcessor;
-import hub.sam.dmx.editor.semantics.ExtensionDefinitionManager;
+import hub.sam.dmx.editor.semantics.ExtensionManager;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 
 import org.eclipse.core.runtime.IPath;
@@ -17,11 +17,11 @@ public class DbxParser extends DblParser {
 		_preProcessor = new DbxPreProcessor(getExtensionDefinitionManager(), filename, null);
 	}
 	
-	private ExtensionDefinitionManager _extensionDefinitionManager;
+	private ExtensionManager _extensionDefinitionManager;
 	
-	private ExtensionDefinitionManager getExtensionDefinitionManager() {
+	private ExtensionManager getExtensionDefinitionManager() {
 		if (_extensionDefinitionManager == null) {
-			_extensionDefinitionManager = new ExtensionDefinitionManager(getSyntax(), getDblMetaModel());
+			_extensionDefinitionManager = new ExtensionManager(getSyntax(), getDblMetaModel());
 		}
 		return _extensionDefinitionManager;
 	}

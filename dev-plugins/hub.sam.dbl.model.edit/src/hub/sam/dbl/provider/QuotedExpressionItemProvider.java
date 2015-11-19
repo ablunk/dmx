@@ -316,11 +316,6 @@ public class QuotedExpressionItemProvider extends QuotedCodeItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_EXPRESSION__EXPRESSION,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

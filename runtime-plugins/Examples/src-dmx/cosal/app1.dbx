@@ -2,18 +2,26 @@
 
 module CosalApp1 {
 
-cosal hhw {
+cosal class hhw {
 	initial to h
 	state h {
 		on "h" to h
+		on "e" to e
+		on "w" to end
+	}
+	state e {
+		on "e" to e
 		on "w" to end
 	}
 	final end
 }
 
 void main() {
-	cosalInstance hhw hhw1;
-	send "h" "h" "h" "w" to hhw1;
+	cosal object hhw hhw1;
+	cosal object hhw hhw2;
+
+	send "h" "h" "h" "w" to hhw1; // currentState -> end
+	send "h" "e" to hhw2; // currentState -> e
 }
 
 }

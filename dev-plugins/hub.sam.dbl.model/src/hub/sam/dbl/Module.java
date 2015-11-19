@@ -11,14 +11,14 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Module#getClasses <em>Classes</em>}</li>
- *   <li>{@link hub.sam.dbl.Module#getExtensionDefinitions <em>Extension Definitions</em>}</li>
- *   <li>{@link hub.sam.dbl.Module#getExtensionSemanticsDefinitions <em>Extension Semantics Definitions</em>}</li>
+ *   <li>{@link hub.sam.dbl.Module#getExtensions <em>Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.Module#getExtensionSemantics <em>Extension Semantics</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getFunctions <em>Functions</em>}</li>
  *   <li>{@link hub.sam.dbl.Module#getVariables <em>Variables</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getModule()
  * @model
@@ -42,36 +42,36 @@ public interface Module extends NamedElement, ConstructiveExtensionAtContentExte
 	EList<hub.sam.dbl.Class> getClasses();
 
 	/**
-	 * Returns the value of the '<em><b>Extension Definitions</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.ExtensionDefinition}.
+	 * Returns the value of the '<em><b>Extensions</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.Extension}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Extension Definitions</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Extensions</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Extension Definitions</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getModule_ExtensionDefinitions()
+	 * @return the value of the '<em>Extensions</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getModule_Extensions()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ExtensionDefinition> getExtensionDefinitions();
+	EList<Extension> getExtensions();
 
 	/**
-	 * Returns the value of the '<em><b>Extension Semantics Definitions</b></em>' containment reference list.
-	 * The list contents are of type {@link hub.sam.dbl.ExtensionSemanticsDefinition}.
+	 * Returns the value of the '<em><b>Extension Semantics</b></em>' containment reference list.
+	 * The list contents are of type {@link hub.sam.dbl.ExtensionSemantics}.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Extension Semantics Definitions</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Extension Semantics</em>' containment reference list isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Extension Semantics Definitions</em>' containment reference list.
-	 * @see hub.sam.dbl.DblPackage#getModule_ExtensionSemanticsDefinitions()
+	 * @return the value of the '<em>Extension Semantics</em>' containment reference list.
+	 * @see hub.sam.dbl.DblPackage#getModule_ExtensionSemantics()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<ExtensionSemanticsDefinition> getExtensionSemanticsDefinitions();
+	EList<ExtensionSemantics> getExtensionSemantics();
 
 	/**
 	 * Returns the value of the '<em><b>Functions</b></em>' containment reference list.

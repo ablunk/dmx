@@ -310,11 +310,6 @@ public class BinaryOperatorItemProvider extends ExpressionItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP1,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.BINARY_OPERATOR__OP1,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
@@ -536,11 +531,6 @@ public class BinaryOperatorItemProvider extends ExpressionItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.BINARY_OPERATOR__OP2,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.BINARY_OPERATOR__OP2,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

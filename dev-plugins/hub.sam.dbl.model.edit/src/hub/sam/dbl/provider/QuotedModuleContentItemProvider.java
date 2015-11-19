@@ -90,8 +90,8 @@ public class QuotedModuleContentItemProvider extends QuotedCodeItemProvider {
 			childrenFeatures.add(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
 			childrenFeatures.add(DblPackage.Literals.MODULE__CLASSES);
-			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_DEFINITIONS);
-			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS_DEFINITIONS);
+			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSIONS);
+			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__FUNCTIONS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__VARIABLES);
 		}
@@ -155,8 +155,8 @@ public class QuotedModuleContentItemProvider extends QuotedCodeItemProvider {
 			case DblPackage.QUOTED_MODULE_CONTENT__CONTENT_EXTENSIONS:
 			case DblPackage.QUOTED_MODULE_CONTENT__EXPAND_EXPR:
 			case DblPackage.QUOTED_MODULE_CONTENT__CLASSES:
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_DEFINITIONS:
-			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS_DEFINITIONS:
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSIONS:
+			case DblPackage.QUOTED_MODULE_CONTENT__EXTENSION_SEMANTICS:
 			case DblPackage.QUOTED_MODULE_CONTENT__FUNCTIONS:
 			case DblPackage.QUOTED_MODULE_CONTENT__VARIABLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -184,12 +184,12 @@ public class QuotedModuleContentItemProvider extends QuotedCodeItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createModuleContent()));
+				 DblFactory.eINSTANCE.createModuleContentExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createClassContent()));
+				 DblFactory.eINSTANCE.createClassContentExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -208,13 +208,13 @@ public class QuotedModuleContentItemProvider extends QuotedCodeItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__EXTENSION_DEFINITIONS,
-				 DblFactory.eINSTANCE.createExtensionDefinition()));
+				(DblPackage.Literals.MODULE__EXTENSIONS,
+				 DblFactory.eINSTANCE.createExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS_DEFINITIONS,
-				 DblFactory.eINSTANCE.createExtensionSemanticsDefinition()));
+				(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS,
+				 DblFactory.eINSTANCE.createExtensionSemantics()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -225,6 +225,11 @@ public class QuotedModuleContentItemProvider extends QuotedCodeItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.MODULE__VARIABLES,
 				 DblFactory.eINSTANCE.createVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODULE__VARIABLES,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
 	}
 
 }

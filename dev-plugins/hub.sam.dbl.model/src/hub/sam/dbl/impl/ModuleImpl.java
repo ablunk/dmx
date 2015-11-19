@@ -7,8 +7,8 @@ import hub.sam.dbl.ConstructiveExtension;
 import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.ExpandExpr;
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.Function;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.Variable;
@@ -17,10 +17,14 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -30,16 +34,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getContentExtensions <em>Content Extensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getClasses <em>Classes</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensionDefinitions <em>Extension Definitions</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensionSemanticsDefinitions <em>Extension Semantics Definitions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensions <em>Extensions</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getExtensionSemantics <em>Extension Semantics</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ModuleImpl#getVariables <em>Variables</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -75,24 +79,24 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	protected EList<hub.sam.dbl.Class> classes;
 
 	/**
-	 * The cached value of the '{@link #getExtensionDefinitions() <em>Extension Definitions</em>}' containment reference list.
+	 * The cached value of the '{@link #getExtensions() <em>Extensions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensionDefinitions()
+	 * @see #getExtensions()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensionDefinition> extensionDefinitions;
+	protected EList<Extension> extensions;
 
 	/**
-	 * The cached value of the '{@link #getExtensionSemanticsDefinitions() <em>Extension Semantics Definitions</em>}' containment reference list.
+	 * The cached value of the '{@link #getExtensionSemantics() <em>Extension Semantics</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getExtensionSemanticsDefinitions()
+	 * @see #getExtensionSemantics()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<ExtensionSemanticsDefinition> extensionSemanticsDefinitions;
+	protected EList<ExtensionSemantics> extensionSemantics;
 
 	/**
 	 * The cached value of the '{@link #getFunctions() <em>Functions</em>}' containment reference list.
@@ -205,11 +209,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensionDefinition> getExtensionDefinitions() {
-		if (extensionDefinitions == null) {
-			extensionDefinitions = new EObjectContainmentEList<ExtensionDefinition>(ExtensionDefinition.class, this, DblPackage.MODULE__EXTENSION_DEFINITIONS);
+	public EList<Extension> getExtensions() {
+		if (extensions == null) {
+			extensions = new EObjectContainmentEList<Extension>(Extension.class, this, DblPackage.MODULE__EXTENSIONS);
 		}
-		return extensionDefinitions;
+		return extensions;
 	}
 
 	/**
@@ -217,11 +221,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ExtensionSemanticsDefinition> getExtensionSemanticsDefinitions() {
-		if (extensionSemanticsDefinitions == null) {
-			extensionSemanticsDefinitions = new EObjectContainmentEList<ExtensionSemanticsDefinition>(ExtensionSemanticsDefinition.class, this, DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS);
+	public EList<ExtensionSemantics> getExtensionSemantics() {
+		if (extensionSemantics == null) {
+			extensionSemantics = new EObjectContainmentEList<ExtensionSemantics>(ExtensionSemantics.class, this, DblPackage.MODULE__EXTENSION_SEMANTICS);
 		}
-		return extensionSemanticsDefinitions;
+		return extensionSemantics;
 	}
 
 	/**
@@ -262,10 +266,10 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 				return basicSetExpandExpr(null, msgs);
 			case DblPackage.MODULE__CLASSES:
 				return ((InternalEList<?>)getClasses()).basicRemove(otherEnd, msgs);
-			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
-				return ((InternalEList<?>)getExtensionDefinitions()).basicRemove(otherEnd, msgs);
-			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
-				return ((InternalEList<?>)getExtensionSemanticsDefinitions()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__EXTENSIONS:
+				return ((InternalEList<?>)getExtensions()).basicRemove(otherEnd, msgs);
+			case DblPackage.MODULE__EXTENSION_SEMANTICS:
+				return ((InternalEList<?>)getExtensionSemantics()).basicRemove(otherEnd, msgs);
 			case DblPackage.MODULE__FUNCTIONS:
 				return ((InternalEList<?>)getFunctions()).basicRemove(otherEnd, msgs);
 			case DblPackage.MODULE__VARIABLES:
@@ -288,10 +292,10 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 				return getExpandExpr();
 			case DblPackage.MODULE__CLASSES:
 				return getClasses();
-			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
-				return getExtensionDefinitions();
-			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
-				return getExtensionSemanticsDefinitions();
+			case DblPackage.MODULE__EXTENSIONS:
+				return getExtensions();
+			case DblPackage.MODULE__EXTENSION_SEMANTICS:
+				return getExtensionSemantics();
 			case DblPackage.MODULE__FUNCTIONS:
 				return getFunctions();
 			case DblPackage.MODULE__VARIABLES:
@@ -320,13 +324,13 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 				getClasses().clear();
 				getClasses().addAll((Collection<? extends hub.sam.dbl.Class>)newValue);
 				return;
-			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
-				getExtensionDefinitions().clear();
-				getExtensionDefinitions().addAll((Collection<? extends ExtensionDefinition>)newValue);
+			case DblPackage.MODULE__EXTENSIONS:
+				getExtensions().clear();
+				getExtensions().addAll((Collection<? extends Extension>)newValue);
 				return;
-			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
-				getExtensionSemanticsDefinitions().clear();
-				getExtensionSemanticsDefinitions().addAll((Collection<? extends ExtensionSemanticsDefinition>)newValue);
+			case DblPackage.MODULE__EXTENSION_SEMANTICS:
+				getExtensionSemantics().clear();
+				getExtensionSemantics().addAll((Collection<? extends ExtensionSemantics>)newValue);
 				return;
 			case DblPackage.MODULE__FUNCTIONS:
 				getFunctions().clear();
@@ -357,11 +361,11 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 			case DblPackage.MODULE__CLASSES:
 				getClasses().clear();
 				return;
-			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
-				getExtensionDefinitions().clear();
+			case DblPackage.MODULE__EXTENSIONS:
+				getExtensions().clear();
 				return;
-			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
-				getExtensionSemanticsDefinitions().clear();
+			case DblPackage.MODULE__EXTENSION_SEMANTICS:
+				getExtensionSemantics().clear();
 				return;
 			case DblPackage.MODULE__FUNCTIONS:
 				getFunctions().clear();
@@ -387,10 +391,10 @@ public class ModuleImpl extends NamedElementImpl implements Module {
 				return expandExpr != null;
 			case DblPackage.MODULE__CLASSES:
 				return classes != null && !classes.isEmpty();
-			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
-				return extensionDefinitions != null && !extensionDefinitions.isEmpty();
-			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
-				return extensionSemanticsDefinitions != null && !extensionSemanticsDefinitions.isEmpty();
+			case DblPackage.MODULE__EXTENSIONS:
+				return extensions != null && !extensions.isEmpty();
+			case DblPackage.MODULE__EXTENSION_SEMANTICS:
+				return extensionSemantics != null && !extensionSemantics.isEmpty();
 			case DblPackage.MODULE__FUNCTIONS:
 				return functions != null && !functions.isEmpty();
 			case DblPackage.MODULE__VARIABLES:

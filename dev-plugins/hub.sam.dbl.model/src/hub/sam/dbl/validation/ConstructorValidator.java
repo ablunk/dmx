@@ -18,6 +18,5 @@ public interface ConstructorValidator {
 	boolean validate();
 
 	boolean validateParameters(EList<Parameter> value);
-
 	boolean validateOwningClass(hub.sam.dbl.Class value);
 }

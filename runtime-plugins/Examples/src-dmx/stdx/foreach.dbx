@@ -5,7 +5,7 @@ module stdx_foreach {
 
 extension ForEach extends dbl LocalScopeStatement {
 	start ForEach;
-	ForEach -> "foreach" "(" statements:list(Variable) "in" collection:Expression ")"
+	ForEach -> "foreach" "(" statements:list Variable "in" collection:Expression ")"
 		body:LocalScopeStatement;
 }
 
@@ -22,16 +22,19 @@ semantics for ForEach {
 	}
 	
 	if (collectionRefersToArray) {
-		expand "for (int " i=ID " = 0; " i=ID " < " collection ".length; " i=ID "=" i=ID "+1) {";
-		expand 		itemVariable " = " collection "[" i=ID "];";
+		ID i;
+		expand "for (int " i " = 0; " i " < " collection ".length; " i "=" i "+1) {";
+		expand 		itemVariable " = " collection "[" i "];";
 		expand		body;
 		expand "}";
 	}
-	else { 
-		expand "Iterator " it=ID " = " collection ".iterator();";
-		expand "while (" it=ID ".hasNext()) {";
-		expand "	Object " item=ID " = " it=ID ".next();";
-		expand 		itemVariable " = " item=ID " as " itemVariable.classifierType ";";
+	else {
+		ID it;
+		ID item; 
+		expand "Iterator " it " = " collection ".iterator();";
+		expand "while (" it ".hasNext()) {";
+		expand "	Object " item " = " it ".next();";
+		expand 		itemVariable " = " item " as " itemVariable.classifierType ";";
 		expand		body;
 		expand "}";
 	}

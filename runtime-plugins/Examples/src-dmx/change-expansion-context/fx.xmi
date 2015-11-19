@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <modules name="fxExtension">
+    <extensions name="FX">
+      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.32"/>
+      <syntaxDefinition startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="FX">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="fx"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics syntaxDefinition="//@modules.0/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement">
+        <parts xsi:type="dbl:ExpandTextPart" text="A "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text=" = new A();"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="containerModule">
+        <classifierType>
+          <referencedElement href="../dbl.xmi#//@modules.0/@classes.4"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0">
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr">
+              <predefinedId xsi:type="dbl:MeLiteral"/>
+            </callArguments>
+          </callPart>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" classContext="true">
+        <differingContext referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="class A {}"/>
+      </statements>
+    </extensionSemantics>
+    <functions name="getContainerModule">
+      <classifierType>
+        <referencedElement href="../dbl.xmi#//@modules.0/@classes.4"/>
+      </classifierType>
+      <statements xsi:type="dbl:Variable" name="container">
+        <classifierType>
+          <referencedElement href="../ecore.xmi#//@modules.0/@classes.14"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@parameters.0"/>
+          <referencedElement href="../ecore.xmi#//@modules.0/@classes.13/@methods.1"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:IfStatement">
+        <condition xsi:type="dbl:InstanceOf">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          <op2 xsi:type="dbl:TypeAccess">
+            <idExpr>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classes.4"/>
+            </idExpr>
+          </op2>
+        </condition>
+        <trueCase xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Return">
+            <value xsi:type="dbl:Cast">
+              <classifierType>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classes.4"/>
+              </classifierType>
+              <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+            </value>
+          </statements>
+        </trueCase>
+        <falseCase xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Return">
+            <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0">
+              <callPart>
+                <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+              </callPart>
+            </value>
+          </statements>
+        </falseCase>
+      </statements>
+      <parameters name="metaObject">
+        <classifierType>
+          <referencedElement href="../ecore.xmi#//@modules.0/@classes.14"/>
+        </classifierType>
+      </parameters>
+    </functions>
+  </modules>
+</dbl:Model>

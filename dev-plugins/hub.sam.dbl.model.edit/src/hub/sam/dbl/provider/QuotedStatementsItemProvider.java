@@ -251,22 +251,12 @@ public class QuotedStatementsItemProvider extends QuotedCodeItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

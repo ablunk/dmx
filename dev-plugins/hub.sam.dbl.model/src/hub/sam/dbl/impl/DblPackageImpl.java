@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
- * $Id$
  */
 package hub.sam.dbl.impl;
 
@@ -11,22 +7,27 @@ import hub.sam.dbl.ActivateObject;
 import hub.sam.dbl.ActiveLiteral;
 import hub.sam.dbl.Advance;
 import hub.sam.dbl.And;
+import hub.sam.dbl.AnnotateableElement;
+import hub.sam.dbl.Annotation;
+import hub.sam.dbl.AnnotationItem;
+import hub.sam.dbl.AnnotationLiteral;
 import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.Assignment;
 import hub.sam.dbl.BinaryOperator;
 import hub.sam.dbl.BoolType;
-import hub.sam.dbl.BooleanPropertyType;
 import hub.sam.dbl.BreakStatement;
 import hub.sam.dbl.CallPart;
 import hub.sam.dbl.Cast;
-import hub.sam.dbl.ClassContent;
+import hub.sam.dbl.ClassContentExtension;
 import hub.sam.dbl.CodeQuoteExpression;
-import hub.sam.dbl.CompositePropertyType;
+import hub.sam.dbl.ComplexSymbol;
+import hub.sam.dbl.Concept;
 import hub.sam.dbl.Construct;
 import hub.sam.dbl.ConstructiveExtension;
 import hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.ContinueStatement;
+import hub.sam.dbl.CreateIdStatement;
 import hub.sam.dbl.CreateObject;
 import hub.sam.dbl.DblFactory;
 import hub.sam.dbl.DblPackage;
@@ -34,6 +35,7 @@ import hub.sam.dbl.Div;
 import hub.sam.dbl.DoubleLiteral;
 import hub.sam.dbl.DoubleType;
 import hub.sam.dbl.ElementAccess;
+import hub.sam.dbl.ElementarySymbol;
 import hub.sam.dbl.Equal;
 import hub.sam.dbl.ExpandExpr;
 import hub.sam.dbl.ExpandExpression;
@@ -44,8 +46,8 @@ import hub.sam.dbl.ExpansionPart;
 import hub.sam.dbl.ExpansionStatement;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.FalseLiteral;
 import hub.sam.dbl.ForStatement;
 import hub.sam.dbl.Function;
@@ -53,27 +55,26 @@ import hub.sam.dbl.FunctionCall;
 import hub.sam.dbl.Greater;
 import hub.sam.dbl.GreaterEqual;
 import hub.sam.dbl.IdExpr;
-import hub.sam.dbl.IdPropertyType;
+import hub.sam.dbl.IdSymbol;
 import hub.sam.dbl.IfStatement;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.InstanceOf;
 import hub.sam.dbl.IntLiteral;
-import hub.sam.dbl.IntPropertyType;
+import hub.sam.dbl.IntSymbol;
 import hub.sam.dbl.IntType;
+import hub.sam.dbl.Keyword;
 import hub.sam.dbl.L1Expr;
-import hub.sam.dbl.L1RhsExpr;
+import hub.sam.dbl.L1SyntaxExpression;
 import hub.sam.dbl.L2Expr;
-import hub.sam.dbl.L2RhsExpr;
+import hub.sam.dbl.L2SyntaxExpression;
 import hub.sam.dbl.L3Expr;
-import hub.sam.dbl.L3RhsExpr;
+import hub.sam.dbl.L3SyntaxExpression;
 import hub.sam.dbl.L4Expr;
 import hub.sam.dbl.L5Expr;
 import hub.sam.dbl.L6Expr;
 import hub.sam.dbl.L7Expr;
 import hub.sam.dbl.L8Expr;
 import hub.sam.dbl.L9Expr;
-import hub.sam.dbl.LanguageConceptClassifier;
-import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.Less;
 import hub.sam.dbl.LessEqual;
 import hub.sam.dbl.LocalScope;
@@ -83,11 +84,12 @@ import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaAccess;
 import hub.sam.dbl.MetaExpr;
 import hub.sam.dbl.MetaLiteral;
+import hub.sam.dbl.MetaSymbol;
 import hub.sam.dbl.Minus;
 import hub.sam.dbl.Mod;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
-import hub.sam.dbl.ModuleContent;
+import hub.sam.dbl.ModuleContentExtension;
 import hub.sam.dbl.Mul;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.NativeBinding;
@@ -99,51 +101,43 @@ import hub.sam.dbl.Or;
 import hub.sam.dbl.Parameter;
 import hub.sam.dbl.ParseExpr;
 import hub.sam.dbl.Pattern;
+import hub.sam.dbl.PlainSymbolReference;
 import hub.sam.dbl.Plus;
 import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.PrimitiveType;
 import hub.sam.dbl.Print;
-import hub.sam.dbl.PropertyBindingExpr;
-import hub.sam.dbl.PropertyType;
 import hub.sam.dbl.QuotedClassContent;
 import hub.sam.dbl.QuotedCode;
 import hub.sam.dbl.QuotedExpression;
 import hub.sam.dbl.QuotedModuleContent;
 import hub.sam.dbl.QuotedStatements;
 import hub.sam.dbl.Reactivate;
-import hub.sam.dbl.ReferencePropertyType;
-import hub.sam.dbl.ResumeGenStatement;
 import hub.sam.dbl.Return;
-import hub.sam.dbl.RhsClassifierExpr;
-import hub.sam.dbl.RhsExpression;
-import hub.sam.dbl.SaveGenStatement;
-import hub.sam.dbl.SequenceExpr;
-import hub.sam.dbl.SetExpansionContextStatement;
 import hub.sam.dbl.SimpleStatement;
 import hub.sam.dbl.SizeOfArray;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.StringLiteral;
-import hub.sam.dbl.StringPropertyType;
+import hub.sam.dbl.StringSymbol;
 import hub.sam.dbl.StringType;
-import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.StructuralSymbolReference;
 import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.SuperLiteral;
 import hub.sam.dbl.SwitchCase;
 import hub.sam.dbl.SwitchStatement;
+import hub.sam.dbl.SymbolSequence;
+import hub.sam.dbl.SyntaxDefinition;
+import hub.sam.dbl.SyntaxExpression;
+import hub.sam.dbl.SyntaxSymbolClassifier;
 import hub.sam.dbl.TargetStatement;
-import hub.sam.dbl.TerminalExpr;
 import hub.sam.dbl.Terminate;
 import hub.sam.dbl.TestStatement;
-import hub.sam.dbl.TextualSyntaxDef;
 import hub.sam.dbl.TimeLiteral;
 import hub.sam.dbl.TrueLiteral;
-import hub.sam.dbl.TsRule;
 import hub.sam.dbl.Type;
 import hub.sam.dbl.TypeAccess;
 import hub.sam.dbl.TypeLiteral;
 import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.UnaryOperator;
-import hub.sam.dbl.UniqueIdExpr;
 import hub.sam.dbl.Variable;
 import hub.sam.dbl.VariableAccess;
 import hub.sam.dbl.VoidType;
@@ -179,6 +173,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass extensibleElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass modelEClass = null;
 
 	/**
@@ -200,6 +201,27 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass annotationEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass annotationItemEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass annotateableElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass constructiveExtensionEClass = null;
 
 	/**
@@ -214,14 +236,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass moduleContentEClass = null;
+	private EClass moduleContentExtensionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass classContentEClass = null;
+	private EClass classContentExtensionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -473,6 +495,20 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass forStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass whileStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass switchStatementEClass = null;
 
 	/**
@@ -487,13 +523,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass whileStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass breakStatementEClass = null;
 
 	/**
@@ -502,13 +531,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass continueStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass forStatementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -599,6 +621,69 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass orEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass andEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass notEqualEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass equalEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass greaterEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass greaterEqualEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass lessEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass lessEqualEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass instanceOfEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass plusEClass = null;
 
 	/**
@@ -641,69 +726,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass andEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass orEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass greaterEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass greaterEqualEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass lessEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass lessEqualEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass notEqualEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass equalEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass instanceOfEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass notEClass = null;
 
 	/**
@@ -711,14 +733,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass createObjectEClass = null;
+	private EClass castEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass castEClass = null;
+	private EClass createObjectEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -740,41 +762,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass activeLiteralEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass meLiteralEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass superLiteralEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass metaLiteralEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass typeLiteralEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass sizeOfArrayEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -816,13 +803,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass uniqueIdExprEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	private EClass expandExprEClass = null;
 
 	/**
@@ -838,6 +818,48 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass predefinedIdEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass meLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass superLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass metaLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass typeLiteralEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass sizeOfArrayEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass annotationLiteralEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -886,161 +908,133 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass extensibleElementEClass = null;
+	private EClass extensionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass extensionDefinitionEClass = null;
+	private EClass extensionSemanticsEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass extensionSemanticsDefinitionEClass = null;
+	private EClass syntaxDefinitionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass textualSyntaxDefEClass = null;
+	private EClass syntaxSymbolClassifierEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass languageConstructClassifierEClass = null;
+	private EClass complexSymbolEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass languageConceptClassifierEClass = null;
+	private EClass conceptEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass tsRuleEClass = null;
+	private EClass metaSymbolEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass rhsExpressionEClass = null;
+	private EClass syntaxExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass l3RhsExprEClass = null;
+	private EClass l3SyntaxExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass l2RhsExprEClass = null;
+	private EClass l2SyntaxExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass sequenceExprEClass = null;
+	private EClass symbolSequenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass l1RhsExprEClass = null;
+	private EClass l1SyntaxExpressionEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass terminalExprEClass = null;
+	private EClass structuralSymbolReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass propertyBindingExprEClass = null;
+	private EClass plainSymbolReferenceEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass rhsClassifierExprEClass = null;
+	private EClass elementarySymbolEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass propertyTypeEClass = null;
+	private EClass idSymbolEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass idPropertyTypeEClass = null;
+	private EClass intSymbolEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass intPropertyTypeEClass = null;
+	private EClass stringSymbolEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass stringPropertyTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass booleanPropertyTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass structuredPropertyTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass compositePropertyTypeEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass referencePropertyTypeEClass = null;
+	private EClass keywordEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1055,6 +1049,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass targetStatementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass createIdStatementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1083,27 +1084,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass expandVariablePartEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass setExpansionContextStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass saveGenStatementEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass resumeGenStatementEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1166,14 +1146,14 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass testStatementEClass = null;
+	private EClass patternEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass patternEClass = null;
+	private EClass testStatementEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -1259,6 +1239,33 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getExtensibleElement() {
+		return extensibleElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExtensibleElement_ConcreteSyntax() {
+		return (EAttribute)extensibleElementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExtensibleElement_InstanceOfExtensionDefinition() {
+		return (EAttribute)extensibleElementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getModel() {
 		return modelEClass;
 	}
@@ -1331,7 +1338,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModule_ExtensionDefinitions() {
+	public EReference getModule_Extensions() {
 		return (EReference)moduleEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -1340,7 +1347,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getModule_ExtensionSemanticsDefinitions() {
+	public EReference getModule_ExtensionSemantics() {
 		return (EReference)moduleEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -1360,6 +1367,69 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EReference getModule_Variables() {
 		return (EReference)moduleEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnnotation() {
+		return annotationEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAnnotation_Items() {
+		return (EReference)annotationEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnnotationItem() {
+		return annotationItemEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAnnotationItem_Key() {
+		return (EAttribute)annotationItemEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getAnnotationItem_Value() {
+		return (EAttribute)annotationItemEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnnotateableElement() {
+		return annotateableElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getAnnotateableElement_Annotations() {
+		return (EReference)annotateableElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -1394,8 +1464,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getModuleContent() {
-		return moduleContentEClass;
+	public EClass getModuleContentExtension() {
+		return moduleContentExtensionEClass;
 	}
 
 	/**
@@ -1403,8 +1473,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getClassContent() {
-		return classContentEClass;
+	public EClass getClassContentExtension() {
+		return classContentExtensionEClass;
 	}
 
 	/**
@@ -2078,6 +2148,69 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getForStatement() {
+		return forStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForStatement_Termination() {
+		return (EReference)forStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForStatement_Increment() {
+		return (EReference)forStatementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getForStatement_Body() {
+		return (EReference)forStatementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getWhileStatement() {
+		return whileStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWhileStatement_Condition() {
+		return (EReference)whileStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getWhileStatement_Body() {
+		return (EReference)whileStatementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSwitchStatement() {
 		return switchStatementEClass;
 	}
@@ -2141,33 +2274,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getWhileStatement() {
-		return whileStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getWhileStatement_Condition() {
-		return (EReference)whileStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getWhileStatement_Body() {
-		return (EReference)whileStatementEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getBreakStatement() {
 		return breakStatementEClass;
 	}
@@ -2179,42 +2285,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EClass getContinueStatement() {
 		return continueStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getForStatement() {
-		return forStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getForStatement_Termination() {
-		return (EReference)forStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getForStatement_Increment() {
-		return (EReference)forStatementEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getForStatement_Body() {
-		return (EReference)forStatementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -2357,6 +2427,87 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getOr() {
+		return orEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnd() {
+		return andEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNotEqual() {
+		return notEqualEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getEqual() {
+		return equalEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGreater() {
+		return greaterEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getGreaterEqual() {
+		return greaterEqualEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLess() {
+		return lessEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getLessEqual() {
+		return lessEqualEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getInstanceOf() {
+		return instanceOfEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getPlus() {
 		return plusEClass;
 	}
@@ -2411,87 +2562,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getAnd() {
-		return andEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getOr() {
-		return orEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGreater() {
-		return greaterEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getGreaterEqual() {
-		return greaterEqualEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLess() {
-		return lessEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getLessEqual() {
-		return lessEqualEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getNotEqual() {
-		return notEqualEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getEqual() {
-		return equalEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getInstanceOf() {
-		return instanceOfEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getNot() {
 		return notEClass;
 	}
@@ -2501,8 +2571,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCreateObject() {
-		return createObjectEClass;
+	public EClass getCast() {
+		return castEClass;
 	}
 
 	/**
@@ -2510,8 +2580,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCast() {
-		return castEClass;
+	public EClass getCreateObject() {
+		return createObjectEClass;
 	}
 
 	/**
@@ -2539,51 +2609,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EClass getActiveLiteral() {
 		return activeLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getMeLiteral() {
-		return meLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSuperLiteral() {
-		return superLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getMetaLiteral() {
-		return metaLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getTypeLiteral() {
-		return typeLiteralEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSizeOfArray() {
-		return sizeOfArrayEClass;
 	}
 
 	/**
@@ -2663,24 +2688,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getUniqueIdExpr() {
-		return uniqueIdExprEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getUniqueIdExpr_Identifier() {
-		return (EAttribute)uniqueIdExprEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getExpandExpr() {
 		return expandExprEClass;
 	}
@@ -2719,6 +2726,60 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EClass getPredefinedId() {
 		return predefinedIdEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMeLiteral() {
+		return meLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSuperLiteral() {
+		return superLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMetaLiteral() {
+		return metaLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getTypeLiteral() {
+		return typeLiteralEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getSizeOfArray() {
+		return sizeOfArrayEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getAnnotationLiteral() {
+		return annotationLiteralEClass;
 	}
 
 	/**
@@ -2843,8 +2904,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExtensibleElement() {
-		return extensibleElementEClass;
+	public EClass getExtension() {
+		return extensionEClass;
 	}
 
 	/**
@@ -2852,8 +2913,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExtensibleElement_ConcreteSyntax() {
-		return (EAttribute)extensibleElementEClass.getEStructuralFeatures().get(0);
+	public EReference getExtension_ExtensionPoint() {
+		return (EReference)extensionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2861,8 +2922,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getExtensibleElement_InstanceOfExtensionDefinition() {
-		return (EAttribute)extensibleElementEClass.getEStructuralFeatures().get(1);
+	public EReference getExtension_SyntaxDefinition() {
+		return (EReference)extensionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2870,8 +2931,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder1() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(2);
+	public EClass getExtensionSemantics() {
+		return extensionSemanticsEClass;
 	}
 
 	/**
@@ -2879,8 +2940,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder2() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(3);
+	public EReference getExtensionSemantics_SyntaxDefinition() {
+		return (EReference)extensionSemanticsEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2888,8 +2949,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder3() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(4);
+	public EClass getSyntaxDefinition() {
+		return syntaxDefinitionEClass;
 	}
 
 	/**
@@ -2897,8 +2958,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder4() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(5);
+	public EReference getSyntaxDefinition_StartSymbol() {
+		return (EReference)syntaxDefinitionEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2906,8 +2967,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder5() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(6);
+	public EReference getSyntaxDefinition_Symbols() {
+		return (EReference)syntaxDefinitionEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -2915,8 +2976,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder6() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(7);
+	public EClass getSyntaxSymbolClassifier() {
+		return syntaxSymbolClassifierEClass;
 	}
 
 	/**
@@ -2924,8 +2985,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder8() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(8);
+	public EClass getComplexSymbol() {
+		return complexSymbolEClass;
 	}
 
 	/**
@@ -2933,8 +2994,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder9() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(9);
+	public EClass getConcept() {
+		return conceptEClass;
 	}
 
 	/**
@@ -2942,8 +3003,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensibleElement_PlaceHolder10() {
-		return (EReference)extensibleElementEClass.getEStructuralFeatures().get(10);
+	public EClass getMetaSymbol() {
+		return metaSymbolEClass;
 	}
 
 	/**
@@ -2951,8 +3012,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExtensionDefinition() {
-		return extensionDefinitionEClass;
+	public EReference getMetaSymbol_PossibleSyntax() {
+		return (EReference)metaSymbolEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -2960,8 +3021,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionDefinition_ExtendedConcept() {
-		return (EReference)extensionDefinitionEClass.getEStructuralFeatures().get(0);
+	public EClass getSyntaxExpression() {
+		return syntaxExpressionEClass;
 	}
 
 	/**
@@ -2969,8 +3030,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionDefinition_AbstractSyntaxDef() {
-		return (EReference)extensionDefinitionEClass.getEStructuralFeatures().get(1);
+	public EClass getL3SyntaxExpression() {
+		return l3SyntaxExpressionEClass;
 	}
 
 	/**
@@ -2978,8 +3039,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionDefinition_TextualSyntaxDef() {
-		return (EReference)extensionDefinitionEClass.getEStructuralFeatures().get(2);
+	public EClass getL2SyntaxExpression() {
+		return l2SyntaxExpressionEClass;
 	}
 
 	/**
@@ -2987,8 +3048,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getExtensionSemanticsDefinition() {
-		return extensionSemanticsDefinitionEClass;
+	public EClass getSymbolSequence() {
+		return symbolSequenceEClass;
 	}
 
 	/**
@@ -2996,8 +3057,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getExtensionSemanticsDefinition_SyntaxDefinition() {
-		return (EReference)extensionSemanticsDefinitionEClass.getEStructuralFeatures().get(0);
+	public EReference getSymbolSequence_Sequence() {
+		return (EReference)symbolSequenceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3005,8 +3066,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTextualSyntaxDef() {
-		return textualSyntaxDefEClass;
+	public EClass getL1SyntaxExpression() {
+		return l1SyntaxExpressionEClass;
 	}
 
 	/**
@@ -3014,8 +3075,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTextualSyntaxDef_StartRule() {
-		return (EReference)textualSyntaxDefEClass.getEStructuralFeatures().get(0);
+	public EClass getStructuralSymbolReference() {
+		return structuralSymbolReferenceEClass;
 	}
 
 	/**
@@ -3023,8 +3084,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTextualSyntaxDef_Rules() {
-		return (EReference)textualSyntaxDefEClass.getEStructuralFeatures().get(1);
+	public EAttribute getStructuralSymbolReference_List() {
+		return (EAttribute)structuralSymbolReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3032,8 +3093,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getLanguageConstructClassifier() {
-		return languageConstructClassifierEClass;
+	public EAttribute getStructuralSymbolReference_Composite() {
+		return (EAttribute)structuralSymbolReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3041,8 +3102,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getLanguageConceptClassifier() {
-		return languageConceptClassifierEClass;
+	public EAttribute getStructuralSymbolReference_LocalScopedReference() {
+		return (EAttribute)structuralSymbolReferenceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3050,8 +3111,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTsRule() {
-		return tsRuleEClass;
+	public EAttribute getStructuralSymbolReference_GlobalScopedReference() {
+		return (EAttribute)structuralSymbolReferenceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -3059,8 +3120,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTsRule_Rhs() {
-		return (EReference)tsRuleEClass.getEStructuralFeatures().get(0);
+	public EClass getPlainSymbolReference() {
+		return plainSymbolReferenceEClass;
 	}
 
 	/**
@@ -3068,8 +3129,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getRhsExpression() {
-		return rhsExpressionEClass;
+	public EReference getPlainSymbolReference_Classifier() {
+		return (EReference)plainSymbolReferenceEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3077,8 +3138,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getL3RhsExpr() {
-		return l3RhsExprEClass;
+	public EReference getPlainSymbolReference_OwnedClassifier() {
+		return (EReference)plainSymbolReferenceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -3086,8 +3147,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getL2RhsExpr() {
-		return l2RhsExprEClass;
+	public EReference getPlainSymbolReference_ReferencedClassifier() {
+		return (EReference)plainSymbolReferenceEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -3095,8 +3156,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getSequenceExpr() {
-		return sequenceExprEClass;
+	public EClass getElementarySymbol() {
+		return elementarySymbolEClass;
 	}
 
 	/**
@@ -3104,8 +3165,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getSequenceExpr_Sequence() {
-		return (EReference)sequenceExprEClass.getEStructuralFeatures().get(0);
+	public EClass getIdSymbol() {
+		return idSymbolEClass;
 	}
 
 	/**
@@ -3113,8 +3174,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getL1RhsExpr() {
-		return l1RhsExprEClass;
+	public EClass getIntSymbol() {
+		return intSymbolEClass;
 	}
 
 	/**
@@ -3122,8 +3183,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTerminalExpr() {
-		return terminalExprEClass;
+	public EClass getStringSymbol() {
+		return stringSymbolEClass;
 	}
 
 	/**
@@ -3131,8 +3192,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTerminalExpr_Terminal() {
-		return (EAttribute)terminalExprEClass.getEStructuralFeatures().get(0);
+	public EClass getKeyword() {
+		return keywordEClass;
 	}
 
 	/**
@@ -3140,143 +3201,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPropertyBindingExpr() {
-		return propertyBindingExprEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPropertyBindingExpr_PropertyType() {
-		return (EReference)propertyBindingExprEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getRhsClassifierExpr() {
-		return rhsClassifierExprEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getRhsClassifierExpr_Classifier() {
-		return (EReference)rhsClassifierExprEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getPropertyType() {
-		return propertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getIdPropertyType() {
-		return idPropertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getIntPropertyType() {
-		return intPropertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStringPropertyType() {
-		return stringPropertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getBooleanPropertyType() {
-		return booleanPropertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getBooleanPropertyType_Terminal() {
-		return (EAttribute)booleanPropertyTypeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getStructuredPropertyType() {
-		return structuredPropertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getStructuredPropertyType_Type() {
-		return (EReference)structuredPropertyTypeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getCompositePropertyType() {
-		return compositePropertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getCompositePropertyType_List() {
-		return (EAttribute)compositePropertyTypeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getReferencePropertyType() {
-		return referencePropertyTypeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getReferencePropertyType_RawReference() {
-		return (EAttribute)referencePropertyTypeEClass.getEStructuralFeatures().get(0);
+	public EAttribute getKeyword_Keyword() {
+		return (EAttribute)keywordEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3320,6 +3246,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getCreateIdStatement() {
+		return createIdStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getExpansionStatement() {
 		return expansionStatementEClass;
 	}
@@ -3329,8 +3264,44 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getExpansionStatement_ClassContext() {
+		return (EAttribute)expansionStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExpansionStatement_FunctionContext() {
+		return (EAttribute)expansionStatementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getExpansionStatement_VariableContext() {
+		return (EAttribute)expansionStatementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getExpansionStatement_DifferingContext() {
+		return (EReference)expansionStatementEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getExpansionStatement_Parts() {
-		return (EReference)expansionStatementEClass.getEStructuralFeatures().get(0);
+		return (EReference)expansionStatementEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -3339,7 +3310,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	public EReference getExpansionStatement_Exprs() {
-		return (EReference)expansionStatementEClass.getEStructuralFeatures().get(1);
+		return (EReference)expansionStatementEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -3385,69 +3356,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EReference getExpandVariablePart_Expr() {
 		return (EReference)expandVariablePartEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSetExpansionContextStatement() {
-		return setExpansionContextStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSetExpansionContextStatement_Context() {
-		return (EReference)setExpansionContextStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getSetExpansionContextStatement_AddAfterContext() {
-		return (EAttribute)setExpansionContextStatementEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getSaveGenStatement() {
-		return saveGenStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getSaveGenStatement_Variable() {
-		return (EReference)saveGenStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EClass getResumeGenStatement() {
-		return resumeGenStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getResumeGenStatement_Variable() {
-		return (EReference)resumeGenStatementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3581,24 +3489,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getTestStatement() {
-		return testStatementEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getTestStatement_Value() {
-		return (EAttribute)testStatementEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EClass getPattern() {
 		return patternEClass;
 	}
@@ -3635,6 +3525,24 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getTestStatement() {
+		return testStatementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getTestStatement_Value() {
+		return (EAttribute)testStatementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DblFactory getDblFactory() {
 		return (DblFactory)getEFactoryInstance();
 	}
@@ -3664,15 +3572,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		extensibleElementEClass = createEClass(EXTENSIBLE_ELEMENT);
 		createEAttribute(extensibleElementEClass, EXTENSIBLE_ELEMENT__CONCRETE_SYNTAX);
 		createEAttribute(extensibleElementEClass, EXTENSIBLE_ELEMENT__INSTANCE_OF_EXTENSION_DEFINITION);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER1);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER2);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER3);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER4);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER5);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER6);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER8);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER9);
-		createEReference(extensibleElementEClass, EXTENSIBLE_ELEMENT__PLACE_HOLDER10);
 
 		modelEClass = createEClass(MODEL);
 		createEReference(modelEClass, MODEL__IMPORTS);
@@ -3684,19 +3583,29 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		moduleEClass = createEClass(MODULE);
 		createEReference(moduleEClass, MODULE__CLASSES);
-		createEReference(moduleEClass, MODULE__EXTENSION_DEFINITIONS);
-		createEReference(moduleEClass, MODULE__EXTENSION_SEMANTICS_DEFINITIONS);
+		createEReference(moduleEClass, MODULE__EXTENSIONS);
+		createEReference(moduleEClass, MODULE__EXTENSION_SEMANTICS);
 		createEReference(moduleEClass, MODULE__FUNCTIONS);
 		createEReference(moduleEClass, MODULE__VARIABLES);
+
+		annotationEClass = createEClass(ANNOTATION);
+		createEReference(annotationEClass, ANNOTATION__ITEMS);
+
+		annotationItemEClass = createEClass(ANNOTATION_ITEM);
+		createEAttribute(annotationItemEClass, ANNOTATION_ITEM__KEY);
+		createEAttribute(annotationItemEClass, ANNOTATION_ITEM__VALUE);
+
+		annotateableElementEClass = createEClass(ANNOTATEABLE_ELEMENT);
+		createEReference(annotateableElementEClass, ANNOTATEABLE_ELEMENT__ANNOTATIONS);
 
 		constructiveExtensionEClass = createEClass(CONSTRUCTIVE_EXTENSION);
 
 		constructiveExtensionAtContentExtensionPointEClass = createEClass(CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT);
 		createEReference(constructiveExtensionAtContentExtensionPointEClass, CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS);
 
-		moduleContentEClass = createEClass(MODULE_CONTENT);
+		moduleContentExtensionEClass = createEClass(MODULE_CONTENT_EXTENSION);
 
-		classContentEClass = createEClass(CLASS_CONTENT);
+		classContentExtensionEClass = createEClass(CLASS_CONTENT_EXTENSION);
 
 		typeEClass = createEClass(TYPE);
 		createEReference(typeEClass, TYPE__ARRAY_DIMENSIONS);
@@ -3911,9 +3820,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		doubleLiteralEClass = createEClass(DOUBLE_LITERAL);
 		createEAttribute(doubleLiteralEClass, DOUBLE_LITERAL__VALUE);
 
-		uniqueIdExprEClass = createEClass(UNIQUE_ID_EXPR);
-		createEAttribute(uniqueIdExprEClass, UNIQUE_ID_EXPR__IDENTIFIER);
-
 		expandExprEClass = createEClass(EXPAND_EXPR);
 		createEReference(expandExprEClass, EXPAND_EXPR__EXPR);
 
@@ -3931,6 +3837,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		typeLiteralEClass = createEClass(TYPE_LITERAL);
 
 		sizeOfArrayEClass = createEClass(SIZE_OF_ARRAY);
+
+		annotationLiteralEClass = createEClass(ANNOTATION_LITERAL);
 
 		idExprEClass = createEClass(ID_EXPR);
 		createEReference(idExprEClass, ID_EXPR__PARENT_ID_EXPR);
@@ -3951,64 +3859,58 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		typeAccessEClass = createEClass(TYPE_ACCESS);
 
-		extensionDefinitionEClass = createEClass(EXTENSION_DEFINITION);
-		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__EXTENDED_CONCEPT);
-		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__ABSTRACT_SYNTAX_DEF);
-		createEReference(extensionDefinitionEClass, EXTENSION_DEFINITION__TEXTUAL_SYNTAX_DEF);
+		extensionEClass = createEClass(EXTENSION);
+		createEReference(extensionEClass, EXTENSION__EXTENSION_POINT);
+		createEReference(extensionEClass, EXTENSION__SYNTAX_DEFINITION);
 
-		extensionSemanticsDefinitionEClass = createEClass(EXTENSION_SEMANTICS_DEFINITION);
-		createEReference(extensionSemanticsDefinitionEClass, EXTENSION_SEMANTICS_DEFINITION__SYNTAX_DEFINITION);
+		extensionSemanticsEClass = createEClass(EXTENSION_SEMANTICS);
+		createEReference(extensionSemanticsEClass, EXTENSION_SEMANTICS__SYNTAX_DEFINITION);
 
-		textualSyntaxDefEClass = createEClass(TEXTUAL_SYNTAX_DEF);
-		createEReference(textualSyntaxDefEClass, TEXTUAL_SYNTAX_DEF__START_RULE);
-		createEReference(textualSyntaxDefEClass, TEXTUAL_SYNTAX_DEF__RULES);
+		syntaxDefinitionEClass = createEClass(SYNTAX_DEFINITION);
+		createEReference(syntaxDefinitionEClass, SYNTAX_DEFINITION__START_SYMBOL);
+		createEReference(syntaxDefinitionEClass, SYNTAX_DEFINITION__SYMBOLS);
 
-		languageConstructClassifierEClass = createEClass(LANGUAGE_CONSTRUCT_CLASSIFIER);
+		syntaxSymbolClassifierEClass = createEClass(SYNTAX_SYMBOL_CLASSIFIER);
 
-		languageConceptClassifierEClass = createEClass(LANGUAGE_CONCEPT_CLASSIFIER);
+		complexSymbolEClass = createEClass(COMPLEX_SYMBOL);
 
-		tsRuleEClass = createEClass(TS_RULE);
-		createEReference(tsRuleEClass, TS_RULE__RHS);
+		conceptEClass = createEClass(CONCEPT);
 
-		rhsExpressionEClass = createEClass(RHS_EXPRESSION);
+		metaSymbolEClass = createEClass(META_SYMBOL);
+		createEReference(metaSymbolEClass, META_SYMBOL__POSSIBLE_SYNTAX);
 
-		l3RhsExprEClass = createEClass(L3_RHS_EXPR);
+		syntaxExpressionEClass = createEClass(SYNTAX_EXPRESSION);
 
-		l2RhsExprEClass = createEClass(L2_RHS_EXPR);
+		l3SyntaxExpressionEClass = createEClass(L3_SYNTAX_EXPRESSION);
 
-		sequenceExprEClass = createEClass(SEQUENCE_EXPR);
-		createEReference(sequenceExprEClass, SEQUENCE_EXPR__SEQUENCE);
+		l2SyntaxExpressionEClass = createEClass(L2_SYNTAX_EXPRESSION);
 
-		l1RhsExprEClass = createEClass(L1_RHS_EXPR);
+		symbolSequenceEClass = createEClass(SYMBOL_SEQUENCE);
+		createEReference(symbolSequenceEClass, SYMBOL_SEQUENCE__SEQUENCE);
 
-		terminalExprEClass = createEClass(TERMINAL_EXPR);
-		createEAttribute(terminalExprEClass, TERMINAL_EXPR__TERMINAL);
+		l1SyntaxExpressionEClass = createEClass(L1_SYNTAX_EXPRESSION);
 
-		propertyBindingExprEClass = createEClass(PROPERTY_BINDING_EXPR);
-		createEReference(propertyBindingExprEClass, PROPERTY_BINDING_EXPR__PROPERTY_TYPE);
+		structuralSymbolReferenceEClass = createEClass(STRUCTURAL_SYMBOL_REFERENCE);
+		createEAttribute(structuralSymbolReferenceEClass, STRUCTURAL_SYMBOL_REFERENCE__LIST);
+		createEAttribute(structuralSymbolReferenceEClass, STRUCTURAL_SYMBOL_REFERENCE__COMPOSITE);
+		createEAttribute(structuralSymbolReferenceEClass, STRUCTURAL_SYMBOL_REFERENCE__LOCAL_SCOPED_REFERENCE);
+		createEAttribute(structuralSymbolReferenceEClass, STRUCTURAL_SYMBOL_REFERENCE__GLOBAL_SCOPED_REFERENCE);
 
-		rhsClassifierExprEClass = createEClass(RHS_CLASSIFIER_EXPR);
-		createEReference(rhsClassifierExprEClass, RHS_CLASSIFIER_EXPR__CLASSIFIER);
+		plainSymbolReferenceEClass = createEClass(PLAIN_SYMBOL_REFERENCE);
+		createEReference(plainSymbolReferenceEClass, PLAIN_SYMBOL_REFERENCE__CLASSIFIER);
+		createEReference(plainSymbolReferenceEClass, PLAIN_SYMBOL_REFERENCE__OWNED_CLASSIFIER);
+		createEReference(plainSymbolReferenceEClass, PLAIN_SYMBOL_REFERENCE__REFERENCED_CLASSIFIER);
 
-		propertyTypeEClass = createEClass(PROPERTY_TYPE);
+		elementarySymbolEClass = createEClass(ELEMENTARY_SYMBOL);
 
-		idPropertyTypeEClass = createEClass(ID_PROPERTY_TYPE);
+		idSymbolEClass = createEClass(ID_SYMBOL);
 
-		intPropertyTypeEClass = createEClass(INT_PROPERTY_TYPE);
+		intSymbolEClass = createEClass(INT_SYMBOL);
 
-		stringPropertyTypeEClass = createEClass(STRING_PROPERTY_TYPE);
+		stringSymbolEClass = createEClass(STRING_SYMBOL);
 
-		booleanPropertyTypeEClass = createEClass(BOOLEAN_PROPERTY_TYPE);
-		createEAttribute(booleanPropertyTypeEClass, BOOLEAN_PROPERTY_TYPE__TERMINAL);
-
-		structuredPropertyTypeEClass = createEClass(STRUCTURED_PROPERTY_TYPE);
-		createEReference(structuredPropertyTypeEClass, STRUCTURED_PROPERTY_TYPE__TYPE);
-
-		compositePropertyTypeEClass = createEClass(COMPOSITE_PROPERTY_TYPE);
-		createEAttribute(compositePropertyTypeEClass, COMPOSITE_PROPERTY_TYPE__LIST);
-
-		referencePropertyTypeEClass = createEClass(REFERENCE_PROPERTY_TYPE);
-		createEAttribute(referencePropertyTypeEClass, REFERENCE_PROPERTY_TYPE__RAW_REFERENCE);
+		keywordEClass = createEClass(KEYWORD);
+		createEAttribute(keywordEClass, KEYWORD__KEYWORD);
 
 		metaExprEClass = createEClass(META_EXPR);
 		createEReference(metaExprEClass, META_EXPR__EXPR);
@@ -4016,7 +3918,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		targetStatementEClass = createEClass(TARGET_STATEMENT);
 		createEReference(targetStatementEClass, TARGET_STATEMENT__BODY);
 
+		createIdStatementEClass = createEClass(CREATE_ID_STATEMENT);
+
 		expansionStatementEClass = createEClass(EXPANSION_STATEMENT);
+		createEAttribute(expansionStatementEClass, EXPANSION_STATEMENT__CLASS_CONTEXT);
+		createEAttribute(expansionStatementEClass, EXPANSION_STATEMENT__FUNCTION_CONTEXT);
+		createEAttribute(expansionStatementEClass, EXPANSION_STATEMENT__VARIABLE_CONTEXT);
+		createEReference(expansionStatementEClass, EXPANSION_STATEMENT__DIFFERING_CONTEXT);
 		createEReference(expansionStatementEClass, EXPANSION_STATEMENT__PARTS);
 		createEReference(expansionStatementEClass, EXPANSION_STATEMENT__EXPRS);
 
@@ -4027,16 +3935,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		expandVariablePartEClass = createEClass(EXPAND_VARIABLE_PART);
 		createEReference(expandVariablePartEClass, EXPAND_VARIABLE_PART__EXPR);
-
-		setExpansionContextStatementEClass = createEClass(SET_EXPANSION_CONTEXT_STATEMENT);
-		createEReference(setExpansionContextStatementEClass, SET_EXPANSION_CONTEXT_STATEMENT__CONTEXT);
-		createEAttribute(setExpansionContextStatementEClass, SET_EXPANSION_CONTEXT_STATEMENT__ADD_AFTER_CONTEXT);
-
-		saveGenStatementEClass = createEClass(SAVE_GEN_STATEMENT);
-		createEReference(saveGenStatementEClass, SAVE_GEN_STATEMENT__VARIABLE);
-
-		resumeGenStatementEClass = createEClass(RESUME_GEN_STATEMENT);
-		createEReference(resumeGenStatementEClass, RESUME_GEN_STATEMENT__VARIABLE);
 
 		expandExpressionEClass = createEClass(EXPAND_EXPRESSION);
 		createEReference(expandExpressionEClass, EXPAND_EXPRESSION__META_OBJECT);
@@ -4102,9 +4000,10 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		moduleEClass.getESuperTypes().add(this.getNamedElement());
 		moduleEClass.getESuperTypes().add(this.getConstructiveExtensionAtContentExtensionPoint());
 		moduleEClass.getESuperTypes().add(this.getConstruct());
+		annotationEClass.getESuperTypes().add(this.getNamedElement());
 		constructiveExtensionEClass.getESuperTypes().add(this.getExtensibleElement());
-		moduleContentEClass.getESuperTypes().add(this.getConstructiveExtension());
-		classContentEClass.getESuperTypes().add(this.getConstructiveExtension());
+		moduleContentExtensionEClass.getESuperTypes().add(this.getConstructiveExtension());
+		classContentExtensionEClass.getESuperTypes().add(this.getConstructiveExtension());
 		primitiveTypeEClass.getESuperTypes().add(this.getType());
 		voidTypeEClass.getESuperTypes().add(this.getPrimitiveType());
 		intTypeEClass.getESuperTypes().add(this.getPrimitiveType());
@@ -4117,15 +4016,18 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		classEClass.getESuperTypes().add(this.getNamedElement());
 		classEClass.getESuperTypes().add(this.getType());
 		classEClass.getESuperTypes().add(this.getConstructiveExtensionAtContentExtensionPoint());
-		classEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
+		classEClass.getESuperTypes().add(this.getConcept());
 		classEClass.getESuperTypes().add(this.getConstruct());
+		classEClass.getESuperTypes().add(this.getAnnotateableElement());
 		constructorEClass.getESuperTypes().add(this.getLocalScope());
 		abstractVariableEClass.getESuperTypes().add(this.getNamedElement());
 		abstractVariableEClass.getESuperTypes().add(this.getTypedElement());
+		abstractVariableEClass.getESuperTypes().add(this.getAnnotateableElement());
 		variableEClass.getESuperTypes().add(this.getAbstractVariable());
 		variableEClass.getESuperTypes().add(this.getSimpleStatement());
 		parameterEClass.getESuperTypes().add(this.getAbstractVariable());
 		statementEClass.getESuperTypes().add(this.getExtensibleElement());
+		statementEClass.getESuperTypes().add(this.getAnnotateableElement());
 		loopStatementEClass.getESuperTypes().add(this.getStatement());
 		simpleStatementEClass.getESuperTypes().add(this.getStatement());
 		assignmentEClass.getESuperTypes().add(this.getSimpleStatement());
@@ -4206,7 +4108,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		trueLiteralEClass.getESuperTypes().add(this.getL1Expr());
 		falseLiteralEClass.getESuperTypes().add(this.getL1Expr());
 		doubleLiteralEClass.getESuperTypes().add(this.getL1Expr());
-		uniqueIdExprEClass.getESuperTypes().add(this.getExpression());
 		expandExprEClass.getESuperTypes().add(this.getExpression());
 		parseExprEClass.getESuperTypes().add(this.getExpression());
 		meLiteralEClass.getESuperTypes().add(this.getPredefinedId());
@@ -4214,44 +4115,42 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		metaLiteralEClass.getESuperTypes().add(this.getPredefinedId());
 		typeLiteralEClass.getESuperTypes().add(this.getPredefinedId());
 		sizeOfArrayEClass.getESuperTypes().add(this.getPredefinedId());
+		annotationLiteralEClass.getESuperTypes().add(this.getPredefinedId());
+		annotationLiteralEClass.getESuperTypes().add(this.getAnnotation());
 		idExprEClass.getESuperTypes().add(this.getL1Expr());
 		elementAccessEClass.getESuperTypes().add(this.getExpression());
 		variableAccessEClass.getESuperTypes().add(this.getElementAccess());
 		metaAccessEClass.getESuperTypes().add(this.getVariableAccess());
 		typeAccessEClass.getESuperTypes().add(this.getElementAccess());
-		extensionDefinitionEClass.getESuperTypes().add(this.getLanguageConceptClassifier());
-		extensionDefinitionEClass.getESuperTypes().add(this.getExtensibleElement());
-		extensionSemanticsDefinitionEClass.getESuperTypes().add(this.getExtensibleElement());
-		extensionSemanticsDefinitionEClass.getESuperTypes().add(this.getLocalScope());
-		textualSyntaxDefEClass.getESuperTypes().add(this.getExtensibleElement());
-		languageConstructClassifierEClass.getESuperTypes().add(this.getNamedElement());
-		languageConstructClassifierEClass.getESuperTypes().add(this.getExtensibleElement());
-		languageConceptClassifierEClass.getESuperTypes().add(this.getLanguageConstructClassifier());
-		tsRuleEClass.getESuperTypes().add(this.getNamedElement());
-		tsRuleEClass.getESuperTypes().add(this.getLanguageConstructClassifier());
-		l3RhsExprEClass.getESuperTypes().add(this.getRhsExpression());
-		l2RhsExprEClass.getESuperTypes().add(this.getRhsExpression());
-		sequenceExprEClass.getESuperTypes().add(this.getL2RhsExpr());
-		l1RhsExprEClass.getESuperTypes().add(this.getRhsExpression());
-		terminalExprEClass.getESuperTypes().add(this.getL1RhsExpr());
-		propertyBindingExprEClass.getESuperTypes().add(this.getNamedElement());
-		propertyBindingExprEClass.getESuperTypes().add(this.getL1RhsExpr());
-		rhsClassifierExprEClass.getESuperTypes().add(this.getL1RhsExpr());
-		idPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
-		intPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
-		stringPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
-		booleanPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
-		structuredPropertyTypeEClass.getESuperTypes().add(this.getPropertyType());
-		compositePropertyTypeEClass.getESuperTypes().add(this.getStructuredPropertyType());
-		referencePropertyTypeEClass.getESuperTypes().add(this.getStructuredPropertyType());
+		extensionEClass.getESuperTypes().add(this.getConcept());
+		extensionEClass.getESuperTypes().add(this.getExtensibleElement());
+		extensionSemanticsEClass.getESuperTypes().add(this.getExtensibleElement());
+		extensionSemanticsEClass.getESuperTypes().add(this.getLocalScope());
+		syntaxDefinitionEClass.getESuperTypes().add(this.getExtensibleElement());
+		syntaxSymbolClassifierEClass.getESuperTypes().add(this.getNamedElement());
+		syntaxSymbolClassifierEClass.getESuperTypes().add(this.getExtensibleElement());
+		complexSymbolEClass.getESuperTypes().add(this.getSyntaxSymbolClassifier());
+		conceptEClass.getESuperTypes().add(this.getComplexSymbol());
+		metaSymbolEClass.getESuperTypes().add(this.getNamedElement());
+		metaSymbolEClass.getESuperTypes().add(this.getComplexSymbol());
+		l3SyntaxExpressionEClass.getESuperTypes().add(this.getSyntaxExpression());
+		l2SyntaxExpressionEClass.getESuperTypes().add(this.getSyntaxExpression());
+		symbolSequenceEClass.getESuperTypes().add(this.getL2SyntaxExpression());
+		l1SyntaxExpressionEClass.getESuperTypes().add(this.getSyntaxExpression());
+		structuralSymbolReferenceEClass.getESuperTypes().add(this.getNamedElement());
+		structuralSymbolReferenceEClass.getESuperTypes().add(this.getPlainSymbolReference());
+		plainSymbolReferenceEClass.getESuperTypes().add(this.getL1SyntaxExpression());
+		elementarySymbolEClass.getESuperTypes().add(this.getSyntaxSymbolClassifier());
+		idSymbolEClass.getESuperTypes().add(this.getElementarySymbol());
+		intSymbolEClass.getESuperTypes().add(this.getElementarySymbol());
+		stringSymbolEClass.getESuperTypes().add(this.getElementarySymbol());
+		keywordEClass.getESuperTypes().add(this.getElementarySymbol());
 		metaExprEClass.getESuperTypes().add(this.getExpression());
-		targetStatementEClass.getESuperTypes().add(this.getStatement());
-		expansionStatementEClass.getESuperTypes().add(this.getStatement());
+		targetStatementEClass.getESuperTypes().add(this.getSimpleStatement());
+		createIdStatementEClass.getESuperTypes().add(this.getVariable());
+		expansionStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		expandTextPartEClass.getESuperTypes().add(this.getExpansionPart());
 		expandVariablePartEClass.getESuperTypes().add(this.getExpansionPart());
-		setExpansionContextStatementEClass.getESuperTypes().add(this.getSimpleStatement());
-		saveGenStatementEClass.getESuperTypes().add(this.getSimpleStatement());
-		resumeGenStatementEClass.getESuperTypes().add(this.getSimpleStatement());
 		expandExpressionEClass.getESuperTypes().add(this.getExpression());
 		expandStatementEClass.getESuperTypes().add(this.getStatement());
 		codeQuoteExpressionEClass.getESuperTypes().add(this.getExpression());
@@ -4271,15 +4170,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(extensibleElementEClass, ExtensibleElement.class, "ExtensibleElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getExtensibleElement_ConcreteSyntax(), ecorePackage.getEString(), "concreteSyntax", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getExtensibleElement_InstanceOfExtensionDefinition(), ecorePackage.getEBoolean(), "instanceOfExtensionDefinition", "false", 1, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder1(), this.getExtensibleElement(), null, "placeHolder1", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder2(), this.getExtensibleElement(), null, "placeHolder2", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder3(), this.getExtensibleElement(), null, "placeHolder3", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder4(), this.getExtensibleElement(), null, "placeHolder4", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder5(), this.getExtensibleElement(), null, "placeHolder5", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder6(), this.getExtensibleElement(), null, "placeHolder6", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder8(), this.getExtensibleElement(), null, "placeHolder8", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder9(), this.getExtensibleElement(), null, "placeHolder9", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensibleElement_PlaceHolder10(), this.getExtensibleElement(), null, "placeHolder10", null, 0, 1, ExtensibleElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(modelEClass, Model.class, "Model", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModel_Imports(), this.getImport(), null, "imports", null, 0, -1, Model.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4291,19 +4181,29 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(moduleEClass, Module.class, "Module", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getModule_Classes(), this.getClass_(), null, "classes", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModule_ExtensionDefinitions(), this.getExtensionDefinition(), null, "extensionDefinitions", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getModule_ExtensionSemanticsDefinitions(), this.getExtensionSemanticsDefinition(), null, "extensionSemanticsDefinitions", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModule_Extensions(), this.getExtension(), null, "extensions", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getModule_ExtensionSemantics(), this.getExtensionSemantics(), null, "extensionSemantics", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModule_Functions(), this.getFunction(), null, "functions", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getModule_Variables(), this.getVariable(), null, "variables", null, 0, -1, Module.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(annotationEClass, Annotation.class, "Annotation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAnnotation_Items(), this.getAnnotationItem(), null, "items", null, 0, -1, Annotation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(annotationItemEClass, AnnotationItem.class, "AnnotationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getAnnotationItem_Key(), ecorePackage.getEString(), "key", null, 1, 1, AnnotationItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getAnnotationItem_Value(), ecorePackage.getEString(), "value", null, 1, 1, AnnotationItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(annotateableElementEClass, AnnotateableElement.class, "AnnotateableElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getAnnotateableElement_Annotations(), this.getAnnotation(), null, "annotations", null, 0, -1, AnnotateableElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(constructiveExtensionEClass, ConstructiveExtension.class, "ConstructiveExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(constructiveExtensionAtContentExtensionPointEClass, ConstructiveExtensionAtContentExtensionPoint.class, "ConstructiveExtensionAtContentExtensionPoint", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getConstructiveExtensionAtContentExtensionPoint_ContentExtensions(), this.getConstructiveExtension(), null, "contentExtensions", null, 0, -1, ConstructiveExtensionAtContentExtensionPoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(moduleContentEClass, ModuleContent.class, "ModuleContent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(moduleContentExtensionEClass, ModuleContentExtension.class, "ModuleContentExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(classContentEClass, ClassContent.class, "ClassContent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(classContentExtensionEClass, ClassContentExtension.class, "ClassContentExtension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(typeEClass, Type.class, "Type", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getType_ArrayDimensions(), this.getArrayDimension(), null, "arrayDimensions", null, 0, -1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4518,9 +4418,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(doubleLiteralEClass, DoubleLiteral.class, "DoubleLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDoubleLiteral_Value(), ecorePackage.getEDouble(), "value", null, 1, 1, DoubleLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(uniqueIdExprEClass, UniqueIdExpr.class, "UniqueIdExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getUniqueIdExpr_Identifier(), ecorePackage.getEString(), "identifier", null, 1, 1, UniqueIdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
 		initEClass(expandExprEClass, ExpandExpr.class, "ExpandExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpandExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, ExpandExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4538,6 +4435,8 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(typeLiteralEClass, TypeLiteral.class, "TypeLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(sizeOfArrayEClass, SizeOfArray.class, "SizeOfArray", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(annotationLiteralEClass, AnnotationLiteral.class, "AnnotationLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(idExprEClass, IdExpr.class, "IdExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getIdExpr_ParentIdExpr(), this.getIdExpr(), null, "parentIdExpr", null, 0, 1, IdExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4558,64 +4457,58 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(typeAccessEClass, TypeAccess.class, "TypeAccess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(extensionDefinitionEClass, ExtensionDefinition.class, "ExtensionDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getExtensionDefinition_ExtendedConcept(), this.getLanguageConceptClassifier(), null, "extendedConcept", null, 1, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensionDefinition_AbstractSyntaxDef(), this.getClass_(), null, "abstractSyntaxDef", null, 0, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getExtensionDefinition_TextualSyntaxDef(), this.getTextualSyntaxDef(), null, "textualSyntaxDef", null, 1, 1, ExtensionDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(extensionEClass, Extension.class, "Extension", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtension_ExtensionPoint(), this.getConcept(), null, "extensionPoint", null, 1, 1, Extension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExtension_SyntaxDefinition(), this.getSyntaxDefinition(), null, "syntaxDefinition", null, 1, 1, Extension.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(extensionSemanticsDefinitionEClass, ExtensionSemanticsDefinition.class, "ExtensionSemanticsDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getExtensionSemanticsDefinition_SyntaxDefinition(), this.getExtensionDefinition(), null, "syntaxDefinition", null, 1, 1, ExtensionSemanticsDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(extensionSemanticsEClass, ExtensionSemantics.class, "ExtensionSemantics", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getExtensionSemantics_SyntaxDefinition(), this.getExtension(), null, "syntaxDefinition", null, 1, 1, ExtensionSemantics.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(textualSyntaxDefEClass, TextualSyntaxDef.class, "TextualSyntaxDef", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTextualSyntaxDef_StartRule(), this.getTsRule(), null, "startRule", null, 1, 1, TextualSyntaxDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTextualSyntaxDef_Rules(), this.getTsRule(), null, "rules", null, 0, -1, TextualSyntaxDef.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(syntaxDefinitionEClass, SyntaxDefinition.class, "SyntaxDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSyntaxDefinition_StartSymbol(), this.getMetaSymbol(), null, "startSymbol", null, 1, 1, SyntaxDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getSyntaxDefinition_Symbols(), this.getMetaSymbol(), null, "symbols", null, 0, -1, SyntaxDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(languageConstructClassifierEClass, LanguageConstructClassifier.class, "LanguageConstructClassifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(syntaxSymbolClassifierEClass, SyntaxSymbolClassifier.class, "SyntaxSymbolClassifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(languageConceptClassifierEClass, LanguageConceptClassifier.class, "LanguageConceptClassifier", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(complexSymbolEClass, ComplexSymbol.class, "ComplexSymbol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(tsRuleEClass, TsRule.class, "TsRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTsRule_Rhs(), this.getRhsExpression(), null, "rhs", null, 1, 1, TsRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(conceptEClass, Concept.class, "Concept", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(rhsExpressionEClass, RhsExpression.class, "RhsExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(metaSymbolEClass, MetaSymbol.class, "MetaSymbol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getMetaSymbol_PossibleSyntax(), this.getSyntaxExpression(), null, "possibleSyntax", null, 1, 1, MetaSymbol.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(l3RhsExprEClass, L3RhsExpr.class, "L3RhsExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(syntaxExpressionEClass, SyntaxExpression.class, "SyntaxExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(l2RhsExprEClass, L2RhsExpr.class, "L2RhsExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(l3SyntaxExpressionEClass, L3SyntaxExpression.class, "L3SyntaxExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(sequenceExprEClass, SequenceExpr.class, "SequenceExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSequenceExpr_Sequence(), this.getRhsExpression(), null, "sequence", null, 0, -1, SequenceExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(l2SyntaxExpressionEClass, L2SyntaxExpression.class, "L2SyntaxExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(l1RhsExprEClass, L1RhsExpr.class, "L1RhsExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(symbolSequenceEClass, SymbolSequence.class, "SymbolSequence", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getSymbolSequence_Sequence(), this.getSyntaxExpression(), null, "sequence", null, 0, -1, SymbolSequence.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(terminalExprEClass, TerminalExpr.class, "TerminalExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getTerminalExpr_Terminal(), ecorePackage.getEString(), "terminal", null, 1, 1, TerminalExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(l1SyntaxExpressionEClass, L1SyntaxExpression.class, "L1SyntaxExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(propertyBindingExprEClass, PropertyBindingExpr.class, "PropertyBindingExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropertyBindingExpr_PropertyType(), this.getPropertyType(), null, "propertyType", null, 1, 1, PropertyBindingExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(structuralSymbolReferenceEClass, StructuralSymbolReference.class, "StructuralSymbolReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getStructuralSymbolReference_List(), ecorePackage.getEBoolean(), "list", "false", 1, 1, StructuralSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStructuralSymbolReference_Composite(), ecorePackage.getEBoolean(), "composite", null, 1, 1, StructuralSymbolReference.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStructuralSymbolReference_LocalScopedReference(), ecorePackage.getEBoolean(), "localScopedReference", "false", 1, 1, StructuralSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getStructuralSymbolReference_GlobalScopedReference(), ecorePackage.getEBoolean(), "globalScopedReference", "false", 1, 1, StructuralSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(rhsClassifierExprEClass, RhsClassifierExpr.class, "RhsClassifierExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getRhsClassifierExpr_Classifier(), this.getLanguageConstructClassifier(), null, "classifier", null, 1, 1, RhsClassifierExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(plainSymbolReferenceEClass, PlainSymbolReference.class, "PlainSymbolReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getPlainSymbolReference_Classifier(), this.getSyntaxSymbolClassifier(), null, "classifier", null, 1, 1, PlainSymbolReference.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getPlainSymbolReference_OwnedClassifier(), this.getSyntaxSymbolClassifier(), null, "ownedClassifier", null, 0, 1, PlainSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPlainSymbolReference_ReferencedClassifier(), this.getSyntaxSymbolClassifier(), null, "referencedClassifier", null, 0, 1, PlainSymbolReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(propertyTypeEClass, PropertyType.class, "PropertyType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(elementarySymbolEClass, ElementarySymbol.class, "ElementarySymbol", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(idPropertyTypeEClass, IdPropertyType.class, "IdPropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(idSymbolEClass, IdSymbol.class, "IdSymbol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(intPropertyTypeEClass, IntPropertyType.class, "IntPropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(intSymbolEClass, IntSymbol.class, "IntSymbol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(stringPropertyTypeEClass, StringPropertyType.class, "StringPropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(stringSymbolEClass, StringSymbol.class, "StringSymbol", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(booleanPropertyTypeEClass, BooleanPropertyType.class, "BooleanPropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getBooleanPropertyType_Terminal(), ecorePackage.getEString(), "terminal", null, 1, 1, BooleanPropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(structuredPropertyTypeEClass, StructuredPropertyType.class, "StructuredPropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getStructuredPropertyType_Type(), this.getLanguageConstructClassifier(), null, "type", null, 1, 1, StructuredPropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(compositePropertyTypeEClass, CompositePropertyType.class, "CompositePropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getCompositePropertyType_List(), ecorePackage.getEBoolean(), "list", "false", 1, 1, CompositePropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(referencePropertyTypeEClass, ReferencePropertyType.class, "ReferencePropertyType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getReferencePropertyType_RawReference(), ecorePackage.getEBoolean(), "rawReference", "false", 1, 1, ReferencePropertyType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEClass(keywordEClass, Keyword.class, "Keyword", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getKeyword_Keyword(), ecorePackage.getEString(), "keyword", null, 1, 1, Keyword.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(metaExprEClass, MetaExpr.class, "MetaExpr", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getMetaExpr_Expr(), this.getExpression(), null, "expr", null, 1, 1, MetaExpr.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4623,7 +4516,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(targetStatementEClass, TargetStatement.class, "TargetStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTargetStatement_Body(), this.getStatement(), null, "body", null, 1, 1, TargetStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(createIdStatementEClass, CreateIdStatement.class, "CreateIdStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
 		initEClass(expansionStatementEClass, ExpansionStatement.class, "ExpansionStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getExpansionStatement_ClassContext(), ecorePackage.getEBoolean(), "classContext", "false", 1, 1, ExpansionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpansionStatement_FunctionContext(), ecorePackage.getEBoolean(), "functionContext", "false", 1, 1, ExpansionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getExpansionStatement_VariableContext(), ecorePackage.getEBoolean(), "variableContext", "false", 1, 1, ExpansionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getExpansionStatement_DifferingContext(), this.getIdExpr(), null, "differingContext", null, 0, 1, ExpansionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExpansionStatement_Parts(), this.getExpansionPart(), null, "parts", null, 0, -1, ExpansionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getExpansionStatement_Exprs(), this.getExpression(), null, "exprs", null, 0, -1, ExpansionStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -4634,16 +4533,6 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 
 		initEClass(expandVariablePartEClass, ExpandVariablePart.class, "ExpandVariablePart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpandVariablePart_Expr(), this.getExpression(), null, "expr", null, 1, 1, ExpandVariablePart.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(setExpansionContextStatementEClass, SetExpansionContextStatement.class, "SetExpansionContextStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSetExpansionContextStatement_Context(), this.getExpression(), null, "context", null, 1, 1, SetExpansionContextStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getSetExpansionContextStatement_AddAfterContext(), ecorePackage.getEBoolean(), "addAfterContext", "false", 1, 1, SetExpansionContextStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(saveGenStatementEClass, SaveGenStatement.class, "SaveGenStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getSaveGenStatement_Variable(), this.getExpression(), null, "variable", null, 1, 1, SaveGenStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(resumeGenStatementEClass, ResumeGenStatement.class, "ResumeGenStatement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getResumeGenStatement_Variable(), this.getExpression(), null, "variable", null, 1, 1, ResumeGenStatement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(expandExpressionEClass, ExpandExpression.class, "ExpandExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getExpandExpression_MetaObject(), this.getExpression(), null, "metaObject", null, 1, 1, ExpandExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4681,8 +4570,12 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		// Create annotations
 		// http://www.eclipse.org/OCL/Import
 		createImportAnnotations();
+		// http://www.eclipse.org/emf/2002/Ecore
+		createEcoreAnnotations();
 		// http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName
 		createEmofAnnotations();
+		// http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot
+		createPivotAnnotations();
 	}
 
 	/**
@@ -4698,6 +4591,24 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		   source, 
 		   new String[] {
 			 "ecore", "http://www.eclipse.org/emf/2002/Ecore"
+		   });
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/Ecore</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createEcoreAnnotations() {
+		String source = "http://www.eclipse.org/emf/2002/Ecore";	
+		addAnnotation
+		  (this, 
+		   source, 
+		   new String[] {
+			 "invocationDelegates", "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot",
+			 "settingDelegates", "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot",
+			 "validationDelegates", "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"
 		   });
 	}
 
@@ -4742,58 +4653,88 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 			 "body", "ExpandExpr"
 		   });	
 		addAnnotation
-		  (getTerminalExpr_Terminal(), 
+		  (getStructuralSymbolReference_List(), 
 		   source, 
 		   new String[] {
-			 "body", "PropertyBindingExpr"
-		   });	
-		addAnnotation
-		  (getTerminalExpr_Terminal(), 
-		   source, 
-		   new String[] {
-			 "body", "SequenceExpr"
-		   });	
-		addAnnotation
-		  (getBooleanPropertyType_Terminal(), 
-		   source, 
-		   new String[] {
-			 "body", "StructuredPropertyType",
+			 "body", "PlainSymbolReference",
 			 "unique", "false",
 			 "upper", "*"
 		   });	
 		addAnnotation
-		  (getCompositePropertyType_List(), 
+		  (getStructuralSymbolReference_List(), 
 		   source, 
 		   new String[] {
-			 "body", "StructuredPropertyType",
+			 "body", "PlainSymbolReference",
 			 "unique", "false",
 			 "upper", "*"
 		   });	
 		addAnnotation
-		  (getReferencePropertyType_RawReference(), 
+		  (getStructuralSymbolReference_Composite(), 
+		   source, 
+		   new String[] {
+			 "body", "PlainSymbolReference"
+		   });	
+		addAnnotation
+		  (getStructuralSymbolReference_Composite(), 
+		   source, 
+		   new String[] {
+			 "body", "PlainSymbolReference"
+		   });	
+		addAnnotation
+		  (getStructuralSymbolReference_LocalScopedReference(), 
+		   source, 
+		   new String[] {
+			 "body", "PlainSymbolReference",
+			 "unique", "false",
+			 "upper", "*"
+		   });	
+		addAnnotation
+		  (getStructuralSymbolReference_LocalScopedReference(), 
+		   source, 
+		   new String[] {
+			 "body", "PlainSymbolReference",
+			 "unique", "false",
+			 "upper", "*"
+		   });	
+		addAnnotation
+		  (getKeyword_Keyword(), 
 		   source, 
 		   new String[] {
 			 "body", "MetaExpr"
 		   });	
 		addAnnotation
-		  (getReferencePropertyType_RawReference(), 
+		  (getKeyword_Keyword(), 
 		   source, 
 		   new String[] {
-			 "body", "StructuredPropertyType",
-			 "unique", "false",
-			 "upper", "*"
+			 "body", "MetaExpr"
 		   });	
 		addAnnotation
-		  (getExpandTextPart_Text(), 
+		  (getPattern_Top(), 
 		   source, 
 		   new String[] {
-			 "body", "ExpandVariablePart"
+			 "body", "QuotedStatements"
 		   });	
 		addAnnotation
-		  (getExpandTextPart_Text(), 
+		  (getPattern_Top(), 
 		   source, 
 		   new String[] {
-			 "body", "ExpansionStatement"
+			 "body", "QuotedStatements"
+		   });
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createPivotAnnotations() {
+		String source = "http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot";	
+		addAnnotation
+		  (getStructuralSymbolReference_Composite(), 
+		   source, 
+		   new String[] {
+			 "derivation", "not localScopedReference and not globalScopedReference"
 		   });
 	}
 

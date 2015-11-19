@@ -2,27 +2,25 @@
 
 module CosalExtension {
 
-extension CosalType extends dbl Class {
-	start CosalType;
-	CosalType -> "cosal" name:ID "{" StatesOptional "}";
+extension CosalClassifier extends dbl Class {
+	start CosalClassifier;
+	CosalClassifier -> "cosal" "class" name:ID
+		"{" initial:InitialState StatesOptional "}";
 	
 	StatesOptional -> states:State StatesOptional;
 	StatesOptional -> ;
 	
 	State -> NormalState;
-	State -> InitialState;
 	State -> FinalState;
+	
 	NormalState -> "state" name:ID OutgoingOptionalFirst;
-	InitialState -> "initial" outgoing:list(Transition);
+	InitialState -> "initial" outgoing:Transition;
 	FinalState -> "final" name:ID;
 	
 	OutgoingOptionalFirst -> ";";
 	OutgoingOptionalFirst -> "{" OutgoingOptional "}";
-	OutgoingOptional -> outgoing:list(Transition) OutgoingOptional;
+	OutgoingOptional -> outgoing:Transition OutgoingOptional;
 	OutgoingOptional -> ;
-	
-	//Transition -> "on" input:STRING "to" target:$$State;
-	//Transition -> "to" target:$$State;
 	
 	Transition -> InputOptional "to" target:$$State;
 	InputOptional -> "on" input:STRING;
@@ -31,7 +29,7 @@ extension CosalType extends dbl Class {
 
 extension CosalInstance extends dbl Variable {
 	start CosalInstance;
-	CosalInstance -> "cosalInstance" cosalType:$$CosalType name:ID;
+	CosalInstance -> "cosal" "object" cosalClassifier:$$CosalClassifier name:ID;
 }
 
 extension CosalInputList extends dbl Statement {

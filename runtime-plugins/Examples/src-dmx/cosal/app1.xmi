@@ -4,24 +4,34 @@
     <model href="cosal.xmi#/"/>
   </imports>
   <modules name="CosalApp1">
-    <classes xsi:type="dbl:CosalType_CosalType_extension" name="hhw" concreteSyntax="cosal hhw {&#xA;&#x9;initial to h&#xA;&#x9;state h {&#xA;&#x9;&#x9;on &quot;h&quot; to h&#xA;&#x9;&#x9;on &quot;w&quot; to end&#xA;&#x9;}&#xA;&#x9;final end&#xA;}" instanceOfExtensionDefinition="true">
-      <states xsi:type="dbl:CosalType_InitialState_extension" concreteSyntax="initial to h" instanceOfExtensionDefinition="true">
+    <classes xsi:type="dbl:CosalClassifier_CosalClassifier_extension" name="hhw" concreteSyntax="cosal class hhw {&#xA;&#x9;initial to h&#xA;&#x9;state h {&#xA;&#x9;&#x9;on &quot;h&quot; to h&#xA;&#x9;&#x9;on &quot;e&quot; to e&#xA;&#x9;&#x9;on &quot;w&quot; to end&#xA;&#x9;}&#xA;&#x9;state e {&#xA;&#x9;&#x9;on &quot;e&quot; to e&#xA;&#x9;&#x9;on &quot;w&quot; to end&#xA;&#x9;}&#xA;&#x9;final end&#xA;}" instanceOfExtensionDefinition="true">
+      <states xsi:type="dbl:CosalClassifier_InitialState_extension" concreteSyntax="initial to h" instanceOfExtensionDefinition="true">
         <outgoing concreteSyntax=" to h" instanceOfExtensionDefinition="true" target="//@modules.0/@classes.0/@states.1"/>
       </states>
-      <states xsi:type="dbl:CosalType_NormalState_extension" name="h" concreteSyntax="state h {&#xA;&#x9;&#x9;on &quot;h&quot; to h&#xA;&#x9;&#x9;on &quot;w&quot; to end&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+      <states xsi:type="dbl:CosalClassifier_NormalState_extension" name="h" concreteSyntax="state h {&#xA;&#x9;&#x9;on &quot;h&quot; to h&#xA;&#x9;&#x9;on &quot;e&quot; to e&#xA;&#x9;&#x9;on &quot;w&quot; to end&#xA;&#x9;}" instanceOfExtensionDefinition="true">
         <outgoing concreteSyntax="on &quot;h&quot; to h" instanceOfExtensionDefinition="true" input="h" target="//@modules.0/@classes.0/@states.1"/>
-        <outgoing concreteSyntax="on &quot;w&quot; to end" instanceOfExtensionDefinition="true" input="w" target="//@modules.0/@classes.0/@states.2"/>
+        <outgoing concreteSyntax="on &quot;e&quot; to e" instanceOfExtensionDefinition="true" input="e" target="//@modules.0/@classes.0/@states.2"/>
+        <outgoing concreteSyntax="on &quot;w&quot; to end" instanceOfExtensionDefinition="true" input="w" target="//@modules.0/@classes.0/@states.3"/>
       </states>
-      <states xsi:type="dbl:CosalType_FinalState_extension" name="end" concreteSyntax="final end" instanceOfExtensionDefinition="true"/>
+      <states xsi:type="dbl:CosalClassifier_NormalState_extension" name="e" concreteSyntax="state e {&#xA;&#x9;&#x9;on &quot;e&quot; to e&#xA;&#x9;&#x9;on &quot;w&quot; to end&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <outgoing concreteSyntax="on &quot;e&quot; to e" instanceOfExtensionDefinition="true" input="e" target="//@modules.0/@classes.0/@states.2"/>
+        <outgoing concreteSyntax="on &quot;w&quot; to end" instanceOfExtensionDefinition="true" input="w" target="//@modules.0/@classes.0/@states.3"/>
+      </states>
+      <states xsi:type="dbl:CosalClassifier_FinalState_extension" name="end" concreteSyntax="final end" instanceOfExtensionDefinition="true"/>
     </classes>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:CosalInstance_CosalInstance_extension" name="hhw1" concreteSyntax="cosalInstance hhw hhw1" instanceOfExtensionDefinition="true" cosalType="//@modules.0/@classes.0"/>
+      <statements xsi:type="dbl:CosalInstance_CosalInstance_extension" name="hhw1" concreteSyntax="cosal object hhw hhw1" instanceOfExtensionDefinition="true" cosalClassifier="//@modules.0/@classes.0"/>
+      <statements xsi:type="dbl:CosalInstance_CosalInstance_extension" name="hhw2" concreteSyntax="cosal object hhw hhw2" instanceOfExtensionDefinition="true" cosalClassifier="//@modules.0/@classes.0"/>
       <statements xsi:type="dbl:CosalInputList_CosalInputList_extension" concreteSyntax="send &quot;h&quot; &quot;h&quot; &quot;h&quot; &quot;w&quot; to hhw1;" instanceOfExtensionDefinition="true" cosalInstance="//@modules.0/@functions.0/@statements.0">
         <inputs concreteSyntax="&quot;h&quot;" instanceOfExtensionDefinition="true" input="h"/>
         <inputs concreteSyntax="&quot;h&quot;" instanceOfExtensionDefinition="true" input="h"/>
         <inputs concreteSyntax="&quot;h&quot;" instanceOfExtensionDefinition="true" input="h"/>
         <inputs concreteSyntax="&quot;w&quot;" instanceOfExtensionDefinition="true" input="w"/>
+      </statements>
+      <statements xsi:type="dbl:CosalInputList_CosalInputList_extension" concreteSyntax="send &quot;h&quot; &quot;e&quot; to hhw2;" instanceOfExtensionDefinition="true" cosalInstance="//@modules.0/@functions.0/@statements.1">
+        <inputs concreteSyntax="&quot;h&quot;" instanceOfExtensionDefinition="true" input="h"/>
+        <inputs concreteSyntax="&quot;e&quot;" instanceOfExtensionDefinition="true" input="e"/>
       </statements>
     </functions>
   </modules>

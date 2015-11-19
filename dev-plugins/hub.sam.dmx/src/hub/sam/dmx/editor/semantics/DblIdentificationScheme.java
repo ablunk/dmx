@@ -2,37 +2,33 @@ package hub.sam.dmx.editor.semantics;
 
 import hub.sam.dbl.AbstractVariable;
 import hub.sam.dbl.Class;
-import hub.sam.dbl.CompositePropertyType;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
 import hub.sam.dbl.ExtensibleElement;
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.Function;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Import;
-import hub.sam.dbl.LanguageConstructClassifier;
 import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaLiteral;
+import hub.sam.dbl.MetaSymbol;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.Parameter;
+import hub.sam.dbl.PlainSymbolReference;
 import hub.sam.dbl.PredefinedId;
-import hub.sam.dbl.PropertyBindingExpr;
-import hub.sam.dbl.PropertyType;
-import hub.sam.dbl.ReferencePropertyType;
-import hub.sam.dbl.RhsClassifierExpr;
-import hub.sam.dbl.RhsExpression;
-import hub.sam.dbl.SequenceExpr;
 import hub.sam.dbl.Statement;
-import hub.sam.dbl.StructuredPropertyType;
+import hub.sam.dbl.StructuralSymbolReference;
 import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.SuperLiteral;
-import hub.sam.dbl.TextualSyntaxDef;
-import hub.sam.dbl.TsRule;
+import hub.sam.dbl.SymbolSequence;
+import hub.sam.dbl.SyntaxDefinition;
+import hub.sam.dbl.SyntaxExpression;
+import hub.sam.dbl.SyntaxSymbolClassifier;
 import hub.sam.dbl.TypeLiteral;
 import hub.sam.dbl.TypedElement;
 import hub.sam.dbl.Variable;
@@ -175,41 +171,27 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 								Class parentClassifier = (Class) referencedParentElement;
 								addIdsForClassMethods(parentClassifier, namedElementId, allIds, idExpr);
 							}
-							else if (referencedParentElement instanceof PropertyBindingExpr) {
-								System.out.println("parent is property binding: " + referencedParentElement.getName());
+							else if (referencedParentElement instanceof StructuralSymbolReference) {
+								System.out.println("parent is structural symbol reference: " + referencedParentElement.getName());
 
-								PropertyBindingExpr parentPropertyBinding = (PropertyBindingExpr) referencedParentElement;
-								PropertyType propertyType = parentPropertyBinding.getPropertyType();
-								LanguageConstructClassifier langClassifier = null;
+								StructuralSymbolReference structuralSymbolReference = (StructuralSymbolReference) referencedParentElement;
 								
-								if (propertyType instanceof CompositePropertyType) {
-									CompositePropertyType compositePropertyType = (CompositePropertyType) propertyType;
-									langClassifier = compositePropertyType.getType();
-									
-									if (compositePropertyType.isList()) {
-										// find type stdlib.List and add its methods
-										Class listClassifier = findImportedClass(containerModel, "List");
-										if (listClassifier != null) {
-											addIdsForMethods(listClassifier, namedElementId, allIds, idExpr);
-										}
-									}
-									else {
-										if (langClassifier != null && langClassifier instanceof Class) {
-											Class classifierRhsType = (Class) langClassifier;
-											addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
-										}										
+								if (structuralSymbolReference.isList()) {
+									// find type stdlib.List and add its methods
+									Class listClassifier = findImportedClass(containerModel, "List");
+									if (listClassifier != null) {
+										addIdsForMethods(listClassifier, namedElementId, allIds, idExpr);
 									}
 								}
-								else if (propertyType instanceof ReferencePropertyType) {
-									ReferencePropertyType referencePropertyType = (ReferencePropertyType) propertyType;
-									langClassifier = referencePropertyType.getType();
-
-									if (langClassifier != null && langClassifier instanceof Class) {
-										Class classifierRhsType = (Class) langClassifier;
+								else {
+									SyntaxSymbolClassifier symbolClassifier = structuralSymbolReference.getClassifier();
+									
+									if (symbolClassifier != null && symbolClassifier instanceof Class) {
+										Class classifierRhsType = (Class) symbolClassifier;
 										addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
 									}
+									// TODO what about the other Concepts ??
 								}
-								
 							}
 						}
 						
@@ -285,25 +267,25 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						// idres ...
 //						addIdsForIdResolution(idExpr, namedElementId, allIds);
 						
-						// rules and properties defined in the current extension definition
-						ExtensionSemanticsDefinition semanticsDef = getContainerObjectOfType(idExpr, ExtensionSemanticsDefinition.class);
-						if (!otherIdsHidden && semanticsDef != null) {
-							ExtensionDefinition extDef = semanticsDef.getSyntaxDefinition();
-							TsRule firstRule = extDef.getTextualSyntaxDef().getRules().get(0);
+						// symbols and properties defined in the current extension definition
+						ExtensionSemantics semantics = getContainerObjectOfType(idExpr, ExtensionSemantics.class);
+						if (!otherIdsHidden && semantics != null) {
+							Extension extDef = semantics.getSyntaxDefinition();
+							MetaSymbol firstRule = extDef.getSyntaxDefinition().getSymbols().get(0);
 							
-							// add all properties that are accessible from the first rule
-							Stack<TsRule> ruleStack = new Stack<TsRule>();
-							ruleStack.push(firstRule);
-							addIdsForRhsExpressionsTree(firstRule.getRhs(), ruleStack, namedElementId, allIds);
-							ruleStack.pop();
+							// add all properties that are accessible from the first symbol
+							Stack<MetaSymbol> symbolStack = new Stack<MetaSymbol>();
+							symbolStack.push(firstRule);
+							addIdsForSyntaxExpressionsTree(firstRule.getPossibleSyntax(), symbolStack, namedElementId, allIds);
+							symbolStack.pop();
 							
-							// add types of assigned rules
-							addId(namedElementId, extDef.getTextualSyntaxDef().getStartRule(), allIds);
-							for (TsRule rule: extDef.getTextualSyntaxDef().getRules()) {
-								addIdsForAssignedRules(rule.getRhs(), namedElementId, allIds);
+							// add types of assigned symbols
+							addId(namedElementId, extDef.getSyntaxDefinition().getStartSymbol(), allIds);
+							for (MetaSymbol symbol: extDef.getSyntaxDefinition().getSymbols()) {
+								addIdsForStructuralSymbols(symbol.getPossibleSyntax(), namedElementId, allIds);
 								
-								// also add types of indirectly assigned rules, e.g. in "M -> a:A; A -> B; B -> x:X;" the rule B is indirectly an assigned rule
-								TsRule directReductionTarget = checkForDirectReductionToOtherRule(rule);
+								// also add types of indirectly assigned symbols, e.g. in "M -> a:A; A -> B; B -> x:X;" the symbol B is indirectly an assigned symbol
+								MetaSymbol directReductionTarget = checkForDirectReductionToOtherRule(symbol);
 								if (directReductionTarget != null) {
 									addId(namedElementId, directReductionTarget, allIds);
 								}
@@ -319,7 +301,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						if (containerModule.eContainer() instanceof Model) {
 							Model model = (Model) containerModule.eContainer();
 							if (!otherIdsHidden) {
-								otherIdsHidden = addIdsForImports(model, namedElementId.getName(), allIds);
+								otherIdsHidden = addIdsForImportedConcepts(model, namedElementId.getName(), allIds);
 							}
 						}
 					}
@@ -352,13 +334,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 								Class parentClassifier = (Class) referencedParentElement;
 								addIdsForClassAttributes(parentClassifier, namedElementId, allIds);
 							}
-							else if (referencedParentElement instanceof PropertyBindingExpr) {
-								PropertyBindingExpr parentPropertyBinding = (PropertyBindingExpr) referencedParentElement;
-								PropertyType parentPropertyType = parentPropertyBinding.getPropertyType();
-								if (parentPropertyType instanceof StructuredPropertyType) {
-									StructuredPropertyType structuredParentPropertyType = (StructuredPropertyType) parentPropertyType;
-									addIdsForPropertiesOfLanguageConstructClassifier(structuredParentPropertyType.getType(), namedElementId, allIds);
-								}
+							else if (referencedParentElement instanceof StructuralSymbolReference) {
+								StructuralSymbolReference parentStructuralSymbolReference = (StructuralSymbolReference) referencedParentElement;
+								addIdsForPropertiesOfSyntaxSymbolClassifier(parentStructuralSymbolReference.getClassifier(), namedElementId, allIds);								
 							}
 							else {
 								System.out.println("unknown parent element: " + referencedParentElement.getName());
@@ -389,25 +367,17 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				//}
 				
 			}
-			else if (context instanceof ReferencePropertyType || context instanceof CompositePropertyType) {
-				Module containerModule = getContainerObjectOfType(context, Module.class);
-				if (containerModule != null) {
-					addIds(namedElementId, containerModule.getClasses(), allIds);
-				}				
+			else if (context instanceof PlainSymbolReference || context instanceof StructuralSymbolReference) {
+				addIdsForSyntaxSymbolClassifiers(context, namedElementId.getName(), allIds);
 			}
-			else if (context instanceof TextualSyntaxDef) {
-				addIdsForTsRules(context, namedElementId.getName(), allIds);
+			else if (context instanceof SyntaxDefinition) {
+				addIdsForMetaSymbols(context, namedElementId.getName(), allIds);
 			}
-			else if (context instanceof ExtensionDefinition) {
-				addIdsForLanguageConceptClassifiers(context, namedElementId.getName(), allIds);
-			}
-			else if (context instanceof RhsExpression) {
-				if (context instanceof RhsClassifierExpr) {
-					addIdsForLanguageConstructClassifiers(context, namedElementId.getName(), allIds);
-				}
+			else if (context instanceof Extension || context instanceof ExtensionSemantics) {
+				addIdsForConcepts(context, namedElementId.getName(), allIds);
 			}
 			else if (identifier instanceof Class) {
-				addIdsForClassifiers(context, namedElementId.getName(), allIds);
+				addIdsForConcepts(context, namedElementId.getName(), allIds);
 			}
 			else if (identifier instanceof Variable) {
 				// TODO extract and include variable resolution from above here
@@ -439,10 +409,10 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				&& (type.getName().equals("Class") || type.getName().equals("Interface") || type.getName().equals("Classifier"))
 				|| type instanceof Class) {
 			
-			addIdsForClassifiers(context, (String) identifier, allIds);
+			addIdsForConcepts(context, (String) identifier, allIds);
 		}
-		else if (identifier instanceof String && (type.getName().equals("LanguageConstructClassifier") || type instanceof LanguageConstructClassifier)) {
-			addIdsForLanguageConstructClassifiers(context, (String) identifier, allIds);
+		else if (identifier instanceof String && (type.getName().equals("SyntaxSymbolClassifier") || type instanceof SyntaxSymbolClassifier)) {
+			addIdsForSyntaxSymbolClassifiers(context, (String) identifier, allIds);
 		}
 
 		// necessary by raw references to global names
@@ -509,28 +479,28 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		if (typedElement.getTypeArrayDimensions().isEmpty()) {
 			if (typedElement.getClassifierType() != null) {
 				NamedElement type = typedElement.getClassifierType().getReferencedElement();
-				if (type instanceof LanguageConstructClassifier) { // includes Classifiers and TsRules
-					LanguageConstructClassifier langClassifier = (LanguageConstructClassifier) type;
-					addIdsForPropertiesOfLanguageConstructClassifier(langClassifier, namedElementId, allIds);
+				if (type instanceof SyntaxSymbolClassifier) { // includes Classifiers and TsRules
+					SyntaxSymbolClassifier symbolClassifier = (SyntaxSymbolClassifier) type;
+					addIdsForPropertiesOfSyntaxSymbolClassifier(symbolClassifier, namedElementId, allIds);
 				}
 			}
 		}
 	}
 
-	private boolean addIdsForPropertiesOfLanguageConstructClassifier(LanguageConstructClassifier langClassifier, NamedElement namedElementId,
+	private boolean addIdsForPropertiesOfSyntaxSymbolClassifier(SyntaxSymbolClassifier symbolClassifier, NamedElement namedElementId,
 			Collection<Object> allIds) {
-		if (langClassifier instanceof Class) {
-			Class clazz = (Class) langClassifier;
+		if (symbolClassifier instanceof Class) {
+			Class clazz = (Class) symbolClassifier;
 			return addIdsForAttributes(clazz, namedElementId, allIds);
 		}
-		else if (langClassifier instanceof TsRule) {
-			TsRule entryRule = (TsRule) langClassifier;
+		else if (symbolClassifier instanceof MetaSymbol) {
+			MetaSymbol entryRule = (MetaSymbol) symbolClassifier;
 			boolean idsAdded = false;
-			for (TsRule rule: getAllTsRules(entryRule)) {
-				Stack<TsRule> ruleStack = new Stack<TsRule>();
-				ruleStack.push(rule);
-				idsAdded |= addIdsForRhsExpressionsTree(rule.getRhs(), ruleStack, namedElementId, allIds);
-				ruleStack.pop();
+			for (MetaSymbol symbol: getAllMetaSymbols(entryRule)) {
+				Stack<MetaSymbol> symbolStack = new Stack<MetaSymbol>();
+				symbolStack.push(symbol);
+				idsAdded |= addIdsForSyntaxExpressionsTree(symbol.getPossibleSyntax(), symbolStack, namedElementId, allIds);
+				symbolStack.pop();
 			}
 			return idsAdded;
 		}
@@ -538,41 +508,40 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	}
 	
 	/**
-	 * Collects all TS rules that have the same name as the given TS rule.
+	 * Collects all TS symbols that have the same name as the given TS symbol.
 	 * 
-	 * @param tsRule
+	 * @param metaSymbol
 	 * @return
 	 */
-	private Collection<TsRule> getAllTsRules(TsRule tsRule) {
-		Collection<TsRule> rules = new HashSet<TsRule>();
-		rules.add(tsRule);
-		for (TsRule otherTsRule: ((TextualSyntaxDef) tsRule.eContainer()).getRules()) {
-			if (otherTsRule.getName().equals(tsRule.getName())) {
-				rules.add(otherTsRule);
+	private Collection<MetaSymbol> getAllMetaSymbols(MetaSymbol metaSymbol) {
+		Collection<MetaSymbol> symbols = new HashSet<MetaSymbol>();
+		symbols.add(metaSymbol);
+		for (MetaSymbol otherTsRule: ((SyntaxDefinition) metaSymbol.eContainer()).getSymbols()) {
+			if (otherTsRule.getName().equals(metaSymbol.getName())) {
+				symbols.add(otherTsRule);
 			}
 		}
-		return rules;
+		return symbols;
 	}
 
-	private EList<PropertyBindingExpr> getPropertyBindings(TsRule tsRule) {
-		EList<PropertyBindingExpr> definedProperties = new BasicEList<PropertyBindingExpr>();
-		collectPropertyBindings(tsRule.getRhs(), definedProperties);
-		return definedProperties;
+	private EList<StructuralSymbolReference> getStructuralSymbolReferences(MetaSymbol metaSymbol) {
+		EList<StructuralSymbolReference> references = new BasicEList<StructuralSymbolReference>();
+		collectStructuralSymbolReferences(metaSymbol.getPossibleSyntax(), references);
+		return references;
 	}
 
-	private void collectPropertyBindings(RhsExpression expr, EList<PropertyBindingExpr> definedProperties) {
-		if (expr instanceof PropertyBindingExpr) {
-			PropertyBindingExpr bindingExpr = (PropertyBindingExpr) expr;
-			definedProperties.add(bindingExpr);
+	private void collectStructuralSymbolReferences(SyntaxExpression expr, EList<StructuralSymbolReference> references) {
+		if (expr instanceof StructuralSymbolReference) {
+			references.add((StructuralSymbolReference) expr);
 			return;
 		}
-		if (expr instanceof RhsClassifierExpr) {
-			RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr) expr;
-			LanguageConstructClassifier langClassifier = rhsClassifierExpr.getClassifier();
+		if (expr instanceof PlainSymbolReference) {
+			PlainSymbolReference rhsClassifierExpr = (PlainSymbolReference) expr;
+			SyntaxSymbolClassifier symbolClassifier = rhsClassifierExpr.getClassifier();
 			
-			if (langClassifier instanceof TsRule) {
-				TsRule tsRule = (TsRule) langClassifier;
-				collectPropertyBindings(tsRule.getRhs(), definedProperties);
+			if (symbolClassifier instanceof MetaSymbol) {
+				MetaSymbol metaSymbol = (MetaSymbol) symbolClassifier;
+				collectStructuralSymbolReferences(metaSymbol.getPossibleSyntax(), references);
 			}
 			else {
 				// TODO
@@ -580,52 +549,48 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		}
 		else {
 			for (EObject content: expr.eContents()) {
-				if (content instanceof RhsExpression) {
-					RhsExpression subExpr = (RhsExpression) content;
-					collectPropertyBindings(subExpr, definedProperties);
+				if (content instanceof SyntaxExpression) {
+					SyntaxExpression subExpr = (SyntaxExpression) content;
+					collectStructuralSymbolReferences(subExpr, references);
 				}
 			}
 		}
 	}
 
-	private void addIdsForAssignedRules(RhsExpression expr, NamedElement namedElementId, Collection<Object> allIds) {
-		if (expr instanceof PropertyBindingExpr) {
-			PropertyBindingExpr bindingExpr = (PropertyBindingExpr) expr;
-			PropertyType bindingType = bindingExpr.getPropertyType();
-			if (bindingType instanceof StructuredPropertyType) {
-				StructuredPropertyType structuredBindingType = (StructuredPropertyType) bindingType;
-				addId(namedElementId, structuredBindingType.getType(), allIds);
-			}
+	private void addIdsForStructuralSymbols(SyntaxExpression expr, NamedElement namedElementId, Collection<Object> allIds) {
+		if (expr instanceof StructuralSymbolReference) {
+			StructuralSymbolReference symbolRef = (StructuralSymbolReference) expr;
+			addId(namedElementId, symbolRef.getClassifier(), allIds);
 		}
 		else {
 			for (EObject content: expr.eContents()) {
-				if (content instanceof RhsExpression) {
-					RhsExpression subExpr = (RhsExpression) content;
-					addIdsForAssignedRules(subExpr, namedElementId, allIds);
+				if (content instanceof SyntaxExpression) {
+					SyntaxExpression subExpr = (SyntaxExpression) content;
+					addIdsForStructuralSymbols(subExpr, namedElementId, allIds);
 				}
 			}
 		}
 	}
 	
 	/**
-	 * If the given rule directly reduces to a single other rule, the other rule is returned.
-	 * Example: If invoked for the rule A in "A -> B; B -> x:X;", the rule B is returned.
-	 * @param tsRule
+	 * If the given symbol directly reduces to a single other symbol, the other symbol is returned.
+	 * Example: If invoked for the symbol A in "A -> B; B -> x:X;", the symbol B is returned.
+	 * @param metaSymbol
 	 * @return
 	 */
-	private TsRule checkForDirectReductionToOtherRule(TsRule tsRule) {
-		RhsExpression expr = tsRule.getRhs();
-		if (expr instanceof SequenceExpr) {
-			SequenceExpr seqExpr = (SequenceExpr) expr;
+	private MetaSymbol checkForDirectReductionToOtherRule(MetaSymbol metaSymbol) {
+		SyntaxExpression expr = metaSymbol.getPossibleSyntax();
+		if (expr instanceof SymbolSequence) {
+			SymbolSequence seqExpr = (SymbolSequence) expr;
 			if (seqExpr.getSequence().size() == 1) {
-				RhsExpression firstExpr = seqExpr.getSequence().get(0);
+				SyntaxExpression firstExpr = seqExpr.getSequence().get(0);
 				
-				if (firstExpr instanceof RhsClassifierExpr) {
-					RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr) firstExpr;
-					LanguageConstructClassifier langClassifier = rhsClassifierExpr.getClassifier();
+				if (firstExpr instanceof PlainSymbolReference) {
+					PlainSymbolReference plainSymbolRef = (PlainSymbolReference) firstExpr;
+					SyntaxSymbolClassifier symbolClassifier = plainSymbolRef.getClassifier();
 					
-					if (langClassifier instanceof TsRule) {
-						TsRule referencedTsRule = (TsRule) langClassifier;
+					if (symbolClassifier instanceof MetaSymbol) {
+						MetaSymbol referencedTsRule = (MetaSymbol) symbolClassifier;
 						return referencedTsRule;
 					}
 				}
@@ -683,10 +648,10 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 //		}		
 //	}
 
-	private boolean addIdsForTsRules(EObject context, String identifier, Collection<Object> allIds) {
-		ExtensionDefinition extensionDef = getContainerObjectOfType(context, ExtensionDefinition.class);
-		if (extensionDef != null) {
-			addIds(identifier, extensionDef.getTextualSyntaxDef().getRules(), allIds);
+	private boolean addIdsForMetaSymbols(EObject context, String identifier, Collection<Object> allIds) {
+		Extension extension = getContainerObjectOfType(context, Extension.class);
+		if (extension != null) {
+			addIds(identifier, extension.getSyntaxDefinition().getSymbols(), allIds);
 			if (allIds.size() > 1) {
 				Object first = allIds.iterator().next();
 				allIds.clear();
@@ -697,57 +662,59 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return false;
 	}
 	
-	private boolean addIdsForLanguageConceptClassifiers(EObject context, String identifier, Collection<Object> allIds) {
+//	private boolean addIdsForConcepts(EObject context, String identifier, Collection<Object> allIds) {
+//		boolean idsAdded = false;
+//		
+//		idsAdded |= addIdsForClassifiers(context, identifier, allIds);
+//
+//		Module containerModule = getContainerObjectOfType(context, Module.class);
+//		if (containerModule != null) {
+//			for (Extension otherExtension : containerModule.getExtensions()) {
+//				idsAdded |= addId(identifier, otherExtension, allIds);
+//			}
+//		}
+//		
+//		return idsAdded;
+//	}
+
+	private boolean addIdsForSyntaxSymbolClassifiers(EObject context, String identifier, Collection<Object> allIds) {
 		boolean idsAdded = false;
 		
-		idsAdded |= addIdsForClassifiers(context, identifier, allIds);
-
-		Module containerModule = getContainerObjectOfType(context, Module.class);
-		if (containerModule != null) {
-			for (ExtensionDefinition otherExtDef : containerModule.getExtensionDefinitions()) {
-				idsAdded |= addId(identifier, otherExtDef, allIds);
-			}
-		}
+		idsAdded |= addIdsForMetaSymbols(context, identifier, allIds);
+		idsAdded |= addIdsForConcepts(context, identifier, allIds);
 		
 		return idsAdded;
 	}
 
-	private boolean addIdsForLanguageConstructClassifiers(EObject context, String identifier, Collection<Object> allIds) {
-		boolean idsAdded = false;
-		
-		idsAdded |= addIdsForTsRules(context, identifier, allIds);
-
-		idsAdded |= addIdsForLanguageConceptClassifiers(context, identifier, allIds);
-		
-		return idsAdded;
-	}
-
-	private boolean addIdsForClassifiers(EObject context, String identifier, Collection<Object> allIds) {
+	private boolean addIdsForConcepts(EObject context, String identifier, Collection<Object> allIds) {
 		boolean idsAdded = false;
 
 		Module containerModule = getContainerObjectOfType(context, Module.class);
 		if (containerModule != null) {
 			
 			idsAdded |= addIds(identifier, containerModule.getClasses(), allIds);
+			idsAdded |= addIds(identifier, containerModule.getExtensions(), allIds);
+			
 			if (!idsAdded) {
 				if (containerModule.eContainer() instanceof Model) {
 					Model model = (Model) containerModule.eContainer();
-					idsAdded = addIdsForImports(model, identifier, allIds);
+					idsAdded = addIdsForImportedConcepts(model, identifier, allIds);
 				}
 			}			
 		}
 		return idsAdded;
 	}
 	
-	private boolean addIdsForImports(Model model, String identifier, Collection<Object> allIds) {
+	private boolean addIdsForImportedConcepts(Model model, String identifier, Collection<Object> allIds) {
 		boolean idsAdded = false;
 		for (Import imprt: model.getImports()) {
 			if (imprt.getModel() != null) {
 				for (Module importedModule: imprt.getModel().getModules()) {
 					idsAdded |= addIds(identifier, importedModule.getClasses(), allIds);
+					idsAdded |= addIds(identifier, importedModule.getExtensions(), allIds);
 				}
 				if (!idsAdded) {
-					idsAdded = addIdsForImports(imprt.getModel(), identifier, allIds);
+					idsAdded = addIdsForImportedConcepts(imprt.getModel(), identifier, allIds);
 				}
 			}
 		}
@@ -770,40 +737,40 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return null;
 	}
 	
-	private boolean addIdsForRhsExpressionsTree(RhsExpression expr, Stack<TsRule> ruleStack, NamedElement eObjectId, Collection<Object> allIds) {
-		if (expr instanceof PropertyBindingExpr) {
-			PropertyBindingExpr bindingExpr = (PropertyBindingExpr) expr;
+	private boolean addIdsForSyntaxExpressionsTree(SyntaxExpression expr, Stack<MetaSymbol> symbolStack, NamedElement eObjectId, Collection<Object> allIds) {
+		if (expr instanceof StructuralSymbolReference) {
+			StructuralSymbolReference bindingExpr = (StructuralSymbolReference) expr;
 			return addId(eObjectId, bindingExpr, allIds);
 		}
-		if (expr instanceof RhsClassifierExpr) {
-			RhsClassifierExpr rhsClassifierExpr = (RhsClassifierExpr) expr;
-			LanguageConstructClassifier langClassifier = rhsClassifierExpr.getClassifier();
+		if (expr instanceof PlainSymbolReference) {
+			PlainSymbolReference plainSymbolRef = (PlainSymbolReference) expr;
+			SyntaxSymbolClassifier symbolClassifier = plainSymbolRef.getClassifier();
 
-			if (langClassifier instanceof TsRule) {
-				TsRule entryRule = (TsRule) langClassifier;
+			if (symbolClassifier instanceof MetaSymbol) {
+				MetaSymbol entryRule = (MetaSymbol) symbolClassifier;
 				
 				boolean idsAdded = false;
-				for (TsRule rule: getAllTsRules(entryRule)) {
-					if (!ruleStack.contains(rule)) { // prevents endless recursion
-						RhsExpression rhsExpr = rule.getRhs();
-						ruleStack.push(rule);
-						idsAdded |= addIdsForRhsExpressionsTree(rhsExpr, ruleStack, eObjectId, allIds);
-						ruleStack.pop();
+				for (MetaSymbol symbol: getAllMetaSymbols(entryRule)) {
+					if (!symbolStack.contains(symbol)) { // prevents endless recursion
+						SyntaxExpression rhsExpr = symbol.getPossibleSyntax();
+						symbolStack.push(symbol);
+						idsAdded |= addIdsForSyntaxExpressionsTree(rhsExpr, symbolStack, eObjectId, allIds);
+						symbolStack.pop();
 					}
 				}
 				return idsAdded;
 			}
-			else if (langClassifier instanceof Class) {
-				Class clazz = (Class) langClassifier;
+			else if (symbolClassifier instanceof Class) {
+				Class clazz = (Class) symbolClassifier;
 				return addIdsForAttributes(clazz, eObjectId, allIds);
 			}
 		}
 		else {
 			boolean idsAdded = false;
 			for (EObject content: expr.eContents()) {
-				if (content instanceof RhsExpression) {
-					RhsExpression subExpr = (RhsExpression) content;
-					idsAdded |= addIdsForRhsExpressionsTree(subExpr, ruleStack, eObjectId, allIds);
+				if (content instanceof SyntaxExpression) {
+					SyntaxExpression subExpr = (SyntaxExpression) content;
+					idsAdded |= addIdsForSyntaxExpressionsTree(subExpr, symbolStack, eObjectId, allIds);
 				}
 			}
 			return idsAdded;
@@ -899,7 +866,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						idsAdded |= addId(eObjectId, method, allIds);
 					}
 				}
-				idsAdded |= addIdsForInheritedMethods(superClass, eObjectId, allIds, idExpr);
+				if (!idsAdded) {
+					idsAdded |= addIdsForInheritedMethods(superClass, eObjectId, allIds, idExpr);
+				}
 			}
 		}
 
@@ -1002,7 +971,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			// add methods
 			for (Function method: clazz.getMethods()) {
 				if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
-					idsAdded = addId(identifier, method, allIds);
+					idsAdded |= addId(identifier, method, allIds);
 				}
 			}
 
@@ -1022,7 +991,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			// add methods
 			for (Function method: getClassMethods(clazz.getMethods())) {
 				if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
-					idsAdded = addId(identifier, method, allIds);
+					idsAdded |= addId(identifier, method, allIds);
 				}
 			}
 

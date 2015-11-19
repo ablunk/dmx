@@ -10,12 +10,12 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Variable#isControl <em>Control</em>}</li>
  *   <li>{@link hub.sam.dbl.Variable#isClass <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.Variable#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getVariable()
  * @model

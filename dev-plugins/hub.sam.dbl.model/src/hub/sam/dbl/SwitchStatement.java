@@ -11,12 +11,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.SwitchStatement#getVariable <em>Variable</em>}</li>
  *   <li>{@link hub.sam.dbl.SwitchStatement#getCases <em>Cases</em>}</li>
  *   <li>{@link hub.sam.dbl.SwitchStatement#getDefaultCase <em>Default Case</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getSwitchStatement()
  * @model

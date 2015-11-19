@@ -4,6 +4,11 @@
   <eAnnotations source="http://www.eclipse.org/OCL/Import">
     <details key="ecore" value="http://www.eclipse.org/emf/2002/Ecore"/>
   </eAnnotations>
+  <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+    <details key="invocationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="settingDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+    <details key="validationDelegates" value="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot"/>
+  </eAnnotations>
   <eClassifiers xsi:type="ecore:EClass" name="Construct">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expandExpr" lowerBound="1"
         eType="#//ExpandExpr" containment="true"/>
@@ -13,15 +18,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="instanceOfExtensionDefinition"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder1" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder2" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder3" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder4" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder5" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder6" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder8" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder9" eType="#//ExtensibleElement"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="placeHolder10" eType="#//ExtensibleElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Model">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
@@ -36,14 +32,26 @@
   <eClassifiers xsi:type="ecore:EClass" name="Module" eSuperTypes="#//NamedElement #//ConstructiveExtensionAtContentExtensionPoint #//Construct">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classes" upperBound="-1"
         eType="#//Class" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extensionDefinitions" upperBound="-1"
-        eType="#//ExtensionDefinition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extensionSemanticsDefinitions"
-        upperBound="-1" eType="#//ExtensionSemanticsDefinition" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extensions" upperBound="-1"
+        eType="#//Extension" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extensionSemantics" upperBound="-1"
+        eType="#//ExtensionSemantics" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="functions" upperBound="-1"
         eType="#//Function" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
         eType="#//Variable" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Annotation" eSuperTypes="#//NamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="items" upperBound="-1"
+        eType="#//AnnotationItem" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AnnotationItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="key" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AnnotateableElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="annotations" upperBound="-1"
+        eType="#//Annotation" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConstructiveExtension" eSuperTypes="#//ExtensibleElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConstructiveExtensionAtContentExtensionPoint"
@@ -51,8 +59,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="contentExtensions" upperBound="-1"
         eType="#//ConstructiveExtension" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ModuleContent" eSuperTypes="#//ConstructiveExtension"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ClassContent" eSuperTypes="#//ConstructiveExtension"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ModuleContentExtension" eSuperTypes="#//ConstructiveExtension"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ClassContentExtension" eSuperTypes="#//ConstructiveExtension"/>
   <eClassifiers xsi:type="ecore:EClass" name="Type" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="arrayDimensions" upperBound="-1"
         eType="#//ArrayDimension" containment="true"/>
@@ -108,7 +116,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructorArguments" ordered="false"
         upperBound="-1" eType="#//Expression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//NamedElement #//Type #//ConstructiveExtensionAtContentExtensionPoint #//LanguageConceptClassifier #//Construct">
+  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//NamedElement #//Type #//ConstructiveExtensionAtContentExtensionPoint #//Concept #//Construct #//AnnotateableElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="active" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false">
       <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
@@ -134,7 +142,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="owningClass" lowerBound="1"
         eType="#//Class" eOpposite="#//Class/constructors"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement #//TypedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractVariable" abstract="true" eSuperTypes="#//NamedElement #//TypedElement #//AnnotateableElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//AbstractVariable #//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="control" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
@@ -147,7 +155,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Statement" eSuperTypes="#//ExtensibleElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Statement" eSuperTypes="#//ExtensibleElement #//AnnotateableElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="LoopStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SimpleStatement" eSuperTypes="#//Statement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Assignment" eSuperTypes="#//SimpleStatement">
@@ -288,10 +296,6 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UniqueIdExpr" eSuperTypes="#//Expression">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpandExpr" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" lowerBound="1" eType="#//Expression"
         containment="true"/>
@@ -306,6 +310,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="MetaLiteral" eSuperTypes="#//PredefinedId"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeLiteral" eSuperTypes="#//PredefinedId"/>
   <eClassifiers xsi:type="ecore:EClass" name="SizeOfArray" eSuperTypes="#//PredefinedId"/>
+  <eClassifiers xsi:type="ecore:EClass" name="AnnotationLiteral" eSuperTypes="#//PredefinedId #//Annotation"/>
   <eClassifiers xsi:type="ecore:EClass" name="IdExpr" eSuperTypes="#//L1Expr">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentIdExpr" eType="#//IdExpr"
         containment="true"/>
@@ -328,96 +333,101 @@
   <eClassifiers xsi:type="ecore:EClass" name="VariableAccess" eSuperTypes="#//ElementAccess"/>
   <eClassifiers xsi:type="ecore:EClass" name="MetaAccess" eSuperTypes="#//VariableAccess"/>
   <eClassifiers xsi:type="ecore:EClass" name="TypeAccess" eSuperTypes="#//ElementAccess"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtensionDefinition" eSuperTypes="#//LanguageConceptClassifier #//ExtensibleElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="extendedConcept" lowerBound="1"
-        eType="#//LanguageConceptClassifier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="abstractSyntaxDef" eType="#//Class"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="textualSyntaxDef" lowerBound="1"
-        eType="#//TextualSyntaxDef" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExtensionSemanticsDefinition" eSuperTypes="#//ExtensibleElement #//LocalScope">
+  <eClassifiers xsi:type="ecore:EClass" name="Extension" eSuperTypes="#//Concept #//ExtensibleElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="extensionPoint" lowerBound="1"
+        eType="#//Concept"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="syntaxDefinition" lowerBound="1"
-        eType="#//ExtensionDefinition"/>
+        eType="#//SyntaxDefinition" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TextualSyntaxDef" eSuperTypes="#//ExtensibleElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="startRule" lowerBound="1"
-        eType="#//TsRule"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rules" upperBound="-1"
-        eType="#//TsRule" containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExtensionSemantics" eSuperTypes="#//ExtensibleElement #//LocalScope">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="syntaxDefinition" lowerBound="1"
+        eType="#//Extension"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="LanguageConstructClassifier" abstract="true"
-      eSuperTypes="#//NamedElement #//ExtensibleElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="LanguageConceptClassifier" abstract="true"
-      eSuperTypes="#//LanguageConstructClassifier"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TsRule" eSuperTypes="#//NamedElement #//LanguageConstructClassifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="rhs" lowerBound="1" eType="#//RhsExpression"
-        containment="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SyntaxDefinition" eSuperTypes="#//ExtensibleElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="startSymbol" lowerBound="1"
+        eType="#//MetaSymbol"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="symbols" upperBound="-1"
+        eType="#//MetaSymbol" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RhsExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="L3RhsExpr" eSuperTypes="#//RhsExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="L2RhsExpr" eSuperTypes="#//RhsExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SequenceExpr" eSuperTypes="#//L2RhsExpr">
+  <eClassifiers xsi:type="ecore:EClass" name="SyntaxSymbolClassifier" eSuperTypes="#//NamedElement #//ExtensibleElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexSymbol" eSuperTypes="#//SyntaxSymbolClassifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Concept" eSuperTypes="#//ComplexSymbol"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MetaSymbol" eSuperTypes="#//NamedElement #//ComplexSymbol">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="possibleSyntax" lowerBound="1"
+        eType="#//SyntaxExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SyntaxExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="L3SyntaxExpression" eSuperTypes="#//SyntaxExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="L2SyntaxExpression" eSuperTypes="#//SyntaxExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SymbolSequence" eSuperTypes="#//L2SyntaxExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="sequence" upperBound="-1"
-        eType="#//RhsExpression" containment="true"/>
+        eType="#//SyntaxExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="L1RhsExpr" eSuperTypes="#//RhsExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="TerminalExpr" eSuperTypes="#//L1RhsExpr">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminal" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="PropertyBindingExpr"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="SequenceExpr"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyBindingExpr" eSuperTypes="#//NamedElement #//L1RhsExpr">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertyType" lowerBound="1"
-        eType="#//PropertyType" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RhsClassifierExpr" eSuperTypes="#//L1RhsExpr">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
-        eType="#//LanguageConstructClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PropertyType" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IdPropertyType" eSuperTypes="#//PropertyType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IntPropertyType" eSuperTypes="#//PropertyType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StringPropertyType" eSuperTypes="#//PropertyType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="BooleanPropertyType" eSuperTypes="#//PropertyType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="terminal" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="StructuredPropertyType"/>
-        <details key="unique" value="false"/>
-        <details key="upper" value="*"/>
-      </eAnnotations>
-    </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StructuredPropertyType" eSuperTypes="#//PropertyType">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" lowerBound="1" eType="#//LanguageConstructClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CompositePropertyType" eSuperTypes="#//StructuredPropertyType">
+  <eClassifiers xsi:type="ecore:EClass" name="L1SyntaxExpression" eSuperTypes="#//SyntaxExpression"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StructuralSymbolReference" eSuperTypes="#//NamedElement #//PlainSymbolReference">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="list" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false">
       <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="StructuredPropertyType"/>
+        <details key="body" value="PlainSymbolReference"/>
+        <details key="unique" value="false"/>
+        <details key="upper" value="*"/>
+      </eAnnotations>
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="PlainSymbolReference"/>
         <details key="unique" value="false"/>
         <details key="upper" value="*"/>
       </eAnnotations>
     </eStructuralFeatures>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ReferencePropertyType" eSuperTypes="#//StructuredPropertyType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="rawReference" lowerBound="1"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="composite" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" changeable="false"
+        volatile="true" transient="true" derived="true">
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="PlainSymbolReference"/>
+      </eAnnotations>
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="PlainSymbolReference"/>
+      </eAnnotations>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore/OCL/Pivot">
+        <details key="derivation" value="not localScopedReference and not globalScopedReference"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="localScopedReference" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false">
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="PlainSymbolReference"/>
+        <details key="unique" value="false"/>
+        <details key="upper" value="*"/>
+      </eAnnotations>
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="PlainSymbolReference"/>
+        <details key="unique" value="false"/>
+        <details key="upper" value="*"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="globalScopedReference"
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="false"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PlainSymbolReference" eSuperTypes="#//L1SyntaxExpression">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" lowerBound="1"
+        eType="#//SyntaxSymbolClassifier" changeable="false" volatile="true" transient="true"
+        derived="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedClassifier" eType="#//SyntaxSymbolClassifier"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedClassifier" eType="#//SyntaxSymbolClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementarySymbol" abstract="true" eSuperTypes="#//SyntaxSymbolClassifier"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IdSymbol" eSuperTypes="#//ElementarySymbol"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IntSymbol" eSuperTypes="#//ElementarySymbol"/>
+  <eClassifiers xsi:type="ecore:EClass" name="StringSymbol" eSuperTypes="#//ElementarySymbol"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Keyword" eSuperTypes="#//ElementarySymbol">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="keyword" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
       <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
         <details key="body" value="MetaExpr"/>
       </eAnnotations>
       <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="StructuredPropertyType"/>
-        <details key="unique" value="false"/>
-        <details key="upper" value="*"/>
+        <details key="body" value="MetaExpr"/>
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
@@ -425,11 +435,20 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" lowerBound="1" eType="#//Expression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="TargetStatement" eSuperTypes="#//Statement">
+  <eClassifiers xsi:type="ecore:EClass" name="TargetStatement" eSuperTypes="#//SimpleStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Statement"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExpansionStatement" eSuperTypes="#//Statement">
+  <eClassifiers xsi:type="ecore:EClass" name="CreateIdStatement" eSuperTypes="#//Variable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExpansionStatement" eSuperTypes="#//SimpleStatement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="classContext" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionContext" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableContext" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="differingContext" eType="#//IdExpr"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parts" upperBound="-1"
         eType="#//ExpansionPart" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="exprs" upperBound="-1"
@@ -437,32 +456,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpansionPart" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExpandTextPart" eSuperTypes="#//ExpansionPart">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="ExpandVariablePart"/>
-      </eAnnotations>
-      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
-        <details key="body" value="ExpansionStatement"/>
-      </eAnnotations>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpandVariablePart" eSuperTypes="#//ExpansionPart">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expr" lowerBound="1" eType="#//Expression"
         containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SetExpansionContextStatement" eSuperTypes="#//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="context" lowerBound="1"
-        eType="#//Expression" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="addAfterContext" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SaveGenStatement" eSuperTypes="#//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
-        eType="#//Expression" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ResumeGenStatement" eSuperTypes="#//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="variable" lowerBound="1"
-        eType="#//Expression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExpandExpression" eSuperTypes="#//Expression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="metaObject" lowerBound="1"
@@ -491,7 +489,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="QuotedModuleContent" eSuperTypes="#//QuotedCode #//Module"/>
   <eClassifiers xsi:type="ecore:EClass" name="Pattern" eSuperTypes="#//NamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="top" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
-        defaultValueLiteral="false"/>
+        defaultValueLiteral="false">
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="QuotedStatements"/>
+      </eAnnotations>
+      <eAnnotations source="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName">
+        <details key="body" value="QuotedStatements"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" lowerBound="1"
         eType="#//Parameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="body" lowerBound="1" eType="#//Statement"

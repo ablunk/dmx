@@ -321,11 +321,6 @@ public class ExpandStatementItemProvider extends StatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_STATEMENT__META_OBJECT,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
@@ -547,11 +542,6 @@ public class ExpandStatementItemProvider extends StatementItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.EXPAND_STATEMENT__LOCATION,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter

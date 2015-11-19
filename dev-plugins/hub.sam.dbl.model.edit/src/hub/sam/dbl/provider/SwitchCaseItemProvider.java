@@ -335,11 +335,6 @@ public class SwitchCaseItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SWITCH_CASE__VALUE,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__VALUE,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
@@ -500,22 +495,12 @@ public class SwitchCaseItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.SWITCH_CASE__BODY,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.SWITCH_CASE__BODY,
 				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createSetExpansionContextStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createSaveGenStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.SWITCH_CASE__BODY,
-				 DblFactory.eINSTANCE.createResumeGenStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter

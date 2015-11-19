@@ -4,8 +4,6 @@
  */
 package hub.sam.dbl.validation;
 
-import hub.sam.dbl.ExtensibleElement;
-
 
 /**
  * A sample validator interface for {@link hub.sam.dbl.ExtensibleElement}.
@@ -18,22 +16,4 @@ public interface ExtensibleElementValidator {
 
 	boolean validateConcreteSyntax(String value);
 	boolean validateInstanceOfExtensionDefinition(boolean value);
-
-	boolean validatePlaceHolder1(ExtensibleElement value);
-
-	boolean validatePlaceHolder2(ExtensibleElement value);
-
-	boolean validatePlaceHolder3(ExtensibleElement value);
-
-	boolean validatePlaceHolder4(ExtensibleElement value);
-
-	boolean validatePlaceHolder5(ExtensibleElement value);
-
-	boolean validatePlaceHolder6(ExtensibleElement value);
-
-	boolean validatePlaceHolder8(ExtensibleElement value);
-
-	boolean validatePlaceHolder9(ExtensibleElement value);
-
-	boolean validatePlaceHolder10(ExtensibleElement value);
 }

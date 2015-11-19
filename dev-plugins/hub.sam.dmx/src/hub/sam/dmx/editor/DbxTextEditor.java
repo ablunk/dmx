@@ -3,8 +3,8 @@ package hub.sam.dmx.editor;
 import hub.sam.dbl.Model;
 import hub.sam.dmx.Activator;
 import hub.sam.dmx.editor.modelcreation.DbxModelCreationContext;
-import hub.sam.dmx.editor.semantics.ExtensionDefinitionManager;
-import hub.sam.dmx.editor.semantics.IExtensionDefinitionApplier;
+import hub.sam.dmx.editor.semantics.ExtensionManager;
+import hub.sam.dmx.editor.semantics.IExtensionApplier;
 import hub.sam.tef.TEFPlugin;
 import hub.sam.tef.Utilities;
 import hub.sam.tef.editor.SourceViewerConfiguration;
@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.framework.Bundle;
 
-public class DbxTextEditor extends DblTextEditor implements IExtensionDefinitionApplier {
+public class DbxTextEditor extends DblTextEditor implements IExtensionApplier {
 
 	@Override
 	protected String getMetaModelPath() {
@@ -30,11 +30,11 @@ public class DbxTextEditor extends DblTextEditor implements IExtensionDefinition
 		}
 	}
 	
-	private ExtensionDefinitionManager _extensionDefinitionManager;
+	private ExtensionManager _extensionDefinitionManager;
 	
-	private ExtensionDefinitionManager getExtensionDefinitionManager() {
+	private ExtensionManager getExtensionDefinitionManager() {
 		if (_extensionDefinitionManager == null) {
-			_extensionDefinitionManager = new ExtensionDefinitionManager(getSyntax(), getDblMetaModel());
+			_extensionDefinitionManager = new ExtensionManager(getSyntax(), getDblMetaModel());
 		}
 		return _extensionDefinitionManager;
 	}
@@ -60,8 +60,8 @@ public class DbxTextEditor extends DblTextEditor implements IExtensionDefinition
 		fireRccSyntaxChanged();
 	}
 
-	public boolean addExtensionDefinitions(Model model) {		
-		boolean added = getExtensionDefinitionManager().addExtensionDefinitions(model);
+	public boolean addExtensions(Model model) {		
+		boolean added = getExtensionDefinitionManager().addExtensions(model);
 		
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
 			public void run() {
@@ -74,8 +74,8 @@ public class DbxTextEditor extends DblTextEditor implements IExtensionDefinition
 		return added;
 	}
 	
-	public void unwindExtensionDefinitionEffects(Model model) {
-		getExtensionDefinitionManager().unwindExtensionDefinitionEffects(model);
+	public void unwindExtensionEffects(Model model) {
+		getExtensionDefinitionManager().unwindExtensionEffects(model);
 	}
 
 	@Override

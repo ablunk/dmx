@@ -4,8 +4,8 @@
  */
 package hub.sam.dbl.validation;
 
-import hub.sam.dbl.ExtensionDefinition;
-import hub.sam.dbl.ExtensionSemanticsDefinition;
+import hub.sam.dbl.Extension;
+import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.Function;
 import hub.sam.dbl.Variable;
 
@@ -21,8 +21,8 @@ public interface ModuleValidator {
 	boolean validate();
 
 	boolean validateClasses(EList<hub.sam.dbl.Class> value);
-	boolean validateExtensionDefinitions(EList<ExtensionDefinition> value);
-	boolean validateExtensionSemanticsDefinitions(EList<ExtensionSemanticsDefinition> value);
+	boolean validateExtensions(EList<Extension> value);
+	boolean validateExtensionSemantics(EList<ExtensionSemantics> value);
 	boolean validateFunctions(EList<Function> value);
 	boolean validateVariables(EList<Variable> value);
 }

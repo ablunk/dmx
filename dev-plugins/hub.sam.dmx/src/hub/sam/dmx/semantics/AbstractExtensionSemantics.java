@@ -30,7 +30,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 public abstract class AbstractExtensionSemantics {
 
 	protected ModificationsRecord record;
-	protected Modification currentModification;
+	protected Modification substitution;
+	protected Modification currentAddition;
 	protected EObject extensionInstance;
 	protected String extensionInstanceUri;
 	protected String inputPath;
@@ -104,10 +105,13 @@ public abstract class AbstractExtensionSemantics {
 					record.getModifications().clear();
 				}
 				
+				substitution = ModificationsFactory.eINSTANCE.createSubstitution();
+				substitution.setSourceEObjectUri(extensionInstanceUri);
+				substitution.setReplacementText("");
+				record.getModifications().add(substitution);
+
 				extensionInstance = eblProgramResource.getEObject(extensionInstanceUri);
-				setExpand(extensionInstance);
 				doGenerate(extensionInstance);
-				addCurrentModification();
 				
 				modificationsResource.save(Collections.EMPTY_MAP);
 			}
@@ -181,40 +185,16 @@ public abstract class AbstractExtensionSemantics {
 		return false;
 	}
 	
-	protected void setExpand(Object positionObject) {
-		setExpand(positionObject, true);
+	protected void expandAtDifferentPosition(String text, EObject positionObject) {
+		Addition addition = ModificationsFactory.eINSTANCE.createAddition();
+		addition.setSourceEObjectUri(getEmfUriFragment(positionObject));
+		addition.setReplacementText(text);
+		addition.setAddAfterPosition(true);
+		record.getModifications().add(addition);
 	}
 	
-	protected void setExpand(Object positionObject, boolean addAfterEObject) {
-		if (positionObject == extensionInstance) {
-			addCurrentModification();
-
-			currentModification = ModificationsFactory.eINSTANCE.createSubstitution();
-			currentModification.setSourceEObjectUri(extensionInstanceUri);
-			currentModification.setReplacementText("");
-		}
-		else if (positionObject instanceof EObject) {
-			EObject positionEObject = (EObject) positionObject;
-			
-			addCurrentModification();
-			
-			Addition addition = ModificationsFactory.eINSTANCE.createAddition();
-			addition.setSourceEObjectUri(getEmfUriFragment(positionEObject));
-			addition.setReplacementText("");
-			addition.setAddAfterPosition(addAfterEObject);
-
-			currentModification = addition;
-		}
-	}
-	
-	private void addCurrentModification() {
-		if (currentModification != null && currentModification.getReplacementText() != null && !currentModification.getReplacementText().equals("")) {
-			record.getModifications().add(currentModification);
-		}
-	}
-
-	protected void expand(String str) {
-		currentModification.setReplacementText(currentModification.getReplacementText() + str);
+	protected void expandAtExtensionPosition(String text) {
+		substitution.setReplacementText(substitution.getReplacementText() + text);
 	}
 	
 }

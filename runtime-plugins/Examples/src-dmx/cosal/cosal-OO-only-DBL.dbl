@@ -1,0 +1,65 @@
+#import "../dbl"
+#import "../stdlib"
+
+module cosal {
+
+class CosalClassifier extends Class {
+	InitialState initial;
+	List states; // TODO: type parameters require inside out template extension
+}
+
+class State extends ExtensibleElement {
+	List outgoing;
+}
+
+class InitialState extends ExtensibleElement {
+}
+
+class NormalState extends State {
+}
+
+class FinalState extends State {
+}
+
+class Transition extends ExtensibleElement {
+	string input;
+	State target;
+}
+
+class CosalInstance extends Variable {
+	CosalClassifier cosalClassifier;
+	State currentState; // part of runtime state
+}
+
+CosalClassifier buildCosalClassifier_extensionInstance_hhw() {
+	CosalClassifier hhw = new CosalClassifier;
+
+	InitialState i = new InitialState;
+	hhw.initial = i;
+
+	NormalState h = new NormalState;
+	h.name = "h";
+	hhw.states.add(h);
+	
+	return hhw;
+}
+
+CosalClassifier hhw_extensionInstance = buildCosalClassifier_extensionInstance_hhw();
+
+class CosalRuntime
+@debug(context="yes")
+{
+	CosalClassifier classifier
+		@debug(editorExtensionInstance="app1.xmi#//@modules.0/@classes.0")
+		// stellt den Bezug zur Erweiterungsinstanz im Editor her
+	;
+	State currentState;
+	
+	new() {
+		currentState = classifier.initial
+			@debug(positionObject="app1.xmi#//@modules.0/@classes.0/@states.1")
+		;
+	}
+}
+
+}

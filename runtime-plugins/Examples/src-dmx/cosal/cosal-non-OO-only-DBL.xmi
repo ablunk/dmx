@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <modules name="cosal">
+    <classes name="CosalClassifier">
+      <attributes name="name">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="inputs">
+        <classifierType>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3"/>
+        </classifierType>
+        <annotations name="debug">
+          <items key="state" value="Eingangspuffer"/>
+        </annotations>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="currentStateName">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="endStateReached">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <annotations name="debug">
+          <items key="state" value="Endzustand erreicht"/>
+        </annotations>
+        <initialValue xsi:type="dbl:FalseLiteral"/>
+      </attributes>
+      <methods name="consumeInputs" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+    </classes>
+    <classes name="hhw_CosalClassifier">
+      <annotations name="debug">
+        <items key="context" value="app1.xmi#//@modules.0/@classes.0"/>
+      </annotations>
+      <superClasses class="//@modules.0/@classes.0"/>
+      <constructors>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:StringLiteral" value="hhw"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <annotations name="debug">
+            <items key="positionObject" value="app1.xmi#//@modules.0/@classes.0/@states.1"/>
+          </annotations>
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+          </variable>
+          <value xsi:type="dbl:StringLiteral" value="h"/>
+        </statements>
+      </constructors>
+      <methods name="consumeInputs">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:And">
+            <op1 xsi:type="dbl:Greater">
+              <op1 xsi:type="dbl:IdExpr">
+                <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.4"/>
+                <callPart/>
+              </op1>
+              <op2 xsi:type="dbl:IntLiteral"/>
+            </op1>
+            <op2 xsi:type="dbl:Not">
+              <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.3"/>
+            </op2>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Variable" name="input">
+              <primitiveType xsi:type="dbl:StringType"/>
+              <initialValue xsi:type="dbl:Cast">
+                <primitiveType xsi:type="dbl:StringType"/>
+                <op xsi:type="dbl:IdExpr">
+                  <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1"/>
+                  <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
+                  <callPart>
+                    <callArguments xsi:type="dbl:IntLiteral"/>
+                  </callPart>
+                </op>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:FunctionCall">
+              <callIdExpr>
+                <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.8"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:IfStatement">
+              <condition xsi:type="dbl:Equal">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+                <op2 xsi:type="dbl:StringLiteral" value="h"/>
+              </condition>
+              <trueCase xsi:type="dbl:LocalScopeStatement">
+                <statements xsi:type="dbl:IfStatement">
+                  <condition xsi:type="dbl:Equal">
+                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                    <op2 xsi:type="dbl:StringLiteral" value="h"/>
+                  </condition>
+                  <trueCase xsi:type="dbl:LocalScopeStatement">
+                    <statements xsi:type="dbl:Assignment">
+                      <annotations name="debug">
+                        <items key="positionObject" value="app1.xmi#//@modules.0/@classes.0/@states.1"/>
+                      </annotations>
+                      <variable>
+                        <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+                      </variable>
+                      <value xsi:type="dbl:StringLiteral" value="h"/>
+                    </statements>
+                    <statements xsi:type="dbl:Assignment">
+                      <variable>
+                        <idExpr referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                      </variable>
+                      <value xsi:type="dbl:NullLiteral"/>
+                    </statements>
+                  </trueCase>
+                  <falseCase xsi:type="dbl:IfStatement">
+                    <condition xsi:type="dbl:Equal">
+                      <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                      <op2 xsi:type="dbl:StringLiteral" value="e"/>
+                    </condition>
+                    <trueCase xsi:type="dbl:LocalScopeStatement">
+                      <statements xsi:type="dbl:Assignment">
+                        <annotations name="debug">
+                          <items key="positionObject" value="app1.xmi#//@modules.0/@classes.0/@states.2"/>
+                        </annotations>
+                        <variable>
+                          <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+                        </variable>
+                        <value xsi:type="dbl:StringLiteral" value="e"/>
+                      </statements>
+                      <statements xsi:type="dbl:Assignment">
+                        <variable>
+                          <idExpr referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                        </variable>
+                        <value xsi:type="dbl:NullLiteral"/>
+                      </statements>
+                    </trueCase>
+                    <falseCase xsi:type="dbl:IfStatement">
+                      <condition xsi:type="dbl:Equal">
+                        <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                        <op2 xsi:type="dbl:StringLiteral" value="w"/>
+                      </condition>
+                      <trueCase xsi:type="dbl:LocalScopeStatement">
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+                          </variable>
+                          <value xsi:type="dbl:StringLiteral" value="end"/>
+                        </statements>
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.3"/>
+                          </variable>
+                          <value xsi:type="dbl:TrueLiteral"/>
+                        </statements>
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                          </variable>
+                          <value xsi:type="dbl:NullLiteral"/>
+                        </statements>
+                      </trueCase>
+                    </falseCase>
+                  </falseCase>
+                </statements>
+              </trueCase>
+              <falseCase xsi:type="dbl:IfStatement">
+                <condition xsi:type="dbl:Equal">
+                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="e"/>
+                </condition>
+                <trueCase xsi:type="dbl:LocalScopeStatement">
+                  <statements xsi:type="dbl:IfStatement">
+                    <condition xsi:type="dbl:Equal">
+                      <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                      <op2 xsi:type="dbl:StringLiteral" value="e"/>
+                    </condition>
+                    <trueCase xsi:type="dbl:LocalScopeStatement">
+                      <statements xsi:type="dbl:Assignment">
+                        <variable>
+                          <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+                        </variable>
+                        <value xsi:type="dbl:StringLiteral" value="e"/>
+                      </statements>
+                      <statements xsi:type="dbl:Assignment">
+                        <variable>
+                          <idExpr referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                        </variable>
+                        <value xsi:type="dbl:NullLiteral"/>
+                      </statements>
+                    </trueCase>
+                    <falseCase xsi:type="dbl:IfStatement">
+                      <condition xsi:type="dbl:Equal">
+                        <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                        <op2 xsi:type="dbl:StringLiteral" value="w"/>
+                      </condition>
+                      <trueCase xsi:type="dbl:LocalScopeStatement">
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+                          </variable>
+                          <value xsi:type="dbl:StringLiteral" value="end"/>
+                        </statements>
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.3"/>
+                          </variable>
+                          <value xsi:type="dbl:TrueLiteral"/>
+                        </statements>
+                        <statements xsi:type="dbl:Assignment">
+                          <variable>
+                            <idExpr referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                          </variable>
+                          <value xsi:type="dbl:NullLiteral"/>
+                        </statements>
+                      </trueCase>
+                    </falseCase>
+                  </statements>
+                </trueCase>
+              </falseCase>
+            </statements>
+            <statements xsi:type="dbl:IfStatement">
+              <condition xsi:type="dbl:Equal">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@methods.0/@statements.0/@body/@statements.0"/>
+                <op2 xsi:type="dbl:NullLiteral"/>
+              </condition>
+              <trueCase xsi:type="dbl:LocalScopeStatement">
+                <statements xsi:type="dbl:Print">
+                  <outputs xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="consumed: "/>
+                    <op2 xsi:type="dbl:StringLiteral" value="h\n"/>
+                  </outputs>
+                </statements>
+              </trueCase>
+              <falseCase xsi:type="dbl:LocalScopeStatement">
+                <statements xsi:type="dbl:Print">
+                  <outputs xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="discarded: "/>
+                    <op2 xsi:type="dbl:StringLiteral" value="h\n"/>
+                  </outputs>
+                </statements>
+              </falseCase>
+            </statements>
+          </body>
+        </statements>
+      </methods>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="hhw1">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="hhw2">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="h"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="h"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="h"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="w"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr referencedElement="//@modules.0/@classes.1/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          <callPart/>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="h"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:StringLiteral" value="e"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr referencedElement="//@modules.0/@classes.1/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1"/>
+          <callPart/>
+        </callIdExpr>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

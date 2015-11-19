@@ -10,11 +10,11 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.ExpandStatement#getMetaObject <em>Meta Object</em>}</li>
  *   <li>{@link hub.sam.dbl.ExpandStatement#getLocation <em>Location</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getExpandStatement()
  * @model

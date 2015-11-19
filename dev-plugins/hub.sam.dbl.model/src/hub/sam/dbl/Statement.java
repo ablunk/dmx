@@ -13,5 +13,5 @@ package hub.sam.dbl;
  * @model
  * @generated
  */
-public interface Statement extends ExtensibleElement {
+public interface Statement extends ExtensibleElement, AnnotateableElement {
 } // Statement

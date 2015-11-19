@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Model#getImports <em>Imports</em>}</li>
  *   <li>{@link hub.sam.dbl.Model#getModules <em>Modules</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getModel()
  * @model

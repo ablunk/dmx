@@ -333,11 +333,6 @@ public class ArrayDimensionItemProvider
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.ARRAY_DIMENSION__SIZE,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.ARRAY_DIMENSION__SIZE,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

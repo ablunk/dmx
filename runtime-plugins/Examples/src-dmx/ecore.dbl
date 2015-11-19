@@ -67,7 +67,7 @@ ENamedElement
 	
 	string instanceClassName;
 	void setInstanceClassName(string value) abstract;
-	Class instanceClass;
+	Object instanceClass;
 	Object defaultValue;
 	string instanceTypeName;
 	void setInstanceTypeName(string value) abstract;
@@ -147,26 +147,37 @@ class Enumerator {
 		"java" -> "org.eclipse.emf.common.util.Enumerator"
 	}
 }
-
-class EObject {
+class EList extends List {
+	bindings {
+		"java" -> "org.eclipse.emf.common.util.EList"
+	}
+	void move(int newPos, Object object) abstract;
+	void move(int newPos, int oldPos) abstract;
+}
+class EmfEObject {
 	bindings {
 		"java" -> "org.eclipse.emf.ecore.EObject"
 	}
 	EClass eClass() abstract;
-	//Resource eResource() abstract;
 	EObject eContainer() abstract;
 	EStructuralFeature eContainingFeature() abstract;
 	EReference eContainmentFeature() abstract;
-	List eContents() abstract;
-	List eAllContents() abstract;
+	EList eContents() abstract;
+	EList eAllContents() abstract;
 	//boolean eIsProxy() abstract;
-	//EList eCrossReferences() abstract;
+	EList eCrossReferences() abstract;
 	Object eGet(EStructuralFeature feature) abstract;
 	Object eGet(EStructuralFeature feature, boolean resolve) abstract;
 	void eSet(EStructuralFeature feature, Object newValue) abstract;
 	boolean eIsSet(EStructuralFeature feature) abstract;
 	void eUnset(EStructuralFeature feature) abstract;
 	//Object eInvoke(EOperation operation, Object array[] arguments) abstract;
+}
+class EObject extends EmfEObject {
+	bindings {
+		"java" -> "hub.sam.dbl.DblEObject"
+	}
+	string getURI() abstract;
 }
 class EOperation
 extends 

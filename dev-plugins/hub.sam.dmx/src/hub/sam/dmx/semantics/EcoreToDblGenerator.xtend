@@ -52,9 +52,10 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		val it = feature
 		'''
 		«genAttribute»
-		«IF changeable»
-			«genSetter»
-		«ENDIF»
+		«genGetter»
+«««		«IF changeable»
+«««			«genSetter»
+«««		«ENDIF»
 		'''
 	}
 	
@@ -110,25 +111,40 @@ class EcoreToDblGenerator extends AbstractGenerator {
 					"java" -> "org.eclipse.emf.common.util.Enumerator"
 				}
 			}
+			
+			class Resource {
+				bindings {
+					"java" -> "org.eclipse.emf.ecore.resource.Resource"
+				}
+				string getURIFragment(EObject eObject) abstract;
+			}
+			
+			string getURI(EObject eObject) {
+				return eObject.eResource().getURIFragment(eObject);
+			}
+			
+			class EList extends List {
+				void move(int newPos, Object object) abstract;
+				void move(int newPos, int oldPos) abstract;
+			}
 
 			class EObject {
 				bindings {
 					"java" -> "org.eclipse.emf.ecore.EObject"
 				}
 				EClass eClass() abstract;
-				//Resource eResource() abstract;
 				EObject eContainer() abstract;
 				EStructuralFeature eContainingFeature() abstract;
 				EReference eContainmentFeature() abstract;
-				List eContents() abstract;
-				List eAllContents() abstract;
-				//boolean eIsProxy() abstract;
-				//EList eCrossReferences() abstract;
+				EList eContents() abstract;
+				EList eAllContents() abstract;
+				EList eCrossReferences() abstract;
 				Object eGet(EStructuralFeature feature) abstract;
 				Object eGet(EStructuralFeature feature, boolean resolve) abstract;
 				void eSet(EStructuralFeature feature, Object newValue) abstract;
 				boolean eIsSet(EStructuralFeature feature) abstract;
 				void eUnset(EStructuralFeature feature) abstract;
+				//boolean eIsProxy() abstract;
 				//Object eInvoke(EOperation operation, Object array[] arguments) abstract;
 			}
 			'''
@@ -139,8 +155,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		val it = typedElement
 		if (EType != null) {
 			if (many) {
-				//'''«EType.name» array[]'''
-				'List'
+				'EList'
 			}
 			else {
 				switch (EType.name) {
@@ -150,7 +165,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 					case 'EBoolean': 'boolean'
 					case 'EString': 'string'
 					case 'EJavaObject': 'Object'
-					case 'EJavaClass': 'Class'
+					case 'EJavaClass': 'JavaClass'
 					case 'EEnumerator': 'Enumerator'
 					default: EType.name
 				}

@@ -187,6 +187,75 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Annotation} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnnotationItemProvider annotationItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.Annotation}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAnnotationAdapter() {
+		if (annotationItemProvider == null) {
+			annotationItemProvider = new AnnotationItemProvider(this);
+		}
+
+		return annotationItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.AnnotationItem} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnnotationItemItemProvider annotationItemItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.AnnotationItem}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAnnotationItemAdapter() {
+		if (annotationItemItemProvider == null) {
+			annotationItemItemProvider = new AnnotationItemItemProvider(this);
+		}
+
+		return annotationItemItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.AnnotateableElement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnnotateableElementItemProvider annotateableElementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.AnnotateableElement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAnnotateableElementAdapter() {
+		if (annotateableElementItemProvider == null) {
+			annotateableElementItemProvider = new AnnotateableElementItemProvider(this);
+		}
+
+		return annotateableElementItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ConstructiveExtension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -210,49 +279,49 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ModuleContent} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ModuleContentExtension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ModuleContentItemProvider moduleContentItemProvider;
+	protected ModuleContentExtensionItemProvider moduleContentExtensionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ModuleContent}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ModuleContentExtension}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createModuleContentAdapter() {
-		if (moduleContentItemProvider == null) {
-			moduleContentItemProvider = new ModuleContentItemProvider(this);
+	public Adapter createModuleContentExtensionAdapter() {
+		if (moduleContentExtensionItemProvider == null) {
+			moduleContentExtensionItemProvider = new ModuleContentExtensionItemProvider(this);
 		}
 
-		return moduleContentItemProvider;
+		return moduleContentExtensionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ClassContent} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ClassContentExtension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ClassContentItemProvider classContentItemProvider;
+	protected ClassContentExtensionItemProvider classContentExtensionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ClassContent}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ClassContentExtension}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createClassContentAdapter() {
-		if (classContentItemProvider == null) {
-			classContentItemProvider = new ClassContentItemProvider(this);
+	public Adapter createClassContentExtensionAdapter() {
+		if (classContentExtensionItemProvider == null) {
+			classContentExtensionItemProvider = new ClassContentExtensionItemProvider(this);
 		}
 
-		return classContentItemProvider;
+		return classContentExtensionItemProvider;
 	}
 
 	/**
@@ -1935,29 +2004,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.UniqueIdExpr} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected UniqueIdExprItemProvider uniqueIdExprItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.UniqueIdExpr}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createUniqueIdExprAdapter() {
-		if (uniqueIdExprItemProvider == null) {
-			uniqueIdExprItemProvider = new UniqueIdExprItemProvider(this);
-		}
-
-		return uniqueIdExprItemProvider;
-	}
-
-	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExpandExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2142,6 +2188,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.AnnotationLiteral} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected AnnotationLiteralItemProvider annotationLiteralItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.AnnotationLiteral}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createAnnotationLiteralAdapter() {
+		if (annotationLiteralItemProvider == null) {
+			annotationLiteralItemProvider = new AnnotationLiteralItemProvider(this);
+		}
+
+		return annotationLiteralItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.IdExpr} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2257,440 +2326,417 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensionDefinition} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Extension} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ExtensionDefinitionItemProvider extensionDefinitionItemProvider;
+	protected ExtensionItemProvider extensionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ExtensionDefinition}.
+	 * This creates an adapter for a {@link hub.sam.dbl.Extension}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createExtensionDefinitionAdapter() {
-		if (extensionDefinitionItemProvider == null) {
-			extensionDefinitionItemProvider = new ExtensionDefinitionItemProvider(this);
+	public Adapter createExtensionAdapter() {
+		if (extensionItemProvider == null) {
+			extensionItemProvider = new ExtensionItemProvider(this);
 		}
 
-		return extensionDefinitionItemProvider;
+		return extensionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensionSemanticsDefinition} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ExtensionSemantics} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ExtensionSemanticsDefinitionItemProvider extensionSemanticsDefinitionItemProvider;
+	protected ExtensionSemanticsItemProvider extensionSemanticsItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ExtensionSemanticsDefinition}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ExtensionSemantics}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createExtensionSemanticsDefinitionAdapter() {
-		if (extensionSemanticsDefinitionItemProvider == null) {
-			extensionSemanticsDefinitionItemProvider = new ExtensionSemanticsDefinitionItemProvider(this);
+	public Adapter createExtensionSemanticsAdapter() {
+		if (extensionSemanticsItemProvider == null) {
+			extensionSemanticsItemProvider = new ExtensionSemanticsItemProvider(this);
 		}
 
-		return extensionSemanticsDefinitionItemProvider;
+		return extensionSemanticsItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.TextualSyntaxDef} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SyntaxDefinition} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TextualSyntaxDefItemProvider textualSyntaxDefItemProvider;
+	protected SyntaxDefinitionItemProvider syntaxDefinitionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.TextualSyntaxDef}.
+	 * This creates an adapter for a {@link hub.sam.dbl.SyntaxDefinition}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createTextualSyntaxDefAdapter() {
-		if (textualSyntaxDefItemProvider == null) {
-			textualSyntaxDefItemProvider = new TextualSyntaxDefItemProvider(this);
+	public Adapter createSyntaxDefinitionAdapter() {
+		if (syntaxDefinitionItemProvider == null) {
+			syntaxDefinitionItemProvider = new SyntaxDefinitionItemProvider(this);
 		}
 
-		return textualSyntaxDefItemProvider;
+		return syntaxDefinitionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.TsRule} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SyntaxSymbolClassifier} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TsRuleItemProvider tsRuleItemProvider;
+	protected SyntaxSymbolClassifierItemProvider syntaxSymbolClassifierItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.TsRule}.
+	 * This creates an adapter for a {@link hub.sam.dbl.SyntaxSymbolClassifier}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createTsRuleAdapter() {
-		if (tsRuleItemProvider == null) {
-			tsRuleItemProvider = new TsRuleItemProvider(this);
+	public Adapter createSyntaxSymbolClassifierAdapter() {
+		if (syntaxSymbolClassifierItemProvider == null) {
+			syntaxSymbolClassifierItemProvider = new SyntaxSymbolClassifierItemProvider(this);
 		}
 
-		return tsRuleItemProvider;
+		return syntaxSymbolClassifierItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.RhsExpression} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ComplexSymbol} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RhsExpressionItemProvider rhsExpressionItemProvider;
+	protected ComplexSymbolItemProvider complexSymbolItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.RhsExpression}.
+	 * This creates an adapter for a {@link hub.sam.dbl.ComplexSymbol}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createRhsExpressionAdapter() {
-		if (rhsExpressionItemProvider == null) {
-			rhsExpressionItemProvider = new RhsExpressionItemProvider(this);
+	public Adapter createComplexSymbolAdapter() {
+		if (complexSymbolItemProvider == null) {
+			complexSymbolItemProvider = new ComplexSymbolItemProvider(this);
 		}
 
-		return rhsExpressionItemProvider;
+		return complexSymbolItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L3RhsExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Concept} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected L3RhsExprItemProvider l3RhsExprItemProvider;
+	protected ConceptItemProvider conceptItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.L3RhsExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.Concept}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createL3RhsExprAdapter() {
-		if (l3RhsExprItemProvider == null) {
-			l3RhsExprItemProvider = new L3RhsExprItemProvider(this);
+	public Adapter createConceptAdapter() {
+		if (conceptItemProvider == null) {
+			conceptItemProvider = new ConceptItemProvider(this);
 		}
 
-		return l3RhsExprItemProvider;
+		return conceptItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L2RhsExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.MetaSymbol} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected L2RhsExprItemProvider l2RhsExprItemProvider;
+	protected MetaSymbolItemProvider metaSymbolItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.L2RhsExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.MetaSymbol}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createL2RhsExprAdapter() {
-		if (l2RhsExprItemProvider == null) {
-			l2RhsExprItemProvider = new L2RhsExprItemProvider(this);
+	public Adapter createMetaSymbolAdapter() {
+		if (metaSymbolItemProvider == null) {
+			metaSymbolItemProvider = new MetaSymbolItemProvider(this);
 		}
 
-		return l2RhsExprItemProvider;
+		return metaSymbolItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SequenceExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SyntaxExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected SequenceExprItemProvider sequenceExprItemProvider;
+	protected SyntaxExpressionItemProvider syntaxExpressionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.SequenceExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.SyntaxExpression}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createSequenceExprAdapter() {
-		if (sequenceExprItemProvider == null) {
-			sequenceExprItemProvider = new SequenceExprItemProvider(this);
+	public Adapter createSyntaxExpressionAdapter() {
+		if (syntaxExpressionItemProvider == null) {
+			syntaxExpressionItemProvider = new SyntaxExpressionItemProvider(this);
 		}
 
-		return sequenceExprItemProvider;
+		return syntaxExpressionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L1RhsExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L3SyntaxExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected L1RhsExprItemProvider l1RhsExprItemProvider;
+	protected L3SyntaxExpressionItemProvider l3SyntaxExpressionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.L1RhsExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.L3SyntaxExpression}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createL1RhsExprAdapter() {
-		if (l1RhsExprItemProvider == null) {
-			l1RhsExprItemProvider = new L1RhsExprItemProvider(this);
+	public Adapter createL3SyntaxExpressionAdapter() {
+		if (l3SyntaxExpressionItemProvider == null) {
+			l3SyntaxExpressionItemProvider = new L3SyntaxExpressionItemProvider(this);
 		}
 
-		return l1RhsExprItemProvider;
+		return l3SyntaxExpressionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.TerminalExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L2SyntaxExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected TerminalExprItemProvider terminalExprItemProvider;
+	protected L2SyntaxExpressionItemProvider l2SyntaxExpressionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.TerminalExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.L2SyntaxExpression}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createTerminalExprAdapter() {
-		if (terminalExprItemProvider == null) {
-			terminalExprItemProvider = new TerminalExprItemProvider(this);
+	public Adapter createL2SyntaxExpressionAdapter() {
+		if (l2SyntaxExpressionItemProvider == null) {
+			l2SyntaxExpressionItemProvider = new L2SyntaxExpressionItemProvider(this);
 		}
 
-		return terminalExprItemProvider;
+		return l2SyntaxExpressionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.PropertyBindingExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SymbolSequence} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected PropertyBindingExprItemProvider propertyBindingExprItemProvider;
+	protected SymbolSequenceItemProvider symbolSequenceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.PropertyBindingExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.SymbolSequence}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createPropertyBindingExprAdapter() {
-		if (propertyBindingExprItemProvider == null) {
-			propertyBindingExprItemProvider = new PropertyBindingExprItemProvider(this);
+	public Adapter createSymbolSequenceAdapter() {
+		if (symbolSequenceItemProvider == null) {
+			symbolSequenceItemProvider = new SymbolSequenceItemProvider(this);
 		}
 
-		return propertyBindingExprItemProvider;
+		return symbolSequenceItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.RhsClassifierExpr} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.L1SyntaxExpression} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected RhsClassifierExprItemProvider rhsClassifierExprItemProvider;
+	protected L1SyntaxExpressionItemProvider l1SyntaxExpressionItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.RhsClassifierExpr}.
+	 * This creates an adapter for a {@link hub.sam.dbl.L1SyntaxExpression}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createRhsClassifierExprAdapter() {
-		if (rhsClassifierExprItemProvider == null) {
-			rhsClassifierExprItemProvider = new RhsClassifierExprItemProvider(this);
+	public Adapter createL1SyntaxExpressionAdapter() {
+		if (l1SyntaxExpressionItemProvider == null) {
+			l1SyntaxExpressionItemProvider = new L1SyntaxExpressionItemProvider(this);
 		}
 
-		return rhsClassifierExprItemProvider;
+		return l1SyntaxExpressionItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.IdPropertyType} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.StructuralSymbolReference} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IdPropertyTypeItemProvider idPropertyTypeItemProvider;
+	protected StructuralSymbolReferenceItemProvider structuralSymbolReferenceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.IdPropertyType}.
+	 * This creates an adapter for a {@link hub.sam.dbl.StructuralSymbolReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createIdPropertyTypeAdapter() {
-		if (idPropertyTypeItemProvider == null) {
-			idPropertyTypeItemProvider = new IdPropertyTypeItemProvider(this);
+	public Adapter createStructuralSymbolReferenceAdapter() {
+		if (structuralSymbolReferenceItemProvider == null) {
+			structuralSymbolReferenceItemProvider = new StructuralSymbolReferenceItemProvider(this);
 		}
 
-		return idPropertyTypeItemProvider;
+		return structuralSymbolReferenceItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.IntPropertyType} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.PlainSymbolReference} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected IntPropertyTypeItemProvider intPropertyTypeItemProvider;
+	protected PlainSymbolReferenceItemProvider plainSymbolReferenceItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.IntPropertyType}.
+	 * This creates an adapter for a {@link hub.sam.dbl.PlainSymbolReference}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createIntPropertyTypeAdapter() {
-		if (intPropertyTypeItemProvider == null) {
-			intPropertyTypeItemProvider = new IntPropertyTypeItemProvider(this);
+	public Adapter createPlainSymbolReferenceAdapter() {
+		if (plainSymbolReferenceItemProvider == null) {
+			plainSymbolReferenceItemProvider = new PlainSymbolReferenceItemProvider(this);
 		}
 
-		return intPropertyTypeItemProvider;
+		return plainSymbolReferenceItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.StringPropertyType} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.IdSymbol} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StringPropertyTypeItemProvider stringPropertyTypeItemProvider;
+	protected IdSymbolItemProvider idSymbolItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.StringPropertyType}.
+	 * This creates an adapter for a {@link hub.sam.dbl.IdSymbol}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createStringPropertyTypeAdapter() {
-		if (stringPropertyTypeItemProvider == null) {
-			stringPropertyTypeItemProvider = new StringPropertyTypeItemProvider(this);
+	public Adapter createIdSymbolAdapter() {
+		if (idSymbolItemProvider == null) {
+			idSymbolItemProvider = new IdSymbolItemProvider(this);
 		}
 
-		return stringPropertyTypeItemProvider;
+		return idSymbolItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.BooleanPropertyType} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.IntSymbol} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected BooleanPropertyTypeItemProvider booleanPropertyTypeItemProvider;
+	protected IntSymbolItemProvider intSymbolItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.BooleanPropertyType}.
+	 * This creates an adapter for a {@link hub.sam.dbl.IntSymbol}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createBooleanPropertyTypeAdapter() {
-		if (booleanPropertyTypeItemProvider == null) {
-			booleanPropertyTypeItemProvider = new BooleanPropertyTypeItemProvider(this);
+	public Adapter createIntSymbolAdapter() {
+		if (intSymbolItemProvider == null) {
+			intSymbolItemProvider = new IntSymbolItemProvider(this);
 		}
 
-		return booleanPropertyTypeItemProvider;
+		return intSymbolItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.StructuredPropertyType} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.StringSymbol} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected StructuredPropertyTypeItemProvider structuredPropertyTypeItemProvider;
+	protected StringSymbolItemProvider stringSymbolItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.StructuredPropertyType}.
+	 * This creates an adapter for a {@link hub.sam.dbl.StringSymbol}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createStructuredPropertyTypeAdapter() {
-		if (structuredPropertyTypeItemProvider == null) {
-			structuredPropertyTypeItemProvider = new StructuredPropertyTypeItemProvider(this);
+	public Adapter createStringSymbolAdapter() {
+		if (stringSymbolItemProvider == null) {
+			stringSymbolItemProvider = new StringSymbolItemProvider(this);
 		}
 
-		return structuredPropertyTypeItemProvider;
+		return stringSymbolItemProvider;
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.CompositePropertyType} instances.
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Keyword} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected CompositePropertyTypeItemProvider compositePropertyTypeItemProvider;
+	protected KeywordItemProvider keywordItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.CompositePropertyType}.
+	 * This creates an adapter for a {@link hub.sam.dbl.Keyword}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createCompositePropertyTypeAdapter() {
-		if (compositePropertyTypeItemProvider == null) {
-			compositePropertyTypeItemProvider = new CompositePropertyTypeItemProvider(this);
+	public Adapter createKeywordAdapter() {
+		if (keywordItemProvider == null) {
+			keywordItemProvider = new KeywordItemProvider(this);
 		}
 
-		return compositePropertyTypeItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ReferencePropertyType} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ReferencePropertyTypeItemProvider referencePropertyTypeItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ReferencePropertyType}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createReferencePropertyTypeAdapter() {
-		if (referencePropertyTypeItemProvider == null) {
-			referencePropertyTypeItemProvider = new ReferencePropertyTypeItemProvider(this);
-		}
-
-		return referencePropertyTypeItemProvider;
+		return keywordItemProvider;
 	}
 
 	/**
@@ -2737,6 +2783,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		}
 
 		return targetStatementItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.CreateIdStatement} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CreateIdStatementItemProvider createIdStatementItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.CreateIdStatement}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCreateIdStatementAdapter() {
+		if (createIdStatementItemProvider == null) {
+			createIdStatementItemProvider = new CreateIdStatementItemProvider(this);
+		}
+
+		return createIdStatementItemProvider;
 	}
 
 	/**
@@ -2806,75 +2875,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		}
 
 		return expandVariablePartItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SetExpansionContextStatement} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SetExpansionContextStatementItemProvider setExpansionContextStatementItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.SetExpansionContextStatement}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSetExpansionContextStatementAdapter() {
-		if (setExpansionContextStatementItemProvider == null) {
-			setExpansionContextStatementItemProvider = new SetExpansionContextStatementItemProvider(this);
-		}
-
-		return setExpansionContextStatementItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.SaveGenStatement} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected SaveGenStatementItemProvider saveGenStatementItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.SaveGenStatement}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createSaveGenStatementAdapter() {
-		if (saveGenStatementItemProvider == null) {
-			saveGenStatementItemProvider = new SaveGenStatementItemProvider(this);
-		}
-
-		return saveGenStatementItemProvider;
-	}
-
-	/**
-	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.ResumeGenStatement} instances.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected ResumeGenStatementItemProvider resumeGenStatementItemProvider;
-
-	/**
-	 * This creates an adapter for a {@link hub.sam.dbl.ResumeGenStatement}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Adapter createResumeGenStatementAdapter() {
-		if (resumeGenStatementItemProvider == null) {
-			resumeGenStatementItemProvider = new ResumeGenStatementItemProvider(this);
-		}
-
-		return resumeGenStatementItemProvider;
 	}
 
 	/**
@@ -3211,9 +3211,12 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (modelItemProvider != null) modelItemProvider.dispose();
 		if (importItemProvider != null) importItemProvider.dispose();
 		if (moduleItemProvider != null) moduleItemProvider.dispose();
+		if (annotationItemProvider != null) annotationItemProvider.dispose();
+		if (annotationItemItemProvider != null) annotationItemItemProvider.dispose();
+		if (annotateableElementItemProvider != null) annotateableElementItemProvider.dispose();
 		if (constructiveExtensionItemProvider != null) constructiveExtensionItemProvider.dispose();
-		if (moduleContentItemProvider != null) moduleContentItemProvider.dispose();
-		if (classContentItemProvider != null) classContentItemProvider.dispose();
+		if (moduleContentExtensionItemProvider != null) moduleContentExtensionItemProvider.dispose();
+		if (classContentExtensionItemProvider != null) classContentExtensionItemProvider.dispose();
 		if (arrayDimensionItemProvider != null) arrayDimensionItemProvider.dispose();
 		if (voidTypeItemProvider != null) voidTypeItemProvider.dispose();
 		if (intTypeItemProvider != null) intTypeItemProvider.dispose();
@@ -3287,7 +3290,6 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (trueLiteralItemProvider != null) trueLiteralItemProvider.dispose();
 		if (falseLiteralItemProvider != null) falseLiteralItemProvider.dispose();
 		if (doubleLiteralItemProvider != null) doubleLiteralItemProvider.dispose();
-		if (uniqueIdExprItemProvider != null) uniqueIdExprItemProvider.dispose();
 		if (expandExprItemProvider != null) expandExprItemProvider.dispose();
 		if (parseExprItemProvider != null) parseExprItemProvider.dispose();
 		if (predefinedIdItemProvider != null) predefinedIdItemProvider.dispose();
@@ -3296,38 +3298,36 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (metaLiteralItemProvider != null) metaLiteralItemProvider.dispose();
 		if (typeLiteralItemProvider != null) typeLiteralItemProvider.dispose();
 		if (sizeOfArrayItemProvider != null) sizeOfArrayItemProvider.dispose();
+		if (annotationLiteralItemProvider != null) annotationLiteralItemProvider.dispose();
 		if (idExprItemProvider != null) idExprItemProvider.dispose();
 		if (callPartItemProvider != null) callPartItemProvider.dispose();
 		if (variableAccessItemProvider != null) variableAccessItemProvider.dispose();
 		if (metaAccessItemProvider != null) metaAccessItemProvider.dispose();
 		if (typeAccessItemProvider != null) typeAccessItemProvider.dispose();
-		if (extensionDefinitionItemProvider != null) extensionDefinitionItemProvider.dispose();
-		if (extensionSemanticsDefinitionItemProvider != null) extensionSemanticsDefinitionItemProvider.dispose();
-		if (textualSyntaxDefItemProvider != null) textualSyntaxDefItemProvider.dispose();
-		if (tsRuleItemProvider != null) tsRuleItemProvider.dispose();
-		if (rhsExpressionItemProvider != null) rhsExpressionItemProvider.dispose();
-		if (l3RhsExprItemProvider != null) l3RhsExprItemProvider.dispose();
-		if (l2RhsExprItemProvider != null) l2RhsExprItemProvider.dispose();
-		if (sequenceExprItemProvider != null) sequenceExprItemProvider.dispose();
-		if (l1RhsExprItemProvider != null) l1RhsExprItemProvider.dispose();
-		if (terminalExprItemProvider != null) terminalExprItemProvider.dispose();
-		if (propertyBindingExprItemProvider != null) propertyBindingExprItemProvider.dispose();
-		if (rhsClassifierExprItemProvider != null) rhsClassifierExprItemProvider.dispose();
-		if (idPropertyTypeItemProvider != null) idPropertyTypeItemProvider.dispose();
-		if (intPropertyTypeItemProvider != null) intPropertyTypeItemProvider.dispose();
-		if (stringPropertyTypeItemProvider != null) stringPropertyTypeItemProvider.dispose();
-		if (booleanPropertyTypeItemProvider != null) booleanPropertyTypeItemProvider.dispose();
-		if (structuredPropertyTypeItemProvider != null) structuredPropertyTypeItemProvider.dispose();
-		if (compositePropertyTypeItemProvider != null) compositePropertyTypeItemProvider.dispose();
-		if (referencePropertyTypeItemProvider != null) referencePropertyTypeItemProvider.dispose();
+		if (extensionItemProvider != null) extensionItemProvider.dispose();
+		if (extensionSemanticsItemProvider != null) extensionSemanticsItemProvider.dispose();
+		if (syntaxDefinitionItemProvider != null) syntaxDefinitionItemProvider.dispose();
+		if (syntaxSymbolClassifierItemProvider != null) syntaxSymbolClassifierItemProvider.dispose();
+		if (complexSymbolItemProvider != null) complexSymbolItemProvider.dispose();
+		if (conceptItemProvider != null) conceptItemProvider.dispose();
+		if (metaSymbolItemProvider != null) metaSymbolItemProvider.dispose();
+		if (syntaxExpressionItemProvider != null) syntaxExpressionItemProvider.dispose();
+		if (l3SyntaxExpressionItemProvider != null) l3SyntaxExpressionItemProvider.dispose();
+		if (l2SyntaxExpressionItemProvider != null) l2SyntaxExpressionItemProvider.dispose();
+		if (symbolSequenceItemProvider != null) symbolSequenceItemProvider.dispose();
+		if (l1SyntaxExpressionItemProvider != null) l1SyntaxExpressionItemProvider.dispose();
+		if (structuralSymbolReferenceItemProvider != null) structuralSymbolReferenceItemProvider.dispose();
+		if (plainSymbolReferenceItemProvider != null) plainSymbolReferenceItemProvider.dispose();
+		if (idSymbolItemProvider != null) idSymbolItemProvider.dispose();
+		if (intSymbolItemProvider != null) intSymbolItemProvider.dispose();
+		if (stringSymbolItemProvider != null) stringSymbolItemProvider.dispose();
+		if (keywordItemProvider != null) keywordItemProvider.dispose();
 		if (metaExprItemProvider != null) metaExprItemProvider.dispose();
 		if (targetStatementItemProvider != null) targetStatementItemProvider.dispose();
+		if (createIdStatementItemProvider != null) createIdStatementItemProvider.dispose();
 		if (expansionStatementItemProvider != null) expansionStatementItemProvider.dispose();
 		if (expandTextPartItemProvider != null) expandTextPartItemProvider.dispose();
 		if (expandVariablePartItemProvider != null) expandVariablePartItemProvider.dispose();
-		if (setExpansionContextStatementItemProvider != null) setExpansionContextStatementItemProvider.dispose();
-		if (saveGenStatementItemProvider != null) saveGenStatementItemProvider.dispose();
-		if (resumeGenStatementItemProvider != null) resumeGenStatementItemProvider.dispose();
 		if (expandExpressionItemProvider != null) expandExpressionItemProvider.dispose();
 		if (expandStatementItemProvider != null) expandStatementItemProvider.dispose();
 		if (codeQuoteExpressionItemProvider != null) codeQuoteExpressionItemProvider.dispose();

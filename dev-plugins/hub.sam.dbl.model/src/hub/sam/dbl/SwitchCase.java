@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.SwitchCase#getValue <em>Value</em>}</li>
  *   <li>{@link hub.sam.dbl.SwitchCase#getBody <em>Body</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getSwitchCase()
  * @model

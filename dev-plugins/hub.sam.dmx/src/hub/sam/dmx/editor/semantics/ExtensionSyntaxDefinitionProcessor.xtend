@@ -1,48 +1,47 @@
 package hub.sam.dmx.editor.semantics
 
-import java.util.Collection
-import hub.sam.tef.tsl.Rule
-import java.util.HashSet
-import org.eclipse.emf.ecore.EClass
-import hub.sam.dbl.ExtensionDefinition
-import hub.sam.tef.tsl.Syntax
-import hub.sam.dbl.DblPackage
-import java.util.Stack
-import hub.sam.dbl.TsRule
-import java.util.Map
-import java.util.HashMap
-import hub.sam.tef.tsl.NonTerminal
-import hub.sam.tef.tsl.TslFactory
-import org.eclipse.emf.ecore.EObject
-import hub.sam.tef.tsl.SimpleRule
-import org.eclipse.emf.ecore.EClassifier
-import org.eclipse.emf.ecore.EcoreFactory
-import hub.sam.dbl.SequenceExpr
-import hub.sam.dbl.RhsClassifierExpr
-import java.util.logging.Logger
 import hub.sam.dbl.Class
-import hub.sam.dbl.LanguageConstructClassifier
-import hub.sam.dbl.TerminalExpr
-import hub.sam.dbl.PropertyBindingExpr
-import hub.sam.dbl.RhsExpression
-import hub.sam.dbl.IntPropertyType
-import org.eclipse.emf.ecore.EcorePackage
-import hub.sam.dbl.StringPropertyType
-import org.eclipse.emf.ecore.EDataType
+import hub.sam.dbl.ComplexSymbol
+import hub.sam.dbl.Concept
+import hub.sam.dbl.DblPackage
+import hub.sam.dbl.ElementarySymbol
+import hub.sam.dbl.Extension
+import hub.sam.dbl.IdSymbol
+import hub.sam.dbl.IntSymbol
+import hub.sam.dbl.Keyword
+import hub.sam.dbl.MetaSymbol
+import hub.sam.dbl.PlainSymbolReference
+import hub.sam.dbl.StringSymbol
+import hub.sam.dbl.StructuralSymbolReference
+import hub.sam.dbl.SymbolSequence
+import hub.sam.dbl.SyntaxDefinition
+import hub.sam.dbl.SyntaxExpression
+import hub.sam.dbl.SyntaxSymbolClassifier
+import hub.sam.tef.tsl.NonTerminal
+import hub.sam.tef.tsl.Rule
+import hub.sam.tef.tsl.SimpleRule
+import hub.sam.tef.tsl.Syntax
+import hub.sam.tef.tsl.TslFactory
+import java.util.Collection
+import java.util.HashMap
+import java.util.HashSet
+import java.util.List
+import java.util.Map
+import java.util.Stack
+import java.util.logging.Logger
 import org.eclipse.emf.ecore.EAttribute
-import org.eclipse.emf.ecore.EStructuralFeature
-import hub.sam.dbl.IdPropertyType
-import hub.sam.dbl.ReferencePropertyType
-import hub.sam.dbl.CompositePropertyType
+import org.eclipse.emf.ecore.EClass
+import org.eclipse.emf.ecore.EClassifier
+import org.eclipse.emf.ecore.EDataType
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
+import org.eclipse.emf.ecore.EStructuralFeature
+import org.eclipse.emf.ecore.EcoreFactory
+import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.util.EcoreUtil
-import hub.sam.dbl.TextualSyntaxDef
-import hub.sam.dbl.BooleanPropertyType
-import hub.sam.dbl.L1RhsExpr
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier
 
-class DuplicatedRulesContainer {
-	public var Collection<TsRule> rules = new HashSet<TsRule>();
+class DuplicatedMetaSymbolsContainer {
+	public var Collection<MetaSymbol> symbols = new HashSet<MetaSymbol>();
 	public var EClass metaClass;
 }
 
@@ -54,11 +53,11 @@ class ExtensionSyntaxDefinitionProcessor {
 	// former metaClasses, cache for all meta-classes used
 	private val Map<String, EClass> allMetaClasses = new HashMap<String, EClass>();
 
-	private val Collection<TsRule> processedRules = new HashSet<TsRule>();	
-	private val Map<String, DuplicatedRulesContainer> duplicatedRules = new HashMap<String, DuplicatedRulesContainer>();
-	private val Collection<TsRule> completelyProcessedRules = new HashSet<TsRule>();
+	private val Collection<MetaSymbol> processedMetaSymbols = new HashSet<MetaSymbol>();	
+	private val Map<String, DuplicatedMetaSymbolsContainer> duplicatedMetaSymbols = new HashMap<String, DuplicatedMetaSymbolsContainer>();
+	private val Collection<MetaSymbol> completelyProcessedMetaSymbols = new HashSet<MetaSymbol>();
 	
-	private var ExtensionDefinition extensionDefinition;
+	private var Extension extensionDefinition;
 	private var Syntax _syntax;
 	private var DblPackage _dblMetaModel;
 	private var EClass _extendedConceptMetaClass;
@@ -66,7 +65,7 @@ class ExtensionSyntaxDefinitionProcessor {
 	
 	private val Logger logger = Logger.getLogger(ExtensionSyntaxDefinitionProcessor.name)
 	
-	new(ExtensionDefinition extensionDefinition, Syntax syntax, DblPackage dblMetaModel) {
+	new(Extension extensionDefinition, Syntax syntax, DblPackage dblMetaModel) {
 		this.extensionDefinition = extensionDefinition;
 		_syntax = syntax;
 		_dblMetaModel = dblMetaModel;
@@ -80,21 +79,21 @@ class ExtensionSyntaxDefinitionProcessor {
 		return _dblMetaModel;
 	}
 	
-	private Collection<CompositePropertyType> listParts = new HashSet<CompositePropertyType>()
+	private Collection<StructuralSymbolReference> structuralSymbolRefs_with_derivedListProperty = new HashSet<StructuralSymbolReference>()
 	
-	private def rewriteListParts(TextualSyntaxDef syntaxDef) {
-		syntaxDef.rules.forEach[rule | 
-			if (rule.rhs instanceof SequenceExpr) {
-				val rhsSequenceExpr = rule.rhs as SequenceExpr
+	// adds the list attribute to all structural symbol references which are of type list
+	private def rewriteListParts(SyntaxDefinition syntaxDef) {
+		syntaxDef.symbols.forEach[rule | 
+			if (rule.possibleSyntax instanceof SymbolSequence) {
+				val rhsSequenceExpr = rule.possibleSyntax as SymbolSequence
 				if (rhsSequenceExpr.sequence.size > 0) {
 					// case a)
-					if (rhsSequenceExpr.sequence.filter(RhsClassifierExpr).exists[classifier.name.equals(rule.name)]) {
+					if (rhsSequenceExpr.sequence.filter(PlainSymbolReference).filter[classifier != null && classifier.name != null].exists[classifier.name.equals(rule.name)]) {
 						// rewrite all composite parts
-						rhsSequenceExpr.sequence.filter(PropertyBindingExpr).forEach[bindingExpr | 
-							if (bindingExpr.propertyType instanceof CompositePropertyType) {
-								val cpt = bindingExpr.propertyType as CompositePropertyType
-								listParts.add(cpt)
-								logger.info("found list part " + bindingExpr.name + " in rule " + rule.name)
+						rhsSequenceExpr.sequence.filter(StructuralSymbolReference).forEach[structuralSymbolRef | 
+							if (structuralSymbolRef.composite) {
+								structuralSymbolRefs_with_derivedListProperty.add(structuralSymbolRef)
+								logger.info("found list part " + structuralSymbolRef.name + " in rule " + rule.name)
 							}
 						]
 					}
@@ -105,40 +104,47 @@ class ExtensionSyntaxDefinitionProcessor {
 		]
 	}
 	
+	// zieht Attribute, die in mehreren Spezialisierungen definiert sind, zur Basis hoch
+	private def pullAttributesToBase(SyntaxDefinition syntaxDef) {
+		val helper = new PullUpAttributesToBaseHelper(extensionDefinition.syntaxDefinition);
+		helper.pullAttributesToBase();
+	}
+	
 	def boolean addToDbl() {
-		if (extensionDefinition.getTextualSyntaxDef().getStartRule() != null) {
+		if (extensionDefinition.syntaxDefinition.startSymbol != null) {
 			// the first rule must refer to an existent rule in the syntax.
 			// the right side must consist of one new rule.
 			// `existent-rule` -> `new-rule`;
 			
-			rewriteListParts(extensionDefinition.textualSyntaxDef)
+			rewriteListParts(extensionDefinition.syntaxDefinition)
+			//pullAttributesToBase(extensionDefinition.syntaxDefinition)
 			
 			// start rule
-			val startRule = extensionDefinition.getTextualSyntaxDef().getStartRule();		
+			val startSymbol = extensionDefinition.getSyntaxDefinition().startSymbol;		
 			val startTslRule = TslFactory.eINSTANCE.createSimpleRule();
 		
-			val startNonTerminal = extensionDefinition.extendedConcept.createNonTerminal			
+			val startNonTerminal = extensionDefinition.extensionPoint.createNonTerminal			
 			startTslRule.setLhs(startNonTerminal);
-			startTslRule.getRhs().add(startRule.createNonTerminal);
+			startTslRule.getRhs().add(startSymbol.createNonTerminal);
 			
 			getSyntax().getRules().add(startTslRule);
 			addedRules.add(startTslRule);	
 			
 			// other rules ...
-			val Stack<TsRule> ruleStack = new Stack<TsRule>();			
-			processAllRulesWithSameName(extensionDefinition.getTextualSyntaxDef().getRules().get(0), null, ruleStack);
+			val Stack<MetaSymbol> symbolStack = new Stack<MetaSymbol>();			
+			processAllMetaSymbolsWithEqualNames(extensionDefinition.getSyntaxDefinition().symbols.get(0), null, symbolStack);
 			
-			// process duplicated rules ...
+			// process duplicated meta symbols ...
 			do {
-				val Map<String, DuplicatedRulesContainer> processingDuplicatedRules = new HashMap<String, DuplicatedRulesContainer>(duplicatedRules);
-				duplicatedRules.clear();
-				for (String ruleName: processingDuplicatedRules.keySet()) {
-					extensionDefinition.getTextualSyntaxDef().getRules().addAll(processingDuplicatedRules.get(ruleName).rules);
-					processAllRulesWithSameName(ruleName, processingDuplicatedRules.get(ruleName).metaClass, ruleStack);
+				val Map<String, DuplicatedMetaSymbolsContainer> processingDuplicatedMetaSymbols = new HashMap<String, DuplicatedMetaSymbolsContainer>(duplicatedMetaSymbols);
+				duplicatedMetaSymbols.clear();
+				for (String ruleName: processingDuplicatedMetaSymbols.keySet()) {
+					extensionDefinition.getSyntaxDefinition().symbols.addAll(processingDuplicatedMetaSymbols.get(ruleName).symbols);
+					processAllMetaSymbolsWithEqualNames(ruleName, processingDuplicatedMetaSymbols.get(ruleName).metaClass, symbolStack);
 				}
-			} while (duplicatedRules.size() > 0);
+			} while (duplicatedMetaSymbols.size() > 0);
 			
-			//printCurrentSyntax();
+			//syntax.rules.forEach[ rule | System.out.println(rule); ]
 
 			return true;
 		}
@@ -159,61 +165,61 @@ class ExtensionSyntaxDefinitionProcessor {
 		throw new RuntimeException
 	}
 	
-	private def dispatch NonTerminal createNonTerminal(TsRule rule) {
+	private def dispatch NonTerminal createNonTerminal(MetaSymbol rule) {
 		val nonTerminal = TslFactory.eINSTANCE.createNonTerminal()
-		nonTerminal.setName(rule.syntaxRuleName)
+		nonTerminal.setName(rule.syntaxSymbolName)
 		return nonTerminal
 	}
 	
-	private def dispatch NonTerminal createNonTerminal(ExtensionDefinition extDef) {
+	private def dispatch NonTerminal createNonTerminal(Extension extDef) {
 		val nonTerminal = TslFactory.eINSTANCE.createNonTerminal()
-		nonTerminal.setName(extDef.syntaxRuleName)
+		nonTerminal.setName(extDef.syntaxSymbolName)
 		return nonTerminal
 	}
 	
 	private def dispatch NonTerminal createNonTerminal(Class clazz) {
 		val nonTerminal = TslFactory.eINSTANCE.createNonTerminal()
-		nonTerminal.setName(clazz.syntaxRuleName)
+		nonTerminal.setName(clazz.syntaxSymbolName)
 		return nonTerminal
 	}
 	
-	private def dispatch String getSyntaxRuleName(EObject object) {
+	private def dispatch String getSyntaxSymbolName(EObject object) {
 		throw new RuntimeException
 	}
 
-	private def dispatch String getSyntaxRuleName(TsRule rule) {
-		val extDef = (rule.eContainer as TextualSyntaxDef)?.eContainer as ExtensionDefinition
-		return (if (extDef != null) extDef.name else extensionDefinition.name) + "_" + rule.name + "_extension"
+	private def dispatch String getSyntaxSymbolName(MetaSymbol symbol) {
+		val extDef = (symbol.eContainer as SyntaxDefinition)?.eContainer as Extension
+		return (if (extDef != null) extDef.name else extensionDefinition.name) + "_" + symbol.name + "_extension"
 	}
 	
-	private def dispatch String getSyntaxRuleName(ExtensionDefinition referencedExtDef) {
+	private def dispatch String getSyntaxSymbolName(Extension referencedExtDef) {
 		return getExtensionDefinitionSyntaxRuleName(referencedExtDef)
 	}
 	
-	public static def String getExtensionDefinitionSyntaxRuleName(ExtensionDefinition extDef) {
-		return extDef.name + "_" + extDef.textualSyntaxDef.startRule.name + "_extension"
+	public static def String getExtensionDefinitionSyntaxRuleName(Extension extDef) {
+		return extDef.name + "_" + extDef.syntaxDefinition.startSymbol.name + "_extension"
 	}
 
-	private def dispatch String getSyntaxRuleName(Class clazz) {
+	private def dispatch String getSyntaxSymbolName(Class clazz) {
 		return clazz.name
 	}
 
-	private def void processAllRulesWithSameName(TsRule newRule, EClass metaClass, Stack<TsRule> ruleStack) {
-		processAllRulesWithSameName(newRule.getName(), metaClass, ruleStack);
+	private def void processAllMetaSymbolsWithEqualNames(MetaSymbol newSymbol, EClass metaClass, Stack<MetaSymbol> symbolStack) {
+		processAllMetaSymbolsWithEqualNames(newSymbol.getName(), metaClass, symbolStack);
 	}
 	
 	
-	private def void processAllRulesWithSameName(String ruleName, EClass metaClass, Stack<TsRule> ruleStack) {
-		for (TsRule otherRule: extensionDefinition.getTextualSyntaxDef().getRules()) {
-			if (otherRule.getName().equals(ruleName) && !completelyProcessedRules.contains(otherRule)) {
-				processSingleRule(otherRule, metaClass, ruleStack);
-				completelyProcessedRules.add(otherRule);
+	private def void processAllMetaSymbolsWithEqualNames(String symbolName, EClass metaClass, Stack<MetaSymbol> symbolStack) {
+		for (MetaSymbol otherSymbol: extensionDefinition.syntaxDefinition.symbols) {
+			if (otherSymbol.getName().equals(symbolName) && !completelyProcessedMetaSymbols.contains(otherSymbol)) {
+				processSingleMetaSymbol(otherSymbol, metaClass, symbolStack);
+				completelyProcessedMetaSymbols.add(otherSymbol);
 			}
 		}
 	}
 	
-	private def SimpleRule createTslRule(TsRule rule) {
-		val nonTerminal = rule.createNonTerminal
+	private def SimpleRule createTslRule(MetaSymbol symbol) {
+		val nonTerminal = symbol.createNonTerminal
 		
 		val tslRule = TslFactory.eINSTANCE.createSimpleRule();
 		tslRule.setLhs(nonTerminal);
@@ -221,7 +227,7 @@ class ExtensionSyntaxDefinitionProcessor {
 		//if (!processedRules.contains(rule)) {
 			getSyntax().getRules().add(tslRule);
 			addedRules.add(tslRule);
-			processedRules.add(rule);
+			processedMetaSymbols.add(symbol);
 		//}
 		
 		return tslRule;
@@ -229,35 +235,35 @@ class ExtensionSyntaxDefinitionProcessor {
 	
 	private def EClass getExtendedConceptMetaClass() {
 		if (_extendedConceptMetaClass == null) {
-			_extendedConceptMetaClass = extensionDefinition.extendedConcept.metaClass;
+			_extendedConceptMetaClass = extensionDefinition.extensionPoint.metaClass;
 		}
 		return _extendedConceptMetaClass;
 	}
 	
 	private def EClass getInstantiableDblEClass() {
 		if (_instantiableDblEClass == null) {
-			var conceptClassifier = extensionDefinition.extendedConcept
-			while (conceptClassifier instanceof ExtensionDefinition) {
-				conceptClassifier = (conceptClassifier as ExtensionDefinition).extendedConcept
+			var conceptClassifier = extensionDefinition.extensionPoint
+			while (conceptClassifier instanceof Extension) {
+				conceptClassifier = (conceptClassifier as Extension).extensionPoint
 			}
 			_instantiableDblEClass = (conceptClassifier as Class).metaClass
 		}
 		return _instantiableDblEClass;
 	}
 	
-	private def dispatch EClass getMetaClass(Class conceptClassifier) {
-		return _getMetaClass_general(conceptClassifier.syntaxRuleName, conceptClassifier)
+	private def dispatch EClass getMetaClass(Class concept) {
+		return _getMetaClass_general(concept.syntaxSymbolName, concept)
 	}
 	
-	private def dispatch EClass getMetaClass(ExtensionDefinition conceptClassifier) {
-		return _getMetaClass_general(conceptClassifier.syntaxRuleName, conceptClassifier)
+	private def dispatch EClass getMetaClass(Extension concept) {
+		return _getMetaClass_general(concept.syntaxSymbolName, concept)
 	}
 
-	private def dispatch EClass getMetaClass(TsRule rule) {
-		return _getMetaClass_general(rule.syntaxRuleName, rule)
+	private def dispatch EClass getMetaClass(MetaSymbol concept) {
+		return _getMetaClass_general(concept.syntaxSymbolName, concept)
 	}
 	
-	private def EClass _getMetaClass_general(String name, LanguageConstructClassifier langConstructClassifier) {
+	private def EClass _getMetaClass_general(String name, SyntaxSymbolClassifier symbolClassifier) {
 		if (allMetaClasses.containsKey(name)) {
 			return allMetaClasses.get(name);
 		}
@@ -275,16 +281,16 @@ class ExtensionSyntaxDefinitionProcessor {
 				metaClass = EcoreFactory.eINSTANCE.createEClass();
 				metaClass.setName(name);
 
-				if (langConstructClassifier instanceof ExtensionDefinition) {
-					var conceptClassifier = (langConstructClassifier as ExtensionDefinition).extendedConcept
-					while (conceptClassifier instanceof ExtensionDefinition) {
-						conceptClassifier = (conceptClassifier as ExtensionDefinition).extendedConcept
+				if (symbolClassifier instanceof Extension) {
+					var concept = (symbolClassifier as Extension).extensionPoint
+					while (concept instanceof Extension) {
+						concept = (concept as Extension).extensionPoint
 					}
-					metaClass.getESuperTypes().add((conceptClassifier as Class).metaClass);
+					metaClass.getESuperTypes().add((concept as Class).metaClass);
 				}
-				else if (langConstructClassifier instanceof TsRule) {
-					val tsRule = langConstructClassifier as TsRule
-					if (tsRule.syntaxRuleName.equals(extensionDefinition.textualSyntaxDef.startRule.syntaxRuleName)) {
+				else if (symbolClassifier instanceof MetaSymbol) {
+					val metaSymbol = symbolClassifier as MetaSymbol
+					if (metaSymbol.syntaxSymbolName.equals(extensionDefinition.syntaxDefinition.startSymbol.syntaxSymbolName)) {
 						metaClass.getESuperTypes().add(instantiableDblEClass)
 					}
 					else {
@@ -292,7 +298,7 @@ class ExtensionSyntaxDefinitionProcessor {
 						//metaClass.getESuperTypes().add(instantiableDblEClass)
 					}
 				}
-				else if (langConstructClassifier instanceof Class) {
+				else if (symbolClassifier instanceof Class) {
 					// it cannot be a DBL metaclass from the dbl module because getDblMetaModel().getEClassifier(name)
 					// would have return the metaclass.
 					
@@ -306,15 +312,11 @@ class ExtensionSyntaxDefinitionProcessor {
 				// in case, the langConstructClassifier is used in a direct reduction rule, e.g. "directReductionRule" -> "langConstructClassifier":
 				// the meta-class of "directReductionRule" is added as a super-class of the meta-class of "langConstructClassifier".
 				val fMetaClass = metaClass
-				var directReductionRules = extensionDefinition.getTextualSyntaxDef().rules.
-					filter[
-						rhs instanceof SequenceExpr && (rhs as SequenceExpr).sequence.size == 1
-							&& (rhs as SequenceExpr).sequence.get(0) instanceof RhsClassifierExpr
-					]
-				directReductionRules.forEach[ directReductionRule | 
-					val reductionTarget = ((directReductionRule.rhs as SequenceExpr).sequence.get(0) as RhsClassifierExpr).classifier
-					if (reductionTarget.syntaxRuleName.equals(name)) {
-						val superMetaClass = directReductionRule.metaClass
+
+				directDerivatives.forEach[ directDerivative | 
+					val reductionTarget = ((directDerivative.possibleSyntax as SymbolSequence).sequence.get(0) as PlainSymbolReference).classifier
+					if (reductionTarget instanceof ComplexSymbol && reductionTarget.syntaxSymbolName.equals(name)) {
+						val superMetaClass = directDerivative.metaClass
 						fMetaClass.getESuperTypes().add(superMetaClass)
 						logger.info("added super-class " + superMetaClass + " to meta-class "+ name)
 					}
@@ -329,24 +331,43 @@ class ExtensionSyntaxDefinitionProcessor {
 		}
 	}
 	
-	private def dispatch void processRhsExpr(TerminalExpr rhsExpr, SimpleRule tslRule, EClass metaClass, Stack<TsRule> ruleStack) {
-		val fixTerminal = TslFactory.eINSTANCE.createFixTerminal();
-		fixTerminal.setTerminal(rhsExpr.getTerminal());
-		tslRule.getRhs().add(fixTerminal);
+	private var List<MetaSymbol> _directDerivatives;
+	
+	private def List<MetaSymbol> getDirectDerivatives() {
+		if (_directDerivatives == null) {
+			_directDerivatives = extensionDefinition.getSyntaxDefinition().symbols.
+				filter[
+					possibleSyntax instanceof SymbolSequence && (possibleSyntax as SymbolSequence).sequence.size == 1
+						&& (possibleSyntax as SymbolSequence).sequence.get(0) instanceof PlainSymbolReference
+						&& !((possibleSyntax as SymbolSequence).sequence.get(0) instanceof StructuralSymbolReference)
+						&& ((possibleSyntax as SymbolSequence).sequence.get(0) as PlainSymbolReference).classifier instanceof MetaSymbol
+				].toList
+		}
+		return _directDerivatives
+	}
+
+	private def dispatch void processRhsExpr(SyntaxExpression plainSymbolRef, SimpleRule tslRule, EClass _metaClass, Stack<MetaSymbol> symbolStack) {
+		// not implemented
 	}
 	
-	private def dispatch void processRhsExpr(RhsClassifierExpr rhsExpr, SimpleRule tslRule, EClass _metaClass, Stack<TsRule> ruleStack) {
-		val type = rhsExpr.getClassifier();
+	private def dispatch void processRhsExpr(PlainSymbolReference plainSymbolRef, SimpleRule tslRule, EClass _metaClass, Stack<MetaSymbol> symbolStack) {
+		val symbolClassifier = plainSymbolRef.getClassifier();
 		var metaClass = _metaClass
 		
-		switch (type) {
-			ExtensionDefinition: {
-				tslRule.getRhs().add(createNonTerminal(type));
+		switch (symbolClassifier) {
+			Extension: {
+				tslRule.getRhs().add(createNonTerminal(symbolClassifier));
+			}
+			ElementarySymbol: {
+				// ... -> ... ID ...
+				// ... -> ... "keyword" ...
+				processSymbol(symbolClassifier, plainSymbolRef, tslRule, metaClass, symbolStack)
 			}
 			Class: {
+				// ... -> ... Statement ... ;
 
 				// copy rhs of the rule identified by the name of type to this rule's rhs
-				val firstRuleWithClassName = syntax.rules.findFirst[lhs.name.equals(type.name)]
+				val firstRuleWithClassName = syntax.rules.findFirst[lhs.name.equals(symbolClassifier.name)]
 				// TODO: if multiple rules exist...
 				
 				if (firstRuleWithClassName instanceof SimpleRule) {
@@ -368,15 +389,15 @@ class ExtensionSyntaxDefinitionProcessor {
 				//tslRule.getRhs().add(createNonTerminal(type));
 				//tslRule.valueBinding = null
 			}
-			TsRule: {
-				var rule = type
+			MetaSymbol: {
+				var rule = symbolClassifier
 				
-				val rhsContainer = rhsExpr.eContainer
-				if (rhsContainer instanceof SequenceExpr) {
-					val sequenceExpr = rhsContainer as SequenceExpr
+				val rhsContainer = plainSymbolRef.eContainer
+				if (rhsContainer instanceof SymbolSequence) {
+					val sequenceExpr = rhsContainer as SymbolSequence
 					
 					if (sequenceExpr.sequence.size > 1) {
-						if (processedRules.contains(rule) && !ruleStack.contains(rule)) {
+						if (processedMetaSymbols.contains(rule) && !symbolStack.contains(rule)) {
 							/* in case we have a situation like this:
 							 * 		Baz -> RBaz;
 							 *		Baz -> IBaz;
@@ -397,9 +418,9 @@ class ExtensionSyntaxDefinitionProcessor {
 							 * on the rule stack, then this rule is duplicated for the currently active rule.
 							 */
 
-							val dupRuleName = type.syntaxRuleName + "_" + metaClass.getName();
+							val dupRuleName = symbolClassifier.syntaxSymbolName + "_" + metaClass.getName();
 		
-							val dupRule = processedRules.findFirst[name.equals(dupRuleName)]
+							val dupRule = processedMetaSymbols.findFirst[name.equals(dupRuleName)]
 							if (dupRule != null) {
 								// duplicated rule was processed before
 								tslRule.getRhs().add(createNonTerminal(dupRule));
@@ -407,23 +428,23 @@ class ExtensionSyntaxDefinitionProcessor {
 							else {
 								// all definitions (lhs) of the rule have to be duplicated
 								
-								val duplicatedRules = new DuplicatedRulesContainer();
+								val duplicatedRules = new DuplicatedMetaSymbolsContainer();
 								duplicatedRules.metaClass = metaClass;
 								
 								val fRule = rule
-								val sameNameRules = extensionDefinition.textualSyntaxDef.rules.filter[name.equals(fRule.name)]
+								val sameNameRules = extensionDefinition.syntaxDefinition.symbols.filter[name.equals(fRule.name)]
 								
-								var TsRule ruleDefDuplicate = null;
+								var MetaSymbol ruleDefDuplicate = null;
 								for (ruleDef : sameNameRules) {
 									ruleDefDuplicate = EcoreUtil.copy(ruleDef)
 									ruleDefDuplicate.setName(dupRuleName)
-									duplicatedRules.rules.add(ruleDefDuplicate)
-									processedRules.add(ruleDefDuplicate)
+									duplicatedRules.symbols.add(ruleDefDuplicate)
+									processedMetaSymbols.add(ruleDefDuplicate)
 									logger.info("created duplicate rule: " + ruleDefDuplicate.getName())
 								}
 								
 								// does not matter which duplicated rule as they are identified only by their name (which is the same)
-								this.duplicatedRules.put(dupRuleName, duplicatedRules);
+								this.duplicatedMetaSymbols.put(dupRuleName, duplicatedRules);
 								rule = ruleDefDuplicate;
 							}
 						}
@@ -440,22 +461,28 @@ class ExtensionSyntaxDefinitionProcessor {
 	
 					tslRule.getRhs().add(createNonTerminal(rule));
 				
-					processAllRulesWithSameName(rule, metaClass, ruleStack);
+					processAllMetaSymbolsWithEqualNames(rule, metaClass, symbolStack);
 				}
 			}
 		}
 	}
 	
-	private def dispatch void processRhsExpr(PropertyBindingExpr rhsExpr, SimpleRule tslRule, EClass metaClass, Stack<TsRule> ruleStack) {
-		rhsExpr.propertyType.processPropertyType(tslRule, rhsExpr, metaClass, ruleStack)
+	private def dispatch void processRhsExpr(StructuralSymbolReference symbolRef, SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack) {
+		processSymbol(symbolRef.classifier, symbolRef, tslRule, metaClass, symbolStack)
 	}
 	
-	private def dispatch void processPropertyType(BooleanPropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {
-		val metaClassAttribute = createAttribute(bindingExpr.getName(), metaClass);
+	private def dispatch void processSymbol(Keyword symbol, PlainSymbolReference symbolRef, SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack) {
+		val fixTerminal = TslFactory.eINSTANCE.createFixTerminal();
+		fixTerminal.setTerminal(symbol.keyword);
+		tslRule.getRhs().add(fixTerminal);
+	}
+	
+	private def dispatch void processSymbol(Keyword keywordSymbol, StructuralSymbolReference structuralSymbolRef, SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack) {
+		val metaClassAttribute = createAttribute(structuralSymbolRef.getName(), metaClass);
 		metaClassAttribute.setEType(EcorePackage.Literals.EBOOLEAN);
 		
 		// new rule: `constantRuleName` : constant("true" : EBoolean) -> "`propertyType.terminal`" ;
-		val constantRuleName = extensionDefinition.name + "_" + tslRule.lhs.name + "_" + bindingExpr.name;
+		val constantRuleName = extensionDefinition.name + "_" + tslRule.lhs.name + "_" + structuralSymbolRef.name;
 		
 		val constantBinding = TslFactory.eINSTANCE.createConstantBinding();
 		constantBinding.setType("EBoolean");
@@ -472,7 +499,7 @@ class ExtensionSyntaxDefinitionProcessor {
 		addedRules.add(constantRule);		
 		
 		val rhsNonTerminal = TslFactory.eINSTANCE.createFixTerminal();
-		rhsNonTerminal.setTerminal(propertyType.terminal);
+		rhsNonTerminal.setTerminal(keywordSymbol.keyword);
 		constantRule.rhs.add(rhsNonTerminal)
 		
 		// source position
@@ -486,17 +513,17 @@ class ExtensionSyntaxDefinitionProcessor {
 		tslRule.rhs.add(sourceNonTerminal)
 	}
 	
-	private def dispatch void processPropertyType(IntPropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {
-		val nonTerminal = createNonTerminal_for_PrimitivePropertyBinding(bindingExpr, EcorePackage.Literals.EINT, "INTEGER", metaClass);
+	private def dispatch void processSymbol(IntSymbol propertyType, StructuralSymbolReference structuralSymbolRef, SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack) {
+		val nonTerminal = createNonTerminal_for_ElementarySymbol(structuralSymbolRef, EcorePackage.Literals.EINT, "INTEGER", metaClass);
 		tslRule.getRhs().add(nonTerminal);
 	}
 
-	private def dispatch void processPropertyType(StringPropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {
-		val nonTerminal = createNonTerminal_for_PrimitivePropertyBinding(bindingExpr, EcorePackage.Literals.ESTRING, "STRINGDEF", metaClass);
+	private def dispatch void processSymbol(StringSymbol propertyType, StructuralSymbolReference structuralSymbolRef, SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack) {
+		val nonTerminal = createNonTerminal_for_ElementarySymbol(structuralSymbolRef, EcorePackage.Literals.ESTRING, "STRINGDEF", metaClass);
 		tslRule.getRhs().add(nonTerminal);
 	}
 
-	private def dispatch void processPropertyType(IdPropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {
+	private def dispatch void processSymbol(IdSymbol propertyType, StructuralSymbolReference bindingExpr, SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack) {
 		var EStructuralFeature metaClassFeature = null;
 		
 //		if(bindingExpr.getName().equals("name")) {
@@ -528,25 +555,22 @@ class ExtensionSyntaxDefinitionProcessor {
 		tslRule.getRhs().add(propertyNonTerminal);
 	}
 	
-	private def dispatch void processPropertyType(ReferencePropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {
-		if (propertyType.isRawReference()) {
-			tslRule.getRhs().add(createNonTerminal_for_RawReferencePropertyBinding(bindingExpr, propertyType.getType(), metaClass));
-		}
-		else {
-			tslRule.getRhs().add(createNonTerminal_for_ReferencePropertyBinding(bindingExpr, propertyType, metaClass));
-		}
-	}
+	private def dispatch void processSymbol(MetaSymbol symbol, StructuralSymbolReference bindingExpr, 
+		SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack
+	) {
+		tslRule.getRhs().add(createNonTerminal(symbol as ComplexSymbol, bindingExpr, metaClass));
 
-	private def dispatch void processPropertyType(CompositePropertyType propertyType, SimpleRule tslRule, PropertyBindingExpr bindingExpr, EClass metaClass, Stack<TsRule> ruleStack) {
-		tslRule.getRhs().add(createNonTerminal_for_CompositePropertyBinding(bindingExpr, propertyType, metaClass));
-		
-		if (propertyType.type instanceof TsRule) {
-			processAllRulesWithSameName(propertyType.type as TsRule, null, ruleStack);
-		}
+		processAllMetaSymbolsWithEqualNames(symbol, null, symbolStack);
 	}
 	
-	private def NonTerminal createNonTerminal_for_RawReferencePropertyBinding(PropertyBindingExpr bindingExpr, LanguageConstructClassifier type, EClass metaClass) {
-		val reference = createReference(bindingExpr.getName(), metaClass);
+	private def dispatch void processSymbol(Concept symbol, StructuralSymbolReference bindingExpr, 
+		SimpleRule tslRule, EClass metaClass, Stack<MetaSymbol> symbolStack
+	) {
+		tslRule.getRhs().add(createNonTerminal(symbol as ComplexSymbol, bindingExpr, metaClass));
+	}
+
+	private def NonTerminal createNonTerminal_for_GlobalReference(ComplexSymbol type, StructuralSymbolReference bindingExpr, EClass metaClass) {
+		val reference = createEReference(bindingExpr.getName(), metaClass);
 		reference.setContainment(false);
 		
 		val bindingMetaClass = type.metaClass;
@@ -558,7 +582,7 @@ class ExtensionSyntaxDefinitionProcessor {
 		propertyBinding.setProperty(reference);
 		propertyNonTerminal.setPropertyBinding(propertyBinding);
 
-		val refNonTerminalName = type.syntaxRuleName + "Ref";
+		val refNonTerminalName = type.syntaxSymbolName + "Ref";
 		propertyNonTerminal.setName(refNonTerminalName);
 
 		if (getSyntax().getRules().filter[lhs.name.equals(refNonTerminalName)].empty) {
@@ -600,62 +624,63 @@ class ExtensionSyntaxDefinitionProcessor {
 		return propertyNonTerminal;
 	}
 	
-	private def NonTerminal createNonTerminal_for_ReferencePropertyBinding(PropertyBindingExpr bindingExpr, ReferencePropertyType type, EClass metaClass) {
-		val reference = createReference(bindingExpr.getName(), metaClass);
-		reference.setLowerBound(0);
-		reference.setUpperBound(1);
+	private def NonTerminal createNonTerminal(ComplexSymbol complexSymbol, StructuralSymbolReference structuralSymbolRef, EClass metaClass) {
 
-		reference.setContainment(true); // because the IdExpr is contained	
+		val eReference = createEReference(structuralSymbolRef.getName(), metaClass);
+		eReference.setLowerBound(0);
+		eReference.setUpperBound(1);
 		
-		val propertyType = DblPackage.Literals.ID_EXPR;
-
-		val propertyNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
-		propertyNonTerminal.setName("IdExpr");
+		eReference.setContainment(true);
 		
-		if (reference.getEType() == null) {
-			reference.setEType(propertyType);
+		if (structuralSymbolRef.composite) {
+			val nonTerminal = createNonTerminal(complexSymbol);
+			
+			if (structuralSymbolRef.list || structuralSymbolRefs_with_derivedListProperty.contains(structuralSymbolRef)) {
+				eReference.setUpperBound(-1);
+			}
+			
+			val bindingMetaClass = getMetaClass(complexSymbol);
+	
+			if (eReference.getEType() == null) {
+				eReference.setEType(bindingMetaClass);
+			}
+			// else: the property is inherited -> use its defined type
+			
+			val compositeBinding = TslFactory.eINSTANCE.createCompositeBinding();
+			compositeBinding.setProperty(eReference);
+			nonTerminal.setPropertyBinding(compositeBinding);			
+			
+			return nonTerminal;
 		}
-		// else: the property is inherited -> use its defined type
-		
-		val propertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
-		propertyBinding.setProperty(reference);
-		propertyNonTerminal.setPropertyBinding(propertyBinding);			
-		
-		return propertyNonTerminal;
+		else if (structuralSymbolRef.localScopedReference) {
+			// i.e. reference
+			val propertyType = DblPackage.Literals.ID_EXPR;
+
+			val propertyNonTerminal = TslFactory.eINSTANCE.createNonTerminal();
+			propertyNonTerminal.setName("IdExpr");
+			
+			if (eReference.getEType() == null) {
+				eReference.setEType(propertyType);
+			}
+			// else: the property is inherited -> use its defined type
+			
+			val propertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
+			propertyBinding.setProperty(eReference);
+			propertyNonTerminal.setPropertyBinding(propertyBinding);			
+			
+			return propertyNonTerminal;
+		}
+		else {
+			// i.e. globalScopedReference
+			createNonTerminal_for_GlobalReference(complexSymbol, structuralSymbolRef, metaClass)
+		}
 	}
 	
-	private def NonTerminal createNonTerminal_for_CompositePropertyBinding(PropertyBindingExpr bindingExpr, CompositePropertyType propertyType, EClass metaClass) {
-
-		val property = createReference(bindingExpr.getName(), metaClass);
-		property.setLowerBound(0);
-		property.setUpperBound(1);
-
-		property.setContainment(true);	
-		
-		val propertyNonTerminal = createNonTerminal(propertyType.type);
-		if (propertyType.list || listParts.contains(propertyType)) {
-			property.setUpperBound(-1);
-		}
-		
-		val bindingMetaClass = getMetaClass(propertyType.type);
-
-		if (property.getEType() == null) {
-			property.setEType(bindingMetaClass);
-		}
-		// else: the property is inherited -> use its defined type
-		
-		val propertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
-		propertyBinding.setProperty(property);
-		propertyNonTerminal.setPropertyBinding(propertyBinding);			
-		
-		return propertyNonTerminal;
-	}
-	
-	private def NonTerminal createNonTerminal_for_PrimitivePropertyBinding(PropertyBindingExpr bindingExpr, EDataType propertyType,
+	private def NonTerminal createNonTerminal_for_ElementarySymbol(StructuralSymbolReference structuralSymbolRef, EDataType eReferenceType,
 		String tslValueTypeName, EClass metaClass
 	) {
-		val metaClassAttribute = createAttribute(bindingExpr.getName(), metaClass);
-		metaClassAttribute.setEType(propertyType);
+		val metaClassAttribute = createAttribute(structuralSymbolRef.getName(), metaClass);
+		metaClassAttribute.setEType(eReferenceType);
 		
 		val tslPropertyBinding = TslFactory.eINSTANCE.createCompositeBinding();
 		tslPropertyBinding.setProperty(metaClassAttribute);
@@ -680,7 +705,7 @@ class ExtensionSyntaxDefinitionProcessor {
 		return attribute;
 	}
 	
-	private def EReference createReference(String name, EClass metaClass) {
+	private def EReference createEReference(String name, EClass metaClass) {
 		val structuralFeature = findStructuralFeature(name, metaClass);
 		if (structuralFeature != null) {
 			if (structuralFeature instanceof EReference) return structuralFeature as EReference
@@ -702,11 +727,11 @@ class ExtensionSyntaxDefinitionProcessor {
 		return null;
 	}
 
-	private def void processSingleRule(TsRule newRule, EClass passedDownMetaClass, Stack<TsRule> ruleStack) {			
-		if (!ruleStack.contains(newRule)) {
-			processedRules.add(newRule);
+	private def void processSingleMetaSymbol(MetaSymbol newRule, EClass passedDownMetaClass, Stack<MetaSymbol> symbolStack) {			
+		if (!symbolStack.contains(newRule)) {
+			processedMetaSymbols.add(newRule);
 			
-			ruleStack.push(newRule);
+			symbolStack.push(newRule);
 			logger.info("processing rule " + newRule.getName());
 			
 			val tslRule = newRule.createTslRule;
@@ -720,28 +745,26 @@ class ExtensionSyntaxDefinitionProcessor {
 				tslRule.setValueBinding(metaClassBinding);
 			}
 			
-			val rhs = newRule.getRhs();
+			val rhs = newRule.possibleSyntax;
 			
-			if (rhs instanceof SequenceExpr) {
-				val sequenceExpr = rhs as SequenceExpr;
+			if (rhs instanceof SymbolSequence) {
+				val sequenceExpr = rhs as SymbolSequence;
 				
-				for (RhsExpression sequencePart: sequenceExpr.sequence) {
-					(sequencePart as L1RhsExpr).processRhsExpr(tslRule, bindingMetaClass, ruleStack)
+				for (SyntaxExpression sequencePart: sequenceExpr.sequence) {
+					sequencePart.processRhsExpr(tslRule, bindingMetaClass, symbolStack)
 					
-					if (sequencePart instanceof PropertyBindingExpr) {
-						val propertyBindingExpr = sequencePart as PropertyBindingExpr
+					if (sequencePart instanceof StructuralSymbolReference) {
+						val structuralSymbolRef = sequencePart as StructuralSymbolReference
 						
-						if (propertyBindingExpr.propertyType instanceof CompositePropertyType) {
-							val compositePropertyType = propertyBindingExpr.propertyType as CompositePropertyType
-							
-							if (compositePropertyType.type instanceof TsRule) {
-								processAllRulesWithSameName(compositePropertyType.type as TsRule, null, ruleStack);
+						if (structuralSymbolRef.composite) {
+							if (structuralSymbolRef.classifier instanceof MetaSymbol) {
+								processAllMetaSymbolsWithEqualNames(structuralSymbolRef.classifier as MetaSymbol, null, symbolStack);
 							}
 						}
 					}
 				}
 			}
-			ruleStack.pop();
+			symbolStack.pop();
 			
 			logger.info(tslRule.toString)
 		}

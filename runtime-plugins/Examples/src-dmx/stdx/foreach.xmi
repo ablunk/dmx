@@ -7,45 +7,47 @@
     <model href="../stdlib.xmi#/"/>
   </imports>
   <modules name="stdx_foreach">
-    <extensionDefinitions name="ForEach" concreteSyntax="extension ForEach extends dbl LocalScopeStatement {&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements:list(Variable) &quot;in&quot; collection:Expression &quot;)&quot;&#xA;&#x9;&#x9;body:LocalScopeStatement;&#xA;}">
-      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.43"/>
-      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements:list(Variable) &quot;in&quot; collection:Expression &quot;)&quot;&#xA;&#x9;&#x9;body:LocalScopeStatement;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
-        <rules name="ForEach" concreteSyntax="ForEach -> &quot;foreach&quot; &quot;(&quot; statements:list(Variable) &quot;in&quot; collection:Expression &quot;)&quot;&#xA;&#x9;&#x9;body:LocalScopeStatement;">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="foreach"/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="statements">
-              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
-                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.24"/>
-              </propertyType>
+    <extensions name="ForEach" concreteSyntax="extension ForEach extends dbl LocalScopeStatement {&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements:list Variable &quot;in&quot; collection:Expression &quot;)&quot;&#xA;&#x9;&#x9;body:LocalScopeStatement;&#xA;}">
+      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.46"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements:list Variable &quot;in&quot; collection:Expression &quot;)&quot;&#xA;&#x9;&#x9;body:LocalScopeStatement;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="ForEach" concreteSyntax="ForEach -> &quot;foreach&quot; &quot;(&quot; statements:list Variable &quot;in&quot; collection:Expression &quot;)&quot;&#xA;&#x9;&#x9;body:LocalScopeStatement;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;foreach&quot;" keyword="foreach"/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="in"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="collection">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.50"/>
-              </propertyType>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;(&quot;" keyword="("/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.43"/>
-              </propertyType>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="statements" list="true">
+              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.27"/>
             </sequence>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionSemanticsDefinitions concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#x9;&#xA;&#x9;boolean collectionRefersToArray = false;&#xA;&#x9;IdExpr collectionIdExpr = collection as IdExpr;&#xA;&#x9;if (collectionIdExpr.referencedElement instanceof Variable) {&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;if (collectionRefersToArray) {&#xA;&#x9;&#x9;expand &quot;for (int &quot; i=ID &quot; = 0; &quot; i=ID &quot; &lt; &quot; collection &quot;.length; &quot; i=ID &quot;=&quot; i=ID &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i=ID &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;&#x9;else { &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it=ID &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it=ID &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item=ID &quot; = &quot; it=ID &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item=ID &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;}" syntaxDefinition="//@modules.0/@extensionDefinitions.0">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;in&quot;" keyword="in"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="collection">
+              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.53"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;)&quot;" keyword=")"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="body">
+              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.46"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#x9;&#xA;&#x9;boolean collectionRefersToArray = false;&#xA;&#x9;IdExpr collectionIdExpr = collection as IdExpr;&#xA;&#x9;if (collectionIdExpr.referencedElement instanceof Variable) {&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;if (collectionRefersToArray) {&#xA;&#x9;&#x9;ID i;&#xA;&#x9;&#x9;expand &quot;for (int &quot; i &quot; = 0; &quot; i &quot; &lt; &quot; collection &quot;.length; &quot; i &quot;=&quot; i &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;&#x9;else {&#xA;&#x9;&#x9;ID it;&#xA;&#x9;&#x9;ID item; &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
       <statements xsi:type="dbl:Variable" name="itemVariable" concreteSyntax="Variable itemVariable = statements.get(0) as Variable">
         <classifierType concreteSyntax="Variable">
-          <referencedElement href="../dbl.xmi#//@modules.0/@classes.24"/>
+          <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
         </classifierType>
         <initialValue xsi:type="dbl:Cast" concreteSyntax="statements.get(0) as Variable">
           <classifierType concreteSyntax="Variable">
-            <referencedElement href="../dbl.xmi#//@modules.0/@classes.24"/>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
           </classifierType>
           <op xsi:type="dbl:IdExpr" concreteSyntax="statements.get(0)">
-            <parentIdExpr concreteSyntax="statements" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.2"/>
+            <parentIdExpr concreteSyntax="statements" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
             <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
             <callPart>
               <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
@@ -59,39 +61,39 @@
       </statements>
       <statements xsi:type="dbl:Variable" name="collectionIdExpr" concreteSyntax="IdExpr collectionIdExpr = collection as IdExpr">
         <classifierType concreteSyntax="IdExpr">
-          <referencedElement href="../dbl.xmi#//@modules.0/@classes.96"/>
+          <referencedElement href="../dbl.xmi#//@modules.0/@classes.100"/>
         </classifierType>
         <initialValue xsi:type="dbl:Cast" concreteSyntax="collection as IdExpr">
           <classifierType concreteSyntax="IdExpr">
-            <referencedElement href="../dbl.xmi#//@modules.0/@classes.96"/>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classes.100"/>
           </classifierType>
-          <op xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.4"/>
+          <op xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:IfStatement" concreteSyntax="if (collectionIdExpr.referencedElement instanceof Variable) {&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
         <condition xsi:type="dbl:InstanceOf" concreteSyntax="collectionIdExpr.referencedElement instanceof Variable">
           <op1 xsi:type="dbl:IdExpr" concreteSyntax="collectionIdExpr.referencedElement">
-            <parentIdExpr concreteSyntax="collectionIdExpr" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.2"/>
-            <referencedElement href="../dbl.xmi#//@modules.0/@classes.96/@attributes.1"/>
+            <parentIdExpr concreteSyntax="collectionIdExpr" referencedElement="//@modules.0/@extensionSemantics.0/@statements.2"/>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classes.100/@attributes.1"/>
           </op1>
           <op2 xsi:type="dbl:TypeAccess" concreteSyntax="Variable">
             <idExpr concreteSyntax="Variable">
-              <referencedElement href="../dbl.xmi#//@modules.0/@classes.24"/>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
             </idExpr>
           </op2>
         </condition>
         <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
           <statements xsi:type="dbl:Variable" name="referencedCollectionVariable" concreteSyntax="Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable">
             <classifierType concreteSyntax="Variable">
-              <referencedElement href="../dbl.xmi#//@modules.0/@classes.24"/>
+              <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
             </classifierType>
             <initialValue xsi:type="dbl:Cast" concreteSyntax="collectionIdExpr.referencedElement as Variable">
               <classifierType concreteSyntax="Variable">
-                <referencedElement href="../dbl.xmi#//@modules.0/@classes.24"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
               </classifierType>
               <op xsi:type="dbl:IdExpr" concreteSyntax="collectionIdExpr.referencedElement">
-                <parentIdExpr concreteSyntax="collectionIdExpr" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.2"/>
-                <referencedElement href="../dbl.xmi#//@modules.0/@classes.96/@attributes.1"/>
+                <parentIdExpr concreteSyntax="collectionIdExpr" referencedElement="//@modules.0/@extensionSemantics.0/@statements.2"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classes.100/@attributes.1"/>
               </op>
             </initialValue>
           </statements>
@@ -99,8 +101,8 @@
             <condition xsi:type="dbl:Greater" concreteSyntax="referencedCollectionVariable.typeArrayDimensions.size() > 0">
               <op1 xsi:type="dbl:IdExpr" concreteSyntax="referencedCollectionVariable.typeArrayDimensions.size()">
                 <parentIdExpr concreteSyntax="referencedCollectionVariable.typeArrayDimensions">
-                  <parentIdExpr concreteSyntax="referencedCollectionVariable" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.3/@trueCase/@statements.0"/>
-                  <referencedElement href="../dbl.xmi#//@modules.0/@classes.10/@attributes.1"/>
+                  <parentIdExpr concreteSyntax="referencedCollectionVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.3/@trueCase/@statements.0"/>
+                  <referencedElement href="../dbl.xmi#//@modules.0/@classes.13/@attributes.1"/>
                 </parentIdExpr>
                 <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.4"/>
                 <callPart/>
@@ -110,7 +112,7 @@
             <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}">
               <statements xsi:type="dbl:Assignment" concreteSyntax="collectionRefersToArray = true">
                 <variable concreteSyntax="collectionRefersToArray">
-                  <idExpr concreteSyntax="collectionRefersToArray" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
+                  <idExpr concreteSyntax="collectionRefersToArray" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
                 </variable>
                 <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
               </statements>
@@ -118,105 +120,108 @@
           </statements>
         </trueCase>
       </statements>
-      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (collectionRefersToArray) {&#xA;&#x9;&#x9;expand &quot;for (int &quot; i=ID &quot; = 0; &quot; i=ID &quot; &lt; &quot; collection &quot;.length; &quot; i=ID &quot;=&quot; i=ID &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i=ID &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;&#x9;else { &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it=ID &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it=ID &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item=ID &quot; = &quot; it=ID &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item=ID &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}">
-        <condition xsi:type="dbl:IdExpr" concreteSyntax="collectionRefersToArray" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
-        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;for (int &quot; i=ID &quot; = 0; &quot; i=ID &quot; &lt; &quot; collection &quot;.length; &quot; i=ID &quot;=&quot; i=ID &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i=ID &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}">
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;for (int &quot; i=ID &quot; = 0; &quot; i=ID &quot; &lt; &quot; collection &quot;.length; &quot; i=ID &quot;=&quot; i=ID &quot;+1) {&quot;">
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (collectionRefersToArray) {&#xA;&#x9;&#x9;ID i;&#xA;&#x9;&#x9;expand &quot;for (int &quot; i &quot; = 0; &quot; i &quot; &lt; &quot; collection &quot;.length; &quot; i &quot;=&quot; i &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;&#x9;else {&#xA;&#x9;&#x9;ID it;&#xA;&#x9;&#x9;ID item; &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="collectionRefersToArray" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
+        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;ID i;&#xA;&#x9;&#x9;expand &quot;for (int &quot; i &quot; = 0; &quot; i &quot; &lt; &quot; collection &quot;.length; &quot; i &quot;=&quot; i &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:CreateIdStatement" name="i" concreteSyntax="ID i"/>
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;for (int &quot; i &quot; = 0; &quot; i &quot; &lt; &quot; collection &quot;.length; &quot; i &quot;=&quot; i &quot;+1) {&quot;">
             <parts xsi:type="dbl:ExpandTextPart" text="for (int "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="i=ID" instanceOfExtensionDefinition="true" identifier="i"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@trueCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=" = 0; "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="i=ID" instanceOfExtensionDefinition="true" identifier="i"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@trueCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=" &lt; "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.4"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=".length; "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="i=ID" instanceOfExtensionDefinition="true" identifier="i"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@trueCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text="="/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="i=ID" instanceOfExtensionDefinition="true" identifier="i"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@trueCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text="+1) {"/>
           </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i=ID &quot;];&quot;">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i &quot;];&quot;">
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.0"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=" = "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.4"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text="["/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="i=ID" instanceOfExtensionDefinition="true" identifier="i"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@trueCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text="];"/>
           </statements>
           <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#x9;&#x9;body">
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.6"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.6"/>
             </parts>
           </statements>
           <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;}&quot;">
             <parts xsi:type="dbl:ExpandTextPart" text="}"/>
           </statements>
         </trueCase>
-        <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{ &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it=ID &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it=ID &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item=ID &quot; = &quot; it=ID &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item=ID &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}">
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;Iterator &quot; it=ID &quot; = &quot; collection &quot;.iterator();&quot;">
+        <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;ID it;&#xA;&#x9;&#x9;ID item; &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:CreateIdStatement" name="it" concreteSyntax="ID it"/>
+          <statements xsi:type="dbl:CreateIdStatement" name="item" concreteSyntax="ID item"/>
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;">
             <parts xsi:type="dbl:ExpandTextPart" text="Iterator "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="it=ID" instanceOfExtensionDefinition="true" identifier="it"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@falseCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=" = "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.4"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=".iterator();"/>
           </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (&quot; it=ID &quot;.hasNext()) {&quot;">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (&quot; it &quot;.hasNext()) {&quot;">
             <parts xsi:type="dbl:ExpandTextPart" text="while ("/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="it=ID" instanceOfExtensionDefinition="true" identifier="it"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@falseCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=".hasNext()) {"/>
           </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;&#x9;Object &quot; item=ID &quot; = &quot; it=ID &quot;.next();&quot;">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;">
             <parts xsi:type="dbl:ExpandTextPart" text="&#x9;Object "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="item=ID" instanceOfExtensionDefinition="true" identifier="item"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@falseCase/@statements.1"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=" = "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="it=ID" instanceOfExtensionDefinition="true" identifier="it"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@falseCase/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=".next();"/>
           </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; item=ID &quot; as &quot; itemVariable.classifierType &quot;;&quot;">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;">
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.0"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.0"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=" = "/>
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:UniqueIdExpr" concreteSyntax="item=ID" instanceOfExtensionDefinition="true" identifier="item"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@extensionSemantics.0/@statements.4/@falseCase/@statements.1"/>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=" as "/>
             <parts xsi:type="dbl:ExpandVariablePart">
               <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable.classifierType">
-                <parentIdExpr concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.0"/>
-                <referencedElement href="../dbl.xmi#//@modules.0/@classes.10/@attributes.2"/>
+                <parentIdExpr concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.0"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classes.13/@attributes.2"/>
               </expr>
             </parts>
             <parts xsi:type="dbl:ExpandTextPart" text=";"/>
           </statements>
           <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#x9;&#x9;body">
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.6"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.6"/>
             </parts>
           </statements>
           <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;}&quot;">
@@ -224,6 +229,6 @@
           </statements>
         </falseCase>
       </statements>
-    </extensionSemanticsDefinitions>
+    </extensionSemantics>
   </modules>
 </dbl:Model>

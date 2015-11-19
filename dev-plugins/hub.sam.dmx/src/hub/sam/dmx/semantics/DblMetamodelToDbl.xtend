@@ -2,7 +2,6 @@ package hub.sam.dmx.semantics
 
 import hub.sam.dbl.DblPackage
 import org.eclipse.core.runtime.IPath
-import org.eclipse.emf.ecore.EStructuralFeature
 
 class DblMetamodelToDbl extends EcoreToDblGenerator {
 	

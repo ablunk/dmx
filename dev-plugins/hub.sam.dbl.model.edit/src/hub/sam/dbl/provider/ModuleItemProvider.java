@@ -65,8 +65,8 @@ public class ModuleItemProvider extends NamedElementItemProvider {
 			childrenFeatures.add(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
 			childrenFeatures.add(DblPackage.Literals.MODULE__CLASSES);
-			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_DEFINITIONS);
-			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS_DEFINITIONS);
+			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSIONS);
+			childrenFeatures.add(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__FUNCTIONS);
 			childrenFeatures.add(DblPackage.Literals.MODULE__VARIABLES);
 		}
@@ -127,8 +127,8 @@ public class ModuleItemProvider extends NamedElementItemProvider {
 			case DblPackage.MODULE__CONTENT_EXTENSIONS:
 			case DblPackage.MODULE__EXPAND_EXPR:
 			case DblPackage.MODULE__CLASSES:
-			case DblPackage.MODULE__EXTENSION_DEFINITIONS:
-			case DblPackage.MODULE__EXTENSION_SEMANTICS_DEFINITIONS:
+			case DblPackage.MODULE__EXTENSIONS:
+			case DblPackage.MODULE__EXTENSION_SEMANTICS:
 			case DblPackage.MODULE__FUNCTIONS:
 			case DblPackage.MODULE__VARIABLES:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
@@ -156,12 +156,12 @@ public class ModuleItemProvider extends NamedElementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createModuleContent()));
+				 DblFactory.eINSTANCE.createModuleContentExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createClassContent()));
+				 DblFactory.eINSTANCE.createClassContentExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -180,13 +180,13 @@ public class ModuleItemProvider extends NamedElementItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__EXTENSION_DEFINITIONS,
-				 DblFactory.eINSTANCE.createExtensionDefinition()));
+				(DblPackage.Literals.MODULE__EXTENSIONS,
+				 DblFactory.eINSTANCE.createExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS_DEFINITIONS,
-				 DblFactory.eINSTANCE.createExtensionSemanticsDefinition()));
+				(DblPackage.Literals.MODULE__EXTENSION_SEMANTICS,
+				 DblFactory.eINSTANCE.createExtensionSemantics()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -197,6 +197,11 @@ public class ModuleItemProvider extends NamedElementItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.MODULE__VARIABLES,
 				 DblFactory.eINSTANCE.createVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.MODULE__VARIABLES,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
 	}
 
 }

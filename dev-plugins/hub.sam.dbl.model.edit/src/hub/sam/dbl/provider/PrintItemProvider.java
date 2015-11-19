@@ -319,11 +319,6 @@ public class PrintItemProvider extends SimpleStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PRINT__OUTPUTS,
-				 DblFactory.eINSTANCE.createUniqueIdExpr()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.PRINT__OUTPUTS,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add

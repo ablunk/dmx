@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Constructor#getParameters <em>Parameters</em>}</li>
  *   <li>{@link hub.sam.dbl.Constructor#getOwningClass <em>Owning Class</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getConstructor()
  * @model

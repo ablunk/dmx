@@ -51,15 +51,6 @@ public class QuotedClassContentItemProvider extends QuotedCodeItemProvider {
 			addNamePropertyDescriptor(object);
 			addConcreteSyntaxPropertyDescriptor(object);
 			addInstanceOfExtensionDefinitionPropertyDescriptor(object);
-			addPlaceHolder1PropertyDescriptor(object);
-			addPlaceHolder2PropertyDescriptor(object);
-			addPlaceHolder3PropertyDescriptor(object);
-			addPlaceHolder4PropertyDescriptor(object);
-			addPlaceHolder5PropertyDescriptor(object);
-			addPlaceHolder6PropertyDescriptor(object);
-			addPlaceHolder8PropertyDescriptor(object);
-			addPlaceHolder9PropertyDescriptor(object);
-			addPlaceHolder10PropertyDescriptor(object);
 			addActivePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
@@ -132,204 +123,6 @@ public class QuotedClassContentItemProvider extends QuotedCodeItemProvider {
 	}
 
 	/**
-	 * This adds a property descriptor for the Place Holder1 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder1PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder1_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder1_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER1,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder2 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder2PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder2_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder2_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER2,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder3 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder3PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder3_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder3_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER3,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder4 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder4PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder4_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder4_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER4,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder5 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder5PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder5_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder5_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER5,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder6 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder6PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder6_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder6_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER6,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder8 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder8PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder8_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder8_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER8,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder9 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder9PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder9_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder9_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER9,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Place Holder10 feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addPlaceHolder10PropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ExtensibleElement_placeHolder10_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ExtensibleElement_placeHolder10_feature", "_UI_ExtensibleElement_type"),
-				 DblPackage.Literals.EXTENSIBLE_ELEMENT__PLACE_HOLDER10,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
 	 * This adds a property descriptor for the Active feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -366,6 +159,7 @@ public class QuotedClassContentItemProvider extends QuotedCodeItemProvider {
 			childrenFeatures.add(DblPackage.Literals.TYPE__ARRAY_DIMENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS);
 			childrenFeatures.add(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR);
+			childrenFeatures.add(DblPackage.Literals.ANNOTATEABLE_ELEMENT__ANNOTATIONS);
 			childrenFeatures.add(DblPackage.Literals.CLASS__BINDINGS);
 			childrenFeatures.add(DblPackage.Literals.CLASS__SUPER_CLASSES);
 			childrenFeatures.add(DblPackage.Literals.CLASS__CONSTRUCTORS);
@@ -436,6 +230,7 @@ public class QuotedClassContentItemProvider extends QuotedCodeItemProvider {
 			case DblPackage.QUOTED_CLASS_CONTENT__ARRAY_DIMENSIONS:
 			case DblPackage.QUOTED_CLASS_CONTENT__CONTENT_EXTENSIONS:
 			case DblPackage.QUOTED_CLASS_CONTENT__EXPAND_EXPR:
+			case DblPackage.QUOTED_CLASS_CONTENT__ANNOTATIONS:
 			case DblPackage.QUOTED_CLASS_CONTENT__BINDINGS:
 			case DblPackage.QUOTED_CLASS_CONTENT__SUPER_CLASSES:
 			case DblPackage.QUOTED_CLASS_CONTENT__CONSTRUCTORS:
@@ -472,17 +267,27 @@ public class QuotedClassContentItemProvider extends QuotedCodeItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createModuleContent()));
+				 DblFactory.eINSTANCE.createModuleContentExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCTIVE_EXTENSION_AT_CONTENT_EXTENSION_POINT__CONTENT_EXTENSIONS,
-				 DblFactory.eINSTANCE.createClassContent()));
+				 DblFactory.eINSTANCE.createClassContentExtension()));
 
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CONSTRUCT__EXPAND_EXPR,
 				 DblFactory.eINSTANCE.createExpandExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ANNOTATEABLE_ELEMENT__ANNOTATIONS,
+				 DblFactory.eINSTANCE.createAnnotation()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ANNOTATEABLE_ELEMENT__ANNOTATIONS,
+				 DblFactory.eINSTANCE.createAnnotationLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -503,6 +308,11 @@ public class QuotedClassContentItemProvider extends QuotedCodeItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.CLASS__ATTRIBUTES,
 				 DblFactory.eINSTANCE.createVariable()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.CLASS__ATTRIBUTES,
+				 DblFactory.eINSTANCE.createCreateIdStatement()));
 
 		newChildDescriptors.add
 			(createChildParameter
@@ -537,7 +347,7 @@ public class QuotedClassContentItemProvider extends QuotedCodeItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.CLASS__ACTIONS_BLOCK,
-				 DblFactory.eINSTANCE.createExtensionSemanticsDefinition()));
+				 DblFactory.eINSTANCE.createExtensionSemantics()));
 	}
 
 	/**

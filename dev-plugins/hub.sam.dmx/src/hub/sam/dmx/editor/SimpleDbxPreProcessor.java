@@ -14,13 +14,13 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.ecore.resource.Resource;
 
 import hub.sam.dbl.Model;
-import hub.sam.dmx.editor.semantics.IExtensionDefinitionApplier;
+import hub.sam.dmx.editor.semantics.IExtensionApplier;
 
 public class SimpleDbxPreProcessor extends SimpleDblPreProcessor {
 
-	private IExtensionDefinitionApplier extensionDefinitionApplier;
+	private IExtensionApplier extensionDefinitionApplier;
 	
-	public SimpleDbxPreProcessor(IExtensionDefinitionApplier extensionDefinitionApplier) {
+	public SimpleDbxPreProcessor(IExtensionApplier extensionDefinitionApplier) {
 		this.extensionDefinitionApplier = extensionDefinitionApplier;
 	}
 	
@@ -60,7 +60,7 @@ public class SimpleDbxPreProcessor extends SimpleDblPreProcessor {
 				
 				// add extension definitions contained in import -> requires ecore model
 				if (resourceForImport != null) {
-					added |= extensionDefinitionApplier.addExtensionDefinitions((Model) resourceForImport.getContents().get(0));
+					added |= extensionDefinitionApplier.addExtensions((Model) resourceForImport.getContents().get(0));
 				}
 			}
 		}
@@ -121,7 +121,7 @@ public class SimpleDbxPreProcessor extends SimpleDblPreProcessor {
 
 	@Override
 	protected void importedModelChanged(Model model) {
-		extensionDefinitionApplier.unwindExtensionDefinitionEffects(model);
+		extensionDefinitionApplier.unwindExtensionEffects(model);
 		extensionDefinitionApplier.syntaxChanged();
 		
 		super.importedModelChanged(model);

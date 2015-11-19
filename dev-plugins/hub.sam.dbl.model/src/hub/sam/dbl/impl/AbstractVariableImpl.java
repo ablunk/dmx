@@ -3,6 +3,8 @@
 package hub.sam.dbl.impl;
 
 import hub.sam.dbl.AbstractVariable;
+import hub.sam.dbl.AnnotateableElement;
+import hub.sam.dbl.Annotation;
 import hub.sam.dbl.ArrayDimension;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.IdExpr;
@@ -30,12 +32,13 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getPrimitiveType <em>Primitive Type</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getTypeArrayDimensions <em>Type Array Dimensions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getClassifierType <em>Classifier Type</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.AbstractVariableImpl#getAnnotations <em>Annotations</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */
@@ -69,6 +72,16 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 	 * @ordered
 	 */
 	protected IdExpr classifierType;
+
+	/**
+	 * The cached value of the '{@link #getAnnotations() <em>Annotations</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAnnotations()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Annotation> annotations;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -192,6 +205,18 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Annotation> getAnnotations() {
+		if (annotations == null) {
+			annotations = new EObjectContainmentEList<Annotation>(Annotation.class, this, DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS);
+		}
+		return annotations;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -201,6 +226,8 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 				return ((InternalEList<?>)getTypeArrayDimensions()).basicRemove(otherEnd, msgs);
 			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
 				return basicSetClassifierType(null, msgs);
+			case DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS:
+				return ((InternalEList<?>)getAnnotations()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -219,6 +246,8 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 				return getTypeArrayDimensions();
 			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
 				return getClassifierType();
+			case DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS:
+				return getAnnotations();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -242,6 +271,10 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
 				setClassifierType((IdExpr)newValue);
 				return;
+			case DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS:
+				getAnnotations().clear();
+				getAnnotations().addAll((Collection<? extends Annotation>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -263,6 +296,9 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
 				setClassifierType((IdExpr)null);
 				return;
+			case DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS:
+				getAnnotations().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -281,6 +317,8 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 				return typeArrayDimensions != null && !typeArrayDimensions.isEmpty();
 			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
 				return classifierType != null;
+			case DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS:
+				return annotations != null && !annotations.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -300,6 +338,12 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 				default: return -1;
 			}
 		}
+		if (baseClass == AnnotateableElement.class) {
+			switch (derivedFeatureID) {
+				case DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS: return DblPackage.ANNOTATEABLE_ELEMENT__ANNOTATIONS;
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -315,6 +359,12 @@ public abstract class AbstractVariableImpl extends NamedElementImpl implements A
 				case DblPackage.TYPED_ELEMENT__PRIMITIVE_TYPE: return DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE;
 				case DblPackage.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS: return DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS;
 				case DblPackage.TYPED_ELEMENT__CLASSIFIER_TYPE: return DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE;
+				default: return -1;
+			}
+		}
+		if (baseClass == AnnotateableElement.class) {
+			switch (baseFeatureID) {
+				case DblPackage.ANNOTATEABLE_ELEMENT__ANNOTATIONS: return DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS;
 				default: return -1;
 			}
 		}

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <modules name="cosal">
+    <classes name="CosalClassifier">
+      <superClasses>
+        <class href="../dbl.xmi#//@modules.0/@classes.24"/>
+      </superClasses>
+      <attributes name="initial">
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
+      </attributes>
+      <attributes name="states">
+        <classifierType>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2"/>
+        </classifierType>
+      </attributes>
+    </classes>
+    <classes name="State">
+      <superClasses>
+        <class href="../dbl.xmi#//@modules.0/@classes.1"/>
+      </superClasses>
+      <attributes name="outgoing">
+        <classifierType>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2"/>
+        </classifierType>
+      </attributes>
+    </classes>
+    <classes name="InitialState">
+      <superClasses>
+        <class href="../dbl.xmi#//@modules.0/@classes.1"/>
+      </superClasses>
+    </classes>
+    <classes name="NormalState">
+      <superClasses class="//@modules.0/@classes.1"/>
+    </classes>
+    <classes name="FinalState">
+      <superClasses class="//@modules.0/@classes.1"/>
+    </classes>
+    <classes name="Transition">
+      <superClasses>
+        <class href="../dbl.xmi#//@modules.0/@classes.1"/>
+      </superClasses>
+      <attributes name="input">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <attributes name="target">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+      </attributes>
+    </classes>
+    <classes name="CosalInstance">
+      <superClasses>
+        <class href="../dbl.xmi#//@modules.0/@classes.27"/>
+      </superClasses>
+      <attributes name="cosalClassifier">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+      </attributes>
+      <attributes name="currentState">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+      </attributes>
+    </classes>
+    <classes name="CosalRuntime">
+      <annotations name="debug">
+        <items key="context" value="yes"/>
+      </annotations>
+      <constructors>
+        <statements xsi:type="dbl:Assignment">
+          <annotations name="debug">
+            <items key="positionObject" value="app1.xmi#//@modules.0/@classes.0/@states.1"/>
+          </annotations>
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.7/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0">
+            <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.0"/>
+          </value>
+        </statements>
+      </constructors>
+      <attributes name="classifier">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <annotations name="debug">
+          <items key="editorExtensionInstance" value="app1.xmi#//@modules.0/@classes.0"/>
+        </annotations>
+      </attributes>
+      <attributes name="currentState">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+      </attributes>
+    </classes>
+    <functions name="buildCosalClassifier_extensionInstance_hhw">
+      <classifierType referencedElement="//@modules.0/@classes.0"/>
+      <statements xsi:type="dbl:Variable" name="hhw">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="i">
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.2"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="h">
+        <classifierType referencedElement="//@modules.0/@classes.3"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.3"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.3"/>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classes.29/@attributes.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:StringLiteral" value="h"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.1">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.3"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Return">
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+      </statements>
+    </functions>
+    <variables name="hhw_extensionInstance">
+      <classifierType referencedElement="//@modules.0/@classes.0"/>
+      <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0">
+        <callPart/>
+      </initialValue>
+    </variables>
+  </modules>
+</dbl:Model>

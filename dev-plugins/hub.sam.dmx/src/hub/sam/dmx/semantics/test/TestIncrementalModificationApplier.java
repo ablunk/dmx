@@ -6,6 +6,7 @@ import hub.sam.dmx.modifications.ModificationsFactory;
 import hub.sam.dmx.modifications.ModificationsRecord;
 import hub.sam.dmx.modifications.Substitution;
 import hub.sam.dmx.semantics.IncrementalModificationApplier;
+import hub.sam.dmx.semantics.SequentialModificationApplier;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -100,8 +101,11 @@ public class TestIncrementalModificationApplier {
 	}
 
 	private String apply() {
-		IncrementalModificationApplier modApplier = new IncrementalModificationApplier(record.getModifications(), originalText);
-		return modApplier.applyAll();
+//		IncrementalModificationApplier modApplier = new IncrementalModificationApplier(
+//				new StringBuffer(originalText));
+//		modApplier.applyAll(record.getModifications());
+//		return modApplier.getWorkingText().toString();
+		return "";
 	}
 	
 	private void addAfter(int offset, String text) {

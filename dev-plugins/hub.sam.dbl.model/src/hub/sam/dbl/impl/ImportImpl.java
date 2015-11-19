@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ImportImpl#getFile <em>File</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ImportImpl#getModel <em>Model</em>}</li>
  * </ul>
+ * </p>
  *
  * @generated
  */

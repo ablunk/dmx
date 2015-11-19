@@ -65,6 +65,7 @@ public class AbstractVariableItemProvider extends NamedElementItemProvider {
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__PRIMITIVE_TYPE);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__TYPE_ARRAY_DIMENSIONS);
 			childrenFeatures.add(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE);
+			childrenFeatures.add(DblPackage.Literals.ANNOTATEABLE_ELEMENT__ANNOTATIONS);
 		}
 		return childrenFeatures;
 	}
@@ -112,6 +113,7 @@ public class AbstractVariableItemProvider extends NamedElementItemProvider {
 			case DblPackage.ABSTRACT_VARIABLE__PRIMITIVE_TYPE:
 			case DblPackage.ABSTRACT_VARIABLE__TYPE_ARRAY_DIMENSIONS:
 			case DblPackage.ABSTRACT_VARIABLE__CLASSIFIER_TYPE:
+			case DblPackage.ABSTRACT_VARIABLE__ANNOTATIONS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -163,6 +165,16 @@ public class AbstractVariableItemProvider extends NamedElementItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.TYPED_ELEMENT__CLASSIFIER_TYPE,
 				 DblFactory.eINSTANCE.createIdExpr()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ANNOTATEABLE_ELEMENT__ANNOTATIONS,
+				 DblFactory.eINSTANCE.createAnnotation()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.ANNOTATEABLE_ELEMENT__ANNOTATIONS,
+				 DblFactory.eINSTANCE.createAnnotationLiteral()));
 	}
 
 }

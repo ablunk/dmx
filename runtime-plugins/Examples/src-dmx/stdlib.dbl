@@ -6,12 +6,6 @@ class Object {
 	}
 }
 
-class Class {
-	bindings {
-		"java" -> "java.lang.Class"
-	}
-}
-
 class Iterator {
 	bindings {
 		"java" -> "java.util.Iterator"
@@ -22,7 +16,24 @@ class Iterator {
 	void remove() abstract;
 }
 
-class List {
+// List with only read operations
+class RList {
+	bindings {
+		"java" -> "java.util.List"
+	}
+
+	boolean add(Object e) abstract;
+	boolean add(int index, Object e) abstract;
+	boolean contains(Object e) abstract;
+	int size() abstract;
+	Object get(int index) abstract;
+	int indexOf(Object e) abstract;
+	boolean isEmpty() abstract;
+	Object array[] toArray() abstract;
+	Iterator iterator() abstract;
+}
+
+class List extends RList {
 	bindings {
 		"java" -> "java.util.List"
 	}

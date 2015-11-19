@@ -10,12 +10,12 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
- * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Pattern#isTop <em>Top</em>}</li>
  *   <li>{@link hub.sam.dbl.Pattern#getContext <em>Context</em>}</li>
  *   <li>{@link hub.sam.dbl.Pattern#getBody <em>Body</em>}</li>
  * </ul>
+ * </p>
  *
  * @see hub.sam.dbl.DblPackage#getPattern()
  * @model
@@ -35,6 +35,8 @@ public interface Pattern extends NamedElement {
 	 * @see #setTop(boolean)
 	 * @see hub.sam.dbl.DblPackage#getPattern_Top()
 	 * @model default="false" required="true"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='QuotedStatements'"
+	 *        annotation="http://schema.omg.org/spec/MOF/2.0/emof.xml#Property.oppositeRoleName body='QuotedStatements'"
 	 * @generated
 	 */
 	boolean isTop();

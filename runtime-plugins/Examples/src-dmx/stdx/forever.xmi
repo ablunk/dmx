@@ -7,28 +7,28 @@
     <model href="../stdlib.xmi#/"/>
   </imports>
   <modules name="stdx_forever">
-    <extensionDefinitions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}">
-      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.29"/>
-      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
-        <rules name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="forever"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="body">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.43"/>
-              </propertyType>
+    <extensions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}">
+      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.32"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;forever&quot;" keyword="forever"/>
             </sequence>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionSemanticsDefinitions concreteSyntax="semantics for Forever {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}" syntaxDefinition="//@modules.0/@extensionDefinitions.0">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="body">
+              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.46"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for Forever {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (true) &quot; body">
         <parts xsi:type="dbl:ExpandTextPart" text="while (true) "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.1"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
         </parts>
       </statements>
-    </extensionSemanticsDefinitions>
+    </extensionSemantics>
   </modules>
 </dbl:Model>
