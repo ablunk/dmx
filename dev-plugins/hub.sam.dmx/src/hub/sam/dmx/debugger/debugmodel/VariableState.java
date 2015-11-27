@@ -1,7 +1,6 @@
 package hub.sam.dmx.debugger.debugmodel;
 
-public class VariableState {
+public class VariableState extends NamedElement {
 	private String typeName;
-	private String variableName;
-	private Object value;
+	private IDebugValue value;
 }

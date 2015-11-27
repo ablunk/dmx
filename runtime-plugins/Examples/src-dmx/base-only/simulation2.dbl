@@ -2,7 +2,8 @@ module simulation{
 	int PrintJobId = 0;
 	int PrintJobTime = 50;
 	int PrintJobCount = 10;
-
+	Printer p;
+	
 	active class Printer{		
 		new(int prio, string label){print "Printer started";}
 		actions{
@@ -28,7 +29,7 @@ module simulation{
 	}
 	
 	int main(){
-		Printer p = new Printer(1, "Printer");
+		p = new Printer(1, "Printer");
 		activate p;
 		advance PrintJobTime*PrintJobCount;
 	}

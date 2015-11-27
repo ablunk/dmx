@@ -17,6 +17,29 @@ public class ForeverTarget {
 	// Info zu laufenden Prozessen, als Key dient der eindeutig vergebene Thread-Name
 	public static Map<String, DblProcess> processes = new HashMap<>();
 	
+	/*
+	
+	  SBL source:
+	  
+	  active class A {
+	  	actions {
+	  		forever {
+	  			print time + "\n";
+	  			advance 1;
+	  			if (time > getEndTime() {
+	  				break;
+	  			}
+	  		}
+	  	}
+	  	
+	  	int getEndTime() {
+	  		int r = 3;
+	  		return r;
+	  	}
+	  }
+	  
+	*/
+	
 	public static class A extends SimulationProcess {
 		
 		public A(String name) {

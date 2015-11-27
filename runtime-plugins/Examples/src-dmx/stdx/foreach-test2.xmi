@@ -8,7 +8,7 @@
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="it" concreteSyntax="Iterator it = l.iterator()">
         <classifierType concreteSyntax="Iterator">
-          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1"/>
         </classifierType>
         <initialValue xsi:type="dbl:IdExpr" concreteSyntax="l.iterator()">
           <parentIdExpr concreteSyntax="l" referencedElement="//@modules.0/@functions.0/@parameters.0"/>
@@ -19,7 +19,7 @@
       <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it.hasNext()) {&#xA;&#x9;&#x9;Object item = it.next();&#xA;&#x9;&#x9;print &quot;iterator: &quot; + item + &quot;\n&quot;;&#xA;&#x9;}">
         <condition xsi:type="dbl:IdExpr" concreteSyntax="it.hasNext()">
           <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@functions.0/@statements.0"/>
-          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.0"/>
+          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1/@methods.0"/>
           <callPart/>
         </condition>
         <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;Object item = it.next();&#xA;&#x9;&#x9;print &quot;iterator: &quot; + item + &quot;\n&quot;;&#xA;&#x9;}">
@@ -29,7 +29,7 @@
             </classifierType>
             <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it.next()">
               <parentIdExpr concreteSyntax="it" referencedElement="//@modules.0/@functions.0/@statements.0"/>
-              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.2/@methods.1"/>
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1/@methods.1"/>
               <callPart/>
             </initialValue>
           </statements>

@@ -60,7 +60,7 @@ public class DbxTextEditor extends DblTextEditor implements IExtensionApplier {
 		fireRccSyntaxChanged();
 	}
 
-	public boolean addExtensions(Model model) {		
+	public boolean addExtensions(Model model) {
 		boolean added = getExtensionDefinitionManager().addExtensions(model);
 		
 		PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {

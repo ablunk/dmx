@@ -400,9 +400,12 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				addPlainNames(namedElementId.getName(), context, allIds);
 			}
 
-			// necessary by raw references to global names
+			// necessary by raw references to global names in extension instances
 			if (allIds.isEmpty()) {
-				addPlainNames(namedElementId.getName(), context, allIds);
+				ExtensibleElement extensibleContainer = getContainerObjectOfType(context, ExtensibleElement.class);
+				if (extensibleContainer != null && extensibleContainer.isInstanceOfExtensionDefinition()) {
+					addPlainNames(namedElementId.getName(), context, allIds);
+				}
 			}
 		}
 		else if (identifier instanceof String

@@ -1,0 +1,29 @@
+module TwoCountersAdvance {
+
+	boolean debug = true;
+	int limit = 10;
+
+	class Counter {
+		int count = 0; 
+		double count2 = 5;	
+		string buf = "hello";
+		
+		int m(int i) {
+			if (i <= 1) return i;
+			return m(i-1)+m(i-2);
+		}				
+	}
+	
+	Counter c3 = new Counter;
+	
+	Counter make() {
+		return c3;
+	}
+	
+	void main() {
+		Counter c = make();
+		Counter c2 = make();
+		print c.m(10);
+	}
+
+}

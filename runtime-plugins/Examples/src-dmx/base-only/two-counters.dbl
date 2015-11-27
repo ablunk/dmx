@@ -9,10 +9,13 @@ module TwoCountersAdvance {
 		}
 	}
 
-	active class Counter(int prio, string label){
+	active class Counter {
 		int count = 0; 
 		double count2 = 5;	
 		string buf = "hello";
+		
+		new (int prio, string label) {
+		}
 				
 		actions {
 			while (count < limit) {
