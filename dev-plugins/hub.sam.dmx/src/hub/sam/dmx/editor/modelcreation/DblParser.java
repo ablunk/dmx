@@ -23,6 +23,8 @@ import org.osgi.framework.Bundle;
 
 public class DblParser extends HeadlessEclipseParser {
 	
+	public static final String SYNTAX_DEFINITION_FILE = "/resources/dbl.etslt";
+
 	public DblParser(IPath inputPath, String filename) {
 		super(inputPath, filename);
 		initPreProcessor();
@@ -59,12 +61,17 @@ public class DblParser extends HeadlessEclipseParser {
 	
 	@Override
 	protected String getSyntaxPath() {
-		return "/resources/dbl.etslt";
+		return SYNTAX_DEFINITION_FILE;
 	}
 
 	@Override
 	protected Bundle getPluginBundle() {
-		return Activator.getDefault().getBundle();
+		Activator activator = Activator.getDefault();
+		if (activator != null) {
+			return activator.getBundle();
+		} else {
+			return null;
+		}
 	}
 	
 	@Override

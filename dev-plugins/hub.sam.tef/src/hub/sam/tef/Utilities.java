@@ -37,8 +37,10 @@ import hub.sam.tef.tslsemantics.TslModelCreatingContext;
 import hub.sam.tef.tslsemantics.TslSemanticsProvider;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +49,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -63,6 +66,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.osgi.framework.Bundle;
 
 public class Utilities {
@@ -70,11 +75,12 @@ public class Utilities {
 	private static Syntax fTslSyntax = null;
 	private static Syntax fEtslSyntax = null;
 	
+	
 	public static Syntax getTslSyntax() {
 		if (fTslSyntax == null) {
 			try {				
 				fTslSyntax = loadSyntaxDescription(
-						TEFPlugin.getDefault().getBundle(),
+						TEFPlugin.getPluginFileLocator(),
 						"resources/models/tsl.tsl",
 						new EPackage[] {TslPackage.eINSTANCE, EcorePackage.eINSTANCE});		
 			} catch (TslException e) {
@@ -88,7 +94,7 @@ public class Utilities {
 		if (fEtslSyntax == null) {
 			try {
 				fEtslSyntax = loadSyntaxDescription(
-						TEFPlugin.getDefault().getBundle(),
+						TEFPlugin.getPluginFileLocator(),
 						"resources/models/etsl.tslt", 
 						new EPackage[] { EtslPackage.eINSTANCE, 
 						TslPackage.eINSTANCE, EcorePackage.eINSTANCE});
@@ -137,13 +143,31 @@ public class Utilities {
 		}
 	}
 	
+	private static final String PATH_TO_TEF_PLUGIN = "/Users/andreasb/Privat/Projects/dmx/dev-plugins/hub.sam.tef";
+
 	private static Syntax loadSyntaxDescriptionFromTSLFile(URL url,
-			EPackage[] metaModelPackages) throws TslException {
+			EPackage[] metaModelPackages, PluginFileLocator fileLocator) throws TslException {
 		ResourceSet resourceSet = new ResourceSetImpl();
-				
+		
+		try {
+			// TODO AB: put uri only if eclipse is NOT running
+			URI ecoreJarURI = URI.createURI(EcorePlugin.INSTANCE.getBaseURL().toURI().toString());
+			resourceSet.getURIConverter().getURIMap().put(URI.createURI("platform:/plugin/org.eclipse.emf.ecore/"), ecoreJarURI);
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
+		
+		URL tslUrl = fileLocator.findFile("/resources/models/tsl.tsl");
+		if (fileLocator.hasBundle()) {
+			resourceSet.getURIConverter().getURIMap().put(URI.createPlatformResourceURI("hub.sam.tef/resources", true).appendSegment(""), 
+					URI.createFileURI(new File(PATH_TO_TEF_PLUGIN + "/resources").getAbsolutePath()).appendSegment(""));
+		}
+		
 		URI exampleModelFile = URI.createURI(url.toExternalForm());		
-		EPackage tslMetaModel = TslPackage.eINSTANCE;	
-		resourceSet.getPackageRegistry().put(tslMetaModel.getNsURI(), tslMetaModel);		
+		EPackage tslMetaModel = TslPackage.eINSTANCE;
+		
+		resourceSet.getPackageRegistry().put(tslMetaModel.getNsURI(), tslMetaModel);
+		resourceSet.getPackageRegistry().put(EcorePackage.eNS_URI, EcorePackage.eINSTANCE);
 		Resource resource = resourceSet.getResource(exampleModelFile, true);
 		
 		// replace referenced "fake" classes and structural features with the
@@ -161,7 +185,7 @@ public class Utilities {
 			URL url,
 			EPackage[] metaModelPackages, 
 			Syntax tslSyntax,
-			Bundle bundle) throws TslException {						
+			PluginFileLocator fileLocator) throws TslException {						
 		String tslContent = null;
 		
 		try {
@@ -183,7 +207,7 @@ public class Utilities {
 					new EPackage[] { TslPackage.eINSTANCE, EcorePackage.eINSTANCE, 
 									 EtslPackage.eINSTANCE}, 
 					tslSyntax, 
-					bundle );
+					fileLocator );
 			replaceClassesWithoutMetaId(syntax.eAllContents(), metaModelPackages);
 			return syntax;
 		} catch (Exception e) {
@@ -191,11 +215,12 @@ public class Utilities {
 		}
 	}
 
-	public static Syntax loadSyntaxDescription(Bundle bundle, String pluginRelativePath,
+	public static Syntax loadSyntaxDescription(PluginFileLocator fileLocator, String pluginRelativePath,
 			EPackage[] metaModelPackages) throws TslException {
 		
-		URL url = FileLocator.find(bundle, new Path(pluginRelativePath), null);
-		return loadSyntaxDescription(bundle, url, metaModelPackages);
+		URL url = fileLocator.findFile(pluginRelativePath);
+		// TODO AB: maybe it is not needed to pass the fileLocator through
+		return loadSyntaxDescription(fileLocator, url, metaModelPackages);
 	}
 		
 	
@@ -211,16 +236,16 @@ public class Utilities {
 	 * 
 	 * @return the loaded syntax.
 	 */
-	public static Syntax loadSyntaxDescription(Bundle bundle, URL url, EPackage[] metaModelPackages) throws TslException {
+	public static Syntax loadSyntaxDescription(PluginFileLocator fileLocator, URL url, EPackage[] metaModelPackages) throws TslException {
 		Syntax result = null;
 		if (url.toString().endsWith(".tsl")) {
-			result =  loadSyntaxDescriptionFromTSLFile(url, metaModelPackages);
+			result =  loadSyntaxDescriptionFromTSLFile(url, metaModelPackages, fileLocator);
 		} else if (url.toString().endsWith(".tslt")) {
 			result =  loadSyntaxDescriptionFromTSLTURL(url, metaModelPackages,
-					getTslSyntax(), bundle);
+					getTslSyntax(), fileLocator);
 		} else if (url.toString().endsWith(".etslt")) {
 			result =  loadSyntaxDescriptionFromTSLTURL(url, metaModelPackages,
-					getEtslSyntax(), bundle);
+					getEtslSyntax(), fileLocator);
 		} else {
 			throw new TslException("Given TSL file is not a TSL file.");
 		}
@@ -243,7 +268,7 @@ public class Utilities {
 	private static Syntax parseTsl(String tslContent, 
 			EPackage[] packages, 
 			Syntax tslSyntax,
-			Bundle bundle) 
+			PluginFileLocator fileLocator) 
 			throws TslException {
 		
 		Parser parser = new Parser(tslSyntax);
@@ -260,7 +285,7 @@ public class Utilities {
 			EObject creationResult = null;
 			try {				
 				IModelCreatingContext modelCreationContext = new TslModelCreatingContext(						
-						packages, new TslSemanticsProvider(), new ResourceImpl(), tslContent, bundle);
+						packages, new TslSemanticsProvider(), new ResourceImpl(), tslContent, fileLocator);
 				
 				creationResult = (EObject)
 						parseResult.createModel(modelCreationContext, null);

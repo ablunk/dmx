@@ -72,6 +72,12 @@ public abstract class PrimitiveTypeDescriptor {
 	}
 	
 	private static Collection<PrimitiveTypeDescriptor> fRegisteredTypeDescriptors = null;
+	
+	// TODO AB: can this be mocked in a better way?
+	public static void setRegisteredTypeDescriptors(Collection<PrimitiveTypeDescriptor> primitiveTypeDescriptors) {
+		fRegisteredTypeDescriptors = primitiveTypeDescriptors;
+	}
+	
 	/**
 	 * Retrieves all primitive type descriptors from eclipse's extension registry.
 	 */

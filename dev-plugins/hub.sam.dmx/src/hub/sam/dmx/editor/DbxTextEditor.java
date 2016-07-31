@@ -5,6 +5,7 @@ import hub.sam.dmx.Activator;
 import hub.sam.dmx.editor.modelcreation.DbxModelCreationContext;
 import hub.sam.dmx.editor.semantics.ExtensionManager;
 import hub.sam.dmx.editor.semantics.IExtensionApplier;
+import hub.sam.tef.PluginFileLocator;
 import hub.sam.tef.TEFPlugin;
 import hub.sam.tef.Utilities;
 import hub.sam.tef.editor.SourceViewerConfiguration;
@@ -97,7 +98,11 @@ public class DbxTextEditor extends DblTextEditor implements IExtensionApplier {
 
 	@Override
 	protected Bundle getPluginBundle() {
-		return Activator.getDefault().getBundle();
+		if (Activator.getDefault() != null) {
+			return Activator.getDefault().getBundle();
+		} else {
+			return null;
+		}
 	}
 	
 	
@@ -119,11 +124,11 @@ public class DbxTextEditor extends DblTextEditor implements IExtensionApplier {
 	@Override
 	protected Syntax createSyntax() throws TslException {
 		Bundle bundle = getPluginBundle();
-		if (bundle == null) {
+		if (bundle == null && TEFPlugin.getDefault() != null) {
 			bundle = TEFPlugin.getDefault().getBundle();
 		}
 		
-		return Utilities.loadSyntaxDescription(bundle, getSyntaxPath(), getMetaModelPackages());
+		return Utilities.loadSyntaxDescription(new PluginFileLocator(bundle), getSyntaxPath(), getMetaModelPackages());
 	
 		/*InputDialog dialog = new InputDialog(getEditorSite().getShell(), "Syntax File", "Enter syntax file name:", "/resources/dbl-ext.etslt", null);
 		if (dialog.open() == IDialogConstants.OK_ID) {

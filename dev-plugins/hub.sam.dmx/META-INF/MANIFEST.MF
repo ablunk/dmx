@@ -22,7 +22,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.xtext.xbase.lib;bundle-version="2.4.3",
  org.eclipse.xtend.lib;bundle-version="2.4.3",
  org.eclipse.emf.codegen.ecore;bundle-version="2.10.2",
- org.codehaus.groovy;bundle-version="2.3.3"
+ org.codehaus.groovy;bundle-version="2.3.3",
+ org.eclipse.core.expressions;bundle-version="3.5.0"
 Eclipse-BuddyPolicy: registered
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -50,7 +50,7 @@ public class ContentAssistTestEditor extends TextEditor {
 		if (fSyntax == null) {
 			try {
 				fSyntax = Utilities.loadSyntaxDescription(
-						TEFPlugin.getDefault().getBundle(),
+						TEFPlugin.getPluginFileLocator(),
 						"resources/models/cc-testsyntax.tslt", 
 						new EPackage[] {});
 			} catch (TslException e) {

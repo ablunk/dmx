@@ -18,6 +18,7 @@
  */
 package hub.sam.tef.editor.text;
 
+import hub.sam.tef.PluginFileLocator;
 import hub.sam.tef.TEFPlugin;
 import hub.sam.tef.Utilities;
 import hub.sam.tef.editor.SourceViewerConfiguration;
@@ -216,7 +217,7 @@ public abstract class TextEditor extends org.eclipse.ui.editors.text.TextEditor 
 		if (bundle == null) {
 			bundle = TEFPlugin.getDefault().getBundle();
 		}
-		return Utilities.loadSyntaxDescription(bundle, getSyntaxPath(), getMetaModelPackages());
+		return Utilities.loadSyntaxDescription(new PluginFileLocator(bundle), getSyntaxPath(), getMetaModelPackages());
 	}
 
 	/**

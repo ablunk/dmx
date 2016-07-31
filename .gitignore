@@ -14,3 +14,9 @@ unversioned/
 dev-plugins/DESMO-J/docs/
 dev-plugins/hub.sam.dmx/xtend-gen/
 **/xtend-gen/
+
+**/.gradle
+**/build
+**/.build
+
+**/.settings

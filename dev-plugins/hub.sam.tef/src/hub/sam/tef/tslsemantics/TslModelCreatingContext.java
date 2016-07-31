@@ -1,5 +1,6 @@
 package hub.sam.tef.tslsemantics;
 
+import hub.sam.tef.PluginFileLocator;
 import hub.sam.tef.modelcreating.ModelCreatingContext;
 import hub.sam.tef.semantics.ISemanticsProvider;
 
@@ -66,8 +67,8 @@ public class TslModelCreatingContext extends ModelCreatingContext {
 			}
 			try {				
 				URI metaModelURI = null;
-				if (fBundle != null) {
-					URL url = FileLocator.find(fBundle, new Path(uri), null);
+				URL url = fFileLocator.findFile(uri);
+				if (url != null) {
 					metaModelURI = URI.createURI(url.toExternalForm());
 				} else {					
 					metaModelURI = URI.createFileURI(fProject.getLocation() + "/" + uri);
@@ -90,7 +91,7 @@ public class TslModelCreatingContext extends ModelCreatingContext {
 		}
 	};
 	
-	private final Bundle fBundle;
+	private final PluginFileLocator fFileLocator;
 	private final IProject fProject;
 
 	/**
@@ -101,9 +102,9 @@ public class TslModelCreatingContext extends ModelCreatingContext {
 	 */
 	public TslModelCreatingContext(EPackage[] packages,
 			ISemanticsProvider semanticsProvider, Resource resource, String text,
-			Bundle bundle) {
+			PluginFileLocator fileLocator) {
 		super(packages, semanticsProvider, resource, text);
-		fBundle = bundle;
+		fFileLocator = fileLocator;
 		fProject = null;
 	}
 	
@@ -117,7 +118,7 @@ public class TslModelCreatingContext extends ModelCreatingContext {
 			ISemanticsProvider semanticsProvider, Resource resource, String text,
 			IProject project, TslModelCreatingContext lastContext) {
 		super(packages, semanticsProvider, resource, text);
-		fBundle = null;
+		fFileLocator = null;
 		fProject = project;		
 		if (lastContext != null) {
 			fEcoreModel = lastContext.fEcoreModel;

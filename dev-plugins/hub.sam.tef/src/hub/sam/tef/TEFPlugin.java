@@ -17,9 +17,15 @@
 
 package hub.sam.tef;
 
+import java.io.File;
+import java.net.URL;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -28,7 +34,7 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  */
 public class TEFPlugin extends AbstractUIPlugin {
-	
+
 	public static ResourceBundle getMessagesBundle() {
 		return ResourceBundle.getBundle("resources/messages");
 	}
@@ -51,6 +57,23 @@ public class TEFPlugin extends AbstractUIPlugin {
 		} catch (MissingResourceException ex) {
 			fResourceBundle = null;
 		}
+		
+//		URL pluginUrl = FileLocator.find(this.getBundle(), new Path("/."), null);
+//		URI pluginUri = URI.createFileURI(new File(pluginUrl.toExternalForm()).getAbsolutePath());
+//		EcorePlugin.getPlatformResourceMap().put("hub.sam.tef", pluginUri);
+	}
+	
+	private static PluginFileLocator pluginFileLocator;
+	
+	public static void setPluginFileLocator(PluginFileLocator pluginFileLocator) {
+		TEFPlugin.pluginFileLocator = pluginFileLocator;
+	}
+	
+	public static PluginFileLocator getPluginFileLocator() {
+		if (pluginFileLocator == null) {
+			pluginFileLocator = new PluginFileLocator(TEFPlugin.getDefault());
+		}
+		return pluginFileLocator;
 	}
 	
 	public ResourceBundle getResourceBundle() {

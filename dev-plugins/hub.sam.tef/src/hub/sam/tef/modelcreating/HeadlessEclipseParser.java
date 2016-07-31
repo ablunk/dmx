@@ -3,6 +3,7 @@ package hub.sam.tef.modelcreating;
 import java.util.HashMap;
 import java.util.Map;
 
+import hub.sam.tef.PluginFileLocator;
 import hub.sam.tef.TEFPlugin;
 import hub.sam.tef.Utilities;
 import hub.sam.tef.rcc.Token;
@@ -37,6 +38,8 @@ public abstract class HeadlessEclipseParser {
 	private Syntax fSyntax = null;
 	private final IIdentificationScheme fIdentificationScheme;
 	
+	private PluginFileLocator pluginFileLocator;
+	
 	protected final IPath inputPath;
 	protected final String filename;
 
@@ -55,7 +58,8 @@ public abstract class HeadlessEclipseParser {
 		fIdentificationScheme = createIdentificationScheme();
 		fSemanitcsProvider = createSemanticsProvider();
 		fMetaModelPackages = createMetaModelPackages();
-		fAdapterFactory = createComposedAdapterFactory();		
+		fAdapterFactory = createComposedAdapterFactory();
+		pluginFileLocator = createPluginFileLocator();
 	}
 	
 	protected abstract void preProcess(String inputText, IPath inputLocation);
@@ -138,12 +142,8 @@ public abstract class HeadlessEclipseParser {
 	 */
 	protected Syntax createSyntax() throws TslException {
 		if (!originalSyntaxDescriptions.containsKey(getSyntaxPath())) {
-			Bundle bundle = getPluginBundle();
-			if (bundle == null) {
-				bundle = TEFPlugin.getDefault().getBundle();
-			}
 			System.out.println("loading syntax from " + getSyntaxPath());
-			Syntax syntax = Utilities.loadSyntaxDescription(bundle, getSyntaxPath(), getMetaModelPackages());
+			Syntax syntax = Utilities.loadSyntaxDescription(pluginFileLocator, getSyntaxPath(), getMetaModelPackages());
 			originalSyntaxDescriptions.put(getSyntaxPath(), syntax);
 			return syntax;
 		}
@@ -168,6 +168,15 @@ public abstract class HeadlessEclipseParser {
 	
 	private ComposedAdapterFactory getComposedAdaptorFactory() {
 		return fAdapterFactory;
+	}
+	
+	private PluginFileLocator createPluginFileLocator() {
+		Bundle bundle = getPluginBundle();
+		if (bundle == null && TEFPlugin.getDefault() != null) {
+			bundle = TEFPlugin.getDefault().getBundle();
+		}
+		return new PluginFileLocator(bundle);
+
 	}
 	
 	private ComposedAdapterFactory createComposedAdapterFactory() {
@@ -197,6 +206,10 @@ public abstract class HeadlessEclipseParser {
 
 	protected IIdentificationScheme createIdentificationScheme() {
 		return DefaultIdentificationScheme.INSTANCE;
+	}
+	
+	public void setPluginFileLocator(PluginFileLocator pluginFileLocator) {
+		this.pluginFileLocator = pluginFileLocator;
 	}
 	
 }

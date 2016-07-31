@@ -63,6 +63,11 @@ public abstract class TokenDescriptor {
 	}
 	
 	private static Collection<TokenDescriptor> fRegisteredTypeDescriptors = null;
+	
+	public static void setRegisteredTokenDescriptors(Collection<TokenDescriptor> tokenDescriptors) {
+		fRegisteredTypeDescriptors = tokenDescriptors;
+	}
+	
 	/**
 	 * Retrieves all primitive type descriptors from eclipse's extension registry.
 	 */

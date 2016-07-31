@@ -17,6 +17,7 @@
 
 package hub.sam.tef.modelcreating;
 
+import hub.sam.tef.PluginFileLocator;
 import hub.sam.tef.Utilities;
 import hub.sam.tef.rcc.Token;
 import hub.sam.tef.semantics.AbstractError;
@@ -61,7 +62,7 @@ public class ModelCreating {
 			final EPackage[] packages,
 			final ISemanticsProvider semanticsProvider)
 			throws ModelCreatingException, TslException {
-		final Syntax syntax = Utilities.loadSyntaxDescription(bundle,
+		final Syntax syntax = Utilities.loadSyntaxDescription(new PluginFileLocator(bundle),
 				syntaxPath, packages);
 		return createModelFromText(text, syntax, packages, semanticsProvider);
 	}
