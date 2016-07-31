@@ -1,6 +1,5 @@
 package hub.sam.dmx.editor.semantics;
 
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -12,13 +11,13 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import hub.sam.dbl.DblPackage;
+import hub.sam.dmx.Activator;
 import hub.sam.dmx.editor.modelcreation.DblParser;
 import hub.sam.tef.PluginFileLocator;
 import hub.sam.tef.TEFPlugin;
@@ -35,21 +34,19 @@ import hub.sam.tef.tokens.CStyleComment;
 import hub.sam.tef.tokens.TokenDescriptor;
 import hub.sam.tef.tsl.TslPackage;
 
-public class DblIdentificationSchemeTest {
+public class DblIdentificationSchemeTest {	
 	
-	private static final String PATH_TO_DMX_ROOT = "/Users/andreasb/Privat/Projects/dmx";
-	private static final String PATH_TO_DMX_DEV = PATH_TO_DMX_ROOT + "/dev-plugins";
-	private static final String PATH_TO_DMX_PLUGIN = PATH_TO_DMX_DEV + "/hub.sam.dmx";
-	private static final String PATH_TO_TEF_PLUGIN = PATH_TO_DMX_DEV + "/hub.sam.tef";
-	
-	
+	private static final String TEF_PLUGIN_NAME = TEFPlugin.PLUGIN_ID;
+	private static final String DMX_PLUGIN_NAME = Activator.PLUGIN_ID;
+
 	private PluginFileLocator getMockedDblPluginFileLocator() throws MalformedURLException {
+		String pathToDmxPlugin = getDmxPluginLocation();
 		PluginFileLocator pluginFileLocator = Mockito.mock(PluginFileLocator.class);
-		URL url = new URL("file://" + PATH_TO_DMX_PLUGIN + DblParser.SYNTAX_DEFINITION_FILE);
+		URL url = new URL(pathToDmxPlugin + DblParser.SYNTAX_DEFINITION_FILE);
 		Mockito.when(pluginFileLocator.findFile(DblParser.SYNTAX_DEFINITION_FILE)).thenReturn(url);
 		
 		String dblEcoreFile = "resources/dbl.ecore";
-		URL dblEcoreUrl = new URL("file://" + PATH_TO_DMX_PLUGIN + "/" + dblEcoreFile);
+		URL dblEcoreUrl = new URL(pathToDmxPlugin + "/" + dblEcoreFile);
 		Mockito.when(pluginFileLocator.findFile(dblEcoreFile)).thenReturn(dblEcoreUrl);
 	
 		return pluginFileLocator;
@@ -58,21 +55,23 @@ public class DblIdentificationSchemeTest {
 	
 	private void mockTefPluginFileLocator() throws MalformedURLException {
 		PluginFileLocator pluginFileLocator = Mockito.mock(PluginFileLocator.class);
+		final String tefPluginLocation = getTefPluginLocation();
 		
 		String extendedTslSyntaxDefinitionFile = "resources/models/etsl.tslt";
-		URL extendedTslSyntaxDefinitionUrl = new URL("file://" + PATH_TO_TEF_PLUGIN + "/" + extendedTslSyntaxDefinitionFile);
+		URL extendedTslSyntaxDefinitionUrl = new URL(tefPluginLocation + "/" + extendedTslSyntaxDefinitionFile);
 		Mockito.when(pluginFileLocator.findFile(extendedTslSyntaxDefinitionFile)).thenReturn(extendedTslSyntaxDefinitionUrl);
 
 		String tslSyntaxDefinitionFile = "resources/models/tsl.tsl";
-		URL tslSyntaxDefinitionUrl = new URL("file://" + PATH_TO_TEF_PLUGIN + "/" + tslSyntaxDefinitionFile);
+		URL tslSyntaxDefinitionUrl = new URL(tefPluginLocation + "/" + tslSyntaxDefinitionFile);
 		Mockito.when(pluginFileLocator.findFile(tslSyntaxDefinitionFile)).thenReturn(tslSyntaxDefinitionUrl);
 		
 		String etslEcoreFile = "resources/models/etsl.ecore";
-		URL etslEcoreUrl = new URL("file://" + PATH_TO_TEF_PLUGIN + "/" + etslEcoreFile);
+		URL etslEcoreUrl = new URL(tefPluginLocation + "/" + etslEcoreFile);
 		Mockito.when(pluginFileLocator.findFile(etslEcoreFile)).thenReturn(etslEcoreUrl);
 
+		String pathToDmxPlugin = getDmxPluginLocation();
 		String dblEcoreFile = "resources/dbl.ecore";
-		URL dblEcoreUrl = new URL("file://" + PATH_TO_DMX_PLUGIN + "/" + dblEcoreFile);
+		URL dblEcoreUrl = new URL(pathToDmxPlugin + "/" + dblEcoreFile);
 		Mockito.when(pluginFileLocator.findFile(dblEcoreFile)).thenReturn(dblEcoreUrl);
 
 		TEFPlugin.setPluginFileLocator(pluginFileLocator);
@@ -104,11 +103,26 @@ public class DblIdentificationSchemeTest {
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("dbl", new XMIResourceFactoryImpl());
 		DblPackage.eINSTANCE.eClass();
 
-		EcorePlugin.getPlatformResourceMap().put("hub.sam.tef", 
-				URI.createFileURI(new File(PATH_TO_TEF_PLUGIN + "/.").getAbsolutePath()));
-
+		final String tefPluginLocation = getTefPluginLocation();
+		URI tefPluginUri = URI.createURI(tefPluginLocation).appendSegment(".");
+		EcorePlugin.getPlatformResourceMap().put(TEF_PLUGIN_NAME, tefPluginUri);
+	}
+	
+	
+	private String getDmxPluginLocation() {
+		String testClassLocation = this.getClass().getResource(DblIdentificationSchemeTest.class.getSimpleName() + ".class").toExternalForm();
+		int pluginNamePosition= testClassLocation.indexOf(DMX_PLUGIN_NAME);
+		String pluginLocation = testClassLocation.substring(0, pluginNamePosition + DMX_PLUGIN_NAME.length());
+		return pluginLocation;
 	}
 
+	private String getTefPluginLocation() {
+		String tefPluginClassWithDirectory = TEFPlugin.class.getCanonicalName().replaceAll("\\.", "/");
+		String testClassLocation = this.getClass().getClassLoader().getResource(tefPluginClassWithDirectory + ".class").toExternalForm();
+		int pluginNamePosition= testClassLocation.indexOf(TEF_PLUGIN_NAME);
+		String pluginLocation = testClassLocation.substring(0, pluginNamePosition + TEF_PLUGIN_NAME.length());
+		return pluginLocation;
+	}
 
 	@Test
 	public void basicDblParse() throws ModelCreatingException, MalformedURLException {
@@ -116,7 +130,7 @@ public class DblIdentificationSchemeTest {
 		mockTefPluginFileLocator();
 		mockTefDescriptors();
 		
-		IPath inputPath = new Path(PATH_TO_DMX_PLUGIN);
+		IPath inputPath = new Path(getDmxPluginLocation());
 		System.out.println(inputPath.toString());
 		
 		DblParser dblParser = new DblParser(inputPath, "hello-world.dbl");

@@ -56,11 +56,7 @@ public class TEFPlugin extends AbstractUIPlugin {
 			fResourceBundle = ResourceBundle.getBundle(this.getClass().getName());
 		} catch (MissingResourceException ex) {
 			fResourceBundle = null;
-		}
-		
-//		URL pluginUrl = FileLocator.find(this.getBundle(), new Path("/."), null);
-//		URI pluginUri = URI.createFileURI(new File(pluginUrl.toExternalForm()).getAbsolutePath());
-//		EcorePlugin.getPlatformResourceMap().put("hub.sam.tef", pluginUri);
+		}		
 	}
 	
 	private static PluginFileLocator pluginFileLocator;
