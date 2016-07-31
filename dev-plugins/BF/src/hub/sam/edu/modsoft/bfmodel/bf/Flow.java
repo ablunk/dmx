@@ -15,11 +15,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Flow#getSourceBox <em>Source Box</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Flow#getTargetBox <em>Target Box</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.edu.modsoft.bfmodel.bf.BfPackage#getFlow()
  * @model

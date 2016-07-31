@@ -85,6 +85,9 @@ public class BfPackageImpl extends EPackageImpl implements BfPackage {
 
 		isInited = true;
 
+		// Initialize simple dependencies
+		org.eclipse.emf.ecore.EcorePackage.eINSTANCE.eClass();
+
 		// Create package meta-data objects
 		theBfPackage.createPackageContents();
 
@@ -168,6 +171,15 @@ public class BfPackageImpl extends EPackageImpl implements BfPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getBox_MetaClass() {
+		return (EReference)boxEClass.getEStructuralFeatures().get(6);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getFlow() {
 		return flowEClass;
 	}
@@ -225,6 +237,7 @@ public class BfPackageImpl extends EPackageImpl implements BfPackage {
 		createEReference(boxEClass, BOX__FLOWS);
 		createEReference(boxEClass, BOX__INCOMING_FLOWS);
 		createEReference(boxEClass, BOX__OUTGOING_FLOWS);
+		createEReference(boxEClass, BOX__META_CLASS);
 
 		flowEClass = createEClass(FLOW);
 		createEReference(flowEClass, FLOW__SOURCE_BOX);
@@ -254,6 +267,9 @@ public class BfPackageImpl extends EPackageImpl implements BfPackage {
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
+		// Obtain other dependent packages
+		org.eclipse.emf.ecore.EcorePackage theEcorePackage = (org.eclipse.emf.ecore.EcorePackage)EPackage.Registry.INSTANCE.getEPackage(org.eclipse.emf.ecore.EcorePackage.eNS_URI);
+
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -268,6 +284,7 @@ public class BfPackageImpl extends EPackageImpl implements BfPackage {
 		initEReference(getBox_Flows(), this.getFlow(), null, "flows", null, 0, -1, Box.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBox_IncomingFlows(), this.getFlow(), this.getFlow_TargetBox(), "incomingFlows", null, 0, -1, Box.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBox_OutgoingFlows(), this.getFlow(), this.getFlow_SourceBox(), "outgoingFlows", null, 0, -1, Box.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBox_MetaClass(), theEcorePackage.getEClass(), null, "metaClass", null, 0, 1, Box.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(flowEClass, Flow.class, "Flow", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFlow_SourceBox(), this.getBox(), this.getBox_OutgoingFlows(), "sourceBox", null, 1, 1, Flow.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

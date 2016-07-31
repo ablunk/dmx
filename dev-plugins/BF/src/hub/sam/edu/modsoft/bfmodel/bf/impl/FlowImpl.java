@@ -25,11 +25,11 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.FlowImpl#getSourceBox <em>Source Box</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.FlowImpl#getTargetBox <em>Target Box</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

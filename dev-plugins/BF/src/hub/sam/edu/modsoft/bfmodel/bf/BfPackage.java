@@ -124,13 +124,22 @@ public interface BfPackage extends EPackage {
 	int BOX__OUTGOING_FLOWS = 5;
 
 	/**
+	 * The feature id for the '<em><b>Meta Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BOX__META_CLASS = 6;
+
+	/**
 	 * The number of structural features of the '<em>Box</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int BOX_FEATURE_COUNT = 6;
+	int BOX_FEATURE_COUNT = 7;
 
 	/**
 	 * The meta object id for the '{@link hub.sam.edu.modsoft.bfmodel.bf.impl.FlowImpl <em>Flow</em>}' class.
@@ -247,6 +256,17 @@ public interface BfPackage extends EPackage {
 	EReference getBox_OutgoingFlows();
 
 	/**
+	 * Returns the meta object for the reference '{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getMetaClass <em>Meta Class</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Meta Class</em>'.
+	 * @see hub.sam.edu.modsoft.bfmodel.bf.Box#getMetaClass()
+	 * @see #getBox()
+	 * @generated
+	 */
+	EReference getBox_MetaClass();
+
+	/**
 	 * Returns the meta object for class '{@link hub.sam.edu.modsoft.bfmodel.bf.Flow <em>Flow</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -357,6 +377,14 @@ public interface BfPackage extends EPackage {
 		 * @generated
 		 */
 		EReference BOX__OUTGOING_FLOWS = eINSTANCE.getBox_OutgoingFlows();
+
+		/**
+		 * The meta object literal for the '<em><b>Meta Class</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BOX__META_CLASS = eINSTANCE.getBox_MetaClass();
 
 		/**
 		 * The meta object literal for the '{@link hub.sam.edu.modsoft.bfmodel.bf.impl.FlowImpl <em>Flow</em>}' class.

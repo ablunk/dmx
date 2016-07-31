@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.BoxImpl#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.BoxImpl#getOwnedBoxes <em>Owned Boxes</em>}</li>
@@ -42,8 +43,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.BoxImpl#getFlows <em>Flows</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.BoxImpl#getIncomingFlows <em>Incoming Flows</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.BoxImpl#getOutgoingFlows <em>Outgoing Flows</em>}</li>
+ *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.impl.BoxImpl#getMetaClass <em>Meta Class</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -109,6 +110,16 @@ public class BoxImpl extends EObjectImpl implements Box {
 	protected EList<Flow> outgoingFlows;
 
 	/**
+	 * The cached value of the '{@link #getMetaClass() <em>Meta Class</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getMetaClass()
+	 * @generated
+	 * @ordered
+	 */
+	protected EClass metaClass;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -167,7 +178,7 @@ public class BoxImpl extends EObjectImpl implements Box {
 	 */
 	public Box getOwner() {
 		if (eContainerFeatureID() != BfPackage.BOX__OWNER) return null;
-		return (Box)eContainer();
+		return (Box)eInternalContainer();
 	}
 
 	/**
@@ -235,6 +246,44 @@ public class BoxImpl extends EObjectImpl implements Box {
 			outgoingFlows = new EObjectWithInverseResolvingEList<Flow>(Flow.class, this, BfPackage.BOX__OUTGOING_FLOWS, BfPackage.FLOW__SOURCE_BOX);
 		}
 		return outgoingFlows;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getMetaClass() {
+		if (metaClass != null && metaClass.eIsProxy()) {
+			InternalEObject oldMetaClass = (InternalEObject)metaClass;
+			metaClass = (EClass)eResolveProxy(oldMetaClass);
+			if (metaClass != oldMetaClass) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, BfPackage.BOX__META_CLASS, oldMetaClass, metaClass));
+			}
+		}
+		return metaClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass basicGetMetaClass() {
+		return metaClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setMetaClass(EClass newMetaClass) {
+		EClass oldMetaClass = metaClass;
+		metaClass = newMetaClass;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, BfPackage.BOX__META_CLASS, oldMetaClass, metaClass));
 	}
 
 	/**
@@ -316,6 +365,9 @@ public class BoxImpl extends EObjectImpl implements Box {
 				return getIncomingFlows();
 			case BfPackage.BOX__OUTGOING_FLOWS:
 				return getOutgoingFlows();
+			case BfPackage.BOX__META_CLASS:
+				if (resolve) return getMetaClass();
+				return basicGetMetaClass();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -351,6 +403,9 @@ public class BoxImpl extends EObjectImpl implements Box {
 				getOutgoingFlows().clear();
 				getOutgoingFlows().addAll((Collection<? extends Flow>)newValue);
 				return;
+			case BfPackage.BOX__META_CLASS:
+				setMetaClass((EClass)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -381,6 +436,9 @@ public class BoxImpl extends EObjectImpl implements Box {
 			case BfPackage.BOX__OUTGOING_FLOWS:
 				getOutgoingFlows().clear();
 				return;
+			case BfPackage.BOX__META_CLASS:
+				setMetaClass((EClass)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -405,6 +463,8 @@ public class BoxImpl extends EObjectImpl implements Box {
 				return incomingFlows != null && !incomingFlows.isEmpty();
 			case BfPackage.BOX__OUTGOING_FLOWS:
 				return outgoingFlows != null && !outgoingFlows.isEmpty();
+			case BfPackage.BOX__META_CLASS:
+				return metaClass != null;
 		}
 		return super.eIsSet(featureID);
 	}

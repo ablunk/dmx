@@ -31,7 +31,7 @@ public class BfFactoryImpl extends EFactoryImpl implements BfFactory {
 	 */
 	public static BfFactory init() {
 		try {
-			BfFactory theBfFactory = (BfFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.informatik.hu-berlin.de/sam/lang/bf"); 
+			BfFactory theBfFactory = (BfFactory)EPackage.Registry.INSTANCE.getEFactory(BfPackage.eNS_URI);
 			if (theBfFactory != null) {
 				return theBfFactory;
 			}

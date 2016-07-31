@@ -17,4 +17,12 @@
             genModel="resources/bf.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated bf -->
+      <package
+            uri="http://www.informatik.hu-berlin.de/sam/lang/bf"
+            class="hub.sam.edu.modsoft.bfmodel.bf.BfPackage"
+            genModel="resources/bf.genmodel"/>
+   </extension>
+
 </plugin>

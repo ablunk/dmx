@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getOwnedBoxes <em>Owned Boxes</em>}</li>
@@ -24,8 +25,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getFlows <em>Flows</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getIncomingFlows <em>Incoming Flows</em>}</li>
  *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getOutgoingFlows <em>Outgoing Flows</em>}</li>
+ *   <li>{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getMetaClass <em>Meta Class</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.edu.modsoft.bfmodel.bf.BfPackage#getBox()
  * @model
@@ -155,5 +156,31 @@ public interface Box extends EObject {
 	 * @generated
 	 */
 	EList<Flow> getOutgoingFlows();
+
+	/**
+	 * Returns the value of the '<em><b>Meta Class</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Meta Class</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Meta Class</em>' reference.
+	 * @see #setMetaClass(org.eclipse.emf.ecore.EClass)
+	 * @see hub.sam.edu.modsoft.bfmodel.bf.BfPackage#getBox_MetaClass()
+	 * @model
+	 * @generated
+	 */
+	org.eclipse.emf.ecore.EClass getMetaClass();
+
+	/**
+	 * Sets the value of the '{@link hub.sam.edu.modsoft.bfmodel.bf.Box#getMetaClass <em>Meta Class</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Meta Class</em>' reference.
+	 * @see #getMetaClass()
+	 * @generated
+	 */
+	void setMetaClass(org.eclipse.emf.ecore.EClass value);
 
 } // Box
