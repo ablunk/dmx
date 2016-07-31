@@ -143,8 +143,6 @@ public class Utilities {
 		}
 	}
 	
-	private static final String PATH_TO_TEF_PLUGIN = "/Users/andreasb/Privat/Projects/dmx/dev-plugins/hub.sam.tef";
-
 	private static Syntax loadSyntaxDescriptionFromTSLFile(URL url,
 			EPackage[] metaModelPackages, PluginFileLocator fileLocator) throws TslException {
 		ResourceSet resourceSet = new ResourceSetImpl();
@@ -157,10 +155,10 @@ public class Utilities {
 			throw new RuntimeException(e);
 		}
 		
-		URL tslUrl = fileLocator.findFile("/resources/models/tsl.tsl");
 		if (fileLocator.hasBundle()) {
+			String pathToTefPlugin = fileLocator.getAbsolutePluginLocation();
 			resourceSet.getURIConverter().getURIMap().put(URI.createPlatformResourceURI("hub.sam.tef/resources", true).appendSegment(""), 
-					URI.createFileURI(new File(PATH_TO_TEF_PLUGIN + "/resources").getAbsolutePath()).appendSegment(""));
+					URI.createURI(pathToTefPlugin + "resources" + "/"));
 		}
 		
 		URI exampleModelFile = URI.createURI(url.toExternalForm());		

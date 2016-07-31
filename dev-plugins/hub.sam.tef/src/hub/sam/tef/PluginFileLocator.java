@@ -1,5 +1,9 @@
 package hub.sam.tef;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.logging.Logger;
 
@@ -26,6 +30,22 @@ public class PluginFileLocator {
 		} else {
 			this.bundle = null;
 		}
+	}
+	
+	
+	public String getAbsolutePluginLocation() {
+		if (hasBundle()) {
+			URL fileURL = bundle.getEntry("./");
+			try {
+				URI fileUri = FileLocator.resolve(fileURL).toURI().normalize();
+				return fileUri.toString();
+			} catch (URISyntaxException e) {
+			    throw new RuntimeException(e);
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		return null;
 	}
 	
 	
