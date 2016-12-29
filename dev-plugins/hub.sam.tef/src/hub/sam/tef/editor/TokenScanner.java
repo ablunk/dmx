@@ -93,13 +93,13 @@ public class TokenScanner extends RuleBasedScanner {
 					if (terminal.matches("[a-zA-Z]*") || terminal.matches("#[a-zA-Z]*")) {
 						if (!extension) {
 							IToken token = new Token(new TextAttribute(
-									new Color(Display.getCurrent(), new RGB(42,0,255)), null, 
+									new Color(Display.getCurrent(), new RGB(106,0,67)), null, 
 									SWT.BOLD));
 							rule.addWord(terminal, token);
 						}
 						else {
 							IToken token = new Token(new TextAttribute(
-									new Color(Display.getCurrent(), new RGB(42,0,120)), null, 
+									new Color(Display.getCurrent(), new RGB(106,0,120)), null, 
 									SWT.BOLD));
 							rule.addWord(terminal, token);
 						}

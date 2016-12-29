@@ -36,10 +36,10 @@ public class CStyleComment extends TokenDescriptor {
 
 		// add rules for comments
 		rules.add(new MultiLineRule("/*", "*/", new Token(new TextAttribute(
-				new Color(Display.getCurrent(), new RGB(120,120,120)), null, 
+				new Color(Display.getCurrent(), new RGB(63,127,95)), null, 
 				SWT.ITALIC))));
 		rules.add(new EndOfLineRule("//", new Token(new TextAttribute(
-				new Color(Display.getCurrent(), new RGB(120,120,120)), null, 
+				new Color(Display.getCurrent(), new RGB(63,127,95)), null, 
 				SWT.ITALIC))));
 		
 		return rules;
