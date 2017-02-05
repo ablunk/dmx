@@ -270,7 +270,7 @@ public class ModelLauncher {
 		}
 		return false;
 	}
-	
+
 	private Map<String, Collection<ExtensibleElement>> getLeafExtensionInstances(Model inputModel) {
 		Map<String, Collection<ExtensibleElement>> extensionDefinitionNames_to_extensionInstances = new HashMap<String, Collection<ExtensibleElement>>();
 		
@@ -290,6 +290,9 @@ public class ModelLauncher {
 				// reason: extension instance substitution is implemented based on text substitution.
 				//         when an other extension instance is replaced, its contained extension instances change positions.
 				//         therefore, contained extension instances have to be replaced first.
+				
+				// TODO this is not working when an object which is part of an extension (instanceOfExtensionDefinition=true)
+				// contains base elements (with instanceOfExtensionDefinition=false) 
 				
 				if (!transitivelyContainsExtensionInstance(extensionInstance)) {
 					String extensionDefinitionName = extensionInstance.eClass().getName();

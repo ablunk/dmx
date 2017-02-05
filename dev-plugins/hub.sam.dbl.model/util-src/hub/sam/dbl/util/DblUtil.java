@@ -21,12 +21,13 @@ public class DblUtil {
 			instance = (EObjectImpl) DblFactory.eINSTANCE.create(parentClass);
 			instance.eSetClass(metaClass);
 			
-			if (instance instanceof ExtensibleElement) {
+			if (instance instanceof ExtensibleElement && !parentClass.getName().equals("ExtensibleElement")) {
 				ExtensibleElement extensibleInstance = (ExtensibleElement) instance;
 				extensibleInstance.setInstanceOfExtensionDefinition(true);
+				logger.info("set extension instance for instance of meta-class " + metaClass.getName() + ".");
 			}
 			
-			logger.finest("instantiated meta-class " + metaClass.getName() + " via first parent meta-class " + parentClass.getName() + ".");
+			logger.info("instantiated meta-class " + metaClass.getName() + " via first parent meta-class " + parentClass.getName() + ".");
 		}
 		finally {
 			if (instance == null) {
