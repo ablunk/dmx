@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <modules name="AddMethodExtension">
+    <extensions name="AddMethod">
+      <extensionPoint href="../../dbl.xmi#//@modules.0/@classes.32"/>
+      <syntaxDefinition startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="AM">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="extend"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="classRef" globalScopedReference="true">
+              <referencedClassifier href="../../dbl.xmi#//@modules.0/@classes.24"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="with"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="method"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="method">
+              <referencedClassifier href="../../dbl.xmi#//@modules.0/@classes.21"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics syntaxDefinition="//@modules.0/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement" functionContext="true">
+        <differingContext referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
+        </parts>
+      </statements>
+    </extensionSemantics>
+  </modules>
+</dbl:Model>

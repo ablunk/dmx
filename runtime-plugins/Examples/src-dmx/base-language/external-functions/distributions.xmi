@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="NativeTest">
+    <classes name="UniformInt">
+      <bindings targetLanguage="desmoj" targetType="hub.sam.dmx.javasim.desmoj.dist.IntDistUniform"/>
+      <bindings targetLanguage="slx" targetType="IntDistUniform"/>
+      <bindings targetLanguage="odemx" targetType="odemx::random::dmx::Uniform"/>
+      <bindings targetLanguage="jist" targetType="hub.sam.dmx.javasim.generic.dist.IntDistUniform"/>
+      <constructors>
+        <parameters name="name">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+        <parameters name="min">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="max">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+      <methods name="sample">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+    </classes>
+    <classes name="UniformReal">
+      <bindings targetLanguage="desmoj" targetType="hub.sam.dmx.javasim.desmoj.dist.RealDistUniform"/>
+      <bindings targetLanguage="jist" targetType="hub.sam.dmx.javasim.generic.dist.RealDistUniform"/>
+      <constructors>
+        <parameters name="name">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+        <parameters name="lower">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+        <parameters name="upper">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </constructors>
+      <methods name="sample">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </methods>
+    </classes>
+    <classes name="ExpDist">
+      <bindings targetLanguage="desmoj" targetType="hub.sam.dmx.javasim.desmoj.dist.ExpDist"/>
+      <constructors>
+        <parameters name="name">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+        <parameters name="mean">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </constructors>
+      <methods name="sample">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </methods>
+    </classes>
+    <functions name="trace">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:TimeLiteral"/>
+              <op2 xsi:type="dbl:StringLiteral" value=": "/>
+            </op1>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@parameters.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </functions>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="ui">
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.2">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" value="arrival1"/>
+              <callArguments xsi:type="dbl:DoubleLiteral" value="1.0"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="i">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral"/>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement">
+        <condition xsi:type="dbl:Less">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1"/>
+          <op2 xsi:type="dbl:IntLiteral" value="20"/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@methods.0">
+                <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.0"/>
+                <callPart/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+            </outputs>
+          </statements>
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@functions.1/@statements.1"/>
+            </variable>
+            <value xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1"/>
+              <op2 xsi:type="dbl:IntLiteral" value="1"/>
+            </value>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:IntLiteral" value="1"/>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

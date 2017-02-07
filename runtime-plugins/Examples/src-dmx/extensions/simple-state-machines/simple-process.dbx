@@ -1,0 +1,29 @@
+#import "ssm"
+#import "../../stdlib"
+
+module simpleProcess {
+
+void main() {
+	A a = new A();
+	activate a;
+	print "sending E to a";
+	send new E() to a;
+}
+
+class E {
+	int i = 1;
+}
+
+active class A {
+	stateMachine {
+		initial -> s1;
+		state s1 (
+			on E e do { print "on E with i=" + e.i + " to s2"; } -> s2
+		);
+		state s2 (
+			after(1) do { print "after 1 to final"; } -> final
+		);
+	}
+}
+
+}

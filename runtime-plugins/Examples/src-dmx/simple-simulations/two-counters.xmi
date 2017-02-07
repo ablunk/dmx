@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="TwoCountersAdvance">
+    <classes name="Counter" active="true">
+      <attributes name="count">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:LessEqual">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.1"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:FunctionCall">
+              <callIdExpr referencedElement="//@modules.0/@functions.1">
+                <callPart>
+                  <callArguments xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="count = "/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:Advance">
+              <time xsi:type="dbl:IntLiteral" value="1"/>
+            </statements>
+            <statements xsi:type="dbl:Assignment">
+              <variable>
+                <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+              </variable>
+              <value xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+                <op2 xsi:type="dbl:IntLiteral" value="1"/>
+              </value>
+            </statements>
+          </body>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr referencedElement="//@modules.0/@functions.1">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" value="Finished."/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart/>
+          </classifierType>
+        </objectAccess>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart/>
+          </classifierType>
+        </objectAccess>
+      </statements>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.1"/>
+          <op2 xsi:type="dbl:IntLiteral" value="1"/>
+        </time>
+      </statements>
+    </functions>
+    <functions name="trace">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement">
+        <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+        <trueCase xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:TimeLiteral"/>
+            <outputs xsi:type="dbl:StringLiteral" value=": "/>
+            <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@parameters.0"/>
+            <outputs xsi:type="dbl:StringLiteral" value="\n"/>
+          </statements>
+        </trueCase>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </functions>
+    <variables name="debug">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral"/>
+    </variables>
+    <variables name="limit">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="10"/>
+    </variables>
+  </modules>
+</dbl:Model>

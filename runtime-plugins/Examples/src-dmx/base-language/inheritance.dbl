@@ -1,0 +1,31 @@
+#import "../stdlib"
+
+module inheritance {
+
+class A {
+	int i = 3;
+
+	void m() {
+		print("A.m()\n");
+	}
+}
+
+class B extends A {
+	int i = 4;
+	
+	new(int j) {
+		print(j + "\n");
+	}
+
+	void m() {
+		print("B.m()\n");
+	}
+}
+
+void main() {
+	A a = new B(2);
+	print(a.i + "\n");
+	a.m();
+}
+
+}

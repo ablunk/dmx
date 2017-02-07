@@ -1,0 +1,15 @@
+#import "../../dbl"
+
+module hello {
+
+extension Hello extends dbl SimpleStatement {
+	start HelloSyntax;
+	HelloSyntax -> "Hello" name:ID x:X "!";
+	X -> "x" s:STRING;
+}
+
+semantics for Hello {
+	expand "print \"Hello " name " " x.s "\n\";";
+}
+
+}

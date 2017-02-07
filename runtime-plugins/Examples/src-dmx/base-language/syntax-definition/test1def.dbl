@@ -1,0 +1,17 @@
+#import "../../dbl"
+
+module test1 {
+
+extension T extends dbl SimpleStatement {
+	start T;
+	T -> "test" ManyA ";";
+	ManyA -> a:A ManyA;
+	ManyA -> ;
+	A -> B;
+	A -> C;
+	B -> "b" bn:N "!";
+	C -> "c" cn:N "?";
+	N -> "n";
+}
+
+}

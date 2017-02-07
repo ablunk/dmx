@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="ssm2">
+    <model href="ssm2.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <modules name="productionProcess">
+    <classes name="Ring" concreteSyntax="active class Ring {&#xA;&#x9;int number;&#xA;&#x9;&#xA;&#x9;new(int _number) {&#xA;&#x9;&#x9;number = _number;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial -> acquireMachine;&#xA;&#x9;&#x9;state acquireMachine (&#xA;&#x9;&#x9;&#x9;after(1) do { // workaround because we have no entry actions&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; waits for machine&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;send self to machine;&#xA;&#x9;&#x9;&#x9;} -> unprocessed&#xA;&#x9;&#x9;);&#xA;&#x9;&#x9;state unprocessed (&#xA;&#x9;&#x9;&#x9;on Processed p do {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; processed&quot;;&#xA;&#x9;&#x9;&#x9;} -> final&#xA;&#x9;&#x9;);&#xA;&#x9;}&#xA;}" active="true">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachineSyntax_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial -> acquireMachine;&#xA;&#x9;&#x9;state acquireMachine (&#xA;&#x9;&#x9;&#x9;after(1) do { // workaround because we have no entry actions&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; waits for machine&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;send self to machine;&#xA;&#x9;&#x9;&#x9;} -> unprocessed&#xA;&#x9;&#x9;);&#xA;&#x9;&#x9;state unprocessed (&#xA;&#x9;&#x9;&#x9;on Processed p do {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; processed&quot;;&#xA;&#x9;&#x9;&#x9;} -> final&#xA;&#x9;&#x9;);&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <initialState concreteSyntax="initial -> acquireMachine;" target="//@modules.0/@classes.0/@contentExtensions.0/@states.0"/>
+        <states name="acquireMachine" concreteSyntax="state acquireMachine (&#xA;&#x9;&#x9;&#x9;after(1) do { // workaround because we have no entry actions&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; waits for machine&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;send self to machine;&#xA;&#x9;&#x9;&#x9;} -> unprocessed&#xA;&#x9;&#x9;);">
+          <outgoingTransitions concreteSyntax="after(1) do { // workaround because we have no entry actions&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; waits for machine&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;send self to machine;&#xA;&#x9;&#x9;&#x9;} -> unprocessed" target="//@modules.0/@classes.0/@contentExtensions.0/@states.1">
+            <trigger concreteSyntax="after(1) do { // workaround because we have no entry actions&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; waits for machine&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;send self to machine;&#xA;&#x9;&#x9;&#x9;}">
+              <body concreteSyntax="{ // workaround because we have no entry actions&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; waits for machine&quot;;&#xA;&#x9;&#x9;&#x9;&#x9;send self to machine;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Print" concreteSyntax="print &quot;ring #&quot; + number + &quot; waits for machine&quot;">
+                  <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;ring #&quot; + number + &quot; waits for machine&quot;">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;ring #&quot; + number">
+                      <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;ring #&quot;" value="ring #"/>
+                      <op2 xsi:type="dbl:IdExpr" concreteSyntax="number" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+                    </op1>
+                    <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; waits for machine&quot;" value=" waits for machine"/>
+                  </outputs>
+                </statements>
+                <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send self to machine;" instanceOfExtensionDefinition="true">
+                  <signal xsi:type="dbl:IdExpr" concreteSyntax="self">
+                    <predefinedId xsi:type="dbl:MeLiteral"/>
+                  </signal>
+                  <target xsi:type="dbl:IdExpr" concreteSyntax="machine" referencedElement="//@modules.0/@variables.1"/>
+                </statements>
+              </body>
+              <duration concreteSyntax="(1)">
+                <value xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+              </duration>
+            </trigger>
+          </outgoingTransitions>
+        </states>
+        <states name="unprocessed" concreteSyntax="state unprocessed (&#xA;&#x9;&#x9;&#x9;on Processed p do {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; processed&quot;;&#xA;&#x9;&#x9;&#x9;} -> final&#xA;&#x9;&#x9;);">
+          <outgoingTransitions concreteSyntax="on Processed p do {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; processed&quot;;&#xA;&#x9;&#x9;&#x9;} -> final">
+            <trigger concreteSyntax="on Processed p do {&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; processed&quot;;&#xA;&#x9;&#x9;&#x9;}">
+              <variable name="p" concreteSyntax="Processed p">
+                <classifierType concreteSyntax="Processed" referencedElement="//@modules.0/@classes.2"/>
+              </variable>
+              <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;print &quot;ring #&quot; + number + &quot; processed&quot;;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Print" concreteSyntax="print &quot;ring #&quot; + number + &quot; processed&quot;">
+                  <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;ring #&quot; + number + &quot; processed&quot;">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;ring #&quot; + number">
+                      <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;ring #&quot;" value="ring #"/>
+                      <op2 xsi:type="dbl:IdExpr" concreteSyntax="number" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+                    </op1>
+                    <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; processed&quot;" value=" processed"/>
+                  </outputs>
+                </statements>
+              </body>
+            </trigger>
+          </outgoingTransitions>
+        </states>
+      </contentExtensions>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="number = _number">
+          <variable concreteSyntax="number">
+            <idExpr concreteSyntax="number" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="_number" referencedElement="//@modules.0/@classes.0/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="_number">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+      <attributes name="number" concreteSyntax="int number">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classes>
+    <classes name="RingGenerator" concreteSyntax="active class RingGenerator {&#xA;&#x9;int nextNumber = 1;&#xA;&#x9;&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial -> waiting;&#xA;&#x9;&#x9;state waiting (&#xA;&#x9;&#x9;&#x9;after(10) do {&#xA;&#x9;&#x9;&#x9;&#x9;activate new Ring(nextNumber);&#xA;&#x9;&#x9;&#x9;} -> waiting&#xA;&#x9;&#x9;);&#xA;&#x9;}&#xA;}" active="true">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachineSyntax_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial -> waiting;&#xA;&#x9;&#x9;state waiting (&#xA;&#x9;&#x9;&#x9;after(10) do {&#xA;&#x9;&#x9;&#x9;&#x9;activate new Ring(nextNumber);&#xA;&#x9;&#x9;&#x9;} -> waiting&#xA;&#x9;&#x9;);&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <initialState concreteSyntax="initial -> waiting;" target="//@modules.0/@classes.1/@contentExtensions.0/@states.0"/>
+        <states name="waiting" concreteSyntax="state waiting (&#xA;&#x9;&#x9;&#x9;after(10) do {&#xA;&#x9;&#x9;&#x9;&#x9;activate new Ring(nextNumber);&#xA;&#x9;&#x9;&#x9;} -> waiting&#xA;&#x9;&#x9;);">
+          <outgoingTransitions concreteSyntax="after(10) do {&#xA;&#x9;&#x9;&#x9;&#x9;activate new Ring(nextNumber);&#xA;&#x9;&#x9;&#x9;} -> waiting" target="//@modules.0/@classes.1/@contentExtensions.0/@states.0">
+            <trigger concreteSyntax="after(10) do {&#xA;&#x9;&#x9;&#x9;&#x9;activate new Ring(nextNumber);&#xA;&#x9;&#x9;&#x9;}">
+              <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;activate new Ring(nextNumber);&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate new Ring(nextNumber)">
+                  <objectAccess xsi:type="dbl:CreateObject" concreteSyntax="new Ring(nextNumber)">
+                    <classifierType concreteSyntax="Ring(nextNumber)" referencedElement="//@modules.0/@classes.0">
+                      <callPart>
+                        <callArguments xsi:type="dbl:IdExpr" concreteSyntax="nextNumber" referencedElement="//@modules.0/@classes.1/@attributes.0"/>
+                      </callPart>
+                    </classifierType>
+                  </objectAccess>
+                </statements>
+              </body>
+              <duration concreteSyntax="(10)">
+                <value xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+              </duration>
+            </trigger>
+          </outgoingTransitions>
+        </states>
+      </contentExtensions>
+      <attributes name="nextNumber" concreteSyntax="int nextNumber = 1">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+      </attributes>
+    </classes>
+    <classes name="Processed" concreteSyntax="class Processed {}"/>
+    <classes name="Machine" concreteSyntax="active class Machine {&#xA;&#x9;List waitingRings = new ArrayList;&#xA;&#x9;Ring ringInProcess = null;&#xA;&#x9;int processingTime = 5;&#xA;&#x9;Object message;&#xA;&#x9;&#x9;&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial -> idle;&#xA;&#x9;&#x9;state idle (&#xA;&#x9;&#x9;&#x9;on Ring ring do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring ring = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = ring;&#xA;&#x9;&#x9;&#x9;} -> processing&#xA;&#x9;&#x9;);&#xA;&#x9;&#x9;state processing (&#xA;&#x9;&#x9;&#x9;after(processingTime) do {&#xA;&#x9;&#x9;&#x9;&#x9;send new Processed() to ringInProcess;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = null;&#xA;&#x9;&#x9;&#x9;&#x9;if (waitingRings.size() > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;} -> idle,&#xA;&#x9;&#x9;&#x9;on Ring otherRing do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring otherRing = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;waitingRings.add(otherRing);&#xA;&#x9;&#x9;&#x9;} -> processing&#xA;&#x9;&#x9;);&#xA;&#x9;}&#xA;}" active="true">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachineSyntax_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial -> idle;&#xA;&#x9;&#x9;state idle (&#xA;&#x9;&#x9;&#x9;on Ring ring do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring ring = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = ring;&#xA;&#x9;&#x9;&#x9;} -> processing&#xA;&#x9;&#x9;);&#xA;&#x9;&#x9;state processing (&#xA;&#x9;&#x9;&#x9;after(processingTime) do {&#xA;&#x9;&#x9;&#x9;&#x9;send new Processed() to ringInProcess;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = null;&#xA;&#x9;&#x9;&#x9;&#x9;if (waitingRings.size() > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;} -> idle,&#xA;&#x9;&#x9;&#x9;on Ring otherRing do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring otherRing = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;waitingRings.add(otherRing);&#xA;&#x9;&#x9;&#x9;} -> processing&#xA;&#x9;&#x9;);&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <initialState concreteSyntax="initial -> idle;" target="//@modules.0/@classes.3/@contentExtensions.0/@states.0"/>
+        <states name="idle" concreteSyntax="state idle (&#xA;&#x9;&#x9;&#x9;on Ring ring do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring ring = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = ring;&#xA;&#x9;&#x9;&#x9;} -> processing&#xA;&#x9;&#x9;);">
+          <outgoingTransitions concreteSyntax="on Ring ring do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring ring = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = ring;&#xA;&#x9;&#x9;&#x9;} -> processing" target="//@modules.0/@classes.3/@contentExtensions.0/@states.1">
+            <trigger concreteSyntax="on Ring ring do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring ring = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = ring;&#xA;&#x9;&#x9;&#x9;}">
+              <variable name="ring" concreteSyntax="Ring ring">
+                <classifierType concreteSyntax="Ring" referencedElement="//@modules.0/@classes.0"/>
+              </variable>
+              <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Ring ring = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = ring;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Variable" name="ring" concreteSyntax="Ring ring = message as Ring">
+                  <classifierType concreteSyntax="Ring" referencedElement="//@modules.0/@classes.0"/>
+                  <initialValue xsi:type="dbl:Cast" concreteSyntax="message as Ring">
+                    <classifierType concreteSyntax="Ring" referencedElement="//@modules.0/@classes.0"/>
+                    <op xsi:type="dbl:IdExpr" concreteSyntax="message" referencedElement="//@modules.0/@classes.3/@attributes.3"/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="ringInProcess = ring">
+                  <variable concreteSyntax="ringInProcess">
+                    <idExpr concreteSyntax="ringInProcess" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+                  </variable>
+                  <value xsi:type="dbl:IdExpr" concreteSyntax="ring" referencedElement="//@modules.0/@classes.3/@contentExtensions.0/@states.0/@outgoingTransitions.0/@trigger/@body/@statements.0"/>
+                </statements>
+              </body>
+            </trigger>
+          </outgoingTransitions>
+        </states>
+        <states name="processing" concreteSyntax="state processing (&#xA;&#x9;&#x9;&#x9;after(processingTime) do {&#xA;&#x9;&#x9;&#x9;&#x9;send new Processed() to ringInProcess;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = null;&#xA;&#x9;&#x9;&#x9;&#x9;if (waitingRings.size() > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;} -> idle,&#xA;&#x9;&#x9;&#x9;on Ring otherRing do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring otherRing = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;waitingRings.add(otherRing);&#xA;&#x9;&#x9;&#x9;} -> processing&#xA;&#x9;&#x9;);">
+          <outgoingTransitions concreteSyntax="after(processingTime) do {&#xA;&#x9;&#x9;&#x9;&#x9;send new Processed() to ringInProcess;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = null;&#xA;&#x9;&#x9;&#x9;&#x9;if (waitingRings.size() > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;} -> idle" target="//@modules.0/@classes.3/@contentExtensions.0/@states.0">
+            <trigger concreteSyntax="after(processingTime) do {&#xA;&#x9;&#x9;&#x9;&#x9;send new Processed() to ringInProcess;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = null;&#xA;&#x9;&#x9;&#x9;&#x9;if (waitingRings.size() > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}">
+              <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;send new Processed() to ringInProcess;&#xA;&#x9;&#x9;&#x9;&#x9;ringInProcess = null;&#xA;&#x9;&#x9;&#x9;&#x9;if (waitingRings.size() > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send new Processed() to ringInProcess;" instanceOfExtensionDefinition="true">
+                  <signal xsi:type="dbl:CreateObject" concreteSyntax="new Processed()">
+                    <classifierType concreteSyntax="Processed()" referencedElement="//@modules.0/@classes.2">
+                      <callPart/>
+                    </classifierType>
+                  </signal>
+                  <target xsi:type="dbl:IdExpr" concreteSyntax="ringInProcess" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+                </statements>
+                <statements xsi:type="dbl:Assignment" concreteSyntax="ringInProcess = null">
+                  <variable concreteSyntax="ringInProcess">
+                    <idExpr concreteSyntax="ringInProcess" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+                  </variable>
+                  <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+                </statements>
+                <statements xsi:type="dbl:IfStatement" concreteSyntax="if (waitingRings.size() > 0) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                  <condition xsi:type="dbl:Greater" concreteSyntax="waitingRings.size() > 0">
+                    <op1 xsi:type="dbl:IdExpr" concreteSyntax="waitingRings.size()">
+                      <parentIdExpr concreteSyntax="waitingRings" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
+                      <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.4"/>
+                      <callPart/>
+                    </op1>
+                    <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                  </condition>
+                  <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;ringInProcess = waitingRings.get(0);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;waitingRings.remove(ringInProcess);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                    <statements xsi:type="dbl:Assignment" concreteSyntax="ringInProcess = waitingRings.get(0)">
+                      <variable concreteSyntax="ringInProcess">
+                        <idExpr concreteSyntax="ringInProcess" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+                      </variable>
+                      <value xsi:type="dbl:IdExpr" concreteSyntax="waitingRings.get(0)">
+                        <parentIdExpr concreteSyntax="waitingRings" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
+                        <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
+                        <callPart>
+                          <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                        </callPart>
+                      </value>
+                    </statements>
+                    <statements xsi:type="dbl:FunctionCall" concreteSyntax="waitingRings.remove(ringInProcess)">
+                      <callIdExpr concreteSyntax="waitingRings.remove(ringInProcess)">
+                        <parentIdExpr concreteSyntax="waitingRings" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
+                        <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.8"/>
+                        <callPart>
+                          <callArguments xsi:type="dbl:IdExpr" concreteSyntax="ringInProcess" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+                        </callPart>
+                      </callIdExpr>
+                    </statements>
+                  </trueCase>
+                </statements>
+              </body>
+              <duration concreteSyntax="(processingTime)">
+                <value xsi:type="dbl:IdExpr" concreteSyntax="processingTime" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+              </duration>
+            </trigger>
+          </outgoingTransitions>
+          <outgoingTransitions concreteSyntax="on Ring otherRing do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring otherRing = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;waitingRings.add(otherRing);&#xA;&#x9;&#x9;&#x9;} -> processing" target="//@modules.0/@classes.3/@contentExtensions.0/@states.1">
+            <trigger concreteSyntax="on Ring otherRing do {&#xA;&#x9;&#x9;&#x9;&#x9;Ring otherRing = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;waitingRings.add(otherRing);&#xA;&#x9;&#x9;&#x9;}">
+              <variable name="otherRing" concreteSyntax="Ring otherRing">
+                <classifierType concreteSyntax="Ring" referencedElement="//@modules.0/@classes.0"/>
+              </variable>
+              <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Ring otherRing = message as Ring;&#xA;&#x9;&#x9;&#x9;&#x9;waitingRings.add(otherRing);&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Variable" name="otherRing" concreteSyntax="Ring otherRing = message as Ring">
+                  <classifierType concreteSyntax="Ring" referencedElement="//@modules.0/@classes.0"/>
+                  <initialValue xsi:type="dbl:Cast" concreteSyntax="message as Ring">
+                    <classifierType concreteSyntax="Ring" referencedElement="//@modules.0/@classes.0"/>
+                    <op xsi:type="dbl:IdExpr" concreteSyntax="message" referencedElement="//@modules.0/@classes.3/@attributes.3"/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:FunctionCall" concreteSyntax="waitingRings.add(otherRing)">
+                  <callIdExpr concreteSyntax="waitingRings.add(otherRing)">
+                    <parentIdExpr concreteSyntax="waitingRings" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
+                    <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+                    <callPart>
+                      <callArguments xsi:type="dbl:IdExpr" concreteSyntax="otherRing" referencedElement="//@modules.0/@classes.3/@contentExtensions.0/@states.1/@outgoingTransitions.1/@trigger/@body/@statements.0"/>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+              </body>
+            </trigger>
+          </outgoingTransitions>
+        </states>
+      </contentExtensions>
+      <attributes name="waitingRings" concreteSyntax="List waitingRings = new ArrayList">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+          <classifierType concreteSyntax="ArrayList">
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="ringInProcess" concreteSyntax="Ring ringInProcess = null">
+        <classifierType concreteSyntax="Ring" referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+      </attributes>
+      <attributes name="processingTime" concreteSyntax="int processingTime = 5">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="5" value="5"/>
+      </attributes>
+      <attributes name="message" concreteSyntax="Object message">
+        <classifierType concreteSyntax="Object">
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
+        </classifierType>
+      </attributes>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="machine = new Machine()">
+        <variable concreteSyntax="machine">
+          <idExpr concreteSyntax="machine" referencedElement="//@modules.0/@variables.1"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject" concreteSyntax="new Machine()">
+          <classifierType concreteSyntax="Machine()" referencedElement="//@modules.0/@classes.3">
+            <callPart/>
+          </classifierType>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate machine">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="machine" referencedElement="//@modules.0/@variables.1"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="ringGenerator = new RingGenerator()">
+        <variable concreteSyntax="ringGenerator">
+          <idExpr concreteSyntax="ringGenerator" referencedElement="//@modules.0/@variables.0"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject" concreteSyntax="new RingGenerator()">
+          <classifierType concreteSyntax="RingGenerator()" referencedElement="//@modules.0/@classes.1">
+            <callPart/>
+          </classifierType>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate ringGenerator">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="ringGenerator" referencedElement="//@modules.0/@variables.0"/>
+      </statements>
+    </functions>
+    <variables name="ringGenerator" concreteSyntax="RingGenerator ringGenerator">
+      <classifierType concreteSyntax="RingGenerator" referencedElement="//@modules.0/@classes.1"/>
+    </variables>
+    <variables name="machine" concreteSyntax="Machine machine">
+      <classifierType concreteSyntax="Machine" referencedElement="//@modules.0/@classes.3"/>
+    </variables>
+  </modules>
+</dbl:Model>

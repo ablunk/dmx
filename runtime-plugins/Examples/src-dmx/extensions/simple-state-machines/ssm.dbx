@@ -1,0 +1,64 @@
+#import "../../dbl"
+#import "../../stdlib"
+
+module ssm {
+
+extension SendStatement extends dbl SimpleStatement {
+	start SendStatementSyntax;
+	SendStatementSyntax -> "send" signal:Expression "to" target:Expression ";";
+}
+
+semantics for SendStatement {
+	expand "print \"sending\";";
+	//expand target".eventPool.add("signal");";
+	//expand "reactivate "target";";
+}
+
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachineSyntax;
+	StateMachineSyntax -> "stateMachine" "{" initialState:InitialState ManyRegularStates "}";
+	
+	ManyRegularStates -> ;
+	ManyRegularStates -> states : list State ManyRegularStates;
+	
+	InitialState -> "initial" "->" target:$$State ";";
+	State -> "state" name:ID Transitions ";";
+	
+	Transitions -> ;
+	Transitions -> "(" OneOrMoreTransitions ")";
+	
+	OneOrMoreTransitions -> outgoingTransitions : list Transition MoreTransitions;
+	MoreTransitions -> ;
+	MoreTransitions -> "," OneOrMoreTransitions;
+
+	Transition -> trigger:Trigger TargetState;
+		
+	TargetState -> "->" target:$$State;
+	TargetState -> "->" "final";
+}
+
+// this will never work because there is no legal replacement for this extension.
+// the only reason for having this extension was to have the metaclass specialize the metaclass LocalScopeStatement.
+extension Trigger extends dbl LocalScopeStatement {
+	start TriggerSyntax;
+	//Trigger -> "on" "entry" Effects;
+	TriggerSyntax -> "on" statements : list Variable Effects;
+	TriggerSyntax -> "after" duration:Duration Effects;
+	Duration -> "(" value:Expression ")";
+	Effects -> ;
+	Effects -> "do" body : LocalScopeStatement;
+}
+
+semantics for Trigger {
+	expand " ";
+}
+
+semantics for StateMachine {
+	expand "
+		actions {
+			print \"executing actions\";
+		}
+	";
+}
+
+}

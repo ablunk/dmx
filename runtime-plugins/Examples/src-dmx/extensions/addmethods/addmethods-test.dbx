@@ -1,0 +1,14 @@
+#import "addmethods"
+
+module test {
+	
+	class A {}
+	
+	void main() {
+		extend A with method void hello() {}
+		A a = new A;
+		// however, it cannot be used in the editor because inside-out extension are not implemented :(
+		//a.hello();
+	}
+	
+}

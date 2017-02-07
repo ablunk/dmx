@@ -10,7 +10,7 @@
     <classes name="Construct">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Construct"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="expandExpr">
         <classifierType referencedElement="//@modules.0/@classes.92"/>
@@ -48,23 +48,23 @@
     <classes name="Model">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Model"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="imports">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.2"/>
         </classifierType>
       </attributes>
       <attributes name="modules">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.2"/>
         </classifierType>
       </attributes>
     </classes>
     <classes name="Import">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Import"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="file">
         <primitiveType xsi:type="dbl:StringType"/>
@@ -128,7 +128,7 @@
     <classes name="AnnotationItem">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotationItem"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="key">
         <primitiveType xsi:type="dbl:StringType"/>
@@ -152,7 +152,7 @@
     <classes name="AnnotateableElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotateableElement"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="annotations">
         <classifierType>
@@ -167,7 +167,7 @@
     <classes name="ConstructiveExtensionAtContentExtensionPoint">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="contentExtensions">
         <classifierType>
@@ -186,7 +186,7 @@
     <classes name="Type">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Type"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="arrayDimensions">
         <classifierType>
@@ -197,7 +197,7 @@
     <classes name="TypedElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypedElement"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="primitiveType">
         <classifierType referencedElement="//@modules.0/@classes.15"/>
@@ -226,7 +226,7 @@
     <classes name="ArrayDimension">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ArrayDimension"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="size">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
@@ -294,7 +294,7 @@
     <classes name="NativeBinding">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NativeBinding"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="targetLanguage">
         <primitiveType xsi:type="dbl:StringType"/>
@@ -318,7 +318,7 @@
     <classes name="SuperClassSpecification">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperClassSpecification"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="class">
         <classifierType referencedElement="//@modules.0/@classes.24"/>
@@ -450,7 +450,7 @@
     <classes name="NamedElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NamedElement"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="name">
         <primitiveType xsi:type="dbl:StringType"/>
@@ -639,7 +639,7 @@
     <classes name="LocalScope">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScope"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="statements">
         <classifierType>
@@ -736,7 +736,7 @@
     <classes name="SwitchCase">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchCase"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
@@ -1029,7 +1029,7 @@
     <classes name="PredefinedId">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PredefinedId"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
     </classes>
     <classes name="MeLiteral">
@@ -1100,7 +1100,7 @@
     <classes name="CallPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CallPart"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
       <attributes name="callArguments">
         <classifierType>
@@ -1218,7 +1218,7 @@
     <classes name="SyntaxExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxExpression"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
     </classes>
     <classes name="L3SyntaxExpression">
@@ -1374,7 +1374,7 @@
     <classes name="ExpansionPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpansionPart"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
     </classes>
     <classes name="ExpandTextPart">
@@ -1502,7 +1502,7 @@
     <classes name="QuotedCode">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedCode"/>
       <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.11"/>
+        <class href="ecore.xmi#//@modules.0/@classes.13"/>
       </superClasses>
     </classes>
     <classes name="QuotedExpression">

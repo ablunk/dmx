@@ -1,0 +1,40 @@
+#import "../dbl"
+#import "../stdx"
+
+module EmpiricalDef {
+
+	class EmpiricalInt {
+		new (string name) {}
+		bindings {
+			"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.IntDistEmpirical"
+		}
+		int sample() {}
+		void addEntry(int value, double cumFrequency) {}
+	}
+	
+	extension DiscreteEmpirical extends dbl Statement {
+		start DiscreteEmpirical;
+		DiscreteEmpirical -> "discreteEmpirical" 
+			name:ID "{" EntryList "}";
+		EntryList -> entries:list Entry EntryOptional;
+		Entry -> cumPercent:INT ":" value:INT;
+		EntryOptional -> ;
+		EntryOptional -> "," EntryList;
+	}
+	
+	semantics for DiscreteEmpirical {
+		expand "EmpiricalInt " name " = new EmpiricalInt(\"" name "\");";
+		foreach (Entry e in entries) {
+			expand name ".addEntry(" e.value "," e.cumPercent " / 100.0);";
+		}
+	}
+	
+	extension SampleDiscreteEmpirical extends dbl L1Expr {
+		start SampleDiscreteEmpirical;
+		SampleDiscreteEmpirical -> "sample" "of" de:$$NamedElement;
+	}
+	semantics for SampleDiscreteEmpirical {
+		expand de.name ".sample()";
+	}
+
+}

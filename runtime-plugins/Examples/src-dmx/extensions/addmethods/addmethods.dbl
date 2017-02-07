@@ -1,0 +1,14 @@
+#import "../../dbl"
+
+module Extensions {
+
+extension AddMethod extends dbl SimpleStatement {
+	start AM;
+	AM -> "extend" classRef:$$Class "with" "method" method:Function;
+}
+
+semantics for AddMethod {
+	expand function method in classRef;
+}
+
+}

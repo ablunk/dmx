@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="some-module">
+    <model href="some-module.xmi#/"/>
+  </imports>
+  <modules name="importer">
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a">
+        <classifierType>
+          <referencedElement href="some-module.xmi#//@modules.0/@classes.0"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="some-module.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="b">
+        <classifierType>
+          <referencedElement href="some-module.xmi#//@modules.0/@classes.1"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="some-module.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

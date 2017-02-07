@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="lists">
+    <procedures name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="l1" isList="true">
+        <listDims>
+          <primitiveType xsi:type="dbl:IntType"/>
+        </listDims>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="99"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="l2" isList="true">
+        <listDims size="3">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </listDims>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="98"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.2"/>
+        <atIndex>
+          <arguments xsi:type="dbl:IntLiteral" value="1"/>
+        </atIndex>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="l3" isList="true">
+        <listDims size="3">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </listDims>
+        <listDims size="4">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </listDims>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="99"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.4"/>
+        <atIndex>
+          <arguments xsi:type="dbl:IntLiteral" value="1"/>
+          <arguments xsi:type="dbl:IntLiteral" value="2"/>
+        </atIndex>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="l4" isList="true">
+        <listDims size="2">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </listDims>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:StringLiteral" value="bla"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.6"/>
+        <atIndex>
+          <arguments xsi:type="dbl:StringLiteral" value="blub"/>
+        </atIndex>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="l6" isList="true">
+        <listDims size="2">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </listDims>
+        <listDims size="2"/>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:StringLiteral" value="bla"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.8"/>
+        <atIndex>
+          <arguments xsi:type="dbl:StringLiteral" value="bling"/>
+          <arguments xsi:type="dbl:StringLiteral" value="blub"/>
+        </atIndex>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="l5" isList="true">
+        <listDims size="2">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </listDims>
+        <listDims size="2"/>
+        <listDims>
+          <primitiveType xsi:type="dbl:IntType"/>
+        </listDims>
+      </statements>
+      <statements xsi:type="dbl:AddToSet">
+        <object xsi:type="dbl:IntLiteral" value="99"/>
+        <set xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@procedures.0/@statements.10"/>
+        <atIndex>
+          <arguments xsi:type="dbl:StringLiteral" value="bla"/>
+          <arguments xsi:type="dbl:StringLiteral" value="blub"/>
+        </atIndex>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="i">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IdExpr">
+          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.10"/>
+          <predefinedId xsi:type="dbl:LastInSet"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@procedures.0/@statements.12"/>
+        </variable>
+        <value xsi:type="dbl:IdExpr">
+          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.10"/>
+          <predefinedId xsi:type="dbl:ObjectAt"/>
+          <arguments>
+            <arguments xsi:type="dbl:StringLiteral" value="bla"/>
+            <arguments xsi:type="dbl:StringLiteral" value="blub"/>
+          </arguments>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:IfStatement">
+        <condition xsi:type="dbl:IdExpr">
+          <parentIdExpr referencedElement="//@modules.0/@procedures.0/@statements.10"/>
+          <predefinedId xsi:type="dbl:Contains"/>
+          <arguments>
+            <arguments xsi:type="dbl:IntLiteral" value="99"/>
+          </arguments>
+        </condition>
+        <ifCaseBlock>
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:StringLiteral" value="99!"/>
+          </statements>
+        </ifCaseBlock>
+      </statements>
+    </procedures>
+  </modules>
+</dbl:Model>

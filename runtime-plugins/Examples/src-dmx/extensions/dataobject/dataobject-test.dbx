@@ -1,0 +1,11 @@
+#import "dataobject"
+
+module test {
+	
+	class A {}
+	
+	void main() {
+		data x { int i=1; int j=2; }
+	}
+	
+}

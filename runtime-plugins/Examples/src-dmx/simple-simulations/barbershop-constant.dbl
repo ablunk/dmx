@@ -1,0 +1,82 @@
+#import "../stdlib"
+
+module barbershop {
+
+	boolean debug = true;
+	
+	int stopTime = 40;
+	int halfStopTime = stopTime / 2;
+	
+	int timeBetweenArrivalsInFirstHalf = 1;
+	int serviceTimeInFirstHalf = 2;
+
+	int timeBetweenArrivalsInSecondHalf = 2;
+	int serviceTimeInSecondHalf = 1;
+	
+	Facility joe = new Facility();
+
+	void main() {
+		activate new CustomerArrival();		
+		advance stopTime;
+	}
+
+	active class CustomerArrival {
+		actions {
+			while (time <= stopTime) {
+				if (time < halfStopTime) {
+					advance timeBetweenArrivalsInFirstHalf;
+				} else {
+					advance timeBetweenArrivalsInSecondHalf;
+				}
+				activate new Customer();
+				trace("new customer created.");
+			}
+		}
+	}
+	
+	active class Customer {		
+		actions {
+			joe.seize();
+			if (time < halfStopTime) {
+				advance serviceTimeInFirstHalf;
+			} else {
+				advance serviceTimeInSecondHalf;
+			}
+			joe.release();
+		}
+	}
+	
+	active class Facility {
+		boolean busy = false;
+		List processQueue = new ArrayList;
+		
+		void seize() {
+			if (busy) {
+				trace("facility busy. waiting.");
+				processQueue.add(active);
+				wait;
+			}
+			trace("facility seized.");
+			busy = true;
+		}
+		
+		void release() {
+			busy = false;
+			if (processQueue.size() > 0) {
+				Object nextWaitingProcess = processQueue.get(0);
+				trace("activate waiting process " + nextWaitingProcess);
+				processQueue.remove(nextWaitingProcess);
+				reactivate nextWaitingProcess;
+			}
+			trace("facility released.");
+		}
+	}
+
+
+	void trace(string msg) {
+		if (debug) {
+			print time + " - " + active + ": " + msg + "\n";
+		}
+	}
+	
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="ssm2">
+    <model href="ssm2.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <modules name="simpleProcess">
+    <classes name="E" concreteSyntax="class E {&#xA;&#x9;int i = 1;&#xA;}">
+      <attributes name="i" concreteSyntax="int i = 1">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+      </attributes>
+    </classes>
+    <classes name="A" concreteSyntax="active class A {&#xA;&#x9;Object message;&#xA;&#x9;&#xA;&#x9;&#xD;&#xA;&#x9;&#x9;actions {&#xD;&#xA;&#x9;&#x9;&#x9;print &quot;executing actions&quot;;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#xA;}" active="true">
+      <attributes name="message" concreteSyntax="Object message">
+        <classifierType concreteSyntax="Object">
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
+        </classifierType>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Print" concreteSyntax="print &quot;executing actions&quot;">
+          <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;executing actions&quot;" value="executing actions"/>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a" concreteSyntax="A a = new A()">
+        <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A()">
+          <classifierType concreteSyntax="A()" referencedElement="//@modules.0/@classes.1">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate a">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="a" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;sending E to a&quot;">
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;sending E to a&quot;" value="sending E to a"/>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;sending&quot;">
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;sending&quot;" value="sending"/>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

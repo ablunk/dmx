@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <modules name="EmpiricalDef">
+    <classes name="EmpiricalInt" concreteSyntax="class EmpiricalInt {&#xA;&#x9;&#x9;new (string name) {}&#xA;&#x9;&#x9;bindings {&#xA;&#x9;&#x9;&#x9;&quot;desmoj&quot; -> &quot;hub.sam.dmx.javasim.desmoj.dist.IntDistEmpirical&quot;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;int sample() {}&#xA;&#x9;&#x9;void addEntry(int value, double cumFrequency) {}&#xA;&#x9;}">
+      <bindings targetLanguage="desmoj" targetType="hub.sam.dmx.javasim.desmoj.dist.IntDistEmpirical"/>
+      <constructors>
+        <parameters name="name">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+      <methods name="sample">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+      <methods name="addEntry">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="value">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="cumFrequency">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </methods>
+    </classes>
+    <extensions name="DiscreteEmpirical" concreteSyntax="extension DiscreteEmpirical extends dbl Statement {&#xA;&#x9;&#x9;start DiscreteEmpirical;&#xA;&#x9;&#x9;DiscreteEmpirical -> &quot;discreteEmpirical&quot; &#xA;&#x9;&#x9;&#x9;name:ID &quot;{&quot; EntryList &quot;}&quot;;&#xA;&#x9;&#x9;EntryList -> entries:list Entry EntryOptional;&#xA;&#x9;&#x9;Entry -> cumPercent:INT &quot;:&quot; value:INT;&#xA;&#x9;&#x9;EntryOptional -> ;&#xA;&#x9;&#x9;EntryOptional -> &quot;,&quot; EntryList;&#xA;&#x9;}">
+      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.30"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;&#x9;start DiscreteEmpirical;&#xA;&#x9;&#x9;DiscreteEmpirical -> &quot;discreteEmpirical&quot; &#xA;&#x9;&#x9;&#x9;name:ID &quot;{&quot; EntryList &quot;}&quot;;&#xA;&#x9;&#x9;EntryList -> entries:list Entry EntryOptional;&#xA;&#x9;&#x9;Entry -> cumPercent:INT &quot;:&quot; value:INT;&#xA;&#x9;&#x9;EntryOptional -> ;&#xA;&#x9;&#x9;EntryOptional -> &quot;,&quot; EntryList;&#xA;&#x9;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="DiscreteEmpirical" concreteSyntax="DiscreteEmpirical -> &quot;discreteEmpirical&quot; &#xA;&#x9;&#x9;&#x9;name:ID &quot;{&quot; EntryList &quot;}&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;discreteEmpirical&quot;" keyword="discreteEmpirical"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol" concreteSyntax="ID"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;{&quot;" keyword="{"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;}&quot;" keyword="}"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="EntryList" concreteSyntax="EntryList -> entries:list Entry EntryOptional;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="entries" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.2" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.3"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Entry" concreteSyntax="Entry -> cumPercent:INT &quot;:&quot; value:INT;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="cumPercent">
+              <ownedClassifier xsi:type="dbl:IntSymbol" concreteSyntax="INT"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;:&quot;" keyword=":"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="value">
+              <ownedClassifier xsi:type="dbl:IntSymbol" concreteSyntax="INT"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="EntryOptional" concreteSyntax="EntryOptional -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="EntryOptional" concreteSyntax="EntryOptional -> &quot;,&quot; EntryList;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;,&quot;" keyword=","/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1"/>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SampleDiscreteEmpirical" concreteSyntax="extension SampleDiscreteEmpirical extends dbl L1Expr {&#xA;&#x9;&#x9;start SampleDiscreteEmpirical;&#xA;&#x9;&#x9;SampleDiscreteEmpirical -> &quot;sample&quot; &quot;of&quot; de:$$NamedElement;&#xA;&#x9;}">
+      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.54"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;&#x9;start SampleDiscreteEmpirical;&#xA;&#x9;&#x9;SampleDiscreteEmpirical -> &quot;sample&quot; &quot;of&quot; de:$$NamedElement;&#xA;&#x9;}" startSymbol="//@modules.0/@extensions.1/@syntaxDefinition/@symbols.0">
+        <symbols name="SampleDiscreteEmpirical" concreteSyntax="SampleDiscreteEmpirical -> &quot;sample&quot; &quot;of&quot; de:$$NamedElement;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;sample&quot;" keyword="sample"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;of&quot;" keyword="of"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="de" globalScopedReference="true">
+              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.29"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for DiscreteEmpirical {&#xA;&#x9;&#x9;expand &quot;EmpiricalInt &quot; name &quot; = new EmpiricalInt(\&quot;&quot; name &quot;\&quot;);&quot;;&#xA;&#x9;&#x9;foreach (Entry e in entries) {&#xA;&#x9;&#x9;&#x9;expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}" syntaxDefinition="//@modules.0/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;EmpiricalInt &quot; name &quot; = new EmpiricalInt(\&quot;&quot; name &quot;\&quot;);&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="EmpiricalInt "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text=" = new EmpiricalInt(\&quot;"/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text="\&quot;);"/>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Entry e in entries) {&#xA;&#x9;&#x9;&#x9;expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="e" concreteSyntax="Entry e">
+          <classifierType concreteSyntax="Entry" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.2"/>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="entries" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1/@possibleSyntax/@sequence.0"/>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;;&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand name &quot;.addEntry(&quot; e.value &quot;,&quot; e.cumPercent &quot; / 100.0);&quot;">
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=".addEntry("/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="e.value" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.2">
+                <parentIdExpr concreteSyntax="e" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1/@statements.0"/>
+              </expr>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=","/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="e.cumPercent" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0">
+                <parentIdExpr concreteSyntax="e" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1/@statements.0"/>
+              </expr>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=" / 100.0);"/>
+          </statements>
+        </body>
+      </statements>
+    </extensionSemantics>
+    <extensionSemantics concreteSyntax="semantics for SampleDiscreteEmpirical {&#xA;&#x9;&#x9;expand de.name &quot;.sample()&quot;;&#xA;&#x9;}" syntaxDefinition="//@modules.0/@extensions.1">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand de.name &quot;.sample()&quot;">
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="de.name">
+            <parentIdExpr concreteSyntax="de" referencedElement="//@modules.0/@extensions.1/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classes.29/@attributes.0"/>
+          </expr>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text=".sample()"/>
+      </statements>
+    </extensionSemantics>
+  </modules>
+</dbl:Model>

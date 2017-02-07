@@ -1,0 +1,29 @@
+#import "../../dbl"
+
+module DataObjectExtension {
+
+extension DataObject extends dbl SimpleStatement {
+	start DO;
+	DO -> "data" name:ID "{" DataItem "}";
+	DataItem -> dataItems : list Variable ";" DataItemOptional;
+	DataItemOptional -> DataItem ;
+	DataItemOptional -> ;
+}
+
+semantics for DataObject {
+	expand "DO_" name " " name " = new DO_" name "();";
+	Module containerModule = getContainerModule(self);
+	expand class "class DO_" name " {}" in containerModule;
+}	
+
+Module getContainerModule(EObject metaObject) {
+	EObject container = metaObject.eContainer();
+	if (container instanceof Module) {
+		return container as Module;
+	}
+	else {
+		return getContainerModule(container);
+	}
+}
+
+}

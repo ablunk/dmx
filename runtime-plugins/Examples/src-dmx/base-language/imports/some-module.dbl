@@ -1,0 +1,9 @@
+module somemodule {
+
+class A {
+}
+
+class B extends A {
+}
+
+}

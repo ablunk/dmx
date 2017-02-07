@@ -282,7 +282,7 @@
       <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.Enumerator"/>
     </classes>
     <classes name="EList">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.E"/>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.EList"/>
       <superClasses>
         <class href="stdlib.xmi#//@modules.0/@classes.3"/>
       </superClasses>

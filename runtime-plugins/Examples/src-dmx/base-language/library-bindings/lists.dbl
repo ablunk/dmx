@@ -1,0 +1,20 @@
+#import "../../stdlib"
+
+module lists {
+
+class A {}
+
+void main() {
+	ArrayList aList = new ArrayList;
+	aList.add(new A());
+	aList.add(new A());
+	
+	Iterator iterator = aList.iterator();
+	while (iterator.hasNext()) {
+		Object item = iterator.next();
+		A aItem = item as A;
+		print aItem + "\n";
+	}	
+}
+
+}
