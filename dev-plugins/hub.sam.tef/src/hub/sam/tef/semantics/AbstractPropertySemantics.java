@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
  * A super class for property semantics that contains some helper functions
@@ -113,32 +114,26 @@ public class AbstractPropertySemantics {
 	 * 
 	 * @return the resolved object, or null if no object is found.
 	 */
-	private static List<EObject> resolveAll(IIdentificationScheme idScheme, 
-			Object localId, EObject context, EClassifier type, Iterable<Object> contents) throws ModelCreatingException {
-		List<EObject> result = new ArrayList<EObject>();
-		java.util.Collection<EObject> contained = new HashSet<EObject>();
-		EClassifier classifier = type;
-		Object[] globalIds = idScheme.getGlobalIdentities(localId, context, classifier);
-		for (Object notifierContent: contents) {				
-			if (notifierContent instanceof EObject) {
-				EObject content = (EObject)notifierContent;
-				//System.out.println(EObjectHelper.getLocalId(content));
-				EClass classOfNext = content.eClass();
-				if (classifier instanceof EClass &&
-						((EClass)classifier).isSuperTypeOf(classOfNext)) {
-					for(Object globalId: globalIds) {
-						if (idScheme.getIdentitiy(content).equals(globalId)) {
-							if (!contained.contains(content)) {
-								contained.add(content);
-								result.add(content);
-							}
+	private static List<EObject> resolveAll(IIdentificationScheme idScheme, Object localId, EObject context, EClassifier type, 
+			Iterable<Object> contents) throws ModelCreatingException {
+		List<EObject> resolvedObjects = new ArrayList<>();
+		Object[] globalIds = idScheme.getGlobalIdentities(localId, context, type);
+		for (Object contentObject: contents) {				
+			if (contentObject instanceof EObject) {
+				EObject content = (EObject) contentObject;
+
+				EClass classOfContent = content.eClass();
+				if (type instanceof EClass && ((EClass) type).isSuperTypeOf(classOfContent)) {
+					for (Object globalId: globalIds) {
+						if (idScheme.getIdentitiy(content).equals(globalId) 
+								&& !resolvedObjects.stream().anyMatch(eObject -> EcoreUtil.equals(eObject, content))) {
+							resolvedObjects.add(content);
 						}
 					}
 				}
 			}
 		}
-		//System.out.println("------");
-		return result;
+		return resolvedObjects;
 	}
 	
 	/**
