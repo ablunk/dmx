@@ -1,0 +1,92 @@
+module simulation{
+
+	int x = 5;
+	double y;
+
+	active class simulation{
+		int int;
+		double h = 2.5;
+		
+		actions {
+			print "Hello! I am A";
+			print int;
+			double k = 25;
+			int meo;
+			yield;
+			advance 15;
+		}
+	}
+	
+	active class B{
+		string s = "leo";
+		double x;
+	
+		actions{
+			print "Hello! I am B";
+			advance 3;
+			int Jumm = 15;
+		}
+	}
+	
+	int f(int x){return 0;}
+	
+	void main(){
+		print "Main-Prozess start";
+		simulation double = new simulation();
+		simulation int = new simulation();
+		B c = new B();
+		
+		int x = 20;
+		double y = 0.5;
+		
+		while(x > 0){
+			print "hallo";
+			x = x-1;
+			while(x > 0){
+				double log = 4.5;
+				while(x > 0){
+					double log;
+					print y;
+					x = x-1;
+				}
+				print log;
+				x = x-1;
+			}
+			int k = 3;
+		}
+		print x;
+		
+		for(int k = 0; y < 10; y = y+1){
+			int lopu = 15;
+			y = y+1;
+			k = k+1;
+			print lopu;
+			
+			int lepp = 10;
+			while(lopu > 0){
+				double kaj;
+				lopu = lopu - 1;
+			}
+			print lepp;
+		}
+		
+		if(x == 20) int j=5;
+		
+		switch(x){
+			case 1: int y = 0;
+			
+			case 2: double t = 6;
+		
+			default: double m = 54;
+		}
+		
+		activate double;
+		activate int;
+		activate c;
+		
+		advance 50;
+		print x*y;
+		
+		print time;
+	}
+}

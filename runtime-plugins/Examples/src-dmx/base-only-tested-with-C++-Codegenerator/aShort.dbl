@@ -1,0 +1,23 @@
+module coroutines {
+ active class coroutine {
+	actions {
+		int x = 5;
+		yield;
+		print x;
+		print f(f(2)+f(4));
+	}
+	int f(int x){
+		print ""+self+x+"\n";
+		yield;
+		return x*2;
+	}
+ }
+ int main() {
+	coroutine p1 = new coroutine();
+	coroutine p2 = new coroutine();
+	activate p1;
+	activate p2;
+	advance 5;
+	return 1;
+ }
+}

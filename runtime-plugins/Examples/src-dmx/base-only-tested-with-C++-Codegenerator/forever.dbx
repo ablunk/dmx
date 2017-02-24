@@ -1,0 +1,15 @@
+#import "../dbl"
+#import "../stdlib"
+
+module stdx_forever {
+
+extension Forever extends dbl SimpleStatement {
+	start Forever;
+	Forever -> "forever" body:LocalScopeStatement;
+}
+
+semantics for Forever {
+	expand "while (true) " body;
+}
+
+}

@@ -1,0 +1,123 @@
+module simTest{
+active class A{
+	actions{
+		print x2(x2("h1"))+x2(x2("h2"));
+		print "_______________";
+		print x("ho")+x("ha");
+		print "_______________";
+		string s = x2(test(1)+""+test(2));
+		print s;
+		int x = 0;
+		print active;
+		for(x = f(x); x != f(x); x = x+1){
+			if(x==2) continue;
+				for(x = f(x); x != f(x); x = x+1){
+					if(x==2) continue;
+					print " "+x+" "+f(x)+"\n";
+				}
+  			print " "+x+" "+f(x)+"\n";
+  		}
+  		for(x = 1; x <= 5; x = x+1){
+			if(x==2) continue;
+  			print " "+x+" "+f(x)+"\n";
+  		}
+  		
+  		
+  		print active;
+  		while(x != f(x)){
+  			print " "+x+" "+f(x)+"\n";
+  			x = x+1;
+  			if(x== 2)continue;
+  			else print "BEO!;";
+  		}
+  		print rec(500);
+  		{
+  			print ""+f(2)+f(3);
+  		}
+	}
+	
+	int f(int x, double y){
+		advance 1;
+		if(x < 10) return x+1;
+		else return x;
+	}
+	
+	int f(int x){
+		advance 1;
+		if(x < 10) return x+1;
+		else return x;
+	}
+	
+	string x(string t){
+		print "BEFORE YIELD: "+t+"\n"; 
+		yield;
+		print "AFTER YIELD: "+t+"\n"; 
+		return t+"beowulf";
+	}
+	string x2(string t){
+		double k;
+		x3();
+		return t+"beowulf";
+	}
+	void x3(){
+		int x = 25;
+		C c = new C();
+		activate c;
+		x4();
+	}
+	void x4(){
+		advance 50;
+	}
+	int test(int x){
+		yield;
+		return x*2;
+	}
+	
+	int rec(int x){
+		print g(1,x)+"\n";
+		if(x == 0) return 1;
+  		else if(x == 1){return g(x+1,x+1);}
+  		else if(x > 1) return rec(x-1);
+  		else return x*2;
+	}
+	
+	int g(int i, int k){
+		yield;
+		return k;
+	}
+}
+
+active class B{
+
+	actions{
+		f();
+		print self;
+		advance 15;
+		print "B stirbt";
+	}
+	void f(){
+		C c = new C();
+		activate c;
+	}
+}
+
+active class C{
+	actions{
+		print "____________\n"; 
+		print self;
+		advance 20;
+		print "____________\n"; 
+		print self+" "+time;
+	}
+}
+
+void main(){
+	A a = new A();
+	activate a;
+	{
+		B b = new B();
+		activate b;
+	}
+	advance 500;
+}
+}

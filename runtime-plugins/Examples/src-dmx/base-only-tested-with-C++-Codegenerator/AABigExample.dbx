@@ -1,0 +1,203 @@
+#import "forever"
+
+module CarFerry{
+class Process{
+	bindings{
+		"c++"->"simulationCore\Process",
+		"java" -> "java.lang.Object"
+	}
+}
+class List{
+	bindings{
+		"c++" -> "mappedLibraryClasses\myProcessList",
+		"java" -> "java.util.ArrayList"
+	}
+	void push_back(Process p) abstract;
+	void pop_front() abstract;
+	Process front() abstract;
+	boolean empty() abstract;
+	boolean add(Process e) abstract;
+	boolean isEmpty() abstract;
+	boolean remove(Process e) abstract;
+	Process get(int index) abstract;
+}
+class Random{
+	bindings{
+		"c++" -> "mappedLibraryClasses\expRandom"
+	}
+	int sample() abstract;
+}
+// bin resource implementation
+class Bin{
+	int tokens;
+	List waitingProcesses = new List();
+	new(int t){tokens = t;}
+	
+	void give(int n){
+		tokens = tokens + n;
+	//C++
+		if(!waitingProcesses.empty()) reactivate waitingProcesses.front();
+	//Java
+	//	if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.get(0);
+	}
+	//C++
+	int take(int n){
+		waitingProcesses.push_back(active); 
+		if((n > tokens) or (active != waitingProcesses.front())) { 
+			while((n > tokens) or (active != waitingProcesses.front())) {
+				wait;
+			}
+		}
+		waitingProcesses.pop_front();
+		if(!waitingProcesses.empty()) reactivate waitingProcesses.front();
+		tokens = tokens - n;
+		return n;
+	}
+	int getTokenNumber(){return tokens;}
+	//Java
+//	int take(int n){
+	//	waitingProcesses.add(active); 
+	//	if((n > tokens) or (active != waitingProcesses.get(0))) { 
+	//		while((n > tokens) or (active != waitingProcesses.get(0))) {
+	//			wait;
+	//		}
+	//	}
+	//	waitingProcesses.remove(waitingProcesses.get(0));
+	//	if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.get(0);
+	//	tokens = tokens - n;
+	//	return n;
+	//}
+}
+// res resource implementation as bin with capacity
+class Res{
+	int capacity;
+	int currentAvailableTokens;
+	List waitingProcesses = new List();
+	new(int initialTokens, int capacity){
+		currentAvailableTokens = initialTokens;
+		self.capacity = capacity;
+	}
+	// C++
+	void acquire(int n){
+		waitingProcesses.push_back(active); 
+		if((n > currentAvailableTokens) or (active != waitingProcesses.front())) { 
+			while((n > currentAvailableTokens) or (active != waitingProcesses.front())) {
+				wait;
+			}
+		}
+		waitingProcesses.pop_front();
+		if(!waitingProcesses.empty()) reactivate waitingProcesses.front();
+		currentAvailableTokens = currentAvailableTokens - n;
+		if(currentAvailableTokens < 0) currentAvailableTokens = 0;
+	}
+	// Java
+//	void acquire(int n){
+//		waitingProcesses.add(active); 
+//		if((n > availableTokens) or (active != waitingProcesses.get(0))) { 
+	//		while((n > availableTokens) or (active != waitingProcesses.get(0))) {
+//				wait;
+	//		}
+//		}
+//		waitingProcesses.remove(waitingProcesses.get(0));
+	//	if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.get(0);
+	//	availableTokens = availableTokens - n;
+//		if(availableTokens < 0) availableTokens = 0;
+//	}
+	
+	void release(int n){
+		currentAvailableTokens = currentAvailableTokens + n;
+		if(currentAvailableTokens > capacity) print "Error: Overflow!";
+		//C++
+		if(!waitingProcesses.empty()) reactivate waitingProcesses.front();
+		//Java
+		//if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.get(0);
+	}
+	
+	int getTokenNumber(){return currentAvailableTokens;}
+	
+	int getTokenLimit(){return capacity;}
+}
+
+// Here starts the ferry-pier simulation program
+
+active class Pier{
+	Bin carQueue = new Bin(0);
+	//Random arrival;
+	double loadTime;
+	new(double arrivalRate, double loadT){
+		//arrival = new Random(arrivalRate);
+		loadTime = loadT;
+	}
+	
+	int embark(){
+		return carQueue.take(1);
+	}
+	
+	void show(){
+		print "Pier: "+self+", Anzahl Autos: "+carQueue.tokens+"\n";
+	}
+	
+	actions{
+		forever{
+			//advance(arrival.sample());
+			advance(2);
+			carQueue.give(1);
+		}
+	}
+}
+
+active class Ferry{
+	Res compartment;
+	double travelTime;
+	Pier array [] piers = new Pier array[2];
+	int oneway = 0;
+	new(int capacity, double travelT, Pier source, Pier destination){
+		compartment = new Res(capacity,capacity);
+		travelTime = travelT;
+		piers[0] = source;
+		piers[1] = destination;
+	}
+	
+	actions{
+		Pier p = piers[0];
+		forever{
+			while(compartment.getTokenNumber() < compartment.getTokenLimit()){
+				compartment.release(1);
+				advance(p.loadTime);
+			}
+			while (compartment.getTokenNumber() > 0){
+				if(p.embark() != 0){
+					compartment.acquire(1);
+					advance(p.loadTime);
+				}
+			}
+			
+			advance travelTime;
+			if (p == piers[0]) p = piers[1];
+			else p = piers[0];
+			oneway = oneway + 1;
+		}
+	}
+	
+	Ferry getFerry(){
+		advance 10;
+		return self;
+	}
+}
+
+void main(){
+	Pier p1 = new Pier(0.3, 0.5);
+	Pier p2 = new Pier(0.5, 0.5);
+	Ferry ferry = new Ferry(2, 7.5, p1, p2);
+	
+	activate ferry priority 1;
+	activate p2 priority 1;
+	activate p1 priority 1;
+	
+	advance 1000000;
+	p1.show();
+	p2.show();
+	print "Touren: "+(ferry.oneway/2)+"\n";
+}
+
+}

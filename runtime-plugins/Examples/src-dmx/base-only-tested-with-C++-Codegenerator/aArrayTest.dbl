@@ -1,0 +1,152 @@
+module arrayTest{
+
+	active class E{
+		A a = new A();
+		int f(int x){
+			advance 1;
+			return 1;
+		}
+		double g(double x){
+			advance 1;
+			return 1.1;
+		}
+		string s(string s){
+			print active;
+			yield;
+			yield;
+			return s+"blupp";
+		}
+		actions{
+			string h = "hallo";
+			switch(h){
+				case "ha"+"llo": print ""+(f(2)+g(3.5))+s("ho")+"\n";
+				case "hu": print "Bu!";
+				default: print "Default!";
+			}
+		}
+		A test(E e, boolean cond){
+			if(cond) print "AHA: "+e+"\n";
+			print active;
+			advance 1;
+			return new B; 
+		} 
+	}
+
+	class A{
+		string s = "A";
+		int id = 5;
+		new(int x){
+			id = x;
+		}
+	}
+	
+	class B extends A(20){
+		string s = "hallo";
+		int id2 = 10;
+		new(int t){
+			id2 = t;
+		}
+		string toString(){
+			return "ID2 = "+id2;
+		}
+	}
+	
+	class C extends B(50){
+		string s = "hallo";
+		int id3 = 10;
+		new(int t){
+			id3 = t;
+		}
+		string toString(){
+			return "ID3 = "+id3;
+		}
+	}
+	
+	void test3 (B array [] test){
+		
+	}
+	A array [][] testModul;
+	
+	void test(){
+		E e = new E();
+		activate e;
+		advance 100;
+		print e.test(e,true);
+		print e;
+		print e.a;
+		print e.a.s;
+		print active;
+		print new E();
+		
+		A a = new B();
+		print a as A;
+	
+	
+		int array [][][][] bs = new int array[2][5][7][8];
+		test3(new B array[5]);
+		bs[0][0][0][0] = 5;
+		
+		for(int i = 0; i < bs.length; i = i+1){
+			for(int j = 0; j < bs[i].length; j = j+1){
+				for(int k = 0; k < bs[i][j].length; k = k+1){
+				for(int l = 0; l < bs[i][j][k].length; l = l+1){
+						bs[i][j][k][l] = i*j*k*l;
+					}
+				}
+			}
+		}
+		
+		B array [][] be = new B array[3][3];
+		be[0][0] = new B(5);
+		
+		A array [][] test = be;
+		testModul = be;
+		
+		test[0][0] = new B(10);
+		
+		B bo = test[0][0] as B;
+		print bo.s;
+		
+		print testModul[0][0];
+		
+		
+		print be+"\n";
+        print test+"\n";
+		
+		
+		A b = new B(7);
+		
+		string s = "Array: "+test;
+		print s;
+		
+		test[1][1] = b;
+		test[2][1] = new B(8);
+		
+		if(b instanceof A){
+			print "YES!!";
+		}
+		else print "NOOOO!";
+		
+		if(b instanceof B){
+			print "YEAH!!";
+		}
+		else print "NOOOO!";
+		
+		
+		print test[0][2]+"\n";
+		print test[1][1]+"\n";
+		print test[2][2]+"\n";
+		
+		B array[][] test2 = test as B array [][];
+		print "_______________ \n\n";
+		
+		print test2[0][0]+"\n";
+		print test2[1][0]+"\n";
+		print test2[2][0]+"\n";
+	}
+
+
+	void main(){
+		test();
+	}
+}

@@ -1,0 +1,90 @@
+module int{
+	int x;
+	double y = 2.5;
+	A a = new A();
+	
+	class A{
+		int int;
+		double DBL_MAX_EXP;
+		int _ABC;
+		void f(int int){
+			print int*2;
+		}
+		string s = "heo";
+ 	}
+ 	class B extends A{ 
+ 		C x;
+ 		C y;
+ 		new(B b){}	
+		void function(){}
+		void f(int value){
+			print value*4;
+		}
+		double p;
+ 	}
+ 	class C extends B{
+ 		new(){}
+ 		int g;
+		void f(int value){
+			print value*8;
+		}
+ 	}
+ 	class D extends B{
+ 		C y;
+ 		int z;
+ 		new(int z){y = super.x;}
+ 	}
+ 	
+ 	class X{
+ 		int x;
+ 		double y;
+ 		new(int a, double b){x=a;y=b;}
+ 	}
+ 	class Z{int y;}
+ 	
+ 	int array[][] f(int array[][] test){
+ 		for(int i = 0; i < test.length;i=i+1){
+ 			for(int j = 0; j < test[2].length;j=j+1){
+ 				test[i][j] = i+j;
+ 			}
+ 		}
+ 		return test;
+ 	}
+ 	
+ 	void printArray(int array[][] test){
+ 		for(int i = 0; i < test.length;i=i+1){
+ 			for(int j = 0; j < test[test.length-1].length;j=j+1){
+ 				print test[i][j],"\n";
+ 			}
+ 		}
+ 	}
+ 	
+ 	string concatenate(string s){
+ 		return s + "f";
+ 	}
+ 	
+	int main(){
+		A b = new A();
+		B b3 = new D();
+		A b2 = new B(b3);
+		string s = "abcd";
+		int array [][] la;
+		int x = 5;
+		
+		string str = concatenate("hallo")+"test";
+		string toto = "habu" + 3+"\n";
+		print "toto";
+		
+		la = new int array [9][4];
+		la = f(la);
+		printArray(la);
+		
+		print la.length;
+		print s.length();
+		
+		if(b instanceof A){print "YEAH1!!!";}
+		if(b3 instanceof A){print "YEAH2!!!";}
+		if(b3 instanceof C){print "YEAH3!!!";}
+		if(b3 instanceof D){print "YEAH4!!!";}	
+	}
+}

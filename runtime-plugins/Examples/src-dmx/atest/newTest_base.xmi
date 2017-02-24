@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="forever">
+    <model href="forever.xmi#/"/>
+  </imports>
+  <modules name="t">
+    <classes name="A" concreteSyntax="active class A{&#xD;&#xA;&#xD;&#xA;actions{&#xD;&#xA;&#x9;while (true) {&#xD;&#xA;&#x9;&#x9;print &quot;&quot;+self+&quot; &quot;+time+&quot;\n&quot;;&#xD;&#xA;&#x9;&#x9;advance 1;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;}&#xD;&#xA;&#xD;&#xA;}" active="true">
+      <actionsBlock>
+        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (true) {&#xD;&#xA;&#x9;&#x9;print &quot;&quot;+self+&quot; &quot;+time+&quot;\n&quot;;&#xD;&#xA;&#x9;&#x9;advance 1;&#xD;&#xA;&#x9;}">
+          <condition xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xD;&#xA;&#x9;&#x9;print &quot;&quot;+self+&quot; &quot;+time+&quot;\n&quot;;&#xD;&#xA;&#x9;&#x9;advance 1;&#xD;&#xA;&#x9;}">
+            <statements xsi:type="dbl:Print" concreteSyntax="print &quot;&quot;+self+&quot; &quot;+time+&quot;\n&quot;">
+              <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+self+&quot; &quot;+time+&quot;\n&quot;">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+self+&quot; &quot;+time">
+                  <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+self+&quot; &quot;">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+self">
+                      <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;&quot;" value=""/>
+                      <op2 xsi:type="dbl:IdExpr" concreteSyntax="self">
+                        <predefinedId xsi:type="dbl:MeLiteral"/>
+                      </op2>
+                    </op1>
+                    <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; &quot;" value=" "/>
+                  </op1>
+                  <op2 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+              </outputs>
+            </statements>
+            <statements xsi:type="dbl:Advance" concreteSyntax="advance 1">
+              <time xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </statements>
+          </body>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a" concreteSyntax="A a = new A()">
+        <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A()">
+          <classifierType concreteSyntax="A()" referencedElement="//@modules.0/@classes.0">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate a">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="a" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 100">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="100" value="100"/>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;&quot;+active+&quot; &quot;+time+&quot;\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+active+&quot; &quot;+time+&quot;\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+active+&quot; &quot;+time">
+            <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+active+&quot; &quot;">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;&quot;+active">
+                <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;&quot;" value=""/>
+                <op2 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; &quot;" value=" "/>
+            </op1>
+            <op2 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+        </outputs>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

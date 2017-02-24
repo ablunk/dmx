@@ -1,0 +1,28 @@
+module random{
+	double ref = 0.5;
+	string b = "ha";
+	
+	active class A{
+		new(){print b+"\n";}
+		actions{
+			int x = 10;
+			print f(2)+f(3)+f(g(f(2)+0.2+f(1)));
+			print f(g(f(g(1.23456789))))+ f(g(f(g(1.23456789))));
+			print self+""+time+"\n";
+		}
+		double f(int i){
+			advance 1;
+			return i*ref;
+		}
+		int g(double z){
+			advance 1;
+			return (z / 2) as int;
+		}
+	}
+	void main(){
+		A a = new A();
+		activate a;
+		advance 100;
+		print self;
+	}
+}

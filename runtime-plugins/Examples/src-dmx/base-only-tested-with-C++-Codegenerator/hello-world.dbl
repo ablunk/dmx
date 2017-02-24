@@ -1,0 +1,61 @@
+module hello_world {
+
+	B b;
+
+	active class A {
+		int f(int x, double y){
+			print "Before Yield1"+self+"\n";
+			//yield;
+			yield;
+			print "After Yield1"+self+" "+time+"\n";
+			print "Before Yield2"+self+" "+time+"\n";
+			yield;
+			//yield;
+			print "After Yield2"+self+" "+time+"\n";
+			return 10;
+		}
+		actions{
+			print f(2,25) +"\n";
+		}
+	}
+	active class B {
+		A a;
+		new(A a){self.a = a;}
+			
+		void f(){
+			int x = a.f(15,3.5);
+			print x;
+			print "Before Yield1"+self+" "+time+"\n";
+			//yield;
+			advance 1;
+			print "After Yield1"+self+" "+time+"\n";
+		}
+	//	int g(){
+	//		print "Before Advance"+self+"\n";
+	//		wait;
+	//		print "After Advance"+self+"\n";
+	//		print "Before Yield"+self+"\n";
+	//		yield;
+	//		print "After Yield"+self+"\n";
+	//		print time;
+	//		return 100;
+	//	}
+		actions{
+			f();
+			print "Objekt: "+self+" "+time+"\n";
+		}
+		
+	}
+	
+	void main() {
+		A a = new A();
+		b = new B(a);
+		activate a;
+		activate b;
+		advance 5;
+		
+		print time+"\n";
+		yield;
+	}
+	
+}

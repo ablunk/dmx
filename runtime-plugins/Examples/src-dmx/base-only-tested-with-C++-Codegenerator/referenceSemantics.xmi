@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="refSem">
+    <classes name="A">
+      <constructors>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0">
+              <parentIdExpr>
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="x">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+      <attributes name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="5"/>
+      </attributes>
+    </classes>
+    <functions name="test">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" value="5"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:LocalScopeStatement">
+        <statements xsi:type="dbl:Variable" name="a2">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+          <initialValue xsi:type="dbl:CreateObject">
+            <classifierType referencedElement="//@modules.0/@classes.0">
+              <callPart>
+                <callArguments xsi:type="dbl:IntLiteral" value="10"/>
+              </callPart>
+            </classifierType>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@functions.0/@statements.1/@statements.0"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0">
+              <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1/@statements.0"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" value="20"/>
+        </statements>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+        </outputs>
+      </statements>
+    </functions>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr referencedElement="//@modules.0/@functions.0">
+          <callPart/>
+        </callIdExpr>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

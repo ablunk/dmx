@@ -1,0 +1,33 @@
+module test{
+	A a;
+
+active class A{
+	A a;
+	int id;
+	
+	new(A aObj,int idN){
+		a = aObj;
+		id = idN;
+	}
+
+	new(int idN){
+		id = idN;
+	}
+	
+	void setA(){
+		a = self;
+	}
+	
+	A getA(){return self;}
+}
+
+void f(A a, A b)
+{
+		a.a = b;
+		b.a = a;
+}
+
+void main(){
+}
+
+}
