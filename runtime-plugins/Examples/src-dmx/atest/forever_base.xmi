@@ -3,9 +3,6 @@
   <imports file="../dbl">
     <model href="../dbl.xmi#/"/>
   </imports>
-  <imports file="../stdlib">
-    <model href="../stdlib.xmi#/"/>
-  </imports>
   <modules name="stdx_forever">
     <extensions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xD;&#xA;&#x9;start Forever;&#xD;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xD;&#xA;}">
       <extensionPoint href="../dbl.xmi#//@modules.0/@classes.32"/>

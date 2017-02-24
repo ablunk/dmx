@@ -1,0 +1,517 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="Test">
+    <classes name="E">
+      <attributes name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="y">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </attributes>
+    </classes>
+    <classes name="A"/>
+    <classes name="B">
+      <superClasses class="//@modules.0/@classes.1"/>
+    </classes>
+    <classes name="C">
+      <superClasses class="//@modules.0/@classes.1"/>
+    </classes>
+    <classes name="D">
+      <superClasses class="//@modules.0/@classes.2"/>
+      <superClasses class="//@modules.0/@classes.3"/>
+    </classes>
+    <functions name="f">
+      <primitiveType xsi:type="dbl:StringType"/>
+      <statements xsi:type="dbl:Return">
+        <value xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@parameters.0"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="ha"/>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" value="ho"/>
+              </op1>
+              <op2 xsi:type="dbl:IntLiteral" value="3"/>
+            </op1>
+            <op2 xsi:type="dbl:IntLiteral" value="4"/>
+          </op1>
+          <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@parameters.1"/>
+        </value>
+      </statements>
+      <parameters name="x">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+      <parameters name="y">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </functions>
+    <functions name="f">
+      <primitiveType xsi:type="dbl:StringType"/>
+      <typeArrayDimensions/>
+      <statements xsi:type="dbl:Variable" name="temp">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <typeArrayDimensions/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <primitiveType xsi:type="dbl:StringType"/>
+          <typeArrayDimensions>
+            <size xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:IdExpr">
+                <parentIdExpr referencedElement="//@modules.0/@functions.1/@parameters.0"/>
+                <predefinedId xsi:type="dbl:SizeOfArray"/>
+              </op1>
+              <op2 xsi:type="dbl:IntLiteral" value="1"/>
+            </size>
+          </typeArrayDimensions>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ForStatement">
+        <statements xsi:type="dbl:Variable" name="i">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:IntLiteral"/>
+        </statements>
+        <termination xsi:type="dbl:Less">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1/@statements.0"/>
+          <op2 xsi:type="dbl:IdExpr">
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@parameters.0"/>
+            <predefinedId xsi:type="dbl:SizeOfArray"/>
+          </op2>
+        </termination>
+        <increment>
+          <variable>
+            <idExpr referencedElement="//@modules.0/@functions.1/@statements.1/@statements.0"/>
+          </variable>
+          <value xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1/@statements.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="1"/>
+          </value>
+        </increment>
+        <body xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@functions.1/@statements.0">
+                <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1/@statements.0"/>
+              </idExpr>
+            </variable>
+            <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@parameters.0">
+              <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1/@statements.0"/>
+            </value>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@functions.1/@statements.0">
+            <arrayIndex xsi:type="dbl:Minus">
+              <op1 xsi:type="dbl:IdExpr">
+                <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.0"/>
+                <predefinedId xsi:type="dbl:SizeOfArray"/>
+              </op1>
+              <op2 xsi:type="dbl:IntLiteral" value="1"/>
+            </arrayIndex>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:StringLiteral" value="SUPER"/>
+      </statements>
+      <statements xsi:type="dbl:Return">
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.0"/>
+      </statements>
+      <parameters name="test">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <typeArrayDimensions/>
+      </parameters>
+    </functions>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="a">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="b">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.2">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="c">
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.2">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="test">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <typeArrayDimensions/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <typeArrayDimensions>
+            <size xsi:type="dbl:IntLiteral" value="1"/>
+          </typeArrayDimensions>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@functions.2/@statements.4">
+            <arrayIndex xsi:type="dbl:IntLiteral"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" value="15"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="s">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@functions.2/@statements.6"/>
+        </variable>
+        <value xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0">
+            <callPart>
+              <callArguments xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="ha"/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.1"/>
+                  </op1>
+                  <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.2"/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.3"/>
+              </callArguments>
+              <callArguments xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:StringLiteral" value="hoho"/>
+                <op2 xsi:type="dbl:StringLiteral" value="neo"/>
+              </callArguments>
+            </callPart>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="t">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:StringLiteral" value="hallo"/>
+          <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.6"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.8"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="loo">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+        <initialValue xsi:type="dbl:DoubleLiteral" value="123.456"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="test2">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <typeArrayDimensions/>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@functions.2/@statements.11"/>
+        </variable>
+        <value xsi:type="dbl:CreateObject">
+          <primitiveType xsi:type="dbl:StringType"/>
+          <typeArrayDimensions>
+            <size xsi:type="dbl:IntLiteral" value="10"/>
+          </typeArrayDimensions>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:ForStatement">
+        <statements xsi:type="dbl:Variable" name="i">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:IntLiteral"/>
+        </statements>
+        <termination xsi:type="dbl:Less">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.13/@statements.0"/>
+          <op2 xsi:type="dbl:IdExpr">
+            <parentIdExpr referencedElement="//@modules.0/@functions.2/@statements.11"/>
+            <predefinedId xsi:type="dbl:SizeOfArray"/>
+          </op2>
+        </termination>
+        <increment>
+          <variable>
+            <idExpr referencedElement="//@modules.0/@functions.2/@statements.13/@statements.0"/>
+          </variable>
+          <value xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.13/@statements.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="1"/>
+          </value>
+        </increment>
+        <body xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@functions.2/@statements.11">
+              <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.13/@statements.0"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.13/@statements.0"/>
+              <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11">
+                <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.13/@statements.0"/>
+              </op2>
+            </op1>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.6"/>
+          </value>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:ForStatement">
+        <statements xsi:type="dbl:Variable" name="i">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:IntLiteral"/>
+        </statements>
+        <termination xsi:type="dbl:Less">
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.14/@statements.0"/>
+          <op2 xsi:type="dbl:IdExpr">
+            <parentIdExpr referencedElement="//@modules.0/@functions.2/@statements.11"/>
+            <predefinedId xsi:type="dbl:SizeOfArray"/>
+          </op2>
+        </termination>
+        <increment>
+          <variable>
+            <idExpr referencedElement="//@modules.0/@functions.2/@statements.14/@statements.0"/>
+          </variable>
+          <value xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.14/@statements.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="1"/>
+          </value>
+        </increment>
+        <body xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:StringLiteral" value="TEST: "/>
+                  <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11">
+                    <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.14/@statements.0"/>
+                  </op2>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+              </op1>
+              <op2 xsi:type="dbl:Cast">
+                <primitiveType xsi:type="dbl:DoubleType"/>
+                <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.14/@statements.0"/>
+              </op2>
+            </outputs>
+          </statements>
+          <statements xsi:type="dbl:Print">
+            <outputs xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:StringLiteral" value="TEST: "/>
+                <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+            </outputs>
+          </statements>
+          <statements xsi:type="dbl:Assignment">
+            <variable>
+              <idExpr referencedElement="//@modules.0/@variables.0"/>
+            </variable>
+            <value xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+              <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11">
+                <arrayIndex xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.14/@statements.0"/>
+              </op2>
+            </value>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="bux">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="\n"/>
+            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1">
+              <arrayIndex xsi:type="dbl:Minus">
+                <op1 xsi:type="dbl:IdExpr">
+                  <parentIdExpr referencedElement="//@modules.0/@functions.1">
+                    <callPart>
+                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11"/>
+                    </callPart>
+                  </parentIdExpr>
+                  <predefinedId xsi:type="dbl:SizeOfArray"/>
+                </op1>
+                <op2 xsi:type="dbl:IntLiteral" value="1"/>
+              </arrayIndex>
+              <callPart>
+                <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11"/>
+              </callPart>
+            </op2>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@functions.2/@statements.15"/>
+        </variable>
+        <value xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IntLiteral" value="128"/>
+          <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.8"/>
+        </value>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.15"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="po">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0">
+              <callPart>
+                <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11">
+                  <arrayIndex xsi:type="dbl:IntLiteral" value="2"/>
+                </callArguments>
+                <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.8"/>
+              </callPart>
+            </op1>
+            <op2 xsi:type="dbl:IntLiteral" value="5"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.19"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="be">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="hallo"/>
+            <op2 xsi:type="dbl:StringLiteral" value="hallo"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="jux">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.11">
+          <arrayIndex xsi:type="dbl:IntLiteral" value="2"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.22"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="clo">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:StringLiteral" value="la"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="le"/>
+                </op1>
+                <op2 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:StringLiteral" value="luu"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="li"/>
+                </op2>
+              </op1>
+              <op2 xsi:type="dbl:IntLiteral" value="2"/>
+            </op1>
+            <op2 xsi:type="dbl:IntLiteral" value="6"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="ppeerr"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="goo">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0">
+          <callPart>
+            <callArguments xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:StringLiteral" value="loo"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="lee"/>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" value="laaa"/>
+              </op1>
+              <op2 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="leo"/>
+                    <op2 xsi:type="dbl:StringLiteral" value="lap"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" value="15"/>
+                </op1>
+                <op2 xsi:type="dbl:IntLiteral" value="15"/>
+              </op2>
+            </callArguments>
+            <callArguments xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:StringLiteral" value="loo"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="lee"/>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" value="laaa"/>
+              </op1>
+              <op2 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:StringLiteral" value="leo"/>
+                    <op2 xsi:type="dbl:StringLiteral" value="lap"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" value="15"/>
+                </op1>
+                <op2 xsi:type="dbl:IntLiteral" value="15"/>
+              </op2>
+            </callArguments>
+          </callPart>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.25"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:StringLiteral" value="loo"/>
+              <op2 xsi:type="dbl:StringLiteral" value="lee"/>
+            </op1>
+            <op2 xsi:type="dbl:StringLiteral" value="laaa"/>
+          </op1>
+          <op2 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:Plus">
+              <op1 xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:StringLiteral" value="leo"/>
+                <op2 xsi:type="dbl:StringLiteral" value="lap"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" value="15"/>
+            </op1>
+            <op2 xsi:type="dbl:IntLiteral" value="15"/>
+          </op2>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.24"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="xxx">
+        <primitiveType xsi:type="dbl:StringType"/>
+        <initialValue xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="\n"/>
+            <op2 xsi:type="dbl:IntLiteral" value="25"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.2/@statements.29"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+      </statements>
+    </functions>
+    <variables name="mod_s">
+      <primitiveType xsi:type="dbl:StringType"/>
+    </variables>
+  </modules>
+</dbl:Model>

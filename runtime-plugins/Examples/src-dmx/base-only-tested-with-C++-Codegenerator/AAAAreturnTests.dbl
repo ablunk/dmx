@@ -1,0 +1,30 @@
+module m{
+
+active class A{
+
+}
+
+active class B{
+	A a;
+	actions{
+		print test(self)+"\n";
+		B b = new B();
+		print test(b);
+		print "DONE! \n";
+		print test(self)+"\n";
+	}
+	
+	B test(B b){
+		print b;
+		advance 1;
+		return b;
+	}
+	
+}
+void main(){
+	B b = new B();
+	activate b;
+	advance 500;
+	print "Simulations ends: "+time+" von "+self;
+}
+}

@@ -5,6 +5,7 @@ import java.io.File
 import java.io.FileWriter
 import java.io.Writer
 import org.eclipse.core.runtime.IPath
+import hub.sam.dbl.Model
 
 abstract class AbstractGenerator {
 	
@@ -13,6 +14,8 @@ abstract class AbstractGenerator {
 	new(IPath outputFolder) {
 		this.outputFolder = outputFolder;
 	}
+	
+	def void genModel(Model model, boolean mainModel){}
 	
 	protected def void makeFolder(IPath folder) {
 		val folder_fileObject = new File(folder.toString);

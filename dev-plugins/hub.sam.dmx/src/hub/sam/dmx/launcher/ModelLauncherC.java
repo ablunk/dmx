@@ -1,16 +1,13 @@
 package hub.sam.dmx.launcher;
-
 import hub.sam.dbl.Import;
 import hub.sam.dbl.Model;
 import hub.sam.dmx.editor.DblTextEditor;
-import hub.sam.dmx.targetcode.BasicDblToCGenerator;
-import hub.sam.dmx.targetcode.ExtendedDblToCGenerator;
-
+import hub.sam.dmx.targetcode.SpecificSimulationCPlusPlusGenerator;
+import hub.sam.dmx.semantics.BaseCPlusPlusGenerator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -24,39 +21,27 @@ import java.io.*;
 
 public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator> extends ModelLauncher{
 	
-	public static final String C_GEN_FOLDER_NAME = "gen-src2";
-	public static final String TEMP2_FOLDER_NAME = "temp2";
-	public static final String cPackageSuffix = "/hub/sam/dmx/csim/gen/";
+	public static final String C_GEN_FOLDER_NAME = "gen-src-C++";
+	public static final String cPackageSuffix = "/gen/";
 	
-	public ModelLauncherC (IProgressMonitor monitor, Display associatedDisplay, DblTextEditor editor, String targetSimLib, String targetLanguage){
-		super(monitor, associatedDisplay, editor, targetSimLib, targetLanguage);
-	}
-	
-	private IFolder cGenFolder = null;
-
-	private IFolder getCGenFolder(IProject project) {
+	protected IFolder cGenFolder = null;
+	protected IFolder getCGenFolder(IProject project) {
 		if (cGenFolder == null) {
 			cGenFolder = project.getFolder(C_GEN_FOLDER_NAME);
 		}
 		return cGenFolder;
 	}
 	
-	private IFolder tempFolder = null;
-	
-	private IFolder getTempFolder(IProject project) {
-		if (tempFolder == null) {
-			tempFolder = project.getFolder(TEMP2_FOLDER_NAME);
-		}
-		return tempFolder;
+	public ModelLauncherC (IProgressMonitor monitor, Display associatedDisplay, DblTextEditor editor, String targetSimLib, String targetLanguage){
+		super(monitor, associatedDisplay, editor, targetSimLib, targetLanguage);
 	}
-	
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
 	
-	private Model translate(Model inputModel, boolean rootModel, BasicDblToCGenerator baseGenerator, IPath genFolder) {
+	private Model translate(Model inputModel, boolean rootModel, BaseCPlusPlusGenerator baseGenerator, IPath genFolder) {
 			return translateDbl(inputModel, rootModel, baseGenerator, genFolder);
 	}
 	
-	private Model translateDbl(Model inputModel, boolean rootModel, BasicDblToCGenerator baseGenerator, IPath genFolder) {
+	private Model translateDbl(Model inputModel, boolean rootModel, BaseCPlusPlusGenerator baseGenerator, IPath genFolder) {
 		if (!processedModels.containsKey(inputModel)) {
 			// 2.a. forward translation to imported models, so that extensions used in imported models are translated
 			// 2.b. replaced imported models by translated imported models
@@ -69,33 +54,29 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 			
 			// 3. generate target language code with baseGenerator for outputModel
 			baseGenerator.genModel(inputModel, rootModel);
-			
 			processedModels.put(inputModel, inputModel);
 			return inputModel;
 		}
 		return processedModels.get(inputModel);
 	}
 	
-	private boolean compileCppFiles(IProject project, IFolder folder, List<String> cppNames) {		    
-		    try 
+	private boolean compileCppFiles(IProject project, IFolder folder) {		    
+		 	try 
 	        {
 	            logger.info("Refreshing \"" + folder.toString() + "\" ...");
 	            boolean isCompiled = false;
 	            List<String> command = new ArrayList<String>();
-	            List<String> prefix;
 	          
 	            if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
 	            	//Windows
-	            	prefix = java.util.Arrays.asList("CMD", "/C", "g++", "-O3", "-std=c++11","-o", "my_program", "Main.cpp");
+	            	command = java.util.Arrays.asList("CMD", "/C", "mingw32-make");
 	            }
 	            else{
 	            	//Mac
-	            	prefix = java.util.Arrays.asList("g++","-O3", "-std=c++11","-Wno-parentheses-equality", "-o", "my_program", "Main.cpp");
+	            	command = java.util.Arrays.asList("make");
 	            }
-		        command.addAll(prefix);
-	            command.addAll(cppNames);
 	            ProcessBuilder pb = new ProcessBuilder(command);
-	            if (System.getProperty("os.name").indexOf("win") >= 0){
+	            if (System.getProperty("os.name").toLowerCase().indexOf("win") >= 0){
 	            	//Windows
 	            	Map<String, String> envs = pb.environment();
 	            	envs.put("Path", "C:\\MinGW\\bin\\");
@@ -187,6 +168,7 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		refreshCurrentProject();
 		
 		IProject currentProject = getCurrentProject();
+		IPath genPath = getCGenFolder(currentProject).getRawLocation();
 
 		monitor.subTask("Cleaning folders");
 		// Ordner werden rekursiv bereinigt 
@@ -196,38 +178,34 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		resetConsole();
 
 		monitor.worked(10); // 10%
-
+		
+		monitor.subTask("Translating model to target language program");
+		
+		Resource originalResource = editor.getCurrentModel();
+		Model rootModel = (Model) originalResource.getContents().get(0);
+		BaseCPlusPlusGenerator baseGenerator = new SpecificSimulationCPlusPlusGenerator(genPath);
+		
 		// aktuell geoeffnetes File
 		final IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
 		final boolean isDbxInputFile = inputFile.getFileExtension().equals("dbx");
-		// aktuell nur Unterstuetzung fuer .dbl Dateien
-		monitor.subTask("Translating model to target language program");
-		if(isDbxInputFile) {
-			logger.info("" + inputFile + " could not be compiled.");
-		}
-		else{
-			// genPath speichert den absoluten Pfad des gen-src folders
-			IPath genPath = getCGenFolder(currentProject).getRawLocation();
-			ExtendedDblToCGenerator baseGenerator = new ExtendedDblToCGenerator(genPath);
-			Resource originalResource = editor.getCurrentModel();
-			Model rootModel = (Model) originalResource.getContents().get(0);
 
-			logger.info("Compiling and executing model " + inputFile + " ...");
-			translateDbl(rootModel, true, baseGenerator, genPath);
-			refreshCurrentProject();
-			
-			monitor.worked(50); // 55%
-			monitor.subTask("Compiling target language program");
-			
-			compileCppFiles(currentProject, getCGenFolder(currentProject), baseGenerator.allCppFiles);
+		logger.info("Compiling and executing model " + inputFile + " ...");
 
-			long estimatedTime = System.nanoTime() - startCompileTime;
-			long ms = estimatedTime / (1000 * 1000);
-			logger.info("Overall compile time: " + ms / 1000.0 + " seconds");
-			
-			monitor.worked(40); // 95%
+		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
+		monitor.worked(50); // 55%
+		monitor.subTask("Compiling target language program");
+
+		boolean isCompiled = false;
+		isCompiled = compileCppFiles(currentProject, getCGenFolder(currentProject));
+
+		long estimatedTime = System.nanoTime() - startCompileTime;
+		long ms = estimatedTime / (1000 * 1000);
+		logger.info("Overall compile time: " + ms / 1000.0 + " seconds");
+
+		monitor.worked(40); // 95%
+		if(isCompiled){
 			monitor.subTask("Executing target language program");
-			startProgram(currentProject, getCGenFolder(currentProject));
+			startProgram(currentProject, getJavaGenFolder(currentProject));
 			monitor.worked(5);
 		}
 	}

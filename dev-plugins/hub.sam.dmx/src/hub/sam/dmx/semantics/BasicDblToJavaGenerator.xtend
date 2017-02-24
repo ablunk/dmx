@@ -175,7 +175,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		else name
 	}
 
-	def void genModel(Model model, boolean mainModel) {
+	override void genModel(Model model, boolean mainModel) {
 		val Module moduleWithMainProcedure = if (mainModel) model.modules.findFirst[ functions.exists[ name == 'main' ] ] else null
 		
 		model.modules.forEach[ module | 

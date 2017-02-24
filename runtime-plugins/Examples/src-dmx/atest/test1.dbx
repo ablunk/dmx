@@ -1,0 +1,26 @@
+#import "forever"
+module m{
+
+void main(){
+	A a = new A();
+	activate a;
+	advance 20;
+	print self+" "+time;
+}
+
+active class A{
+	int x = 15;
+	
+	actions{
+		forever{
+			print ""+self;
+			advance 1;
+		}
+	}
+}
+
+class B extends A{
+	int x = 23;
+}
+
+}

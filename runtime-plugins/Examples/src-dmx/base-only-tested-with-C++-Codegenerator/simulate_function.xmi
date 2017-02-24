@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="dbl">
+    <classes name="A" active="true">
+      <constructors>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="Hello I am A"/>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:TimeLiteral"/>
+        </statements>
+      </constructors>
+      <attributes name="l">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" value="15"/>
+      </attributes>
+      <attributes name="x">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="y">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </attributes>
+      <methods name="f">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" value="10"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+          </variable>
+          <value xsi:type="dbl:DoubleLiteral" value="2.5"/>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.1">
+            <callPart/>
+          </callIdExpr>
+        </statements>
+      </methods>
+      <methods name="g">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" value="10"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.2"/>
+          </variable>
+          <value xsi:type="dbl:DoubleLiteral" value="2.5"/>
+        </statements>
+        <statements xsi:type="dbl:Advance">
+          <time xsi:type="dbl:IntLiteral" value="15"/>
+        </statements>
+      </methods>
+      <actionsBlock>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="Objekt A starts now"/>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:ActiveLiteral"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="q">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:IntLiteral" value="10"/>
+        </statements>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:Less">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.2"/>
+            <op2 xsi:type="dbl:IntLiteral" value="20"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Variable" name="p">
+              <primitiveType xsi:type="dbl:IntType"/>
+              <initialValue xsi:type="dbl:IntLiteral" value="3"/>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="n">
+              <primitiveType xsi:type="dbl:DoubleType"/>
+              <initialValue xsi:type="dbl:DoubleLiteral" value="10.99"/>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="g">
+              <primitiveType xsi:type="dbl:BoolType"/>
+              <initialValue xsi:type="dbl:Or">
+                <op1 xsi:type="dbl:Or">
+                  <op1 xsi:type="dbl:And">
+                    <op1 xsi:type="dbl:TrueLiteral"/>
+                    <op2 xsi:type="dbl:FalseLiteral"/>
+                  </op1>
+                  <op2 xsi:type="dbl:FalseLiteral"/>
+                </op1>
+                <op2 xsi:type="dbl:TrueLiteral"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="h">
+              <primitiveType xsi:type="dbl:BoolType"/>
+              <initialValue xsi:type="dbl:TrueLiteral"/>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="i">
+              <primitiveType xsi:type="dbl:BoolType"/>
+              <initialValue xsi:type="dbl:FalseLiteral"/>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="x">
+              <primitiveType xsi:type="dbl:StringType"/>
+              <initialValue xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:StringLiteral" value="hallo"/>
+                  <op2 xsi:type="dbl:StringLiteral" value="du"/>
+                </op1>
+                <op2 xsi:type="dbl:Or">
+                  <op1 xsi:type="dbl:And">
+                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.2"/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.3"/>
+                  </op1>
+                  <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.4"/>
+                </op2>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Print">
+              <outputs xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:Plus">
+                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.0"/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.1"/>
+                  </op1>
+                  <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.5"/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.2"/>
+              </outputs>
+            </statements>
+            <statements xsi:type="dbl:Assignment">
+              <variable>
+                <idExpr referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.2"/>
+              </variable>
+              <value xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.2"/>
+                <op2 xsi:type="dbl:IntLiteral" value="10"/>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="l">
+              <primitiveType xsi:type="dbl:IntType"/>
+              <initialValue xsi:type="dbl:IntLiteral" value="9"/>
+            </statements>
+            <statements xsi:type="dbl:Print">
+              <outputs xsi:type="dbl:StringLiteral" value="TEST"/>
+              <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@actionsBlock/@statements.3/@body/@statements.8"/>
+            </statements>
+          </body>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="TEST"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+        </statements>
+        <statements xsi:type="dbl:Yield"/>
+        <statements xsi:type="dbl:Advance">
+          <time xsi:type="dbl:IntLiteral" value="20"/>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="Objekt A meldet Zeit: "/>
+          <outputs xsi:type="dbl:TimeLiteral"/>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <classes name="B" active="true">
+      <constructors>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="Hello I am B"/>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:TimeLiteral"/>
+        </statements>
+      </constructors>
+      <actionsBlock>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="Object B starts now"/>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:ActiveLiteral"/>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="y">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:IntLiteral" value="5"/>
+        </statements>
+        <statements xsi:type="dbl:LocalScopeStatement">
+          <statements xsi:type="dbl:Variable" name="y">
+            <primitiveType xsi:type="dbl:IntType"/>
+            <initialValue xsi:type="dbl:IntLiteral" value="5"/>
+          </statements>
+        </statements>
+        <statements xsi:type="dbl:Advance">
+          <time xsi:type="dbl:IntLiteral" value="15"/>
+        </statements>
+        <statements xsi:type="dbl:Yield"/>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="Objekt B meldet Zeit: "/>
+          <outputs xsi:type="dbl:TimeLiteral"/>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="Hello I am MainProcess"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:TimeLiteral"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="a">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="b">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.1">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.3"/>
+      </statements>
+      <statements xsi:type="dbl:Yield"/>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:IntLiteral" value="50"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="MainProcess meldet Zeit: "/>
+        <outputs xsi:type="dbl:TimeLiteral"/>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

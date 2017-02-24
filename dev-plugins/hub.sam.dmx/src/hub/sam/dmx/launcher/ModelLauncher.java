@@ -14,6 +14,7 @@ import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.ModificationsPackage;
 import hub.sam.dmx.modifications.ModificationsRecord;
 import hub.sam.dmx.semantics.AbstractExtensionSemantics;
+import hub.sam.dmx.semantics.AbstractGenerator;
 import hub.sam.dmx.semantics.BasicDblToJavaGenerator;
 import hub.sam.dmx.semantics.ExtensionDefinitionsToJava;
 import hub.sam.dmx.semantics.IncrementalModificationApplier;
@@ -119,7 +120,7 @@ public class ModelLauncher {
 	
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
 
-	private Model translate(Model inputModel, boolean rootModel, BasicDblToJavaGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
+	protected Model translate(Model inputModel, boolean rootModel, AbstractGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
 		URI filenameAndPathWithoutFileExtensions = inputModel.eResource().getURI().trimFileExtension();
 		String modelDbxTextFileString = getXmiRawLocation(filenameAndPathWithoutFileExtensions.appendFileExtension("dbx")).toOSString();
 	
@@ -133,7 +134,7 @@ public class ModelLauncher {
 		}
 	}
 
-	private Model translateDbl(Model inputModel, boolean rootModel, BasicDblToJavaGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
+	private Model translateDbl(Model inputModel, boolean rootModel, AbstractGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
 		if (!processedModels.containsKey(inputModel)) {
 			// 2.a. forward translation to imported models, so that extensions used in imported models are translated
 			// 2.b. replaced imported models by translated imported models
@@ -153,7 +154,7 @@ public class ModelLauncher {
 		return processedModels.get(inputModel);
 	}
 
-	private Model translateDbx(IPath inputPath, File inputFile, Model inputModel, boolean rootModel, BasicDblToJavaGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
+	private Model translateDbx(IPath inputPath, File inputFile, Model inputModel, boolean rootModel, AbstractGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
 		// prevents processing a model which is imported by different imports again
 		if (!processedModels.containsKey(inputModel)) {
 			
@@ -271,7 +272,7 @@ public class ModelLauncher {
 		return false;
 	}
 	
-	private Map<String, Collection<ExtensibleElement>> getLeafExtensionInstances(Model inputModel) {
+	protected Map<String, Collection<ExtensibleElement>> getLeafExtensionInstances(Model inputModel) {
 		Map<String, Collection<ExtensibleElement>> extensionDefinitionNames_to_extensionInstances = new HashMap<String, Collection<ExtensibleElement>>();
 		
 		TreeIterator<EObject> allContents = inputModel.eAllContents();
@@ -304,11 +305,11 @@ public class ModelLauncher {
 		return extensionDefinitionNames_to_extensionInstances;
 	}
 	
-	private Collection<String> extensionDefinitionSemanticsGenerated = new HashSet<String>();
+	protected Collection<String> extensionDefinitionSemanticsGenerated = new HashSet<String>();
 	
 	private ExtensionDefinitionsToJava _extensionDefinitionGenerator;
 	
-	private ExtensionDefinitionsToJava getExtensionDefinitionGenerator() {
+	protected ExtensionDefinitionsToJava getExtensionDefinitionGenerator() {
 		if (_extensionDefinitionGenerator == null) {
 			IPath genFolder = getJavaGenFolder(getCurrentProject()).getRawLocation();
 			_extensionDefinitionGenerator = new ExtensionDefinitionsToJava(genFolder);
@@ -322,7 +323,7 @@ public class ModelLauncher {
 	 * @param inputModel model containing extension instances
 	 * @return workingModel either the inputModel or a copy of the inputModel with extension instances replaced
 	 */
-	private DblModelWorkingCopy substituteExtensions(DblModelWorkingCopy inputModel) {
+	protected DblModelWorkingCopy substituteExtensions(DblModelWorkingCopy inputModel) {
 		final IProject currentProject = getCurrentProject();
 		final IJavaProject currentJavaProject = JavaCore.create(currentProject);
 
@@ -442,7 +443,7 @@ public class ModelLauncher {
 		return workingModel;
 	}
 	
-	private void printParseErrorsToEditorConsole(IModelCreatingContext context, String filename, String sourceText) {
+	protected void printParseErrorsToEditorConsole(IModelCreatingContext context, String filename, String sourceText) {
 		final MessageConsoleStream stream = getConsoleForCurrentEditor().newMessageStream();
 		for (AbstractError error: context.getErrors()) {
 			Position errorPosition = error.getPosition(context);
@@ -453,7 +454,7 @@ public class ModelLauncher {
 		}
 	}
 		
-	private EList<Modification> getLastStoredModifications() {
+	protected EList<Modification> getLastStoredModifications() {
 		// get all the modifications from <temp-folder>/modifications.xmi
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put("xmi", new XMIResourceFactoryImpl());
@@ -532,7 +533,7 @@ public class ModelLauncher {
 //		}
 //	}
 	
-	private IPath getXmiRawLocation(URI xmiUri) {
+	protected IPath getXmiRawLocation(URI xmiUri) {
 		IPath xmiPath = new Path(xmiUri.toPlatformString(true));
 		IPath xmiRawLocation = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiPath).getRawLocation();
 		return xmiRawLocation;
@@ -589,7 +590,7 @@ public class ModelLauncher {
 		}
 	}
 	
-	private boolean compileJavaFiles(IProject project, IFolder folder) {
+	protected boolean compileJavaFiles(IProject project, IFolder folder) {
 		try {
 			//IFolder genFolder = getGenFolder(project);
 			logger.info("Refresing \"" + folder.toString() + "\" ...");
@@ -614,7 +615,7 @@ public class ModelLauncher {
 		}
 	}
 	
-	private void launchJavaProgram(boolean sync, final IJavaProject project, final IPath workingDirectory, final String className, final String[] args) throws CoreException {
+	protected void launchJavaProgram(boolean sync, final IJavaProject project, final IPath workingDirectory, final String className, final String[] args) throws CoreException {
 		if (associatedDisplay != null) {
 			if (sync) {
 				associatedDisplay.syncExec(new Runnable () {
@@ -888,9 +889,9 @@ public class ModelLauncher {
 		}
 	}
 	
-	private IFolder javaGenFolder = null;
+	protected IFolder javaGenFolder = null;
 
-	private IFolder getJavaGenFolder(IProject project) {
+	protected IFolder getJavaGenFolder(IProject project) {
 		if (javaGenFolder == null) {
 			javaGenFolder = project.getFolder(JAVA_GEN_FOLDER_NAME);
 		}
@@ -899,7 +900,7 @@ public class ModelLauncher {
 	
 	private IFolder tempFolder = null;
 	
-	private IFolder getTempFolder(IProject project) {
+	protected IFolder getTempFolder(IProject project) {
 		if (tempFolder == null) {
 			tempFolder = project.getFolder(TEMP_FOLDER_NAME);
 		}
@@ -908,7 +909,7 @@ public class ModelLauncher {
 	
 	boolean extendedMetamodelSaved = false;
 	
-	private void saveExtendedDblMetaModelIfNecessary(IProject currentProject) {
+	protected void saveExtendedDblMetaModelIfNecessary(IProject currentProject) {
 		if (!extendedMetamodelSaved) {
 			logger.info("Saving dbl.ecore (with extensions) to current project ...");
 			Resource metaModelResource = editor.getDblMetaModel().eResource();
