@@ -8,7 +8,7 @@ runtime-plugins/**/gen-src/*
 runtime-plugins/hub.*
 runtime-plugins/**/*.html
 runtime-plugins/Examples/temp/*
-runtime-plugins/Examples/C++-Libraries/
+runtime-plugins/Examples/C++-Libraries/boost/
 runtime-plugins/Examples/gen-src-C++/
 dev-plugins/**/src-gen/*
 dev-plugins/**/resources/gen/*
