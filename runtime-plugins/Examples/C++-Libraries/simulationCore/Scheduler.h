@@ -3,7 +3,7 @@
 
 #include "ProcessCompare.h"
 #include "Process.h"
-#include "..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"
+#include "../../C++-Libraries/referenceSemantics/intrusive_ptr.h"
 #include <vector>
 #include <set>
 #include <string>

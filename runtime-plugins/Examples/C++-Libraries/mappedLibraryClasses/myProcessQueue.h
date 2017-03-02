@@ -2,9 +2,9 @@
 #define MYLIST
 
 #include <queue>
-#include "..\..\C++-Libraries\referenceSemantics\BaseRefCounter.h"
-#include "..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"
-#include "..\..\C++-Libraries\simulationCore\Process.h"
+#include "../../C++-Libraries/referenceSemantics/BaseRefCounter.h"
+#include "../../C++-Libraries/referenceSemantics/intrusive_ptr.h"
+#include "../../C++-Libraries/simulationCore/Process.h"
 
 // this class is derived from std::vector to have arrayList functionality
 // and it can hold intrusive pointer on process instances

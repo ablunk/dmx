@@ -1,17 +1,3 @@
-/*
- *          Copyright Andrey Semashev 2007 - 2013.
- * Distributed under the Boost Software License, Version 1.0.
- *    (See accompanying file LICENSE_1_0.txt or copy at
- *          http://www.boost.org/LICENSE_1_0.txt)
- */
-/*!
- * \file   intrusive_ref_counter.hpp
- * \author Andrey Semashev
- * \date   12.03.2009
- *
- * This header contains a reference counter class for \c intrusive_ptr.
- */
-
 // This Code was taken from Boost Library to enable intrusive reference counting and adapted to satisfy
 // the needs of DBL
 #ifndef BASEREFCOUNTER
@@ -30,16 +16,15 @@ void intrusive_ptr_sub_ref(const intrusive_ref_counter<DerivedT>* p);
 template< typename DerivedT>
 void intrusive_ptr_release(const intrusive_ref_counter<DerivedT>* p);
 
-/*!
- * \brief A reference counter base class
+/*
+ * A reference counter base class
  *
  * This base class can be used with user-defined classes to add support
- * for \c intrusive_ptr. The class contains a reference counter defined by the \c CounterPolicyT.
- * Upon releasing the last \c intrusive_ptr referencing the object
- * derived from the \c intrusive_ref_counter class, operator \c delete
+ * for intrusive_ptr. The class contains a reference counter
+ * derived from the intrusive_ref_counter class, operator delete
  * is automatically called on the pointer to the object.
  *
- * The other template parameter, \c DerivedT, is the user's class that derives from \c intrusive_ref_counter.
+ * The template parameter, DerivedT, is the user's class that derives from intrusive_ref_counter.
  */
 template<typename DerivedT>
 class intrusive_ref_counter

@@ -3,10 +3,10 @@
 #include <memory>
 #include <stack>
 #include <tuple>
-#include "..\..\C++-Libraries\referenceSemantics\BaseRefCounter.h"
-#include "..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"
-#include "..\..\C++-Libraries\referenceSemantics\RefStringType.h"
-#include "..\..\C++-Libraries\simulationCore\FunctionContext.h"
+#include "../../C++-Libraries/referenceSemantics/BaseRefCounter.h"
+#include "../../C++-Libraries/referenceSemantics/intrusive_ptr.h"
+#include "../../C++-Libraries/referenceSemantics/RefStringType.h"
+#include "../../C++-Libraries/simulationCore/FunctionContext.h"
 
 typedef cbsLib::intrusive_ptr<cbsLib::myString> stringPtr;
 // this abstract base class brings some concepts to simulate the coroutine

@@ -1,7 +1,7 @@
 #ifndef PROCESSCOMPARE
 #define PROCESSCOMPARE
 
-#include "..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"
+#include "../../C++-Libraries/referenceSemantics/intrusive_ptr.h"
 #include "Process.h"
 
 // this structure is used for comparing process instances by their event notes.

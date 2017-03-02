@@ -1,7 +1,7 @@
 #ifndef UINTGEN
 #define UINTGEN
 #include <random>
-#include "..\..\C++-Libraries\referenceSemantics\BaseRefCounter.h"
+#include "../../C++-Libraries/referenceSemantics/BaseRefCounter.h"
 
 // a class for generating random numbers
 class expRandom: public cbsLib::intrusive_ref_counter<expRandom> {
