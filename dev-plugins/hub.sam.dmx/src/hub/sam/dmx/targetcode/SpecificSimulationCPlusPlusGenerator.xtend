@@ -151,13 +151,13 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 */
 	override genStaticStartFuncMemberForMainProcess(Module mainModule, boolean isHeader){
 		if(!isHeader){
-			includeStrings.addAll('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''','''#include "..\..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"''')
+			includeStrings.addAll('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''','''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''')
 			'''
 				void «mainModule.genPreciseName»::startMainProcedure(){
 					cbsLib::Scheduler* sched = cbsLib::Scheduler::getScheduler();
 					cbsLib::intrusive_ptr<MainProcess> mainP = new MainProcess();
 					sched->setMainProcess(mainP.get());
-					mainP.get()->schedule<MainProcess, &MainProcess::fActions>(mainP.get(), new MainProcess::MainStruct());
+					mainP->schedule<MainProcess, &MainProcess::fActions>(mainP.get(), new MainProcess::MainStruct());
 					sched->activate(mainP,0);
 					sched->manageProcessLifeCycles();
 					delete sched;
@@ -245,7 +245,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation of the MainProcess class declaration
 	 */
 	private def String genMainProcessClassInHeader(Module mainProcess,Function mainProcedure) {
-		includeStrings.addAll('''#include "..\..\..\C++-Libraries\simulationCore\Process.h"''','''#include "..\..\..\C++-Libraries\simulationCore\FunctionContext.h"''')
+		includeStrings.addAll('''#include "../../../C++-Libraries/simulationCore/Process.h"''','''#include "../../../C++-Libraries/simulationCore/FunctionContext.h"''')
 		'''
 			class MainProcess: public cbsLib::Process{
 				public: 
@@ -300,7 +300,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation of the fAction function implementation.
 	 */
 	private def String genFactionsFunction(String prefix, List<Statement> actionsBlock, boolean isMainProcess){
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\FunctionContext.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/FunctionContext.h"''')
 		'''
 			int «prefix»::fActions(cbsLib::FunctionBaseContext* cont){
 				«IF actionsBlock !== null»
@@ -323,7 +323,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for active class life cycle
 	 */
 	override genLifecycle(Class clazz, boolean isHeader) {
-		includeStrings.addAll('''#include "..\..\..\C++-Libraries\simulationCore\FunctionContext.h"''', '''#include "..\..\..\C++-Libraries\simulationCore\Process.h"''')
+		includeStrings.addAll('''#include "../../../C++-Libraries/simulationCore/FunctionContext.h"''', '''#include "../../../C++-Libraries/simulationCore/Process.h"''')
 		val it = clazz;
 		'''
 			«IF isHeader»
@@ -372,15 +372,15 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 				#include <type_traits>
 				#include <cstddef>
 				using boost::variant;
-				#include "..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"
-				#include "..\..\C++-Libraries\referenceSemantics\RefStringType.h"
-				#include "..\..\C++-Libraries\referenceSemantics\vectorExtension.h"
+				#include "../../C++-Libraries/referenceSemantics/intrusive_ptr.h"
+				#include "../../C++-Libraries/referenceSemantics/RefStringType.h"
+				#include "../../C++-Libraries/referenceSemantics/vectorExtension.h"
 				typedef cbsLib::intrusive_ptr<cbsLib::myString> stringPtr;
 				«FOR i:returnClassTypes.filter[it instanceof Class && (it as Class).bindings.empty]»
 				#include "«(i.eContainer as Module).genPreciseName»/«(i as Class).genPreciseName».h"
 				«ENDFOR»
 				«FOR i:returnClassTypes.filter[it instanceof Class && !(it as Class).bindings.empty]»
-				#include "..\..\C++-Libraries\«(i as Class).genBoundType(false)».h"
+				#include "../../C++-Libraries/«(i as Class).genBoundType(false)».h"
 				«ENDFOR»
 				extern variant<std::nullptr_t «returnValueTempType»> returnValueTemp;
 				#endif
@@ -409,7 +409,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation of declarations of interruptible functions
 	 */
 	private def String genInterruptibleFunctionH(Function f) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\FunctionContext.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/FunctionContext.h"''')
 		val it = f	
 		setcurrentFunction
 		val inModule = eContainer instanceof Module
@@ -466,7 +466,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		isActionsBlock = true
 		val actionsBlockCode = actionsBlock.genStatements
 		isActionsBlock = false
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''
 			switch(context->state){
 				case 0:
@@ -491,9 +491,9 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation of terminating interruptible functions
 	 */
 	private def String deleteTopOfCallStack(int returnValue){
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''
-			cbsLib::Scheduler::getScheduler()->getCurrentProcess().get()->callStack.pop();
+			cbsLib::Scheduler::getScheduler()->getCurrentProcess()->callStack.pop();
 			return «returnValue»;
 		'''
 	}
@@ -740,7 +740,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation of all function calls of interruptible functions which are used in statements
 	 */
 	private def String genInterruptibleFunctionCallAndSaveReturnValue(Function function, IdExpr idexpr, int tuple_index){
-		includeStrings.add('''#include "..\TempReturnVariant.h"''')
+		includeStrings.add('''#include "../TempReturnVariant.h"''')
 		'''
 			«function.genInterruptibleFunctionCall(idexpr)»
 			std::get<«tuple_index»>(get<std::tuple<«currentTuple»>>(context->rv_variant)) = get<«function.genType»>(returnValueTemp);
@@ -769,7 +769,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation of a simulated interruptible function call
 	 */
 	private def String genInterruptibleFunctionCall(Function function, IdExpr call){
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		val clazz = if (function.eContainer instanceof Class) function.eContainer as Class else null;
 		'''
 			«IF clazz === null»
@@ -790,7 +790,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for call to schedule()-function
 	 */
 	private def String genScheduleMethodCall(Function function, IdExpr call, String type, String functionCaller){
-		'''cbsLib::Scheduler::getScheduler()->getCurrentProcess().get()->schedule<«type»,&«type»::«function.genDistinctFunctionName»>
+		'''cbsLib::Scheduler::getScheduler()->getCurrentProcess()->schedule<«type»,&«type»::«function.genDistinctFunctionName»>
 			(«functionCaller», new «type»::«function.genDistinctFunctionName»Struct(«call.callPart.callArguments.genActualParameters»));'''
 	}
 	/**
@@ -866,7 +866,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		// only in interruptible functions with return value needed
 		val intrusiveWrapperType = stm.checkAndGetReturnValue
 		if(currentFunction !== null){
-			includeStrings.add('''#include "..\TempReturnVariant.h"''')
+			includeStrings.add('''#include "../TempReturnVariant.h"''')
 			'''
 			{
 				«IF intrusiveWrapperType !== null»
@@ -987,7 +987,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for yield statement
 	 */
 	protected def dispatch String genSimStatement(Yield stm) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''
 			{
 				cbsLib::Scheduler::getScheduler()->yield(cbsLib::Scheduler::getScheduler()->getCurrentProcess());
@@ -1002,7 +1002,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for DBL wait statement
 	 */
 	protected def dispatch String genSimStatement(Wait stm) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''
 			{
 				cbsLib::Scheduler::getScheduler()->wait(cbsLib::Scheduler::getScheduler()->getCurrentProcess());
@@ -1017,7 +1017,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for DBL advance statement
 	 */
 	protected def dispatch String genSimStatement(Advance stm) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''
 			{
 				cbsLib::Scheduler::getScheduler()->advance(cbsLib::Scheduler::getScheduler()->getCurrentProcess(), «stm.time.genExpr»);
@@ -1033,7 +1033,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for DBL terminate statement
 	 */
 	protected def dispatch String genSimStatement(Terminate stm){
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''
 			{
 				cbsLib::Scheduler::getScheduler()->terminate(cbsLib::Scheduler::getScheduler()->getCurrentProcess());
@@ -1048,7 +1048,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for DBL reactivate statement
 	 */
 	protected def dispatch String genSimStatement(Reactivate stm) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''cbsLib::Scheduler::getScheduler()->reactivate(«stm.objectAccess.genExpr»);'''
 	}
 	/**
@@ -1059,7 +1059,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for DBL activate statement
 	 */
 	protected def dispatch String genSimStatement(ActivateObject stm) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 	    '''cbsLib::Scheduler::getScheduler()->activate(«stm.objectAccess.genExpr»,«stm.priority.toString»);'''
 	}
 	/**
@@ -1077,7 +1077,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for DBL time expression
 	 */
 	protected def dispatch String genSimExpr(TimeLiteral expr) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''cbsLib::Scheduler::getScheduler()->getCurrentSimulationTime()'''
 	}
 	/**
@@ -1087,7 +1087,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for DBL active expression
 	 */
 	protected def dispatch String genSimExpr(ActiveLiteral expr) {
-		includeStrings.add('''#include "..\..\..\C++-Libraries\simulationCore\Scheduler.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''cbsLib::Scheduler::getScheduler()->getCurrentProcess()'''
 	}
 	/**
@@ -1231,7 +1231,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		{
 			«fCalls»
 			«FOR c : cases SEPARATOR "else"»
-			if(«IF isStringType»*(«variable.genExpr».get())«ELSE»«variable.genExpr»«ENDIF» == «IF c.value.checkComplexExpression»«c.value.expressionToString»«ELSE»«c.value.genExpr»«ENDIF») goto SWITCHCASE«caseCounter++»;
+			if(«IF isStringType»*(«variable.genExpr»)«ELSE»«variable.genExpr»«ENDIF» == «IF c.value.checkComplexExpression»«c.value.expressionToString»«ELSE»«c.value.genExpr»«ENDIF») goto SWITCHCASE«caseCounter++»;
 			«ENDFOR»
 			«IF defaultCase !== null»else goto SWITCHCASE«caseCounter++»;«ENDIF»
 			
@@ -1417,7 +1417,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	override String addSimulationCoreToMakeFile(int count){
 		var result = ""
 		var temp = count
-		result += '''SRCS«temp++» = ..\..\C++-Libraries\simulationCore\ProcessCompare.cpp ..\..\C++-Libraries\simulationCore\EventNote.cpp ..\..\C++-Libraries\simulationCore\Process.cpp ..\..\C++-Libraries\simulationCore\Scheduler.cpp «IF(makefileNeedsGlobalVariantType)» TempReturnVariant.cpp«ENDIF»
+		result += '''SRCS«temp++» = ../../C++-Libraries/simulationCore/ProcessCompare.cpp ../../C++-Libraries/simulationCore/EventNote.cpp ../../C++-Libraries/simulationCore/Process.cpp ../../C++-Libraries/simulationCore/Scheduler.cpp «IF(makefileNeedsGlobalVariantType)» TempReturnVariant.cpp«ENDIF»
 				  '''
 		return result;
 	}

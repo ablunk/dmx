@@ -1,0 +1,153 @@
+#import "forever"
+
+module FerryProblem{
+
+class Process{
+	bindings{
+		"c++"->"simulationCore/Process",
+		"java" -> "hub.sam.dmx.javasim.desmoj.SimulationProcess"
+	}
+}
+
+class ProcessQueue{
+	bindings{
+		"c++" -> "mappedLibraryClasses/myProcessQueue",
+		"java" -> "java.util.LinkedList<hub.sam.dmx.javasim.desmoj.SimulationProcess>"
+	}
+	Process peek() abstract;
+	boolean add(Process e) abstract;
+	Process remove() abstract;
+	boolean isEmpty() abstract;
+}
+
+class Bin{
+	int tokens;
+	ProcessQueue waitingProcesses = new ProcessQueue();
+	new(int t){tokens = t;}
+	
+	void give(int n){
+		tokens = tokens + n;
+		if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();
+	}
+	
+	int take(int n){
+		waitingProcesses.add(active); 
+		if((n > tokens) or (active != waitingProcesses.peek())) { 
+			while((n > tokens) or (active != waitingProcesses.peek())) {
+				wait;
+			}
+		}
+		waitingProcesses.remove();
+		if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();
+		tokens = tokens - n;
+		return n;
+	}
+	int getTokenNumber(){return tokens;}
+}
+
+class Res{
+	int capacity;
+	int currentAvailableTokens;
+	ProcessQueue waitingProcesses = new ProcessQueue();
+	new(int initialTokens, int capacity){
+		currentAvailableTokens = initialTokens;
+		self.capacity = capacity;
+	}
+
+	void acquire(int n){
+		waitingProcesses.add(active); 
+		if((n > currentAvailableTokens) or (active != waitingProcesses.peek())) { 
+			while((n > currentAvailableTokens) or (active != waitingProcesses.peek())) {
+				wait;
+			}
+		}
+		waitingProcesses.remove();
+		if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();
+		currentAvailableTokens = currentAvailableTokens - n;
+		if(currentAvailableTokens < 0) currentAvailableTokens = 0;
+	}
+	
+	void release(int n){
+		currentAvailableTokens = currentAvailableTokens + n;
+		if(currentAvailableTokens > capacity) print "Error: Not enough capacity!";
+		if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();
+	}
+	
+	int getTokenNumber(){return currentAvailableTokens;}
+	
+	int getTokenLimit(){return capacity;}
+}
+
+active class Pier{
+	Bin carQueue = new Bin(0);
+	double loadTime;
+	new(double loadT){
+		loadTime = loadT;
+	}
+	
+	int ship(){
+		return carQueue.take(1);
+	}
+	
+	void show(){
+		print "Pier: "+self+", Anzahl Autos: "+carQueue.tokens+"\n";
+	}
+	
+	actions{
+		forever{
+			advance(2);
+			carQueue.give(1);
+		}
+	}
+}
+
+active class Ferry{
+	Res compartment;
+	double travelTime;
+	Pier array [] piers = new Pier array[2];
+	int oneway = 0;
+	new(int capacity, double travelT, Pier src, Pier dest){
+		compartment = new Res(capacity,capacity);
+		travelTime = travelT;
+		piers[0] = src;
+		piers[1] = dest;
+	}
+	
+	actions{
+		Pier p = piers[0];
+		forever{
+			while(compartment.getTokenNumber() < compartment.getTokenLimit()){
+				compartment.release(1);
+				advance(p.loadTime);
+			}
+			while (compartment.getTokenNumber() > 0){
+				if(p.ship() != 0){
+					compartment.acquire(1);
+					advance(p.loadTime);
+				}
+			}
+			
+			advance travelTime;
+			if (p == piers[0]) p = piers[1];
+			else p = piers[0];
+			oneway = oneway + 1;
+		}
+	}
+}
+
+void main(){
+	Pier p1 = new Pier(0.5);
+	Pier p2 = new Pier(0.5);
+	Ferry f = new Ferry(2, 7.5, p1, p2);
+	
+	activate f priority 1;
+	activate p2 priority 1;
+	activate p1 priority 1;
+	
+	advance 10000;
+	p1.show();
+	p2.show();
+	print "Touren: "+(f.oneway/2)+"\n";
+}
+
+}

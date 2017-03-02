@@ -1,13 +1,13 @@
 #include "ProcessCompare.h"
 #include "EventNote.h"
+using cbsLib::Process;
+using cbsLib::intrusive_ptr;
 using cbsLib::EventNote;
 
 bool cbsLib::ProcessComp::operator()(const intrusive_ptr<Process>& lhs, const intrusive_ptr<Process>& rhs) const
 {
-	EventNote* ev1 = lhs.get()->ev;
-	EventNote* ev2 = rhs.get()->ev;
-	if (ev1->getScheduledTime() == ev2->getScheduledTime())
-		return ev1->getPriority() > ev2->getPriority();
+	if (lhs->ev->getScheduledTime() == rhs->ev->getScheduledTime())
+		return lhs->ev->getPriority() > rhs->ev->getPriority();
 	else
-		return ev1->getScheduledTime() < ev2->getScheduledTime();
+		return lhs->ev->getScheduledTime() < rhs->ev->getScheduledTime();
 }

@@ -59,7 +59,7 @@ public:
 		for(int i = 0; i < static_cast<int>(ptr.size()); i++) {
 			if(ptr.at(i) == nullptr) this->push_back(nullptr);
 			else this->push_back(intrusive_ptr<typename T::element_type>
-				(new myVector<typename T::element_type::value_type>(*(ptr.at(i).get()))));
+				(new myVector<typename T::element_type::value_type>(*(ptr.at(i)))));
 		}
 	}
 };

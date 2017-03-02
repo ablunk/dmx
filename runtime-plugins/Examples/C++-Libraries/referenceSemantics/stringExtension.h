@@ -51,7 +51,7 @@ inline std::string to_String(stringPtr ptr) {
 	if (ptr == nullptr)
 		return "null";
 	else
-		return *(ptr.get());
+		return *ptr;
 }
 
 // vectors are managed by pointers, so the pointer has to be dereferenced
@@ -63,7 +63,7 @@ inline std::string to_String(cbsLib::intrusive_ptr<cbsLib::myVector<T>> ptr) {
 		return "null";
 	else {
 		std::stringstream ss;
-		ss << typeid(T).name() << "@" << &(*ptr.get());
+		ss << typeid(T).name() << "@" << &*ptr;
 		return ss.str();
 	}
 }
@@ -76,6 +76,6 @@ inline std::string to_String(cbsLib::intrusive_ptr<T> ptr) {
 	if (ptr == nullptr)
 		return "null";
 	else
-		return *(ptr.get()->toString().get());
+		return *ptr->toString();
 }
 #endif

@@ -1,0 +1,19 @@
+#import "forever"
+module t{
+
+active class A{
+actions{
+	forever{
+		print ""+self+" "+time+"\n";
+		advance 1;
+	}
+}
+}
+
+void main(){
+	A a = new A();
+	activate a;
+	advance 100;
+	print ""+active+" "+time+"\n";
+}
+}

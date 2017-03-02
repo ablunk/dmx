@@ -1,7 +1,7 @@
 module random{
 	class expRandom{
 		bindings{
-			"c++"->"mappedLibraryClasses\expRandom"
+			"c++"->"mappedLibraryClasses/expRandom"
 		}
 		int sample() abstract;
 	}

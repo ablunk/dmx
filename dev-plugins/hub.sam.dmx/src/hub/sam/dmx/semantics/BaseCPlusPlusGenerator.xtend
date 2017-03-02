@@ -223,12 +223,12 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		includes.add(mainModule)
 		includes.addAll(getAllContainedMemberTypes(includes))
 		'''
-			#include "..\gen\«genPreciseName»\«genPreciseName».h"
+			#include "../gen/«genPreciseName»/«genPreciseName».h"
 			«FOR c:includes.filter[it instanceof Class && (it as Class).bindings.empty]»
-			#include "..\gen\«genPreciseName»\«(c as Class).genPreciseName».h"
+			#include "../gen/«genPreciseName»/«(c as Class).genPreciseName».h"
 			«ENDFOR»
 			«FOR c:includes.filter[it instanceof Class && !(it as Class).bindings.empty]»
-			#include "..\..\C++-Libraries\«(c as Class).genBoundType(false)».h"
+			#include "../../C++-Libraries/«(c as Class).genBoundType(false)».h"
 			«ENDFOR»
 			#include <ctime>
 			#include <iostream>
@@ -381,7 +381,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		if(isHeader){
 			currentClass = clazz
 			initialGlobalData
-			if(getSuperClasses.empty && !clazz.active) includeStrings.addAll('''#include "..\..\..\C++-Libraries\referenceSemantics\BaseRefCounter.h"''', '''#include "..\..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"''','''#include "..\..\..\C++-Libraries\referenceSemantics\RefStringType.h"''')
+			if(getSuperClasses.empty && !clazz.active) includeStrings.addAll('''#include "../../../C++-Libraries/referenceSemantics/BaseRefCounter.h"''', '''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''','''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
 			val contentClassHeader = genContentClassHeader(isHeader)
 			'''
 				#ifndef «genPreciseName.toUpperCase() + "_H"»
@@ -478,7 +478,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 				«IF !(i as Class).bindings.empty»
 					class «(i as Class).genBoundType(true)»;
 				«ELSEIF (currentClass !== null && currentClass.getSuperClasses.exists[class_ == i])»
-					#include "..\«(i.eContainer as Module).genPreciseName»\«(i as Class).genPreciseName».h" 
+					#include "../«(i.eContainer as Module).genPreciseName»/«(i as Class).genPreciseName».h" 
 				«ELSE»
 					namespace «(i.eContainer as Module).genPreciseName» {class «(i as Class).genPreciseName»;}
 				«ENDIF»
@@ -516,12 +516,12 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		'''
 			«IF i instanceof Class»
 				«IF !(i as Class).bindings.empty»
-					#include "..\..\..\C++-Libraries\«(i as Class).genBoundType(false)».h"
+					#include "../../../C++-Libraries/«(i as Class).genBoundType(false)».h"
 				«ELSE»
-					#include "..\«(i.eContainer as Module).genPreciseName»\«(i as Class).genPreciseName».h"
+					#include "../«(i.eContainer as Module).genPreciseName»/«(i as Class).genPreciseName».h"
 				«ENDIF»
 			«ELSE»
-				#include "..\«(i as Module).genPreciseName»\«(i as Module).genPreciseName».h"
+				#include "../«(i as Module).genPreciseName»/«(i as Module).genPreciseName».h"
 			«ENDIF»
 		'''
 	}
@@ -595,7 +595,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param value switch on or off for weak_pointer concept
 	 */
 	protected def void setWeakPtrInConstructor(boolean value){
-		if(value) includeStrings.add('''#include "..\..\..\C++-Libraries\referenceSemantics\weak_intrusive_ptr.h"''')
+		if(value) includeStrings.add('''#include "../../../C++-Libraries/referenceSemantics/weak_intrusive_ptr.h"''')
 		needsWeakPtrInConstructor = value;
 	}
 	/**
@@ -771,7 +771,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			if (isHeader) 
 				'''«IF isInheritedBaseClass»virtual«ENDIF» stringPtr toString();'''
 			else{
-				includeStrings.addAll("#include <sstream>", "#include <typeinfo>", '''#include "..\..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"''','''#include "..\..\..\C++-Libraries\referenceSemantics\RefStringType.h"''')
+				includeStrings.addAll("#include <sstream>", "#include <typeinfo>", '''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''','''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
 				'''
 					stringPtr «genType»::toString(){
 						std::stringstream ss;
@@ -794,7 +794,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		else if(e instanceof FalseLiteral || e instanceof TrueLiteral)'''std::string("«e.genExpr»")'''
 		else if(e instanceof StringLiteral) '''std::string(«e.genExpr»)'''
 		else if(e instanceof IdExpr && (e as IdExpr).predefinedId instanceof MeLiteral) 
-			genToStringUsage('''*(this->toString().get())''')
+			genToStringUsage('''*this->toString()''')
 		// anonymous object creation
 		else if(e instanceof CreateObject && (e as CreateObject).typeArrayDimensions.empty)
 			genToStringUsage('''to_String(cbsLib::intrusive_ptr<«(e as CreateObject).genPrimitiveOrClassType(false)»>(«e.genExpr»))''')
@@ -812,7 +812,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return content string value
 	 */
 	protected def String genToStringUsage(String content){
-		includeStrings.add('''#include "..\..\..\C++-Libraries\referenceSemantics\stringExtension.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/referenceSemantics/stringExtension.h"''')
 		'''«content»'''
 	}
 	/**
@@ -822,7 +822,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++string representation for with new created String-objects
 	 */
 	 protected def String createNewStringOnHeap(Expression e){
-		includeStrings.add('''#include "..\..\..\C++-Libraries\referenceSemantics\RefStringType.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
 		'''new cbsLib::myString(«e.expressionToString»)'''
 	}
 	/**
@@ -1063,7 +1063,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			«ELSEIF needsCast && e instanceof CreateObject»
 				«genVectorDefinition(e as CreateObject,t)»
 			«ELSEIF needsCast»
-				new «genVectorType(t,t.typeArrayDimensions.size)»(*(«e.genExpr».get()))
+				new «genVectorType(t,t.typeArrayDimensions.size)»(*(«e.genExpr»))
 			«ELSE»
 				«e.genExpr»
 			«ENDIF»
@@ -1556,7 +1556,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		else if(!typeArrayDimensions.empty && op instanceof CreateObject)
 			'''«genVectorDefinition(op as CreateObject,expr)»'''
 		else if(!typeArrayDimensions.empty)
-			'''new «genVectorType(typeArrayDimensions.size)»(*(«op.genInitialValue(null)».get()))'''
+			'''new «genVectorType(typeArrayDimensions.size)»(*(«op.genInitialValue(null)»))'''
 		else
 			'''(static_cast<«genType»>(«op.genInitialValue(null)»))'''
 	}
@@ -1704,10 +1704,8 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 				«IF (parentIdExpr.predefinedId instanceof SuperLiteral || 
 					parentIdExpr.referencedElement instanceof Class)» 
 					«parentIdExpr.genIdExpr»::
-				«ELSEIF parentIdExpr.predefinedId instanceof MeLiteral && !idExpr.inConstructor»
-					«parentIdExpr.genIdExpr»->
 				«ELSE»
-					«parentIdExpr.genIdExpr».get()->
+					«parentIdExpr.genIdExpr»->
 				«ENDIF»
 			«ENDIF»
 			«IF referencedElement !== null»
@@ -1737,7 +1735,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		val it = idExpr
 		'''
 			«IF callPart !== null»(«callPart.getCallArguments.genActualParameters»)«ENDIF»
-			«FOR index:idExpr?.arrayIndex».get()->operator[](«index.genExpr»)«ENDFOR»
+			«FOR index:idExpr?.arrayIndex»->operator[](«index.genExpr»)«ENDFOR»
 		'''
 	}
 	/**
@@ -1807,9 +1805,9 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	protected def dispatch String genType(TypedElement typedElement) {
 		val it = typedElement
 		if(!typeArrayDimensions.empty) 
-			includeStrings.addAll('''#include "..\..\..\C++-Libraries\referenceSemantics\vectorExtension.h"''','''#include "..\..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"''')
+			includeStrings.addAll('''#include "../../../C++-Libraries/referenceSemantics/vectorExtension.h"''','''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''')
 		if(classifierType !== null)	
-			includeStrings.add('''#include "..\..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"''')
+			includeStrings.add('''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''')
 		'''
 			«IF !typeArrayDimensions.empty»
 				«genIntrusiveVectorType»
@@ -1859,7 +1857,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++-string representation of C++-vector definition
 	 */
 	protected def String genVectorDefinition(CreateObject expr, TypedElement otherType){
-		includeStrings.add('''#include "..\..\..\C++-Libraries\referenceSemantics\vectorExtension.h"''')
+		includeStrings.add('''#include "../../../C++-Libraries/referenceSemantics/vectorExtension.h"''')
 		val it = expr
 		if(otherType !== null)
 			'''new «otherType.genVectorType(typeArrayDimensions.size)» «initializeVectors(typeArrayDimensions.size,it,otherType)»'''
@@ -1959,7 +1957,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++-string representation of DBL String Type
 	 */
 	protected def dispatch String genType(StringType type) {
-		includeStrings.addAll('''#include "..\..\..\C++-Libraries\referenceSemantics\intrusive_ptr.h"''','''#include "..\..\..\C++-Libraries\referenceSemantics\RefStringType.h"''')
+		includeStrings.addAll('''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''','''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
 		'stringPtr'
 	}
 	/**
@@ -2050,7 +2048,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	/**
 	 * generates C++-string representation of bounded DBL Class Type. There is a difference between 
 	 * including the class (full path is needed) or usage as class type (extracted type from path).
-	 * @param targetType bounded Class Type (full path e.g. simulationCore\Process)
+	 * @param targetType bounded Class Type (full path e.g. simulationCore/Process)
 	 * @param extractType boolean flag that signals, if the type information has to be extracted from path
 	 * @return C++-string representation of bounded DBL Class Type
 	 */
@@ -2064,7 +2062,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++-string representation of extracted bounded DBL Class Type
 	 */
 	private def String splitMappedClassName(String i){
-		return i.substring(i.lastIndexOf('\\')+1,i.length)
+		return i.substring(i.lastIndexOf('/')+1,i.length)
 	}
 	/**
 	 * generates C++ makefile to ease and manage C++-compiling. Unfortunately the Boost-Library 
@@ -2083,9 +2081,9 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		makefile.write(
 			'''
 			CC = g++
-			CFLAGS = -std=c++14 -O2 -Wall -pedantic -Wno-unused-label -I "..\..\C++-Libraries\boost"  
+			CFLAGS = -std=c++14 -O2 -Wall -pedantic -Wno-unused-label -I "../../C++-Libraries/boost"  
 			«FOR m:setModules»
-				SRCS«count++» = ..\gen\«m.genPreciseName»\«m.genPreciseName».cpp «m.genClassPaths»
+				SRCS«count++» = ../gen/«m.genPreciseName»/«m.genPreciseName».cpp «m.genClassPaths»
 			«ENDFOR»
 			«addSimulationCoreToMakeFile(count)»
 				
@@ -2108,7 +2106,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 */
 	private def String genClassPaths(Module m) {
 		'''
-			«FOR c:m.genClassSet.filter[getBindings.empty]» ..\gen\«m.genPreciseName»\«c.genPreciseName».cpp«ENDFOR»
+			«FOR c:m.genClassSet.filter[getBindings.empty]» ../gen/«m.genPreciseName»/«c.genPreciseName».cpp«ENDFOR»
 		'''
 	}
 	/**

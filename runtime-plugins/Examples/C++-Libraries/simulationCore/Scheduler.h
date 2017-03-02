@@ -9,10 +9,6 @@
 #include <string>
 #include <memory>
 #include <unordered_set>
-using std::string;
-using cbsLib::intrusive_ptr;
-using cbsLib::Process;
-
 // scheduler manages the process life cycles by calling functions that
 // are saved in the corresponding process stacks. It starts the simulation,
 // transfers the control between processes and ends the simulation when the
@@ -25,18 +21,18 @@ public:
 	static Scheduler* getScheduler();
 
 	// scheduling functions working with intrusive pointers on processes
-	void advance(intrusive_ptr<Process> p, double time);
-	void yield(intrusive_ptr<Process> p);
-	void wait(intrusive_ptr<Process> p);
-	void reactivate(intrusive_ptr<Process> p);
-	void activate(intrusive_ptr<Process> p, int priority = 0);
-	void terminate(intrusive_ptr<Process> p);
+	void advance(cbsLib::intrusive_ptr<cbsLib::Process> p, double time);
+	void yield(cbsLib::intrusive_ptr<cbsLib::Process> p);
+	void wait(cbsLib::intrusive_ptr<cbsLib::Process> p);
+	void reactivate(cbsLib::intrusive_ptr<cbsLib::Process> p);
+	void activate(cbsLib::intrusive_ptr<cbsLib::Process> p, int priority = 0);
+	void terminate(cbsLib::intrusive_ptr<cbsLib::Process> p);
 
 	// gets additional informations needed in the simulation
-	intrusive_ptr<Process> getCurrentProcess() const;
+	cbsLib::intrusive_ptr<cbsLib::Process> getCurrentProcess() const;
 	double getCurrentSimulationTime() const;
-	Process* getMainProcess() const;
-	void setMainProcess(Process* p);
+	cbsLib::Process* getMainProcess() const;
+	void setMainProcess(cbsLib::Process* p);
 
 	// scheduler starts execution
 	void manageProcessLifeCycles();
@@ -56,21 +52,21 @@ private:
 
 	// containers in which process instances are saved to hold them as long as they are needed
 	// for the simulation
-	std::multiset<intrusive_ptr<Process>, ProcessComp> processSet;
-	std::unordered_set<intrusive_ptr<Process>> waitingProcesses;
-	std::vector<intrusive_ptr<Process>> terminatedProcesses;
+	std::multiset<cbsLib::intrusive_ptr<cbsLib::Process>, ProcessComp> processSet;
+	std::unordered_set<cbsLib::intrusive_ptr<cbsLib::Process>> waitingProcesses;
+	std::vector<cbsLib::intrusive_ptr<cbsLib::Process>> terminatedProcesses;
 
 	// stores error messages
-	std::vector<string> errorMessages;
+	std::vector<std::string> errorMessages;
 
-	intrusive_ptr<Process> currentProcess;
-	Process* mainProcess;
+	cbsLib::intrusive_ptr<cbsLib::Process> currentProcess;
+	cbsLib::Process* mainProcess;
 
 	void printSched();
 	State intToState(int status) const;
 	void printErrors();
-	void createAndStoreErrorMessage(intrusive_ptr<Process> p, int errorCode);
-	intrusive_ptr<Process> getNextProcess() const;
+	void createAndStoreErrorMessage(cbsLib::intrusive_ptr<cbsLib::Process> p, int errorCode);
+	cbsLib::intrusive_ptr<cbsLib::Process> getNextProcess() const;
 };
 }
 #endif
