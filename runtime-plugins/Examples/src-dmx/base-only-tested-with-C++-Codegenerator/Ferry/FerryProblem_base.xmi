@@ -650,8 +650,8 @@
       <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate p1 priority 1" priority="1">
         <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="p1" referencedElement="//@modules.0/@functions.0/@statements.0"/>
       </statements>
-      <statements xsi:type="dbl:Advance" concreteSyntax="advance 10000">
-        <time xsi:type="dbl:IntLiteral" concreteSyntax="10000" value="10000"/>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 1000000">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="1000000" value="1000000"/>
       </statements>
       <statements xsi:type="dbl:FunctionCall" concreteSyntax="p1.show()">
         <callIdExpr concreteSyntax="p1.show()" referencedElement="//@modules.0/@classes.4/@methods.1">

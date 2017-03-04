@@ -2,6 +2,7 @@
 #define PROCESS
 #include <memory>
 #include <stack>
+#include <vector>
 #include <tuple>
 #include "../../C++-Libraries/referenceSemantics/BaseRefCounter.h"
 #include "../../C++-Libraries/referenceSemantics/intrusive_ptr.h"
@@ -20,6 +21,7 @@ class Process: public cbsLib::intrusive_ref_counter<cbsLib::Process> {
 private:
 	// type definition for static functions in the coroutine stack
 	typedef int (*fp)(void* self, cbsLib::FunctionBaseContext* context);
+	typedef std::tuple<fp, std::unique_ptr<cbsLib::FunctionBaseContext>,void*> tuple_type;
 
 	// helper to make a standard conform function call. the idea is that
 	// a static function with some type informations could do a cast to
@@ -51,7 +53,7 @@ public:
 	    callStack.push(std::make_tuple(FunctionCallHelper<T,M>::fCall,std::unique_ptr<cbsLib::FunctionBaseContext>(context),p));
 	}
 	// coroutine stack
-	std::stack<std::tuple<fp, std::unique_ptr<cbsLib::FunctionBaseContext>,void*>> callStack;
+	std::stack<tuple_type, std::vector<tuple_type>> callStack;
 
 	std::string getName() const {return name;}
 	int getPid() const {return pid;}

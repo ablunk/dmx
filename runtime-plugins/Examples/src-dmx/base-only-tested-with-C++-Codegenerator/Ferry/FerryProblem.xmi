@@ -8,8 +8,8 @@
       <bindings targetLanguage="c++" targetType="simulationCore/Process"/>
       <bindings targetLanguage="java" targetType="hub.sam.dmx.javasim.desmoj.SimulationProcess"/>
     </classes>
-    <classes name="ProcessQueue" concreteSyntax="class ProcessQueue{&#xD;&#xA;&#x9;bindings{&#xD;&#xA;&#x9;&#x9;&quot;c++&quot; -> &quot;mappedLibraryClasses\myProcessQueue&quot;,&#xD;&#xA;&#x9;&#x9;&quot;java&quot; -> &quot;java.util.LinkedList&lt;hub.sam.dmx.javasim.desmoj.SimulationProcess>&quot;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;Process peek() abstract;&#xD;&#xA;&#x9;boolean add(Process e) abstract;&#xD;&#xA;&#x9;Process remove() abstract;&#xD;&#xA;&#x9;boolean isEmpty() abstract;&#xD;&#xA;}">
-      <bindings targetLanguage="c++" targetType="mappedLibraryClasses\myProcessQueue"/>
+    <classes name="ProcessQueue" concreteSyntax="class ProcessQueue{&#xD;&#xA;&#x9;bindings{&#xD;&#xA;&#x9;&#x9;&quot;c++&quot; -> &quot;mappedLibraryClasses/myProcessQueue&quot;,&#xD;&#xA;&#x9;&#x9;&quot;java&quot; -> &quot;java.util.LinkedList&lt;hub.sam.dmx.javasim.desmoj.SimulationProcess>&quot;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;Process peek() abstract;&#xD;&#xA;&#x9;boolean add(Process e) abstract;&#xD;&#xA;&#x9;Process remove() abstract;&#xD;&#xA;&#x9;boolean isEmpty() abstract;&#xD;&#xA;}">
+      <bindings targetLanguage="c++" targetType="mappedLibraryClasses/myProcessQueue"/>
       <bindings targetLanguage="java" targetType="java.util.LinkedList&lt;hub.sam.dmx.javasim.desmoj.SimulationProcess>"/>
       <methods name="peek" abstract="true">
         <classifierType concreteSyntax="Process" referencedElement="//@modules.0/@classes.0"/>
@@ -648,8 +648,8 @@
       <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate p1 priority 1" priority="1">
         <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="p1" referencedElement="//@modules.0/@functions.0/@statements.0"/>
       </statements>
-      <statements xsi:type="dbl:Advance" concreteSyntax="advance 10000">
-        <time xsi:type="dbl:IntLiteral" concreteSyntax="10000" value="10000"/>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 100000">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="100000" value="100000"/>
       </statements>
       <statements xsi:type="dbl:FunctionCall" concreteSyntax="p1.show()">
         <callIdExpr concreteSyntax="p1.show()" referencedElement="//@modules.0/@classes.4/@methods.1">

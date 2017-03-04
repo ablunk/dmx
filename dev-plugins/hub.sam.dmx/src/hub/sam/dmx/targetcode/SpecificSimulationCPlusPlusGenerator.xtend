@@ -775,7 +775,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 			«IF clazz === null»
 				«genScheduleMethodCall(function,call,"MainProcess","cbsLib::Scheduler::getScheduler()->getMainProcess()")»
 			«ELSE»
-				«genScheduleMethodCall(function,call,'''«clazz.genType»''','''«IF call.parentIdExpr !== null && !(call.parentIdExpr.predefinedId instanceof SuperLiteral) && !(call.parentIdExpr.predefinedId instanceof MeLiteral)»«call.parentIdExpr.genIdExpr».get()«ELSE»cbsLib::Scheduler::getScheduler()->getCurrentProcess().get()«ENDIF»''')»		
+				«genScheduleMethodCall(function,call,'''«clazz.genType»''','''«IF call.parentIdExpr !== null && !(call.parentIdExpr.predefinedId instanceof SuperLiteral) && !(call.parentIdExpr.predefinedId instanceof MeLiteral)»«call.parentIdExpr.genIdExpression».get()«ELSE»cbsLib::Scheduler::getScheduler()->getCurrentProcess().get()«ENDIF»''')»		
 			«ENDIF»
 			«genSwitchCase(true)»
 		'''
@@ -850,7 +850,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	private def String genFunctionCallInActionsBlock(IdExpr idExpr, Function refElement){
 		if(all_Functions_containing_sched.contains(refElement)){
 			refElement.genQualifiedNamesAndSaveIncludes
-			'''std::get<«tupleMap.get(idExpr)»>(get<std::tuple<«currentTuple»>>(context->rv_variant))«FOR index:idExpr?.arrayIndex»->operator[](«index.genExpr»)«ENDFOR»''' 
+			'''std::get<«tupleMap.get(idExpr)»>(get<std::tuple<«currentTuple»>>(context->rv_variant))«FOR index:idExpr?.arrayIndex»->operator[](«index.genExpression»)«ENDFOR»''' 
 		} 
 		else super.genIdExprPassive(idExpr)
 	}
@@ -1020,7 +1020,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''
 			{
-				cbsLib::Scheduler::getScheduler()->advance(cbsLib::Scheduler::getScheduler()->getCurrentProcess(), «stm.time.genExpr»);
+				cbsLib::Scheduler::getScheduler()->advance(cbsLib::Scheduler::getScheduler()->getCurrentProcess(), «stm.time.genExpression»);
 				«genSwitchCase(false)»
 			}
 		'''
@@ -1049,7 +1049,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 */
 	protected def dispatch String genSimStatement(Reactivate stm) {
 		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
-		'''cbsLib::Scheduler::getScheduler()->reactivate(«stm.objectAccess.genExpr»);'''
+		'''cbsLib::Scheduler::getScheduler()->reactivate(«stm.objectAccess.genExpression»);'''
 	}
 	/**
 	 * generates C++-string representation for DBL activate statement. For activate implementation
@@ -1060,7 +1060,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 */
 	protected def dispatch String genSimStatement(ActivateObject stm) {
 		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
-	    '''cbsLib::Scheduler::getScheduler()->activate(«stm.objectAccess.genExpr»,«stm.priority.toString»);'''
+	    '''cbsLib::Scheduler::getScheduler()->activate(«stm.objectAccess.genExpression»,«stm.priority.toString»);'''
 	}
 	/**
 	 * generates error string for not known DBL expression
@@ -1231,7 +1231,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		{
 			«fCalls»
 			«FOR c : cases SEPARATOR "else"»
-			if(«IF isStringType»*(«variable.genExpr»)«ELSE»«variable.genExpr»«ENDIF» == «IF c.value.checkComplexExpression»«c.value.expressionToString»«ELSE»«c.value.genExpr»«ENDIF») goto SWITCHCASE«caseCounter++»;
+			if(«IF isStringType»*(«variable.genExpression»)«ELSE»«variable.genExpression»«ENDIF» == «IF c.value.checkComplexExpression»«c.value.expressionToString»«ELSE»«c.value.genExpression»«ENDIF») goto SWITCHCASE«caseCounter++»;
 			«ENDFOR»
 			«IF defaultCase !== null»else goto SWITCHCASE«caseCounter++»;«ENDIF»
 			
@@ -1283,7 +1283,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		val it = stm
 		'''
 			«condition.getAllFunctionCallsInEObject.genInterruptibleFunctionCalls»
-			if («condition.genExpr») «IF trueCase instanceof Variable»{«trueCase.genSpecialStatement(true)»}«ELSE»«trueCase.genSpecialStatement(true)»«ENDIF»
+			if («condition.genExpression») «IF trueCase instanceof Variable»{«trueCase.genSpecialStatement(true)»}«ELSE»«trueCase.genSpecialStatement(true)»«ENDIF»
 			«IF falseCase !== null»
 				else «IF falseCase instanceof Variable»{«falseCase.genSpecialStatement(true)»}«ELSE»«falseCase.genSpecialStatement(true)»«ENDIF»
 			«ENDIF»
@@ -1315,7 +1315,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 				«statements.head.genSpecialStatement(false)»
 				while(true){
 					«cond»
-					if(«termination.genExpr»){
+					if(«termination.genExpression»){
 						«body.genSpecialStatement(false)»
 						«update»
 						«updateLabel»«increment.genAssignment(true)»
@@ -1328,7 +1328,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		// ( Bug: Xtend when calling dispatch methods of base classes lead to infinite loop )
 		else return
 			'''
-				for («statements.head.genStatement» «termination.genExpr»;«increment.genAssignment(false)»)
+				for («statements.head.genStatement» «termination.genExpression»;«increment.genAssignment(false)»)
 					«body.genSpecialStatement(true)»
 			'''
 	}
@@ -1376,7 +1376,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 			'''
 				while(true){
 					update«forLoopIdCount»:«cond»
-					if(«condition.genExpr»){
+					if(«condition.genExpression»){
 						«body.genSpecialStatement(false)»
 					}
 					else break;
@@ -1385,7 +1385,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		}
 		else return 
 			'''
-				while («condition.genExpr») 
+				while («condition.genExpression») 
 					«body.genSpecialStatement(true)»
 			'''
 	}

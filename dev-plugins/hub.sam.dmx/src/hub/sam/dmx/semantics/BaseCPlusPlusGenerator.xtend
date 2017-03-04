@@ -791,20 +791,20 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 */
 	protected def String expressionToString(Expression e){
 		if(e instanceof NullLiteral) '''std::string("null")'''
-		else if(e instanceof FalseLiteral || e instanceof TrueLiteral)'''std::string("«e.genExpr»")'''
-		else if(e instanceof StringLiteral) '''std::string(«e.genExpr»)'''
+		else if(e instanceof FalseLiteral || e instanceof TrueLiteral)'''std::string("«e.genExpression»")'''
+		else if(e instanceof StringLiteral) '''std::string(«e.genExpression»)'''
 		else if(e instanceof IdExpr && (e as IdExpr).predefinedId instanceof MeLiteral) 
 			genToStringUsage('''*this->toString()''')
 		// anonymous object creation
 		else if(e instanceof CreateObject && (e as CreateObject).typeArrayDimensions.empty)
-			genToStringUsage('''to_String(cbsLib::intrusive_ptr<«(e as CreateObject).genPrimitiveOrClassType(false)»>(«e.genExpr»))''')
+			genToStringUsage('''to_String(cbsLib::intrusive_ptr<«(e as CreateObject).genPrimitiveOrClassType(false)»>(«e.genExpression»))''')
 		// anonymous array creation
 		else if(e instanceof CreateObject){
-			genToStringUsage('''to_String(cbsLib::intrusive_ptr<«(e as CreateObject).genVectorType(e.typeArrayDimensions.size)»>(«e.genExpr»))''')
+			genToStringUsage('''to_String(cbsLib::intrusive_ptr<«(e as CreateObject).genVectorType(e.typeArrayDimensions.size)»>(«e.genExpression»))''')
 		}
 		else if(e instanceof Plus && e.checkComplexExpression)
 			'''«(e as BinaryOperator).op1.expressionToString»+«(e as BinaryOperator).op2.expressionToString»'''
-		else genToStringUsage('''to_String(«e.genExpr»)''')
+		else genToStringUsage('''to_String(«e.genExpression»)''')
 	}
 	/**
 	 * include of to_String functionality to generate toString-representation for datatypes
@@ -1063,9 +1063,9 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			«ELSEIF needsCast && e instanceof CreateObject»
 				«genVectorDefinition(e as CreateObject,t)»
 			«ELSEIF needsCast»
-				new «genVectorType(t,t.typeArrayDimensions.size)»(*(«e.genExpr»))
+				new «genVectorType(t,t.typeArrayDimensions.size)»(*(«e.genExpression»))
 			«ELSE»
-				«e.genExpr»
+				«e.genExpression»
 			«ENDIF»
 		«ENDIF»
 		'''
@@ -1140,7 +1140,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			std::cout << «FOR expr : print.outputs SEPARATOR '<<'»
 				«IF (expr instanceof StringLiteral || expr instanceof IntLiteral || (expr instanceof IdExpr && 
 					((expr as IdExpr)?.referencedElement as TypedElement)?.primitiveType instanceof IntType))» 
-						«expr.genExpr»
+						«expr.genExpression»
 				«ELSEIF expr instanceof TrueLiteral» "true"
 				«ELSEIF expr instanceof FalseLiteral» "false"
 				«ELSEIF expr instanceof NullLiteral» "null"
@@ -1159,7 +1159,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		val it = ifStm
 		if(isInActionsBlock) return genSpecialIfStatement
 		else return '''
-			if («condition.genExpr») «trueCase.genStatement»
+			if («condition.genExpression») «trueCase.genStatement»
 			«IF falseCase !== null»
 				else «falseCase.genStatement»
 			«ENDIF»
@@ -1267,9 +1267,9 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 					case «count++»:
 						«genBlockForStatement(c.body.exists[it instanceof Variable],'''«c.body.genStatements»''')»
 					«ENDFOR»
-				«ELSE» «variable.genExpr»){
+				«ELSE» «variable.genExpression»){
 					«FOR c : cases»
-					case «c.value.genExpr»:
+					case «c.value.genExpression»:
 						«genBlockForStatement(c.body.exists[it instanceof Variable],'''«c.body.genStatements»''')»
 					«ENDFOR»
 				«ENDIF»
@@ -1325,7 +1325,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		if(isInActionsBlock) return genSpecialForStatement
 		else return 
 			'''
-				for («statements.head.genStatement» «termination.genExpr»; «increment.genAssignment(false)»)
+				for («statements.head.genStatement» «termination.genExpression»; «increment.genAssignment(false)»)
 					«body.genStatement»
 			'''
 	}
@@ -1339,7 +1339,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	protected def dispatch String genStatement(WhileStatement stm) {
 		val it = stm
 		if(isInActionsBlock) return genSpecialWhileStatement
-		else return '''while («condition.genExpr») «body.genStatement»'''
+		else return '''while («condition.genExpression») «body.genStatement»'''
 	}
 	/**
 	 * generates C++-string representation of DBL assignment-statement
@@ -1348,7 +1348,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++-string representation of DBL assignment-statement
 	 */
 	protected def String genAssignment(Assignment stm, boolean genSemicolon) {
-		'''«stm.variable.genExpr» = «stm.value.genInitialValue(stm.variable.idExpr.referencedElement as TypedElement)»«IF genSemicolon»;«ENDIF»'''
+		'''«stm.variable.genExpression» = «stm.value.genInitialValue(stm.variable.idExpr.referencedElement as TypedElement)»«IF genSemicolon»;«ENDIF»'''
 	}
 	/**
 	 * generates C++-string representation of variable definition (e.g. int x = 15), consisting of
@@ -1369,15 +1369,15 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++-string representation for DBL function call
 	 */
 	protected def dispatch String genStatement(FunctionCall call) {
-		'''«call.callIdExpr.genExpr»;'''
+		'''«call.callIdExpr.genExpression»;'''
 	}
 	/**
-	 * delegates calls of genExpr to super class in case there are no expressions which 
+	 * delegates calls of genExpression to super class in case there are no expressions which 
 	 * are mapped in this class.
 	 * @param expr representation of unknown expression
 	 * @return string representation for unknown expression
 	 */
-	protected def dispatch String genExpr(Expression expr) {
+	protected def dispatch String genExpression(Expression expr) {
 		expr.forwardGen
 	}
 	/**
@@ -1385,22 +1385,22 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL Void expression
 	 * @return C++-string representation for DBL Void expression
 	 */
-	protected def dispatch String genExpr(Void expr) {''''''}
+	protected def dispatch String genExpression(Void expr) {''''''}
 	/**
 	 * generates C++-string representation for logical DBL OR expression (Syntax DBL: x or y)
 	 * @param expr represents DBL logical OR expression
 	 * @return C++-string representation for DBL logical OR expression
 	 */
-	protected def dispatch String genExpr(Or expr) {
-		'''«expr.genBinaryExpr("||")»'''
+	protected def dispatch String genExpression(Or expr) {
+		'''«expr.genBinaryExpression("||")»'''
 	}
 	/**
 	 * generates C++-string representation for logical DBL AND expression ( Syntax DBL: x and y)
 	 * @param expr represents DBL logical AND expression
 	 * @return C++-string representation for DBL logical AND expression
 	 */
-	protected def dispatch String genExpr(And expr) {
-		'''«expr.genBinaryExpr("&&")»'''
+	protected def dispatch String genExpression(And expr) {
+		'''«expr.genBinaryExpression("&&")»'''
 	}
 	/**
 	 * generates C++-string representation for EQUAL expression (Syntax DBL: x == y). Special handling 
@@ -1408,10 +1408,10 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL EQUAL expression
 	 * @return C++-string representation for DBL EQUAL expression
 	 */
-	protected def dispatch String genExpr(Equal expr) {
+	protected def dispatch String genExpression(Equal expr) {
 		val compString = genCompareStringExpression(expr, "==")
 		if(!("".equals(compString))) '''«compString»'''
-		else '''«expr.genBinaryExpr("==")»'''
+		else '''«expr.genBinaryExpression("==")»'''
 	}
 	/**
 	 * generates C++-string representation for NOTEQUAL expression (Syntax DBL: x !=y ). Special handling 
@@ -1419,10 +1419,10 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL NOTEQUAL expression
 	 * @return C++-string representation for DBL NOTEQUAL expression
 	 */
-	protected def dispatch String genExpr(NotEqual expr) {
+	protected def dispatch String genExpression(NotEqual expr) {
 		val compString = genCompareStringExpression(expr, "!=")
 		if(!("".equals(compString))) '''«compString»'''
-		else '''«expr.genBinaryExpr("!=")»'''
+		else '''«expr.genBinaryExpression("!=")»'''
 	}
 	/**
 	 * generates C++-string representation for string comparisons with "==" or "!="
@@ -1436,9 +1436,9 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		val op2NeedsStringCon = binOp.op2.stringNeedsCreationOnHeap 
 		if(op1NeedsStringCon || op2NeedsStringCon){
 			if(op1NeedsStringCon ) result += '''(«binOp.op1.expressionToString») «op» '''
-			else result += '''«binOp.op1.genExpr» «op» '''
+			else result += '''«binOp.op1.genExpression» «op» '''
 			if(op2NeedsStringCon) result += '''(«binOp.op2.expressionToString»)'''
-			else result += '''«binOp.op2.genExpr»'''
+			else result += '''«binOp.op2.genExpression»'''
 			return result;
 		}
 		return result;
@@ -1448,72 +1448,72 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL GREATER expression
 	 * @return C++-string representation of DBL GREATER expression
 	 */
-	protected def dispatch String genExpr(Greater expr) {
-		'''«expr.genBinaryExpr(">")»'''
+	protected def dispatch String genExpression(Greater expr) {
+		'''«expr.genBinaryExpression(">")»'''
 	}
 	/**
 	 * generates C++-string representation of DBL GreaterEqual expression (Syntax DBL: x >= y)
 	 * @param expr represents DBL GreaterEqual expression
 	 * @return C++-string representation of DBL GreaterEqual expression
 	 */
-	protected def dispatch String genExpr(GreaterEqual expr) {
-		'''«expr.genBinaryExpr(">=")»'''
+	protected def dispatch String genExpression(GreaterEqual expr) {
+		'''«expr.genBinaryExpression(">=")»'''
 	}
 	/**
 	 * generates c++-string representation of DBL Less expression (Syntax DBL: x < y)
 	 * @param expr represents DBL Less expression
 	 * @return C++-string representation of DBL Less expression
 	 */
-	protected def dispatch String genExpr(Less expr) {
-		'''«expr.genBinaryExpr("<")»'''
+	protected def dispatch String genExpression(Less expr) {
+		'''«expr.genBinaryExpression("<")»'''
 	}
 	/**
 	 * generates c++-string representation of DBL LessEqual expression (Syntax DBL: x <= y)
 	 * @param expr represents DBL LessEqual expression
 	 * @return C++-string representation of DBL LessEqual expression
 	 */
-	protected def dispatch String genExpr(LessEqual expr) {
-		'''«expr.genBinaryExpr("<=")»'''
+	protected def dispatch String genExpression(LessEqual expr) {
+		'''«expr.genBinaryExpression("<=")»'''
 	}
 	/**
 	 * generates C++-string representation of DBL Plus expression (DBL Syntax: x + y)
 	 * @param expr represents DBL Plus expression
 	 * @return C++-string representation for DBL Plus expression
 	 */
-	protected def dispatch String genExpr(Plus expr) {
-		'''«expr.genBinaryExpr("+")»'''
+	protected def dispatch String genExpression(Plus expr) {
+		'''«expr.genBinaryExpression("+")»'''
 	}
 	/**
 	 * generates C++-string representation of DBL Minus expression (DBL Syntax: x - y)
 	 * @param expr represents DBL Minus expression
 	 * @return C++-string representation of DBL Minus expression
 	 */
-	protected def dispatch String genExpr(Minus expr) {
-		'''«expr.genBinaryExpr("-")»'''
+	protected def dispatch String genExpression(Minus expr) {
+		'''«expr.genBinaryExpression("-")»'''
 	}
 	/**
 	 * generates C++-string representation of DBL Multiplication expression (DBL Syntax: x * y)
 	 * @param expr represents DBL Multiplication expression
 	 * @return C++-string representation of DBL Multiplication expression
 	 */
-	protected def dispatch String genExpr(Mul expr) {
-		'''«expr.genBinaryExpr("*")»'''
+	protected def dispatch String genExpression(Mul expr) {
+		'''«expr.genBinaryExpression("*")»'''
 	}
 	/**
 	 * generates C++-string representation of DBL Division expression (DBL Syntax: x / y)
 	 * @param expr represents DBL Division expression
 	 * @return C++-string representation of DBL Division expression
 	 */
-	protected def dispatch String genExpr(Div expr) {
-		'''«expr.genBinaryExpr("/")»'''
+	protected def dispatch String genExpression(Div expr) {
+		'''«expr.genBinaryExpression("/")»'''
 	}
 	/**
 	 * generates C++-string representation of Modulo expression (DBL Syntax: x % y)
 	 * @param expr represents DBL Modulo expression
 	 * @return C++-string representation of DBL Modulo expression
 	 */
-	protected def dispatch String genExpr(Mod expr) {
-		'''«expr.genBinaryExpr("%")»'''
+	protected def dispatch String genExpression(Mod expr) {
+		'''«expr.genBinaryExpression("%")»'''
 	}
 	/**
 	 * generates C++-string representation of DBL Binary operator expressions. All expressions 
@@ -1522,24 +1522,24 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param op represents Operator as String
 	 * @return C++-string representation of DBL Binary operator in parentheses
 	 */
-	protected def String genBinaryExpr(BinaryOperator expr, String op) {
-		'''(«expr.op1.genExpr» «op» «expr.op2.genExpr»)'''
+	protected def String genBinaryExpression(BinaryOperator expr, String op) {
+		'''(«expr.op1.genExpression» «op» «expr.op2.genExpression»)'''
 	}
 	/**
 	 * generates C++-string representation of DBL Negation expression (DBL Syntax: -x)
 	 * @param expr represents DBL Negation expression
 	 * @return C++-string representation of DBL Negation expression
 	 */
-	protected def dispatch String genExpr(Neg expr) {
-		'''(-«expr.op.genExpr»)'''
+	protected def dispatch String genExpression(Neg expr) {
+		'''(-«expr.op.genExpression»)'''
 	}
 	/**
 	 * generates C++-string representation of DBL logical not expression (DBL Syntax: !x)
 	 * @param expr represents DBL logical not expression
 	 * @return C++-string representation of DBL logical not expression
 	 */
-	protected def dispatch String genExpr(Not expr) {
-		'''(!«expr.op.genExpr»)'''
+	protected def dispatch String genExpression(Not expr) {
+		'''(!«expr.op.genExpression»)'''
 	}
 	/**
 	 * generates c++-string representation of DBL cast expression (DBL Syntax: x as A). Explicit Casts 
@@ -1549,7 +1549,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL cast expression
 	 * @return C++-string representation of DBL cast expression
 	 */
-	protected def dispatch String genExpr(Cast expr) {
+	protected def dispatch String genExpression(Cast expr) {
 		val it = expr
 		if(expr.classifierType !== null && typeArrayDimensions.empty)
 			'''(cbsLib::static_pointer_cast<«genPrimitiveOrClassType(false)»>(«op.genInitialValue(null)»))'''
@@ -1567,15 +1567,15 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL Instanceof expression
 	 * @return C++-string representation of DBL Instanceof expression
 	 */
-	protected def dispatch String genExpr(InstanceOf expr) {
-		'''(cbsLib::dynamic_pointer_cast<«expr.op2.genExpr»>(«expr.op1.genExpr») != nullptr)'''
+	protected def dispatch String genExpression(InstanceOf expr) {
+		'''(cbsLib::dynamic_pointer_cast<«expr.op2.genExpression»>(«expr.op1.genExpression») != nullptr)'''
 	}
 	/**
 	 * generates C++-string representation of DBL Integer literal (DBL Syntax: e.g. 15)
 	 * @param expr represents DBL Integer Literal
 	 * @return C++-string representation of DBL Integer Literal
 	 */
-	protected def dispatch String genExpr(IntLiteral expr) {
+	protected def dispatch String genExpression(IntLiteral expr) {
 		'''«expr.value.toString»'''
 	}
 	/**
@@ -1583,7 +1583,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL True Literal
 	 * @return C++-string representation of DBL True Literal
 	 */
-	protected def dispatch String genExpr(TrueLiteral expr) {
+	protected def dispatch String genExpression(TrueLiteral expr) {
 		'''true'''
 	}
 	/**
@@ -1591,7 +1591,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL False Literal
 	 * @return C++-string representation of DBL False Literal
 	 */
-	protected def dispatch String genExpr(FalseLiteral expr) {
+	protected def dispatch String genExpression(FalseLiteral expr) {
 		'''false'''
 	}
 	/**
@@ -1599,7 +1599,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL Double Literal
 	 * @return C++-string representation of DBL Double Literal
 	 */
-	protected def dispatch String genExpr(DoubleLiteral expr) {
+	protected def dispatch String genExpression(DoubleLiteral expr) {
 		'''«expr.value.toString»'''
 	}
 	/**
@@ -1607,7 +1607,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL Null Literal
 	 * @return C++-string representation of DBL Null Literal
 	 */
-	protected def dispatch String genExpr(NullLiteral expr) {
+	protected def dispatch String genExpression(NullLiteral expr) {
 		'''nullptr'''
 	}
 	/**
@@ -1615,7 +1615,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL String Literal
 	 * @return C++-string representation of DBL String Literal
 	 */
-	protected def dispatch String genExpr(StringLiteral expr) {
+	protected def dispatch String genExpression(StringLiteral expr) {
 		'''«quoteCString(expr.value)»'''
 	}
 	/**
@@ -1635,7 +1635,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL new expression
 	 * @return C++-string representation for new Expression
 	 */
-	protected def dispatch String genExpr(CreateObject expr) {
+	protected def dispatch String genExpression(CreateObject expr) {
 		val it = expr
 		if (typeArrayDimensions.empty && classifierType !== null)
 			'''new «genPrimitiveOrClassType(false)»(«classifierType?.callPart?.callArguments?.genActualParameters»)'''
@@ -1650,8 +1650,8 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL TypeAccess
 	 * @return C++-string representation of DBL TypeAccess
 	 */
-	protected def dispatch String genExpr(TypeAccess expr) {
-		'''«expr.idExpr.genExpr»'''
+	protected def dispatch String genExpression(TypeAccess expr) {
+		'''«expr.idExpr.genExpression»'''
 	}
 	/**
 	 * generates C++-string representation for VariableAccess (used for example when generating
@@ -1659,8 +1659,8 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param expr represents DBL VariableAccess
 	 * @return C++-string representation of DBL VariableAccess
 	 */
-	protected def dispatch String genExpr(VariableAccess expr) {
-		'''«expr.idExpr.genExpr»'''
+	protected def dispatch String genExpression(VariableAccess expr) {
+		'''«expr.idExpr.genExpression»'''
 	}
 	/**
 	 * generates C++-string representation of Identifier expressions (every usage of an identifier e.g.: 
@@ -1668,8 +1668,8 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param idExpr represents DBL Identifier expression
 	 * @return C++-string representation of DBL Identifier expression
 	 */
-	protected def dispatch String genExpr(IdExpr idExpr) {
-		idExpr.genIdExpr
+	protected def dispatch String genExpression(IdExpr idExpr) {
+		idExpr.genIdExpression
 	}
 	/**
 	 * generates C++-string representation for DBL Identifier expressions. Identifier in coroutines have to be
@@ -1680,7 +1680,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param idExpr represents DBL Identifier expression
 	 * @return C++-string representation of DBL Identifier expressions
 	 */
-	protected def String genIdExpr(IdExpr idExpr){
+	protected def String genIdExpression(IdExpr idExpr){
 		val it = idExpr
 		val boolean inActionsBlock = isInActionsBlock()
 		if(predefinedId instanceof SizeOfArray)
@@ -1703,9 +1703,9 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			«IF parentIdExpr !== null»
 				«IF (parentIdExpr.predefinedId instanceof SuperLiteral || 
 					parentIdExpr.referencedElement instanceof Class)» 
-					«parentIdExpr.genIdExpr»::
+					«parentIdExpr.genIdExpression»::
 				«ELSE»
-					«parentIdExpr.genIdExpr»->
+					«parentIdExpr.genIdExpression»->
 				«ENDIF»
 			«ENDIF»
 			«IF referencedElement !== null»
@@ -1735,7 +1735,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		val it = idExpr
 		'''
 			«IF callPart !== null»(«callPart.getCallArguments.genActualParameters»)«ENDIF»
-			«FOR index:idExpr?.arrayIndex»->operator[](«index.genExpr»)«ENDFOR»
+			«FOR index:idExpr?.arrayIndex»->operator[](«index.genExpression»)«ENDFOR»
 		'''
 	}
 	/**
@@ -1889,8 +1889,8 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	private def String initializeVectors(int dim, CreateObject expr, TypedElement otherType){
 		val it = expr
 		val index = typeArrayDimensions.size - dim;
-		val String dimSuccSize = if((index < typeArrayDimensions.size-1) && typeArrayDimensions.get(index+1).size !== null) '''«typeArrayDimensions.get(index).size.genExpr»''' else null
-		val String dimSize = '''«typeArrayDimensions.get(index).size.genExpr»''' 
+		val String dimSuccSize = if((index < typeArrayDimensions.size-1) && typeArrayDimensions.get(index+1).size !== null) '''«typeArrayDimensions.get(index).size.genExpression»''' else null
+		val String dimSize = '''«typeArrayDimensions.get(index).size.genExpression»''' 
 		'''
 		«IF dim == 1»(«dimSize»)
 		«ELSEIF otherType !== null» 
@@ -2180,7 +2180,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++-string representation for the ExpandVariablePart expression
 	 */
 	protected def dispatch String genMappingPart(ExpandVariablePart part) {
-		part.expr.genExpr
+		part.expr.genExpression
 	}
 	/**
 	 * only needed for DBL extensions

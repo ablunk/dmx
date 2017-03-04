@@ -144,7 +144,7 @@ void main(){
 	activate p2 priority 1;
 	activate p1 priority 1;
 	
-	advance 10000;
+	advance 1000000;
 	p1.show();
 	p2.show();
 	print "Touren: "+(f.oneway/2)+"\n";
