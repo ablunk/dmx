@@ -75,6 +75,10 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		if (identifier instanceof NamedElement) {
 			NamedElement namedElementId = (NamedElement) identifier;
 			
+			if (namedElementId.getName().equals("Object")) {
+				System.out.println("found Object");
+			}
+			
 			if (context instanceof IdExpr) {
 				IdExpr idExpr = (IdExpr) context;		
 				Class containerClass = getContainerObjectOfType(context, Class.class);
@@ -109,10 +113,16 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						}
 						
 						// ---> try to find a Type now ...
-						
 						if (containerModule != null) {
 							otherIdsHidden = addIds(namedElementId, containerModule.getClasses(), allIds);
-						}
+							
+							if (!otherIdsHidden) {
+								Class importedClass = findImportedClass((Model) containerModule.eContainer(), namedElementId.getName());
+								if (importedClass != null) {
+									otherIdsHidden = addId(namedElementId, importedClass, allIds);
+								}
+							}
+						}						
 					}
 					else if (hasSelfAsParent(idExpr) && containerClass != null) {
 						addIds(namedElementId, containerClass.getMethods(), allIds);
