@@ -1,0 +1,18 @@
+#import "../stdlib"
+
+module inheritance {
+
+class A {
+	int i = 3;
+
+	new(int i) {
+		self.i = i;
+	}
+}
+
+void main() {
+	A a = new A(2);
+	print(a.i + "\n");
+}
+
+}

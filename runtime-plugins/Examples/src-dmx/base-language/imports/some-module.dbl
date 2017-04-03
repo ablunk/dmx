@@ -1,6 +1,7 @@
 module somemodule {
 
 class A {
+	int i = 2;
 }
 
 class B extends A {

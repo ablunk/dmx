@@ -1,0 +1,64 @@
+#import "../../stdlib"
+#import "ssm-language"
+#import "ssm-runtime"
+#import "user-model"
+
+module simpleSystem {
+
+void main() {
+	Producer producer = new Producer;
+	Delayer delayer = new Delayer;
+	Consumer consumer = new Consumer;
+	
+	producer.receiver = delayer;
+	delayer.receiver = consumer;
+	
+	activate producer;
+	activate delayer;
+	activate consumer;	
+}
+
+active class Producer extends AsynchService {
+	AsynchService receiver;
+	
+	actions {
+		print "sending data to delayer";
+		advance 1;
+		receiver.enterEvent(new Data);
+		advance 2;
+		receiver.enterEvent(new Data);
+	}
+}
+
+active class Consumer extends AsynchService {
+}
+
+// stateful class X maps to active class X extends BehavioredClassifier.
+// the type BehavioredClassifier is referred to via new type keyword stateful.
+active class Delayer extends AsynchService {
+	// stateful Object dataReceiver;
+	AsynchService receiver;
+	Data lastReceived = null;
+	
+	stateMachine {
+		initial state waiting {
+			// this is a workaround because the data message variable cannot be accessed from here.
+			// by convention, the received message will be made available in a variable named 'message'.
+			on Data data do { saveAsLastData(message as Data); } then goto waiting,
+			after 5 do forwardLastData(); then goto waiting
+		}
+	}
+		
+	void saveAsLastData(Data data) {
+		print "received data with pay load: " + data.payLoad;
+		lastReceived = data;
+	}
+	
+	void forwardLastData() {
+		print "sending data with pay load: " + lastReceived.payLoad;
+		send lastReceived to receiver;
+		lastReceived = null;
+	}	
+}
+
+}

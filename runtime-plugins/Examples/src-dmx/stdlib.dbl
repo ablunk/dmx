@@ -4,6 +4,9 @@ class Object {
 	bindings {
 		"java" -> "java.lang.Object"
 	}
+	boolean equals(Object other) abstract;
+	int hashCode() abstract;
+	string toString() abstract;
 }
 
 class Iterator {
@@ -56,6 +59,21 @@ class List extends RList {
 class ArrayList extends List {
 	bindings {
 		"java" -> "java.util.ArrayList"
+	}
+}
+
+class Map {
+	bindings {
+		"java" -> "java.util.Map"
+	}
+	
+	Object get(Object key) abstract;
+	void put(Object key, Object value) abstract;
+}
+
+class HashMap extends Map {
+	bindings {
+		"java" -> "java.util.HashMap"
 	}
 }
 

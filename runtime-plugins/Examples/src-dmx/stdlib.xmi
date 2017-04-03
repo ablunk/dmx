@@ -3,6 +3,18 @@
   <modules name="stdlib">
     <classes name="Object">
       <bindings targetLanguage="java" targetType="java.lang.Object"/>
+      <methods name="equals" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="other">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="hashCode" abstract="true">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+      <methods name="toString" abstract="true">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
     </classes>
     <classes name="Iterator">
       <bindings targetLanguage="java" targetType="java.util.Iterator"/>
@@ -136,6 +148,28 @@
     <classes name="ArrayList">
       <bindings targetLanguage="java" targetType="java.util.ArrayList"/>
       <superClasses class="//@modules.0/@classes.3"/>
+    </classes>
+    <classes name="Map">
+      <bindings targetLanguage="java" targetType="java.util.Map"/>
+      <methods name="get" abstract="true">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <parameters name="key">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="put" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="key">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+        <parameters name="value">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+    </classes>
+    <classes name="HashMap">
+      <bindings targetLanguage="java" targetType="java.util.HashMap"/>
+      <superClasses class="//@modules.0/@classes.5"/>
     </classes>
   </modules>
 </dbl:Model>

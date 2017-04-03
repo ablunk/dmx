@@ -1,0 +1,89 @@
+#import "../../dbl"
+#import "../../stdlib"
+
+module ssm {
+
+void printSomething() {
+	print "executing";
+}
+
+extension MessageAccess extends dbl L1Expr {
+	start MessageAccessSyntax;
+	MessageAccessSyntax -> "message";
+}
+
+semantics for MessageAccess {
+	expand "event";
+}
+
+extension SendStatement extends dbl SimpleStatement {
+	start SendStatementSyntax;
+	SendStatementSyntax -> "send" signal:Expression "to" target:Expression ";";
+}
+
+semantics for SendStatement {
+	//expand "printSomething();";
+	
+	// TODO add import in extension code
+	expand "X x = new X;";
+	expand "print x.message;";
+	
+	//expand target".eventPool.add("signal");";
+	//expand "reactivate "target";";
+}
+
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachine;
+	
+	StateMachine -> "stateMachine" "{" ManyRegularStates "}";
+	ManyRegularStates -> ;
+	ManyRegularStates -> states : list State ManyRegularStates;
+	
+	State -> initialModifier:InitialModifier "state" name:ID Transitions;
+	InitialModifier -> ;
+	InitialModifier -> initial:"initial";
+	
+	Transitions -> ;
+	Transitions -> "{" OneOrMoreTransitions "}";
+	
+	OneOrMoreTransitions -> outgoing : list Transition MoreTransitions;
+	MoreTransitions -> ;
+	MoreTransitions -> "," OneOrMoreTransitions;
+
+	// a new language element for the attributed grammar would be needed so that
+	// Transition inherits from LocalScopeStatement
+	// in order to access the message variable in the effect.
+	Transition -> Trigger TargetState;
+	
+	Trigger -> "on" messageVariable:Variable Effects;
+	Trigger -> "after" timeDuration:Expression Effects;
+	Effects -> ;
+	Effects -> "do" effects : SimpleStatement;
+		
+	TargetState -> "then" "goto" target:$$State;
+	TargetState -> "then" "stop";
+}
+
+semantics for StateMachine {
+	expand "actions {";
+	expand "StateMachine stateMachine = new StateMachine;";
+	expand "stateMachineRuntime = new StateMachineRuntime(stateMachine);";
+	
+	for (int i=0; i<states.size(); i=i+1) {
+		State state = states.get(i);
+		ID stateId;
+		expand "State " stateId " = new State;";
+		expand "stateMachine.states.add(" stateId ");";
+		expand stateId ".name = \"" state.name "\";";
+		
+		ID compiledStateId;
+		expand "CompiledState " compiledStateId " = new CompiledState(" stateId ");";
+		expand "stateMachineRuntime.setCompiledState(" stateId ", " compiledStateId ");";
+		
+		// TODO ...
+	}
+	
+	expand "}";
+}
+
+}

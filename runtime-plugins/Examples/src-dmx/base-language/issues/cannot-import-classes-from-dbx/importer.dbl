@@ -1,0 +1,9 @@
+#import "some-module2"
+
+module importer {
+
+void main() {
+	X x = new X;
+}
+
+}

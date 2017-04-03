@@ -3,7 +3,15 @@
   <imports file="some-module">
     <model href="some-module.xmi#/"/>
   </imports>
+  <imports file="some-module2">
+    <model href="some-module2.xmi#/"/>
+  </imports>
   <modules name="importer">
+    <classes name="D">
+      <superClasses>
+        <class href="some-module.xmi#//@modules.0/@classes.0"/>
+      </superClasses>
+    </classes>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="a">
@@ -22,9 +30,27 @@
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="some-module.xmi#//@modules.0/@classes.0"/>
+            <referencedElement href="some-module.xmi#//@modules.0/@classes.1"/>
+            <callPart/>
           </classifierType>
         </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="d">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:IdExpr">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+            <referencedElement href="some-module.xmi#//@modules.0/@classes.0/@attributes.0"/>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
       </statements>
     </functions>
   </modules>

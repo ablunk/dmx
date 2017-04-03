@@ -9,8 +9,7 @@ module SmlPattern {
 	class State {
 		string name;
 		
-		State handleEvent(Event ev) {
-		}
+		State handleEvent(Event ev) {}
 	}
 	
 	class A_State extends State {

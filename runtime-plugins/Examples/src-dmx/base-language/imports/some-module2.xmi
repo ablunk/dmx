@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <modules name="somemodule">
-    <classes name="A">
-      <attributes name="i">
+  <modules name="somemodule2">
+    <classes name="C" concreteSyntax="class C {&#xA;&#x9;int i = 2;&#xA;}">
+      <attributes name="i" concreteSyntax="int i = 2">
         <primitiveType xsi:type="dbl:IntType"/>
-        <initialValue xsi:type="dbl:IntLiteral" value="2"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
       </attributes>
-    </classes>
-    <classes name="B">
-      <superClasses class="//@modules.0/@classes.0"/>
     </classes>
   </modules>
 </dbl:Model>

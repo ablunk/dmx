@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="ssm-runtime">
+    <model href="ssm-runtime.xmi#/"/>
+  </imports>
+  <imports file="user-model">
+    <model href="user-model.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <modules name="simpleSystem">
+    <classes name="Producer" active="true">
+      <superClasses>
+        <class href="ssm-runtime.xmi#//@modules.0/@classes.0"/>
+      </superClasses>
+      <attributes name="receiver">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.0"/>
+        </classifierType>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="sending data to delayer"/>
+        </statements>
+        <statements xsi:type="dbl:Advance">
+          <time xsi:type="dbl:IntLiteral" value="1"/>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.0/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:CreateObject">
+                <classifierType>
+                  <referencedElement href="user-model.xmi#//@modules.0/@classes.0"/>
+                </classifierType>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Advance">
+          <time xsi:type="dbl:IntLiteral" value="2"/>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.0/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:CreateObject">
+                <classifierType>
+                  <referencedElement href="user-model.xmi#//@modules.0/@classes.0"/>
+                </classifierType>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <classes name="Consumer" active="true">
+      <superClasses>
+        <class href="ssm-runtime.xmi#//@modules.0/@classes.0"/>
+      </superClasses>
+    </classes>
+    <classes name="Delayer" active="true">
+      <superClasses>
+        <class href="ssm-runtime.xmi#//@modules.0/@classes.0"/>
+      </superClasses>
+      <attributes name="receiver">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.0"/>
+        </classifierType>
+      </attributes>
+      <attributes name="lastReceived">
+        <classifierType>
+          <referencedElement href="user-model.xmi#//@modules.0/@classes.0"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:NullLiteral"/>
+      </attributes>
+      <methods name="saveAsLastData">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="received data with pay load: "/>
+            <op2 xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@classes.2/@methods.0/@parameters.0"/>
+              <referencedElement href="user-model.xmi#//@modules.0/@classes.0/@attributes.0"/>
+            </op2>
+          </outputs>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@methods.0/@parameters.0"/>
+        </statements>
+        <parameters name="data">
+          <classifierType>
+            <referencedElement href="user-model.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </parameters>
+      </methods>
+      <methods name="forwardLastData">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="sending data with pay load: "/>
+            <op2 xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+              <referencedElement href="user-model.xmi#//@modules.0/@classes.0/@attributes.0"/>
+            </op2>
+          </outputs>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.0/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:NullLiteral"/>
+        </statements>
+      </methods>
+      <actionsBlock>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr>
+              <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.0/@attributes.0"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1">
+            <callPart/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:ActivateObject">
+          <objectAccess xsi:type="dbl:IdExpr">
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.0/@attributes.0"/>
+          </objectAccess>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <classes name="OnDataTransition">
+      <superClasses>
+        <class href="ssm-runtime.xmi#//@modules.0/@classes.6"/>
+      </superClasses>
+      <methods name="canHandleMessage">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <statements xsi:type="dbl:Return">
+          <value xsi:type="dbl:InstanceOf">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@methods.0/@parameters.0"/>
+            <op2 xsi:type="dbl:TypeAccess">
+              <idExpr>
+                <referencedElement href="user-model.xmi#//@modules.0/@classes.0"/>
+              </idExpr>
+            </op2>
+          </value>
+        </statements>
+        <parameters name="message">
+          <classifierType>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </parameters>
+      </methods>
+      <methods name="executeEffects">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Variable" name="concreteContext">
+          <classifierType referencedElement="//@modules.0/@classes.2"/>
+          <initialValue xsi:type="dbl:Cast">
+            <classifierType referencedElement="//@modules.0/@classes.2"/>
+            <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@methods.1/@parameters.0"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr referencedElement="//@modules.0/@classes.2/@methods.0">
+            <parentIdExpr referencedElement="//@modules.0/@classes.3/@methods.1/@statements.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:Cast">
+                <classifierType>
+                  <referencedElement href="user-model.xmi#//@modules.0/@classes.0"/>
+                </classifierType>
+                <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@methods.1/@parameters.1"/>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <parameters name="context">
+          <classifierType>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </parameters>
+        <parameters name="event">
+          <classifierType>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </parameters>
+      </methods>
+    </classes>
+    <classes name="After5Transition">
+      <superClasses>
+        <class href="ssm-runtime.xmi#//@modules.0/@classes.6"/>
+      </superClasses>
+      <methods name="executeEffects">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Variable" name="concreteContext">
+          <classifierType referencedElement="//@modules.0/@classes.2"/>
+          <initialValue xsi:type="dbl:Cast">
+            <classifierType referencedElement="//@modules.0/@classes.2"/>
+            <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.0/@parameters.0"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall">
+          <callIdExpr referencedElement="//@modules.0/@classes.2/@methods.1">
+            <parentIdExpr referencedElement="//@modules.0/@classes.4/@methods.0/@statements.0"/>
+            <callPart/>
+          </callIdExpr>
+        </statements>
+        <parameters name="context">
+          <classifierType>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </parameters>
+        <parameters name="event">
+          <classifierType>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
+          </classifierType>
+        </parameters>
+      </methods>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="producer">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="delayer">
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.2"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="consumer">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@modules.0/@classes.2/@attributes.0">
+            <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+      </statements>
+    </functions>
+    <functions name="createDelayerStateMachineRuntime">
+      <classifierType>
+        <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.4"/>
+      </classifierType>
+      <statements xsi:type="dbl:Variable" name="stateMachine">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.1"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.1"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="stateMachineRuntime">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.4"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.4"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.0"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="waiting">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.2"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.2"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.0"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.1/@attributes.1"/>
+          </parentIdExpr>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.2"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.2"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.2/@attributes.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:StringLiteral" value="waiting"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="compiledWaiting">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.5"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.5"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.2"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.1"/>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.4/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.2"/>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.5"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="onData">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.3"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.3"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.2"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.2/@attributes.1"/>
+          </parentIdExpr>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.7"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.7"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.3/@attributes.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="onDataEffect">
+        <classifierType>
+          <referencedElement href="../../dbl.xmi#//@modules.0/@classes.46"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="../../dbl.xmi#//@modules.0/@classes.46"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.7"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.3/@attributes.3"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.10"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.5"/>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.5/@methods.5"/>
+          <callPart>
+            <callArguments xsi:type="dbl:CreateObject">
+              <classifierType referencedElement="//@modules.0/@classes.3">
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.7"/>
+                </callPart>
+              </classifierType>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="after5">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.3"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.3"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.2"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.2/@attributes.1"/>
+          </parentIdExpr>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.13"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.13"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.3/@attributes.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="after5Compiled">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.6"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.4">
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.13"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.5"/>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.5/@methods.5"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.16"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="after5Timer">
+        <classifierType>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.7"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.7"/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.18"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.7/@attributes.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr>
+            <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.18"/>
+            <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.7/@attributes.1"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.16"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr>
+          <parentIdExpr referencedElement="//@modules.0/@functions.1/@statements.5"/>
+          <referencedElement href="ssm-runtime.xmi#//@modules.0/@classes.5/@methods.4"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.18"/>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Return">
+        <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.1/@statements.1"/>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

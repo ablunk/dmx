@@ -1,0 +1,115 @@
+#import "ssm-runtime"
+#import "user-model"
+#import "../../stdlib"
+
+module simpleSystem {
+
+void main() {
+	Producer producer = new Producer;
+	Delayer delayer = new Delayer;
+	Consumer consumer = new Consumer;
+
+	producer.receiver = delayer;
+	delayer.receiver = consumer;
+	
+	activate producer;
+	activate delayer;
+	activate consumer;
+}
+
+active class Producer extends AsynchService {
+	AsynchService receiver;
+	
+	actions {
+		print "sending data to delayer";
+		advance 1;
+		receiver.enterEvent(new Data);
+		advance 2;
+		receiver.enterEvent(new Data);
+	}
+}
+
+active class Consumer extends AsynchService {
+}
+
+active class Delayer extends AsynchService {
+	AsynchService receiver;
+	Data lastReceived = null;
+	
+	// GENERATED from extension
+	actions {
+		stateMachineRuntime = createDelayerStateMachineRuntime();
+		activate stateMachineRuntime;
+	}
+	
+	void saveAsLastData(Data data) {
+		print "received data with pay load: " + data.payLoad;
+		lastReceived = data;
+	}
+	
+	void forwardLastData() {
+		print "sending data with pay load: " + lastReceived.payLoad;
+		receiver.enterEvent(lastReceived);
+		lastReceived = null;
+	}	
+}
+
+// GENERATED from extension
+class OnDataTransition extends CompiledTransition {
+	boolean canHandleMessage(Object message) {
+		return message instanceof Data; 
+	}
+	
+	void executeEffects(Object context, Object event) {
+		Delayer concreteContext = context as Delayer;
+		concreteContext.saveAsLastData(event as Data);
+	}
+}
+
+// GENERATED from extension
+class After5Transition extends CompiledTransition {
+	void executeEffects(Object context, Object event) {
+		Delayer concreteContext = context as Delayer;
+		concreteContext.forwardLastData();
+	}
+}
+
+// GENERATED from extension
+StateMachineRuntime createDelayerStateMachineRuntime() {
+	StateMachine stateMachine = new StateMachine;
+	StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);
+
+	// state waiting
+	State waiting = new State;
+	stateMachine.states.add(waiting);
+	waiting.name = "waiting";
+	
+	CompiledState compiledWaiting = new CompiledState(waiting);
+	stateMachineRuntime.setCompiledState(waiting, compiledWaiting);
+	
+	// transition on Data
+	Transition onData = new Transition;
+	waiting.outgoingTransitions.add(onData);
+	onData.target = waiting;
+	LocalScopeStatement onDataEffect = new LocalScopeStatement;
+	onData.effects = onDataEffect;
+	
+	compiledWaiting.addCompiledTransition(new OnDataTransition(onData));	
+	
+	// transition after 5
+	Transition after5 = new Transition;
+	waiting.outgoingTransitions.add(after5);
+	after5.target = waiting;
+	
+	CompiledTransition after5Compiled = new After5Transition(after5);
+	compiledWaiting.addCompiledTransition(after5Compiled);
+	
+	Timer after5Timer = new Timer;
+	after5Timer.stateMachineRuntime = stateMachineRuntime;
+	after5Timer.compiledTransition = after5Compiled;
+	compiledWaiting.addTimer(after5Timer);
+	
+	return stateMachineRuntime;
+}
+
+}

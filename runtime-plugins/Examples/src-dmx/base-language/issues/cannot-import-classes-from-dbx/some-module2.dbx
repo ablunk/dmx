@@ -1,0 +1,7 @@
+module somemodule2 {
+
+class C {
+	int i = 2;
+}
+
+}

@@ -1,0 +1,15 @@
+#import "other"
+
+module m {
+
+void main() {
+	A a = new A;
+	print a.m();
+	// super class must be identified first for m() to be identified here ;(
+	// workaround: define class A before using it here
+}
+
+class A extends B {
+}
+
+}

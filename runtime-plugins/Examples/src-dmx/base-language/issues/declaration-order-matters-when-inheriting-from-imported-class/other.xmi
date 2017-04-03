@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="m">
+    <classes name="B">
+      <methods name="m">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+    </classes>
+  </modules>
+</dbl:Model>

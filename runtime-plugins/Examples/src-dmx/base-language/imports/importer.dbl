@@ -1,10 +1,20 @@
 #import "some-module"
+#import "some-module2"
 
 module importer {
 
+class D extends A {
+}
+
 void main() {
 	A a = new A;	
-	B b = new B;	
+	B b = new B(); // new B() not working at the moment ;(
+	D d = new D();
+	
+	// TODO import dbx files
+	//X x = new X;
+	
+	print a.i + "\n";
 }
 
 }
