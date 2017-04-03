@@ -1,0 +1,7 @@
+module test {
+
+void main() {
+	print "hello";
+}
+
+}

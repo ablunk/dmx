@@ -1,0 +1,17 @@
+module test {
+
+class Execution {
+}
+
+class A {
+	void main() detached {
+	}
+}
+
+void main() {
+	A a = new A();
+	Execution ax = a.main();
+	yield to ax;
+}
+
+}
