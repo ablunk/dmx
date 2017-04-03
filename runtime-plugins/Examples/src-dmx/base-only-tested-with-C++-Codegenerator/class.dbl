@@ -1,0 +1,84 @@
+module Container{
+	int lomm() abstract;
+	int lomm2() {return 0;}
+	double rx;
+	static double x = 0.5;
+	int array[] leo = new int array[5];
+
+	class Zuper{
+		double r = 1;
+		static double lux = 0.3;
+		anotherClass a = new anotherClass();
+		
+		new(double l){
+			self.r = l;
+		}
+		
+		string f(int x){
+			double y = 0.0;
+			print y;
+			if(x<3)
+				if(x<2) {
+					string s = "Bibo";
+					return "hallo"+s;
+				}
+				else return "bu";
+			else return "jo";
+		return "";
+		}
+		
+		void h(int i){
+			for (int j = i; j>0;j=j-1) print "moe","\n";
+			int k;
+			for(k=0;k!=i;k=k+1) {print "bart","\n";print "ju";}
+			switch(i){
+				case 1: print "1"; print "2";break;
+				case 2: print "3"; print "4";
+				case 3: {if(i < 3) print "Yeah!"; else print "NO!";}
+				default: print "boi";
+			}
+			int temp = -10;
+			while(temp){
+				print "";
+				temp = temp+1;
+			}
+		}
+	}
+
+	class Example{
+		int x = 15;
+		Zuper z;
+		new() {
+			print "Example starts here";
+			self.z = new Zuper();
+		}
+	}
+	
+	class anotherClass{
+		int g(){return 1;}
+	}
+	
+	int main(){
+		print rx,"\n";
+	    Example e;
+		anotherClass ex = new anotherClass();
+		Zuper z = new Zuper();
+		Zuper x = z;
+		print x.r,x.lux;
+		
+		print x.r,x.lux;
+		Zuper f = new Zuper;
+		Example t;
+		print f.r;
+		Zuper y;
+	
+		print z.f(4),"\n";
+		print z.f(2),"\n";
+		print z.f(1),"\n";
+		print y.lux;
+		z.h(3);
+		ex.g();
+		print "\n";
+		print ((1+2)*4);	
+	}
+}

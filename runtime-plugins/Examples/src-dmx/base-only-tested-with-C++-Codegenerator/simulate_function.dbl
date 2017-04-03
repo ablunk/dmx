@@ -1,0 +1,88 @@
+module dbl{
+
+	active class A{
+	
+		int l = 15;
+		int x;
+		double y;
+		
+		void f(){
+			x = 10;
+			y = 2.5;
+			g();
+		}
+		
+		void g(){
+			x = 10;
+			y = 2.5;
+			
+			advance 15;
+		}
+	
+		new(){
+			print "Hello I am A";
+			print time;
+		}
+		
+		actions{
+			print "Objekt A starts now";
+			print active;
+			
+			int q = 10;
+			while(q < 20) {
+				int p = 3;
+				double n = 10.99;
+				boolean g = (true and false or false or true);
+				boolean h = true;
+				boolean i = false;
+				string x = "hallo" + "du"+(g and h or i);
+				
+				print p+n+x+g;
+				q = q+10;
+				int l = 9;
+				print "TEST",l;
+			}
+			print "TEST",l;
+			yield;
+			advance 20;
+			print "Objekt A meldet Zeit: ",time;
+		}	
+	}
+	
+	active class B{
+	
+		new(){
+			print "Hello I am B";
+			print time;
+		}
+		
+		actions{
+			print "Object B starts now";
+			print active;
+			
+			int y = 5;
+			{
+				int y = 5;
+			}
+			advance 15;
+			yield;
+			print "Objekt B meldet Zeit: ",time;
+		}	
+	}
+	
+	void main(){
+		print "Hello I am MainProcess";
+		print time;
+		
+		A a = new A();
+		B b = new B();
+		
+		activate a;
+		activate b;
+		
+		yield;
+		advance 50;
+		print "MainProcess meldet Zeit: ",time;
+	}
+
+}

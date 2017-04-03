@@ -1,0 +1,21 @@
+module activeClasses{
+	
+	active class A{
+		int x = 10;
+		actions{
+			print 
+			f( (f (2 + f(7) + f ( f ( f(20)+ f(f(7)) ) )  ) + f(4) ) * f(6) );
+		}
+		int f(int x){
+			print x+"\n";
+			advance 1;
+			return 2*x;
+		}	
+	}
+	void main(){
+		A a = new A();
+		activate a;
+		advance 50;
+		print self;
+	}
+}

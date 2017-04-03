@@ -1,0 +1,44 @@
+module AB{
+	D d = new D();
+
+active class D{
+	A a;
+	B b;
+	C c;
+}
+
+active class A{
+	B b;
+	new(){}
+	new(B b){self.b=b;}
+}
+
+active class E{
+	D d;
+	A a;
+	B b;
+	new(D d, A a, B b){self.d=d;self.a=a;self.b=b;}
+}
+
+active class B extends A{
+	A a;
+	new(){}
+	new(A a){self.a=a;}
+}
+
+active class C{
+	A a;
+	B b;
+}
+
+void main(){
+	A array [] test = new A array[10];
+	test[0] = new A();
+	test[1] = new B();
+	print test[0]+""+test[1]+"\n";
+	
+	A a = new A();
+	B b = new B(a);
+	A a2 = new A(b);
+}
+}

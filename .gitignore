@@ -8,6 +8,8 @@ runtime-plugins/**/gen-src/*
 runtime-plugins/hub.*
 runtime-plugins/**/*.html
 runtime-plugins/Examples/temp/*
+runtime-plugins/Examples/C++-Libraries/boost/
+runtime-plugins/Examples/gen-src-C++/
 dev-plugins/**/src-gen/*
 dev-plugins/**/resources/gen/*
 unversioned/
@@ -15,6 +17,7 @@ dev-plugins/DESMO-J/docs/
 dev-plugins/hub.sam.dmx/xtend-gen/
 **/xtend-gen/
 
+**/.settings/gradle.prefs
 **/.gradle
 **/build
 **/.build

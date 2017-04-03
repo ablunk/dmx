@@ -1,0 +1,94 @@
+module Test{
+
+string mod_s;
+
+
+class E {
+	int x;double y;
+}
+
+class A {}
+
+class B extends A {
+
+
+}
+
+class C extends A {
+}
+
+class D extends B,C{}
+
+string f(string x, string y){
+	return x+"ha"+"ho"+3+4+y;
+}
+
+string array[] f(string array [] test){
+	string array[] temp = new string array[test.length+1];
+	for(int i=0; i< test.length;i=i+1){
+		temp[i]=test[i];
+	}
+	temp[temp.length-1] = "SUPER";
+	return temp;
+}
+
+int main(){
+	print mod_s;
+	A a;
+	A b = new B();
+	B c = new B();
+	
+	int array [] test = new int array [1];
+	test[0] = 15;
+	string s;
+	s = f(("ha"+a+b+c),("hoho"+"neo"))+"\n";
+	string t = "hallo"+s;
+	print t;
+	double loo = 123.456;
+	
+	string array [] test2;
+	
+	
+	
+	test2 = new string array[10];
+	for (int i = 0; i < test2.length;i=i+1) test2[i]=i+test2[i]+s;
+	
+	for (int i = 0; i < test2.length;i=i+1) 
+	{
+		print "TEST: "+test2[i]+"\n"+i as double;
+		print "TEST: "+test2+"\n"; 
+		mod_s = mod_s + test2[i];
+	}
+	
+	string bux;
+	
+	
+	print "\n"+f(test2)[f(test2).length-1]+"\n";
+	
+	
+	
+	bux = 128+t;
+	print bux;
+	
+	string po = f(test2[2],t)+5+"\n";
+	print po;
+	string be = "hallo"+"hallo"+"\n";
+	string jux = test2[2];
+	print jux;
+	
+	string clo = ("la"+"le")+("luu"+"li")+2+6+((("ppeerr")));
+	
+	string goo = f((("loo"+"lee"+"laaa")+("leo"+"lap"+"15"+15)),(("loo"+"lee"+"laaa")+("leo"+"lap"+"15"+15)));
+	
+	print goo;
+	
+	print (("loo"+"lee"+"laaa")+("leo"+"lap"+"15"+15));
+	print clo;
+	
+	string xxx = "\n"+25+"\n";
+	print xxx;
+	
+	print mod_s;
+}
+	
+}

@@ -1,0 +1,263 @@
+module A{
+
+	string xo = "A";
+	string array[] te = new string array[5]; 
+	string modS;
+	double modD;
+	boolean modB;
+	
+	int f(int x){
+		C c = new C();
+		return 0;
+	}
+	
+	class A{
+		int l = 5;
+		int x = 20;
+		double n = 2.5;
+		static int o = 35;
+		int f = 10;
+		string array [] xeuo = new string array [5];
+
+		new(int x){
+			print ""+l+n;
+			print o+"\n";
+			xeuo[0] = xeuo+"\n";
+			print xeuo[0];
+		}
+		
+		new (string s){
+			print s;
+		}
+		
+		string toString(){
+			return "l = "+l+", n = "+n+", o = "+o+", f = "+f;
+		}
+	}
+	
+	class B extends A(13){
+		int x = 10; 
+		boolean y;
+		double re;
+		string f;
+		B b;
+		D d;
+		boolean t = true;
+		string s = "lu"+"la"+("lop"+(true as int)+(false as int))+(1+2+3+4+5+6)+(true and (false or t));
+		int array [] xe;
+		string array [] su;
+		C array [] lop;
+		
+		string toString(){
+			return "X = "+x+", Y = "+y+", re = "+re+", f = "+f+", s = "+s+"";
+		}
+		
+		new(int l){
+			print "Attribute: "+f+x+re+y+t+d+s+"\n";
+		}
+		
+		string f(){
+			return "Attribute: "+x+re+y+t+d+s+"\n";
+		}
+		
+		new(double y){
+		}
+	}
+	
+	class C extends B{
+		int x = 10;
+		double y = 12.9;
+		A x2;
+		B x3;
+		
+		new(A a, B b){
+			x2 = a;
+			x3 = b;
+		}
+		
+		string toString(){
+			return "X = "+x+", Y = "+y+", A ("+x2+"), B ("+x3+")";
+		}
+		
+		void l(){}
+	}
+	
+	class D extends C{
+		string p; 
+		
+		void l(){
+			print super.f();
+		}
+		
+		new(){
+		}	
+	}
+	
+	string concatenate(string x,string y){
+		return x+y;
+	}
+	
+	void func(int array [] se){
+		se[0] = 10;
+		se = null;
+	}
+	
+	void fn(C b){
+		
+	}
+	string string(){
+		return "ha";
+	}
+	
+	void createPascalTriangle(){
+		int array [][] triangle = new int array[7][];
+	
+	    for ( int row = 0; row < triangle.length; row = row + 1)
+	    {
+	      for(int i = row; i < triangle.length;i=i+1) print  " ";
+	
+	      triangle[row] = new int array[row + 1];
+	
+	      for ( int col = 0; col <= row; col= col + 1)
+	      {
+	        if ( (col == 0) or (col == row) )
+	           triangle[row][col] = 1;
+	        else
+	           triangle[row][col] = triangle[row-1][col-1] + triangle[row-1][col];
+	        print " "+ triangle[row][col] + " ";
+	      }
+		  print "\n";
+	    }
+  	}
+  	
+  	A array [][] fArray(A array [][] test){
+  		for(int i = 0; i< test.length;i=i+1){
+  			test[i] = new A array[i+1];
+  		}
+  		return test;
+  	}
+	
+	void main(){
+	
+		A array[][] nArray;
+		nArray = new A array[10][15];
+		nArray[0][0] = new B();
+		print nArray[0][0];
+		print nArray;
+		
+		fArray(nArray);
+		
+	
+		createPascalTriangle();
+		
+		print "\n"+"TEST:"+"\n"+"\n"+"\n";
+	
+	
+		string s = "hallo";
+		string boo;
+		boo = "ha";
+		
+		switch(string()){
+			case "h"+"a"+"ll"+"o": {int x; print "ha";break;}
+			case "llo": double y;print "llo"; break;
+			case "hallo": string g;print "found"; break;
+			default : print "notFound";break;
+		}
+		print "\n"+"TEST:"+"\n"+"\n"+"\n";
+		
+		switch(s){
+			case "ha": print "ha"; break;
+			case "llo": print "llo"; break;
+			case "hallo": print "found"; break;
+			default : print "notFound"; break;
+		}
+		print "\n"+"TEST:"+"\n"+"\n"+"\n";
+		
+		if(s.length == 5) print "BUADABFJBJFAB";
+		if(s.length != 5) int x;
+	
+		// dynamic arrays:
+		double array[][] dyn = new double array[5][];
+		dyn[0] = new double array[3];
+		dyn[1] = new double array[4];
+		dyn[1][1] = 3.5;
+		print dyn[1][1];
+		
+		string array[][] n = new string array[2][2];
+		A array [] as = new A array[15];
+		boolean array[] double = new boolean array[1];
+		
+		n[0][0] = "beo";
+		print n+n[0][0]+n[1][1]+as[5]+double[0]+"\n";
+		
+		string testia = "beo"+new A(23);
+		print testia;
+		
+		te[0] = "boppo";
+		int array [] se = new int array [5];
+		func(se);
+		print  "\n"+"TEST:"+se[0]+"\n";
+		
+		D d = new D();
+		A a = null;
+		print a;
+		
+		string seu = ("su"+"se") as string;
+		print seu;
+		
+		
+		B b = new B(15);
+		A x = new D();
+		print (x instanceof D)+"\n";
+		
+		D y = new D();
+		
+		fn(a as C);
+		
+		b.f();
+		C c = new C(a,b);
+		
+		A e = new B(15);
+		print e.l;
+		
+		print "\n"+"TEST:"+"\n"+"\n"+"\n";
+		print b;
+		print "\n";
+		A t = (b as A);
+		print "toString:"+b as A+"Attribut: "+t.x+"\n";
+		print a instanceof A;
+		print a instanceof B;
+		print b instanceof B;
+		print "\n"+"TEST:"+"\n"+"\n"+"\n";
+		
+		A test = new B(32);
+		print "\n"+"TEST:"+test+"\n";
+		print "\n";
+		print a+"\n"+new A();
+		print b+"\n";
+		print d+"\n";
+		print c+"\n";
+		
+		string p = "hallo";
+		string q = "hello"+(p.length+5);
+		string xeo = p;
+		print "luop"+"\n"+"loppi"+("mi"+(1+2+3));
+		p = "baxi";
+		print p+"\n";
+		print xeo+"\n";
+		xeo = q;
+		print xeo+"\n";
+		// kein plus zwischen lea und bee
+		print ("bo"+(1+3+"su"+("ss")+8)+5+"lea")+((true and false)+"lo")+"la"+(c+""+d)+"bee"+(435+"lax")+"\n";
+		
+		print ("lu"+(("lo"+"le"+!true))+"la")+c+"\n";
+		
+		print (1+2+"la")+("lo"+2+3);
+		
+		print p;	
+		print "\n";
+		print p.length+"hallo";
+		print (true and false);
+	}
+
+}

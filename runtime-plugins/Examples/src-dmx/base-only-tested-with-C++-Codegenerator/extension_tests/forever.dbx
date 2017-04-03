@@ -1,0 +1,13 @@
+#import "../../dbl"
+module forever {
+
+extension Forever extends dbl SimpleStatement {
+	start Forever;
+	Forever -> "forever" body:LocalScopeStatement;
+}
+
+semantics for Forever {
+	expand "while (true) " body;
+}
+
+}

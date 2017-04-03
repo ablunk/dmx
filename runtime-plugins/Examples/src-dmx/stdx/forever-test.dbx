@@ -7,13 +7,12 @@ active class A {
 		forever {
 			print time + "\n";
 			advance 1;
-			if (time > 3) break;
 		}
 	}
 }
 
 void main() {
-	A a = new A;
+	A a = new A();
 	activate a;
 	advance 100;
 }

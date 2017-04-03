@@ -1,0 +1,23 @@
+module PingAndPong{
+	int countMessages = 10;
+	active class PingPong{
+		string message;
+		new(string message){self.message = message;}
+		actions{
+			int t = countMessages;
+			while(t>0){
+				print message+"\n";
+				yield;
+				t = t - 1;
+			}
+		}
+	}
+	int main(){
+		PingPong ping = new PingPong("Ping!");
+		PingPong pong = new PingPong("Pong!");
+		activate ping priority 1;
+		activate pong priority 1;
+		yield;
+		return 0;
+	}
+}

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../dbl">
-    <model href="../dbl.xmi#/"/>
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
   </imports>
-  <imports file="../stdlib">
-    <model href="../stdlib.xmi#/"/>
-  </imports>
-  <modules name="stdx_forever">
+  <modules name="forever">
     <extensions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xD;&#xA;&#x9;start Forever;&#xD;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xD;&#xA;}">
-      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.32"/>
+      <extensionPoint href="../../dbl.xmi#//@modules.0/@classes.32"/>
       <syntaxDefinition concreteSyntax="{&#xD;&#xA;&#x9;start Forever;&#xD;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xD;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
@@ -16,7 +13,7 @@
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;forever&quot;" keyword="forever"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="body">
-              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.46"/>
+              <referencedClassifier href="../../dbl.xmi#//@modules.0/@classes.46"/>
             </sequence>
           </possibleSyntax>
         </symbols>

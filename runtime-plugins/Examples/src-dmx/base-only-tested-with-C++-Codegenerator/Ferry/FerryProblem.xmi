@@ -1,0 +1,682 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="forever">
+    <model href="forever.xmi#/"/>
+  </imports>
+  <modules name="FerryProblem">
+    <classes name="Process" concreteSyntax="class Process{&#xD;&#xA;&#x9;bindings{&#xD;&#xA;&#x9;&#x9;&quot;c++&quot;->&quot;simulationCore/Process&quot;,&#xD;&#xA;&#x9;&#x9;&quot;java&quot; -> &quot;hub.sam.dmx.javasim.desmoj.SimulationProcess&quot;&#xD;&#xA;&#x9;}&#xD;&#xA;}">
+      <bindings targetLanguage="c++" targetType="simulationCore/Process"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dmx.javasim.desmoj.SimulationProcess"/>
+    </classes>
+    <classes name="ProcessQueue" concreteSyntax="class ProcessQueue{&#xD;&#xA;&#x9;bindings{&#xD;&#xA;&#x9;&#x9;&quot;c++&quot; -> &quot;mappedLibraryClasses/myProcessQueue&quot;,&#xD;&#xA;&#x9;&#x9;&quot;java&quot; -> &quot;java.util.LinkedList&lt;hub.sam.dmx.javasim.desmoj.SimulationProcess>&quot;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;Process peek() abstract;&#xD;&#xA;&#x9;boolean add(Process e) abstract;&#xD;&#xA;&#x9;Process remove() abstract;&#xD;&#xA;&#x9;boolean isEmpty() abstract;&#xD;&#xA;}">
+      <bindings targetLanguage="c++" targetType="mappedLibraryClasses/myProcessQueue"/>
+      <bindings targetLanguage="java" targetType="java.util.LinkedList&lt;hub.sam.dmx.javasim.desmoj.SimulationProcess>"/>
+      <methods name="peek" abstract="true">
+        <classifierType concreteSyntax="Process" referencedElement="//@modules.0/@classes.0"/>
+      </methods>
+      <methods name="add" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <parameters name="e">
+          <classifierType concreteSyntax="Process" referencedElement="//@modules.0/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="remove" abstract="true">
+        <classifierType concreteSyntax="Process" referencedElement="//@modules.0/@classes.0"/>
+      </methods>
+      <methods name="isEmpty" abstract="true">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </methods>
+    </classes>
+    <classes name="Bin" concreteSyntax="class Bin{&#xD;&#xA;&#x9;int tokens;&#xD;&#xA;&#x9;ProcessQueue waitingProcesses = new ProcessQueue();&#xD;&#xA;&#x9;new(int t){tokens = t;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;void give(int n){&#xD;&#xA;&#x9;&#x9;tokens = tokens + n;&#xD;&#xA;&#x9;&#x9;if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;int take(int n){&#xD;&#xA;&#x9;&#x9;waitingProcesses.add(active); &#xD;&#xA;&#x9;&#x9;if((n > tokens) or (active != waitingProcesses.peek())) { &#xD;&#xA;&#x9;&#x9;&#x9;while((n > tokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;waitingProcesses.remove();&#xD;&#xA;&#x9;&#x9;if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();&#xD;&#xA;&#x9;&#x9;tokens = tokens - n;&#xD;&#xA;&#x9;&#x9;return n;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;int getTokenNumber(){return tokens;}&#xD;&#xA;}">
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="tokens = t">
+          <variable concreteSyntax="tokens">
+            <idExpr concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="t" referencedElement="//@modules.0/@classes.2/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="t">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+      <attributes name="tokens" concreteSyntax="int tokens">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="waitingProcesses" concreteSyntax="ProcessQueue waitingProcesses = new ProcessQueue()">
+        <classifierType concreteSyntax="ProcessQueue" referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ProcessQueue()">
+          <classifierType concreteSyntax="ProcessQueue()" referencedElement="//@modules.0/@classes.1">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <methods name="give">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="tokens = tokens + n">
+          <variable concreteSyntax="tokens">
+            <idExpr concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Plus" concreteSyntax="tokens + n">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.2/@methods.0/@parameters.0"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();">
+          <condition xsi:type="dbl:Not" concreteSyntax="!waitingProcesses.isEmpty()">
+            <op xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.isEmpty()" referencedElement="//@modules.0/@classes.1/@methods.3">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+              <callPart/>
+            </op>
+          </condition>
+          <trueCase xsi:type="dbl:Reactivate" concreteSyntax="reactivate waitingProcesses.peek()">
+            <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+              <callPart/>
+            </objectAccess>
+          </trueCase>
+        </statements>
+        <parameters name="n">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="take">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="waitingProcesses.add(active)">
+          <callIdExpr concreteSyntax="waitingProcesses.add(active)" referencedElement="//@modules.0/@classes.1/@methods.1">
+            <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if((n > tokens) or (active != waitingProcesses.peek())) { &#xD;&#xA;&#x9;&#x9;&#x9;while((n > tokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Or" concreteSyntax="(n > tokens) or (active != waitingProcesses.peek())">
+            <op1 xsi:type="dbl:Greater" concreteSyntax="n > tokens">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.2/@methods.1/@parameters.0"/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+            </op1>
+            <op2 xsi:type="dbl:NotEqual" concreteSyntax="active != waitingProcesses.peek()">
+              <op1 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+                <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+                <callPart/>
+              </op2>
+            </op2>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{ &#xD;&#xA;&#x9;&#x9;&#x9;while((n > tokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while((n > tokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}">
+              <condition xsi:type="dbl:Or" concreteSyntax="(n > tokens) or (active != waitingProcesses.peek())">
+                <op1 xsi:type="dbl:Greater" concreteSyntax="n > tokens">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.2/@methods.1/@parameters.0"/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+                </op1>
+                <op2 xsi:type="dbl:NotEqual" concreteSyntax="active != waitingProcesses.peek()">
+                  <op1 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+                    <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+                    <callPart/>
+                  </op2>
+                </op2>
+              </condition>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
+              </body>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="waitingProcesses.remove()">
+          <callIdExpr concreteSyntax="waitingProcesses.remove()" referencedElement="//@modules.0/@classes.1/@methods.2">
+            <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+            <callPart/>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();">
+          <condition xsi:type="dbl:Not" concreteSyntax="!waitingProcesses.isEmpty()">
+            <op xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.isEmpty()" referencedElement="//@modules.0/@classes.1/@methods.3">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+              <callPart/>
+            </op>
+          </condition>
+          <trueCase xsi:type="dbl:Reactivate" concreteSyntax="reactivate waitingProcesses.peek()">
+            <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.2/@attributes.1"/>
+              <callPart/>
+            </objectAccess>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="tokens = tokens - n">
+          <variable concreteSyntax="tokens">
+            <idExpr concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:Minus" concreteSyntax="tokens - n">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.2/@methods.1/@parameters.0"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return n">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.2/@methods.1/@parameters.0"/>
+        </statements>
+        <parameters name="n">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="getTokenNumber">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return tokens">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="tokens" referencedElement="//@modules.0/@classes.2/@attributes.0"/>
+        </statements>
+      </methods>
+    </classes>
+    <classes name="Res" concreteSyntax="class Res{&#xD;&#xA;&#x9;int capacity;&#xD;&#xA;&#x9;int currentAvailableTokens;&#xD;&#xA;&#x9;ProcessQueue waitingProcesses = new ProcessQueue();&#xD;&#xA;&#x9;new(int initialTokens, int capacity){&#xD;&#xA;&#x9;&#x9;currentAvailableTokens = initialTokens;&#xD;&#xA;&#x9;&#x9;self.capacity = capacity;&#xD;&#xA;&#x9;}&#xD;&#xA;&#xD;&#xA;&#x9;void acquire(int n){&#xD;&#xA;&#x9;&#x9;waitingProcesses.add(active); &#xD;&#xA;&#x9;&#x9;if((n > currentAvailableTokens) or (active != waitingProcesses.peek())) { &#xD;&#xA;&#x9;&#x9;&#x9;while((n > currentAvailableTokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;waitingProcesses.remove();&#xD;&#xA;&#x9;&#x9;if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();&#xD;&#xA;&#x9;&#x9;currentAvailableTokens = currentAvailableTokens - n;&#xD;&#xA;&#x9;&#x9;if(currentAvailableTokens &lt; 0) currentAvailableTokens = 0;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;void release(int n){&#xD;&#xA;&#x9;&#x9;currentAvailableTokens = currentAvailableTokens + n;&#xD;&#xA;&#x9;&#x9;if(currentAvailableTokens > capacity) print &quot;Error: Not enough capacity!&quot;;&#xD;&#xA;&#x9;&#x9;if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;int getTokenNumber(){return currentAvailableTokens;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;int getTokenLimit(){return capacity;}&#xD;&#xA;}">
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="currentAvailableTokens = initialTokens">
+          <variable concreteSyntax="currentAvailableTokens">
+            <idExpr concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="initialTokens" referencedElement="//@modules.0/@classes.3/@constructors.0/@parameters.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.capacity = capacity">
+          <variable concreteSyntax="self.capacity">
+            <idExpr concreteSyntax="self.capacity" referencedElement="//@modules.0/@classes.3/@attributes.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="capacity" referencedElement="//@modules.0/@classes.3/@constructors.0/@parameters.1"/>
+        </statements>
+        <parameters name="initialTokens">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="capacity">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+      <attributes name="capacity" concreteSyntax="int capacity">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="currentAvailableTokens" concreteSyntax="int currentAvailableTokens">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="waitingProcesses" concreteSyntax="ProcessQueue waitingProcesses = new ProcessQueue()">
+        <classifierType concreteSyntax="ProcessQueue" referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ProcessQueue()">
+          <classifierType concreteSyntax="ProcessQueue()" referencedElement="//@modules.0/@classes.1">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <methods name="acquire">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="waitingProcesses.add(active)">
+          <callIdExpr concreteSyntax="waitingProcesses.add(active)" referencedElement="//@modules.0/@classes.1/@methods.1">
+            <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+            <callPart>
+              <callArguments xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if((n > currentAvailableTokens) or (active != waitingProcesses.peek())) { &#xD;&#xA;&#x9;&#x9;&#x9;while((n > currentAvailableTokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Or" concreteSyntax="(n > currentAvailableTokens) or (active != waitingProcesses.peek())">
+            <op1 xsi:type="dbl:Greater" concreteSyntax="n > currentAvailableTokens">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.3/@methods.0/@parameters.0"/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+            </op1>
+            <op2 xsi:type="dbl:NotEqual" concreteSyntax="active != waitingProcesses.peek()">
+              <op1 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+                <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+                <callPart/>
+              </op2>
+            </op2>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{ &#xD;&#xA;&#x9;&#x9;&#x9;while((n > currentAvailableTokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while((n > currentAvailableTokens) or (active != waitingProcesses.peek())) {&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}">
+              <condition xsi:type="dbl:Or" concreteSyntax="(n > currentAvailableTokens) or (active != waitingProcesses.peek())">
+                <op1 xsi:type="dbl:Greater" concreteSyntax="n > currentAvailableTokens">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.3/@methods.0/@parameters.0"/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+                </op1>
+                <op2 xsi:type="dbl:NotEqual" concreteSyntax="active != waitingProcesses.peek()">
+                  <op1 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+                    <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+                    <callPart/>
+                  </op2>
+                </op2>
+              </condition>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;wait;&#xD;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
+              </body>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="waitingProcesses.remove()">
+          <callIdExpr concreteSyntax="waitingProcesses.remove()" referencedElement="//@modules.0/@classes.1/@methods.2">
+            <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+            <callPart/>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();">
+          <condition xsi:type="dbl:Not" concreteSyntax="!waitingProcesses.isEmpty()">
+            <op xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.isEmpty()" referencedElement="//@modules.0/@classes.1/@methods.3">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+              <callPart/>
+            </op>
+          </condition>
+          <trueCase xsi:type="dbl:Reactivate" concreteSyntax="reactivate waitingProcesses.peek()">
+            <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+              <callPart/>
+            </objectAccess>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="currentAvailableTokens = currentAvailableTokens - n">
+          <variable concreteSyntax="currentAvailableTokens">
+            <idExpr concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:Minus" concreteSyntax="currentAvailableTokens - n">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.3/@methods.0/@parameters.0"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if(currentAvailableTokens &lt; 0) currentAvailableTokens = 0;">
+          <condition xsi:type="dbl:Less" concreteSyntax="currentAvailableTokens &lt; 0">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </condition>
+          <trueCase xsi:type="dbl:Assignment" concreteSyntax="currentAvailableTokens = 0">
+            <variable concreteSyntax="currentAvailableTokens">
+              <idExpr concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+            </variable>
+            <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </trueCase>
+        </statements>
+        <parameters name="n">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="release">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="currentAvailableTokens = currentAvailableTokens + n">
+          <variable concreteSyntax="currentAvailableTokens">
+            <idExpr concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:Plus" concreteSyntax="currentAvailableTokens + n">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="n" referencedElement="//@modules.0/@classes.3/@methods.1/@parameters.0"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if(currentAvailableTokens > capacity) print &quot;Error: Not enough capacity!&quot;;">
+          <condition xsi:type="dbl:Greater" concreteSyntax="currentAvailableTokens > capacity">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="capacity" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
+          </condition>
+          <trueCase xsi:type="dbl:Print" concreteSyntax="print &quot;Error: Not enough capacity!&quot;">
+            <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Error: Not enough capacity!&quot;" value="Error: Not enough capacity!"/>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if(!waitingProcesses.isEmpty()) reactivate waitingProcesses.peek();">
+          <condition xsi:type="dbl:Not" concreteSyntax="!waitingProcesses.isEmpty()">
+            <op xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.isEmpty()" referencedElement="//@modules.0/@classes.1/@methods.3">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+              <callPart/>
+            </op>
+          </condition>
+          <trueCase xsi:type="dbl:Reactivate" concreteSyntax="reactivate waitingProcesses.peek()">
+            <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="waitingProcesses.peek()" referencedElement="//@modules.0/@classes.1/@methods.0">
+              <parentIdExpr concreteSyntax="waitingProcesses" referencedElement="//@modules.0/@classes.3/@attributes.2"/>
+              <callPart/>
+            </objectAccess>
+          </trueCase>
+        </statements>
+        <parameters name="n">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="getTokenNumber">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return currentAvailableTokens">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="currentAvailableTokens" referencedElement="//@modules.0/@classes.3/@attributes.1"/>
+        </statements>
+      </methods>
+      <methods name="getTokenLimit">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return capacity">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="capacity" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
+        </statements>
+      </methods>
+    </classes>
+    <classes name="Pier" concreteSyntax="active class Pier{&#xD;&#xA;&#x9;Bin carQueue = new Bin(0);&#xD;&#xA;&#x9;double loadTime;&#xD;&#xA;&#x9;new(double loadT){&#xD;&#xA;&#x9;&#x9;loadTime = loadT;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;int ship(){&#xD;&#xA;&#x9;&#x9;return carQueue.take(1);&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;void show(){&#xD;&#xA;&#x9;&#x9;print &quot;Pier: &quot;+self+&quot;, Anzahl Autos: &quot;+carQueue.tokens+&quot;\n&quot;;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;actions{&#xD;&#xA;&#x9;&#x9;forever{&#xD;&#xA;&#x9;&#x9;&#x9;advance(2);&#xD;&#xA;&#x9;&#x9;&#x9;carQueue.give(1);&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}" active="true">
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="loadTime = loadT">
+          <variable concreteSyntax="loadTime">
+            <idExpr concreteSyntax="loadTime" referencedElement="//@modules.0/@classes.4/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="loadT" referencedElement="//@modules.0/@classes.4/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="loadT">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+      </constructors>
+      <attributes name="carQueue" concreteSyntax="Bin carQueue = new Bin(0)">
+        <classifierType concreteSyntax="Bin" referencedElement="//@modules.0/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Bin(0)">
+          <classifierType concreteSyntax="Bin(0)" referencedElement="//@modules.0/@classes.2">
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="loadTime" concreteSyntax="double loadTime">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </attributes>
+      <methods name="ship">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return carQueue.take(1)">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="carQueue.take(1)" referencedElement="//@modules.0/@classes.2/@methods.1">
+            <parentIdExpr concreteSyntax="carQueue" referencedElement="//@modules.0/@classes.4/@attributes.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </callPart>
+          </value>
+        </statements>
+      </methods>
+      <methods name="show">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print &quot;Pier: &quot;+self+&quot;, Anzahl Autos: &quot;+carQueue.tokens+&quot;\n&quot;">
+          <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;Pier: &quot;+self+&quot;, Anzahl Autos: &quot;+carQueue.tokens+&quot;\n&quot;">
+            <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;Pier: &quot;+self+&quot;, Anzahl Autos: &quot;+carQueue.tokens">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;Pier: &quot;+self+&quot;, Anzahl Autos: &quot;">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;Pier: &quot;+self">
+                  <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Pier: &quot;" value="Pier: "/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="self">
+                    <predefinedId xsi:type="dbl:MeLiteral"/>
+                  </op2>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;, Anzahl Autos: &quot;" value=", Anzahl Autos: "/>
+              </op1>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="carQueue.tokens" referencedElement="//@modules.0/@classes.2/@attributes.0">
+                <parentIdExpr concreteSyntax="carQueue" referencedElement="//@modules.0/@classes.4/@attributes.0"/>
+              </op2>
+            </op1>
+            <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+          </outputs>
+        </statements>
+      </methods>
+      <actionsBlock>
+        <statements xsi:type="dbl:Forever_Forever_extension" concreteSyntax="forever{&#xD;&#xA;&#x9;&#x9;&#x9;advance(2);&#xD;&#xA;&#x9;&#x9;&#x9;carQueue.give(1);&#xD;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <body concreteSyntax="{&#xD;&#xA;&#x9;&#x9;&#x9;advance(2);&#xD;&#xA;&#x9;&#x9;&#x9;carQueue.give(1);&#xD;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Advance" concreteSyntax="advance(2)">
+              <time xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+            </statements>
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="carQueue.give(1)">
+              <callIdExpr concreteSyntax="carQueue.give(1)" referencedElement="//@modules.0/@classes.2/@methods.0">
+                <parentIdExpr concreteSyntax="carQueue" referencedElement="//@modules.0/@classes.4/@attributes.0"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </callPart>
+              </callIdExpr>
+            </statements>
+          </body>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <classes name="Ferry" concreteSyntax="active class Ferry{&#xD;&#xA;&#x9;Res compartment;&#xD;&#xA;&#x9;double travelTime;&#xD;&#xA;&#x9;Pier array [] piers = new Pier array[2];&#xD;&#xA;&#x9;int oneway = 0;&#xD;&#xA;&#x9;new(int capacity, double travelT, Pier src, Pier dest){&#xD;&#xA;&#x9;&#x9;compartment = new Res(capacity,capacity);&#xD;&#xA;&#x9;&#x9;travelTime = travelT;&#xD;&#xA;&#x9;&#x9;piers[0] = src;&#xD;&#xA;&#x9;&#x9;piers[1] = dest;&#xD;&#xA;&#x9;}&#xD;&#xA;&#x9;&#xD;&#xA;&#x9;actions{&#xD;&#xA;&#x9;&#x9;Pier p = piers[0];&#xD;&#xA;&#x9;&#x9;forever{&#xD;&#xA;&#x9;&#x9;&#x9;while(compartment.getTokenNumber() &lt; compartment.getTokenLimit()){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;compartment.release(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;while (compartment.getTokenNumber() > 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if(p.ship() != 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;compartment.acquire(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;advance travelTime;&#xD;&#xA;&#x9;&#x9;&#x9;if (p == piers[0]) p = piers[1];&#xD;&#xA;&#x9;&#x9;&#x9;else p = piers[0];&#xD;&#xA;&#x9;&#x9;&#x9;oneway = oneway + 1;&#xD;&#xA;&#x9;&#x9;}&#xD;&#xA;&#x9;}&#xD;&#xA;}" active="true">
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="compartment = new Res(capacity,capacity)">
+          <variable concreteSyntax="compartment">
+            <idExpr concreteSyntax="compartment" referencedElement="//@modules.0/@classes.5/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:CreateObject" concreteSyntax="new Res(capacity,capacity)">
+            <classifierType concreteSyntax="Res(capacity,capacity)" referencedElement="//@modules.0/@classes.3">
+              <callPart>
+                <callArguments xsi:type="dbl:IdExpr" concreteSyntax="capacity" referencedElement="//@modules.0/@classes.5/@constructors.0/@parameters.0"/>
+                <callArguments xsi:type="dbl:IdExpr" concreteSyntax="capacity" referencedElement="//@modules.0/@classes.5/@constructors.0/@parameters.0"/>
+              </callPart>
+            </classifierType>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="travelTime = travelT">
+          <variable concreteSyntax="travelTime">
+            <idExpr concreteSyntax="travelTime" referencedElement="//@modules.0/@classes.5/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="travelT" referencedElement="//@modules.0/@classes.5/@constructors.0/@parameters.1"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="piers[0] = src">
+          <variable concreteSyntax="piers[0]">
+            <idExpr concreteSyntax="piers[0]" referencedElement="//@modules.0/@classes.5/@attributes.2">
+              <arrayIndex xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="src" referencedElement="//@modules.0/@classes.5/@constructors.0/@parameters.2"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="piers[1] = dest">
+          <variable concreteSyntax="piers[1]">
+            <idExpr concreteSyntax="piers[1]" referencedElement="//@modules.0/@classes.5/@attributes.2">
+              <arrayIndex xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="dest" referencedElement="//@modules.0/@classes.5/@constructors.0/@parameters.3"/>
+        </statements>
+        <parameters name="capacity">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="travelT">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+        <parameters name="src">
+          <classifierType concreteSyntax="Pier" referencedElement="//@modules.0/@classes.4"/>
+        </parameters>
+        <parameters name="dest">
+          <classifierType concreteSyntax="Pier" referencedElement="//@modules.0/@classes.4"/>
+        </parameters>
+      </constructors>
+      <attributes name="compartment" concreteSyntax="Res compartment">
+        <classifierType concreteSyntax="Res" referencedElement="//@modules.0/@classes.3"/>
+      </attributes>
+      <attributes name="travelTime" concreteSyntax="double travelTime">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </attributes>
+      <attributes name="piers" concreteSyntax="Pier array [] piers = new Pier array[2]">
+        <typeArrayDimensions/>
+        <classifierType concreteSyntax="Pier" referencedElement="//@modules.0/@classes.4"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Pier array[2]">
+          <typeArrayDimensions>
+            <size xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+          </typeArrayDimensions>
+          <classifierType concreteSyntax="Pier" referencedElement="//@modules.0/@classes.4"/>
+        </initialValue>
+      </attributes>
+      <attributes name="oneway" concreteSyntax="int oneway = 0">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Variable" name="p" concreteSyntax="Pier p = piers[0]">
+          <classifierType concreteSyntax="Pier" referencedElement="//@modules.0/@classes.4"/>
+          <initialValue xsi:type="dbl:IdExpr" concreteSyntax="piers[0]" referencedElement="//@modules.0/@classes.5/@attributes.2">
+            <arrayIndex xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Forever_Forever_extension" concreteSyntax="forever{&#xD;&#xA;&#x9;&#x9;&#x9;while(compartment.getTokenNumber() &lt; compartment.getTokenLimit()){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;compartment.release(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;while (compartment.getTokenNumber() > 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if(p.ship() != 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;compartment.acquire(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;advance travelTime;&#xD;&#xA;&#x9;&#x9;&#x9;if (p == piers[0]) p = piers[1];&#xD;&#xA;&#x9;&#x9;&#x9;else p = piers[0];&#xD;&#xA;&#x9;&#x9;&#x9;oneway = oneway + 1;&#xD;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <body concreteSyntax="{&#xD;&#xA;&#x9;&#x9;&#x9;while(compartment.getTokenNumber() &lt; compartment.getTokenLimit()){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;compartment.release(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;while (compartment.getTokenNumber() > 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if(p.ship() != 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;compartment.acquire(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;&#xD;&#xA;&#x9;&#x9;&#x9;advance travelTime;&#xD;&#xA;&#x9;&#x9;&#x9;if (p == piers[0]) p = piers[1];&#xD;&#xA;&#x9;&#x9;&#x9;else p = piers[0];&#xD;&#xA;&#x9;&#x9;&#x9;oneway = oneway + 1;&#xD;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while(compartment.getTokenNumber() &lt; compartment.getTokenLimit()){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;compartment.release(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;}">
+              <condition xsi:type="dbl:Less" concreteSyntax="compartment.getTokenNumber() &lt; compartment.getTokenLimit()">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="compartment.getTokenNumber()" referencedElement="//@modules.0/@classes.3/@methods.2">
+                  <parentIdExpr concreteSyntax="compartment" referencedElement="//@modules.0/@classes.5/@attributes.0"/>
+                  <callPart/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="compartment.getTokenLimit()" referencedElement="//@modules.0/@classes.3/@methods.3">
+                  <parentIdExpr concreteSyntax="compartment" referencedElement="//@modules.0/@classes.5/@attributes.0"/>
+                  <callPart/>
+                </op2>
+              </condition>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;compartment.release(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:FunctionCall" concreteSyntax="compartment.release(1)">
+                  <callIdExpr concreteSyntax="compartment.release(1)" referencedElement="//@modules.0/@classes.3/@methods.1">
+                    <parentIdExpr concreteSyntax="compartment" referencedElement="//@modules.0/@classes.5/@attributes.0"/>
+                    <callPart>
+                      <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+                <statements xsi:type="dbl:Advance" concreteSyntax="advance(p.loadTime)">
+                  <time xsi:type="dbl:IdExpr" concreteSyntax="p.loadTime" referencedElement="//@modules.0/@classes.4/@attributes.1">
+                    <parentIdExpr concreteSyntax="p" referencedElement="//@modules.0/@classes.5/@actionsBlock/@statements.0"/>
+                  </time>
+                </statements>
+              </body>
+            </statements>
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (compartment.getTokenNumber() > 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if(p.ship() != 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;compartment.acquire(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}">
+              <condition xsi:type="dbl:Greater" concreteSyntax="compartment.getTokenNumber() > 0">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="compartment.getTokenNumber()" referencedElement="//@modules.0/@classes.3/@methods.2">
+                  <parentIdExpr concreteSyntax="compartment" referencedElement="//@modules.0/@classes.5/@attributes.0"/>
+                  <callPart/>
+                </op1>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+              </condition>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;if(p.ship() != 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;compartment.acquire(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xD;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:IfStatement" concreteSyntax="if(p.ship() != 0){&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;compartment.acquire(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                  <condition xsi:type="dbl:NotEqual" concreteSyntax="p.ship() != 0">
+                    <op1 xsi:type="dbl:IdExpr" concreteSyntax="p.ship()" referencedElement="//@modules.0/@classes.4/@methods.0">
+                      <parentIdExpr concreteSyntax="p" referencedElement="//@modules.0/@classes.5/@actionsBlock/@statements.0"/>
+                      <callPart/>
+                    </op1>
+                    <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                  </condition>
+                  <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;compartment.acquire(1);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;advance(p.loadTime);&#xD;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                    <statements xsi:type="dbl:FunctionCall" concreteSyntax="compartment.acquire(1)">
+                      <callIdExpr concreteSyntax="compartment.acquire(1)" referencedElement="//@modules.0/@classes.3/@methods.0">
+                        <parentIdExpr concreteSyntax="compartment" referencedElement="//@modules.0/@classes.5/@attributes.0"/>
+                        <callPart>
+                          <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                        </callPart>
+                      </callIdExpr>
+                    </statements>
+                    <statements xsi:type="dbl:Advance" concreteSyntax="advance(p.loadTime)">
+                      <time xsi:type="dbl:IdExpr" concreteSyntax="p.loadTime" referencedElement="//@modules.0/@classes.4/@attributes.1">
+                        <parentIdExpr concreteSyntax="p" referencedElement="//@modules.0/@classes.5/@actionsBlock/@statements.0"/>
+                      </time>
+                    </statements>
+                  </trueCase>
+                </statements>
+              </body>
+            </statements>
+            <statements xsi:type="dbl:Advance" concreteSyntax="advance travelTime">
+              <time xsi:type="dbl:IdExpr" concreteSyntax="travelTime" referencedElement="//@modules.0/@classes.5/@attributes.1"/>
+            </statements>
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (p == piers[0]) p = piers[1];&#xD;&#xA;&#x9;&#x9;&#x9;else p = piers[0];">
+              <condition xsi:type="dbl:Equal" concreteSyntax="p == piers[0]">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="p" referencedElement="//@modules.0/@classes.5/@actionsBlock/@statements.0"/>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="piers[0]" referencedElement="//@modules.0/@classes.5/@attributes.2">
+                  <arrayIndex xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                </op2>
+              </condition>
+              <trueCase xsi:type="dbl:Assignment" concreteSyntax="p = piers[1]">
+                <variable concreteSyntax="p">
+                  <idExpr concreteSyntax="p" referencedElement="//@modules.0/@classes.5/@actionsBlock/@statements.0"/>
+                </variable>
+                <value xsi:type="dbl:IdExpr" concreteSyntax="piers[1]" referencedElement="//@modules.0/@classes.5/@attributes.2">
+                  <arrayIndex xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </value>
+              </trueCase>
+              <falseCase xsi:type="dbl:Assignment" concreteSyntax="p = piers[0]">
+                <variable concreteSyntax="p">
+                  <idExpr concreteSyntax="p" referencedElement="//@modules.0/@classes.5/@actionsBlock/@statements.0"/>
+                </variable>
+                <value xsi:type="dbl:IdExpr" concreteSyntax="piers[0]" referencedElement="//@modules.0/@classes.5/@attributes.2">
+                  <arrayIndex xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                </value>
+              </falseCase>
+            </statements>
+            <statements xsi:type="dbl:Assignment" concreteSyntax="oneway = oneway + 1">
+              <variable concreteSyntax="oneway">
+                <idExpr concreteSyntax="oneway" referencedElement="//@modules.0/@classes.5/@attributes.3"/>
+              </variable>
+              <value xsi:type="dbl:Plus" concreteSyntax="oneway + 1">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="oneway" referencedElement="//@modules.0/@classes.5/@attributes.3"/>
+                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+              </value>
+            </statements>
+          </body>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="p1" concreteSyntax="Pier p1 = new Pier(0.5)">
+        <classifierType concreteSyntax="Pier" referencedElement="//@modules.0/@classes.4"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Pier(0.5)">
+          <classifierType concreteSyntax="Pier(0.5)" referencedElement="//@modules.0/@classes.4">
+            <callPart>
+              <callArguments xsi:type="dbl:DoubleLiteral" concreteSyntax="0.5" value="0.5"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="p2" concreteSyntax="Pier p2 = new Pier(0.5)">
+        <classifierType concreteSyntax="Pier" referencedElement="//@modules.0/@classes.4"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Pier(0.5)">
+          <classifierType concreteSyntax="Pier(0.5)" referencedElement="//@modules.0/@classes.4">
+            <callPart>
+              <callArguments xsi:type="dbl:DoubleLiteral" concreteSyntax="0.5" value="0.5"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="f" concreteSyntax="Ferry f = new Ferry(2, 7.5, p1, p2)">
+        <classifierType concreteSyntax="Ferry" referencedElement="//@modules.0/@classes.5"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Ferry(2, 7.5, p1, p2)">
+          <classifierType concreteSyntax="Ferry(2, 7.5, p1, p2)" referencedElement="//@modules.0/@classes.5">
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+              <callArguments xsi:type="dbl:DoubleLiteral" concreteSyntax="7.5" value="7.5"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="p1" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="p2" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate f priority 1" priority="1">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="f" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate p2 priority 1" priority="1">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="p2" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate p1 priority 1" priority="1">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="p1" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 100000">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="100000" value="100000"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="p1.show()">
+        <callIdExpr concreteSyntax="p1.show()" referencedElement="//@modules.0/@classes.4/@methods.1">
+          <parentIdExpr concreteSyntax="p1" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          <callPart/>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="p2.show()">
+        <callIdExpr concreteSyntax="p2.show()" referencedElement="//@modules.0/@classes.4/@methods.1">
+          <parentIdExpr concreteSyntax="p2" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+          <callPart/>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;Touren: &quot;+(f.oneway/2)+&quot;\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;Touren: &quot;+(f.oneway/2)+&quot;\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;Touren: &quot;+(f.oneway/2)">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Touren: &quot;" value="Touren: "/>
+            <op2 xsi:type="dbl:Div" concreteSyntax="f.oneway/2">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="f.oneway" referencedElement="//@modules.0/@classes.5/@attributes.3">
+                <parentIdExpr concreteSyntax="f" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+              </op1>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+            </op2>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+        </outputs>
+      </statements>
+    </functions>
+  </modules>
+</dbl:Model>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <modules name="formel1">
+    <classes name="RacingCar" active="true">
+      <constructors>
+        <statements xsi:type="dbl:Variable" name="result">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:Mul">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@constructors.0/@parameters.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="5"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@constructors.0/@statements.0"/>
+        </statements>
+        <parameters name="prio">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="label">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+      <attributes name="p">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.1"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:LessEqual">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="5"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Print">
+              <outputs xsi:type="dbl:StringLiteral" value="Modellzeit: "/>
+              <outputs xsi:type="dbl:TimeLiteral"/>
+            </statements>
+            <statements xsi:type="dbl:Advance">
+              <time xsi:type="dbl:IntLiteral" value="1"/>
+            </statements>
+          </body>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <classes name="Super" active="true">
+      <constructors>
+        <statements xsi:type="dbl:Variable" name="result2">
+          <primitiveType xsi:type="dbl:IntType"/>
+          <initialValue xsi:type="dbl:Mul">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@constructors.0/@parameters.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="5"/>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@constructors.0/@statements.0"/>
+        </statements>
+        <parameters name="prio2">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="label2">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+      <attributes name="p2">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.2"/>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:WhileStatement">
+          <condition xsi:type="dbl:LessEqual">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+            <op2 xsi:type="dbl:IntLiteral" value="5"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Print">
+              <outputs xsi:type="dbl:StringLiteral" value="Modellzeit: "/>
+              <outputs xsi:type="dbl:TimeLiteral"/>
+            </statements>
+            <statements xsi:type="dbl:Advance">
+              <time xsi:type="dbl:IntLiteral" value="1"/>
+            </statements>
+            <statements xsi:type="dbl:Assignment">
+              <variable>
+                <idExpr referencedElement="//@modules.0/@variables.0"/>
+              </variable>
+              <value xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@variables.0"/>
+                <op2 xsi:type="dbl:IntLiteral" value="1"/>
+              </value>
+            </statements>
+          </body>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="car1">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.0">
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" value="1"/>
+              <callArguments xsi:type="dbl:StringLiteral" value="RacingCar"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="car2">
+        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@modules.0/@classes.1">
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" value="1"/>
+              <callArguments xsi:type="dbl:StringLiteral" value="RacingCar2"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject">
+        <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:Advance">
+        <time xsi:type="dbl:IntLiteral" value="8"/>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:StringLiteral" value="Modellzeit: "/>
+        <outputs xsi:type="dbl:TimeLiteral"/>
+      </statements>
+    </functions>
+    <variables name="counter">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral"/>
+    </variables>
+    <variables name="prio">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="1"/>
+    </variables>
+    <variables name="prio2">
+      <primitiveType xsi:type="dbl:IntType"/>
+      <initialValue xsi:type="dbl:IntLiteral" value="1"/>
+    </variables>
+  </modules>
+</dbl:Model>

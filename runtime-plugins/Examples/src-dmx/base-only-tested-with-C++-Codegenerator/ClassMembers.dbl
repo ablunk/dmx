@@ -1,0 +1,31 @@
+module m{
+
+class A {
+	B b;
+	C c;
+	new(){
+		{
+			b = new B(15,self);
+			print b;
+		}
+	}
+}
+class B{
+	A a;
+	C c;
+	int id;
+	new(int x, A a){ id = x; self.a = a;}
+}
+class C{
+	B b;
+	A a;
+}
+
+void main(){
+	A a = new A();
+	int x = 5;
+	int y = 10;
+	int z= 15;
+	print x+y+z;
+}
+}
