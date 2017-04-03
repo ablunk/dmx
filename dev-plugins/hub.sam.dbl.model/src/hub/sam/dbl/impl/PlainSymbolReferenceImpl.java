@@ -22,12 +22,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.PlainSymbolReferenceImpl#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.PlainSymbolReferenceImpl#getOwnedClassifier <em>Owned Classifier</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.PlainSymbolReferenceImpl#getReferencedClassifier <em>Referenced Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

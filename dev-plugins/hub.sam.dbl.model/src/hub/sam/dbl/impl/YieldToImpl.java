@@ -2,9 +2,9 @@
  */
 package hub.sam.dbl.impl;
 
-import hub.sam.dbl.ActivateObject;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
+import hub.sam.dbl.YieldTo;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -16,19 +16,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Activate Object</b></em>'.
+ * An implementation of the model object '<em><b>Yield To</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link hub.sam.dbl.impl.ActivateObjectImpl#getObjectAccess <em>Object Access</em>}</li>
- *   <li>{@link hub.sam.dbl.impl.ActivateObjectImpl#getPriority <em>Priority</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.YieldToImpl#getObjectAccess <em>Object Access</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateObject {
+public class YieldToImpl extends SimpleStatementImpl implements YieldTo {
 	/**
 	 * The cached value of the '{@link #getObjectAccess() <em>Object Access</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -40,31 +39,11 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 	protected Expression objectAccess;
 
 	/**
-	 * The default value of the '{@link #getPriority() <em>Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final int PRIORITY_EDEFAULT = 0;
-
-	/**
-	 * The cached value of the '{@link #getPriority() <em>Priority</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPriority()
-	 * @generated
-	 * @ordered
-	 */
-	protected int priority = PRIORITY_EDEFAULT;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ActivateObjectImpl() {
+	protected YieldToImpl() {
 		super();
 	}
 
@@ -75,7 +54,7 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return DblPackage.Literals.ACTIVATE_OBJECT;
+		return DblPackage.Literals.YIELD_TO;
 	}
 
 	/**
@@ -96,7 +75,7 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 		Expression oldObjectAccess = objectAccess;
 		objectAccess = newObjectAccess;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS, oldObjectAccess, newObjectAccess);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DblPackage.YIELD_TO__OBJECT_ACCESS, oldObjectAccess, newObjectAccess);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
 		return msgs;
@@ -111,35 +90,14 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 		if (newObjectAccess != objectAccess) {
 			NotificationChain msgs = null;
 			if (objectAccess != null)
-				msgs = ((InternalEObject)objectAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS, null, msgs);
+				msgs = ((InternalEObject)objectAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DblPackage.YIELD_TO__OBJECT_ACCESS, null, msgs);
 			if (newObjectAccess != null)
-				msgs = ((InternalEObject)newObjectAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS, null, msgs);
+				msgs = ((InternalEObject)newObjectAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DblPackage.YIELD_TO__OBJECT_ACCESS, null, msgs);
 			msgs = basicSetObjectAccess(newObjectAccess, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
 		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS, newObjectAccess, newObjectAccess));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public int getPriority() {
-		return priority;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPriority(int newPriority) {
-		int oldPriority = priority;
-		priority = newPriority;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.ACTIVATE_OBJECT__PRIORITY, oldPriority, priority));
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.YIELD_TO__OBJECT_ACCESS, newObjectAccess, newObjectAccess));
 	}
 
 	/**
@@ -150,7 +108,7 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS:
+			case DblPackage.YIELD_TO__OBJECT_ACCESS:
 				return basicSetObjectAccess(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -164,10 +122,8 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS:
+			case DblPackage.YIELD_TO__OBJECT_ACCESS:
 				return getObjectAccess();
-			case DblPackage.ACTIVATE_OBJECT__PRIORITY:
-				return getPriority();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -180,11 +136,8 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS:
+			case DblPackage.YIELD_TO__OBJECT_ACCESS:
 				setObjectAccess((Expression)newValue);
-				return;
-			case DblPackage.ACTIVATE_OBJECT__PRIORITY:
-				setPriority((Integer)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -198,11 +151,8 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS:
+			case DblPackage.YIELD_TO__OBJECT_ACCESS:
 				setObjectAccess((Expression)null);
-				return;
-			case DblPackage.ACTIVATE_OBJECT__PRIORITY:
-				setPriority(PRIORITY_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -216,28 +166,10 @@ public class ActivateObjectImpl extends SimpleStatementImpl implements ActivateO
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case DblPackage.ACTIVATE_OBJECT__OBJECT_ACCESS:
+			case DblPackage.YIELD_TO__OBJECT_ACCESS:
 				return objectAccess != null;
-			case DblPackage.ACTIVATE_OBJECT__PRIORITY:
-				return priority != PRIORITY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (priority: ");
-		result.append(priority);
-		result.append(')');
-		return result.toString();
-	}
-
-} //ActivateObjectImpl
+} //YieldToImpl

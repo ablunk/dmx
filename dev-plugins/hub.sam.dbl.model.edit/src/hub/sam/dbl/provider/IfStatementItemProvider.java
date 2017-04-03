@@ -418,6 +418,11 @@ public class IfStatementItemProvider extends StatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
+				 DblFactory.eINSTANCE.createYieldTo()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__TRUE_CASE,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add
@@ -549,6 +554,11 @@ public class IfStatementItemProvider extends StatementItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
 				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.IF_STATEMENT__FALSE_CASE,
+				 DblFactory.eINSTANCE.createYieldTo()));
 
 		newChildDescriptors.add
 			(createChildParameter

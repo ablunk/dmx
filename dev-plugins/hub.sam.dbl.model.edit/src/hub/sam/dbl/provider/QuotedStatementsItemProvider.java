@@ -186,6 +186,11 @@ public class QuotedStatementsItemProvider extends QuotedCodeItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
+				 DblFactory.eINSTANCE.createYieldTo()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.QUOTED_STATEMENTS__STATEMENTS,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add

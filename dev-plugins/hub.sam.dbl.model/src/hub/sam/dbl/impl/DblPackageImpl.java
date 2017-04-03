@@ -145,6 +145,7 @@ import hub.sam.dbl.Wait;
 import hub.sam.dbl.WaitUntil;
 import hub.sam.dbl.WhileStatement;
 import hub.sam.dbl.Yield;
+import hub.sam.dbl.YieldTo;
 import static hub.sam.dbl.DblPackage.CLASS;
 import hub.sam.dbl.*;
 
@@ -433,6 +434,13 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * @generated
 	 */
 	private EClass yieldEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass yieldToEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -1644,6 +1652,15 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getFunction_Detached() {
+		return (EAttribute)functionEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getNativeBinding() {
 		return nativeBindingEClass;
 	}
@@ -1988,6 +2005,24 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 	 */
 	public EClass getYield() {
 		return yieldEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getYieldTo() {
+		return yieldToEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getYieldTo_ObjectAccess() {
+		return (EReference)yieldToEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -3634,6 +3669,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		createEReference(functionEClass, FUNCTION__PARAMETERS);
 		createEAttribute(functionEClass, FUNCTION__CLASS);
 		createEAttribute(functionEClass, FUNCTION__ABSTRACT);
+		createEAttribute(functionEClass, FUNCTION__DETACHED);
 
 		nativeBindingEClass = createEClass(NATIVE_BINDING);
 		createEAttribute(nativeBindingEClass, NATIVE_BINDING__TARGET_LANGUAGE);
@@ -3690,6 +3726,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		terminateEClass = createEClass(TERMINATE);
 
 		yieldEClass = createEClass(YIELD);
+
+		yieldToEClass = createEClass(YIELD_TO);
+		createEReference(yieldToEClass, YIELD_TO__OBJECT_ACCESS);
 
 		waitEClass = createEClass(WAIT);
 
@@ -4036,6 +4075,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		waitUntilEClass.getESuperTypes().add(this.getSimpleStatement());
 		terminateEClass.getESuperTypes().add(this.getSimpleStatement());
 		yieldEClass.getESuperTypes().add(this.getSimpleStatement());
+		yieldToEClass.getESuperTypes().add(this.getSimpleStatement());
 		waitEClass.getESuperTypes().add(this.getSimpleStatement());
 		reactivateEClass.getESuperTypes().add(this.getSimpleStatement());
 		activateObjectEClass.getESuperTypes().add(this.getSimpleStatement());
@@ -4232,6 +4272,7 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEReference(getFunction_Parameters(), this.getParameter(), null, "parameters", null, 0, -1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFunction_Class(), ecorePackage.getEBoolean(), "class", "false", 1, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getFunction_Abstract(), ecorePackage.getEBoolean(), "abstract", "false", 1, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getFunction_Detached(), ecorePackage.getEBoolean(), "detached", "false", 1, 1, Function.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(nativeBindingEClass, NativeBinding.class, "NativeBinding", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getNativeBinding_TargetLanguage(), ecorePackage.getEString(), "targetLanguage", null, 1, 1, NativeBinding.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -4288,6 +4329,9 @@ public class DblPackageImpl extends EPackageImpl implements DblPackage {
 		initEClass(terminateEClass, Terminate.class, "Terminate", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(yieldEClass, Yield.class, "Yield", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(yieldToEClass, YieldTo.class, "YieldTo", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getYieldTo_ObjectAccess(), this.getExpression(), null, "objectAccess", null, 1, 1, YieldTo.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(waitEClass, Wait.class, "Wait", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

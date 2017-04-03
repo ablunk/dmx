@@ -144,6 +144,7 @@ import hub.sam.dbl.Wait;
 import hub.sam.dbl.WaitUntil;
 import hub.sam.dbl.WhileStatement;
 import hub.sam.dbl.Yield;
+import hub.sam.dbl.YieldTo;
 import hub.sam.dbl.*;
 
 import org.eclipse.emf.ecore.EObject;
@@ -188,7 +189,7 @@ public class DblSwitch<T> extends Switch<T> {
 	 * Checks whether this is a switch for the given package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @parameter ePackage the package in question.
+	 * @param ePackage the package in question.
 	 * @return whether this is a switch for the given package.
 	 * @generated
 	 */
@@ -544,6 +545,18 @@ public class DblSwitch<T> extends Switch<T> {
 				if (result == null) result = caseAnnotateableElement(yield);
 				if (result == null) result = caseNamedElement(yield);
 				if (result == null) result = caseConstruct(yield);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DblPackage.YIELD_TO: {
+				YieldTo yieldTo = (YieldTo)theEObject;
+				T result = caseYieldTo(yieldTo);
+				if (result == null) result = caseSimpleStatement(yieldTo);
+				if (result == null) result = caseStatement(yieldTo);
+				if (result == null) result = caseExtensibleElement(yieldTo);
+				if (result == null) result = caseAnnotateableElement(yieldTo);
+				if (result == null) result = caseNamedElement(yieldTo);
+				if (result == null) result = caseConstruct(yieldTo);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -2236,6 +2249,21 @@ public class DblSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseYield(Yield object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Yield To</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Yield To</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseYieldTo(YieldTo object) {
 		return null;
 	}
 

@@ -25,13 +25,13 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.MetaSymbolImpl#getExpandExpr <em>Expand Expr</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.MetaSymbolImpl#getConcreteSyntax <em>Concrete Syntax</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.MetaSymbolImpl#isInstanceOfExtensionDefinition <em>Instance Of Extension Definition</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.MetaSymbolImpl#getPossibleSyntax <em>Possible Syntax</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getArrayDimensions <em>Array Dimensions</em>}</li>
@@ -62,7 +63,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getMethods <em>Methods</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedClassContentImpl#getActionsBlock <em>Actions Block</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

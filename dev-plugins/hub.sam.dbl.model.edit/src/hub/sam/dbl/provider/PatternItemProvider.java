@@ -224,6 +224,11 @@ public class PatternItemProvider extends NamedElementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.PATTERN__BODY,
+				 DblFactory.eINSTANCE.createYieldTo()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.PATTERN__BODY,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add

@@ -139,6 +139,7 @@ import hub.sam.dbl.Wait;
 import hub.sam.dbl.WaitUntil;
 import hub.sam.dbl.WhileStatement;
 import hub.sam.dbl.Yield;
+import hub.sam.dbl.YieldTo;
 import hub.sam.dbl.*;
 import hub.sam.dbl.util.DblUtil;
 
@@ -322,6 +323,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.COMPLEX_SYMBOL: return createComplexSymbol();
 			case DblPackage.ANNOTATION_LITERAL: return createAnnotationLiteral();
 			case DblPackage.CREATE_ID_STATEMENT: return createCreateIdStatement();
+			case DblPackage.YIELD_TO: return createYieldTo();
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);
@@ -656,6 +658,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Yield createYield() {
 		YieldImpl yield = new YieldImpl();
 		return yield;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public YieldTo createYieldTo() {
+		YieldToImpl yieldTo = new YieldToImpl();
+		return yieldTo;
 	}
 
 	/**

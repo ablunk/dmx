@@ -28,12 +28,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.SwitchStatementImpl#getVariable <em>Variable</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.SwitchStatementImpl#getCases <em>Cases</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.SwitchStatementImpl#getDefaultCase <em>Default Case</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

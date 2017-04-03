@@ -10,13 +10,13 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.StructuralSymbolReference#isList <em>List</em>}</li>
  *   <li>{@link hub.sam.dbl.StructuralSymbolReference#isComposite <em>Composite</em>}</li>
  *   <li>{@link hub.sam.dbl.StructuralSymbolReference#isLocalScopedReference <em>Local Scoped Reference</em>}</li>
  *   <li>{@link hub.sam.dbl.StructuralSymbolReference#isGlobalScopedReference <em>Global Scoped Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getStructuralSymbolReference()
  * @model

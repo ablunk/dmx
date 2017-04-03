@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.ExtensionImpl#getExtensionPoint <em>Extension Point</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.ExtensionImpl#getSyntaxDefinition <em>Syntax Definition</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

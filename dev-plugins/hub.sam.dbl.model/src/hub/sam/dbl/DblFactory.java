@@ -328,6 +328,15 @@ public interface DblFactory extends EFactory {
 	Yield createYield();
 
 	/**
+	 * Returns a new object of class '<em>Yield To</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Yield To</em>'.
+	 * @generated
+	 */
+	YieldTo createYieldTo();
+
+	/**
 	 * Returns a new object of class '<em>Wait</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

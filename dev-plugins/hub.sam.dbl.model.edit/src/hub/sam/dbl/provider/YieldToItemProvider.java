@@ -5,7 +5,7 @@ package hub.sam.dbl.provider;
 
 import hub.sam.dbl.DblFactory;
 import hub.sam.dbl.DblPackage;
-import hub.sam.dbl.WhileStatement;
+import hub.sam.dbl.YieldTo;
 
 import java.util.Collection;
 import java.util.List;
@@ -19,19 +19,19 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link hub.sam.dbl.WhileStatement} object.
+ * This is the item provider adapter for a {@link hub.sam.dbl.YieldTo} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class WhileStatementItemProvider extends LoopStatementItemProvider {
+public class YieldToItemProvider extends SimpleStatementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public WhileStatementItemProvider(AdapterFactory adapterFactory) {
+	public YieldToItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -62,8 +62,7 @@ public class WhileStatementItemProvider extends LoopStatementItemProvider {
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(DblPackage.Literals.WHILE_STATEMENT__CONDITION);
-			childrenFeatures.add(DblPackage.Literals.WHILE_STATEMENT__BODY);
+			childrenFeatures.add(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS);
 		}
 		return childrenFeatures;
 	}
@@ -82,14 +81,14 @@ public class WhileStatementItemProvider extends LoopStatementItemProvider {
 	}
 
 	/**
-	 * This returns WhileStatement.gif.
+	 * This returns YieldTo.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/WhileStatement"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/YieldTo"));
 	}
 
 	/**
@@ -100,10 +99,10 @@ public class WhileStatementItemProvider extends LoopStatementItemProvider {
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((WhileStatement)object).getName();
+		String label = ((YieldTo)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_WhileStatement_type") :
-			getString("_UI_WhileStatement_type") + " " + label;
+			getString("_UI_YieldTo_type") :
+			getString("_UI_YieldTo_type") + " " + label;
 	}
 	
 
@@ -118,9 +117,8 @@ public class WhileStatementItemProvider extends LoopStatementItemProvider {
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(WhileStatement.class)) {
-			case DblPackage.WHILE_STATEMENT__CONDITION:
-			case DblPackage.WHILE_STATEMENT__BODY:
+		switch (notification.getFeatureID(YieldTo.class)) {
+			case DblPackage.YIELD_TO__OBJECT_ACCESS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -140,368 +138,228 @@ public class WhileStatementItemProvider extends LoopStatementItemProvider {
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createExpression()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL1Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL2Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL3Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL4Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL5Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL6Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL7Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL8Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createL9Expr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createOr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createAnd()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createNotEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createGreater()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createGreaterEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createLess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createLessEqual()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createInstanceOf()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createPlus()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createMinus()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createMul()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createMod()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createDiv()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createNeg()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createNot()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createCast()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createCreateObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createNullLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createTimeLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createActiveLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createStringLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createIntLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createTrueLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createFalseLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createDoubleLiteral()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createExpandExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createParseExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createIdExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createVariableAccess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createMetaAccess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createTypeAccess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createMetaExpr()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createExpandExpression()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__CONDITION,
+				(DblPackage.Literals.YIELD_TO__OBJECT_ACCESS,
 				 DblFactory.eINSTANCE.createCodeQuoteExpression()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createVariable()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createLoopStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createSimpleStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createAssignment()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createFunctionCall()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createReturn()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createWaitUntil()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createTerminate()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createYield()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createYieldTo()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createWait()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createReactivate()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createActivateObject()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createAdvance()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createPrint()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createIfStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createLocalScopeStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createForStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createWhileStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createSwitchStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createBreakStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createContinueStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createTargetStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createCreateIdStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createExpansionStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createExpandStatement()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(DblPackage.Literals.WHILE_STATEMENT__BODY,
-				 DblFactory.eINSTANCE.createTestStatement()));
 	}
 
 	/**
@@ -517,7 +375,7 @@ public class WhileStatementItemProvider extends LoopStatementItemProvider {
 
 		boolean qualify =
 			childFeature == DblPackage.Literals.CONSTRUCT__EXPAND_EXPR ||
-			childFeature == DblPackage.Literals.WHILE_STATEMENT__CONDITION;
+			childFeature == DblPackage.Literals.YIELD_TO__OBJECT_ACCESS;
 
 		if (qualify) {
 			return getString

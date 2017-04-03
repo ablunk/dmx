@@ -50,6 +50,7 @@ public class FunctionItemProvider extends NamedElementItemProvider {
 
 			addClassPropertyDescriptor(object);
 			addAbstractPropertyDescriptor(object);
+			addDetachedPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -90,6 +91,28 @@ public class FunctionItemProvider extends NamedElementItemProvider {
 				 getString("_UI_Function_abstract_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_Function_abstract_feature", "_UI_Function_type"),
 				 DblPackage.Literals.FUNCTION__ABSTRACT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Detached feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDetachedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Function_detached_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Function_detached_feature", "_UI_Function_type"),
+				 DblPackage.Literals.FUNCTION__DETACHED,
 				 true,
 				 false,
 				 false,
@@ -172,6 +195,7 @@ public class FunctionItemProvider extends NamedElementItemProvider {
 		switch (notification.getFeatureID(Function.class)) {
 			case DblPackage.FUNCTION__CLASS:
 			case DblPackage.FUNCTION__ABSTRACT:
+			case DblPackage.FUNCTION__DETACHED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 			case DblPackage.FUNCTION__PRIMITIVE_TYPE:
@@ -280,6 +304,11 @@ public class FunctionItemProvider extends NamedElementItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createYieldTo()));
 
 		newChildDescriptors.add
 			(createChildParameter

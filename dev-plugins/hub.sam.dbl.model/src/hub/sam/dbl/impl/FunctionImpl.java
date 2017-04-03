@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.FunctionImpl#getPrimitiveType <em>Primitive Type</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.FunctionImpl#getTypeArrayDimensions <em>Type Array Dimensions</em>}</li>
@@ -41,8 +42,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.FunctionImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.FunctionImpl#isClass <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.FunctionImpl#isAbstract <em>Abstract</em>}</li>
+ *   <li>{@link hub.sam.dbl.impl.FunctionImpl#isDetached <em>Detached</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
@@ -136,6 +137,26 @@ public class FunctionImpl extends NamedElementImpl implements Function {
 	 * @ordered
 	 */
 	protected boolean abstract_ = ABSTRACT_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isDetached() <em>Detached</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDetached()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DETACHED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDetached() <em>Detached</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDetached()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean detached = DETACHED_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -325,6 +346,27 @@ public class FunctionImpl extends NamedElementImpl implements Function {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isDetached() {
+		return detached;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDetached(boolean newDetached) {
+		boolean oldDetached = detached;
+		detached = newDetached;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DblPackage.FUNCTION__DETACHED, oldDetached, detached));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -364,6 +406,8 @@ public class FunctionImpl extends NamedElementImpl implements Function {
 				return isClass();
 			case DblPackage.FUNCTION__ABSTRACT:
 				return isAbstract();
+			case DblPackage.FUNCTION__DETACHED:
+				return isDetached();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -401,6 +445,9 @@ public class FunctionImpl extends NamedElementImpl implements Function {
 			case DblPackage.FUNCTION__ABSTRACT:
 				setAbstract((Boolean)newValue);
 				return;
+			case DblPackage.FUNCTION__DETACHED:
+				setDetached((Boolean)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -434,6 +481,9 @@ public class FunctionImpl extends NamedElementImpl implements Function {
 			case DblPackage.FUNCTION__ABSTRACT:
 				setAbstract(ABSTRACT_EDEFAULT);
 				return;
+			case DblPackage.FUNCTION__DETACHED:
+				setDetached(DETACHED_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -460,6 +510,8 @@ public class FunctionImpl extends NamedElementImpl implements Function {
 				return class_ != CLASS_EDEFAULT;
 			case DblPackage.FUNCTION__ABSTRACT:
 				return abstract_ != ABSTRACT_EDEFAULT;
+			case DblPackage.FUNCTION__DETACHED:
+				return detached != DETACHED_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -526,6 +578,8 @@ public class FunctionImpl extends NamedElementImpl implements Function {
 		result.append(class_);
 		result.append(", abstract: ");
 		result.append(abstract_);
+		result.append(", detached: ");
+		result.append(detached);
 		result.append(')');
 		return result.toString();
 	}

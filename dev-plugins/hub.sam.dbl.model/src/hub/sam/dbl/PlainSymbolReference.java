@@ -10,12 +10,12 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.PlainSymbolReference#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link hub.sam.dbl.PlainSymbolReference#getOwnedClassifier <em>Owned Classifier</em>}</li>
  *   <li>{@link hub.sam.dbl.PlainSymbolReference#getReferencedClassifier <em>Referenced Classifier</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getPlainSymbolReference()
  * @model

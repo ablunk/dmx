@@ -144,6 +144,7 @@ import hub.sam.dbl.Wait;
 import hub.sam.dbl.WaitUntil;
 import hub.sam.dbl.WhileStatement;
 import hub.sam.dbl.Yield;
+import hub.sam.dbl.YieldTo;
 import hub.sam.dbl.*;
 
 import org.eclipse.emf.common.notify.Adapter;
@@ -362,6 +363,10 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseYield(Yield object) {
 				return createYieldAdapter();
+			}
+			@Override
+			public Adapter caseYieldTo(YieldTo object) {
+				return createYieldToAdapter();
 			}
 			@Override
 			public Adapter caseWait(Wait object) {
@@ -1338,6 +1343,20 @@ public class DblAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createYieldAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link hub.sam.dbl.YieldTo <em>Yield To</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see hub.sam.dbl.YieldTo
+	 * @generated
+	 */
+	public Adapter createYieldToAdapter() {
 		return null;
 	}
 

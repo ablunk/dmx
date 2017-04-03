@@ -10,12 +10,12 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Pattern#isTop <em>Top</em>}</li>
  *   <li>{@link hub.sam.dbl.Pattern#getContext <em>Context</em>}</li>
  *   <li>{@link hub.sam.dbl.Pattern#getBody <em>Body</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getPattern()
  * @model

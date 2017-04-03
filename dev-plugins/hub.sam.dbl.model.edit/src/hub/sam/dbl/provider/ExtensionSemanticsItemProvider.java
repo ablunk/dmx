@@ -213,6 +213,11 @@ public class ExtensionSemanticsItemProvider extends ExtensibleElementItemProvide
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createYieldTo()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add

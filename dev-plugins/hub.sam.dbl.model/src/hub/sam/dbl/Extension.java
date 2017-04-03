@@ -10,11 +10,11 @@ package hub.sam.dbl;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Extension#getExtensionPoint <em>Extension Point</em>}</li>
  *   <li>{@link hub.sam.dbl.Extension#getSyntaxDefinition <em>Syntax Definition</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getExtension()
  * @model

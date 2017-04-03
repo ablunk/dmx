@@ -11,12 +11,13 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.Function#getParameters <em>Parameters</em>}</li>
  *   <li>{@link hub.sam.dbl.Function#isClass <em>Class</em>}</li>
  *   <li>{@link hub.sam.dbl.Function#isAbstract <em>Abstract</em>}</li>
+ *   <li>{@link hub.sam.dbl.Function#isDetached <em>Detached</em>}</li>
  * </ul>
- * </p>
  *
  * @see hub.sam.dbl.DblPackage#getFunction()
  * @model
@@ -93,5 +94,32 @@ public interface Function extends NamedElement, TypedElement, LocalScope {
 	 * @generated
 	 */
 	void setAbstract(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Detached</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Detached</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Detached</em>' attribute.
+	 * @see #setDetached(boolean)
+	 * @see hub.sam.dbl.DblPackage#getFunction_Detached()
+	 * @model default="false" required="true"
+	 * @generated
+	 */
+	boolean isDetached();
+
+	/**
+	 * Sets the value of the '{@link hub.sam.dbl.Function#isDetached <em>Detached</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Detached</em>' attribute.
+	 * @see #isDetached()
+	 * @generated
+	 */
+	void setDetached(boolean value);
 
 } // Function

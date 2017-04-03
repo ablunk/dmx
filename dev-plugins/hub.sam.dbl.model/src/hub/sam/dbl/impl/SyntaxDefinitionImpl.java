@@ -28,11 +28,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.SyntaxDefinitionImpl#getStartSymbol <em>Start Symbol</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.SyntaxDefinitionImpl#getSymbols <em>Symbols</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

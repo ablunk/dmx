@@ -56,9 +56,10 @@ syntax(Model) "resources/dbl.ecore" {
 		(ClassElement:composite(class))?
 		FunctionBody;
 	FunctionBody -> AbstractProcedure:composite(abstract) ";";
-	FunctionBody -> "{" (Statement:composite(statements))* "}";
+	FunctionBody -> (DetachedFunction:composite(detached))? "{" (Statement:composite(statements))* "}";
 	
 	AbstractProcedure:constant("true":EBoolean) -> "abstract";
+	DetachedFunction:constant("true":EBoolean) -> "detached";
 
 	Parameter:element(Parameter) -> TypedElementParts ws(space) IDENTIFIER:composite(name);
 
@@ -113,6 +114,7 @@ syntax(Model) "resources/dbl.ecore" {
 	SimpleStatement -> Advance ";";
 	SimpleStatement -> Terminate ";";
 	SimpleStatement -> Yield ";";
+	SimpleStatement -> YieldTo ";";
 	SimpleStatement -> Wait ";";
 	SimpleStatement -> Reactivate ";";
 	SimpleStatement -> ActivateObject ";";
@@ -129,6 +131,7 @@ syntax(Model) "resources/dbl.ecore" {
 	Advance:element(Advance) -> "advance" Expression:composite(time);
 	Terminate:element(Terminate) -> "terminate";
 	Yield:element(Yield) -> "yield";
+	YieldTo:element(Reactivate) -> "yield" "to" Expression:composite(objectAccess);
 	Wait:element(Wait) -> "wait";
 	Reactivate:element(Reactivate) -> "reactivate" Expression:composite(objectAccess);
 	ActivateObject:element(ActivateObject) -> "activate" Expression:composite(objectAccess) ("priority" INTEGER:composite(priority))?;

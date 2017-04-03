@@ -195,6 +195,11 @@ public class ForStatementItemProvider extends LoopStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
+				 DblFactory.eINSTANCE.createYieldTo()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.LOCAL_SCOPE__STATEMENTS,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add
@@ -556,6 +561,11 @@ public class ForStatementItemProvider extends LoopStatementItemProvider {
 			(createChildParameter
 				(DblPackage.Literals.FOR_STATEMENT__BODY,
 				 DblFactory.eINSTANCE.createYield()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.FOR_STATEMENT__BODY,
+				 DblFactory.eINSTANCE.createYieldTo()));
 
 		newChildDescriptors.add
 			(createChildParameter

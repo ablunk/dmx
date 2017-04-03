@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getName <em>Name</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getContentExtensions <em>Content Extensions</em>}</li>
@@ -46,7 +47,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getFunctions <em>Functions</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.QuotedModuleContentImpl#getVariables <em>Variables</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

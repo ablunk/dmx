@@ -189,6 +189,11 @@ public class TargetStatementItemProvider extends SimpleStatementItemProvider {
 		newChildDescriptors.add
 			(createChildParameter
 				(DblPackage.Literals.TARGET_STATEMENT__BODY,
+				 DblFactory.eINSTANCE.createYieldTo()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(DblPackage.Literals.TARGET_STATEMENT__BODY,
 				 DblFactory.eINSTANCE.createWait()));
 
 		newChildDescriptors.add

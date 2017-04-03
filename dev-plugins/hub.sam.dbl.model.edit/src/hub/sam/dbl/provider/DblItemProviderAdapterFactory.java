@@ -854,6 +854,29 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.YieldTo} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected YieldToItemProvider yieldToItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link hub.sam.dbl.YieldTo}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createYieldToAdapter() {
+		if (yieldToItemProvider == null) {
+			yieldToItemProvider = new YieldToItemProvider(this);
+		}
+
+		return yieldToItemProvider;
+	}
+
+	/**
 	 * This keeps track of the one adapter used for all {@link hub.sam.dbl.Wait} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3240,6 +3263,7 @@ public class DblItemProviderAdapterFactory extends DblAdapterFactory implements 
 		if (waitUntilItemProvider != null) waitUntilItemProvider.dispose();
 		if (terminateItemProvider != null) terminateItemProvider.dispose();
 		if (yieldItemProvider != null) yieldItemProvider.dispose();
+		if (yieldToItemProvider != null) yieldToItemProvider.dispose();
 		if (waitItemProvider != null) waitItemProvider.dispose();
 		if (reactivateItemProvider != null) reactivateItemProvider.dispose();
 		if (activateObjectItemProvider != null) activateObjectItemProvider.dispose();

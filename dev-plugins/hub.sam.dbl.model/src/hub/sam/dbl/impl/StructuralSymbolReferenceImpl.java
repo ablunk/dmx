@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link hub.sam.dbl.impl.StructuralSymbolReferenceImpl#getClassifier <em>Classifier</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.StructuralSymbolReferenceImpl#getOwnedClassifier <em>Owned Classifier</em>}</li>
@@ -34,7 +35,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link hub.sam.dbl.impl.StructuralSymbolReferenceImpl#isLocalScopedReference <em>Local Scoped Reference</em>}</li>
  *   <li>{@link hub.sam.dbl.impl.StructuralSymbolReferenceImpl#isGlobalScopedReference <em>Global Scoped Reference</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */
