@@ -37,3 +37,4 @@ Export-Package: hub.sam.dbl,
  hub.sam.dmx.javasim.jdisco,
  hub.sam.dmx.javasim.jist,
  hub.sam.dmx.semantics
+Import-Package: org.junit.runners
