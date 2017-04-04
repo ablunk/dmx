@@ -1,9 +1,11 @@
-package hub.sam.dmx.launcher;
+package hub.sam.dmx.launcher.java;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.swt.widgets.Display;
+
+import hub.sam.dmx.launcher.programoutput.ProgramOutputPrinter;
 
 public class UIJavaLauncher implements JavaClassLauncher {
 

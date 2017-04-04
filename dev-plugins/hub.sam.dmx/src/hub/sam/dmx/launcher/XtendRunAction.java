@@ -1,6 +1,8 @@
 package hub.sam.dmx.launcher;
 
 import hub.sam.dmx.editor.DblTextEditor;
+import hub.sam.dmx.launcher.java.UIJavaLauncher;
+import hub.sam.dmx.launcher.programoutput.EditorConsole;
 
 import java.lang.reflect.InvocationTargetException;
 

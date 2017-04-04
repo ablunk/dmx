@@ -1,4 +1,4 @@
-package hub.sam.dmx.launcher;
+package hub.sam.dmx.launcher.programoutput;
 
 public interface SimplePrinterStream {
 	void println(String message);

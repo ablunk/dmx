@@ -1,4 +1,4 @@
-package hub.sam.dmx.launcher;
+package hub.sam.dmx.launcher.java;
 
 import java.util.logging.Logger;
 
@@ -15,6 +15,9 @@ import org.eclipse.jdt.launching.IVMInstall;
 import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
+
+import hub.sam.dmx.launcher.programoutput.ProgramOutputPrinter;
+import hub.sam.dmx.launcher.programoutput.SimplePrinterStream;
 
 public class NonUIJavaClassLauncher implements JavaClassLauncher {
 	
