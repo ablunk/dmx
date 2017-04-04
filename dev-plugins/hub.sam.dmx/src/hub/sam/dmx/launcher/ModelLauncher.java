@@ -1,6 +1,60 @@
 package hub.sam.dmx.launcher;
 
-import hub.sam.dbl.DblPackage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.logging.Logger;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.IStreamListener;
+import org.eclipse.debug.core.Launch;
+import org.eclipse.debug.core.model.IProcess;
+import org.eclipse.debug.core.model.IStreamMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.launching.IVMInstall;
+import org.eclipse.jdt.launching.IVMRunner;
+import org.eclipse.jdt.launching.JavaRuntime;
+import org.eclipse.jdt.launching.VMRunnerConfiguration;
+import org.eclipse.jface.text.Position;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
+import org.eclipse.ui.part.FileEditorInput;
+
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.Extension;
 import hub.sam.dbl.ExtensionSemantics;
@@ -23,75 +77,6 @@ import hub.sam.tef.modelcreating.HeadlessEclipseParser;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 import hub.sam.tef.modelcreating.ModelCreatingException;
 import hub.sam.tef.semantics.AbstractError;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.logging.Logger;
-
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IncrementalProjectBuilder;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.FileLocator;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.debug.core.IStreamListener;
-import org.eclipse.debug.core.Launch;
-import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.debug.core.model.IStreamMonitor;
-import org.eclipse.emf.codegen.ecore.Generator;
-import org.eclipse.emf.codegen.ecore.genmodel.GenModel;
-import org.eclipse.emf.codegen.ecore.genmodel.GenPackage;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.launching.IVMInstall;
-import org.eclipse.jdt.launching.IVMRunner;
-import org.eclipse.jdt.launching.JavaRuntime;
-import org.eclipse.jdt.launching.VMRunnerConfiguration;
-import org.eclipse.jface.text.Position;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
-import org.eclipse.ui.part.FileEditorInput;
 
 public class ModelLauncher {
 	
@@ -543,38 +528,6 @@ public class ModelLauncher {
 	}
 	
 	private ResourceSet workingCopiesResourceSet = new ResourceSetImpl();
-	
-	private Resource createWorkingCopy(Resource originalResource) {
-		String workingCopyXmiName = originalResource.getURI().trimFileExtension() + "_base.xmi";
-
-		URI workingCopyXmiUri = URI.createURI(workingCopyXmiName);
-
-//		IPath workingCopyXmiRawLocation = getXmiRawLocation(workingCopyXmiUri);		
-//		FileOutputStream originalAsXmiStream;
-//		try {
-//			originalAsXmiStream = new FileOutputStream(workingCopyXmiRawLocation.toString());
-//			originalResource.save(originalAsXmiStream, Collections.EMPTY_MAP);
-//		}
-//		catch (FileNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//		catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		
-		Resource workingCopyResource = workingCopiesResourceSet.createResource(workingCopyXmiUri);
-		workingCopyResource.getContents().clear();
-		workingCopyResource.getContents().addAll(EcoreUtil.copyAll(originalResource.getContents()));
-		
-		try {
-			workingCopyResource.save(Collections.EMPTY_MAP);
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		return workingCopyResource;
-	}
 
 	protected void cleanFolder(IFolder folder) {
 		logger.info("Cleaning \"" + folder.toString() + "\" ...");
@@ -744,21 +697,6 @@ public class ModelLauncher {
 		return getConsole(editor.getPartName() + " execution");
 	}
 	
-	private List<String> getJavaFiles(IPath folder) {
-		File file = new File(folder.toString());
-		String[] javaFiles = file.list(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				return name.endsWith(".java");
-			}
-		});
-		List<String> list = new ArrayList<String>();
-		for (String javaFile: javaFiles) {
-			list.add(javaFile);
-		}
-		return list;
-	}
-	
 	MessageConsole getConsole(String name) {
 		IConsoleManager conMgr = ConsolePlugin.getDefault().getConsoleManager();
 		for (IConsole console: conMgr.getConsoles()) {
@@ -782,41 +720,6 @@ public class ModelLauncher {
 				console.newMessageStream().write(b);
 				b = process.getInputStream().read();
 			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private Resource copyResourceToXmi(Resource originalResource, URI xmiFile) {
-		EObject root = originalResource.getContents().get(0);
-
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getPackageRegistry().put(DblPackage.eNS_URI, DblPackage.eINSTANCE);
-		
-		Resource res = resourceSet.createResource(xmiFile);
-		
-		res.getContents().clear();
-		res.getContents().add(EcoreUtil.copy(root));
-
-		return res;
-	}
-	
-	private void saveAsXmi(Resource resource, URI xmiFile) {
-		EObject root = resource.getContents().get(0);
-
-		ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getPackageRegistry().put(DblPackage.eNS_URI, DblPackage.eINSTANCE);
-		
-		Resource res = resourceSet.createResource(xmiFile);
-		
-		res.getContents().clear();
-		res.getContents().add(EcoreUtil.copy(root));
-		//res.getContents().add(root);
-		
-		try {
-			res.save(Collections.EMPTY_MAP);
-			logger.info("saved XMI: " + xmiFile);
 		}
 		catch (IOException e) {
 			e.printStackTrace();
@@ -932,101 +835,6 @@ public class ModelLauncher {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	private void genEmfJavaClasses(IProject currentProject) {
-		IPath tempFolder = currentProject.getLocation().append("temp");
-		
-		// 1.1. save current dbl metamodel (probably modified by extensions) as an ecore file
-		saveExtendedDblMetaModelIfNecessary(currentProject);
-		
-		// 1.2. copy dbl.genmodel to current project by opening a stream to it in the hub.sam.dmx bundle
-		logger.info("Copying dbl.genmodel to current project ...");
-		URL genModelUrl = FileLocator.find(Activator.getDefault().getBundle(), new Path("resources/dbl.genmodel"), null);
-		IPath workingGenModel = tempFolder.append("dbl.genmodel");
-		try {
-			InputStream inStream = genModelUrl.openStream();
-			BufferedReader in = new BufferedReader(new InputStreamReader(inStream));
-
-			FileWriter outStream = new FileWriter(workingGenModel.toString());
-			BufferedWriter out = new BufferedWriter(outStream);
-			
-			String line = null;
-			while ((line = in.readLine()) != null) {
-				out.write(line + "\n");
-			}
-			
-			out.close();
-			in.close();
-			
-			logger.info("Finished copying.");
-		}
-		catch (Exception e) {
-			throw new RuntimeException();
-		}
-
-		// 1.2.1. Reload genmodel
-		
-		logger.info("Reloading genmodel ...");
-		ResourceSet resourceSet = new ResourceSetImpl();
-        //resourceSet.getURIConverter().getURIMap().putAll(EcorePlugin.computePlatformURIMap());
-        URI genModelURI = URI.createFileURI(workingGenModel.toString());
-        Resource genModelResource = resourceSet.getResource(genModelURI, true);
-        GenModel genModel = (GenModel) genModelResource.getContents().get(0);
-        
-        Resource metaModelResource = editor.getDblMetaModel().eResource();
-        EPackage metaModelPackage = (EPackage) metaModelResource.getContents().get(0);
-        for (GenPackage genPackage: genModel.getGenPackages()) {
-        	EPackage ePackage = genPackage.getEcorePackage();
-        	if (ePackage.getNsURI().equals(metaModelPackage.getNsURI())) {
-        		genModel.initialize(Collections.singleton(ePackage));
-        	}
-        }
-        
-		try {
-			genModelResource.save(Collections.EMPTY_MAP);
-			logger.info("Finished reloading.");
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-		// 1.3. run code generation for the genmodel
-		
-		// INFO: EMF code generation ultimately takes place in method
-		//       org.eclipse.emf.codegen.ecore.genmodel.generator.generateModel(...)
-		//       in plugin org.eclipse.emf.codegen.ecore
-
-		logger.info("Generating EMF Java code ...");
-		
-		Generator emfGenerator = new Generator();
-		
-		String args = "-projects " + currentProject.getLocation().toString()
-				+ " -model"
-				+ " " + workingGenModel.toString();
-				//+ " " + currentProject.getLocation().append("gen-src");
-		logger.info(args);
-		
-		StringTokenizer st = new StringTokenizer(args);
-		String[] args2 = new String[st.countTokens()];
-		int i=0;
-		while (st.hasMoreTokens()) {
-			args2[i] = st.nextToken();
-			i++;
-		}
-		Object generatorResult = emfGenerator.run(args2);
-		if (generatorResult instanceof Integer) {
-			Integer intGeneratorResult = (Integer) generatorResult;
-			if (intGeneratorResult.intValue() == 1) {
-				logger.info("An error occured.");
-				return;
-			}
-		}
-		logger.info("Finished generating.");
-		
-		// 1.4. Compile generated EMF code
-		IProject emfProject = currentProject.getWorkspace().getRoot().getProject("hub.sam.dbl.model");
-		compileJavaFiles(emfProject, emfProject.getFolder("src"));
 	}
 
 }
