@@ -419,11 +419,12 @@ public class ModelLauncher {
 	}
 	
 	protected void printParseErrorsToEditorConsole(IModelCreatingContext context, String filename, String sourceText) {
+		SimplePrinterStream errorStream = programOutputPrinter.newErrorPrinterStream();
 		for (AbstractError error: context.getErrors()) {
 			Position errorPosition = error.getPosition(context);
-			programOutputPrinter.getErrorPrinterStream().println(filename + " >> " + error.getMessage());
+			errorStream.println(filename + " >> " + error.getMessage());
 			if (errorPosition.offset >= 0) {
-				programOutputPrinter.getErrorPrinterStream().println("text before error:\n" + sourceText.substring(0, errorPosition.offset));
+				errorStream.println("text before error:\n" + sourceText.substring(0, errorPosition.offset));
 			}
 		}
 	}

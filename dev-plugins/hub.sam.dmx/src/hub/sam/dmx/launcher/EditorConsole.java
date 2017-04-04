@@ -16,9 +16,6 @@ public class EditorConsole implements ProgramOutputPrinter {
 	private final String consoleLabel;
 	private final Display associatedDisplay;
 	
-	private MessageConsoleStream stream;
-	private MessageConsoleStream errorStream;
-
 	// param: editorPartName + " execution"
 	public EditorConsole(String consoleLabel, Display associatedDisplay) {
 		this.consoleLabel = consoleLabel;
@@ -68,20 +65,15 @@ public class EditorConsole implements ProgramOutputPrinter {
 		}
 	}
 	
-	private MessageConsoleStream getStream() {
-		if (stream == null) {
-			stream = getConsoleForCurrentEditor().newMessageStream();
-		}
-		return stream;
+	private MessageConsoleStream newStream() {
+		return getConsoleForCurrentEditor().newMessageStream();
 	}
 
-	public MessageConsoleStream getErrorStream() {
-		if (errorStream == null) {
-			errorStream = getConsoleForCurrentEditor().newMessageStream();
-			final Color errorColor = associatedDisplay.getSystemColor(SWT.COLOR_RED);
-			errorStream.setColor(errorColor);
-		}
-		return stream;
+	private MessageConsoleStream newErrorStream() {
+		MessageConsoleStream errorStream = getConsoleForCurrentEditor().newMessageStream();
+		final Color errorColor = associatedDisplay.getSystemColor(SWT.COLOR_RED);
+		errorStream.setColor(errorColor);
+		return errorStream;
 	}
 
 	@Override
@@ -90,13 +82,13 @@ public class EditorConsole implements ProgramOutputPrinter {
 	}
 
 	@Override
-	public SimplePrinterStream getDefaultPrinterStream() {
-		return new MessageConsoleSimplePrinterStream(getStream());
+	public SimplePrinterStream newDefaultPrinterStream() {
+		return new MessageConsoleSimplePrinterStream(newStream());
 	}
 
 	@Override
-	public SimplePrinterStream getErrorPrinterStream() {
-		return new MessageConsoleSimplePrinterStream(getErrorStream());
+	public SimplePrinterStream newErrorPrinterStream() {
+		return new MessageConsoleSimplePrinterStream(newErrorStream());
 	}
 	
 }

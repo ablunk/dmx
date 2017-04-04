@@ -59,7 +59,7 @@ public class NonUIJavaClassLauncher implements JavaClassLauncher {
 			        	logger.severe("Program could not be launched.");
 					}
 					else {
-						final SimplePrinterStream stream = programOutputPrinter.getDefaultPrinterStream();
+						final SimplePrinterStream stream = programOutputPrinter.newDefaultPrinterStream();
 						
 						IStreamListener outputStreamListener = new IStreamListener() {
 							@Override
@@ -69,7 +69,7 @@ public class NonUIJavaClassLauncher implements JavaClassLauncher {
 						};
 						processes[0].getStreamsProxy().getOutputStreamMonitor().addListener(outputStreamListener);
 						
-						final SimplePrinterStream errorStream = programOutputPrinter.getErrorPrinterStream();
+						final SimplePrinterStream errorStream = programOutputPrinter.newErrorPrinterStream();
 						
 						IStreamListener errorStreamListener = new IStreamListener() {
 							@Override
