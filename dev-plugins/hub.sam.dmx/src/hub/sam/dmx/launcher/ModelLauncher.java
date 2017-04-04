@@ -65,17 +65,17 @@ public class ModelLauncher {
 	protected final IFile inputFile;
 	protected final Resource metaModelResource;
 	protected final IModelCreatingContext lastModelCreatingContext;
-	protected final IProgramOutputPrinter programOutputPrinter;
+	protected final ProgramOutputPrinter programOutputPrinter;
 	private final String targetSimLib;
 	
-	private IJavaClassLauncher javaClassLauncher;
+	private JavaClassLauncher javaClassLauncher;
 
 	public static final String JAVA_GEN_FOLDER_NAME = "gen-src";
 	public static final String TEMP_FOLDER_NAME = "temp";
 	
 	public ModelLauncher(IProgressMonitor monitor, IFile inputFile, Resource metaModelResource, 
-			IModelCreatingContext lastModelCreatingContext, String targetSimLib, IJavaClassLauncher javaClassLauncher,
-			IProgramOutputPrinter programOutputPrinter) {
+			IModelCreatingContext lastModelCreatingContext, String targetSimLib, JavaClassLauncher javaClassLauncher,
+			ProgramOutputPrinter programOutputPrinter) {
 		this.monitor = monitor;
 		this.inputFile = inputFile;
 		this.metaModelResource = metaModelResource;

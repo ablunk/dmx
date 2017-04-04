@@ -5,7 +5,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.swt.widgets.Display;
 
-public class UIJavaLauncher implements IJavaClassLauncher {
+public class UIJavaLauncher implements JavaClassLauncher {
 
 	private Display associatedDisplay;
 	private boolean sync;
@@ -20,7 +20,7 @@ public class UIJavaLauncher implements IJavaClassLauncher {
 
 	@Override
 	public void launch(IJavaProject project, IPath workingDirectory, String className, String[] args,
-			IProgramOutputPrinter programOutputPrinter) {
+			ProgramOutputPrinter programOutputPrinter) {
 		if (associatedDisplay != null) {
 			if (sync) {
 				associatedDisplay.syncExec(new Runnable() {

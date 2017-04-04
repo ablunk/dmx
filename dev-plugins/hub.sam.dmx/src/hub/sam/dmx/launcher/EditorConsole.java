@@ -11,7 +11,7 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 
-public class EditorConsole implements IProgramOutputPrinter {
+public class EditorConsole implements ProgramOutputPrinter {
 	
 	private final String consoleLabel;
 	private final Display associatedDisplay;

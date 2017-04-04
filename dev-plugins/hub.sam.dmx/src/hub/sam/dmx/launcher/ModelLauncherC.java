@@ -36,8 +36,8 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 	}
 	
 	public ModelLauncherC(IProgressMonitor monitor, IFile inputFile, Resource metaModelResource, 
-			IModelCreatingContext lastModelCreatingContext, String targetSimLib, IJavaClassLauncher javaClassLauncher,
-			IProgramOutputPrinter programOutputPrinter){
+			IModelCreatingContext lastModelCreatingContext, String targetSimLib, JavaClassLauncher javaClassLauncher,
+			ProgramOutputPrinter programOutputPrinter){
 		super(monitor, inputFile, metaModelResource, lastModelCreatingContext, targetSimLib,
 				javaClassLauncher, programOutputPrinter);
 	}

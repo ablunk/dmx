@@ -1,6 +1,6 @@
 package hub.sam.dmx.launcher;
 
-public interface IProgramOutputPrinter {
+public interface ProgramOutputPrinter {
 	void clear();
 	SimplePrinterStream getDefaultPrinterStream();
 	SimplePrinterStream getErrorPrinterStream();

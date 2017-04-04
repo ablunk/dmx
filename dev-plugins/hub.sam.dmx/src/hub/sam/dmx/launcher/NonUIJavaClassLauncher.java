@@ -16,12 +16,12 @@ import org.eclipse.jdt.launching.IVMRunner;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.launching.VMRunnerConfiguration;
 
-public class NonUIJavaClassLauncher implements IJavaClassLauncher {
+public class NonUIJavaClassLauncher implements JavaClassLauncher {
 	
 	protected static final Logger logger = Logger.getLogger(NonUIJavaClassLauncher.class.getName());
 	
 	@Override
-	public void launch(IJavaProject project, IPath workingDirectory, String className, String[] args, IProgramOutputPrinter programOutputPrinter) {
+	public void launch(IJavaProject project, IPath workingDirectory, String className, String[] args, ProgramOutputPrinter programOutputPrinter) {
 		IVMInstall vmInstall = null;
 		try {
 			vmInstall = JavaRuntime.getVMInstall(project);
