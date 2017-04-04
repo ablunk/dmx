@@ -10,6 +10,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -63,13 +64,21 @@ public class XtendRunAction extends Action {
 		final IRunnableWithProgress runnable = new IRunnableWithProgress() {
 			@Override
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+				final IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
+				final Resource metamodelResource = editor.getDblMetaModel().eResource();
 				ModelLauncher launcher;
-				if (getTargetLanguage() == "c++") launcher = new ModelLauncherC(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
-				else launcher = new ModelLauncher(monitor, currentDisplay, editor, targetSimLib, targetLanguage);
+				if (getTargetLanguage() == "c++") {
+					launcher = new ModelLauncherC(monitor, currentDisplay, inputFile, metamodelResource, 
+							editor.getLastModelCreatingContext(), targetSimLib);
+				}
+				else {
+					launcher = new ModelLauncher(monitor, currentDisplay, inputFile, metamodelResource, 
+							editor.getLastModelCreatingContext(), targetSimLib);
+				}
 				//getCurrentProject().getRawLocation();
 				//IPath xmiRawLocation = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiPath).getRawLocation();
 				//GroovyTest.main(null);
-				launcher.compileAndRun();
+				launcher.compileAndRun(editor.getCurrentModel());
 				monitor.done();
 			}
 		};

@@ -1,13 +1,13 @@
 package hub.sam.dmx.launcher;
-import hub.sam.dbl.Import;
-import hub.sam.dbl.Model;
-import hub.sam.dmx.editor.DblTextEditor;
-import hub.sam.dmx.targetcode.SpecificSimulationCPlusPlusGenerator;
-import hub.sam.dmx.semantics.BaseCPlusPlusGenerator;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
@@ -15,9 +15,12 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.part.FileEditorInput;
 
-import java.io.*;
+import hub.sam.dbl.Import;
+import hub.sam.dbl.Model;
+import hub.sam.dmx.semantics.BaseCPlusPlusGenerator;
+import hub.sam.dmx.targetcode.SpecificSimulationCPlusPlusGenerator;
+import hub.sam.tef.modelcreating.IModelCreatingContext;
 
 public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator> extends ModelLauncher{
 	
@@ -32,8 +35,9 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		return cGenFolder;
 	}
 	
-	public ModelLauncherC (IProgressMonitor monitor, Display associatedDisplay, DblTextEditor editor, String targetSimLib, String targetLanguage){
-		super(monitor, associatedDisplay, editor, targetSimLib, targetLanguage);
+	public ModelLauncherC(IProgressMonitor monitor, Display associatedDisplay, IFile inputFile, Resource metaModelResource, 
+			IModelCreatingContext lastModelCreatingContext, String targetSimLib){
+		super(monitor, associatedDisplay, inputFile, metaModelResource, lastModelCreatingContext, targetSimLib);
 	}
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
 	
@@ -159,7 +163,7 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 	}
 	
 	@Override
-	public void compileAndRun(){
+	public void compileAndRun(Resource modelResource){
 		long startCompileTime = System.nanoTime();
 		monitor.beginTask("Compile && Run ...", 100);
 		monitor.subTask("Refreshing folders");
@@ -181,12 +185,11 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		
 		monitor.subTask("Translating model to target language program");
 		
-		Resource originalResource = editor.getCurrentModel();
+		Resource originalResource = modelResource;
 		Model rootModel = (Model) originalResource.getContents().get(0);
 		BaseCPlusPlusGenerator baseGenerator = new SpecificSimulationCPlusPlusGenerator(genPath);
 		
 		// aktuell geoeffnetes File
-		final IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
 		final boolean isDbxInputFile = inputFile.getFileExtension().equals("dbx");
 
 		logger.info("Compiling and executing model " + inputFile + " ...");

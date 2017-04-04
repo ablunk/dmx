@@ -53,7 +53,6 @@ import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
-import org.eclipse.ui.part.FileEditorInput;
 
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.Extension;
@@ -61,7 +60,6 @@ import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.Import;
 import hub.sam.dbl.Model;
 import hub.sam.dmx.Activator;
-import hub.sam.dmx.editor.DblTextEditor;
 import hub.sam.dmx.editor.modelcreation.DbxParser;
 import hub.sam.dmx.modelcreation.DblModelWorkingCopy;
 import hub.sam.dmx.modifications.Modification;
@@ -82,25 +80,31 @@ public class ModelLauncher {
 	
 	protected static final Logger logger = Logger.getLogger(ModelLauncher.class.getName());
 	protected final IProgressMonitor monitor;
-	protected final DblTextEditor editor;
+	protected final IFile inputFile;
+	protected final Resource metaModelResource;
+	protected final IModelCreatingContext lastModelCreatingContext;
 	private final Display associatedDisplay;
 	private final String targetSimLib;
-	private final String targetLanguage;
 
 	public static final String JAVA_GEN_FOLDER_NAME = "gen-src";
 	public static final String TEMP_FOLDER_NAME = "temp";
 	
-	public ModelLauncher(IProgressMonitor monitor, Display associatedDisplay, DblTextEditor editor, String targetSimLib, String targetLanguage) {
+	public ModelLauncher(IProgressMonitor monitor, Display associatedDisplay, IFile inputFile, Resource metaModelResource, 
+			IModelCreatingContext lastModelCreatingContext, String targetSimLib) {
 		this.monitor = monitor;
-		this.editor = editor;
+		this.inputFile = inputFile;
+		this.metaModelResource = metaModelResource;
+		this.lastModelCreatingContext = lastModelCreatingContext;
 		this.associatedDisplay = associatedDisplay;
 		this.targetSimLib = targetSimLib;
-		this.targetLanguage = targetLanguage;
 	}
 	
 	protected IProject getCurrentProject() {
-		IFile file = ((FileEditorInput) editor.getEditorInput()).getFile();
-		return file.getProject();
+		return inputFile.getProject();
+	}
+	
+	private String getLabel() {
+		return inputFile.getName();
 	}
 	
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
@@ -173,7 +177,7 @@ public class ModelLauncher {
 			else {
 				// model is currently opened in active editor
 				parsedWorkingModel = new DblModelWorkingCopy(inputModel.eResource().getURI(),
-						inputModel.eResource(), true, editor.getLastModelCreatingContext(),
+						inputModel.eResource(), true, lastModelCreatingContext,
 						workingCopiesResourceSet);
 			}
 			
@@ -694,7 +698,7 @@ public class ModelLauncher {
 	}
 	
 	private MessageConsole getConsoleForCurrentEditor() {
-		return getConsole(editor.getPartName() + " execution");
+		return getConsole(getLabel() + " execution");
 	}
 	
 	MessageConsole getConsole(String name) {
@@ -714,7 +718,7 @@ public class ModelLauncher {
 	
 	private void redirectInputToConsole(Process process) {
 		try {
-			MessageConsole console = getConsole(editor.getPartName() + " execution");
+			MessageConsole console = getConsole(getLabel() + " execution");
 			int b = process.getInputStream().read();
 			while (b != -1) {
 				console.newMessageStream().write(b);
@@ -726,7 +730,7 @@ public class ModelLauncher {
 		}
 	}
 	
-	public void compileAndRun() {
+	public void compileAndRun(Resource modelResource) {
 		long startCompileTime = System.nanoTime();
 		
 		monitor.beginTask("Compile && Run ...", 100);
@@ -751,14 +755,13 @@ public class ModelLauncher {
 
 		// 1a. NEW --> Access properties by EMF's reflection mechanism. In this, no EMF code needs to generated here.
 
-		Resource originalResource = editor.getCurrentModel();
+		Resource originalResource = modelResource;
 		Model rootModel = (Model) originalResource.getContents().get(0);
 		BasicDblToJavaGenerator baseGenerator = null;
 		if (targetSimLib == "desmoj") {
 			baseGenerator = new DblToDesmojJavaGenerator(genPath);
 		}
 
-		final IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
 		final boolean isDbxInputFile = inputFile.getFileExtension().equals("dbx");
 
 		logger.info("Compiling and executing model " + inputFile + " ...");
@@ -818,7 +821,6 @@ public class ModelLauncher {
 	protected void saveExtendedDblMetaModelIfNecessary(IProject currentProject) {
 		if (!extendedMetamodelSaved) {
 			logger.info("Saving dbl.ecore (with extensions) to current project ...");
-			Resource metaModelResource = editor.getDblMetaModel().eResource();
 			URI metamodelXmiFile = URI.createFileURI(currentProject.getLocation().append("temp").append("dbl.ecore").toString());
 			
 			Resource resource = workingCopiesResourceSet.createResource(metamodelXmiFile);
