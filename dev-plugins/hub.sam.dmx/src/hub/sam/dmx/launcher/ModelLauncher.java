@@ -23,12 +23,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.debug.core.IStreamListener;
-import org.eclipse.debug.core.Launch;
-import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
@@ -40,19 +34,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.launching.IVMInstall;
-import org.eclipse.jdt.launching.IVMRunner;
-import org.eclipse.jdt.launching.JavaRuntime;
-import org.eclipse.jdt.launching.VMRunnerConfiguration;
 import org.eclipse.jface.text.Position;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleManager;
-import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
 
 import hub.sam.dbl.ExtensibleElement;
 import hub.sam.dbl.Extension;
@@ -83,20 +65,24 @@ public class ModelLauncher {
 	protected final IFile inputFile;
 	protected final Resource metaModelResource;
 	protected final IModelCreatingContext lastModelCreatingContext;
-	private final Display associatedDisplay;
+	protected final IProgramOutputPrinter programOutputPrinter;
 	private final String targetSimLib;
+	
+	private IJavaClassLauncher javaClassLauncher;
 
 	public static final String JAVA_GEN_FOLDER_NAME = "gen-src";
 	public static final String TEMP_FOLDER_NAME = "temp";
 	
-	public ModelLauncher(IProgressMonitor monitor, Display associatedDisplay, IFile inputFile, Resource metaModelResource, 
-			IModelCreatingContext lastModelCreatingContext, String targetSimLib) {
+	public ModelLauncher(IProgressMonitor monitor, IFile inputFile, Resource metaModelResource, 
+			IModelCreatingContext lastModelCreatingContext, String targetSimLib, IJavaClassLauncher javaClassLauncher,
+			IProgramOutputPrinter programOutputPrinter) {
 		this.monitor = monitor;
 		this.inputFile = inputFile;
 		this.metaModelResource = metaModelResource;
 		this.lastModelCreatingContext = lastModelCreatingContext;
-		this.associatedDisplay = associatedDisplay;
 		this.targetSimLib = targetSimLib;
+		this.javaClassLauncher = javaClassLauncher;
+		this.programOutputPrinter = programOutputPrinter;
 	}
 	
 	protected IProject getCurrentProject() {
@@ -371,18 +357,15 @@ public class ModelLauncher {
 					IPath workingDirectory = currentProject.getLocation();
 
 					// get modifications of extension instance by executing the semantics definition
-					try {			
-						String[] arguments = new String[] {
-								getXmiRawLocation(workingModel.getResource().getURI()).toString(),
-								AbstractExtensionSemantics.getEmfUriFragment(extensionInstance),
-								inputPath.toString()
-							};
-						String qualifiedExtensionDefinitionName = getExtensionDefinitionGenerator().javaNameQualified(extensionDefinitions.get(extensionDefinitionName));
-						launchJavaProgram(true, currentJavaProject, workingDirectory, qualifiedExtensionDefinitionName + "Semantics", arguments);
-					}
-					catch (CoreException e) {
-						e.printStackTrace();
-					}
+					String[] arguments = new String[] {
+							getXmiRawLocation(workingModel.getResource().getURI()).toString(),
+							AbstractExtensionSemantics.getEmfUriFragment(extensionInstance),
+							inputPath.toString()
+						};
+					String qualifiedExtensionDefinitionName = getExtensionDefinitionGenerator().javaNameQualified(extensionDefinitions.get(extensionDefinitionName));
+					javaClassLauncher.launch(currentJavaProject, workingDirectory, 
+							qualifiedExtensionDefinitionName + "Semantics", arguments,
+							programOutputPrinter);
 					
 					// text substitute extension instances by result of semantics executions
 					EList<Modification> storedModifications = getLastStoredModifications();
@@ -436,12 +419,11 @@ public class ModelLauncher {
 	}
 	
 	protected void printParseErrorsToEditorConsole(IModelCreatingContext context, String filename, String sourceText) {
-		final MessageConsoleStream stream = getConsoleForCurrentEditor().newMessageStream();
 		for (AbstractError error: context.getErrors()) {
 			Position errorPosition = error.getPosition(context);
-			stream.println(filename + " >> " + error.getMessage());
+			programOutputPrinter.getErrorPrinterStream().println(filename + " >> " + error.getMessage());
 			if (errorPosition.offset >= 0) {
-				stream.println("text before error:\n" + sourceText.substring(0, errorPosition.offset));
+				programOutputPrinter.getErrorPrinterStream().println("text before error:\n" + sourceText.substring(0, errorPosition.offset));
 			}
 		}
 	}
@@ -576,159 +558,8 @@ public class ModelLauncher {
 	}
 	
 	protected void launchJavaProgram(boolean sync, final IJavaProject project, final IPath workingDirectory, final String className, final String[] args) throws CoreException {
-		if (associatedDisplay != null) {
-			if (sync) {
-				associatedDisplay.syncExec(new Runnable () {
-				      public void run () {
-				    	  try {
-							launchJavaProgram0(project, workingDirectory, className, args);
-						}
-				    	catch (CoreException e) {
-							e.printStackTrace();
-						}
-				      }
-				});
-			}
-			else {
-				associatedDisplay.asyncExec(new Runnable () {
-				      public void run () {
-				    	  try {
-							launchJavaProgram0(project, workingDirectory, className, args);
-						}
-				    	catch (CoreException e) {
-							e.printStackTrace();
-						}
-				      }
-				});
-			}
-		}
-		else {
-			launchJavaProgram0(project, workingDirectory, className, args);
-		}
-	}
-	
-	private void launchJavaProgram0(IJavaProject project, IPath workingDirectory, String className, String[] args) throws CoreException {
-		IVMInstall vmInstall = JavaRuntime.getVMInstall(project);
-		if (vmInstall == null) {
-			vmInstall = JavaRuntime.getDefaultVMInstall();
-		}
-		if (vmInstall != null) {
-			IVMRunner vmRunner = vmInstall.getVMRunner(ILaunchManager.RUN_MODE);
-			if (vmRunner != null) {
-				String[] classPath = null;
-				try {
-					classPath = JavaRuntime.computeDefaultRuntimeClassPath(project);
-				}
-				catch (CoreException e) {
-				}
-				if (classPath != null) {
-					VMRunnerConfiguration vmConfig = new VMRunnerConfiguration(className, classPath);
-					if (args != null) {
-						vmConfig.setProgramArguments(args);
-					}
-					vmConfig.setWorkingDirectory(workingDirectory.toString());
-					final ILaunch launch = new Launch(null, ILaunchManager.RUN_MODE, null);
-					logger.info("Launching Java program " + className + " ... ");
-					vmRunner.run(vmConfig, launch, null);
-			        final IProcess[] processes = launch.getProcesses();
 
-			        if (launch.getProcesses().length == 0) {
-			        	logger.severe("Program could not be launched.");
-					}
-					else {
-						final MessageConsoleStream stream = getConsoleForCurrentEditor().newMessageStream();
-						
-						IStreamListener outputStreamListener = new IStreamListener() {
-							@Override
-							public void streamAppended(String text, IStreamMonitor monitor) {
-								stream.print(text);
-							}
-						};
-						processes[0].getStreamsProxy().getOutputStreamMonitor().addListener(outputStreamListener);
-						
-						final MessageConsoleStream errorStream = getConsoleForCurrentEditor().newMessageStream();
-						if (associatedDisplay != null) {
-							final Color errorColor = associatedDisplay.getSystemColor(SWT.COLOR_RED);
-							errorStream.setColor(errorColor);
-						}
-						
-						IStreamListener errorStreamListener = new IStreamListener() {
-							@Override
-							public void streamAppended(String text, IStreamMonitor monitor) {
-								errorStream.print(text);
-							}
-						};
-						processes[0].getStreamsProxy().getErrorStreamMonitor().addListener(errorStreamListener);
-						
-        				while (!launch.isTerminated()) {
-        					try {
-        						Thread.sleep(100);
-        					}
-				            catch (InterruptedException ie) {
-				                ie.printStackTrace();
-				            }
-        					if (processes[0].getStreamsProxy().getErrorStreamMonitor().getContents().length() > 0) {
-        						logger.severe("Error encountered.");
-        						break;
-        					}
-        				}
-        				
-        				processes[0].getStreamsProxy().getOutputStreamMonitor().removeListener(outputStreamListener);
-        				processes[0].getStreamsProxy().getErrorStreamMonitor().removeListener(errorStreamListener);
-        				
-        				try {
-							stream.close();
-							errorStream.close();
-						}
-        				catch (IOException e) {
-							e.printStackTrace();
-						}
-        				
-        				logger.info("Program terminated.");
-					}
-				}
-			}
-		}
-	}
-	
-	protected void resetConsole() {
-		MessageConsole console = getConsoleForCurrentEditor();
-		console.clearConsole();
-		console.activate();
-	}
-	
-	private MessageConsole getConsoleForCurrentEditor() {
-		return getConsole(getLabel() + " execution");
-	}
-	
-	MessageConsole getConsole(String name) {
-		IConsoleManager conMgr = ConsolePlugin.getDefault().getConsoleManager();
-		for (IConsole console: conMgr.getConsoles()) {
-			if (console instanceof MessageConsole) {
-				MessageConsole msgConsole = (MessageConsole) console;
-				if (msgConsole.getName().equals(name)) {
-					return msgConsole;
-				}
-			}
-		}
-		MessageConsole msgConsole = new MessageConsole(name, null);
-		conMgr.addConsoles(new IConsole[] { msgConsole });
-		return msgConsole;
-	}
-	
-	private void redirectInputToConsole(Process process) {
-		try {
-			MessageConsole console = getConsole(getLabel() + " execution");
-			int b = process.getInputStream().read();
-			while (b != -1) {
-				console.newMessageStream().write(b);
-				b = process.getInputStream().read();
-			}
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+	}	
 	
 	public void compileAndRun(Resource modelResource) {
 		long startCompileTime = System.nanoTime();
@@ -745,7 +576,7 @@ public class ModelLauncher {
 		cleanFolder(getTempFolder(currentProject));
 		cleanFolder(getJavaGenFolder(currentProject));
 		
-		resetConsole();
+		programOutputPrinter.clear();
 
 		monitor.worked(5); // 5%
 //		monitor.subTask("Generating EMF Java classes for DBL metamodel");
@@ -781,20 +612,16 @@ public class ModelLauncher {
 		monitor.worked(40); // 95%
 
 		if (compileOk) {
-			try {
-				monitor.subTask("Executing target language program");				
-				
-				IJavaProject currentJavaProject = JavaCore.create(currentProject);
-				IPath workingDirectory = currentProject.getLocation();
+			monitor.subTask("Executing target language program");				
+			
+			IJavaProject currentJavaProject = JavaCore.create(currentProject);
+			IPath workingDirectory = currentProject.getLocation();
 
-				launchJavaProgram(true, currentJavaProject, workingDirectory, baseGenerator.javaPackageFolderPrefix + "/JavaMain", null);
-				
-				monitor.worked(5); // 100%
-			}
-			catch (CoreException e) {
-				e.printStackTrace();
-				return;
-			}
+			javaClassLauncher.launch(currentJavaProject, workingDirectory, 
+					baseGenerator.javaPackageFolderPrefix + "/JavaMain", null,
+					programOutputPrinter);
+			
+			monitor.worked(5); // 100%
 		}
 	}
 	

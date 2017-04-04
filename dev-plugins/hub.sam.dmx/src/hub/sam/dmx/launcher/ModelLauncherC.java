@@ -35,9 +35,11 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		return cGenFolder;
 	}
 	
-	public ModelLauncherC(IProgressMonitor monitor, Display associatedDisplay, IFile inputFile, Resource metaModelResource, 
-			IModelCreatingContext lastModelCreatingContext, String targetSimLib){
-		super(monitor, associatedDisplay, inputFile, metaModelResource, lastModelCreatingContext, targetSimLib);
+	public ModelLauncherC(IProgressMonitor monitor, IFile inputFile, Resource metaModelResource, 
+			IModelCreatingContext lastModelCreatingContext, String targetSimLib, IJavaClassLauncher javaClassLauncher,
+			IProgramOutputPrinter programOutputPrinter){
+		super(monitor, inputFile, metaModelResource, lastModelCreatingContext, targetSimLib,
+				javaClassLauncher, programOutputPrinter);
 	}
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
 	
@@ -179,7 +181,7 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		cleanFolder(getTempFolder(currentProject));
 		cleanFolder(getCGenFolder(currentProject));
 		
-		resetConsole();
+		programOutputPrinter.clear();
 
 		monitor.worked(10); // 10%
 		

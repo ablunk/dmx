@@ -64,16 +64,19 @@ public class XtendRunAction extends Action {
 		final IRunnableWithProgress runnable = new IRunnableWithProgress() {
 			@Override
 			public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-				final IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
-				final Resource metamodelResource = editor.getDblMetaModel().eResource();
+				IFile inputFile = ((FileEditorInput) editor.getEditorInput()).getFile();
+				Resource metamodelResource = editor.getDblMetaModel().eResource();
+				EditorConsole editorConsole = new EditorConsole(inputFile.getName() + " execution", currentDisplay);
+
 				ModelLauncher launcher;
 				if (getTargetLanguage() == "c++") {
-					launcher = new ModelLauncherC(monitor, currentDisplay, inputFile, metamodelResource, 
-							editor.getLastModelCreatingContext(), targetSimLib);
+					launcher = new ModelLauncherC(monitor, inputFile, metamodelResource, 
+							editor.getLastModelCreatingContext(), targetSimLib, null, editorConsole);
 				}
 				else {
-					launcher = new ModelLauncher(monitor, currentDisplay, inputFile, metamodelResource, 
-							editor.getLastModelCreatingContext(), targetSimLib);
+					launcher = new ModelLauncher(monitor, inputFile, metamodelResource, 
+							editor.getLastModelCreatingContext(), targetSimLib, new UIJavaLauncher(currentDisplay, true),
+							editorConsole);
 				}
 				//getCurrentProject().getRawLocation();
 				//IPath xmiRawLocation = ResourcesPlugin.getWorkspace().getRoot().getFile(xmiPath).getRawLocation();
