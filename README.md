@@ -1,8 +1,8 @@
-# Discrete-Event Simulation Modelling Framework with Extensibility
+# Discrete-Event Simulation Modelling with Extensibility
 
 ![dmx logo](logo-small.png "dmx logo")
 
-DMX is an approach that allows to define a domain-specific language (DSL) for simulation modelling by extending a highly runtime efficient general-purpose simulation base language.
+DMX is an approach that allows to define a domain-specific language (DSL) with process-oriented modelling concepts by extending a general-purpose base language. The base language is a process-oriented simulation base language that is highly runtime efficient.
 
 The approach consists of
 
