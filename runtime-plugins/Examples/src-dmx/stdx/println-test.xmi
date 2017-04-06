@@ -9,6 +9,9 @@
       <statements xsi:type="dbl:PrintLn_PrintLn_extension" concreteSyntax="println &quot;hello&quot;;" instanceOfExtensionDefinition="true">
         <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;hello&quot;" value="hello"/>
       </statements>
+      <statements xsi:type="dbl:PrintLn_PrintLn_extension" concreteSyntax="println &quot;hello&quot;;" instanceOfExtensionDefinition="true">
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;hello&quot;" value="hello"/>
+      </statements>
     </functions>
   </modules>
 </dbl:Model>

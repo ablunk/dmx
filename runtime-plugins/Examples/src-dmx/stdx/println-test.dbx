@@ -3,7 +3,8 @@
 module stdx_println_test {
 
 void main() {
-	println "hello";
+	println "line1";
+	println "line2";
 }
 
 }

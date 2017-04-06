@@ -6,8 +6,12 @@
   <modules name="stdx_println_test">
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;hello&quot;,&quot;\n&quot;">
-        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;hello&quot;" value="hello"/>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;line1&quot;,&quot;\n&quot;">
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;line1&quot;" value="line1"/>
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;line2&quot;,&quot;\n&quot;">
+        <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;line2&quot;" value="line2"/>
         <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
       </statements>
     </functions>
