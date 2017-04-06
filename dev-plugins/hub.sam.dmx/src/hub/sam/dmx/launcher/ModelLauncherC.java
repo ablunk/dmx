@@ -169,8 +169,8 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 	@Override
 	public void compileAndRun(Resource modelResource){
 		long startCompileTime = System.nanoTime();
-		monitor.beginTask("Compile && Run ...", 100);
-		monitor.subTask("Refreshing folders");
+		progressMonitor.beginTask("Compile && Run ...", 100);
+		progressMonitor.subTask("Refreshing folders");
 		// ueber Editor-> Datei.dbl -> zugehöriges Projekt 
 		// Projekt aktualisieren (Aenderungen automatisch erkannt, Erkennungstiefe wurde auf infinite gestellt)
 		refreshCurrentProject();
@@ -178,29 +178,29 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		IProject currentProject = getCurrentProject();
 		IPath genPath = getCGenFolder(currentProject).getRawLocation();
 
-		monitor.subTask("Cleaning folders");
+		progressMonitor.subTask("Cleaning folders");
 		// Ordner werden rekursiv bereinigt 
 		cleanFolder(getTempFolder(currentProject));
 		cleanFolder(getCGenFolder(currentProject));
 		
 		programOutputPrinter.clear();
 
-		monitor.worked(10); // 10%
+		progressMonitor.worked(10); // 10%
 		
-		monitor.subTask("Translating model to target language program");
+		progressMonitor.subTask("Translating model to target language program");
 		
 		Resource originalResource = modelResource;
 		Model rootModel = (Model) originalResource.getContents().get(0);
 		BaseCPlusPlusGenerator baseGenerator = new SpecificSimulationCPlusPlusGenerator(genPath);
 		
 		// aktuell geoeffnetes File
-		final boolean isDbxInputFile = inputFile.getFileExtension().equals("dbx");
+		final boolean isDbxInputFile = modelFile.getFileExtension().equals("dbx");
 
-		logger.info("Compiling and executing model " + inputFile + " ...");
+		logger.info("Compiling and executing model " + modelFile + " ...");
 
 		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
-		monitor.worked(50); // 55%
-		monitor.subTask("Compiling target language program");
+		progressMonitor.worked(50); // 55%
+		progressMonitor.subTask("Compiling target language program");
 
 		boolean isCompiled = false;
 		isCompiled = compileCppFiles(currentProject, getCGenFolder(currentProject));
@@ -209,11 +209,11 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		long ms = estimatedTime / (1000 * 1000);
 		logger.info("Overall compile time: " + ms / 1000.0 + " seconds");
 
-		monitor.worked(40); // 95%
+		progressMonitor.worked(40); // 95%
 		if(isCompiled){
-			monitor.subTask("Executing target language program");
+			progressMonitor.subTask("Executing target language program");
 			startProgram(currentProject, getJavaGenFolder(currentProject));
-			monitor.worked(5);
+			progressMonitor.worked(5);
 		}
 	}
 }

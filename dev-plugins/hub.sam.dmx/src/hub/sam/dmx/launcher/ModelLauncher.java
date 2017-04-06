@@ -64,36 +64,105 @@ import hub.sam.tef.semantics.AbstractError;
 public class ModelLauncher {
 	
 	protected static final Logger logger = Logger.getLogger(ModelLauncher.class.getName());
-	protected final IProgressMonitor monitor;
-	protected final IFile inputFile;
+	
+	protected final IProgressMonitor progressMonitor;
+	
+	protected final IFile modelFile;
 	protected final Resource metaModelResource;
 	protected final IModelCreatingContext lastModelCreatingContext;
-	protected final ProgramOutputPrinter programOutputPrinter;
+	
 	private final String targetSimLib;
-	
-	private JavaClassLauncher javaClassLauncher;
+	private final JavaClassLauncher javaClassLauncher;
+	protected final ProgramOutputPrinter programOutputPrinter;
 
-	public static final String JAVA_GEN_FOLDER_NAME = "gen-src";
-	public static final String TEMP_FOLDER_NAME = "temp";
+	public static final String JAVA_GEN_FOLDER = "gen-src";
+	public static final String TEMP_FOLDER = "temp";
 	
-	public ModelLauncher(IProgressMonitor monitor, IFile inputFile, Resource metaModelResource, 
+	public ModelLauncher(IProgressMonitor monitor, IFile modelFile, Resource metaModelResource, 
 			IModelCreatingContext lastModelCreatingContext, String targetSimLib, JavaClassLauncher javaClassLauncher,
 			ProgramOutputPrinter programOutputPrinter) {
-		this.monitor = monitor;
-		this.inputFile = inputFile;
+		
+		this.progressMonitor = monitor;
+		
+		this.modelFile = modelFile;
 		this.metaModelResource = metaModelResource;
 		this.lastModelCreatingContext = lastModelCreatingContext;
+		
 		this.targetSimLib = targetSimLib;
 		this.javaClassLauncher = javaClassLauncher;
 		this.programOutputPrinter = programOutputPrinter;
 	}
 	
+	public void compileAndRun(Resource modelResource) {
+		long startCompileTime = System.nanoTime();
+		
+		progressMonitor.beginTask("Compile && Run ...", 100);
+		
+		progressMonitor.subTask("Refreshing folders");
+		refreshCurrentProject();
+		
+		IProject currentProject = getCurrentProject();
+		IPath genPath = getJavaGenFolder(currentProject).getRawLocation();
+
+		progressMonitor.subTask("Cleaning folders");
+		cleanFolder(getTempFolder(currentProject));
+		cleanFolder(getJavaGenFolder(currentProject));
+		
+		programOutputPrinter.clear();
+
+		progressMonitor.worked(5); // 5%
+//		monitor.subTask("Generating EMF Java classes for DBL metamodel");
+//		genEmfJavaClasses(currentProject);
+
+		progressMonitor.subTask("Translating model to target language program");
+
+		// 1a. NEW --> Access properties by EMF's reflection mechanism. In this, no EMF code needs to generated here.
+
+		Resource originalResource = modelResource;
+		Model rootModel = (Model) originalResource.getContents().get(0);
+		BasicDblToJavaGenerator baseGenerator = null;
+		if (targetSimLib == "desmoj") {
+			baseGenerator = new DblToDesmojJavaGenerator(genPath);
+		}
+
+		final boolean isDbxInputFile = modelFile.getFileExtension().equals("dbx");
+
+		logger.info("Compiling and executing model " + modelFile + " ...");
+
+		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
+		
+		progressMonitor.worked(50); // 55%
+		progressMonitor.subTask("Compiling target language program");
+
+		boolean compileOk = false;
+		compileOk = compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
+
+		long estimatedTime = System.nanoTime() - startCompileTime;
+		long ms = estimatedTime / (1000 * 1000);
+		logger.info("Overall compile time: " + ms / 1000.0 + " seconds");
+		
+		progressMonitor.worked(40); // 95%
+
+		if (compileOk) {
+			progressMonitor.subTask("Executing target language program");				
+			
+			IJavaProject currentJavaProject = JavaCore.create(currentProject);
+			IPath workingDirectory = currentProject.getLocation();
+
+			javaClassLauncher.launch(currentJavaProject, workingDirectory, 
+					baseGenerator.javaPackageFolderPrefix + "/JavaMain", null,
+					programOutputPrinter);
+			
+			progressMonitor.worked(5); // 100%
+		}
+	}
+	
 	protected IProject getCurrentProject() {
-		return inputFile.getProject();
+		return modelFile.getProject();
 	}
 	
 	private String getLabel() {
-		return inputFile.getName();
+		return modelFile.getName();
 	}
 	
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
@@ -373,7 +442,7 @@ public class ModelLauncher {
 					// text substitute extension instances by result of semantics executions
 					EList<Modification> storedModifications = getLastStoredModifications();
 					
-					monitor.subTask("Applying modifications");
+					progressMonitor.subTask("Applying modifications");
 					
 					logger.info("--------- input text ---------" + Activator.lineSep
 							+ modificationApplier.getWorkingText() + Activator.lineSep);
@@ -565,75 +634,11 @@ public class ModelLauncher {
 
 	}	
 	
-	public void compileAndRun(Resource modelResource) {
-		long startCompileTime = System.nanoTime();
-		
-		monitor.beginTask("Compile && Run ...", 100);
-		
-		monitor.subTask("Refreshing folders");
-		refreshCurrentProject();
-		
-		IProject currentProject = getCurrentProject();
-		IPath genPath = getJavaGenFolder(currentProject).getRawLocation();
-
-		monitor.subTask("Cleaning folders");
-		cleanFolder(getTempFolder(currentProject));
-		cleanFolder(getJavaGenFolder(currentProject));
-		
-		programOutputPrinter.clear();
-
-		monitor.worked(5); // 5%
-//		monitor.subTask("Generating EMF Java classes for DBL metamodel");
-//		genEmfJavaClasses(currentProject);
-
-		monitor.subTask("Translating model to target language program");
-
-		// 1a. NEW --> Access properties by EMF's reflection mechanism. In this, no EMF code needs to generated here.
-
-		Resource originalResource = modelResource;
-		Model rootModel = (Model) originalResource.getContents().get(0);
-		BasicDblToJavaGenerator baseGenerator = null;
-		if (targetSimLib == "desmoj") {
-			baseGenerator = new DblToDesmojJavaGenerator(genPath);
-		}
-
-		final boolean isDbxInputFile = inputFile.getFileExtension().equals("dbx");
-
-		logger.info("Compiling and executing model " + inputFile + " ...");
-
-		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
-		
-		monitor.worked(50); // 55%
-		monitor.subTask("Compiling target language program");
-
-		boolean compileOk = false;
-		compileOk = compileJavaFiles(currentProject, getJavaGenFolder(currentProject));
-
-		long estimatedTime = System.nanoTime() - startCompileTime;
-		long ms = estimatedTime / (1000 * 1000);
-		logger.info("Overall compile time: " + ms / 1000.0 + " seconds");
-		
-		monitor.worked(40); // 95%
-
-		if (compileOk) {
-			monitor.subTask("Executing target language program");				
-			
-			IJavaProject currentJavaProject = JavaCore.create(currentProject);
-			IPath workingDirectory = currentProject.getLocation();
-
-			javaClassLauncher.launch(currentJavaProject, workingDirectory, 
-					baseGenerator.javaPackageFolderPrefix + "/JavaMain", null,
-					programOutputPrinter);
-			
-			monitor.worked(5); // 100%
-		}
-	}
-	
 	protected IFolder javaGenFolder = null;
 
 	protected IFolder getJavaGenFolder(IProject project) {
 		if (javaGenFolder == null) {
-			javaGenFolder = project.getFolder(JAVA_GEN_FOLDER_NAME);
+			javaGenFolder = project.getFolder(JAVA_GEN_FOLDER);
 		}
 		return javaGenFolder;
 	}
@@ -642,7 +647,7 @@ public class ModelLauncher {
 	
 	protected IFolder getTempFolder(IProject project) {
 		if (tempFolder == null) {
-			tempFolder = project.getFolder(TEMP_FOLDER_NAME);
+			tempFolder = project.getFolder(TEMP_FOLDER);
 		}
 		return tempFolder;
 	}
