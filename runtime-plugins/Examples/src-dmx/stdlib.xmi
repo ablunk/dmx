@@ -16,6 +16,15 @@
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
     </classes>
+    <classes name="String">
+      <bindings targetLanguage="java" targetType="java.lang.String"/>
+      <superClasses class="//@modules.0/@classes.0"/>
+      <constructors>
+        <parameters name="original">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+    </classes>
     <classes name="Iterator">
       <bindings targetLanguage="java" targetType="java.util.Iterator"/>
       <methods name="hasNext" abstract="true">
@@ -74,12 +83,12 @@
         <classifierType referencedElement="//@modules.0/@classes.0"/>
       </methods>
       <methods name="iterator" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
       </methods>
     </classes>
     <classes name="List">
       <bindings targetLanguage="java" targetType="java.util.List"/>
-      <superClasses class="//@modules.0/@classes.2"/>
+      <superClasses class="//@modules.0/@classes.3"/>
       <methods name="add" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
@@ -142,12 +151,12 @@
         <classifierType referencedElement="//@modules.0/@classes.0"/>
       </methods>
       <methods name="iterator" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
       </methods>
     </classes>
     <classes name="ArrayList">
       <bindings targetLanguage="java" targetType="java.util.ArrayList"/>
-      <superClasses class="//@modules.0/@classes.3"/>
+      <superClasses class="//@modules.0/@classes.4"/>
     </classes>
     <classes name="Map">
       <bindings targetLanguage="java" targetType="java.util.Map"/>
@@ -169,7 +178,7 @@
     </classes>
     <classes name="HashMap">
       <bindings targetLanguage="java" targetType="java.util.HashMap"/>
-      <superClasses class="//@modules.0/@classes.5"/>
+      <superClasses class="//@modules.0/@classes.6"/>
     </classes>
   </modules>
 </dbl:Model>

@@ -4,10 +4,10 @@
     <model href="forever.xmi#/"/>
   </imports>
   <modules name="stdx_forevr_test">
-    <classes name="A" concreteSyntax="active class A {&#xA;&#x9;actions {&#xA;&#x9;&#x9;forever {&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;&#x9;if (time > 3) break;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}" active="true">
+    <classes name="A" concreteSyntax="active class A {&#xA;&#x9;actions {&#xA;&#x9;&#x9;forever {&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}" active="true">
       <actionsBlock>
-        <statements xsi:type="dbl:Forever_Forever_extension" concreteSyntax="forever {&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;&#x9;if (time > 3) break;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
-          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;&#x9;if (time > 3) break;&#xA;&#x9;&#x9;}">
+        <statements xsi:type="dbl:Forever_Forever_extension" concreteSyntax="forever {&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;}">
             <statements xsi:type="dbl:Print" concreteSyntax="print time + &quot;\n&quot;">
               <outputs xsi:type="dbl:Plus" concreteSyntax="time + &quot;\n&quot;">
                 <op1 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
@@ -17,23 +17,18 @@
             <statements xsi:type="dbl:Advance" concreteSyntax="advance 1">
               <time xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
             </statements>
-            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (time > 3) break;">
-              <condition xsi:type="dbl:Greater" concreteSyntax="time > 3">
-                <op1 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
-                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
-              </condition>
-              <trueCase xsi:type="dbl:BreakStatement" concreteSyntax="break"/>
-            </statements>
           </body>
         </statements>
       </actionsBlock>
     </classes>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="a" concreteSyntax="A a = new A">
+      <statements xsi:type="dbl:Variable" name="a" concreteSyntax="A a = new A()">
         <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classes.0"/>
-        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A">
-          <classifierType concreteSyntax="A" referencedElement="//@modules.0/@classes.0"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A()">
+          <classifierType concreteSyntax="A()" referencedElement="//@modules.0/@classes.0">
+            <callPart/>
+          </classifierType>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate a">

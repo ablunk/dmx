@@ -1,0 +1,14 @@
+#import "../stdlib"
+
+module strings {
+
+void main() {
+	string s1 = "value";
+	String s2 = new String(s1);
+	String s3 = new String(s1);
+	
+	print(s1);
+	print(s2.equals(s3));
+}
+
+}

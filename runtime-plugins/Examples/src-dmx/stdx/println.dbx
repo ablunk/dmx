@@ -1,13 +1,13 @@
 #import "../dbl"
 #import "../stdlib"
-#import "foreach"
+#import "foreach-collections"
 
 module stdx_println {
 
 extension PrintLn extends dbl SimpleStatement {
 	start PrintLn;
 	PrintLn -> "println"  PrintLnOutputs ";";
-	PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;
+	PrintLnOutputs -> outputs:list Expression PrintLnOutputsOptional;
 	PrintLnOutputsOptional -> ;
 	PrintLnOutputsOptional -> "," PrintLnOutputs;
 }

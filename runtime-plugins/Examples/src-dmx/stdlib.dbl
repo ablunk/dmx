@@ -9,6 +9,13 @@ class Object {
 	string toString() abstract;
 }
 
+class String extends Object {
+	bindings {
+		"java" -> "java.lang.String"
+	}
+	new(string original) {}
+}
+
 class Iterator {
 	bindings {
 		"java" -> "java.util.Iterator"

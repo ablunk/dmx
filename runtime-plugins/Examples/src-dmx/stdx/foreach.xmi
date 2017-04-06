@@ -37,7 +37,7 @@
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensionSemantics concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#x9;&#xA;&#x9;boolean collectionRefersToArray = false;&#xA;&#x9;IdExpr collectionIdExpr = collection as IdExpr;&#xA;&#x9;if (collectionIdExpr.referencedElement instanceof Variable) {&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;if (collectionRefersToArray) {&#xA;&#x9;&#x9;ID i;&#xA;&#x9;&#x9;expand &quot;for (int &quot; i &quot; = 0; &quot; i &quot; &lt; &quot; collection &quot;.length; &quot; i &quot;=&quot; i &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;} else {&#xA;&#x9;&#x9;ID it;&#xA;&#x9;&#x9;ID item; &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
+    <extensionSemantics concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#x9;&#xA;&#x9;boolean collectionRefersToArray = false;&#xA;&#x9;IdExpr collectionIdExpr = collection as IdExpr;&#xA;&#x9;// usually we would check if the collectionVariable is an instanceof Variable.&#xA;&#x9;// however, no java classes are generated for the extension metamodel. therefore, each rules metaclass is mapped to the type EObject.&#xA;&#x9;//String collectionVariableName = new String(collectionIdExpr.referencedElement.eClass().name);&#xA;&#x9;//if (collectionVariableName.equals(&quot;Variable&quot;)) {&#xA;&#x9;if (collectionIdExpr.referencedElement instanceof Variable) {&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;List arrayDimensions = referencedCollectionVariable.typeArrayDimensions as List;&#xA;&#x9;&#x9;//if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;if (arrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;if (collectionRefersToArray) {&#xA;&#x9;&#x9;ID i;&#xA;&#x9;&#x9;expand &quot;for (int &quot; i &quot; = 0; &quot; i &quot; &lt; &quot; collection &quot;.length; &quot; i &quot;=&quot; i &quot;+1) {&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; collection &quot;[&quot; i &quot;];&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;} else {&#xA;&#x9;&#x9;ID it;&#xA;&#x9;&#x9;ID item; &#xA;&#x9;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;&#x9;expand &quot;}&quot;;&#xA;&#x9;}&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
       <statements xsi:type="dbl:Variable" name="itemVariable" concreteSyntax="Variable itemVariable = statements.get(0) as Variable">
         <classifierType concreteSyntax="Variable">
           <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
@@ -48,7 +48,7 @@
           </classifierType>
           <op xsi:type="dbl:IdExpr" concreteSyntax="statements.get(0)">
             <parentIdExpr concreteSyntax="statements" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
+            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
             <callPart>
               <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
             </callPart>
@@ -70,7 +70,7 @@
           <op xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (collectionIdExpr.referencedElement instanceof Variable) {&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (collectionIdExpr.referencedElement instanceof Variable) {&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;List arrayDimensions = referencedCollectionVariable.typeArrayDimensions as List;&#xA;&#x9;&#x9;//if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;if (arrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
         <condition xsi:type="dbl:InstanceOf" concreteSyntax="collectionIdExpr.referencedElement instanceof Variable">
           <op1 xsi:type="dbl:IdExpr" concreteSyntax="collectionIdExpr.referencedElement">
             <parentIdExpr concreteSyntax="collectionIdExpr" referencedElement="//@modules.0/@extensionSemantics.0/@statements.2"/>
@@ -82,7 +82,7 @@
             </idExpr>
           </op2>
         </condition>
-        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;&#xA;&#x9;&#x9;List arrayDimensions = referencedCollectionVariable.typeArrayDimensions as List;&#xA;&#x9;&#x9;//if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;if (arrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
           <statements xsi:type="dbl:Variable" name="referencedCollectionVariable" concreteSyntax="Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable">
             <classifierType concreteSyntax="Variable">
               <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
@@ -97,14 +97,25 @@
               </op>
             </initialValue>
           </statements>
-          <statements xsi:type="dbl:IfStatement" concreteSyntax="if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}">
-            <condition xsi:type="dbl:Greater" concreteSyntax="referencedCollectionVariable.typeArrayDimensions.size() > 0">
-              <op1 xsi:type="dbl:IdExpr" concreteSyntax="referencedCollectionVariable.typeArrayDimensions.size()">
-                <parentIdExpr concreteSyntax="referencedCollectionVariable.typeArrayDimensions">
-                  <parentIdExpr concreteSyntax="referencedCollectionVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.3/@trueCase/@statements.0"/>
-                  <referencedElement href="../dbl.xmi#//@modules.0/@classes.13/@attributes.1"/>
-                </parentIdExpr>
-                <referencedElement href="../stdlib.xmi#//@modules.0/@classes.3/@methods.4"/>
+          <statements xsi:type="dbl:Variable" name="arrayDimensions" concreteSyntax="List arrayDimensions = referencedCollectionVariable.typeArrayDimensions as List">
+            <classifierType concreteSyntax="List">
+              <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="referencedCollectionVariable.typeArrayDimensions as List">
+              <classifierType concreteSyntax="List">
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4"/>
+              </classifierType>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="referencedCollectionVariable.typeArrayDimensions">
+                <parentIdExpr concreteSyntax="referencedCollectionVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.3/@trueCase/@statements.0"/>
+                <referencedElement href="../dbl.xmi#//@modules.0/@classes.13/@attributes.1"/>
+              </op>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:IfStatement" concreteSyntax="if (arrayDimensions.size() > 0) {&#xA;&#x9;&#x9;&#x9;collectionRefersToArray = true;&#xA;&#x9;&#x9;}">
+            <condition xsi:type="dbl:Greater" concreteSyntax="arrayDimensions.size() > 0">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="arrayDimensions.size()">
+                <parentIdExpr concreteSyntax="arrayDimensions" referencedElement="//@modules.0/@extensionSemantics.0/@statements.3/@trueCase/@statements.1"/>
+                <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4/@methods.4"/>
                 <callPart/>
               </op1>
               <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>

@@ -1,0 +1,25 @@
+#import "../dbl"
+#import "../stdlib"
+
+module stdx_foreach {
+
+extension ForEach extends dbl LocalScopeStatement {
+	start ForEach;
+	ForEach -> "foreach" "(" statements : list Variable "in" collection : Expression ")"
+		body : LocalScopeStatement;
+}
+
+semantics for ForEach {	
+	Variable itemVariable = statements.get(0) as Variable;
+
+	ID it;
+	ID item; 
+	expand "Iterator " it " = " collection ".iterator();";
+	expand "while (" it ".hasNext()) {";
+	expand "	Object " item " = " it ".next();";
+	expand 		itemVariable " = " item " as " itemVariable.classifierType ";";
+	expand		body;
+	expand "}";
+}
+
+}

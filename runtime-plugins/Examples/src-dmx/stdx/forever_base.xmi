@@ -7,9 +7,9 @@
     <model href="../stdlib.xmi#/"/>
   </imports>
   <modules name="stdx_forever">
-    <extensions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xD;&#xA;&#x9;start Forever;&#xD;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xD;&#xA;}">
+    <extensions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}">
       <extensionPoint href="../dbl.xmi#//@modules.0/@classes.32"/>
-      <syntaxDefinition concreteSyntax="{&#xD;&#xA;&#x9;start Forever;&#xD;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xD;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
@@ -22,7 +22,7 @@
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensionSemantics concreteSyntax="semantics for Forever {&#xD;&#xA;&#x9;expand &quot;while (true) &quot; body;&#xD;&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
+    <extensionSemantics concreteSyntax="semantics for Forever {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (true) &quot; body">
         <parts xsi:type="dbl:ExpandTextPart" text="while (true) "/>
         <parts xsi:type="dbl:ExpandVariablePart">

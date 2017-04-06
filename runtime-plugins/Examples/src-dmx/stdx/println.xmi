@@ -6,42 +6,46 @@
   <imports file="../stdlib">
     <model href="../stdlib.xmi#/"/>
   </imports>
-  <imports file="foreach">
-    <model href="foreach.xmi#/"/>
+  <imports file="foreach-collections">
+    <model href="foreach-collections.xmi#/"/>
   </imports>
   <modules name="stdx_println">
-    <extensionDefinitions name="PrintLn" concreteSyntax="extension PrintLn extends dbl SimpleStatement {&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}">
-      <extendedConcept xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.29"/>
-      <textualSyntaxDef concreteSyntax=" {&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}" startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
-        <rules name="PrintLn" concreteSyntax="PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="println"/>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1"/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
-          </rhs>
-        </rules>
-        <rules name="PrintLnOutputs" concreteSyntax="PrintLnOutputs -> outputs:list(Expression) PrintLnOutputsOptional;">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="outputs">
-              <propertyType xsi:type="dbl:CompositePropertyType" list="true">
-                <type xsi:type="dbl:Class" href="../dbl.xmi#//@modules.0/@classes.50"/>
-              </propertyType>
+    <extensions name="PrintLn" concreteSyntax="extension PrintLn extends dbl SimpleStatement {&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list Expression PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}">
+      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.32"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start PrintLn;&#xA;&#x9;PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;&#xA;&#x9;PrintLnOutputs -> outputs:list Expression PrintLnOutputsOptional;&#xA;&#x9;PrintLnOutputsOptional -> ;&#xA;&#x9;PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="PrintLn" concreteSyntax="PrintLn -> &quot;println&quot;  PrintLnOutputs &quot;;&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;println&quot;" keyword="println"/>
             </sequence>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.3"/>
-          </rhs>
-        </rules>
-        <rules name="PrintLnOutputsOptional" concreteSyntax="PrintLnOutputsOptional -> ;">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="PrintLnOutputsOptional" concreteSyntax="PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal=","/>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionSemanticsDefinitions concreteSyntax="semantics for PrintLn {&#xA;&#x9;expand &quot;print &quot;;&#xA;&#x9;&#xA;&#x9;boolean first = true;&#xA;&#x9;foreach (Expression output in outputs) {&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;expand &quot;\&quot;\\n\&quot;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;;&quot;;&#xA;}" syntaxDefinition="//@modules.0/@extensionDefinitions.0">
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;;&quot;" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="PrintLnOutputs" concreteSyntax="PrintLnOutputs -> outputs:list Expression PrintLnOutputsOptional;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="outputs" list="true">
+              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.53"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.3"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="PrintLnOutputsOptional" concreteSyntax="PrintLnOutputsOptional -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="PrintLnOutputsOptional" concreteSyntax="PrintLnOutputsOptional -> &quot;,&quot; PrintLnOutputs;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;,&quot;" keyword=","/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1"/>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for PrintLn {&#xA;&#x9;expand &quot;print &quot;;&#xA;&#x9;&#xA;&#x9;boolean first = true;&#xA;&#x9;foreach (Expression output in outputs) {&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;expand &quot;\&quot;\\n\&quot;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;;&quot;;&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;print &quot;">
         <parts xsi:type="dbl:ExpandTextPart" text="print "/>
       </statements>
@@ -52,35 +56,35 @@
       <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Expression output in outputs) {&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
         <statements xsi:type="dbl:Variable" name="output" concreteSyntax="Expression output">
           <classifierType concreteSyntax="Expression">
-            <referencedElement href="../dbl.xmi#//@modules.0/@classes.50"/>
+            <referencedElement href="../dbl.xmi#//@modules.0/@classes.53"/>
           </classifierType>
         </statements>
-        <collection xsi:type="dbl:IdExpr" concreteSyntax="outputs" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1/@rhs/@sequence.0"/>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="outputs" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1/@possibleSyntax/@sequence.0"/>
         <body concreteSyntax="{&#xA;&#x9;&#x9;if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand output;&#xA;&#x9;}">
           <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;&#xA;&#x9;&#x9;else first = false;">
             <condition xsi:type="dbl:Not" concreteSyntax="!first">
-              <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
             </condition>
             <trueCase xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;,&quot;">
               <parts xsi:type="dbl:ExpandTextPart" text=","/>
             </trueCase>
             <falseCase xsi:type="dbl:Assignment" concreteSyntax="first = false">
               <variable concreteSyntax="first">
-                <idExpr concreteSyntax="first" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
+                <idExpr concreteSyntax="first" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
               </variable>
               <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
             </falseCase>
           </statements>
           <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand output">
             <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="output" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.2/@statements.0"/>
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="output" referencedElement="//@modules.0/@extensionSemantics.0/@statements.2/@statements.0"/>
             </parts>
           </statements>
         </body>
       </statements>
       <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!first) expand &quot;,&quot;;">
         <condition xsi:type="dbl:Not" concreteSyntax="!first">
-          <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
+          <op xsi:type="dbl:IdExpr" concreteSyntax="first" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
         </condition>
         <trueCase xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;,&quot;">
           <parts xsi:type="dbl:ExpandTextPart" text=","/>
@@ -92,6 +96,6 @@
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;;&quot;">
         <parts xsi:type="dbl:ExpandTextPart" text=";"/>
       </statements>
-    </extensionSemanticsDefinitions>
+    </extensionSemantics>
   </modules>
 </dbl:Model>

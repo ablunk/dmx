@@ -52,12 +52,12 @@
       </superClasses>
       <attributes name="imports">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.2"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
       <attributes name="modules">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.2"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
         </classifierType>
       </attributes>
     </classes>
@@ -92,27 +92,27 @@
       <superClasses class="//@modules.0/@classes.0"/>
       <attributes name="classes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="extensions">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="extensionSemantics">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="functions">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="variables">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -121,7 +121,7 @@
       <superClasses class="//@modules.0/@classes.29"/>
       <attributes name="items">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -156,7 +156,7 @@
       </superClasses>
       <attributes name="annotations">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -171,7 +171,7 @@
       </superClasses>
       <attributes name="contentExtensions">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -190,7 +190,7 @@
       </superClasses>
       <attributes name="arrayDimensions">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -204,7 +204,7 @@
       </attributes>
       <attributes name="typeArrayDimensions">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="classifierType">
@@ -269,7 +269,7 @@
       <superClasses class="//@modules.0/@classes.45"/>
       <attributes name="parameters">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="class">
@@ -325,7 +325,7 @@
       </attributes>
       <attributes name="constructorArguments">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="setClass" abstract="true">
@@ -348,27 +348,27 @@
       </attributes>
       <attributes name="bindings">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="superClasses">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="constructors">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="attributes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="methods">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="actionsBlock">
@@ -392,7 +392,7 @@
       <superClasses class="//@modules.0/@classes.45"/>
       <attributes name="parameters">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="owningClass">
@@ -601,7 +601,7 @@
       <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="outputs">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -643,7 +643,7 @@
       </superClasses>
       <attributes name="statements">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -714,7 +714,7 @@
       </attributes>
       <attributes name="cases">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="defaultCase">
@@ -743,7 +743,7 @@
       </attributes>
       <attributes name="body">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="setValue" abstract="true">
@@ -1066,7 +1066,7 @@
       </attributes>
       <attributes name="arrayIndex">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="callPart">
@@ -1104,7 +1104,7 @@
       </superClasses>
       <attributes name="callArguments">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -1178,7 +1178,7 @@
       </attributes>
       <attributes name="symbols">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="setStartSymbol" abstract="true">
@@ -1234,7 +1234,7 @@
       <superClasses class="//@modules.0/@classes.115"/>
       <attributes name="sequence">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -1362,12 +1362,12 @@
       <superClasses class="//@modules.0/@classes.30"/>
       <attributes name="parts">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="exprs">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -1523,7 +1523,7 @@
       <superClasses class="//@modules.0/@classes.137"/>
       <attributes name="statements">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>

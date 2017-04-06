@@ -14,9 +14,15 @@ semantics for ForEach {
 	
 	boolean collectionRefersToArray = false;
 	IdExpr collectionIdExpr = collection as IdExpr;
+	// usually we would check if the collectionVariable is an instanceof Variable.
+	// however, no java classes are generated for the extension metamodel. therefore, each rules metaclass is mapped to the type EObject.
+	//String collectionVariableName = new String(collectionIdExpr.referencedElement.eClass().name);
+	//if (collectionVariableName.equals("Variable")) {
 	if (collectionIdExpr.referencedElement instanceof Variable) {
 		Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;
-		if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {
+		List arrayDimensions = referencedCollectionVariable.typeArrayDimensions;
+		//if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {
+		if (arrayDimensions.size() > 0) {
 			collectionRefersToArray = true;
 		}
 	}
