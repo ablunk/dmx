@@ -2,11 +2,11 @@
 
 ![dmx logo](logo-small.png "dmx logo")
 
-DMX is an approach that allows to define a domain-specific language (DSL) with process-oriented modelling concepts by extending a general-purpose base language. The base language is a process-oriented simulation base language that is highly runtime efficient.
+DMX is an approach that allows to define a domain-specific language (DSL) with process-oriented modelling concepts by extending a general-purpose base language. The base language is a process-oriented simulation language that is highly runtime efficient.
 
 The approach consists of
 
-1. the base language DBX,
+1. the base language DBX, which was built for flexible extensibility, concise models, and highly efficient simulations,
 2. a model editor that instantly supports extensions with syntax highlighting and content assistance,
 3. a compiler for DBX models with extensions,
 4. and a DBX model launcher.
@@ -17,7 +17,7 @@ The base language and the tooling are provided as a set of plugins for Eclipse. 
 - [Xtend](http://www.eclipse.org/xtend) Version 2.4 or higher, [available from here](http://www.eclipse.org/xtend/download.html),
 - and an adapted version of the Textual Editing Framework (TEF), originally developed by Markus Scheidgen, [available from this Eclipse update site](http://github.com/ablunk/dmx/raw/master/dev-plugins/hub.sam.tef.updatesite).
 
-DMX is an academic project maintained by just one individual (Andreas Blunk). I'm trying to have a stable version in the latest commit. However, there might be some parts not working from time to time. The purpose is to show the principle working of the particular concept of language extension which is realized by the approach.
+DMX is an academic project. I'm trying to have a stable version in the latest commit. However, there might be some parts not working from time to time. The purpose is to show the principle working of the particular concept of language extension which is realized by the approach.
 
 In order to use DMX, you should import its plugins into your own Eclipse workspace. The contents provided at GitHub are listed below.
 
