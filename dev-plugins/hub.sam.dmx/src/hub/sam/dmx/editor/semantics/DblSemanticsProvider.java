@@ -7,6 +7,7 @@ import hub.sam.dbl.Model;
 import hub.sam.dmx.editor.DblPreProcessor;
 import hub.sam.dmx.editor.IModelContainer;
 import hub.sam.dmx.editor.IPreProcessedDocument;
+import hub.sam.dmx.editor.semantics.idresolution.IdentifierResolver;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 import hub.sam.tef.modelcreating.ModelCreatingException;
 import hub.sam.tef.modelcreating.ParseTreeNode;
@@ -61,7 +62,7 @@ public class DblSemanticsProvider extends DefaultSemanticsProvider {
 	}
 
 	public DblSemanticsProvider(IPreProcessedDocument preProcessedDocument) {
-		super(new DblIdentificationScheme(preProcessedDocument));
+		super(new IdentifierResolver(preProcessedDocument));
 		this.preProcessedDocument = preProcessedDocument;
 	}
 

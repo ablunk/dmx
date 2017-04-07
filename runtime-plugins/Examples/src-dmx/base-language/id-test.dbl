@@ -1,0 +1,23 @@
+module test {
+
+class A {
+	int x;
+
+	void f(int i) {
+		int j;
+		
+		print(i+x);
+	}
+}
+
+void main() {
+	int i = 1;
+	
+	{
+		//int i = 3;
+		int j=2;
+		print(i+j);
+	}
+}
+
+}
