@@ -324,6 +324,8 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.ANNOTATION_LITERAL: return createAnnotationLiteral();
 			case DblPackage.CREATE_ID_STATEMENT: return createCreateIdStatement();
 			case DblPackage.YIELD_TO: return createYieldTo();
+			
+			
 			default:
 				//throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 				return DblUtil.createObjectOfParentClass(eClass);

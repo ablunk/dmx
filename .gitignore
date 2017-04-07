@@ -4,7 +4,8 @@
 .DS_Store
 bin/
 dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/*.java
-dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/impl/*.java!DblFactoryImpl.java
+dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/impl/*.java
+!dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/impl/DblFactoryImpl.java
 dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/util/
 dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/validation/
 dev-plugins/hub.sam.dbl.model.edit/icons/
