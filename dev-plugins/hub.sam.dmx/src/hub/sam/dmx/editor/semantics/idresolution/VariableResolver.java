@@ -8,14 +8,16 @@ import hub.sam.dbl.NamedElement;
 public class VariableResolver implements ElementResolver {
 
 	@Override
-	public void resolvePossibleElements(NamedElement identifier, IdExpr idExprContext,
-			Collection<IdentifiedElement> identifiedElements) {
+	public Collection<IdentifiedElement> resolvePossibleElements(NamedElement identifier, IdExpr idExprContext) {
 		
-		new LocalVariableResolver().resolvePossibleElements(identifier, idExprContext, identifiedElements);
+		Collection<IdentifiedElement> identifiedLocalVariables = new LocalVariableResolver()
+				.resolvePossibleElements(identifier, idExprContext);
 		
-		if (identifiedElements.isEmpty()) {
-			new AttributeResolver().resolvePossibleElements(identifier, idExprContext, identifiedElements);
+		if (identifiedLocalVariables.isEmpty()) {
+			return new AttributeResolver().resolvePossibleElements(identifier, idExprContext);
 		}
+		
+		return identifiedLocalVariables;
 	}
 
 }

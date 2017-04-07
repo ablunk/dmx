@@ -44,7 +44,7 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 		
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
 		ElementResolver variableResolver = new VariableResolver();		
-		variableResolver.resolvePossibleElements(identifier, idExprContext, identifiedElements);
+		identifiedElements.addAll(variableResolver.resolvePossibleElements(identifier, idExprContext));
 		
 		warnWhenMultipleElementsAreIdentified(identifier, identifiedElements);
 		
