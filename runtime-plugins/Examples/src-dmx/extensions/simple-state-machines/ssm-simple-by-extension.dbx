@@ -33,10 +33,7 @@ active class Producer extends AsynchService {
 active class Consumer extends AsynchService {
 }
 
-// stateful class X maps to active class X extends BehavioredClassifier.
-// the type BehavioredClassifier is referred to via new type keyword stateful.
 active class Delayer extends AsynchService {
-	// stateful Object dataReceiver;
 	AsynchService receiver;
 	Data lastReceived = null;
 	

@@ -65,7 +65,7 @@
             </variable>
             <value xsi:type="dbl:CreateObject">
               <classifierType>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
               </classifierType>
             </value>
           </falseCase>
@@ -75,7 +75,7 @@
         </parameters>
         <parameters name="states">
           <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
           </classifierType>
         </parameters>
       </constructors>
@@ -86,7 +86,7 @@
       </attributes>
       <attributes name="states">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="initialState">
@@ -120,7 +120,7 @@
         </parameters>
         <parameters name="outgoingTransitions">
           <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
           </classifierType>
         </parameters>
       </constructors>
@@ -129,7 +129,7 @@
       </attributes>
       <attributes name="outgoingTransitions">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
@@ -177,12 +177,12 @@
       </attributes>
       <attributes name="compiledTransitions">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="timers">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="enter">
@@ -204,7 +204,7 @@
             <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.1/@statements.0/@statements.0"/>
             <op2 xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.4"/>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.4"/>
               <callPart/>
             </op2>
           </termination>
@@ -222,7 +222,7 @@
               <classifierType referencedElement="//@modules.0/@classes.7"/>
               <initialValue xsi:type="dbl:IdExpr">
                 <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.1/@statements.0/@statements.0"/>
                 </callPart>
@@ -256,7 +256,7 @@
             <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.3/@statements.0/@statements.0"/>
             <op2 xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.4"/>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.4"/>
               <callPart/>
             </op2>
           </termination>
@@ -274,7 +274,7 @@
               <classifierType referencedElement="//@modules.0/@classes.7"/>
               <initialValue xsi:type="dbl:IdExpr">
                 <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.3/@statements.0/@statements.0"/>
                 </callPart>
@@ -294,7 +294,7 @@
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
             <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.0"/>
             <callPart>
               <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.4/@parameters.0"/>
             </callPart>
@@ -309,7 +309,7 @@
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
             <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.1"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.0"/>
             <callPart>
               <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.5/@parameters.0"/>
             </callPart>
@@ -344,7 +344,7 @@
               <classifierType referencedElement="//@modules.0/@classes.6"/>
               <initialValue xsi:type="dbl:IdExpr">
                 <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.1"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@statements.0"/>
                 </callPart>
@@ -418,21 +418,21 @@
       </attributes>
       <attributes name="stateToCompiledState">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.7"/>
           </classifierType>
         </initialValue>
       </attributes>
       <attributes name="eventQueue">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
           </classifierType>
         </initialValue>
       </attributes>
@@ -444,7 +444,7 @@
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
             <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.1"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.1"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6/@methods.1"/>
             <callPart>
               <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.0/@parameters.0"/>
               <callArguments xsi:type="dbl:CreateObject">
@@ -475,7 +475,7 @@
             <op2 xsi:type="dbl:Not">
               <op xsi:type="dbl:IdExpr">
                 <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.7"/>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.7"/>
                 <callPart/>
               </op>
             </op2>
@@ -505,7 +505,7 @@
               <classifierType referencedElement="//@modules.0/@classes.4"/>
               <initialValue xsi:type="dbl:IdExpr">
                 <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.1"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.0"/>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6/@methods.0"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.1/@statements.0/@body/@statements.1"/>
                 </callPart>
@@ -556,7 +556,7 @@
           </classifierType>
           <initialValue xsi:type="dbl:IdExpr">
             <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.5"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
             <callPart>
               <callArguments xsi:type="dbl:IntLiteral"/>
             </callPart>
@@ -565,7 +565,7 @@
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
             <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.8"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.8"/>
             <callPart>
               <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.2/@statements.0"/>
             </callPart>
@@ -580,7 +580,7 @@
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
             <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.3/@methods.0"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.0"/>
             <callPart>
               <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.3/@parameters.0"/>
             </callPart>
@@ -604,7 +604,7 @@
           </variable>
           <value xsi:type="dbl:IdExpr">
             <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.1"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.0"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6/@methods.0"/>
             <callPart>
               <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.2">
                 <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.0"/>
