@@ -1,15 +1,10 @@
 module test {
 
-class B {
-	int h;
+interface A {
 }
 
-class A extends B {
-	int a;
-	void f() {
-		print(a);
-	}
+void main() {
+	A a;
 }
-
 
 }

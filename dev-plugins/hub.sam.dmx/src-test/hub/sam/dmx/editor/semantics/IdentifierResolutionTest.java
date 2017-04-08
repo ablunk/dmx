@@ -1,14 +1,10 @@
 package hub.sam.dmx.editor.semantics;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.Collection;
 
-import org.apache.bsf.util.IOUtils;
 import org.apache.commons.io.FileUtils;
 import org.assertj.core.api.Assertions;
 import org.eclipse.core.runtime.IPath;
@@ -27,13 +23,13 @@ import hub.sam.tef.modelcreating.ModelCreatingException;
 import hub.sam.tef.modelcreating.ParserError;
 
 @RunWith(Parameterized.class)
-public class DblParserTest {
+public class IdentifierResolutionTest {
 	
 	private static TestDataDriver testDataDriver;
 
 	@Parameters
 	public static Object[] testFiles() {
-	    return new Object[] { "variables.dbl" };
+	    return new Object[] { "variables.dbl", "types.dbl" };
 	}
 	
 	@Parameter

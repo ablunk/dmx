@@ -1,0 +1,11 @@
+module test {
+
+class X {}
+interface I {}
+
+void main(int p) {
+	X x;
+	I i;
+}
+
+}

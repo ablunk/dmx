@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="test">
-    <classes name="B">
-      <attributes name="h">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
-    </classes>
-    <classes name="A">
-      <superClass referencedElement="//@modules.0/@classes.0"/>
-      <attributes name="a">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
-      <methods name="f">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.0"/>
-        </statements>
-      </methods>
-    </classes>
+    <interfaces name="A"/>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="a">
+        <classifierType referencedElement="//@modules.0/@interfaces.0"/>
+      </statements>
+    </functions>
   </modules>
 </dbl:Model>
