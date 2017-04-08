@@ -33,7 +33,7 @@ public class DblParserTest {
 
 	@Parameters
 	public static Object[] testFiles() {
-	    return new Object[] { "hello.dbl", "yieldto.dbl" };
+	    return new Object[] { "variables.dbl" };
 	}
 	
 	@Parameter

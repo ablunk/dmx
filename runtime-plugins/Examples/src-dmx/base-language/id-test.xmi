@@ -14,7 +14,7 @@
       <methods name="f">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+          <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.0"/>
         </statements>
       </methods>
     </classes>

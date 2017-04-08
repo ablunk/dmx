@@ -7,7 +7,7 @@ class B {
 class A extends B {
 	int a;
 	void f() {
-		print(h);
+		print(a);
 	}
 }
 

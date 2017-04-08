@@ -3,58 +3,44 @@ package hub.sam.dmx.editor.semantics.idresolution;
 import java.util.Collection;
 import java.util.HashSet;
 
+import hub.sam.dbl.Class;
+import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.NamedElement;
 
-public class AttributeResolver extends NamedElementIdentifier implements ElementResolver<IdExpr> {
+public class AttributeResolver extends NamedElementResolver implements ElementResolver<IdExpr> {
 	
-	private Collection<IdentifiedElement> identifiedAttributes = new HashSet<>();
-
 	@Override
 	public Collection<IdentifiedElement> resolvePossibleElements(NamedElement identifier, IdExpr idExprContext) {
-		addDirectAttributesOfContextClass(identifier, idExprContext);
+		Collection<IdentifiedElement> identifiedAttributes = identifyInContainer(identifier, idExprContext, Class.class,
+				DblPackage.Literals.CLASS__ATTRIBUTES);
 		
-		if (noAttributesIdentified()) {
-			addInheritedAttributesOfContextClass(identifier, idExprContext);
+		if (identifiedAttributes.isEmpty()) {
+			identifiedAttributes.addAll(identifyInheritedAttributes(identifier, idExprContext));
 		}
 		
 		return identifiedAttributes;
 	}
+
+	private Collection<IdentifiedElement> identifyInheritedAttributes(NamedElement identifier, IdExpr idExprContext) {
+		return identifyInContainer(identifier, idExprContext, Class.class,
+				(id, classContext) -> identifyInheritedAttributesRecursive(id, classContext));		
+	}
 	
-	private boolean noAttributesIdentified() {
-		return identifiedAttributes.isEmpty();
-	}
-
-	private void addDirectAttributesOfContextClass(NamedElement identifier, IdExpr idExprContext) {
-		Containment.getContainerObjectOfType(idExprContext, hub.sam.dbl.Class.class)
-			.ifPresent(classContainer -> addDirectAttributesOfClass(classContainer, identifier));
-	}
-
-	private void addInheritedAttributesOfContextClass(NamedElement identifier, IdExpr idExprContext) {
-		Containment.getContainerObjectOfType(idExprContext, hub.sam.dbl.Class.class)
-		.ifPresent(classContainer -> addInheritedAttributesOfClass(classContainer, identifier));
-	}
-
-	private void addDirectAttributesOfClass(hub.sam.dbl.Class dblClass, NamedElement identifier) {
-		dblClass.getAttributes().stream()
-			.forEach(attribute -> addElementIfIdentifierIsMatching(identifiedAttributes, attribute, identifier));
-	}
-
-	private void addInheritedAttributesOfClass(hub.sam.dbl.Class dblClass, NamedElement identifier) {
+	private Collection<IdentifiedElement> identifyInheritedAttributesRecursive(NamedElement identifier, Class dblClass) {
 		if (dblClass.getSuperClass() != null && dblClass.getSuperClass().getReferencedElement() != null) {
 			NamedElement referencedSuperClass = dblClass.getSuperClass().getReferencedElement();
 			if (referencedSuperClass instanceof hub.sam.dbl.Class) {
 				hub.sam.dbl.Class superClass = (hub.sam.dbl.Class) referencedSuperClass;
 
-				if (noAttributesIdentified()) {
-					addDirectAttributesOfClass(superClass, identifier);
-				}
-				
-				if (noAttributesIdentified()) {
-					addInheritedAttributesOfClass(superClass, identifier);
+				Collection<IdentifiedElement> identifiedAttributes = identify(identifier, superClass.getAttributes());
+				if (identifiedAttributes.isEmpty()) {
+					identifiedAttributes.addAll(identifyInheritedAttributesRecursive(identifier, superClass));
 				}
 			}	
 		}
+		
+		return new HashSet<>();
 	}
 
 }

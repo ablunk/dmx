@@ -2,6 +2,7 @@ package hub.sam.dmx.editor.semantics.idresolution;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,9 @@ import hub.sam.tef.semantics.DefaultIdentificationScheme;
 public class IdentifierResolver extends DefaultIdentificationScheme {
 	
 	private static final Logger LOGGER = Logger.getLogger(IdentifierResolver.class.getName());
+	
+	private final VariableResolver variableResolver = new VariableResolver();
+	private final TypeResolver typeResolver = new TypeResolver();
 
 	private IPreProcessedDocument preProcessedDocument;
 	
@@ -30,18 +34,19 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
 		
 		if (identifier instanceof NamedElement) {
-			identifiedElements = identifyPossibleElements((NamedElement) identifier, context);
+			identifiedElements = identifyPossibleNamedElements((NamedElement) identifier, context);
 		} else {
 			LOGGER.info(String.format("resolving identifier %s in context %s with type %s", identifier, context, type));
 		}
 		
 		return identifiedElements.stream()
 				.map(identifiedElement -> identifiedElement.getIdentitiy(preProcessedDocument.getModel()))
+				.filter(Objects::nonNull)
 				.collect(Collectors.toSet())
 				.toArray();
 	}
 
-	public Collection<IdentifiedElement> identifyPossibleElements(NamedElement identifier, EObject context) {
+	private Collection<IdentifiedElement> identifyPossibleNamedElements(NamedElement identifier, EObject context) {
 		if (context instanceof IdExpr) {
 			return identifyPossibleElementsReferedToInIdExpr(identifier, (IdExpr) context);
 		} else {
@@ -49,14 +54,13 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 		}
 	}
 	
-	public Collection<IdentifiedElement> identifyPossibleElementsReferedToInIdExpr(NamedElement identifier, IdExpr idExprContext) {
+	private Collection<IdentifiedElement> identifyPossibleElementsReferedToInIdExpr(NamedElement identifier, IdExpr idExprContext) {
 		LOGGER.info(String.format("resolving identifier %s in context within container type %s", identifier.getName(), 
 				idExprContext.eContainer().eClass().getName()));
 		
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
-		ElementResolver variableResolver = new VariableResolver();		
 		identifiedElements.addAll(variableResolver.resolvePossibleElements(identifier, idExprContext));
-		identifiedElements.addAll(new TypeResolver().resolvePossibleElements(identifier, idExprContext));
+		identifiedElements.addAll(typeResolver.resolvePossibleElements(identifier, idExprContext));
 		
 		warnWhenMultipleElementsAreIdentified(identifier, identifiedElements);
 		

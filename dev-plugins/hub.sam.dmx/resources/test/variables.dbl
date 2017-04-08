@@ -1,0 +1,9 @@
+module test {
+
+void main(int p) {
+	int l;
+	l=1;
+	p=1;
+}
+
+}
