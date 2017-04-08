@@ -36,7 +36,7 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 		if (identifier instanceof NamedElement) {
 			identifiedElements = identifyPossibleNamedElements(((NamedElement) identifier).getName(), context);
 		} else {
-			LOGGER.info(String.format("resolving identifier %s in context %s with type %s", identifier, context, type));
+			LOGGER.warning(String.format("cannot resolve identifier %s of type %s", identifier, identifier.getClass()));
 		}
 		
 		return identifiedElements.stream()
@@ -55,9 +55,6 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 	}
 	
 	private Collection<IdentifiedElement> identifyPossibleElementsReferedToInIdExpr(String identifier, IdExpr idExprContext) {
-		LOGGER.info(String.format("resolving identifier %s in context within container type %s", identifier, 
-				idExprContext.eContainer().eClass().getName()));
-		
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
 		identifiedElements.addAll(variableResolver.resolvePossibleElements(identifier, idExprContext));
 		identifiedElements.addAll(typeResolver.resolvePossibleElements(identifier, idExprContext));

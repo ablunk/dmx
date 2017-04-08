@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.management.RuntimeErrorException;
-
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
@@ -17,7 +15,6 @@ import org.mockito.Mockito;
 
 import hub.sam.dbl.DblPackage;
 import hub.sam.dmx.editor.modelcreation.DblParser;
-import hub.sam.dmx.editor.semantics.DblIdentificationSchemeTest;
 import hub.sam.tef.PluginFileLocator;
 import hub.sam.tef.TEFPlugin;
 import hub.sam.tef.etsl.EtslPackage;
