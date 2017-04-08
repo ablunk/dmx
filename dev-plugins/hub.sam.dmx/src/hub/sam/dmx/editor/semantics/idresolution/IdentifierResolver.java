@@ -27,30 +27,42 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 	// returns all the objects that the given identifier identifies in the given context
 	@Override
 	public Object[] getGlobalIdentities(Object identifier, EObject context, EClassifier type) {
-		if (identifier instanceof NamedElement && context instanceof IdExpr) {
-			return identifyPossibleElements((NamedElement) identifier, (IdExpr) context).stream()
-					.map(identifiedElement -> identifiedElement.getIdentitiy(preProcessedDocument.getModel()))
-					.collect(Collectors.toSet())
-					.toArray();
+		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
+		
+		if (identifier instanceof NamedElement) {
+			identifiedElements = identifyPossibleElements((NamedElement) identifier, context);
 		} else {
 			LOGGER.info(String.format("resolving identifier %s in context %s with type %s", identifier, context, type));
-			return new Object[] {};
 		}
+		
+		return identifiedElements.stream()
+				.map(identifiedElement -> identifiedElement.getIdentitiy(preProcessedDocument.getModel()))
+				.collect(Collectors.toSet())
+				.toArray();
 	}
 
-	public Collection<IdentifiedElement> identifyPossibleElements(NamedElement identifier, IdExpr idExprContext) {
+	public Collection<IdentifiedElement> identifyPossibleElements(NamedElement identifier, EObject context) {
+		if (context instanceof IdExpr) {
+			return identifyPossibleElementsReferedToInIdExpr(identifier, (IdExpr) context);
+		} else {
+			return new HashSet<>();
+		}
+	}
+	
+	public Collection<IdentifiedElement> identifyPossibleElementsReferedToInIdExpr(NamedElement identifier, IdExpr idExprContext) {
 		LOGGER.info(String.format("resolving identifier %s in context within container type %s", identifier.getName(), 
 				idExprContext.eContainer().eClass().getName()));
 		
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
 		ElementResolver variableResolver = new VariableResolver();		
 		identifiedElements.addAll(variableResolver.resolvePossibleElements(identifier, idExprContext));
+		identifiedElements.addAll(new TypeResolver().resolvePossibleElements(identifier, idExprContext));
 		
 		warnWhenMultipleElementsAreIdentified(identifier, identifiedElements);
 		
 		return identifiedElements;
 	}
-
+	
 	private void warnWhenMultipleElementsAreIdentified(NamedElement identifier,
 			Collection<IdentifiedElement> identifiedElements) {
 		

@@ -1,5 +1,16 @@
 package hub.sam.dmx.editor.semantics;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Stack;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+
 import hub.sam.dbl.AbstractVariable;
 import hub.sam.dbl.Class;
 import hub.sam.dbl.Constructor;
@@ -23,7 +34,6 @@ import hub.sam.dbl.PlainSymbolReference;
 import hub.sam.dbl.PredefinedId;
 import hub.sam.dbl.Statement;
 import hub.sam.dbl.StructuralSymbolReference;
-import hub.sam.dbl.SuperClassSpecification;
 import hub.sam.dbl.SuperLiteral;
 import hub.sam.dbl.SymbolSequence;
 import hub.sam.dbl.SyntaxDefinition;
@@ -35,17 +45,6 @@ import hub.sam.dbl.Variable;
 import hub.sam.dmx.editor.IPreProcessedDocument;
 import hub.sam.tef.semantics.DefaultIdentificationScheme;
 import hub.sam.tef.util.MyIterable;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Stack;
-
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 
 public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	
@@ -857,21 +856,14 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return classMethods;
 	}
 	
-	static interface A {
-		void m();
-	}
-	static interface B {
-		void m();
-	}
-	
-	static class C implements A,B {
-		public void m() {}
-	}
-
 	private boolean addIdsForInheritedMethods(Class clazz, NamedElement eObjectId, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 
-		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
+		IdExpr superClassIdExpr = clazz.getSuperClass();
+		if (superClassIdExpr != null) {
+			NamedElement superClass = superClassIdExpr.getReferencedElement();
+		}
+		/*for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
 			final Class superClass = superClassSpec.getClass_();
 			if (!idsAdded && superClass != null) {
 				for (Function method: superClass.getMethods()) {
@@ -883,7 +875,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 					idsAdded |= addIdsForInheritedMethods(superClass, eObjectId, allIds, idExpr);
 				}
 			}
-		}
+		}*/
 
 		return idsAdded;
 	}
@@ -891,7 +883,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private boolean addIdsForInheritedClassMethods(Class clazz, NamedElement eObjectId, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 
-		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
+		/*for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
 			final Class superClass = superClassSpec.getClass_();
 			if (!idsAdded && superClass != null) {
 				for (Function method: getClassMethods(superClass.getMethods())) {
@@ -901,7 +893,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				}
 				idsAdded |= addIdsForInheritedClassMethods(superClass, eObjectId, allIds, idExpr);
 			}
-		}
+		}*/
 		
 		return idsAdded;
 	}
@@ -909,7 +901,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private boolean addIdsForInheritedAttributes(Class clazz, NamedElement eObjectId, Collection allIds) {
 		boolean idsAdded = false;
 		
-		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
+		/*for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
 			final Class superClass = superClassSpec.getClass_();
 			if (!idsAdded && superClass != null) {
 				idsAdded |= addIds(eObjectId, superClass.getAttributes(), allIds);
@@ -918,7 +910,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				//Module containerModule = getContainerObjectOfType(superClass, Module.class);
 				//idsAdded |= addIdsForAugmentedAttributes(superClass, containerModule, eObjectId, allIds);
 			}
-		}
+		}*/
 
 		return idsAdded;
 	}
@@ -926,7 +918,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private boolean addIdsForInheritedClassAttributes(Class clazz, NamedElement eObjectId, Collection allIds) {
 		boolean idsAdded = false;
 		
-		for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
+		/*for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
 			final Class superClass = superClassSpec.getClass_();
 			if (!idsAdded && superClass != null) {
 				idsAdded |= addIds(eObjectId, getClassAttributes(superClass.getAttributes()), allIds);
@@ -935,7 +927,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				//Module containerModule = getContainerObjectOfType(superClass, Module.class);
 				//idsAdded |= addIdsForAugmentedAttributes(superClass, containerModule, eObjectId, allIds);
 			}
-		}
+		}*/
 		
 		return idsAdded;
 	}

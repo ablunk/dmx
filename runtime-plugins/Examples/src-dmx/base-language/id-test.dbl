@@ -1,23 +1,15 @@
 module test {
 
-class A {
-	int x;
+class B {
+	int h;
+}
 
-	void f(int i) {
-		int j;
-		
-		print(i+x);
+class A extends B {
+	int a;
+	void f() {
+		print(h);
 	}
 }
 
-void main() {
-	int i = 1;
-	
-	{
-		//int i = 3;
-		int j=2;
-		print(i+j);
-	}
-}
 
 }

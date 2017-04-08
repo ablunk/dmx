@@ -73,10 +73,8 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 		import hub.sam.dmx.javasim.desmoj.DefaultSimulation;
 			
 		public class «name»
-		«IF superClasses.size > 0»
-			extends «superClasses.head.class_.genType»
-		«ELSEIF superClasses.size > 1»
-			<! multiple inheritance is not supported at the moment !>
+		«IF superClass != null»
+			extends «superClass.genType»
 		«ELSEIF active»
 			extends SimulationProcess
 		«ENDIF»
@@ -88,7 +86,7 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 					«cparam.gen»
 				«ENDFOR»
 				) {
-					«IF active && superClasses.empty»
+					«IF active && superClass == null»
 						super("«name»");
 					«ENDIF»
 				

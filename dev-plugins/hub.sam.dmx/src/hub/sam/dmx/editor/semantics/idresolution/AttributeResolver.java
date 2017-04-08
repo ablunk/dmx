@@ -6,7 +6,7 @@ import java.util.HashSet;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.NamedElement;
 
-public class AttributeResolver extends NamedElementIdentifier implements ElementResolver {
+public class AttributeResolver extends NamedElementIdentifier implements ElementResolver<IdExpr> {
 	
 	private Collection<IdentifiedElement> identifiedAttributes = new HashSet<>();
 
@@ -41,17 +41,20 @@ public class AttributeResolver extends NamedElementIdentifier implements Element
 	}
 
 	private void addInheritedAttributesOfClass(hub.sam.dbl.Class dblClass, NamedElement identifier) {
-		dblClass.getSuperClasses().stream().forEach(superClassSpecification -> {			
-			if (noAttributesIdentified()) {
-				addDirectAttributesOfClass(superClassSpecification.getClass_(), identifier);
-			}
-		});
+		if (dblClass.getSuperClass() != null && dblClass.getSuperClass().getReferencedElement() != null) {
+			NamedElement referencedSuperClass = dblClass.getSuperClass().getReferencedElement();
+			if (referencedSuperClass instanceof hub.sam.dbl.Class) {
+				hub.sam.dbl.Class superClass = (hub.sam.dbl.Class) referencedSuperClass;
 
-		dblClass.getSuperClasses().stream().forEach(superClassSpecification -> {
-			if (noAttributesIdentified()) {
-				addInheritedAttributesOfClass(superClassSpecification.getClass_(), identifier);
-			}
-		});
+				if (noAttributesIdentified()) {
+					addDirectAttributesOfClass(superClass, identifier);
+				}
+				
+				if (noAttributesIdentified()) {
+					addInheritedAttributesOfClass(superClass, identifier);
+				}
+			}	
+		}
 	}
 
 }

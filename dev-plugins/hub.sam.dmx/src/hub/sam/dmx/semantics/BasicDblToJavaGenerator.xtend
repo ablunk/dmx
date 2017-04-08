@@ -760,14 +760,13 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	
 	def String genPassiveClass(Class clazz) {
 		val it = clazz
+		val superClassExpr = clazz.superClass
 		'''
 		«genPackageStatement»
 		
 		public class «name»
-		«IF superClasses.size > 1»
-			<! multiple inheritance is not supported for Java as a target language at the moment !>
-		«ELSEIF superClasses.size == 1»
-			extends «superClasses.head.class_.genType»
+		«IF superClassExpr != null»
+			extends «superClassExpr.genClassifierTypeExpr»
 		«ENDIF»
 		{
 

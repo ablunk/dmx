@@ -5,7 +5,7 @@ import java.util.Collection;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.NamedElement;
 
-public class VariableResolver implements ElementResolver {
+public class VariableResolver implements ElementResolver<IdExpr> {
 
 	@Override
 	public Collection<IdentifiedElement> resolvePossibleElements(NamedElement identifier, IdExpr idExprContext) {

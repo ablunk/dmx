@@ -10,7 +10,7 @@ import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.Variable;
 
-public class LocalVariableResolver extends NamedElementIdentifier implements ElementResolver {
+public class LocalVariableResolver extends NamedElementIdentifier implements ElementResolver<IdExpr> {
 	
 	private Collection<IdentifiedElement> identifiedLocalVariables = new HashSet<>();
 	

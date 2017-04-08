@@ -186,7 +186,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public EObject create(EClass eClass) {
