@@ -12,20 +12,20 @@ public class VariableResolver implements ElementResolver<IdExpr> {
 	private GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver();
 
 	@Override
-	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
+	public Collection<IdentifiedElement> resolve(String identifier, IdExpr idExprContext) {
 		
-		Collection<IdentifiedElement> identifiedLocalVariables = localVariableResolver
-				.resolvePossibleElements(identifier, idExprContext);
+		Collection<IdentifiedElement> localVariables = localVariableResolver
+				.resolve(identifier, idExprContext);
 		
-		if (identifiedLocalVariables.isEmpty()) {
-			identifiedLocalVariables.addAll(attributeResolver.resolvePossibleElements(identifier, idExprContext));
+		if (localVariables.isEmpty()) {
+			localVariables.addAll(attributeResolver.resolve(identifier, idExprContext));
 		}
 		
-		if (identifiedLocalVariables.isEmpty()) {
-			identifiedLocalVariables.addAll(globalVariableResolver.resolvePossibleElements(identifier, idExprContext));
+		if (localVariables.isEmpty()) {
+			localVariables.addAll(globalVariableResolver.resolve(identifier, idExprContext));
 		}
 
-		return identifiedLocalVariables;
+		return localVariables;
 	}
 
 }

@@ -55,8 +55,8 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 	
 	private Collection<IdentifiedElement> identifyPossibleElementsReferedToInIdExpr(String identifier, IdExpr idExprContext) {
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
-		identifiedElements.addAll(variableResolver.resolvePossibleElements(identifier, idExprContext));
-		identifiedElements.addAll(typeResolver.resolvePossibleElements(identifier, idExprContext));
+		identifiedElements.addAll(variableResolver.resolve(identifier, idExprContext));
+		identifiedElements.addAll(typeResolver.resolve(identifier, idExprContext));
 		
 		warnWhenMultipleElementsAreIdentified(identifier, identifiedElements);
 		

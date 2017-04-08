@@ -7,15 +7,15 @@ import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Module;
 import hub.sam.dbl.NamedElement;
 
-public class TypeResolver extends NamedElementResolver implements ElementResolver<IdExpr> {
+public class TypeResolver extends HierarchicalResolver implements ElementResolver<IdExpr> {
 
 	@Override
-	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr context) {
-		Collection<IdentifiedElement> identifiedTypes = resolveInContainer(identifier, context, 
+	public Collection<IdentifiedElement> resolve(String identifier, IdExpr context) {
+		Collection<IdentifiedElement> types = resolveInContainer(identifier, context, 
 				Module.class, DblPackage.Literals.MODULE__CLASSES);
-		identifiedTypes.addAll(resolveInContainer(identifier, context, 
+		types.addAll(resolveInContainer(identifier, context, 
 				Module.class, DblPackage.Literals.MODULE__INTERFACES));
-		return identifiedTypes;
+		return types;
 	}
 	
 }

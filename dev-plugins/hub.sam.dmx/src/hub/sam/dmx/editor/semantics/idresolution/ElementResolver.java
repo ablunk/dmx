@@ -2,8 +2,13 @@ package hub.sam.dmx.editor.semantics.idresolution;
 
 import java.util.Collection;
 
-import hub.sam.dbl.NamedElement;
-
 public interface ElementResolver<C> {
-	Collection<IdentifiedElement> resolvePossibleElements(String identifier, C context);
+	/**
+	 * resolves all elements matching the given identifier in the given context.
+	 * 
+	 * @param identifier
+	 * @param context
+	 * @return
+	 */
+	Collection<IdentifiedElement> resolve(String identifier, C context);
 }

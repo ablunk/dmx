@@ -9,19 +9,19 @@ import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.TypedElement;
 
-public class AttributeResolver extends NamedElementResolver implements ElementResolver<IdExpr> {
+public class AttributeResolver extends HierarchicalResolver implements ElementResolver<IdExpr> {
 	
 	@Override
-	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
+	public Collection<IdentifiedElement> resolve(String identifier, IdExpr idExprContext) {
 		if (idExprContext.getParentIdExpr() == null) {
 			return resolveInContainer(identifier, idExprContext, Class.class,
 					(id, containerClass) -> resolvePlainAttributes(identifier, containerClass));
 		} else {
-			return resolveNavigatedAttributes(identifier, idExprContext);
+			return resolveAttributesInNavigation(identifier, idExprContext);
 		}
 	}
 
-	private Collection<IdentifiedElement> resolveNavigatedAttributes(String identifier, IdExpr idExprContext) {
+	private Collection<IdentifiedElement> resolveAttributesInNavigation(String identifier, IdExpr idExprContext) {
 		IdExpr parentIdExpr = idExprContext.getParentIdExpr();
 		NamedElement parentNamedElement = parentIdExpr.getReferencedElement();
 		if (parentNamedElement != null && parentNamedElement instanceof TypedElement) {
@@ -37,13 +37,13 @@ public class AttributeResolver extends NamedElementResolver implements ElementRe
 	}
 	
 	private Collection<IdentifiedElement> resolvePlainAttributes(String identifier, Class containerClass) {
-		Collection<IdentifiedElement> identifiedAttributes = resolve(identifier, containerClass.getAttributes());
+		Collection<IdentifiedElement> attributes = resolveInElements(identifier, containerClass.getAttributes());
 		
-		if (identifiedAttributes.isEmpty()) {
-			identifiedAttributes.addAll(resolveInheritedAttributesRecursive(identifier, containerClass));
+		if (attributes.isEmpty()) {
+			attributes.addAll(resolveInheritedAttributesRecursive(identifier, containerClass));
 		}
 		
-		return identifiedAttributes;
+		return attributes;
 	}
 	
 	private Collection<IdentifiedElement> resolveInheritedAttributesRecursive(String identifier, Class dblClass) {
@@ -52,12 +52,12 @@ public class AttributeResolver extends NamedElementResolver implements ElementRe
 			if (referencedSuperClass instanceof hub.sam.dbl.Class) {
 				hub.sam.dbl.Class superClass = (hub.sam.dbl.Class) referencedSuperClass;
 
-				Collection<IdentifiedElement> identifiedAttributes = resolve(identifier, superClass.getAttributes());
-				if (identifiedAttributes.isEmpty()) {
-					identifiedAttributes.addAll(resolveInheritedAttributesRecursive(identifier, superClass));
+				Collection<IdentifiedElement> attributes = resolveInElements(identifier, superClass.getAttributes());
+				if (attributes.isEmpty()) {
+					attributes.addAll(resolveInheritedAttributesRecursive(identifier, superClass));
 				}
 				
-				return identifiedAttributes;
+				return attributes;
 			}	
 		}
 		

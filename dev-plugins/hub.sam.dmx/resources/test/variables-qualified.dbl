@@ -4,13 +4,14 @@ class Y {
 	int b;
 }
 
-class X extends Y {
-	int a;
+class X {
+	Y a;
 }
 
 void main() {
 	X x;
 	x.a=1;
+	x.a.b=2;
 }
 
 }

@@ -11,7 +11,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 
 import hub.sam.dbl.NamedElement;
 
-abstract class NamedElementResolver {
+abstract class HierarchicalResolver {
 	
 	protected <T extends EObject> Collection<IdentifiedElement> resolveInContainer(
 			String identifier,
@@ -20,9 +20,7 @@ abstract class NamedElementResolver {
 			ElementResolver<T> resolver) {
 		
 		return Containment.getContainerObject(context, containerType)
-			.map(container -> {
-				return resolver.resolvePossibleElements(identifier, container);
-			}).orElse(Collections.emptySet());
+			.map(container -> resolver.resolve(identifier, container)).orElse(Collections.emptySet());
 	}
 	
 	protected <T extends EObject> Collection<IdentifiedElement> resolveInContainer(
@@ -36,7 +34,7 @@ abstract class NamedElementResolver {
 				Object possibleElementsObject = container.eGet(containerAttributeWithPossibleElements);
 				Collection<IdentifiedElement> identifiedElements = new HashSet<>();
 				if (possibleElementsObject instanceof Collection) {
-					identifiedElements.addAll(resolve(identifier, (Collection) possibleElementsObject));
+					identifiedElements.addAll(resolveInElements(identifier, (Collection) possibleElementsObject));
 				} else if (possibleElementsObject instanceof NamedElement) {
 					IdentifiedElement identifiedElement = identify(identifier, (NamedElement) possibleElementsObject);
 					if (identifiedElement != null) {
@@ -47,7 +45,7 @@ abstract class NamedElementResolver {
 			}).orElse(Collections.emptySet());
 	}
 
-	protected Collection<IdentifiedElement> resolve(String identifier, Collection<? extends NamedElement> possibleElements) {
+	protected Collection<IdentifiedElement> resolveInElements(String identifier, Collection<? extends NamedElement> possibleElements) {
 		return possibleElements.stream()
 			.map(possibleElement -> identify(identifier, possibleElement))
 			.filter(Objects::nonNull)
