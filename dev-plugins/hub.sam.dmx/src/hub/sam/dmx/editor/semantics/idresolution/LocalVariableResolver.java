@@ -15,12 +15,12 @@ import hub.sam.dbl.Variable;
 public class LocalVariableResolver extends NamedElementResolver implements ElementResolver<IdExpr> {
 		
 	@Override
-	public Collection<IdentifiedElement> resolvePossibleElements(NamedElement identifier, IdExpr idExprContext) {
+	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
 		return identifyInContainer(identifier, idExprContext, LocalScope.class, 
 				(id, localScope) -> identifyLocalVariables(id, localScope));		
 	}
 	
-	private Collection<IdentifiedElement> identifyLocalVariables(NamedElement identifier, LocalScope localScopeContext) {
+	private Collection<IdentifiedElement> identifyLocalVariables(String identifier, LocalScope localScopeContext) {
 		Collection<IdentifiedElement> identifiedLocalVariables = identifyLocalScopeVariables(identifier, localScopeContext);
 		identifiedLocalVariables.addAll(identifyMethodParameters(identifier, localScopeContext));
 		identifiedLocalVariables.addAll(identifyConstructorParameters(identifier, localScopeContext));
@@ -28,7 +28,7 @@ public class LocalVariableResolver extends NamedElementResolver implements Eleme
 		return identifiedLocalVariables;
 	}
 	
-	private Collection<IdentifiedElement> identifyLocalScopeVariables(NamedElement identifier, LocalScope localScopeContext) {
+	private Collection<IdentifiedElement> identifyLocalScopeVariables(String identifier, LocalScope localScopeContext) {
 		Collection<IdentifiedElement> identifiedLocalVariables = localScopeContext.getStatements().stream()
 				.map(statement -> statement instanceof Variable ? (Variable) statement : null)
 				.filter(Objects::nonNull)
@@ -41,16 +41,16 @@ public class LocalVariableResolver extends NamedElementResolver implements Eleme
 		return identifiedLocalVariables;
 	}
 
-	private Collection<IdentifiedElement> identifyParentLocalScopeVariables(NamedElement identifier, LocalScope localScopeContext) {
+	private Collection<IdentifiedElement> identifyParentLocalScopeVariables(String identifier, LocalScope localScopeContext) {
 		return identifyInContainer(identifier, localScopeContext.eContainer(), LocalScope.class, 
 				(id, parentLocalScopeContetx) -> identifyLocalScopeVariables(id, parentLocalScopeContetx));
 	}
 
-	private Collection<IdentifiedElement> identifyMethodParameters(NamedElement identifier, LocalScope localScopeContext) {
+	private Collection<IdentifiedElement> identifyMethodParameters(String identifier, LocalScope localScopeContext) {
 		return identifyInContainer(identifier, localScopeContext, Function.class, DblPackage.Literals.FUNCTION__PARAMETERS);
 	}
 	
-	private Collection<IdentifiedElement> identifyConstructorParameters(NamedElement identifier, LocalScope localScopeContext) {
+	private Collection<IdentifiedElement> identifyConstructorParameters(String identifier, LocalScope localScopeContext) {
 		return identifyInContainer(identifier, localScopeContext, Constructor.class, DblPackage.Literals.CONSTRUCTOR__PARAMETERS);
 	}
 

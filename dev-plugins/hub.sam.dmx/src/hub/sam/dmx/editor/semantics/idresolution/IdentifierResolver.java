@@ -34,7 +34,7 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
 		
 		if (identifier instanceof NamedElement) {
-			identifiedElements = identifyPossibleNamedElements((NamedElement) identifier, context);
+			identifiedElements = identifyPossibleNamedElements(((NamedElement) identifier).getName(), context);
 		} else {
 			LOGGER.info(String.format("resolving identifier %s in context %s with type %s", identifier, context, type));
 		}
@@ -46,7 +46,7 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 				.toArray();
 	}
 
-	private Collection<IdentifiedElement> identifyPossibleNamedElements(NamedElement identifier, EObject context) {
+	private Collection<IdentifiedElement> identifyPossibleNamedElements(String identifier, EObject context) {
 		if (context instanceof IdExpr) {
 			return identifyPossibleElementsReferedToInIdExpr(identifier, (IdExpr) context);
 		} else {
@@ -54,8 +54,8 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 		}
 	}
 	
-	private Collection<IdentifiedElement> identifyPossibleElementsReferedToInIdExpr(NamedElement identifier, IdExpr idExprContext) {
-		LOGGER.info(String.format("resolving identifier %s in context within container type %s", identifier.getName(), 
+	private Collection<IdentifiedElement> identifyPossibleElementsReferedToInIdExpr(String identifier, IdExpr idExprContext) {
+		LOGGER.info(String.format("resolving identifier %s in context within container type %s", identifier, 
 				idExprContext.eContainer().eClass().getName()));
 		
 		Collection<IdentifiedElement> identifiedElements = new HashSet<>();
@@ -67,11 +67,11 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 		return identifiedElements;
 	}
 	
-	private void warnWhenMultipleElementsAreIdentified(NamedElement identifier,
+	private void warnWhenMultipleElementsAreIdentified(String identifier,
 			Collection<IdentifiedElement> identifiedElements) {
 		
 		if (identifiedElements.size() > 1) {
-			LOGGER.warning(String.format("identifier %s identifies multiple elements:\n%s", identifier.getName(), 
+			LOGGER.warning(String.format("identifier %s identifies multiple elements:\n%s", identifier, 
 					identifiedElements.stream()
 						.map(element -> {
 							if (element.getIdentifiedElement().eResource() != null) {

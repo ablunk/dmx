@@ -11,7 +11,7 @@ import hub.sam.dbl.NamedElement;
 public class AttributeResolver extends NamedElementResolver implements ElementResolver<IdExpr> {
 	
 	@Override
-	public Collection<IdentifiedElement> resolvePossibleElements(NamedElement identifier, IdExpr idExprContext) {
+	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
 		Collection<IdentifiedElement> identifiedAttributes = identifyInContainer(identifier, idExprContext, Class.class,
 				DblPackage.Literals.CLASS__ATTRIBUTES);
 		
@@ -22,12 +22,12 @@ public class AttributeResolver extends NamedElementResolver implements ElementRe
 		return identifiedAttributes;
 	}
 
-	private Collection<IdentifiedElement> identifyInheritedAttributes(NamedElement identifier, IdExpr idExprContext) {
+	private Collection<IdentifiedElement> identifyInheritedAttributes(String identifier, IdExpr idExprContext) {
 		return identifyInContainer(identifier, idExprContext, Class.class,
 				(id, classContext) -> identifyInheritedAttributesRecursive(id, classContext));		
 	}
 	
-	private Collection<IdentifiedElement> identifyInheritedAttributesRecursive(NamedElement identifier, Class dblClass) {
+	private Collection<IdentifiedElement> identifyInheritedAttributesRecursive(String identifier, Class dblClass) {
 		if (dblClass.getSuperClass() != null && dblClass.getSuperClass().getReferencedElement() != null) {
 			NamedElement referencedSuperClass = dblClass.getSuperClass().getReferencedElement();
 			if (referencedSuperClass instanceof hub.sam.dbl.Class) {

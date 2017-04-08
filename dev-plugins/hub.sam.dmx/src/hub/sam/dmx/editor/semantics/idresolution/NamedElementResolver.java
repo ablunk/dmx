@@ -14,7 +14,7 @@ import hub.sam.dbl.NamedElement;
 abstract class NamedElementResolver {
 	
 	protected <T extends EObject> Collection<IdentifiedElement> identifyInContainer(
-			NamedElement identifier,
+			String identifier,
 			EObject context,
 			Class<T> containerType,
 			ElementResolver<T> resolver) {
@@ -26,7 +26,7 @@ abstract class NamedElementResolver {
 	}
 	
 	protected <T extends EObject> Collection<IdentifiedElement> identifyInContainer(
-			NamedElement identifier,
+			String identifier,
 			EObject context,
 			Class<T> containerType,
 			EStructuralFeature containerAttributeWithPossibleElements) {
@@ -47,16 +47,16 @@ abstract class NamedElementResolver {
 			}).orElse(Collections.emptySet());
 	}
 
-	protected Collection<IdentifiedElement> identify(NamedElement identifier, Collection<? extends NamedElement> possibleElements) {
+	protected Collection<IdentifiedElement> identify(String identifier, Collection<? extends NamedElement> possibleElements) {
 		return possibleElements.stream()
 			.map(possibleElement -> identify(identifier, possibleElement))
 			.filter(Objects::nonNull)
 			.collect(Collectors.toSet());
 	}
 
-	protected IdentifiedElement identify(NamedElement identifier, NamedElement possibleElement) {
+	protected IdentifiedElement identify(String identifier, NamedElement possibleElement) {
 		final String possibleName = possibleElement.getName();
-		if (possibleName != null && possibleName.equals(identifier.getName())) {
+		if (possibleName != null && possibleName.equals(identifier)) {
 			return new IdentifiedElement(possibleElement);
 		} else {
 			return null;

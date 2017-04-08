@@ -12,7 +12,7 @@ public class VariableResolver implements ElementResolver<IdExpr> {
 	private GlobalVariableResolver globalVariableResolver = new GlobalVariableResolver();
 
 	@Override
-	public Collection<IdentifiedElement> resolvePossibleElements(NamedElement identifier, IdExpr idExprContext) {
+	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
 		
 		Collection<IdentifiedElement> identifiedLocalVariables = localVariableResolver
 				.resolvePossibleElements(identifier, idExprContext);

@@ -10,7 +10,7 @@ import hub.sam.dbl.NamedElement;
 public class GlobalVariableResolver extends NamedElementResolver implements ElementResolver<IdExpr> {
 	
 	@Override
-	public Collection<IdentifiedElement> resolvePossibleElements(NamedElement identifier, IdExpr idExprContext) {
+	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
 		return identifyInContainer(identifier, idExprContext, Module.class, DblPackage.Literals.MODULE__VARIABLES);
 	}
 
