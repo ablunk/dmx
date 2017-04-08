@@ -11,9 +11,9 @@ public class TypeResolver extends NamedElementResolver implements ElementResolve
 
 	@Override
 	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr context) {
-		Collection<IdentifiedElement> identifiedTypes = identifyInContainer(identifier, context, 
+		Collection<IdentifiedElement> identifiedTypes = resolveInContainer(identifier, context, 
 				Module.class, DblPackage.Literals.MODULE__CLASSES);
-		identifiedTypes.addAll(identifyInContainer(identifier, context, 
+		identifiedTypes.addAll(resolveInContainer(identifier, context, 
 				Module.class, DblPackage.Literals.MODULE__INTERFACES));
 		return identifiedTypes;
 	}

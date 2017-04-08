@@ -13,7 +13,7 @@ import hub.sam.dbl.NamedElement;
 
 abstract class NamedElementResolver {
 	
-	protected <T extends EObject> Collection<IdentifiedElement> identifyInContainer(
+	protected <T extends EObject> Collection<IdentifiedElement> resolveInContainer(
 			String identifier,
 			EObject context,
 			Class<T> containerType,
@@ -25,7 +25,7 @@ abstract class NamedElementResolver {
 			}).orElse(Collections.emptySet());
 	}
 	
-	protected <T extends EObject> Collection<IdentifiedElement> identifyInContainer(
+	protected <T extends EObject> Collection<IdentifiedElement> resolveInContainer(
 			String identifier,
 			EObject context,
 			Class<T> containerType,
@@ -36,7 +36,7 @@ abstract class NamedElementResolver {
 				Object possibleElementsObject = container.eGet(containerAttributeWithPossibleElements);
 				Collection<IdentifiedElement> identifiedElements = new HashSet<>();
 				if (possibleElementsObject instanceof Collection) {
-					identifiedElements.addAll(identify(identifier, (Collection) possibleElementsObject));
+					identifiedElements.addAll(resolve(identifier, (Collection) possibleElementsObject));
 				} else if (possibleElementsObject instanceof NamedElement) {
 					IdentifiedElement identifiedElement = identify(identifier, (NamedElement) possibleElementsObject);
 					if (identifiedElement != null) {
@@ -47,7 +47,7 @@ abstract class NamedElementResolver {
 			}).orElse(Collections.emptySet());
 	}
 
-	protected Collection<IdentifiedElement> identify(String identifier, Collection<? extends NamedElement> possibleElements) {
+	protected Collection<IdentifiedElement> resolve(String identifier, Collection<? extends NamedElement> possibleElements) {
 		return possibleElements.stream()
 			.map(possibleElement -> identify(identifier, possibleElement))
 			.filter(Objects::nonNull)

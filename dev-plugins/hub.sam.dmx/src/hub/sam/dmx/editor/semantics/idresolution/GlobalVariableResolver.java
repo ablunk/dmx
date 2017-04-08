@@ -11,7 +11,7 @@ public class GlobalVariableResolver extends NamedElementResolver implements Elem
 	
 	@Override
 	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
-		return identifyInContainer(identifier, idExprContext, Module.class, DblPackage.Literals.MODULE__VARIABLES);
+		return resolveInContainer(identifier, idExprContext, Module.class, DblPackage.Literals.MODULE__VARIABLES);
 	}
 
 }

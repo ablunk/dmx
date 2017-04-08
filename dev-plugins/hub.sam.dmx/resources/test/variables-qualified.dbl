@@ -1,0 +1,16 @@
+module test {
+
+class Y {
+	int b;
+}
+
+class X extends Y {
+	int a;
+}
+
+void main() {
+	X x;
+	x.a=1;
+}
+
+}

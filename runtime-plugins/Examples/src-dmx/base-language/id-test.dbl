@@ -1,10 +1,12 @@
 module test {
 
-interface A {
+class A {
+	int b;
 }
 
 void main() {
 	A a;
+	print(a.b);
 }
 
 }

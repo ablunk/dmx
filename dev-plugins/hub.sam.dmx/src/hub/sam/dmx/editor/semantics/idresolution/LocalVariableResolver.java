@@ -16,7 +16,7 @@ public class LocalVariableResolver extends NamedElementResolver implements Eleme
 		
 	@Override
 	public Collection<IdentifiedElement> resolvePossibleElements(String identifier, IdExpr idExprContext) {
-		return identifyInContainer(identifier, idExprContext, LocalScope.class, 
+		return resolveInContainer(identifier, idExprContext, LocalScope.class, 
 				(id, localScope) -> identifyLocalVariables(id, localScope));		
 	}
 	
@@ -42,16 +42,16 @@ public class LocalVariableResolver extends NamedElementResolver implements Eleme
 	}
 
 	private Collection<IdentifiedElement> identifyParentLocalScopeVariables(String identifier, LocalScope localScopeContext) {
-		return identifyInContainer(identifier, localScopeContext.eContainer(), LocalScope.class, 
+		return resolveInContainer(identifier, localScopeContext.eContainer(), LocalScope.class, 
 				(id, parentLocalScopeContetx) -> identifyLocalScopeVariables(id, parentLocalScopeContetx));
 	}
 
 	private Collection<IdentifiedElement> identifyMethodParameters(String identifier, LocalScope localScopeContext) {
-		return identifyInContainer(identifier, localScopeContext, Function.class, DblPackage.Literals.FUNCTION__PARAMETERS);
+		return resolveInContainer(identifier, localScopeContext, Function.class, DblPackage.Literals.FUNCTION__PARAMETERS);
 	}
 	
 	private Collection<IdentifiedElement> identifyConstructorParameters(String identifier, LocalScope localScopeContext) {
-		return identifyInContainer(identifier, localScopeContext, Constructor.class, DblPackage.Literals.CONSTRUCTOR__PARAMETERS);
+		return resolveInContainer(identifier, localScopeContext, Constructor.class, DblPackage.Literals.CONSTRUCTOR__PARAMETERS);
 	}
 
 }

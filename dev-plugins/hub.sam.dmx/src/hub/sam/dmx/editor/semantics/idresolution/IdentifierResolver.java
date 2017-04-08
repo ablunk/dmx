@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.NamedElement;
