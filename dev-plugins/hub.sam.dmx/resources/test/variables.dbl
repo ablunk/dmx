@@ -1,9 +1,25 @@
 module test {
 
+int g;
+
+class Y {
+	int b;
+}
+
+class X extends Y {
+	int a;
+	
+	void m() {
+		a=1;
+		b=2;
+	}
+}
+
 void main(int p) {
 	int l;
 	l=1;
 	p=1;
+	g=1;
 }
 
 }

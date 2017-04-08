@@ -37,6 +37,8 @@ public class AttributeResolver extends NamedElementResolver implements ElementRe
 				if (identifiedAttributes.isEmpty()) {
 					identifiedAttributes.addAll(identifyInheritedAttributesRecursive(identifier, superClass));
 				}
+				
+				return identifiedAttributes;
 			}	
 		}
 		
