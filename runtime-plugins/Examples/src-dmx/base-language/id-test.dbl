@@ -1,12 +1,7 @@
 module test {
 
-class A {
-	int b;
-}
-
 void main() {
-	A a;
-	print(a.b);
+	print("hello");
 }
 
 }

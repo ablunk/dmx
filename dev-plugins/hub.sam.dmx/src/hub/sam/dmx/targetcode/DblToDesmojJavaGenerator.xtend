@@ -17,10 +17,6 @@ import hub.sam.dmx.semantics.BasicDblToJavaGenerator
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
-	new(IPath outputFolder) {
-		super(outputFolder)
-	}
-	
 	override def String genModuleWithMainProcedure(Module module) {
 		val it = module
 		

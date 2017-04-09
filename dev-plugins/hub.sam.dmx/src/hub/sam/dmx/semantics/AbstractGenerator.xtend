@@ -7,15 +7,9 @@ import java.io.Writer
 import org.eclipse.core.runtime.IPath
 import hub.sam.dbl.Model
 
-abstract class AbstractGenerator {
+abstract class AbstractGenerator implements TargetLanguageGenerator {
 	
-	protected val IPath outputFolder
-	
-	new(IPath outputFolder) {
-		this.outputFolder = outputFolder;
-	}
-	
-	def void genModel(Model model, boolean mainModel){}
+	override void genModel(Model model, boolean mainModel, IPath outputPath){}
 	
 	protected def void makeFolder(IPath folder) {
 		val folder_fileObject = new File(folder.toString);

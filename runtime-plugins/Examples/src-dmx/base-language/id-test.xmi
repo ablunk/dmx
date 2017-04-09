@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="test">
-    <classes name="A"/>
+    <classes name="A">
+      <attributes name="b">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classes>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
-      <statements xsi:type="dbl:Variable" name="i">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+        <outputs xsi:type="dbl:StringLiteral" value="hello"/>
       </statements>
     </functions>
   </modules>

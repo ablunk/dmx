@@ -37,10 +37,6 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	
 	private static final Logger logger = Logger.getLogger(ExtensionDefinitionsToJava.getName());
 	
-	new(IPath outputFolder) {
-		super(outputFolder)
-	}
-	
 	def boolean oneParentRefersToSyntaxPartOrDblMetamodel(IdExpr idExpr) {
 		val it = idExpr
 		if (referencedElement instanceof StructuralSymbolReference) {

@@ -1,7 +1,7 @@
 package hub.sam.dmx.semantics;
 
 import hub.sam.dbl.DblPackage;
-import hub.sam.dmx.launcher.XtendRunAction;
+import hub.sam.dmx.launcher.RunAction;
 import hub.sam.dmx.modifications.Addition;
 import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.ModificationsFactory;
@@ -46,7 +46,7 @@ public abstract class AbstractExtensionSemantics {
 	
 	public void doGenerate(String[] args, boolean useDynamicEObjects) {
 		try {
-			FileWriter errStreamFile = new FileWriter(XtendRunAction.TEMP_FOLDER_NAME + File.separator + "debug.txt");
+			FileWriter errStreamFile = new FileWriter(RunAction.TEMP_FOLDER_NAME + File.separator + "debug.txt");
 			BufferedWriter debugWriter = new BufferedWriter(errStreamFile);
 			debugWriter.write("starting ...\n");
 
@@ -65,7 +65,7 @@ public abstract class AbstractExtensionSemantics {
 		    	resourceSet.getPackageRegistry().put(ModificationsPackage.eNS_URI, ModificationsPackage.eINSTANCE);
         
 		    	if (useDynamicEObjects) {
-			    	String metamodelFile = XtendRunAction.TEMP_FOLDER_NAME + File.separator + "dbl.ecore";
+			    	String metamodelFile = RunAction.TEMP_FOLDER_NAME + File.separator + "dbl.ecore";
 					URI metamodelUri = URI.createFileURI(new File(metamodelFile).getAbsolutePath());
 					Resource metamodelResource = resourceSet.getResource(metamodelUri, true);
 					EObject rootObject = metamodelResource.getContents().get(0);
@@ -84,7 +84,7 @@ public abstract class AbstractExtensionSemantics {
 				URI eblProgramFileUri = URI.createFileURI(new File(modelXmiFile).getAbsolutePath());
 				Resource eblProgramResource = resourceSet.getResource(eblProgramFileUri, true);
 				
-				String modificationsXmi = XtendRunAction.TEMP_FOLDER_NAME + File.separator + "modifications.xmi";
+				String modificationsXmi = RunAction.TEMP_FOLDER_NAME + File.separator + "modifications.xmi";
 				File modificationsXmiFile = new File(modificationsXmi);
 				URI modificationsXmiUri = URI.createFileURI(modificationsXmiFile.getAbsolutePath());
 				

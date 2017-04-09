@@ -78,16 +78,14 @@ import org.eclipse.emf.ecore.EObject
  */
 class BasicDblToJavaGenerator extends AbstractGenerator {
 	
-	public val javaPackagePrefix = "hub.sam.dmx.javasim.gen"
-	public val javaPackageFolderPrefix = javaPackagePrefix.replaceAll("\\.", "/")
+	public static val javaPackagePrefix = "hub.sam.dmx.javasim.gen"
+	public static val javaPackageFolderPrefix = javaPackagePrefix.replaceAll("\\.", "/")
 	public var IPath javaPackageFolder;
 	
 	protected val javaClass_for_ModuleLevelElements = "Module_"
 	
-	new(IPath outputFolder) {
-		super(outputFolder)
-
-		javaPackageFolder = outputFolder.append(javaPackageFolderPrefix)
+	def void initOutputFolder(IPath outputPath) {
+		javaPackageFolder = outputPath.append(javaPackageFolderPrefix)
 		makeFolder(javaPackageFolder);
 	}
 	
@@ -175,7 +173,9 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		else name
 	}
 
-	override void genModel(Model model, boolean mainModel) {
+	override void genModel(Model model, boolean mainModel, IPath outputPath) {
+		initOutputFolder(outputPath)
+		
 		val Module moduleWithMainProcedure = if (mainModel) model.modules.findFirst[ functions.exists[ name == 'main' ] ] else null
 		
 		model.modules.forEach[ module | 

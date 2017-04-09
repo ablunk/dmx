@@ -1,6 +1,5 @@
 package hub.sam.dmx.semantics
 
-import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EClass
 import org.eclipse.emf.ecore.EcorePackage
 import java.io.Writer
@@ -9,10 +8,6 @@ import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.emf.ecore.EPackage
 
 class EcoreToDblGenerator extends AbstractGenerator {
-	
-	new(IPath outputFolder) {
-		super(outputFolder)
-	}
 	
 	def startGenerator(String outputFile, EPackage metamodel, String javaPackagePrefix, String[] imports) {
 		val Writer writer = beginTargetFile(outputFile);
@@ -45,7 +40,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	}
 	
 	def static void main(String[] args) {
-		(new EcoreToDblGenerator(null)).startGenerator
+		(new EcoreToDblGenerator()).startGenerator
 	}
 	
 	def String genFeature(EStructuralFeature feature) {

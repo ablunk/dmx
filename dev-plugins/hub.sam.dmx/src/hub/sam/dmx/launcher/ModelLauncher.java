@@ -55,6 +55,7 @@ import hub.sam.dmx.semantics.AbstractGenerator;
 import hub.sam.dmx.semantics.BasicDblToJavaGenerator;
 import hub.sam.dmx.semantics.ExtensionDefinitionsToJava;
 import hub.sam.dmx.semantics.IncrementalModificationApplier;
+import hub.sam.dmx.semantics.TargetLanguageGenerator;
 import hub.sam.dmx.targetcode.DblToDesmojJavaGenerator;
 import hub.sam.tef.modelcreating.HeadlessEclipseParser;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
@@ -71,7 +72,7 @@ public class ModelLauncher {
 	protected final Resource metaModelResource;
 	protected final IModelCreatingContext lastModelCreatingContext;
 	
-	private final String targetSimLib;
+	private final TargetLanguageGenerator targetLanguageGenerator;
 	private final JavaClassLauncher javaClassLauncher;
 	protected final ProgramOutputPrinter programOutputPrinter;
 
@@ -79,7 +80,8 @@ public class ModelLauncher {
 	public static final String TEMP_FOLDER = "temp";
 	
 	public ModelLauncher(IProgressMonitor monitor, IFile modelFile, Resource metaModelResource, 
-			IModelCreatingContext lastModelCreatingContext, String targetSimLib, JavaClassLauncher javaClassLauncher,
+			IModelCreatingContext lastModelCreatingContext, TargetLanguageGenerator targetLanguageGenerator, 
+			JavaClassLauncher javaClassLauncher,
 			ProgramOutputPrinter programOutputPrinter) {
 		
 		this.progressMonitor = monitor;
@@ -88,7 +90,7 @@ public class ModelLauncher {
 		this.metaModelResource = metaModelResource;
 		this.lastModelCreatingContext = lastModelCreatingContext;
 		
-		this.targetSimLib = targetSimLib;
+		this.targetLanguageGenerator = targetLanguageGenerator;
 		this.javaClassLauncher = javaClassLauncher;
 		this.programOutputPrinter = programOutputPrinter;
 	}
@@ -120,16 +122,12 @@ public class ModelLauncher {
 
 		Resource originalResource = modelResource;
 		Model rootModel = (Model) originalResource.getContents().get(0);
-		BasicDblToJavaGenerator baseGenerator = null;
-		if (targetSimLib == "desmoj") {
-			baseGenerator = new DblToDesmojJavaGenerator(genPath);
-		}
 
 		final boolean isDbxInputFile = modelFile.getFileExtension().equals("dbx");
 
 		logger.info("Compiling and executing model " + modelFile + " ...");
 
-		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
+		translate(rootModel, true, targetLanguageGenerator, genPath, isDbxInputFile);
 		
 		progressMonitor.worked(50); // 55%
 		progressMonitor.subTask("Compiling target language program");
@@ -150,7 +148,7 @@ public class ModelLauncher {
 			IPath workingDirectory = currentProject.getLocation();
 
 			javaClassLauncher.launch(currentJavaProject, workingDirectory, 
-					baseGenerator.javaPackageFolderPrefix + "/JavaMain", null,
+					BasicDblToJavaGenerator.javaPackageFolderPrefix + "/JavaMain", null,
 					programOutputPrinter);
 			
 			progressMonitor.worked(5); // 100%
@@ -167,7 +165,7 @@ public class ModelLauncher {
 	
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
 
-	protected Model translate(Model inputModel, boolean rootModel, AbstractGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
+	protected Model translate(Model inputModel, boolean rootModel, TargetLanguageGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
 		URI filenameAndPathWithoutFileExtensions = inputModel.eResource().getURI().trimFileExtension();
 		String modelDbxTextFileString = getXmiRawLocation(filenameAndPathWithoutFileExtensions.appendFileExtension("dbx")).toOSString();
 	
@@ -181,7 +179,7 @@ public class ModelLauncher {
 		}
 	}
 
-	private Model translateDbl(Model inputModel, boolean rootModel, AbstractGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
+	private Model translateDbl(Model inputModel, boolean rootModel, TargetLanguageGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
 		if (!processedModels.containsKey(inputModel)) {
 			// 2.a. forward translation to imported models, so that extensions used in imported models are translated
 			// 2.b. replaced imported models by translated imported models
@@ -193,7 +191,7 @@ public class ModelLauncher {
 			}
 			
 			// 3. generate target language code with baseGenerator for outputModel
-			baseGenerator.genModel(inputModel, rootModel);
+			baseGenerator.genModel(inputModel, rootModel, genFolder);
 			
 			processedModels.put(inputModel, inputModel);
 			return inputModel;
@@ -201,7 +199,7 @@ public class ModelLauncher {
 		return processedModels.get(inputModel);
 	}
 
-	private Model translateDbx(IPath inputPath, File inputFile, Model inputModel, boolean rootModel, AbstractGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
+	private Model translateDbx(IPath inputPath, File inputFile, Model inputModel, boolean rootModel, TargetLanguageGenerator baseGenerator, IPath genFolder, boolean substituteExtensions) {
 		// prevents processing a model which is imported by different imports again
 		if (!processedModels.containsKey(inputModel)) {
 			
@@ -256,7 +254,7 @@ public class ModelLauncher {
 			parsedWorkingModel = substituteExtensions(parsedWorkingModel);
 			
 			// 3. generate target language code with baseGenerator for outputModel
-			baseGenerator.genModel(parsedWorkingModel.getModel(), rootModel);
+			baseGenerator.genModel(parsedWorkingModel.getModel(), rootModel, genFolder);
 			
 			processedModels.put(inputModel, parsedWorkingModel.getModel());
 			return parsedWorkingModel.getModel();
@@ -362,7 +360,8 @@ public class ModelLauncher {
 	protected ExtensionDefinitionsToJava getExtensionDefinitionGenerator() {
 		if (_extensionDefinitionGenerator == null) {
 			IPath genFolder = getJavaGenFolder(getCurrentProject()).getRawLocation();
-			_extensionDefinitionGenerator = new ExtensionDefinitionsToJava(genFolder);
+			_extensionDefinitionGenerator = new ExtensionDefinitionsToJava();
+			_extensionDefinitionGenerator.initOutputFolder(genFolder);
 		}
 		return _extensionDefinitionGenerator;
 	}

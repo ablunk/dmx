@@ -1,13 +1,8 @@
 package hub.sam.dmx.semantics
 
 import hub.sam.dbl.DblPackage
-import org.eclipse.core.runtime.IPath
 
 class DblMetamodelToDbl extends EcoreToDblGenerator {
-	
-	new(IPath outputFolder) {
-		super(outputFolder)
-	}
 	
 	override startGenerator() {
 		makeFolder("resources-gen")
@@ -15,7 +10,7 @@ class DblMetamodelToDbl extends EcoreToDblGenerator {
 	}
 	
 	def static void main(String[] args) {
-		(new DblMetamodelToDbl(null)).startGenerator
+		(new DblMetamodelToDbl()).startGenerator
 	}
 	
 	override String escapeName(String name) {

@@ -3,6 +3,7 @@ package hub.sam.dmx.launcher;
 import hub.sam.dmx.editor.DblTextEditor;
 import hub.sam.dmx.launcher.java.UIJavaLauncher;
 import hub.sam.dmx.launcher.programoutput.EditorConsole;
+import hub.sam.dmx.semantics.TargetLanguageGenerator;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -19,9 +20,11 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.part.FileEditorInput;
 
-public class XtendRunAction extends Action {
+public class RunAction extends Action {
 
 	private final DblTextEditor editor;
+	
+	private final TargetLanguageGenerator targetLanguageGenerator;
 
 	private String targetSimLib;
 	private String targetLanguage;
@@ -29,8 +32,9 @@ public class XtendRunAction extends Action {
 	public static final String JAVA_GEN_FOLDER_NAME = "gen-src";
 	public static final String TEMP_FOLDER_NAME = "temp";
 	
-	public XtendRunAction(DblTextEditor editor) {
+	public RunAction(DblTextEditor editor, TargetLanguageGenerator targetLanguageGenerator) {
 		this.editor = editor;
+		this.targetLanguageGenerator = targetLanguageGenerator;
 	}
 	
 	public String getTargetSimLib() {
@@ -77,7 +81,7 @@ public class XtendRunAction extends Action {
 				}
 				else {
 					launcher = new ModelLauncher(monitor, inputFile, metamodelResource, 
-							editor.getLastModelCreatingContext(), targetSimLib, new UIJavaLauncher(currentDisplay, true),
+							editor.getLastModelCreatingContext(), targetLanguageGenerator, new UIJavaLauncher(currentDisplay, true),
 							editorConsole);
 				}
 				//getCurrentProject().getRawLocation();

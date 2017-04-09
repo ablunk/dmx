@@ -6,7 +6,9 @@ import hub.sam.dbl.provider.DblItemProviderAdapterFactory;
 import hub.sam.dmx.Activator;
 import hub.sam.dmx.editor.modelcreation.DblModelCreationContext;
 import hub.sam.dmx.editor.semantics.DblSemanticsProvider;
-import hub.sam.dmx.launcher.XtendRunAction;
+import hub.sam.dmx.launcher.RunAction;
+import hub.sam.dmx.semantics.TargetLanguageGenerator;
+import hub.sam.dmx.targetcode.DblToDesmojJavaGenerator;
 import hub.sam.tef.editor.SourceViewerConfiguration;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 import hub.sam.tef.semantics.ISemanticsProvider;
@@ -177,18 +179,15 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		saveXmiAction = new SaveXmiAction(this);
 		setAction(SaveXmiAction.ACTION_DEFINITION_ID, saveXmiAction);
 		
-		addRunAction("DESMO-J", "desmoj", "java");	
-		addRunAction("C++", "targetsimLib", "c++");
-//		addRunAction("JiST-Pro (using Acceleo)", "jist");
-//		addRunAction("jDisco (using Acceleo)", "jdisco");
+		addRunAction("DESMO-J", new DblToDesmojJavaGenerator());	
+		addRunAction("C++", null);
+		addRunAction("Groovy", null);
 	}
 	
-	private void addRunAction(String name, String targetSimLib, String targetLanguage) {
-		XtendRunAction runAction = new XtendRunAction(this);
-		runAction.setTargetSimLib(targetSimLib);
-		runAction.setTargetLanguage(targetLanguage);
+	private void addRunAction(String name, TargetLanguageGenerator targetLanguageGenerator) {
+		RunAction runAction = new RunAction(this, targetLanguageGenerator);
 		runAction.setText(name);
-		setAction("hub.sam.dmx.action.run." + targetSimLib, runAction);
+		setAction("hub.sam.dmx.action.run." + name, runAction);
 		runActions.add(runAction);
 	}
 
