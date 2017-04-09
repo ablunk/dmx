@@ -1,0 +1,19 @@
+syntax(Model) "resources/language-definition/dbx.ecore" {
+
+	Model:element(Model) -> (Import:composite(imports))* (BaseClass:composite(classes))*;
+	Import:element(Import) -> "#import" STRINGDEF:composite(file);
+	
+	BaseClass:element(BaseClass) -> ClassDefinition;
+	
+	ClassDefinition ->
+		"class" ws(space) NamedElementName ws(empty)
+			//(ws(space) "extends" ws(space) IdExpr:composite(superClasses))? ws(space)
+			"{" "}";
+		
+	NamedElementName -> IDENTIFIER:composite(name);	
+
+	token () {
+		"`cstylecomment`";
+	}
+
+}
