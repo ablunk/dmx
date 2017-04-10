@@ -1,0 +1,19 @@
+module test;
+
+class Y {
+	int i;
+	void f();
+}
+
+class X {
+	Y y;
+	Y y();
+}
+
+void main() {
+	X x;
+	x.y=1;
+	x.y.i=2;
+	x.y.f();
+	x.y().i=2;
+}

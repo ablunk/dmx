@@ -29,7 +29,13 @@ public class IdentifierResolutionTest {
 
 	@Parameters(name = "{index}: {0}")
 	public static Object[] testFiles() {
-	    return new Object[] { "variables.dbl", "variables-qualified.dbl", "methods.dbl", "types.dbl" };
+	    return new Object[] {
+	    		"variables.dbl",
+	    		"object-navigation.dbl",
+	    		"class-navigation.dbl",
+	    		"methods.dbl",
+	    		"types.dbl"
+	    	};
 	}
 	
 	@Parameter

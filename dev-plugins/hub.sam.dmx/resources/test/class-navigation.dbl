@@ -1,0 +1,16 @@
+module test;
+
+class Y {
+	static int i;
+	void f();
+}
+
+class X {
+	static Y y;
+	static Y y();
+}
+
+void main() {
+	X.y.i=1;
+	X.y().f();
+}
