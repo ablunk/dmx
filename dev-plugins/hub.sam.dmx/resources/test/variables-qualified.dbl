@@ -6,10 +6,12 @@ class Y {
 
 class X {
 	Y a;
+	static Y c;
 }
 
 void main() {
 	X x;
 	x.a=1;
 	x.a.b=2;
+	X.c=3;
 }

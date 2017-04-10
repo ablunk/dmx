@@ -18,4 +18,5 @@ void main(int p) {
 	x.m();
 	x.n();
 	x.o(1);
+	X.q();
 }
