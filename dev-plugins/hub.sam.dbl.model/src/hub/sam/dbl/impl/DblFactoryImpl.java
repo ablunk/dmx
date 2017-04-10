@@ -114,6 +114,7 @@ import hub.sam.dbl.StringSymbol;
 import hub.sam.dbl.StringType;
 import hub.sam.dbl.StructuralSymbolReference;
 import hub.sam.dbl.SuperLiteral;
+import hub.sam.dbl.SuperObjectInitializer;
 import hub.sam.dbl.SwitchCase;
 import hub.sam.dbl.SwitchStatement;
 import hub.sam.dbl.SymbolSequence;
@@ -320,6 +321,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.QUOTED_MODULE_CONTENT: return (EObject)createQuotedModuleContent();
 			case DblPackage.PATTERN: return (EObject)createPattern();
 			case DblPackage.TEST_STATEMENT: return (EObject)createTestStatement();
+			case DblPackage.SUPER_OBJECT_INITIALIZER: return (EObject)createSuperObjectInitializer();
 			default:
 				return DblUtil.createObjectOfParentClass(eClass);
 		}
@@ -533,6 +535,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Constructor createConstructor() {
 		ConstructorImpl constructor = new ConstructorImpl();
 		return constructor;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SuperObjectInitializer createSuperObjectInitializer() {
+		SuperObjectInitializerImpl superObjectInitializer = new SuperObjectInitializerImpl();
+		return superObjectInitializer;
 	}
 
 	/**

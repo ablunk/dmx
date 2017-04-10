@@ -28,7 +28,11 @@ syntax(Model) "resources/dbl.ecore" {
 	NamedElementName -> ExpandExpr:composite(expandExpr);
 		
 	Constructor:element(Constructor) -> "new" "(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
+		(":" SuperObjectInitializer:composite(initializers) ("," SuperObjectInitializer:composite(initializers))*)?
 		"{" (Statement:composite(statements))* "}";
+
+	SuperObjectInitializer:element(SuperObjectInitializer) -> ClassRef:reference(class)
+		"(" (Expression:composite(arguments) ("," Expression:composite(arguments))*)? ")";
 	
 	IsActiveClass:constant("true":EBoolean) -> "active";
 
