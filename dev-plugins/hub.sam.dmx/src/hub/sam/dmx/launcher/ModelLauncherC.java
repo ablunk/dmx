@@ -21,6 +21,7 @@ import hub.sam.dbl.Model;
 import hub.sam.dmx.launcher.java.JavaClassLauncher;
 import hub.sam.dmx.launcher.programoutput.ProgramOutputPrinter;
 import hub.sam.dmx.semantics.BaseCPlusPlusGenerator;
+import hub.sam.dmx.semantics.TargetLanguageGenerator;
 import hub.sam.dmx.targetcode.SpecificSimulationCPlusPlusGenerator;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 
@@ -38,9 +39,9 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 	}
 	
 	public ModelLauncherC(IProgressMonitor monitor, IFile inputFile, Resource metaModelResource, 
-			IModelCreatingContext lastModelCreatingContext, String targetSimLib, JavaClassLauncher javaClassLauncher,
+			IModelCreatingContext lastModelCreatingContext, TargetLanguageGenerator targetLanguageGenerator, JavaClassLauncher javaClassLauncher,
 			ProgramOutputPrinter programOutputPrinter){
-		super(monitor, inputFile, metaModelResource, lastModelCreatingContext, targetSimLib,
+		super(monitor, inputFile, metaModelResource, lastModelCreatingContext, targetLanguageGenerator,
 				javaClassLauncher, programOutputPrinter);
 	}
 	private Map<Model, Model> processedModels = new HashMap<Model, Model>();
@@ -61,7 +62,7 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 			}
 			
 			// 3. generate target language code with baseGenerator for outputModel
-			baseGenerator.genModel(inputModel, rootModel);
+			baseGenerator.genModel(inputModel, rootModel, genFolder);
 			processedModels.put(inputModel, inputModel);
 			return inputModel;
 		}
@@ -191,14 +192,13 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		
 		Resource originalResource = modelResource;
 		Model rootModel = (Model) originalResource.getContents().get(0);
-		BaseCPlusPlusGenerator baseGenerator = new SpecificSimulationCPlusPlusGenerator(genPath);
 		
 		// aktuell geoeffnetes File
 		final boolean isDbxInputFile = modelFile.getFileExtension().equals("dbx");
 
 		logger.info("Compiling and executing model " + modelFile + " ...");
 
-		translate(rootModel, true, baseGenerator, genPath, isDbxInputFile);
+		translate(rootModel, true, targetLanguageGenerator, genPath, isDbxInputFile);
 		progressMonitor.worked(50); // 55%
 		progressMonitor.subTask("Compiling target language program");
 

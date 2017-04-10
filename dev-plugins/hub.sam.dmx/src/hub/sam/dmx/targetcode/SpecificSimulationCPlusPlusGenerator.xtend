@@ -76,14 +76,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	/* is a flag which is important for the compilation. When global variant type is needed. An extra file 
 	 * is compiled */
 	private var makefileNeedsGlobalVariantType = false;
-	/**
-	 * calls constructor to generate instance of C++ code-generator and also generates
-	 * project folder path
-	 * @param outputFolder specifies path to the project 
-	 */
-	public new(IPath outputFolder) {
-		super(outputFolder);
-	}
+
 	/**
 	 * resets all Parameters before creating a new interruptible function 
 	 * implementation (switch-statement block)

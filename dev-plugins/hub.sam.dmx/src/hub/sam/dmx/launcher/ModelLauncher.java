@@ -72,7 +72,7 @@ public class ModelLauncher {
 	protected final Resource metaModelResource;
 	protected final IModelCreatingContext lastModelCreatingContext;
 	
-	private final TargetLanguageGenerator targetLanguageGenerator;
+	protected final TargetLanguageGenerator targetLanguageGenerator;
 	private final JavaClassLauncher javaClassLauncher;
 	protected final ProgramOutputPrinter programOutputPrinter;
 
