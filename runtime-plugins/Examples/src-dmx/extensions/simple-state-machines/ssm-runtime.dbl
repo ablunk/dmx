@@ -1,7 +1,7 @@
 #import "../../stdlib"
 #import "../../dbl"
 
-module ssmRuntime {
+module ssmruntime;
 
 // dbx files cannot be imported at the moment.
 // therefore, all runtime structures have to be placed in a dbl file :(
@@ -217,6 +217,4 @@ active class Timer {
 			stateMachineRuntime.enterEvent(new TimeEvent());
 		}
 	}
-}
-
 }

@@ -1,4 +1,4 @@
-module test {
+module test;
 
 class Y {
 	int b;
@@ -12,6 +12,4 @@ void main() {
 	X x;
 	x.a=1;
 	x.a.b=2;
-}
-
 }

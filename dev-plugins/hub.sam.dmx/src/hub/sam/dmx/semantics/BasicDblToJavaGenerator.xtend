@@ -176,27 +176,25 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	override void genModel(Model model, boolean mainModel, IPath outputPath) {
 		initOutputFolder(outputPath)
 		
-		val Module moduleWithMainProcedure = if (mainModel) model.modules.findFirst[ functions.exists[ name == 'main' ] ] else null
+		val Module moduleWithMainProcedure = if (mainModel) model.module else null
 		
-		model.modules.forEach[ module | 
-			val moduleFolder = javaPackageFolder.append(module.name)
-			makeFolder(moduleFolder)
+		val moduleFolder = javaPackageFolder.append(model.module.name)
+		makeFolder(moduleFolder)
 
-			val Writer moduleWriter = beginTargetFile(moduleFolder, javaClass_for_ModuleLevelElements + ".java");
-			moduleWriter.write(
-				if (moduleWithMainProcedure == null || module != moduleWithMainProcedure) module.gen
-				else module.genModuleWithMainProcedure
-			)
-			endTargetFile(moduleWriter)
-			
-			module.classes.forEach[ class_ |
-				val String result = class_.gen
-				if (result != null && result != "") {
-					val Writer classifierWriter = beginTargetFile(moduleFolder, class_.name + ".java");
-					classifierWriter.write(result)
-					endTargetFile(classifierWriter)
-				}
-			]
+		val Writer moduleWriter = beginTargetFile(moduleFolder, javaClass_for_ModuleLevelElements + ".java");
+		moduleWriter.write(
+			if (moduleWithMainProcedure == null || model.module != moduleWithMainProcedure) model.module.gen
+			else model.module.genModuleWithMainProcedure
+		)
+		endTargetFile(moduleWriter)
+		
+		model.module.classes.forEach[ class_ |
+			val String result = class_.gen
+			if (result != null && result != "") {
+				val Writer classifierWriter = beginTargetFile(moduleFolder, class_.name + ".java");
+				classifierWriter.write(result)
+				endTargetFile(classifierWriter)
+			}
 		]
 		
 		if (mainModel && moduleWithMainProcedure != null) {

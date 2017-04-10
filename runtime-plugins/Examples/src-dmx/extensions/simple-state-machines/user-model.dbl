@@ -1,6 +1,6 @@
 #import "../../stdlib"
 
-module userCode {
+module userCode;
 
 class Data {
 	string payLoad = "empty";
@@ -10,6 +10,4 @@ class Data {
 		id = id + 1;
 		self.payLoad = id; // type conversion
 	}
-}
-
 }

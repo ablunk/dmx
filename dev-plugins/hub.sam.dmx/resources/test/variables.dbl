@@ -1,4 +1,4 @@
-module test {
+module test;
 
 int g;
 
@@ -20,6 +20,4 @@ void main(int p) {
 	l=1;
 	p=1;
 	g=1;
-}
-
 }

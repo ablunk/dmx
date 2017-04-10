@@ -1,12 +1,12 @@
 syntax(Model) "resources/dbl.ecore" {
 
-	Model:element(Model) -> (Import:composite(imports))* (Module:composite(modules))*;
+	Model:element(Model) -> (Import:composite(imports))* Module:composite(module);
 
 	Static:constant("true":EBoolean) -> "static";
 	Control:constant("true":EBoolean) -> "control";
 
 	Import:element(Import) -> "#import" STRINGDEF:composite(file);
-	Module:element(Module) -> "module" IDENTIFIER:composite(name) "{" (ModuleElement)* "}";
+	Module:element(Module) -> "module" IDENTIFIER:composite(name) ";" (ModuleElement)*;
 	
 	ModuleElement -> Variable:composite(variables) ";";
 	ModuleElement -> Function:composite(functions);

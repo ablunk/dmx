@@ -1,9 +1,7 @@
-module test {
+module test;
 
 class X {}
 
 void main(int p) {
 	X x;
-}
-
 }

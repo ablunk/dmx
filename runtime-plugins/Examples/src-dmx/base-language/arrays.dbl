@@ -1,17 +1,15 @@
 #import "../stdlib"
 
-module lists {
+module lists;
 
-	void main() {
-		int array[] a1 = new int array[10];
-		a1[0] = 99;
-		print a1[0];
-		print "\n";
+void main() {
+	int array[] a1 = new int array[10];
+	a1[0] = 99;
+	print a1[0];
+	print "\n";
 
-		List l1 = new ArrayList;
-		l1.add(99);
-		print l1.get(0);
-		print "\n";
-	}
-
+	List l1 = new ArrayList;
+	l1.add(99);
+	print l1.get(0);
+	print "\n";
 }

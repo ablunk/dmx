@@ -3,7 +3,7 @@
   <imports file="../stdlib">
     <model href="../stdlib.xmi#/"/>
   </imports>
-  <modules name="strings">
+  <module name="strings">
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="s1">
@@ -12,42 +12,42 @@
       </statements>
       <statements xsi:type="dbl:Variable" name="s2">
         <classifierType>
-          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1"/>
+          <referencedElement href="../stdlib.xmi#//@module/@classes.1"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1"/>
+            <referencedElement href="../stdlib.xmi#//@module/@classes.1"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.1"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.0"/>
             </callPart>
           </classifierType>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:Variable" name="s3">
         <classifierType>
-          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1"/>
+          <referencedElement href="../stdlib.xmi#//@module/@classes.1"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1"/>
+            <referencedElement href="../stdlib.xmi#//@module/@classes.1"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.0"/>
             </callPart>
           </classifierType>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.0"/>
       </statements>
       <statements xsi:type="dbl:Print">
         <outputs xsi:type="dbl:IdExpr">
-          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1"/>
-          <referencedElement href="../stdlib.xmi#//@modules.0/@classes.1/@methods.0"/>
+          <parentIdExpr referencedElement="//@module/@functions.0/@statements.1"/>
+          <referencedElement href="../stdlib.xmi#//@module/@classes.0/@methods.0"/>
           <callPart>
-            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.2"/>
           </callPart>
         </outputs>
       </statements>
     </functions>
-  </modules>
+  </module>
 </dbl:Model>

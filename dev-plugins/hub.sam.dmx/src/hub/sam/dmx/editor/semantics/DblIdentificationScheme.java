@@ -461,9 +461,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private boolean addIdsForGlobalProcedures(Model containerModel, NamedElement namedElementId, Collection<Object> allIds, IdExpr idExpr) {
 		boolean added = false;
 		
-		for (Module module: containerModel.getModules()) {
-			added |= _addIdsForGlobalProcedures(module, namedElementId, allIds, idExpr);
-		}
+		added |= _addIdsForGlobalProcedures(containerModel.getModule(), namedElementId, allIds, idExpr);
 		
 		if (!added) {
 			for (Import imprt: containerModel.getImports()) {
@@ -721,10 +719,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		boolean idsAdded = false;
 		for (Import imprt: model.getImports()) {
 			if (imprt.getModel() != null) {
-				for (Module importedModule: imprt.getModel().getModules()) {
-					idsAdded |= addIds(identifier, importedModule.getClasses(), allIds);
-					idsAdded |= addIds(identifier, importedModule.getExtensions(), allIds);
-				}
+				idsAdded |= addIds(identifier, imprt.getModel().getModule().getClasses(), allIds);
+				idsAdded |= addIds(identifier, imprt.getModel().getModule().getExtensions(), allIds);
 				if (!idsAdded) {
 					idsAdded = addIdsForImportedConcepts(imprt.getModel(), identifier, allIds);
 				}
@@ -736,11 +732,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private Class findImportedClass(Model model, String clazzName) {
 		for (Import imprt: model.getImports()) {
 			if (imprt.getModel() != null) {
-				for (Module importedModule: imprt.getModel().getModules()) {
-					for (Class clazz: importedModule.getClasses()) {
-						if (clazz.getName().equals(clazzName)) {
-							return clazz;
-						}
+				for (Class clazz: imprt.getModel().getModule().getClasses()) {
+					if (clazz.getName().equals(clazzName)) {
+						return clazz;
 					}
 				}
 				return findImportedClass(imprt.getModel(), clazzName);

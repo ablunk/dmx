@@ -1,6 +1,6 @@
 #import "../stdlib"
 
-module types {
+module types;
 
 class A {
 }
@@ -23,7 +23,7 @@ class String {
 		"java" -> "java.lang.String"
 	}
 	
-	int length() abstract;
+	int length();
 }
 
 String stringObject = "hello";
@@ -49,6 +49,4 @@ void main() {
 		print item + "\n";
 	}
 	print(iArray1.length);
-}
-
 }

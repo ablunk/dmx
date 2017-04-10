@@ -36,11 +36,9 @@ public class ExtensionManager implements IExtensionApplier {
 	@Override
 	public boolean addExtensions(Model model) {
 		boolean extensioninitionsAdded = false;
-		for (Module module: model.getModules()) {
-			for (Extension extension: module.getExtensions()) {
-				if (!extensionsProcessed.containsKey(extension.getName())) {
-					extensioninitionsAdded |= addExtension(extension);;
-				}
+		for (Extension extension: model.getModule().getExtensions()) {
+			if (!extensionsProcessed.containsKey(extension.getName())) {
+				extensioninitionsAdded |= addExtension(extension);;
 			}
 		}
 		return extensioninitionsAdded;
@@ -48,13 +46,11 @@ public class ExtensionManager implements IExtensionApplier {
 
 	@Override
 	public void unwindExtensionEffects(Model model) {
-		for (Module module: model.getModules()) {
-			for (Extension extension: module.getExtensions()) {
-				if (extensionsProcessed.containsKey(extension.getName())) {
-					logger.info("unwinding extension definition '" + extension.getName() + "' ...");
-					extensionsProcessed.get(extension.getName()).revert();
-					extensionsProcessed.remove(extension.getName());
-				}
+		for (Extension extension: model.getModule().getExtensions()) {
+			if (extensionsProcessed.containsKey(extension.getName())) {
+				logger.info("unwinding extension definition '" + extension.getName() + "' ...");
+				extensionsProcessed.get(extension.getName()).revert();
+				extensionsProcessed.remove(extension.getName());
 			}
 		}
 	}

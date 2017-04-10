@@ -1,6 +1,6 @@
 #import "../stdlib"
 
-module inheritance {
+module inheritance;
 
 class A {
 	int i = 3;
@@ -13,6 +13,4 @@ class A {
 void main() {
 	A a = new A(2);
 	print(a.i + "\n");
-}
-
 }

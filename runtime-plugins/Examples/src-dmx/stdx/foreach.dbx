@@ -1,7 +1,7 @@
 #import "../dbl"
 #import "../stdlib"
 
-module stdx_foreach {
+module stdx_foreach;
 
 extension ForEach extends dbl LocalScopeStatement {
 	start ForEach;
@@ -9,7 +9,7 @@ extension ForEach extends dbl LocalScopeStatement {
 		body : LocalScopeStatement;
 }
 
-semantics for ForEach {	
+semantics for ForEach {
 	Variable itemVariable = statements.get(0) as Variable;
 	
 	boolean collectionRefersToArray = false;
@@ -18,7 +18,7 @@ semantics for ForEach {
 	// however, no java classes are generated for the extension metamodel. therefore, each rules metaclass is mapped to the type EObject.
 	//String collectionVariableName = new String(collectionIdExpr.referencedElement.eClass().name);
 	//if (collectionVariableName.equals("Variable")) {
-	if (collectionIdExpr.referencedElement instanceof Variable) {
+	if (collectionIdExpr.getReferencedElement() instanceof Variable) {
 		Variable referencedCollectionVariable = collectionIdExpr.referencedElement as Variable;
 		List arrayDimensions = referencedCollectionVariable.typeArrayDimensions;
 		//if (referencedCollectionVariable.typeArrayDimensions.size() > 0) {
@@ -43,6 +43,4 @@ semantics for ForEach {
 		expand		body;
 		expand "}";
 	}
-}
-
 }

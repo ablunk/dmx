@@ -1,4 +1,4 @@
-module test {
+module test;
 
 class Y {
 	void n() {}
@@ -18,6 +18,4 @@ void main(int p) {
 	x.m();
 	x.n();
 	x.o(1);
-}
-
 }

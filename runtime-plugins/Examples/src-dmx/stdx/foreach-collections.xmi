@@ -6,10 +6,10 @@
   <imports file="../stdlib">
     <model href="../stdlib.xmi#/"/>
   </imports>
-  <modules name="stdx_foreach">
+  <module name="stdx_foreach_collections">
     <extensions name="ForEach" concreteSyntax="extension ForEach extends dbl LocalScopeStatement {&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements : list Variable &quot;in&quot; collection : Expression &quot;)&quot;&#xA;&#x9;&#x9;body : LocalScopeStatement;&#xA;}">
-      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.46"/>
-      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements : list Variable &quot;in&quot; collection : Expression &quot;)&quot;&#xA;&#x9;&#x9;body : LocalScopeStatement;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+      <extensionPoint href="../dbl.xmi#//@module/@classes.48"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start ForEach;&#xA;&#x9;ForEach -> &quot;foreach&quot; &quot;(&quot; statements : list Variable &quot;in&quot; collection : Expression &quot;)&quot;&#xA;&#x9;&#x9;body : LocalScopeStatement;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="ForEach" concreteSyntax="ForEach -> &quot;foreach&quot; &quot;(&quot; statements : list Variable &quot;in&quot; collection : Expression &quot;)&quot;&#xA;&#x9;&#x9;body : LocalScopeStatement;">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
@@ -19,36 +19,36 @@
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;(&quot;" keyword="("/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="statements" list="true">
-              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.27"/>
+              <referencedClassifier href="../dbl.xmi#//@module/@classes.28"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;in&quot;" keyword="in"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="collection">
-              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.53"/>
+              <referencedClassifier href="../dbl.xmi#//@module/@classes.55"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;)&quot;" keyword=")"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="body">
-              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.46"/>
+              <referencedClassifier href="../dbl.xmi#//@module/@classes.48"/>
             </sequence>
           </possibleSyntax>
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensionSemantics concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#x9;&#xA;&#x9;ID it;&#xA;&#x9;ID item; &#xA;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;expand &quot;}&quot;;&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
+    <extensionSemantics concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#xA;&#x9;ID it;&#xA;&#x9;ID item; &#xA;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.getClassifierType() &quot;;&quot;;&#xA;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;expand &quot;}&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.0">
       <statements xsi:type="dbl:Variable" name="itemVariable" concreteSyntax="Variable itemVariable = statements.get(0) as Variable">
         <classifierType concreteSyntax="Variable">
-          <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
+          <referencedElement href="../dbl.xmi#//@module/@classes.28"/>
         </classifierType>
         <initialValue xsi:type="dbl:Cast" concreteSyntax="statements.get(0) as Variable">
           <classifierType concreteSyntax="Variable">
-            <referencedElement href="../dbl.xmi#//@modules.0/@classes.27"/>
+            <referencedElement href="../dbl.xmi#//@module/@classes.28"/>
           </classifierType>
           <op xsi:type="dbl:IdExpr" concreteSyntax="statements.get(0)">
-            <parentIdExpr concreteSyntax="statements" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
-            <referencedElement href="../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
+            <parentIdExpr concreteSyntax="statements" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
+            <referencedElement href="../stdlib.xmi#//@module/@classes.5/@methods.5"/>
             <callPart>
               <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
             </callPart>
@@ -60,57 +60,58 @@
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;">
         <parts xsi:type="dbl:ExpandTextPart" text="Iterator "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=" = "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="collection" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=".iterator();"/>
       </statements>
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (&quot; it &quot;.hasNext()) {&quot;">
         <parts xsi:type="dbl:ExpandTextPart" text="while ("/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=".hasNext()) {"/>
       </statements>
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;">
         <parts xsi:type="dbl:ExpandTextPart" text="&#x9;Object "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@extensionSemantics.0/@statements.2"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@module/@extensionSemantics.0/@statements.2"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=" = "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@modules.0/@extensionSemantics.0/@statements.1"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="it" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=".next();"/>
       </statements>
-      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.getClassifierType() &quot;;&quot;">
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.0"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable" referencedElement="//@module/@extensionSemantics.0/@statements.0"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=" = "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@modules.0/@extensionSemantics.0/@statements.2"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@module/@extensionSemantics.0/@statements.2"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=" as "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable.classifierType">
-            <parentIdExpr concreteSyntax="itemVariable" referencedElement="//@modules.0/@extensionSemantics.0/@statements.0"/>
-            <referencedElement href="../dbl.xmi#//@modules.0/@classes.13/@attributes.2"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable.getClassifierType()">
+            <parentIdExpr concreteSyntax="itemVariable" referencedElement="//@module/@extensionSemantics.0/@statements.0"/>
+            <referencedElement href="../dbl.xmi#//@module/@classes.13/@methods.3"/>
+            <callPart/>
           </expr>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=";"/>
       </statements>
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#x9;&#x9;body">
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.6"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.6"/>
         </parts>
       </statements>
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;}&quot;">
         <parts xsi:type="dbl:ExpandTextPart" text="}"/>
       </statements>
     </extensionSemantics>
-  </modules>
+  </module>
 </dbl:Model>

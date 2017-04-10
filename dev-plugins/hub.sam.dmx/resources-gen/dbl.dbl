@@ -1,7 +1,7 @@
 #import "stdlib"
 #import "ecore"
 
-module dbl {
+module dbl;
 
 class Construct
 extends EObject
@@ -10,8 +10,8 @@ extends EObject
 		"java" -> "hub.sam.dbl.Construct"
 	}
 	
-	ExpandExpr expandExpr;
-	void setExpandExpr(ExpandExpr value) abstract;
+	ExpandExpr getExpandExpr();
+	void setExpandExpr(ExpandExpr value);
 }
 class ExtensibleElement
 extends 
@@ -22,10 +22,10 @@ Construct
 		"java" -> "hub.sam.dbl.ExtensibleElement"
 	}
 	
-	string concreteSyntax;
-	void setConcreteSyntax(string value) abstract;
-	boolean instanceOfExtensionDefinition;
-	void setInstanceOfExtensionDefinition(boolean value) abstract;
+	string getConcreteSyntax();
+	void setConcreteSyntax(string value);
+	boolean isInstanceOfExtensionDefinition();
+	void setInstanceOfExtensionDefinition(boolean value);
 }
 class Model
 extends EObject
@@ -34,8 +34,9 @@ extends EObject
 		"java" -> "hub.sam.dbl.Model"
 	}
 	
-	List imports;
-	List modules;
+	EList getImports();
+	Module getModule();
+	void setModule(Module value);
 }
 class Import
 extends EObject
@@ -44,10 +45,10 @@ extends EObject
 		"java" -> "hub.sam.dbl.Import"
 	}
 	
-	string file;
-	void setFile(string value) abstract;
-	Model model;
-	void setModel(Model value) abstract;
+	string getFile();
+	void setFile(string value);
+	Model getModel();
+	void setModel(Model value);
 }
 class Module
 extends 
@@ -59,11 +60,11 @@ Construct
 		"java" -> "hub.sam.dbl.Module"
 	}
 	
-	List classes;
-	List extensions;
-	List extensionSemantics;
-	List functions;
-	List variables;
+	EList getClasses();
+	EList getExtensions();
+	EList getExtensionSemantics();
+	EList getFunctions();
+	EList getVariables();
 }
 class Annotation
 extends 
@@ -73,7 +74,7 @@ NamedElement
 		"java" -> "hub.sam.dbl.Annotation"
 	}
 	
-	List items;
+	EList getItems();
 }
 class AnnotationItem
 extends EObject
@@ -82,10 +83,10 @@ extends EObject
 		"java" -> "hub.sam.dbl.AnnotationItem"
 	}
 	
-	string key;
-	void setKey(string value) abstract;
-	string value;
-	void setValue(string value) abstract;
+	string getKey();
+	void setKey(string value);
+	string getValue();
+	void setValue(string value);
 }
 class AnnotateableElement
 extends EObject
@@ -94,7 +95,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.AnnotateableElement"
 	}
 	
-	List annotations;
+	EList getAnnotations();
 }
 class ConstructiveExtension
 extends 
@@ -112,7 +113,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint"
 	}
 	
-	List contentExtensions;
+	EList getContentExtensions();
 }
 class ModuleContentExtension
 extends 
@@ -139,7 +140,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.Type"
 	}
 	
-	List arrayDimensions;
+	EList getArrayDimensions();
 }
 class TypedElement
 extends EObject
@@ -148,11 +149,11 @@ extends EObject
 		"java" -> "hub.sam.dbl.TypedElement"
 	}
 	
-	PrimitiveType primitiveType;
-	void setPrimitiveType(PrimitiveType value) abstract;
-	List typeArrayDimensions;
-	IdExpr classifierType;
-	void setClassifierType(IdExpr value) abstract;
+	PrimitiveType getPrimitiveType();
+	void setPrimitiveType(PrimitiveType value);
+	EList getTypeArrayDimensions();
+	IdExpr getClassifierType();
+	void setClassifierType(IdExpr value);
 }
 class ArrayDimension
 extends EObject
@@ -161,8 +162,8 @@ extends EObject
 		"java" -> "hub.sam.dbl.ArrayDimension"
 	}
 	
-	Expression size;
-	void setSize(Expression value) abstract;
+	Expression getSize();
+	void setSize(Expression value);
 }
 class PrimitiveType
 extends 
@@ -228,11 +229,13 @@ LocalScope
 		"java" -> "hub.sam.dbl.Function"
 	}
 	
-	List parameters;
-	boolean class;
-	void setClass(boolean value) abstract;
-	boolean abstract;
-	void setAbstract(boolean value) abstract;
+	EList getParameters();
+	boolean isClass();
+	void setClass(boolean value);
+	boolean isAbstract();
+	void setAbstract(boolean value);
+	boolean isDetached();
+	void setDetached(boolean value);
 }
 class NativeBinding
 extends EObject
@@ -241,26 +244,25 @@ extends EObject
 		"java" -> "hub.sam.dbl.NativeBinding"
 	}
 	
-	string targetLanguage;
-	void setTargetLanguage(string value) abstract;
-	string targetType;
-	void setTargetType(string value) abstract;
+	string getTargetLanguage();
+	void setTargetLanguage(string value);
+	string getTargetType();
+	void setTargetType(string value);
 }
-class SuperClassSpecification
-extends EObject
+class NativeType
+extends 
+Type
 {
 	bindings {
-		"java" -> "hub.sam.dbl.SuperClassSpecification"
+		"java" -> "hub.sam.dbl.NativeType"
 	}
 	
-	Class class;
-	void setClass(Class value) abstract;
-	List constructorArguments;
+	EList getBindings();
 }
 class Class
 extends 
 NamedElement,
-Type,
+NativeType,
 ConstructiveExtensionAtContentExtensionPoint,
 Concept,
 Construct,
@@ -270,15 +272,14 @@ AnnotateableElement
 		"java" -> "hub.sam.dbl.Class"
 	}
 	
-	boolean active;
-	void setActive(boolean value) abstract;
-	List bindings;
-	List superClasses;
-	List constructors;
-	List attributes;
-	List methods;
-	LocalScope actionsBlock;
-	void setActionsBlock(LocalScope value) abstract;
+	boolean isActive();
+	void setActive(boolean value);
+	EList getSuperClasses();
+	EList getConstructors();
+	EList getAttributes();
+	EList getMethods();
+	LocalScope getActionsBlock();
+	void setActionsBlock(LocalScope value);
 }
 class Constructor
 extends 
@@ -288,9 +289,21 @@ LocalScope
 		"java" -> "hub.sam.dbl.Constructor"
 	}
 	
-	List parameters;
-	Class owningClass;
-	void setOwningClass(Class value) abstract;
+	EList getInitializers();
+	EList getParameters();
+	Class getOwningClass();
+	void setOwningClass(Class value);
+}
+class SuperObjectInitializer
+extends EObject
+{
+	bindings {
+		"java" -> "hub.sam.dbl.SuperObjectInitializer"
+	}
+	
+	Class getClass();
+	void setClass(Class value);
+	EList getArguments();
 }
 class AbstractVariable
 extends 
@@ -312,12 +325,12 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Variable"
 	}
 	
-	boolean control;
-	void setControl(boolean value) abstract;
-	boolean class;
-	void setClass(boolean value) abstract;
-	Expression initialValue;
-	void setInitialValue(Expression value) abstract;
+	boolean isControl();
+	void setControl(boolean value);
+	boolean isClass();
+	void setClass(boolean value);
+	Expression getInitialValue();
+	void setInitialValue(Expression value);
 }
 class Parameter
 extends 
@@ -335,8 +348,8 @@ extends EObject
 		"java" -> "hub.sam.dbl.NamedElement"
 	}
 	
-	string name;
-	void setName(string value) abstract;
+	string getName();
+	void setName(string value);
 }
 class Statement
 extends 
@@ -374,10 +387,10 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Assignment"
 	}
 	
-	VariableAccess variable;
-	void setVariable(VariableAccess value) abstract;
-	Expression value;
-	void setValue(Expression value) abstract;
+	VariableAccess getVariable();
+	void setVariable(VariableAccess value);
+	Expression getValue();
+	void setValue(Expression value);
 }
 class FunctionCall
 extends 
@@ -387,8 +400,8 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.FunctionCall"
 	}
 	
-	IdExpr callIdExpr;
-	void setCallIdExpr(IdExpr value) abstract;
+	IdExpr getCallIdExpr();
+	void setCallIdExpr(IdExpr value);
 }
 class Return
 extends 
@@ -398,8 +411,8 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Return"
 	}
 	
-	Expression value;
-	void setValue(Expression value) abstract;
+	Expression getValue();
+	void setValue(Expression value);
 }
 class WaitUntil
 extends 
@@ -409,8 +422,8 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.WaitUntil"
 	}
 	
-	Expression condition;
-	void setCondition(Expression value) abstract;
+	Expression getCondition();
+	void setCondition(Expression value);
 }
 class Terminate
 extends 
@@ -430,6 +443,17 @@ SimpleStatement
 	}
 	
 }
+class YieldTo
+extends 
+SimpleStatement
+{
+	bindings {
+		"java" -> "hub.sam.dbl.YieldTo"
+	}
+	
+	Expression getObjectAccess();
+	void setObjectAccess(Expression value);
+}
 class Wait
 extends 
 SimpleStatement
@@ -447,8 +471,8 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Reactivate"
 	}
 	
-	Expression objectAccess;
-	void setObjectAccess(Expression value) abstract;
+	Expression getObjectAccess();
+	void setObjectAccess(Expression value);
 }
 class ActivateObject
 extends 
@@ -458,10 +482,10 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.ActivateObject"
 	}
 	
-	Expression objectAccess;
-	void setObjectAccess(Expression value) abstract;
-	int priority_;
-	void setPriority_(int value) abstract;
+	Expression getObjectAccess();
+	void setObjectAccess(Expression value);
+	int getPriority_();
+	void setPriority_(int value);
 }
 class Advance
 extends 
@@ -471,8 +495,8 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Advance"
 	}
 	
-	Expression time;
-	void setTime(Expression value) abstract;
+	Expression getTime();
+	void setTime(Expression value);
 }
 class Print
 extends 
@@ -482,7 +506,7 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.Print"
 	}
 	
-	List outputs;
+	EList getOutputs();
 }
 class IfStatement
 extends 
@@ -492,12 +516,12 @@ Statement
 		"java" -> "hub.sam.dbl.IfStatement"
 	}
 	
-	Expression condition;
-	void setCondition(Expression value) abstract;
-	Statement trueCase;
-	void setTrueCase(Statement value) abstract;
-	Statement falseCase;
-	void setFalseCase(Statement value) abstract;
+	Expression getCondition();
+	void setCondition(Expression value);
+	Statement getTrueCase();
+	void setTrueCase(Statement value);
+	Statement getFalseCase();
+	void setFalseCase(Statement value);
 }
 class LocalScope
 extends EObject
@@ -506,7 +530,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.LocalScope"
 	}
 	
-	List statements;
+	EList getStatements();
 }
 class LocalScopeStatement
 extends 
@@ -527,12 +551,12 @@ LocalScope
 		"java" -> "hub.sam.dbl.ForStatement"
 	}
 	
-	Expression termination;
-	void setTermination(Expression value) abstract;
-	Assignment increment;
-	void setIncrement(Assignment value) abstract;
-	Statement body;
-	void setBody(Statement value) abstract;
+	Expression getTermination();
+	void setTermination(Expression value);
+	Assignment getIncrement();
+	void setIncrement(Assignment value);
+	Statement getBody();
+	void setBody(Statement value);
 }
 class WhileStatement
 extends 
@@ -542,10 +566,10 @@ LoopStatement
 		"java" -> "hub.sam.dbl.WhileStatement"
 	}
 	
-	Expression condition;
-	void setCondition(Expression value) abstract;
-	Statement body;
-	void setBody(Statement value) abstract;
+	Expression getCondition();
+	void setCondition(Expression value);
+	Statement getBody();
+	void setBody(Statement value);
 }
 class SwitchStatement
 extends 
@@ -555,11 +579,11 @@ SimpleStatement
 		"java" -> "hub.sam.dbl.SwitchStatement"
 	}
 	
-	VariableAccess variable;
-	void setVariable(VariableAccess value) abstract;
-	List cases;
-	SwitchCase defaultCase;
-	void setDefaultCase(SwitchCase value) abstract;
+	VariableAccess getVariable();
+	void setVariable(VariableAccess value);
+	EList getCases();
+	SwitchCase getDefaultCase();
+	void setDefaultCase(SwitchCase value);
 }
 class SwitchCase
 extends EObject
@@ -568,9 +592,9 @@ extends EObject
 		"java" -> "hub.sam.dbl.SwitchCase"
 	}
 	
-	Expression value;
-	void setValue(Expression value) abstract;
-	List body;
+	Expression getValue();
+	void setValue(Expression value);
+	EList getBody();
 }
 class BreakStatement
 extends 
@@ -689,10 +713,10 @@ Expression
 		"java" -> "hub.sam.dbl.BinaryOperator"
 	}
 	
-	Expression op1;
-	void setOp1(Expression value) abstract;
-	Expression op2;
-	void setOp2(Expression value) abstract;
+	Expression getOp1();
+	void setOp1(Expression value);
+	Expression getOp2();
+	void setOp2(Expression value);
 }
 class UnaryOperator
 extends 
@@ -702,8 +726,8 @@ Expression
 		"java" -> "hub.sam.dbl.UnaryOperator"
 	}
 	
-	Expression op;
-	void setOp(Expression value) abstract;
+	Expression getOp();
+	void setOp(Expression value);
 }
 class Or
 extends 
@@ -921,8 +945,8 @@ L1Expr
 		"java" -> "hub.sam.dbl.StringLiteral"
 	}
 	
-	string value;
-	void setValue(string value) abstract;
+	string getValue();
+	void setValue(string value);
 }
 class IntLiteral
 extends 
@@ -932,8 +956,8 @@ L1Expr
 		"java" -> "hub.sam.dbl.IntLiteral"
 	}
 	
-	int value;
-	void setValue(int value) abstract;
+	int getValue();
+	void setValue(int value);
 }
 class TrueLiteral
 extends 
@@ -961,19 +985,8 @@ L1Expr
 		"java" -> "hub.sam.dbl.DoubleLiteral"
 	}
 	
-	double value;
-	void setValue(double value) abstract;
-}
-class UniqueIdExpr
-extends 
-Expression
-{
-	bindings {
-		"java" -> "hub.sam.dbl.UniqueIdExpr"
-	}
-	
-	string identifier;
-	void setIdentifier(string value) abstract;
+	double getValue();
+	void setValue(double value);
 }
 class ExpandExpr
 extends 
@@ -983,8 +996,8 @@ Expression
 		"java" -> "hub.sam.dbl.ExpandExpr"
 	}
 	
-	Expression expr;
-	void setExpr(Expression value) abstract;
+	Expression getExpr();
+	void setExpr(Expression value);
 }
 class ParseExpr
 extends 
@@ -994,8 +1007,8 @@ Expression
 		"java" -> "hub.sam.dbl.ParseExpr"
 	}
 	
-	Construct astPart;
-	void setAstPart(Construct value) abstract;
+	Construct getAstPart();
+	void setAstPart(Construct value);
 }
 class PredefinedId
 extends EObject
@@ -1050,6 +1063,16 @@ PredefinedId
 	}
 	
 }
+class AnnotationLiteral
+extends 
+PredefinedId,
+Annotation
+{
+	bindings {
+		"java" -> "hub.sam.dbl.AnnotationLiteral"
+	}
+	
+}
 class IdExpr
 extends 
 L1Expr
@@ -1058,15 +1081,15 @@ L1Expr
 		"java" -> "hub.sam.dbl.IdExpr"
 	}
 	
-	IdExpr parentIdExpr;
-	void setParentIdExpr(IdExpr value) abstract;
-	NamedElement referencedElement;
-	void setReferencedElement(NamedElement value) abstract;
-	PredefinedId predefinedId;
-	void setPredefinedId(PredefinedId value) abstract;
-	List arrayIndex;
-	CallPart callPart;
-	void setCallPart(CallPart value) abstract;
+	IdExpr getParentIdExpr();
+	void setParentIdExpr(IdExpr value);
+	NamedElement getReferencedElement();
+	void setReferencedElement(NamedElement value);
+	PredefinedId getPredefinedId();
+	void setPredefinedId(PredefinedId value);
+	EList getArrayIndex();
+	CallPart getCallPart();
+	void setCallPart(CallPart value);
 }
 class CallPart
 extends EObject
@@ -1075,7 +1098,7 @@ extends EObject
 		"java" -> "hub.sam.dbl.CallPart"
 	}
 	
-	List callArguments;
+	EList getCallArguments();
 }
 class ElementAccess
 extends 
@@ -1085,8 +1108,8 @@ Expression
 		"java" -> "hub.sam.dbl.ElementAccess"
 	}
 	
-	IdExpr idExpr;
-	void setIdExpr(IdExpr value) abstract;
+	IdExpr getIdExpr();
+	void setIdExpr(IdExpr value);
 }
 class VariableAccess
 extends 
@@ -1124,10 +1147,10 @@ ExtensibleElement
 		"java" -> "hub.sam.dbl.Extension"
 	}
 	
-	Concept extensionPoint;
-	void setExtensionPoint(Concept value) abstract;
-	SyntaxDefinition syntaxDefinition;
-	void setSyntaxDefinition(SyntaxDefinition value) abstract;
+	Concept getExtensionPoint();
+	void setExtensionPoint(Concept value);
+	SyntaxDefinition getSyntaxDefinition();
+	void setSyntaxDefinition(SyntaxDefinition value);
 }
 class ExtensionSemantics
 extends 
@@ -1138,8 +1161,8 @@ LocalScope
 		"java" -> "hub.sam.dbl.ExtensionSemantics"
 	}
 	
-	Extension syntaxDefinition;
-	void setSyntaxDefinition(Extension value) abstract;
+	Extension getSyntaxDefinition();
+	void setSyntaxDefinition(Extension value);
 }
 class SyntaxDefinition
 extends 
@@ -1149,9 +1172,9 @@ ExtensibleElement
 		"java" -> "hub.sam.dbl.SyntaxDefinition"
 	}
 	
-	MetaSymbol startSymbol;
-	void setStartSymbol(MetaSymbol value) abstract;
-	List symbols;
+	MetaSymbol getStartSymbol();
+	void setStartSymbol(MetaSymbol value);
+	EList getSymbols();
 }
 class SyntaxSymbolClassifier
 extends 
@@ -1190,8 +1213,8 @@ ComplexSymbol
 		"java" -> "hub.sam.dbl.MetaSymbol"
 	}
 	
-	SyntaxExpression possibleSyntax;
-	void setPossibleSyntax(SyntaxExpression value) abstract;
+	SyntaxExpression getPossibleSyntax();
+	void setPossibleSyntax(SyntaxExpression value);
 }
 class SyntaxExpression
 extends EObject
@@ -1227,7 +1250,7 @@ L2SyntaxExpression
 		"java" -> "hub.sam.dbl.SymbolSequence"
 	}
 	
-	List sequence;
+	EList getSequence();
 }
 class L1SyntaxExpression
 extends 
@@ -1247,13 +1270,13 @@ PlainSymbolReference
 		"java" -> "hub.sam.dbl.StructuralSymbolReference"
 	}
 	
-	boolean list;
-	void setList(boolean value) abstract;
-	boolean composite;
-	boolean localScopedReference;
-	void setLocalScopedReference(boolean value) abstract;
-	boolean globalScopedReference;
-	void setGlobalScopedReference(boolean value) abstract;
+	boolean isList();
+	void setList(boolean value);
+	boolean isComposite();
+	boolean isLocalScopedReference();
+	void setLocalScopedReference(boolean value);
+	boolean isGlobalScopedReference();
+	void setGlobalScopedReference(boolean value);
 }
 class PlainSymbolReference
 extends 
@@ -1263,11 +1286,11 @@ L1SyntaxExpression
 		"java" -> "hub.sam.dbl.PlainSymbolReference"
 	}
 	
-	SyntaxSymbolClassifier classifier;
-	SyntaxSymbolClassifier ownedClassifier;
-	void setOwnedClassifier(SyntaxSymbolClassifier value) abstract;
-	SyntaxSymbolClassifier referencedClassifier;
-	void setReferencedClassifier(SyntaxSymbolClassifier value) abstract;
+	SyntaxSymbolClassifier getClassifier();
+	SyntaxSymbolClassifier getOwnedClassifier();
+	void setOwnedClassifier(SyntaxSymbolClassifier value);
+	SyntaxSymbolClassifier getReferencedClassifier();
+	void setReferencedClassifier(SyntaxSymbolClassifier value);
 }
 class ElementarySymbol
 extends 
@@ -1313,8 +1336,8 @@ ElementarySymbol
 		"java" -> "hub.sam.dbl.Keyword"
 	}
 	
-	string keyword;
-	void setKeyword(string value) abstract;
+	string getKeyword();
+	void setKeyword(string value);
 }
 class MetaExpr
 extends 
@@ -1324,30 +1347,47 @@ Expression
 		"java" -> "hub.sam.dbl.MetaExpr"
 	}
 	
-	Expression expr;
-	void setExpr(Expression value) abstract;
+	Expression getExpr();
+	void setExpr(Expression value);
 }
 class TargetStatement
 extends 
-Statement
+SimpleStatement
 {
 	bindings {
 		"java" -> "hub.sam.dbl.TargetStatement"
 	}
 	
-	Statement body;
-	void setBody(Statement value) abstract;
+	Statement getBody();
+	void setBody(Statement value);
+}
+class CreateIdStatement
+extends 
+Variable
+{
+	bindings {
+		"java" -> "hub.sam.dbl.CreateIdStatement"
+	}
+	
 }
 class ExpansionStatement
 extends 
-Statement
+SimpleStatement
 {
 	bindings {
 		"java" -> "hub.sam.dbl.ExpansionStatement"
 	}
 	
-	List parts;
-	List exprs;
+	boolean isClassContext();
+	void setClassContext(boolean value);
+	boolean isFunctionContext();
+	void setFunctionContext(boolean value);
+	boolean isVariableContext();
+	void setVariableContext(boolean value);
+	IdExpr getDifferingContext();
+	void setDifferingContext(IdExpr value);
+	EList getParts();
+	EList getExprs();
 }
 class ExpansionPart
 extends EObject
@@ -1365,8 +1405,8 @@ ExpansionPart
 		"java" -> "hub.sam.dbl.ExpandTextPart"
 	}
 	
-	string text;
-	void setText(string value) abstract;
+	string getText();
+	void setText(string value);
 }
 class ExpandVariablePart
 extends 
@@ -1376,43 +1416,8 @@ ExpansionPart
 		"java" -> "hub.sam.dbl.ExpandVariablePart"
 	}
 	
-	Expression expr;
-	void setExpr(Expression value) abstract;
-}
-class SetExpansionContextStatement
-extends 
-SimpleStatement
-{
-	bindings {
-		"java" -> "hub.sam.dbl.SetExpansionContextStatement"
-	}
-	
-	Expression context;
-	void setContext(Expression value) abstract;
-	boolean addAfterContext;
-	void setAddAfterContext(boolean value) abstract;
-}
-class SaveGenStatement
-extends 
-SimpleStatement
-{
-	bindings {
-		"java" -> "hub.sam.dbl.SaveGenStatement"
-	}
-	
-	Expression variable;
-	void setVariable(Expression value) abstract;
-}
-class ResumeGenStatement
-extends 
-SimpleStatement
-{
-	bindings {
-		"java" -> "hub.sam.dbl.ResumeGenStatement"
-	}
-	
-	Expression variable;
-	void setVariable(Expression value) abstract;
+	Expression getExpr();
+	void setExpr(Expression value);
 }
 class ExpandExpression
 extends 
@@ -1422,8 +1427,8 @@ Expression
 		"java" -> "hub.sam.dbl.ExpandExpression"
 	}
 	
-	Expression metaObject;
-	void setMetaObject(Expression value) abstract;
+	Expression getMetaObject();
+	void setMetaObject(Expression value);
 }
 class ExpandStatement
 extends 
@@ -1433,10 +1438,10 @@ Statement
 		"java" -> "hub.sam.dbl.ExpandStatement"
 	}
 	
-	Expression metaObject;
-	void setMetaObject(Expression value) abstract;
-	Expression location;
-	void setLocation(Expression value) abstract;
+	Expression getMetaObject();
+	void setMetaObject(Expression value);
+	Expression getLocation();
+	void setLocation(Expression value);
 }
 class CodeQuoteExpression
 extends 
@@ -1446,8 +1451,8 @@ Expression
 		"java" -> "hub.sam.dbl.CodeQuoteExpression"
 	}
 	
-	QuotedCode quotedCode;
-	void setQuotedCode(QuotedCode value) abstract;
+	QuotedCode getQuotedCode();
+	void setQuotedCode(QuotedCode value);
 }
 class QuotedCode
 extends EObject
@@ -1465,8 +1470,8 @@ QuotedCode
 		"java" -> "hub.sam.dbl.QuotedExpression"
 	}
 	
-	Expression expression;
-	void setExpression(Expression value) abstract;
+	Expression getExpression();
+	void setExpression(Expression value);
 }
 class QuotedStatements
 extends 
@@ -1476,7 +1481,7 @@ QuotedCode
 		"java" -> "hub.sam.dbl.QuotedStatements"
 	}
 	
-	List statements;
+	EList getStatements();
 }
 class QuotedClassContent
 extends 
@@ -1506,12 +1511,12 @@ NamedElement
 		"java" -> "hub.sam.dbl.Pattern"
 	}
 	
-	boolean top;
-	void setTop(boolean value) abstract;
-	Parameter context;
-	void setContext(Parameter value) abstract;
-	Statement body;
-	void setBody(Statement value) abstract;
+	boolean isTop();
+	void setTop(boolean value);
+	Parameter getContext();
+	void setContext(Parameter value);
+	Statement getBody();
+	void setBody(Statement value);
 }
 class TestStatement
 extends 
@@ -1521,8 +1526,6 @@ Statement
 		"java" -> "hub.sam.dbl.TestStatement"
 	}
 	
-	int value;
-	void setValue(int value) abstract;
-}
-
+	int getValue();
+	void setValue(int value);
 }

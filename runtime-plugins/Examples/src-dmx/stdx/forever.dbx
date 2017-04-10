@@ -1,7 +1,7 @@
 #import "../dbl"
 #import "../stdlib"
 
-module stdx_forever {
+module stdx_forever;
 
 extension Forever extends dbl SimpleStatement {
 	start Forever;
@@ -10,6 +10,4 @@ extension Forever extends dbl SimpleStatement {
 
 semantics for Forever {
 	expand "while (true) " body;
-}
-
 }

@@ -1,7 +1,7 @@
 #import "ssm-runtime"
 #import "../../stdlib"
 
-module simpleSystem {
+module simplesystem;
 
 class Data extends Signal {
 	string payLoad = "empty";
@@ -69,6 +69,4 @@ StateMachineRuntime createDelayerStateMachineRuntime() {
 	compiledWaiting.addCompiledTransition(new OnDataTransition(onData));	
 	
 	return stateMachineRuntime;
-}
-
 }

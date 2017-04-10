@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <modules name="test">
+  <module name="test">
     <classes name="X">
-      <methods name="f">
+      <methods name="f" class="true">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="i">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
+      </methods>
+      <methods name="h" class="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+      <methods name="m">
+        <primitiveType xsi:type="dbl:VoidType"/>
       </methods>
     </classes>
     <functions name="main">
@@ -15,16 +18,8 @@
         <outputs xsi:type="dbl:StringLiteral" value="hello"/>
       </statements>
       <statements xsi:type="dbl:Variable" name="x">
-        <classifierType referencedElement="//@modules.0/@classes.0"/>
-      </statements>
-      <statements xsi:type="dbl:FunctionCall">
-        <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1"/>
-          <callPart>
-            <callArguments xsi:type="dbl:IntLiteral" value="1"/>
-          </callPart>
-        </callIdExpr>
+        <classifierType referencedElement="//@module/@classes.0"/>
       </statements>
     </functions>
-  </modules>
+  </module>
 </dbl:Model>

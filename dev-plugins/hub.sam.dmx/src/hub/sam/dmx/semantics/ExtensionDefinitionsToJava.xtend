@@ -370,12 +370,10 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		var Extension extDef;
 		for (Import imprt: model.imports) {
 			if (imprt.model != null) {
-				for (Module module: imprt.model.modules) {
-					extDef = module.extensions.findFirst[
-						e | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e).equals(name)
-					]
-					if (extDef != null) return extDef
-				}
+				extDef = imprt.model.module.extensions.findFirst[
+					e | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e).equals(name)
+				]
+				if (extDef != null) return extDef
 				extDef = getImportedExtensionDefinition(imprt.model, name)
 				if (extDef != null) return extDef
 			}
@@ -387,12 +385,10 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		var ExtensionSemantics semanticsDef;
 		for (Import imprt: model.imports) {
 			if (imprt.model != null) {
-				for (Module module: imprt.model.modules) {
-					semanticsDef = module.extensionSemantics.findFirst[
-						sd | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(sd.syntaxDefinition).equals(name)
-					]
-					if (semanticsDef != null) return semanticsDef
-				}
+				semanticsDef = imprt.model.module.extensionSemantics.findFirst[
+					sd | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(sd.syntaxDefinition).equals(name)
+				]
+				if (semanticsDef != null) return semanticsDef
 				semanticsDef = getImportedExtensionSemanticsDefinition(imprt.model, name)
 				if (semanticsDef != null) return semanticsDef
 			}

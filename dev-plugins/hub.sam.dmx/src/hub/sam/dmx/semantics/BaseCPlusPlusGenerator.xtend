@@ -75,7 +75,6 @@ import hub.sam.dbl.StructuralSymbolReference
 import java.util.Set
 import java.util.HashSet
 import java.util.Arrays
-import hub.sam.dbl.SuperClassSpecification
 
 /* 
  * A base class for generating c++-code for DBL-programs represented by 
@@ -145,7 +144,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	protected def void collectSemanticInformation(Model model){
 		val it = model
 		// determine all modules in the DBL program
-		modules.forEach[allModules.add(it)]
+		allModules.add(module)
 	}
     /**
 	 * here starts the code generation process for DBL-models based on abstract syntax represented by
@@ -160,11 +159,11 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		val it = model
 		mainModule = if (mainModel) {
 			model.collectSemanticInformation
-			model.modules.findFirst[ functions.exists[ name == 'main' ] ] 
+			model.module 
 		}
 		else null
 		
-		getModules.forEach[genModuleWriter]
+		getModule.genModuleWriter
 		
 		if (mainModel && mainModule !== null) {
 			createFileWithContent(cPackageFolder, "Main.cpp", genMainCPP(mainModule))

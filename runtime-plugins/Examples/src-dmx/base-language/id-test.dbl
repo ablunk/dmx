@@ -1,13 +1,12 @@
-module test {
+module test;
 
 class X {
-	void f(int i) {}
+	static void f() {}
+	static void h();
+	void m() {}
 }
 
 void main() {
 	print("hello");
-	X x = new X();
-	x.f(1);
-}
-
+	X x;
 }

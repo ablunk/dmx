@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <modules name="statements">
+  <module name="statements">
     <classes name="A"/>
-    <classes name="B">
-      <superClasses class="//@modules.0/@classes.0"/>
+    <classes name="B" superClasses="//@module/@classes.0">
       <attributes name="n">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
@@ -14,7 +13,7 @@
         <outputs xsi:type="dbl:StringLiteral" value="text"/>
       </statements>
       <statements xsi:type="dbl:FunctionCall">
-        <callIdExpr referencedElement="//@modules.0/@functions.0">
+        <callIdExpr referencedElement="//@module/@functions.0">
           <callPart/>
         </callIdExpr>
       </statements>
@@ -23,13 +22,13 @@
       </statements>
       <statements xsi:type="dbl:Assignment">
         <variable>
-          <idExpr referencedElement="//@modules.0/@functions.0/@statements.2"/>
+          <idExpr referencedElement="//@module/@functions.0/@statements.2"/>
         </variable>
         <value xsi:type="dbl:IntLiteral" value="1"/>
       </statements>
       <statements xsi:type="dbl:SwitchStatement">
         <variable>
-          <idExpr referencedElement="//@modules.0/@functions.0/@statements.2"/>
+          <idExpr referencedElement="//@module/@functions.0/@statements.2"/>
         </variable>
         <cases>
           <value xsi:type="dbl:IntLiteral" value="1"/>
@@ -47,7 +46,7 @@
       </statements>
       <statements xsi:type="dbl:WhileStatement">
         <condition xsi:type="dbl:Greater">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.2"/>
           <op2 xsi:type="dbl:IntLiteral"/>
         </condition>
         <body xsi:type="dbl:LocalScopeStatement">
@@ -57,20 +56,20 @@
       <statements xsi:type="dbl:ForStatement">
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@functions.0/@statements.2"/>
+            <idExpr referencedElement="//@module/@functions.0/@statements.2"/>
           </variable>
           <value xsi:type="dbl:IntLiteral"/>
         </statements>
         <termination xsi:type="dbl:Less">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.2"/>
           <op2 xsi:type="dbl:IntLiteral" value="1"/>
         </termination>
         <increment>
           <variable>
-            <idExpr referencedElement="//@modules.0/@functions.0/@statements.2"/>
+            <idExpr referencedElement="//@module/@functions.0/@statements.2"/>
           </variable>
           <value xsi:type="dbl:Plus">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.2"/>
             <op2 xsi:type="dbl:IntLiteral" value="1"/>
           </value>
         </increment>
@@ -80,13 +79,13 @@
       </statements>
       <statements xsi:type="dbl:IfStatement">
         <condition xsi:type="dbl:Greater">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+          <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.2"/>
           <op2 xsi:type="dbl:IntLiteral" value="1"/>
         </condition>
         <trueCase xsi:type="dbl:LocalScopeStatement"/>
         <falseCase xsi:type="dbl:IfStatement">
           <condition xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.2"/>
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.2"/>
             <op2 xsi:type="dbl:IntLiteral" value="1"/>
           </condition>
           <trueCase xsi:type="dbl:LocalScopeStatement"/>
@@ -97,21 +96,21 @@
         <value xsi:type="dbl:IntLiteral" value="1"/>
       </statements>
       <statements xsi:type="dbl:Variable" name="a">
-        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <classifierType referencedElement="//@module/@classes.0"/>
         <initialValue xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classes.1"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:Variable" name="b">
-        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <classifierType referencedElement="//@module/@classes.1"/>
         <initialValue xsi:type="dbl:Cast">
-          <classifierType referencedElement="//@modules.0/@classes.1"/>
-          <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.9"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
+          <op xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.9"/>
         </initialValue>
       </statements>
       <statements xsi:type="dbl:Print">
-        <outputs xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.0">
-          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.10"/>
+        <outputs xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.1/@attributes.0">
+          <parentIdExpr referencedElement="//@module/@functions.0/@statements.10"/>
         </outputs>
       </statements>
       <statements xsi:type="dbl:Variable" name="is">
@@ -126,7 +125,7 @@
       </statements>
       <statements xsi:type="dbl:Assignment">
         <variable>
-          <idExpr referencedElement="//@modules.0/@functions.0/@statements.12">
+          <idExpr referencedElement="//@module/@functions.0/@statements.12">
             <arrayIndex xsi:type="dbl:IntLiteral"/>
           </idExpr>
         </variable>
@@ -136,5 +135,5 @@
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
     </functions>
-  </modules>
+  </module>
 </dbl:Model>

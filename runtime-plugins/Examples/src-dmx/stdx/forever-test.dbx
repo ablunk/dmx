@@ -1,6 +1,6 @@
 #import "forever"
 
-module stdx_forevr_test {
+module stdx_forevr_test;
 
 active class A {
 	actions {
@@ -15,6 +15,4 @@ void main() {
 	A a = new A();
 	activate a;
 	advance 100;
-}
-
 }

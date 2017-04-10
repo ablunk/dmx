@@ -34,10 +34,7 @@ public class ClassResolver<C extends EObject> extends HierarchicalResolver imple
 				.collect(Collectors.toSet());
 		
 		for (Model importedModel: importedModels) {
-			elements.addAll(importedModel.getModules().stream()
-				.map(module -> resolveInElements(identifier, module.getClasses()))
-				.flatMap(identifiedElements -> identifiedElements.stream())
-				.collect(Collectors.toSet()));	
+			elements.addAll(resolveInElements(identifier, importedModel.getModule().getClasses()));
 		}
 		
 		if (elements.isEmpty()) {

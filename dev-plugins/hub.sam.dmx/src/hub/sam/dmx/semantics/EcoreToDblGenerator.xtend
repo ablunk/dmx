@@ -21,15 +21,11 @@ class EcoreToDblGenerator extends AbstractGenerator {
 			«ENDFOR»
 		«ENDIF»
 		
-		module «metamodel.name» {
+		module «metamodel.name»;
 		
 		'''
 		)
 		metamodel.EClassifiers.filter(EClass).forEach[writer.write(genEClass(javaPackagePrefix))]
-		writer.write('''
-		
-		}
-		''')
 
 		endTargetFile(writer)				
 	}
@@ -46,11 +42,10 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	def String genFeature(EStructuralFeature feature) {
 		val it = feature
 		'''
-		«genAttribute»
 		«genGetter»
-«««		«IF changeable»
-«««			«genSetter»
-«««		«ENDIF»
+		«IF changeable»
+			«genSetter»
+		«ENDIF»
 		'''
 	}
 	
@@ -67,12 +62,12 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		val it = feature
 		genType + ' '
 		+ (if (EType.name.equals("EBoolean")) 'is' else 'get')
-		+ name.escapeName.toFirstUpper + '() abstract;'
+		+ name.escapeName.toFirstUpper + '();'
 	}
 
 	def String genSetter(EStructuralFeature feature) {
 		val it = feature
-		if (!feature.many) 'void set' + name.escapeName.toFirstUpper + '(' + genType + ' value) abstract;'
+		if (!feature.many) 'void set' + name.escapeName.toFirstUpper + '(' + genType + ' value);'
 	}
 	
 	def String genEClass(EClass eClass, String javaPackagePrefix) {
@@ -111,7 +106,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 				bindings {
 					"java" -> "org.eclipse.emf.ecore.resource.Resource"
 				}
-				string getURIFragment(EObject eObject) abstract;
+				string getURIFragment(EObject eObject);
 			}
 			
 			string getURI(EObject eObject) {
@@ -119,28 +114,32 @@ class EcoreToDblGenerator extends AbstractGenerator {
 			}
 			
 			class EList extends List {
-				void move(int newPos, Object object) abstract;
-				void move(int newPos, int oldPos) abstract;
+				bindings {
+					"java" -> "org.eclipse.emf.common.util.EList"
+				}
+				void move(int newPos, Object object);
+				void move(int newPos, int oldPos);
 			}
 
 			class EObject {
 				bindings {
 					"java" -> "org.eclipse.emf.ecore.EObject"
 				}
-				EClass eClass() abstract;
-				EObject eContainer() abstract;
-				EStructuralFeature eContainingFeature() abstract;
-				EReference eContainmentFeature() abstract;
-				EList eContents() abstract;
-				EList eAllContents() abstract;
-				EList eCrossReferences() abstract;
-				Object eGet(EStructuralFeature feature) abstract;
-				Object eGet(EStructuralFeature feature, boolean resolve) abstract;
-				void eSet(EStructuralFeature feature, Object newValue) abstract;
-				boolean eIsSet(EStructuralFeature feature) abstract;
-				void eUnset(EStructuralFeature feature) abstract;
-				//boolean eIsProxy() abstract;
-				//Object eInvoke(EOperation operation, Object array[] arguments) abstract;
+				Resource eResource();
+				EClass eClass();
+				EObject eContainer();
+				EStructuralFeature eContainingFeature();
+				EReference eContainmentFeature();
+				EList eContents();
+				EList eAllContents();
+				EList eCrossReferences();
+				Object eGet(EStructuralFeature feature);
+				Object eGet(EStructuralFeature feature, boolean resolve);
+				void eSet(EStructuralFeature feature, Object newValue);
+				boolean eIsSet(EStructuralFeature feature);
+				void eUnset(EStructuralFeature feature);
+				//boolean eIsProxy();
+				//Object eInvoke(EOperation operation, Object array[] arguments);
 			}
 			'''
 		}

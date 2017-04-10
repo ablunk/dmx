@@ -4,9 +4,7 @@
 #import "stdx/println"
 #import "stdx/forever"
 
-module stdx {
+module stdx;
 
 void test() {
-}
-
 }

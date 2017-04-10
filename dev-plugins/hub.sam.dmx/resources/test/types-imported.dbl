@@ -1,9 +1,7 @@
 #import "types"
 
-module test {
+module test;
 
 void main(int p) {
 	X x;
-}
-
 }

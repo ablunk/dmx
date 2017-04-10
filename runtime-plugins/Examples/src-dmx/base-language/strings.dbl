@@ -1,6 +1,6 @@
 #import "../stdlib"
 
-module strings {
+module strings;
 
 void main() {
 	string s1 = "value";
@@ -9,6 +9,4 @@ void main() {
 	
 	print(s1);
 	print(s2.equals(s3));
-}
-
 }
