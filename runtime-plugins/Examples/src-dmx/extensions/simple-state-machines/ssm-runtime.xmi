@@ -7,77 +7,52 @@
     <model href="../../dbl.xmi#/"/>
   </imports>
   <modules name="ssmRuntime">
-    <classes name="AsynchService">
+    <classes name="Event"/>
+    <classes name="Signal" superClasses="//@modules.0/@classes.0"/>
+    <classes name="TimeEvent" superClasses="//@modules.0/@classes.0"/>
+    <classes name="ObjectWithStateMachine" active="true">
       <attributes name="stateMachineRuntime">
-        <classifierType referencedElement="//@modules.0/@classes.5"/>
+        <classifierType referencedElement="//@modules.0/@classes.8"/>
       </attributes>
-      <methods name="enterEvent">
+      <methods name="sendSignal">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@modules.0/@classes.5/@methods.3">
-            <parentIdExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+          <callIdExpr referencedElement="//@modules.0/@classes.8/@methods.3">
+            <parentIdExpr referencedElement="//@modules.0/@classes.3/@attributes.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@methods.0/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@methods.0/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
-        <parameters name="event">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
+        <parameters name="signal">
+          <classifierType referencedElement="//@modules.0/@classes.1"/>
         </parameters>
       </methods>
+      <actionsBlock>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="running state machine\n"/>
+        </statements>
+        <statements xsi:type="dbl:ActivateObject">
+          <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@attributes.0"/>
+        </statements>
+      </actionsBlock>
     </classes>
     <classes name="StateMachine">
       <constructors>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.1/@attributes.2">
+            <idExpr referencedElement="//@modules.0/@classes.4/@attributes.1">
               <parentIdExpr>
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:CreateObject">
+            <classifierType>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
+            </classifierType>
+          </value>
         </statements>
-        <statements xsi:type="dbl:IfStatement">
-          <condition xsi:type="dbl:NotEqual">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@constructors.0/@parameters.1"/>
-            <op2 xsi:type="dbl:NullLiteral"/>
-          </condition>
-          <trueCase xsi:type="dbl:Assignment">
-            <variable>
-              <idExpr referencedElement="//@modules.0/@classes.1/@attributes.1">
-                <parentIdExpr>
-                  <predefinedId xsi:type="dbl:MeLiteral"/>
-                </parentIdExpr>
-              </idExpr>
-            </variable>
-            <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@constructors.0/@parameters.1"/>
-          </trueCase>
-          <falseCase xsi:type="dbl:Assignment">
-            <variable>
-              <idExpr referencedElement="//@modules.0/@classes.1/@attributes.1">
-                <parentIdExpr>
-                  <predefinedId xsi:type="dbl:MeLiteral"/>
-                </parentIdExpr>
-              </idExpr>
-            </variable>
-            <value xsi:type="dbl:CreateObject">
-              <classifierType>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
-              </classifierType>
-            </value>
-          </falseCase>
-        </statements>
-        <parameters name="initialState">
-          <classifierType referencedElement="//@modules.0/@classes.2"/>
-        </parameters>
-        <parameters name="states">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
-          </classifierType>
-        </parameters>
       </constructors>
       <attributes name="context">
         <classifierType>
@@ -86,109 +61,113 @@
       </attributes>
       <attributes name="states">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
         </classifierType>
       </attributes>
       <attributes name="initialState">
-        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.5"/>
       </attributes>
     </classes>
     <classes name="State">
       <constructors>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.2/@attributes.0">
+            <idExpr referencedElement="//@modules.0/@classes.5/@attributes.1">
               <parentIdExpr>
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:CreateObject">
+            <classifierType>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
+            </classifierType>
+          </value>
         </statements>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@modules.0/@classes.2/@attributes.1">
-              <parentIdExpr>
-                <predefinedId xsi:type="dbl:MeLiteral"/>
-              </parentIdExpr>
-            </idExpr>
-          </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.2/@constructors.0/@parameters.1"/>
-        </statements>
-        <parameters name="name">
-          <primitiveType xsi:type="dbl:StringType"/>
-        </parameters>
-        <parameters name="outgoingTransitions">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
-          </classifierType>
-        </parameters>
       </constructors>
       <attributes name="name">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
       <attributes name="outgoingTransitions">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
         </classifierType>
       </attributes>
     </classes>
     <classes name="Transition">
       <attributes name="target">
-        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.5"/>
       </attributes>
       <attributes name="messageVariable">
         <classifierType>
           <referencedElement href="../../dbl.xmi#//@modules.0/@classes.27"/>
         </classifierType>
       </attributes>
-      <attributes name="timeDuration">
-        <classifierType>
-          <referencedElement href="../../dbl.xmi#//@modules.0/@classes.53"/>
-        </classifierType>
-      </attributes>
-      <attributes name="effects">
-        <classifierType>
-          <referencedElement href="../../dbl.xmi#//@modules.0/@classes.32"/>
-        </classifierType>
-      </attributes>
     </classes>
     <classes name="CompiledState">
-      <superClasses>
-        <class href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-      </superClasses>
+      <superClasses href="../../stdlib.xmi#//@modules.0/@classes.0"/>
       <constructors>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.4/@attributes.0">
+            <idExpr referencedElement="//@modules.0/@classes.7/@constructors.0/@parameters.0">
               <parentIdExpr>
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@constructors.0/@parameters.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.7/@attributes.1">
+              <parentIdExpr>
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:CreateObject">
+            <classifierType>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
+              <callPart/>
+            </classifierType>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.7/@attributes.2">
+              <parentIdExpr>
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:CreateObject">
+            <classifierType>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
+              <callPart/>
+            </classifierType>
+          </value>
         </statements>
         <parameters name="state">
-          <classifierType referencedElement="//@modules.0/@classes.2"/>
+          <classifierType referencedElement="//@modules.0/@classes.5"/>
         </parameters>
       </constructors>
       <attributes name="state">
-        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.5"/>
       </attributes>
       <attributes name="compiledTransitions">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
         </classifierType>
       </attributes>
       <attributes name="timers">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
         </classifierType>
       </attributes>
       <methods name="enter">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@modules.0/@classes.4/@methods.1">
+          <callIdExpr referencedElement="//@modules.0/@classes.7/@methods.1">
             <callPart/>
           </callIdExpr>
         </statements>
@@ -201,36 +180,39 @@
             <initialValue xsi:type="dbl:IntLiteral"/>
           </statements>
           <termination xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.1/@statements.0/@statements.0"/>
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.1/@statements.0/@statements.0"/>
             <op2 xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.4"/>
+              <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.2"/>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.4"/>
               <callPart/>
             </op2>
           </termination>
           <increment>
             <variable>
-              <idExpr referencedElement="//@modules.0/@classes.4/@methods.1/@statements.0/@statements.0"/>
+              <idExpr referencedElement="//@modules.0/@classes.7/@methods.1/@statements.0/@statements.0"/>
             </variable>
             <value xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.1/@statements.0/@statements.0"/>
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.1/@statements.0/@statements.0"/>
               <op2 xsi:type="dbl:IntLiteral" value="1"/>
             </value>
           </increment>
           <body xsi:type="dbl:LocalScopeStatement">
             <statements xsi:type="dbl:Variable" name="timer">
-              <classifierType referencedElement="//@modules.0/@classes.7"/>
-              <initialValue xsi:type="dbl:IdExpr">
-                <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
-                <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.1/@statements.0/@statements.0"/>
-                </callPart>
+              <classifierType referencedElement="//@modules.0/@classes.10"/>
+              <initialValue xsi:type="dbl:Cast">
+                <classifierType referencedElement="//@modules.0/@classes.10"/>
+                <op xsi:type="dbl:IdExpr">
+                  <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.2"/>
+                  <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.5"/>
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.1/@statements.0/@statements.0"/>
+                  </callPart>
+                </op>
               </initialValue>
             </statements>
             <statements xsi:type="dbl:FunctionCall">
-              <callIdExpr referencedElement="//@modules.0/@classes.7/@methods.2">
-                <parentIdExpr referencedElement="//@modules.0/@classes.4/@methods.1/@statements.0/@body/@statements.0"/>
+              <callIdExpr referencedElement="//@modules.0/@classes.10/@methods.0">
+                <parentIdExpr referencedElement="//@modules.0/@classes.7/@methods.1/@statements.0/@body/@statements.0"/>
                 <callPart/>
               </callIdExpr>
             </statements>
@@ -240,7 +222,7 @@
       <methods name="leave">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@modules.0/@classes.4/@methods.3">
+          <callIdExpr referencedElement="//@modules.0/@classes.7/@methods.3">
             <callPart/>
           </callIdExpr>
         </statements>
@@ -253,36 +235,39 @@
             <initialValue xsi:type="dbl:IntLiteral"/>
           </statements>
           <termination xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.3/@statements.0/@statements.0"/>
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.3/@statements.0/@statements.0"/>
             <op2 xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.4"/>
+              <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.2"/>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.4"/>
               <callPart/>
             </op2>
           </termination>
           <increment>
             <variable>
-              <idExpr referencedElement="//@modules.0/@classes.4/@methods.3/@statements.0/@statements.0"/>
+              <idExpr referencedElement="//@modules.0/@classes.7/@methods.3/@statements.0/@statements.0"/>
             </variable>
             <value xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.3/@statements.0/@statements.0"/>
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.3/@statements.0/@statements.0"/>
               <op2 xsi:type="dbl:IntLiteral" value="1"/>
             </value>
           </increment>
           <body xsi:type="dbl:LocalScopeStatement">
             <statements xsi:type="dbl:Variable" name="timer">
-              <classifierType referencedElement="//@modules.0/@classes.7"/>
-              <initialValue xsi:type="dbl:IdExpr">
-                <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
-                <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.3/@statements.0/@statements.0"/>
-                </callPart>
+              <classifierType referencedElement="//@modules.0/@classes.10"/>
+              <initialValue xsi:type="dbl:Cast">
+                <classifierType referencedElement="//@modules.0/@classes.10"/>
+                <op xsi:type="dbl:IdExpr">
+                  <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.2"/>
+                  <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.5"/>
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.3/@statements.0/@statements.0"/>
+                  </callPart>
+                </op>
               </initialValue>
             </statements>
             <statements xsi:type="dbl:FunctionCall">
-              <callIdExpr referencedElement="//@modules.0/@classes.7/@methods.3">
-                <parentIdExpr referencedElement="//@modules.0/@classes.4/@methods.3/@statements.0/@body/@statements.0"/>
+              <callIdExpr referencedElement="//@modules.0/@classes.10/@methods.1">
+                <parentIdExpr referencedElement="//@modules.0/@classes.7/@methods.3/@statements.0/@body/@statements.0"/>
                 <callPart/>
               </callIdExpr>
             </statements>
@@ -293,89 +278,108 @@
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
-            <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.0"/>
+            <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.2"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.4/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.4/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
         <parameters name="timer">
-          <classifierType referencedElement="//@modules.0/@classes.7"/>
+          <classifierType referencedElement="//@modules.0/@classes.10"/>
         </parameters>
       </methods>
       <methods name="addCompiledTransition">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
-            <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.1"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.0"/>
+            <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.1"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.5/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.5/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
         <parameters name="compiledTransition">
-          <classifierType referencedElement="//@modules.0/@classes.6"/>
+          <classifierType referencedElement="//@modules.0/@classes.9"/>
         </parameters>
       </methods>
       <methods name="consumeEvent">
-        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.5"/>
+        <statements xsi:type="dbl:Print">
+          <outputs xsi:type="dbl:StringLiteral" value="consuming in event\n"/>
+        </statements>
         <statements xsi:type="dbl:ForStatement">
           <statements xsi:type="dbl:Variable" name="i">
             <primitiveType xsi:type="dbl:IntType"/>
             <initialValue xsi:type="dbl:IntLiteral"/>
           </statements>
           <termination xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@statements.0"/>
-            <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@attributes.1"/>
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@statements.0"/>
+            <op2 xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.1"/>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.4"/>
+              <callPart/>
+            </op2>
           </termination>
           <increment>
             <variable>
-              <idExpr referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@statements.0"/>
+              <idExpr referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@statements.0"/>
             </variable>
             <value xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@statements.0"/>
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@statements.0"/>
               <op2 xsi:type="dbl:IntLiteral" value="1"/>
             </value>
           </increment>
           <body xsi:type="dbl:LocalScopeStatement">
             <statements xsi:type="dbl:Variable" name="compiledTransition">
-              <classifierType referencedElement="//@modules.0/@classes.6"/>
-              <initialValue xsi:type="dbl:IdExpr">
-                <parentIdExpr referencedElement="//@modules.0/@classes.4/@attributes.1"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
-                <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@statements.0"/>
-                </callPart>
+              <classifierType referencedElement="//@modules.0/@classes.9"/>
+              <initialValue xsi:type="dbl:Cast">
+                <classifierType referencedElement="//@modules.0/@classes.9"/>
+                <op xsi:type="dbl:IdExpr">
+                  <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.1"/>
+                  <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.5"/>
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@statements.0"/>
+                  </callPart>
+                </op>
               </initialValue>
             </statements>
             <statements xsi:type="dbl:IfStatement">
-              <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@methods.0">
-                <parentIdExpr referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@body/@statements.0"/>
+              <condition xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@methods.0">
+                <parentIdExpr referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
                 <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6/@parameters.0"/>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6/@parameters.0"/>
                 </callPart>
               </condition>
               <trueCase xsi:type="dbl:LocalScopeStatement">
+                <statements xsi:type="dbl:Print">
+                  <outputs xsi:type="dbl:StringLiteral" value="executing effects\n"/>
+                </statements>
                 <statements xsi:type="dbl:FunctionCall">
-                  <callIdExpr referencedElement="//@modules.0/@classes.6/@methods.3">
-                    <parentIdExpr referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@body/@statements.0"/>
+                  <callIdExpr referencedElement="//@modules.0/@classes.9/@methods.3">
+                    <parentIdExpr referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
                     <callPart>
-                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6/@parameters.1"/>
-                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6/@parameters.0"/>
+                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6/@parameters.1"/>
+                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6/@parameters.0"/>
                     </callPart>
                   </callIdExpr>
                 </statements>
+                <statements xsi:type="dbl:FunctionCall">
+                  <callIdExpr referencedElement="//@modules.0/@classes.9/@methods.2">
+                    <parentIdExpr referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
+                    <callPart/>
+                  </callIdExpr>
+                </statements>
                 <statements xsi:type="dbl:Variable" name="transition">
-                  <classifierType referencedElement="//@modules.0/@classes.3"/>
-                  <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@attributes.0">
-                    <parentIdExpr referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@body/@statements.0"/>
+                  <classifierType referencedElement="//@modules.0/@classes.6"/>
+                  <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@body/@statements.1/@trueCase/@statements.3">
+                    <parentIdExpr referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
                   </initialValue>
                 </statements>
                 <statements xsi:type="dbl:Return">
-                  <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@attributes.0">
-                    <parentIdExpr referencedElement="//@modules.0/@classes.4/@methods.6/@statements.0/@body/@statements.1/@trueCase/@statements.1"/>
+                  <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@attributes.0">
+                    <parentIdExpr referencedElement="//@modules.0/@classes.7/@methods.6/@statements.1/@body/@statements.1/@trueCase/@statements.3"/>
                   </value>
                 </statements>
               </trueCase>
@@ -386,9 +390,7 @@
           <value xsi:type="dbl:NullLiteral"/>
         </statements>
         <parameters name="event">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
         </parameters>
         <parameters name="context">
           <classifierType>
@@ -401,67 +403,61 @@
       <constructors>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.5/@attributes.0">
+            <idExpr referencedElement="//@modules.0/@classes.8/@constructors.0/@parameters.0">
               <parentIdExpr>
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@constructors.0/@parameters.0"/>
         </statements>
         <parameters name="stateMachine">
-          <classifierType referencedElement="//@modules.0/@classes.1"/>
+          <classifierType referencedElement="//@modules.0/@classes.4"/>
         </parameters>
       </constructors>
       <attributes name="stateMachine">
-        <classifierType referencedElement="//@modules.0/@classes.1"/>
+        <classifierType referencedElement="//@modules.0/@classes.4"/>
       </attributes>
       <attributes name="stateToCompiledState">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.7"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.7"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.8"/>
           </classifierType>
         </initialValue>
       </attributes>
       <attributes name="eventQueue">
         <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4"/>
+          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6"/>
           </classifierType>
         </initialValue>
       </attributes>
       <attributes name="currentState">
-        <classifierType referencedElement="//@modules.0/@classes.4"/>
+        <classifierType referencedElement="//@modules.0/@classes.7"/>
       </attributes>
       <methods name="setCompiledState">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
-            <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.1"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6/@methods.1"/>
+            <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.1"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.7/@methods.1"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.0/@parameters.0"/>
-              <callArguments xsi:type="dbl:CreateObject">
-                <classifierType referencedElement="//@modules.0/@classes.4">
-                  <callPart>
-                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.0/@parameters.0"/>
-                  </callPart>
-                </classifierType>
-              </callArguments>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.0/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.0/@parameters.1"/>
             </callPart>
           </callIdExpr>
         </statements>
         <parameters name="state">
-          <classifierType referencedElement="//@modules.0/@classes.2"/>
+          <classifierType referencedElement="//@modules.0/@classes.5"/>
         </parameters>
         <parameters name="compiledState">
-          <classifierType referencedElement="//@modules.0/@classes.4"/>
+          <classifierType referencedElement="//@modules.0/@classes.7"/>
         </parameters>
       </methods>
       <methods name="executeEventLoop">
@@ -469,120 +465,144 @@
         <statements xsi:type="dbl:WhileStatement">
           <condition xsi:type="dbl:And">
             <op1 xsi:type="dbl:NotEqual">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@attributes.3"/>
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@attributes.3"/>
               <op2 xsi:type="dbl:NullLiteral"/>
             </op1>
             <op2 xsi:type="dbl:Not">
               <op xsi:type="dbl:IdExpr">
-                <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.7"/>
+                <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.2"/>
+                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.7"/>
                 <callPart/>
               </op>
             </op2>
           </condition>
           <body xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Print">
+              <outputs xsi:type="dbl:Plus">
+                <op1 xsi:type="dbl:Plus">
+                  <op1 xsi:type="dbl:StringLiteral" value="current state = "/>
+                  <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@attributes.0">
+                    <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.0">
+                      <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.3"/>
+                    </parentIdExpr>
+                  </op2>
+                </op1>
+                <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+              </outputs>
+            </statements>
             <statements xsi:type="dbl:Variable" name="nextEvent">
-              <classifierType>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-              </classifierType>
-              <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.2">
+              <classifierType referencedElement="//@modules.0/@classes.0"/>
+              <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.2">
                 <callPart/>
               </initialValue>
             </statements>
             <statements xsi:type="dbl:Variable" name="nextState">
-              <classifierType referencedElement="//@modules.0/@classes.2"/>
-              <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@methods.6">
-                <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.3"/>
+              <classifierType referencedElement="//@modules.0/@classes.5"/>
+              <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.6">
+                <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.3"/>
                 <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.1/@statements.0/@body/@statements.0"/>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.0">
-                    <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.0"/>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.1/@statements.0/@body/@statements.1"/>
+                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@attributes.0">
+                    <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.0"/>
                   </callArguments>
                 </callPart>
               </initialValue>
             </statements>
-            <statements xsi:type="dbl:Variable" name="compiledNextState">
-              <classifierType referencedElement="//@modules.0/@classes.4"/>
-              <initialValue xsi:type="dbl:IdExpr">
-                <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.1"/>
-                <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6/@methods.0"/>
-                <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.1/@statements.0/@body/@statements.1"/>
-                </callPart>
-              </initialValue>
-            </statements>
-            <statements xsi:type="dbl:Assignment">
-              <variable>
-                <idExpr referencedElement="//@modules.0/@classes.5/@attributes.3"/>
-              </variable>
-              <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.1/@statements.0/@body/@statements.2"/>
-            </statements>
             <statements xsi:type="dbl:IfStatement">
-              <condition xsi:type="dbl:Not">
-                <op xsi:type="dbl:IdExpr">
-                  <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.3"/>
-                  <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0/@methods.0"/>
-                  <callPart>
-                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.1/@statements.0/@body/@statements.2"/>
-                  </callPart>
-                </op>
+              <condition xsi:type="dbl:NotEqual">
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.1/@statements.0/@body/@statements.2"/>
+                <op2 xsi:type="dbl:NullLiteral"/>
               </condition>
               <trueCase xsi:type="dbl:LocalScopeStatement">
+                <statements xsi:type="dbl:Variable" name="compiledNextState">
+                  <classifierType referencedElement="//@modules.0/@classes.7"/>
+                  <initialValue xsi:type="dbl:Cast">
+                    <classifierType referencedElement="//@modules.0/@classes.7"/>
+                    <op xsi:type="dbl:IdExpr">
+                      <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.1"/>
+                      <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.7/@methods.0"/>
+                      <callPart>
+                        <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.1/@statements.0/@body/@statements.2"/>
+                      </callPart>
+                    </op>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:Assignment">
+                  <variable>
+                    <idExpr referencedElement="//@modules.0/@classes.8/@attributes.3"/>
+                  </variable>
+                  <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.1/@statements.0/@body/@statements.3/@trueCase/@statements.0"/>
+                </statements>
+                <statements xsi:type="dbl:IfStatement">
+                  <condition xsi:type="dbl:NotEqual">
+                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@attributes.3"/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.1/@statements.0/@body/@statements.3/@trueCase/@statements.0"/>
+                  </condition>
+                  <trueCase xsi:type="dbl:LocalScopeStatement">
+                    <statements xsi:type="dbl:FunctionCall">
+                      <callIdExpr referencedElement="//@modules.0/@classes.7/@methods.2">
+                        <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.3"/>
+                        <callPart/>
+                      </callIdExpr>
+                    </statements>
+                  </trueCase>
+                </statements>
                 <statements xsi:type="dbl:FunctionCall">
-                  <callIdExpr referencedElement="//@modules.0/@classes.4/@methods.2">
-                    <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.3"/>
+                  <callIdExpr referencedElement="//@modules.0/@classes.7/@methods.0">
+                    <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.3"/>
                     <callPart/>
                   </callIdExpr>
                 </statements>
+                <statements xsi:type="dbl:Print">
+                  <outputs xsi:type="dbl:StringLiteral" value="waiting\n"/>
+                </statements>
+                <statements xsi:type="dbl:Wait"/>
               </trueCase>
+              <falseCase xsi:type="dbl:LocalScopeStatement">
+                <statements xsi:type="dbl:Print">
+                  <outputs xsi:type="dbl:StringLiteral" value="there is no next state. exiting.\n"/>
+                </statements>
+              </falseCase>
             </statements>
-            <statements xsi:type="dbl:FunctionCall">
-              <callIdExpr referencedElement="//@modules.0/@classes.4/@methods.0">
-                <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.3"/>
-                <callPart/>
-              </callIdExpr>
-            </statements>
-            <statements xsi:type="dbl:Wait"/>
           </body>
         </statements>
       </methods>
       <methods name="popNextEvent">
-        <classifierType>
-          <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-        </classifierType>
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
         <statements xsi:type="dbl:Variable" name="nextEvent">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
-          <initialValue xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.5"/>
-            <callPart>
-              <callArguments xsi:type="dbl:IntLiteral"/>
-            </callPart>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
+          <initialValue xsi:type="dbl:Cast">
+            <classifierType referencedElement="//@modules.0/@classes.0"/>
+            <op xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.2"/>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.5"/>
+              <callPart>
+                <callArguments xsi:type="dbl:IntLiteral"/>
+              </callPart>
+            </op>
           </initialValue>
         </statements>
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
-            <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.8"/>
+            <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.2"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.8"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.2/@statements.0"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.2/@statements.0"/>
             </callPart>
           </callIdExpr>
         </statements>
         <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.2/@statements.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.2/@statements.0"/>
         </statements>
       </methods>
       <methods name="enterEvent">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:FunctionCall">
           <callIdExpr>
-            <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.2"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.4/@methods.0"/>
+            <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.2"/>
+            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.5/@methods.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.5/@methods.3/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.8/@methods.3/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
@@ -592,28 +612,29 @@
           </objectAccess>
         </statements>
         <parameters name="event">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
         </parameters>
       </methods>
       <actionsBlock>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.5/@attributes.3"/>
+            <idExpr referencedElement="//@modules.0/@classes.8/@attributes.3"/>
           </variable>
-          <value xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.1"/>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.6/@methods.0"/>
-            <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.1/@attributes.2">
-                <parentIdExpr referencedElement="//@modules.0/@classes.5/@attributes.0"/>
-              </callArguments>
-            </callPart>
+          <value xsi:type="dbl:Cast">
+            <classifierType referencedElement="//@modules.0/@classes.7"/>
+            <op xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.1"/>
+              <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.7/@methods.0"/>
+              <callPart>
+                <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.4/@attributes.2">
+                  <parentIdExpr referencedElement="//@modules.0/@classes.8/@attributes.0"/>
+                </callArguments>
+              </callPart>
+            </op>
           </value>
         </statements>
         <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@modules.0/@classes.5/@methods.1">
+          <callIdExpr referencedElement="//@modules.0/@classes.8/@methods.1">
             <callPart/>
           </callIdExpr>
         </statements>
@@ -623,81 +644,88 @@
       <constructors>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.6/@attributes.0">
+            <idExpr referencedElement="//@modules.0/@classes.9/@constructors.0/@parameters.0">
               <parentIdExpr>
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@constructors.0/@parameters.0"/>
         </statements>
         <parameters name="transition">
-          <classifierType referencedElement="//@modules.0/@classes.3"/>
+          <classifierType referencedElement="//@modules.0/@classes.6"/>
         </parameters>
       </constructors>
       <attributes name="transition">
-        <classifierType referencedElement="//@modules.0/@classes.3"/>
+        <classifierType referencedElement="//@modules.0/@classes.6"/>
+      </attributes>
+      <attributes name="assignedFiredTimeEvent">
+        <classifierType referencedElement="//@modules.0/@classes.2"/>
       </attributes>
       <methods name="canHandle">
         <primitiveType xsi:type="dbl:BoolType"/>
         <statements xsi:type="dbl:IfStatement">
-          <condition xsi:type="dbl:And">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@methods.1">
-              <callPart>
-                <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@methods.0/@parameters.0"/>
-              </callPart>
-            </op1>
-            <op2 xsi:type="dbl:NotEqual">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.3/@attributes.1">
-                <parentIdExpr referencedElement="//@modules.0/@classes.6/@attributes.0"/>
-              </op1>
-              <op2 xsi:type="dbl:NullLiteral"/>
+          <condition xsi:type="dbl:InstanceOf">
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@methods.0/@parameters.0"/>
+            <op2 xsi:type="dbl:TypeAccess">
+              <idExpr referencedElement="//@modules.0/@classes.1"/>
             </op2>
           </condition>
           <trueCase xsi:type="dbl:LocalScopeStatement">
             <statements xsi:type="dbl:Return">
-              <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@methods.2">
+              <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@methods.1">
                 <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@methods.0/@parameters.0"/>
+                  <callArguments xsi:type="dbl:Cast">
+                    <classifierType referencedElement="//@modules.0/@classes.1"/>
+                    <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@methods.0/@parameters.0"/>
+                  </callArguments>
                 </callPart>
               </value>
             </statements>
           </trueCase>
-        </statements>
-        <parameters name="event">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
-        </parameters>
-      </methods>
-      <methods name="isMessageEvent">
-        <primitiveType xsi:type="dbl:BoolType"/>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:Not">
-            <op xsi:type="dbl:InstanceOf">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@methods.1/@parameters.0"/>
+          <falseCase xsi:type="dbl:IfStatement">
+            <condition xsi:type="dbl:InstanceOf">
+              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@methods.0/@parameters.0"/>
               <op2 xsi:type="dbl:TypeAccess">
-                <idExpr referencedElement="//@modules.0/@classes.7"/>
+                <idExpr referencedElement="//@modules.0/@classes.2"/>
               </op2>
-            </op>
-          </value>
+            </condition>
+            <trueCase xsi:type="dbl:LocalScopeStatement">
+              <statements xsi:type="dbl:Return">
+                <value xsi:type="dbl:Equal">
+                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@methods.0/@parameters.0"/>
+                  <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@attributes.1"/>
+                </value>
+              </statements>
+            </trueCase>
+            <falseCase xsi:type="dbl:LocalScopeStatement">
+              <statements xsi:type="dbl:Return">
+                <value xsi:type="dbl:FalseLiteral"/>
+              </statements>
+            </falseCase>
+          </falseCase>
         </statements>
         <parameters name="event">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
         </parameters>
       </methods>
-      <methods name="canHandleMessage">
+      <methods name="canHandleSignal">
         <primitiveType xsi:type="dbl:BoolType"/>
         <statements xsi:type="dbl:Return">
           <value xsi:type="dbl:FalseLiteral"/>
         </statements>
         <parameters name="message">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
+          <classifierType referencedElement="//@modules.0/@classes.1"/>
         </parameters>
+      </methods>
+      <methods name="reset">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment">
+          <variable>
+            <idExpr referencedElement="//@modules.0/@classes.9/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:NullLiteral"/>
+        </statements>
       </methods>
       <methods name="executeEffects">
         <primitiveType xsi:type="dbl:VoidType"/>
@@ -707,17 +735,7 @@
           </classifierType>
         </parameters>
         <parameters name="event">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
-        </parameters>
-      </methods>
-      <methods name="interpreteEffects">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <parameters name="context">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
+          <classifierType referencedElement="//@modules.0/@classes.0"/>
         </parameters>
       </methods>
       <methods name="getTimeDuration">
@@ -729,57 +747,15 @@
     </classes>
     <classes name="Timer" active="true">
       <attributes name="stateMachineRuntime">
-        <classifierType referencedElement="//@modules.0/@classes.5"/>
+        <classifierType referencedElement="//@modules.0/@classes.8"/>
       </attributes>
       <attributes name="compiledTransition">
-        <classifierType referencedElement="//@modules.0/@classes.6"/>
+        <classifierType referencedElement="//@modules.0/@classes.9"/>
       </attributes>
       <attributes name="cancelled">
         <primitiveType xsi:type="dbl:BoolType"/>
         <initialValue xsi:type="dbl:FalseLiteral"/>
       </attributes>
-      <methods name="fired">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@modules.0/@classes.5/@methods.3">
-            <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.0"/>
-            <callPart>
-              <callArguments xsi:type="dbl:IdExpr">
-                <predefinedId xsi:type="dbl:MeLiteral"/>
-              </callArguments>
-            </callPart>
-          </callIdExpr>
-        </statements>
-      </methods>
-      <methods name="executeEffects">
-        <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:IfStatement">
-          <condition xsi:type="dbl:Not">
-            <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@attributes.2"/>
-          </condition>
-          <trueCase xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:FunctionCall">
-              <callIdExpr referencedElement="//@modules.0/@classes.6/@methods.3">
-                <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.1"/>
-                <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.1/@parameters.0"/>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.7/@methods.1/@parameters.1"/>
-                </callPart>
-              </callIdExpr>
-            </statements>
-          </trueCase>
-        </statements>
-        <parameters name="context">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
-        </parameters>
-        <parameters name="event">
-          <classifierType>
-            <referencedElement href="../../stdlib.xmi#//@modules.0/@classes.0"/>
-          </classifierType>
-        </parameters>
-      </methods>
       <methods name="start">
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:ActivateObject">
@@ -792,17 +768,48 @@
         <primitiveType xsi:type="dbl:VoidType"/>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.7/@attributes.2"/>
+            <idExpr referencedElement="//@modules.0/@classes.10/@attributes.2"/>
           </variable>
           <value xsi:type="dbl:TrueLiteral"/>
         </statements>
       </methods>
       <actionsBlock>
         <statements xsi:type="dbl:Advance">
-          <time xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.6/@methods.5">
-            <parentIdExpr referencedElement="//@modules.0/@classes.7/@attributes.1"/>
+          <time xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.9/@methods.4">
+            <parentIdExpr referencedElement="//@modules.0/@classes.10/@attributes.1"/>
             <callPart/>
           </time>
+        </statements>
+        <statements xsi:type="dbl:IfStatement">
+          <condition xsi:type="dbl:Not">
+            <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.10/@attributes.2"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement">
+            <statements xsi:type="dbl:Assignment">
+              <variable>
+                <idExpr referencedElement="//@modules.0/@classes.9/@attributes.1">
+                  <parentIdExpr referencedElement="//@modules.0/@classes.10/@attributes.1"/>
+                </idExpr>
+              </variable>
+              <value xsi:type="dbl:CreateObject">
+                <classifierType referencedElement="//@modules.0/@classes.2">
+                  <callPart/>
+                </classifierType>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:FunctionCall">
+              <callIdExpr referencedElement="//@modules.0/@classes.8/@methods.3">
+                <parentIdExpr referencedElement="//@modules.0/@classes.10/@attributes.0"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:CreateObject">
+                    <classifierType referencedElement="//@modules.0/@classes.2">
+                      <callPart/>
+                    </classifierType>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </statements>
+          </trueCase>
         </statements>
       </actionsBlock>
     </classes>

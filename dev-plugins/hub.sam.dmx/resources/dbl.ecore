@@ -32,8 +32,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Module" eSuperTypes="#//NamedElement #//ConstructiveExtensionAtContentExtensionPoint #//Construct">
     <eStructuralFeatures xsi:type="ecore:EReference" name="classes" upperBound="-1"
         eType="#//Class" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="interfaces" upperBound="-1"
-        eType="#//Interface" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extensions" upperBound="-1"
         eType="#//Extension" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extensionSemantics" upperBound="-1"
@@ -105,20 +103,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
         eType="#//NativeBinding" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Classifier" eSuperTypes="#//NamedElement #//NativeType #//ConstructiveExtensionAtContentExtensionPoint #//Concept #//Construct #//AnnotateableElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Interface" eSuperTypes="#//Classifier">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
-        eType="#//Function" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="superInterfaces" ordered="false"
-        upperBound="-1" eType="#//Interface"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//Classifier">
+  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//NamedElement #//NativeType #//ConstructiveExtensionAtContentExtensionPoint #//Concept #//Construct #//AnnotateableElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="active" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="superClass" eType="#//IdExpr"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="implementedInterfaces"
-        ordered="false" upperBound="-1" eType="#//Interface"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superClasses" ordered="false"
+        upperBound="-1" eType="#//Class">
+      <eAnnotations source="http://www.eclipse.org/OCL/Collection">
+        <details key="nullFree" value="false"/>
+      </eAnnotations>
+    </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="constructors" upperBound="-1"
         eType="#//Constructor" containment="true" eOpposite="#//Constructor/owningClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"

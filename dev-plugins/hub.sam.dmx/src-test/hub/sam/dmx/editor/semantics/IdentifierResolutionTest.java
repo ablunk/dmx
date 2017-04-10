@@ -27,9 +27,9 @@ public class IdentifierResolutionTest {
 	
 	private static TestDataDriver testDataDriver;
 
-	@Parameters
+	@Parameters(name = "{index}: {0}")
 	public static Object[] testFiles() {
-	    return new Object[] { "variables.dbl", "variables-qualified.dbl", "types.dbl" };
+	    return new Object[] { "variables.dbl", "variables-qualified.dbl", "methods.dbl", "types.dbl" };
 	}
 	
 	@Parameter

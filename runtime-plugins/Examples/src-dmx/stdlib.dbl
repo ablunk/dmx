@@ -16,6 +16,14 @@ class String extends Object {
 	new(string original) {}
 }
 
+class SystemPrinter {
+	bindings {
+		"java" -> "hub.sam.dmx.semantics.javabridge.Printer"
+	}
+	void print(string s) abstract;
+	void println(string s) abstract;
+}
+
 class Iterator {
 	bindings {
 		"java" -> "java.util.Iterator"

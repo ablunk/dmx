@@ -8,7 +8,6 @@ syntax(Model) "resources/dbl.ecore" {
 	ModuleElement -> Variable:composite(variables) ";";
 	ModuleElement -> Function:composite(functions);
 	ModuleElement -> Class:composite(classes);
-	ModuleElement -> Interface:composite(interfaces);
 	ModuleElement -> Extension:composite(extensions);
 	ModuleElement -> ExtensionSemantics:composite(extensionSemantics);
 	ModuleElement -> ModuleContent:composite(contentExtensions);
@@ -21,18 +20,10 @@ syntax(Model) "resources/dbl.ecore" {
 	ClassWithOptionalModifiers -> ClassDefinition;
 	ClassDefinition ->
 		"class" ws(space) NamedElementName ws(empty)
-			(ws(space) "extends" ws(space) IdExpr:composite(superClass))? ws(space)
-			(ws(space) "implements" ws(space) InterfaceRef:reference(implementedInterfaces) ("," InterfaceRef:reference(implementedInterfaces))*)? ws(space)
+			(ws(space) "extends" ws(space) ClassRef:reference(superClasses) ("," ClassRef:reference(superClasses))*)? ws(space)
 			(Annotations)?
 			"{" (ClassElement)* "}";
 		
-	Interface:element(Interface) ->
-		"interface" ws(space) NamedElementName ws(empty)
-			(ws(space) "extends" ws(space) InterfaceRef:reference(superInterfaces) ("," InterfaceRef:reference(superInterfaces))*)? ws(space)
-			(Annotations)?
-			"{" (Function:composite(methods))* "}";
-	InterfaceRef:element(Interface) -> IDENTIFIER:composite(name);
-
 	NamedElementName -> IDENTIFIER:composite(name);
 	NamedElementName -> ExpandExpr:composite(expandExpr);
 		

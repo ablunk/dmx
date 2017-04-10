@@ -6,7 +6,7 @@
       <editor
             class="de.bldev.dbx.ide.TextEditor"
             contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
-            extensions="dbx"
+            extensions="dbx2"
             icon="icons/TSL.gif"
             id="dbx-ide.texteditor"
             name="DBX Editor (new)">

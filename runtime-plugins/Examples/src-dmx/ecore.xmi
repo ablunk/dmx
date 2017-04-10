@@ -4,9 +4,8 @@
     <model href="stdlib.xmi#/"/>
   </imports>
   <modules name="ecore">
-    <classes name="EAttribute">
+    <classes name="EAttribute" superClasses="//@modules.0/@classes.18">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EAttribute"/>
-      <superClasses class="//@modules.0/@classes.18"/>
       <attributes name="iD">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -20,15 +19,14 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EAnnotation">
+    <classes name="EAnnotation" superClasses="//@modules.0/@classes.8">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EAnnotation"/>
-      <superClasses class="//@modules.0/@classes.8"/>
       <attributes name="source">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
       <attributes name="details">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eModelElement">
@@ -36,12 +34,12 @@
       </attributes>
       <attributes name="contents">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="references">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="setSource" abstract="true">
@@ -57,9 +55,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EClass">
+    <classes name="EClass" superClasses="//@modules.0/@classes.3">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EClass"/>
-      <superClasses class="//@modules.0/@classes.3"/>
       <attributes name="abstract">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -68,52 +65,52 @@
       </attributes>
       <attributes name="eSuperTypes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eOperations">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAllAttributes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAllReferences">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eReferences">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAttributes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAllContainments">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAllOperations">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAllStructuralFeatures">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAllSuperTypes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eIDAttribute">
@@ -121,17 +118,17 @@
       </attributes>
       <attributes name="eStructuralFeatures">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eGenericSuperTypes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eAllGenericSuperTypes">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="setAbstract" abstract="true">
@@ -147,9 +144,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EClassifier">
+    <classes name="EClassifier" superClasses="//@modules.0/@classes.9">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EClassifier"/>
-      <superClasses class="//@modules.0/@classes.9"/>
       <attributes name="instanceClassName">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -171,7 +167,7 @@
       </attributes>
       <attributes name="eTypeParameters">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="setInstanceClassName" abstract="true">
@@ -187,9 +183,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EDataType">
+    <classes name="EDataType" superClasses="//@modules.0/@classes.3">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EDataType"/>
-      <superClasses class="//@modules.0/@classes.3"/>
       <attributes name="serializable">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -200,18 +195,16 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EEnum">
+    <classes name="EEnum" superClasses="//@modules.0/@classes.4">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EEnum"/>
-      <superClasses class="//@modules.0/@classes.4"/>
       <attributes name="eLiterals">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="EEnumLiteral">
+    <classes name="EEnumLiteral" superClasses="//@modules.0/@classes.9">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EEnumLiteral"/>
-      <superClasses class="//@modules.0/@classes.9"/>
       <attributes name="value">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
@@ -243,9 +236,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EFactory">
+    <classes name="EFactory" superClasses="//@modules.0/@classes.8">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EFactory"/>
-      <superClasses class="//@modules.0/@classes.8"/>
       <attributes name="ePackage">
         <classifierType referencedElement="//@modules.0/@classes.15"/>
       </attributes>
@@ -256,18 +248,16 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EModelElement">
+    <classes name="EModelElement" superClasses="//@modules.0/@classes.13">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EModelElement"/>
-      <superClasses class="//@modules.0/@classes.13"/>
       <attributes name="eAnnotations">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="ENamedElement">
+    <classes name="ENamedElement" superClasses="//@modules.0/@classes.8">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ENamedElement"/>
-      <superClasses class="//@modules.0/@classes.8"/>
       <attributes name="name">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -283,9 +273,7 @@
     </classes>
     <classes name="EList">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.EList"/>
-      <superClasses>
-        <class href="stdlib.xmi#//@modules.0/@classes.3"/>
-      </superClasses>
+      <superClasses href="stdlib.xmi#//@modules.0/@classes.4"/>
       <methods name="move" abstract="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="newPos">
@@ -373,43 +361,40 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EObject">
+    <classes name="EObject" superClasses="//@modules.0/@classes.12">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DblEObject"/>
-      <superClasses class="//@modules.0/@classes.12"/>
       <methods name="getURI" abstract="true">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
     </classes>
-    <classes name="EOperation">
+    <classes name="EOperation" superClasses="//@modules.0/@classes.19">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EOperation"/>
-      <superClasses class="//@modules.0/@classes.19"/>
       <attributes name="eContainingClass">
         <classifierType referencedElement="//@modules.0/@classes.2"/>
       </attributes>
       <attributes name="eTypeParameters">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eParameters">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eExceptions">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eGenericExceptions">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="EPackage">
+    <classes name="EPackage" superClasses="//@modules.0/@classes.9">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EPackage"/>
-      <superClasses class="//@modules.0/@classes.9"/>
       <attributes name="nsURI">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -421,12 +406,12 @@
       </attributes>
       <attributes name="eClassifiers">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eSubpackages">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eSuperPackage">
@@ -451,16 +436,14 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EParameter">
+    <classes name="EParameter" superClasses="//@modules.0/@classes.19">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EParameter"/>
-      <superClasses class="//@modules.0/@classes.19"/>
       <attributes name="eOperation">
         <classifierType referencedElement="//@modules.0/@classes.14"/>
       </attributes>
     </classes>
-    <classes name="EReference">
+    <classes name="EReference" superClasses="//@modules.0/@classes.18">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EReference"/>
-      <superClasses class="//@modules.0/@classes.18"/>
       <attributes name="containment">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -478,7 +461,7 @@
       </attributes>
       <attributes name="eKeys">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <methods name="setContainment" abstract="true">
@@ -500,9 +483,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EStructuralFeature">
+    <classes name="EStructuralFeature" superClasses="//@modules.0/@classes.19">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EStructuralFeature"/>
-      <superClasses class="//@modules.0/@classes.19"/>
       <attributes name="changeable">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -566,9 +548,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ETypedElement">
+    <classes name="ETypedElement" superClasses="//@modules.0/@classes.9">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ETypedElement"/>
-      <superClasses class="//@modules.0/@classes.9"/>
       <attributes name="ordered">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -630,9 +611,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EStringToStringMapEntry">
+    <classes name="EStringToStringMapEntry" superClasses="//@modules.0/@classes.13">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EStringToStringMapEntry"/>
-      <superClasses class="//@modules.0/@classes.13"/>
       <attributes name="key">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -652,15 +632,14 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="EGenericType">
+    <classes name="EGenericType" superClasses="//@modules.0/@classes.13">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EGenericType"/>
-      <superClasses class="//@modules.0/@classes.13"/>
       <attributes name="eUpperBound">
         <classifierType referencedElement="//@modules.0/@classes.21"/>
       </attributes>
       <attributes name="eTypeArguments">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
       <attributes name="eRawType">
@@ -700,12 +679,11 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ETypeParameter">
+    <classes name="ETypeParameter" superClasses="//@modules.0/@classes.9">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ETypeParameter"/>
-      <superClasses class="//@modules.0/@classes.9"/>
       <attributes name="eBounds">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
+          <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>

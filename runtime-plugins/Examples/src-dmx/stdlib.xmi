@@ -16,14 +16,28 @@
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
     </classes>
-    <classes name="String">
+    <classes name="String" superClasses="//@modules.0/@classes.0">
       <bindings targetLanguage="java" targetType="java.lang.String"/>
-      <superClasses class="//@modules.0/@classes.0"/>
       <constructors>
         <parameters name="original">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </constructors>
+    </classes>
+    <classes name="SystemPrinter">
+      <bindings targetLanguage="java" targetType="hub.sam.dmx.semantics.javabridge.Printer"/>
+      <methods name="print" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="s">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </methods>
+      <methods name="println" abstract="true">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="s">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </methods>
     </classes>
     <classes name="Iterator">
       <bindings targetLanguage="java" targetType="java.util.Iterator"/>
@@ -83,12 +97,11 @@
         <classifierType referencedElement="//@modules.0/@classes.0"/>
       </methods>
       <methods name="iterator" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.3"/>
       </methods>
     </classes>
-    <classes name="List">
+    <classes name="List" superClasses="//@modules.0/@classes.4">
       <bindings targetLanguage="java" targetType="java.util.List"/>
-      <superClasses class="//@modules.0/@classes.3"/>
       <methods name="add" abstract="true">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
@@ -151,12 +164,11 @@
         <classifierType referencedElement="//@modules.0/@classes.0"/>
       </methods>
       <methods name="iterator" abstract="true">
-        <classifierType referencedElement="//@modules.0/@classes.2"/>
+        <classifierType referencedElement="//@modules.0/@classes.3"/>
       </methods>
     </classes>
-    <classes name="ArrayList">
+    <classes name="ArrayList" superClasses="//@modules.0/@classes.5">
       <bindings targetLanguage="java" targetType="java.util.ArrayList"/>
-      <superClasses class="//@modules.0/@classes.4"/>
     </classes>
     <classes name="Map">
       <bindings targetLanguage="java" targetType="java.util.Map"/>
@@ -176,9 +188,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="HashMap">
+    <classes name="HashMap" superClasses="//@modules.0/@classes.7">
       <bindings targetLanguage="java" targetType="java.util.HashMap"/>
-      <superClasses class="//@modules.0/@classes.6"/>
     </classes>
   </modules>
 </dbl:Model>

@@ -1,0 +1,21 @@
+module test {
+
+class Y {
+	void n() {}
+}
+
+class X extends Y {
+	void m() {
+		n();
+	}
+	void o(int i) {}
+}
+
+void main(int p) {
+	X x;
+	x.m();
+	x.n();
+	x.o(1);
+}
+
+}

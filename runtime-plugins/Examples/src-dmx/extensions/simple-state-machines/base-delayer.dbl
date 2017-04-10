@@ -17,23 +17,23 @@ void main() {
 	activate consumer;
 }
 
-active class Producer extends AsynchService {
-	AsynchService receiver;
+active class Producer extends ObjectWithStateMachine {
+	ObjectWithStateMachine receiver;
 	
 	actions {
 		print "sending data to delayer";
 		advance 1;
-		receiver.enterEvent(new Data);
+		receiver.sendSignal(new Data);
 		advance 2;
-		receiver.enterEvent(new Data);
+		receiver.sendSignal(new Data);
 	}
 }
 
-active class Consumer extends AsynchService {
+active class Consumer extends ObjectWithStateMachine {
 }
 
-active class Delayer extends AsynchService {
-	AsynchService receiver;
+active class Delayer extends ObjectWithStateMachine {
+	ObjectWithStateMachine receiver;
 	Data lastReceived = null;
 	
 	// GENERATED from extension
@@ -49,15 +49,15 @@ active class Delayer extends AsynchService {
 	
 	void forwardLastData() {
 		print "sending data with pay load: " + lastReceived.payLoad;
-		receiver.enterEvent(lastReceived);
+		receiver.sendSignal(lastReceived);
 		lastReceived = null;
 	}	
 }
 
 // GENERATED from extension
 class OnDataTransition extends CompiledTransition {
-	boolean canHandleMessage(Object message) {
-		return message instanceof Data; 
+	boolean canHandleSignal(Event signal) {
+		return signal instanceof Data; 
 	}
 	
 	void executeEffects(Object context, Object event) {
@@ -91,8 +91,6 @@ StateMachineRuntime createDelayerStateMachineRuntime() {
 	Transition onData = new Transition;
 	waiting.outgoingTransitions.add(onData);
 	onData.target = waiting;
-	LocalScopeStatement onDataEffect = new LocalScopeStatement;
-	onData.effects = onDataEffect;
 	
 	compiledWaiting.addCompiledTransition(new OnDataTransition(onData));	
 	

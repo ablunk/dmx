@@ -17,7 +17,6 @@ import hub.sam.dbl.BreakStatement;
 import hub.sam.dbl.CallPart;
 import hub.sam.dbl.Cast;
 import hub.sam.dbl.ClassContentExtension;
-import hub.sam.dbl.Classifier;
 import hub.sam.dbl.CodeQuoteExpression;
 import hub.sam.dbl.ComplexSymbol;
 import hub.sam.dbl.Concept;
@@ -57,7 +56,6 @@ import hub.sam.dbl.InstanceOf;
 import hub.sam.dbl.IntLiteral;
 import hub.sam.dbl.IntSymbol;
 import hub.sam.dbl.IntType;
-import hub.sam.dbl.Interface;
 import hub.sam.dbl.Keyword;
 import hub.sam.dbl.L1Expr;
 import hub.sam.dbl.L1SyntaxExpression;
@@ -137,15 +135,14 @@ import hub.sam.dbl.WaitUntil;
 import hub.sam.dbl.WhileStatement;
 import hub.sam.dbl.Yield;
 import hub.sam.dbl.YieldTo;
-import hub.sam.dbl.util.DblUtil;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+
+import hub.sam.dbl.*;
+import hub.sam.dbl.util.DblUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -210,8 +207,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.STRING_TYPE: return (EObject)createStringType();
 			case DblPackage.FUNCTION: return (EObject)createFunction();
 			case DblPackage.NATIVE_BINDING: return (EObject)createNativeBinding();
-			case DblPackage.CLASSIFIER: return (EObject)createClassifier();
-			case DblPackage.INTERFACE: return (EObject)createInterface();
 			case DblPackage.CLASS: return (EObject)createClass();
 			case DblPackage.CONSTRUCTOR: return (EObject)createConstructor();
 			case DblPackage.VARIABLE: return (EObject)createVariable();
@@ -518,26 +513,6 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public NativeBinding createNativeBinding() {
 		NativeBindingImpl nativeBinding = new NativeBindingImpl();
 		return nativeBinding;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Classifier createClassifier() {
-		ClassifierImpl classifier = new ClassifierImpl();
-		return classifier;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public Interface createInterface() {
-		InterfaceImpl interface_ = new InterfaceImpl();
-		return interface_;
 	}
 
 	/**

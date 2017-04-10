@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <modules name="test">
-    <classes name="A">
-      <attributes name="b">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
+    <classes name="X">
+      <methods name="f">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="i">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
     </classes>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Print">
         <outputs xsi:type="dbl:StringLiteral" value="hello"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="x">
+        <classifierType referencedElement="//@modules.0/@classes.0"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall">
+        <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
+          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.1"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IntLiteral" value="1"/>
+          </callPart>
+        </callIdExpr>
       </statements>
     </functions>
   </modules>

@@ -1,7 +1,13 @@
 module test {
 
+class X {
+	void f(int i) {}
+}
+
 void main() {
 	print("hello");
+	X x = new X();
+	x.f(1);
 }
 
 }

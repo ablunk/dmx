@@ -89,7 +89,6 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 			case DbxPackage.ADVANCE: return createAdvance();
 			case DbxPackage.IF_STATEMENT: return createIfStatement();
 			case DbxPackage.LOCAL_SCOPE: return createLocalScope();
-			case DbxPackage.LOCAL_SCOPE_STATEMENT: return createLocalScopeStatement();
 			case DbxPackage.FOR_STATEMENT: return createForStatement();
 			case DbxPackage.WHILE_STATEMENT: return createWhileStatement();
 			case DbxPackage.BREAK_STATEMENT: return createBreakStatement();
@@ -135,9 +134,7 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 			case DbxPackage.NAMED_ELEMENT_NAVIGATION_EXPR: return createNamedElementNavigationExpr();
 			case DbxPackage.NAMED_ELEMENT_ACCESS: return createNamedElementAccess();
 			case DbxPackage.VARIABLE_ACCESS: return createVariableAccess();
-			case DbxPackage.TYPE_ACCESS: return createTypeAccess();
 			case DbxPackage.INVOCATION_ARGUMENTS: return createInvocationArguments();
-			case DbxPackage.TEST_STATEMENT: return createTestStatement();
 			default:
 				return DbxEcoreExtensionsHelper.createObjectOfParentClass(eClass);
 		}
@@ -181,6 +178,36 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	public Import createImport() {
 		ImportImpl import_ = new ImportImpl();
 		return import_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Type createType() {
+		TypeImpl type = new TypeImpl();
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public TypedElement createTypedElement() {
+		TypedElementImpl typedElement = new TypedElementImpl();
+		return typedElement;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrimitiveType createPrimitiveType() {
+		PrimitiveTypeImpl primitiveType = new PrimitiveTypeImpl();
+		return primitiveType;
 	}
 
 	/**
@@ -238,6 +265,16 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public NativeType createNativeType() {
+		NativeTypeImpl nativeType = new NativeTypeImpl();
+		return nativeType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public NativeTypeBinding createNativeTypeBinding() {
 		NativeTypeBindingImpl nativeTypeBinding = new NativeTypeBindingImpl();
 		return nativeTypeBinding;
@@ -288,6 +325,16 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Variable createVariable() {
+		VariableImpl variable = new VariableImpl();
+		return variable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public InitializableVariable createInitializableVariable() {
 		InitializableVariableImpl initializableVariable = new InitializableVariableImpl();
 		return initializableVariable;
@@ -311,6 +358,16 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	public Attribute createAttribute() {
 		AttributeImpl attribute = new AttributeImpl();
 		return attribute;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ObversableAttribute createObversableAttribute() {
+		ObversableAttributeImpl obversableAttribute = new ObversableAttributeImpl();
+		return obversableAttribute;
 	}
 
 	/**
@@ -468,16 +525,6 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public LocalScopeStatement createLocalScopeStatement() {
-		LocalScopeStatementImpl localScopeStatement = new LocalScopeStatementImpl();
-		return localScopeStatement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ForStatement createForStatement() {
 		ForStatementImpl forStatement = new ForStatementImpl();
 		return forStatement;
@@ -611,6 +658,26 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	public L9Expr createL9Expr() {
 		L9ExprImpl l9Expr = new L9ExprImpl();
 		return l9Expr;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public BinaryOperator createBinaryOperator() {
+		BinaryOperatorImpl binaryOperator = new BinaryOperatorImpl();
+		return binaryOperator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public UnaryOperator createUnaryOperator() {
+		UnaryOperatorImpl unaryOperator = new UnaryOperatorImpl();
+		return unaryOperator;
 	}
 
 	/**
@@ -868,6 +935,16 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Keyword createKeyword() {
+		KeywordImpl keyword = new KeywordImpl();
+		return keyword;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public This createThis() {
 		ThisImpl this_ = new ThisImpl();
 		return this_;
@@ -928,29 +1005,9 @@ public class DbxFactoryImpl extends EFactoryImpl implements DbxFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypeAccess createTypeAccess() {
-		TypeAccessImpl typeAccess = new TypeAccessImpl();
-		return typeAccess;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public InvocationArguments createInvocationArguments() {
 		InvocationArgumentsImpl invocationArguments = new InvocationArgumentsImpl();
 		return invocationArguments;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public TestStatement createTestStatement() {
-		TestStatementImpl testStatement = new TestStatementImpl();
-		return testStatement;
 	}
 
 	/**

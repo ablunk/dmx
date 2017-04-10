@@ -574,7 +574,16 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	}
 	
 	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, SuperLiteral predefinedId) {
-		'super'
+		'''
+		super
+		«IF idExpr.callPart != null»
+			(
+			«FOR arg : idExpr.callPart.callArguments SEPARATOR ','»
+				«arg.genExpr»
+			«ENDFOR»
+			)
+		«ENDIF»
+		'''
 	}
 
 	def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, SizeOfArray predefinedId) {
@@ -760,13 +769,12 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	
 	def String genPassiveClass(Class clazz) {
 		val it = clazz
-		val superClassExpr = clazz.superClass
 		'''
 		«genPackageStatement»
 		
 		public class «name»
-		«IF superClassExpr != null»
-			extends «superClassExpr.genClassifierTypeExpr»
+		«IF !superClasses.empty»
+			extends «superClasses.get(0).genType»
 		«ENDIF»
 		{
 

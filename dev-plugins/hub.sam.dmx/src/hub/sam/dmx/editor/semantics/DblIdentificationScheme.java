@@ -62,7 +62,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 			return getGlobalIdentities_save(identifier, context, type);
 		}
 		catch (RuntimeException e) {
-			System.out.println(e);
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -859,10 +859,10 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	private boolean addIdsForInheritedMethods(Class clazz, NamedElement eObjectId, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 
-		IdExpr superClassIdExpr = clazz.getSuperClass();
+		/*IdExpr superClassIdExpr = clazz.getSuperClass();
 		if (superClassIdExpr != null) {
 			NamedElement superClass = superClassIdExpr.getReferencedElement();
-		}
+		}*/
 		/*for (SuperClassSpecification superClassSpec: clazz.getSuperClasses()) {
 			final Class superClass = superClassSpec.getClass_();
 			if (!idsAdded && superClass != null) {

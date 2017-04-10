@@ -13,11 +13,15 @@ public class AttributeResolver extends HierarchicalResolver implements ElementRe
 	
 	@Override
 	public Collection<IdentifiedElement> resolve(String identifier, IdExpr idExprContext) {
-		if (idExprContext.getParentIdExpr() == null) {
-			return resolveInContainer(identifier, idExprContext, Class.class,
-					(id, containerClass) -> resolvePlainAttributes(identifier, containerClass));
+		if (idExprContext.getCallPart() == null) {
+			if (idExprContext.getParentIdExpr() == null) {
+				return resolveInContainer(identifier, idExprContext, Class.class,
+						(id, containerClass) -> resolvePlainAttributes(identifier, containerClass));
+			} else {
+				return resolveAttributesInNavigation(identifier, idExprContext);
+			}
 		} else {
-			return resolveAttributesInNavigation(identifier, idExprContext);
+			return new HashSet<>();
 		}
 	}
 
@@ -47,21 +51,18 @@ public class AttributeResolver extends HierarchicalResolver implements ElementRe
 	}
 	
 	private Collection<IdentifiedElement> resolveInheritedAttributesRecursive(String identifier, Class dblClass) {
-		if (dblClass.getSuperClass() != null && dblClass.getSuperClass().getReferencedElement() != null) {
-			NamedElement referencedSuperClass = dblClass.getSuperClass().getReferencedElement();
-			if (referencedSuperClass instanceof hub.sam.dbl.Class) {
-				hub.sam.dbl.Class superClass = (hub.sam.dbl.Class) referencedSuperClass;
-
-				Collection<IdentifiedElement> attributes = resolveInElements(identifier, superClass.getAttributes());
-				if (attributes.isEmpty()) {
-					attributes.addAll(resolveInheritedAttributesRecursive(identifier, superClass));
-				}
-				
-				return attributes;
-			}	
+		Collection<IdentifiedElement> attributes = new HashSet<>();
+		for (Class superClass: dblClass.getSuperClasses()) {
+			if (attributes.isEmpty()) {
+				attributes.addAll(resolveInElements(identifier, superClass.getAttributes()));
+			}
 		}
-		
-		return new HashSet<>();
+		for (Class superClass: dblClass.getSuperClasses()) {
+			if (attributes.isEmpty()) {
+				attributes.addAll(resolveInheritedAttributesRecursive(identifier, superClass));
+			}
+		}		
+		return attributes;
 	}
 
 }

@@ -1,0 +1,74 @@
+#import "ssm-runtime"
+#import "../../stdlib"
+
+module simpleSystem {
+
+class Data extends Signal {
+	string payLoad = "empty";
+	static int id = 0;
+	
+	new(string payLoad) {
+		id = id + 1;
+		self.payLoad = id + ""; // type conversion
+	}
+}
+
+class Delayer extends ObjectWithStateMachine {
+	ObjectWithStateMachine receiver;
+	Data lastReceived = null;
+	
+	new() {
+		stateMachineRuntime = createDelayerStateMachineRuntime();
+	}
+}
+
+void main() {
+	Delayer delayer = new Delayer;
+	activate delayer;
+	delayer.sendSignal(new Data("blob"));
+	advance 10;
+}
+
+// GENERATED from extension
+class OnDataTransition extends CompiledTransition {
+
+	new(Transition transition) {
+		super(transition);
+	}
+
+	boolean canHandleSignal(Signal signal) {
+		return signal instanceof Data; 
+	}
+	
+	void executeEffects(Object context, Event event) {
+		Delayer concreteContext = context as Delayer;
+		print("received data\n");
+	}
+}
+
+// GENERATED from extension
+StateMachineRuntime createDelayerStateMachineRuntime() {
+	StateMachine stateMachine = new StateMachine();
+	StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);
+
+	// state waiting
+	State waiting = new State;
+	stateMachine.states.add(waiting);
+	waiting.name = "waiting";
+	
+	stateMachine.initialState = waiting;
+	
+	CompiledState compiledWaiting = new CompiledState(waiting);
+	stateMachineRuntime.setCompiledState(waiting, compiledWaiting);
+	
+	// transition on Data
+	Transition onData = new Transition;
+	waiting.outgoingTransitions.add(onData);
+	onData.target = waiting;
+	
+	compiledWaiting.addCompiledTransition(new OnDataTransition(onData));	
+	
+	return stateMachineRuntime;
+}
+
+}

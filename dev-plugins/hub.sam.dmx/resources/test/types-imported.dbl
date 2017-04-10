@@ -1,6 +1,6 @@
-module test {
+#import "types"
 
-class X {}
+module test {
 
 void main(int p) {
 	X x;

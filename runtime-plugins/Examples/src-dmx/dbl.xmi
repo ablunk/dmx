@@ -9,9 +9,7 @@
   <modules name="dbl">
     <classes name="Construct">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Construct"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="expandExpr">
         <classifierType referencedElement="//@modules.0/@classes.92"/>
       </attributes>
@@ -22,10 +20,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ExtensibleElement">
+    <classes name="ExtensibleElement" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.0">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensibleElement"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.0"/>
       <attributes name="concreteSyntax">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -47,9 +43,7 @@
     </classes>
     <classes name="Model">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Model"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="imports">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.3"/>
@@ -63,9 +57,7 @@
     </classes>
     <classes name="Import">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Import"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="file">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -85,11 +77,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Module">
+    <classes name="Module" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.9 //@modules.0/@classes.0">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Module"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.9"/>
-      <superClasses class="//@modules.0/@classes.0"/>
       <attributes name="classes">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
@@ -116,9 +105,8 @@
         </classifierType>
       </attributes>
     </classes>
-    <classes name="Annotation">
+    <classes name="Annotation" superClasses="//@modules.0/@classes.29">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Annotation"/>
-      <superClasses class="//@modules.0/@classes.29"/>
       <attributes name="items">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
@@ -127,9 +115,7 @@
     </classes>
     <classes name="AnnotationItem">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotationItem"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="key">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -151,43 +137,34 @@
     </classes>
     <classes name="AnnotateableElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotateableElement"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="annotations">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="ConstructiveExtension">
+    <classes name="ConstructiveExtension" superClasses="//@modules.0/@classes.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ConstructiveExtension"/>
-      <superClasses class="//@modules.0/@classes.1"/>
     </classes>
     <classes name="ConstructiveExtensionAtContentExtensionPoint">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="contentExtensions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="ModuleContentExtension">
+    <classes name="ModuleContentExtension" superClasses="//@modules.0/@classes.8">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ModuleContentExtension"/>
-      <superClasses class="//@modules.0/@classes.8"/>
     </classes>
-    <classes name="ClassContentExtension">
+    <classes name="ClassContentExtension" superClasses="//@modules.0/@classes.8">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassContentExtension"/>
-      <superClasses class="//@modules.0/@classes.8"/>
     </classes>
     <classes name="Type">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Type"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="arrayDimensions">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
@@ -196,9 +173,7 @@
     </classes>
     <classes name="TypedElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypedElement"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="primitiveType">
         <classifierType referencedElement="//@modules.0/@classes.15"/>
       </attributes>
@@ -225,9 +200,7 @@
     </classes>
     <classes name="ArrayDimension">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ArrayDimension"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="size">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -238,35 +211,26 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="PrimitiveType">
+    <classes name="PrimitiveType" superClasses="//@modules.0/@classes.12">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PrimitiveType"/>
-      <superClasses class="//@modules.0/@classes.12"/>
     </classes>
-    <classes name="VoidType">
+    <classes name="VoidType" superClasses="//@modules.0/@classes.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.VoidType"/>
-      <superClasses class="//@modules.0/@classes.15"/>
     </classes>
-    <classes name="IntType">
+    <classes name="IntType" superClasses="//@modules.0/@classes.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntType"/>
-      <superClasses class="//@modules.0/@classes.15"/>
     </classes>
-    <classes name="BoolType">
+    <classes name="BoolType" superClasses="//@modules.0/@classes.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BoolType"/>
-      <superClasses class="//@modules.0/@classes.15"/>
     </classes>
-    <classes name="DoubleType">
+    <classes name="DoubleType" superClasses="//@modules.0/@classes.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleType"/>
-      <superClasses class="//@modules.0/@classes.15"/>
     </classes>
-    <classes name="StringType">
+    <classes name="StringType" superClasses="//@modules.0/@classes.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringType"/>
-      <superClasses class="//@modules.0/@classes.15"/>
     </classes>
-    <classes name="Function">
+    <classes name="Function" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.13 //@modules.0/@classes.45">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Function"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.13"/>
-      <superClasses class="//@modules.0/@classes.45"/>
       <attributes name="parameters">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
@@ -293,9 +257,7 @@
     </classes>
     <classes name="NativeBinding">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NativeBinding"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="targetLanguage">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -317,9 +279,7 @@
     </classes>
     <classes name="SuperClassSpecification">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperClassSpecification"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="class">
         <classifierType referencedElement="//@modules.0/@classes.24"/>
       </attributes>
@@ -335,14 +295,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Class">
+    <classes name="Class" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.12 //@modules.0/@classes.9 //@modules.0/@classes.111 //@modules.0/@classes.0 //@modules.0/@classes.7">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Class"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.12"/>
-      <superClasses class="//@modules.0/@classes.9"/>
-      <superClasses class="//@modules.0/@classes.111"/>
-      <superClasses class="//@modules.0/@classes.0"/>
-      <superClasses class="//@modules.0/@classes.7"/>
       <attributes name="active">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -387,9 +341,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Constructor">
+    <classes name="Constructor" superClasses="//@modules.0/@classes.45">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Constructor"/>
-      <superClasses class="//@modules.0/@classes.45"/>
       <attributes name="parameters">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
@@ -405,16 +358,11 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="AbstractVariable">
+    <classes name="AbstractVariable" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.13 //@modules.0/@classes.7">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AbstractVariable"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.13"/>
-      <superClasses class="//@modules.0/@classes.7"/>
     </classes>
-    <classes name="Variable">
+    <classes name="Variable" superClasses="//@modules.0/@classes.26 //@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Variable"/>
-      <superClasses class="//@modules.0/@classes.26"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="control">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -443,15 +391,12 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Parameter">
+    <classes name="Parameter" superClasses="//@modules.0/@classes.26">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Parameter"/>
-      <superClasses class="//@modules.0/@classes.26"/>
     </classes>
     <classes name="NamedElement">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NamedElement"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="name">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -462,22 +407,17 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Statement">
+    <classes name="Statement" superClasses="//@modules.0/@classes.1 //@modules.0/@classes.7">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Statement"/>
-      <superClasses class="//@modules.0/@classes.1"/>
-      <superClasses class="//@modules.0/@classes.7"/>
     </classes>
-    <classes name="LoopStatement">
+    <classes name="LoopStatement" superClasses="//@modules.0/@classes.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LoopStatement"/>
-      <superClasses class="//@modules.0/@classes.30"/>
     </classes>
-    <classes name="SimpleStatement">
+    <classes name="SimpleStatement" superClasses="//@modules.0/@classes.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SimpleStatement"/>
-      <superClasses class="//@modules.0/@classes.30"/>
     </classes>
-    <classes name="Assignment">
+    <classes name="Assignment" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Assignment"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.103"/>
       </attributes>
@@ -497,9 +437,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="FunctionCall">
+    <classes name="FunctionCall" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.FunctionCall"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="callIdExpr">
         <classifierType referencedElement="//@modules.0/@classes.100"/>
       </attributes>
@@ -510,9 +449,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Return">
+    <classes name="Return" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Return"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -523,9 +461,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="WaitUntil">
+    <classes name="WaitUntil" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WaitUntil"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="condition">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -536,21 +473,17 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Terminate">
+    <classes name="Terminate" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Terminate"/>
-      <superClasses class="//@modules.0/@classes.32"/>
     </classes>
-    <classes name="Yield">
+    <classes name="Yield" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Yield"/>
-      <superClasses class="//@modules.0/@classes.32"/>
     </classes>
-    <classes name="Wait">
+    <classes name="Wait" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Wait"/>
-      <superClasses class="//@modules.0/@classes.32"/>
     </classes>
-    <classes name="Reactivate">
+    <classes name="Reactivate" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Reactivate"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="objectAccess">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -561,9 +494,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ActivateObject">
+    <classes name="ActivateObject" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ActivateObject"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="objectAccess">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -583,9 +515,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Advance">
+    <classes name="Advance" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Advance"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="time">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -596,18 +527,16 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Print">
+    <classes name="Print" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Print"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="outputs">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="IfStatement">
+    <classes name="IfStatement" superClasses="//@modules.0/@classes.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IfStatement"/>
-      <superClasses class="//@modules.0/@classes.30"/>
       <attributes name="condition">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -638,24 +567,18 @@
     </classes>
     <classes name="LocalScope">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScope"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="statements">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="LocalScopeStatement">
+    <classes name="LocalScopeStatement" superClasses="//@modules.0/@classes.32 //@modules.0/@classes.45">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScopeStatement"/>
-      <superClasses class="//@modules.0/@classes.32"/>
-      <superClasses class="//@modules.0/@classes.45"/>
     </classes>
-    <classes name="ForStatement">
+    <classes name="ForStatement" superClasses="//@modules.0/@classes.31 //@modules.0/@classes.45">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ForStatement"/>
-      <superClasses class="//@modules.0/@classes.31"/>
-      <superClasses class="//@modules.0/@classes.45"/>
       <attributes name="termination">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -684,9 +607,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="WhileStatement">
+    <classes name="WhileStatement" superClasses="//@modules.0/@classes.31">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.WhileStatement"/>
-      <superClasses class="//@modules.0/@classes.31"/>
       <attributes name="condition">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -706,9 +628,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="SwitchStatement">
+    <classes name="SwitchStatement" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchStatement"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.103"/>
       </attributes>
@@ -735,9 +656,7 @@
     </classes>
     <classes name="SwitchCase">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchCase"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="value">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -753,58 +672,44 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="BreakStatement">
+    <classes name="BreakStatement" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BreakStatement"/>
-      <superClasses class="//@modules.0/@classes.32"/>
     </classes>
-    <classes name="ContinueStatement">
+    <classes name="ContinueStatement" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ContinueStatement"/>
-      <superClasses class="//@modules.0/@classes.32"/>
     </classes>
-    <classes name="Expression">
+    <classes name="Expression" superClasses="//@modules.0/@classes.13 //@modules.0/@classes.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Expression"/>
-      <superClasses class="//@modules.0/@classes.13"/>
-      <superClasses class="//@modules.0/@classes.1"/>
     </classes>
-    <classes name="L1Expr">
+    <classes name="L1Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L1Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L2Expr">
+    <classes name="L2Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L2Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L3Expr">
+    <classes name="L3Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L3Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L4Expr">
+    <classes name="L4Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L4Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L5Expr">
+    <classes name="L5Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L5Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L6Expr">
+    <classes name="L6Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L6Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L7Expr">
+    <classes name="L7Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L7Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L8Expr">
+    <classes name="L8Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L8Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="L9Expr">
+    <classes name="L9Expr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L9Expr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
     </classes>
-    <classes name="BinaryOperator">
+    <classes name="BinaryOperator" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BinaryOperator"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="op1">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -824,9 +729,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="UnaryOperator">
+    <classes name="UnaryOperator" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.UnaryOperator"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="op">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -837,112 +741,71 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="Or">
+    <classes name="Or" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.61">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Or"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.61"/>
     </classes>
-    <classes name="And">
+    <classes name="And" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.60">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.And"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.60"/>
     </classes>
-    <classes name="NotEqual">
+    <classes name="NotEqual" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.59">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NotEqual"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.59"/>
     </classes>
-    <classes name="Equal">
+    <classes name="Equal" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.59">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Equal"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.59"/>
     </classes>
-    <classes name="Greater">
+    <classes name="Greater" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Greater"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.58"/>
     </classes>
-    <classes name="GreaterEqual">
+    <classes name="GreaterEqual" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.GreaterEqual"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.58"/>
     </classes>
-    <classes name="Less">
+    <classes name="Less" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Less"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.58"/>
     </classes>
-    <classes name="LessEqual">
+    <classes name="LessEqual" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LessEqual"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.58"/>
     </classes>
-    <classes name="InstanceOf">
+    <classes name="InstanceOf" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.InstanceOf"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.58"/>
     </classes>
-    <classes name="Plus">
+    <classes name="Plus" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.57">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Plus"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.57"/>
     </classes>
-    <classes name="Minus">
+    <classes name="Minus" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.57">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Minus"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.57"/>
     </classes>
-    <classes name="Mul">
+    <classes name="Mul" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.56">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mul"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.56"/>
     </classes>
-    <classes name="Mod">
+    <classes name="Mod" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.56">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mod"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.56"/>
     </classes>
-    <classes name="Div">
+    <classes name="Div" superClasses="//@modules.0/@classes.63 //@modules.0/@classes.56">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Div"/>
-      <superClasses class="//@modules.0/@classes.63"/>
-      <superClasses class="//@modules.0/@classes.56"/>
     </classes>
-    <classes name="Neg">
+    <classes name="Neg" superClasses="//@modules.0/@classes.64 //@modules.0/@classes.55">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Neg"/>
-      <superClasses class="//@modules.0/@classes.64"/>
-      <superClasses class="//@modules.0/@classes.55"/>
     </classes>
-    <classes name="Not">
+    <classes name="Not" superClasses="//@modules.0/@classes.64 //@modules.0/@classes.55">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Not"/>
-      <superClasses class="//@modules.0/@classes.64"/>
-      <superClasses class="//@modules.0/@classes.55"/>
     </classes>
-    <classes name="Cast">
+    <classes name="Cast" superClasses="//@modules.0/@classes.64 //@modules.0/@classes.13 //@modules.0/@classes.55">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Cast"/>
-      <superClasses class="//@modules.0/@classes.64"/>
-      <superClasses class="//@modules.0/@classes.13"/>
-      <superClasses class="//@modules.0/@classes.55"/>
     </classes>
-    <classes name="CreateObject">
+    <classes name="CreateObject" superClasses="//@modules.0/@classes.54 //@modules.0/@classes.13">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CreateObject"/>
-      <superClasses class="//@modules.0/@classes.54"/>
-      <superClasses class="//@modules.0/@classes.13"/>
     </classes>
-    <classes name="NullLiteral">
+    <classes name="NullLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NullLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
     </classes>
-    <classes name="TimeLiteral">
+    <classes name="TimeLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TimeLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
     </classes>
-    <classes name="ActiveLiteral">
+    <classes name="ActiveLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ActiveLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
     </classes>
-    <classes name="StringLiteral">
+    <classes name="StringLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
       <attributes name="value">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -953,9 +816,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="IntLiteral">
+    <classes name="IntLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
       <attributes name="value">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
@@ -966,17 +828,14 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="TrueLiteral">
+    <classes name="TrueLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TrueLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
     </classes>
-    <classes name="FalseLiteral">
+    <classes name="FalseLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.FalseLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
     </classes>
-    <classes name="DoubleLiteral">
+    <classes name="DoubleLiteral" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleLiteral"/>
-      <superClasses class="//@modules.0/@classes.54"/>
       <attributes name="value">
         <primitiveType xsi:type="dbl:DoubleType"/>
       </attributes>
@@ -987,9 +846,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="UniqueIdExpr">
+    <classes name="UniqueIdExpr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.UniqueIdExpr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="identifier">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -1000,9 +858,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ExpandExpr">
+    <classes name="ExpandExpr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1013,9 +870,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ParseExpr">
+    <classes name="ParseExpr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ParseExpr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="astPart">
         <classifierType referencedElement="//@modules.0/@classes.0"/>
       </attributes>
@@ -1028,33 +884,25 @@
     </classes>
     <classes name="PredefinedId">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PredefinedId"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
     </classes>
-    <classes name="MeLiteral">
+    <classes name="MeLiteral" superClasses="//@modules.0/@classes.94">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MeLiteral"/>
-      <superClasses class="//@modules.0/@classes.94"/>
     </classes>
-    <classes name="SuperLiteral">
+    <classes name="SuperLiteral" superClasses="//@modules.0/@classes.94">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperLiteral"/>
-      <superClasses class="//@modules.0/@classes.94"/>
     </classes>
-    <classes name="MetaLiteral">
+    <classes name="MetaLiteral" superClasses="//@modules.0/@classes.94">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaLiteral"/>
-      <superClasses class="//@modules.0/@classes.94"/>
     </classes>
-    <classes name="TypeLiteral">
+    <classes name="TypeLiteral" superClasses="//@modules.0/@classes.94">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypeLiteral"/>
-      <superClasses class="//@modules.0/@classes.94"/>
     </classes>
-    <classes name="SizeOfArray">
+    <classes name="SizeOfArray" superClasses="//@modules.0/@classes.94">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SizeOfArray"/>
-      <superClasses class="//@modules.0/@classes.94"/>
     </classes>
-    <classes name="IdExpr">
+    <classes name="IdExpr" superClasses="//@modules.0/@classes.54">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdExpr"/>
-      <superClasses class="//@modules.0/@classes.54"/>
       <attributes name="parentIdExpr">
         <classifierType referencedElement="//@modules.0/@classes.100"/>
       </attributes>
@@ -1099,18 +947,15 @@
     </classes>
     <classes name="CallPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CallPart"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
       <attributes name="callArguments">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="ElementAccess">
+    <classes name="ElementAccess" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementAccess"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="idExpr">
         <classifierType referencedElement="//@modules.0/@classes.100"/>
       </attributes>
@@ -1121,22 +966,17 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="VariableAccess">
+    <classes name="VariableAccess" superClasses="//@modules.0/@classes.102">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.VariableAccess"/>
-      <superClasses class="//@modules.0/@classes.102"/>
     </classes>
-    <classes name="MetaAccess">
+    <classes name="MetaAccess" superClasses="//@modules.0/@classes.103">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaAccess"/>
-      <superClasses class="//@modules.0/@classes.103"/>
     </classes>
-    <classes name="TypeAccess">
+    <classes name="TypeAccess" superClasses="//@modules.0/@classes.102">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypeAccess"/>
-      <superClasses class="//@modules.0/@classes.102"/>
     </classes>
-    <classes name="Extension">
+    <classes name="Extension" superClasses="//@modules.0/@classes.111 //@modules.0/@classes.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Extension"/>
-      <superClasses class="//@modules.0/@classes.111"/>
-      <superClasses class="//@modules.0/@classes.1"/>
       <attributes name="extensionPoint">
         <classifierType referencedElement="//@modules.0/@classes.111"/>
       </attributes>
@@ -1156,10 +996,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ExtensionSemantics">
+    <classes name="ExtensionSemantics" superClasses="//@modules.0/@classes.1 //@modules.0/@classes.45">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionSemantics"/>
-      <superClasses class="//@modules.0/@classes.1"/>
-      <superClasses class="//@modules.0/@classes.45"/>
       <attributes name="syntaxDefinition">
         <classifierType referencedElement="//@modules.0/@classes.106"/>
       </attributes>
@@ -1170,9 +1008,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="SyntaxDefinition">
+    <classes name="SyntaxDefinition" superClasses="//@modules.0/@classes.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxDefinition"/>
-      <superClasses class="//@modules.0/@classes.1"/>
       <attributes name="startSymbol">
         <classifierType referencedElement="//@modules.0/@classes.112"/>
       </attributes>
@@ -1188,23 +1025,17 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="SyntaxSymbolClassifier">
+    <classes name="SyntaxSymbolClassifier" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxSymbolClassifier"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.1"/>
     </classes>
-    <classes name="ComplexSymbol">
+    <classes name="ComplexSymbol" superClasses="//@modules.0/@classes.109">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ComplexSymbol"/>
-      <superClasses class="//@modules.0/@classes.109"/>
     </classes>
-    <classes name="Concept">
+    <classes name="Concept" superClasses="//@modules.0/@classes.110">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Concept"/>
-      <superClasses class="//@modules.0/@classes.110"/>
     </classes>
-    <classes name="MetaSymbol">
+    <classes name="MetaSymbol" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.110">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaSymbol"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.110"/>
       <attributes name="possibleSyntax">
         <classifierType referencedElement="//@modules.0/@classes.113"/>
       </attributes>
@@ -1217,35 +1048,27 @@
     </classes>
     <classes name="SyntaxExpression">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxExpression"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
     </classes>
-    <classes name="L3SyntaxExpression">
+    <classes name="L3SyntaxExpression" superClasses="//@modules.0/@classes.113">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L3SyntaxExpression"/>
-      <superClasses class="//@modules.0/@classes.113"/>
     </classes>
-    <classes name="L2SyntaxExpression">
+    <classes name="L2SyntaxExpression" superClasses="//@modules.0/@classes.113">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L2SyntaxExpression"/>
-      <superClasses class="//@modules.0/@classes.113"/>
     </classes>
-    <classes name="SymbolSequence">
+    <classes name="SymbolSequence" superClasses="//@modules.0/@classes.115">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SymbolSequence"/>
-      <superClasses class="//@modules.0/@classes.115"/>
       <attributes name="sequence">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="L1SyntaxExpression">
+    <classes name="L1SyntaxExpression" superClasses="//@modules.0/@classes.113">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L1SyntaxExpression"/>
-      <superClasses class="//@modules.0/@classes.113"/>
     </classes>
-    <classes name="StructuralSymbolReference">
+    <classes name="StructuralSymbolReference" superClasses="//@modules.0/@classes.29 //@modules.0/@classes.119">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StructuralSymbolReference"/>
-      <superClasses class="//@modules.0/@classes.29"/>
-      <superClasses class="//@modules.0/@classes.119"/>
       <attributes name="list">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -1277,9 +1100,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="PlainSymbolReference">
+    <classes name="PlainSymbolReference" superClasses="//@modules.0/@classes.117">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PlainSymbolReference"/>
-      <superClasses class="//@modules.0/@classes.117"/>
       <attributes name="classifier">
         <classifierType referencedElement="//@modules.0/@classes.109"/>
       </attributes>
@@ -1302,25 +1124,20 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ElementarySymbol">
+    <classes name="ElementarySymbol" superClasses="//@modules.0/@classes.109">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementarySymbol"/>
-      <superClasses class="//@modules.0/@classes.109"/>
     </classes>
-    <classes name="IdSymbol">
+    <classes name="IdSymbol" superClasses="//@modules.0/@classes.120">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdSymbol"/>
-      <superClasses class="//@modules.0/@classes.120"/>
     </classes>
-    <classes name="IntSymbol">
+    <classes name="IntSymbol" superClasses="//@modules.0/@classes.120">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntSymbol"/>
-      <superClasses class="//@modules.0/@classes.120"/>
     </classes>
-    <classes name="StringSymbol">
+    <classes name="StringSymbol" superClasses="//@modules.0/@classes.120">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringSymbol"/>
-      <superClasses class="//@modules.0/@classes.120"/>
     </classes>
-    <classes name="Keyword">
+    <classes name="Keyword" superClasses="//@modules.0/@classes.120">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Keyword"/>
-      <superClasses class="//@modules.0/@classes.120"/>
       <attributes name="keyword">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -1331,9 +1148,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="MetaExpr">
+    <classes name="MetaExpr" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaExpr"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1344,9 +1160,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="TargetStatement">
+    <classes name="TargetStatement" superClasses="//@modules.0/@classes.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TargetStatement"/>
-      <superClasses class="//@modules.0/@classes.30"/>
       <attributes name="body">
         <classifierType referencedElement="//@modules.0/@classes.30"/>
       </attributes>
@@ -1357,9 +1172,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ExpansionStatement">
+    <classes name="ExpansionStatement" superClasses="//@modules.0/@classes.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpansionStatement"/>
-      <superClasses class="//@modules.0/@classes.30"/>
       <attributes name="parts">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
@@ -1373,13 +1187,10 @@
     </classes>
     <classes name="ExpansionPart">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpansionPart"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
     </classes>
-    <classes name="ExpandTextPart">
+    <classes name="ExpandTextPart" superClasses="//@modules.0/@classes.128">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandTextPart"/>
-      <superClasses class="//@modules.0/@classes.128"/>
       <attributes name="text">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
@@ -1390,9 +1201,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ExpandVariablePart">
+    <classes name="ExpandVariablePart" superClasses="//@modules.0/@classes.128">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandVariablePart"/>
-      <superClasses class="//@modules.0/@classes.128"/>
       <attributes name="expr">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1403,9 +1213,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="SetExpansionContextStatement">
+    <classes name="SetExpansionContextStatement" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SetExpansionContextStatement"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="context">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1425,9 +1234,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="SaveGenStatement">
+    <classes name="SaveGenStatement" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SaveGenStatement"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1438,9 +1246,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ResumeGenStatement">
+    <classes name="ResumeGenStatement" superClasses="//@modules.0/@classes.32">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ResumeGenStatement"/>
-      <superClasses class="//@modules.0/@classes.32"/>
       <attributes name="variable">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1451,9 +1258,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ExpandExpression">
+    <classes name="ExpandExpression" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpression"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="metaObject">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1464,9 +1270,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="ExpandStatement">
+    <classes name="ExpandStatement" superClasses="//@modules.0/@classes.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandStatement"/>
-      <superClasses class="//@modules.0/@classes.30"/>
       <attributes name="metaObject">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1486,9 +1291,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="CodeQuoteExpression">
+    <classes name="CodeQuoteExpression" superClasses="//@modules.0/@classes.53">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CodeQuoteExpression"/>
-      <superClasses class="//@modules.0/@classes.53"/>
       <attributes name="quotedCode">
         <classifierType referencedElement="//@modules.0/@classes.137"/>
       </attributes>
@@ -1501,13 +1305,10 @@
     </classes>
     <classes name="QuotedCode">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedCode"/>
-      <superClasses>
-        <class href="ecore.xmi#//@modules.0/@classes.13"/>
-      </superClasses>
+      <superClasses href="ecore.xmi#//@modules.0/@classes.13"/>
     </classes>
-    <classes name="QuotedExpression">
+    <classes name="QuotedExpression" superClasses="//@modules.0/@classes.137">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedExpression"/>
-      <superClasses class="//@modules.0/@classes.137"/>
       <attributes name="expression">
         <classifierType referencedElement="//@modules.0/@classes.53"/>
       </attributes>
@@ -1518,28 +1319,22 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="QuotedStatements">
+    <classes name="QuotedStatements" superClasses="//@modules.0/@classes.137">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedStatements"/>
-      <superClasses class="//@modules.0/@classes.137"/>
       <attributes name="statements">
         <classifierType>
           <referencedElement href="stdlib.xmi#//@modules.0/@classes.4"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="QuotedClassContent">
+    <classes name="QuotedClassContent" superClasses="//@modules.0/@classes.137 //@modules.0/@classes.24">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedClassContent"/>
-      <superClasses class="//@modules.0/@classes.137"/>
-      <superClasses class="//@modules.0/@classes.24"/>
     </classes>
-    <classes name="QuotedModuleContent">
+    <classes name="QuotedModuleContent" superClasses="//@modules.0/@classes.137 //@modules.0/@classes.4">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedModuleContent"/>
-      <superClasses class="//@modules.0/@classes.137"/>
-      <superClasses class="//@modules.0/@classes.4"/>
     </classes>
-    <classes name="Pattern">
+    <classes name="Pattern" superClasses="//@modules.0/@classes.29">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Pattern"/>
-      <superClasses class="//@modules.0/@classes.29"/>
       <attributes name="top">
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
@@ -1568,9 +1363,8 @@
         </parameters>
       </methods>
     </classes>
-    <classes name="TestStatement">
+    <classes name="TestStatement" superClasses="//@modules.0/@classes.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TestStatement"/>
-      <superClasses class="//@modules.0/@classes.30"/>
       <attributes name="value">
         <primitiveType xsi:type="dbl:IntType"/>
       </attributes>
