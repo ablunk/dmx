@@ -2,6 +2,9 @@ syntax(Model) "resources/dbl.ecore" {
 
 	Model:element(Model) -> (Import:composite(imports))* (Module:composite(modules))*;
 
+	Static:constant("true":EBoolean) -> "static";
+	Control:constant("true":EBoolean) -> "control";
+
 	Import:element(Import) -> "#import" STRINGDEF:composite(file);
 	Module:element(Module) -> "module" IDENTIFIER:composite(name) "{" (ModuleElement)* "}";
 	
@@ -50,28 +53,33 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	BindingsPart -> "bindings" "{" NativeBinding:composite(bindings) ("," NativeBinding:composite(bindings))* "}";
 	NativeBinding:element(NativeBinding) -> STRINGDEF:composite(targetLanguage) "->" STRINGDEF:composite(targetType);
-		
-	Function:element(Function) -> TypedElementParts NamedElementName
-		"(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
-		(ClassElement:composite(class))?
-		FunctionBody;
-	FunctionBody -> AbstractProcedure:composite(abstract) ";";
-	FunctionBody -> (DetachedFunction:composite(detached))? "{" (Statement:composite(statements))* "}";
 	
-	AbstractProcedure:constant("true":EBoolean) -> "abstract";
-	DetachedFunction:constant("true":EBoolean) -> "detached";
+	Function -> BoundFunction;
+	BoundFunction:element(Function) -> BoundFunctionModifierPriority;
+	
+	//BoundFunctionModifierPriority[1] -> FunctionAbstract;
+	BoundFunctionModifierPriority[1] -> FunctionStatic;
+	BoundFunctionModifierPriority[0] -> FunctionAfterModifiers;
+	
+	//FunctionAbstract -> Abstract:composite(abstract) FunctionAfterModifiers;
+	//FunctionAbstract -> Abstract:composite(abstract) FunctionStatic;
+	FunctionStatic -> Static:composite(class) FunctionAfterModifiers;
+	
+	FunctionAfterModifiers -> TypedElementParts NamedElementName
+		"(" (Parameter:composite(parameters) ("," Parameter:composite(parameters))*)? ")"
+		FunctionBody;
+	FunctionBody -> "{" (Statement:composite(statements))* "}";
+	FunctionBody -> ";";
 
 	Parameter:element(Parameter) -> TypedElementParts ws(space) IDENTIFIER:composite(name);
 
 	Variable -> Variable_actual;
 	Variable_actual:element(Variable) -> Variable1;
 	
-	Variable1 -> ClassAttribute:composite(class) Variable2;
-	ClassAttribute:constant("true":EBoolean) -> "static";
+	Variable1 -> Static:composite(class) Variable2;
 	Variable1 -> Variable2;
 
-	Variable2 -> ControlVariable:composite(control) VariableTail;
-	ControlVariable:constant("true":EBoolean) -> "control";
+	Variable2 -> Control:composite(control) VariableTail;
 	Variable2 -> VariableTail;
 		
 	VariableTail -> TypedElementParts ws(space) IDENTIFIER:composite(name) ws(space)
