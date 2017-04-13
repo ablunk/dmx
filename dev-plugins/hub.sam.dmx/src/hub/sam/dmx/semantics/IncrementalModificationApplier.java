@@ -29,8 +29,8 @@ public class IncrementalModificationApplier {
 		this.workingModelResource = workingModelResource;
 	}
 	
-	public StringBuffer getWorkingText() {
-		return workingText;
+	public String getWorkingText() {
+		return workingText.toString();
 	}
 	
 	private EObject setStartLength(Modification mod) {
@@ -74,6 +74,7 @@ public class IncrementalModificationApplier {
 				if (!after) {
 					logger.info("shifting object " + current.eResource().getURIFragment(current) + " by " + v + " characters");
 					currentPosition.setOffset(currentPosition.getOffset() + v);
+					// TODO the length of all objects that the referenceObject is contained in has to be adapted
 				}
 			}
 			else if (currentPosition.getOffset() > referenceObjectPosition.getOffset()) {
