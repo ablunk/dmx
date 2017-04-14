@@ -3,6 +3,8 @@ package hub.sam.dmx.executionsemantics;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -17,7 +19,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceImpl;
 import org.eclipse.jface.text.Position;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import hub.sam.dmx.modelcreation.IObjectPositionsContainer;
 import hub.sam.dmx.modifications.Addition;
@@ -30,7 +31,7 @@ import hub.sam.dmx.semantics.IncrementalModificationApplier;
 public class IncrementalModificationApplierTest {
 	
 	private IncrementalModificationApplier modificationsApplier;
-	private IObjectPositionsContainer objectPositionsMock;
+	private IObjectPositionsContainer objectPositions;
 	private Resource resource;
 	private final String originalText = "0123456789";
 	private EClass boxClass;
@@ -38,10 +39,21 @@ public class IncrementalModificationApplierTest {
 
 	@Before
 	public void setup() {
-		objectPositionsMock = Mockito.mock(IObjectPositionsContainer.class);
+		objectPositions = new IObjectPositionsContainer() {
+			
+			private Map<EObject, Position> positions = new HashMap<EObject, Position>();
+			
+			public Position getPosition(EObject eObject) {
+				return positions.get(eObject);
+			}
+			
+			public void setPosition(EObject eObject, Position position) {
+				positions.put(eObject, position);
+			}
+		};
 		resource = new ResourceImpl();
 		modificationsApplier = new IncrementalModificationApplier(
-				new StringBuffer(originalText), objectPositionsMock, resource);
+				new StringBuffer(originalText), objectPositions, resource);
 		
 		initBoxClass();
 	}
@@ -53,8 +65,7 @@ public class IncrementalModificationApplierTest {
 		String b0Uri = resource.getURIFragment(b0);
 		
 		// >0<123456789
-		Mockito.when(objectPositionsMock.getPosition(b0))
-			.thenReturn(new Position(0,1));
+		objectPositions.setPosition(b0, new Position(0,1));
 		
 		modificationsApplier.applyAll(modificationsRecord(
 				additionAfter(b0Uri, "++")).getModifications());
@@ -69,8 +80,7 @@ public class IncrementalModificationApplierTest {
 		String b9Uri = resource.getURIFragment(b9);
 		
 		// 012345678>9<
-		Mockito.when(objectPositionsMock.getPosition(b9))
-			.thenReturn(new Position(9,1));
+		objectPositions.setPosition(b9, new Position(9,1));
 		
 		modificationsApplier.applyAll(modificationsRecord(
 				additionAfter(b9Uri, "++")).getModifications());
@@ -85,15 +95,14 @@ public class IncrementalModificationApplierTest {
 		String b0Uri = resource.getURIFragment(b0);
 		
 		// >0<123456789
-		Mockito.when(objectPositionsMock.getPosition(b0))
-			.thenReturn(new Position(0,1));
+		objectPositions.setPosition(b0, new Position(0,1));
 		
 		// >0+<123456789
 		// >0+*<123456789
 		modificationsApplier.applyAll(modificationsRecord(
 				additionAfter(b0Uri, "+"), additionAfter(b0Uri, "*")).getModifications());
 		
-		assertEquals("0+*123456789", modificationsApplier.getWorkingText());
+		assertEquals("0*+123456789", modificationsApplier.getWorkingText());
 	}
 
 	@Test
@@ -103,8 +112,7 @@ public class IncrementalModificationApplierTest {
 		String b0Uri = resource.getURIFragment(b0);
 		
 		// >0<123456789
-		Mockito.when(objectPositionsMock.getPosition(b0))
-			.thenReturn(new Position(0,1));
+		objectPositions.setPosition(b0, new Position(0,1));
 		
 		modificationsApplier.applyAll(modificationsRecord(
 				substitution(b0Uri, "--")).getModifications());
@@ -113,7 +121,7 @@ public class IncrementalModificationApplierTest {
 	}
 
 	@Test
-	public void additionAfterWithSubstitution() {
+	public void substitutionThenAdditionAfter() {
 		EObject b1 = boxObject();
 		EObject b012 = boxObject(b1);
 		resource.getContents().add(b012);
@@ -122,21 +130,49 @@ public class IncrementalModificationApplierTest {
 		String b1Uri = resource.getURIFragment(b1);
 		
 		// 0>1<23456789
-		Mockito.when(objectPositionsMock.getPosition(b1))
-			.thenReturn(new Position(1,1));
+		objectPositions.setPosition(b1, new Position(1,1));
 		
 		// >012<3456789
-		Mockito.when(objectPositionsMock.getPosition(b012))
-			.thenReturn(new Position(0,3));
+		objectPositions.setPosition(b012, new Position(0,3));
 		
 		// 0>----<23456789
 		modificationsApplier.applyAll(modificationsRecord(
 				substitution(b1Uri, "----")).getModifications());
 
+		assertEquals("0----23456789", modificationsApplier.getWorkingText());
+
 		// >0----2<++3456789
 		modificationsApplier.applyAll(modificationsRecord(
 				additionAfter(b012Uri, "++")).getModifications());
 		
+		assertEquals("0----2++3456789", modificationsApplier.getWorkingText());
+	}
+	
+	@Test
+	public void additionAfterThenSubstitution() {
+		EObject b1 = boxObject();
+		EObject b012 = boxObject(b1);
+		resource.getContents().add(b012);
+
+		String b012Uri = resource.getURIFragment(b012);
+		String b1Uri = resource.getURIFragment(b1);
+		
+		// 0>1<23456789
+		objectPositions.setPosition(b1, new Position(1,1));
+		
+		// >012<3456789
+		objectPositions.setPosition(b012, new Position(0,3));
+		
+		// >012<++3456789
+		modificationsApplier.applyAll(modificationsRecord(
+				additionAfter(b012Uri, "++")).getModifications());
+
+		assertEquals("012++3456789", modificationsApplier.getWorkingText());
+
+		// 0>----<2++3456789
+		modificationsApplier.applyAll(modificationsRecord(
+				substitution(b1Uri, "----")).getModifications());
+
 		assertEquals("0----2++3456789", modificationsApplier.getWorkingText());
 	}
 	

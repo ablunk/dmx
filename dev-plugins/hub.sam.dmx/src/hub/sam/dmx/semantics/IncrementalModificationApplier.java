@@ -6,7 +6,10 @@ import hub.sam.dmx.modifications.Addition;
 import hub.sam.dmx.modifications.Modification;
 import hub.sam.dmx.modifications.Substitution;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -29,106 +32,163 @@ public class IncrementalModificationApplier {
 		this.workingModelResource = workingModelResource;
 	}
 	
-	public String getWorkingText() {
-		return workingText.toString();
-	}
-	
-	private EObject setStartLength(Modification mod) {
-		EObject positionObject = workingModelResource.getEObject(mod.getSourceEObjectUri());
-		
-		Position position = objectPositions.getPosition(positionObject);
-		
-		if (mod instanceof Substitution) {
-			Substitution sub = (Substitution) mod;
-			sub.setSourceStart(position.getOffset());
-			sub.setSourceLength(position.getLength());
-		}
-		else if (mod instanceof Addition) {
-			Addition addition = (Addition) mod;
-			if (addition.isAddAfterPosition()) {
-				addition.setSourceStart(position.getOffset() + position.getLength());
-			}
-			else {
-				addition.setSourceStart(position.getOffset());
-			}
-		}
-		
-		return positionObject;
-	}
-	
-	private void shiftObjects(EObject referenceObject, boolean after, int v, boolean includeRefObjectChilds) {
-		// all contents of dbl.Model
-		TreeIterator<EObject> rootContentsTree = referenceObject.eResource().getContents().get(0).eAllContents();
-		
-		EObject current = null;
-		Position referenceObjectPosition = objectPositions.getPosition(referenceObject);
-
-		// shift all objects before referenceObject
-		while (rootContentsTree.hasNext()) {
-			current = rootContentsTree.next();
-			Position currentPosition = objectPositions.getPosition(current);
-
-			if (current == referenceObject) {
-				if (!includeRefObjectChilds) rootContentsTree.prune();
-				
-				if (!after) {
-					logger.info("shifting object " + current.eResource().getURIFragment(current) + " by " + v + " characters");
-					currentPosition.setOffset(currentPosition.getOffset() + v);
-					// TODO the length of all objects that the referenceObject is contained in has to be adapted
-				}
-			}
-			else if (currentPosition.getOffset() > referenceObjectPosition.getOffset()) {
-				logger.info("shifting object " + current.eResource().getURIFragment(current) + " by " + v + " characters");
-				currentPosition.setOffset(currentPosition.getOffset() + v);
-			}
-		}
-	}
-	
-	public void applyAll(EList<Modification> unsortedModifications) {
+	public void applyAll(EList<Modification> modifications) {
 		boolean substitutionApplied = false;
-
-		// apply modifications, adjust positions for other constructs						
-		for (Modification mod: unsortedModifications) {
+		
+		for (int i=0; i<modifications.size(); i++) {
+			Modification modification = modifications.get(i);
 			
-			EObject positionObject = setStartLength(mod);
-			int startPos = mod.getSourceStart();
-			
-			if (mod instanceof Addition) {
-				Addition addition = (Addition) mod;
-				
-				logger.info("inserting at text position: " + startPos + ", just after ... " + Activator.lineSep
-						+ workingText.substring((startPos - 20 < 0 ? 0 : startPos - 20), startPos) + Activator.lineSep);
-				
-				workingText.insert(startPos, addition.getReplacementText());
+			EObject referenceObject = getReferenceObject(modification);
+			Position referencePosition = objectPositions.getPosition(referenceObject);
 
-				// adjust positions for other constructs
-				shiftObjects(positionObject, addition.isAddAfterPosition(), addition.getReplacementText().length(), false);
+			int referenceOffset = referencePosition.getOffset();
+			int referenceOffsetDelta = 0;
+
+			if (modification instanceof Addition) {
+				Addition addition = (Addition) modification;
+				
+				logger.info("inserting at text position: " + referenceOffset + ", just after ... " + Activator.lineSep
+						+ workingText.substring((referenceOffset - 20 < 0 ? 0 : referenceOffset - 20), referenceOffset) + Activator.lineSep);
+				
+				if (addition.isAddAfterPosition()) {
+					referenceOffset += referencePosition.getLength();
+				}
+				workingText.insert(referenceOffset, addition.getReplacementText());
+
+				referenceOffsetDelta = addition.getReplacementText().length();
+				TreeIterator<EObject> rootObjectIterator = workingModelResource.getContents().get(0).eAllContents();
+				shiftObjectsAffectedByAdditionAfter(rootObjectIterator, referencePosition, referenceOffsetDelta);
+				
 			}
-			else if (mod instanceof Substitution) {
+			else if (modification instanceof Substitution) {
 				if (substitutionApplied) {
 					logger.severe("there are at least 2 substitution modifications. an extension can only be substituted once.");
 					throw new RuntimeException();
 				}
 				substitutionApplied = true;
 				
-				Substitution sub = (Substitution) mod;
+				Substitution sub = (Substitution) modification;
 				
-				int endPos = startPos + sub.getSourceLength();
+				int endOffset = referenceOffset + referencePosition.getLength();
 				
-				String sourceFragment = workingText.substring(startPos, endPos);					
+				String sourceFragment = workingText.substring(referenceOffset, endOffset);					
 				logger.info("substituting source fragement: " + Activator.lineSep +
 						sourceFragment + Activator.lineSep
 						+ "by: " + Activator.lineSep +
-						mod.getReplacementText() + Activator.lineSep);
+						modification.getReplacementText() + Activator.lineSep);
 				
-				workingText.replace(startPos, endPos, mod.getReplacementText());
+				workingText.replace(referenceOffset, endOffset, modification.getReplacementText());
 
-				shiftObjects(positionObject, true, mod.getReplacementText().length() - sub.getSourceLength(), false);
+				referenceOffsetDelta = sub.getReplacementText().length() - referencePosition.getLength();
+				TreeIterator<EObject> rootObjectIterator = workingModelResource.getAllContents();
+				shiftObjectsAffectedBySubstitution(rootObjectIterator, referencePosition, referenceOffsetDelta);
 			}				
 
 			logger.info("new working text: " + Activator.lineSep
 					+ workingText + Activator.lineSep);
 		}
+	}
+	
+	public String getWorkingText() {
+		return workingText.toString();
+	}
+	
+	private EObject getReferenceObject(Modification modification) {
+		return workingModelResource.getEObject(modification.getSourceEObjectUri());
+	}
+	
+	private void shiftObjectsAffectedBySubstitution(Iterator<? extends EObject> objectIterator, Position replacedObjectPosition, 
+			int referenceOffsetDelta) {		
+		EObject currentObject = null;
+
+		int replacedObjectStart = replacedObjectPosition.getOffset();
+		int replacedObjectEnd = replacedObjectPosition.getOffset() + replacedObjectPosition.getLength();
+
+		while (objectIterator.hasNext()) {
+			currentObject = objectIterator.next();
+			Position currentPosition = objectPositions.getPosition(currentObject);
+			int currentStart = currentPosition.getOffset();
+			int currentEnd = currentPosition.getOffset() + currentPosition.getLength();
+			
+			// replaced:     C{ }
+			// text:      A{BC{D}E}F
+			// positions: 0123456
+			// length:    10
+			//              1
+			//               4 1 1 1
+			
+			if (currentStartsWithinReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)
+					|| currentStartsAfterReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)) {
+				logShifting(currentObject, referenceOffsetDelta);
+				addOffset(currentPosition, referenceOffsetDelta);
+			}
+			
+			if (currentIsContainedInReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)
+					|| currentContainsReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)) {
+				logShifting(currentObject, referenceOffsetDelta);
+				addLength(currentPosition, referenceOffsetDelta);
+			}
+		}
+	}
+	
+	private void shiftObjectsAffectedByAdditionAfter(Iterator<? extends EObject> objectIterator, Position referencePosition, 
+			int referenceOffsetDelta) {
+		EObject currentObject = null;
+
+		int referenceStart = referencePosition.getOffset();
+		int referenceEnd = referencePosition.getOffset() + referencePosition.getLength();
+
+		while (objectIterator.hasNext()) {
+			currentObject = objectIterator.next();
+			Position currentPosition = objectPositions.getPosition(currentObject);
+			int currentStart = currentPosition.getOffset();
+			int currentEnd = currentPosition.getOffset() + currentPosition.getLength();
+			
+			// reference:    C{ }
+			// text:      A{BC{D}E}F
+			// positions: 0123456
+			// length:    10
+			//              1
+			//               4 1 1 1
+			
+			if (currentStartsAfterReference(referenceStart, referenceEnd, currentStart, currentEnd)) {
+				logShifting(currentObject, referenceOffsetDelta);
+				addOffset(currentPosition, referenceOffsetDelta);
+			}
+			
+			if (currentContainsReference(referenceStart, referenceEnd, currentStart, currentEnd)) {
+				logShifting(currentObject, referenceOffsetDelta);
+				addLength(currentPosition, referenceOffsetDelta);
+			}
+		}
+	}
+	
+	private void addOffset(Position position, int delta) {
+		position.setOffset(position.getOffset() + delta);
+	}
+
+	private void addLength(Position position, int delta) {
+		position.setLength(position.getLength() + delta);
+	}
+	
+	private boolean currentStartsWithinReference(int referenceStart, int referenceEnd, int currentStart, int currentEnd) {
+		return currentStart > referenceStart;
+	}
+	
+	private boolean currentStartsAfterReference(int referenceStart, int referenceEnd, int currentStart, int currentEnd) {
+		return currentStart > referenceEnd;
+	}
+
+	private boolean currentIsContainedInReference(int referenceStart, int referenceEnd, int currentStart, int currentEnd) {
+		return referenceStart < currentStart && currentEnd <= referenceEnd;
+	}
+	
+	private boolean currentContainsReference(int referenceStart, int referenceEnd, int currentStart, int currentEnd) {
+		return currentStart < referenceStart && referenceEnd <= currentEnd;
+	}
+
+	private void logShifting(EObject shiftedObject, int offsetDelta) {
+		logger.info("shifting object " + shiftedObject.eResource().getURIFragment(shiftedObject) + " by " + offsetDelta + " characters");
 	}
 	
 }
