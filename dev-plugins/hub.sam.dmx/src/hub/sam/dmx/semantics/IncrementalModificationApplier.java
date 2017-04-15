@@ -107,26 +107,28 @@ public class IncrementalModificationApplier {
 		while (objectIterator.hasNext()) {
 			currentObject = objectIterator.next();
 			Position currentPosition = objectPositions.getPosition(currentObject);
-			int currentStart = currentPosition.getOffset();
-			int currentEnd = currentPosition.getOffset() + currentPosition.getLength();
-			
-			// replaced:     C{ }
-			// text:      A{BC{D}E}F
-			// positions: 0123456
-			// length:    10
-			//              1
-			//               4 1 1 1
-			
-			if (currentStartsWithinReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)
-					|| currentStartsAfterReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)) {
-				logShifting(currentObject, referenceOffsetDelta);
-				addOffset(currentPosition, referenceOffsetDelta);
-			}
-			
-			if (currentIsContainedInReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)
-					|| currentContainsReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)) {
-				logShifting(currentObject, referenceOffsetDelta);
-				addLength(currentPosition, referenceOffsetDelta);
+			if (currentPosition != null) {
+				int currentStart = currentPosition.getOffset();
+				int currentEnd = currentPosition.getOffset() + currentPosition.getLength();
+				
+				// replaced:     C{ }
+				// text:      A{BC{D}E}F
+				// positions: 0123456
+				// length:    10
+				//              1
+				//               4 1 1 1
+				
+				if (currentStartsWithinReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)
+						|| currentStartsAfterReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)) {
+					logShifting(currentObject, referenceOffsetDelta);
+					addOffset(currentPosition, referenceOffsetDelta);
+				}
+				
+				if (currentIsContainedInReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)
+						|| currentContainsReference(replacedObjectStart, replacedObjectEnd, currentStart, currentEnd)) {
+					logShifting(currentObject, referenceOffsetDelta);
+					addLength(currentPosition, referenceOffsetDelta);
+				}
 			}
 		}
 	}
@@ -141,24 +143,26 @@ public class IncrementalModificationApplier {
 		while (objectIterator.hasNext()) {
 			currentObject = objectIterator.next();
 			Position currentPosition = objectPositions.getPosition(currentObject);
-			int currentStart = currentPosition.getOffset();
-			int currentEnd = currentPosition.getOffset() + currentPosition.getLength();
-			
-			// reference:    C{ }
-			// text:      A{BC{D}E}F
-			// positions: 0123456
-			// length:    10
-			//              1
-			//               4 1 1 1
-			
-			if (currentStartsAfterReference(referenceStart, referenceEnd, currentStart, currentEnd)) {
-				logShifting(currentObject, referenceOffsetDelta);
-				addOffset(currentPosition, referenceOffsetDelta);
-			}
-			
-			if (currentContainsReference(referenceStart, referenceEnd, currentStart, currentEnd)) {
-				logShifting(currentObject, referenceOffsetDelta);
-				addLength(currentPosition, referenceOffsetDelta);
+			if (currentPosition != null) {
+				int currentStart = currentPosition.getOffset();
+				int currentEnd = currentPosition.getOffset() + currentPosition.getLength();
+				
+				// reference:    C{ }
+				// text:      A{BC{D}E}F
+				// positions: 0123456
+				// length:    10
+				//              1
+				//               4 1 1 1
+				
+				if (currentStartsAfterReference(referenceStart, referenceEnd, currentStart, currentEnd)) {
+					logShifting(currentObject, referenceOffsetDelta);
+					addOffset(currentPosition, referenceOffsetDelta);
+				}
+				
+				if (currentContainsReference(referenceStart, referenceEnd, currentStart, currentEnd)) {
+					logShifting(currentObject, referenceOffsetDelta);
+					addLength(currentPosition, referenceOffsetDelta);
+				}
 			}
 		}
 	}
