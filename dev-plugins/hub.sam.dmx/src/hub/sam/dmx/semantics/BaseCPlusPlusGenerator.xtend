@@ -655,7 +655,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 */
 	protected def boolean needsComma(Class clazz){
 		val it = clazz
-		return (attributes.exists[!isClass] && (!superClasses.filter[!getConstructorArguments.empty].empty))
+		return (attributes.exists[!isClass])
 	}
 	/**
 	 * checks if colon is needed in constructor initializer list
@@ -664,7 +664,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 */
 	protected def boolean needsColon(Class clazz){
 		val it = clazz
-		return (attributes.exists[!isClass] && (superClasses.filter[!getConstructorArguments.empty].empty))
+		return (attributes.exists[!isClass])
 	}
 	/**
 	 * mapping from formal parameters in DBL on c++-parameters
@@ -690,13 +690,13 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++ string representation for c++ superclass constructor calls
 	 */
 	protected def String genSuperClassCalls(Class clazz, Constructor constructor){
-		'''
-			«FOR sc : clazz.getSuperClasses.filter[!getConstructorArguments.empty] BEFORE ':' SEPARATOR ','»
-				«sc.genType»
-				«IF (sc.getBindings.empty)»::«sc.genPreciseName»
-				«ENDIF»(«sc.getConstructorArguments.genActualParameters»)
-			«ENDFOR»
-		'''
+//		'''
+//			«FOR sc : clazz.getSuperClasses.filter[!getConstructorArguments.empty] BEFORE ':' SEPARATOR ','»
+//				«sc.genType»
+//				«IF (sc.getBindings.empty)»::«sc.genPreciseName»
+//				«ENDIF»(«sc.getConstructorArguments.genActualParameters»)
+//			«ENDFOR»
+//		'''
 	}
 	/**
 	 * mapping from DBL actual parameters on c++ actual parameters. In case of implicit array casts
@@ -742,11 +742,11 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 				return constructor.getParameters.get(pos);
 			}
 		}
-		else if(e?.eContainer instanceof SuperClassSpecification){
-			val superClass = e.eContainer as SuperClassSpecification
-			val constructor = superClass.class_.getConstructors.findFirst[getParameters.size == actualParams.size]
-			return constructor.getParameters.get(pos);
-		}
+//		else if(e?.eContainer instanceof SuperClassSpecification){
+//			val superClass = e.eContainer as SuperClassSpecification
+//			val constructor = superClass.class_.getConstructors.findFirst[getParameters.size == actualParams.size]
+//			return constructor.getParameters.get(pos);
+//		}
 		else return null
 	}
 	/**
