@@ -10,9 +10,11 @@ EStructuralFeature
 		"java" -> "org.eclipse.emf.ecore.EAttribute"
 	}
 	
+	boolean iD;
 	boolean isID();
-	void setID(boolean value);
+	EDataType eAttributeType;
 	EDataType getEAttributeType();
+
 }
 class EAnnotation
 extends 
@@ -22,13 +24,17 @@ EModelElement
 		"java" -> "org.eclipse.emf.ecore.EAnnotation"
 	}
 	
+	string source;
 	string getSource();
-	void setSource(string value);
+	EList details;
 	EList getDetails();
+	EModelElement eModelElement;
 	EModelElement getEModelElement();
-	void setEModelElement(EModelElement value);
+	EList contents;
 	EList getContents();
+	EList references;
 	EList getReferences();
+
 }
 class EClass
 extends 
@@ -38,24 +44,49 @@ EClassifier
 		"java" -> "org.eclipse.emf.ecore.EClass"
 	}
 	
+	boolean abstract;
 	boolean isAbstract();
-	void setAbstract(boolean value);
+	boolean interface;
 	boolean isInterface();
-	void setInterface(boolean value);
+	EList eSuperTypes;
 	EList getESuperTypes();
+	EList eOperations;
 	EList getEOperations();
+	EList eAllAttributes;
 	EList getEAllAttributes();
+	EList eAllReferences;
 	EList getEAllReferences();
+	EList eReferences;
 	EList getEReferences();
+	EList eAttributes;
 	EList getEAttributes();
+	EList eAllContainments;
 	EList getEAllContainments();
+	EList eAllOperations;
 	EList getEAllOperations();
+	EList eAllStructuralFeatures;
 	EList getEAllStructuralFeatures();
+	EList eAllSuperTypes;
 	EList getEAllSuperTypes();
+	EAttribute eIDAttribute;
 	EAttribute getEIDAttribute();
+	EList eStructuralFeatures;
 	EList getEStructuralFeatures();
+	EList eGenericSuperTypes;
 	EList getEGenericSuperTypes();
+	EList eAllGenericSuperTypes;
 	EList getEAllGenericSuperTypes();
+
+	boolean isSuperTypeOf(EClass someClass);
+	int getFeatureCount();
+	EStructuralFeature getEStructuralFeature(int featureID);
+	int getFeatureID(EStructuralFeature feature);
+	EStructuralFeature getEStructuralFeature(string featureName);
+	int getOperationCount();
+	EOperation getEOperation(int operationID);
+	int getOperationID(EOperation operation);
+	EOperation getOverride(EOperation operation);
+	EGenericType getFeatureType(EStructuralFeature feature);
 }
 class EClassifier
 extends 
@@ -65,14 +96,21 @@ ENamedElement
 		"java" -> "org.eclipse.emf.ecore.EClassifier"
 	}
 	
+	string instanceClassName;
 	string getInstanceClassName();
-	void setInstanceClassName(string value);
+	JavaClass instanceClass;
 	JavaClass getInstanceClass();
+	Object defaultValue;
 	Object getDefaultValue();
+	string instanceTypeName;
 	string getInstanceTypeName();
-	void setInstanceTypeName(string value);
+	EPackage ePackage;
 	EPackage getEPackage();
+	EList eTypeParameters;
 	EList getETypeParameters();
+
+	boolean isInstance(Object object);
+	int getClassifierID();
 }
 class EDataType
 extends 
@@ -82,8 +120,9 @@ EClassifier
 		"java" -> "org.eclipse.emf.ecore.EDataType"
 	}
 	
+	boolean serializable;
 	boolean isSerializable();
-	void setSerializable(boolean value);
+
 }
 class EEnum
 extends 
@@ -93,7 +132,12 @@ EDataType
 		"java" -> "org.eclipse.emf.ecore.EEnum"
 	}
 	
+	EList eLiterals;
 	EList getELiterals();
+
+	EEnumLiteral getEEnumLiteral(string name);
+	EEnumLiteral getEEnumLiteral(int value);
+	EEnumLiteral getEEnumLiteralByLiteral(string literal);
 }
 class EEnumLiteral
 extends 
@@ -103,13 +147,15 @@ ENamedElement
 		"java" -> "org.eclipse.emf.ecore.EEnumLiteral"
 	}
 	
+	int value;
 	int getValue();
-	void setValue(int value);
+	Enumerator instance;
 	Enumerator getInstance();
-	void setInstance(Enumerator value);
+	string literal;
 	string getLiteral();
-	void setLiteral(string value);
+	EEnum eEnum;
 	EEnum getEEnum();
+
 }
 class EFactory
 extends 
@@ -119,8 +165,12 @@ EModelElement
 		"java" -> "org.eclipse.emf.ecore.EFactory"
 	}
 	
+	EPackage ePackage;
 	EPackage getEPackage();
-	void setEPackage(EPackage value);
+
+	EObject create(EClass eClass);
+	Object createFromString(EDataType eDataType,string literalValue);
+	string convertToString(EDataType eDataType,Object instanceValue);
 }
 class EModelElement
 extends EObject
@@ -129,7 +179,10 @@ extends EObject
 		"java" -> "org.eclipse.emf.ecore.EModelElement"
 	}
 	
+	EList eAnnotations;
 	EList getEAnnotations();
+
+	EAnnotation getEAnnotation(string source);
 }
 class ENamedElement
 extends 
@@ -139,8 +192,9 @@ EModelElement
 		"java" -> "org.eclipse.emf.ecore.ENamedElement"
 	}
 	
+	string name;
 	string getName();
-	void setName(string value);
+
 }
 class Enumerator {
 	bindings {
@@ -155,11 +209,10 @@ class Resource {
 	string getURIFragment(EObject eObject);
 }
 
-string getURI(EObject eObject) {
-	return eObject.eResource().getURIFragment(eObject);
-}
-
 class EList extends List {
+	bindings {
+		"java" -> "org.eclipse.emf.common.util.EList"
+	}
 	void move(int newPos, Object object);
 	void move(int newPos, int oldPos);
 }
@@ -168,6 +221,7 @@ class EObject {
 	bindings {
 		"java" -> "org.eclipse.emf.ecore.EObject"
 	}
+	Resource eResource();
 	EClass eClass();
 	EObject eContainer();
 	EStructuralFeature eContainingFeature();
@@ -183,6 +237,10 @@ class EObject {
 	//boolean eIsProxy();
 	//Object eInvoke(EOperation operation, Object array[] arguments);
 }
+
+string getURI(EObject eObject) {
+	return eObject.eResource().getURIFragment(eObject);
+}			
 class EOperation
 extends 
 ETypedElement
@@ -191,11 +249,19 @@ ETypedElement
 		"java" -> "org.eclipse.emf.ecore.EOperation"
 	}
 	
+	EClass eContainingClass;
 	EClass getEContainingClass();
+	EList eTypeParameters;
 	EList getETypeParameters();
+	EList eParameters;
 	EList getEParameters();
+	EList eExceptions;
 	EList getEExceptions();
+	EList eGenericExceptions;
 	EList getEGenericExceptions();
+
+	int getOperationID();
+	boolean isOverrideOf(EOperation someOperation);
 }
 class EPackage
 extends 
@@ -205,15 +271,20 @@ ENamedElement
 		"java" -> "org.eclipse.emf.ecore.EPackage"
 	}
 	
+	string nsURI;
 	string getNsURI();
-	void setNsURI(string value);
+	string nsPrefix;
 	string getNsPrefix();
-	void setNsPrefix(string value);
+	EFactory eFactoryInstance;
 	EFactory getEFactoryInstance();
-	void setEFactoryInstance(EFactory value);
+	EList eClassifiers;
 	EList getEClassifiers();
+	EList eSubpackages;
 	EList getESubpackages();
+	EPackage eSuperPackage;
 	EPackage getESuperPackage();
+
+	EClassifier getEClassifier(string name);
 }
 class EParameter
 extends 
@@ -223,7 +294,9 @@ ETypedElement
 		"java" -> "org.eclipse.emf.ecore.EParameter"
 	}
 	
+	EOperation eOperation;
 	EOperation getEOperation();
+
 }
 class EReference
 extends 
@@ -233,15 +306,19 @@ EStructuralFeature
 		"java" -> "org.eclipse.emf.ecore.EReference"
 	}
 	
+	boolean containment;
 	boolean isContainment();
-	void setContainment(boolean value);
+	boolean container;
 	boolean isContainer();
+	boolean resolveProxies;
 	boolean isResolveProxies();
-	void setResolveProxies(boolean value);
+	EReference eOpposite;
 	EReference getEOpposite();
-	void setEOpposite(EReference value);
+	EClass eReferenceType;
 	EClass getEReferenceType();
+	EList eKeys;
 	EList getEKeys();
+
 }
 class EStructuralFeature
 extends 
@@ -251,20 +328,25 @@ ETypedElement
 		"java" -> "org.eclipse.emf.ecore.EStructuralFeature"
 	}
 	
+	boolean changeable;
 	boolean isChangeable();
-	void setChangeable(boolean value);
+	boolean volatile;
 	boolean isVolatile();
-	void setVolatile(boolean value);
+	boolean transient;
 	boolean isTransient();
-	void setTransient(boolean value);
+	string defaultValueLiteral;
 	string getDefaultValueLiteral();
-	void setDefaultValueLiteral(string value);
+	Object defaultValue;
 	Object getDefaultValue();
+	boolean unsettable;
 	boolean isUnsettable();
-	void setUnsettable(boolean value);
+	boolean derived;
 	boolean isDerived();
-	void setDerived(boolean value);
+	EClass eContainingClass;
 	EClass getEContainingClass();
+
+	int getFeatureID();
+	JavaClass getContainerClass();
 }
 class ETypedElement
 extends 
@@ -274,20 +356,23 @@ ENamedElement
 		"java" -> "org.eclipse.emf.ecore.ETypedElement"
 	}
 	
+	boolean ordered;
 	boolean isOrdered();
-	void setOrdered(boolean value);
+	boolean unique;
 	boolean isUnique();
-	void setUnique(boolean value);
+	int lowerBound;
 	int getLowerBound();
-	void setLowerBound(int value);
+	int upperBound;
 	int getUpperBound();
-	void setUpperBound(int value);
+	boolean many;
 	boolean isMany();
+	boolean required;
 	boolean isRequired();
+	EClassifier eType;
 	EClassifier getEType();
-	void setEType(EClassifier value);
+	EGenericType eGenericType;
 	EGenericType getEGenericType();
-	void setEGenericType(EGenericType value);
+
 }
 class EStringToStringMapEntry
 extends EObject
@@ -296,10 +381,11 @@ extends EObject
 		"java" -> "org.eclipse.emf.ecore.EStringToStringMapEntry"
 	}
 	
+	string key;
 	string getKey();
-	void setKey(string value);
+	string value;
 	string getValue();
-	void setValue(string value);
+
 }
 class EGenericType
 extends EObject
@@ -308,16 +394,20 @@ extends EObject
 		"java" -> "org.eclipse.emf.ecore.EGenericType"
 	}
 	
+	EGenericType eUpperBound;
 	EGenericType getEUpperBound();
-	void setEUpperBound(EGenericType value);
+	EList eTypeArguments;
 	EList getETypeArguments();
+	EClassifier eRawType;
 	EClassifier getERawType();
+	EGenericType eLowerBound;
 	EGenericType getELowerBound();
-	void setELowerBound(EGenericType value);
+	ETypeParameter eTypeParameter;
 	ETypeParameter getETypeParameter();
-	void setETypeParameter(ETypeParameter value);
+	EClassifier eClassifier;
 	EClassifier getEClassifier();
-	void setEClassifier(EClassifier value);
+
+	boolean isInstance(Object object);
 }
 class ETypeParameter
 extends 
@@ -327,5 +417,7 @@ ENamedElement
 		"java" -> "org.eclipse.emf.ecore.ETypeParameter"
 	}
 	
+	EList eBounds;
 	EList getEBounds();
+
 }

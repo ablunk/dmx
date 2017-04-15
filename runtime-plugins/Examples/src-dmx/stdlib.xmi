@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <module name="stdlib">
+    <classes name="JavaClass">
+      <bindings targetLanguage="java" targetType="java.lang.Class"/>
+    </classes>
     <classes name="Object">
       <bindings targetLanguage="java" targetType="java.lang.Object"/>
       <methods name="equals">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="other">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="hashCode">
@@ -16,7 +19,7 @@
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
     </classes>
-    <classes name="String" superClasses="//@module/@classes.0">
+    <classes name="String" superClasses="//@module/@classes.1">
       <bindings targetLanguage="java" targetType="java.lang.String"/>
       <constructors>
         <parameters name="original">
@@ -24,15 +27,15 @@
         </parameters>
       </constructors>
     </classes>
-    <classes name="SystemPrinter">
-      <bindings targetLanguage="java" targetType="hub.sam.dmx.semantics.javabridge.Printer"/>
-      <methods name="print">
+    <classes name="SystemOut">
+      <bindings targetLanguage="java" targetType="hub.sam.dmx.semantics.javabridge.SystemOut"/>
+      <methods name="print" class="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="s">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-      <methods name="println">
+      <methods name="println" class="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="s">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -45,18 +48,18 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="next">
-        <classifierType referencedElement="//@module/@classes.0"/>
+        <classifierType referencedElement="//@module/@classes.1"/>
       </methods>
       <methods name="remove">
         <primitiveType xsi:type="dbl:VoidType"/>
       </methods>
     </classes>
-    <classes name="RList">
+    <classes name="List">
       <bindings targetLanguage="java" targetType="java.util.List"/>
       <methods name="add">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="add">
@@ -65,56 +68,7 @@
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
-        </parameters>
-      </methods>
-      <methods name="contains">
-        <primitiveType xsi:type="dbl:BoolType"/>
-        <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
-        </parameters>
-      </methods>
-      <methods name="size">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </methods>
-      <methods name="get">
-        <classifierType referencedElement="//@module/@classes.0"/>
-        <parameters name="index">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-      </methods>
-      <methods name="indexOf">
-        <primitiveType xsi:type="dbl:IntType"/>
-        <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
-        </parameters>
-      </methods>
-      <methods name="isEmpty">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
-      <methods name="toArray">
-        <typeArrayDimensions/>
-        <classifierType referencedElement="//@module/@classes.0"/>
-      </methods>
-      <methods name="iterator">
-        <classifierType referencedElement="//@module/@classes.3"/>
-      </methods>
-    </classes>
-    <classes name="List" superClasses="//@module/@classes.4">
-      <bindings targetLanguage="java" targetType="java.util.List"/>
-      <methods name="add">
-        <primitiveType xsi:type="dbl:BoolType"/>
-        <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
-        </parameters>
-      </methods>
-      <methods name="add">
-        <primitiveType xsi:type="dbl:BoolType"/>
-        <parameters name="index">
-          <primitiveType xsi:type="dbl:IntType"/>
-        </parameters>
-        <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="clear">
@@ -123,14 +77,14 @@
       <methods name="contains">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="size">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="get">
-        <classifierType referencedElement="//@module/@classes.0"/>
+        <classifierType referencedElement="//@module/@classes.1"/>
         <parameters name="index">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
@@ -138,7 +92,7 @@
       <methods name="indexOf">
         <primitiveType xsi:type="dbl:IntType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="isEmpty">
@@ -147,24 +101,24 @@
       <methods name="remove">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="set">
-        <classifierType referencedElement="//@module/@classes.0"/>
+        <classifierType referencedElement="//@module/@classes.1"/>
         <parameters name="index">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="toArray">
         <typeArrayDimensions/>
-        <classifierType referencedElement="//@module/@classes.0"/>
+        <classifierType referencedElement="//@module/@classes.1"/>
       </methods>
       <methods name="iterator">
-        <classifierType referencedElement="//@module/@classes.3"/>
+        <classifierType referencedElement="//@module/@classes.4"/>
       </methods>
     </classes>
     <classes name="ArrayList" superClasses="//@module/@classes.5">
@@ -173,18 +127,18 @@
     <classes name="Map">
       <bindings targetLanguage="java" targetType="java.util.Map"/>
       <methods name="get">
-        <classifierType referencedElement="//@module/@classes.0"/>
+        <classifierType referencedElement="//@module/@classes.1"/>
         <parameters name="key">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="put">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="key">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
         <parameters name="value">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
     </classes>

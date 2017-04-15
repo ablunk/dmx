@@ -6,6 +6,7 @@ import java.io.Writer
 import org.eclipse.emf.ecore.ETypedElement
 import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.emf.ecore.EPackage
+import org.eclipse.emf.ecore.EOperation
 
 class EcoreToDblGenerator extends AbstractGenerator {
 	
@@ -42,10 +43,11 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	def String genFeature(EStructuralFeature feature) {
 		val it = feature
 		'''
+		«genAttribute»
 		«genGetter»
-		«IF changeable»
-			«genSetter»
-		«ENDIF»
+«««		«IF changeable»
+«««			«genSetter»
+«««		«ENDIF»
 		'''
 	}
 	
@@ -56,6 +58,13 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	def String genAttribute(EStructuralFeature feature) {
 		val it = feature
 		genType + ' ' + name.escapeName + ';'
+	}
+
+	def String genOperation(EOperation eOperation) {
+		val it = eOperation
+		'''
+		«genType» «name.escapeName»(«FOR param : EParameters SEPARATOR ','»«param.genType» «param.name»«ENDFOR»);
+		'''
 	}
 
 	def String genGetter(EStructuralFeature feature) {
@@ -91,6 +100,10 @@ class EcoreToDblGenerator extends AbstractGenerator {
 				«FOR feature : EStructuralFeatures»
 					«feature.genFeature»
 				«ENDFOR»
+
+				«FOR operation : EOperations»
+					«operation.genOperation»
+				«ENDFOR»
 			}
 			'''
 		}
@@ -107,10 +120,6 @@ class EcoreToDblGenerator extends AbstractGenerator {
 					"java" -> "org.eclipse.emf.ecore.resource.Resource"
 				}
 				string getURIFragment(EObject eObject);
-			}
-			
-			string getURI(EObject eObject) {
-				return eObject.eResource().getURIFragment(eObject);
 			}
 			
 			class EList extends List {
@@ -141,6 +150,10 @@ class EcoreToDblGenerator extends AbstractGenerator {
 				//boolean eIsProxy();
 				//Object eInvoke(EOperation operation, Object array[] arguments);
 			}
+
+			string getURI(EObject eObject) {
+				return eObject.eResource().getURIFragment(eObject);
+			}			
 			'''
 		}
 	}

@@ -1,5 +1,11 @@
 module stdlib;
 
+class JavaClass {
+	bindings {
+		"java" -> "java.lang.Class"
+	}
+}
+
 class Object {
 	bindings {
 		"java" -> "java.lang.Object"
@@ -16,12 +22,12 @@ class String extends Object {
 	new(string original) {}
 }
 
-class SystemPrinter {
+class SystemOut {
 	bindings {
-		"java" -> "hub.sam.dmx.semantics.javabridge.Printer"
+		"java" -> "hub.sam.dmx.semantics.javabridge.SystemOut"
 	}
-	void print(string s);
-	void println(string s);
+	static void print(string s);
+	static void println(string s);
 }
 
 class Iterator {
@@ -34,24 +40,7 @@ class Iterator {
 	void remove();
 }
 
-// List with only read operations
-class RList {
-	bindings {
-		"java" -> "java.util.List"
-	}
-
-	boolean add(Object e);
-	boolean add(int index, Object e);
-	boolean contains(Object e);
-	int size();
-	Object get(int index);
-	int indexOf(Object e);
-	boolean isEmpty();
-	Object array[] toArray();
-	Iterator iterator();
-}
-
-class List extends RList {
+class List {
 	bindings {
 		"java" -> "java.util.List"
 	}
