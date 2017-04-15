@@ -36,9 +36,11 @@ public class ExtensionManager implements IExtensionApplier {
 	@Override
 	public boolean addExtensions(Model model) {
 		boolean extensioninitionsAdded = false;
-		for (Extension extension: model.getModule().getExtensions()) {
-			if (!extensionsProcessed.containsKey(extension.getName())) {
-				extensioninitionsAdded |= addExtension(extension);;
+		if (model.getModule() != null) {
+			for (Extension extension: model.getModule().getExtensions()) {
+				if (!extensionsProcessed.containsKey(extension.getName())) {
+					extensioninitionsAdded |= addExtension(extension);;
+				}
 			}
 		}
 		return extensioninitionsAdded;

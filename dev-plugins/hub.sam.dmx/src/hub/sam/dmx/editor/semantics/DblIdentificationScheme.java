@@ -1046,10 +1046,12 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 	
 	private <E extends NamedElement> boolean addId(String identifier, E object, Collection allIds) {
 		boolean idsAdded = false;
-		final String objectName = ((NamedElement) object).getName();
-		if (objectName != null && objectName.equals(identifier)) {
-			allIds.add(getIdentitiy((EObject) object));
-			idsAdded = true;
+		if (object != null) {
+			final String objectName = ((NamedElement) object).getName();
+			if (objectName != null && objectName.equals(identifier)) {
+				allIds.add(getIdentitiy((EObject) object));
+				idsAdded = true;
+			}
 		}
 		return idsAdded;
 	}
