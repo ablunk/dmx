@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../../dbl">
-    <model href="../../dbl.xmi#/"/>
+  <imports file="../../../dbl">
+    <model href="../../../dbl.xmi#/"/>
   </imports>
   <module name="ext_reuse_reference">
     <extensions name="E">
-      <extensionPoint href="../../dbl.xmi#//@module/@classes.33"/>
+      <extensionPoint href="../../../dbl.xmi#//@module/@classes.33"/>
       <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="ER">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
@@ -21,7 +21,7 @@
       </syntaxDefinition>
     </extensions>
     <extensions name="B">
-      <extensionPoint href="../../dbl.xmi#//@module/@classes.33"/>
+      <extensionPoint href="../../../dbl.xmi#//@module/@classes.33"/>
       <syntaxDefinition startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.0">
         <symbols name="BR">
           <possibleSyntax xsi:type="dbl:SymbolSequence">

@@ -1,15 +1,10 @@
-#import "../../dbl"
+#import "../../../dbl"
 
-module x {
+module extensionextensionreference;
 
 extension EDefX extends dbl SimpleStatement {
 	start EDef;
 	EDef -> "xe" "def" name:ID ";";
-}
-
-extension ERefX extends dbl SimpleStatement {
-	start ERef;
-	ERef -> "xe" "ref" e:$$EDefX ";";
 }
 
 extension FDefX extends extension EDefX {
@@ -17,4 +12,7 @@ extension FDefX extends extension EDefX {
 	FDef -> "xf" "def" name:ID ";";
 }
 
+extension ERefX extends dbl SimpleStatement {
+	start ERef;
+	ERef -> "xe" "ref" e:$$EDefX ";";
 }

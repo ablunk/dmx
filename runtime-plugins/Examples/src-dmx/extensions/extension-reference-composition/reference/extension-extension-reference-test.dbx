@@ -1,0 +1,11 @@
+#import "extension-extension-reference"
+
+module extensionextensionreferencetest;
+
+void main() {
+	xe def a;
+	xf def b;
+	
+	xe ref a;
+	xe ref b;
+}

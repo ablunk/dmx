@@ -3,42 +3,20 @@
   <imports file="../../../dbl">
     <model href="../../../dbl.xmi#/"/>
   </imports>
-  <module name="extensionextension">
-    <extensions name="A">
-      <extensionPoint href="../../../dbl.xmi#//@module/@classes.11"/>
+  <module name="extensionextensionreference">
+    <extensions name="EDefX">
+      <extensionPoint href="../../../dbl.xmi#//@module/@classes.33"/>
       <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
-        <symbols name="AR">
+        <symbols name="EDef">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
-              <ownedClassifier xsi:type="dbl:Keyword" keyword="xa"/>
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="xe"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
-              <ownedClassifier xsi:type="dbl:Keyword" keyword="{"/>
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="def"/>
             </sequence>
-            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
-            <sequence xsi:type="dbl:PlainSymbolReference">
-              <ownedClassifier xsi:type="dbl:Keyword" keyword="}"/>
-            </sequence>
-          </possibleSyntax>
-        </symbols>
-        <symbols name="ManyB">
-          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
-        </symbols>
-        <symbols name="ManyB">
-          <possibleSyntax xsi:type="dbl:SymbolSequence">
-            <sequence xsi:type="dbl:StructuralSymbolReference" name="b" referencedClassifier="//@module/@extensions.1"/>
-            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
-          </possibleSyntax>
-        </symbols>
-      </syntaxDefinition>
-    </extensions>
-    <extensions name="B">
-      <extensionPoint href="../../../dbl.xmi#//@module/@classes.47"/>
-      <syntaxDefinition startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.0">
-        <symbols name="BR">
-          <possibleSyntax xsi:type="dbl:SymbolSequence">
-            <sequence xsi:type="dbl:PlainSymbolReference">
-              <ownedClassifier xsi:type="dbl:Keyword" keyword="xb"/>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
@@ -47,13 +25,38 @@
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensions name="C" extensionPoint="//@module/@extensions.1">
-      <syntaxDefinition startSymbol="//@module/@extensions.2/@syntaxDefinition/@symbols.0">
-        <symbols name="CR">
+    <extensions name="FDefX" extensionPoint="//@module/@extensions.0">
+      <syntaxDefinition startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.0">
+        <symbols name="FDef">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
-              <ownedClassifier xsi:type="dbl:Keyword" keyword="xc"/>
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="xf"/>
             </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="def"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="ERefX">
+      <extensionPoint href="../../../dbl.xmi#//@module/@classes.33"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.2/@syntaxDefinition/@symbols.0">
+        <symbols name="ERef">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="xe"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="ref"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="e" referencedClassifier="//@module/@extensions.0" globalScopedReference="true"/>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
             </sequence>
