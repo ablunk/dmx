@@ -71,8 +71,8 @@ public class EditorConsole implements ProgramOutputPrinter {
 
 	private MessageConsoleStream newErrorStream() {
 		MessageConsoleStream errorStream = getConsoleForCurrentEditor().newMessageStream();
-		final Color errorColor = associatedDisplay.getSystemColor(SWT.COLOR_RED);
-		errorStream.setColor(errorColor);
+		//final Color errorColor = associatedDisplay.getSystemColor(SWT.COLOR_RED);
+		//errorStream.setColor(errorColor);
 		return errorStream;
 	}
 
