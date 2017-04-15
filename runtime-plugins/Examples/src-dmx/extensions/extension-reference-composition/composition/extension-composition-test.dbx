@@ -1,0 +1,13 @@
+#import "extension-composition"
+
+module extensioncompositiontest;
+
+class C {
+	xa {
+		xb;
+	}
+}
+
+void main() {
+	xb;
+}

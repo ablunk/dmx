@@ -1,0 +1,10 @@
+#import "extension-extension"
+
+module C;
+
+class C {
+	xa {
+		xb;
+		xc;
+	}
+}

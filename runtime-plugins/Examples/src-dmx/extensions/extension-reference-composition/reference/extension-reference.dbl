@@ -1,0 +1,14 @@
+#import "../../dbl"
+
+module ext_reuse_reference;
+
+// extension E refers to another extension B
+extension E extends dbl SimpleStatement {
+	start ER;
+	ER -> "xe" b:$$B ";";
+}
+
+extension B extends dbl SimpleStatement {
+	start BR;
+	BR -> "xb" name:ID ";";
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="extension-composition">
+    <model href="extension-composition.xmi#/"/>
+  </imports>
+  <module name="extensioncompositiontest">
+    <classes name="C" concreteSyntax="class C {&#xA;&#x9;xa {&#xA;&#x9;&#x9;xb;&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:A_AR_extension" concreteSyntax="xa {&#xA;&#x9;&#x9;xb;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <b concreteSyntax="xb;" instanceOfExtensionDefinition="true"/>
+      </contentExtensions>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:B_BR_extension" concreteSyntax="xb;" instanceOfExtensionDefinition="true"/>
+    </functions>
+  </module>
+</dbl:Model>

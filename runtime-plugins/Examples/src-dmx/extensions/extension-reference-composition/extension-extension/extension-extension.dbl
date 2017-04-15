@@ -1,6 +1,6 @@
 #import "../../dbl"
 
-module ext_reuse_extension {
+module extensionextension;
 
 extension A extends dbl ClassContentExtension {
 	start AR;
@@ -9,7 +9,7 @@ extension A extends dbl ClassContentExtension {
 	ManyB -> b:B ManyB;
 }
 
-extension B extends dbl SimpleStatement {
+extension B extends dbl LocalScope {
 	start BR;
 	BR -> "xb" ";";
 }
@@ -18,6 +18,4 @@ extension B extends dbl SimpleStatement {
 extension C extends extension B {
 	start CR;
 	CR -> "xc" ";";
-}
-
 }

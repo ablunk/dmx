@@ -1,0 +1,14 @@
+#import "extension-composition-polymorph"
+
+module extensioncompositionpolymorphtest;
+
+class C {
+	xd {
+		xb;
+		dpart;
+	}
+}
+
+void main() {
+	xb;
+}

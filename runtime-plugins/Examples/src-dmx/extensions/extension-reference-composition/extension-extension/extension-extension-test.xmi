@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="extension-extension">
+    <model href="extension-extension.xmi#/"/>
+  </imports>
+  <module name="C">
+    <classes name="C" concreteSyntax="class C {&#xA;&#x9;xa {&#xA;&#x9;&#x9;xb;&#xA;&#x9;&#x9;xc;&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:A_AR_extension" concreteSyntax="xa {&#xA;&#x9;&#x9;xb;&#xA;&#x9;&#x9;xc;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <b/>
+        <b xsi:type="dbl:C_CR_extension"/>
+      </contentExtensions>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+    </functions>
+  </module>
+</dbl:Model>

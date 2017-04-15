@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="extension-reference">
+    <model href="extension-reference.xmi#/"/>
+  </imports>
+  <module name="extensionreferencetest">
+    <functions name="test">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:E_ER_extension" concreteSyntax="xe k;" instanceOfExtensionDefinition="true" b="//@module/@functions.1/@statements.0"/>
+    </functions>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:B_BR_extension" name="k" concreteSyntax="xb k;" instanceOfExtensionDefinition="true"/>
+    </functions>
+  </module>
+</dbl:Model>

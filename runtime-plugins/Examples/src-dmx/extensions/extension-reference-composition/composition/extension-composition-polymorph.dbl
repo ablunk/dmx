@@ -1,13 +1,8 @@
 #import "../../dbl"
 
-module ext_reuse_composition2 {
+module extensioncompositionpolymorph;
 
-extension B extends dbl SimpleStatement {
-	start BR;
-	BR -> "xb" ";";
-}
-
-// an extension D which is also composed of another extension B
+// an extension D which can be composed of another extension B or of DParts
 extension D extends dbl ClassContentExtension {
 	start DR;
 	DR -> "xd" "{" part:Part "}";
@@ -17,4 +12,7 @@ extension D extends dbl ClassContentExtension {
 	DPart -> "dpart" ";";
 }
 
+extension B extends dbl SimpleStatement {
+	start BR;
+	BR -> "xb" ";";
 }
