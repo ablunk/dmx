@@ -3,7 +3,7 @@
   <imports file="kinds">
     <model href="kinds.xmi#/"/>
   </imports>
-  <modules name="testKinds">
+  <module name="testKinds">
     <contentExtensions xsi:type="dbl:MC_MC_extension" concreteSyntax="mc;" instanceOfExtensionDefinition="true"/>
     <classes name="A" concreteSyntax="class A {&#xA;&#x9;cc;&#xA;}">
       <contentExtensions xsi:type="dbl:CC_CC_extension" concreteSyntax="cc;" instanceOfExtensionDefinition="true"/>
@@ -15,5 +15,5 @@
         <outputs xsi:type="dbl:E_E_extension" concreteSyntax="ex" instanceOfExtensionDefinition="true"/>
       </statements>
     </functions>
-  </modules>
+  </module>
 </dbl:Model>

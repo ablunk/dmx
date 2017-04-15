@@ -1,13 +1,13 @@
 #import "../../dbl"
 
-module kinds {
+module kinds;
 
-extension MC extends dbl ModuleContent {
+extension MC extends dbl ModuleContentExtension {
 	start MC;
 	MC -> "mc" ";";
 }
 
-extension CC extends dbl ClassContent {
+extension CC extends dbl ClassContentExtension {
 	start CC;
 	CC -> "cc" ";";
 }
@@ -20,6 +20,4 @@ extension S extends dbl Statement {
 extension E extends dbl Expression {
 	start E;
 	E -> "ex";
-}
-
 }

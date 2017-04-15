@@ -1,6 +1,6 @@
 #import "../stdlib"
 
-module barbershop {
+module barbershop;
 
 	boolean debug = true;
 	
@@ -78,5 +78,3 @@ module barbershop {
 			print time + " - " + active + ": " + msg + "\n";
 		}
 	}
-	
-}

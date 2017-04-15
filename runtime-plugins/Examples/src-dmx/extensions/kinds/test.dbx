@@ -1,6 +1,6 @@
 #import "kinds"
 
-module testKinds {
+module testKinds;
 
 mc;
 
@@ -11,6 +11,4 @@ class A {
 void main() {
 	sx;
 	print(ex);
-}
-
 }

@@ -3,49 +3,63 @@
   <imports file="../../dbl">
     <model href="../../dbl.xmi#/"/>
   </imports>
-  <modules name="kinds">
-    <extensionDefinitions name="MC">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.7"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0">
-        <rules name="MC">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="mc"/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionDefinitions name="CC">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.8"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.1/@textualSyntaxDef/@rules.0">
-        <rules name="CC">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="cc"/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionDefinitions name="S">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.27"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.2/@textualSyntaxDef/@rules.0">
-        <rules name="S">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="sx"/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionDefinitions name="E">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.50"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.3/@textualSyntaxDef/@rules.0">
-        <rules name="E">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="ex"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-  </modules>
+  <module name="kinds">
+    <extensions name="MC">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.10"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="MC">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="mc"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="CC">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.11"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.0">
+        <symbols name="CC">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="cc"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="S">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.31"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.2/@syntaxDefinition/@symbols.0">
+        <symbols name="S">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="sx"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="E">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.55"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.3/@syntaxDefinition/@symbols.0">
+        <symbols name="E">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="ex"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+  </module>
 </dbl:Model>

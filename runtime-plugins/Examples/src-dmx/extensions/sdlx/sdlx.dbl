@@ -1,13 +1,13 @@
 #import "../../dbl"
 
-module sdlx {
+module sdlx;
 
 extension SdlSystem extends dbl ModuleContentExtension {
 	start System;
 	
 	System -> "system" name:ID ";" SystemEntityListOpt "endsystem" ";";
 	SystemEntityListOpt -> ;
-	SystemEntityListOpt -> entities:list(SdlSystemEntity) SystemEntityListOpt;
+	SystemEntityListOpt -> entities:list SdlSystemEntity SystemEntityListOpt;
 	//SystemEntity -> pdef:SdlProcessDefinition;
 	//SystemEntity -> SignalDefinition;
 	//SystemEntity -> TimerDefinition;
@@ -47,7 +47,7 @@ extension SdlProcessDefinition extends extension SdlSystemEntity {
 	ProcessEndNameOpt -> endNameRef:$$ProcessDefinition;
 	
 	ProcessEntityListOpt -> ;
-	ProcessEntityListOpt -> entities:list(SdlSystemEntity) ProcessEntityListOpt;
+	ProcessEntityListOpt -> entities:list SdlSystemEntity ProcessEntityListOpt;
 	//ProcessEntity -> SignalDefinition;
 	//ProcessEntity -> SdlTimerDefinition;
 	//ProcessEntity -> VariableDefinition;
@@ -65,14 +65,11 @@ extension SdlStateMachine extends dbl ClassContentExtension {
 	Start -> "start" ";";
 	
 	StateListOpt -> ;
-	StateListOpt -> states:list(State) StateListOpt;
+	StateListOpt -> states:list State StateListOpt;
 	
 	State -> "state" name:ID ";" "endstate" StateEndNameOpt ";";
 	StateEndNameOpt -> ;
 	StateEndNameOpt -> endNameRef:$$State;
 	
-
-}
-
 
 }

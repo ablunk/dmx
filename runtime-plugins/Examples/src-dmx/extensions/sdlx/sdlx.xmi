@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <module name="sdlx">
+    <extensions name="SdlSystem">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.10"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="System">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="system"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="endsystem"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="SystemEntityListOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="SystemEntityListOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="entities" referencedClassifier="//@module/@extensions.1" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SdlSystemEntity">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.10"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.0">
+        <symbols name="SystemEntity">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="noentity"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SdlTimerDefinition" extensionPoint="//@module/@extensions.1">
+      <syntaxDefinition startSymbol="//@module/@extensions.2/@syntaxDefinition/@symbols.0">
+        <symbols name="TimerDefinition">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="timer"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SdlProcessDefinition" extensionPoint="//@module/@extensions.1">
+      <syntaxDefinition startSymbol="//@module/@extensions.3/@syntaxDefinition/@symbols.0">
+        <symbols name="ProcessDefinition">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="process"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.4"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.6"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="endprocess"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.2"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="ProcessEndNameOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="ProcessEndNameOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="endNameRef" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.0" globalScopedReference="true"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="ProcessEntityListOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="ProcessEntityListOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="entities" referencedClassifier="//@module/@extensions.1" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.4"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="ProcessStateMachineOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="ProcessStateMachineOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="stateMachine" referencedClassifier="//@module/@extensions.4"/>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SdlStateMachine">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.11"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.4/@syntaxDefinition/@symbols.0">
+        <symbols name="StateMachine">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="stategraph"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="{"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="start" referencedClassifier="//@module/@extensions.4/@syntaxDefinition/@symbols.1"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.4/@syntaxDefinition/@symbols.3"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="}"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Start">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="start"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="StateListOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="StateListOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="states" referencedClassifier="//@module/@extensions.4/@syntaxDefinition/@symbols.4" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.4/@syntaxDefinition/@symbols.3"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="State">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="state"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="endstate"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.4/@syntaxDefinition/@symbols.5"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="StateEndNameOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="StateEndNameOpt">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="endNameRef" referencedClassifier="//@module/@extensions.4/@syntaxDefinition/@symbols.4" globalScopedReference="true"/>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+  </module>
+</dbl:Model>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="sdlx">
+    <model href="sdlx.xmi#/"/>
+  </imports>
+  <module name="sdlx_application">
+    <contentExtensions xsi:type="dbl:SdlSystem_System_extension" name="X" concreteSyntax="system X;&#xA;&#x9;timer T1;&#xA;&#x9;&#x9;&#xA;&#x9;process Q;&#xA;&#x9;&#x9;timer T3;&#xA;&#xA;&#x9;&#x9;stategraph {&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;state K;&#xA;&#x9;&#x9;&#x9;endstate K;&#xA;&#x9;&#x9;}&#xA;&#x9;endprocess Q; // putting a correct name (like Q here) cannot be defined / enforced&#xA;&#x9;&#xA;endsystem;" instanceOfExtensionDefinition="true">
+      <entities xsi:type="dbl:SdlTimerDefinition_TimerDefinition_extension" name="T1" concreteSyntax="timer T1;" instanceOfExtensionDefinition="true"/>
+      <entities xsi:type="dbl:SdlProcessDefinition_ProcessDefinition_extension" name="Q" concreteSyntax="process Q;&#xA;&#x9;&#x9;timer T3;&#xA;&#xA;&#x9;&#x9;stategraph {&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;state K;&#xA;&#x9;&#x9;&#x9;endstate K;&#xA;&#x9;&#x9;}&#xA;&#x9;endprocess Q;" instanceOfExtensionDefinition="true" endNameRef="//@module/@contentExtensions.0/@entities.1">
+        <entities xsi:type="dbl:SdlTimerDefinition_TimerDefinition_extension" name="T3" concreteSyntax="timer T3;" instanceOfExtensionDefinition="true"/>
+        <stateMachine concreteSyntax="stategraph {&#xA;&#x9;&#x9;&#x9;start;&#xA;&#x9;&#x9;&#x9;state K;&#xA;&#x9;&#x9;&#x9;endstate K;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <start concreteSyntax="start;"/>
+          <states name="K" concreteSyntax="state K;&#xA;&#x9;&#x9;&#x9;endstate K;" endNameRef="//@module/@contentExtensions.0/@entities.1/@stateMachine/@states.0"/>
+        </stateMachine>
+      </entities>
+    </contentExtensions>
+    <functions name="trace">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (debug) {&#xA;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="debug" referencedElement="//@module/@variables.0"/>
+        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg + &quot;\n&quot;">
+              <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot; + msg">
+                <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active + &quot;: &quot;">
+                  <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot; + active">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="time + &quot; - &quot;">
+                      <op1 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+                      <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot; - &quot;" value=" - "/>
+                    </op1>
+                    <op2 xsi:type="dbl:ActiveLiteral" concreteSyntax="active"/>
+                  </op1>
+                  <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;: &quot;" value=": "/>
+                </op1>
+                <op2 xsi:type="dbl:IdExpr" concreteSyntax="msg" referencedElement="//@module/@functions.0/@parameters.0"/>
+              </op1>
+              <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+            </outputs>
+          </statements>
+        </trueCase>
+      </statements>
+      <parameters name="msg">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+    </functions>
+    <variables name="debug" concreteSyntax="boolean debug = true">
+      <primitiveType xsi:type="dbl:BoolType"/>
+      <initialValue xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+    </variables>
+  </module>
+</dbl:Model>
