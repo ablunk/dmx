@@ -1,6 +1,6 @@
 #import "../../dbl"
 
-module hello {
+module hello;
 
 extension Hello extends dbl SimpleStatement {
 	start HelloSyntax;
@@ -10,6 +10,4 @@ extension Hello extends dbl SimpleStatement {
 
 semantics for Hello {
 	expand "print \"Hello " name " " x.s "\n\";";
-}
-
 }

@@ -17,7 +17,7 @@ semantics for ForEach {
 	expand "Iterator " it " = " collection ".iterator();";
 	expand "while (" it ".hasNext()) {";
 	expand "	Object " item " = " it ".next();";
-	expand 		itemVariable " = " item " as " itemVariable.getClassifierType() ";";
+	expand 		itemVariable " = " item " as " itemVariable.classifierType ";";
 	expand		body;
 	expand "}";
 }

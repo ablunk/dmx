@@ -3,12 +3,12 @@
   <imports file="hello">
     <model href="hello.xmi#/"/>
   </imports>
-  <modules name="hello_test">
+  <module name="hello_test">
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Hello_HelloSyntax_extension" name="SAM" concreteSyntax="Hello SAM x &quot;sin&quot; !" instanceOfExtensionDefinition="true">
-        <x concreteSyntax="x &quot;sin&quot;" instanceOfExtensionDefinition="true" s="sin"/>
+        <x concreteSyntax="x &quot;sin&quot;" s="sin"/>
       </statements>
     </functions>
-  </modules>
+  </module>
 </dbl:Model>

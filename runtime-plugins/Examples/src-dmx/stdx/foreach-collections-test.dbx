@@ -1,4 +1,4 @@
-#import "foreach"
+#import "foreach-collections"
 
 module stdx_foreach_test;
 
@@ -13,12 +13,6 @@ void f1(List l) {
 void f2(List l) {
 	foreach (Object item in l) {
 		print "foreach: " + item + "\n";
-	}	
-}
-
-void f3(int array[] a) {
-	foreach (int item in a) {
-		print "array foreach: " + item + "\n";
 	}
 }
 
@@ -29,7 +23,4 @@ void main() {
 	l.add(3);
 	f1(l);
 	f2(l);
-
-	int array[] a = new int array[3];
-	f3(a);
 }

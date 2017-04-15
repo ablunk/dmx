@@ -1,9 +1,7 @@
 #import "hello"
 
-module hello_test {
+module hello_test;
 
 void main() {
 	Hello SAM x "sin" !
-}
-
 }

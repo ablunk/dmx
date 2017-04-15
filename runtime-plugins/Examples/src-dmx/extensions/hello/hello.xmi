@@ -3,10 +3,10 @@
   <imports file="../../dbl">
     <model href="../../dbl.xmi#/"/>
   </imports>
-  <modules name="hello">
+  <module name="hello">
     <extensions name="Hello">
-      <extensionPoint href="../../dbl.xmi#//@modules.0/@classes.32"/>
-      <syntaxDefinition startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.33"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="HelloSyntax">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
@@ -15,7 +15,7 @@
             <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
               <ownedClassifier xsi:type="dbl:IdSymbol"/>
             </sequence>
-            <sequence xsi:type="dbl:StructuralSymbolReference" name="x" referencedClassifier="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1"/>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="x" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.1"/>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" keyword="!"/>
             </sequence>
@@ -33,20 +33,20 @@
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensionSemantics syntaxDefinition="//@modules.0/@extensions.0">
+    <extensionSemantics syntaxDefinition="//@module/@extensions.0">
       <statements xsi:type="dbl:ExpansionStatement">
         <parts xsi:type="dbl:ExpandTextPart" text="print \&quot;Hello "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+          <expr xsi:type="dbl:IdExpr" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=" "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.1/@possibleSyntax/@sequence.1">
-            <parentIdExpr referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
+          <expr xsi:type="dbl:IdExpr" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.1/@possibleSyntax/@sequence.1">
+            <parentIdExpr referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.2"/>
           </expr>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text="\n\&quot;;"/>
       </statements>
     </extensionSemantics>
-  </modules>
+  </module>
 </dbl:Model>

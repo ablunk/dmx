@@ -37,7 +37,7 @@
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensionSemantics concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#xA;&#x9;ID it;&#xA;&#x9;ID item; &#xA;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.getClassifierType() &quot;;&quot;;&#xA;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;expand &quot;}&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.0">
+    <extensionSemantics concreteSyntax="semantics for ForEach {&#x9;&#xA;&#x9;Variable itemVariable = statements.get(0) as Variable;&#xA;&#xA;&#x9;ID it;&#xA;&#x9;ID item; &#xA;&#x9;expand &quot;Iterator &quot; it &quot; = &quot; collection &quot;.iterator();&quot;;&#xA;&#x9;expand &quot;while (&quot; it &quot;.hasNext()) {&quot;;&#xA;&#x9;expand &quot;&#x9;Object &quot; item &quot; = &quot; it &quot;.next();&quot;;&#xA;&#x9;expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;;&#xA;&#x9;expand&#x9;&#x9;body;&#xA;&#x9;expand &quot;}&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.0">
       <statements xsi:type="dbl:Variable" name="itemVariable" concreteSyntax="Variable itemVariable = statements.get(0) as Variable">
         <classifierType concreteSyntax="Variable">
           <referencedElement href="../dbl.xmi#//@module/@classes.28"/>
@@ -86,7 +86,7 @@
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=".next();"/>
       </statements>
-      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.getClassifierType() &quot;;&quot;">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#x9;&#x9;itemVariable &quot; = &quot; item &quot; as &quot; itemVariable.classifierType &quot;;&quot;">
         <parts xsi:type="dbl:ExpandVariablePart">
           <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable" referencedElement="//@module/@extensionSemantics.0/@statements.0"/>
         </parts>
@@ -96,10 +96,9 @@
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=" as "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable.getClassifierType()">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="itemVariable.classifierType">
             <parentIdExpr concreteSyntax="itemVariable" referencedElement="//@module/@extensionSemantics.0/@statements.0"/>
-            <referencedElement href="../dbl.xmi#//@module/@classes.13/@methods.3"/>
-            <callPart/>
+            <referencedElement href="../dbl.xmi#//@module/@classes.13/@attributes.2"/>
           </expr>
         </parts>
         <parts xsi:type="dbl:ExpandTextPart" text=";"/>
