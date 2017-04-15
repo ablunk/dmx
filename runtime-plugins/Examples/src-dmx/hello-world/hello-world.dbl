@@ -1,27 +1,25 @@
-module hello_world {
+module hello_world;
 
-	class Greeter {
-		string helloGreeting;
-		
-		new() {
-			helloGreeting = "hello";
-		}
-		
-		new(string helloGreeting_) {
-			helloGreeting = helloGreeting_;
-		}
+class Greeter {
+	string helloGreeting;
 	
-		void sayHelloTo(string receiver) {
-			print helloGreeting + " " + receiver + "\n";
-		}
+	new() {
+		helloGreeting = "hello";
 	}
 	
-	// very simple hello world example
-	void main() {
-		Greeter greeter;
-		
-		greeter = new Greeter();
-		greeter.sayHelloTo("world");
+	new(string helloGreeting_) {
+		helloGreeting = helloGreeting_;
 	}
+
+	void sayHelloTo(string receiver) {
+		print helloGreeting + " " + receiver + "\n";
+	}
+}
+
+// very simple hello world example
+void main() {
+	Greeter greeter;
 	
+	greeter = new Greeter();
+	greeter.sayHelloTo("world");
 }

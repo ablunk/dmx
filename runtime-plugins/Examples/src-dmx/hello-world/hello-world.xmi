@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <modules name="hello_world">
+  <module name="hello_world">
     <classes name="Greeter">
       <constructors>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+            <idExpr referencedElement="//@module/@classes.0/@attributes.0"/>
           </variable>
           <value xsi:type="dbl:StringLiteral" value="hello"/>
         </statements>
@@ -13,9 +13,9 @@
       <constructors>
         <statements xsi:type="dbl:Assignment">
           <variable>
-            <idExpr referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+            <idExpr referencedElement="//@module/@classes.0/@attributes.0"/>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@constructors.1/@parameters.0"/>
+          <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.0/@constructors.1/@parameters.0"/>
         </statements>
         <parameters name="helloGreeting_">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -30,10 +30,10 @@
           <outputs xsi:type="dbl:Plus">
             <op1 xsi:type="dbl:Plus">
               <op1 xsi:type="dbl:Plus">
-                <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@attributes.0"/>
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.0/@attributes.0"/>
                 <op2 xsi:type="dbl:StringLiteral" value=" "/>
               </op1>
-              <op2 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@classes.0/@methods.0/@parameters.0"/>
+              <op2 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.0/@methods.0/@parameters.0"/>
             </op1>
             <op2 xsi:type="dbl:StringLiteral" value="\n"/>
           </outputs>
@@ -46,26 +46,26 @@
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="greeter">
-        <classifierType referencedElement="//@modules.0/@classes.0"/>
+        <classifierType referencedElement="//@module/@classes.0"/>
       </statements>
       <statements xsi:type="dbl:Assignment">
         <variable>
-          <idExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+          <idExpr referencedElement="//@module/@functions.0/@statements.0"/>
         </variable>
         <value xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@modules.0/@classes.0">
+          <classifierType referencedElement="//@module/@classes.0">
             <callPart/>
           </classifierType>
         </value>
       </statements>
       <statements xsi:type="dbl:FunctionCall">
-        <callIdExpr referencedElement="//@modules.0/@classes.0/@methods.0">
-          <parentIdExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
+        <callIdExpr referencedElement="//@module/@classes.0/@methods.0">
+          <parentIdExpr referencedElement="//@module/@functions.0/@statements.0"/>
           <callPart>
             <callArguments xsi:type="dbl:StringLiteral" value="world"/>
           </callPart>
         </callIdExpr>
       </statements>
     </functions>
-  </modules>
+  </module>
 </dbl:Model>
