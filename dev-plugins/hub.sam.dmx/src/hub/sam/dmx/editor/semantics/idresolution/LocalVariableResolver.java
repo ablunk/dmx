@@ -1,6 +1,7 @@
 package hub.sam.dmx.editor.semantics.idresolution;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -9,7 +10,6 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Function;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.LocalScope;
-import hub.sam.dbl.NamedElement;
 import hub.sam.dbl.Variable;
 
 public class LocalVariableResolver extends HierarchicalResolver implements ElementResolver<IdExpr> {
@@ -21,7 +21,8 @@ public class LocalVariableResolver extends HierarchicalResolver implements Eleme
 	}
 	
 	private Collection<IdentifiedElement> resolveLocalVariables(String identifier, LocalScope localScopeContext) {
-		Collection<IdentifiedElement> localVariables = resolveLocalScopeVariables(identifier, localScopeContext);
+		Collection<IdentifiedElement> localVariables = new HashSet<>();
+		localVariables.addAll(resolveLocalScopeVariables(identifier, localScopeContext));
 		localVariables.addAll(resolveMethodParameters(identifier, localScopeContext));
 		localVariables.addAll(resolveConstructorParameters(identifier, localScopeContext));
 		

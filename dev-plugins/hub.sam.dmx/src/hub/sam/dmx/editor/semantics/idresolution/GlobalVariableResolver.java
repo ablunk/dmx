@@ -5,7 +5,6 @@ import java.util.Collection;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Module;
-import hub.sam.dbl.NamedElement;
 
 public class GlobalVariableResolver extends HierarchicalResolver implements ElementResolver<IdExpr> {
 	

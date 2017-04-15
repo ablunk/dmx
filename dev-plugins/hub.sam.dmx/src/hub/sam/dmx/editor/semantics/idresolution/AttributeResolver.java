@@ -27,7 +27,9 @@ public class AttributeResolver extends MemberResolver implements ElementResolver
 	}
 	
 	private Collection<IdentifiedElement> resolvePlainAttributes(String identifier, Class containerClass) {
-		Collection<IdentifiedElement> attributes = resolveInElements(identifier, containerClass.getAttributes());
+		Collection<IdentifiedElement> attributes = new HashSet<>();
+		
+		attributes.addAll(resolveInElements(identifier, containerClass.getAttributes()));
 		
 		if (attributes.isEmpty()) {
 			attributes.addAll(resolveInheritedAttributesRecursive(identifier, containerClass));
