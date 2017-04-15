@@ -6,29 +6,29 @@
   <imports file="../stdlib">
     <model href="../stdlib.xmi#/"/>
   </imports>
-  <modules name="stdx_forever">
+  <module name="stdx_forever">
     <extensions name="Forever" concreteSyntax="extension Forever extends dbl SimpleStatement {&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}">
-      <extensionPoint href="../dbl.xmi#//@modules.0/@classes.32"/>
-      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+      <extensionPoint href="../dbl.xmi#//@module/@classes.33"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start Forever;&#xA;&#x9;Forever -> &quot;forever&quot; body:LocalScopeStatement;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="Forever" concreteSyntax="Forever -> &quot;forever&quot; body:LocalScopeStatement;">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;forever&quot;" keyword="forever"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="body">
-              <referencedClassifier href="../dbl.xmi#//@modules.0/@classes.46"/>
+              <referencedClassifier href="../dbl.xmi#//@module/@classes.48"/>
             </sequence>
           </possibleSyntax>
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensionSemantics concreteSyntax="semantics for Forever {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}" syntaxDefinition="//@modules.0/@extensions.0">
+    <extensionSemantics concreteSyntax="semantics for Forever {&#xA;&#x9;expand &quot;while (true) &quot; body;&#xA;}" syntaxDefinition="//@module/@extensions.0">
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;while (true) &quot; body">
         <parts xsi:type="dbl:ExpandTextPart" text="while (true) "/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="body" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
         </parts>
       </statements>
     </extensionSemantics>
-  </modules>
+  </module>
 </dbl:Model>

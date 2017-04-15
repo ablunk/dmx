@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../ecore">
+    <model href="../ecore.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <module name="ecoretestusingforeach">
+    <classes name="EcorePackage" concreteSyntax="class EcorePackage extends EPackage {&#xA;&#x9;bindings {&#xA;&#x9;&#x9;&quot;java&quot; -> &quot;org.eclipse.emf.ecore.EcorePackage&quot;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;static EcorePackage eINSTANCE;&#x9;&#xA;}">
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
+      <superClasses href="../ecore.xmi#//@module/@classes.15"/>
+      <attributes name="eINSTANCE" concreteSyntax="static EcorePackage eINSTANCE" class="true">
+        <classifierType concreteSyntax="EcorePackage" referencedElement="//@module/@classes.0"/>
+      </attributes>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="pkg" concreteSyntax="EPackage pkg = EcorePackage.eINSTANCE">
+        <classifierType concreteSyntax="EPackage">
+          <referencedElement href="../ecore.xmi#//@module/@classes.15"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="EcorePackage.eINSTANCE" referencedElement="//@module/@classes.0/@attributes.0">
+          <parentIdExpr concreteSyntax="EcorePackage" referencedElement="//@module/@classes.0"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print" concreteSyntax="print &quot;EPackage &quot; + pkg.getName() + &quot;\n&quot;">
+        <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;EPackage &quot; + pkg.getName() + &quot;\n&quot;">
+          <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;EPackage &quot; + pkg.getName()">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;EPackage &quot;" value="EPackage "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="pkg.getName()">
+              <parentIdExpr concreteSyntax="pkg" referencedElement="//@module/@functions.0/@statements.0"/>
+              <referencedElement href="../ecore.xmi#//@module/@classes.9/@methods.0"/>
+              <callPart/>
+            </op2>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (EClassifier ec in pkg.getEClassifiers()) {&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName();&#xA;&#x9;&#x9;forever {&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="ec" concreteSyntax="EClassifier ec">
+          <classifierType concreteSyntax="EClassifier">
+            <referencedElement href="../ecore.xmi#//@module/@classes.3"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="pkg.getEClassifiers()">
+          <parentIdExpr concreteSyntax="pkg" referencedElement="//@module/@functions.0/@statements.0"/>
+          <referencedElement href="../ecore.xmi#//@module/@classes.15/@methods.3"/>
+          <callPart/>
+        </collection>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;print &quot;EClassifier &quot; + ec.getName();&#xA;&#x9;&#x9;forever {&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+          <statements xsi:type="dbl:Print" concreteSyntax="print &quot;EClassifier &quot; + ec.getName()">
+            <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;EClassifier &quot; + ec.getName()">
+              <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;EClassifier &quot;" value="EClassifier "/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="ec.getName()">
+                <parentIdExpr concreteSyntax="ec" referencedElement="//@module/@functions.0/@statements.2/@statements.0"/>
+                <referencedElement href="../ecore.xmi#//@module/@classes.9/@methods.0"/>
+                <callPart/>
+              </op2>
+            </outputs>
+          </statements>
+          <statements xsi:type="dbl:Forever_Forever_extension" concreteSyntax="forever {&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+            <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print &quot;forever&quot;;&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Print" concreteSyntax="print &quot;forever&quot;">
+                <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;forever&quot;" value="forever"/>
+              </statements>
+              <statements xsi:type="dbl:BreakStatement" concreteSyntax="break"/>
+            </body>
+          </statements>
+        </body>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>

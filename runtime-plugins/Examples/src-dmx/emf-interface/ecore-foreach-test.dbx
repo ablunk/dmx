@@ -1,7 +1,7 @@
 #import "../ecore"
 #import "../stdx"
 
-module ecore_foreach_test {
+module ecoretestusingforeach;
 
 class EcorePackage extends EPackage {
 	bindings {
@@ -16,12 +16,10 @@ void main() {
 	print "EPackage " + pkg.getName() + "\n";
 	
 	foreach (EClassifier ec in pkg.getEClassifiers()) {
-		println "EClassifier " + ec.getName();
+		print "EClassifier " + ec.getName();
 		forever {
-			println "forever";
+			print "forever";
 			break;
 		}
 	}
-}
-
 }

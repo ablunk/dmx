@@ -1,6 +1,6 @@
 #import "../ecore"
 
-module ecore_test {
+module ecoretest;
 
 class EcorePackage extends EPackage {
 	bindings {
@@ -21,6 +21,4 @@ void main() {
 		EClassifier c = it.next() as EClassifier;
 		print "EClassifier " + c.getName() + "\n";
 	}
-}
-
 }

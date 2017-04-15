@@ -6,18 +6,15 @@
   <imports file="stdlib">
     <model href="stdlib.xmi#/"/>
   </imports>
-  <imports file="stdx/foreach">
-    <model href="stdx/foreach.xmi#/"/>
-  </imports>
-  <imports file="stdx/println">
-    <model href="stdx/println.xmi#/"/>
+  <imports file="stdx/foreach-collections">
+    <model href="stdx/foreach-collections.xmi#/"/>
   </imports>
   <imports file="stdx/forever">
     <model href="stdx/forever.xmi#/"/>
   </imports>
-  <modules name="stdx">
+  <module name="stdx">
     <functions name="test">
       <primitiveType xsi:type="dbl:VoidType"/>
     </functions>
-  </modules>
+  </module>
 </dbl:Model>

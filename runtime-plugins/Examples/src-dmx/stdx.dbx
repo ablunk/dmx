@@ -1,7 +1,6 @@
 #import "dbl"
 #import "stdlib"
-#import "stdx/foreach"
-#import "stdx/println"
+#import "stdx/foreach-collections"
 #import "stdx/forever"
 
 module stdx;
