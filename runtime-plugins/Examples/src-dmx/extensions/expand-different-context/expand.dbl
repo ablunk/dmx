@@ -1,0 +1,41 @@
+#import "../../dbl"
+
+module expand;
+
+extension X extends dbl SimpleStatement {
+	start XRule;
+	XRule -> "x" ";";
+}
+
+semantics for X {
+	EObject container = getContainer("Function", self);
+	expand class "class A { int i=2; }" in container;
+	
+	expand "A a = new A(); print a.i;";	
+}
+
+// cannot cast to Module because of dynamic eobjects
+EObject getContainer(string containerName, EObject eObject) {
+	if (eObject != null) {
+		String eClassName = new String(eObject.eClass().getName());
+		if (eClassName.equals(containerName)) {
+			return eObject;
+		} else {
+			return getContainer(containerName, eObject.eContainer());
+		}
+	} else {
+		return null;
+	}
+}
+
+Module getContainerModuleNotWorking(EObject eObject) {
+	if (eObject != null) {
+		if (eObject instanceof Module) {
+			return eObject as Module;
+		} else {
+			return getContainerModuleNotWorking(eObject.eContainer());
+		}
+	} else {
+		return null;
+	}
+}

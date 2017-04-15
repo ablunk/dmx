@@ -1,0 +1,7 @@
+#import "expand"
+
+module expandTest;
+
+void main() {
+	x;
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="expand">
+    <model href="expand.xmi#/"/>
+  </imports>
+  <module name="expandTest">
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:X_XRule_extension" concreteSyntax="x;" instanceOfExtensionDefinition="true"/>
+    </functions>
+  </module>
+</dbl:Model>
