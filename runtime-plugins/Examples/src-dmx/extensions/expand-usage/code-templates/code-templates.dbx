@@ -1,0 +1,29 @@
+#import "../../../stdx/foreach-collections"
+
+module codetemplates;
+
+extension X extends dbl SimpleStatement {
+	start XRule;
+	XRule -> "x" exprs : list Expression ";";
+}
+
+semantics for X {
+	foreach (Expression e in exprs) {
+		expand "print " e ";";
+		
+		ID cId;
+		
+		// this show the idea of code templates. however, they are not really implemented.
+		Class c = !(Class:
+			class ?(cId) {
+				int i=1;
+				void f() {
+					print i;
+				}
+			}
+		);
+		
+		expand c;
+	}
+}
+

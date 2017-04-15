@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
-  <imports file="../../dbl">
-    <model href="../../dbl.xmi#/"/>
+  <imports file="../../../dbl">
+    <model href="../../../dbl.xmi#/"/>
   </imports>
   <module name="expand">
     <extensions name="X">
-      <extensionPoint href="../../dbl.xmi#//@module/@classes.33"/>
+      <extensionPoint href="../../../dbl.xmi#//@module/@classes.33"/>
       <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="XRule">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
@@ -22,7 +22,7 @@
     <extensionSemantics syntaxDefinition="//@module/@extensions.0">
       <statements xsi:type="dbl:Variable" name="container">
         <classifierType>
-          <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+          <referencedElement href="../../../ecore.xmi#//@module/@classes.13"/>
         </classifierType>
         <initialValue xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0">
           <callPart>
@@ -43,7 +43,7 @@
     </extensionSemantics>
     <functions name="getContainer">
       <classifierType>
-        <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+        <referencedElement href="../../../ecore.xmi#//@module/@classes.13"/>
       </classifierType>
       <statements xsi:type="dbl:IfStatement">
         <condition xsi:type="dbl:NotEqual">
@@ -53,19 +53,19 @@
         <trueCase xsi:type="dbl:LocalScopeStatement">
           <statements xsi:type="dbl:Variable" name="eClassName">
             <classifierType>
-              <referencedElement href="../../stdlib.xmi#//@module/@classes.2"/>
+              <referencedElement href="../../../stdlib.xmi#//@module/@classes.2"/>
             </classifierType>
             <initialValue xsi:type="dbl:CreateObject">
               <classifierType>
-                <referencedElement href="../../stdlib.xmi#//@module/@classes.2"/>
+                <referencedElement href="../../../stdlib.xmi#//@module/@classes.2"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IdExpr">
                     <parentIdExpr>
                       <parentIdExpr referencedElement="//@module/@functions.0/@parameters.1"/>
-                      <referencedElement href="../../ecore.xmi#//@module/@classes.13/@methods.1"/>
+                      <referencedElement href="../../../ecore.xmi#//@module/@classes.13/@methods.1"/>
                       <callPart/>
                     </parentIdExpr>
-                    <referencedElement href="../../ecore.xmi#//@module/@classes.9/@methods.0"/>
+                    <referencedElement href="../../../ecore.xmi#//@module/@classes.9/@methods.0"/>
                     <callPart/>
                   </callArguments>
                 </callPart>
@@ -75,7 +75,7 @@
           <statements xsi:type="dbl:IfStatement">
             <condition xsi:type="dbl:IdExpr">
               <parentIdExpr referencedElement="//@module/@functions.0/@statements.0/@trueCase/@statements.0"/>
-              <referencedElement href="../../stdlib.xmi#//@module/@classes.1/@methods.0"/>
+              <referencedElement href="../../../stdlib.xmi#//@module/@classes.1/@methods.0"/>
               <callPart>
                 <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@parameters.0"/>
               </callPart>
@@ -92,7 +92,7 @@
                     <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@parameters.0"/>
                     <callArguments xsi:type="dbl:IdExpr">
                       <parentIdExpr referencedElement="//@module/@functions.0/@parameters.1"/>
-                      <referencedElement href="../../ecore.xmi#//@module/@classes.13/@methods.2"/>
+                      <referencedElement href="../../../ecore.xmi#//@module/@classes.13/@methods.2"/>
                       <callPart/>
                     </callArguments>
                   </callPart>
@@ -112,13 +112,13 @@
       </parameters>
       <parameters name="eObject">
         <classifierType>
-          <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+          <referencedElement href="../../../ecore.xmi#//@module/@classes.13"/>
         </classifierType>
       </parameters>
     </functions>
     <functions name="getContainerModuleNotWorking">
       <classifierType>
-        <referencedElement href="../../dbl.xmi#//@module/@classes.4"/>
+        <referencedElement href="../../../dbl.xmi#//@module/@classes.4"/>
       </classifierType>
       <statements xsi:type="dbl:IfStatement">
         <condition xsi:type="dbl:NotEqual">
@@ -131,7 +131,7 @@
               <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.1/@parameters.0"/>
               <op2 xsi:type="dbl:TypeAccess">
                 <idExpr>
-                  <referencedElement href="../../dbl.xmi#//@module/@classes.4"/>
+                  <referencedElement href="../../../dbl.xmi#//@module/@classes.4"/>
                 </idExpr>
               </op2>
             </condition>
@@ -139,7 +139,7 @@
               <statements xsi:type="dbl:Return">
                 <value xsi:type="dbl:Cast">
                   <classifierType>
-                    <referencedElement href="../../dbl.xmi#//@module/@classes.4"/>
+                    <referencedElement href="../../../dbl.xmi#//@module/@classes.4"/>
                   </classifierType>
                   <op xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.1/@parameters.0"/>
                 </value>
@@ -151,7 +151,7 @@
                   <callPart>
                     <callArguments xsi:type="dbl:IdExpr">
                       <parentIdExpr referencedElement="//@module/@functions.1/@parameters.0"/>
-                      <referencedElement href="../../ecore.xmi#//@module/@classes.13/@methods.2"/>
+                      <referencedElement href="../../../ecore.xmi#//@module/@classes.13/@methods.2"/>
                       <callPart/>
                     </callArguments>
                   </callPart>
@@ -168,7 +168,7 @@
       </statements>
       <parameters name="eObject">
         <classifierType>
-          <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+          <referencedElement href="../../../ecore.xmi#//@module/@classes.13"/>
         </classifierType>
       </parameters>
     </functions>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../../stdx/foreach-collections">
+    <model href="../../../stdx/foreach-collections.xmi#/"/>
+  </imports>
+  <module name="codetemplates">
+    <extensions name="X" concreteSyntax="extension X extends dbl SimpleStatement {&#xA;&#x9;start XRule;&#xA;&#x9;XRule -> &quot;x&quot; exprs : list Expression &quot;;&quot;;&#xA;}">
+      <extensionPoint href="../../../dbl.xmi#//@module/@classes.33"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start XRule;&#xA;&#x9;XRule -> &quot;x&quot; exprs : list Expression &quot;;&quot;;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="XRule" concreteSyntax="XRule -> &quot;x&quot; exprs : list Expression &quot;;&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;x&quot;" keyword="x"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="exprs" list="true">
+              <referencedClassifier href="../../../dbl.xmi#//@module/@classes.55"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;;&quot;" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for X {&#xA;&#x9;foreach (Expression e in exprs) {&#xA;&#x9;&#x9;expand &quot;print &quot; e &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID cId;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// this is a code template. it cannot be used. t&#xA;&#x9;&#x9;Class c = !(Class:&#xA;&#x9;&#x9;&#x9;class ?(cId) {&#xA;&#x9;&#x9;&#x9;&#x9;int i=1;&#xA;&#x9;&#x9;&#x9;&#x9;void f() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand c;&#xA;&#x9;}&#xA;}" syntaxDefinition="//@module/@extensions.0">
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Expression e in exprs) {&#xA;&#x9;&#x9;expand &quot;print &quot; e &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID cId;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// this is a code template. it cannot be used. t&#xA;&#x9;&#x9;Class c = !(Class:&#xA;&#x9;&#x9;&#x9;class ?(cId) {&#xA;&#x9;&#x9;&#x9;&#x9;int i=1;&#xA;&#x9;&#x9;&#x9;&#x9;void f() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand c;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="e" concreteSyntax="Expression e">
+          <classifierType concreteSyntax="Expression">
+            <referencedElement href="../../../dbl.xmi#//@module/@classes.55"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="exprs" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;print &quot; e &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID cId;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// this is a code template. it cannot be used. t&#xA;&#x9;&#x9;Class c = !(Class:&#xA;&#x9;&#x9;&#x9;class ?(cId) {&#xA;&#x9;&#x9;&#x9;&#x9;int i=1;&#xA;&#x9;&#x9;&#x9;&#x9;void f() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand c;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;print &quot; e &quot;;&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="print "/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="e" referencedElement="//@module/@extensionSemantics.0/@statements.0/@statements.0"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+          </statements>
+          <statements xsi:type="dbl:CreateIdStatement" name="cId" concreteSyntax="ID cId"/>
+          <statements xsi:type="dbl:Variable" name="c" concreteSyntax="Class c = !(Class:&#xA;&#x9;&#x9;&#x9;class ?(cId) {&#xA;&#x9;&#x9;&#x9;&#x9;int i=1;&#xA;&#x9;&#x9;&#x9;&#x9;void f() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;)">
+            <classifierType concreteSyntax="Class">
+              <referencedElement href="../../../dbl.xmi#//@module/@classes.24"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:ParseExpr" concreteSyntax="!(Class:&#xA;&#x9;&#x9;&#x9;class ?(cId) {&#xA;&#x9;&#x9;&#x9;&#x9;int i=1;&#xA;&#x9;&#x9;&#x9;&#x9;void f() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;)">
+              <astPart xsi:type="dbl:Class" concreteSyntax="class ?(cId) {&#xA;&#x9;&#x9;&#x9;&#x9;int i=1;&#xA;&#x9;&#x9;&#x9;&#x9;void f() {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print i;&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}">
+                <expandExpr concreteSyntax="?(cId)">
+                  <expr xsi:type="dbl:IdExpr" concreteSyntax="cId" referencedElement="//@module/@extensionSemantics.0/@statements.0/@body/@statements.1"/>
+                </expandExpr>
+                <attributes name="i" concreteSyntax="int i=1">
+                  <primitiveType xsi:type="dbl:IntType"/>
+                  <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </attributes>
+                <methods name="f">
+                  <primitiveType xsi:type="dbl:VoidType"/>
+                  <statements xsi:type="dbl:Print" concreteSyntax="print i">
+                    <outputs xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.0/@body/@statements.2/@initialValue/@astPart/@attributes.0"/>
+                  </statements>
+                </methods>
+              </astPart>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand c">
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="c" referencedElement="//@module/@extensionSemantics.0/@statements.0/@body/@statements.2"/>
+            </parts>
+          </statements>
+        </body>
+      </statements>
+    </extensionSemantics>
+  </module>
+</dbl:Model>
