@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../ecore">
+    <model href="../ecore.xmi#/"/>
+  </imports>
+  <module name="ecoretest">
+    <classes name="EcoreUtil">
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.util.EcoreUtils"/>
+      <methods name="copy" class="true">
+        <classifierType>
+          <referencedElement href="../ecore.xmi#//@module/@classes.13"/>
+        </classifierType>
+        <parameters name="eObject">
+          <classifierType>
+            <referencedElement href="../ecore.xmi#//@module/@classes.13"/>
+          </classifierType>
+        </parameters>
+      </methods>
+    </classes>
+    <classes name="EcorePackage">
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EcorePackage"/>
+      <superClasses href="../ecore.xmi#//@module/@classes.15"/>
+      <attributes name="eINSTANCE" class="true">
+        <classifierType referencedElement="//@module/@classes.1"/>
+      </attributes>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="pkg">
+        <classifierType>
+          <referencedElement href="../ecore.xmi#//@module/@classes.15"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.1/@attributes.0">
+          <parentIdExpr referencedElement="//@module/@classes.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="EPackage "/>
+            <op2 xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@module/@functions.0/@statements.0"/>
+              <referencedElement href="../ecore.xmi#//@module/@classes.9/@methods.0"/>
+              <callPart/>
+            </op2>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="classifiers">
+        <classifierType>
+          <referencedElement href="../stdlib.xmi#//@module/@classes.5"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr">
+          <parentIdExpr referencedElement="//@module/@functions.0/@statements.0"/>
+          <referencedElement href="../ecore.xmi#//@module/@classes.15/@methods.3"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="it">
+        <classifierType>
+          <referencedElement href="../stdlib.xmi#//@module/@classes.4"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr">
+          <parentIdExpr referencedElement="//@module/@functions.0/@statements.2"/>
+          <referencedElement href="../stdlib.xmi#//@module/@classes.5/@methods.11"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="c">
+        <classifierType>
+          <referencedElement href="../ecore.xmi#//@module/@classes.3"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:Cast">
+          <classifierType>
+            <referencedElement href="../ecore.xmi#//@module/@classes.3"/>
+          </classifierType>
+          <op xsi:type="dbl:IdExpr">
+            <parentIdExpr referencedElement="//@module/@functions.0/@statements.3"/>
+            <referencedElement href="../stdlib.xmi#//@module/@classes.4/@methods.1"/>
+            <callPart/>
+          </op>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="cCopy">
+        <classifierType>
+          <referencedElement href="../ecore.xmi#//@module/@classes.3"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.0/@methods.0">
+          <parentIdExpr referencedElement="//@module/@classes.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.4"/>
+          </callPart>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Print">
+        <outputs xsi:type="dbl:Plus">
+          <op1 xsi:type="dbl:Plus">
+            <op1 xsi:type="dbl:StringLiteral" value="EClassifier "/>
+            <op2 xsi:type="dbl:IdExpr">
+              <parentIdExpr referencedElement="//@module/@functions.0/@statements.5"/>
+              <referencedElement href="../ecore.xmi#//@module/@classes.9/@methods.0"/>
+              <callPart/>
+            </op2>
+          </op1>
+          <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+        </outputs>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>

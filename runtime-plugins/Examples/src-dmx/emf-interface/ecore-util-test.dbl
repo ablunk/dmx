@@ -1,0 +1,32 @@
+#import "../ecore"
+
+module ecoretest;
+
+class EcoreUtil {
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.util.EcoreUtil"
+	}
+	
+	static EObject copy(EObject eObject);	
+}
+
+class EcorePackage extends EPackage {
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.EcorePackage"
+	}
+	
+	static EcorePackage eINSTANCE;	
+}
+
+void main() {
+	EPackage pkg = EcorePackage.eINSTANCE;
+	print "EPackage " + pkg.getName() + "\n";
+	
+	List classifiers = pkg.getEClassifiers();
+	Iterator it = classifiers.iterator();
+	
+	EClassifier c = it.next() as EClassifier;
+	EClassifier cCopy = EcoreUtil.copy(c);
+	
+	print "EClassifier " + cCopy.getName() + "\n";
+}

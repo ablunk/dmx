@@ -1,0 +1,64 @@
+#import "../../dbl"
+
+module exprcontext;
+
+// Eine solche Erweiterung ist nur möglich wenn die Namensauflösung für die enthaltenen
+// Statements erweitert werden könnte, so dass die Namen im angegebenen Kontext gesucht werden.
+// Das geht aktuell nicht.
+extension ContextChange extends dbl SimpleStatement {
+	start ContextChangeRule;
+	ContextChangeRule -> "context" newContext:IdExpr "{" statements : list Statement "}";
+}
+
+semantics for ContextChange {
+	addContextToNavigationExpressions(statements, newContext);
+	for (int i=0; i<statements.size(); i=i+1) {
+		Statement statement = statements.get(0) as Statement;
+		expand prettyPrint(statement);
+	}
+}
+
+void addContextToNavigationExpressions(Statement statement, IdExpr contextPrefix) {
+	List rootIdExprs = new ArrayList();
+	collectContainedRootIdExprs(statement, rootIdExprs);
+
+	for (int i=0; i<rootIdExprs.size(); i=i+1) {
+		IdExpr rootIdExpr = rootIdExprs.get(0) as IdExpr;
+		IdExpr lastParent = getLastParent(rootIdExpr);
+		lastParent.parentIdExpr = EcoreUtil.copy(contextPrefix);
+	}
+}
+
+string prettyPrint(Construct construct) {
+	// TODO instead of using concreteSyntax() just use prettPrint() from TEF
+}
+
+class EcoreUtil {
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.util.EcoreUtil"
+	}
+	
+	static EObject copy(EObject eObject);	
+}
+
+void collectContainedRootIdExprs(EObject eObject, List rootIdExprs) {
+	if (eObject != null) {
+		String eClassName = new String(eObject.eClass().getName());
+		if (eClassName.equals("IdExpr")) {
+			rootIdExprs.add(eObject);
+		}
+		if (eObject.eContents().size() > 0) {
+			for (int i=0; i<eObject.eContents().size(); i=i+1) {
+				collectContainedRootIdExprs(eObject, rootIdExprs);
+			}
+		}
+	}
+}
+
+IdExpr getLastParent(IdExpr idExpr) {
+	IdExpr parent = idExpr.parentIdExpr;
+	while (parent != null) {
+		parent = idExpr.parentIdExpr;
+	}
+	return parent;
+}
