@@ -1,0 +1,31 @@
+#import "../../stdlib"
+#import "ssm-language"
+#import "ssm-runtime"
+
+module ssmSimpleSystem;
+
+class Data extends Signal {
+	string payLoad;
+	
+	new(string payLoad) {
+		self.payLoad = payLoad;
+	}
+}
+
+class Delayer extends ObjectWithStateMachine {
+	stateMachine {
+		initial state waiting {
+			// this is a workaround because the data message variable cannot be accessed from here.
+			// by convention, the received message will be made available in a variable named 'message'.
+			on Data data do { print "received data\n"; } then goto waiting
+		}
+	}		
+}
+
+void main() {
+	Delayer delayer = new Delayer;
+	activate delayer;
+	advance 1;
+	delayer.sendSignal(new Data("blob"));
+	advance 10;
+}

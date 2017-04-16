@@ -13,6 +13,14 @@ class TimeEvent extends Event {}
 active class ObjectWithStateMachine {
 	StateMachineRuntime stateMachineRuntime;
 	
+	new() {
+		stateMachineRuntime = createStateMachineRuntime(self);
+	}
+	
+	StateMachineRuntime createStateMachineRuntime(Object context) {	
+		return null;
+	}
+	
 	void sendSignal(Signal signal) {
 		stateMachineRuntime.enterEvent(signal);
 	}
@@ -49,7 +57,6 @@ class Transition {
 }
 
 // TODO like in Java, each class should extend Object implicitly
-// class must be placed before StateMachineRuntime because of the equals methods used there.
 class CompiledState extends Object {
 	State state;
 	List compiledTransitions;
@@ -131,23 +138,28 @@ active class StateMachineRuntime {
 	}
 	
 	void executeEventLoop() {
-		while (currentState != null and !eventQueue.isEmpty()) {
-			print("current state = " + currentState.state.name + "\n");
-			Event nextEvent = popNextEvent();
-			State nextState = currentState.consumeEvent(nextEvent, stateMachine.context);
-			if (nextState != null) {
-				CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;
-				currentState = compiledNextState;
-				if (currentState != compiledNextState) { // better use equals here
-					currentState.leave();
+		print("executing event loop\n");
+		while (currentState != null) {
+			while (currentState != null and !eventQueue.isEmpty()) {
+				print("current state = " + currentState.state.name + "\n");
+				Event nextEvent = popNextEvent();
+				State nextState = currentState.consumeEvent(nextEvent, stateMachine.context);
+				if (nextState != null) {
+					CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;
+					currentState = compiledNextState;
+					if (currentState != compiledNextState) { // better use equals here
+						currentState.leave();
+					}
+					currentState.enter();
+				} else {
+					currentState = null;
+					print("there is no next state. exiting.\n");
 				}
-				currentState.enter();
-				print("waiting\n");
-				wait;
-			} else {
-				print("there is no next state. exiting.\n");
 			}
+			print("no more events, waiting\n");
+			wait;
 		}
+		print("current state is not set, exiting\n");
 	}
 	
 	Event popNextEvent() {
@@ -158,6 +170,7 @@ active class StateMachineRuntime {
 	
 	void enterEvent(Event event) {
 		eventQueue.add(event);
+		// TODO only reactivate if already running
 		reactivate self;
 	}
 }

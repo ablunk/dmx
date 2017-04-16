@@ -6,6 +6,8 @@ bin/
 
 dev-plugins/dbx-emf-model/src/**/*.java
 !dev-plugins/dbx-emf-model/src/de/bldev/dbx/lang/ecore/dbx/impl/DbxFactoryImpl.java
+
+dev-plugins/dbx-emf-edit/plugin.properties
 dev-plugins/dbx-emf-edit/src/
 dev-plugins/dbx-emf-edit/icons/
 
@@ -14,6 +16,7 @@ dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/impl/*.java
 !dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/impl/DblFactoryImpl.java
 dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/util/
 dev-plugins/hub.sam.dbl.model/src/hub/sam/dbl/validation/
+
 dev-plugins/hub.sam.dbl.model.edit/src/
 dev-plugins/hub.sam.dbl.model.edit/icons/
 

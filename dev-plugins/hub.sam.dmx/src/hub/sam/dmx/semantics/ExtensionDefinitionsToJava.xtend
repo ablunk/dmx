@@ -27,6 +27,7 @@ import java.io.Writer
 import java.util.logging.Logger
 import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
+import hub.sam.dbl.ExpansionPart
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -92,8 +93,9 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		else return getContainerObjectOfType(object.eContainer(), type)
 	}
 	
-	def boolean isPartOfGenStatement(IdExpr idExpr) {
-		return idExpr.getContainerObjectOfType(ExpansionStatement) != null
+	def boolean implicitlyRefersToConcreteSyntax(IdExpr idExpr) {
+		val expansionPartContainer = idExpr.getContainerObjectOfType(ExpansionPart)
+		return expansionPartContainer != null
 	}
 	
 	def boolean refersToSyntaxPart_ofType_StructuredPropertyType(IdExpr idExpr) {
@@ -150,7 +152,9 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 				val typedElement = referencedElement as TypedElement
 				if (typedElement.classifierType != null) {
 					val referencedClassifierType = typedElement.classifierType.referencedElement
+					// TODO this is really ugly
 					return referencedClassifierType.name.equals("List")
+						|| referencedClassifierType.name.equals("EList")
 				}
 			}
 			else if (referencedElement instanceof StructuralSymbolReference) {
@@ -314,7 +318,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		val it = idExpr
 		'''
 		«IF oneParentRefersToSyntaxPartOrDblMetamodel»
-			«IF partOfGenStatement»
+			«IF implicitlyRefersToConcreteSyntax»
 				getConcreteSyntax(«genIdExprWithSyntaxPartReferences»)
 			«ELSE»
 				«genIdExprWithSyntaxPartReferences»

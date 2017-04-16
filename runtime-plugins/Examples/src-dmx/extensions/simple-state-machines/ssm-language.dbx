@@ -1,7 +1,7 @@
 #import "../../dbl"
 #import "../../stdlib"
 
-module ssm {
+module ssm;
 
 void printSomething() {
 	print "executing";
@@ -65,25 +65,77 @@ extension StateMachine extends dbl ClassContentExtension {
 }
 
 semantics for StateMachine {
-	expand "actions {";
+	expand "StateMachineRuntime createStateMachineRuntime(Object context) {";
+	
 	expand "StateMachine stateMachine = new StateMachine;";
-	expand "stateMachineRuntime = new StateMachineRuntime(stateMachine);";
+	expand "stateMachine.context = context;";
+	expand "StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);";
 	
 	for (int i=0; i<states.size(); i=i+1) {
-		State state = states.get(i);
+		State state = states.get(i) as State;
 		ID stateId;
 		expand "State " stateId " = new State;";
 		expand "stateMachine.states.add(" stateId ");";
 		expand stateId ".name = \"" state.name "\";";
+		expand "stateMachine.initialState = " stateId ";";
 		
 		ID compiledStateId;
 		expand "CompiledState " compiledStateId " = new CompiledState(" stateId ");";
 		expand "stateMachineRuntime.setCompiledState(" stateId ", " compiledStateId ");";
 		
-		// TODO ...
+		for (int t=0; t<state.outgoing.size(); t=t+1) {
+			Transition transition = state.outgoing.get(t) as Transition;
+			ID transitionId;
+			expand "Transition " transitionId " = new Transition;";
+			expand stateId ".outgoingTransitions.add(" transitionId ");";
+			expand transitionId ".target = " stateId ";";
+
+			Class containerClass = getContainer("Class", self) as Class;
+			EObject firstContentExtension = containerClass.contentExtensions.get(0) as EObject;
+			
+			ID transitionEffectsFunctionId;
+			// TODO actually "in" means "after"
+			expand function 
+				"void " transitionEffectsFunctionId "() {"
+				transition.effects
+				"}"
+				in firstContentExtension;
+
+			EObject containerModule = getContainer("Module", self);
+			ID compiledTransitionClassId;
+			expand class
+				"class " compiledTransitionClassId " extends CompiledTransition {"
+					"new(Transition transition) {"
+					"	super(transition);"
+					"}"
+					"void executeEffects(Object context, Event event) {"
+					"	" containerClass.name " concreteContext = context as " containerClass.name ";"
+					"	concreteContext." transitionEffectsFunctionId "();"
+					"}"
+				"}"
+				in containerModule;
+
+			ID compiledTransitionId;
+			expand "CompiledTransition " compiledTransitionId " = new " compiledTransitionClassId "(" transitionId ");";
+			expand compiledStateId ".addCompiledTransition(" compiledTransitionId ");";
+		}
 	}
+
+	expand "return stateMachineRuntime;";
 	
 	expand "}";
 }
 
+// cannot cast to Module because of dynamic eobjects
+EObject getContainer(string containerName, EObject eObject) {
+	if (eObject != null) {
+		String eClassName = new String(eObject.eClass().getName());
+		if (eClassName.equals(containerName)) {
+			return eObject;
+		} else {
+			return getContainer(containerName, eObject.eContainer());
+		}
+	} else {
+		return null;
+	}
 }

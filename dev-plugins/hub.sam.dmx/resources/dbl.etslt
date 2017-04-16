@@ -13,8 +13,8 @@ syntax(Model) "resources/dbl.ecore" {
 	ModuleElement -> Class:composite(classes);
 	ModuleElement -> Extension:composite(extensions);
 	ModuleElement -> ExtensionSemantics:composite(extensionSemantics);
-	ModuleElement -> ModuleContent:composite(contentExtensions);
-	ModuleContent:element(ModuleContentExtension) -> "moduleContent39758";
+	ModuleElement -> ModuleContentExtension:composite(contentExtensions);
+	ModuleContentExtension:element(ModuleContentExtension) -> "moduleContent39758";
 	
 	Class:element(Class) -> ClassWithOptionalModifiers;
 	ClassRef:element(Class) -> IDENTIFIER:composite(name);
@@ -383,7 +383,7 @@ syntax(Model) "resources/dbl.ecore" {
 	ContextType -> IsAddFunction:composite(functionContext);
 	ContextType -> IsAddVariable:composite(variableContext);
 	
-	DifferingContext -> "in" IdExpr:composite(differingContext);
+	DifferingContext -> "in" Expression:composite(differingContext);
 
 	//ExpandTextPart:element(ExpandTextPart) -> CODE:composite(text);
 	ExpandTextPart:element(ExpandTextPart) -> STRINGDEF:composite(text);
@@ -395,14 +395,14 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	L1Expr -> ParseExpr;
 	
-	ParseExpr:element(ParseExpr) -> "!" AssignmentParseExpr "!";
+	ParseExpr:element(ParseExpr) -> "!(" AssignmentParseExpr ")";
 	AssignmentParseExpr -> "Assignment" ":" Assignment:composite(astPart);
 	AssignmentParseExpr -> "Expression" ":" Expression:composite(astPart);
-	AssignmentParseExpr -> "Module" ":" Module:composite(astPart);
+	AssignmentParseExpr -> "Class" ":" Class:composite(astPart);
 	AssignmentParseExpr -> "LocalScopeStatement" ":" LocalScopeStatement:composite(astPart);
 	
 	L1Expr -> ExpandExpr;
-	ExpandExpr:element(ExpandExpr) -> "?" Expression:composite(expr) "?";
+	ExpandExpr:element(ExpandExpr) -> "?(" Expression:composite(expr) ")";
 
 //	ExpandExpression:element(ExpandExpression) -> "?" "(" Expression:composite(metaObject) ")";
 //	CodeQuote:element(CodeQuoteExpression) -> "{" "#" QuotedCode:composite(quotedCode) "}";

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <imports file="ssm-language">
+    <model href="ssm-language.xmi#/"/>
+  </imports>
+  <imports file="ssm-runtime">
+    <model href="ssm-runtime.xmi#/"/>
+  </imports>
+  <module name="ssmSimpleSystem">
+    <classes name="Data" concreteSyntax="class Data extends Signal {&#xA;&#x9;string payLoad;&#xA;&#x9;&#xA;&#x9;new(string payLoad) {&#xA;&#x9;&#x9;self.payLoad = payLoad;&#xA;&#x9;}&#xA;}">
+      <superClasses href="ssm-runtime.xmi#//@module/@classes.1"/>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.payLoad = payLoad">
+          <variable concreteSyntax="self.payLoad">
+            <idExpr concreteSyntax="self.payLoad" referencedElement="//@module/@classes.0/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="payLoad" referencedElement="//@module/@classes.0/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="payLoad">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+      <attributes name="payLoad" concreteSyntax="string payLoad">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+    </classes>
+    <classes name="Delayer" concreteSyntax="class Delayer extends ObjectWithStateMachine {&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;// this is a workaround because the data message variable cannot be accessed from here.&#xA;&#x9;&#x9;&#x9;// by convention, the received message will be made available in a variable named 'message'.&#xA;&#x9;&#x9;&#x9;on Data data do { print &quot;received data\n&quot;; } then goto waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}&#x9;&#x9;&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;// this is a workaround because the data message variable cannot be accessed from here.&#xA;&#x9;&#x9;&#x9;// by convention, the received message will be made available in a variable named 'message'.&#xA;&#x9;&#x9;&#x9;on Data data do { print &quot;received data\n&quot;; } then goto waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="waiting" concreteSyntax="initial state waiting {&#xA;&#x9;&#x9;&#x9;// this is a workaround because the data message variable cannot be accessed from here.&#xA;&#x9;&#x9;&#x9;// by convention, the received message will be made available in a variable named 'message'.&#xA;&#x9;&#x9;&#x9;on Data data do { print &quot;received data\n&quot;; } then goto waiting&#xA;&#x9;&#x9;}">
+          <initialModifier concreteSyntax="initial" initial="true"/>
+          <outgoing concreteSyntax="on Data data do { print &quot;received data\n&quot;; } then goto waiting" target="//@module/@classes.1/@contentExtensions.0/@states.0">
+            <messageVariable name="data" concreteSyntax="Data data">
+              <classifierType concreteSyntax="Data" referencedElement="//@module/@classes.0"/>
+            </messageVariable>
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{ print &quot;received data\n&quot;; }">
+              <statements xsi:type="dbl:Print" concreteSyntax="print &quot;received data\n&quot;">
+                <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;received data\n&quot;" value="received data\n"/>
+              </statements>
+            </effects>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <superClasses href="ssm-runtime.xmi#//@module/@classes.3"/>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="delayer" concreteSyntax="Delayer delayer = new Delayer">
+        <classifierType concreteSyntax="Delayer" referencedElement="//@module/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Delayer">
+          <classifierType concreteSyntax="Delayer" referencedElement="//@module/@classes.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate delayer">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="delayer.sendSignal(new Data(&quot;blob&quot;))">
+        <callIdExpr concreteSyntax="delayer.sendSignal(new Data(&quot;blob&quot;))">
+          <parentIdExpr concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.0"/>
+          <referencedElement href="ssm-runtime.xmi#//@module/@classes.3/@methods.1"/>
+          <callPart>
+            <callArguments xsi:type="dbl:CreateObject" concreteSyntax="new Data(&quot;blob&quot;)">
+              <classifierType concreteSyntax="Data(&quot;blob&quot;)" referencedElement="//@module/@classes.0">
+                <callPart>
+                  <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;blob&quot;" value="blob"/>
+                </callPart>
+              </classifierType>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>
