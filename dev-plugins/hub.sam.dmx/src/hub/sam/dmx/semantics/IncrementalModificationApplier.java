@@ -78,10 +78,13 @@ public class IncrementalModificationApplier {
 						modification.getReplacementText() + Activator.lineSep);
 				
 				workingText.replace(referenceOffset, endOffset, modification.getReplacementText());
-
 				referenceOffsetDelta = sub.getReplacementText().length() - referencePosition.getLength();
+				
 				TreeIterator<EObject> rootObjectIterator = workingModelResource.getAllContents();
 				shiftObjectsAffectedBySubstitution(rootObjectIterator, referencePosition, referenceOffsetDelta);
+
+				// update position
+				referencePosition.setLength(sub.getReplacementText().length());
 			}				
 
 			logger.info("new working text: " + Activator.lineSep

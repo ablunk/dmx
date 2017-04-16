@@ -176,6 +176,34 @@ public class IncrementalModificationApplierTest {
 		assertEquals("0----2++3456789", modificationsApplier.getWorkingText());
 	}
 	
+	@Test
+	public void substitutionThenAdditionAfterWithSameObject() {
+		EObject b1 = boxObject();
+		EObject b012 = boxObject(b1);
+		resource.getContents().add(b012);
+
+		String b012Uri = resource.getURIFragment(b012);
+		String b1Uri = resource.getURIFragment(b1);
+		
+		// 0>1<23456789
+		objectPositions.setPosition(b1, new Position(1,1));
+		
+		// >012<3456789
+		objectPositions.setPosition(b012, new Position(0,3));
+		
+		// 0>----<23456789
+		modificationsApplier.applyAll(modificationsRecord(
+				substitution(b1Uri, "----")).getModifications());
+
+		assertEquals("0----23456789", modificationsApplier.getWorkingText());
+
+		// 0>----<++23456789
+		modificationsApplier.applyAll(modificationsRecord(
+				additionAfter(b1Uri, "++")).getModifications());
+		
+		assertEquals("0----++23456789", modificationsApplier.getWorkingText());
+	}
+	
 	private EObject boxObject(EObject... containedBoxes) {
 		EObjectImpl box = (EObjectImpl) EcoreFactory.eINSTANCE.createEObject();
 		box.eSetClass(boxClass);
