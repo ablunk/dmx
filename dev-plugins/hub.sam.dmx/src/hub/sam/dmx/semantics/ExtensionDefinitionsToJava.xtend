@@ -1,11 +1,11 @@
 package hub.sam.dmx.semantics
 
 import hub.sam.dbl.Cast
-import hub.sam.dbl.ComplexSymbol
 import hub.sam.dbl.CreateIdStatement
 import hub.sam.dbl.DblEObject
+import hub.sam.dbl.ElementarySymbol
+import hub.sam.dbl.ExpansionPart
 import hub.sam.dbl.ExpansionStatement
-import hub.sam.dbl.ExtensibleElement
 import hub.sam.dbl.Extension
 import hub.sam.dbl.ExtensionSemantics
 import hub.sam.dbl.IdExpr
@@ -16,18 +16,13 @@ import hub.sam.dbl.Keyword
 import hub.sam.dbl.MetaSymbol
 import hub.sam.dbl.Model
 import hub.sam.dbl.Module
-import hub.sam.dbl.PlainSymbolReference
 import hub.sam.dbl.StringSymbol
 import hub.sam.dbl.StructuralSymbolReference
-import hub.sam.dbl.SyntaxSymbolClassifier
 import hub.sam.dbl.TypedElement
-import hub.sam.dbl.Variable
 import hub.sam.dmx.editor.semantics.ExtensionSyntaxDefinitionProcessor
 import java.io.Writer
 import java.util.logging.Logger
-import org.eclipse.core.runtime.IPath
 import org.eclipse.emf.ecore.EObject
-import hub.sam.dbl.ExpansionPart
 
 /**
  * Generates executable Java code for all extension definitions, which are
@@ -38,374 +33,13 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 	
 	private static final Logger logger = Logger.getLogger(ExtensionDefinitionsToJava.getName());
 	
-	def boolean oneParentRefersToSyntaxPartOrDblMetamodel(IdExpr idExpr) {
-		val it = idExpr
-		if (referencedElement instanceof StructuralSymbolReference) {
-			true
-		}
-		else {
-			if (referencedElement != null && referencedElement instanceof TypedElement) {
-				val typedReferencedElement = referencedElement as TypedElement
-				if (referencedElement.getContainerObjectOfType(Module).name.equals("dbl")) {
-					return true;
-				}
-				else if (typedReferencedElement.classifierType != null) {
-					// local variable of DBL metaclass type?	
-					return typedReferencedElement.classifierType.referencedElement.getContainerObjectOfType(Module).name.equals("dbl")
-				}
-			}
-			
-			if (parentIdExpr != null) {
-				parentIdExpr.oneParentRefersToSyntaxPartOrDblMetamodel
-			}
-			else {
-				false
-			}
-		}
-	}
-	
-	def boolean directlyRefersToSyntaxPart(IdExpr idExpr) {
-		val it = idExpr
-		return referencedElement instanceof StructuralSymbolReference
-	}
-	
-	def boolean refersToDblMetamodel(IdExpr idExpr) {
-		val it = idExpr
-		if (referencedElement != null) {
-			val containerModule = referencedElement.getContainerObjectOfType(Module)
-			return containerModule.name.equals("dbl")
-		}
-		return false
-	}
-
-	def boolean hasSyntaxType(IdExpr idExpr) {
-		val it = idExpr
-		if (parentIdExpr == null) {
-			return referencedElement instanceof ExtensibleElement
-		}
-		else
-			return parentIdExpr.hasSyntaxType
-	}
-
-	def <T> T getContainerObjectOfType(EObject object, Class<T> type) {
-		if (type.isAssignableFrom(object.getClass())) return object as T
-		else if (object.eContainer() == null) return null
-		else return getContainerObjectOfType(object.eContainer(), type)
-	}
-	
-	def boolean implicitlyRefersToConcreteSyntax(IdExpr idExpr) {
-		val expansionPartContainer = idExpr.getContainerObjectOfType(ExpansionPart)
-		return expansionPartContainer != null
-	}
-	
-	def boolean refersToSyntaxPart_ofType_StructuredPropertyType(IdExpr idExpr) {
-		val it = idExpr
-		if (referencedElement instanceof StructuralSymbolReference) {
-			return (referencedElement as StructuralSymbolReference).classifier instanceof ComplexSymbol
-		}
-		else false
-	}
-	
-	def boolean refersToVariable_ofType_StructuredPropertyType(IdExpr idExpr) {
-		val it = idExpr
-		if (referencedElement instanceof Variable) {
-			val variable = referencedElement as Variable;
-			if (variable.classifierType != null) {
-				val type = variable.classifierType.referencedElement
-				return type instanceof SyntaxSymbolClassifier
-			}
-		}
-		false
-	}
-	
-//	def String genSyntaxPartIdExpr(IdExpr idExpr) {
-//		val it = idExpr
-//
-//		'''
-//		getPropertyValue(
-//		
-//		(EObject)
-//		«IF parentIdExpr != null»
-//			«parentIdExpr.genSyntaxPartIdExpr»,
-//		«ELSE»
-//			_extensionInstance,
-//		«ENDIF»
-//		
-//		«IF referencedElement != null»
-//			"«
-//			if (referencedElement.name.startsWith("_"))
-//				referencedElement.name.substring(1)
-//			else
-//				referencedElement.name
-//			»"
-//		«ELSE»
-//			«genIdExpr_for_PredefinedId(predefinedId)»
-//		«ENDIF»
-//		)
-//		'''
-//	}
-
-	def boolean referencedElementIsOfTypeList(IdExpr idExpr) {
-		val referencedElement = idExpr.referencedElement
-		if (referencedElement != null) {
-			if (referencedElement instanceof TypedElement) {
-				val typedElement = referencedElement as TypedElement
-				if (typedElement.classifierType != null) {
-					val referencedClassifierType = typedElement.classifierType.referencedElement
-					// TODO this is really ugly
-					return referencedClassifierType.name.equals("List")
-						|| referencedClassifierType.name.equals("EList")
-				}
-			}
-			else if (referencedElement instanceof StructuralSymbolReference) {
-				val structuralSymbolRef = referencedElement as StructuralSymbolReference
-				return structuralSymbolRef.list
-			}
-		}
-		return false
-	}
-	
-	def boolean referencedElementIsOfTypePrimitive(IdExpr idExpr) {
-		val referencedElement = idExpr.referencedElement
-		if (referencedElement != null) {
-			if (referencedElement instanceof TypedElement) {
-				val typedElement = referencedElement as TypedElement
-				return typedElement.primitiveType != null;
-			}
-			else if (referencedElement instanceof PlainSymbolReference) {
-				val symbolRef = referencedElement as PlainSymbolReference
-				val classifier = symbolRef.classifier
-				return classifier instanceof IdSymbol || classifier instanceof StringSymbol || classifier instanceof IntSymbol
-					|| classifier instanceof Keyword
-			}
-		}
-		return false
-	}
-	
-	override String genType(DblEObject type) {
-		if (type instanceof MetaSymbol || type.getContainerObjectOfType(Module).name.equals("dbl")) return "EObject"
-		else super.genType(type)
-	}
-	
-	override def String genClassifierTypeExpr(IdExpr typeExpr) {
-		if (typeExpr.refersToDblMetamodel) {
-			"EObject"
-		}
-		else {
-			typeExpr.referencedElement.genType
-		}
-	}
-	
-	override def dispatch String genExpr(Cast expr) {
-		// TODO metaclass must be checked for EObjects !!
-		'''
-		«IF expr.classifierType != null && expr.classifierType.refersToDblMetamodel»
-			((EObject) «expr.op.genExpr»)
-		«ELSE»
-			((«expr.genType») «expr.op.genExpr»)
-		«ENDIF»
-		'''
-	}
-	
-	def dispatch String genStatement(CreateIdStatement createIdStatement) {
-		val it = createIdStatement		
-		'''
-		String «name» = getUniqueID("«name»");
-		'''
-	}
-	
-	override def dispatch String genStatement(ExpansionStatement stm) {
-		val it = stm
-		
-		if (differingContext == null) {
-			'''expandAtExtensionPosition(
-			«FOR part : parts SEPARATOR '+'»
-				«part.genMappingPart»
-			«ENDFOR»
-			);'''
-		}
-		else {
-			'''expandAfterPosition(
-			«FOR part : parts SEPARATOR '+'»
-				«part.genMappingPart»
-			«ENDFOR»
-			, «differingContext.genExpr»
-			);'''
-			// TODO Needs to be tested!
-		}
-	}
-	
-	def String genIdExprWithSyntaxPartReferences(IdExpr idExpr) {
-		val it = idExpr
-
-		if (directlyRefersToSyntaxPart || refersToDblMetamodel) {
-			'''
-			(
-			«IF referencedElement != null»
-				«IF referencedElementIsOfTypeList»
-					(java.util.List)
-				«ELSEIF referencedElementIsOfTypePrimitive»
-				
-				«ELSE»
-					(EObject)
-				«ENDIF»
-			«ENDIF»
-			getPropertyValue(
-			«IF parentIdExpr != null»
-				«parentIdExpr.genIdExprWithSyntaxPartReferences»
-			«ELSE»
-				(EObject) _extensionInstance
-			«ENDIF»
-			,
-			«IF referencedElement != null»
-				"«
-				if (referencedElement.name.startsWith("_"))
-					referencedElement.name.substring(1)
-				else
-					referencedElement.name
-				»"
-			«ELSE»
-				«genIdExpr_for_PredefinedId(predefinedId)»
-			«ENDIF»
-			)
-			)
-			'''
-		}
-		else {
-			if (parentIdExpr != null) {
-				parentIdExpr.genIdExprWithSyntaxPartReferences + "." + genIdExpr_for_ReferencedElement(referencedElement)
-			}
-			else {
-				genIdExpr_for_ReferencedElement(referencedElement)
-			}
-		}
-	}
-
-//	def String genIdExprWithSyntaxPartReferences(IdExpr idExpr) {
-//		val it = idExpr
-//
-//		if (directlyRefersToSyntaxPart || refersToDblMetamodel) {
-//			'''
-//			«IF parentIdExpr != null»
-//				«parentIdExpr.genIdExprWithSyntaxPartReferences».
-//			«ELSE»
-//				_extensionInstance.
-//			«ENDIF»
-//			
-//			«IF referencedElement != null»
-//				get«
-//				if (referencedElement.name.startsWith("_"))
-//					referencedElement.name.substring(1).toFirstUpper
-//				else
-//					referencedElement.name.toFirstUpper
-//				»()
-//			«ELSE»
-//				«genIdExpr_for_PredefinedId(predefinedId)»
-//			«ENDIF»
-//			'''
-//		}
-//		else {
-//			if (parentIdExpr != null) {
-//				parentIdExpr.genIdExprWithSyntaxPartReferences + "." + genIdExpr_for_ReferencedElement(referencedElement)
-//			}
-//			else {
-//				genIdExpr_for_ReferencedElement(referencedElement)
-//			}
-//		}
-//	}
-	
-	override String genIdExpr(IdExpr idExpr) {
-		val it = idExpr
-		'''
-		«IF oneParentRefersToSyntaxPartOrDblMetamodel»
-			«IF implicitlyRefersToConcreteSyntax»
-				getConcreteSyntax(«genIdExprWithSyntaxPartReferences»)
-			«ELSE»
-				«genIdExprWithSyntaxPartReferences»
-			«ENDIF»
-		«ELSEIF refersToCreateIdStatement»
-			getUniqueID("«idExpr.referencedElement.name»")
-		«ELSE»
-			«super.genIdExpr(idExpr)»
-		«ENDIF»
-		'''
-	}
-	
-	def boolean refersToCreateIdStatement(IdExpr idExpr) {
-		idExpr.referencedElement instanceof CreateIdStatement
-	}
-	
-	override String genIdExpr_for_PredefinedId_meLiteral() {
-		'_extensionInstance'
-	}
-	
-//	def dispatch String genPropertyType(PropertyType type) {
-//		'<unkown property type>'
-//	}
-//	
-//	def dispatch String genPropertyType(IntSymbol type) {
-//		'Integer'
-//	}
-//	
-//	def dispatch String genPropertyType(StringSymbol type) {
-//		'String'
-//	}
-//	
-//	def dispatch String genPropertyType(StructuredPropertyType type) {
-//		//type.type.genReferableRhsType
-//		'EObject'
-//	}
-	
-//	def dispatch String genReferableRhsType(ReferableRhsType type) {
-//		type.name
-//	}
-//	
-//	def dispatch String genReferableRhsType(Classifier type) {
-//		type.genType
-//	}
-	
-	override String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, StructuralSymbolReference referencedElement) {
-		'''
-		getPropertyValue(_extensionInstance ,"«referencedElement.name»")
-		'''
-	}
-	
-	def Extension getImportedExtensionDefinition(Model model, String name) {
-		var Extension extDef;
-		for (Import imprt: model.imports) {
-			if (imprt.model != null) {
-				extDef = imprt.model.module.extensions.findFirst[
-					e | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e).equals(name)
-				]
-				if (extDef != null) return extDef
-				extDef = getImportedExtensionDefinition(imprt.model, name)
-				if (extDef != null) return extDef
-			}
-		}
-		return extDef
-	}
-
-	def ExtensionSemantics getImportedExtensionSemanticsDefinition(Model model, String name) {
-		var ExtensionSemantics semanticsDef;
-		for (Import imprt: model.imports) {
-			if (imprt.model != null) {
-				semanticsDef = imprt.model.module.extensionSemantics.findFirst[
-					sd | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(sd.syntaxDefinition).equals(name)
-				]
-				if (semanticsDef != null) return semanticsDef
-				semanticsDef = getImportedExtensionSemanticsDefinition(imprt.model, name)
-				if (semanticsDef != null) return semanticsDef
-			}
-		}
-		return semanticsDef
-	}
 	
 	def void genExtensionDefinition(Model model, String extensionDefinitionName) {
 		// look for extension definition in all imported models
 		//var hub.sam.dbl.Extension extensionDefinition = model.getImportedExtensionDefinition(extensionDefinitionName)
 		val ExtensionSemantics semanticsDef = model.getImportedExtensionSemanticsDefinition(extensionDefinitionName)
 		
-		if (semanticsDef != null) {
+		if (semanticsDef !== null) {
 			model.genExtensionSemanticsDefinition(semanticsDef)
 		}
 	}
@@ -419,7 +53,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 		makeFolder(moduleFolder)
 
 		val String result = semanticsDef.genExtensionSemanticsDefinition
-		if (result != null && result != "") {
+		if (result !== null && result != "") {
 			val Writer writer = beginTargetFile(moduleFolder, semanticsDef.syntaxDefinition.name + "Semantics.java");
 			writer.write(result)
 			endTargetFile(writer)
@@ -454,6 +88,258 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 
 		}
 		'''
+	}
+
+	override String genType(DblEObject type) {
+		if (type instanceof MetaSymbol || type.getContainerObjectOfType(Module).name.equals("dbl")) return "EObject"
+		else super.genType(type)
+	}
+	
+	private def <T> T getContainerObjectOfType(EObject object, Class<T> type) {
+		if (type.isAssignableFrom(object.getClass())) return object as T
+		else if (object.eContainer() === null) return null
+		else return getContainerObjectOfType(object.eContainer(), type)
+	}
+	
+	override def String genClassifierTypeExpr(IdExpr typeExpr) {
+		if (typeExpr.refersToDblMetamodel) {
+			"EObject"
+		} else {
+			typeExpr.referencedElement.genType
+		}
+	}
+	
+	private def boolean refersToDblMetamodel(IdExpr idExpr) {
+		return idExpr.referencedElement?.getContainerObjectOfType(Module)?.name.equals("dbl")
+	}
+	
+	override def dispatch String genExpr(Cast expr) {
+		'''
+		«IF expr.classifierType !== null && expr.classifierType.refersToDblMetamodel»
+			((EObject) «expr.op.genExpr»)
+		«ELSE»
+			((«expr.genType») «expr.op.genExpr»)
+		«ENDIF»
+		'''
+	}
+	
+	def dispatch String genStatement(CreateIdStatement createIdStatement) {
+		val it = createIdStatement		
+		'''
+		String «name» = getUniqueID("«name»");
+		'''
+	}
+	
+	override def dispatch String genStatement(ExpansionStatement stm) {
+		val it = stm
+		
+		if (differingContext === null) {
+			'''expandAtExtensionPosition(
+			«FOR part : parts SEPARATOR '+'»
+				«part.genMappingPart»
+			«ENDFOR»
+			);'''
+		} else {
+			'''expandAfterPosition(
+			«FOR part : parts SEPARATOR '+'»
+				«part.genMappingPart»
+			«ENDFOR»
+			, «differingContext.genExpr»
+			);'''
+		}
+	}
+	
+	def String genIdExprWithSyntaxPartReferences(IdExpr idExpr) {
+		val it = idExpr
+
+		if (directlyRefersToSyntaxPart || refersToDblMetamodel) {
+			val referencedElementType = getTypeOfReferencedElement
+			'''
+			(
+			«IF referencedElementType !== null»
+				(«referencedElementType»)
+			«ELSE»
+				(EObject)
+			«ENDIF»
+			
+				getPropertyValue(
+				«IF parentIdExpr !== null»
+					«parentIdExpr.genIdExprWithSyntaxPartReferences»
+				«ELSE»
+					(EObject) _extensionInstance
+				«ENDIF»
+				,
+				«IF referencedElement !== null»
+					"«referencedElement.name.withoutLeadingUnderscore»"
+				«ELSE»
+					«genIdExpr_for_PredefinedId(predefinedId)»
+				«ENDIF»
+				)
+			)
+			'''
+		} else {
+			if (parentIdExpr !== null) {
+				parentIdExpr.genIdExprWithSyntaxPartReferences + "." + genIdExpr_for_ReferencedElement(referencedElement)
+			} else {
+				genIdExpr_for_ReferencedElement(referencedElement)
+			}
+		}
+	}
+	
+	private def String withoutLeadingUnderscore(String value) {
+		if (value.startsWith("_")) value.substring(1)
+		else value
+	}
+	
+	private def boolean directlyRefersToSyntaxPart(IdExpr idExpr) {
+		return idExpr.referencedElement instanceof StructuralSymbolReference
+	}
+	
+	override String genIdExpr(IdExpr idExpr) {
+		val it = idExpr
+		'''
+		«IF oneParentRefersToSyntaxPartOrDblMetamodel»
+			«IF implicitlyRefersToConcreteSyntax»
+				getConcreteSyntax(«genIdExprWithSyntaxPartReferences»)
+			«ELSE»
+				«genIdExprWithSyntaxPartReferences»
+			«ENDIF»
+		«ELSEIF refersToCreateIdStatement»
+			getUniqueID("«idExpr.referencedElement.name»")
+		«ELSE»
+			«super.genIdExpr(idExpr)»
+		«ENDIF»
+		'''
+	}
+	
+	private def boolean oneParentRefersToSyntaxPartOrDblMetamodel(IdExpr idExpr) {
+		val it = idExpr
+
+		if (idExpr.directlyRefersToSyntaxPart) {
+			return true
+		} else {
+			if (referencedElement !== null && referencedElement instanceof TypedElement) {
+				val typedReferencedElement = referencedElement as TypedElement
+				if (referencedElement.getContainerObjectOfType(Module).name.equals("dbl")) {
+					return true
+				}
+				else if (typedReferencedElement.classifierType !== null) {
+					// local variable of DBL metaclass type
+					return typedReferencedElement.classifierType.referencedElement.getContainerObjectOfType(Module).name.equals("dbl")
+				}
+			}
+			
+			if (parentIdExpr !== null) {
+				return parentIdExpr.oneParentRefersToSyntaxPartOrDblMetamodel
+			} else {
+				return false
+			}
+		}
+	}
+	
+	private def boolean implicitlyRefersToConcreteSyntax(IdExpr idExpr) {
+		return idExpr.getContainerObjectOfType(ExpansionPart) !== null
+	}
+	
+	private def String getTypeOfReferencedElement(IdExpr idExpr) {
+		val referencedElement = idExpr.referencedElement
+		
+		if (referencedElement !== null) {
+			if (referencedElement instanceof TypedElement) {
+				val typedElement = referencedElement as TypedElement
+				
+				if (typedElement.classifierType !== null) {
+					val referencedClassifierType = typedElement.classifierType.referencedElement
+					
+					// TODO this is really ugly
+					if (referencedClassifierType.name.equals("List") || referencedClassifierType.name.equals("EList")
+					) {
+						return 'java.util.List'
+					}
+				} else if (typedElement.primitiveType !== null) {
+					return typedElement.primitiveType.genWrappedType;
+				}
+			} else if (referencedElement instanceof StructuralSymbolReference) {
+				val structuralSymbolRef = referencedElement as StructuralSymbolReference
+				
+				if (structuralSymbolRef.list) {
+					return 'java.util.List'
+				}
+
+				val classifier = structuralSymbolRef.classifier
+				
+				if (classifier instanceof ElementarySymbol) {
+					return classifier.genElementarySymbolType
+				}
+			}
+		}
+		return null
+	}
+	
+	def dispatch String genElementarySymbolType(ElementarySymbol elementarySymbol) {
+		null
+	}
+	
+	def dispatch String genElementarySymbolType(Keyword elementarySymbol) {
+		'Boolean'
+	}
+
+	def dispatch String genElementarySymbolType(StringSymbol elementarySymbol) {
+		'String'
+	}
+
+	def dispatch String genElementarySymbolType(IntSymbol elementarySymbol) {
+		'Integer'
+	}
+
+	def dispatch String genElementarySymbolType(IdSymbol elementarySymbol) {
+		'String'
+	}
+	
+	private def boolean refersToCreateIdStatement(IdExpr idExpr) {
+		return idExpr.referencedElement instanceof CreateIdStatement
+	}
+	
+	override String genIdExpr_for_PredefinedId_meLiteral() {
+		'_extensionInstance'
+	}
+	
+	override String genIdExpr_for_PropertyBindingExpr(IdExpr idExpr, StructuralSymbolReference referencedElement) {
+		'''
+		getPropertyValue(_extensionInstance ,"«referencedElement.name»")
+		'''
+	}
+	
+	def Extension getImportedExtensionDefinition(Model model, String name) {
+		var Extension extDef;
+		for (Import imprt: model.imports) {
+			if (imprt.model !== null) {
+				extDef = imprt.model.module.extensions.findFirst[
+					e | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(e).equals(name)
+				]
+				if (extDef !== null) return extDef
+				
+				extDef = getImportedExtensionDefinition(imprt.model, name)
+				if (extDef !== null) return extDef
+			}
+		}
+		return extDef
+	}
+
+	def ExtensionSemantics getImportedExtensionSemanticsDefinition(Model model, String name) {
+		var ExtensionSemantics semanticsDef;
+		for (Import imprt: model.imports) {
+			if (imprt.model !== null) {
+				semanticsDef = imprt.model.module.extensionSemantics.findFirst[
+					sd | ExtensionSyntaxDefinitionProcessor.getExtensionDefinitionSyntaxRuleName(sd.syntaxDefinition).equals(name)
+				]
+				if (semanticsDef !== null) return semanticsDef
+				
+				semanticsDef = getImportedExtensionSemanticsDefinition(imprt.model, name)
+				if (semanticsDef !== null) return semanticsDef
+			}
+		}
+		return semanticsDef
 	}
 	
 }
