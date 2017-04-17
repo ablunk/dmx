@@ -1,5 +1,5 @@
-module m {
-	class B {
-		void m() {}
-	}
+module m;
+
+class B {
+	void m() {}
 }

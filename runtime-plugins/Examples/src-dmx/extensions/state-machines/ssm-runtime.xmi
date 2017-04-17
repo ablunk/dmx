@@ -6,238 +6,211 @@
   <imports file="../../dbl">
     <model href="../../dbl.xmi#/"/>
   </imports>
+  <imports file="../../stdx">
+    <model href="../../stdx.xmi#/"/>
+  </imports>
   <module name="ssmruntime">
-    <classes name="Event"/>
-    <classes name="Signal" superClasses="//@module/@classes.0"/>
-    <classes name="TimeEvent" superClasses="//@module/@classes.0"/>
-    <classes name="ObjectWithStateMachine" active="true">
+    <classes name="Event" concreteSyntax="class Event {}"/>
+    <classes name="Signal" concreteSyntax="class Signal extends Event {}" superClasses="//@module/@classes.0"/>
+    <classes name="TimeEvent" concreteSyntax="class TimeEvent extends Event {}" superClasses="//@module/@classes.0"/>
+    <classes name="ObjectWithStateMachine" concreteSyntax="active class ObjectWithStateMachine {&#xA;&#x9;StateMachineRuntime stateMachineRuntime;&#xA;&#x9;&#xA;&#x9;new() {&#xA;&#x9;&#x9;stateMachineRuntime = createStateMachineRuntime(self);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;StateMachineRuntime createStateMachineRuntime(Object context) {&#x9;&#xA;&#x9;&#x9;return null;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void sendSignal(Signal signal) {&#xA;&#x9;&#x9;stateMachineRuntime.enterEvent(signal);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;actions {&#xA;&#x9;&#x9;print(&quot;running state machine\n&quot;);&#xA;&#x9;&#x9;activate stateMachineRuntime;&#xA;&#x9;}&#xA;}" active="true">
       <constructors>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.3/@attributes.0"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="stateMachineRuntime = createStateMachineRuntime(self)">
+          <variable concreteSyntax="stateMachineRuntime">
+            <idExpr concreteSyntax="stateMachineRuntime" referencedElement="//@module/@classes.3/@attributes.0"/>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.3/@methods.0">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="createStateMachineRuntime(self)" referencedElement="//@module/@classes.3/@methods.0">
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr">
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </callArguments>
             </callPart>
           </value>
         </statements>
       </constructors>
-      <attributes name="stateMachineRuntime">
-        <classifierType referencedElement="//@module/@classes.8"/>
+      <attributes name="stateMachineRuntime" concreteSyntax="StateMachineRuntime stateMachineRuntime">
+        <classifierType concreteSyntax="StateMachineRuntime" referencedElement="//@module/@classes.8"/>
       </attributes>
       <methods name="createStateMachineRuntime">
-        <classifierType referencedElement="//@module/@classes.8"/>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:NullLiteral"/>
+        <classifierType concreteSyntax="StateMachineRuntime" referencedElement="//@module/@classes.8"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return null">
+          <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
         </statements>
         <parameters name="context">
-          <classifierType>
+          <classifierType concreteSyntax="Object">
             <referencedElement href="../../stdlib.xmi#//@module/@classes.1"/>
           </classifierType>
         </parameters>
       </methods>
       <methods name="sendSignal">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@module/@classes.8/@methods.3">
-            <parentIdExpr referencedElement="//@module/@classes.3/@attributes.0"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="stateMachineRuntime.enterEvent(signal)">
+          <callIdExpr concreteSyntax="stateMachineRuntime.enterEvent(signal)" referencedElement="//@module/@classes.8/@methods.3">
+            <parentIdExpr concreteSyntax="stateMachineRuntime" referencedElement="//@module/@classes.3/@attributes.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.3/@methods.1/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="signal" referencedElement="//@module/@classes.3/@methods.1/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
         <parameters name="signal">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType concreteSyntax="Signal" referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <actionsBlock>
-        <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:StringLiteral" value="running state machine\n"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;running state machine\n&quot;)">
+          <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;running state machine\n&quot;" value="running state machine\n"/>
         </statements>
-        <statements xsi:type="dbl:ActivateObject">
-          <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.3/@attributes.0"/>
+        <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate stateMachineRuntime">
+          <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="stateMachineRuntime" referencedElement="//@module/@classes.3/@attributes.0"/>
         </statements>
       </actionsBlock>
     </classes>
-    <classes name="StateMachine">
+    <classes name="StateMachine" concreteSyntax="class StateMachine {&#xA;&#x9;Object context;&#xA;&#x9;List states;&#xA;&#x9;State initialState;&#xA;&#x9;&#xA;&#x9;new() {&#xA;&#x9;&#x9;self.states = new ArrayList;&#x9;&#xA;&#x9;}&#xA;}">
       <constructors>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.4/@attributes.1">
-              <parentIdExpr>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.states = new ArrayList">
+          <variable concreteSyntax="self.states">
+            <idExpr concreteSyntax="self.states" referencedElement="//@module/@classes.4/@attributes.1">
+              <parentIdExpr concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:CreateObject">
-            <classifierType>
+          <value xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+            <classifierType concreteSyntax="ArrayList">
               <referencedElement href="../../stdlib.xmi#//@module/@classes.6"/>
             </classifierType>
           </value>
         </statements>
       </constructors>
-      <attributes name="context">
-        <classifierType>
+      <attributes name="context" concreteSyntax="Object context">
+        <classifierType concreteSyntax="Object">
           <referencedElement href="../../stdlib.xmi#//@module/@classes.1"/>
         </classifierType>
       </attributes>
-      <attributes name="states">
-        <classifierType>
+      <attributes name="states" concreteSyntax="List states">
+        <classifierType concreteSyntax="List">
           <referencedElement href="../../stdlib.xmi#//@module/@classes.5"/>
         </classifierType>
       </attributes>
-      <attributes name="initialState">
-        <classifierType referencedElement="//@module/@classes.5"/>
+      <attributes name="initialState" concreteSyntax="State initialState">
+        <classifierType concreteSyntax="State" referencedElement="//@module/@classes.5"/>
       </attributes>
     </classes>
-    <classes name="State">
+    <classes name="State" concreteSyntax="class State {&#xA;&#x9;string name;&#xA;&#x9;List outgoingTransitions;&#xA;&#x9;&#xA;&#x9;new() {&#xA;&#x9;&#x9;self.outgoingTransitions = new ArrayList;&#xA;&#x9;}&#xA;}">
       <constructors>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.5/@attributes.1">
-              <parentIdExpr>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.outgoingTransitions = new ArrayList">
+          <variable concreteSyntax="self.outgoingTransitions">
+            <idExpr concreteSyntax="self.outgoingTransitions" referencedElement="//@module/@classes.5/@attributes.1">
+              <parentIdExpr concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:CreateObject">
-            <classifierType>
+          <value xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+            <classifierType concreteSyntax="ArrayList">
               <referencedElement href="../../stdlib.xmi#//@module/@classes.6"/>
             </classifierType>
           </value>
         </statements>
       </constructors>
-      <attributes name="name">
+      <attributes name="name" concreteSyntax="string name">
         <primitiveType xsi:type="dbl:StringType"/>
       </attributes>
-      <attributes name="outgoingTransitions">
-        <classifierType>
+      <attributes name="outgoingTransitions" concreteSyntax="List outgoingTransitions">
+        <classifierType concreteSyntax="List">
           <referencedElement href="../../stdlib.xmi#//@module/@classes.5"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="Transition">
-      <attributes name="target">
-        <classifierType referencedElement="//@module/@classes.5"/>
+    <classes name="Transition" concreteSyntax="class Transition {&#xA;&#x9;State target;&#xA;&#x9;Variable messageVariable;&#xA;}">
+      <attributes name="target" concreteSyntax="State target">
+        <classifierType concreteSyntax="State" referencedElement="//@module/@classes.5"/>
       </attributes>
-      <attributes name="messageVariable">
-        <classifierType>
+      <attributes name="messageVariable" concreteSyntax="Variable messageVariable">
+        <classifierType concreteSyntax="Variable">
           <referencedElement href="../../dbl.xmi#//@module/@classes.28"/>
         </classifierType>
       </attributes>
     </classes>
-    <classes name="CompiledState">
+    <classes name="CompiledState" concreteSyntax="class CompiledState extends Object {&#xA;&#x9;State state;&#xA;&#x9;List compiledTransitions;&#xA;&#x9;List timers;&#xA;&#x9;&#xA;&#x9;new(State state) {&#xA;&#x9;&#x9;self.state = state;&#xA;&#x9;&#x9;self.compiledTransitions = new ArrayList();&#xA;&#x9;&#x9;self.timers = new ArrayList();&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void enter() {&#xA;&#x9;&#x9;startTimers();&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void startTimers() {&#xA;&#x9;&#x9;foreach (Timer timer in timers) {&#xA;&#x9;&#x9;&#x9;timer.start();&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void leave() {&#xA;&#x9;&#x9;cancelRunningTimers();&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void cancelRunningTimers() {&#xA;&#x9;&#x9;foreach (Timer timer in timers) {&#xA;&#x9;&#x9;&#x9;timer.cancel();&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void addTimer(Timer timer) {&#xA;&#x9;&#x9;timers.add(timer);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void addCompiledTransition(CompiledTransition compiledTransition) {&#xA;&#x9;&#x9;compiledTransitions.add(compiledTransition);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;State consumeEvent(Event event, Object context) {&#xA;&#x9;&#x9;print(&quot;consuming event\n&quot;);&#xA;&#x9;&#x9;foreach (CompiledTransition compiledTransition in compiledTransitions) {&#xA;&#x9;&#x9;&#x9;if (compiledTransition.canHandle(event)) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;executing effects\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.executeEffects(context, event);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.reset();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Transition transition = compiledTransition.transition;&#xA;&#x9;&#x9;&#x9;&#x9;return transition.target;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;return null;&#x9;&#x9;&#xA;&#x9;}&#x9;&#xA;}">
       <superClasses href="../../stdlib.xmi#//@module/@classes.1"/>
       <constructors>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.7/@constructors.0/@parameters.0">
-              <parentIdExpr>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.state = state">
+          <variable concreteSyntax="self.state">
+            <idExpr concreteSyntax="self.state" referencedElement="//@module/@classes.7/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="state" referencedElement="//@module/@classes.7/@constructors.0/@parameters.0"/>
         </statements>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.7/@attributes.1">
-              <parentIdExpr>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.compiledTransitions = new ArrayList()">
+          <variable concreteSyntax="self.compiledTransitions">
+            <idExpr concreteSyntax="self.compiledTransitions" referencedElement="//@module/@classes.7/@attributes.1">
+              <parentIdExpr concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:CreateObject">
-            <classifierType>
+          <value xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList()">
+            <classifierType concreteSyntax="ArrayList()">
               <referencedElement href="../../stdlib.xmi#//@module/@classes.6"/>
               <callPart/>
             </classifierType>
           </value>
         </statements>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.7/@attributes.2">
-              <parentIdExpr>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.timers = new ArrayList()">
+          <variable concreteSyntax="self.timers">
+            <idExpr concreteSyntax="self.timers" referencedElement="//@module/@classes.7/@attributes.2">
+              <parentIdExpr concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:CreateObject">
-            <classifierType>
+          <value xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList()">
+            <classifierType concreteSyntax="ArrayList()">
               <referencedElement href="../../stdlib.xmi#//@module/@classes.6"/>
               <callPart/>
             </classifierType>
           </value>
         </statements>
         <parameters name="state">
-          <classifierType referencedElement="//@module/@classes.5"/>
+          <classifierType concreteSyntax="State" referencedElement="//@module/@classes.5"/>
         </parameters>
       </constructors>
-      <attributes name="state">
-        <classifierType referencedElement="//@module/@classes.5"/>
+      <attributes name="state" concreteSyntax="State state">
+        <classifierType concreteSyntax="State" referencedElement="//@module/@classes.5"/>
       </attributes>
-      <attributes name="compiledTransitions">
-        <classifierType>
+      <attributes name="compiledTransitions" concreteSyntax="List compiledTransitions">
+        <classifierType concreteSyntax="List">
           <referencedElement href="../../stdlib.xmi#//@module/@classes.5"/>
         </classifierType>
       </attributes>
-      <attributes name="timers">
-        <classifierType>
+      <attributes name="timers" concreteSyntax="List timers">
+        <classifierType concreteSyntax="List">
           <referencedElement href="../../stdlib.xmi#//@module/@classes.5"/>
         </classifierType>
       </attributes>
       <methods name="enter">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@module/@classes.7/@methods.1">
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="startTimers()">
+          <callIdExpr concreteSyntax="startTimers()" referencedElement="//@module/@classes.7/@methods.1">
             <callPart/>
           </callIdExpr>
         </statements>
       </methods>
       <methods name="startTimers">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:ForStatement">
-          <statements xsi:type="dbl:Variable" name="i">
-            <primitiveType xsi:type="dbl:IntType"/>
-            <initialValue xsi:type="dbl:IntLiteral"/>
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Timer timer in timers) {&#xA;&#x9;&#x9;&#x9;timer.start();&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="timer" concreteSyntax="Timer timer">
+            <classifierType concreteSyntax="Timer" referencedElement="//@module/@classes.10"/>
           </statements>
-          <termination xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.1/@statements.0/@statements.0"/>
-            <op2 xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@module/@classes.7/@attributes.2"/>
-              <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
-              <callPart/>
-            </op2>
-          </termination>
-          <increment>
-            <variable>
-              <idExpr referencedElement="//@module/@classes.7/@methods.1/@statements.0/@statements.0"/>
-            </variable>
-            <value xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.1/@statements.0/@statements.0"/>
-              <op2 xsi:type="dbl:IntLiteral" value="1"/>
-            </value>
-          </increment>
-          <body xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:Variable" name="timer">
-              <classifierType referencedElement="//@module/@classes.10"/>
-              <initialValue xsi:type="dbl:Cast">
-                <classifierType referencedElement="//@module/@classes.10"/>
-                <op xsi:type="dbl:IdExpr">
-                  <parentIdExpr referencedElement="//@module/@classes.7/@attributes.2"/>
-                  <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
-                  <callPart>
-                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.1/@statements.0/@statements.0"/>
-                  </callPart>
-                </op>
-              </initialValue>
-            </statements>
-            <statements xsi:type="dbl:FunctionCall">
-              <callIdExpr referencedElement="//@module/@classes.10/@methods.0">
-                <parentIdExpr referencedElement="//@module/@classes.7/@methods.1/@statements.0/@body/@statements.0"/>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="timers" referencedElement="//@module/@classes.7/@attributes.2"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;timer.start();&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="timer.start()">
+              <callIdExpr concreteSyntax="timer.start()" referencedElement="//@module/@classes.10/@methods.0">
+                <parentIdExpr concreteSyntax="timer" referencedElement="//@module/@classes.7/@methods.1/@statements.0/@statements.0"/>
                 <callPart/>
               </callIdExpr>
             </statements>
@@ -246,53 +219,23 @@
       </methods>
       <methods name="leave">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@module/@classes.7/@methods.3">
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="cancelRunningTimers()">
+          <callIdExpr concreteSyntax="cancelRunningTimers()" referencedElement="//@module/@classes.7/@methods.3">
             <callPart/>
           </callIdExpr>
         </statements>
       </methods>
       <methods name="cancelRunningTimers">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:ForStatement">
-          <statements xsi:type="dbl:Variable" name="i">
-            <primitiveType xsi:type="dbl:IntType"/>
-            <initialValue xsi:type="dbl:IntLiteral"/>
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Timer timer in timers) {&#xA;&#x9;&#x9;&#x9;timer.cancel();&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="timer" concreteSyntax="Timer timer">
+            <classifierType concreteSyntax="Timer" referencedElement="//@module/@classes.10"/>
           </statements>
-          <termination xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.3/@statements.0/@statements.0"/>
-            <op2 xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@module/@classes.7/@attributes.2"/>
-              <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
-              <callPart/>
-            </op2>
-          </termination>
-          <increment>
-            <variable>
-              <idExpr referencedElement="//@module/@classes.7/@methods.3/@statements.0/@statements.0"/>
-            </variable>
-            <value xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.3/@statements.0/@statements.0"/>
-              <op2 xsi:type="dbl:IntLiteral" value="1"/>
-            </value>
-          </increment>
-          <body xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:Variable" name="timer">
-              <classifierType referencedElement="//@module/@classes.10"/>
-              <initialValue xsi:type="dbl:Cast">
-                <classifierType referencedElement="//@module/@classes.10"/>
-                <op xsi:type="dbl:IdExpr">
-                  <parentIdExpr referencedElement="//@module/@classes.7/@attributes.2"/>
-                  <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
-                  <callPart>
-                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.3/@statements.0/@statements.0"/>
-                  </callPart>
-                </op>
-              </initialValue>
-            </statements>
-            <statements xsi:type="dbl:FunctionCall">
-              <callIdExpr referencedElement="//@module/@classes.10/@methods.1">
-                <parentIdExpr referencedElement="//@module/@classes.7/@methods.3/@statements.0/@body/@statements.0"/>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="timers" referencedElement="//@module/@classes.7/@attributes.2"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;timer.cancel();&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="timer.cancel()">
+              <callIdExpr concreteSyntax="timer.cancel()" referencedElement="//@module/@classes.10/@methods.1">
+                <parentIdExpr concreteSyntax="timer" referencedElement="//@module/@classes.7/@methods.3/@statements.0/@statements.0"/>
                 <callPart/>
               </callIdExpr>
             </statements>
@@ -301,553 +244,523 @@
       </methods>
       <methods name="addTimer">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr>
-            <parentIdExpr referencedElement="//@module/@classes.7/@attributes.2"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="timers.add(timer)">
+          <callIdExpr concreteSyntax="timers.add(timer)">
+            <parentIdExpr concreteSyntax="timers" referencedElement="//@module/@classes.7/@attributes.2"/>
             <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.4/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="timer" referencedElement="//@module/@classes.7/@methods.4/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
         <parameters name="timer">
-          <classifierType referencedElement="//@module/@classes.10"/>
+          <classifierType concreteSyntax="Timer" referencedElement="//@module/@classes.10"/>
         </parameters>
       </methods>
       <methods name="addCompiledTransition">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr>
-            <parentIdExpr referencedElement="//@module/@classes.7/@attributes.1"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="compiledTransitions.add(compiledTransition)">
+          <callIdExpr concreteSyntax="compiledTransitions.add(compiledTransition)">
+            <parentIdExpr concreteSyntax="compiledTransitions" referencedElement="//@module/@classes.7/@attributes.1"/>
             <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.5/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="compiledTransition" referencedElement="//@module/@classes.7/@methods.5/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
         <parameters name="compiledTransition">
-          <classifierType referencedElement="//@module/@classes.9"/>
+          <classifierType concreteSyntax="CompiledTransition" referencedElement="//@module/@classes.9"/>
         </parameters>
       </methods>
       <methods name="consumeEvent">
-        <classifierType referencedElement="//@module/@classes.5"/>
-        <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:StringLiteral" value="consuming event\n"/>
+        <classifierType concreteSyntax="State" referencedElement="//@module/@classes.5"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;consuming event\n&quot;)">
+          <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;consuming event\n&quot;" value="consuming event\n"/>
         </statements>
-        <statements xsi:type="dbl:ForStatement">
-          <statements xsi:type="dbl:Variable" name="i">
-            <primitiveType xsi:type="dbl:IntType"/>
-            <initialValue xsi:type="dbl:IntLiteral"/>
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (CompiledTransition compiledTransition in compiledTransitions) {&#xA;&#x9;&#x9;&#x9;if (compiledTransition.canHandle(event)) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;executing effects\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.executeEffects(context, event);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.reset();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Transition transition = compiledTransition.transition;&#xA;&#x9;&#x9;&#x9;&#x9;return transition.target;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="compiledTransition" concreteSyntax="CompiledTransition compiledTransition">
+            <classifierType concreteSyntax="CompiledTransition" referencedElement="//@module/@classes.9"/>
           </statements>
-          <termination xsi:type="dbl:Less">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
-            <op2 xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@module/@classes.7/@attributes.1"/>
-              <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
-              <callPart/>
-            </op2>
-          </termination>
-          <increment>
-            <variable>
-              <idExpr referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
-            </variable>
-            <value xsi:type="dbl:Plus">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
-              <op2 xsi:type="dbl:IntLiteral" value="1"/>
-            </value>
-          </increment>
-          <body xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:Variable" name="compiledTransition">
-              <classifierType referencedElement="//@module/@classes.9"/>
-              <initialValue xsi:type="dbl:Cast">
-                <classifierType referencedElement="//@module/@classes.9"/>
-                <op xsi:type="dbl:IdExpr">
-                  <parentIdExpr referencedElement="//@module/@classes.7/@attributes.1"/>
-                  <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
-                  <callPart>
-                    <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
-                  </callPart>
-                </op>
-              </initialValue>
-            </statements>
-            <statements xsi:type="dbl:IfStatement">
-              <condition xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@methods.0">
-                <parentIdExpr referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitions" referencedElement="//@module/@classes.7/@attributes.1"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;if (compiledTransition.canHandle(event)) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;executing effects\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.executeEffects(context, event);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.reset();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Transition transition = compiledTransition.transition;&#xA;&#x9;&#x9;&#x9;&#x9;return transition.target;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (compiledTransition.canHandle(event)) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;executing effects\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.executeEffects(context, event);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.reset();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Transition transition = compiledTransition.transition;&#xA;&#x9;&#x9;&#x9;&#x9;return transition.target;&#xA;&#x9;&#x9;&#x9;}">
+              <condition xsi:type="dbl:IdExpr" concreteSyntax="compiledTransition.canHandle(event)" referencedElement="//@module/@classes.9/@methods.0">
+                <parentIdExpr concreteSyntax="compiledTransition" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
                 <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6/@parameters.0"/>
+                  <callArguments xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classes.7/@methods.6/@parameters.0"/>
                 </callPart>
               </condition>
-              <trueCase xsi:type="dbl:LocalScopeStatement">
-                <statements xsi:type="dbl:Print">
-                  <outputs xsi:type="dbl:StringLiteral" value="executing effects\n"/>
+              <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;executing effects\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.executeEffects(context, event);&#xA;&#x9;&#x9;&#x9;&#x9;compiledTransition.reset();&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Transition transition = compiledTransition.transition;&#xA;&#x9;&#x9;&#x9;&#x9;return transition.target;&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;executing effects\n&quot;)">
+                  <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;executing effects\n&quot;" value="executing effects\n"/>
                 </statements>
-                <statements xsi:type="dbl:FunctionCall">
-                  <callIdExpr referencedElement="//@module/@classes.9/@methods.3">
-                    <parentIdExpr referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
+                <statements xsi:type="dbl:FunctionCall" concreteSyntax="compiledTransition.executeEffects(context, event)">
+                  <callIdExpr concreteSyntax="compiledTransition.executeEffects(context, event)" referencedElement="//@module/@classes.9/@methods.3">
+                    <parentIdExpr concreteSyntax="compiledTransition" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
                     <callPart>
-                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6/@parameters.1"/>
-                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6/@parameters.0"/>
+                      <callArguments xsi:type="dbl:IdExpr" concreteSyntax="context" referencedElement="//@module/@classes.7/@methods.6/@parameters.1"/>
+                      <callArguments xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classes.7/@methods.6/@parameters.0"/>
                     </callPart>
                   </callIdExpr>
                 </statements>
-                <statements xsi:type="dbl:FunctionCall">
-                  <callIdExpr referencedElement="//@module/@classes.9/@methods.2">
-                    <parentIdExpr referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
+                <statements xsi:type="dbl:FunctionCall" concreteSyntax="compiledTransition.reset()">
+                  <callIdExpr concreteSyntax="compiledTransition.reset()" referencedElement="//@module/@classes.9/@methods.2">
+                    <parentIdExpr concreteSyntax="compiledTransition" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
                     <callPart/>
                   </callIdExpr>
                 </statements>
-                <statements xsi:type="dbl:Variable" name="transition">
-                  <classifierType referencedElement="//@module/@classes.6"/>
-                  <initialValue xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.1/@trueCase/@statements.3">
-                    <parentIdExpr referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.0"/>
+                <statements xsi:type="dbl:Variable" name="transition" concreteSyntax="Transition transition = compiledTransition.transition">
+                  <classifierType concreteSyntax="Transition" referencedElement="//@module/@classes.6"/>
+                  <initialValue xsi:type="dbl:IdExpr" concreteSyntax="compiledTransition.transition" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.0/@trueCase/@statements.3">
+                    <parentIdExpr concreteSyntax="compiledTransition" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@statements.0"/>
                   </initialValue>
                 </statements>
-                <statements xsi:type="dbl:Return">
-                  <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.6/@attributes.0">
-                    <parentIdExpr referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.1/@trueCase/@statements.3"/>
+                <statements xsi:type="dbl:Return" concreteSyntax="return transition.target">
+                  <value xsi:type="dbl:IdExpr" concreteSyntax="transition.target" referencedElement="//@module/@classes.6/@attributes.0">
+                    <parentIdExpr concreteSyntax="transition" referencedElement="//@module/@classes.7/@methods.6/@statements.1/@body/@statements.0/@trueCase/@statements.3"/>
                   </value>
                 </statements>
               </trueCase>
             </statements>
           </body>
         </statements>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:NullLiteral"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return null">
+          <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
         </statements>
         <parameters name="event">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
         </parameters>
         <parameters name="context">
-          <classifierType>
+          <classifierType concreteSyntax="Object">
             <referencedElement href="../../stdlib.xmi#//@module/@classes.1"/>
           </classifierType>
         </parameters>
       </methods>
     </classes>
-    <classes name="StateMachineRuntime" active="true">
+    <classes name="StateMachineRuntime" concreteSyntax="active class StateMachineRuntime {&#xA;&#x9;StateMachine stateMachine;&#xA;&#x9;&#xA;&#x9;Map stateToCompiledState = new HashMap;&#xA;&#x9;List eventQueue = new ArrayList;&#xA;&#x9;CompiledState currentState;&#xA;&#x9;&#xA;&#x9;new(StateMachine stateMachine) {&#xA;&#x9;&#x9;self.stateMachine = stateMachine;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void setCompiledState(State state, CompiledState compiledState) {&#xA;&#x9;&#x9;stateToCompiledState.put(state, compiledState);&#xA;&#x9;}&#xA;&#xA;&#x9;actions {&#xA;&#x9;&#x9;currentState = stateToCompiledState.get(stateMachine.initialState) as CompiledState;&#xA;&#x9;&#x9;executeEventLoop();&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void executeEventLoop() {&#xA;&#x9;&#x9;print(&quot;executing event loop\n&quot;);&#xA;&#x9;&#x9;while (currentState != null) {&#xA;&#x9;&#x9;&#x9;while (currentState != null and !eventQueue.isEmpty()) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;current state = &quot; + currentState.state.name + &quot;\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;Event nextEvent = popNextEvent();&#xA;&#x9;&#x9;&#x9;&#x9;State nextState = currentState.consumeEvent(nextEvent, stateMachine.context);&#xA;&#x9;&#x9;&#x9;&#x9;if (nextState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = compiledNextState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.enter();&#xA;&#x9;&#x9;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = null;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print(&quot;there is no next state. exiting.\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;print(&quot;no more events, waiting\n&quot;);&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;print(&quot;current state is not set, exiting\n&quot;);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;Event popNextEvent() {&#xA;&#x9;&#x9;Event nextEvent = eventQueue.get(0) as Event;&#xA;&#x9;&#x9;eventQueue.remove(nextEvent);&#xA;&#x9;&#x9;return nextEvent;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void enterEvent(Event event) {&#xA;&#x9;&#x9;eventQueue.add(event);&#xA;&#x9;&#x9;reactivate self;&#xA;&#x9;}&#xA;}" active="true">
       <constructors>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.8/@constructors.0/@parameters.0">
-              <parentIdExpr>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.stateMachine = stateMachine">
+          <variable concreteSyntax="self.stateMachine">
+            <idExpr concreteSyntax="self.stateMachine" referencedElement="//@module/@classes.8/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="stateMachine" referencedElement="//@module/@classes.8/@constructors.0/@parameters.0"/>
         </statements>
         <parameters name="stateMachine">
-          <classifierType referencedElement="//@module/@classes.4"/>
+          <classifierType concreteSyntax="StateMachine" referencedElement="//@module/@classes.4"/>
         </parameters>
       </constructors>
-      <attributes name="stateMachine">
-        <classifierType referencedElement="//@module/@classes.4"/>
+      <attributes name="stateMachine" concreteSyntax="StateMachine stateMachine">
+        <classifierType concreteSyntax="StateMachine" referencedElement="//@module/@classes.4"/>
       </attributes>
-      <attributes name="stateToCompiledState">
-        <classifierType>
+      <attributes name="stateToCompiledState" concreteSyntax="Map stateToCompiledState = new HashMap">
+        <classifierType concreteSyntax="Map">
           <referencedElement href="../../stdlib.xmi#//@module/@classes.7"/>
         </classifierType>
-        <initialValue xsi:type="dbl:CreateObject">
-          <classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new HashMap">
+          <classifierType concreteSyntax="HashMap">
             <referencedElement href="../../stdlib.xmi#//@module/@classes.8"/>
           </classifierType>
         </initialValue>
       </attributes>
-      <attributes name="eventQueue">
-        <classifierType>
+      <attributes name="eventQueue" concreteSyntax="List eventQueue = new ArrayList">
+        <classifierType concreteSyntax="List">
           <referencedElement href="../../stdlib.xmi#//@module/@classes.5"/>
         </classifierType>
-        <initialValue xsi:type="dbl:CreateObject">
-          <classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+          <classifierType concreteSyntax="ArrayList">
             <referencedElement href="../../stdlib.xmi#//@module/@classes.6"/>
           </classifierType>
         </initialValue>
       </attributes>
-      <attributes name="currentState">
-        <classifierType referencedElement="//@module/@classes.7"/>
+      <attributes name="currentState" concreteSyntax="CompiledState currentState">
+        <classifierType concreteSyntax="CompiledState" referencedElement="//@module/@classes.7"/>
       </attributes>
       <methods name="setCompiledState">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr>
-            <parentIdExpr referencedElement="//@module/@classes.8/@attributes.1"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="stateToCompiledState.put(state, compiledState)">
+          <callIdExpr concreteSyntax="stateToCompiledState.put(state, compiledState)">
+            <parentIdExpr concreteSyntax="stateToCompiledState" referencedElement="//@module/@classes.8/@attributes.1"/>
             <referencedElement href="../../stdlib.xmi#//@module/@classes.7/@methods.1"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.0/@parameters.0"/>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.0/@parameters.1"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="state" referencedElement="//@module/@classes.8/@methods.0/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="compiledState" referencedElement="//@module/@classes.8/@methods.0/@parameters.1"/>
             </callPart>
           </callIdExpr>
         </statements>
         <parameters name="state">
-          <classifierType referencedElement="//@module/@classes.5"/>
+          <classifierType concreteSyntax="State" referencedElement="//@module/@classes.5"/>
         </parameters>
         <parameters name="compiledState">
-          <classifierType referencedElement="//@module/@classes.7"/>
+          <classifierType concreteSyntax="CompiledState" referencedElement="//@module/@classes.7"/>
         </parameters>
       </methods>
       <methods name="executeEventLoop">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:StringLiteral" value="executing event loop\n"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;executing event loop\n&quot;)">
+          <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;executing event loop\n&quot;" value="executing event loop\n"/>
         </statements>
-        <statements xsi:type="dbl:WhileStatement">
-          <condition xsi:type="dbl:NotEqual">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@attributes.3"/>
-            <op2 xsi:type="dbl:NullLiteral"/>
+        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (currentState != null) {&#xA;&#x9;&#x9;&#x9;while (currentState != null and !eventQueue.isEmpty()) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;current state = &quot; + currentState.state.name + &quot;\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;Event nextEvent = popNextEvent();&#xA;&#x9;&#x9;&#x9;&#x9;State nextState = currentState.consumeEvent(nextEvent, stateMachine.context);&#xA;&#x9;&#x9;&#x9;&#x9;if (nextState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = compiledNextState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.enter();&#xA;&#x9;&#x9;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = null;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print(&quot;there is no next state. exiting.\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;print(&quot;no more events, waiting\n&quot;);&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:NotEqual" concreteSyntax="currentState != null">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
+            <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
           </condition>
-          <body xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:WhileStatement">
-              <condition xsi:type="dbl:And">
-                <op1 xsi:type="dbl:NotEqual">
-                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@attributes.3"/>
-                  <op2 xsi:type="dbl:NullLiteral"/>
+          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;while (currentState != null and !eventQueue.isEmpty()) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;current state = &quot; + currentState.state.name + &quot;\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;Event nextEvent = popNextEvent();&#xA;&#x9;&#x9;&#x9;&#x9;State nextState = currentState.consumeEvent(nextEvent, stateMachine.context);&#xA;&#x9;&#x9;&#x9;&#x9;if (nextState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = compiledNextState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.enter();&#xA;&#x9;&#x9;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = null;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print(&quot;there is no next state. exiting.\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;print(&quot;no more events, waiting\n&quot;);&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (currentState != null and !eventQueue.isEmpty()) {&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;current state = &quot; + currentState.state.name + &quot;\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;Event nextEvent = popNextEvent();&#xA;&#x9;&#x9;&#x9;&#x9;State nextState = currentState.consumeEvent(nextEvent, stateMachine.context);&#xA;&#x9;&#x9;&#x9;&#x9;if (nextState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = compiledNextState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.enter();&#xA;&#x9;&#x9;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = null;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print(&quot;there is no next state. exiting.\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}">
+              <condition xsi:type="dbl:And" concreteSyntax="currentState != null and !eventQueue.isEmpty()">
+                <op1 xsi:type="dbl:NotEqual" concreteSyntax="currentState != null">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
+                  <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
                 </op1>
-                <op2 xsi:type="dbl:Not">
-                  <op xsi:type="dbl:IdExpr">
-                    <parentIdExpr referencedElement="//@module/@classes.8/@attributes.2"/>
+                <op2 xsi:type="dbl:Not" concreteSyntax="!eventQueue.isEmpty()">
+                  <op xsi:type="dbl:IdExpr" concreteSyntax="eventQueue.isEmpty()">
+                    <parentIdExpr concreteSyntax="eventQueue" referencedElement="//@module/@classes.8/@attributes.2"/>
                     <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.7"/>
                     <callPart/>
                   </op>
                 </op2>
               </condition>
-              <body xsi:type="dbl:LocalScopeStatement">
-                <statements xsi:type="dbl:Print">
-                  <outputs xsi:type="dbl:Plus">
-                    <op1 xsi:type="dbl:Plus">
-                      <op1 xsi:type="dbl:StringLiteral" value="current state = "/>
-                      <op2 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.5/@attributes.0">
-                        <parentIdExpr referencedElement="//@module/@classes.7/@attributes.0">
-                          <parentIdExpr referencedElement="//@module/@classes.8/@attributes.3"/>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;print(&quot;current state = &quot; + currentState.state.name + &quot;\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;Event nextEvent = popNextEvent();&#xA;&#x9;&#x9;&#x9;&#x9;State nextState = currentState.consumeEvent(nextEvent, stateMachine.context);&#xA;&#x9;&#x9;&#x9;&#x9;if (nextState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = compiledNextState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.enter();&#xA;&#x9;&#x9;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = null;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print(&quot;there is no next state. exiting.\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;current state = &quot; + currentState.state.name + &quot;\n&quot;)">
+                  <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;current state = &quot; + currentState.state.name + &quot;\n&quot;">
+                    <op1 xsi:type="dbl:Plus" concreteSyntax="&quot;current state = &quot; + currentState.state.name">
+                      <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;current state = &quot;" value="current state = "/>
+                      <op2 xsi:type="dbl:IdExpr" concreteSyntax="currentState.state.name" referencedElement="//@module/@classes.5/@attributes.0">
+                        <parentIdExpr concreteSyntax="currentState.state" referencedElement="//@module/@classes.7/@attributes.0">
+                          <parentIdExpr concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
                         </parentIdExpr>
                       </op2>
                     </op1>
-                    <op2 xsi:type="dbl:StringLiteral" value="\n"/>
+                    <op2 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;\n&quot;" value="\n"/>
                   </outputs>
                 </statements>
-                <statements xsi:type="dbl:Variable" name="nextEvent">
-                  <classifierType referencedElement="//@module/@classes.0"/>
-                  <initialValue xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.2">
+                <statements xsi:type="dbl:Variable" name="nextEvent" concreteSyntax="Event nextEvent = popNextEvent()">
+                  <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
+                  <initialValue xsi:type="dbl:IdExpr" concreteSyntax="popNextEvent()" referencedElement="//@module/@classes.8/@methods.2">
                     <callPart/>
                   </initialValue>
                 </statements>
-                <statements xsi:type="dbl:Variable" name="nextState">
-                  <classifierType referencedElement="//@module/@classes.5"/>
-                  <initialValue xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.7/@methods.6">
-                    <parentIdExpr referencedElement="//@module/@classes.8/@attributes.3"/>
+                <statements xsi:type="dbl:Variable" name="nextState" concreteSyntax="State nextState = currentState.consumeEvent(nextEvent, stateMachine.context)">
+                  <classifierType concreteSyntax="State" referencedElement="//@module/@classes.5"/>
+                  <initialValue xsi:type="dbl:IdExpr" concreteSyntax="currentState.consumeEvent(nextEvent, stateMachine.context)" referencedElement="//@module/@classes.7/@methods.6">
+                    <parentIdExpr concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
                     <callPart>
-                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.1"/>
-                      <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.4/@attributes.0">
-                        <parentIdExpr referencedElement="//@module/@classes.8/@attributes.0"/>
+                      <callArguments xsi:type="dbl:IdExpr" concreteSyntax="nextEvent" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.1"/>
+                      <callArguments xsi:type="dbl:IdExpr" concreteSyntax="stateMachine.context" referencedElement="//@module/@classes.4/@attributes.0">
+                        <parentIdExpr concreteSyntax="stateMachine" referencedElement="//@module/@classes.8/@attributes.0"/>
                       </callArguments>
                     </callPart>
                   </initialValue>
                 </statements>
-                <statements xsi:type="dbl:IfStatement">
-                  <condition xsi:type="dbl:NotEqual">
-                    <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.2"/>
-                    <op2 xsi:type="dbl:NullLiteral"/>
+                <statements xsi:type="dbl:IfStatement" concreteSyntax="if (nextState != null) {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = compiledNextState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.enter();&#xA;&#x9;&#x9;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = null;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print(&quot;there is no next state. exiting.\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                  <condition xsi:type="dbl:NotEqual" concreteSyntax="nextState != null">
+                    <op1 xsi:type="dbl:IdExpr" concreteSyntax="nextState" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.2"/>
+                    <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
                   </condition>
-                  <trueCase xsi:type="dbl:LocalScopeStatement">
-                    <statements xsi:type="dbl:Variable" name="compiledNextState">
-                      <classifierType referencedElement="//@module/@classes.7"/>
-                      <initialValue xsi:type="dbl:Cast">
-                        <classifierType referencedElement="//@module/@classes.7"/>
-                        <op xsi:type="dbl:IdExpr">
-                          <parentIdExpr referencedElement="//@module/@classes.8/@attributes.1"/>
+                  <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = compiledNextState;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.enter();&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                    <statements xsi:type="dbl:Variable" name="compiledNextState" concreteSyntax="CompiledState compiledNextState = stateToCompiledState.get(nextState) as CompiledState">
+                      <classifierType concreteSyntax="CompiledState" referencedElement="//@module/@classes.7"/>
+                      <initialValue xsi:type="dbl:Cast" concreteSyntax="stateToCompiledState.get(nextState) as CompiledState">
+                        <classifierType concreteSyntax="CompiledState" referencedElement="//@module/@classes.7"/>
+                        <op xsi:type="dbl:IdExpr" concreteSyntax="stateToCompiledState.get(nextState)">
+                          <parentIdExpr concreteSyntax="stateToCompiledState" referencedElement="//@module/@classes.8/@attributes.1"/>
                           <referencedElement href="../../stdlib.xmi#//@module/@classes.7/@methods.0"/>
                           <callPart>
-                            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.2"/>
+                            <callArguments xsi:type="dbl:IdExpr" concreteSyntax="nextState" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.2"/>
                           </callPart>
                         </op>
                       </initialValue>
                     </statements>
-                    <statements xsi:type="dbl:Assignment">
-                      <variable>
-                        <idExpr referencedElement="//@module/@classes.8/@attributes.3"/>
+                    <statements xsi:type="dbl:Assignment" concreteSyntax="currentState = compiledNextState">
+                      <variable concreteSyntax="currentState">
+                        <idExpr concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
                       </variable>
-                      <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.3/@trueCase/@statements.0"/>
+                      <value xsi:type="dbl:IdExpr" concreteSyntax="compiledNextState" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.3/@trueCase/@statements.0"/>
                     </statements>
-                    <statements xsi:type="dbl:IfStatement">
-                      <condition xsi:type="dbl:NotEqual">
-                        <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@attributes.3"/>
-                        <op2 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.3/@trueCase/@statements.0"/>
+                    <statements xsi:type="dbl:IfStatement" concreteSyntax="if (currentState != compiledNextState) { // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                      <condition xsi:type="dbl:NotEqual" concreteSyntax="currentState != compiledNextState">
+                        <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
+                        <op2 xsi:type="dbl:IdExpr" concreteSyntax="compiledNextState" referencedElement="//@module/@classes.8/@methods.1/@statements.1/@body/@statements.0/@body/@statements.3/@trueCase/@statements.0"/>
                       </condition>
-                      <trueCase xsi:type="dbl:LocalScopeStatement">
-                        <statements xsi:type="dbl:FunctionCall">
-                          <callIdExpr referencedElement="//@module/@classes.7/@methods.2">
-                            <parentIdExpr referencedElement="//@module/@classes.8/@attributes.3"/>
+                      <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{ // better use equals here&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;currentState.leave();&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;}">
+                        <statements xsi:type="dbl:FunctionCall" concreteSyntax="currentState.leave()">
+                          <callIdExpr concreteSyntax="currentState.leave()" referencedElement="//@module/@classes.7/@methods.2">
+                            <parentIdExpr concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
                             <callPart/>
                           </callIdExpr>
                         </statements>
                       </trueCase>
                     </statements>
-                    <statements xsi:type="dbl:FunctionCall">
-                      <callIdExpr referencedElement="//@module/@classes.7/@methods.0">
-                        <parentIdExpr referencedElement="//@module/@classes.8/@attributes.3"/>
+                    <statements xsi:type="dbl:FunctionCall" concreteSyntax="currentState.enter()">
+                      <callIdExpr concreteSyntax="currentState.enter()" referencedElement="//@module/@classes.7/@methods.0">
+                        <parentIdExpr concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
                         <callPart/>
                       </callIdExpr>
                     </statements>
                   </trueCase>
-                  <falseCase xsi:type="dbl:LocalScopeStatement">
-                    <statements xsi:type="dbl:Assignment">
-                      <variable>
-                        <idExpr referencedElement="//@module/@classes.8/@attributes.3"/>
+                  <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;currentState = null;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;print(&quot;there is no next state. exiting.\n&quot;);&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                    <statements xsi:type="dbl:Assignment" concreteSyntax="currentState = null">
+                      <variable concreteSyntax="currentState">
+                        <idExpr concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
                       </variable>
-                      <value xsi:type="dbl:NullLiteral"/>
+                      <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
                     </statements>
-                    <statements xsi:type="dbl:Print">
-                      <outputs xsi:type="dbl:StringLiteral" value="there is no next state. exiting.\n"/>
+                    <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;there is no next state. exiting.\n&quot;)">
+                      <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;there is no next state. exiting.\n&quot;" value="there is no next state. exiting.\n"/>
                     </statements>
                   </falseCase>
                 </statements>
               </body>
             </statements>
-            <statements xsi:type="dbl:Print">
-              <outputs xsi:type="dbl:StringLiteral" value="no more events, waiting\n"/>
+            <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;no more events, waiting\n&quot;)">
+              <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;no more events, waiting\n&quot;" value="no more events, waiting\n"/>
             </statements>
-            <statements xsi:type="dbl:Wait"/>
+            <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
           </body>
         </statements>
-        <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:StringLiteral" value="current state is not set, exiting\n"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;current state is not set, exiting\n&quot;)">
+          <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;current state is not set, exiting\n&quot;" value="current state is not set, exiting\n"/>
         </statements>
       </methods>
       <methods name="popNextEvent">
-        <classifierType referencedElement="//@module/@classes.0"/>
-        <statements xsi:type="dbl:Variable" name="nextEvent">
-          <classifierType referencedElement="//@module/@classes.0"/>
-          <initialValue xsi:type="dbl:Cast">
-            <classifierType referencedElement="//@module/@classes.0"/>
-            <op xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@module/@classes.8/@attributes.2"/>
+        <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
+        <statements xsi:type="dbl:Variable" name="nextEvent" concreteSyntax="Event nextEvent = eventQueue.get(0) as Event">
+          <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
+          <initialValue xsi:type="dbl:Cast" concreteSyntax="eventQueue.get(0) as Event">
+            <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
+            <op xsi:type="dbl:IdExpr" concreteSyntax="eventQueue.get(0)">
+              <parentIdExpr concreteSyntax="eventQueue" referencedElement="//@module/@classes.8/@attributes.2"/>
               <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
               <callPart>
-                <callArguments xsi:type="dbl:IntLiteral"/>
+                <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
               </callPart>
             </op>
           </initialValue>
         </statements>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr>
-            <parentIdExpr referencedElement="//@module/@classes.8/@attributes.2"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="eventQueue.remove(nextEvent)">
+          <callIdExpr concreteSyntax="eventQueue.remove(nextEvent)">
+            <parentIdExpr concreteSyntax="eventQueue" referencedElement="//@module/@classes.8/@attributes.2"/>
             <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.8"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.2/@statements.0"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="nextEvent" referencedElement="//@module/@classes.8/@methods.2/@statements.0"/>
             </callPart>
           </callIdExpr>
         </statements>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.2/@statements.0"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return nextEvent">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="nextEvent" referencedElement="//@module/@classes.8/@methods.2/@statements.0"/>
         </statements>
       </methods>
       <methods name="enterEvent">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr>
-            <parentIdExpr referencedElement="//@module/@classes.8/@attributes.2"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="eventQueue.add(event)">
+          <callIdExpr concreteSyntax="eventQueue.add(event)">
+            <parentIdExpr concreteSyntax="eventQueue" referencedElement="//@module/@classes.8/@attributes.2"/>
             <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.0"/>
             <callPart>
-              <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.8/@methods.3/@parameters.0"/>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classes.8/@methods.3/@parameters.0"/>
             </callPart>
           </callIdExpr>
         </statements>
-        <statements xsi:type="dbl:Reactivate">
-          <objectAccess xsi:type="dbl:IdExpr">
+        <statements xsi:type="dbl:Reactivate" concreteSyntax="reactivate self">
+          <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="self">
             <predefinedId xsi:type="dbl:MeLiteral"/>
           </objectAccess>
         </statements>
         <parameters name="event">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
         </parameters>
       </methods>
       <actionsBlock>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.8/@attributes.3"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="currentState = stateToCompiledState.get(stateMachine.initialState) as CompiledState">
+          <variable concreteSyntax="currentState">
+            <idExpr concreteSyntax="currentState" referencedElement="//@module/@classes.8/@attributes.3"/>
           </variable>
-          <value xsi:type="dbl:Cast">
-            <classifierType referencedElement="//@module/@classes.7"/>
-            <op xsi:type="dbl:IdExpr">
-              <parentIdExpr referencedElement="//@module/@classes.8/@attributes.1"/>
+          <value xsi:type="dbl:Cast" concreteSyntax="stateToCompiledState.get(stateMachine.initialState) as CompiledState">
+            <classifierType concreteSyntax="CompiledState" referencedElement="//@module/@classes.7"/>
+            <op xsi:type="dbl:IdExpr" concreteSyntax="stateToCompiledState.get(stateMachine.initialState)">
+              <parentIdExpr concreteSyntax="stateToCompiledState" referencedElement="//@module/@classes.8/@attributes.1"/>
               <referencedElement href="../../stdlib.xmi#//@module/@classes.7/@methods.0"/>
               <callPart>
-                <callArguments xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.4/@attributes.2">
-                  <parentIdExpr referencedElement="//@module/@classes.8/@attributes.0"/>
+                <callArguments xsi:type="dbl:IdExpr" concreteSyntax="stateMachine.initialState" referencedElement="//@module/@classes.4/@attributes.2">
+                  <parentIdExpr concreteSyntax="stateMachine" referencedElement="//@module/@classes.8/@attributes.0"/>
                 </callArguments>
               </callPart>
             </op>
           </value>
         </statements>
-        <statements xsi:type="dbl:FunctionCall">
-          <callIdExpr referencedElement="//@module/@classes.8/@methods.1">
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="executeEventLoop()">
+          <callIdExpr concreteSyntax="executeEventLoop()" referencedElement="//@module/@classes.8/@methods.1">
             <callPart/>
           </callIdExpr>
         </statements>
       </actionsBlock>
     </classes>
-    <classes name="CompiledTransition">
+    <classes name="CompiledTransition" concreteSyntax="class CompiledTransition {&#xA;&#x9;Transition transition;&#xA;&#x9;TimeEvent assignedFiredTimeEvent;&#xA;&#x9;&#xA;&#x9;new(Transition transition) {&#xA;&#x9;&#x9;self.transition = transition;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;boolean canHandle(Event event) {&#xA;&#x9;&#x9;if (event instanceof Signal) {&#xA;&#x9;&#x9;&#x9;return canHandleSignal(event as Signal);&#xA;&#x9;&#x9;} else if (event instanceof TimeEvent) {&#xA;&#x9;&#x9;&#x9;return event == assignedFiredTimeEvent;&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;return false;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;boolean canHandleSignal(Signal message) {&#xA;&#x9;&#x9;return false;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void reset() {&#xA;&#x9;&#x9;assignedFiredTimeEvent = null;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;// to be overridden&#xA;&#x9;void executeEffects(Object context, Event event) {}&#xA;&#x9;&#xA;&#x9;// to be overridden&#xA;&#x9;int getTimeDuration() {&#xA;&#x9;&#x9;return 0;&#xA;&#x9;}&#xA;}">
       <constructors>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.9/@constructors.0/@parameters.0">
-              <parentIdExpr>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.transition = transition">
+          <variable concreteSyntax="self.transition">
+            <idExpr concreteSyntax="self.transition" referencedElement="//@module/@classes.9/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
                 <predefinedId xsi:type="dbl:MeLiteral"/>
               </parentIdExpr>
             </idExpr>
           </variable>
-          <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@constructors.0/@parameters.0"/>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="transition" referencedElement="//@module/@classes.9/@constructors.0/@parameters.0"/>
         </statements>
         <parameters name="transition">
-          <classifierType referencedElement="//@module/@classes.6"/>
+          <classifierType concreteSyntax="Transition" referencedElement="//@module/@classes.6"/>
         </parameters>
       </constructors>
-      <attributes name="transition">
-        <classifierType referencedElement="//@module/@classes.6"/>
+      <attributes name="transition" concreteSyntax="Transition transition">
+        <classifierType concreteSyntax="Transition" referencedElement="//@module/@classes.6"/>
       </attributes>
-      <attributes name="assignedFiredTimeEvent">
-        <classifierType referencedElement="//@module/@classes.2"/>
+      <attributes name="assignedFiredTimeEvent" concreteSyntax="TimeEvent assignedFiredTimeEvent">
+        <classifierType concreteSyntax="TimeEvent" referencedElement="//@module/@classes.2"/>
       </attributes>
       <methods name="canHandle">
         <primitiveType xsi:type="dbl:BoolType"/>
-        <statements xsi:type="dbl:IfStatement">
-          <condition xsi:type="dbl:InstanceOf">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
-            <op2 xsi:type="dbl:TypeAccess">
-              <idExpr referencedElement="//@module/@classes.1"/>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (event instanceof Signal) {&#xA;&#x9;&#x9;&#x9;return canHandleSignal(event as Signal);&#xA;&#x9;&#x9;} else if (event instanceof TimeEvent) {&#xA;&#x9;&#x9;&#x9;return event == assignedFiredTimeEvent;&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;return false;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:InstanceOf" concreteSyntax="event instanceof Signal">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
+            <op2 xsi:type="dbl:TypeAccess" concreteSyntax="Signal">
+              <idExpr concreteSyntax="Signal" referencedElement="//@module/@classes.1"/>
             </op2>
           </condition>
-          <trueCase xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:Return">
-              <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@methods.1">
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;return canHandleSignal(event as Signal);&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Return" concreteSyntax="return canHandleSignal(event as Signal)">
+              <value xsi:type="dbl:IdExpr" concreteSyntax="canHandleSignal(event as Signal)" referencedElement="//@module/@classes.9/@methods.1">
                 <callPart>
-                  <callArguments xsi:type="dbl:Cast">
-                    <classifierType referencedElement="//@module/@classes.1"/>
-                    <op xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
+                  <callArguments xsi:type="dbl:Cast" concreteSyntax="event as Signal">
+                    <classifierType concreteSyntax="Signal" referencedElement="//@module/@classes.1"/>
+                    <op xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
                   </callArguments>
                 </callPart>
               </value>
             </statements>
           </trueCase>
-          <falseCase xsi:type="dbl:IfStatement">
-            <condition xsi:type="dbl:InstanceOf">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
-              <op2 xsi:type="dbl:TypeAccess">
-                <idExpr referencedElement="//@module/@classes.2"/>
+          <falseCase xsi:type="dbl:IfStatement" concreteSyntax="if (event instanceof TimeEvent) {&#xA;&#x9;&#x9;&#x9;return event == assignedFiredTimeEvent;&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;return false;&#xA;&#x9;&#x9;}">
+            <condition xsi:type="dbl:InstanceOf" concreteSyntax="event instanceof TimeEvent">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
+              <op2 xsi:type="dbl:TypeAccess" concreteSyntax="TimeEvent">
+                <idExpr concreteSyntax="TimeEvent" referencedElement="//@module/@classes.2"/>
               </op2>
             </condition>
-            <trueCase xsi:type="dbl:LocalScopeStatement">
-              <statements xsi:type="dbl:Return">
-                <value xsi:type="dbl:Equal">
-                  <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
-                  <op2 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@attributes.1"/>
+            <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;return event == assignedFiredTimeEvent;&#xA;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Return" concreteSyntax="return event == assignedFiredTimeEvent">
+                <value xsi:type="dbl:Equal" concreteSyntax="event == assignedFiredTimeEvent">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classes.9/@methods.0/@parameters.0"/>
+                  <op2 xsi:type="dbl:IdExpr" concreteSyntax="assignedFiredTimeEvent" referencedElement="//@module/@classes.9/@attributes.1"/>
                 </value>
               </statements>
             </trueCase>
-            <falseCase xsi:type="dbl:LocalScopeStatement">
-              <statements xsi:type="dbl:Return">
-                <value xsi:type="dbl:FalseLiteral"/>
+            <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;return false;&#xA;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Return" concreteSyntax="return false">
+                <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
               </statements>
             </falseCase>
           </falseCase>
         </statements>
         <parameters name="event">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
         </parameters>
       </methods>
       <methods name="canHandleSignal">
         <primitiveType xsi:type="dbl:BoolType"/>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:FalseLiteral"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return false">
+          <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
         </statements>
         <parameters name="message">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType concreteSyntax="Signal" referencedElement="//@module/@classes.1"/>
         </parameters>
       </methods>
       <methods name="reset">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.9/@attributes.1"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="assignedFiredTimeEvent = null">
+          <variable concreteSyntax="assignedFiredTimeEvent">
+            <idExpr concreteSyntax="assignedFiredTimeEvent" referencedElement="//@module/@classes.9/@attributes.1"/>
           </variable>
-          <value xsi:type="dbl:NullLiteral"/>
+          <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
         </statements>
       </methods>
       <methods name="executeEffects">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="context">
-          <classifierType>
+          <classifierType concreteSyntax="Object">
             <referencedElement href="../../stdlib.xmi#//@module/@classes.1"/>
           </classifierType>
         </parameters>
         <parameters name="event">
-          <classifierType referencedElement="//@module/@classes.0"/>
+          <classifierType concreteSyntax="Event" referencedElement="//@module/@classes.0"/>
         </parameters>
       </methods>
       <methods name="getTimeDuration">
         <primitiveType xsi:type="dbl:IntType"/>
-        <statements xsi:type="dbl:Return">
-          <value xsi:type="dbl:IntLiteral"/>
+        <statements xsi:type="dbl:Return" concreteSyntax="return 0">
+          <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
         </statements>
       </methods>
     </classes>
-    <classes name="Timer" active="true">
-      <attributes name="stateMachineRuntime">
-        <classifierType referencedElement="//@module/@classes.8"/>
+    <classes name="Timer" concreteSyntax="active class Timer {&#xA;&#x9;StateMachineRuntime stateMachineRuntime;&#xA;&#x9;CompiledTransition compiledTransition;&#xA;&#x9;boolean cancelled = false;&#xA;&#x9;&#xA;&#x9;void start() {&#xA;&#x9;&#x9;activate self;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void cancel() {&#xA;&#x9;&#x9;cancelled = true;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;actions {&#xA;&#x9;&#x9;advance compiledTransition.getTimeDuration();&#xA;&#x9;&#x9;if (!cancelled) {&#xA;&#x9;&#x9;&#x9;compiledTransition.assignedFiredTimeEvent = new TimeEvent();&#xA;&#x9;&#x9;&#x9;stateMachineRuntime.enterEvent(new TimeEvent());&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}" active="true">
+      <attributes name="stateMachineRuntime" concreteSyntax="StateMachineRuntime stateMachineRuntime">
+        <classifierType concreteSyntax="StateMachineRuntime" referencedElement="//@module/@classes.8"/>
       </attributes>
-      <attributes name="compiledTransition">
-        <classifierType referencedElement="//@module/@classes.9"/>
+      <attributes name="compiledTransition" concreteSyntax="CompiledTransition compiledTransition">
+        <classifierType concreteSyntax="CompiledTransition" referencedElement="//@module/@classes.9"/>
       </attributes>
-      <attributes name="cancelled">
+      <attributes name="cancelled" concreteSyntax="boolean cancelled = false">
         <primitiveType xsi:type="dbl:BoolType"/>
-        <initialValue xsi:type="dbl:FalseLiteral"/>
+        <initialValue xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
       </attributes>
       <methods name="start">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:ActivateObject">
-          <objectAccess xsi:type="dbl:IdExpr">
+        <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate self">
+          <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="self">
             <predefinedId xsi:type="dbl:MeLiteral"/>
           </objectAccess>
         </statements>
       </methods>
       <methods name="cancel">
         <primitiveType xsi:type="dbl:VoidType"/>
-        <statements xsi:type="dbl:Assignment">
-          <variable>
-            <idExpr referencedElement="//@module/@classes.10/@attributes.2"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="cancelled = true">
+          <variable concreteSyntax="cancelled">
+            <idExpr concreteSyntax="cancelled" referencedElement="//@module/@classes.10/@attributes.2"/>
           </variable>
-          <value xsi:type="dbl:TrueLiteral"/>
+          <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
         </statements>
       </methods>
       <actionsBlock>
-        <statements xsi:type="dbl:Advance">
-          <time xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.9/@methods.4">
-            <parentIdExpr referencedElement="//@module/@classes.10/@attributes.1"/>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance compiledTransition.getTimeDuration()">
+          <time xsi:type="dbl:IdExpr" concreteSyntax="compiledTransition.getTimeDuration()" referencedElement="//@module/@classes.9/@methods.4">
+            <parentIdExpr concreteSyntax="compiledTransition" referencedElement="//@module/@classes.10/@attributes.1"/>
             <callPart/>
           </time>
         </statements>
-        <statements xsi:type="dbl:IfStatement">
-          <condition xsi:type="dbl:Not">
-            <op xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.10/@attributes.2"/>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!cancelled) {&#xA;&#x9;&#x9;&#x9;compiledTransition.assignedFiredTimeEvent = new TimeEvent();&#xA;&#x9;&#x9;&#x9;stateMachineRuntime.enterEvent(new TimeEvent());&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Not" concreteSyntax="!cancelled">
+            <op xsi:type="dbl:IdExpr" concreteSyntax="cancelled" referencedElement="//@module/@classes.10/@attributes.2"/>
           </condition>
-          <trueCase xsi:type="dbl:LocalScopeStatement">
-            <statements xsi:type="dbl:Assignment">
-              <variable>
-                <idExpr referencedElement="//@module/@classes.9/@attributes.1">
-                  <parentIdExpr referencedElement="//@module/@classes.10/@attributes.1"/>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;compiledTransition.assignedFiredTimeEvent = new TimeEvent();&#xA;&#x9;&#x9;&#x9;stateMachineRuntime.enterEvent(new TimeEvent());&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Assignment" concreteSyntax="compiledTransition.assignedFiredTimeEvent = new TimeEvent()">
+              <variable concreteSyntax="compiledTransition.assignedFiredTimeEvent">
+                <idExpr concreteSyntax="compiledTransition.assignedFiredTimeEvent" referencedElement="//@module/@classes.9/@attributes.1">
+                  <parentIdExpr concreteSyntax="compiledTransition" referencedElement="//@module/@classes.10/@attributes.1"/>
                 </idExpr>
               </variable>
-              <value xsi:type="dbl:CreateObject">
-                <classifierType referencedElement="//@module/@classes.2">
+              <value xsi:type="dbl:CreateObject" concreteSyntax="new TimeEvent()">
+                <classifierType concreteSyntax="TimeEvent()" referencedElement="//@module/@classes.2">
                   <callPart/>
                 </classifierType>
               </value>
             </statements>
-            <statements xsi:type="dbl:FunctionCall">
-              <callIdExpr referencedElement="//@module/@classes.8/@methods.3">
-                <parentIdExpr referencedElement="//@module/@classes.10/@attributes.0"/>
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="stateMachineRuntime.enterEvent(new TimeEvent())">
+              <callIdExpr concreteSyntax="stateMachineRuntime.enterEvent(new TimeEvent())" referencedElement="//@module/@classes.8/@methods.3">
+                <parentIdExpr concreteSyntax="stateMachineRuntime" referencedElement="//@module/@classes.10/@attributes.0"/>
                 <callPart>
-                  <callArguments xsi:type="dbl:CreateObject">
-                    <classifierType referencedElement="//@module/@classes.2">
+                  <callArguments xsi:type="dbl:CreateObject" concreteSyntax="new TimeEvent()">
+                    <classifierType concreteSyntax="TimeEvent()" referencedElement="//@module/@classes.2">
                       <callPart/>
                     </classifierType>
                   </callArguments>

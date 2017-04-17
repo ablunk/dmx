@@ -1,10 +1,8 @@
 #import "../../stdlib"
 #import "../../dbl"
+#import "../../stdx"
 
 module ssmruntime;
-
-// dbx files cannot be imported at the moment.
-// therefore, all runtime structures have to be placed in a dbl file :(
 
 class Event {}
 class Signal extends Event {}
@@ -73,8 +71,7 @@ class CompiledState extends Object {
 	}
 	
 	void startTimers() {
-		for (int i=0; i<timers.size(); i=i+1) {
-			Timer timer = timers.get(i) as Timer;
+		foreach (Timer timer in timers) {
 			timer.start();
 		}
 	}
@@ -84,8 +81,7 @@ class CompiledState extends Object {
 	}
 	
 	void cancelRunningTimers() {
-		for (int i=0; i<timers.size(); i=i+1) {
-			Timer timer = timers.get(i) as Timer;
+		foreach (Timer timer in timers) {
 			timer.cancel();
 		}
 	}
@@ -100,9 +96,7 @@ class CompiledState extends Object {
 	
 	State consumeEvent(Event event, Object context) {
 		print("consuming event\n");
-		for (int i=0; i<compiledTransitions.size(); i=i+1) {
-			CompiledTransition compiledTransition = compiledTransitions.get(i) as CompiledTransition;
-			
+		foreach (CompiledTransition compiledTransition in compiledTransitions) {
 			if (compiledTransition.canHandle(event)) {
 				print("executing effects\n");
 				compiledTransition.executeEffects(context, event);
@@ -170,7 +164,6 @@ active class StateMachineRuntime {
 	
 	void enterEvent(Event event) {
 		eventQueue.add(event);
-		// TODO only reactivate if already running
 		reactivate self;
 	}
 }
