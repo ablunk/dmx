@@ -102,11 +102,17 @@ semantics for StateMachine {
 				in firstContentExtension;
 
 			EObject containerModule = getContainer("Module", self);
+			Variable signalVariable = transition.messageVariable;
+			IdExpr signalType = signalVariable.classifierType;
+			
 			ID compiledTransitionClassId;
 			expand class
 				"class " compiledTransitionClassId " extends CompiledTransition {"
 					"new(Transition transition) {"
 					"	super(transition);"
+					"}"
+					"boolean canHandleSignal(Signal signal) {"
+					"	return signal instanceof " signalType ";" 
 					"}"
 					"void executeEffects(Object context, Event event) {"
 					"	" containerClass.name " concreteContext = context as " containerClass.name ";"
