@@ -6,6 +6,9 @@
   <imports file="../../stdlib">
     <model href="../../stdlib.xmi#/"/>
   </imports>
+  <imports file="../../stdx">
+    <model href="../../stdx.xmi#/"/>
+  </imports>
   <module name="ssm">
     <extensions name="MessageAccess" concreteSyntax="extension MessageAccess extends dbl L1Expr {&#xA;&#x9;start MessageAccessSyntax;&#xA;&#x9;MessageAccessSyntax -> &quot;message&quot;;&#xA;}">
       <extensionPoint href="../../dbl.xmi#//@module/@classes.56"/>
@@ -203,7 +206,7 @@
         <parts xsi:type="dbl:ExpandTextPart" text=");"/>
       </statements>
     </extensionSemantics>
-    <extensionSemantics concreteSyntax="semantics for StateMachine {&#xA;&#x9;expand &quot;StateMachineRuntime createStateMachineRuntime(Object context) {&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;StateMachine stateMachine = new StateMachine;&quot;;&#xA;&#x9;expand &quot;stateMachine.context = context;&quot;;&#xA;&#x9;expand &quot;StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);&quot;;&#xA;&#x9;&#xA;&#x9;for (int i=0; i&lt;states.size(); i=i+1) {&#xA;&#x9;&#x9;State state = states.get(i) as State;&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;expand &quot;State &quot; stateId &quot; = new State;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID compiledStateId;&#xA;&#x9;&#x9;expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;for (int t=0; t&lt;state.outgoing.size(); t=t+1) {&#xA;&#x9;&#x9;&#x9;Transition transition = state.outgoing.get(t) as Transition;&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#xA;&#x9;expand &quot;return stateMachineRuntime;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;}&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.2">
+    <extensionSemantics concreteSyntax="semantics for StateMachine {&#xA;&#x9;expand &quot;StateMachineRuntime createStateMachineRuntime(Object context) {&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;StateMachine stateMachine = new StateMachine;&quot;;&#xA;&#x9;expand &quot;stateMachine.context = context;&quot;;&#xA;&#x9;expand &quot;StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);&quot;;&#xA;&#x9;&#xA;&#x9;Iterator it____module__extensionSemantics_2__statements_4 = states.iterator();while (it____module__extensionSemantics_2__statements_4.hasNext()) {&#x9;Object item____module__extensionSemantics_2__statements_4 = it____module__extensionSemantics_2__statements_4.next();State state = item____module__extensionSemantics_2__statements_4 as State;{&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;expand &quot;State &quot; stateId &quot; = new State;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID compiledStateId;&#xA;&#x9;&#x9;expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Iterator it____module__extensionSemantics_2__statements_4__body__statements_8 = state.outgoing.iterator();while (it____module__extensionSemantics_2__statements_4__body__statements_8.hasNext()) {&#x9;Object item____module__extensionSemantics_2__statements_4__body__statements_8 = it____module__extensionSemantics_2__statements_4__body__statements_8.next();Transition transition = item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition;{&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}}&#xA;&#x9;}}&#xA;&#xA;&#x9;expand &quot;return stateMachineRuntime;&quot;;&#xA;&#x9;&#xA;&#x9;expand &quot;}&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.2">
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;StateMachineRuntime createStateMachineRuntime(Object context) {&quot;">
         <parts xsi:type="dbl:ExpandTextPart" text="StateMachineRuntime createStateMachineRuntime(Object context) {"/>
       </statements>
@@ -216,303 +219,301 @@
       <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);&quot;">
         <parts xsi:type="dbl:ExpandTextPart" text="StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);"/>
       </statements>
-      <statements xsi:type="dbl:ForStatement" concreteSyntax="for (int i=0; i&lt;states.size(); i=i+1) {&#xA;&#x9;&#x9;State state = states.get(i) as State;&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;expand &quot;State &quot; stateId &quot; = new State;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID compiledStateId;&#xA;&#x9;&#x9;expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;for (int t=0; t&lt;state.outgoing.size(); t=t+1) {&#xA;&#x9;&#x9;&#x9;Transition transition = state.outgoing.get(t) as Transition;&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
-        <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i=0">
-          <primitiveType xsi:type="dbl:IntType"/>
-          <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
-        </statements>
-        <termination xsi:type="dbl:Less" concreteSyntax="i&lt;states.size()">
-          <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.2/@statements.4/@statements.0"/>
-          <op2 xsi:type="dbl:IdExpr" concreteSyntax="states.size()">
-            <parentIdExpr concreteSyntax="states" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0"/>
-            <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
-            <callPart/>
-          </op2>
-        </termination>
-        <increment concreteSyntax="i=i+1">
-          <variable concreteSyntax="i">
-            <idExpr concreteSyntax="i" referencedElement="//@module/@extensionSemantics.2/@statements.4/@statements.0"/>
-          </variable>
-          <value xsi:type="dbl:Plus" concreteSyntax="i+1">
-            <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.2/@statements.4/@statements.0"/>
-            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
-          </value>
-        </increment>
-        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;State state = states.get(i) as State;&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;expand &quot;State &quot; stateId &quot; = new State;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID compiledStateId;&#xA;&#x9;&#x9;expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;for (int t=0; t&lt;state.outgoing.size(); t=t+1) {&#xA;&#x9;&#x9;&#x9;Transition transition = state.outgoing.get(t) as Transition;&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}&#xA;&#x9;}">
-          <statements xsi:type="dbl:Variable" name="state" concreteSyntax="State state = states.get(i) as State">
-            <classifierType concreteSyntax="State" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.3"/>
-            <initialValue xsi:type="dbl:Cast" concreteSyntax="states.get(i) as State">
-              <classifierType concreteSyntax="State" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.3"/>
-              <op xsi:type="dbl:IdExpr" concreteSyntax="states.get(i)">
-                <parentIdExpr concreteSyntax="states" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0"/>
-                <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
-                <callPart>
-                  <callArguments xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.2/@statements.4/@statements.0"/>
-                </callPart>
-              </op>
+      <statements xsi:type="dbl:Variable" name="it____module__extensionSemantics_2__statements_4" concreteSyntax="Iterator it____module__extensionSemantics_2__statements_4 = states.iterator()">
+        <classifierType concreteSyntax="Iterator">
+          <referencedElement href="../../stdlib.xmi#//@module/@classes.4"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="states.iterator()">
+          <parentIdExpr concreteSyntax="states" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0"/>
+          <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.11"/>
+          <callPart/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it____module__extensionSemantics_2__statements_4.hasNext()) {&#x9;Object item____module__extensionSemantics_2__statements_4 = it____module__extensionSemantics_2__statements_4.next();State state = item____module__extensionSemantics_2__statements_4 as State;{&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;expand &quot;State &quot; stateId &quot; = new State;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID compiledStateId;&#xA;&#x9;&#x9;expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Iterator it____module__extensionSemantics_2__statements_4__body__statements_8 = state.outgoing.iterator();while (it____module__extensionSemantics_2__statements_4__body__statements_8.hasNext()) {&#x9;Object item____module__extensionSemantics_2__statements_4__body__statements_8 = it____module__extensionSemantics_2__statements_4__body__statements_8.next();Transition transition = item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition;{&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}}&#xA;&#x9;}}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="it____module__extensionSemantics_2__statements_4.hasNext()">
+          <parentIdExpr concreteSyntax="it____module__extensionSemantics_2__statements_4" referencedElement="//@module/@extensionSemantics.2/@statements.4"/>
+          <referencedElement href="../../stdlib.xmi#//@module/@classes.4/@methods.0"/>
+          <callPart/>
+        </condition>
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object item____module__extensionSemantics_2__statements_4 = it____module__extensionSemantics_2__statements_4.next();State state = item____module__extensionSemantics_2__statements_4 as State;{&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;expand &quot;State &quot; stateId &quot; = new State;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID compiledStateId;&#xA;&#x9;&#x9;expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Iterator it____module__extensionSemantics_2__statements_4__body__statements_8 = state.outgoing.iterator();while (it____module__extensionSemantics_2__statements_4__body__statements_8.hasNext()) {&#x9;Object item____module__extensionSemantics_2__statements_4__body__statements_8 = it____module__extensionSemantics_2__statements_4__body__statements_8.next();Transition transition = item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition;{&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}}&#xA;&#x9;}}">
+          <statements xsi:type="dbl:Variable" name="item____module__extensionSemantics_2__statements_4" concreteSyntax="Object item____module__extensionSemantics_2__statements_4 = it____module__extensionSemantics_2__statements_4.next()">
+            <classifierType concreteSyntax="Object">
+              <referencedElement href="../../stdlib.xmi#//@module/@classes.1"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it____module__extensionSemantics_2__statements_4.next()">
+              <parentIdExpr concreteSyntax="it____module__extensionSemantics_2__statements_4" referencedElement="//@module/@extensionSemantics.2/@statements.4"/>
+              <referencedElement href="../../stdlib.xmi#//@module/@classes.4/@methods.1"/>
+              <callPart/>
             </initialValue>
           </statements>
-          <statements xsi:type="dbl:CreateIdStatement" name="stateId" concreteSyntax="ID stateId"/>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;State &quot; stateId &quot; = new State;&quot;">
-            <parts xsi:type="dbl:ExpandTextPart" text="State "/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=" = new State;"/>
+          <statements xsi:type="dbl:Variable" name="state" concreteSyntax="State state = item____module__extensionSemantics_2__statements_4 as State">
+            <classifierType concreteSyntax="State" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.3"/>
+            <initialValue xsi:type="dbl:Cast" concreteSyntax="item____module__extensionSemantics_2__statements_4 as State">
+              <classifierType concreteSyntax="State" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.3"/>
+              <op xsi:type="dbl:IdExpr" concreteSyntax="item____module__extensionSemantics_2__statements_4" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.0"/>
+            </initialValue>
           </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;">
-            <parts xsi:type="dbl:ExpandTextPart" text="stateMachine.states.add("/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=");"/>
-          </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;">
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=".name = \&quot;"/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="state.name" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.3/@possibleSyntax/@sequence.2">
-                <parentIdExpr concreteSyntax="state" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.0"/>
-              </expr>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text="\&quot;;"/>
-          </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;">
-            <parts xsi:type="dbl:ExpandTextPart" text="stateMachine.initialState = "/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=";"/>
-          </statements>
-          <statements xsi:type="dbl:CreateIdStatement" name="compiledStateId" concreteSyntax="ID compiledStateId"/>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;">
-            <parts xsi:type="dbl:ExpandTextPart" text="CompiledState "/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledStateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.6"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=" = new CompiledState("/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=");"/>
-          </statements>
-          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;">
-            <parts xsi:type="dbl:ExpandTextPart" text="stateMachineRuntime.setCompiledState("/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=", "/>
-            <parts xsi:type="dbl:ExpandVariablePart">
-              <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledStateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.6"/>
-            </parts>
-            <parts xsi:type="dbl:ExpandTextPart" text=");"/>
-          </statements>
-          <statements xsi:type="dbl:ForStatement" concreteSyntax="for (int t=0; t&lt;state.outgoing.size(); t=t+1) {&#xA;&#x9;&#x9;&#x9;Transition transition = state.outgoing.get(t) as Transition;&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}">
-            <statements xsi:type="dbl:Variable" name="t" concreteSyntax="int t=0">
-              <primitiveType xsi:type="dbl:IntType"/>
-              <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;expand &quot;State &quot; stateId &quot; = new State;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;ID compiledStateId;&#xA;&#x9;&#x9;expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;;&#xA;&#x9;&#x9;expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;Iterator it____module__extensionSemantics_2__statements_4__body__statements_8 = state.outgoing.iterator();while (it____module__extensionSemantics_2__statements_4__body__statements_8.hasNext()) {&#x9;Object item____module__extensionSemantics_2__statements_4__body__statements_8 = it____module__extensionSemantics_2__statements_4__body__statements_8.next();Transition transition = item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition;{&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}}&#xA;&#x9;}">
+            <statements xsi:type="dbl:CreateIdStatement" name="stateId" concreteSyntax="ID stateId"/>
+            <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;State &quot; stateId &quot; = new State;&quot;">
+              <parts xsi:type="dbl:ExpandTextPart" text="State "/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=" = new State;"/>
             </statements>
-            <termination xsi:type="dbl:Less" concreteSyntax="t&lt;state.outgoing.size()">
-              <op1 xsi:type="dbl:IdExpr" concreteSyntax="t" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@statements.0"/>
-              <op2 xsi:type="dbl:IdExpr" concreteSyntax="state.outgoing.size()">
+            <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;stateMachine.states.add(&quot; stateId &quot;);&quot;">
+              <parts xsi:type="dbl:ExpandTextPart" text="stateMachine.states.add("/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=");"/>
+            </statements>
+            <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand stateId &quot;.name = \&quot;&quot; state.name &quot;\&quot;;&quot;">
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=".name = \&quot;"/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="state.name" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.3/@possibleSyntax/@sequence.2">
+                  <parentIdExpr concreteSyntax="state" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.1"/>
+                </expr>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text="\&quot;;"/>
+            </statements>
+            <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;stateMachine.initialState = &quot; stateId &quot;;&quot;">
+              <parts xsi:type="dbl:ExpandTextPart" text="stateMachine.initialState = "/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+            </statements>
+            <statements xsi:type="dbl:CreateIdStatement" name="compiledStateId" concreteSyntax="ID compiledStateId"/>
+            <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;CompiledState &quot; compiledStateId &quot; = new CompiledState(&quot; stateId &quot;);&quot;">
+              <parts xsi:type="dbl:ExpandTextPart" text="CompiledState "/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledStateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.5"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=" = new CompiledState("/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=");"/>
+            </statements>
+            <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;stateMachineRuntime.setCompiledState(&quot; stateId &quot;, &quot; compiledStateId &quot;);&quot;">
+              <parts xsi:type="dbl:ExpandTextPart" text="stateMachineRuntime.setCompiledState("/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=", "/>
+              <parts xsi:type="dbl:ExpandVariablePart">
+                <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledStateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.5"/>
+              </parts>
+              <parts xsi:type="dbl:ExpandTextPart" text=");"/>
+            </statements>
+            <statements xsi:type="dbl:Variable" name="it____module__extensionSemantics_2__statements_4__body__statements_8" concreteSyntax="Iterator it____module__extensionSemantics_2__statements_4__body__statements_8 = state.outgoing.iterator()">
+              <classifierType concreteSyntax="Iterator">
+                <referencedElement href="../../stdlib.xmi#//@module/@classes.4"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:IdExpr" concreteSyntax="state.outgoing.iterator()">
                 <parentIdExpr concreteSyntax="state.outgoing" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.8/@possibleSyntax/@sequence.0">
-                  <parentIdExpr concreteSyntax="state" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.0"/>
+                  <parentIdExpr concreteSyntax="state" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.1"/>
                 </parentIdExpr>
-                <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
+                <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.11"/>
                 <callPart/>
-              </op2>
-            </termination>
-            <increment concreteSyntax="t=t+1">
-              <variable concreteSyntax="t">
-                <idExpr concreteSyntax="t" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@statements.0"/>
-              </variable>
-              <value xsi:type="dbl:Plus" concreteSyntax="t+1">
-                <op1 xsi:type="dbl:IdExpr" concreteSyntax="t" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@statements.0"/>
-                <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
-              </value>
-            </increment>
-            <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;Transition transition = state.outgoing.get(t) as Transition;&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}">
-              <statements xsi:type="dbl:Variable" name="transition" concreteSyntax="Transition transition = state.outgoing.get(t) as Transition">
-                <classifierType concreteSyntax="Transition" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.11"/>
-                <initialValue xsi:type="dbl:Cast" concreteSyntax="state.outgoing.get(t) as Transition">
-                  <classifierType concreteSyntax="Transition" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.11"/>
-                  <op xsi:type="dbl:IdExpr" concreteSyntax="state.outgoing.get(t)">
-                    <parentIdExpr concreteSyntax="state.outgoing" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.8/@possibleSyntax/@sequence.0">
-                      <parentIdExpr concreteSyntax="state" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.0"/>
-                    </parentIdExpr>
-                    <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
-                    <callPart>
-                      <callArguments xsi:type="dbl:IdExpr" concreteSyntax="t" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@statements.0"/>
-                    </callPart>
-                  </op>
-                </initialValue>
-              </statements>
-              <statements xsi:type="dbl:CreateIdStatement" name="transitionId" concreteSyntax="ID transitionId"/>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;">
-                <parts xsi:type="dbl:ExpandTextPart" text="Transition "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.1"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=" = new Transition;"/>
-              </statements>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;">
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=".outgoingTransitions.add("/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.1"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=");"/>
-              </statements>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand transitionId &quot;.target = &quot; stateId &quot;;&quot;">
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.1"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=".target = "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.1"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=";"/>
-              </statements>
-              <statements xsi:type="dbl:CreateIdStatement" name="transitionEffectsFunctionId" concreteSyntax="ID transitionEffectsFunctionId"/>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self">
-                <differingContext xsi:type="dbl:IdExpr" concreteSyntax="self">
-                  <predefinedId xsi:type="dbl:MeLiteral"/>
-                </differingContext>
-                <parts xsi:type="dbl:ExpandTextPart" text="void "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionEffectsFunctionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.5"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text="() {"/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="transition.effects" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.15/@possibleSyntax/@sequence.1">
-                    <parentIdExpr concreteSyntax="transition" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.0"/>
-                  </expr>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text="}"/>
-              </statements>
-              <statements xsi:type="dbl:Variable" name="containerModule" concreteSyntax="EObject containerModule = getContainer(&quot;Module&quot;, self)">
-                <classifierType concreteSyntax="EObject">
-                  <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
-                </classifierType>
-                <initialValue xsi:type="dbl:IdExpr" concreteSyntax="getContainer(&quot;Module&quot;, self)" referencedElement="//@module/@functions.0">
-                  <callPart>
-                    <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Module&quot;" value="Module"/>
-                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="self">
-                      <predefinedId xsi:type="dbl:MeLiteral"/>
-                    </callArguments>
-                  </callPart>
-                </initialValue>
-              </statements>
-              <statements xsi:type="dbl:Variable" name="containerClass" concreteSyntax="Class containerClass = getContainer(&quot;Class&quot;, self) as Class">
-                <classifierType concreteSyntax="Class">
-                  <referencedElement href="../../dbl.xmi#//@module/@classes.24"/>
-                </classifierType>
-                <initialValue xsi:type="dbl:Cast" concreteSyntax="getContainer(&quot;Class&quot;, self) as Class">
-                  <classifierType concreteSyntax="Class">
-                    <referencedElement href="../../dbl.xmi#//@module/@classes.24"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (it____module__extensionSemantics_2__statements_4__body__statements_8.hasNext()) {&#x9;Object item____module__extensionSemantics_2__statements_4__body__statements_8 = it____module__extensionSemantics_2__statements_4__body__statements_8.next();Transition transition = item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition;{&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}}">
+              <condition xsi:type="dbl:IdExpr" concreteSyntax="it____module__extensionSemantics_2__statements_4__body__statements_8.hasNext()">
+                <parentIdExpr concreteSyntax="it____module__extensionSemantics_2__statements_4__body__statements_8" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.8"/>
+                <referencedElement href="../../stdlib.xmi#//@module/@classes.4/@methods.0"/>
+                <callPart/>
+              </condition>
+              <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#x9;Object item____module__extensionSemantics_2__statements_4__body__statements_8 = it____module__extensionSemantics_2__statements_4__body__statements_8.next();Transition transition = item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition;{&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}}">
+                <statements xsi:type="dbl:Variable" name="item____module__extensionSemantics_2__statements_4__body__statements_8" concreteSyntax="Object item____module__extensionSemantics_2__statements_4__body__statements_8 = it____module__extensionSemantics_2__statements_4__body__statements_8.next()">
+                  <classifierType concreteSyntax="Object">
+                    <referencedElement href="../../stdlib.xmi#//@module/@classes.1"/>
                   </classifierType>
-                  <op xsi:type="dbl:IdExpr" concreteSyntax="getContainer(&quot;Class&quot;, self)" referencedElement="//@module/@functions.0">
-                    <callPart>
-                      <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Class&quot;" value="Class"/>
-                      <callArguments xsi:type="dbl:IdExpr" concreteSyntax="self">
-                        <predefinedId xsi:type="dbl:MeLiteral"/>
-                      </callArguments>
-                    </callPart>
-                  </op>
-                </initialValue>
-              </statements>
-              <statements xsi:type="dbl:Variable" name="signalVariable" concreteSyntax="Variable signalVariable = transition.messageVariable">
-                <classifierType concreteSyntax="Variable">
-                  <referencedElement href="../../dbl.xmi#//@module/@classes.28"/>
-                </classifierType>
-                <initialValue xsi:type="dbl:IdExpr" concreteSyntax="transition.messageVariable" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.12/@possibleSyntax/@sequence.1">
-                  <parentIdExpr concreteSyntax="transition" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.0"/>
-                </initialValue>
-              </statements>
-              <statements xsi:type="dbl:Variable" name="signalType" concreteSyntax="IdExpr signalType = signalVariable.classifierType">
-                <classifierType concreteSyntax="IdExpr">
-                  <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
-                </classifierType>
-                <initialValue xsi:type="dbl:IdExpr" concreteSyntax="signalVariable.classifierType">
-                  <parentIdExpr concreteSyntax="signalVariable" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.9"/>
-                  <referencedElement href="../../dbl.xmi#//@module/@classes.13/@attributes.2"/>
-                </initialValue>
-              </statements>
-              <statements xsi:type="dbl:CreateIdStatement" name="compiledTransitionClassId" concreteSyntax="ID compiledTransitionClassId"/>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule">
-                <differingContext xsi:type="dbl:IdExpr" concreteSyntax="containerModule" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.7"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="class "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionClassId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.11"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=" extends CompiledTransition {"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="new(Transition transition) {"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="&#x9;super(transition);"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="}"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="boolean canHandleSignal(Signal signal) {"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="&#x9;return signal instanceof "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="signalType" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.10"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=";"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="}"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="void executeEffects(Object context, Event event) {"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="&#x9;"/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="containerClass.name">
-                    <parentIdExpr concreteSyntax="containerClass" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.8"/>
-                    <referencedElement href="../../dbl.xmi#//@module/@classes.30/@attributes.0"/>
-                  </expr>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=" concreteContext = context as "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="containerClass.name">
-                    <parentIdExpr concreteSyntax="containerClass" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.8"/>
-                    <referencedElement href="../../dbl.xmi#//@module/@classes.30/@attributes.0"/>
-                  </expr>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=";"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="&#x9;concreteContext."/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionEffectsFunctionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.5"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text="();"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="}"/>
-                <parts xsi:type="dbl:ExpandTextPart" text="}"/>
-              </statements>
-              <statements xsi:type="dbl:CreateIdStatement" name="compiledTransitionId" concreteSyntax="ID compiledTransitionId"/>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId">
-                <parts xsi:type="dbl:ExpandTextPart" text="CompiledTransition "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.13"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=" = new "/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionClassId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.11"/>
-                </parts>
-              </statements>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;(&quot; transitionId &quot;);&quot;">
-                <parts xsi:type="dbl:ExpandTextPart" text="("/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.1"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=");"/>
-              </statements>
-              <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;">
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledStateId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.6"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=".addCompiledTransition("/>
-                <parts xsi:type="dbl:ExpandVariablePart">
-                  <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionId" referencedElement="//@module/@extensionSemantics.2/@statements.4/@body/@statements.9/@body/@statements.13"/>
-                </parts>
-                <parts xsi:type="dbl:ExpandTextPart" text=");"/>
-              </statements>
-            </body>
+                  <initialValue xsi:type="dbl:IdExpr" concreteSyntax="it____module__extensionSemantics_2__statements_4__body__statements_8.next()">
+                    <parentIdExpr concreteSyntax="it____module__extensionSemantics_2__statements_4__body__statements_8" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.8"/>
+                    <referencedElement href="../../stdlib.xmi#//@module/@classes.4/@methods.1"/>
+                    <callPart/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:Variable" name="transition" concreteSyntax="Transition transition = item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition">
+                  <classifierType concreteSyntax="Transition" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.11"/>
+                  <initialValue xsi:type="dbl:Cast" concreteSyntax="item____module__extensionSemantics_2__statements_4__body__statements_8 as Transition">
+                    <classifierType concreteSyntax="Transition" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.11"/>
+                    <op xsi:type="dbl:IdExpr" concreteSyntax="item____module__extensionSemantics_2__statements_4__body__statements_8" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.0"/>
+                  </initialValue>
+                </statements>
+                <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;ID transitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;;&#xA;&#x9;&#x9;&#x9;expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand transitionId &quot;.target = &quot; stateId &quot;;&quot;;&#xA;&#xA;&#x9;&#x9;&#x9;ID transitionEffectsFunctionId;&#xA;&#x9;&#x9;&#x9;expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self;&#xA;&#xA;&#x9;&#x9;&#x9;EObject containerModule = getContainer(&quot;Module&quot;, self);&#xA;&#x9;&#x9;&#x9;Class containerClass = getContainer(&quot;Class&quot;, self) as Class;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;Variable signalVariable = transition.messageVariable;&#xA;&#x9;&#x9;&#x9;IdExpr signalType = signalVariable.classifierType;&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule;&#xA;&#xA;&#x9;&#x9;&#x9;ID compiledTransitionId;&#xA;&#x9;&#x9;&#x9;expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId;&#xA;&#x9;&#x9;&#x9;expand &quot;(&quot; transitionId &quot;);&quot;;&#xA;&#x9;&#x9;&#x9;expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;;&#xA;&#x9;&#x9;}">
+                  <statements xsi:type="dbl:CreateIdStatement" name="transitionId" concreteSyntax="ID transitionId"/>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;Transition &quot; transitionId &quot; = new Transition;&quot;">
+                    <parts xsi:type="dbl:ExpandTextPart" text="Transition "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.0"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=" = new Transition;"/>
+                  </statements>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand stateId &quot;.outgoingTransitions.add(&quot; transitionId &quot;);&quot;">
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=".outgoingTransitions.add("/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.0"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=");"/>
+                  </statements>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand transitionId &quot;.target = &quot; stateId &quot;;&quot;">
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.0"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=".target = "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="stateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.0"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+                  </statements>
+                  <statements xsi:type="dbl:CreateIdStatement" name="transitionEffectsFunctionId" concreteSyntax="ID transitionEffectsFunctionId"/>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#xA;&#x9;&#x9;&#x9;&#x9;&quot;void &quot; transitionEffectsFunctionId &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;transition.effects&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after self">
+                    <differingContext xsi:type="dbl:IdExpr" concreteSyntax="self">
+                      <predefinedId xsi:type="dbl:MeLiteral"/>
+                    </differingContext>
+                    <parts xsi:type="dbl:ExpandTextPart" text="void "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionEffectsFunctionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.4"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text="() {"/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="transition.effects" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.15/@possibleSyntax/@sequence.1">
+                        <parentIdExpr concreteSyntax="transition" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.1"/>
+                      </expr>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+                  </statements>
+                  <statements xsi:type="dbl:Variable" name="containerModule" concreteSyntax="EObject containerModule = getContainer(&quot;Module&quot;, self)">
+                    <classifierType concreteSyntax="EObject">
+                      <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+                    </classifierType>
+                    <initialValue xsi:type="dbl:IdExpr" concreteSyntax="getContainer(&quot;Module&quot;, self)" referencedElement="//@module/@functions.0">
+                      <callPart>
+                        <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Module&quot;" value="Module"/>
+                        <callArguments xsi:type="dbl:IdExpr" concreteSyntax="self">
+                          <predefinedId xsi:type="dbl:MeLiteral"/>
+                        </callArguments>
+                      </callPart>
+                    </initialValue>
+                  </statements>
+                  <statements xsi:type="dbl:Variable" name="containerClass" concreteSyntax="Class containerClass = getContainer(&quot;Class&quot;, self) as Class">
+                    <classifierType concreteSyntax="Class">
+                      <referencedElement href="../../dbl.xmi#//@module/@classes.24"/>
+                    </classifierType>
+                    <initialValue xsi:type="dbl:Cast" concreteSyntax="getContainer(&quot;Class&quot;, self) as Class">
+                      <classifierType concreteSyntax="Class">
+                        <referencedElement href="../../dbl.xmi#//@module/@classes.24"/>
+                      </classifierType>
+                      <op xsi:type="dbl:IdExpr" concreteSyntax="getContainer(&quot;Class&quot;, self)" referencedElement="//@module/@functions.0">
+                        <callPart>
+                          <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Class&quot;" value="Class"/>
+                          <callArguments xsi:type="dbl:IdExpr" concreteSyntax="self">
+                            <predefinedId xsi:type="dbl:MeLiteral"/>
+                          </callArguments>
+                        </callPart>
+                      </op>
+                    </initialValue>
+                  </statements>
+                  <statements xsi:type="dbl:Variable" name="signalVariable" concreteSyntax="Variable signalVariable = transition.messageVariable">
+                    <classifierType concreteSyntax="Variable">
+                      <referencedElement href="../../dbl.xmi#//@module/@classes.28"/>
+                    </classifierType>
+                    <initialValue xsi:type="dbl:IdExpr" concreteSyntax="transition.messageVariable" referencedElement="//@module/@extensions.2/@syntaxDefinition/@symbols.12/@possibleSyntax/@sequence.1">
+                      <parentIdExpr concreteSyntax="transition" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.1"/>
+                    </initialValue>
+                  </statements>
+                  <statements xsi:type="dbl:Variable" name="signalType" concreteSyntax="IdExpr signalType = signalVariable.classifierType">
+                    <classifierType concreteSyntax="IdExpr">
+                      <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+                    </classifierType>
+                    <initialValue xsi:type="dbl:IdExpr" concreteSyntax="signalVariable.classifierType">
+                      <parentIdExpr concreteSyntax="signalVariable" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.8"/>
+                      <referencedElement href="../../dbl.xmi#//@module/@classes.13/@attributes.2"/>
+                    </initialValue>
+                  </statements>
+                  <statements xsi:type="dbl:CreateIdStatement" name="compiledTransitionClassId" concreteSyntax="ID compiledTransitionClassId"/>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;class &quot; compiledTransitionClassId &quot; extends CompiledTransition {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;new(Transition transition) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;super(transition);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;boolean canHandleSignal(Signal signal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;return signal instanceof &quot; signalType &quot;;&quot; &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;void executeEffects(Object context, Event event) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;&quot; containerClass.name &quot; concreteContext = context as &quot; containerClass.name &quot;;&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;&#x9;concreteContext.&quot; transitionEffectsFunctionId &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&#x9;after containerModule">
+                    <differingContext xsi:type="dbl:IdExpr" concreteSyntax="containerModule" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.6"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="class "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionClassId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.10"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=" extends CompiledTransition {"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="new(Transition transition) {"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="&#x9;super(transition);"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="boolean canHandleSignal(Signal signal) {"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="&#x9;return signal instanceof "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="signalType" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.9"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="void executeEffects(Object context, Event event) {"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="&#x9;"/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="containerClass.name">
+                        <parentIdExpr concreteSyntax="containerClass" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.7"/>
+                        <referencedElement href="../../dbl.xmi#//@module/@classes.30/@attributes.0"/>
+                      </expr>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=" concreteContext = context as "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="containerClass.name">
+                        <parentIdExpr concreteSyntax="containerClass" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.7"/>
+                        <referencedElement href="../../dbl.xmi#//@module/@classes.30/@attributes.0"/>
+                      </expr>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="&#x9;concreteContext."/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionEffectsFunctionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.4"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text="();"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+                    <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+                  </statements>
+                  <statements xsi:type="dbl:CreateIdStatement" name="compiledTransitionId" concreteSyntax="ID compiledTransitionId"/>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;CompiledTransition &quot; compiledTransitionId &quot; = new &quot; compiledTransitionClassId">
+                    <parts xsi:type="dbl:ExpandTextPart" text="CompiledTransition "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.12"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=" = new "/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionClassId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.10"/>
+                    </parts>
+                  </statements>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;(&quot; transitionId &quot;);&quot;">
+                    <parts xsi:type="dbl:ExpandTextPart" text="("/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="transitionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.0"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=");"/>
+                  </statements>
+                  <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand compiledStateId &quot;.addCompiledTransition(&quot; compiledTransitionId &quot;);&quot;">
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledStateId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.5"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=".addCompiledTransition("/>
+                    <parts xsi:type="dbl:ExpandVariablePart">
+                      <expr xsi:type="dbl:IdExpr" concreteSyntax="compiledTransitionId" referencedElement="//@module/@extensionSemantics.2/@statements.5/@body/@statements.2/@statements.9/@body/@statements.2/@statements.12"/>
+                    </parts>
+                    <parts xsi:type="dbl:ExpandTextPart" text=");"/>
+                  </statements>
+                </statements>
+              </body>
+            </statements>
           </statements>
         </body>
       </statements>

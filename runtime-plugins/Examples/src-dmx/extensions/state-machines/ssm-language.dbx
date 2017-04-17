@@ -1,5 +1,6 @@
 #import "../../dbl"
 #import "../../stdlib"
+#import "../../stdx"
 
 module ssm;
 
@@ -58,8 +59,7 @@ semantics for StateMachine {
 	expand "stateMachine.context = context;";
 	expand "StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);";
 	
-	for (int i=0; i<states.size(); i=i+1) {
-		State state = states.get(i) as State;
+	foreach (State state in states) {
 		ID stateId;
 		expand "State " stateId " = new State;";
 		expand "stateMachine.states.add(" stateId ");";
@@ -70,8 +70,7 @@ semantics for StateMachine {
 		expand "CompiledState " compiledStateId " = new CompiledState(" stateId ");";
 		expand "stateMachineRuntime.setCompiledState(" stateId ", " compiledStateId ");";
 		
-		for (int t=0; t<state.outgoing.size(); t=t+1) {
-			Transition transition = state.outgoing.get(t) as Transition;
+		foreach (Transition transition in state.outgoing) {
 			ID transitionId;
 			expand "Transition " transitionId " = new Transition;";
 			expand stateId ".outgoingTransitions.add(" transitionId ");";
