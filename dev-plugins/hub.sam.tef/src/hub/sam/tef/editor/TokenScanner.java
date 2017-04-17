@@ -99,7 +99,7 @@ public class TokenScanner extends RuleBasedScanner {
 						}
 						else {
 							IToken token = new Token(new TextAttribute(
-									new Color(Display.getCurrent(), new RGB(106,0,120)), null, 
+									new Color(Display.getCurrent(), new RGB(0,0,153)), null, 
 									SWT.BOLD));
 							rule.addWord(terminal, token);
 						}
