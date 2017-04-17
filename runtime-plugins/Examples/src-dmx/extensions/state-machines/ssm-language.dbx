@@ -90,18 +90,17 @@ semantics for StateMachine {
 			expand stateId ".outgoingTransitions.add(" transitionId ");";
 			expand transitionId ".target = " stateId ";";
 
-			Class containerClass = getContainer("Class", self) as Class;
-			EObject firstContentExtension = containerClass.contentExtensions.get(0) as EObject;
-			
 			ID transitionEffectsFunctionId;
 			// TODO actually "in" means "after"
 			expand function 
 				"void " transitionEffectsFunctionId "() {"
 				transition.effects
 				"}"
-				in firstContentExtension;
+				in self;
 
 			EObject containerModule = getContainer("Module", self);
+			Class containerClass = getContainer("Class", self) as Class;
+			
 			Variable signalVariable = transition.messageVariable;
 			IdExpr signalType = signalVariable.classifierType;
 			
