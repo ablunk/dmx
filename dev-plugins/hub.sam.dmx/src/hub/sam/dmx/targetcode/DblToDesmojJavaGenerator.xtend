@@ -1,7 +1,6 @@
 package hub.sam.dmx.targetcode
 
 import hub.sam.dbl.ActivateObject
-import hub.sam.dbl.ActiveLiteral
 import hub.sam.dbl.Advance
 import hub.sam.dbl.Class
 import hub.sam.dbl.Expression
@@ -11,9 +10,8 @@ import hub.sam.dbl.Statement
 import hub.sam.dbl.TimeLiteral
 import hub.sam.dbl.Wait
 import hub.sam.dbl.Yield
-import org.eclipse.core.runtime.IPath
-import org.eclipse.emf.ecore.EObject
 import hub.sam.dmx.semantics.BasicDblToJavaGenerator
+import org.eclipse.emf.ecore.EObject
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -98,7 +96,7 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 			
 			«IF active»
 			public void base_actions() {
-				«IF actionsBlock != null»
+				«IF actionsBlock !== null»
 					«actionsBlock.statements.gen»
 				«ENDIF»
 			}
@@ -147,10 +145,6 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 
 	def dispatch String genSimExpr(TimeLiteral stm) {
 		'hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getPresentTime()'
-	}
-	
-	def dispatch String genSimExpr(ActiveLiteral stm) {
-		'hub.sam.dmx.javasim.desmoj.DefaultSimulation.DEFAULT.getCurrentProcess()'
 	}
 	
 }

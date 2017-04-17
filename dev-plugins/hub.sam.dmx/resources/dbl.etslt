@@ -91,23 +91,12 @@ syntax(Model) "resources/dbl.ecore" {
 	ArrayDimensionsEmptySizePart -> "array" (ArrayDimensionsEmptySize:composite(typeArrayDimensions))+;
 	ArrayDimensionsEmptySize:element(ArrayDimension) -> "[" "]";
 
-//	Type -> BareIdExpr:composite(classifierType);
-//	Type -> PrimitiveType:composite(primitiveType);
-
-	//ArrayDimension:element(ArrayDimension) -> "[" Expression:composite(size) "]";
-	
-	//ClassifierRef:element(Classifier) -> IDENTIFIER:composite(name);
-
 	PrimitiveType:element(VoidType) -> "void";
 	PrimitiveType:element(IntType) -> "int";
 	PrimitiveType:element(BoolType) -> "boolean";
 	PrimitiveType:element(DoubleType) -> "double";	
 	PrimitiveType:element(StringType) -> "string";
 	
-	// test
-	//Statement -> Unless2_extension;
-	//Unless2_extension:element(Unless2) -> "unless2" "(" Expression:composite(condition) ")" CodeBlock:composite(codeBlock);
-
 	SimpleStatement -> FunctionCall ";";
 	SimpleStatement -> Assignment ";";
 	SimpleStatement -> Variable ";";
@@ -119,7 +108,6 @@ syntax(Model) "resources/dbl.ecore" {
 	SimpleStatement -> SwitchStatement;
 
 	SimpleStatement -> Advance ";";
-	SimpleStatement -> Terminate ";";
 	SimpleStatement -> Yield ";";
 	SimpleStatement -> YieldTo ";";
 	SimpleStatement -> Wait ";";
@@ -136,7 +124,6 @@ syntax(Model) "resources/dbl.ecore" {
 	ContinueStatement:element(ContinueStatement) -> "continue";
 
 	Advance:element(Advance) -> "advance" Expression:composite(time);
-	Terminate:element(Terminate) -> "terminate";
 	Yield:element(Yield) -> "yield";
 	YieldTo:element(Reactivate) -> "yield" "to" Expression:composite(objectAccess);
 	Wait:element(Wait) -> "wait";
@@ -263,7 +250,6 @@ syntax(Model) "resources/dbl.ecore" {
 	L1Expr -> NullLiteral;
 	L1Expr -> CreateObject;
 	L1Expr -> TimeLiteral;
-	L1Expr -> ActiveLiteral;
 	L1Expr -> "(" ws(empty) Expression ws(empty) ")";
 	
 	Or:element(Or)   -> LogicalOr:composite(op1) ws(space) "or" ws(space) LogicalAnd:composite(op2);
@@ -296,7 +282,6 @@ syntax(Model) "resources/dbl.ecore" {
 	DoubleLiteral:element(DoubleLiteral) -> FLOAT:composite(value);
 	NullLiteral:element(NullLiteral) -> "null";
 	TimeLiteral:element(TimeLiteral) -> "time";
-	ActiveLiteral:element(ActiveLiteral) -> "active";
 	
 	CreateObject:element(CreateObject) -> "new" ws(space) TypedElementPartsWithArrayDimensionSize;
 

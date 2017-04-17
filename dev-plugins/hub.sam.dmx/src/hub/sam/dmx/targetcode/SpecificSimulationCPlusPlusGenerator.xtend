@@ -1,47 +1,45 @@
 package hub.sam.dmx.targetcode
+
 import hub.sam.dbl.ActivateObject
 import hub.sam.dbl.Advance
+import hub.sam.dbl.BreakStatement
 import hub.sam.dbl.Class
 import hub.sam.dbl.Constructor
-import hub.sam.dbl.Expression
-import hub.sam.dbl.Function
-import hub.sam.dbl.Reactivate
-import hub.sam.dbl.Statement
-import hub.sam.dbl.TimeLiteral
-import hub.sam.dbl.Wait
-import hub.sam.dbl.Yield
-import java.util.List
-import org.eclipse.core.runtime.IPath
-import org.eclipse.emf.ecore.EObject
-import hub.sam.dmx.semantics.BaseCPlusPlusGenerator
-import hub.sam.dbl.ActiveLiteral
-import hub.sam.dbl.Terminate
-import hub.sam.dbl.Module
-import hub.sam.dbl.Variable
-import java.util.Set
-import java.util.HashSet
-import hub.sam.dbl.FunctionCall
-import hub.sam.dbl.Parameter
-import hub.sam.dbl.Model
-import hub.sam.dbl.IdExpr
-import hub.sam.dbl.Return
-import hub.sam.dbl.IfStatement
-import hub.sam.dbl.ForStatement
-import hub.sam.dbl.WhileStatement
-import java.util.Queue
-import java.util.LinkedList
-import org.eclipse.emf.common.util.TreeIterator
-import java.util.HashMap
-import hub.sam.dbl.VoidType
 import hub.sam.dbl.ContinueStatement
-import hub.sam.dbl.LocalScopeStatement
-import hub.sam.dbl.SwitchStatement
-import hub.sam.dbl.TypedElement
-import hub.sam.dbl.NamedElement
-import hub.sam.dbl.SuperLiteral
-import hub.sam.dbl.MeLiteral
 import hub.sam.dbl.CreateObject
-import hub.sam.dbl.BreakStatement
+import hub.sam.dbl.Expression
+import hub.sam.dbl.ForStatement
+import hub.sam.dbl.Function
+import hub.sam.dbl.FunctionCall
+import hub.sam.dbl.IdExpr
+import hub.sam.dbl.IfStatement
+import hub.sam.dbl.LocalScopeStatement
+import hub.sam.dbl.MeLiteral
+import hub.sam.dbl.Model
+import hub.sam.dbl.Module
+import hub.sam.dbl.NamedElement
+import hub.sam.dbl.Parameter
+import hub.sam.dbl.Reactivate
+import hub.sam.dbl.Return
+import hub.sam.dbl.Statement
+import hub.sam.dbl.SuperLiteral
+import hub.sam.dbl.SwitchStatement
+import hub.sam.dbl.TimeLiteral
+import hub.sam.dbl.TypedElement
+import hub.sam.dbl.Variable
+import hub.sam.dbl.VoidType
+import hub.sam.dbl.Wait
+import hub.sam.dbl.WhileStatement
+import hub.sam.dbl.Yield
+import hub.sam.dmx.semantics.BaseCPlusPlusGenerator
+import java.util.HashMap
+import java.util.HashSet
+import java.util.LinkedList
+import java.util.List
+import java.util.Queue
+import java.util.Set
+import org.eclipse.emf.common.util.TreeIterator
+import org.eclipse.emf.ecore.EObject
 
 /* 
  * A specific C++-generator for generating c++-code for DBL-programs represented by 
@@ -122,7 +120,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		while(allEObjectsInFunction.hasNext){
 			var nextElement = allEObjectsInFunction.next
 			// if a Scheduling function call was found the function is interruptible
-			if(nextElement instanceof Yield || nextElement instanceof Wait || nextElement instanceof Terminate ||
+			if(nextElement instanceof Yield || nextElement instanceof Wait ||
 				nextElement instanceof Advance) return true
 			// otherwise function calls have to be checked (if the function called is interruptible, so is the 
 			// caller of that function and that has to be checked recursively)
@@ -1019,22 +1017,6 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		'''
 	}
 	/**
-	 * generates C++-string representation for DBL terminate statement. For terminate() implementation
-	 * @see terminate() function in scheduler class. Terminate is not defined in the DBL->Java reference 
-	 * code generator.
-	 * @param stm represents DBL terminate statement
-	 * @return C++-string representation for DBL terminate statement
-	 */
-	protected def dispatch String genSimStatement(Terminate stm){
-		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
-		'''
-			{
-				cbsLib::Scheduler::getScheduler()->terminate(cbsLib::Scheduler::getScheduler()->getCurrentProcess());
-				«genSwitchCase(false)»
-			}
-		'''
-	}
-	/**
 	 * generates C++-string representation for DBL reactivate statement. For reactivate() implementation
 	 * @see reactivate() function in scheduler class. 
 	 * @param stm represents DBL reactivate statement
@@ -1079,10 +1061,10 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @param expr represents DBL active expression
 	 * @return C++-string representation for DBL active expression
 	 */
-	protected def dispatch String genSimExpr(ActiveLiteral expr) {
+	/*protected def dispatch String genSimExpr(ActiveLiteral expr) {
 		includeStrings.add('''#include "../../../C++-Libraries/simulationCore/Scheduler.h"''')
 		'''cbsLib::Scheduler::getScheduler()->getCurrentProcess()'''
-	}
+	}*/
 	/**
 	 * string have to be handled like Java Strings/ here the function is extended by 
 	 * a toString-representation for the simulation specific expressions active and time.
@@ -1090,7 +1072,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for an expression
 	 */
 	override String expressionToString(Expression e){
-		if(e instanceof ActiveLiteral || e instanceof TimeLiteral) 
+		if (e instanceof TimeLiteral) 
 			genToStringUsage('''to_String(«e.genSimExpr»)''')
 		else 
 			super.expressionToString(e)
