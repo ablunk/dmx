@@ -398,12 +398,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CreateIdStatement" eSuperTypes="#//Variable"/>
   <eClassifiers xsi:type="ecore:EClass" name="ExpansionStatement" eSuperTypes="#//SimpleStatement">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="classContext" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="functionContext" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="variableContext" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="differingContext" eType="#//Expression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parts" upperBound="-1"

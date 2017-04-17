@@ -1,6 +1,6 @@
 #import "../../dbl"
 
-module Extensions {
+module addmethods;
 
 extension AddMethod extends dbl SimpleStatement {
 	start AM;
@@ -8,7 +8,5 @@ extension AddMethod extends dbl SimpleStatement {
 }
 
 semantics for AddMethod {
-	expand function method in classRef;
-}
-
+	expand method after classRef;
 }

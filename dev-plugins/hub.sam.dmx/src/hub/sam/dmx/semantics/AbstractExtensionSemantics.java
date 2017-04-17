@@ -185,7 +185,7 @@ public abstract class AbstractExtensionSemantics {
 		return false;
 	}
 	
-	protected void expandAtDifferentPosition(String text, EObject positionObject) {
+	protected void expandAfterPosition(String text, EObject positionObject) {
 		Addition addition = ModificationsFactory.eINSTANCE.createAddition();
 		addition.setSourceEObjectUri(getEmfUriFragment(positionObject));
 		addition.setReplacementText(text);

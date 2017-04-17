@@ -373,25 +373,17 @@ syntax(Model) "resources/dbl.ecore" {
 
 	CreateIdStatement:element(CreateIdStatement) -> "ID" IDENTIFIER:composite(name);
 
-	ExpansionStatement:element(ExpansionStatement) -> "expand" (ContextType)? ExpansionPart:composite(parts)
+	ExpansionStatement:element(ExpansionStatement) -> "expand" ExpansionPart:composite(parts)
 		(ws(space) ExpansionPart:composite(parts))* (DifferingContext)?;
 	
 	ExpansionPart -> ExpandTextPart;
 	ExpansionPart -> ExpandVariablePart;
 	
-	ContextType -> IsAddClass:composite(classContext);
-	ContextType -> IsAddFunction:composite(functionContext);
-	ContextType -> IsAddVariable:composite(variableContext);
-	
-	DifferingContext -> "in" Expression:composite(differingContext);
+	DifferingContext -> "after" Expression:composite(differingContext);
 
 	//ExpandTextPart:element(ExpandTextPart) -> CODE:composite(text);
 	ExpandTextPart:element(ExpandTextPart) -> STRINGDEF:composite(text);
 	ExpandVariablePart:element(ExpandVariablePart) -> IdExpr:composite(expr);
-	
-	IsAddClass:constant("true":EBoolean) -> "class";
-	IsAddFunction:constant("true":EBoolean) -> "function";
-	IsAddVariable:constant("true":EBoolean) -> "variable";
 	
 	L1Expr -> ParseExpr;
 	

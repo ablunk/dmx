@@ -8,8 +8,8 @@ extension X extends dbl SimpleStatement {
 }
 
 semantics for X {
-	EObject container = getContainer("Function", self);
-	expand class "class A { int i=2; }" in container;
+	EObject containerFunction = getContainer("Function", self);
+	expand "class A { int i=2; }" after containerFunction;
 	
 	expand "A a = new A(); print a.i;";	
 }

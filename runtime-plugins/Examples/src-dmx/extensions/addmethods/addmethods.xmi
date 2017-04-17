@@ -3,17 +3,17 @@
   <imports file="../../dbl">
     <model href="../../dbl.xmi#/"/>
   </imports>
-  <modules name="AddMethodExtension">
+  <module name="addmethod">
     <extensions name="AddMethod">
-      <extensionPoint href="../../dbl.xmi#//@modules.0/@classes.32"/>
-      <syntaxDefinition startSymbol="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.33"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="AM">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" keyword="extend"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="classRef" globalScopedReference="true">
-              <referencedClassifier href="../../dbl.xmi#//@modules.0/@classes.24"/>
+              <referencedClassifier href="../../dbl.xmi#//@module/@classes.24"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" keyword="with"/>
@@ -22,19 +22,19 @@
               <ownedClassifier xsi:type="dbl:Keyword" keyword="method"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="method">
-              <referencedClassifier href="../../dbl.xmi#//@modules.0/@classes.21"/>
+              <referencedClassifier href="../../dbl.xmi#//@module/@classes.21"/>
             </sequence>
           </possibleSyntax>
         </symbols>
       </syntaxDefinition>
     </extensions>
-    <extensionSemantics syntaxDefinition="//@modules.0/@extensions.0">
-      <statements xsi:type="dbl:ExpansionStatement" functionContext="true">
-        <differingContext referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+    <extensionSemantics syntaxDefinition="//@module/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement">
+        <differingContext xsi:type="dbl:IdExpr" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
         <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
+          <expr xsi:type="dbl:IdExpr" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.4"/>
         </parts>
       </statements>
     </extensionSemantics>
-  </modules>
+  </module>
 </dbl:Model>

@@ -225,7 +225,7 @@ class ExtensionDefinitionsToJava extends BasicDblToJavaGenerator {
 			);'''
 		}
 		else {
-			'''expandAtDifferentPosition(
+			'''expandAfterPosition(
 			«FOR part : parts SEPARATOR '+'»
 				«part.genMappingPart»
 			«ENDFOR»

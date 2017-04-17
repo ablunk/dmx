@@ -20,7 +20,7 @@
       </syntaxDefinition>
     </extensions>
     <extensionSemantics syntaxDefinition="//@module/@extensions.0">
-      <statements xsi:type="dbl:Variable" name="container">
+      <statements xsi:type="dbl:Variable" name="containerFunction">
         <classifierType>
           <referencedElement href="../../../ecore.xmi#//@module/@classes.13"/>
         </classifierType>
@@ -33,8 +33,8 @@
           </callPart>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:ExpansionStatement" classContext="true">
-        <differingContext referencedElement="//@module/@extensionSemantics.0/@statements.0"/>
+      <statements xsi:type="dbl:ExpansionStatement">
+        <differingContext xsi:type="dbl:IdExpr" referencedElement="//@module/@extensionSemantics.0/@statements.0"/>
         <parts xsi:type="dbl:ExpandTextPart" text="class A { int i=2; }"/>
       </statements>
       <statements xsi:type="dbl:ExpansionStatement">

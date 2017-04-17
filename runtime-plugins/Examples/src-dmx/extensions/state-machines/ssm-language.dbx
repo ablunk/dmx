@@ -78,12 +78,11 @@ semantics for StateMachine {
 			expand transitionId ".target = " stateId ";";
 
 			ID transitionEffectsFunctionId;
-			// TODO actually "in" means "after"
-			expand function 
+			expand 
 				"void " transitionEffectsFunctionId "() {"
 				transition.effects
 				"}"
-				in self;
+				after self;
 
 			EObject containerModule = getContainer("Module", self);
 			Class containerClass = getContainer("Class", self) as Class;
@@ -92,7 +91,7 @@ semantics for StateMachine {
 			IdExpr signalType = signalVariable.classifierType;
 			
 			ID compiledTransitionClassId;
-			expand class
+			expand
 				"class " compiledTransitionClassId " extends CompiledTransition {"
 					"new(Transition transition) {"
 					"	super(transition);"
@@ -105,7 +104,7 @@ semantics for StateMachine {
 					"	concreteContext." transitionEffectsFunctionId "();"
 					"}"
 				"}"
-				in containerModule;
+				after containerModule;
 
 			ID compiledTransitionId;
 			expand "CompiledTransition " compiledTransitionId " = new " compiledTransitionClassId;
