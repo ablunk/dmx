@@ -53,7 +53,8 @@ class List {
 	Object get(int index);
 	int indexOf(Object e);
 	boolean isEmpty();
-	//Object remove(int index); // TODO removed, beacuse method parameters are not considered yet in DblIdentificationScheme
+	// method overloading by parameter type is not supported yet:
+	//Object remove(int index);
 	boolean remove(Object e);
 	Object set(int index, Object e);
 	Object array[] toArray();

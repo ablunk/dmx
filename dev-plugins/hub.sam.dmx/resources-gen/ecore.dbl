@@ -2,27 +2,17 @@
 
 module ecore;
 
-class EAttribute
-extends 
-EStructuralFeature
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EAttribute"
-	}
+class EAttribute extends EStructuralFeature {
+	bindings { "java" -> "org.eclipse.emf.ecore.EAttribute" }
 	
 	boolean iD;
 	boolean isID();
 	EDataType eAttributeType;
 	EDataType getEAttributeType();
-
 }
-class EAnnotation
-extends 
-EModelElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EAnnotation"
-	}
+
+class EAnnotation extends EModelElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EAnnotation" }
 	
 	string source;
 	string getSource();
@@ -34,15 +24,10 @@ EModelElement
 	EList getContents();
 	EList references;
 	EList getReferences();
-
 }
-class EClass
-extends 
-EClassifier
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EClass"
-	}
+
+class EClass extends EClassifier {
+	bindings { "java" -> "org.eclipse.emf.ecore.EClass" }
 	
 	boolean abstract;
 	boolean isAbstract();
@@ -76,7 +61,6 @@ EClassifier
 	EList getEGenericSuperTypes();
 	EList eAllGenericSuperTypes;
 	EList getEAllGenericSuperTypes();
-
 	boolean isSuperTypeOf(EClass someClass);
 	int getFeatureCount();
 	EStructuralFeature getEStructuralFeature(int featureID);
@@ -88,13 +72,9 @@ EClassifier
 	EOperation getOverride(EOperation operation);
 	EGenericType getFeatureType(EStructuralFeature feature);
 }
-class EClassifier
-extends 
-ENamedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EClassifier"
-	}
+
+class EClassifier extends ENamedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EClassifier" }
 	
 	string instanceClassName;
 	string getInstanceClassName();
@@ -108,44 +88,29 @@ ENamedElement
 	EPackage getEPackage();
 	EList eTypeParameters;
 	EList getETypeParameters();
-
 	boolean isInstance(Object object);
 	int getClassifierID();
 }
-class EDataType
-extends 
-EClassifier
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EDataType"
-	}
+
+class EDataType extends EClassifier {
+	bindings { "java" -> "org.eclipse.emf.ecore.EDataType" }
 	
 	boolean serializable;
 	boolean isSerializable();
-
 }
-class EEnum
-extends 
-EDataType
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EEnum"
-	}
+
+class EEnum extends EDataType {
+	bindings { "java" -> "org.eclipse.emf.ecore.EEnum" }
 	
 	EList eLiterals;
 	EList getELiterals();
-
 	EEnumLiteral getEEnumLiteral(string name);
 	EEnumLiteral getEEnumLiteral(int value);
 	EEnumLiteral getEEnumLiteralByLiteral(string literal);
 }
-class EEnumLiteral
-extends 
-ENamedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EEnumLiteral"
-	}
+
+class EEnumLiteral extends ENamedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EEnumLiteral" }
 	
 	int value;
 	int getValue();
@@ -155,47 +120,33 @@ ENamedElement
 	string getLiteral();
 	EEnum eEnum;
 	EEnum getEEnum();
-
 }
-class EFactory
-extends 
-EModelElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EFactory"
-	}
+
+class EFactory extends EModelElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EFactory" }
 	
 	EPackage ePackage;
 	EPackage getEPackage();
-
 	EObject create(EClass eClass);
 	Object createFromString(EDataType eDataType,string literalValue);
 	string convertToString(EDataType eDataType,Object instanceValue);
 }
-class EModelElement
-extends EObject
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EModelElement"
-	}
+
+class EModelElement extends EObject {
+	bindings { "java" -> "org.eclipse.emf.ecore.EModelElement" }
 	
 	EList eAnnotations;
 	EList getEAnnotations();
-
 	EAnnotation getEAnnotation(string source);
 }
-class ENamedElement
-extends 
-EModelElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.ENamedElement"
-	}
+
+class ENamedElement extends EModelElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.ENamedElement" }
 	
 	string name;
 	string getName();
-
 }
+
 class Enumerator {
 	bindings {
 		"java" -> "org.eclipse.emf.common.util.Enumerator"
@@ -241,13 +192,8 @@ class EObject {
 string getURI(EObject eObject) {
 	return eObject.eResource().getURIFragment(eObject);
 }			
-class EOperation
-extends 
-ETypedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EOperation"
-	}
+class EOperation extends ETypedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EOperation" }
 	
 	EClass eContainingClass;
 	EClass getEContainingClass();
@@ -259,17 +205,12 @@ ETypedElement
 	EList getEExceptions();
 	EList eGenericExceptions;
 	EList getEGenericExceptions();
-
 	int getOperationID();
 	boolean isOverrideOf(EOperation someOperation);
 }
-class EPackage
-extends 
-ENamedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EPackage"
-	}
+
+class EPackage extends ENamedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EPackage" }
 	
 	string nsURI;
 	string getNsURI();
@@ -283,28 +224,18 @@ ENamedElement
 	EList getESubpackages();
 	EPackage eSuperPackage;
 	EPackage getESuperPackage();
-
 	EClassifier getEClassifier(string name);
 }
-class EParameter
-extends 
-ETypedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EParameter"
-	}
+
+class EParameter extends ETypedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EParameter" }
 	
 	EOperation eOperation;
 	EOperation getEOperation();
-
 }
-class EReference
-extends 
-EStructuralFeature
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EReference"
-	}
+
+class EReference extends EStructuralFeature {
+	bindings { "java" -> "org.eclipse.emf.ecore.EReference" }
 	
 	boolean containment;
 	boolean isContainment();
@@ -318,15 +249,10 @@ EStructuralFeature
 	EClass getEReferenceType();
 	EList eKeys;
 	EList getEKeys();
-
 }
-class EStructuralFeature
-extends 
-ETypedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EStructuralFeature"
-	}
+
+class EStructuralFeature extends ETypedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.EStructuralFeature" }
 	
 	boolean changeable;
 	boolean isChangeable();
@@ -344,17 +270,12 @@ ETypedElement
 	boolean isDerived();
 	EClass eContainingClass;
 	EClass getEContainingClass();
-
 	int getFeatureID();
 	JavaClass getContainerClass();
 }
-class ETypedElement
-extends 
-ENamedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.ETypedElement"
-	}
+
+class ETypedElement extends ENamedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.ETypedElement" }
 	
 	boolean ordered;
 	boolean isOrdered();
@@ -372,27 +293,19 @@ ENamedElement
 	EClassifier getEType();
 	EGenericType eGenericType;
 	EGenericType getEGenericType();
-
 }
-class EStringToStringMapEntry
-extends EObject
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EStringToStringMapEntry"
-	}
+
+class EStringToStringMapEntry extends EObject {
+	bindings { "java" -> "org.eclipse.emf.ecore.EStringToStringMapEntry" }
 	
 	string key;
 	string getKey();
 	string value;
 	string getValue();
-
 }
-class EGenericType
-extends EObject
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.EGenericType"
-	}
+
+class EGenericType extends EObject {
+	bindings { "java" -> "org.eclipse.emf.ecore.EGenericType" }
 	
 	EGenericType eUpperBound;
 	EGenericType getEUpperBound();
@@ -406,18 +319,13 @@ extends EObject
 	ETypeParameter getETypeParameter();
 	EClassifier eClassifier;
 	EClassifier getEClassifier();
-
 	boolean isInstance(Object object);
 }
-class ETypeParameter
-extends 
-ENamedElement
-{
-	bindings {
-		"java" -> "org.eclipse.emf.ecore.ETypeParameter"
-	}
+
+class ETypeParameter extends ENamedElement {
+	bindings { "java" -> "org.eclipse.emf.ecore.ETypeParameter" }
 	
 	EList eBounds;
 	EList getEBounds();
-
 }
+

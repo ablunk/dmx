@@ -1144,7 +1144,7 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </attributes>
       <attributes name="differingContext">
-        <classifierType referencedElement="//@module/@classes.102"/>
+        <classifierType referencedElement="//@module/@classes.55"/>
       </attributes>
       <attributes name="parts">
         <classifierType>
@@ -1166,7 +1166,7 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getDifferingContext">
-        <classifierType referencedElement="//@module/@classes.102"/>
+        <classifierType referencedElement="//@module/@classes.55"/>
       </methods>
       <methods name="getParts">
         <classifierType>

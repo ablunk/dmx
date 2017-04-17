@@ -108,7 +108,8 @@ semantics for StateMachine {
 				in containerModule;
 
 			ID compiledTransitionId;
-			expand "CompiledTransition " compiledTransitionId " = new " compiledTransitionClassId "(" transitionId ");";
+			expand "CompiledTransition " compiledTransitionId " = new " compiledTransitionClassId;
+			expand "(" transitionId ");";
 			expand compiledStateId ".addCompiledTransition(" compiledTransitionId ");";
 		}
 	}

@@ -79,32 +79,32 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		if (!feature.many) 'void set' + name.escapeName.toFirstUpper + '(' + genType + ' value);'
 	}
 	
+	def String genEClassSuperClassInheritance(EClass eClass) {
+		val it = eClass
+		'''
+		«IF ESuperTypes.empty»
+			extends EObject {
+		«ELSE»
+			extends «FOR superClass : ESuperTypes SEPARATOR ', '»«superClass.name»«ENDFOR» {
+		«ENDIF»
+		'''
+	}
+	
 	def String genEClass(EClass eClass, String javaPackagePrefix) {
 		val it = eClass
 		if (!name.equals("EObject")) {
 			'''
-			class «name»
-			«IF ESuperTypes.empty»
-				extends EObject
-			«ELSE»
-				extends 
-				«FOR superClass : ESuperTypes SEPARATOR ','»
-					«superClass.name»
-				«ENDFOR»
-			«ENDIF»
-			{
-				bindings {
-					"java" -> "«javaPackagePrefix».«name»"
-				}
+			class «name» «genEClassSuperClassInheritance»
+				bindings { "java" -> "«javaPackagePrefix».«name»" }
 				
 				«FOR feature : EStructuralFeatures»
 					«feature.genFeature»
 				«ENDFOR»
-
 				«FOR operation : EOperations»
 					«operation.genOperation»
 				«ENDFOR»
 			}
+			
 			'''
 		}
 		else {

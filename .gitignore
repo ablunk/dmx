@@ -4,6 +4,8 @@
 .DS_Store
 bin/
 
+*_base.xmi
+
 dev-plugins/dbx-emf-model/src/**/*.java
 !dev-plugins/dbx-emf-model/src/de/bldev/dbx/lang/ecore/dbx/impl/DbxFactoryImpl.java
 

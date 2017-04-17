@@ -425,7 +425,6 @@
     </classes>
     <classes name="EObject">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EObject"/>
-      <superClasses href="stdlib.xmi#//@module/@classes.1"/>
       <methods name="eResource">
         <classifierType referencedElement="//@module/@classes.11"/>
       </methods>
