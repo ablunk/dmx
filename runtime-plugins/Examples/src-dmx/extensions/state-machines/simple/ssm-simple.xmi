@@ -63,20 +63,15 @@
       <statements xsi:type="dbl:Advance" concreteSyntax="advance 1">
         <time xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
       </statements>
-      <statements xsi:type="dbl:FunctionCall" concreteSyntax="delayer.sendSignal(new Data(&quot;blob&quot;))">
-        <callIdExpr concreteSyntax="delayer.sendSignal(new Data(&quot;blob&quot;))">
-          <parentIdExpr concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.0"/>
-          <referencedElement href="../ssm-runtime.xmi#//@module/@classes.3/@methods.1"/>
-          <callPart>
-            <callArguments xsi:type="dbl:CreateObject" concreteSyntax="new Data(&quot;blob&quot;)">
-              <classifierType concreteSyntax="Data(&quot;blob&quot;)" referencedElement="//@module/@classes.0">
-                <callPart>
-                  <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;blob&quot;" value="blob"/>
-                </callPart>
-              </classifierType>
-            </callArguments>
-          </callPart>
-        </callIdExpr>
+      <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send new Data(&quot;blob&quot;) to delayer;" instanceOfExtensionDefinition="true">
+        <signal xsi:type="dbl:CreateObject" concreteSyntax="new Data(&quot;blob&quot;)">
+          <classifierType concreteSyntax="Data(&quot;blob&quot;)" referencedElement="//@module/@classes.0">
+            <callPart>
+              <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;blob&quot;" value="blob"/>
+            </callPart>
+          </classifierType>
+        </signal>
+        <target xsi:type="dbl:IdExpr" concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.0"/>
       </statements>
       <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
         <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>

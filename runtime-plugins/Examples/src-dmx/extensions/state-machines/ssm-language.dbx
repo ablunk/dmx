@@ -3,10 +3,6 @@
 
 module ssm;
 
-void printSomething() {
-	print "executing";
-}
-
 extension MessageAccess extends dbl L1Expr {
 	start MessageAccessSyntax;
 	MessageAccessSyntax -> "message";
@@ -22,14 +18,7 @@ extension SendStatement extends dbl SimpleStatement {
 }
 
 semantics for SendStatement {
-	//expand "printSomething();";
-	
-	// TODO add import in extension code
-	expand "X x = new X;";
-	expand "print x.message;";
-	
-	//expand target".eventPool.add("signal");";
-	//expand "reactivate "target";";
+	expand target ".sendSignal(" signal ");";
 }
 
 extension StateMachine extends dbl ClassContentExtension {
@@ -50,11 +39,9 @@ extension StateMachine extends dbl ClassContentExtension {
 	MoreTransitions -> ;
 	MoreTransitions -> "," OneOrMoreTransitions;
 
-	// a new language element for the attributed grammar would be needed so that
-	// Transition inherits from LocalScopeStatement
-	// in order to access the message variable in the effect.
 	Transition -> Trigger TargetState;
 	
+	// TODO can we make the messageVariable accessible inside effects?
 	Trigger -> "on" messageVariable:Variable Effects;
 	Trigger -> "after" timeDuration:Expression Effects;
 	Effects -> ;

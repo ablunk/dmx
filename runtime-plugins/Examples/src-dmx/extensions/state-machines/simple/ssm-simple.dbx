@@ -24,6 +24,7 @@ void main() {
 	Delayer delayer = new Delayer;
 	activate delayer;
 	advance 1;
-	delayer.sendSignal(new Data("blob"));
+	
+	send new Data("blob") to delayer;
 	advance 10;
 }
