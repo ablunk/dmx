@@ -29,9 +29,9 @@ extension StateMachine extends dbl ClassContentExtension {
 	ManyRegularStates -> ;
 	ManyRegularStates -> states : list State ManyRegularStates;
 	
-	State -> initialModifier:InitialModifier "state" name:ID Transitions;
-	InitialModifier -> ;
+	State -> InitialModifier "state" name:ID Transitions;
 	InitialModifier -> initial:"initial";
+	InitialModifier -> ;
 	
 	Transitions -> ;
 	Transitions -> "{" OneOrMoreTransitions "}";
@@ -64,7 +64,10 @@ semantics for StateMachine {
 		expand "State " stateId " = new State;";
 		expand "stateMachine.states.add(" stateId ");";
 		expand stateId ".name = \"" state.name "\";";
-		expand "stateMachine.initialState = " stateId ";";
+		
+		if (state.initial) {
+			expand "stateMachine.initialState = " stateId ";";
+		}
 		
 		ID compiledStateId;
 		expand "CompiledState " compiledStateId " = new CompiledState(" stateId ");";
