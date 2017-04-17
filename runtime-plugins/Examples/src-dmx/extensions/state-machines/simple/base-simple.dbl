@@ -1,7 +1,7 @@
-#import "ssm-runtime"
-#import "../../stdlib"
+#import "../ssm-runtime"
+#import "../../../stdlib"
 
-module baseSimplesystem;
+module baseSimpleSystem;
 
 class Data extends Signal {
 	string payLoad;

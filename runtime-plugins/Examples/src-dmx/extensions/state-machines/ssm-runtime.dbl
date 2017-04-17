@@ -99,7 +99,7 @@ class CompiledState extends Object {
 	}
 	
 	State consumeEvent(Event event, Object context) {
-		print("consuming in event\n");
+		print("consuming event\n");
 		for (int i=0; i<compiledTransitions.size(); i=i+1) {
 			CompiledTransition compiledTransition = compiledTransitions.get(i) as CompiledTransition;
 			

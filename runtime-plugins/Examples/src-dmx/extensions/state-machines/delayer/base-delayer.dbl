@@ -1,8 +1,15 @@
-#import "ssm-runtime"
-#import "user-model"
+#import "../ssm-runtime"
 #import "../../stdlib"
 
-module simpleSystem {
+module baseDelayerSystem;
+
+class Data extends Signal {
+	string payLoad;
+	
+	new(string payLoad) {
+		self.payLoad = payLoad;
+	}
+}
 
 void main() {
 	Producer producer = new Producer;
@@ -108,6 +115,4 @@ StateMachineRuntime createDelayerStateMachineRuntime() {
 	compiledWaiting.addTimer(after5Timer);
 	
 	return stateMachineRuntime;
-}
-
 }

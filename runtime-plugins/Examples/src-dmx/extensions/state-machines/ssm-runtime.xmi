@@ -332,7 +332,7 @@
       <methods name="consumeEvent">
         <classifierType referencedElement="//@module/@classes.5"/>
         <statements xsi:type="dbl:Print">
-          <outputs xsi:type="dbl:StringLiteral" value="consuming in event\n"/>
+          <outputs xsi:type="dbl:StringLiteral" value="consuming event\n"/>
         </statements>
         <statements xsi:type="dbl:ForStatement">
           <statements xsi:type="dbl:Variable" name="i">

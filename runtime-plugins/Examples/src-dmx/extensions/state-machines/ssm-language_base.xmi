@@ -184,28 +184,6 @@
             </sequence>
           </possibleSyntax>
         </symbols>
-        <symbols name="StateMachine_ManyRegularStates_extension_StateMachine_StateMachine_extension" concreteSyntax="ManyRegularStates -> ;">
-          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
-        </symbols>
-        <symbols name="StateMachine_ManyRegularStates_extension_StateMachine_StateMachine_extension" concreteSyntax="ManyRegularStates -> states : list State ManyRegularStates;">
-          <possibleSyntax xsi:type="dbl:SymbolSequence">
-            <sequence xsi:type="dbl:StructuralSymbolReference" name="states" referencedClassifier="//@module/@extensions.2/@syntaxDefinition/@symbols.3" list="true"/>
-            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.2/@syntaxDefinition/@symbols.1"/>
-          </possibleSyntax>
-        </symbols>
-        <symbols name="StateMachine_Effects_extension_StateMachine_Transition_extension" concreteSyntax="Effects -> ;">
-          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
-        </symbols>
-        <symbols name="StateMachine_Effects_extension_StateMachine_Transition_extension" concreteSyntax="Effects -> &quot;do&quot; effects : SimpleStatement;">
-          <possibleSyntax xsi:type="dbl:SymbolSequence">
-            <sequence xsi:type="dbl:PlainSymbolReference">
-              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;do&quot;" keyword="do"/>
-            </sequence>
-            <sequence xsi:type="dbl:StructuralSymbolReference" name="effects">
-              <referencedClassifier href="../../dbl.xmi#//@module/@classes.33"/>
-            </sequence>
-          </possibleSyntax>
-        </symbols>
       </syntaxDefinition>
     </extensions>
     <extensionSemantics concreteSyntax="semantics for MessageAccess {&#xA;&#x9;expand &quot;event&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.0">

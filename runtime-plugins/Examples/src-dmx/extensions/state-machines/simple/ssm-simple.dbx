@@ -1,6 +1,6 @@
-#import "../../stdlib"
-#import "ssm-language"
-#import "ssm-runtime"
+#import "../../../stdlib"
+#import "../ssm-language"
+#import "../ssm-runtime"
 
 module ssmSimpleSystem;
 
@@ -15,8 +15,6 @@ class Data extends Signal {
 class Delayer extends ObjectWithStateMachine {
 	stateMachine {
 		initial state waiting {
-			// this is a workaround because the data message variable cannot be accessed from here.
-			// by convention, the received message will be made available in a variable named 'message'.
 			on Data data do { print "received data\n"; } then goto waiting
 		}
 	}		

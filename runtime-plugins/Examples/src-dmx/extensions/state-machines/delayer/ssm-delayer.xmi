@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../../stdlib">
+    <model href="../../../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../ssm-language">
+    <model href="../ssm-language.xmi#/"/>
+  </imports>
+  <imports file="../ssm-runtime">
+    <model href="../ssm-runtime.xmi#/"/>
+  </imports>
+  <module name="ssmDelayerSystem">
+    <classes name="Data" concreteSyntax="class Data extends Signal {&#xA;&#x9;string payLoad;&#xA;&#x9;&#xA;&#x9;new(string payLoad) {&#xA;&#x9;&#x9;self.payLoad = payLoad;&#xA;&#x9;}&#xA;}">
+      <superClasses href="../ssm-runtime.xmi#//@module/@classes.1"/>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.payLoad = payLoad">
+          <variable concreteSyntax="self.payLoad">
+            <idExpr concreteSyntax="self.payLoad" referencedElement="//@module/@classes.0/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="payLoad" referencedElement="//@module/@classes.0/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="payLoad">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+      <attributes name="payLoad" concreteSyntax="string payLoad">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+    </classes>
+    <classes name="Producer" concreteSyntax="active class Producer extends ObjectWithStateMachine {&#xA;&#x9;ObjectWithStateMachine receiver;&#xA;&#x9;&#xA;&#x9;actions {&#xA;&#x9;&#x9;print &quot;sending data to delayer&quot;;&#xA;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;receiver.sendSignal(new Data(&quot;1&quot;));&#xA;&#x9;&#x9;advance 2;&#xA;&#x9;&#x9;receiver.sendSignal(new Data(&quot;2&quot;));&#xA;&#x9;}&#xA;}" active="true">
+      <superClasses href="../ssm-runtime.xmi#//@module/@classes.3"/>
+      <attributes name="receiver" concreteSyntax="ObjectWithStateMachine receiver">
+        <classifierType concreteSyntax="ObjectWithStateMachine">
+          <referencedElement href="../ssm-runtime.xmi#//@module/@classes.3"/>
+        </classifierType>
+      </attributes>
+      <actionsBlock>
+        <statements xsi:type="dbl:Print" concreteSyntax="print &quot;sending data to delayer&quot;">
+          <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;sending data to delayer&quot;" value="sending data to delayer"/>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 1">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="receiver.sendSignal(new Data(&quot;1&quot;))">
+          <callIdExpr concreteSyntax="receiver.sendSignal(new Data(&quot;1&quot;))">
+            <parentIdExpr concreteSyntax="receiver" referencedElement="//@module/@classes.1/@attributes.0"/>
+            <referencedElement href="../ssm-runtime.xmi#//@module/@classes.3/@methods.1"/>
+            <callPart>
+              <callArguments xsi:type="dbl:CreateObject" concreteSyntax="new Data(&quot;1&quot;)">
+                <classifierType concreteSyntax="Data(&quot;1&quot;)" referencedElement="//@module/@classes.0">
+                  <callPart>
+                    <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;1&quot;" value="1"/>
+                  </callPart>
+                </classifierType>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance 2">
+          <time xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="receiver.sendSignal(new Data(&quot;2&quot;))">
+          <callIdExpr concreteSyntax="receiver.sendSignal(new Data(&quot;2&quot;))">
+            <parentIdExpr concreteSyntax="receiver" referencedElement="//@module/@classes.1/@attributes.0"/>
+            <referencedElement href="../ssm-runtime.xmi#//@module/@classes.3/@methods.1"/>
+            <callPart>
+              <callArguments xsi:type="dbl:CreateObject" concreteSyntax="new Data(&quot;2&quot;)">
+                <classifierType concreteSyntax="Data(&quot;2&quot;)" referencedElement="//@module/@classes.0">
+                  <callPart>
+                    <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;2&quot;" value="2"/>
+                  </callPart>
+                </classifierType>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
+        </statements>
+      </actionsBlock>
+    </classes>
+    <classes name="Consumer" concreteSyntax="active class Consumer extends ObjectWithStateMachine {&#xA;}" active="true">
+      <superClasses href="../ssm-runtime.xmi#//@module/@classes.3"/>
+    </classes>
+    <classes name="Delayer" concreteSyntax="active class Delayer extends ObjectWithStateMachine {&#xA;&#x9;ObjectWithStateMachine receiver;&#xA;&#x9;Data lastReceived = null;&#xA;&#x9;&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;// this is a workaround because the data message variable cannot be accessed from here.&#xA;&#x9;&#x9;&#x9;// by convention, the received message will be made available in a variable named 'message'.&#xA;&#x9;&#x9;&#x9;on Data data do { saveAsLastData(message as Data); } then goto waiting,&#xA;&#x9;&#x9;&#x9;after 5 do forwardLastData(); then goto waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#x9;&#xA;&#x9;void saveAsLastData(Data data) {&#xA;&#x9;&#x9;print &quot;received data with pay load: &quot; + data.payLoad;&#xA;&#x9;&#x9;lastReceived = data;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void forwardLastData() {&#xA;&#x9;&#x9;print &quot;sending data with pay load: &quot; + lastReceived.payLoad;&#xA;&#x9;&#x9;send lastReceived to receiver;&#xA;&#x9;&#x9;lastReceived = null;&#xA;&#x9;}&#x9;&#xA;}" active="true">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;// this is a workaround because the data message variable cannot be accessed from here.&#xA;&#x9;&#x9;&#x9;// by convention, the received message will be made available in a variable named 'message'.&#xA;&#x9;&#x9;&#x9;on Data data do { saveAsLastData(message as Data); } then goto waiting,&#xA;&#x9;&#x9;&#x9;after 5 do forwardLastData(); then goto waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="waiting" concreteSyntax="initial state waiting {&#xA;&#x9;&#x9;&#x9;// this is a workaround because the data message variable cannot be accessed from here.&#xA;&#x9;&#x9;&#x9;// by convention, the received message will be made available in a variable named 'message'.&#xA;&#x9;&#x9;&#x9;on Data data do { saveAsLastData(message as Data); } then goto waiting,&#xA;&#x9;&#x9;&#x9;after 5 do forwardLastData(); then goto waiting&#xA;&#x9;&#x9;}">
+          <initialModifier concreteSyntax="initial" initial="true"/>
+          <outgoing concreteSyntax="on Data data do { saveAsLastData(message as Data); } then goto waiting" target="//@module/@classes.3/@contentExtensions.0/@states.0">
+            <messageVariable name="data" concreteSyntax="Data data">
+              <classifierType concreteSyntax="Data" referencedElement="//@module/@classes.0"/>
+            </messageVariable>
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{ saveAsLastData(message as Data); }">
+              <statements xsi:type="dbl:FunctionCall" concreteSyntax="saveAsLastData(message as Data)">
+                <callIdExpr concreteSyntax="saveAsLastData(message as Data)" referencedElement="//@module/@classes.3/@methods.0">
+                  <callPart>
+                    <callArguments xsi:type="dbl:Cast" concreteSyntax="message as Data">
+                      <classifierType concreteSyntax="Data" referencedElement="//@module/@classes.0"/>
+                      <op xsi:type="dbl:MessageAccess_MessageAccessSyntax_extension" concreteSyntax="message" instanceOfExtensionDefinition="true"/>
+                    </callArguments>
+                  </callPart>
+                </callIdExpr>
+              </statements>
+            </effects>
+          </outgoing>
+          <outgoing concreteSyntax="after 5 do forwardLastData(); then goto waiting" target="//@module/@classes.3/@contentExtensions.0/@states.0">
+            <effects xsi:type="dbl:FunctionCall" concreteSyntax="forwardLastData()">
+              <callIdExpr concreteSyntax="forwardLastData()" referencedElement="//@module/@classes.3/@methods.1">
+                <callPart/>
+              </callIdExpr>
+            </effects>
+            <timeDuration xsi:type="dbl:IntLiteral" concreteSyntax="5" value="5"/>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <superClasses href="../ssm-runtime.xmi#//@module/@classes.3"/>
+      <attributes name="receiver" concreteSyntax="ObjectWithStateMachine receiver">
+        <classifierType concreteSyntax="ObjectWithStateMachine">
+          <referencedElement href="../ssm-runtime.xmi#//@module/@classes.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="lastReceived" concreteSyntax="Data lastReceived = null">
+        <classifierType concreteSyntax="Data" referencedElement="//@module/@classes.0"/>
+        <initialValue xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+      </attributes>
+      <methods name="saveAsLastData">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print &quot;received data with pay load: &quot; + data.payLoad">
+          <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;received data with pay load: &quot; + data.payLoad">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;received data with pay load: &quot;" value="received data with pay load: "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="data.payLoad" referencedElement="//@module/@classes.0/@attributes.0">
+              <parentIdExpr concreteSyntax="data" referencedElement="//@module/@classes.3/@methods.0/@parameters.0"/>
+            </op2>
+          </outputs>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="lastReceived = data">
+          <variable concreteSyntax="lastReceived">
+            <idExpr concreteSyntax="lastReceived" referencedElement="//@module/@classes.3/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="data" referencedElement="//@module/@classes.3/@methods.0/@parameters.0"/>
+        </statements>
+        <parameters name="data">
+          <classifierType concreteSyntax="Data" referencedElement="//@module/@classes.0"/>
+        </parameters>
+      </methods>
+      <methods name="forwardLastData">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print &quot;sending data with pay load: &quot; + lastReceived.payLoad">
+          <outputs xsi:type="dbl:Plus" concreteSyntax="&quot;sending data with pay load: &quot; + lastReceived.payLoad">
+            <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;sending data with pay load: &quot;" value="sending data with pay load: "/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="lastReceived.payLoad" referencedElement="//@module/@classes.0/@attributes.0">
+              <parentIdExpr concreteSyntax="lastReceived" referencedElement="//@module/@classes.3/@attributes.1"/>
+            </op2>
+          </outputs>
+        </statements>
+        <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send lastReceived to receiver;" instanceOfExtensionDefinition="true">
+          <signal xsi:type="dbl:IdExpr" concreteSyntax="lastReceived" referencedElement="//@module/@classes.3/@attributes.1"/>
+          <target xsi:type="dbl:IdExpr" concreteSyntax="receiver" referencedElement="//@module/@classes.3/@attributes.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="lastReceived = null">
+          <variable concreteSyntax="lastReceived">
+            <idExpr concreteSyntax="lastReceived" referencedElement="//@module/@classes.3/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+        </statements>
+      </methods>
+    </classes>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="producer" concreteSyntax="Producer producer = new Producer">
+        <classifierType concreteSyntax="Producer" referencedElement="//@module/@classes.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Producer">
+          <classifierType concreteSyntax="Producer" referencedElement="//@module/@classes.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="delayer" concreteSyntax="Delayer delayer = new Delayer">
+        <classifierType concreteSyntax="Delayer" referencedElement="//@module/@classes.3"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Delayer">
+          <classifierType concreteSyntax="Delayer" referencedElement="//@module/@classes.3"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="consumer" concreteSyntax="Consumer consumer = new Consumer">
+        <classifierType concreteSyntax="Consumer" referencedElement="//@module/@classes.2"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Consumer">
+          <classifierType concreteSyntax="Consumer" referencedElement="//@module/@classes.2"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="producer.receiver = delayer">
+        <variable concreteSyntax="producer.receiver">
+          <idExpr concreteSyntax="producer.receiver" referencedElement="//@module/@classes.1/@attributes.0">
+            <parentIdExpr concreteSyntax="producer" referencedElement="//@module/@functions.0/@statements.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="delayer.receiver = consumer">
+        <variable concreteSyntax="delayer.receiver">
+          <idExpr concreteSyntax="delayer.receiver" referencedElement="//@module/@classes.3/@attributes.0">
+            <parentIdExpr concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.1"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" concreteSyntax="consumer" referencedElement="//@module/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate producer">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="producer" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate delayer">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.1"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate consumer">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="consumer" referencedElement="//@module/@functions.0/@statements.2"/>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>

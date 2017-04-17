@@ -1,9 +1,16 @@
-#import "../../stdlib"
-#import "ssm-language"
-#import "ssm-runtime"
-#import "user-model"
+#import "../../../stdlib"
+#import "../ssm-language"
+#import "../ssm-runtime"
 
-module simpleSystem {
+module ssmDelayerSystem;
+
+class Data extends Signal {
+	string payLoad;
+	
+	new(string payLoad) {
+		self.payLoad = payLoad;
+	}
+}
 
 void main() {
 	Producer producer = new Producer;
@@ -18,23 +25,23 @@ void main() {
 	activate consumer;	
 }
 
-active class Producer extends AsynchService {
-	AsynchService receiver;
+active class Producer extends ObjectWithStateMachine {
+	ObjectWithStateMachine receiver;
 	
 	actions {
 		print "sending data to delayer";
 		advance 1;
-		receiver.enterEvent(new Data);
+		receiver.sendSignal(new Data("1"));
 		advance 2;
-		receiver.enterEvent(new Data);
+		receiver.sendSignal(new Data("2"));
 	}
 }
 
-active class Consumer extends AsynchService {
+active class Consumer extends ObjectWithStateMachine {
 }
 
-active class Delayer extends AsynchService {
-	AsynchService receiver;
+active class Delayer extends ObjectWithStateMachine {
+	ObjectWithStateMachine receiver;
 	Data lastReceived = null;
 	
 	stateMachine {
@@ -56,6 +63,4 @@ active class Delayer extends AsynchService {
 		send lastReceived to receiver;
 		lastReceived = null;
 	}	
-}
-
 }
