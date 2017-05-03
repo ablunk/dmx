@@ -6,7 +6,7 @@
   <imports file="../../../stdlib">
     <model href="../../../stdlib.xmi#/"/>
   </imports>
-  <module name="baseSimplesystem">
+  <module name="baseSimpleSystem">
     <classes name="Data">
       <superClasses href="../ssm-runtime.xmi#//@module/@classes.1"/>
       <constructors>
@@ -267,6 +267,12 @@
         <initialValue xsi:type="dbl:CreateObject">
           <classifierType referencedElement="//@module/@classes.1"/>
         </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Assignment">
+        <variable>
+          <idExpr referencedElement="//@module/@functions.0/@statements.0"/>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" value="2"/>
       </statements>
       <statements xsi:type="dbl:ActivateObject">
         <objectAccess xsi:type="dbl:IdExpr" referencedElement="//@module/@functions.0/@statements.0"/>
