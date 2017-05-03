@@ -40,6 +40,7 @@ import java.util.Queue
 import java.util.Set
 import org.eclipse.emf.common.util.TreeIterator
 import org.eclipse.emf.ecore.EObject
+import hub.sam.dbl.ActiveClass
 
 /* 
  * A specific C++-generator for generating c++-code for DBL-programs represented by 
@@ -167,7 +168,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return C++-string representation for creating class inheritance
 	 */
 	override String genSpecificBaseClass(Class clazz){
-		if(clazz.active) '''public cbsLib::Process'''
+		if(clazz instanceof ActiveClass) '''public cbsLib::Process'''
 		else super.genSpecificBaseClass(clazz)
 	}
 	/**
@@ -176,7 +177,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return boolean flag if comma is needed in constructor initializer list
 	 */
 	override boolean needsComma(Class clazz){
-		if (clazz.active) return clazz.attributes.exists[!isClass] && clazz.superClasses.empty
+		if (clazz instanceof ActiveClass) return clazz.attributes.exists[!isClass] && clazz.superClasses.empty
 		else return super.needsComma(clazz)
 	}
 	/**
@@ -185,7 +186,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return boolean flag if colon is needed in constructor initializer list
 	 */
 	override boolean needsColon(Class clazz){
-		if (clazz.active) return (clazz.attributes.exists[!isClass] && !clazz.superClasses.empty)
+		if (clazz instanceof ActiveClass) return (clazz.attributes.exists[!isClass] && !clazz.superClasses.empty)
 		else return super.needsColon(clazz)
 	}
 	/**
@@ -199,7 +200,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	override String genSuperClassCalls(Class clazz,Constructor constructor){
 		val it = clazz
 		'''
-			«IF active && getSuperClasses.empty»: cbsLib::Process("«name»",process_id++)
+			«IF clazz instanceof ActiveClass && getSuperClasses.empty»: cbsLib::Process("«name»",process_id++)
 			«ELSE» «super.genSuperClassCalls(clazz,constructor)»
 			«ENDIF»
 		'''
@@ -320,13 +321,28 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 			«IF isHeader»
 				static int process_id;
 				int fActions(cbsLib::FunctionBaseContext* cont);
-				«genStruct(actionsBlock,actionsBlock.getAllVariablesInStatementBlock)»
+				«IF clazz instanceof ActiveClass»
+					«genStructForActionsBlock(clazz as ActiveClass)»
+				«ENDIF»
 			«ELSE»
 				int «(eContainer as Module).genPreciseName»::«genPreciseName»::process_id = 1;
-				«genFactionsFunction('''«(eContainer as Module).genPreciseName»::«genPreciseName»''',actionsBlock?.getStatements,false)»
+				«IF clazz instanceof ActiveClass»
+					«genActionsForActionsBlock(clazz as ActiveClass)»
+				«ENDIF»
 			«ENDIF»
 		'''
 	}
+	
+	private def genStructForActionsBlock(ActiveClass activeClass) {
+		val it = activeClass
+		genStruct(actionsBlock,actionsBlock.getAllVariablesInStatementBlock)
+	}
+	
+	private def genActionsForActionsBlock(ActiveClass activeClass) {
+		val it = activeClass
+		genFactionsFunction('''«(eContainer as Module).genPreciseName»::«genPreciseName»''',actionsBlock?.getStatements,false)
+	}
+	
 	 /**
 	 * helper function to create global variant type from all return value types of interruptible function calls
 	 * @param allIncludedClasses empty set for storing class types

@@ -29,7 +29,7 @@ active class CustomerArrival {
 				advance timeBetweenArrivalsInSecondHalf;
 			}
 			activate new Customer();
-			trace("new customer created.");
+			trace(self, "new customer created.");
 		}
 	}
 }
@@ -52,11 +52,11 @@ active class Facility {
 	
 	void seize() {
 		if (busy) {
-			trace("facility busy. waiting.");
-			processQueue.add(active);
+			trace(self, "facility busy. waiting.");
+			processQueue.add(self);
 			wait;
 		}
-		trace("facility seized.");
+		trace(self, "facility seized.");
 		busy = true;
 	}
 	
@@ -64,17 +64,17 @@ active class Facility {
 		busy = false;
 		if (processQueue.size() > 0) {
 			Object nextWaitingProcess = processQueue.get(0);
-			trace("activate waiting process " + nextWaitingProcess);
+			trace(self, "activate waiting process " + nextWaitingProcess);
 			processQueue.remove(nextWaitingProcess);
 			reactivate nextWaitingProcess;
 		}
-		trace("facility released.");
+		trace(self, "facility released.");
 	}
 }
 
 
-void trace(string msg) {
+void trace(Object object, string msg) {
 	if (debug) {
-		print time + " - " + active + ": " + msg + "\n";
+		print time + " - " + object + ": " + msg + "\n";
 	}
 }

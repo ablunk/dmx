@@ -1,31 +1,29 @@
-module twocounters {
+module twocounters;
 
-	boolean debug = true;
-	int limit = 10;
+boolean debug = true;
+int limit = 10;
 
-	void main() {
-		activate new Counter();
-		activate new Counter();
-		advance limit + 1;
-	}
+void main() {
+	activate new Counter();
+	activate new Counter();
+	advance limit + 1;
+}
 
-	active class Counter {
-		int count = 0;
-		
-		actions {
-			while (count <= limit) {
-				trace("count = " + count);
-				advance 1;
-				count = count + 1;
-			}
-			trace("Finished.");
-		}
-	}
+active class Counter {
+	int count = 0;
 	
-	void trace(string msg) {
-		if (debug) {
-			print time , ": " , msg , "\n";
+	actions {
+		while (count <= limit) {
+			trace("count = " + count);
+			advance 1;
+			count = count + 1;
 		}
+		trace("Finished.");
 	}
+}
 
+void trace(string msg) {
+	if (debug) {
+		print time , ": " , msg , "\n";
+	}
 }

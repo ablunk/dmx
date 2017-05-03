@@ -743,8 +743,7 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	def dispatch String gen(Class clazz) {
 		val it = clazz
 		if (clazz.bindings.empty) {
-			if (clazz.active) genActiveClass
-			else genPassiveClass
+			genPassiveClass
 		}
 	}
 	

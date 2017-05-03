@@ -12,6 +12,7 @@ import hub.sam.dbl.Wait
 import hub.sam.dbl.Yield
 import hub.sam.dmx.semantics.BasicDblToJavaGenerator
 import org.eclipse.emf.ecore.EObject
+import hub.sam.dbl.ActiveClass
 
 class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 	
@@ -58,20 +59,15 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 		'desmoj'
 	}
 	
-	override def String genActiveClass(Class clazz) {
-		val it = clazz
+	def dispatch String gen(ActiveClass activeClass) {
+		val it = activeClass
 		'''
 		«genPackageStatement»
 		
 		import hub.sam.dmx.javasim.desmoj.SimulationProcess;
 		import hub.sam.dmx.javasim.desmoj.DefaultSimulation;
 			
-		public class «name»
-		«IF !superClasses.empty»
-			extends «superClasses.get(0).genType»
-		«ELSEIF active»
-			extends SimulationProcess
-		«ENDIF»
+		public class «name» extends SimulationProcess
 		{
 
 			«FOR constructor: constructors»
@@ -80,10 +76,7 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 					«cparam.gen»
 				«ENDFOR»
 				) {
-					«IF active && superClasses.empty»
-						super("«name»");
-					«ENDIF»
-				
+					super("«name»");
 					«constructor.statements.gen»
 				}
 			«ENDFOR»
@@ -94,13 +87,11 @@ class DblToDesmojJavaGenerator extends BasicDblToJavaGenerator {
 				}
 			«ENDIF»
 			
-			«IF active»
 			public void base_actions() {
 				«IF actionsBlock !== null»
 					«actionsBlock.statements.gen»
 				«ENDIF»
 			}
-			«ENDIF»
 		
 			«attributes.genVariables(false)»
 

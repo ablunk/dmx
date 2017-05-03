@@ -75,6 +75,7 @@ import hub.sam.dbl.StructuralSymbolReference
 import java.util.Set
 import java.util.HashSet
 import java.util.Arrays
+import hub.sam.dbl.ActiveClass
 
 /* 
  * A base class for generating c++-code for DBL-programs represented by 
@@ -377,7 +378,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		if(isHeader){
 			currentClass = clazz
 			initialGlobalData
-			if(getSuperClasses.empty && !clazz.active) includeStrings.addAll('''#include "../../../C++-Libraries/referenceSemantics/BaseRefCounter.h"''', '''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''','''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
+			if(getSuperClasses.empty && !(clazz instanceof ActiveClass)) includeStrings.addAll('''#include "../../../C++-Libraries/referenceSemantics/BaseRefCounter.h"''', '''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''','''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
 			val contentClassHeader = genContentClassHeader(isHeader)
 			'''
 				#ifndef «genPreciseName.toUpperCase() + "_H"»
@@ -457,7 +458,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			«getConstructors.genConstructors(isHeader)»
 			«genStandardConstructorAndDestructor(isHeader)»
 			«getMethods.genFunctions(isHeader)»
-			«IF active»«genLifecycle(isHeader)»«ENDIF»
+			«IF clazz instanceof ActiveClass»«genLifecycle(isHeader)»«ENDIF»
 		'''
 	}
 	/**
@@ -641,7 +642,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 				«genSuperClassCalls(constructor)»
 				«IF needsComma»,«ELSEIF needsColon»:«ENDIF»
 				«genAttributes»{
-					«IF active»this->schedule<«genType»,&«genType»::fActions>(this, new «genType»::MainStruct());«ENDIF»
+					«IF clazz instanceof ActiveClass»this->schedule<«genType»,&«genType»::fActions>(this, new «genType»::MainStruct());«ENDIF»
 					«IF needsWeakPtrInConstructor» cbsLib::weak_intrusive_ptr<«currentClass.genType»> self = this;«ENDIF»
 					«allStatementsCode»
 				}
@@ -763,7 +764,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		]
 		// toString function is only needed if the class is passive (active classes have a defaulted toString function) and
 		// no toString function is already defined and the class has no base classes
-		if ((getSuperClasses.empty) && !isStringFunctionDefined && !active){
+		if ((getSuperClasses.empty) && !isStringFunctionDefined && !(clazz instanceof ActiveClass)){
 			if (isHeader) 
 				'''«IF isInheritedBaseClass»virtual«ENDIF» stringPtr toString();'''
 			else{

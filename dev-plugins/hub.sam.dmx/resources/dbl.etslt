@@ -16,17 +16,28 @@ syntax(Model) "resources/dbl.ecore" {
 	ModuleElement -> ModuleContentExtension:composite(contentExtensions);
 	ModuleContentExtension:element(ModuleContentExtension) -> "moduleContent39758";
 	
-	Class:element(Class) -> ClassWithOptionalModifiers;
+	Class -> ClassOrSpecial;
 	ClassRef:element(Class) -> IDENTIFIER:composite(name);
 	
-	ClassWithOptionalModifiers -> IsActiveClass:composite(active) ClassDefinition;
-	ClassWithOptionalModifiers -> ClassDefinition;
-	ClassDefinition ->
-		"class" ws(space) NamedElementName ws(empty)
-			(ws(space) "extends" ws(space) ClassRef:reference(superClasses) ("," ClassRef:reference(superClasses))*)? ws(space)
-			(Annotations)?
-			"{" (ClassElement)* "}";
+	ClassOrSpecial[0] -> ActiveClass;
+	ClassOrSpecial[1] -> PassiveClass;
+	
+	ActiveClass -> ActiveClassBound;
+	PassiveClass -> PassiveClassBound;
+	
+	PassiveClassBound:element(Class) -> ClassDefinition PassiveClassBody;
+	ActiveClassBound:element(ActiveClass) -> "active" ClassDefinition ActiveClassBody;
 		
+	ClassDefinition -> "class" ws(space) NamedElementName ws(empty)
+			(ws(space) "extends" ws(space) ClassRef:reference(superClasses) ("," ClassRef:reference(superClasses))*)? ws(space)
+			(Annotations)?;
+		
+	PassiveClassBody -> "{" (ClassElement)* "}";
+	ActiveClassBody -> "{" (ActiveClassElement)* "}";
+	
+	ActiveClassElement -> ClassElement;
+	ActiveClassElement -> ActionsPart;
+
 	NamedElementName -> IDENTIFIER:composite(name);
 	NamedElementName -> ExpandExpr:composite(expandExpr);
 		
@@ -37,12 +48,9 @@ syntax(Model) "resources/dbl.ecore" {
 	SuperObjectInitializer:element(SuperObjectInitializer) -> ClassRef:reference(class)
 		"(" (Expression:composite(arguments) ("," Expression:composite(arguments))*)? ")";
 	
-	IsActiveClass:constant("true":EBoolean) -> "active";
-
 	ClassElement ->	Variable:composite(attributes) ";";
 	ClassElement -> Constructor:composite(constructors);
 	ClassElement ->	BindingsPart;
-	ClassElement ->	ActionsPart;
 	ClassElement -> Function:composite(methods);
 	ClassElement -> ClassContent:composite(contentExtensions);
 	ClassContent -> ClassContentExtension;
