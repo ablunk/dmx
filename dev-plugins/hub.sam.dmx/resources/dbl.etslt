@@ -3,7 +3,6 @@ syntax(Model) "resources/dbl.ecore" {
 	Model:element(Model) -> (Import:composite(imports))* Module:composite(module);
 
 	Static:constant("true":EBoolean) -> "static";
-	Control:constant("true":EBoolean) -> "control";
 
 	Import:element(Import) -> "#import" STRINGDEF:composite(file);
 	Module:element(Module) -> "module" IDENTIFIER:composite(name) ";" (ModuleElement)*;
@@ -19,8 +18,8 @@ syntax(Model) "resources/dbl.ecore" {
 	Class -> ClassOrSpecial;
 	ClassRef:element(Class) -> IDENTIFIER:composite(name);
 	
-	ClassOrSpecial[0] -> ActiveClass;
-	ClassOrSpecial[1] -> PassiveClass;
+	ClassOrSpecial[1] -> ActiveClass;
+	ClassOrSpecial[0] -> PassiveClass;
 	
 	ActiveClass -> ActiveClassBound;
 	PassiveClass -> PassiveClassBound;
@@ -81,14 +80,16 @@ syntax(Model) "resources/dbl.ecore" {
 
 	Parameter:element(Parameter) -> TypedElementParts ws(space) IDENTIFIER:composite(name);
 
-	Variable -> Variable_actual;
-	Variable_actual:element(Variable) -> Variable1;
+	Variable -> VariableOrSpecial;
 	
-	Variable1 -> Static:composite(class) Variable2;
-	Variable1 -> Variable2;
+	VariableOrSpecial[1] -> ControlVariable;
+	VariableOrSpecial[0] -> BasicVariable;
 
-	Variable2 -> Control:composite(control) VariableTail;
-	Variable2 -> VariableTail;
+	ControlVariable:element(ControlVariable) -> "control" StaticOrNonStaticVariable;
+	BasicVariable:element(Variable) -> StaticOrNonStaticVariable;
+	
+	StaticOrNonStaticVariable -> Static:composite(class) VariableTail;
+	StaticOrNonStaticVariable -> VariableTail;
 		
 	VariableTail -> TypedElementParts ws(space) IDENTIFIER:composite(name) ws(space)
 		("=" Expression:composite(initialValue))? (Annotations)?;

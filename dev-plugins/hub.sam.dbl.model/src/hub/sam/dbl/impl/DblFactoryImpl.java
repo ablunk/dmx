@@ -24,6 +24,7 @@ import hub.sam.dbl.Construct;
 import hub.sam.dbl.ConstructiveExtension;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.ContinueStatement;
+import hub.sam.dbl.ControlVariable;
 import hub.sam.dbl.CreateIdStatement;
 import hub.sam.dbl.CreateObject;
 import hub.sam.dbl.DblFactory;
@@ -320,6 +321,7 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.TEST_STATEMENT: return (EObject)createTestStatement();
 			case DblPackage.SUPER_OBJECT_INITIALIZER: return (EObject)createSuperObjectInitializer();
 			case DblPackage.ACTIVE_CLASS: return (EObject)createActiveClass();
+			case DblPackage.CONTROL_VARIABLE: return (EObject)createControlVariable();
 			default:
 				return DblUtil.createObjectOfParentClass(eClass);
 		}
@@ -563,6 +565,16 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public Variable createVariable() {
 		VariableImpl variable = new VariableImpl();
 		return variable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ControlVariable createControlVariable() {
+		ControlVariableImpl controlVariable = new ControlVariableImpl();
+		return controlVariable;
 	}
 
 	/**
