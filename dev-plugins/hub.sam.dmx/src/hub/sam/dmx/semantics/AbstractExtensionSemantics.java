@@ -132,7 +132,7 @@ public abstract class AbstractExtensionSemantics {
 	}
 
 	protected String getConcreteSyntax(EObject extensionInstance, String propertyName) {
-		EStructuralFeature property = extensionInstance.eClass().getEStructuralFeature(propertyName);
+		EStructuralFeature property = extensionInstance.eClass().getEStructuralFeature(convertGetterToPropertyName(propertyName));
 		Object propertyValue = extensionInstance.eGet(property);
 		return getConcreteSyntax(propertyValue);
 	}
@@ -160,13 +160,23 @@ public abstract class AbstractExtensionSemantics {
 	}
 	
 	protected Object getPropertyValue(EObject eObject, String propertyName) {
-		EStructuralFeature property = eObject.eClass().getEStructuralFeature(propertyName);
+		EStructuralFeature property = eObject.eClass().getEStructuralFeature(convertGetterToPropertyName(propertyName));
 		if (property == null) {
 			throw new RuntimeException(eObject.eClass().getName() + " has no structural feature " + propertyName + ".");
 		}
 		else {
 			return eObject.eGet(property, true);
 		}
+	}
+	
+	private String convertGetterToPropertyName(String propertyName) {
+		if (propertyName.startsWith("get")) {
+			propertyName = propertyName.substring(3);
+			if (propertyName.length() > 0) {
+				propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
+			}
+		}
+		return propertyName;
 	}
 	
 	public static String getEmfUriFragment(EObject eObject) {

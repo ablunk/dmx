@@ -1,12 +1,12 @@
 module stdlib;
 
-class JavaClass {
+interface JavaClass {
 	bindings {
 		"java" -> "java.lang.Class"
 	}
 }
 
-class Object {
+interface Object {
 	bindings {
 		"java" -> "java.lang.Object"
 	}
@@ -15,14 +15,14 @@ class Object {
 	string toString();
 }
 
-class String extends Object {
+interface String extends Object {
 	bindings {
 		"java" -> "java.lang.String"
 	}
 	new(string original) {}
 }
 
-class SystemOut {
+interface SystemOut {
 	bindings {
 		"java" -> "hub.sam.dmx.semantics.javabridge.SystemOut"
 	}
@@ -30,7 +30,7 @@ class SystemOut {
 	static void println(string s);
 }
 
-class Iterator {
+interface Iterator {
 	bindings {
 		"java" -> "java.util.Iterator"
 	}
@@ -40,7 +40,7 @@ class Iterator {
 	void remove();
 }
 
-class List {
+interface List {
 	bindings {
 		"java" -> "java.util.List"
 	}
@@ -61,13 +61,13 @@ class List {
 	Iterator iterator();
 }
 
-class ArrayList extends List {
+interface ArrayList extends List {
 	bindings {
 		"java" -> "java.util.ArrayList"
 	}
 }
 
-class Map {
+interface Map {
 	bindings {
 		"java" -> "java.util.Map"
 	}
@@ -76,7 +76,7 @@ class Map {
 	void put(Object key, Object value);
 }
 
-class HashMap extends Map {
+interface HashMap extends Map {
 	bindings {
 		"java" -> "java.util.HashMap"
 	}

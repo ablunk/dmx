@@ -9,11 +9,14 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	ModuleElement -> Variable:composite(variables) ";";
 	ModuleElement -> Function:composite(functions);
-	ModuleElement -> Class:composite(classes);
+	ModuleElement -> Classifier:composite(classifiers);
 	ModuleElement -> Extension:composite(extensions);
 	ModuleElement -> ExtensionSemantics:composite(extensionSemantics);
 	ModuleElement -> ModuleContentExtension:composite(contentExtensions);
 	ModuleContentExtension:element(ModuleContentExtension) -> "moduleContent39758";
+	
+	Classifier -> Class;
+	Classifier -> Interface;
 	
 	Class -> ClassOrSpecial;
 	ClassRef:element(Class) -> IDENTIFIER:composite(name);
@@ -28,7 +31,8 @@ syntax(Model) "resources/dbl.ecore" {
 	ActiveClassBound:element(ActiveClass) -> "active" ClassDefinition ActiveClassBody;
 		
 	ClassDefinition -> "class" ws(space) NamedElementName ws(empty)
-			(ws(space) "extends" ws(space) ClassRef:reference(superClasses) ("," ClassRef:reference(superClasses))*)? ws(space)
+			(ws(space) "extends" ws(space) ClassRef:reference(superClass))? ws(space)
+			("implements" InterfaceRef:reference(superInterfaces) ("," InterfaceRef:reference(superInterfaces))*)?
 			(Annotations)?;
 		
 	PassiveClassBody -> "{" (ClassElement)* "}";
@@ -36,6 +40,17 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	ActiveClassElement -> ClassElement;
 	ActiveClassElement -> ActionsPart;
+	
+	Interface -> InterfaceBound;
+	InterfaceRef:element(Interface) -> IDENTIFIER:composite(name);
+	InterfaceBound:element(Interface) -> "interface" NamedElementName 
+		("extends" InterfaceRef:reference(superInterfaces) ("," InterfaceRef:reference(superInterfaces))*)?
+		"{" (InterfaceElement)* "}";
+
+	InterfaceElement -> StaticVariableBoundToBasicVariable:composite(attributes) ";";
+	InterfaceElement -> Function:composite(methods);
+	InterfaceElement -> Constructor:composite(constructors);
+	InterfaceElement ->	BindingsPart;
 
 	NamedElementName -> IDENTIFIER:composite(name);
 	NamedElementName -> ExpandExpr:composite(expandExpr);
@@ -49,7 +64,6 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	ClassElement ->	Variable:composite(attributes) ";";
 	ClassElement -> Constructor:composite(constructors);
-	ClassElement ->	BindingsPart;
 	ClassElement -> Function:composite(methods);
 	ClassElement -> ClassContent:composite(contentExtensions);
 	ClassContent -> ClassContentExtension;
@@ -88,8 +102,11 @@ syntax(Model) "resources/dbl.ecore" {
 	ControlVariable:element(ControlVariable) -> "control" StaticOrNonStaticVariable;
 	BasicVariable:element(Variable) -> StaticOrNonStaticVariable;
 	
-	StaticOrNonStaticVariable -> Static:composite(class) VariableTail;
+	StaticOrNonStaticVariable -> StaticVariable;
 	StaticOrNonStaticVariable -> VariableTail;
+
+	StaticVariable -> Static:composite(class) VariableTail;
+	StaticVariableBoundToBasicVariable:element(Variable) -> Static:composite(class) VariableTail;
 		
 	VariableTail -> TypedElementParts ws(space) IDENTIFIER:composite(name) ws(space)
 		("=" Expression:composite(initialValue))? (Annotations)?;

@@ -41,6 +41,7 @@ import java.util.Set
 import org.eclipse.emf.common.util.TreeIterator
 import org.eclipse.emf.ecore.EObject
 import hub.sam.dbl.ActiveClass
+import hub.sam.dbl.Interface
 
 /* 
  * A specific C++-generator for generating c++-code for DBL-programs represented by 
@@ -98,7 +99,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 		val Set<Function> allFunctions = new HashSet<Function>
 		// determine all DBL functions in modules and not bounded classes
 		allModules.forEach[functions.forEach[allFunctions.add(it)]; 
-			classes.filter[getBindings.empty].forEach[methods.forEach[allFunctions.add(it)]]
+			classifiers.filter[classifier | classifier instanceof Class].forEach[methods.forEach[allFunctions.add(it)]]
 		]
 		// determines all functions containing scheduling function calls
 		for(f:allFunctions){
@@ -177,7 +178,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return boolean flag if comma is needed in constructor initializer list
 	 */
 	override boolean needsComma(Class clazz){
-		if (clazz instanceof ActiveClass) return clazz.attributes.exists[!isClass] && clazz.superClasses.empty
+		if (clazz instanceof ActiveClass) return clazz.attributes.exists[!isClass] && clazz.superClass === null
 		else return super.needsComma(clazz)
 	}
 	/**
@@ -186,7 +187,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	 * @return boolean flag if colon is needed in constructor initializer list
 	 */
 	override boolean needsColon(Class clazz){
-		if (clazz instanceof ActiveClass) return (clazz.attributes.exists[!isClass] && !clazz.superClasses.empty)
+		if (clazz instanceof ActiveClass) return (clazz.attributes.exists[!isClass] && clazz.superClass !== null)
 		else return super.needsColon(clazz)
 	}
 	/**
@@ -200,7 +201,7 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 	override String genSuperClassCalls(Class clazz,Constructor constructor){
 		val it = clazz
 		'''
-			«IF clazz instanceof ActiveClass && getSuperClasses.empty»: cbsLib::Process("«name»",process_id++)
+			«IF clazz instanceof ActiveClass && getSuperClass !== null»: cbsLib::Process("«name»",process_id++)
 			«ELSE» «super.genSuperClassCalls(clazz,constructor)»
 			«ENDIF»
 		'''
@@ -383,11 +384,11 @@ class SpecificSimulationCPlusPlusGenerator extends BaseCPlusPlusGenerator{
 				#include "../../C++-Libraries/referenceSemantics/RefStringType.h"
 				#include "../../C++-Libraries/referenceSemantics/vectorExtension.h"
 				typedef cbsLib::intrusive_ptr<cbsLib::myString> stringPtr;
-				«FOR i:returnClassTypes.filter[it instanceof Class && (it as Class).bindings.empty]»
+				«FOR i:returnClassTypes.filter[it instanceof Class]»
 				#include "«(i.eContainer as Module).genPreciseName»/«(i as Class).genPreciseName».h"
 				«ENDFOR»
-				«FOR i:returnClassTypes.filter[it instanceof Class && !(it as Class).bindings.empty]»
-				#include "../../C++-Libraries/«(i as Class).genBoundType(false)».h"
+				«FOR i:returnClassTypes.filter[it instanceof Interface && !(it as Interface).bindings.empty]»
+				#include "../../C++-Libraries/«(i as Interface).genBoundType(false)».h"
 				«ENDFOR»
 				extern variant<std::nullptr_t «returnValueTempType»> returnValueTemp;
 				#endif

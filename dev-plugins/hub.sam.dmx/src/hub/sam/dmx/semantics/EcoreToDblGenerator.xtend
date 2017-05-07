@@ -43,7 +43,6 @@ class EcoreToDblGenerator extends AbstractGenerator {
 	def String genFeature(EStructuralFeature feature) {
 		val it = feature
 		'''
-		«genAttribute»
 		«genGetter»
 «««		«IF changeable»
 «««			«genSetter»
@@ -94,7 +93,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		val it = eClass
 		if (!name.equals("EObject")) {
 			'''
-			class «name» «genEClassSuperClassInheritance»
+			interface «name» «genEClassSuperClassInheritance»
 				bindings { "java" -> "«javaPackagePrefix».«name»" }
 				
 				«FOR feature : EStructuralFeatures»
@@ -109,20 +108,20 @@ class EcoreToDblGenerator extends AbstractGenerator {
 		}
 		else {
 			'''
-			class Enumerator {
+			interface Enumerator {
 				bindings {
 					"java" -> "org.eclipse.emf.common.util.Enumerator"
 				}
 			}
 			
-			class Resource {
+			interface Resource {
 				bindings {
 					"java" -> "org.eclipse.emf.ecore.resource.Resource"
 				}
 				string getURIFragment(EObject eObject);
 			}
 			
-			class EList extends List {
+			interface EList extends List {
 				bindings {
 					"java" -> "org.eclipse.emf.common.util.EList"
 				}
@@ -130,7 +129,7 @@ class EcoreToDblGenerator extends AbstractGenerator {
 				void move(int newPos, int oldPos);
 			}
 
-			class EObject {
+			interface EObject {
 				bindings {
 					"java" -> "org.eclipse.emf.ecore.EObject"
 				}

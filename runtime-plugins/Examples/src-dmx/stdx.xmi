@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <imports file="dbl">
     <model href="dbl.xmi#/"/>
   </imports>
@@ -12,9 +12,5 @@
   <imports file="stdx/forever">
     <model href="stdx/forever.xmi#/"/>
   </imports>
-  <module name="stdx">
-    <functions name="test">
-      <primitiveType xsi:type="dbl:VoidType"/>
-    </functions>
-  </module>
+  <module name="stdx"/>
 </dbl:Model>

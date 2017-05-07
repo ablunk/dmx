@@ -30,8 +30,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//Model"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Module" eSuperTypes="#//NamedElement #//ConstructiveExtensionAtContentExtensionPoint #//Construct">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="classes" upperBound="-1"
-        eType="#//Class" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifiers" upperBound="-1"
+        eType="#//Classifier" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extensions" upperBound="-1"
         eType="#//Extension" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extensionSemantics" upperBound="-1"
@@ -103,19 +103,23 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="bindings" upperBound="-1"
         eType="#//NativeBinding" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//NamedElement #//NativeType #//ConstructiveExtensionAtContentExtensionPoint #//Concept #//Construct #//AnnotateableElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="superClasses" ordered="false"
-        upperBound="-1" eType="#//Class">
+  <eClassifiers xsi:type="ecore:EClass" name="Classifier" eSuperTypes="#//NamedElement #//ConstructiveExtensionAtContentExtensionPoint #//Concept #//Construct #//AnnotateableElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superInterfaces" ordered="false"
+        upperBound="-1" eType="#//Interface">
       <eAnnotations source="http://www.eclipse.org/OCL/Collection">
         <details key="nullFree" value="false"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constructors" upperBound="-1"
-        eType="#//Constructor" containment="true" eOpposite="#//Constructor/owningClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//Variable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constructors" upperBound="-1"
+        eType="#//Constructor" containment="true" eOpposite="#//Constructor/owningClass"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="methods" upperBound="-1"
         eType="#//Function" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Interface" eSuperTypes="#//Classifier #//NativeType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Class" eSuperTypes="#//Classifier">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="superClass" eType="#//Class"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ActiveClass" eSuperTypes="#//Class">
     <eStructuralFeatures xsi:type="ecore:EReference" name="actionsBlock" eType="#//LocalScope"
@@ -127,7 +131,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" ordered="false"
         upperBound="-1" eType="#//Parameter" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="owningClass" lowerBound="1"
-        eType="#//Class" eOpposite="#//Class/constructors"/>
+        eType="#//Classifier" eOpposite="#//Classifier/constructors"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SuperObjectInitializer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="class" lowerBound="1" eType="#//Class"/>

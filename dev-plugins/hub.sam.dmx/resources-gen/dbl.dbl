@@ -3,961 +3,848 @@
 
 module dbl;
 
-class Construct extends EObject {
+interface Construct extends EObject {
 	bindings { "java" -> "hub.sam.dbl.Construct" }
 	
-	ExpandExpr expandExpr;
 	ExpandExpr getExpandExpr();
 }
 
-class ExtensibleElement extends NamedElement, Construct {
+interface ExtensibleElement extends NamedElement, Construct {
 	bindings { "java" -> "hub.sam.dbl.ExtensibleElement" }
 	
-	string concreteSyntax;
 	string getConcreteSyntax();
-	boolean instanceOfExtensionDefinition;
 	boolean isInstanceOfExtensionDefinition();
 }
 
-class Model extends EObject {
+interface Model extends EObject {
 	bindings { "java" -> "hub.sam.dbl.Model" }
 	
-	EList imports;
 	EList getImports();
-	Module module;
 	Module getModule();
 }
 
-class Import extends EObject {
+interface Import extends EObject {
 	bindings { "java" -> "hub.sam.dbl.Import" }
 	
-	string file;
 	string getFile();
-	Model model;
 	Model getModel();
 }
 
-class Module extends NamedElement, ConstructiveExtensionAtContentExtensionPoint, Construct {
+interface Module extends NamedElement, ConstructiveExtensionAtContentExtensionPoint, Construct {
 	bindings { "java" -> "hub.sam.dbl.Module" }
 	
-	EList classes;
-	EList getClasses();
-	EList extensions;
+	EList getClassifiers();
 	EList getExtensions();
-	EList extensionSemantics;
 	EList getExtensionSemantics();
-	EList functions;
 	EList getFunctions();
-	EList variables;
 	EList getVariables();
 }
 
-class Annotation extends NamedElement {
+interface Annotation extends NamedElement {
 	bindings { "java" -> "hub.sam.dbl.Annotation" }
 	
-	EList items;
 	EList getItems();
 }
 
-class AnnotationItem extends EObject {
+interface AnnotationItem extends EObject {
 	bindings { "java" -> "hub.sam.dbl.AnnotationItem" }
 	
-	string key;
 	string getKey();
-	string value;
 	string getValue();
 }
 
-class AnnotateableElement extends EObject {
+interface AnnotateableElement extends EObject {
 	bindings { "java" -> "hub.sam.dbl.AnnotateableElement" }
 	
-	EList annotations;
 	EList getAnnotations();
 }
 
-class ConstructiveExtension extends ExtensibleElement {
+interface ConstructiveExtension extends ExtensibleElement {
 	bindings { "java" -> "hub.sam.dbl.ConstructiveExtension" }
 	
 }
 
-class ConstructiveExtensionAtContentExtensionPoint extends EObject {
+interface ConstructiveExtensionAtContentExtensionPoint extends EObject {
 	bindings { "java" -> "hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint" }
 	
-	EList contentExtensions;
 	EList getContentExtensions();
 }
 
-class ModuleContentExtension extends ConstructiveExtension {
+interface ModuleContentExtension extends ConstructiveExtension {
 	bindings { "java" -> "hub.sam.dbl.ModuleContentExtension" }
 	
 }
 
-class ClassContentExtension extends ConstructiveExtension {
+interface ClassContentExtension extends ConstructiveExtension {
 	bindings { "java" -> "hub.sam.dbl.ClassContentExtension" }
 	
 }
 
-class Type extends EObject {
+interface Type extends EObject {
 	bindings { "java" -> "hub.sam.dbl.Type" }
 	
-	EList arrayDimensions;
 	EList getArrayDimensions();
 }
 
-class TypedElement extends EObject {
+interface TypedElement extends EObject {
 	bindings { "java" -> "hub.sam.dbl.TypedElement" }
 	
-	PrimitiveType primitiveType;
 	PrimitiveType getPrimitiveType();
-	EList typeArrayDimensions;
 	EList getTypeArrayDimensions();
-	IdExpr classifierType;
 	IdExpr getClassifierType();
 }
 
-class ArrayDimension extends EObject {
+interface ArrayDimension extends EObject {
 	bindings { "java" -> "hub.sam.dbl.ArrayDimension" }
 	
-	Expression size;
 	Expression getSize();
 }
 
-class PrimitiveType extends Type {
+interface PrimitiveType extends Type {
 	bindings { "java" -> "hub.sam.dbl.PrimitiveType" }
 	
 }
 
-class VoidType extends PrimitiveType {
+interface VoidType extends PrimitiveType {
 	bindings { "java" -> "hub.sam.dbl.VoidType" }
 	
 }
 
-class IntType extends PrimitiveType {
+interface IntType extends PrimitiveType {
 	bindings { "java" -> "hub.sam.dbl.IntType" }
 	
 }
 
-class BoolType extends PrimitiveType {
+interface BoolType extends PrimitiveType {
 	bindings { "java" -> "hub.sam.dbl.BoolType" }
 	
 }
 
-class DoubleType extends PrimitiveType {
+interface DoubleType extends PrimitiveType {
 	bindings { "java" -> "hub.sam.dbl.DoubleType" }
 	
 }
 
-class StringType extends PrimitiveType {
+interface StringType extends PrimitiveType {
 	bindings { "java" -> "hub.sam.dbl.StringType" }
 	
 }
 
-class Function extends NamedElement, TypedElement, LocalScope {
+interface Function extends NamedElement, TypedElement, LocalScope {
 	bindings { "java" -> "hub.sam.dbl.Function" }
 	
-	EList parameters;
 	EList getParameters();
-	boolean class;
 	boolean isClass();
-	boolean abstract;
 	boolean isAbstract();
-	boolean detached;
 	boolean isDetached();
 }
 
-class NativeBinding extends EObject {
+interface NativeBinding extends EObject {
 	bindings { "java" -> "hub.sam.dbl.NativeBinding" }
 	
-	string targetLanguage;
 	string getTargetLanguage();
-	string targetType;
 	string getTargetType();
 }
 
-class NativeType extends Type {
+interface NativeType extends Type {
 	bindings { "java" -> "hub.sam.dbl.NativeType" }
 	
-	EList bindings;
 	EList getBindings();
 }
 
-class Class extends NamedElement, NativeType, ConstructiveExtensionAtContentExtensionPoint, Concept, Construct, AnnotateableElement {
+interface Classifier extends NamedElement, ConstructiveExtensionAtContentExtensionPoint, Concept, Construct, AnnotateableElement {
+	bindings { "java" -> "hub.sam.dbl.Classifier" }
+	
+	EList getSuperInterfaces();
+	EList getAttributes();
+	EList getConstructors();
+	EList getMethods();
+}
+
+interface Interface extends Classifier, NativeType {
+	bindings { "java" -> "hub.sam.dbl.Interface" }
+	
+}
+
+interface Class extends Classifier {
 	bindings { "java" -> "hub.sam.dbl.Class" }
 	
-	boolean active;
-	boolean isActive();
-	EList superClasses;
-	EList getSuperClasses();
-	EList constructors;
-	EList getConstructors();
-	EList attributes;
-	EList getAttributes();
-	EList methods;
-	EList getMethods();
-	LocalScope actionsBlock;
+	Class getSuperClass();
+}
+
+interface ActiveClass extends Class {
+	bindings { "java" -> "hub.sam.dbl.ActiveClass" }
+	
 	LocalScope getActionsBlock();
 }
 
-class Constructor extends LocalScope {
+interface Constructor extends LocalScope {
 	bindings { "java" -> "hub.sam.dbl.Constructor" }
 	
-	EList initializers;
 	EList getInitializers();
-	EList parameters;
 	EList getParameters();
-	Class owningClass;
-	Class getOwningClass();
+	Classifier getOwningClass();
 }
 
-class SuperObjectInitializer extends EObject {
+interface SuperObjectInitializer extends EObject {
 	bindings { "java" -> "hub.sam.dbl.SuperObjectInitializer" }
 	
-	Class class;
 	Class getClass();
-	EList arguments;
 	EList getArguments();
 }
 
-class AbstractVariable extends NamedElement, TypedElement, AnnotateableElement {
+interface AbstractVariable extends NamedElement, TypedElement, AnnotateableElement {
 	bindings { "java" -> "hub.sam.dbl.AbstractVariable" }
 	
 }
 
-class Variable extends AbstractVariable, SimpleStatement {
+interface Variable extends AbstractVariable, SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Variable" }
 	
-	boolean control;
-	boolean isControl();
-	boolean class;
 	boolean isClass();
-	Expression initialValue;
 	Expression getInitialValue();
 }
 
-class Parameter extends AbstractVariable {
+interface ControlVariable extends Variable {
+	bindings { "java" -> "hub.sam.dbl.ControlVariable" }
+	
+}
+
+interface Parameter extends AbstractVariable {
 	bindings { "java" -> "hub.sam.dbl.Parameter" }
 	
 }
 
-class NamedElement extends EObject {
+interface NamedElement extends EObject {
 	bindings { "java" -> "hub.sam.dbl.NamedElement" }
 	
-	string name;
 	string getName();
 }
 
-class Statement extends ExtensibleElement, AnnotateableElement {
+interface Statement extends ExtensibleElement, AnnotateableElement {
 	bindings { "java" -> "hub.sam.dbl.Statement" }
 	
 }
 
-class LoopStatement extends Statement {
+interface LoopStatement extends Statement {
 	bindings { "java" -> "hub.sam.dbl.LoopStatement" }
 	
 }
 
-class SimpleStatement extends Statement {
+interface SimpleStatement extends Statement {
 	bindings { "java" -> "hub.sam.dbl.SimpleStatement" }
 	
 }
 
-class Assignment extends SimpleStatement {
+interface Assignment extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Assignment" }
 	
-	VariableAccess variable;
 	VariableAccess getVariable();
-	Expression value;
 	Expression getValue();
 }
 
-class FunctionCall extends SimpleStatement {
+interface FunctionCall extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.FunctionCall" }
 	
-	IdExpr callIdExpr;
 	IdExpr getCallIdExpr();
 }
 
-class Return extends SimpleStatement {
+interface Return extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Return" }
 	
-	Expression value;
 	Expression getValue();
 }
 
-class WaitUntil extends SimpleStatement {
+interface WaitUntil extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.WaitUntil" }
 	
-	Expression condition;
 	Expression getCondition();
 }
 
-class Terminate extends SimpleStatement {
-	bindings { "java" -> "hub.sam.dbl.Terminate" }
-	
-}
-
-class Yield extends SimpleStatement {
+interface Yield extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Yield" }
 	
 }
 
-class YieldTo extends SimpleStatement {
+interface YieldTo extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.YieldTo" }
 	
-	Expression objectAccess;
 	Expression getObjectAccess();
 }
 
-class Wait extends SimpleStatement {
+interface Wait extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Wait" }
 	
 }
 
-class Reactivate extends SimpleStatement {
+interface Reactivate extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Reactivate" }
 	
-	Expression objectAccess;
 	Expression getObjectAccess();
 }
 
-class ActivateObject extends SimpleStatement {
+interface ActivateObject extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.ActivateObject" }
 	
-	Expression objectAccess;
 	Expression getObjectAccess();
-	int priority_;
 	int getPriority_();
 }
 
-class Advance extends SimpleStatement {
+interface Advance extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Advance" }
 	
-	Expression time;
 	Expression getTime();
 }
 
-class Print extends SimpleStatement {
+interface Print extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.Print" }
 	
-	EList outputs;
 	EList getOutputs();
 }
 
-class IfStatement extends Statement {
+interface IfStatement extends Statement {
 	bindings { "java" -> "hub.sam.dbl.IfStatement" }
 	
-	Expression condition;
 	Expression getCondition();
-	Statement trueCase;
 	Statement getTrueCase();
-	Statement falseCase;
 	Statement getFalseCase();
 }
 
-class LocalScope extends EObject {
+interface LocalScope extends EObject {
 	bindings { "java" -> "hub.sam.dbl.LocalScope" }
 	
-	EList statements;
 	EList getStatements();
 }
 
-class LocalScopeStatement extends SimpleStatement, LocalScope {
+interface LocalScopeStatement extends SimpleStatement, LocalScope {
 	bindings { "java" -> "hub.sam.dbl.LocalScopeStatement" }
 	
 }
 
-class ForStatement extends LoopStatement, LocalScope {
+interface ForStatement extends LoopStatement, LocalScope {
 	bindings { "java" -> "hub.sam.dbl.ForStatement" }
 	
-	Expression termination;
 	Expression getTermination();
-	Assignment increment;
 	Assignment getIncrement();
-	Statement body;
 	Statement getBody();
 }
 
-class WhileStatement extends LoopStatement {
+interface WhileStatement extends LoopStatement {
 	bindings { "java" -> "hub.sam.dbl.WhileStatement" }
 	
-	Expression condition;
 	Expression getCondition();
-	Statement body;
 	Statement getBody();
 }
 
-class SwitchStatement extends SimpleStatement {
+interface SwitchStatement extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.SwitchStatement" }
 	
-	VariableAccess variable;
 	VariableAccess getVariable();
-	EList cases;
 	EList getCases();
-	SwitchCase defaultCase;
 	SwitchCase getDefaultCase();
 }
 
-class SwitchCase extends EObject {
+interface SwitchCase extends EObject {
 	bindings { "java" -> "hub.sam.dbl.SwitchCase" }
 	
-	Expression value;
 	Expression getValue();
-	EList body;
 	EList getBody();
 }
 
-class BreakStatement extends SimpleStatement {
+interface BreakStatement extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.BreakStatement" }
 	
 }
 
-class ContinueStatement extends SimpleStatement {
+interface ContinueStatement extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.ContinueStatement" }
 	
 }
 
-class Expression extends TypedElement, ExtensibleElement {
+interface Expression extends TypedElement, ExtensibleElement {
 	bindings { "java" -> "hub.sam.dbl.Expression" }
 	
 }
 
-class L1Expr extends Expression {
+interface L1Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L1Expr" }
 	
 }
 
-class L2Expr extends Expression {
+interface L2Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L2Expr" }
 	
 }
 
-class L3Expr extends Expression {
+interface L3Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L3Expr" }
 	
 }
 
-class L4Expr extends Expression {
+interface L4Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L4Expr" }
 	
 }
 
-class L5Expr extends Expression {
+interface L5Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L5Expr" }
 	
 }
 
-class L6Expr extends Expression {
+interface L6Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L6Expr" }
 	
 }
 
-class L7Expr extends Expression {
+interface L7Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L7Expr" }
 	
 }
 
-class L8Expr extends Expression {
+interface L8Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L8Expr" }
 	
 }
 
-class L9Expr extends Expression {
+interface L9Expr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.L9Expr" }
 	
 }
 
-class BinaryOperator extends Expression {
+interface BinaryOperator extends Expression {
 	bindings { "java" -> "hub.sam.dbl.BinaryOperator" }
 	
-	Expression op1;
 	Expression getOp1();
-	Expression op2;
 	Expression getOp2();
 }
 
-class UnaryOperator extends Expression {
+interface UnaryOperator extends Expression {
 	bindings { "java" -> "hub.sam.dbl.UnaryOperator" }
 	
-	Expression op;
 	Expression getOp();
 }
 
-class Or extends BinaryOperator, L8Expr {
+interface Or extends BinaryOperator, L8Expr {
 	bindings { "java" -> "hub.sam.dbl.Or" }
 	
 }
 
-class And extends BinaryOperator, L7Expr {
+interface And extends BinaryOperator, L7Expr {
 	bindings { "java" -> "hub.sam.dbl.And" }
 	
 }
 
-class NotEqual extends BinaryOperator, L6Expr {
+interface NotEqual extends BinaryOperator, L6Expr {
 	bindings { "java" -> "hub.sam.dbl.NotEqual" }
 	
 }
 
-class Equal extends BinaryOperator, L6Expr {
+interface Equal extends BinaryOperator, L6Expr {
 	bindings { "java" -> "hub.sam.dbl.Equal" }
 	
 }
 
-class Greater extends BinaryOperator, L5Expr {
+interface Greater extends BinaryOperator, L5Expr {
 	bindings { "java" -> "hub.sam.dbl.Greater" }
 	
 }
 
-class GreaterEqual extends BinaryOperator, L5Expr {
+interface GreaterEqual extends BinaryOperator, L5Expr {
 	bindings { "java" -> "hub.sam.dbl.GreaterEqual" }
 	
 }
 
-class Less extends BinaryOperator, L5Expr {
+interface Less extends BinaryOperator, L5Expr {
 	bindings { "java" -> "hub.sam.dbl.Less" }
 	
 }
 
-class LessEqual extends BinaryOperator, L5Expr {
+interface LessEqual extends BinaryOperator, L5Expr {
 	bindings { "java" -> "hub.sam.dbl.LessEqual" }
 	
 }
 
-class InstanceOf extends BinaryOperator, L5Expr {
+interface InstanceOf extends BinaryOperator, L5Expr {
 	bindings { "java" -> "hub.sam.dbl.InstanceOf" }
 	
 }
 
-class Plus extends BinaryOperator, L4Expr {
+interface Plus extends BinaryOperator, L4Expr {
 	bindings { "java" -> "hub.sam.dbl.Plus" }
 	
 }
 
-class Minus extends BinaryOperator, L4Expr {
+interface Minus extends BinaryOperator, L4Expr {
 	bindings { "java" -> "hub.sam.dbl.Minus" }
 	
 }
 
-class Mul extends BinaryOperator, L3Expr {
+interface Mul extends BinaryOperator, L3Expr {
 	bindings { "java" -> "hub.sam.dbl.Mul" }
 	
 }
 
-class Mod extends BinaryOperator, L3Expr {
+interface Mod extends BinaryOperator, L3Expr {
 	bindings { "java" -> "hub.sam.dbl.Mod" }
 	
 }
 
-class Div extends BinaryOperator, L3Expr {
+interface Div extends BinaryOperator, L3Expr {
 	bindings { "java" -> "hub.sam.dbl.Div" }
 	
 }
 
-class Neg extends UnaryOperator, L2Expr {
+interface Neg extends UnaryOperator, L2Expr {
 	bindings { "java" -> "hub.sam.dbl.Neg" }
 	
 }
 
-class Not extends UnaryOperator, L2Expr {
+interface Not extends UnaryOperator, L2Expr {
 	bindings { "java" -> "hub.sam.dbl.Not" }
 	
 }
 
-class Cast extends UnaryOperator, TypedElement, L2Expr {
+interface Cast extends UnaryOperator, TypedElement, L2Expr {
 	bindings { "java" -> "hub.sam.dbl.Cast" }
 	
 }
 
-class CreateObject extends L1Expr, TypedElement {
+interface CreateObject extends L1Expr, TypedElement {
 	bindings { "java" -> "hub.sam.dbl.CreateObject" }
 	
 }
 
-class NullLiteral extends L1Expr {
+interface NullLiteral extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.NullLiteral" }
 	
 }
 
-class TimeLiteral extends L1Expr {
+interface TimeLiteral extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.TimeLiteral" }
 	
 }
 
-class ActiveLiteral extends L1Expr {
-	bindings { "java" -> "hub.sam.dbl.ActiveLiteral" }
-	
-}
-
-class StringLiteral extends L1Expr {
+interface StringLiteral extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.StringLiteral" }
 	
-	string value;
 	string getValue();
 }
 
-class IntLiteral extends L1Expr {
+interface IntLiteral extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.IntLiteral" }
 	
-	int value;
 	int getValue();
 }
 
-class TrueLiteral extends L1Expr {
+interface TrueLiteral extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.TrueLiteral" }
 	
 }
 
-class FalseLiteral extends L1Expr {
+interface FalseLiteral extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.FalseLiteral" }
 	
 }
 
-class DoubleLiteral extends L1Expr {
+interface DoubleLiteral extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.DoubleLiteral" }
 	
-	double value;
 	double getValue();
 }
 
-class ExpandExpr extends Expression {
+interface ExpandExpr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.ExpandExpr" }
 	
-	Expression expr;
 	Expression getExpr();
 }
 
-class ParseExpr extends Expression {
+interface ParseExpr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.ParseExpr" }
 	
-	Construct astPart;
 	Construct getAstPart();
 }
 
-class PredefinedId extends EObject {
+interface PredefinedId extends EObject {
 	bindings { "java" -> "hub.sam.dbl.PredefinedId" }
 	
 }
 
-class MeLiteral extends PredefinedId {
+interface MeLiteral extends PredefinedId {
 	bindings { "java" -> "hub.sam.dbl.MeLiteral" }
 	
 }
 
-class SuperLiteral extends PredefinedId {
+interface SuperLiteral extends PredefinedId {
 	bindings { "java" -> "hub.sam.dbl.SuperLiteral" }
 	
 }
 
-class MetaLiteral extends PredefinedId {
+interface MetaLiteral extends PredefinedId {
 	bindings { "java" -> "hub.sam.dbl.MetaLiteral" }
 	
 }
 
-class TypeLiteral extends PredefinedId {
+interface TypeLiteral extends PredefinedId {
 	bindings { "java" -> "hub.sam.dbl.TypeLiteral" }
 	
 }
 
-class SizeOfArray extends PredefinedId {
+interface SizeOfArray extends PredefinedId {
 	bindings { "java" -> "hub.sam.dbl.SizeOfArray" }
 	
 }
 
-class AnnotationLiteral extends PredefinedId, Annotation {
+interface AnnotationLiteral extends PredefinedId, Annotation {
 	bindings { "java" -> "hub.sam.dbl.AnnotationLiteral" }
 	
 }
 
-class IdExpr extends L1Expr {
+interface IdExpr extends L1Expr {
 	bindings { "java" -> "hub.sam.dbl.IdExpr" }
 	
-	IdExpr parentIdExpr;
 	IdExpr getParentIdExpr();
-	NamedElement referencedElement;
 	NamedElement getReferencedElement();
-	PredefinedId predefinedId;
 	PredefinedId getPredefinedId();
-	EList arrayIndex;
 	EList getArrayIndex();
-	CallPart callPart;
 	CallPart getCallPart();
 }
 
-class CallPart extends EObject {
+interface CallPart extends EObject {
 	bindings { "java" -> "hub.sam.dbl.CallPart" }
 	
-	EList callArguments;
 	EList getCallArguments();
 }
 
-class ElementAccess extends Expression {
+interface ElementAccess extends Expression {
 	bindings { "java" -> "hub.sam.dbl.ElementAccess" }
 	
-	IdExpr idExpr;
 	IdExpr getIdExpr();
 }
 
-class VariableAccess extends ElementAccess {
+interface VariableAccess extends ElementAccess {
 	bindings { "java" -> "hub.sam.dbl.VariableAccess" }
 	
 }
 
-class MetaAccess extends VariableAccess {
+interface MetaAccess extends VariableAccess {
 	bindings { "java" -> "hub.sam.dbl.MetaAccess" }
 	
 }
 
-class TypeAccess extends ElementAccess {
+interface TypeAccess extends ElementAccess {
 	bindings { "java" -> "hub.sam.dbl.TypeAccess" }
 	
 }
 
-class Extension extends Concept, ExtensibleElement {
+interface Extension extends Concept, ExtensibleElement {
 	bindings { "java" -> "hub.sam.dbl.Extension" }
 	
-	Concept extensionPoint;
 	Concept getExtensionPoint();
-	SyntaxDefinition syntaxDefinition;
 	SyntaxDefinition getSyntaxDefinition();
 }
 
-class ExtensionSemantics extends ExtensibleElement, LocalScope {
+interface ExtensionSemantics extends ExtensibleElement, LocalScope {
 	bindings { "java" -> "hub.sam.dbl.ExtensionSemantics" }
 	
-	Extension syntaxDefinition;
 	Extension getSyntaxDefinition();
 }
 
-class SyntaxDefinition extends ExtensibleElement {
+interface SyntaxDefinition extends ExtensibleElement {
 	bindings { "java" -> "hub.sam.dbl.SyntaxDefinition" }
 	
-	MetaSymbol startSymbol;
 	MetaSymbol getStartSymbol();
-	EList symbols;
 	EList getSymbols();
 }
 
-class SyntaxSymbolClassifier extends NamedElement, ExtensibleElement {
+interface SyntaxSymbolClassifier extends NamedElement, ExtensibleElement {
 	bindings { "java" -> "hub.sam.dbl.SyntaxSymbolClassifier" }
 	
 }
 
-class ComplexSymbol extends SyntaxSymbolClassifier {
+interface ComplexSymbol extends SyntaxSymbolClassifier {
 	bindings { "java" -> "hub.sam.dbl.ComplexSymbol" }
 	
 }
 
-class Concept extends ComplexSymbol {
+interface Concept extends ComplexSymbol {
 	bindings { "java" -> "hub.sam.dbl.Concept" }
 	
 }
 
-class MetaSymbol extends NamedElement, ComplexSymbol {
+interface MetaSymbol extends NamedElement, ComplexSymbol {
 	bindings { "java" -> "hub.sam.dbl.MetaSymbol" }
 	
-	SyntaxExpression possibleSyntax;
 	SyntaxExpression getPossibleSyntax();
 }
 
-class SyntaxExpression extends EObject {
+interface SyntaxExpression extends EObject {
 	bindings { "java" -> "hub.sam.dbl.SyntaxExpression" }
 	
 }
 
-class L3SyntaxExpression extends SyntaxExpression {
+interface L3SyntaxExpression extends SyntaxExpression {
 	bindings { "java" -> "hub.sam.dbl.L3SyntaxExpression" }
 	
 }
 
-class L2SyntaxExpression extends SyntaxExpression {
+interface L2SyntaxExpression extends SyntaxExpression {
 	bindings { "java" -> "hub.sam.dbl.L2SyntaxExpression" }
 	
 }
 
-class SymbolSequence extends L2SyntaxExpression {
+interface SymbolSequence extends L2SyntaxExpression {
 	bindings { "java" -> "hub.sam.dbl.SymbolSequence" }
 	
-	EList sequence;
 	EList getSequence();
 }
 
-class L1SyntaxExpression extends SyntaxExpression {
+interface L1SyntaxExpression extends SyntaxExpression {
 	bindings { "java" -> "hub.sam.dbl.L1SyntaxExpression" }
 	
 }
 
-class StructuralSymbolReference extends NamedElement, PlainSymbolReference {
+interface StructuralSymbolReference extends NamedElement, PlainSymbolReference {
 	bindings { "java" -> "hub.sam.dbl.StructuralSymbolReference" }
 	
-	boolean list;
 	boolean isList();
-	boolean composite;
 	boolean isComposite();
-	boolean localScopedReference;
 	boolean isLocalScopedReference();
-	boolean globalScopedReference;
 	boolean isGlobalScopedReference();
 }
 
-class PlainSymbolReference extends L1SyntaxExpression {
+interface PlainSymbolReference extends L1SyntaxExpression {
 	bindings { "java" -> "hub.sam.dbl.PlainSymbolReference" }
 	
-	SyntaxSymbolClassifier classifier;
 	SyntaxSymbolClassifier getClassifier();
-	SyntaxSymbolClassifier ownedClassifier;
 	SyntaxSymbolClassifier getOwnedClassifier();
-	SyntaxSymbolClassifier referencedClassifier;
 	SyntaxSymbolClassifier getReferencedClassifier();
 }
 
-class ElementarySymbol extends SyntaxSymbolClassifier {
+interface ElementarySymbol extends SyntaxSymbolClassifier {
 	bindings { "java" -> "hub.sam.dbl.ElementarySymbol" }
 	
 }
 
-class IdSymbol extends ElementarySymbol {
+interface IdSymbol extends ElementarySymbol {
 	bindings { "java" -> "hub.sam.dbl.IdSymbol" }
 	
 }
 
-class IntSymbol extends ElementarySymbol {
+interface IntSymbol extends ElementarySymbol {
 	bindings { "java" -> "hub.sam.dbl.IntSymbol" }
 	
 }
 
-class StringSymbol extends ElementarySymbol {
+interface StringSymbol extends ElementarySymbol {
 	bindings { "java" -> "hub.sam.dbl.StringSymbol" }
 	
 }
 
-class Keyword extends ElementarySymbol {
+interface Keyword extends ElementarySymbol {
 	bindings { "java" -> "hub.sam.dbl.Keyword" }
 	
-	string keyword;
 	string getKeyword();
 }
 
-class MetaExpr extends Expression {
+interface MetaExpr extends Expression {
 	bindings { "java" -> "hub.sam.dbl.MetaExpr" }
 	
-	Expression expr;
 	Expression getExpr();
 }
 
-class TargetStatement extends SimpleStatement {
+interface TargetStatement extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.TargetStatement" }
 	
-	Statement body;
 	Statement getBody();
 }
 
-class CreateIdStatement extends Variable {
+interface CreateIdStatement extends Variable {
 	bindings { "java" -> "hub.sam.dbl.CreateIdStatement" }
 	
 }
 
-class ExpansionStatement extends SimpleStatement {
+interface ExpansionStatement extends SimpleStatement {
 	bindings { "java" -> "hub.sam.dbl.ExpansionStatement" }
 	
-	boolean classContext;
-	boolean isClassContext();
-	boolean functionContext;
-	boolean isFunctionContext();
-	boolean variableContext;
-	boolean isVariableContext();
-	Expression differingContext;
 	Expression getDifferingContext();
-	EList parts;
 	EList getParts();
-	EList exprs;
 	EList getExprs();
 }
 
-class ExpansionPart extends EObject {
+interface ExpansionPart extends EObject {
 	bindings { "java" -> "hub.sam.dbl.ExpansionPart" }
 	
 }
 
-class ExpandTextPart extends ExpansionPart {
+interface ExpandTextPart extends ExpansionPart {
 	bindings { "java" -> "hub.sam.dbl.ExpandTextPart" }
 	
-	string text;
 	string getText();
 }
 
-class ExpandVariablePart extends ExpansionPart {
+interface ExpandVariablePart extends ExpansionPart {
 	bindings { "java" -> "hub.sam.dbl.ExpandVariablePart" }
 	
-	Expression expr;
 	Expression getExpr();
 }
 
-class ExpandExpression extends Expression {
+interface ExpandExpression extends Expression {
 	bindings { "java" -> "hub.sam.dbl.ExpandExpression" }
 	
-	Expression metaObject;
 	Expression getMetaObject();
 }
 
-class ExpandStatement extends Statement {
+interface ExpandStatement extends Statement {
 	bindings { "java" -> "hub.sam.dbl.ExpandStatement" }
 	
-	Expression metaObject;
 	Expression getMetaObject();
-	Expression location;
 	Expression getLocation();
 }
 
-class CodeQuoteExpression extends Expression {
+interface CodeQuoteExpression extends Expression {
 	bindings { "java" -> "hub.sam.dbl.CodeQuoteExpression" }
 	
-	QuotedCode quotedCode;
 	QuotedCode getQuotedCode();
 }
 
-class QuotedCode extends EObject {
+interface QuotedCode extends EObject {
 	bindings { "java" -> "hub.sam.dbl.QuotedCode" }
 	
 }
 
-class QuotedExpression extends QuotedCode {
+interface QuotedExpression extends QuotedCode {
 	bindings { "java" -> "hub.sam.dbl.QuotedExpression" }
 	
-	Expression expression;
 	Expression getExpression();
 }
 
-class QuotedStatements extends QuotedCode {
+interface QuotedStatements extends QuotedCode {
 	bindings { "java" -> "hub.sam.dbl.QuotedStatements" }
 	
-	EList statements;
 	EList getStatements();
 }
 
-class QuotedClassContent extends QuotedCode, Class {
+interface QuotedClassContent extends QuotedCode, Class {
 	bindings { "java" -> "hub.sam.dbl.QuotedClassContent" }
 	
 }
 
-class QuotedModuleContent extends QuotedCode, Module {
+interface QuotedModuleContent extends QuotedCode, Module {
 	bindings { "java" -> "hub.sam.dbl.QuotedModuleContent" }
 	
 }
 
-class Pattern extends NamedElement {
+interface Pattern extends NamedElement {
 	bindings { "java" -> "hub.sam.dbl.Pattern" }
 	
-	boolean top;
 	boolean isTop();
-	Parameter context;
 	Parameter getContext();
-	Statement body;
 	Statement getBody();
 }
 
-class TestStatement extends Statement {
+interface TestStatement extends Statement {
 	bindings { "java" -> "hub.sam.dbl.TestStatement" }
 	
-	int value;
 	int getValue();
 }
 

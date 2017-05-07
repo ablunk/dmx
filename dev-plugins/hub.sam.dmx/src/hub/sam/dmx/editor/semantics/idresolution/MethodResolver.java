@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import hub.sam.dbl.Class;
+import hub.sam.dbl.Classifier;
 import hub.sam.dbl.Function;
 import hub.sam.dbl.IdExpr;
+import hub.sam.dbl.Interface;
 
 public class MethodResolver extends MemberResolver implements ElementResolver<IdExpr> {
 	
@@ -15,8 +17,8 @@ public class MethodResolver extends MemberResolver implements ElementResolver<Id
 	public Collection<IdentifiedElement> resolve(String identifier, IdExpr idExprContext) {
 		if (idExprContext.getCallPart() != null) {
 			if (idExprContext.getParentIdExpr() == null) {
-				return resolveInContainer(identifier, idExprContext, Class.class,
-						(id, containerClass) -> resolvePlainMethods(identifier, idExprContext, containerClass));
+				return resolveInContainer(identifier, idExprContext, Classifier.class,
+						(id, containerClassifier) -> resolvePlainMethods(identifier, idExprContext, containerClassifier));
 			} else {
 				return resolveFeaturesInNavigation(identifier, idExprContext);
 			}
@@ -25,15 +27,16 @@ public class MethodResolver extends MemberResolver implements ElementResolver<Id
 		}
 	}
 	
-	protected Collection<IdentifiedElement> resolvePlainMembers(String identifier, IdExpr idExprContext, Class containerClass) {
-		return resolvePlainMethods(identifier, idExprContext, containerClass);
+	@Override
+	protected Collection<IdentifiedElement> resolvePlainMembers(String identifier, IdExpr idExprContext, Classifier containerClassifier) {
+		return resolvePlainMethods(identifier, idExprContext, containerClassifier);
 	}
 	
-	private Collection<IdentifiedElement> resolvePlainMethods(String identifier, IdExpr idExprContext, Class containerClass) {
-		Collection<IdentifiedElement> methods = resolveInElements(identifier, filterPossibleMethods(idExprContext, containerClass.getMethods()));
+	private Collection<IdentifiedElement> resolvePlainMethods(String identifier, IdExpr idExprContext, Classifier containerClassifier) {
+		Collection<IdentifiedElement> methods = resolveInElements(identifier, filterPossibleMethods(idExprContext, containerClassifier.getMethods()));
 		
 		if (methods.isEmpty()) {
-			methods.addAll(resolveInheritedFeaturesRecursive(identifier, idExprContext, containerClass));
+			methods.addAll(resolveInheritedMethodsRecursive(identifier, idExprContext, containerClassifier));
 		}
 		
 		return methods;
@@ -45,18 +48,37 @@ public class MethodResolver extends MemberResolver implements ElementResolver<Id
 				.collect(Collectors.toList());
 	}
 	
-	private Collection<IdentifiedElement> resolveInheritedFeaturesRecursive(String identifier, IdExpr idExprContext, Class dblClass) {
+	private Collection<IdentifiedElement> resolveInheritedMethodsRecursive(String identifier, IdExpr idExprContext, Classifier classifier) {
 		Collection<IdentifiedElement> methods = new HashSet<>();
-		for (Class superClass: dblClass.getSuperClasses()) {
-			if (methods.isEmpty()) {
+		
+		if (classifier instanceof Class) {
+			Class dblClass = (Class) classifier;
+			Class superClass = dblClass.getSuperClass();
+			if (superClass != null && methods.isEmpty()) {
 				methods.addAll(resolveInElements(identifier, filterPossibleMethods(idExprContext, superClass.getMethods())));
 			}
 		}
-		for (Class superClass: dblClass.getSuperClasses()) {
+
+		for (Interface superInterface: classifier.getSuperInterfaces()) {
 			if (methods.isEmpty()) {
-				methods.addAll(resolveInheritedFeaturesRecursive(identifier, idExprContext, superClass));
+				methods.addAll(resolveInElements(identifier, filterPossibleMethods(idExprContext, superInterface.getMethods())));
 			}
-		}		
+		}
+		
+		if (classifier instanceof Class) {
+			Class dblClass = (Class) classifier;
+			Class superClass = dblClass.getSuperClass();
+			if (superClass != null && methods.isEmpty()) {
+				methods.addAll(resolveInheritedMethodsRecursive(identifier, idExprContext, superClass));
+			}
+		}
+
+		for (Interface superInterface: classifier.getSuperInterfaces()) {
+			if (methods.isEmpty()) {
+				methods.addAll(resolveInheritedMethodsRecursive(identifier, idExprContext, superInterface));
+			}
+		}
+
 		return methods;
 	}
 

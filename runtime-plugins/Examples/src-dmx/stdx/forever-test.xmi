@@ -4,7 +4,7 @@
     <model href="forever.xmi#/"/>
   </imports>
   <module name="stdx_forevr_test">
-    <classes name="A" concreteSyntax="active class A {&#xA;&#x9;actions {&#xA;&#x9;&#x9;forever {&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}" active="true">
+    <classifiers xsi:type="dbl:ActiveClass" name="A" concreteSyntax="active class A {&#xA;&#x9;actions {&#xA;&#x9;&#x9;forever {&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}">
       <actionsBlock>
         <statements xsi:type="dbl:Forever_Forever_extension" concreteSyntax="forever {&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
           <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;print time + &quot;\n&quot;;&#xA;&#x9;&#x9;&#x9;advance 1;&#xA;&#x9;&#x9;}">
@@ -20,13 +20,13 @@
           </body>
         </statements>
       </actionsBlock>
-    </classes>
+    </classifiers>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="a" concreteSyntax="A a = new A()">
-        <classifierType concreteSyntax="A" referencedElement="//@module/@classes.0"/>
+        <classifierType concreteSyntax="A" referencedElement="//@module/@classifiers.0"/>
         <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new A()">
-          <classifierType concreteSyntax="A()" referencedElement="//@module/@classes.0">
+          <classifierType concreteSyntax="A()" referencedElement="//@module/@classifiers.0">
             <callPart/>
           </classifierType>
         </initialValue>

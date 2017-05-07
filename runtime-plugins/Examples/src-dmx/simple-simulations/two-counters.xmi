@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <module name="twocounters">
-    <classes xsi:type="dbl:ActiveClass" name="Counter">
+    <classifiers xsi:type="dbl:ActiveClass" name="Counter">
       <attributes name="count">
         <primitiveType xsi:type="dbl:IntType"/>
         <initialValue xsi:type="dbl:IntLiteral"/>
@@ -9,7 +9,7 @@
       <actionsBlock>
         <statements xsi:type="dbl:WhileStatement">
           <condition xsi:type="dbl:LessEqual">
-            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.0/@attributes.0"/>
+            <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classifiers.0/@attributes.0"/>
             <op2 xsi:type="dbl:IdExpr" referencedElement="//@module/@variables.1"/>
           </condition>
           <body xsi:type="dbl:LocalScopeStatement">
@@ -18,7 +18,7 @@
                 <callPart>
                   <callArguments xsi:type="dbl:Plus">
                     <op1 xsi:type="dbl:StringLiteral" value="count = "/>
-                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.0/@attributes.0"/>
+                    <op2 xsi:type="dbl:IdExpr" referencedElement="//@module/@classifiers.0/@attributes.0"/>
                   </callArguments>
                 </callPart>
               </callIdExpr>
@@ -28,10 +28,10 @@
             </statements>
             <statements xsi:type="dbl:Assignment">
               <variable>
-                <idExpr referencedElement="//@module/@classes.0/@attributes.0"/>
+                <idExpr referencedElement="//@module/@classifiers.0/@attributes.0"/>
               </variable>
               <value xsi:type="dbl:Plus">
-                <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.0/@attributes.0"/>
+                <op1 xsi:type="dbl:IdExpr" referencedElement="//@module/@classifiers.0/@attributes.0"/>
                 <op2 xsi:type="dbl:IntLiteral" value="1"/>
               </value>
             </statements>
@@ -45,19 +45,19 @@
           </callIdExpr>
         </statements>
       </actionsBlock>
-    </classes>
+    </classifiers>
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:ActivateObject">
         <objectAccess xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@module/@classes.0">
+          <classifierType referencedElement="//@module/@classifiers.0">
             <callPart/>
           </classifierType>
         </objectAccess>
       </statements>
       <statements xsi:type="dbl:ActivateObject">
         <objectAccess xsi:type="dbl:CreateObject">
-          <classifierType referencedElement="//@module/@classes.0">
+          <classifierType referencedElement="//@module/@classifiers.0">
             <callPart/>
           </classifierType>
         </objectAccess>

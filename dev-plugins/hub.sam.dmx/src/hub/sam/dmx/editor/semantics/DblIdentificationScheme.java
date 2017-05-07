@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 
 import hub.sam.dbl.AbstractVariable;
 import hub.sam.dbl.Class;
+import hub.sam.dbl.Classifier;
 import hub.sam.dbl.Constructor;
 import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Expression;
@@ -22,6 +23,7 @@ import hub.sam.dbl.ExtensionSemantics;
 import hub.sam.dbl.Function;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.Import;
+import hub.sam.dbl.Interface;
 import hub.sam.dbl.LocalScope;
 import hub.sam.dbl.MeLiteral;
 import hub.sam.dbl.MetaLiteral;
@@ -113,12 +115,12 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						
 						// ---> try to find a Type now ...
 						if (containerModule != null) {
-							otherIdsHidden = addIds(namedElementId, containerModule.getClasses(), allIds);
+							otherIdsHidden = addIds(namedElementId, containerModule.getClassifiers(), allIds);
 							
 							if (!otherIdsHidden) {
-								Class importedClass = findImportedClass((Model) containerModule.eContainer(), namedElementId.getName());
-								if (importedClass != null) {
-									otherIdsHidden = addId(namedElementId, importedClass, allIds);
+								Classifier importedClassifier = findImportedClass((Model) containerModule.eContainer(), namedElementId.getName());
+								if (importedClassifier != null) {
+									otherIdsHidden = addId(namedElementId, importedClassifier, allIds);
 								}
 							}
 						}						
@@ -133,9 +135,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						NamedElement metaOfElement = idExpr.getParentIdExpr().getParentIdExpr().getReferencedElement();
 						String metaElementName = metaOfElement.eClass().getName();
 						System.out.println("meta-object: " + metaElementName + " " + metaOfElement.getName());
-						Class eClass = findImportedClass((Model) containerModule.eContainer(), metaElementName);
-						if (eClass != null) {
-							addIdsForMethods(eClass, namedElementId, allIds, idExpr);
+						Classifier eClassifier = findImportedClass((Model) containerModule.eContainer(), metaElementName);
+						if (eClassifier != null) {
+							addIdsForMethods(eClassifier, namedElementId, allIds, idExpr);
 						}
 					}
 					else if (hasTypeAsParent(idExpr)) {
@@ -158,9 +160,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 //								typeName = metaTypeName;
 //							}
 							System.out.println("type-object: " + metaTypeName + " " + typeName);
-							Class eClass = findImportedClass((Model) containerModule.eContainer(), metaTypeName);
-							if (eClass != null) {
-								addIdsForMethods(eClass, namedElementId, allIds, idExpr);
+							Classifier eClassifier = findImportedClass((Model) containerModule.eContainer(), metaTypeName);
+							if (eClassifier != null) {
+								addIdsForMethods(eClassifier, namedElementId, allIds, idExpr);
 							}
 						}
 					}
@@ -176,8 +178,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 									addIdsForMethods(referencedParentTypedElement.getClassifierType(), namedElementId, allIds, idExpr);
 								}
 							}
-							else if (referencedParentElement instanceof Class) {
-								Class parentClassifier = (Class) referencedParentElement;
+							else if (referencedParentElement instanceof Classifier) {
+								Classifier parentClassifier = (Classifier) referencedParentElement;
 								addIdsForClassMethods(parentClassifier, namedElementId, allIds, idExpr);
 							}
 							else if (referencedParentElement instanceof StructuralSymbolReference) {
@@ -187,7 +189,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 								
 								if (structuralSymbolReference.isList()) {
 									// find type stdlib.List and add its methods
-									Class listClassifier = findImportedClass(containerModel, "List");
+									Classifier listClassifier = findImportedClass(containerModel, "List");
 									if (listClassifier != null) {
 										addIdsForMethods(listClassifier, namedElementId, allIds, idExpr);
 									}
@@ -195,8 +197,8 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 								else {
 									SyntaxSymbolClassifier symbolClassifier = structuralSymbolReference.getClassifier();
 									
-									if (symbolClassifier != null && symbolClassifier instanceof Class) {
-										Class classifierRhsType = (Class) symbolClassifier;
+									if (symbolClassifier != null && symbolClassifier instanceof Classifier) {
+										Classifier classifierRhsType = (Classifier) symbolClassifier;
 										addIdsForMethods(classifierRhsType, namedElementId, allIds, idExpr);
 									}
 									// TODO what about the other Concepts ??
@@ -270,7 +272,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						// ---> try to find a Type now ...
 						
 						if (!otherIdsHidden && containerModule != null) {
-							otherIdsHidden |= addIds(namedElementId, containerModule.getClasses(), allIds);
+							otherIdsHidden |= addIds(namedElementId, containerModule.getClassifiers(), allIds);
 						}
 						
 						// idres ...
@@ -321,9 +323,9 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 						addIdsForInheritedAttributes(containerClass, namedElementId, allIds);
 					}
 					else if (hasMetaAsParent(idExpr)) {
-						Class eClass = findImportedClass((Model) containerModule.eContainer(), "EClass");
-						if (eClass != null) {
-							addIdsForAttributes(eClass, namedElementId, allIds);
+						Classifier eClassifier = findImportedClass((Model) containerModule.eContainer(), "EClass");
+						if (eClassifier != null) {
+							addIdsForAttributes(eClassifier, namedElementId, allIds);
 						}
 					}
 					else {
@@ -702,7 +704,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		Module containerModule = getContainerObjectOfType(context, Module.class);
 		if (containerModule != null) {
 			
-			idsAdded |= addIds(identifier, containerModule.getClasses(), allIds);
+			idsAdded |= addIds(identifier, containerModule.getClassifiers(), allIds);
 			idsAdded |= addIds(identifier, containerModule.getExtensions(), allIds);
 			
 			if (!idsAdded) {
@@ -719,7 +721,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		boolean idsAdded = false;
 		for (Import imprt: model.getImports()) {
 			if (imprt.getModel() != null) {
-				idsAdded |= addIds(identifier, imprt.getModel().getModule().getClasses(), allIds);
+				idsAdded |= addIds(identifier, imprt.getModel().getModule().getClassifiers(), allIds);
 				idsAdded |= addIds(identifier, imprt.getModel().getModule().getExtensions(), allIds);
 				if (!idsAdded) {
 					idsAdded = addIdsForImportedConcepts(imprt.getModel(), identifier, allIds);
@@ -729,15 +731,15 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return idsAdded;
 	}
 	
-	private Class findImportedClass(Model model, String clazzName) {
+	private Classifier findImportedClass(Model model, String classifierName) {
 		for (Import imprt: model.getImports()) {
 			if (imprt.getModel() != null) {
-				for (Class clazz: imprt.getModel().getModule().getClasses()) {
-					if (clazz.getName().equals(clazzName)) {
-						return clazz;
+				for (Classifier classifier: imprt.getModel().getModule().getClassifiers()) {
+					if (classifier.getName().equals(classifierName)) {
+						return classifier;
 					}
 				}
-				return findImportedClass(imprt.getModel(), clazzName);
+				return findImportedClass(imprt.getModel(), classifierName);
 			}
 		}
 		return null;
@@ -850,7 +852,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return classMethods;
 	}
 	
-	private boolean addIdsForInheritedMethods(Class clazz, NamedElement eObjectId, Collection allIds, IdExpr idExpr) {
+	private boolean addIdsForInheritedMethods(Classifier classifier, NamedElement eObjectId, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 
 		/*IdExpr superClassIdExpr = clazz.getSuperClass();
@@ -926,7 +928,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return idsAdded;
 	}
 
-	private boolean addIdsForAttributes(Class classifier, NamedElement identifier, Collection allIds) {
+	private boolean addIdsForAttributes(Classifier classifier, NamedElement identifier, Collection allIds) {
 		boolean idsAdded = false;
 		if (classifier instanceof Class) {
 			Class clazz = (Class) classifier;
@@ -942,7 +944,7 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return idsAdded;
 	}
 
-	private boolean addIdsForClassAttributes(Class classifier, NamedElement identifier, Collection allIds) {
+	private boolean addIdsForClassAttributes(Classifier classifier, NamedElement identifier, Collection allIds) {
 		boolean idsAdded = false;
 		if (classifier instanceof Class) {
 			Class clazz = (Class) classifier;
@@ -962,27 +964,25 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return idsAdded;
 	}
 
-	private boolean addIdsForMethods(Class classifier, NamedElement identifier, Collection allIds, IdExpr idExpr) {
+	private boolean addIdsForMethods(Classifier classifier, NamedElement identifier, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
-		if (classifier instanceof Class) {
-			Class clazz = (Class) classifier;
 
-			// add methods
-			for (Function method: clazz.getMethods()) {
-				if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
-					idsAdded |= addId(identifier, method, allIds);
-				}
-			}
-
-			// add inherited methods
-			if (!idsAdded) {
-				idsAdded |= addIdsForInheritedMethods(clazz, identifier, allIds, idExpr);
+		// add methods
+		for (Function method: classifier.getMethods()) {
+			if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+				idsAdded |= addId(identifier, method, allIds);
 			}
 		}
+
+		// add inherited methods
+		if (!idsAdded) {
+			idsAdded |= addIdsForInheritedMethods(classifier, identifier, allIds, idExpr);
+		}
+		
 		return idsAdded;
 	}
 	
-	private boolean addIdsForClassMethods(Class classifier, NamedElement identifier, Collection allIds, IdExpr idExpr) {
+	private boolean addIdsForClassMethods(Classifier classifier, NamedElement identifier, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 		if (classifier instanceof Class) {
 			Class clazz = (Class) classifier;

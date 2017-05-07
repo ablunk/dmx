@@ -76,6 +76,8 @@ import java.util.Set
 import java.util.HashSet
 import java.util.Arrays
 import hub.sam.dbl.ActiveClass
+import hub.sam.dbl.Interface
+import hub.sam.dbl.Classifier
 
 /* 
  * A base class for generating c++-code for DBL-programs represented by 
@@ -193,7 +195,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	private def boolean sameMemberName(NamedElement t) {
 		// namespace and class should have different name when members are accessed in the program
 		// to distinguish between namespace and class
-		if((t instanceof Module && (t as Module)?.getClasses.exists
+		if((t instanceof Module && (t as Module)?.getClassifiers.exists
 			[name == (t as Module).name])) return true
 		// function and variable names should be different in C++
 		else if (t instanceof Function){
@@ -221,11 +223,11 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		includes.addAll(getAllContainedMemberTypes(includes))
 		'''
 			#include "../gen/«genPreciseName»/«genPreciseName».h"
-			«FOR c:includes.filter[it instanceof Class && (it as Class).bindings.empty]»
+			«FOR c:includes.filter[it instanceof Class]»
 			#include "../gen/«genPreciseName»/«(c as Class).genPreciseName».h"
 			«ENDFOR»
-			«FOR c:includes.filter[it instanceof Class && !(it as Class).bindings.empty]»
-			#include "../../C++-Libraries/«(c as Class).genBoundType(false)».h"
+			«FOR c:includes.filter[it instanceof Interface && !(it as Interface).bindings.empty]»
+			#include "../../C++-Libraries/«(c as Interface).genBoundType(false)».h"
 			«ENDFOR»
 			#include <ctime>
 			#include <iostream>
@@ -254,7 +256,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		createFileWithContent(moduleFolder,genPreciseName+".h",genModule(true))
 		createFileWithContent(moduleFolder,genPreciseName+".cpp",genModule(false))
 		// DBL classes with bindings are ignored
-		module.genClassSet.filter[getBindings.empty].forEach[
+		module.genClassSet.forEach[
 			createFileWithContent(moduleFolder,genPreciseName+".h",genClass(true))
 			createFileWithContent(moduleFolder,genPreciseName+".cpp",genClass(false))
 		]
@@ -378,7 +380,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		if(isHeader){
 			currentClass = clazz
 			initialGlobalData
-			if(getSuperClasses.empty && !(clazz instanceof ActiveClass)) includeStrings.addAll('''#include "../../../C++-Libraries/referenceSemantics/BaseRefCounter.h"''', '''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''','''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
+			if(getSuperClass == null && !(clazz instanceof ActiveClass)) includeStrings.addAll('''#include "../../../C++-Libraries/referenceSemantics/BaseRefCounter.h"''', '''#include "../../../C++-Libraries/referenceSemantics/intrusive_ptr.h"''','''#include "../../../C++-Libraries/referenceSemantics/RefStringType.h"''')
 			val contentClassHeader = genContentClassHeader(isHeader)
 			'''
 				#ifndef «genPreciseName.toUpperCase() + "_H"»
@@ -426,10 +428,8 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	protected def String genClassInheritance(Class clazz){
 		val it = clazz
 		'''
-			«IF !getSuperClasses.empty»
-				«FOR sClass:getSuperClasses BEFORE ':' SEPARATOR ','» 
-					public «sClass.genType»
-				«ENDFOR»
+			«IF getSuperClass !== null»
+				: public «getSuperClass.genType»
 			«ELSE»:«genSpecificBaseClass»
 			«ENDIF»
 		'''
@@ -471,12 +471,12 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			«FOR j:includeStrings»
 				«j»
 			«ENDFOR»
-			«FOR i:includes.filter[it instanceof Class && (it != currentClass)]»
-				«IF !(i as Class).bindings.empty»
-					class «(i as Class).genBoundType(true)»;
-				«ELSEIF (currentClass !== null && currentClass.getSuperClasses.exists[superClass | superClass == i])»
+			«FOR i:includes.filter[it instanceof Classifier && (it != currentClass)]»
+				«IF i instanceof Interface && !(i as Interface).bindings.empty»
+					class «(i as Interface).genBoundType(true)»;
+				«ELSEIF i instanceof Class && (currentClass !== null && currentClass.getSuperClass == i as Class)»
 					#include "../«(i.eContainer as Module).genPreciseName»/«(i as Class).genPreciseName».h" 
-				«ELSE»
+				«ELSEIF i instanceof Class»
 					namespace «(i.eContainer as Module).genPreciseName» {class «(i as Class).genPreciseName»;}
 				«ENDIF»
 			«ENDFOR»
@@ -497,7 +497,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 				«j»
 			«ENDFOR»
 			«FOR i:includes»
-				«IF currentClass === null || (!(currentClass?.getSuperClasses.exists[superClass | superClass == i]))»
+				«IF currentClass === null || (!(currentClass?.getSuperClass == i))»
 					«includeForClassAndModule(i)»
 				«ENDIF»
 			«ENDFOR»
@@ -512,10 +512,12 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	private def String includeForClassAndModule(EObject i){
 		'''
 			«IF i instanceof Class»
-				«IF !(i as Class).bindings.empty»
-					#include "../../../C++-Libraries/«(i as Class).genBoundType(false)».h"
+				#include "../«(i.eContainer as Module).genPreciseName»/«(i as Class).genPreciseName».h"
+			«ELSEIF i instanceof Interface»
+				«IF !(i as Interface).bindings.empty»
+					#include "../../../C++-Libraries/«(i as Interface).genBoundType(false)».h"
 				«ELSE»
-					#include "../«(i.eContainer as Module).genPreciseName»/«(i as Class).genPreciseName».h"
+					#include "../«(i.eContainer as Module).genPreciseName»/«(i as Interface).genPreciseName».h"
 				«ENDIF»
 			«ELSE»
 				#include "../«(i as Module).genPreciseName»/«(i as Module).genPreciseName».h"
@@ -527,10 +529,10 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * all contained member class types to guarantee that they have a reference count. 
 	 * @param includesForVariant difference between variantIncludes and includes
 	 */
-	protected def Set<Class> getAllContainedMemberTypes(Set<EObject> allFoundTypes){
-		var Set<Class> tempIncludeClasses = new HashSet<Class>() 
-		for(eObj:allFoundTypes.filter[!(it instanceof Class && !(it as Class).bindings.empty)]) 
-			tempIncludeClasses.addAll(genMemberTypesRecursively(eObj,new HashSet<Module>(),new HashSet<Class>()))
+	protected def Set<Classifier> getAllContainedMemberTypes(Set<EObject> allFoundTypes){
+		var Set<Classifier> tempIncludeClasses = new HashSet<Classifier>() 
+		for(eObj:allFoundTypes.filter[!(it instanceof Interface && !(it as Interface).bindings.empty)]) 
+			tempIncludeClasses.addAll(genMemberTypesRecursively(eObj,new HashSet<Module>(),new HashSet<Classifier>()))
 		return tempIncludeClasses
 	}
 	/**
@@ -541,9 +543,9 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param allVisitedModules saves all visited modules to avoid cycles in search
 	 * @param allFoundClassTypes all found class types
 	 */
-	private def Set<Class> genMemberTypesRecursively(EObject clazzOrModule, Set<Module> allVisitedModules, Set<Class> allFoundClassTypes){
+	private def Set<Classifier> genMemberTypesRecursively(EObject clazzOrModule, Set<Module> allVisitedModules, Set<Classifier> allFoundClassTypes){
 		var allContents = clazzOrModule.eAllContents
-		var Set<Class> classTypes = allFoundClassTypes
+		var Set<Classifier> classTypes = allFoundClassTypes
 		
 		if(clazzOrModule instanceof Module) allVisitedModules.add(clazzOrModule as Module)
 		else classTypes.add(clazzOrModule as Class)
@@ -552,10 +554,10 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			var nextElement = allContents.next
 			// class type is determined and there is a check if the include is necessary
 			if(nextElement instanceof TypedElement && (nextElement as TypedElement).classifierType !== null){
-				val classType = (nextElement as TypedElement).classifierType.referencedElement as Class
-				if(!allFoundClassTypes.exists[getSuperClasses.exists[superClass | superClass.name == classType.name]]){
+				val classType = (nextElement as TypedElement).classifierType.referencedElement as Classifier
+				if(!allFoundClassTypes.exists[classifier | classifier instanceof Class && (classifier as Class).superClass !== null && (classifier as Class).superClass.name == classType.name]){
 					if(!classTypes.contains(classType)){
-						if(classType.bindings.empty) classTypes.addAll(genMemberTypesRecursively(classType,allVisitedModules,allFoundClassTypes))
+						if(classType instanceof Class || classType instanceof Interface && (classType as Interface).bindings.empty) classTypes.addAll(genMemberTypesRecursively(classType,allVisitedModules,allFoundClassTypes))
 						else classTypes.add(classType)
 					}
 						
@@ -620,7 +622,14 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return determines if class has child classes
 	 */
 	private def boolean isInheritedBaseClass(Class clazz){
-		return allModules.exists[getClasses.exists[getSuperClasses.exists[superClass | superClass.name == clazz.name && (superClass.eContainer as Module).name == (clazz.eContainer as Module).name]]]
+		return allModules.exists[
+			getClassifiers.exists[classifier |
+				classifier instanceof Class 
+				&& (classifier as Class).superClass !== null
+				&& (classifier as Class).superClass.name == clazz.name
+				&& ((classifier as Class).eContainer as Module).name == (clazz.eContainer as Module).name
+			]
+		]
 	}
 	/**
 	 * mapping from DBL-constructor on C++-constructor, constructor contains base class constructor calls,
@@ -737,7 +746,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			// and actual type (constructor overloading is not supported, because constructor calls 
 			// are not semantically checked and its also not possible to get the type for a complex 
 			// expression (these informations should be added to the meta model!!)   
-			else if(idExpr.referencedElement instanceof Class && (idExpr.referencedElement as Class).bindings.empty){
+			else if(idExpr.referencedElement instanceof Class){
 				val class = idExpr.referencedElement as Class
 				val constructor = class.getConstructors.findFirst[getParameters.size == actualParams.size]
 				return constructor.getParameters.get(pos);
@@ -764,7 +773,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		]
 		// toString function is only needed if the class is passive (active classes have a defaulted toString function) and
 		// no toString function is already defined and the class has no base classes
-		if ((getSuperClasses.empty) && !isStringFunctionDefined && !(clazz instanceof ActiveClass)){
+		if ((getSuperClass === null) && !isStringFunctionDefined && !(clazz instanceof ActiveClass)){
 			if (isHeader) 
 				'''«IF isInheritedBaseClass»virtual«ENDIF» stringPtr toString();'''
 			else{
@@ -947,9 +956,13 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			var Set<Class> allDerivedClasses = new HashSet<Class>();
 			// get all Classes, which derive from base class (clazz)
 			for(m:allModules){ 
-				val temp = m.getClasses.filter[getSuperClasses.exists[superClass | superClass.name == clazz.name && 
-				(superClass.eContainer as Module).name == (clazz.eContainer as Module).name]]
-				if (!temp.empty) allDerivedClasses.addAll(temp)
+				val temp = m.getClassifiers.filter[ classifier |
+					classifier instanceof Class 
+					&& (classifier as Class).superClass !== null
+					&& (classifier as Class).name == clazz.name
+					&& ((classifier as Class).eContainer as Module).name == (clazz.eContainer as Module).name
+				]
+				if (!temp.empty) allDerivedClasses.addAll(temp as Class)
 			}
 			// checks if there are functions with same prototype recursively 
 			if(!allDerivedClasses.empty){
@@ -1781,7 +1794,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @return C++-string representation of Super Literal
 	 */
 	protected def dispatch String genIdExpr_for_PredefinedId(IdExpr idExpr, SuperLiteral predefinedId) {
-		'''«currentClass.getSuperClasses.get(0).genPreciseName»'''
+		'''«currentClass.getSuperClass.genPreciseName»'''
 	}
 	/**
 	 * generates C++-string representation of DBL SizeOfArray (keyword: length)
@@ -2023,6 +2036,13 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 		val it = element
 		val module = eContainer as Module
 		includes.add(element)
+		return module.genPreciseName+"::"+element.genPreciseName
+	}
+	
+	protected def dispatch String genQualifiedName(Interface element) {
+		val it = element
+		val module = eContainer as Module
+		includes.add(element)
 		if (bindings.empty) return module.genPreciseName+"::"+element.genPreciseName
 		else genBoundType(true)
 	}
@@ -2032,7 +2052,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 * @param extractType boolean flag that signals, if the type information has to be extracted from path
 	 * @return C++-string representation of bounded DBL Class Type
 	 */
-	protected def String genBoundType(Class element, boolean extractType){
+	protected def String genBoundType(Interface element, boolean extractType){
 		val it = element
 		var targetType = getBindings.findFirst[targetLanguage == simLibName]?.targetType
 		if (targetType !== null) targetType.genMappedClassType(extractType)
@@ -2040,7 +2060,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 			targetType = bindings.findFirst[targetLanguage == languageName]?.targetType
 			if (targetType !== null) targetType.genMappedClassType(extractType)
 			else '<!- type binding for library ' + simLibName + ' is missing for type ' + name + ' !>'
-		}		
+		}
 	}
 	/**
 	 * generates C++-string representation of bounded DBL Class Type. There is a difference between 
@@ -2103,7 +2123,7 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 */
 	private def String genClassPaths(Module m) {
 		'''
-			«FOR c:m.genClassSet.filter[getBindings.empty]» ../gen/«m.genPreciseName»/«c.genPreciseName».cpp«ENDFOR»
+			«FOR c:m.genClassSet» ../gen/«m.genPreciseName»/«c.genPreciseName».cpp«ENDFOR»
 		'''
 	}
 	/**
@@ -2115,9 +2135,12 @@ class BaseCPlusPlusGenerator extends AbstractGenerator {
 	 */
 	private def List<Class> genClassSet(Module m){
 		var List<Class> setClasses = newArrayList()
-		for (c:m.getClasses) {
-			val Class clazz = m.getClasses.findLast[name == c.name]
-			if(!setClasses.exists[name == c.name]) setClasses.add(clazz)
+		for (c:m.getClassifiers) {
+			val Classifier classifier = m.getClassifiers.findLast[name == c.name]
+			if (classifier instanceof Class) {
+				val Class dblClass = classifier as Class
+				if(!setClasses.exists[name == c.name]) setClasses.add(dblClass)
+			}
 		}
 		return setClasses
 	}

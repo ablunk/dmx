@@ -7,273 +7,170 @@
     <model href="ecore.xmi#/"/>
   </imports>
   <module name="dbl">
-    <classes name="Construct">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Construct"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="expandExpr">
-        <classifierType referencedElement="//@module/@classes.93"/>
-      </attributes>
+    <classifiers xsi:type="dbl:Interface" name="Construct">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getExpandExpr">
-        <classifierType referencedElement="//@module/@classes.93"/>
+        <classifierType referencedElement="//@module/@classifiers.95"/>
       </methods>
-    </classes>
-    <classes name="ExtensibleElement" superClasses="//@module/@classes.30 //@module/@classes.0">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensibleElement"/>
-      <attributes name="concreteSyntax">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="instanceOfExtensionDefinition">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Construct"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExtensibleElement" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.0">
       <methods name="getConcreteSyntax">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="isInstanceOfExtensionDefinition">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
-    </classes>
-    <classes name="Model">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Model"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="imports">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="module">
-        <classifierType referencedElement="//@module/@classes.4"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensibleElement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Model">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getImports">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getModule">
-        <classifierType referencedElement="//@module/@classes.4"/>
+        <classifierType referencedElement="//@module/@classifiers.4"/>
       </methods>
-    </classes>
-    <classes name="Import">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Import"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="file">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="model">
-        <classifierType referencedElement="//@module/@classes.2"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Model"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Import">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getFile">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getModel">
-        <classifierType referencedElement="//@module/@classes.2"/>
+        <classifierType referencedElement="//@module/@classifiers.2"/>
       </methods>
-    </classes>
-    <classes name="Module" superClasses="//@module/@classes.30 //@module/@classes.9 //@module/@classes.0">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Module"/>
-      <attributes name="classes">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Import"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Module" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.9 //@module/@classifiers.0">
+      <methods name="getClassifiers">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="extensions">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="extensionSemantics">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="functions">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="variables">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <methods name="getClasses">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getExtensions">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getExtensionSemantics">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getFunctions">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getVariables">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="Annotation" superClasses="//@module/@classes.30">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Annotation"/>
-      <attributes name="items">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Module"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Annotation" superInterfaces="//@module/@classifiers.34">
       <methods name="getItems">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="AnnotationItem">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotationItem"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="key">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="value">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Annotation"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AnnotationItem">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getKey">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getValue">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="AnnotateableElement">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotateableElement"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="annotations">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotationItem"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AnnotateableElement">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getAnnotations">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="ConstructiveExtension" superClasses="//@module/@classes.1">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotateableElement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ConstructiveExtension" superInterfaces="//@module/@classifiers.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ConstructiveExtension"/>
-    </classes>
-    <classes name="ConstructiveExtensionAtContentExtensionPoint">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="contentExtensions">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ConstructiveExtensionAtContentExtensionPoint">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getContentExtensions">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="ModuleContentExtension" superClasses="//@module/@classes.8">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ConstructiveExtensionAtContentExtensionPoint"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ModuleContentExtension" superInterfaces="//@module/@classifiers.8">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ModuleContentExtension"/>
-    </classes>
-    <classes name="ClassContentExtension" superClasses="//@module/@classes.8">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ClassContentExtension" superInterfaces="//@module/@classifiers.8">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ClassContentExtension"/>
-    </classes>
-    <classes name="Type">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Type"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="arrayDimensions">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Type">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getArrayDimensions">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="TypedElement">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.TypedElement"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="primitiveType">
-        <classifierType referencedElement="//@module/@classes.15"/>
-      </attributes>
-      <attributes name="typeArrayDimensions">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="classifierType">
-        <classifierType referencedElement="//@module/@classes.102"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Type"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TypedElement">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getPrimitiveType">
-        <classifierType referencedElement="//@module/@classes.15"/>
+        <classifierType referencedElement="//@module/@classifiers.15"/>
       </methods>
       <methods name="getTypeArrayDimensions">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getClassifierType">
-        <classifierType referencedElement="//@module/@classes.102"/>
+        <classifierType referencedElement="//@module/@classifiers.104"/>
       </methods>
-    </classes>
-    <classes name="ArrayDimension">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ArrayDimension"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="size">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.TypedElement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ArrayDimension">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getSize">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="PrimitiveType" superClasses="//@module/@classes.12">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ArrayDimension"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="PrimitiveType" superInterfaces="//@module/@classifiers.12">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PrimitiveType"/>
-    </classes>
-    <classes name="VoidType" superClasses="//@module/@classes.15">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="VoidType" superInterfaces="//@module/@classifiers.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.VoidType"/>
-    </classes>
-    <classes name="IntType" superClasses="//@module/@classes.15">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IntType" superInterfaces="//@module/@classifiers.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntType"/>
-    </classes>
-    <classes name="BoolType" superClasses="//@module/@classes.15">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="BoolType" superInterfaces="//@module/@classifiers.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BoolType"/>
-    </classes>
-    <classes name="DoubleType" superClasses="//@module/@classes.15">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="DoubleType" superInterfaces="//@module/@classifiers.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleType"/>
-    </classes>
-    <classes name="StringType" superClasses="//@module/@classes.15">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="StringType" superInterfaces="//@module/@classifiers.15">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringType"/>
-    </classes>
-    <classes name="Function" superClasses="//@module/@classes.30 //@module/@classes.13 //@module/@classes.47">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Function"/>
-      <attributes name="parameters">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="class">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="abstract">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="detached">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Function" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.13 //@module/@classifiers.50">
       <methods name="getParameters">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="isClass">
@@ -285,777 +182,541 @@
       <methods name="isDetached">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
-    </classes>
-    <classes name="NativeBinding">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.NativeBinding"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="targetLanguage">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="targetType">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Function"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="NativeBinding">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getTargetLanguage">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getTargetType">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="NativeType" superClasses="//@module/@classes.12">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.NativeType"/>
-      <attributes name="bindings">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.NativeBinding"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="NativeType" superInterfaces="//@module/@classifiers.12">
       <methods name="getBindings">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="Class" superClasses="//@module/@classes.30 //@module/@classes.23 //@module/@classes.9 //@module/@classes.113 //@module/@classes.0 //@module/@classes.7">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Class"/>
-      <attributes name="active">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="superClasses">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.NativeType"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Classifier" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.9 //@module/@classifiers.115 //@module/@classifiers.0 //@module/@classifiers.7">
+      <methods name="getSuperInterfaces">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="constructors">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="attributes">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="methods">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="actionsBlock">
-        <classifierType referencedElement="//@module/@classes.47"/>
-      </attributes>
-      <methods name="isActive">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
-      <methods name="getSuperClasses">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </methods>
-      <methods name="getConstructors">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getAttributes">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
+        </classifierType>
+      </methods>
+      <methods name="getConstructors">
+        <classifierType>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getMethods">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Classifier"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Interface" superInterfaces="//@module/@classifiers.24 //@module/@classifiers.23">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Interface"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Class" superInterfaces="//@module/@classifiers.24">
+      <methods name="getSuperClass">
+        <classifierType referencedElement="//@module/@classifiers.26"/>
+      </methods>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Class"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ActiveClass" superInterfaces="//@module/@classifiers.26">
       <methods name="getActionsBlock">
-        <classifierType referencedElement="//@module/@classes.47"/>
+        <classifierType referencedElement="//@module/@classifiers.50"/>
       </methods>
-    </classes>
-    <classes name="Constructor" superClasses="//@module/@classes.47">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Constructor"/>
-      <attributes name="initializers">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="parameters">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="owningClass">
-        <classifierType referencedElement="//@module/@classes.24"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ActiveClass"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Constructor" superInterfaces="//@module/@classifiers.50">
       <methods name="getInitializers">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getParameters">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getOwningClass">
-        <classifierType referencedElement="//@module/@classes.24"/>
+        <classifierType referencedElement="//@module/@classifiers.24"/>
       </methods>
-    </classes>
-    <classes name="SuperObjectInitializer">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperObjectInitializer"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="class">
-        <classifierType referencedElement="//@module/@classes.24"/>
-      </attributes>
-      <attributes name="arguments">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Constructor"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SuperObjectInitializer">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getClass">
-        <classifierType referencedElement="//@module/@classes.24"/>
+        <classifierType referencedElement="//@module/@classifiers.26"/>
       </methods>
       <methods name="getArguments">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="AbstractVariable" superClasses="//@module/@classes.30 //@module/@classes.13 //@module/@classes.7">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperObjectInitializer"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AbstractVariable" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.13 //@module/@classifiers.7">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AbstractVariable"/>
-    </classes>
-    <classes name="Variable" superClasses="//@module/@classes.27 //@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Variable"/>
-      <attributes name="control">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="class">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="initialValue">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <methods name="isControl">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Variable" superInterfaces="//@module/@classifiers.30 //@module/@classifiers.37">
       <methods name="isClass">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getInitialValue">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="Parameter" superClasses="//@module/@classes.27">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Variable"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ControlVariable" superInterfaces="//@module/@classifiers.31">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ControlVariable"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Parameter" superInterfaces="//@module/@classifiers.30">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Parameter"/>
-    </classes>
-    <classes name="NamedElement">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.NamedElement"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="name">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="NamedElement">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getName">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="Statement" superClasses="//@module/@classes.1 //@module/@classes.7">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.NamedElement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Statement" superInterfaces="//@module/@classifiers.1 //@module/@classifiers.7">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Statement"/>
-    </classes>
-    <classes name="LoopStatement" superClasses="//@module/@classes.31">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="LoopStatement" superInterfaces="//@module/@classifiers.35">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LoopStatement"/>
-    </classes>
-    <classes name="SimpleStatement" superClasses="//@module/@classes.31">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SimpleStatement" superInterfaces="//@module/@classifiers.35">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SimpleStatement"/>
-    </classes>
-    <classes name="Assignment" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Assignment"/>
-      <attributes name="variable">
-        <classifierType referencedElement="//@module/@classes.105"/>
-      </attributes>
-      <attributes name="value">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Assignment" superInterfaces="//@module/@classifiers.37">
       <methods name="getVariable">
-        <classifierType referencedElement="//@module/@classes.105"/>
+        <classifierType referencedElement="//@module/@classifiers.107"/>
       </methods>
       <methods name="getValue">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="FunctionCall" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.FunctionCall"/>
-      <attributes name="callIdExpr">
-        <classifierType referencedElement="//@module/@classes.102"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Assignment"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="FunctionCall" superInterfaces="//@module/@classifiers.37">
       <methods name="getCallIdExpr">
-        <classifierType referencedElement="//@module/@classes.102"/>
+        <classifierType referencedElement="//@module/@classifiers.104"/>
       </methods>
-    </classes>
-    <classes name="Return" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Return"/>
-      <attributes name="value">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.FunctionCall"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Return" superInterfaces="//@module/@classifiers.37">
       <methods name="getValue">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="WaitUntil" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.WaitUntil"/>
-      <attributes name="condition">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Return"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="WaitUntil" superInterfaces="//@module/@classifiers.37">
       <methods name="getCondition">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="Terminate" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Terminate"/>
-    </classes>
-    <classes name="Yield" superClasses="//@module/@classes.33">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.WaitUntil"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Yield" superInterfaces="//@module/@classifiers.37">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Yield"/>
-    </classes>
-    <classes name="YieldTo" superClasses="//@module/@classes.33">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="YieldTo" superInterfaces="//@module/@classifiers.37">
+      <methods name="getObjectAccess">
+        <classifierType referencedElement="//@module/@classifiers.58"/>
+      </methods>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.YieldTo"/>
-      <attributes name="objectAccess">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <methods name="getObjectAccess">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </methods>
-    </classes>
-    <classes name="Wait" superClasses="//@module/@classes.33">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Wait" superInterfaces="//@module/@classifiers.37">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Wait"/>
-    </classes>
-    <classes name="Reactivate" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Reactivate"/>
-      <attributes name="objectAccess">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Reactivate" superInterfaces="//@module/@classifiers.37">
       <methods name="getObjectAccess">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="ActivateObject" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ActivateObject"/>
-      <attributes name="objectAccess">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="priority_">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Reactivate"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ActivateObject" superInterfaces="//@module/@classifiers.37">
       <methods name="getObjectAccess">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getPriority_">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
-    </classes>
-    <classes name="Advance" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Advance"/>
-      <attributes name="time">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ActivateObject"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Advance" superInterfaces="//@module/@classifiers.37">
       <methods name="getTime">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="Print" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Print"/>
-      <attributes name="outputs">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Advance"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Print" superInterfaces="//@module/@classifiers.37">
       <methods name="getOutputs">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="IfStatement" superClasses="//@module/@classes.31">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.IfStatement"/>
-      <attributes name="condition">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="trueCase">
-        <classifierType referencedElement="//@module/@classes.31"/>
-      </attributes>
-      <attributes name="falseCase">
-        <classifierType referencedElement="//@module/@classes.31"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Print"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IfStatement" superInterfaces="//@module/@classifiers.35">
       <methods name="getCondition">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getTrueCase">
-        <classifierType referencedElement="//@module/@classes.31"/>
+        <classifierType referencedElement="//@module/@classifiers.35"/>
       </methods>
       <methods name="getFalseCase">
-        <classifierType referencedElement="//@module/@classes.31"/>
+        <classifierType referencedElement="//@module/@classifiers.35"/>
       </methods>
-    </classes>
-    <classes name="LocalScope">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScope"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="statements">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.IfStatement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="LocalScope">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getStatements">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="LocalScopeStatement" superClasses="//@module/@classes.33 //@module/@classes.47">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScope"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="LocalScopeStatement" superInterfaces="//@module/@classifiers.37 //@module/@classifiers.50">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LocalScopeStatement"/>
-    </classes>
-    <classes name="ForStatement" superClasses="//@module/@classes.32 //@module/@classes.47">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ForStatement"/>
-      <attributes name="termination">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="increment">
-        <classifierType referencedElement="//@module/@classes.34"/>
-      </attributes>
-      <attributes name="body">
-        <classifierType referencedElement="//@module/@classes.31"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ForStatement" superInterfaces="//@module/@classifiers.36 //@module/@classifiers.50">
       <methods name="getTermination">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getIncrement">
-        <classifierType referencedElement="//@module/@classes.34"/>
+        <classifierType referencedElement="//@module/@classifiers.38"/>
       </methods>
       <methods name="getBody">
-        <classifierType referencedElement="//@module/@classes.31"/>
+        <classifierType referencedElement="//@module/@classifiers.35"/>
       </methods>
-    </classes>
-    <classes name="WhileStatement" superClasses="//@module/@classes.32">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.WhileStatement"/>
-      <attributes name="condition">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="body">
-        <classifierType referencedElement="//@module/@classes.31"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ForStatement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="WhileStatement" superInterfaces="//@module/@classifiers.36">
       <methods name="getCondition">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getBody">
-        <classifierType referencedElement="//@module/@classes.31"/>
+        <classifierType referencedElement="//@module/@classifiers.35"/>
       </methods>
-    </classes>
-    <classes name="SwitchStatement" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchStatement"/>
-      <attributes name="variable">
-        <classifierType referencedElement="//@module/@classes.105"/>
-      </attributes>
-      <attributes name="cases">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="defaultCase">
-        <classifierType referencedElement="//@module/@classes.52"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.WhileStatement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SwitchStatement" superInterfaces="//@module/@classifiers.37">
       <methods name="getVariable">
-        <classifierType referencedElement="//@module/@classes.105"/>
+        <classifierType referencedElement="//@module/@classifiers.107"/>
       </methods>
       <methods name="getCases">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getDefaultCase">
-        <classifierType referencedElement="//@module/@classes.52"/>
+        <classifierType referencedElement="//@module/@classifiers.55"/>
       </methods>
-    </classes>
-    <classes name="SwitchCase">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchCase"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="value">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="body">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchStatement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SwitchCase">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getValue">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getBody">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="BreakStatement" superClasses="//@module/@classes.33">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.SwitchCase"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="BreakStatement" superInterfaces="//@module/@classifiers.37">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.BreakStatement"/>
-    </classes>
-    <classes name="ContinueStatement" superClasses="//@module/@classes.33">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ContinueStatement" superInterfaces="//@module/@classifiers.37">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ContinueStatement"/>
-    </classes>
-    <classes name="Expression" superClasses="//@module/@classes.13 //@module/@classes.1">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Expression" superInterfaces="//@module/@classifiers.13 //@module/@classifiers.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Expression"/>
-    </classes>
-    <classes name="L1Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L1Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L1Expr"/>
-    </classes>
-    <classes name="L2Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L2Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L2Expr"/>
-    </classes>
-    <classes name="L3Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L3Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L3Expr"/>
-    </classes>
-    <classes name="L4Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L4Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L4Expr"/>
-    </classes>
-    <classes name="L5Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L5Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L5Expr"/>
-    </classes>
-    <classes name="L6Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L6Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L6Expr"/>
-    </classes>
-    <classes name="L7Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L7Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L7Expr"/>
-    </classes>
-    <classes name="L8Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L8Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L8Expr"/>
-    </classes>
-    <classes name="L9Expr" superClasses="//@module/@classes.55">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L9Expr" superInterfaces="//@module/@classifiers.58">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L9Expr"/>
-    </classes>
-    <classes name="BinaryOperator" superClasses="//@module/@classes.55">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.BinaryOperator"/>
-      <attributes name="op1">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="op2">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="BinaryOperator" superInterfaces="//@module/@classifiers.58">
       <methods name="getOp1">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getOp2">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="UnaryOperator" superClasses="//@module/@classes.55">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.UnaryOperator"/>
-      <attributes name="op">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.BinaryOperator"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="UnaryOperator" superInterfaces="//@module/@classifiers.58">
       <methods name="getOp">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="Or" superClasses="//@module/@classes.65 //@module/@classes.63">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.UnaryOperator"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Or" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.66">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Or"/>
-    </classes>
-    <classes name="And" superClasses="//@module/@classes.65 //@module/@classes.62">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="And" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.65">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.And"/>
-    </classes>
-    <classes name="NotEqual" superClasses="//@module/@classes.65 //@module/@classes.61">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="NotEqual" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.64">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NotEqual"/>
-    </classes>
-    <classes name="Equal" superClasses="//@module/@classes.65 //@module/@classes.61">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Equal" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.64">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Equal"/>
-    </classes>
-    <classes name="Greater" superClasses="//@module/@classes.65 //@module/@classes.60">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Greater" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.63">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Greater"/>
-    </classes>
-    <classes name="GreaterEqual" superClasses="//@module/@classes.65 //@module/@classes.60">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="GreaterEqual" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.63">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.GreaterEqual"/>
-    </classes>
-    <classes name="Less" superClasses="//@module/@classes.65 //@module/@classes.60">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Less" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.63">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Less"/>
-    </classes>
-    <classes name="LessEqual" superClasses="//@module/@classes.65 //@module/@classes.60">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="LessEqual" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.63">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.LessEqual"/>
-    </classes>
-    <classes name="InstanceOf" superClasses="//@module/@classes.65 //@module/@classes.60">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="InstanceOf" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.63">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.InstanceOf"/>
-    </classes>
-    <classes name="Plus" superClasses="//@module/@classes.65 //@module/@classes.59">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Plus" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.62">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Plus"/>
-    </classes>
-    <classes name="Minus" superClasses="//@module/@classes.65 //@module/@classes.59">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Minus" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.62">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Minus"/>
-    </classes>
-    <classes name="Mul" superClasses="//@module/@classes.65 //@module/@classes.58">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Mul" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.61">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mul"/>
-    </classes>
-    <classes name="Mod" superClasses="//@module/@classes.65 //@module/@classes.58">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Mod" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.61">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Mod"/>
-    </classes>
-    <classes name="Div" superClasses="//@module/@classes.65 //@module/@classes.58">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Div" superInterfaces="//@module/@classifiers.68 //@module/@classifiers.61">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Div"/>
-    </classes>
-    <classes name="Neg" superClasses="//@module/@classes.66 //@module/@classes.57">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Neg" superInterfaces="//@module/@classifiers.69 //@module/@classifiers.60">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Neg"/>
-    </classes>
-    <classes name="Not" superClasses="//@module/@classes.66 //@module/@classes.57">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Not" superInterfaces="//@module/@classifiers.69 //@module/@classifiers.60">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Not"/>
-    </classes>
-    <classes name="Cast" superClasses="//@module/@classes.66 //@module/@classes.13 //@module/@classes.57">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Cast" superInterfaces="//@module/@classifiers.69 //@module/@classifiers.13 //@module/@classifiers.60">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Cast"/>
-    </classes>
-    <classes name="CreateObject" superClasses="//@module/@classes.56 //@module/@classes.13">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="CreateObject" superInterfaces="//@module/@classifiers.59 //@module/@classifiers.13">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CreateObject"/>
-    </classes>
-    <classes name="NullLiteral" superClasses="//@module/@classes.56">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="NullLiteral" superInterfaces="//@module/@classifiers.59">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.NullLiteral"/>
-    </classes>
-    <classes name="TimeLiteral" superClasses="//@module/@classes.56">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TimeLiteral" superInterfaces="//@module/@classifiers.59">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TimeLiteral"/>
-    </classes>
-    <classes name="ActiveLiteral" superClasses="//@module/@classes.56">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ActiveLiteral"/>
-    </classes>
-    <classes name="StringLiteral" superClasses="//@module/@classes.56">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="StringLiteral" superInterfaces="//@module/@classifiers.59">
+      <methods name="getValue">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </methods>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringLiteral"/>
-      <attributes name="value">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IntLiteral" superInterfaces="//@module/@classifiers.59">
       <methods name="getValue">
-        <primitiveType xsi:type="dbl:StringType"/>
+        <primitiveType xsi:type="dbl:IntType"/>
       </methods>
-    </classes>
-    <classes name="IntLiteral" superClasses="//@module/@classes.56">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntLiteral"/>
-      <attributes name="value">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
-      <methods name="getValue">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </methods>
-    </classes>
-    <classes name="TrueLiteral" superClasses="//@module/@classes.56">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TrueLiteral" superInterfaces="//@module/@classifiers.59">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TrueLiteral"/>
-    </classes>
-    <classes name="FalseLiteral" superClasses="//@module/@classes.56">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="FalseLiteral" superInterfaces="//@module/@classifiers.59">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.FalseLiteral"/>
-    </classes>
-    <classes name="DoubleLiteral" superClasses="//@module/@classes.56">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleLiteral"/>
-      <attributes name="value">
-        <primitiveType xsi:type="dbl:DoubleType"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="DoubleLiteral" superInterfaces="//@module/@classifiers.59">
       <methods name="getValue">
         <primitiveType xsi:type="dbl:DoubleType"/>
       </methods>
-    </classes>
-    <classes name="ExpandExpr" superClasses="//@module/@classes.55">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpr"/>
-      <attributes name="expr">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.DoubleLiteral"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandExpr" superInterfaces="//@module/@classifiers.58">
       <methods name="getExpr">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="ParseExpr" superClasses="//@module/@classes.55">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ParseExpr"/>
-      <attributes name="astPart">
-        <classifierType referencedElement="//@module/@classes.0"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ParseExpr" superInterfaces="//@module/@classifiers.58">
       <methods name="getAstPart">
-        <classifierType referencedElement="//@module/@classes.0"/>
+        <classifierType referencedElement="//@module/@classifiers.0"/>
       </methods>
-    </classes>
-    <classes name="PredefinedId">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ParseExpr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="PredefinedId">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.PredefinedId"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-    </classes>
-    <classes name="MeLiteral" superClasses="//@module/@classes.95">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MeLiteral" superInterfaces="//@module/@classifiers.97">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MeLiteral"/>
-    </classes>
-    <classes name="SuperLiteral" superClasses="//@module/@classes.95">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SuperLiteral" superInterfaces="//@module/@classifiers.97">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SuperLiteral"/>
-    </classes>
-    <classes name="MetaLiteral" superClasses="//@module/@classes.95">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MetaLiteral" superInterfaces="//@module/@classifiers.97">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaLiteral"/>
-    </classes>
-    <classes name="TypeLiteral" superClasses="//@module/@classes.95">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TypeLiteral" superInterfaces="//@module/@classifiers.97">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypeLiteral"/>
-    </classes>
-    <classes name="SizeOfArray" superClasses="//@module/@classes.95">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SizeOfArray" superInterfaces="//@module/@classifiers.97">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SizeOfArray"/>
-    </classes>
-    <classes name="AnnotationLiteral" superClasses="//@module/@classes.95 //@module/@classes.5">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="AnnotationLiteral" superInterfaces="//@module/@classifiers.97 //@module/@classifiers.5">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.AnnotationLiteral"/>
-    </classes>
-    <classes name="IdExpr" superClasses="//@module/@classes.56">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.IdExpr"/>
-      <attributes name="parentIdExpr">
-        <classifierType referencedElement="//@module/@classes.102"/>
-      </attributes>
-      <attributes name="referencedElement">
-        <classifierType referencedElement="//@module/@classes.30"/>
-      </attributes>
-      <attributes name="predefinedId">
-        <classifierType referencedElement="//@module/@classes.95"/>
-      </attributes>
-      <attributes name="arrayIndex">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="callPart">
-        <classifierType referencedElement="//@module/@classes.103"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IdExpr" superInterfaces="//@module/@classifiers.59">
       <methods name="getParentIdExpr">
-        <classifierType referencedElement="//@module/@classes.102"/>
+        <classifierType referencedElement="//@module/@classifiers.104"/>
       </methods>
       <methods name="getReferencedElement">
-        <classifierType referencedElement="//@module/@classes.30"/>
+        <classifierType referencedElement="//@module/@classifiers.34"/>
       </methods>
       <methods name="getPredefinedId">
-        <classifierType referencedElement="//@module/@classes.95"/>
+        <classifierType referencedElement="//@module/@classifiers.97"/>
       </methods>
       <methods name="getArrayIndex">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getCallPart">
-        <classifierType referencedElement="//@module/@classes.103"/>
+        <classifierType referencedElement="//@module/@classifiers.105"/>
       </methods>
-    </classes>
-    <classes name="CallPart">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.CallPart"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-      <attributes name="callArguments">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.IdExpr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="CallPart">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <methods name="getCallArguments">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="ElementAccess" superClasses="//@module/@classes.55">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementAccess"/>
-      <attributes name="idExpr">
-        <classifierType referencedElement="//@module/@classes.102"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.CallPart"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ElementAccess" superInterfaces="//@module/@classifiers.58">
       <methods name="getIdExpr">
-        <classifierType referencedElement="//@module/@classes.102"/>
+        <classifierType referencedElement="//@module/@classifiers.104"/>
       </methods>
-    </classes>
-    <classes name="VariableAccess" superClasses="//@module/@classes.104">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementAccess"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="VariableAccess" superInterfaces="//@module/@classifiers.106">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.VariableAccess"/>
-    </classes>
-    <classes name="MetaAccess" superClasses="//@module/@classes.105">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MetaAccess" superInterfaces="//@module/@classifiers.107">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaAccess"/>
-    </classes>
-    <classes name="TypeAccess" superClasses="//@module/@classes.104">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TypeAccess" superInterfaces="//@module/@classifiers.106">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.TypeAccess"/>
-    </classes>
-    <classes name="Extension" superClasses="//@module/@classes.113 //@module/@classes.1">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Extension"/>
-      <attributes name="extensionPoint">
-        <classifierType referencedElement="//@module/@classes.113"/>
-      </attributes>
-      <attributes name="syntaxDefinition">
-        <classifierType referencedElement="//@module/@classes.110"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Extension" superInterfaces="//@module/@classifiers.115 //@module/@classifiers.1">
       <methods name="getExtensionPoint">
-        <classifierType referencedElement="//@module/@classes.113"/>
+        <classifierType referencedElement="//@module/@classifiers.115"/>
       </methods>
       <methods name="getSyntaxDefinition">
-        <classifierType referencedElement="//@module/@classes.110"/>
+        <classifierType referencedElement="//@module/@classifiers.112"/>
       </methods>
-    </classes>
-    <classes name="ExtensionSemantics" superClasses="//@module/@classes.1 //@module/@classes.47">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Extension"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExtensionSemantics" superInterfaces="//@module/@classifiers.1 //@module/@classifiers.50">
+      <methods name="getSyntaxDefinition">
+        <classifierType referencedElement="//@module/@classifiers.110"/>
+      </methods>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExtensionSemantics"/>
-      <attributes name="syntaxDefinition">
-        <classifierType referencedElement="//@module/@classes.108"/>
-      </attributes>
-      <methods name="getSyntaxDefinition">
-        <classifierType referencedElement="//@module/@classes.108"/>
-      </methods>
-    </classes>
-    <classes name="SyntaxDefinition" superClasses="//@module/@classes.1">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxDefinition"/>
-      <attributes name="startSymbol">
-        <classifierType referencedElement="//@module/@classes.114"/>
-      </attributes>
-      <attributes name="symbols">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SyntaxDefinition" superInterfaces="//@module/@classifiers.1">
       <methods name="getStartSymbol">
-        <classifierType referencedElement="//@module/@classes.114"/>
+        <classifierType referencedElement="//@module/@classifiers.116"/>
       </methods>
       <methods name="getSymbols">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="SyntaxSymbolClassifier" superClasses="//@module/@classes.30 //@module/@classes.1">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxDefinition"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SyntaxSymbolClassifier" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.1">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxSymbolClassifier"/>
-    </classes>
-    <classes name="ComplexSymbol" superClasses="//@module/@classes.111">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ComplexSymbol" superInterfaces="//@module/@classifiers.113">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ComplexSymbol"/>
-    </classes>
-    <classes name="Concept" superClasses="//@module/@classes.112">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Concept" superInterfaces="//@module/@classifiers.114">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.Concept"/>
-    </classes>
-    <classes name="MetaSymbol" superClasses="//@module/@classes.30 //@module/@classes.112">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaSymbol"/>
-      <attributes name="possibleSyntax">
-        <classifierType referencedElement="//@module/@classes.115"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MetaSymbol" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.114">
       <methods name="getPossibleSyntax">
-        <classifierType referencedElement="//@module/@classes.115"/>
+        <classifierType referencedElement="//@module/@classifiers.117"/>
       </methods>
-    </classes>
-    <classes name="SyntaxExpression">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaSymbol"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SyntaxExpression">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.SyntaxExpression"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-    </classes>
-    <classes name="L3SyntaxExpression" superClasses="//@module/@classes.115">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L3SyntaxExpression" superInterfaces="//@module/@classifiers.117">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L3SyntaxExpression"/>
-    </classes>
-    <classes name="L2SyntaxExpression" superClasses="//@module/@classes.115">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L2SyntaxExpression" superInterfaces="//@module/@classifiers.117">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L2SyntaxExpression"/>
-    </classes>
-    <classes name="SymbolSequence" superClasses="//@module/@classes.117">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.SymbolSequence"/>
-      <attributes name="sequence">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SymbolSequence" superInterfaces="//@module/@classifiers.119">
       <methods name="getSequence">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="L1SyntaxExpression" superClasses="//@module/@classes.115">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.SymbolSequence"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="L1SyntaxExpression" superInterfaces="//@module/@classifiers.117">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.L1SyntaxExpression"/>
-    </classes>
-    <classes name="StructuralSymbolReference" superClasses="//@module/@classes.30 //@module/@classes.121">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.StructuralSymbolReference"/>
-      <attributes name="list">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="composite">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="localScopedReference">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="globalScopedReference">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="StructuralSymbolReference" superInterfaces="//@module/@classifiers.34 //@module/@classifiers.123">
       <methods name="isList">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -1068,233 +729,147 @@
       <methods name="isGlobalScopedReference">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
-    </classes>
-    <classes name="PlainSymbolReference" superClasses="//@module/@classes.119">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.PlainSymbolReference"/>
-      <attributes name="classifier">
-        <classifierType referencedElement="//@module/@classes.111"/>
-      </attributes>
-      <attributes name="ownedClassifier">
-        <classifierType referencedElement="//@module/@classes.111"/>
-      </attributes>
-      <attributes name="referencedClassifier">
-        <classifierType referencedElement="//@module/@classes.111"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.StructuralSymbolReference"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="PlainSymbolReference" superInterfaces="//@module/@classifiers.121">
       <methods name="getClassifier">
-        <classifierType referencedElement="//@module/@classes.111"/>
+        <classifierType referencedElement="//@module/@classifiers.113"/>
       </methods>
       <methods name="getOwnedClassifier">
-        <classifierType referencedElement="//@module/@classes.111"/>
+        <classifierType referencedElement="//@module/@classifiers.113"/>
       </methods>
       <methods name="getReferencedClassifier">
-        <classifierType referencedElement="//@module/@classes.111"/>
+        <classifierType referencedElement="//@module/@classifiers.113"/>
       </methods>
-    </classes>
-    <classes name="ElementarySymbol" superClasses="//@module/@classes.111">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.PlainSymbolReference"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ElementarySymbol" superInterfaces="//@module/@classifiers.113">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ElementarySymbol"/>
-    </classes>
-    <classes name="IdSymbol" superClasses="//@module/@classes.122">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IdSymbol" superInterfaces="//@module/@classifiers.124">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IdSymbol"/>
-    </classes>
-    <classes name="IntSymbol" superClasses="//@module/@classes.122">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="IntSymbol" superInterfaces="//@module/@classifiers.124">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.IntSymbol"/>
-    </classes>
-    <classes name="StringSymbol" superClasses="//@module/@classes.122">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="StringSymbol" superInterfaces="//@module/@classifiers.124">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.StringSymbol"/>
-    </classes>
-    <classes name="Keyword" superClasses="//@module/@classes.122">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Keyword"/>
-      <attributes name="keyword">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Keyword" superInterfaces="//@module/@classifiers.124">
       <methods name="getKeyword">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="MetaExpr" superClasses="//@module/@classes.55">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaExpr"/>
-      <attributes name="expr">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Keyword"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="MetaExpr" superInterfaces="//@module/@classifiers.58">
       <methods name="getExpr">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="TargetStatement" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.TargetStatement"/>
-      <attributes name="body">
-        <classifierType referencedElement="//@module/@classes.31"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.MetaExpr"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TargetStatement" superInterfaces="//@module/@classifiers.37">
       <methods name="getBody">
-        <classifierType referencedElement="//@module/@classes.31"/>
+        <classifierType referencedElement="//@module/@classifiers.35"/>
       </methods>
-    </classes>
-    <classes name="CreateIdStatement" superClasses="//@module/@classes.28">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.TargetStatement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="CreateIdStatement" superInterfaces="//@module/@classifiers.31">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.CreateIdStatement"/>
-    </classes>
-    <classes name="ExpansionStatement" superClasses="//@module/@classes.33">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpansionStatement"/>
-      <attributes name="classContext">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="functionContext">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="variableContext">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="differingContext">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="parts">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <attributes name="exprs">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
-      <methods name="isClassContext">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
-      <methods name="isFunctionContext">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
-      <methods name="isVariableContext">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpansionStatement" superInterfaces="//@module/@classifiers.37">
       <methods name="getDifferingContext">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getParts">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
       <methods name="getExprs">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="ExpansionPart">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpansionStatement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpansionPart">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpansionPart"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-    </classes>
-    <classes name="ExpandTextPart" superClasses="//@module/@classes.131">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandTextPart"/>
-      <attributes name="text">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandTextPart" superInterfaces="//@module/@classifiers.133">
       <methods name="getText">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="ExpandVariablePart" superClasses="//@module/@classes.131">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandVariablePart"/>
-      <attributes name="expr">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandTextPart"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandVariablePart" superInterfaces="//@module/@classifiers.133">
       <methods name="getExpr">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="ExpandExpression" superClasses="//@module/@classes.55">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandVariablePart"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandExpression" superInterfaces="//@module/@classifiers.58">
+      <methods name="getMetaObject">
+        <classifierType referencedElement="//@module/@classifiers.58"/>
+      </methods>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandExpression"/>
-      <attributes name="metaObject">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ExpandStatement" superInterfaces="//@module/@classifiers.35">
       <methods name="getMetaObject">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </methods>
-    </classes>
-    <classes name="ExpandStatement" superClasses="//@module/@classes.31">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandStatement"/>
-      <attributes name="metaObject">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <attributes name="location">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
-      <methods name="getMetaObject">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
       <methods name="getLocation">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="CodeQuoteExpression" superClasses="//@module/@classes.55">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.CodeQuoteExpression"/>
-      <attributes name="quotedCode">
-        <classifierType referencedElement="//@module/@classes.137"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.ExpandStatement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="CodeQuoteExpression" superInterfaces="//@module/@classifiers.58">
       <methods name="getQuotedCode">
-        <classifierType referencedElement="//@module/@classes.137"/>
+        <classifierType referencedElement="//@module/@classifiers.139"/>
       </methods>
-    </classes>
-    <classes name="QuotedCode">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.CodeQuoteExpression"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedCode">
+      <superInterfaces href="ecore.xmi#//@module/@classifiers.13"/>
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedCode"/>
-      <superClasses href="ecore.xmi#//@module/@classes.13"/>
-    </classes>
-    <classes name="QuotedExpression" superClasses="//@module/@classes.137">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedExpression"/>
-      <attributes name="expression">
-        <classifierType referencedElement="//@module/@classes.55"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedExpression" superInterfaces="//@module/@classifiers.139">
       <methods name="getExpression">
-        <classifierType referencedElement="//@module/@classes.55"/>
+        <classifierType referencedElement="//@module/@classifiers.58"/>
       </methods>
-    </classes>
-    <classes name="QuotedStatements" superClasses="//@module/@classes.137">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedStatements"/>
-      <attributes name="statements">
-        <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
-        </classifierType>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedExpression"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedStatements" superInterfaces="//@module/@classifiers.139">
       <methods name="getStatements">
         <classifierType>
-          <referencedElement href="ecore.xmi#//@module/@classes.12"/>
+          <referencedElement href="ecore.xmi#//@module/@classifiers.12"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="QuotedClassContent" superClasses="//@module/@classes.137 //@module/@classes.24">
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedStatements"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedClassContent" superInterfaces="//@module/@classifiers.139 //@module/@classifiers.26">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedClassContent"/>
-    </classes>
-    <classes name="QuotedModuleContent" superClasses="//@module/@classes.137 //@module/@classes.4">
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="QuotedModuleContent" superInterfaces="//@module/@classifiers.139 //@module/@classifiers.4">
       <bindings targetLanguage="java" targetType="hub.sam.dbl.QuotedModuleContent"/>
-    </classes>
-    <classes name="Pattern" superClasses="//@module/@classes.30">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.Pattern"/>
-      <attributes name="top">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="context">
-        <classifierType referencedElement="//@module/@classes.29"/>
-      </attributes>
-      <attributes name="body">
-        <classifierType referencedElement="//@module/@classes.31"/>
-      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Pattern" superInterfaces="//@module/@classifiers.34">
       <methods name="isTop">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getContext">
-        <classifierType referencedElement="//@module/@classes.29"/>
+        <classifierType referencedElement="//@module/@classifiers.33"/>
       </methods>
       <methods name="getBody">
-        <classifierType referencedElement="//@module/@classes.31"/>
+        <classifierType referencedElement="//@module/@classifiers.35"/>
       </methods>
-    </classes>
-    <classes name="TestStatement" superClasses="//@module/@classes.31">
-      <bindings targetLanguage="java" targetType="hub.sam.dbl.TestStatement"/>
-      <attributes name="value">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.Pattern"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="TestStatement" superInterfaces="//@module/@classifiers.35">
       <methods name="getValue">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
-    </classes>
+      <bindings targetLanguage="java" targetType="hub.sam.dbl.TestStatement"/>
+    </classifiers>
   </module>
 </dbl:Model>

@@ -39,6 +39,7 @@ import org.eclipse.emf.ecore.EStructuralFeature
 import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.util.EcoreUtil
+import hub.sam.dbl.Classifier
 
 class DuplicatedMetaSymbolsContainer {
 	public var Collection<MetaSymbol> symbols = new HashSet<MetaSymbol>();
@@ -177,9 +178,9 @@ class ExtensionSyntaxDefinitionProcessor {
 		return nonTerminal
 	}
 	
-	private def dispatch NonTerminal createNonTerminal(Class clazz) {
+	private def dispatch NonTerminal createNonTerminal(Classifier classifier) {
 		val nonTerminal = TslFactory.eINSTANCE.createNonTerminal()
-		nonTerminal.setName(clazz.syntaxSymbolName)
+		nonTerminal.setName(classifier.syntaxSymbolName)
 		return nonTerminal
 	}
 	
@@ -200,8 +201,8 @@ class ExtensionSyntaxDefinitionProcessor {
 		return extDef.name + "_" + extDef.syntaxDefinition.startSymbol.name + "_extension"
 	}
 
-	private def dispatch String getSyntaxSymbolName(Class clazz) {
-		return clazz.name
+	private def dispatch String getSyntaxSymbolName(Classifier classifier) {
+		return classifier.name
 	}
 
 	private def void processAllMetaSymbolsWithEqualNames(MetaSymbol newSymbol, EClass metaClass, Stack<MetaSymbol> symbolStack) {
@@ -246,12 +247,12 @@ class ExtensionSyntaxDefinitionProcessor {
 			while (conceptClassifier instanceof Extension) {
 				conceptClassifier = (conceptClassifier as Extension).extensionPoint
 			}
-			_instantiableDblEClass = (conceptClassifier as Class).metaClass
+			_instantiableDblEClass = (conceptClassifier as Classifier).metaClass
 		}
 		return _instantiableDblEClass;
 	}
 	
-	private def dispatch EClass getMetaClass(Class concept) {
+	private def dispatch EClass getMetaClass(Classifier concept) {
 		return _getMetaClass_general(concept.syntaxSymbolName, concept)
 	}
 	

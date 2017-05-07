@@ -17,6 +17,7 @@ import hub.sam.dbl.BreakStatement;
 import hub.sam.dbl.CallPart;
 import hub.sam.dbl.Cast;
 import hub.sam.dbl.ClassContentExtension;
+import hub.sam.dbl.Classifier;
 import hub.sam.dbl.CodeQuoteExpression;
 import hub.sam.dbl.ComplexSymbol;
 import hub.sam.dbl.Concept;
@@ -57,6 +58,7 @@ import hub.sam.dbl.InstanceOf;
 import hub.sam.dbl.IntLiteral;
 import hub.sam.dbl.IntSymbol;
 import hub.sam.dbl.IntType;
+import hub.sam.dbl.Interface;
 import hub.sam.dbl.Keyword;
 import hub.sam.dbl.L1Expr;
 import hub.sam.dbl.L1SyntaxExpression;
@@ -322,6 +324,8 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 			case DblPackage.SUPER_OBJECT_INITIALIZER: return (EObject)createSuperObjectInitializer();
 			case DblPackage.ACTIVE_CLASS: return (EObject)createActiveClass();
 			case DblPackage.CONTROL_VARIABLE: return (EObject)createControlVariable();
+			case DblPackage.INTERFACE: return (EObject)createInterface();
+			case DblPackage.CLASSIFIER: return (EObject)createClassifier();
 			default:
 				return DblUtil.createObjectOfParentClass(eClass);
 		}
@@ -515,6 +519,26 @@ public class DblFactoryImpl extends EFactoryImpl implements DblFactory {
 	public NativeBinding createNativeBinding() {
 		NativeBindingImpl nativeBinding = new NativeBindingImpl();
 		return nativeBinding;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Classifier createClassifier() {
+		ClassifierImpl classifier = new ClassifierImpl();
+		return classifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Interface createInterface() {
+		InterfaceImpl interface_ = new InterfaceImpl();
+		return interface_;
 	}
 
 	/**

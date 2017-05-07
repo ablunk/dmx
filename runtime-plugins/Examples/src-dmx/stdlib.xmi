@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
 <dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
   <module name="stdlib">
-    <classes name="JavaClass">
+    <classifiers xsi:type="dbl:Interface" name="JavaClass">
       <bindings targetLanguage="java" targetType="java.lang.Class"/>
-    </classes>
-    <classes name="Object">
-      <bindings targetLanguage="java" targetType="java.lang.Object"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Object">
       <methods name="equals">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="other">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="hashCode">
@@ -18,17 +17,17 @@
       <methods name="toString">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="String" superClasses="//@module/@classes.1">
-      <bindings targetLanguage="java" targetType="java.lang.String"/>
+      <bindings targetLanguage="java" targetType="java.lang.Object"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="String" superInterfaces="//@module/@classifiers.1">
       <constructors>
         <parameters name="original">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </constructors>
-    </classes>
-    <classes name="SystemOut">
-      <bindings targetLanguage="java" targetType="hub.sam.dmx.semantics.javabridge.SystemOut"/>
+      <bindings targetLanguage="java" targetType="java.lang.String"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="SystemOut">
       <methods name="print" class="true">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="s">
@@ -41,25 +40,25 @@
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="Iterator">
-      <bindings targetLanguage="java" targetType="java.util.Iterator"/>
+      <bindings targetLanguage="java" targetType="hub.sam.dmx.semantics.javabridge.SystemOut"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Iterator">
       <methods name="hasNext">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="next">
-        <classifierType referencedElement="//@module/@classes.1"/>
+        <classifierType referencedElement="//@module/@classifiers.1"/>
       </methods>
       <methods name="remove">
         <primitiveType xsi:type="dbl:VoidType"/>
       </methods>
-    </classes>
-    <classes name="List">
-      <bindings targetLanguage="java" targetType="java.util.List"/>
+      <bindings targetLanguage="java" targetType="java.util.Iterator"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="List">
       <methods name="add">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="add">
@@ -68,7 +67,7 @@
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="clear">
@@ -77,14 +76,14 @@
       <methods name="contains">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="size">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="get">
-        <classifierType referencedElement="//@module/@classes.1"/>
+        <classifierType referencedElement="//@module/@classifiers.1"/>
         <parameters name="index">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
@@ -92,7 +91,7 @@
       <methods name="indexOf">
         <primitiveType xsi:type="dbl:IntType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="isEmpty">
@@ -101,49 +100,50 @@
       <methods name="remove">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="set">
-        <classifierType referencedElement="//@module/@classes.1"/>
+        <classifierType referencedElement="//@module/@classifiers.1"/>
         <parameters name="index">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
         <parameters name="e">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="toArray">
         <typeArrayDimensions/>
-        <classifierType referencedElement="//@module/@classes.1"/>
+        <classifierType referencedElement="//@module/@classifiers.1"/>
       </methods>
       <methods name="iterator">
-        <classifierType referencedElement="//@module/@classes.4"/>
+        <classifierType referencedElement="//@module/@classifiers.4"/>
       </methods>
-    </classes>
-    <classes name="ArrayList" superClasses="//@module/@classes.5">
+      <bindings targetLanguage="java" targetType="java.util.List"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ArrayList" superInterfaces="//@module/@classifiers.5">
       <bindings targetLanguage="java" targetType="java.util.ArrayList"/>
-    </classes>
-    <classes name="Map">
-      <bindings targetLanguage="java" targetType="java.util.Map"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Map">
       <methods name="get">
-        <classifierType referencedElement="//@module/@classes.1"/>
+        <classifierType referencedElement="//@module/@classifiers.1"/>
         <parameters name="key">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
       <methods name="put">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="key">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
         <parameters name="value">
-          <classifierType referencedElement="//@module/@classes.1"/>
+          <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="HashMap" superClasses="//@module/@classes.7">
+      <bindings targetLanguage="java" targetType="java.util.Map"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="HashMap" superInterfaces="//@module/@classifiers.7">
       <bindings targetLanguage="java" targetType="java.util.HashMap"/>
-    </classes>
+    </classifiers>
   </module>
 </dbl:Model>

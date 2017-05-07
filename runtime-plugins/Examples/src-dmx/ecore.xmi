@@ -4,104 +4,34 @@
     <model href="stdlib.xmi#/"/>
   </imports>
   <module name="ecore">
-    <classes name="EAttribute" superClasses="//@module/@classes.18">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EAttribute"/>
-      <attributes name="iD">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="eAttributeType">
-        <classifierType referencedElement="//@module/@classes.4"/>
-      </attributes>
+    <classifiers xsi:type="dbl:Interface" name="EAttribute" superInterfaces="//@module/@classifiers.18">
       <methods name="isID">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getEAttributeType">
-        <classifierType referencedElement="//@module/@classes.4"/>
+        <classifierType referencedElement="//@module/@classifiers.4"/>
       </methods>
-    </classes>
-    <classes name="EAnnotation" superClasses="//@module/@classes.8">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EAnnotation"/>
-      <attributes name="source">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="details">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eModelElement">
-        <classifierType referencedElement="//@module/@classes.8"/>
-      </attributes>
-      <attributes name="contents">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="references">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EAttribute"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EAnnotation" superInterfaces="//@module/@classifiers.8">
       <methods name="getSource">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getDetails">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEModelElement">
-        <classifierType referencedElement="//@module/@classes.8"/>
+        <classifierType referencedElement="//@module/@classifiers.8"/>
       </methods>
       <methods name="getContents">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getReferences">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
-    </classes>
-    <classes name="EClass" superClasses="//@module/@classes.3">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EClass"/>
-      <attributes name="abstract">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="interface">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="eSuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eOperations">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAllAttributes">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAllReferences">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eReferences">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAttributes">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAllContainments">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAllOperations">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAllStructuralFeatures">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAllSuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eIDAttribute">
-        <classifierType referencedElement="//@module/@classes.0"/>
-      </attributes>
-      <attributes name="eStructuralFeatures">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eGenericSuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eAllGenericSuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EAnnotation"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EClass" superInterfaces="//@module/@classifiers.3">
       <methods name="isAbstract">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -109,58 +39,58 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getESuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEOperations">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAllAttributes">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAllReferences">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEReferences">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAttributes">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAllContainments">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAllOperations">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAllStructuralFeatures">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAllSuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEIDAttribute">
-        <classifierType referencedElement="//@module/@classes.0"/>
+        <classifierType referencedElement="//@module/@classifiers.0"/>
       </methods>
       <methods name="getEStructuralFeatures">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEGenericSuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAllGenericSuperTypes">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="isSuperTypeOf">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="someClass">
-          <classifierType referencedElement="//@module/@classes.2"/>
+          <classifierType referencedElement="//@module/@classifiers.2"/>
         </parameters>
       </methods>
       <methods name="getFeatureCount">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="getEStructuralFeature">
-        <classifierType referencedElement="//@module/@classes.18"/>
+        <classifierType referencedElement="//@module/@classifiers.18"/>
         <parameters name="featureID">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
@@ -168,11 +98,11 @@
       <methods name="getFeatureID">
         <primitiveType xsi:type="dbl:IntType"/>
         <parameters name="feature">
-          <classifierType referencedElement="//@module/@classes.18"/>
+          <classifierType referencedElement="//@module/@classifiers.18"/>
         </parameters>
       </methods>
       <methods name="getEStructuralFeature">
-        <classifierType referencedElement="//@module/@classes.18"/>
+        <classifierType referencedElement="//@module/@classifiers.18"/>
         <parameters name="featureName">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
@@ -181,7 +111,7 @@
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="getEOperation">
-        <classifierType referencedElement="//@module/@classes.14"/>
+        <classifierType referencedElement="//@module/@classifiers.14"/>
         <parameters name="operationID">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
@@ -189,163 +119,120 @@
       <methods name="getOperationID">
         <primitiveType xsi:type="dbl:IntType"/>
         <parameters name="operation">
-          <classifierType referencedElement="//@module/@classes.14"/>
+          <classifierType referencedElement="//@module/@classifiers.14"/>
         </parameters>
       </methods>
       <methods name="getOverride">
-        <classifierType referencedElement="//@module/@classes.14"/>
+        <classifierType referencedElement="//@module/@classifiers.14"/>
         <parameters name="operation">
-          <classifierType referencedElement="//@module/@classes.14"/>
+          <classifierType referencedElement="//@module/@classifiers.14"/>
         </parameters>
       </methods>
       <methods name="getFeatureType">
-        <classifierType referencedElement="//@module/@classes.21"/>
+        <classifierType referencedElement="//@module/@classifiers.21"/>
         <parameters name="feature">
-          <classifierType referencedElement="//@module/@classes.18"/>
+          <classifierType referencedElement="//@module/@classifiers.18"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EClassifier" superClasses="//@module/@classes.9">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EClassifier"/>
-      <attributes name="instanceClassName">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="instanceClass">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.0"/>
-        </classifierType>
-      </attributes>
-      <attributes name="defaultValue">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
-        </classifierType>
-      </attributes>
-      <attributes name="instanceTypeName">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="ePackage">
-        <classifierType referencedElement="//@module/@classes.15"/>
-      </attributes>
-      <attributes name="eTypeParameters">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EClass"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EClassifier" superInterfaces="//@module/@classifiers.9">
       <methods name="getInstanceClassName">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getInstanceClass">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.0"/>
+          <referencedElement href="stdlib.xmi#//@module/@classifiers.0"/>
         </classifierType>
       </methods>
       <methods name="getDefaultValue">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+          <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
         </classifierType>
       </methods>
       <methods name="getInstanceTypeName">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getEPackage">
-        <classifierType referencedElement="//@module/@classes.15"/>
+        <classifierType referencedElement="//@module/@classifiers.15"/>
       </methods>
       <methods name="getETypeParameters">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="isInstance">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="object">
           <classifierType>
-            <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+            <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
           </classifierType>
         </parameters>
       </methods>
       <methods name="getClassifierID">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
-    </classes>
-    <classes name="EDataType" superClasses="//@module/@classes.3">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EDataType"/>
-      <attributes name="serializable">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EClassifier"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EDataType" superInterfaces="//@module/@classifiers.3">
       <methods name="isSerializable">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
-    </classes>
-    <classes name="EEnum" superClasses="//@module/@classes.4">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EEnum"/>
-      <attributes name="eLiterals">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EDataType"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EEnum" superInterfaces="//@module/@classifiers.4">
       <methods name="getELiterals">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEEnumLiteral">
-        <classifierType referencedElement="//@module/@classes.6"/>
+        <classifierType referencedElement="//@module/@classifiers.6"/>
         <parameters name="name">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
       <methods name="getEEnumLiteral">
-        <classifierType referencedElement="//@module/@classes.6"/>
+        <classifierType referencedElement="//@module/@classifiers.6"/>
         <parameters name="value">
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
       </methods>
       <methods name="getEEnumLiteralByLiteral">
-        <classifierType referencedElement="//@module/@classes.6"/>
+        <classifierType referencedElement="//@module/@classifiers.6"/>
         <parameters name="literal">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EEnumLiteral" superClasses="//@module/@classes.9">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EEnumLiteral"/>
-      <attributes name="value">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
-      <attributes name="instance">
-        <classifierType referencedElement="//@module/@classes.10"/>
-      </attributes>
-      <attributes name="literal">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="eEnum">
-        <classifierType referencedElement="//@module/@classes.5"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EEnum"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EEnumLiteral" superInterfaces="//@module/@classifiers.9">
       <methods name="getValue">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="getInstance">
-        <classifierType referencedElement="//@module/@classes.10"/>
+        <classifierType referencedElement="//@module/@classifiers.10"/>
       </methods>
       <methods name="getLiteral">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getEEnum">
-        <classifierType referencedElement="//@module/@classes.5"/>
+        <classifierType referencedElement="//@module/@classifiers.5"/>
       </methods>
-    </classes>
-    <classes name="EFactory" superClasses="//@module/@classes.8">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EFactory"/>
-      <attributes name="ePackage">
-        <classifierType referencedElement="//@module/@classes.15"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EEnumLiteral"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EFactory" superInterfaces="//@module/@classifiers.8">
       <methods name="getEPackage">
-        <classifierType referencedElement="//@module/@classes.15"/>
+        <classifierType referencedElement="//@module/@classifiers.15"/>
       </methods>
       <methods name="create">
-        <classifierType referencedElement="//@module/@classes.13"/>
+        <classifierType referencedElement="//@module/@classifiers.13"/>
         <parameters name="eClass">
-          <classifierType referencedElement="//@module/@classes.2"/>
+          <classifierType referencedElement="//@module/@classifiers.2"/>
         </parameters>
       </methods>
       <methods name="createFromString">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+          <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
         </classifierType>
         <parameters name="eDataType">
-          <classifierType referencedElement="//@module/@classes.4"/>
+          <classifierType referencedElement="//@module/@classifiers.4"/>
         </parameters>
         <parameters name="literalValue">
           <primitiveType xsi:type="dbl:StringType"/>
@@ -354,54 +241,48 @@
       <methods name="convertToString">
         <primitiveType xsi:type="dbl:StringType"/>
         <parameters name="eDataType">
-          <classifierType referencedElement="//@module/@classes.4"/>
+          <classifierType referencedElement="//@module/@classifiers.4"/>
         </parameters>
         <parameters name="instanceValue">
           <classifierType>
-            <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+            <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
           </classifierType>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EModelElement" superClasses="//@module/@classes.13">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EModelElement"/>
-      <attributes name="eAnnotations">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EFactory"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EModelElement" superInterfaces="//@module/@classifiers.13">
       <methods name="getEAnnotations">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEAnnotation">
-        <classifierType referencedElement="//@module/@classes.1"/>
+        <classifierType referencedElement="//@module/@classifiers.1"/>
         <parameters name="source">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="ENamedElement" superClasses="//@module/@classes.8">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ENamedElement"/>
-      <attributes name="name">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EModelElement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ENamedElement" superInterfaces="//@module/@classifiers.8">
       <methods name="getName">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="Enumerator">
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ENamedElement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Enumerator">
       <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.Enumerator"/>
-    </classes>
-    <classes name="Resource">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.resource.Resource"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Resource">
       <methods name="getURIFragment">
         <primitiveType xsi:type="dbl:StringType"/>
         <parameters name="eObject">
-          <classifierType referencedElement="//@module/@classes.13"/>
+          <classifierType referencedElement="//@module/@classifiers.13"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EList">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.EList"/>
-      <superClasses href="stdlib.xmi#//@module/@classes.5"/>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.resource.Resource"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EList">
+      <superInterfaces href="stdlib.xmi#//@module/@classifiers.5"/>
       <methods name="move">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="newPos">
@@ -409,7 +290,7 @@
         </parameters>
         <parameters name="object">
           <classifierType>
-            <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+            <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
           </classifierType>
         </parameters>
       </methods>
@@ -422,47 +303,47 @@
           <primitiveType xsi:type="dbl:IntType"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EObject">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EObject"/>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.common.util.EList"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EObject">
       <methods name="eResource">
-        <classifierType referencedElement="//@module/@classes.11"/>
+        <classifierType referencedElement="//@module/@classifiers.11"/>
       </methods>
       <methods name="eClass">
-        <classifierType referencedElement="//@module/@classes.2"/>
+        <classifierType referencedElement="//@module/@classifiers.2"/>
       </methods>
       <methods name="eContainer">
-        <classifierType referencedElement="//@module/@classes.13"/>
+        <classifierType referencedElement="//@module/@classifiers.13"/>
       </methods>
       <methods name="eContainingFeature">
-        <classifierType referencedElement="//@module/@classes.18"/>
+        <classifierType referencedElement="//@module/@classifiers.18"/>
       </methods>
       <methods name="eContainmentFeature">
-        <classifierType referencedElement="//@module/@classes.17"/>
+        <classifierType referencedElement="//@module/@classifiers.17"/>
       </methods>
       <methods name="eContents">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="eAllContents">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="eCrossReferences">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="eGet">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+          <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
         </classifierType>
         <parameters name="feature">
-          <classifierType referencedElement="//@module/@classes.18"/>
+          <classifierType referencedElement="//@module/@classifiers.18"/>
         </parameters>
       </methods>
       <methods name="eGet">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+          <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
         </classifierType>
         <parameters name="feature">
-          <classifierType referencedElement="//@module/@classes.18"/>
+          <classifierType referencedElement="//@module/@classifiers.18"/>
         </parameters>
         <parameters name="resolve">
           <primitiveType xsi:type="dbl:BoolType"/>
@@ -471,58 +352,43 @@
       <methods name="eSet">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="feature">
-          <classifierType referencedElement="//@module/@classes.18"/>
+          <classifierType referencedElement="//@module/@classifiers.18"/>
         </parameters>
         <parameters name="newValue">
           <classifierType>
-            <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+            <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
           </classifierType>
         </parameters>
       </methods>
       <methods name="eIsSet">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="feature">
-          <classifierType referencedElement="//@module/@classes.18"/>
+          <classifierType referencedElement="//@module/@classifiers.18"/>
         </parameters>
       </methods>
       <methods name="eUnset">
         <primitiveType xsi:type="dbl:VoidType"/>
         <parameters name="feature">
-          <classifierType referencedElement="//@module/@classes.18"/>
+          <classifierType referencedElement="//@module/@classifiers.18"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EOperation" superClasses="//@module/@classes.19">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EOperation"/>
-      <attributes name="eContainingClass">
-        <classifierType referencedElement="//@module/@classes.2"/>
-      </attributes>
-      <attributes name="eTypeParameters">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eParameters">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eExceptions">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eGenericExceptions">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EObject"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EOperation" superInterfaces="//@module/@classifiers.19">
       <methods name="getEContainingClass">
-        <classifierType referencedElement="//@module/@classes.2"/>
+        <classifierType referencedElement="//@module/@classifiers.2"/>
       </methods>
       <methods name="getETypeParameters">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEParameters">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEExceptions">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getEGenericExceptions">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getOperationID">
         <primitiveType xsi:type="dbl:IntType"/>
@@ -530,30 +396,12 @@
       <methods name="isOverrideOf">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="someOperation">
-          <classifierType referencedElement="//@module/@classes.14"/>
+          <classifierType referencedElement="//@module/@classifiers.14"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EPackage" superClasses="//@module/@classes.9">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EPackage"/>
-      <attributes name="nsURI">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="nsPrefix">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="eFactoryInstance">
-        <classifierType referencedElement="//@module/@classes.7"/>
-      </attributes>
-      <attributes name="eClassifiers">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eSubpackages">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eSuperPackage">
-        <classifierType referencedElement="//@module/@classes.15"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EOperation"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EPackage" superInterfaces="//@module/@classifiers.9">
       <methods name="getNsURI">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
@@ -561,53 +409,32 @@
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getEFactoryInstance">
-        <classifierType referencedElement="//@module/@classes.7"/>
+        <classifierType referencedElement="//@module/@classifiers.7"/>
       </methods>
       <methods name="getEClassifiers">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getESubpackages">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getESuperPackage">
-        <classifierType referencedElement="//@module/@classes.15"/>
+        <classifierType referencedElement="//@module/@classifiers.15"/>
       </methods>
       <methods name="getEClassifier">
-        <classifierType referencedElement="//@module/@classes.3"/>
+        <classifierType referencedElement="//@module/@classifiers.3"/>
         <parameters name="name">
           <primitiveType xsi:type="dbl:StringType"/>
         </parameters>
       </methods>
-    </classes>
-    <classes name="EParameter" superClasses="//@module/@classes.19">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EParameter"/>
-      <attributes name="eOperation">
-        <classifierType referencedElement="//@module/@classes.14"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EPackage"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EParameter" superInterfaces="//@module/@classifiers.19">
       <methods name="getEOperation">
-        <classifierType referencedElement="//@module/@classes.14"/>
+        <classifierType referencedElement="//@module/@classifiers.14"/>
       </methods>
-    </classes>
-    <classes name="EReference" superClasses="//@module/@classes.18">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EReference"/>
-      <attributes name="containment">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="container">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="resolveProxies">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="eOpposite">
-        <classifierType referencedElement="//@module/@classes.17"/>
-      </attributes>
-      <attributes name="eReferenceType">
-        <classifierType referencedElement="//@module/@classes.2"/>
-      </attributes>
-      <attributes name="eKeys">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EParameter"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EReference" superInterfaces="//@module/@classifiers.18">
       <methods name="isContainment">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -618,43 +445,17 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getEOpposite">
-        <classifierType referencedElement="//@module/@classes.17"/>
+        <classifierType referencedElement="//@module/@classifiers.17"/>
       </methods>
       <methods name="getEReferenceType">
-        <classifierType referencedElement="//@module/@classes.2"/>
+        <classifierType referencedElement="//@module/@classifiers.2"/>
       </methods>
       <methods name="getEKeys">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
-    </classes>
-    <classes name="EStructuralFeature" superClasses="//@module/@classes.19">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EStructuralFeature"/>
-      <attributes name="changeable">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="volatile">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="transient">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="defaultValueLiteral">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="defaultValue">
-        <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
-        </classifierType>
-      </attributes>
-      <attributes name="unsettable">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="derived">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="eContainingClass">
-        <classifierType referencedElement="//@module/@classes.2"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EReference"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EStructuralFeature" superInterfaces="//@module/@classifiers.19">
       <methods name="isChangeable">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -669,7 +470,7 @@
       </methods>
       <methods name="getDefaultValue">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+          <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
         </classifierType>
       </methods>
       <methods name="isUnsettable">
@@ -679,43 +480,19 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getEContainingClass">
-        <classifierType referencedElement="//@module/@classes.2"/>
+        <classifierType referencedElement="//@module/@classifiers.2"/>
       </methods>
       <methods name="getFeatureID">
         <primitiveType xsi:type="dbl:IntType"/>
       </methods>
       <methods name="getContainerClass">
         <classifierType>
-          <referencedElement href="stdlib.xmi#//@module/@classes.0"/>
+          <referencedElement href="stdlib.xmi#//@module/@classifiers.0"/>
         </classifierType>
       </methods>
-    </classes>
-    <classes name="ETypedElement" superClasses="//@module/@classes.9">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ETypedElement"/>
-      <attributes name="ordered">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="unique">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="lowerBound">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
-      <attributes name="upperBound">
-        <primitiveType xsi:type="dbl:IntType"/>
-      </attributes>
-      <attributes name="many">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="required">
-        <primitiveType xsi:type="dbl:BoolType"/>
-      </attributes>
-      <attributes name="eType">
-        <classifierType referencedElement="//@module/@classes.3"/>
-      </attributes>
-      <attributes name="eGenericType">
-        <classifierType referencedElement="//@module/@classes.21"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EStructuralFeature"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ETypedElement" superInterfaces="//@module/@classifiers.9">
       <methods name="isOrdered">
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
@@ -735,88 +512,62 @@
         <primitiveType xsi:type="dbl:BoolType"/>
       </methods>
       <methods name="getEType">
-        <classifierType referencedElement="//@module/@classes.3"/>
+        <classifierType referencedElement="//@module/@classifiers.3"/>
       </methods>
       <methods name="getEGenericType">
-        <classifierType referencedElement="//@module/@classes.21"/>
+        <classifierType referencedElement="//@module/@classifiers.21"/>
       </methods>
-    </classes>
-    <classes name="EStringToStringMapEntry" superClasses="//@module/@classes.13">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EStringToStringMapEntry"/>
-      <attributes name="key">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
-      <attributes name="value">
-        <primitiveType xsi:type="dbl:StringType"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ETypedElement"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EStringToStringMapEntry" superInterfaces="//@module/@classifiers.13">
       <methods name="getKey">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
       <methods name="getValue">
         <primitiveType xsi:type="dbl:StringType"/>
       </methods>
-    </classes>
-    <classes name="EGenericType" superClasses="//@module/@classes.13">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EGenericType"/>
-      <attributes name="eUpperBound">
-        <classifierType referencedElement="//@module/@classes.21"/>
-      </attributes>
-      <attributes name="eTypeArguments">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
-      <attributes name="eRawType">
-        <classifierType referencedElement="//@module/@classes.3"/>
-      </attributes>
-      <attributes name="eLowerBound">
-        <classifierType referencedElement="//@module/@classes.21"/>
-      </attributes>
-      <attributes name="eTypeParameter">
-        <classifierType referencedElement="//@module/@classes.22"/>
-      </attributes>
-      <attributes name="eClassifier">
-        <classifierType referencedElement="//@module/@classes.3"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EStringToStringMapEntry"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="EGenericType" superInterfaces="//@module/@classifiers.13">
       <methods name="getEUpperBound">
-        <classifierType referencedElement="//@module/@classes.21"/>
+        <classifierType referencedElement="//@module/@classifiers.21"/>
       </methods>
       <methods name="getETypeArguments">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
       <methods name="getERawType">
-        <classifierType referencedElement="//@module/@classes.3"/>
+        <classifierType referencedElement="//@module/@classifiers.3"/>
       </methods>
       <methods name="getELowerBound">
-        <classifierType referencedElement="//@module/@classes.21"/>
+        <classifierType referencedElement="//@module/@classifiers.21"/>
       </methods>
       <methods name="getETypeParameter">
-        <classifierType referencedElement="//@module/@classes.22"/>
+        <classifierType referencedElement="//@module/@classifiers.22"/>
       </methods>
       <methods name="getEClassifier">
-        <classifierType referencedElement="//@module/@classes.3"/>
+        <classifierType referencedElement="//@module/@classifiers.3"/>
       </methods>
       <methods name="isInstance">
         <primitiveType xsi:type="dbl:BoolType"/>
         <parameters name="object">
           <classifierType>
-            <referencedElement href="stdlib.xmi#//@module/@classes.1"/>
+            <referencedElement href="stdlib.xmi#//@module/@classifiers.1"/>
           </classifierType>
         </parameters>
       </methods>
-    </classes>
-    <classes name="ETypeParameter" superClasses="//@module/@classes.9">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ETypeParameter"/>
-      <attributes name="eBounds">
-        <classifierType referencedElement="//@module/@classes.12"/>
-      </attributes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.EGenericType"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="ETypeParameter" superInterfaces="//@module/@classifiers.9">
       <methods name="getEBounds">
-        <classifierType referencedElement="//@module/@classes.12"/>
+        <classifierType referencedElement="//@module/@classifiers.12"/>
       </methods>
-    </classes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.ETypeParameter"/>
+    </classifiers>
     <functions name="getURI">
       <primitiveType xsi:type="dbl:StringType"/>
       <statements xsi:type="dbl:Return">
-        <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classes.11/@methods.0">
-          <parentIdExpr referencedElement="//@module/@classes.13/@methods.0">
+        <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classifiers.11/@methods.0">
+          <parentIdExpr referencedElement="//@module/@classifiers.13/@methods.0">
             <parentIdExpr referencedElement="//@module/@functions.0/@parameters.0"/>
             <callPart/>
           </parentIdExpr>
@@ -826,7 +577,7 @@
         </value>
       </statements>
       <parameters name="eObject">
-        <classifierType referencedElement="//@module/@classes.13"/>
+        <classifierType referencedElement="//@module/@classifiers.13"/>
       </parameters>
     </functions>
   </module>

@@ -8,6 +8,7 @@ import hub.sam.dbl.BoolType
 import hub.sam.dbl.BreakStatement
 import hub.sam.dbl.Cast
 import hub.sam.dbl.Class
+import hub.sam.dbl.Classifier
 import hub.sam.dbl.ContinueStatement
 import hub.sam.dbl.CreateObject
 import hub.sam.dbl.Div
@@ -31,6 +32,7 @@ import hub.sam.dbl.IfStatement
 import hub.sam.dbl.InstanceOf
 import hub.sam.dbl.IntLiteral
 import hub.sam.dbl.IntType
+import hub.sam.dbl.Interface
 import hub.sam.dbl.Less
 import hub.sam.dbl.LessEqual
 import hub.sam.dbl.LocalScopeStatement
@@ -138,21 +140,27 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 
 	def dispatch String javaNameQualified(Class element) {
 		val it = element
+		val owner = element.eContainer as Module;
+		owner.javaNameQualified_for_Module(false) + "." + name
+	}
+	
+	def dispatch String javaNameQualified(Interface element) {
+		val it = element
 		if (bindings.empty) {
 			val owner = element.eContainer as Module;
 			owner.javaNameQualified_for_Module(false) + "." + name
 		}
 		else javaNameBound
 	}
-	
-	def String javaNameBound(Class clazz) {
-		val it = clazz
+
+	def String javaNameBound(Interface dblInterface) {
+		val it = dblInterface
 		var targetType = bindings.findFirst[targetLanguage == simLibName]?.targetType
 		if (targetType != null) targetType
 		else {
 			targetType = bindings.findFirst[targetLanguage == languageName]?.targetType
 			if (targetType != null) targetType
-			else '<!- type binding for library ' + simLibName + ' is missing for type ' + clazz.name + ' !>'
+			else '<!- type binding for library ' + simLibName + ' is missing for type ' + dblInterface.name + ' !>'
 		}		
 	}
 
@@ -188,10 +196,10 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		)
 		endTargetFile(moduleWriter)
 		
-		model.module.classes.forEach[ class_ |
-			val String result = class_.gen
+		model.module.classifiers.forEach[ classifier |
+			val String result = classifier.gen
 			if (result != null && result != "") {
-				val Writer classifierWriter = beginTargetFile(moduleFolder, class_.name + ".java");
+				val Writer classifierWriter = beginTargetFile(moduleFolder, classifier.name + ".java");
 				classifierWriter.write(result)
 				endTargetFile(classifierWriter)
 			}
@@ -667,6 +675,10 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		type.javaNameQualified
 	}
 
+	def dispatch String genType(Interface type) {
+		type.javaNameQualified
+	}
+
 	def dispatch String genType(Type type) {
 		'<! unknown type ' + type.eClass.name + ' !>'
 	}
@@ -740,39 +752,53 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'''
 	}
 	
-	def dispatch String gen(Class clazz) {
-		val it = clazz
-		if (clazz.bindings.empty) {
-			genPassiveClass
-		}
+	def dispatch String gen(Class dblClass) {
+		dblClass.genPassiveClass
 	}
 	
+	def dispatch String gen(Interface dblInterface) {
+		val it = dblInterface
+		'''
+		«genPackageStatement»
+		
+		public interface «name»
+		«FOR superInterface : superInterfaces BEFORE ' extends ' SEPARATOR ','»
+			«superInterface.genType»
+		«ENDFOR»
+		{
+			«attributes.genVariables(false)»
+
+			«methods.genFunctions(false)»
+		}
+		'''	}
+
 	def dispatch String gen(Parameter param) {
 		val it = param
 		'''«genType» «name»'''
 	}
 	
-	def String genPackageStatement(Module module) {
+	def dispatch String genPackageStatement(Module module) {
 		'''
 		package «module.javaNameQualified_for_Module(false)»;
 		'''
 	}
 
-	def String genPackageStatement(Class clazz) {
+	def dispatch String genPackageStatement(Classifier clazz) {
 		'''
 		package «(clazz.eContainer as Module).javaNameQualified_for_Module(false)»;
 		'''
 	}
 	
-	def String genPassiveClass(Class clazz) {
-		val it = clazz
+	def String genPassiveClass(Class dblClass) {
+		val it = dblClass
 		'''
 		«genPackageStatement»
 		
 		public class «name»
-		«IF !superClasses.empty»
-			extends «superClasses.get(0).genType»
-		«ENDIF»
+		«IF superClass !== null» extends «superClass.genType»«ENDIF»
+		«FOR superInterface : superInterfaces BEFORE ' implements ' SEPARATOR ','»
+			«superInterface.genType»
+		«ENDFOR»
 		{
 
 			«FOR constructor: constructors»

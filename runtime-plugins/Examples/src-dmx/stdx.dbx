@@ -4,6 +4,3 @@
 #import "stdx/forever"
 
 module stdx;
-
-void test() {
-}

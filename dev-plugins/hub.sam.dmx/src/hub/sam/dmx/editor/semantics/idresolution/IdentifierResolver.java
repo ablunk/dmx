@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 
-import hub.sam.dbl.Class;
 import hub.sam.dbl.IdExpr;
 import hub.sam.dbl.NamedElement;
 import hub.sam.dmx.editor.IPreProcessedDocument;
@@ -22,7 +21,7 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 	
 	private final VariableResolver variableResolver = new VariableResolver();
 	private final MethodResolver methodResolver = new MethodResolver();
-	private final ClassResolver<EObject> classInAnyContextResolver = new ClassResolver<>();
+	private final ClassifierResolver<EObject> classInAnyContextResolver = new ClassifierResolver<>();
 
 	private final IPreProcessedDocument preProcessedDocument;
 	
@@ -63,8 +62,8 @@ public class IdentifierResolver extends DefaultIdentificationScheme {
 	private Collection<IdentifiedElement> identifyPossibleNamedElements(String identifier, EObject context) {
 		if (context instanceof IdExpr) {
 			return identifyPossibleElementsReferedToInIdExpr(identifier, (IdExpr) context);
-		} else if (context instanceof hub.sam.dbl.Class) {
-			return classInAnyContextResolver.resolve(identifier, (hub.sam.dbl.Class) context);
+		} else if (context instanceof hub.sam.dbl.Classifier) {
+			return classInAnyContextResolver.resolve(identifier, (hub.sam.dbl.Classifier) context);
 		} else {
 			return new HashSet<>();
 		}

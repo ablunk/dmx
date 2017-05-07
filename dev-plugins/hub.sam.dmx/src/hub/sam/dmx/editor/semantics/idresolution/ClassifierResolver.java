@@ -11,18 +11,18 @@ import hub.sam.dbl.DblPackage;
 import hub.sam.dbl.Model;
 import hub.sam.dbl.Module;
 
-public class ClassResolver<C extends EObject> extends HierarchicalResolver implements ElementResolver<C> {
+public class ClassifierResolver<C extends EObject> extends HierarchicalResolver implements ElementResolver<C> {
 
 	@Override
 	public Collection<IdentifiedElement> resolve(String identifier, C context) {
-		Collection<IdentifiedElement> classes = resolveInContainer(identifier, context, Module.class, DblPackage.Literals.MODULE__CLASSES);
+		Collection<IdentifiedElement> classifiers = resolveInContainer(identifier, context, Module.class, DblPackage.Literals.MODULE__CLASSIFIERS);
 		
-		if (classes.isEmpty()) {
-			classes.addAll(resolveInContainer(identifier, context, Model.class, 
+		if (classifiers.isEmpty()) {
+			classifiers.addAll(resolveInContainer(identifier, context, Model.class, 
 					(id, modelContainer) -> resolveInImportedModelsRecursively(identifier, modelContainer)));
 		}
 		
-		return classes;
+		return classifiers;
 	}
 	
 	private Collection<IdentifiedElement> resolveInImportedModelsRecursively(String identifier, Model modelContainer) {
@@ -34,7 +34,7 @@ public class ClassResolver<C extends EObject> extends HierarchicalResolver imple
 				.collect(Collectors.toSet());
 		
 		for (Model importedModel: importedModels) {
-			elements.addAll(resolveInElements(identifier, importedModel.getModule().getClasses()));
+			elements.addAll(resolveInElements(identifier, importedModel.getModule().getClassifiers()));
 		}
 		
 		if (elements.isEmpty()) {
