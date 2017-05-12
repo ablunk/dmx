@@ -212,7 +212,7 @@ public class ModelLauncherC<BasicDBLToCGenerator, DblToLabelsAsValuesCGenerator>
 		progressMonitor.worked(40); // 95%
 		if(isCompiled){
 			progressMonitor.subTask("Executing target language program");
-			startProgram(currentProject, getJavaGenFolder(currentProject));
+			startProgram(currentProject, getCGenFolder(currentProject));
 			progressMonitor.worked(5);
 		}
 	}
