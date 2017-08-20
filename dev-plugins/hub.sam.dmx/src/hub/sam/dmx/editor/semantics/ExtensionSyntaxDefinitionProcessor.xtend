@@ -40,6 +40,7 @@ import org.eclipse.emf.ecore.EcoreFactory
 import org.eclipse.emf.ecore.EcorePackage
 import org.eclipse.emf.ecore.util.EcoreUtil
 import hub.sam.dbl.Classifier
+import hub.sam.dbl.Interface
 
 class DuplicatedMetaSymbolsContainer {
 	public var Collection<MetaSymbol> symbols = new HashSet<MetaSymbol>();
@@ -364,7 +365,7 @@ class ExtensionSyntaxDefinitionProcessor {
 				// ... -> ... "keyword" ...
 				processSymbol(symbolClassifier, plainSymbolRef, tslRule, metaClass, symbolStack)
 			}
-			Class: {
+			Interface: {
 				// ... -> ... Statement ... ;
 
 				// copy rhs of the rule identified by the name of type to this rule's rhs

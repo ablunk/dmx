@@ -1,0 +1,23 @@
+#import "../../dbl"
+#import "../../stdlib"
+#import "../../stdx"
+
+module ooxdef;
+
+extension OOX extends dbl Extension {
+	start OOX;
+	OOX -> "oox" Extension;
+}
+
+semantics for OOX {
+	/*
+	String name = getName();
+	Concept extensionPoint = getExtensionPoint();
+	MetaSymbol startSymbol = getSyntaxDefinition().getStartSymbol();
+	EList symbols = getSyntaxDefinition().getSymbols();
+	
+	expand "extension " name " extends dbl " extensionPoint " { " startSymbol " " symbols " }";
+	
+	Grammatikregeln in DBL-basiertes Metamodell übersetzen
+	*/
+}

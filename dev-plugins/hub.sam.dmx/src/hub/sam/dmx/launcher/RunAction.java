@@ -75,7 +75,7 @@ public class RunAction extends Action {
 				EditorConsole editorConsole = new EditorConsole(inputFile.getName() + " execution", currentDisplay);
 
 				ModelLauncher launcher;
-				if (getTargetLanguage() == "c++") {
+				if (getTargetLanguage() == "C++") {
 					launcher = new ModelLauncherC(monitor, inputFile, metamodelResource, 
 							editor.getLastModelCreatingContext(), targetLanguageGenerator, null, editorConsole);
 				}

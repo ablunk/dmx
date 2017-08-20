@@ -772,6 +772,10 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 				Class clazz = (Class) symbolClassifier;
 				return addIdsForAttributes(clazz, eObjectId, allIds);
 			}
+			else if (symbolClassifier instanceof Interface) {
+				Interface iface = (Interface) symbolClassifier;
+				return addIdsForMethods(iface, eObjectId, allIds);
+			}
 		}
 		else {
 			boolean idsAdded = false;
@@ -964,12 +968,16 @@ public class DblIdentificationScheme extends DefaultIdentificationScheme {
 		return idsAdded;
 	}
 
+	private boolean addIdsForMethods(Classifier classifier, NamedElement identifier, Collection allIds) {
+		return addIdsForMethods(classifier, identifier, allIds, null);
+	}
+	
 	private boolean addIdsForMethods(Classifier classifier, NamedElement identifier, Collection allIds, IdExpr idExpr) {
 		boolean idsAdded = false;
 
 		// add methods
 		for (Function method: classifier.getMethods()) {
-			if (idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
+			if (idExpr == null || idExpr.getCallPart().getCallArguments().size() == method.getParameters().size()) {
 				idsAdded |= addId(identifier, method, allIds);
 			}
 		}

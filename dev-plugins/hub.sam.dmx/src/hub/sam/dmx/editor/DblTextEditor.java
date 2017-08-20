@@ -9,6 +9,7 @@ import hub.sam.dmx.editor.semantics.DblSemanticsProvider;
 import hub.sam.dmx.launcher.RunAction;
 import hub.sam.dmx.semantics.TargetLanguageGenerator;
 import hub.sam.dmx.targetcode.DblToDesmojJavaGenerator;
+import hub.sam.dmx.targetcode.SpecificSimulationCPlusPlusGenerator;
 import hub.sam.tef.editor.SourceViewerConfiguration;
 import hub.sam.tef.modelcreating.IModelCreatingContext;
 import hub.sam.tef.semantics.ISemanticsProvider;
@@ -180,7 +181,7 @@ public class DblTextEditor extends hub.sam.tef.editor.text.TextEditor {
 		setAction(SaveXmiAction.ACTION_DEFINITION_ID, saveXmiAction);
 		
 		addRunAction("DESMO-J", new DblToDesmojJavaGenerator());	
-		addRunAction("C++", null);
+		addRunAction("C++", new SpecificSimulationCPlusPlusGenerator());
 		addRunAction("Groovy", null);
 	}
 	

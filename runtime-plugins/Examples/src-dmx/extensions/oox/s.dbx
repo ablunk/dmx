@@ -1,0 +1,9 @@
+#import "oox"
+#import "../../dbl"
+
+module ooxSimple;
+
+oox extension SM extends dbl SimpleStatement {
+	start SM;
+	SM -> "sm" ";";
+}

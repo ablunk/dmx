@@ -90,7 +90,7 @@ semantics for StateMachine {
 			Class containerClass = getContainer("Class", self) as Class;
 			
 			Variable signalVariable = transition.messageVariable;
-			IdExpr signalType = signalVariable.classifierType;
+			IdExpr signalType = signalVariable.getClassifierType();
 			
 			ID compiledTransitionClassId;
 			expand
@@ -102,7 +102,7 @@ semantics for StateMachine {
 					"	return signal instanceof " signalType ";" 
 					"}"
 					"void executeEffects(Object context, Event event) {"
-					"	" containerClass.name " concreteContext = context as " containerClass.name ";"
+					"	" containerClass.getName() " concreteContext = context as " containerClass.getName() ";"
 					"	concreteContext." transitionEffectsFunctionId "();"
 					"}"
 				"}"
