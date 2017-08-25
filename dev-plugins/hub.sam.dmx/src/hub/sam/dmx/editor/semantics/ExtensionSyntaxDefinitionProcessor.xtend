@@ -288,7 +288,7 @@ class ExtensionSyntaxDefinitionProcessor {
 					while (concept instanceof Extension) {
 						concept = (concept as Extension).extensionPoint
 					}
-					metaClass.getESuperTypes().add((concept as Class).metaClass);
+					metaClass.getESuperTypes().add((concept as Interface).metaClass);
 				}
 				else if (symbolClassifier instanceof MetaSymbol) {
 					val metaSymbol = symbolClassifier as MetaSymbol
@@ -300,7 +300,7 @@ class ExtensionSyntaxDefinitionProcessor {
 						//metaClass.getESuperTypes().add(instantiableDblEClass)
 					}
 				}
-				else if (symbolClassifier instanceof Class) {
+				else if (symbolClassifier instanceof Interface) {
 					// it cannot be a DBL metaclass from the dbl module because getDblMetaModel().getEClassifier(name)
 					// would have return the metaclass.
 					
