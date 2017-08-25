@@ -392,6 +392,10 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 	}
 
 	def dispatch String genStatement(Variable variable) {
+		variable.genVariable
+	}
+	
+	def String genVariable(Variable variable) {
 		val it = variable
 		//val ListDimension ldim1 = if (isList && listDims.size() == 1) listDims.get(1) else null;
 		
@@ -752,6 +756,17 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		'''
 	}
 	
+	def dispatch String genForInterface(Function function) {
+		val it = function
+		'''
+		«genType» «name»(
+		«FOR param : parameters SEPARATOR ','»
+			«param.genType» «param.name»
+		«ENDFOR»
+		);
+		'''
+	}
+
 	def dispatch String gen(Class dblClass) {
 		dblClass.genPassiveClass
 	}
@@ -768,7 +783,9 @@ class BasicDblToJavaGenerator extends AbstractGenerator {
 		{
 			«attributes.genVariables(false)»
 
-			«methods.genFunctions(false)»
+			«FOR method : methods»
+				«method.genForInterface»
+			«ENDFOR»
 		}
 		'''	}
 
