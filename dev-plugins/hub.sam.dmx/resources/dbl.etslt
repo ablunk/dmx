@@ -67,8 +67,8 @@ syntax(Model) "resources/dbl.ecore" {
 	ClassElement -> Function:composite(methods);
 	ClassElement -> ClassContent:composite(contentExtensions);
 	ClassContent -> ClassContentExtension;
-	ClassContentExtension:element(ClassContentExtension) -> "classContent39758";
-	
+	ClassContentExtension:element(ClassContentExtension) -> "ClassContent";
+		
 	ActionsPart -> "actions" LocalScope:composite(actionsBlock);
 	LocalScope:element(LocalScope) -> "{" (Statement:composite(statements))* "}";
 	
@@ -221,11 +221,7 @@ syntax(Model) "resources/dbl.ecore" {
 	VariableDefOrReference -> Variable:composite(statements);
 	VariableDefOrReference -> Assignment:composite(statements);
 
-	Expression -> L9Expr;
-	
-	// Expression -> L10Expr;
-	// L10Expr -> L9Expr;
-		
+	Expression -> L9Expr;	
 	L9Expr -> LogicalOr;
 	
 	LogicalOr -> L8Expr;
@@ -430,11 +426,11 @@ syntax(Model) "resources/dbl.ecore" {
 	
 	L2RhsExpr -> SymbolSequence;		
 	
-	SymbolSequence:element(SymbolSequence) -> (L1RhsExpr:composite(sequence))*;
+	SymbolSequence:element(SymbolSequence) -> (L1SyntaxExpression:composite(sequence))*;
 	
-	L1RhsExpr -> "(" SyntaxExpression ")";
-	L1RhsExpr -> StructuralSymbolReference;
-	L1RhsExpr -> PlainSymbolReference;
+	L1SyntaxExpression -> "(" SyntaxExpression ")";
+	L1SyntaxExpression -> StructuralSymbolReference;
+	L1SyntaxExpression -> PlainSymbolReference;
 	
 	StructuralSymbolReference:element(StructuralSymbolReference) -> IDENTIFIER:composite(name) ":" 
 		(IsListType:composite(list))? (ReferenceSemanticsOptional)? SyntaxSymbolClassifier;
