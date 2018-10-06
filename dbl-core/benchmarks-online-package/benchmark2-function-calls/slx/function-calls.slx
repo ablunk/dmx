@@ -1,0 +1,28 @@
+#define SLX2 ON
+
+module test {
+
+int pnum = 400000000;
+int sum = 0;
+
+procedure f(int n) returning int {
+	return n+1;
+}
+
+procedure main(int argn, string(*) args[*]) {
+	if (argn > 1) {
+		read string = args[1](pnum);
+	}
+
+	double start = real_time();
+	int sum = 0;
+	int i=0;
+	for (i=0; i<pnum; i++) {
+		sum = sum + f(i);
+	}
+	double end = real_time();
+	print(sum) "sum: _\n";
+	print(end - start) "time [s]: _._____________\n";
+}
+
+}

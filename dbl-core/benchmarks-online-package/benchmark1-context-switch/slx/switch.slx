@@ -1,0 +1,42 @@
+#define SLX2 ON
+
+module test {
+
+int count = 100000000;
+
+procedure plog() {
+	string(10) pid;
+	get_slx_name(ACTIVE, pid);
+	print(pid) "pid-_:";
+}
+
+class Counter {
+	actions {
+		while (count > 0) {
+			count--;
+			//print(count) "count = _\n";
+			yield;
+		}
+	}
+}
+
+procedure main(int argn, string(*) args[*]) {
+	if (argn > 1) {
+		read string = args[1](count);
+	}
+
+	activate new Counter;
+	activate new Counter;
+
+	double start = real_time();
+	print(count) "initial count: _\n";
+	yield;
+	print(count) "final count: _\n";
+	double end = real_time();
+
+	print(end - start) "time [s]: _._____________\n";
+
+	//SLXMemoryUsage("user-supplied title");
+}
+
+}

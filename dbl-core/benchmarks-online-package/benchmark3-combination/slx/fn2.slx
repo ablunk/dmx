@@ -1,0 +1,57 @@
+#define SLX2 ON
+
+module test {
+
+int count = 800000;
+int msize = 128*1024/4; // in Bytes
+int sum = 0;
+
+procedure plog() {
+	string(10) pid;
+	get_slx_name(ACTIVE, pid);
+	print(pid) "pid-_:";
+}
+
+class Counter {
+	method f(int size) returning int {
+		int mem[size]; // 32-bit per INT -> 4 Bytes
+		mem[1] = 65;
+		mem[size] = 90;
+		int r = mem[1] + mem[size];
+		yield;
+		return r;
+	}
+
+	actions {
+		while (count > 0) {
+			count--;
+			//plog();
+			//print(count) "count = _\n";
+			sum = sum + f(msize);
+		}
+	}
+}
+
+procedure main(int argn, string(*) args[*]) {
+	if (argn > 1) {
+		read string = args[1](count);
+	}
+	if (argn > 2) {
+		read string = args[2](msize);
+	}
+
+	activate new Counter;
+	activate new Counter;
+
+	double start = real_time();
+	print(count) "initial count: _\n";
+	yield;
+	print(count) "final count: _\n";
+	double end = real_time();
+
+	print(sum) "sum: _\n";
+	print(end - start) "time [s]: _._____________\n";
+}
+
+
+}
