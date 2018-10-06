@@ -3,214 +3,37 @@
   <imports file="../../dbl">
     <model href="../../dbl.xmi#/"/>
   </imports>
-  <modules name="EbnfExtension">
-    <extensionDefinitions name="ManyExpr">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.113"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.1">
-        <rules name="ManyExpr">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.113"/>
-              </propertyType>
+  <module name="EbnfExtension">
+    <extensions name="ManyExpr">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.121"/>
+      <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.1">
+        <symbols name="ManyExpr">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.121"/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="*"/>
-          </rhs>
-        </rules>
-        <rules name="ManyExpr">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="("/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="exprSeq">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.109"/>
-              </propertyType>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="*"/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=")"/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="*"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionDefinitions name="AtLeastExpr">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.113"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.1/@textualSyntaxDef/@rules.0">
-        <rules name="AtLeastExpr">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.113"/>
-              </propertyType>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="ManyExpr">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="("/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="+"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionDefinitions name="OptionalExpr">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.113"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.2/@textualSyntaxDef/@rules.0">
-        <rules name="OptionalExpr">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="expr">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.113"/>
-              </propertyType>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="sequence">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.117"/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="?"/>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionDefinitions name="AlternativeExpr">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.110"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.3/@textualSyntaxDef/@rules.0">
-        <rules name="AlternativeExpr">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="left">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.109"/>
-              </propertyType>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword=")"/>
             </sequence>
-            <sequence xsi:type="dbl:TerminalExpr" terminal="|"/>
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="right">
-              <propertyType xsi:type="dbl:CompositePropertyType">
-                <type xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.111"/>
-              </propertyType>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" keyword="*"/>
             </sequence>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionDefinitions name="BooleanTest">
-      <extendedConcept xsi:type="dbl:Class" href="../../dbl.xmi#//@modules.0/@classes.28"/>
-      <textualSyntaxDef startRule="//@modules.0/@extensionDefinitions.4/@textualSyntaxDef/@rules.0">
-        <rules name="BTest">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:TerminalExpr" terminal="btest"/>
-            <sequence xsi:type="dbl:RhsClassifierExpr" classifier="//@modules.0/@extensionDefinitions.4/@textualSyntaxDef/@rules.2"/>
-            <sequence xsi:type="dbl:TerminalExpr" terminal=";"/>
-          </rhs>
-        </rules>
-        <rules name="BOpt">
-          <rhs xsi:type="dbl:SequenceExpr"/>
-        </rules>
-        <rules name="BOpt">
-          <rhs xsi:type="dbl:SequenceExpr">
-            <sequence xsi:type="dbl:PropertyBindingExpr" name="b">
-              <propertyType xsi:type="dbl:BooleanPropertyType" terminal="on"/>
-            </sequence>
-          </rhs>
-        </rules>
-      </textualSyntaxDef>
-    </extensionDefinitions>
-    <extensionSemanticsDefinitions syntaxDefinition="//@modules.0/@extensionDefinitions.0">
-      <statements xsi:type="dbl:Variable" name="tsRule">
-        <classifierType>
-          <referencedElement href="../../dbl.xmi#//@modules.0/@classes.108"/>
-        </classifierType>
-        <initialValue xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0">
-          <callPart>
-            <callArguments xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.0"/>
-          </callPart>
-        </initialValue>
-      </statements>
-      <statements xsi:type="dbl:Variable" name="newRuleName">
-        <primitiveType xsi:type="dbl:StringType"/>
-        <initialValue xsi:type="dbl:Plus">
-          <op1 xsi:type="dbl:IdExpr">
-            <parentIdExpr referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.0"/>
-            <referencedElement href="../../dbl.xmi#//@modules.0/@classes.25/@attributes.0"/>
-          </op1>
-          <op2 xsi:type="dbl:StringLiteral" value="_ManyOpt"/>
-        </initialValue>
-      </statements>
-      <statements xsi:type="dbl:ExpansionStatement">
-        <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
-        </parts>
-      </statements>
-      <statements xsi:type="dbl:SetExpansionContextStatement" addAfterContext="true">
-        <context xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.0"/>
-      </statements>
-      <statements xsi:type="dbl:ExpansionStatement">
-        <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
-        </parts>
-        <parts xsi:type="dbl:ExpandTextPart" text=" -> ;"/>
-      </statements>
-      <statements xsi:type="dbl:ExpansionStatement">
-        <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
-        </parts>
-        <parts xsi:type="dbl:ExpandTextPart" text=" -> "/>
-        <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionDefinitions.0/@textualSyntaxDef/@rules.0/@rhs/@sequence.0"/>
-        </parts>
-        <parts xsi:type="dbl:ExpandTextPart" text=" "/>
-        <parts xsi:type="dbl:ExpandVariablePart">
-          <expr xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@extensionSemanticsDefinitions.0/@statements.1"/>
-        </parts>
-        <parts xsi:type="dbl:ExpandTextPart" text=";"/>
-      </statements>
-    </extensionSemanticsDefinitions>
-    <functions name="getOwnerTsRule">
-      <classifierType>
-        <referencedElement href="../../dbl.xmi#//@modules.0/@classes.108"/>
-      </classifierType>
-      <statements xsi:type="dbl:Variable" name="c">
-        <classifierType>
-          <referencedElement href="../../ecore.xmi#//@modules.0/@classes.11"/>
-        </classifierType>
-        <initialValue xsi:type="dbl:IdExpr">
-          <parentIdExpr referencedElement="//@modules.0/@functions.0/@parameters.0"/>
-          <referencedElement href="../../ecore.xmi#//@modules.0/@classes.11/@methods.1"/>
-          <callPart/>
-        </initialValue>
-      </statements>
-      <statements xsi:type="dbl:WhileStatement">
-        <condition xsi:type="dbl:NotEqual">
-          <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
-          <op2 xsi:type="dbl:NullLiteral"/>
-        </condition>
-        <body xsi:type="dbl:LocalScopeStatement">
-          <statements xsi:type="dbl:IfStatement">
-            <condition xsi:type="dbl:InstanceOf">
-              <op1 xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
-              <op2 xsi:type="dbl:TypeAccess">
-                <idExpr>
-                  <referencedElement href="../../dbl.xmi#//@modules.0/@classes.108"/>
-                </idExpr>
-              </op2>
-            </condition>
-            <trueCase xsi:type="dbl:Return">
-              <value xsi:type="dbl:Cast">
-                <classifierType>
-                  <referencedElement href="../../dbl.xmi#//@modules.0/@classes.108"/>
-                </classifierType>
-                <op xsi:type="dbl:IdExpr" referencedElement="//@modules.0/@functions.0/@statements.0"/>
-              </value>
-            </trueCase>
-            <falseCase xsi:type="dbl:Assignment">
-              <variable>
-                <idExpr referencedElement="//@modules.0/@functions.0/@statements.0"/>
-              </variable>
-              <value xsi:type="dbl:IdExpr">
-                <parentIdExpr referencedElement="//@modules.0/@functions.0/@parameters.0"/>
-                <referencedElement href="../../ecore.xmi#//@modules.0/@classes.11/@methods.1"/>
-                <callPart/>
-              </value>
-            </falseCase>
-          </statements>
-        </body>
-      </statements>
-      <statements xsi:type="dbl:Return">
-        <value xsi:type="dbl:NullLiteral"/>
-      </statements>
-      <parameters name="obj">
-        <classifierType>
-          <referencedElement href="../../ecore.xmi#//@modules.0/@classes.11"/>
-        </classifierType>
-      </parameters>
-    </functions>
-  </modules>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+  </module>
 </dbl:Model>

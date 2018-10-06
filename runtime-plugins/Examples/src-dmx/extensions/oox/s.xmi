@@ -7,7 +7,7 @@
     <model href="../../dbl.xmi#/"/>
   </imports>
   <module name="ooxSimple">
-    <extensions xsi:type="dbl:OOX_OOX_extension" name="SM" concreteSyntax="oox extension SM extends dbl SimpleStatement {&#xA;&#x9;start SM;&#xA;&#x9;SM -> &quot;sm&quot; &quot;;&quot;;&#xA;}" instanceOfExtensionDefinition="true">
+    <extensions xsi:type="dbl:OOX_OOX_extension" name="SM" concreteSyntax="oox &quot;test&quot; extension SM extends dbl SimpleStatement {&#xA;&#x9;start SM;&#xA;&#x9;SM -> &quot;sm&quot; &quot;;&quot;;&#xA;}" instanceOfExtensionDefinition="true" s="test">
       <extensionPoint href="../../dbl.xmi#//@module/@classifiers.37"/>
       <syntaxDefinition concreteSyntax="{&#xA;&#x9;start SM;&#xA;&#x9;SM -> &quot;sm&quot; &quot;;&quot;;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="SM" concreteSyntax="SM -> &quot;sm&quot; &quot;;&quot;;">

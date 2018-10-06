@@ -4,21 +4,21 @@
     <model href="../../dbl.xmi#/"/>
   </imports>
   <module name="exprcontext">
-    <classes name="EcoreUtil" concreteSyntax="class EcoreUtil {&#xA;&#x9;bindings {&#xA;&#x9;&#x9;&quot;java&quot; -> &quot;org.eclipse.emf.ecore.util.EcoreUtil&quot;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;static EObject copy(EObject eObject);&#x9;&#xA;}">
-      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.util.EcoreUtil"/>
+    <classifiers xsi:type="dbl:Interface" name="EcoreUtil" concreteSyntax="interface EcoreUtil {&#xA;&#x9;bindings {&#xA;&#x9;&#x9;&quot;java&quot; -> &quot;org.eclipse.emf.ecore.util.EcoreUtil&quot;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;static EObject copy(EObject eObject);&#x9;&#xA;}">
       <methods name="copy" class="true">
         <classifierType concreteSyntax="EObject">
-          <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+          <referencedElement href="../../ecore.xmi#//@module/@classifiers.13"/>
         </classifierType>
         <parameters name="eObject">
           <classifierType concreteSyntax="EObject">
-            <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+            <referencedElement href="../../ecore.xmi#//@module/@classifiers.13"/>
           </classifierType>
         </parameters>
       </methods>
-    </classes>
+      <bindings targetLanguage="java" targetType="org.eclipse.emf.ecore.util.EcoreUtil"/>
+    </classifiers>
     <extensions name="ContextChange" concreteSyntax="extension ContextChange extends dbl SimpleStatement {&#xA;&#x9;start ContextChangeRule;&#xA;&#x9;ContextChangeRule -> &quot;context&quot; newContext:IdExpr &quot;{&quot; statements : list Statement &quot;}&quot;;&#xA;}">
-      <extensionPoint href="../../dbl.xmi#//@module/@classes.33"/>
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.37"/>
       <syntaxDefinition concreteSyntax="{&#xA;&#x9;start ContextChangeRule;&#xA;&#x9;ContextChangeRule -> &quot;context&quot; newContext:IdExpr &quot;{&quot; statements : list Statement &quot;}&quot;;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="ContextChangeRule" concreteSyntax="ContextChangeRule -> &quot;context&quot; newContext:IdExpr &quot;{&quot; statements : list Statement &quot;}&quot;;">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
@@ -26,13 +26,13 @@
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;context&quot;" keyword="context"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="newContext">
-              <referencedClassifier href="../../dbl.xmi#//@module/@classes.102"/>
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.104"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;{&quot;" keyword="{"/>
             </sequence>
             <sequence xsi:type="dbl:StructuralSymbolReference" name="statements" list="true">
-              <referencedClassifier href="../../dbl.xmi#//@module/@classes.31"/>
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.35"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;}&quot;" keyword="}"/>
@@ -59,7 +59,7 @@
           <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1/@statements.0"/>
           <op2 xsi:type="dbl:IdExpr" concreteSyntax="statements.size()">
             <parentIdExpr concreteSyntax="statements" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.3"/>
-            <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
+            <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5/@methods.4"/>
             <callPart/>
           </op2>
         </termination>
@@ -75,15 +75,15 @@
         <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;Statement statement = statements.get(0) as Statement;&#xA;&#x9;&#x9;expand prettyPrint(statement);&#xA;&#x9;}">
           <statements xsi:type="dbl:Variable" name="statement" concreteSyntax="Statement statement = statements.get(0) as Statement">
             <classifierType concreteSyntax="Statement">
-              <referencedElement href="../../dbl.xmi#//@module/@classes.31"/>
+              <referencedElement href="../../dbl.xmi#//@module/@classifiers.35"/>
             </classifierType>
             <initialValue xsi:type="dbl:Cast" concreteSyntax="statements.get(0) as Statement">
               <classifierType concreteSyntax="Statement">
-                <referencedElement href="../../dbl.xmi#//@module/@classes.31"/>
+                <referencedElement href="../../dbl.xmi#//@module/@classifiers.35"/>
               </classifierType>
               <op xsi:type="dbl:IdExpr" concreteSyntax="statements.get(0)">
                 <parentIdExpr concreteSyntax="statements" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.3"/>
-                <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
+                <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5/@methods.5"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
                 </callPart>
@@ -106,11 +106,11 @@
       <primitiveType xsi:type="dbl:VoidType"/>
       <statements xsi:type="dbl:Variable" name="rootIdExprs" concreteSyntax="List rootIdExprs = new ArrayList()">
         <classifierType concreteSyntax="List">
-          <referencedElement href="../../stdlib.xmi#//@module/@classes.5"/>
+          <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5"/>
         </classifierType>
         <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList()">
           <classifierType concreteSyntax="ArrayList()">
-            <referencedElement href="../../stdlib.xmi#//@module/@classes.6"/>
+            <referencedElement href="../../stdlib.xmi#//@module/@classifiers.6"/>
             <callPart/>
           </classifierType>
         </initialValue>
@@ -123,7 +123,7 @@
           </callPart>
         </callIdExpr>
       </statements>
-      <statements xsi:type="dbl:ForStatement" concreteSyntax="for (int i=0; i&lt;rootIdExprs.size(); i=i+1) {&#xA;&#x9;&#x9;IdExpr rootIdExpr = rootIdExprs.get(0) as IdExpr;&#xA;&#x9;&#x9;IdExpr lastParent = getLastParent(rootIdExpr);&#xA;&#x9;&#x9;lastParent.parentIdExpr = EcoreUtil.copy(contextPrefix);&#xA;&#x9;}">
+      <statements xsi:type="dbl:ForStatement" concreteSyntax="for (int i=0; i&lt;rootIdExprs.size(); i=i+1) {&#xA;&#x9;&#x9;IdExpr rootIdExpr = rootIdExprs.get(0) as IdExpr;&#xA;&#x9;&#x9;IdExpr lastParent = getLastParent(rootIdExpr);&#xA;&#x9;&#x9;lastParent.getParentIdExpr() = EcoreUtil.copy(contextPrefix);&#xA;&#x9;}">
         <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i=0">
           <primitiveType xsi:type="dbl:IntType"/>
           <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
@@ -132,7 +132,7 @@
           <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@functions.0/@statements.2/@statements.0"/>
           <op2 xsi:type="dbl:IdExpr" concreteSyntax="rootIdExprs.size()">
             <parentIdExpr concreteSyntax="rootIdExprs" referencedElement="//@module/@functions.0/@statements.0"/>
-            <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
+            <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5/@methods.4"/>
             <callPart/>
           </op2>
         </termination>
@@ -145,18 +145,18 @@
             <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
           </value>
         </increment>
-        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;IdExpr rootIdExpr = rootIdExprs.get(0) as IdExpr;&#xA;&#x9;&#x9;IdExpr lastParent = getLastParent(rootIdExpr);&#xA;&#x9;&#x9;lastParent.parentIdExpr = EcoreUtil.copy(contextPrefix);&#xA;&#x9;}">
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;IdExpr rootIdExpr = rootIdExprs.get(0) as IdExpr;&#xA;&#x9;&#x9;IdExpr lastParent = getLastParent(rootIdExpr);&#xA;&#x9;&#x9;lastParent.getParentIdExpr() = EcoreUtil.copy(contextPrefix);&#xA;&#x9;}">
           <statements xsi:type="dbl:Variable" name="rootIdExpr" concreteSyntax="IdExpr rootIdExpr = rootIdExprs.get(0) as IdExpr">
             <classifierType concreteSyntax="IdExpr">
-              <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+              <referencedElement href="../../dbl.xmi#//@module/@classifiers.104"/>
             </classifierType>
             <initialValue xsi:type="dbl:Cast" concreteSyntax="rootIdExprs.get(0) as IdExpr">
               <classifierType concreteSyntax="IdExpr">
-                <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+                <referencedElement href="../../dbl.xmi#//@module/@classifiers.104"/>
               </classifierType>
               <op xsi:type="dbl:IdExpr" concreteSyntax="rootIdExprs.get(0)">
                 <parentIdExpr concreteSyntax="rootIdExprs" referencedElement="//@module/@functions.0/@statements.0"/>
-                <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.5"/>
+                <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5/@methods.5"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
                 </callPart>
@@ -165,7 +165,7 @@
           </statements>
           <statements xsi:type="dbl:Variable" name="lastParent" concreteSyntax="IdExpr lastParent = getLastParent(rootIdExpr)">
             <classifierType concreteSyntax="IdExpr">
-              <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+              <referencedElement href="../../dbl.xmi#//@module/@classifiers.104"/>
             </classifierType>
             <initialValue xsi:type="dbl:IdExpr" concreteSyntax="getLastParent(rootIdExpr)" referencedElement="//@module/@functions.3">
               <callPart>
@@ -173,15 +173,16 @@
               </callPart>
             </initialValue>
           </statements>
-          <statements xsi:type="dbl:Assignment" concreteSyntax="lastParent.parentIdExpr = EcoreUtil.copy(contextPrefix)">
-            <variable concreteSyntax="lastParent.parentIdExpr">
-              <idExpr concreteSyntax="lastParent.parentIdExpr">
+          <statements xsi:type="dbl:Assignment" concreteSyntax="lastParent.getParentIdExpr() = EcoreUtil.copy(contextPrefix)">
+            <variable concreteSyntax="lastParent.getParentIdExpr()">
+              <idExpr concreteSyntax="lastParent.getParentIdExpr()">
                 <parentIdExpr concreteSyntax="lastParent" referencedElement="//@module/@functions.0/@statements.2/@body/@statements.1"/>
-                <referencedElement href="../../dbl.xmi#//@module/@classes.102/@attributes.0"/>
+                <referencedElement href="../../dbl.xmi#//@module/@classifiers.104/@methods.0"/>
+                <callPart/>
               </idExpr>
             </variable>
-            <value xsi:type="dbl:IdExpr" concreteSyntax="EcoreUtil.copy(contextPrefix)" referencedElement="//@module/@classes.0/@methods.0">
-              <parentIdExpr concreteSyntax="EcoreUtil" referencedElement="//@module/@classes.0"/>
+            <value xsi:type="dbl:IdExpr" concreteSyntax="EcoreUtil.copy(contextPrefix)" referencedElement="//@module/@classifiers.0/@methods.0">
+              <parentIdExpr concreteSyntax="EcoreUtil" referencedElement="//@module/@classifiers.0"/>
               <callPart>
                 <callArguments xsi:type="dbl:IdExpr" concreteSyntax="contextPrefix" referencedElement="//@module/@functions.0/@parameters.1"/>
               </callPart>
@@ -191,12 +192,12 @@
       </statements>
       <parameters name="statement">
         <classifierType concreteSyntax="Statement">
-          <referencedElement href="../../dbl.xmi#//@module/@classes.31"/>
+          <referencedElement href="../../dbl.xmi#//@module/@classifiers.35"/>
         </classifierType>
       </parameters>
       <parameters name="contextPrefix">
         <classifierType concreteSyntax="IdExpr">
-          <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+          <referencedElement href="../../dbl.xmi#//@module/@classifiers.104"/>
         </classifierType>
       </parameters>
     </functions>
@@ -204,7 +205,7 @@
       <primitiveType xsi:type="dbl:StringType"/>
       <parameters name="construct">
         <classifierType concreteSyntax="Construct">
-          <referencedElement href="../../dbl.xmi#//@module/@classes.0"/>
+          <referencedElement href="../../dbl.xmi#//@module/@classifiers.0"/>
         </classifierType>
       </parameters>
     </functions>
@@ -218,19 +219,19 @@
         <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;String eClassName = new String(eObject.eClass().getName());&#xA;&#x9;&#x9;if (eClassName.equals(&quot;IdExpr&quot;)) {&#xA;&#x9;&#x9;&#x9;rootIdExprs.add(eObject);&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;if (eObject.eContents().size() > 0) {&#xA;&#x9;&#x9;&#x9;for (int i=0; i&lt;eObject.eContents().size(); i=i+1) {&#xA;&#x9;&#x9;&#x9;&#x9;collectContainedRootIdExprs(eObject, rootIdExprs);&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}">
           <statements xsi:type="dbl:Variable" name="eClassName" concreteSyntax="String eClassName = new String(eObject.eClass().getName())">
             <classifierType concreteSyntax="String">
-              <referencedElement href="../../stdlib.xmi#//@module/@classes.2"/>
+              <referencedElement href="../../stdlib.xmi#//@module/@classifiers.2"/>
             </classifierType>
             <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new String(eObject.eClass().getName())">
               <classifierType concreteSyntax="String(eObject.eClass().getName())">
-                <referencedElement href="../../stdlib.xmi#//@module/@classes.2"/>
+                <referencedElement href="../../stdlib.xmi#//@module/@classifiers.2"/>
                 <callPart>
                   <callArguments xsi:type="dbl:IdExpr" concreteSyntax="eObject.eClass().getName()">
                     <parentIdExpr concreteSyntax="eObject.eClass()">
                       <parentIdExpr concreteSyntax="eObject" referencedElement="//@module/@functions.2/@parameters.0"/>
-                      <referencedElement href="../../ecore.xmi#//@module/@classes.13/@methods.1"/>
+                      <referencedElement href="../../ecore.xmi#//@module/@classifiers.13/@methods.1"/>
                       <callPart/>
                     </parentIdExpr>
-                    <referencedElement href="../../ecore.xmi#//@module/@classes.9/@methods.0"/>
+                    <referencedElement href="../../ecore.xmi#//@module/@classifiers.9/@methods.0"/>
                     <callPart/>
                   </callArguments>
                 </callPart>
@@ -240,7 +241,7 @@
           <statements xsi:type="dbl:IfStatement" concreteSyntax="if (eClassName.equals(&quot;IdExpr&quot;)) {&#xA;&#x9;&#x9;&#x9;rootIdExprs.add(eObject);&#xA;&#x9;&#x9;}">
             <condition xsi:type="dbl:IdExpr" concreteSyntax="eClassName.equals(&quot;IdExpr&quot;)">
               <parentIdExpr concreteSyntax="eClassName" referencedElement="//@module/@functions.2/@statements.0/@trueCase/@statements.0"/>
-              <referencedElement href="../../stdlib.xmi#//@module/@classes.1/@methods.0"/>
+              <referencedElement href="../../stdlib.xmi#//@module/@classifiers.1/@methods.0"/>
               <callPart>
                 <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;IdExpr&quot;" value="IdExpr"/>
               </callPart>
@@ -249,7 +250,7 @@
               <statements xsi:type="dbl:FunctionCall" concreteSyntax="rootIdExprs.add(eObject)">
                 <callIdExpr concreteSyntax="rootIdExprs.add(eObject)">
                   <parentIdExpr concreteSyntax="rootIdExprs" referencedElement="//@module/@functions.2/@parameters.1"/>
-                  <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.0"/>
+                  <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5/@methods.0"/>
                   <callPart>
                     <callArguments xsi:type="dbl:IdExpr" concreteSyntax="eObject" referencedElement="//@module/@functions.2/@parameters.0"/>
                   </callPart>
@@ -262,10 +263,10 @@
               <op1 xsi:type="dbl:IdExpr" concreteSyntax="eObject.eContents().size()">
                 <parentIdExpr concreteSyntax="eObject.eContents()">
                   <parentIdExpr concreteSyntax="eObject" referencedElement="//@module/@functions.2/@parameters.0"/>
-                  <referencedElement href="../../ecore.xmi#//@module/@classes.13/@methods.5"/>
+                  <referencedElement href="../../ecore.xmi#//@module/@classifiers.13/@methods.5"/>
                   <callPart/>
                 </parentIdExpr>
-                <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
+                <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5/@methods.4"/>
                 <callPart/>
               </op1>
               <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
@@ -281,10 +282,10 @@
                   <op2 xsi:type="dbl:IdExpr" concreteSyntax="eObject.eContents().size()">
                     <parentIdExpr concreteSyntax="eObject.eContents()">
                       <parentIdExpr concreteSyntax="eObject" referencedElement="//@module/@functions.2/@parameters.0"/>
-                      <referencedElement href="../../ecore.xmi#//@module/@classes.13/@methods.5"/>
+                      <referencedElement href="../../ecore.xmi#//@module/@classifiers.13/@methods.5"/>
                       <callPart/>
                     </parentIdExpr>
-                    <referencedElement href="../../stdlib.xmi#//@module/@classes.5/@methods.4"/>
+                    <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5/@methods.4"/>
                     <callPart/>
                   </op2>
                 </termination>
@@ -314,41 +315,43 @@
       </statements>
       <parameters name="eObject">
         <classifierType concreteSyntax="EObject">
-          <referencedElement href="../../ecore.xmi#//@module/@classes.13"/>
+          <referencedElement href="../../ecore.xmi#//@module/@classifiers.13"/>
         </classifierType>
       </parameters>
       <parameters name="rootIdExprs">
         <classifierType concreteSyntax="List">
-          <referencedElement href="../../stdlib.xmi#//@module/@classes.5"/>
+          <referencedElement href="../../stdlib.xmi#//@module/@classifiers.5"/>
         </classifierType>
       </parameters>
     </functions>
     <functions name="getLastParent">
       <classifierType concreteSyntax="IdExpr">
-        <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+        <referencedElement href="../../dbl.xmi#//@module/@classifiers.104"/>
       </classifierType>
-      <statements xsi:type="dbl:Variable" name="parent" concreteSyntax="IdExpr parent = idExpr.parentIdExpr">
+      <statements xsi:type="dbl:Variable" name="parent" concreteSyntax="IdExpr parent = idExpr.getParentIdExpr()">
         <classifierType concreteSyntax="IdExpr">
-          <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+          <referencedElement href="../../dbl.xmi#//@module/@classifiers.104"/>
         </classifierType>
-        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="idExpr.parentIdExpr">
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="idExpr.getParentIdExpr()">
           <parentIdExpr concreteSyntax="idExpr" referencedElement="//@module/@functions.3/@parameters.0"/>
-          <referencedElement href="../../dbl.xmi#//@module/@classes.102/@attributes.0"/>
+          <referencedElement href="../../dbl.xmi#//@module/@classifiers.104/@methods.0"/>
+          <callPart/>
         </initialValue>
       </statements>
-      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (parent != null) {&#xA;&#x9;&#x9;parent = idExpr.parentIdExpr;&#xA;&#x9;}">
+      <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (parent != null) {&#xA;&#x9;&#x9;parent = idExpr.getParentIdExpr();&#xA;&#x9;}">
         <condition xsi:type="dbl:NotEqual" concreteSyntax="parent != null">
           <op1 xsi:type="dbl:IdExpr" concreteSyntax="parent" referencedElement="//@module/@functions.3/@statements.0"/>
           <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
         </condition>
-        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;parent = idExpr.parentIdExpr;&#xA;&#x9;}">
-          <statements xsi:type="dbl:Assignment" concreteSyntax="parent = idExpr.parentIdExpr">
+        <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;parent = idExpr.getParentIdExpr();&#xA;&#x9;}">
+          <statements xsi:type="dbl:Assignment" concreteSyntax="parent = idExpr.getParentIdExpr()">
             <variable concreteSyntax="parent">
               <idExpr concreteSyntax="parent" referencedElement="//@module/@functions.3/@statements.0"/>
             </variable>
-            <value xsi:type="dbl:IdExpr" concreteSyntax="idExpr.parentIdExpr">
+            <value xsi:type="dbl:IdExpr" concreteSyntax="idExpr.getParentIdExpr()">
               <parentIdExpr concreteSyntax="idExpr" referencedElement="//@module/@functions.3/@parameters.0"/>
-              <referencedElement href="../../dbl.xmi#//@module/@classes.102/@attributes.0"/>
+              <referencedElement href="../../dbl.xmi#//@module/@classifiers.104/@methods.0"/>
+              <callPart/>
             </value>
           </statements>
         </body>
@@ -358,7 +361,7 @@
       </statements>
       <parameters name="idExpr">
         <classifierType concreteSyntax="IdExpr">
-          <referencedElement href="../../dbl.xmi#//@module/@classes.102"/>
+          <referencedElement href="../../dbl.xmi#//@module/@classifiers.104"/>
         </classifierType>
       </parameters>
     </functions>

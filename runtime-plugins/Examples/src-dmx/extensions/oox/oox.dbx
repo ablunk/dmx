@@ -6,7 +6,7 @@ module ooxdef;
 
 extension OOX extends dbl Extension {
 	start OOX;
-	OOX -> "oox" Extension;
+	OOX -> "oox" s:STRING Extension;
 }
 
 semantics for OOX {

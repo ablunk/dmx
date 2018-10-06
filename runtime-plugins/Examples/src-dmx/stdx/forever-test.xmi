@@ -34,8 +34,8 @@
       <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate a">
         <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="a" referencedElement="//@module/@functions.0/@statements.0"/>
       </statements>
-      <statements xsi:type="dbl:Advance" concreteSyntax="advance 100">
-        <time xsi:type="dbl:IntLiteral" concreteSyntax="100" value="100"/>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 5">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="5" value="5"/>
       </statements>
     </functions>
   </module>

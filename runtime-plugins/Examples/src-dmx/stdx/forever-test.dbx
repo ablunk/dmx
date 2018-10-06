@@ -14,5 +14,5 @@ active class A {
 void main() {
 	A a = new A();
 	activate a;
-	advance 100;
+	advance 5;
 }

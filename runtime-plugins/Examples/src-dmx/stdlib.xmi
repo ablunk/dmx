@@ -124,6 +124,33 @@
     <classifiers xsi:type="dbl:Interface" name="ArrayList" superInterfaces="//@module/@classifiers.5">
       <bindings targetLanguage="java" targetType="java.util.ArrayList"/>
     </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Iterable">
+      <methods name="iterator">
+        <classifierType referencedElement="//@module/@classifiers.4"/>
+      </methods>
+      <bindings targetLanguage="java" targetType="java.util.Iterable"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="Queue" superInterfaces="//@module/@classifiers.7">
+      <methods name="offer">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="element">
+          <classifierType referencedElement="//@module/@classifiers.1"/>
+        </parameters>
+      </methods>
+      <methods name="poll">
+        <classifierType referencedElement="//@module/@classifiers.1"/>
+      </methods>
+      <methods name="peek">
+        <classifierType referencedElement="//@module/@classifiers.1"/>
+      </methods>
+      <methods name="size">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+      <bindings targetLanguage="java" targetType="java.util.Queue"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="LinkedList" superInterfaces="//@module/@classifiers.8">
+      <bindings targetLanguage="java" targetType="java.util.LinkedList"/>
+    </classifiers>
     <classifiers xsi:type="dbl:Interface" name="Map">
       <methods name="get">
         <classifierType referencedElement="//@module/@classifiers.1"/>
@@ -140,9 +167,15 @@
           <classifierType referencedElement="//@module/@classifiers.1"/>
         </parameters>
       </methods>
+      <methods name="remove">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="key">
+          <classifierType referencedElement="//@module/@classifiers.1"/>
+        </parameters>
+      </methods>
       <bindings targetLanguage="java" targetType="java.util.Map"/>
     </classifiers>
-    <classifiers xsi:type="dbl:Interface" name="HashMap" superInterfaces="//@module/@classifiers.7">
+    <classifiers xsi:type="dbl:Interface" name="HashMap" superInterfaces="//@module/@classifiers.10">
       <bindings targetLanguage="java" targetType="java.util.HashMap"/>
     </classifiers>
   </module>

@@ -16,12 +16,13 @@ void main() {
 	Delayer delayer = new Delayer;
 	Consumer consumer = new Consumer;
 
-	producer.receiver = delayer;
-	delayer.receiver = consumer;
-	
 	activate producer;
 	activate delayer;
 	activate consumer;
+
+	advance 10;
+	producer.receiver = delayer;
+	delayer.receiver = consumer;	
 }
 
 active class Producer extends ObjectWithStateMachine {
@@ -40,7 +41,7 @@ active class Consumer extends ObjectWithStateMachine {
 }
 
 active class Delayer extends ObjectWithStateMachine {
-	ObjectWithStateMachine receiver;
+	control ObjectWithStateMachine receiver;
 	Data lastReceived = null;
 	
 	// GENERATED from extension
@@ -58,7 +59,23 @@ active class Delayer extends ObjectWithStateMachine {
 		print "sending data with pay load: " + lastReceived.payLoad;
 		receiver.sendSignal(lastReceived);
 		lastReceived = null;
-	}	
+	}
+	
+	void createStateMachineRuntime() {
+	}
+	
+	void waitForEvent() {
+		if (stateMachineRuntime.currentState.name.equals("waiting")) {
+			waiting_waitForEvent(stateMachineRuntime.currentState.outgoingTransitions);
+		}
+	}
+	
+	Transition waiting_waitForEvent(Map transitions) {
+		wait until stateMachineRuntime.eventQueue.size > 0 or receiver == null;
+		if (receiver == null) {
+			return transitions.get("WhenReceiverIsNullTransition");
+		}
+	}
 }
 
 // GENERATED from extension

@@ -1,6 +1,6 @@
 #import "../../dbl"
 
-module DataObjectExtension {
+module DataObjectExtension;
 
 extension DataObject extends dbl SimpleStatement {
 	start DO;
@@ -13,7 +13,7 @@ extension DataObject extends dbl SimpleStatement {
 semantics for DataObject {
 	expand "DO_" name " " name " = new DO_" name "();";
 	Module containerModule = getContainerModule(self);
-	expand class "class DO_" name " {}" in containerModule;
+	expand "class DO_" name " {}" in containerModule;
 }	
 
 Module getContainerModule(EObject metaObject) {
@@ -24,6 +24,4 @@ Module getContainerModule(EObject metaObject) {
 	else {
 		return getContainerModule(container);
 	}
-}
-
 }

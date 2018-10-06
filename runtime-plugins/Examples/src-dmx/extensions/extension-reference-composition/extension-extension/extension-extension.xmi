@@ -5,7 +5,7 @@
   </imports>
   <module name="extensionextension">
     <extensions name="A">
-      <extensionPoint href="../../../dbl.xmi#//@module/@classes.11"/>
+      <extensionPoint href="../../../dbl.xmi#//@module/@classifiers.11"/>
       <syntaxDefinition startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
         <symbols name="AR">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
@@ -33,7 +33,7 @@
       </syntaxDefinition>
     </extensions>
     <extensions name="B">
-      <extensionPoint href="../../../dbl.xmi#//@module/@classes.47"/>
+      <extensionPoint href="../../../dbl.xmi#//@module/@classifiers.50"/>
       <syntaxDefinition startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.0">
         <symbols name="BR">
           <possibleSyntax xsi:type="dbl:SymbolSequence">

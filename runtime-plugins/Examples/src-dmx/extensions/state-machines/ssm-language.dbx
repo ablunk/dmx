@@ -43,6 +43,7 @@ extension StateMachine extends dbl ClassContentExtension {
 	Transition -> Trigger TargetState;
 	
 	// TODO can we make the messageVariable accessible inside effects?
+	Trigger -> "when" condition:Expression Effects;
 	Trigger -> "on" messageVariable:Variable Effects;
 	Trigger -> "after" timeDuration:Expression Effects;
 	Effects -> ;
@@ -116,6 +117,9 @@ semantics for StateMachine {
 	}
 
 	expand "return stateMachineRuntime;";
+	expand "}";
+	
+	expand "void waitForEvent() {";
 	
 	expand "}";
 }

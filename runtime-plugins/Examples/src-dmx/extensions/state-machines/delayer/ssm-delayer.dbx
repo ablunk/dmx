@@ -16,13 +16,14 @@ void main() {
 	Producer producer = new Producer;
 	Delayer delayer = new Delayer;
 	Consumer consumer = new Consumer;
-	
-	producer.receiver = delayer;
-	delayer.receiver = consumer;
-	
+		
 	activate producer;
 	activate delayer;
-	activate consumer;	
+	activate consumer;
+	
+	advance 10;
+	producer.receiver = delayer;
+	delayer.receiver = consumer;
 }
 
 active class Producer extends ObjectWithStateMachine {
@@ -41,15 +42,19 @@ active class Consumer extends ObjectWithStateMachine {
 }
 
 active class Delayer extends ObjectWithStateMachine {
-	ObjectWithStateMachine receiver;
+	control ObjectWithStateMachine receiver;
 	Data lastReceived = null;
 	
 	stateMachine {
-		initial state waiting {
+		initial state disconnected {
+			when receiver != null then goto waiting
+		}
+		state waiting {
 			// this is a workaround because the data message variable cannot be accessed from here.
 			// by convention, the received message will be made available in a variable named 'message'.
 			on Data data do { saveAsLastData(message as Data); } then goto waiting,
-			after 5 do forwardLastData(); then goto waiting
+			after 5 do forwardLastData(); then goto waiting,
+			when receiver == null then goto disconnected
 		}
 	}
 		

@@ -67,6 +67,30 @@ interface ArrayList extends List {
 	}
 }
 
+interface Iterable {
+	bindings {
+		"java" -> "java.util.Iterable"
+	}
+	Iterator iterator();
+}
+
+interface Queue extends Iterable {
+	bindings {
+		"java" -> "java.util.Queue"
+	}
+
+	void offer(Object element);
+	Object poll();
+	Object peek();
+	int size();
+}
+
+interface LinkedList extends Queue {
+	bindings {
+		"java" -> "java.util.LinkedList"
+	}
+}
+
 interface Map {
 	bindings {
 		"java" -> "java.util.Map"
@@ -74,6 +98,7 @@ interface Map {
 	
 	Object get(Object key);
 	void put(Object key, Object value);
+	void remove(Object key);
 }
 
 interface HashMap extends Map {

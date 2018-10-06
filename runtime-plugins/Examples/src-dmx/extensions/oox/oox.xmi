@@ -10,13 +10,16 @@
     <model href="../../stdx.xmi#/"/>
   </imports>
   <module name="ooxdef">
-    <extensions name="OOX" concreteSyntax="extension OOX extends dbl Extension {&#xA;&#x9;start OOX;&#xA;&#x9;OOX -> &quot;oox&quot; Extension;&#xA;}">
+    <extensions name="OOX" concreteSyntax="extension OOX extends dbl Extension {&#xA;&#x9;start OOX;&#xA;&#x9;OOX -> &quot;oox&quot; s:STRING Extension;&#xA;}">
       <extensionPoint href="../../dbl.xmi#//@module/@classifiers.110"/>
-      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start OOX;&#xA;&#x9;OOX -> &quot;oox&quot; Extension;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
-        <symbols name="OOX" concreteSyntax="OOX -> &quot;oox&quot; Extension;">
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start OOX;&#xA;&#x9;OOX -> &quot;oox&quot; s:STRING Extension;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="OOX" concreteSyntax="OOX -> &quot;oox&quot; s:STRING Extension;">
           <possibleSyntax xsi:type="dbl:SymbolSequence">
             <sequence xsi:type="dbl:PlainSymbolReference">
               <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;oox&quot;" keyword="oox"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="s">
+              <ownedClassifier xsi:type="dbl:StringSymbol" concreteSyntax="STRING"/>
             </sequence>
             <sequence xsi:type="dbl:PlainSymbolReference">
               <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.110"/>

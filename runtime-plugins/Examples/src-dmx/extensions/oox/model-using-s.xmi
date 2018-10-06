@@ -6,6 +6,7 @@
   <module name="modelUsingS">
     <functions name="main">
       <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:SM_SM_extension" concreteSyntax="sm;" instanceOfExtensionDefinition="true"/>
     </functions>
   </module>
 </dbl:Model>

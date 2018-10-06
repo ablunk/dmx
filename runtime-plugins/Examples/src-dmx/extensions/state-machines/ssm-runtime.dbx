@@ -110,12 +110,24 @@ class CompiledState implements Object {
 	}	
 }
 
+class ControlList implements List {
+	List actualList = new ArrayList;
+	control int size;
+	
+	void add(Object object) {
+		actualList.add(object);
+		size = size + 1;
+	}
+	
+	// other operations overridden as well
+}
+
 // runtime classes have to be defined manually as part of the semantics definition
 active class StateMachineRuntime {
 	StateMachine stateMachine;
 	
 	Map stateToCompiledState = new HashMap;
-	List eventQueue = new ArrayList;
+	ControlList eventQueue = new ControlList;
 	CompiledState currentState;
 	
 	new(StateMachine stateMachine) {
@@ -151,9 +163,15 @@ active class StateMachineRuntime {
 				}
 			}
 			print("no more events, waiting\n");
-			wait;
+			waitForEvent();
 		}
 		print("current state is not set, exiting\n");
+	}
+	
+	// to be overriden
+	void waitForEvent() {
+		wait;
+		// wait until eventQueue.size > 0 || someCondition;
 	}
 	
 	Event popNextEvent() {
@@ -201,6 +219,10 @@ class CompiledTransition {
 	int getTimeDuration() {
 		return 0;
 	}
+	
+	boolean isConditionSatisfied() {
+		return true;
+	}
 }
 
 active class Timer {
@@ -222,5 +244,14 @@ active class Timer {
 			compiledTransition.assignedFiredTimeEvent = new TimeEvent();
 			stateMachineRuntime.enterEvent(new TimeEvent());
 		}
+	}
+}
+
+active class ConditionWaiter {
+	StateMachineRuntime stateMachineRuntime;
+	CompiledTransition compiledTransition;
+
+	actions {
+		wait until compiledTransition.isConditionSatisfied();
 	}
 }

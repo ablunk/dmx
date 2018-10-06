@@ -1,23 +1,21 @@
-#import "ebnf-old"
+#import "ebnf"
 
-module EbnfSample1 {
+module EbnfSample1;
 
-	extension ExtensionUsingEbfn extends dbl Statement {
-		start Forever;
-		Forever -> "forever" "{" (stms:list(Statement))* "}";
-	}
+extension ExtensionUsingEbfn extends dbl Statement {
+	start Forever;
+	Forever -> "forever" "{" (stms : list Statement)* "}";
+}
 
-	extension TestX extends dbl Statement {
-		start Test;
-		Test -> Test1;
-		Test -> Test2;
-		Test1 -> "testx" ("opt" ("n")? "n"? | "x" | "a")+;
-		Test2 -> "a" "x"? | "b" | "c" ;
-	}
-	
-	void main() {
-		btest;
-		btest on;
-	}
+/*extension TestX extends dbl Statement {
+	start Test;
+	Test -> Test1;
+	Test -> Test2;
+	Test1 -> "testx" ("opt" ("n")? "n"? | "x" | "a")+;
+	Test2 -> "a" "x"? | "b" | "c" ;
+}*/
 
+void main() {
+	btest;
+	btest on;
 }
