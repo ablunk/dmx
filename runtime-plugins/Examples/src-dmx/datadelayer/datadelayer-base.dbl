@@ -1,0 +1,164 @@
+#import "../stdlib"
+
+module dataDelayerBase;
+
+interface IntDistUniform {
+	new (string name, int min, int max) {}
+	
+	bindings {
+		"desmoj" -> "hub.sam.dmx.javasim.desmoj.dist.IntDistUniform"
+	}
+	int sample() {}
+}
+
+
+class Data {
+	int id;
+}
+
+class Finished {
+	int id;
+}
+
+active class DelayerManager {
+	control Consumer consumer;
+	Map runningDataDelayerById = new HashMap;
+	
+	Queue incomingData = new LinkedList;
+	Queue finishedDelayers = new LinkedList;
+	
+	actions {
+		while (true) {
+			SystemOut.println("waiting");
+			wait until incomingData.size() > 0 or finishedDelayers.size() > 0;
+			SystemOut.println("analysing");
+			
+			if (incomingData.size() > 0) {
+				Data data = incomingData.poll() as Data;
+				DataDelayer associatedDataDelayer = findOrStartDataDelayer(data);
+				associatedDataDelayer.data = data;
+			}		
+			if (finishedDelayers.size() > 0) {
+				Finished finished = finishedDelayers.poll() as Finished;
+				runningDataDelayerById.remove(finished.id);
+			}
+		}
+	}
+	
+	DataDelayer findOrStartDataDelayer(Data data) {
+		DataDelayer associatedDataDelayer = runningDataDelayerById.get(data.id) as DataDelayer;
+		if (associatedDataDelayer == null) {
+			associatedDataDelayer = new DataDelayer(data, self);
+			runningDataDelayerById.put(data.id, associatedDataDelayer);
+			activate associatedDataDelayer;
+		}
+		return associatedDataDelayer;
+	}
+}
+
+active class DataDelayer {
+	Data data;
+	DelayerManager manager;
+	
+	control Data newData;
+	
+	new(Data data, DelayerManager manager) {
+		self.data = data;
+		self.manager = manager;
+	}
+	
+	actions {
+		while (true) {
+			wait until manager.consumer != null;
+			
+			Timer timer = new Timer(120);
+			activate timer;
+			
+			wait until timer.expired or manager.consumer == null or newData != null;
+			
+			if (timer.expired) {
+				publishData();
+			}
+			if (manager.consumer == null) {
+				// nothing
+			}
+			if (newData != null) {
+				updateData(newData);
+			}
+		}
+	}
+	
+	void publishData() {
+		manager.consumer.send(data);
+		Finished finished = new Finished();
+		finished.id = data.id;
+		manager.finishedDelayers.offer(finished);
+	}
+	
+	void updateData(Data updatedData) {
+		data = updatedData;
+	}
+}
+
+active class Timer {
+	int duration;
+	control boolean expired = false;
+	
+	new(int duration) {
+		self.duration = duration;
+	}
+	
+	actions {
+		advance duration;
+		expired = true;
+	}
+}
+
+active class Generator {
+	DelayerManager manager;
+	IntDistUniform randomDataIds;
+	IntDistUniform randomDataArrival;
+	int dataCreated = 0;
+	
+	new() {
+		randomDataIds = new IntDistUniform("IDs", 1,30);
+		randomDataArrival = new IntDistUniform("arrivals", 10,20);
+	}
+	
+	actions {
+		while (true) {
+			advance randomDataArrival.sample();
+			Data data = new Data;
+			data.id = randomDataIds.sample() as int;
+			SystemOut.println("offering data: " + data.id);
+			manager.incomingData.offer(data);
+			dataCreated = dataCreated + 1;
+		}
+	}	
+}
+
+class Consumer {
+	int dataConsumed = 0;
+	
+	void send(Data data) {
+		dataConsumed = dataConsumed + 1;
+	}
+}
+
+void main() {
+	DelayerManager manager = new DelayerManager();
+	activate manager;
+	
+	Generator generator = new Generator();
+	activate generator;
+	generator.manager = manager;
+
+	Consumer consumer = new Consumer();
+	manager.consumer = consumer;
+
+	int oneDay = 60*60*24;
+	advance 	oneDay;
+	
+	SystemOut.println("Data created: " + generator.dataCreated);
+	SystemOut.println("Data consumed: " + consumer.dataConsumed);
+}

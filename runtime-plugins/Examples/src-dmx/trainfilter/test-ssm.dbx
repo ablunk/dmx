@@ -1,0 +1,27 @@
+#import "ssm-language-signaldefinition"
+#import "ssm-language-statemachine-syntax"
+#import "ssm-language-statemachine-semantics"
+#import "../stdlib"
+
+module ssmtest;
+
+	signal Train(int number);
+	
+	active class X {
+		state machine {
+			initial state s1 {
+				signal Train t do {
+					SystemOut.println("received train");
+				} -> s1
+			}
+		} 
+	}
+
+void main() {
+	Train train = new Train(2);
+	SystemOut.println("created train " + train.number);
+	
+	X x = new X();
+	activate x;
+	advance 2;
+}

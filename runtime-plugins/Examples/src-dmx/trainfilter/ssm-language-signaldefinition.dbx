@@ -1,0 +1,29 @@
+#import "../dbl"
+#import "../stdlib"
+#import "../stdx"
+
+module ssm;
+
+	extension SignalDefinition extends dbl Class {
+		start SignalDefinition;
+		SignalDefinition -> "signal" name:ID EnclosedAttributes ";";
+		EnclosedAttributes -> "(" Attributes ")";
+		Attributes -> attributes : list Variable MoreAttributes;
+		MoreAttributes -> "," Attributes;
+		MoreAttributes -> ;
+	}
+	semantics for SignalDefinition {
+		expand "class " name " {";
+		foreach (Variable attribute in attributes) {
+			expand attribute ";";
+		}
+		
+		expand "new(" attributes ") {";
+		foreach (Variable attribute in attributes) {
+			expand "self." attribute.getName() 
+				"=" attribute.getName() ";";
+		}
+		expand "}";
+			
+		expand "}";
+	}

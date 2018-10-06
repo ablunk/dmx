@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../stdx/foreach-collections">
+    <model href="../../stdx/foreach-collections.xmi#/"/>
+  </imports>
+  <module name="play">
+    <extensions name="Play" concreteSyntax="extension Play extends dbl SimpleStatement {&#xA;&#x9;start PlayRule;&#xA;&#x9;PlayRule -> &quot;x&quot; key:&quot;key&quot; &quot;;&quot;;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classes.33"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start PlayRule;&#xA;&#x9;PlayRule -> &quot;x&quot; key:&quot;key&quot; &quot;;&quot;;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="PlayRule" concreteSyntax="PlayRule -> &quot;x&quot; key:&quot;key&quot; &quot;;&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;x&quot;" keyword="x"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="key">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;key&quot;" keyword="key"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;;&quot;" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for Play {&#xA;&#x9;if (key) {&#xA;&#x9;&#x9;expand &quot;print \&quot;key\&quot;;&quot;;&#xA;&#x9;} else {&#xA;&#x9;&#x9;expand &quot;print \&quot;no-key\&quot;;&quot;;&#xA;&#x9;}&#xA;}" syntaxDefinition="//@module/@extensions.0">
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (key) {&#xA;&#x9;&#x9;expand &quot;print \&quot;key\&quot;;&quot;;&#xA;&#x9;} else {&#xA;&#x9;&#x9;expand &quot;print \&quot;no-key\&quot;;&quot;;&#xA;&#x9;}">
+        <condition xsi:type="dbl:IdExpr" concreteSyntax="key" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;print \&quot;key\&quot;;&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;print \&quot;key\&quot;;&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="print \&quot;key\&quot;;"/>
+          </statements>
+        </trueCase>
+        <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;print \&quot;no-key\&quot;;&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;print \&quot;no-key\&quot;;&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="print \&quot;no-key\&quot;;"/>
+          </statements>
+        </falseCase>
+      </statements>
+    </extensionSemantics>
+  </module>
+</dbl:Model>

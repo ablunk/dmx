@@ -1,0 +1,204 @@
+#import "../../../stdx"
+#import "../../../stdlib"
+#import "../ssm-runtime"
+
+module baseDelayerSystem;
+
+class Data extends Signal {
+	string payLoad;
+	
+	new(string payLoad) {
+		self.payLoad = payLoad;
+	}
+}
+
+active class Delayer implements SignalReceiver, EventConsumer {
+	SignalReceiver dataConsumer;
+	Data lastData = null;
+	
+	ControlList events = new ControlList;
+	List timers = new ArrayList;
+	
+	Map stateById = new HashMap;
+	State currentState;
+	
+	// zur Nachbildung eines wait until
+	List objectsWaitingForChangesInEventsSize = new ArrayList;
+	List objectsWaitingForChangesInDataConsumer = new ArrayList;
+	
+	Object message;
+	
+	actions {
+		State disconnected = new State;
+		disconnected.id = 0;
+		disconnected.name = "disconnected";
+		stateById.put(disconnected.id, disconnected);
+		currentState = disconnected; // Initialzustand setzen
+
+		State waiting = new State;
+		waiting.id = 1;
+		waiting.name = "waiting"; // wird hier nicht gebraucht, könnte für das Debugging aber nützlich sein
+		stateById.put(waiting.id, waiting);
+		
+		eventLoop();
+	}
+	
+	void sendSignal(Object signal) {
+		events.add(signal);
+		reactivateObjectsWaitingForChangesInEventsSize();
+	}
+	
+	void enterEvent(Event event) {
+		events.add(event);
+		reactivateObjectsWaitingForChangesInEventsSize();
+	}
+	
+	void reactivateObjectsWaitingForChangesInEventsSize() {
+		// Nachbildung der Reaktivierung von Objekten, die auf den Ausdruck in einer wait-until-Anweisung warten
+		for (int i=0; i<objectsWaitingForChangesInEventsSize.size(); i=i+1) {
+			reactivate objectsWaitingForChangesInEventsSize.get(0);
+		}
+	}	
+	
+	void eventLoop() {
+		while (currentState != null) {
+			State nextState = enterStateById(currentState.id);
+			currentState = nextState;
+		}
+	}
+	
+	State enterStateById(int stateId) {			
+		string nextStateId = null;
+		switch (stateId) {
+			case 0: // 0 -> disconnected
+				nextStateId = state0_wait();
+				break;
+			case 1: // 1 -> waiting
+				nextStateId = state1_wait();
+				break;
+		}
+		cancelRunningTimers();
+		
+		return nextStateId;
+	}
+	
+	void cancelRunningTimers() {
+		foreach (Timer timer in timers) {
+			timer.cancel();
+		}
+	}	
+
+	State state0_wait() {
+		wait until events.size > 0;
+	
+		objectsWaitingForChangesInEventsSize.add(self);
+		objectsWaitingForChangesInDataConsumer.add(self);
+		while (! (events.size > 0 or dataConsumer == null)) {
+			wait;
+		}
+		objectsWaitingForChangesInEventsSize.remove(self);
+		objectsWaitingForChangesInDataConsumer.remove(self);
+		
+		// prüft zuerst auf Signal- oder Zeitereignis
+		if (events.size > 0) {
+			Object event = events.get(0);
+			events.remove(event);			
+		}
+		
+		// prüft danach auf Zustandsereignis
+		if (dataConsumer != null) {
+			return stateById.get(1);
+		}
+		
+		return null;
+	}
+	
+	// für jeden Zustand gibt es eine spezifische wait-Methode mit einer wait-until-Anweisung,
+	// die in ihrem Ausdruck die Bedingungen der ausgehenden Transitionen enthält
+	State state1_wait() {
+		// für Transitionen, die auf Zeitereignisse warten, einen Timer starten
+		Timer timer0 = new Timer(0, time + 5, self);
+		timers.add(timer0);
+		timer0.start();
+
+		wait until events.size > 0 or dataConsumer == null;
+
+		// Die Semantik von wait-until ist nicht formal beschrieben. Deshalb wird das wait-until hier nachgebildet:
+		objectsWaitingForChangesInEventsSize.add(self);
+		objectsWaitingForChangesInDataConsumer.add(self);
+		while (! (events.size > 0 or dataConsumer == null)) {
+			wait;
+		}
+		objectsWaitingForChangesInEventsSize.remove(self);
+		objectsWaitingForChangesInDataConsumer.remove(self);
+		
+		// der Ausdruck in der Zustandsbedingung "dataConsumer == null" ist im Kontext von Delayer
+		// definiert und muss deshalb auch im Kontext von Delayer ausgewertet werden.
+		// Eine Auswertung innerhalb eines anderen Objektes erfordert
+		// a) ein Umschreiben des Ausdrucks auf einen anderen Kontext oder
+		// b) Funktionen mit einer Call-By-Name-Semantik, z.B. state1.waitUntil(events.size > 0 or dataConsumer == null)
+		// Beides ist in DBL nicht möglich. Deshalb kann der Ausdruck nur direkt im
+		// Kontext von Delayer eingesetzt werden.
+		// --> Erkenntnis: Dieses Problem des passenden Kontextes tritt immer bei Ausdrücken auf, die in einr
+		//     Erweiterung enthalten sind. Eine Unterstützung in der Basissprache durch a) oder b)
+		//     ist deshalb sinnvoll.
+		
+		// prüft zuerst auf Signal- oder Zeitereignis
+		if (events.size > 0) {
+			Object event = events.get(0);
+			
+			// Signal Data
+			if (event instanceof Data) {
+				message = event;
+				state1_onDataTransition_effects();
+				return stateById.get(1); // Folgezustand
+			}
+			
+			// Zeitereignis
+			if (event instanceof TimeEvent) {
+				TimeEvent timeEvent = event as TimeEvent;
+				if (timeEvent.associatedTransitionId == 0) {
+					state1_afterTimeTransition_effects();
+					return stateById.get(1);
+				}
+			}
+		}
+		
+		// prüft danach auf Zustandsereignis
+		if (dataConsumer == null) {
+			return stateById.get(0);
+		}
+		
+		return null;
+	}
+	
+	// für den Effekt jeder Transition gibt es eine entsprechende Methode, die die Aktionen enthält
+	void state1_onDataTransition_effects() {
+		saveAsLastData(message as Data);
+	}
+
+	void state1_afterTimeTransition_effects() {
+		forwardLastData();
+	}
+	
+	void saveAsLastData(Data data) {
+		print "received data with pay load: " + data.payLoad;
+		lastData = data;
+	}
+	
+	void forwardLastData() {
+		print "sending data with pay load: " + lastData.payLoad;
+		dataConsumer.sendSignal(lastData);
+		lastData = null;
+	}
+}
+
+
+
+void main() {
+	Delayer delayer = new Delayer;
+	activate delayer;
+	advance 1;
+	delayer.sendSignal(new Data("blob"));
+	advance 10;
+}

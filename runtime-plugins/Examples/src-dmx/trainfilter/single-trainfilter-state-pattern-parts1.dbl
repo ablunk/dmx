@@ -1,0 +1,56 @@
+#import "../stdlib"
+
+module singleTrainOnlyFilterWithStatePattern;
+
+class Train {
+	int number;
+}
+
+active class Filter {
+	Train latestTrain;
+	control boolean enabled = false;
+	
+	// stark vereinfachter Signalpuffer (speichert nur das letzte Signal)
+	control Object signal;
+	
+	actions {
+		State initialState = new Checking(self);
+		Transition initialTransition = new Transition(false, initialState);
+		
+		State currentState = initialTransition.nextState;
+		Transition lastFired = initialTransition;
+		
+		while (currentState != null) {
+			if (lastFired != null and !lastFired.internal) {
+				currentState.enter();
+			}
+			
+			lastFired = currentState.waitForEvent();
+			if (lastFired != null) {
+				currentState = lastFired.nextState;
+			} else {
+				currentState = null;
+			}
+		}
+	}
+	
+	void send(Object newSignal) {
+		signal = newSignal;
+	}
+	// ...
+}
+
+class Transition {
+	boolean internal;
+	State nextState;
+
+	new(boolean internal, State nextState) {
+		self.internal = internal;
+		self.nextState = nextState;
+	}
+}
+
+interface State {
+	void enter();
+	Transition waitForEvent();
+}

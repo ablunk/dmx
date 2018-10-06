@@ -1,0 +1,80 @@
+#import "../extensions/state-machines/ssm-language-syntax"
+#import "queue"
+#import "ssm-runtime"
+#import "../stdlib"
+
+module timer;
+
+signal Printed;
+
+signal Job {
+	PrintJob printJob;
+}
+
+active class Printer {
+	Job job;
+	control boolean broken = false;
+	
+	int pagesPrinted = 0;
+	int printTimePerPage = 4;
+	
+	stateMachine {
+		initial state idle {
+			signal Job j do job = signal; -> busy
+		}
+		state busy {
+			after job.printJob.pages * printTimePerPage
+				do increasePagesPrinted();
+				-> idle
+		}
+	}	
+	
+	void increasePagesPrinted() {}
+}
+
+active class PrintJob {
+	int pages = 4; // TODO randomize
+	Printer printer;
+	
+	stateMachine {
+		initial state waiting {
+			entry {
+				Job job = new Job;
+				job.printJob = self; // Namensauflösung einer Klasse wiederverwendet
+				send job to printer;
+			}
+			
+			signal Printed p -> stop
+		}
+		state retry {
+			after 10 -> waiting
+		}
+	}
+}
+
+active class PrintJobGenerator {
+	Printer printer;
+	
+	stateMachine {
+		initial state generating {
+			after 3 do {
+				PrintJob job = new PrintJob;
+				job.printer = printer;
+				activate job;		
+			} -> generating
+		}
+	}	
+}
+
+void main() {
+	Printer printer = new Printer;
+	activate printer;
+	PrintJobGenerator jobGenerator = PrintJobGenerator;
+	activate jobGenerator;
+
+	int oneDay = 60*60*24;
+	advance 	oneDay;
+	
+	SystemOut.println("Pages printed: " + printer.pagesPrinted);
+}
+

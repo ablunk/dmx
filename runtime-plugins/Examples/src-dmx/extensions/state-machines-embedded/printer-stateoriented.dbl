@@ -1,0 +1,35 @@
+#import "../../stdlib"
+
+module timer;
+
+active class Printer {
+	static int idleStateId = 0;
+	static int printingStateId = 1;
+	
+	Map stateById = new HashMap;
+
+	List jobs = new ArrayList;
+	
+	actions {
+		
+	}
+}
+
+active class PrintJob {
+	static int createdStateId = 0;
+	static int waitingStateId = 0;
+}
+
+interface State {
+	State nextState(int event);
+}
+
+class StandByState implements State {
+	State nextState(int event) {
+		switch (event) {
+			case 0:
+				return StopWatch.standBy;
+			break;
+		}
+	}
+}

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="ssm-language">
+    <model href="ssm-language.xmi#/"/>
+  </imports>
+  <imports file="../ssm-language-signalstatement">
+    <model href="../ssm-language-signalstatement.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <module name="ssmtest">
+    <classifiers xsi:type="dbl:ActiveClass" name="O" concreteSyntax="active class O {}"/>
+    <classifiers xsi:type="dbl:SignalDefinition_SignalDefinition_extension" name="Item" concreteSyntax="signal Item(int number);" instanceOfExtensionDefinition="true">
+      <attributes name="number" concreteSyntax="int number">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="P" concreteSyntax="active class P {&#xA;&#x9;&#x9;state machine {&#xA;&#x9;&#x9;&#x9;initial state receive {&#xA;&#x9;&#x9;&#x9;&#x9;signal Item item do {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send item to p2;&#xA;&#x9;&#x9;&#x9;&#x9;} -> receive&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="state machine {&#xA;&#x9;&#x9;&#x9;initial state receive {&#xA;&#x9;&#x9;&#x9;&#x9;signal Item item do {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send item to p2;&#xA;&#x9;&#x9;&#x9;&#x9;} -> receive&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="receive" concreteSyntax="initial state receive {&#xA;&#x9;&#x9;&#x9;&#x9;signal Item item do {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send item to p2;&#xA;&#x9;&#x9;&#x9;&#x9;} -> receive&#xA;&#x9;&#x9;&#x9;}" initial="true">
+          <outgoing xsi:type="dbl:StateMachine_ExternalTransition_extension" concreteSyntax="signal Item item do {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send item to p2;&#xA;&#x9;&#x9;&#x9;&#x9;} -> receive" target="//@module/@classifiers.2/@contentExtensions.0/@states.0">
+            <signalTrigger concreteSyntax="signal Item item do {&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send item to p2;&#xA;&#x9;&#x9;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+              <statements xsi:type="dbl:Variable" name="item" concreteSyntax="Item item">
+                <classifierType concreteSyntax="Item" referencedElement="//@module/@classifiers.1"/>
+              </statements>
+              <statements xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number);&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;send item to p2;&#xA;&#x9;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:FunctionCall" concreteSyntax="SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number)">
+                  <callIdExpr concreteSyntax="SystemOut.println(&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number)">
+                    <parentIdExpr concreteSyntax="SystemOut">
+                      <referencedElement href="../../stdlib.xmi#//@module/@classifiers.3"/>
+                    </parentIdExpr>
+                    <referencedElement href="../../stdlib.xmi#//@module/@classifiers.3/@methods.1"/>
+                    <callPart>
+                      <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;received item &quot;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;+ item.number">
+                        <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;received item &quot;" value="received item "/>
+                        <op2 xsi:type="dbl:IdExpr" concreteSyntax="item.number" referencedElement="//@module/@classifiers.1/@attributes.0">
+                          <parentIdExpr concreteSyntax="item" referencedElement="//@module/@classifiers.2/@contentExtensions.0/@states.0/@outgoing.0/@signalTrigger/@statements.0"/>
+                        </op2>
+                      </callArguments>
+                    </callPart>
+                  </callIdExpr>
+                </statements>
+                <statements xsi:type="dbl:SendStatement_SendStatement_extension" concreteSyntax="send item to p2;" instanceOfExtensionDefinition="true">
+                  <signal xsi:type="dbl:IdExpr" concreteSyntax="item" referencedElement="//@module/@classifiers.2/@contentExtensions.0/@states.0/@outgoing.0/@signalTrigger/@statements.0"/>
+                  <target xsi:type="dbl:IdExpr" concreteSyntax="p2" referencedElement="//@module/@variables.0"/>
+                </statements>
+              </statements>
+            </signalTrigger>
+          </outgoing>
+        </states>
+      </contentExtensions>
+    </classifiers>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="item" concreteSyntax="Item item = new Item(2)">
+        <classifierType concreteSyntax="Item" referencedElement="//@module/@classifiers.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Item(2)">
+          <classifierType concreteSyntax="Item(2)" referencedElement="//@module/@classifiers.1">
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+            </callPart>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="SystemOut.println(&quot;created item &quot; + item.number)">
+        <callIdExpr concreteSyntax="SystemOut.println(&quot;created item &quot; + item.number)">
+          <parentIdExpr concreteSyntax="SystemOut">
+            <referencedElement href="../../stdlib.xmi#//@module/@classifiers.3"/>
+          </parentIdExpr>
+          <referencedElement href="../../stdlib.xmi#//@module/@classifiers.3/@methods.1"/>
+          <callPart>
+            <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;created item &quot; + item.number">
+              <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;created item &quot;" value="created item "/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="item.number" referencedElement="//@module/@classifiers.1/@attributes.0">
+                <parentIdExpr concreteSyntax="item" referencedElement="//@module/@functions.0/@statements.0"/>
+              </op2>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="p" concreteSyntax="P p = new P()">
+        <classifierType concreteSyntax="P" referencedElement="//@module/@classifiers.2"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new P()">
+          <classifierType concreteSyntax="P()" referencedElement="//@module/@classifiers.2">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate p">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="p" referencedElement="//@module/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 2">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+      </statements>
+    </functions>
+    <variables name="p2" concreteSyntax="P p2 = new P()">
+      <classifierType concreteSyntax="P" referencedElement="//@module/@classifiers.2"/>
+      <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new P()">
+        <classifierType concreteSyntax="P()" referencedElement="//@module/@classifiers.2">
+          <callPart/>
+        </classifierType>
+      </initialValue>
+    </variables>
+  </module>
+</dbl:Model>

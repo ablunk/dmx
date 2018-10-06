@@ -1,0 +1,31 @@
+#import "ssm-language"
+#import "../ssm-language-signalstatement"
+#import "../../stdlib"
+
+module ssmtest;
+
+	P p2 = new P();
+
+	signal Item(int number);
+	
+	active class P {
+		state machine {
+			initial state receive {
+				signal Item item do {
+					SystemOut.println(
+						"received item "
+						+ item.number);
+					send item to p2;
+				} -> receive
+			}
+		}
+	}
+
+void main() {
+	Item item = new Item(2);
+	SystemOut.println("created item " + item.number);
+	
+	P p = new P();
+	activate p;
+	advance 2;
+}

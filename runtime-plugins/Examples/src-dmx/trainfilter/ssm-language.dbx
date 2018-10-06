@@ -1,0 +1,93 @@
+#import "../dbl"
+#import "../stdlib"
+#import "../stdx"
+
+module ssm;
+
+extension SignalDefinition extends dbl Class {
+	start SignalDefinition;
+	SignalDefinition -> "signal" name:ID EnclosedAttributes ";";
+	EnclosedAttributes -> "(" Attributes ")";
+	Attributes -> attributes : list Variable MoreAttributes;
+	MoreAttributes -> "," Attributes;
+	MoreAttributes -> ;
+}
+semantics for SignalDefinition {
+	expand "class " name " {";
+	foreach (Variable attribute in attributes) {
+		expand attribute ";";
+	}
+	expand "}";
+}
+
+extension SignalAccess extends dbl L1Expr {
+	start SignalAccess;
+	SignalAccess -> "signal";
+}
+semantics for SignalAccess {
+	expand "1";
+}
+
+extension SendStatement extends dbl SimpleStatement {
+	start SendStatement;
+	SendStatement -> "send" signal:Expression "to" target:Expression ";";
+}
+semantics for SendStatement {
+	expand "// SendStatement";
+}
+
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachine;
+	
+	StateMachine -> "state" "machine" "{" ManyStates "}";
+	ManyStates -> ;
+	ManyStates -> states : list State ManyStates;
+	
+	State -> InitialModifier "state" name:ID "{"
+		ManyTransitions
+	"}";
+	InitialModifier -> initial:"initial";
+	InitialModifier -> ;
+	
+	ManyTransitions -> ;
+	ManyTransitions -> outgoing : list Transition ManyTransitions;
+
+	Transition -> InternalTransition;
+	Transition -> ExternalTransition;
+	
+	InternalTransition -> internal:"internal" Trigger;
+	ExternalTransition -> Trigger "->" TargetState;
+	
+	// TODO can we make the messageVariable accessible inside effects?
+	Trigger -> "when" condition:Expression Effects;
+	Trigger -> "signal" messageVariable:Variable Effects;
+	Trigger -> "after" timeDuration:Expression Effects;
+	Effects -> ;
+	Effects -> "do" effects : SimpleStatement;
+		
+	TargetState -> target:$$State;
+	TargetState -> stop:"stop";
+}
+semantics for StateMachine {
+	expand "actions {}";
+
+	/*foreach (State state in states) {
+		ID stateId;
+		
+		expand "void " stateId "_enter() {}" after self;
+	}*/
+}
+
+// cannot cast to Module because of dynamic eobjects
+EObject getContainer(string containerName, EObject eObject) {
+	if (eObject != null) {
+		String eClassName = new String(eObject.eClass().getName());
+		if (eClassName.equals(containerName)) {
+			return eObject;
+		} else {
+			return getContainer(containerName, eObject.eContainer());
+		}
+	} else {
+		return null;
+	}
+}

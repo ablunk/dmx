@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="play2">
+    <model href="play2.xmi#/"/>
+  </imports>
+  <module name="play2Test">
+    <classifiers xsi:type="dbl:Class" name="X" concreteSyntax="class X {&#xA;&#x9;empty 2;&#xA;&#x9;new() {}&#xA;}">
+      <constructors xsi:type="dbl:Play_PlayRule_extension" n="2"/>
+      <constructors/>
+    </classifiers>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+    </functions>
+  </module>
+</dbl:Model>

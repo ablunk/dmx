@@ -1,0 +1,47 @@
+#import "../stdlib"
+
+module queue;
+
+// use some delegation extension?
+class DoubleEndedQueue implements Deque {
+	Deque actualDeque = new LinkedList;
+	control int size;
+	
+	void offerFirst(Object object) {
+		actualDeque.offerFirst(object);
+		size = size + 1;
+	}
+	
+	Object pollFirst() {
+		Object object = actualDeque.pollFirst();
+		if (object != null) {
+			size = size - 1;
+			return object;
+		} else {
+			return null;	
+		}
+	}
+	
+	Object peekFirst() {
+		return actualDeque.peekFirst();
+	}
+
+	void offerLast(Object object) {
+		actualDeque.offerLast(object);
+		size = size + 1;
+	}
+
+	Object pollLast() {
+		Object object = actualDeque.pollLast();
+		if (object != null) {
+			size = size - 1;
+			return object;
+		} else {
+			return null;	
+		}
+	}
+
+	Object peekLast() {
+		return actualDeque.peekLast();
+	}
+}

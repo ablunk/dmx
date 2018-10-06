@@ -1,0 +1,12 @@
+#import "../../dbl"
+
+module play2;
+
+extension Play extends dbl Constructor {
+	start PlayRule;
+	PlayRule -> "empty" n:INT ";";
+}
+
+semantics for Play {
+}
+

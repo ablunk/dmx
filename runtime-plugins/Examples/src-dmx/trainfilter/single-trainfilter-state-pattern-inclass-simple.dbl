@@ -1,0 +1,77 @@
+class Transition {
+	boolean internal;
+	int nextState;
+
+	new(boolean internal, int nextState) {
+		self.internal = internal;
+		self.nextState = nextState;
+	}
+}
+
+active class Filter {
+	Train latestTrain;
+	control boolean enabled = false;
+	
+	control Object signal;
+	Timer timer1;
+	
+	// Zustandstabelle:
+	//  0 -> checking
+	//  1 -> filtering
+	//  2 -> disabled
+	// -1 -> final
+	
+	actions {
+		int initialState = 0;
+		Transition initialTransition = new Transition(false, initialState);
+
+		int currentState = initialTransition.nextState;
+		Transition lastFired = initialTransition;
+		
+		while (currentState != -1) {
+			if (lastFired != null and !lastFired.internal) {
+				enter(currentState);
+			}
+		
+			switch (currentState) {
+				case 0:
+					lastFired = checking_wait();
+					break;
+				case 1:
+					lastFired = filtering_wait();
+					break;
+				case 2:
+					lastFired = disabled_wait();
+					break;
+			}
+			
+			if (lastFired != null) {
+				currentState = lastFired.nextState;
+			} else {
+				currentState = -1;
+			}
+		}
+	}
+	// ...
+	
+	Transition filtering_wait() {
+		wait until timer1.expired 
+		  or signal != null and signal instanceof Train
+		  or !enabled;
+		
+		if (timer1.expired) {
+			timer1.expired = false;
+			publish();
+			return new Transition(false, 0);
+		}
+		if (signal != null and signal instanceof Train) {
+			update(signal as Train);
+			signal = null;
+			return new Transition(true, 1);
+		}
+		if (!enabled) {
+			return new Transition(false, 2);
+		}
+		return null;
+	}
+}

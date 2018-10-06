@@ -1,0 +1,14 @@
+#import "../dbl"
+#import "../stdlib"
+#import "../stdx"
+
+module ssmsignalstatement;
+
+extension SendStatement extends dbl SimpleStatement {
+	start SendStatement;
+	SendStatement -> "send" signal:Expression
+		"to" target:Expression ";";
+}
+semantics for SendStatement {
+	expand target ".send(" signal ");";
+}

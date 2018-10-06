@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <module name="ssmruntime">
+    <classifiers xsi:type="dbl:Interface" name="Event" concreteSyntax="interface Event {}"/>
+    <classifiers xsi:type="dbl:Interface" name="EventConsumer" concreteSyntax="interface EventConsumer {&#xA;&#x9;void enterEvent(Event event);&#xA;}">
+      <methods name="enterEvent">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <parameters name="event">
+          <classifierType concreteSyntax="Event" referencedElement="//@module/@classifiers.0"/>
+        </parameters>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Class" name="Signal" concreteSyntax="class Signal implements Event {}" superInterfaces="//@module/@classifiers.0"/>
+    <classifiers xsi:type="dbl:Class" name="State" concreteSyntax="class State {&#xA;&#x9;int id;&#xA;&#x9;string name;&#xA;}">
+      <attributes name="id" concreteSyntax="int id">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="name" concreteSyntax="string name">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:Class" name="TimeEvent" concreteSyntax="class TimeEvent implements Event {&#xA;&#x9;int associatedTransitionId;&#xA;&#x9;&#xA;&#x9;new(int associatedTransitionId) {&#xA;&#x9;&#x9;self.associatedTransitionId = associatedTransitionId;&#xA;&#x9;}&#xA;}" superInterfaces="//@module/@classifiers.0">
+      <attributes name="associatedTransitionId" concreteSyntax="int associatedTransitionId">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.associatedTransitionId = associatedTransitionId">
+          <variable concreteSyntax="self.associatedTransitionId">
+            <idExpr concreteSyntax="self.associatedTransitionId" referencedElement="//@module/@classifiers.4/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="associatedTransitionId" referencedElement="//@module/@classifiers.4/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="associatedTransitionId">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="Timer" concreteSyntax="active class Timer {&#xA;&#x9;EventConsumer consumer;&#xA;&#x9;int associatedTransitionId;&#xA;&#x9;boolean cancelled = false;&#xA;&#x9;double duration;&#xA;&#x9;&#xA;&#x9;new(int associatedTransitionId, double duration, EventConsumer consumer) {&#xA;&#x9;&#x9;self.associatedTransitionId = associatedTransitionId;&#xA;&#x9;&#x9;self.duration = duration;&#xA;&#x9;&#x9;self.consumer = consumer;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void start() {&#xA;&#x9;&#x9;activate self;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void cancel() {&#xA;&#x9;&#x9;cancelled = true;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;actions {&#xA;&#x9;&#x9;advance duration;&#xA;&#x9;&#x9;if (!cancelled) {&#xA;&#x9;&#x9;&#x9;consumer.enterEvent(new TimeEvent(associatedTransitionId));&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}">
+      <attributes name="consumer" concreteSyntax="EventConsumer consumer">
+        <classifierType concreteSyntax="EventConsumer" referencedElement="//@module/@classifiers.1"/>
+      </attributes>
+      <attributes name="associatedTransitionId" concreteSyntax="int associatedTransitionId">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <attributes name="cancelled" concreteSyntax="boolean cancelled = false">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+      </attributes>
+      <attributes name="duration" concreteSyntax="double duration">
+        <primitiveType xsi:type="dbl:DoubleType"/>
+      </attributes>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.associatedTransitionId = associatedTransitionId">
+          <variable concreteSyntax="self.associatedTransitionId">
+            <idExpr concreteSyntax="self.associatedTransitionId" referencedElement="//@module/@classifiers.5/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="associatedTransitionId" referencedElement="//@module/@classifiers.5/@constructors.0/@parameters.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.duration = duration">
+          <variable concreteSyntax="self.duration">
+            <idExpr concreteSyntax="self.duration" referencedElement="//@module/@classifiers.5/@constructors.0/@parameters.1">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="duration" referencedElement="//@module/@classifiers.5/@constructors.0/@parameters.1"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.consumer = consumer">
+          <variable concreteSyntax="self.consumer">
+            <idExpr concreteSyntax="self.consumer" referencedElement="//@module/@classifiers.5/@constructors.0/@parameters.2">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="consumer" referencedElement="//@module/@classifiers.5/@constructors.0/@parameters.2"/>
+        </statements>
+        <parameters name="associatedTransitionId">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="duration">
+          <primitiveType xsi:type="dbl:DoubleType"/>
+        </parameters>
+        <parameters name="consumer">
+          <classifierType concreteSyntax="EventConsumer" referencedElement="//@module/@classifiers.1"/>
+        </parameters>
+      </constructors>
+      <methods name="start">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate self">
+          <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="self">
+            <predefinedId xsi:type="dbl:MeLiteral"/>
+          </objectAccess>
+        </statements>
+      </methods>
+      <methods name="cancel">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="cancelled = true">
+          <variable concreteSyntax="cancelled">
+            <idExpr concreteSyntax="cancelled" referencedElement="//@module/@classifiers.5/@attributes.2"/>
+          </variable>
+          <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+        </statements>
+      </methods>
+      <actionsBlock>
+        <statements xsi:type="dbl:Advance" concreteSyntax="advance duration">
+          <time xsi:type="dbl:IdExpr" concreteSyntax="duration" referencedElement="//@module/@classifiers.5/@attributes.3"/>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (!cancelled) {&#xA;&#x9;&#x9;&#x9;consumer.enterEvent(new TimeEvent(associatedTransitionId));&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Not" concreteSyntax="!cancelled">
+            <op xsi:type="dbl:IdExpr" concreteSyntax="cancelled" referencedElement="//@module/@classifiers.5/@attributes.2"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;consumer.enterEvent(new TimeEvent(associatedTransitionId));&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="consumer.enterEvent(new TimeEvent(associatedTransitionId))">
+              <callIdExpr concreteSyntax="consumer.enterEvent(new TimeEvent(associatedTransitionId))" referencedElement="//@module/@classifiers.1/@methods.0">
+                <parentIdExpr concreteSyntax="consumer" referencedElement="//@module/@classifiers.5/@attributes.0"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:CreateObject" concreteSyntax="new TimeEvent(associatedTransitionId)">
+                    <classifierType concreteSyntax="TimeEvent(associatedTransitionId)" referencedElement="//@module/@classifiers.4">
+                      <callPart>
+                        <callArguments xsi:type="dbl:IdExpr" concreteSyntax="associatedTransitionId" referencedElement="//@module/@classifiers.5/@attributes.1"/>
+                      </callPart>
+                    </classifierType>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </statements>
+          </trueCase>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+  </module>
+</dbl:Model>

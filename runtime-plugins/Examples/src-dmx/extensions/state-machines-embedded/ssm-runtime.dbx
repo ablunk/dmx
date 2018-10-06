@@ -1,0 +1,77 @@
+#import "../../stdlib"
+#import "../../dbl"
+#import "../../stdx"
+
+module ssmruntime;
+
+class Event {}
+
+interface EventConsumer {
+	void enterEvent(Event event);
+}
+
+class Signal extends Event {}
+
+interface SignalReceiver {
+	void sendSignal(Signal signal);
+}
+
+class State {
+	int id;
+	string name;
+}
+
+// use delegation extension?
+class ControlList implements List {
+	List actualList = new ArrayList;
+	control int size;
+	
+	boolean add(Object object) {
+		size = size + 1;
+		return actualList.add(object);
+	}
+	
+	boolean remove(Object object) {
+		size = size - 1;
+		return actualList.remove(object);
+	}
+
+	// other operations overridden as well
+}
+
+class TimeEvent extends Event {
+	int associatedTransitionId;
+	
+	new(int associatedTransitionId) {
+		self.associatedTransitionId = associatedTransitionId;
+	}
+}
+
+
+active class Timer {
+	EventConsumer consumer;
+	int associatedTransitionId;
+	boolean cancelled = false;
+	double duration;
+	
+	new(int associatedTransitionId, double duration, EventConsumer consumer) {
+		self.associatedTransitionId = associatedTransitionId;
+		self.duration = duration;
+		self.consumer = consumer;
+	}
+	
+	void start() {
+		activate self;
+	}
+	
+	void cancel() {
+		cancelled = true;
+	}
+	
+	actions {
+		advance duration;
+		if (!cancelled) {
+			consumer.enterEvent(new TimeEvent(associatedTransitionId));
+		}
+	}
+}

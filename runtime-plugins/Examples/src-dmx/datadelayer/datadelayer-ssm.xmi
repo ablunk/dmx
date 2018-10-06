@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../extensions/state-machines/ssm-language-syntax">
+    <model href="../extensions/state-machines/ssm-language-syntax.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <module name="dataDelayerStateOriented">
+    <classifiers xsi:type="dbl:Interface" name="IntDistUniform" concreteSyntax="interface IntDistUniform {&#xA;&#x9;static IntDistUniform create(int min, int max);&#xA;&#x9;int sample();&#xA;}">
+      <methods name="create" class="true">
+        <classifierType concreteSyntax="IntDistUniform" referencedElement="//@module/@classifiers.0"/>
+        <parameters name="min">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+        <parameters name="max">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="sample">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:SignalDefinition_SignalDefinition_extension" name="Data" concreteSyntax="signal Data {&#xA;&#x9;int id;&#xA;}" instanceOfExtensionDefinition="true">
+      <attributes name="id" concreteSyntax="int id">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:SignalDefinition_SignalDefinition_extension" name="Finished" concreteSyntax="signal Finished {&#xA;&#x9;int id;&#xA;}" instanceOfExtensionDefinition="true">
+      <attributes name="id" concreteSyntax="int id">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="DelayerManager" concreteSyntax="active class DelayerManager {&#xA;&#x9;Consumer consumer;&#xA;&#x9;Map runningDataDelayerById = new HashMap;&#xA;&#x9;&#xA;&#x9;state machine {&#xA;&#x9;&#x9;initial state distributing {&#xA;&#x9;&#x9;&#x9;signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = signal as Data;&#xA;&#x9;&#x9;&#x9;&#x9;DataDelayer associatedDataDelayer = findOrStartDataDelayer(data);&#xA;&#x9;&#x9;&#x9;&#x9;send data to associatedDataDelayer;&#xA;&#x9;&#x9;&#x9;} -> distributing&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;signal Finished f do {&#xA;&#x9;&#x9;&#x9;&#x9;Finished finished = signal as Finished;&#xA;&#x9;&#x9;&#x9;&#x9;runningDataDelayerById.remove(finished.id);&#xA;&#x9;&#x9;&#x9;} -> distributing&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;// level 2 extension:&#xA;&#x9;// single state machine {&#xA;&#x9;//   signal Data d do {}&#xA;&#x9;//   signal Finished f do {}&#xA;&#x9;// }&#xA;&#x9;&#xA;&#x9;DataDelayer findOrStartDataDelayer(Data data) {&#xA;&#x9;&#x9;DataDelayer associatedDataDelayer = runningDataDelayerById.get(data.id);&#xA;&#x9;&#x9;if (associatedDataDelayer == null) {&#xA;&#x9;&#x9;&#x9;associatedDataDelayer = new DataDelayer(data, self);&#xA;&#x9;&#x9;&#x9;runningDataDelayerById.put(data.id, associatedDataDelayer);&#xA;&#x9;&#x9;&#x9;activate associatedDataDelayer;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;return associatedDataDelayer;&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="state machine {&#xA;&#x9;&#x9;initial state distributing {&#xA;&#x9;&#x9;&#x9;signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = signal as Data;&#xA;&#x9;&#x9;&#x9;&#x9;DataDelayer associatedDataDelayer = findOrStartDataDelayer(data);&#xA;&#x9;&#x9;&#x9;&#x9;send data to associatedDataDelayer;&#xA;&#x9;&#x9;&#x9;} -> distributing&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;signal Finished f do {&#xA;&#x9;&#x9;&#x9;&#x9;Finished finished = signal as Finished;&#xA;&#x9;&#x9;&#x9;&#x9;runningDataDelayerById.remove(finished.id);&#xA;&#x9;&#x9;&#x9;} -> distributing&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="distributing" concreteSyntax="initial state distributing {&#xA;&#x9;&#x9;&#x9;signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = signal as Data;&#xA;&#x9;&#x9;&#x9;&#x9;DataDelayer associatedDataDelayer = findOrStartDataDelayer(data);&#xA;&#x9;&#x9;&#x9;&#x9;send data to associatedDataDelayer;&#xA;&#x9;&#x9;&#x9;} -> distributing&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;signal Finished f do {&#xA;&#x9;&#x9;&#x9;&#x9;Finished finished = signal as Finished;&#xA;&#x9;&#x9;&#x9;&#x9;runningDataDelayerById.remove(finished.id);&#xA;&#x9;&#x9;&#x9;} -> distributing&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing concreteSyntax="signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = signal as Data;&#xA;&#x9;&#x9;&#x9;&#x9;DataDelayer associatedDataDelayer = findOrStartDataDelayer(data);&#xA;&#x9;&#x9;&#x9;&#x9;send data to associatedDataDelayer;&#xA;&#x9;&#x9;&#x9;} -> distributing" target="//@module/@classifiers.3/@contentExtensions.0/@states.0">
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Data data = signal as Data;&#xA;&#x9;&#x9;&#x9;&#x9;DataDelayer associatedDataDelayer = findOrStartDataDelayer(data);&#xA;&#x9;&#x9;&#x9;&#x9;send data to associatedDataDelayer;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Variable" name="data" concreteSyntax="Data data = signal as Data">
+                <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+                <initialValue xsi:type="dbl:Cast" concreteSyntax="signal as Data">
+                  <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+                  <op xsi:type="dbl:SignalAccess_SignalAccess_extension" concreteSyntax="signal" instanceOfExtensionDefinition="true"/>
+                </initialValue>
+              </statements>
+              <statements xsi:type="dbl:Variable" name="associatedDataDelayer" concreteSyntax="DataDelayer associatedDataDelayer = findOrStartDataDelayer(data)">
+                <classifierType concreteSyntax="DataDelayer" referencedElement="//@module/@classifiers.4"/>
+                <initialValue xsi:type="dbl:IdExpr" concreteSyntax="findOrStartDataDelayer(data)" referencedElement="//@module/@classifiers.3/@methods.0">
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="data" referencedElement="//@module/@classifiers.3/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+                  </callPart>
+                </initialValue>
+              </statements>
+              <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send data to associatedDataDelayer;" instanceOfExtensionDefinition="true">
+                <signal xsi:type="dbl:IdExpr" concreteSyntax="data" referencedElement="//@module/@classifiers.3/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+                <target xsi:type="dbl:IdExpr" concreteSyntax="associatedDataDelayer" referencedElement="//@module/@classifiers.3/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.1"/>
+              </statements>
+            </effects>
+            <messageVariable name="d" concreteSyntax="Data d">
+              <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+            </messageVariable>
+          </outgoing>
+          <outgoing concreteSyntax="signal Finished f do {&#xA;&#x9;&#x9;&#x9;&#x9;Finished finished = signal as Finished;&#xA;&#x9;&#x9;&#x9;&#x9;runningDataDelayerById.remove(finished.id);&#xA;&#x9;&#x9;&#x9;} -> distributing" target="//@module/@classifiers.3/@contentExtensions.0/@states.0">
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Finished finished = signal as Finished;&#xA;&#x9;&#x9;&#x9;&#x9;runningDataDelayerById.remove(finished.id);&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Variable" name="finished" concreteSyntax="Finished finished = signal as Finished">
+                <classifierType concreteSyntax="Finished" referencedElement="//@module/@classifiers.2"/>
+                <initialValue xsi:type="dbl:Cast" concreteSyntax="signal as Finished">
+                  <classifierType concreteSyntax="Finished" referencedElement="//@module/@classifiers.2"/>
+                  <op xsi:type="dbl:SignalAccess_SignalAccess_extension" concreteSyntax="signal" instanceOfExtensionDefinition="true"/>
+                </initialValue>
+              </statements>
+              <statements xsi:type="dbl:FunctionCall" concreteSyntax="runningDataDelayerById.remove(finished.id)">
+                <callIdExpr concreteSyntax="runningDataDelayerById.remove(finished.id)">
+                  <parentIdExpr concreteSyntax="runningDataDelayerById" referencedElement="//@module/@classifiers.3/@attributes.1"/>
+                  <referencedElement href="../stdlib.xmi#//@module/@classifiers.10/@methods.2"/>
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="finished.id" referencedElement="//@module/@classifiers.2/@attributes.0">
+                      <parentIdExpr concreteSyntax="finished" referencedElement="//@module/@classifiers.3/@contentExtensions.0/@states.0/@outgoing.1/@effects/@statements.0"/>
+                    </callArguments>
+                  </callPart>
+                </callIdExpr>
+              </statements>
+            </effects>
+            <messageVariable name="f" concreteSyntax="Finished f">
+              <classifierType concreteSyntax="Finished" referencedElement="//@module/@classifiers.2"/>
+            </messageVariable>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="consumer" concreteSyntax="Consumer consumer">
+        <classifierType concreteSyntax="Consumer" referencedElement="//@module/@classifiers.6"/>
+      </attributes>
+      <attributes name="runningDataDelayerById" concreteSyntax="Map runningDataDelayerById = new HashMap">
+        <classifierType concreteSyntax="Map">
+          <referencedElement href="../stdlib.xmi#//@module/@classifiers.10"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new HashMap">
+          <classifierType concreteSyntax="HashMap">
+            <referencedElement href="../stdlib.xmi#//@module/@classifiers.11"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <methods name="findOrStartDataDelayer">
+        <classifierType concreteSyntax="DataDelayer" referencedElement="//@module/@classifiers.4"/>
+        <statements xsi:type="dbl:Variable" name="associatedDataDelayer" concreteSyntax="DataDelayer associatedDataDelayer = runningDataDelayerById.get(data.id)">
+          <classifierType concreteSyntax="DataDelayer" referencedElement="//@module/@classifiers.4"/>
+          <initialValue xsi:type="dbl:IdExpr" concreteSyntax="runningDataDelayerById.get(data.id)">
+            <parentIdExpr concreteSyntax="runningDataDelayerById" referencedElement="//@module/@classifiers.3/@attributes.1"/>
+            <referencedElement href="../stdlib.xmi#//@module/@classifiers.10/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="data.id" referencedElement="//@module/@classifiers.1/@attributes.0">
+                <parentIdExpr concreteSyntax="data" referencedElement="//@module/@classifiers.3/@methods.0/@parameters.0"/>
+              </callArguments>
+            </callPart>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (associatedDataDelayer == null) {&#xA;&#x9;&#x9;&#x9;associatedDataDelayer = new DataDelayer(data, self);&#xA;&#x9;&#x9;&#x9;runningDataDelayerById.put(data.id, associatedDataDelayer);&#xA;&#x9;&#x9;&#x9;activate associatedDataDelayer;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Equal" concreteSyntax="associatedDataDelayer == null">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="associatedDataDelayer" referencedElement="//@module/@classifiers.3/@methods.0/@statements.0"/>
+            <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;associatedDataDelayer = new DataDelayer(data, self);&#xA;&#x9;&#x9;&#x9;runningDataDelayerById.put(data.id, associatedDataDelayer);&#xA;&#x9;&#x9;&#x9;activate associatedDataDelayer;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Assignment" concreteSyntax="associatedDataDelayer = new DataDelayer(data, self)">
+              <variable concreteSyntax="associatedDataDelayer">
+                <idExpr concreteSyntax="associatedDataDelayer" referencedElement="//@module/@classifiers.3/@methods.0/@statements.0"/>
+              </variable>
+              <value xsi:type="dbl:CreateObject" concreteSyntax="new DataDelayer(data, self)">
+                <classifierType concreteSyntax="DataDelayer(data, self)" referencedElement="//@module/@classifiers.4">
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="data" referencedElement="//@module/@classifiers.3/@methods.0/@parameters.0"/>
+                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="self">
+                      <predefinedId xsi:type="dbl:MeLiteral"/>
+                    </callArguments>
+                  </callPart>
+                </classifierType>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="runningDataDelayerById.put(data.id, associatedDataDelayer)">
+              <callIdExpr concreteSyntax="runningDataDelayerById.put(data.id, associatedDataDelayer)">
+                <parentIdExpr concreteSyntax="runningDataDelayerById" referencedElement="//@module/@classifiers.3/@attributes.1"/>
+                <referencedElement href="../stdlib.xmi#//@module/@classifiers.10/@methods.1"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" concreteSyntax="data.id" referencedElement="//@module/@classifiers.1/@attributes.0">
+                    <parentIdExpr concreteSyntax="data" referencedElement="//@module/@classifiers.3/@methods.0/@parameters.0"/>
+                  </callArguments>
+                  <callArguments xsi:type="dbl:IdExpr" concreteSyntax="associatedDataDelayer" referencedElement="//@module/@classifiers.3/@methods.0/@statements.0"/>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate associatedDataDelayer">
+              <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="associatedDataDelayer" referencedElement="//@module/@classifiers.3/@methods.0/@statements.0"/>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return associatedDataDelayer">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="associatedDataDelayer" referencedElement="//@module/@classifiers.3/@methods.0/@statements.0"/>
+        </statements>
+        <parameters name="data">
+          <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+        </parameters>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="DataDelayer" concreteSyntax="active class DataDelayer {&#xA;&#x9;Data data;&#xA;&#x9;DelayerManager manager;&#xA;&#x9;&#xA;&#x9;new(Data data, DelayerManager manager) {&#xA;&#x9;&#x9;self.data = data;&#xA;&#x9;&#x9;self.manager = manager;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;state machine {&#xA;&#x9;&#x9;initial state disconnected {&#xA;&#x9;&#x9;&#x9;when manager.consumer != null -> delaying&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state delaying {&#xA;&#x9;&#x9;&#x9;after 120 do publishData(); -> stop&#xA;&#x9;&#x9;&#x9;signal Data d do updateData(signal as Data); -> delaying&#xA;&#x9;&#x9;&#x9;when manager.consumer == null -> disconnected&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void publishData() {&#xA;&#x9;&#x9;send data to manager.consumer;&#xA;&#x9;&#x9;Finished finished = new Finished();&#xA;&#x9;&#x9;finished.id = data.id;&#xA;&#x9;&#x9;send finished to manager;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void updateData(Data updatedData) {&#xA;&#x9;&#x9;data = updatedData;&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="state machine {&#xA;&#x9;&#x9;initial state disconnected {&#xA;&#x9;&#x9;&#x9;when manager.consumer != null -> delaying&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state delaying {&#xA;&#x9;&#x9;&#x9;after 120 do publishData(); -> stop&#xA;&#x9;&#x9;&#x9;signal Data d do updateData(signal as Data); -> delaying&#xA;&#x9;&#x9;&#x9;when manager.consumer == null -> disconnected&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="disconnected" concreteSyntax="initial state disconnected {&#xA;&#x9;&#x9;&#x9;when manager.consumer != null -> delaying&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing concreteSyntax="when manager.consumer != null -> delaying" target="//@module/@classifiers.4/@contentExtensions.0/@states.1">
+            <condition xsi:type="dbl:NotEqual" concreteSyntax="manager.consumer != null">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="manager.consumer" referencedElement="//@module/@classifiers.3/@attributes.0">
+                <parentIdExpr concreteSyntax="manager" referencedElement="//@module/@classifiers.4/@attributes.1"/>
+              </op1>
+              <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+            </condition>
+          </outgoing>
+        </states>
+        <states name="delaying" concreteSyntax="&#xA;&#x9;&#x9;state delaying {&#xA;&#x9;&#x9;&#x9;after 120 do publishData(); -> stop&#xA;&#x9;&#x9;&#x9;signal Data d do updateData(signal as Data); -> delaying&#xA;&#x9;&#x9;&#x9;when manager.consumer == null -> disconnected&#xA;&#x9;&#x9;}">
+          <outgoing concreteSyntax="after 120 do publishData(); -> stop" stop="true">
+            <effects xsi:type="dbl:FunctionCall" concreteSyntax="publishData()">
+              <callIdExpr concreteSyntax="publishData()" referencedElement="//@module/@classifiers.4/@methods.0">
+                <callPart/>
+              </callIdExpr>
+            </effects>
+            <timeDuration xsi:type="dbl:IntLiteral" concreteSyntax="120" value="120"/>
+          </outgoing>
+          <outgoing concreteSyntax="signal Data d do updateData(signal as Data); -> delaying" target="//@module/@classifiers.4/@contentExtensions.0/@states.1">
+            <effects xsi:type="dbl:FunctionCall" concreteSyntax="updateData(signal as Data)">
+              <callIdExpr concreteSyntax="updateData(signal as Data)" referencedElement="//@module/@classifiers.4/@methods.1">
+                <callPart>
+                  <callArguments xsi:type="dbl:Cast" concreteSyntax="signal as Data">
+                    <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+                    <op xsi:type="dbl:SignalAccess_SignalAccess_extension" concreteSyntax="signal" instanceOfExtensionDefinition="true"/>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </effects>
+            <messageVariable name="d" concreteSyntax="Data d">
+              <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+            </messageVariable>
+          </outgoing>
+          <outgoing concreteSyntax="when manager.consumer == null -> disconnected" target="//@module/@classifiers.4/@contentExtensions.0/@states.0">
+            <condition xsi:type="dbl:Equal" concreteSyntax="manager.consumer == null">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="manager.consumer" referencedElement="//@module/@classifiers.3/@attributes.0">
+                <parentIdExpr concreteSyntax="manager" referencedElement="//@module/@classifiers.4/@attributes.1"/>
+              </op1>
+              <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+            </condition>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="data" concreteSyntax="Data data">
+        <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+      </attributes>
+      <attributes name="manager" concreteSyntax="DelayerManager manager">
+        <classifierType concreteSyntax="DelayerManager" referencedElement="//@module/@classifiers.3"/>
+      </attributes>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.data = data">
+          <variable concreteSyntax="self.data">
+            <idExpr concreteSyntax="self.data" referencedElement="//@module/@classifiers.4/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="data" referencedElement="//@module/@classifiers.4/@constructors.0/@parameters.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.manager = manager">
+          <variable concreteSyntax="self.manager">
+            <idExpr concreteSyntax="self.manager" referencedElement="//@module/@classifiers.4/@constructors.0/@parameters.1">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="manager" referencedElement="//@module/@classifiers.4/@constructors.0/@parameters.1"/>
+        </statements>
+        <parameters name="data">
+          <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+        </parameters>
+        <parameters name="manager">
+          <classifierType concreteSyntax="DelayerManager" referencedElement="//@module/@classifiers.3"/>
+        </parameters>
+      </constructors>
+      <methods name="publishData">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send data to manager.consumer;" instanceOfExtensionDefinition="true">
+          <signal xsi:type="dbl:IdExpr" concreteSyntax="data" referencedElement="//@module/@classifiers.4/@attributes.0"/>
+          <target xsi:type="dbl:IdExpr" concreteSyntax="manager.consumer" referencedElement="//@module/@classifiers.3/@attributes.0">
+            <parentIdExpr concreteSyntax="manager" referencedElement="//@module/@classifiers.4/@attributes.1"/>
+          </target>
+        </statements>
+        <statements xsi:type="dbl:Variable" name="finished" concreteSyntax="Finished finished = new Finished()">
+          <classifierType concreteSyntax="Finished" referencedElement="//@module/@classifiers.2"/>
+          <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Finished()">
+            <classifierType concreteSyntax="Finished()" referencedElement="//@module/@classifiers.2">
+              <callPart/>
+            </classifierType>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="finished.id = data.id">
+          <variable concreteSyntax="finished.id">
+            <idExpr concreteSyntax="finished.id" referencedElement="//@module/@classifiers.2/@attributes.0">
+              <parentIdExpr concreteSyntax="finished" referencedElement="//@module/@classifiers.4/@methods.0/@statements.1"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="data.id" referencedElement="//@module/@classifiers.1/@attributes.0">
+            <parentIdExpr concreteSyntax="data" referencedElement="//@module/@classifiers.4/@attributes.0"/>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send finished to manager;" instanceOfExtensionDefinition="true">
+          <signal xsi:type="dbl:IdExpr" concreteSyntax="finished" referencedElement="//@module/@classifiers.4/@methods.0/@statements.1"/>
+          <target xsi:type="dbl:IdExpr" concreteSyntax="manager" referencedElement="//@module/@classifiers.4/@attributes.1"/>
+        </statements>
+      </methods>
+      <methods name="updateData">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="data = updatedData">
+          <variable concreteSyntax="data">
+            <idExpr concreteSyntax="data" referencedElement="//@module/@classifiers.4/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="updatedData" referencedElement="//@module/@classifiers.4/@methods.1/@parameters.0"/>
+        </statements>
+        <parameters name="updatedData">
+          <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+        </parameters>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="Generator" concreteSyntax="active class Generator {&#xA;&#x9;DelayerManager manager;&#xA;&#x9;IntDistUniform randomDataIds;&#xA;&#x9;IntDistUniform randomDataArrival;&#xA;&#x9;int dataCreated = 0;&#xA;&#x9;&#xA;&#x9;new() {&#xA;&#x9;&#x9;randomDataIds = IntDistUniform.create(1,30);&#xA;&#x9;&#x9;randomDataArrival = IntDistUniform.create(10,20);&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;state machine {&#xA;&#x9;&#x9;initial state generating {&#xA;&#x9;&#x9;&#x9;after randomDataArrival.sample() do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = new Data;&#xA;&#x9;&#x9;&#x9;&#x9;data.id = randomDataIds.sample();&#xA;&#x9;&#x9;&#x9;&#x9;send data to manager;&#xA;&#x9;&#x9;&#x9;&#x9;dataCreated = dataCreated + 1;&#xA;&#x9;&#x9;&#x9;} -> generating&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="state machine {&#xA;&#x9;&#x9;initial state generating {&#xA;&#x9;&#x9;&#x9;after randomDataArrival.sample() do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = new Data;&#xA;&#x9;&#x9;&#x9;&#x9;data.id = randomDataIds.sample();&#xA;&#x9;&#x9;&#x9;&#x9;send data to manager;&#xA;&#x9;&#x9;&#x9;&#x9;dataCreated = dataCreated + 1;&#xA;&#x9;&#x9;&#x9;} -> generating&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="generating" concreteSyntax="initial state generating {&#xA;&#x9;&#x9;&#x9;after randomDataArrival.sample() do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = new Data;&#xA;&#x9;&#x9;&#x9;&#x9;data.id = randomDataIds.sample();&#xA;&#x9;&#x9;&#x9;&#x9;send data to manager;&#xA;&#x9;&#x9;&#x9;&#x9;dataCreated = dataCreated + 1;&#xA;&#x9;&#x9;&#x9;} -> generating&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing concreteSyntax="after randomDataArrival.sample() do {&#xA;&#x9;&#x9;&#x9;&#x9;Data data = new Data;&#xA;&#x9;&#x9;&#x9;&#x9;data.id = randomDataIds.sample();&#xA;&#x9;&#x9;&#x9;&#x9;send data to manager;&#xA;&#x9;&#x9;&#x9;&#x9;dataCreated = dataCreated + 1;&#xA;&#x9;&#x9;&#x9;} -> generating" target="//@module/@classifiers.5/@contentExtensions.0/@states.0">
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Data data = new Data;&#xA;&#x9;&#x9;&#x9;&#x9;data.id = randomDataIds.sample();&#xA;&#x9;&#x9;&#x9;&#x9;send data to manager;&#xA;&#x9;&#x9;&#x9;&#x9;dataCreated = dataCreated + 1;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Variable" name="data" concreteSyntax="Data data = new Data">
+                <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+                <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Data">
+                  <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+                </initialValue>
+              </statements>
+              <statements xsi:type="dbl:Assignment" concreteSyntax="data.id = randomDataIds.sample()">
+                <variable concreteSyntax="data.id">
+                  <idExpr concreteSyntax="data.id" referencedElement="//@module/@classifiers.1/@attributes.0">
+                    <parentIdExpr concreteSyntax="data" referencedElement="//@module/@classifiers.5/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+                  </idExpr>
+                </variable>
+                <value xsi:type="dbl:IdExpr" concreteSyntax="randomDataIds.sample()" referencedElement="//@module/@classifiers.0/@methods.1">
+                  <parentIdExpr concreteSyntax="randomDataIds" referencedElement="//@module/@classifiers.5/@attributes.1"/>
+                  <callPart/>
+                </value>
+              </statements>
+              <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send data to manager;" instanceOfExtensionDefinition="true">
+                <signal xsi:type="dbl:IdExpr" concreteSyntax="data" referencedElement="//@module/@classifiers.5/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+                <target xsi:type="dbl:IdExpr" concreteSyntax="manager" referencedElement="//@module/@classifiers.5/@attributes.0"/>
+              </statements>
+              <statements xsi:type="dbl:Assignment" concreteSyntax="dataCreated = dataCreated + 1">
+                <variable concreteSyntax="dataCreated">
+                  <idExpr concreteSyntax="dataCreated" referencedElement="//@module/@classifiers.5/@attributes.3"/>
+                </variable>
+                <value xsi:type="dbl:Plus" concreteSyntax="dataCreated + 1">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="dataCreated" referencedElement="//@module/@classifiers.5/@attributes.3"/>
+                  <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </value>
+              </statements>
+            </effects>
+            <timeDuration xsi:type="dbl:IdExpr" concreteSyntax="randomDataArrival.sample()" referencedElement="//@module/@classifiers.0/@methods.1">
+              <parentIdExpr concreteSyntax="randomDataArrival" referencedElement="//@module/@classifiers.5/@attributes.2"/>
+              <callPart/>
+            </timeDuration>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="manager" concreteSyntax="DelayerManager manager">
+        <classifierType concreteSyntax="DelayerManager" referencedElement="//@module/@classifiers.3"/>
+      </attributes>
+      <attributes name="randomDataIds" concreteSyntax="IntDistUniform randomDataIds">
+        <classifierType concreteSyntax="IntDistUniform" referencedElement="//@module/@classifiers.0"/>
+      </attributes>
+      <attributes name="randomDataArrival" concreteSyntax="IntDistUniform randomDataArrival">
+        <classifierType concreteSyntax="IntDistUniform" referencedElement="//@module/@classifiers.0"/>
+      </attributes>
+      <attributes name="dataCreated" concreteSyntax="int dataCreated = 0">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </attributes>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="randomDataIds = IntDistUniform.create(1,30)">
+          <variable concreteSyntax="randomDataIds">
+            <idExpr concreteSyntax="randomDataIds" referencedElement="//@module/@classifiers.5/@attributes.1"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="IntDistUniform.create(1,30)" referencedElement="//@module/@classifiers.0/@methods.0">
+            <parentIdExpr concreteSyntax="IntDistUniform" referencedElement="//@module/@classifiers.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="30" value="30"/>
+            </callPart>
+          </value>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="randomDataArrival = IntDistUniform.create(10,20)">
+          <variable concreteSyntax="randomDataArrival">
+            <idExpr concreteSyntax="randomDataArrival" referencedElement="//@module/@classifiers.5/@attributes.2"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="IntDistUniform.create(10,20)" referencedElement="//@module/@classifiers.0/@methods.0">
+            <parentIdExpr concreteSyntax="IntDistUniform" referencedElement="//@module/@classifiers.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+              <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="20" value="20"/>
+            </callPart>
+          </value>
+        </statements>
+      </constructors>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="Consumer" concreteSyntax="active class Consumer {&#xA;&#x9;int dataConsumed = 0;&#xA;&#xA;&#x9;state machine {&#xA;&#x9;&#x9;initial state consuming {&#xA;&#x9;&#x9;&#x9;signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;dataConsumed = dataConsumed + 1;&#xA;&#x9;&#x9;&#x9;} -> consuming&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="state machine {&#xA;&#x9;&#x9;initial state consuming {&#xA;&#x9;&#x9;&#x9;signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;dataConsumed = dataConsumed + 1;&#xA;&#x9;&#x9;&#x9;} -> consuming&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="consuming" concreteSyntax="initial state consuming {&#xA;&#x9;&#x9;&#x9;signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;dataConsumed = dataConsumed + 1;&#xA;&#x9;&#x9;&#x9;} -> consuming&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing concreteSyntax="signal Data d do {&#xA;&#x9;&#x9;&#x9;&#x9;dataConsumed = dataConsumed + 1;&#xA;&#x9;&#x9;&#x9;} -> consuming" target="//@module/@classifiers.6/@contentExtensions.0/@states.0">
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;dataConsumed = dataConsumed + 1;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Assignment" concreteSyntax="dataConsumed = dataConsumed + 1">
+                <variable concreteSyntax="dataConsumed">
+                  <idExpr concreteSyntax="dataConsumed" referencedElement="//@module/@classifiers.6/@attributes.0"/>
+                </variable>
+                <value xsi:type="dbl:Plus" concreteSyntax="dataConsumed + 1">
+                  <op1 xsi:type="dbl:IdExpr" concreteSyntax="dataConsumed" referencedElement="//@module/@classifiers.6/@attributes.0"/>
+                  <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                </value>
+              </statements>
+            </effects>
+            <messageVariable name="d" concreteSyntax="Data d">
+              <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.1"/>
+            </messageVariable>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="dataConsumed" concreteSyntax="int dataConsumed = 0">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </attributes>
+    </classifiers>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="manager" concreteSyntax="DelayerManager manager = new DelayerManager()">
+        <classifierType concreteSyntax="DelayerManager" referencedElement="//@module/@classifiers.3"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new DelayerManager()">
+          <classifierType concreteSyntax="DelayerManager()" referencedElement="//@module/@classifiers.3">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate manager">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="manager" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="generator" concreteSyntax="Generator generator = new Generator()">
+        <classifierType concreteSyntax="Generator" referencedElement="//@module/@classifiers.5"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Generator()">
+          <classifierType concreteSyntax="Generator()" referencedElement="//@module/@classifiers.5">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate generator">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="generator" referencedElement="//@module/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="generator.manager = manager">
+        <variable concreteSyntax="generator.manager">
+          <idExpr concreteSyntax="generator.manager" referencedElement="//@module/@functions.0/@statements.0">
+            <parentIdExpr concreteSyntax="generator" referencedElement="//@module/@functions.0/@statements.2"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" concreteSyntax="manager" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="consumer" concreteSyntax="Consumer consumer = new Consumer()">
+        <classifierType concreteSyntax="Consumer" referencedElement="//@module/@classifiers.6"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Consumer()">
+          <classifierType concreteSyntax="Consumer()" referencedElement="//@module/@classifiers.6">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate consumer">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="consumer" referencedElement="//@module/@functions.0/@statements.5"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="manager.consumer = consumer">
+        <variable concreteSyntax="manager.consumer">
+          <idExpr concreteSyntax="manager.consumer" referencedElement="//@module/@functions.0/@statements.5">
+            <parentIdExpr concreteSyntax="manager" referencedElement="//@module/@functions.0/@statements.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" concreteSyntax="consumer" referencedElement="//@module/@functions.0/@statements.5"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="oneDay" concreteSyntax="int oneDay = 60*60*24">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:Mul" concreteSyntax="60*60*24">
+          <op1 xsi:type="dbl:Mul" concreteSyntax="60*60">
+            <op1 xsi:type="dbl:IntLiteral" concreteSyntax="60" value="60"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="60" value="60"/>
+          </op1>
+          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="24" value="24"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance &#x9;oneDay">
+        <time xsi:type="dbl:IdExpr" concreteSyntax="oneDay" referencedElement="//@module/@functions.0/@statements.8"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="SystemOut.println(&quot;Data created: &quot; + generator.dataCreated)">
+        <callIdExpr concreteSyntax="SystemOut.println(&quot;Data created: &quot; + generator.dataCreated)">
+          <parentIdExpr concreteSyntax="SystemOut">
+            <referencedElement href="../stdlib.xmi#//@module/@classifiers.3"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@module/@classifiers.3/@methods.1"/>
+          <callPart>
+            <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;Data created: &quot; + generator.dataCreated">
+              <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Data created: &quot;" value="Data created: "/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="generator.dataCreated" referencedElement="//@module/@classifiers.5/@attributes.3">
+                <parentIdExpr concreteSyntax="generator" referencedElement="//@module/@functions.0/@statements.2"/>
+              </op2>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="SystemOut.println(&quot;Data consumed: &quot; + consumer.dataConsumed)">
+        <callIdExpr concreteSyntax="SystemOut.println(&quot;Data consumed: &quot; + consumer.dataConsumed)">
+          <parentIdExpr concreteSyntax="SystemOut">
+            <referencedElement href="../stdlib.xmi#//@module/@classifiers.3"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@module/@classifiers.3/@methods.1"/>
+          <callPart>
+            <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;Data consumed: &quot; + consumer.dataConsumed">
+              <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Data consumed: &quot;" value="Data consumed: "/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="consumer.dataConsumed" referencedElement="//@module/@classifiers.6/@attributes.0">
+                <parentIdExpr concreteSyntax="consumer" referencedElement="//@module/@functions.0/@statements.5"/>
+              </op2>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>

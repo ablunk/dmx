@@ -1,0 +1,140 @@
+#import "../extensions/state-machines/ssm-language-syntax"
+#import "../stdlib"
+
+module dataDelayerStateOriented;
+
+interface IntDistUniform {
+	static IntDistUniform create(int min, int max);
+	int sample();
+}
+
+signal Data {
+	int id;
+}
+
+signal Finished {
+	int id;
+}
+
+active class DelayerManager {
+	Consumer consumer;
+	Map runningDataDelayerById = new HashMap;
+	
+	state machine {
+		initial state distributing {
+			signal Data d do {
+				Data data = signal as Data;
+				DataDelayer associatedDataDelayer = findOrStartDataDelayer(data);
+				send data to associatedDataDelayer;
+			} -> distributing
+			
+			signal Finished f do {
+				Finished finished = signal as Finished;
+				runningDataDelayerById.remove(finished.id);
+			} -> distributing
+		}
+	}
+	
+	// level 2 extension:
+	// single state machine {
+	//   signal Data d do {}
+	//   signal Finished f do {}
+	// }
+	
+	DataDelayer findOrStartDataDelayer(Data data) {
+		DataDelayer associatedDataDelayer = runningDataDelayerById.get(data.id);
+		if (associatedDataDelayer == null) {
+			associatedDataDelayer = new DataDelayer(data, self);
+			runningDataDelayerById.put(data.id, associatedDataDelayer);
+			activate associatedDataDelayer;
+		}
+		return associatedDataDelayer;
+	}
+}
+
+active class DataDelayer {
+	Data data;
+	DelayerManager manager;
+	
+	new(Data data, DelayerManager manager) {
+		self.data = data;
+		self.manager = manager;
+	}
+	
+	state machine {
+		initial state disconnected {
+			when manager.consumer != null -> delaying
+		}
+		state delaying {
+			after 120 do publishData(); -> stop
+			signal Data d do updateData(signal as Data); -> delaying
+			when manager.consumer == null -> disconnected
+		}
+	}
+	
+	void publishData() {
+		send data to manager.consumer;
+		Finished finished = new Finished();
+		finished.id = data.id;
+		send finished to manager;
+	}
+	
+	void updateData(Data updatedData) {
+		data = updatedData;
+	}
+}
+
+active class Generator {
+	DelayerManager manager;
+	IntDistUniform randomDataIds;
+	IntDistUniform randomDataArrival;
+	int dataCreated = 0;
+	
+	new() {
+		randomDataIds = IntDistUniform.create(1,30);
+		randomDataArrival = IntDistUniform.create(10,20);
+	}
+	
+	state machine {
+		initial state generating {
+			after randomDataArrival.sample() do {
+				Data data = new Data;
+				data.id = randomDataIds.sample();
+				send data to manager;
+				dataCreated = dataCreated + 1;
+			} -> generating
+		}
+	}
+}
+
+active class Consumer {
+	int dataConsumed = 0;
+
+	state machine {
+		initial state consuming {
+			signal Data d do {
+				dataConsumed = dataConsumed + 1;
+			} -> consuming
+		}
+	}
+}
+
+void main() {
+	DelayerManager manager = new DelayerManager();
+	activate manager;
+	
+	Generator generator = new Generator();
+	activate generator;
+	generator.manager = manager;
+
+	Consumer consumer = new Consumer();
+	activate consumer;
+	manager.consumer = consumer;
+
+	int oneDay = 60*60*24;
+	advance 	oneDay;
+	
+	SystemOut.println("Data created: " + generator.dataCreated);
+	SystemOut.println("Data consumed: " + consumer.dataConsumed);
+}
+

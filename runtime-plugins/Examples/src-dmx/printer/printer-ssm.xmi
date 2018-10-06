@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../extensions/state-machines/ssm-language-syntax">
+    <model href="../extensions/state-machines/ssm-language-syntax.xmi#/"/>
+  </imports>
+  <imports file="queue">
+    <model href="queue.xmi#/"/>
+  </imports>
+  <imports file="ssm-runtime">
+    <model href="ssm-runtime.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <module name="timer">
+    <classifiers xsi:type="dbl:SignalDefinition_SignalDefinition_extension" name="Printed" concreteSyntax="signal Printed;" instanceOfExtensionDefinition="true"/>
+    <classifiers xsi:type="dbl:SignalDefinition_SignalDefinition_extension" name="Job" concreteSyntax="signal Job {&#xA;&#x9;PrintJob printJob;&#xA;}" instanceOfExtensionDefinition="true">
+      <attributes name="printJob" concreteSyntax="PrintJob printJob">
+        <classifierType concreteSyntax="PrintJob" referencedElement="//@module/@classifiers.3"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="Printer" concreteSyntax="active class Printer {&#xA;&#x9;Job job;&#xA;&#x9;control boolean broken = false;&#xA;&#x9;&#xA;&#x9;int pagesPrinted = 0;&#xA;&#x9;int printTimePerPage = 4;&#xA;&#x9;&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial state idle {&#xA;&#x9;&#x9;&#x9;signal Job j do job = signal; -> busy&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state busy {&#xA;&#x9;&#x9;&#x9;after job.printJob.pages * printTimePerPage&#xA;&#x9;&#x9;&#x9;&#x9;do increasePagesPrinted();&#xA;&#x9;&#x9;&#x9;&#x9;-> idle&#xA;&#x9;&#x9;}&#xA;&#x9;}&#x9;&#xA;&#x9;&#xA;&#x9;void increasePagesPrinted() {}&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial state idle {&#xA;&#x9;&#x9;&#x9;signal Job j do job = signal; -> busy&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state busy {&#xA;&#x9;&#x9;&#x9;after job.printJob.pages * printTimePerPage&#xA;&#x9;&#x9;&#x9;&#x9;do increasePagesPrinted();&#xA;&#x9;&#x9;&#x9;&#x9;-> idle&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="idle" concreteSyntax="initial state idle {&#xA;&#x9;&#x9;&#x9;signal Job j do job = signal; -> busy&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing concreteSyntax="signal Job j do job = signal; -> busy" target="//@module/@classifiers.2/@contentExtensions.0/@states.1">
+            <effects xsi:type="dbl:Assignment" concreteSyntax="job = signal">
+              <variable concreteSyntax="job">
+                <idExpr concreteSyntax="job" referencedElement="//@module/@classifiers.2/@attributes.0"/>
+              </variable>
+              <value xsi:type="dbl:SignalAccess_SignalAccess_extension" concreteSyntax="signal" instanceOfExtensionDefinition="true"/>
+            </effects>
+            <messageVariable name="j" concreteSyntax="Job j">
+              <classifierType concreteSyntax="Job" referencedElement="//@module/@classifiers.1"/>
+            </messageVariable>
+          </outgoing>
+        </states>
+        <states name="busy" concreteSyntax="&#xA;&#x9;&#x9;state busy {&#xA;&#x9;&#x9;&#x9;after job.printJob.pages * printTimePerPage&#xA;&#x9;&#x9;&#x9;&#x9;do increasePagesPrinted();&#xA;&#x9;&#x9;&#x9;&#x9;-> idle&#xA;&#x9;&#x9;}">
+          <outgoing concreteSyntax="after job.printJob.pages * printTimePerPage&#xA;&#x9;&#x9;&#x9;&#x9;do increasePagesPrinted();&#xA;&#x9;&#x9;&#x9;&#x9;-> idle" target="//@module/@classifiers.2/@contentExtensions.0/@states.0">
+            <effects xsi:type="dbl:FunctionCall" concreteSyntax="increasePagesPrinted()">
+              <callIdExpr concreteSyntax="increasePagesPrinted()" referencedElement="//@module/@classifiers.2/@methods.0">
+                <callPart/>
+              </callIdExpr>
+            </effects>
+            <timeDuration xsi:type="dbl:Mul" concreteSyntax="job.printJob.pages * printTimePerPage">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="job.printJob.pages" referencedElement="//@module/@classifiers.3/@attributes.0">
+                <parentIdExpr concreteSyntax="job.printJob" referencedElement="//@module/@classifiers.1/@attributes.0">
+                  <parentIdExpr concreteSyntax="job" referencedElement="//@module/@classifiers.2/@attributes.0"/>
+                </parentIdExpr>
+              </op1>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="printTimePerPage" referencedElement="//@module/@classifiers.2/@attributes.3"/>
+            </timeDuration>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="job" concreteSyntax="Job job">
+        <classifierType concreteSyntax="Job" referencedElement="//@module/@classifiers.1"/>
+      </attributes>
+      <attributes xsi:type="dbl:ControlVariable" name="broken" concreteSyntax="control boolean broken = false">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+      </attributes>
+      <attributes name="pagesPrinted" concreteSyntax="int pagesPrinted = 0">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </attributes>
+      <attributes name="printTimePerPage" concreteSyntax="int printTimePerPage = 4">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="4" value="4"/>
+      </attributes>
+      <methods name="increasePagesPrinted">
+        <primitiveType xsi:type="dbl:VoidType"/>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="PrintJob" concreteSyntax="active class PrintJob {&#xA;&#x9;int pages = 4; // TODO randomize&#xA;&#x9;Printer printer;&#xA;&#x9;&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;entry {&#xA;&#x9;&#x9;&#x9;&#x9;Job job = new Job;&#xA;&#x9;&#x9;&#x9;&#x9;job.printJob = self; // Namensaufl&#xf6;sung einer Klasse wiederverwendet&#xA;&#x9;&#x9;&#x9;&#x9;send job to printer;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;signal Printed p -> stop&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state retry {&#xA;&#x9;&#x9;&#x9;after 10 -> waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;entry {&#xA;&#x9;&#x9;&#x9;&#x9;Job job = new Job;&#xA;&#x9;&#x9;&#x9;&#x9;job.printJob = self; // Namensaufl&#xf6;sung einer Klasse wiederverwendet&#xA;&#x9;&#x9;&#x9;&#x9;send job to printer;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;signal Printed p -> stop&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state retry {&#xA;&#x9;&#x9;&#x9;after 10 -> waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="waiting" concreteSyntax="initial state waiting {&#xA;&#x9;&#x9;&#x9;entry {&#xA;&#x9;&#x9;&#x9;&#x9;Job job = new Job;&#xA;&#x9;&#x9;&#x9;&#x9;job.printJob = self; // Namensaufl&#xf6;sung einer Klasse wiederverwendet&#xA;&#x9;&#x9;&#x9;&#x9;send job to printer;&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;signal Printed p -> stop&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing concreteSyntax="signal Printed p -> stop" stop="true">
+            <messageVariable name="p" concreteSyntax="Printed p">
+              <classifierType concreteSyntax="Printed" referencedElement="//@module/@classifiers.0"/>
+            </messageVariable>
+          </outgoing>
+          <entryActions xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Job job = new Job;&#xA;&#x9;&#x9;&#x9;&#x9;job.printJob = self; // Namensaufl&#xf6;sung einer Klasse wiederverwendet&#xA;&#x9;&#x9;&#x9;&#x9;send job to printer;&#xA;&#x9;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Variable" name="job" concreteSyntax="Job job = new Job">
+              <classifierType concreteSyntax="Job" referencedElement="//@module/@classifiers.1"/>
+              <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Job">
+                <classifierType concreteSyntax="Job" referencedElement="//@module/@classifiers.1"/>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Assignment" concreteSyntax="job.printJob = self">
+              <variable concreteSyntax="job.printJob">
+                <idExpr concreteSyntax="job.printJob" referencedElement="//@module/@classifiers.1/@attributes.0">
+                  <parentIdExpr concreteSyntax="job" referencedElement="//@module/@classifiers.3/@contentExtensions.0/@states.0/@entryActions/@statements.0"/>
+                </idExpr>
+              </variable>
+              <value xsi:type="dbl:IdExpr" concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </value>
+            </statements>
+            <statements xsi:type="dbl:SendStatement_SendStatementSyntax_extension" concreteSyntax="send job to printer;" instanceOfExtensionDefinition="true">
+              <signal xsi:type="dbl:IdExpr" concreteSyntax="job" referencedElement="//@module/@classifiers.3/@contentExtensions.0/@states.0/@entryActions/@statements.0"/>
+              <target xsi:type="dbl:IdExpr" concreteSyntax="printer" referencedElement="//@module/@classifiers.3/@attributes.1"/>
+            </statements>
+          </entryActions>
+        </states>
+        <states name="retry" concreteSyntax="&#xA;&#x9;&#x9;state retry {&#xA;&#x9;&#x9;&#x9;after 10 -> waiting&#xA;&#x9;&#x9;}">
+          <outgoing concreteSyntax="after 10 -> waiting" target="//@module/@classifiers.3/@contentExtensions.0/@states.0">
+            <timeDuration xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="pages" concreteSyntax="int pages = 4">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="4" value="4"/>
+      </attributes>
+      <attributes name="printer" concreteSyntax="Printer printer">
+        <classifierType concreteSyntax="Printer" referencedElement="//@module/@classifiers.2"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="PrintJobGenerator" concreteSyntax="active class PrintJobGenerator {&#xA;&#x9;Printer printer;&#xA;&#x9;&#xA;&#x9;stateMachine {&#xA;&#x9;&#x9;initial state generating {&#xA;&#x9;&#x9;&#x9;after 3 do {&#xA;&#x9;&#x9;&#x9;&#x9;PrintJob job = new PrintJob;&#xA;&#x9;&#x9;&#x9;&#x9;job.printer = printer;&#xA;&#x9;&#x9;&#x9;&#x9;activate job;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;} -> generating&#xA;&#x9;&#x9;}&#xA;&#x9;}&#x9;&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="stateMachine {&#xA;&#x9;&#x9;initial state generating {&#xA;&#x9;&#x9;&#x9;after 3 do {&#xA;&#x9;&#x9;&#x9;&#x9;PrintJob job = new PrintJob;&#xA;&#x9;&#x9;&#x9;&#x9;job.printer = printer;&#xA;&#x9;&#x9;&#x9;&#x9;activate job;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;} -> generating&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="generating" concreteSyntax="initial state generating {&#xA;&#x9;&#x9;&#x9;after 3 do {&#xA;&#x9;&#x9;&#x9;&#x9;PrintJob job = new PrintJob;&#xA;&#x9;&#x9;&#x9;&#x9;job.printer = printer;&#xA;&#x9;&#x9;&#x9;&#x9;activate job;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;} -> generating&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing concreteSyntax="after 3 do {&#xA;&#x9;&#x9;&#x9;&#x9;PrintJob job = new PrintJob;&#xA;&#x9;&#x9;&#x9;&#x9;job.printer = printer;&#xA;&#x9;&#x9;&#x9;&#x9;activate job;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;} -> generating" target="//@module/@classifiers.4/@contentExtensions.0/@states.0">
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;PrintJob job = new PrintJob;&#xA;&#x9;&#x9;&#x9;&#x9;job.printer = printer;&#xA;&#x9;&#x9;&#x9;&#x9;activate job;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Variable" name="job" concreteSyntax="PrintJob job = new PrintJob">
+                <classifierType concreteSyntax="PrintJob" referencedElement="//@module/@classifiers.3"/>
+                <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new PrintJob">
+                  <classifierType concreteSyntax="PrintJob" referencedElement="//@module/@classifiers.3"/>
+                </initialValue>
+              </statements>
+              <statements xsi:type="dbl:Assignment" concreteSyntax="job.printer = printer">
+                <variable concreteSyntax="job.printer">
+                  <idExpr concreteSyntax="job.printer" referencedElement="//@module/@classifiers.3/@attributes.1">
+                    <parentIdExpr concreteSyntax="job" referencedElement="//@module/@classifiers.4/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+                  </idExpr>
+                </variable>
+                <value xsi:type="dbl:IdExpr" concreteSyntax="printer" referencedElement="//@module/@classifiers.4/@attributes.0"/>
+              </statements>
+              <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate job">
+                <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="job" referencedElement="//@module/@classifiers.4/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+              </statements>
+            </effects>
+            <timeDuration xsi:type="dbl:IntLiteral" concreteSyntax="3" value="3"/>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="printer" concreteSyntax="Printer printer">
+        <classifierType concreteSyntax="Printer" referencedElement="//@module/@classifiers.2"/>
+      </attributes>
+    </classifiers>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="printer" concreteSyntax="Printer printer = new Printer">
+        <classifierType concreteSyntax="Printer" referencedElement="//@module/@classifiers.2"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Printer">
+          <classifierType concreteSyntax="Printer" referencedElement="//@module/@classifiers.2"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate printer">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="printer" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="jobGenerator" concreteSyntax="PrintJobGenerator jobGenerator = PrintJobGenerator">
+        <classifierType concreteSyntax="PrintJobGenerator" referencedElement="//@module/@classifiers.4"/>
+        <initialValue xsi:type="dbl:IdExpr" concreteSyntax="PrintJobGenerator" referencedElement="//@module/@classifiers.4"/>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate jobGenerator">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="jobGenerator" referencedElement="//@module/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="oneDay" concreteSyntax="int oneDay = 60*60*24">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:Mul" concreteSyntax="60*60*24">
+          <op1 xsi:type="dbl:Mul" concreteSyntax="60*60">
+            <op1 xsi:type="dbl:IntLiteral" concreteSyntax="60" value="60"/>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="60" value="60"/>
+          </op1>
+          <op2 xsi:type="dbl:IntLiteral" concreteSyntax="24" value="24"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance &#x9;oneDay">
+        <time xsi:type="dbl:IdExpr" concreteSyntax="oneDay" referencedElement="//@module/@functions.0/@statements.4"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="SystemOut.println(&quot;Pages printed: &quot; + printer.pagesPrinted)">
+        <callIdExpr concreteSyntax="SystemOut.println(&quot;Pages printed: &quot; + printer.pagesPrinted)">
+          <parentIdExpr concreteSyntax="SystemOut">
+            <referencedElement href="../stdlib.xmi#//@module/@classifiers.3"/>
+          </parentIdExpr>
+          <referencedElement href="../stdlib.xmi#//@module/@classifiers.3/@methods.1"/>
+          <callPart>
+            <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;Pages printed: &quot; + printer.pagesPrinted">
+              <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;Pages printed: &quot;" value="Pages printed: "/>
+              <op2 xsi:type="dbl:IdExpr" concreteSyntax="printer.pagesPrinted" referencedElement="//@module/@classifiers.2/@attributes.2">
+                <parentIdExpr concreteSyntax="printer" referencedElement="//@module/@functions.0/@statements.0"/>
+              </op2>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>

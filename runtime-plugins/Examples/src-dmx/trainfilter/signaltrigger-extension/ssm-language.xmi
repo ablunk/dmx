@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../../stdx">
+    <model href="../../stdx.xmi#/"/>
+  </imports>
+  <module name="ssm">
+    <extensions name="SignalDefinition" concreteSyntax="extension SignalDefinition extends dbl Class {&#xA;&#x9;start SignalDefinition;&#xA;&#x9;SignalDefinition -> &quot;signal&quot; name:ID EnclosedAttributes &quot;;&quot;;&#xA;&#x9;EnclosedAttributes -> &quot;(&quot; Attributes &quot;)&quot;;&#xA;&#x9;Attributes -> attributes : list Variable MoreAttributes;&#xA;&#x9;MoreAttributes -> &quot;,&quot; Attributes;&#xA;&#x9;MoreAttributes -> ;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.26"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start SignalDefinition;&#xA;&#x9;SignalDefinition -> &quot;signal&quot; name:ID EnclosedAttributes &quot;;&quot;;&#xA;&#x9;EnclosedAttributes -> &quot;(&quot; Attributes &quot;)&quot;;&#xA;&#x9;Attributes -> attributes : list Variable MoreAttributes;&#xA;&#x9;MoreAttributes -> &quot;,&quot; Attributes;&#xA;&#x9;MoreAttributes -> ;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="SignalDefinition" concreteSyntax="SignalDefinition -> &quot;signal&quot; name:ID EnclosedAttributes &quot;;&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;signal&quot;" keyword="signal"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol" concreteSyntax="ID"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.1"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;;&quot;" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="EnclosedAttributes" concreteSyntax="EnclosedAttributes -> &quot;(&quot; Attributes &quot;)&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;(&quot;" keyword="("/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;)&quot;" keyword=")"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Attributes" concreteSyntax="Attributes -> attributes : list Variable MoreAttributes;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="attributes" list="true">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.31"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.4"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="MoreAttributes" concreteSyntax="MoreAttributes -> &quot;,&quot; Attributes;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;,&quot;" keyword=","/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="MoreAttributes" concreteSyntax="MoreAttributes -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SignalAccess" concreteSyntax="extension SignalAccess extends dbl L1Expr {&#xA;&#x9;start SignalAccess;&#xA;&#x9;SignalAccess -> &quot;signal&quot;;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.59"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start SignalAccess;&#xA;&#x9;SignalAccess -> &quot;signal&quot;;&#xA;}" startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.0">
+        <symbols name="SignalAccess" concreteSyntax="SignalAccess -> &quot;signal&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;signal&quot;" keyword="signal"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SendStatement" concreteSyntax="extension SendStatement extends dbl SimpleStatement {&#xA;&#x9;start SendStatement;&#xA;&#x9;SendStatement -> &quot;send&quot; signal:Expression &quot;to&quot; target:Expression &quot;;&quot;;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.37"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start SendStatement;&#xA;&#x9;SendStatement -> &quot;send&quot; signal:Expression &quot;to&quot; target:Expression &quot;;&quot;;&#xA;}" startSymbol="//@module/@extensions.2/@syntaxDefinition/@symbols.0">
+        <symbols name="SendStatement" concreteSyntax="SendStatement -> &quot;send&quot; signal:Expression &quot;to&quot; target:Expression &quot;;&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;send&quot;" keyword="send"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="signal">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;to&quot;" keyword="to"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="target">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;;&quot;" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="StateMachine" concreteSyntax="extension StateMachine extends dbl ClassContentExtension {&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;start StateMachine;&#xA;&#x9;&#x9;StateMachine -> &quot;state&quot; &quot;machine&quot; &quot;{&quot; ManyStates &quot;}&quot;;&#xA;&#x9;&#x9;ManyStates -> ;&#xA;&#x9;&#x9;ManyStates -> states : list State ManyStates;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;State -> InitialModifier &quot;state&quot; name:ID &quot;{&quot; ManyTransitions &quot;}&quot;;&#xA;&#x9;&#xA;&#x9;InitialModifier -> initial:&quot;initial&quot;;&#xA;&#x9;InitialModifier -> ;&#xA;&#x9;&#xA;&#x9;ManyTransitions -> ;&#xA;&#x9;ManyTransitions -> outgoing : list Transition ManyTransitions;&#xA;&#xA;&#x9;Transition -> InternalTransition;&#xA;&#x9;Transition -> ExternalTransition;&#xA;&#x9;&#xA;&#x9;InternalTransition -> internal:&quot;internal&quot; Trigger;&#xA;&#x9;ExternalTransition -> Trigger &quot;->&quot; TargetState;&#xA;&#x9;&#xA;&#x9;// TODO can we make the messageVariable accessible inside effects?&#xA;&#x9;Trigger -> &quot;when&quot; condition:Expression Effects;&#xA;&#x9;Trigger -> signalTrigger:SignalTrigger;&#xA;&#x9;Trigger -> &quot;after&quot; timeDuration:Expression Effects;&#xA;&#x9;Effects -> ;&#xA;&#x9;Effects -> &quot;do&quot; effects : SimpleStatement;&#xA;&#x9;&#x9;&#xA;&#x9;TargetState -> target:$$State;&#xA;&#x9;TargetState -> stop:&quot;stop&quot;;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.11"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;start StateMachine;&#xA;&#x9;&#x9;StateMachine -> &quot;state&quot; &quot;machine&quot; &quot;{&quot; ManyStates &quot;}&quot;;&#xA;&#x9;&#x9;ManyStates -> ;&#xA;&#x9;&#x9;ManyStates -> states : list State ManyStates;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;State -> InitialModifier &quot;state&quot; name:ID &quot;{&quot; ManyTransitions &quot;}&quot;;&#xA;&#x9;&#xA;&#x9;InitialModifier -> initial:&quot;initial&quot;;&#xA;&#x9;InitialModifier -> ;&#xA;&#x9;&#xA;&#x9;ManyTransitions -> ;&#xA;&#x9;ManyTransitions -> outgoing : list Transition ManyTransitions;&#xA;&#xA;&#x9;Transition -> InternalTransition;&#xA;&#x9;Transition -> ExternalTransition;&#xA;&#x9;&#xA;&#x9;InternalTransition -> internal:&quot;internal&quot; Trigger;&#xA;&#x9;ExternalTransition -> Trigger &quot;->&quot; TargetState;&#xA;&#x9;&#xA;&#x9;// TODO can we make the messageVariable accessible inside effects?&#xA;&#x9;Trigger -> &quot;when&quot; condition:Expression Effects;&#xA;&#x9;Trigger -> signalTrigger:SignalTrigger;&#xA;&#x9;Trigger -> &quot;after&quot; timeDuration:Expression Effects;&#xA;&#x9;Effects -> ;&#xA;&#x9;Effects -> &quot;do&quot; effects : SimpleStatement;&#xA;&#x9;&#x9;&#xA;&#x9;TargetState -> target:$$State;&#xA;&#x9;TargetState -> stop:&quot;stop&quot;;&#xA;}" startSymbol="//@module/@extensions.3/@syntaxDefinition/@symbols.0">
+        <symbols name="StateMachine" concreteSyntax="StateMachine -> &quot;state&quot; &quot;machine&quot; &quot;{&quot; ManyStates &quot;}&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;state&quot;" keyword="state"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;machine&quot;" keyword="machine"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;{&quot;" keyword="{"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.2"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;}&quot;" keyword="}"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="ManyStates" concreteSyntax="ManyStates -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="ManyStates" concreteSyntax="ManyStates -> states : list State ManyStates;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="states" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.3" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.2"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="State" concreteSyntax="State -> InitialModifier &quot;state&quot; name:ID &quot;{&quot; ManyTransitions &quot;}&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.5"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;state&quot;" keyword="state"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol" concreteSyntax="ID"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;{&quot;" keyword="{"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.6"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;}&quot;" keyword="}"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="InitialModifier" concreteSyntax="InitialModifier -> initial:&quot;initial&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="initial">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;initial&quot;" keyword="initial"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="InitialModifier" concreteSyntax="InitialModifier -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="ManyTransitions" concreteSyntax="ManyTransitions -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="ManyTransitions" concreteSyntax="ManyTransitions -> outgoing : list Transition ManyTransitions;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="outgoing" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.9" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.6"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Transition" concreteSyntax="Transition -> InternalTransition;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.10"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Transition" concreteSyntax="Transition -> ExternalTransition;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.11"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="InternalTransition" concreteSyntax="InternalTransition -> internal:&quot;internal&quot; Trigger;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="internal">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;internal&quot;" keyword="internal"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.14"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="ExternalTransition" concreteSyntax="ExternalTransition -> Trigger &quot;->&quot; TargetState;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.14"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;->&quot;" keyword="->"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.17"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Trigger" concreteSyntax="Trigger -> &quot;when&quot; condition:Expression Effects;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;when&quot;" keyword="when"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="condition">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.16"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Trigger" concreteSyntax="Trigger -> signalTrigger:SignalTrigger;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="signalTrigger" referencedClassifier="//@module/@extensions.4"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Trigger" concreteSyntax="Trigger -> &quot;after&quot; timeDuration:Expression Effects;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;after&quot;" keyword="after"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="timeDuration">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.16"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Effects" concreteSyntax="Effects -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="Effects" concreteSyntax="Effects -> &quot;do&quot; effects : SimpleStatement;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;do&quot;" keyword="do"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="effects">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.37"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="TargetState" concreteSyntax="TargetState -> target:$$State;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="target" referencedClassifier="//@module/@extensions.3/@syntaxDefinition/@symbols.3" globalScopedReference="true"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="TargetState" concreteSyntax="TargetState -> stop:&quot;stop&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="stop">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;stop&quot;" keyword="stop"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="SignalTrigger" concreteSyntax="extension SignalTrigger extends dbl LocalScopeStatement {&#xA;&#x9;start SignalTrigger;&#xA;&#x9;&#xA;&#x9;SignalTrigger -> &quot;signal&quot; statements:list Variable Effects;&#xA;&#x9;Effects -> ;&#xA;&#x9;Effects -> &quot;do&quot; statements:list SimpleStatement;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.51"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start SignalTrigger;&#xA;&#x9;&#xA;&#x9;SignalTrigger -> &quot;signal&quot; statements:list Variable Effects;&#xA;&#x9;Effects -> ;&#xA;&#x9;Effects -> &quot;do&quot; statements:list SimpleStatement;&#xA;}" startSymbol="//@module/@extensions.4/@syntaxDefinition/@symbols.0">
+        <symbols name="SignalTrigger" concreteSyntax="SignalTrigger -> &quot;signal&quot; statements:list Variable Effects;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;signal&quot;" keyword="signal"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="statements" list="true">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.31"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.4/@syntaxDefinition/@symbols.1"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Effects" concreteSyntax="Effects -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="Effects" concreteSyntax="Effects -> &quot;do&quot; statements:list SimpleStatement;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;do&quot;" keyword="do"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="statements" list="true">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.37"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for SignalDefinition {&#xA;&#x9;expand &quot;class &quot; name &quot; {&quot;;&#xA;&#x9;foreach (Variable attribute in attributes) {&#xA;&#x9;&#x9;expand attribute &quot;;&quot;;&#xA;&#x9;}&#xA;&#x9;expand &quot;}&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;class &quot; name &quot; {&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="class "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text=" {"/>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Variable attribute in attributes) {&#xA;&#x9;&#x9;expand attribute &quot;;&quot;;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="attribute" concreteSyntax="Variable attribute">
+          <classifierType concreteSyntax="Variable">
+            <referencedElement href="../../dbl.xmi#//@module/@classifiers.31"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="attributes" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0"/>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;expand attribute &quot;;&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand attribute &quot;;&quot;">
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="attribute" referencedElement="//@module/@extensionSemantics.0/@statements.1/@statements.0"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=";"/>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;}&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+      </statements>
+    </extensionSemantics>
+    <extensionSemantics concreteSyntax="semantics for SignalAccess {&#xA;&#x9;expand &quot;1&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.1">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;1&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="1"/>
+      </statements>
+    </extensionSemantics>
+    <extensionSemantics concreteSyntax="semantics for SendStatement {&#xA;&#x9;expand &quot;// SendStatement&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.2">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;// SendStatement&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="// SendStatement"/>
+      </statements>
+    </extensionSemantics>
+    <extensionSemantics concreteSyntax="semantics for StateMachine {&#xA;&#x9;expand &quot;actions {}&quot;;&#xA;&#xA;&#x9;/*foreach (State state in states) {&#xA;&#x9;&#x9;ID stateId;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand &quot;void &quot; stateId &quot;_enter() {}&quot; after self;&#xA;&#x9;}*/&#xA;}" syntaxDefinition="//@module/@extensions.3">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;actions {}&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="actions {}"/>
+      </statements>
+    </extensionSemantics>
+    <functions name="getContainer">
+      <classifierType concreteSyntax="EObject">
+        <referencedElement href="../../ecore.xmi#//@module/@classifiers.13"/>
+      </classifierType>
+      <statements xsi:type="dbl:IfStatement" concreteSyntax="if (eObject != null) {&#xA;&#x9;&#x9;String eClassName = new String(eObject.eClass().getName());&#xA;&#x9;&#x9;if (eClassName.equals(containerName)) {&#xA;&#x9;&#x9;&#x9;return eObject;&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;return getContainer(containerName, eObject.eContainer());&#xA;&#x9;&#x9;}&#xA;&#x9;} else {&#xA;&#x9;&#x9;return null;&#xA;&#x9;}">
+        <condition xsi:type="dbl:NotEqual" concreteSyntax="eObject != null">
+          <op1 xsi:type="dbl:IdExpr" concreteSyntax="eObject" referencedElement="//@module/@functions.0/@parameters.1"/>
+          <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+        </condition>
+        <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;String eClassName = new String(eObject.eClass().getName());&#xA;&#x9;&#x9;if (eClassName.equals(containerName)) {&#xA;&#x9;&#x9;&#x9;return eObject;&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;return getContainer(containerName, eObject.eContainer());&#xA;&#x9;&#x9;}&#xA;&#x9;}">
+          <statements xsi:type="dbl:Variable" name="eClassName" concreteSyntax="String eClassName = new String(eObject.eClass().getName())">
+            <classifierType concreteSyntax="String">
+              <referencedElement href="../../stdlib.xmi#//@module/@classifiers.2"/>
+            </classifierType>
+            <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new String(eObject.eClass().getName())">
+              <classifierType concreteSyntax="String(eObject.eClass().getName())">
+                <referencedElement href="../../stdlib.xmi#//@module/@classifiers.2"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" concreteSyntax="eObject.eClass().getName()">
+                    <parentIdExpr concreteSyntax="eObject.eClass()">
+                      <parentIdExpr concreteSyntax="eObject" referencedElement="//@module/@functions.0/@parameters.1"/>
+                      <referencedElement href="../../ecore.xmi#//@module/@classifiers.13/@methods.1"/>
+                      <callPart/>
+                    </parentIdExpr>
+                    <referencedElement href="../../ecore.xmi#//@module/@classifiers.9/@methods.0"/>
+                    <callPart/>
+                  </callArguments>
+                </callPart>
+              </classifierType>
+            </initialValue>
+          </statements>
+          <statements xsi:type="dbl:IfStatement" concreteSyntax="if (eClassName.equals(containerName)) {&#xA;&#x9;&#x9;&#x9;return eObject;&#xA;&#x9;&#x9;} else {&#xA;&#x9;&#x9;&#x9;return getContainer(containerName, eObject.eContainer());&#xA;&#x9;&#x9;}">
+            <condition xsi:type="dbl:IdExpr" concreteSyntax="eClassName.equals(containerName)">
+              <parentIdExpr concreteSyntax="eClassName" referencedElement="//@module/@functions.0/@statements.0/@trueCase/@statements.0"/>
+              <referencedElement href="../../stdlib.xmi#//@module/@classifiers.1/@methods.0"/>
+              <callPart>
+                <callArguments xsi:type="dbl:IdExpr" concreteSyntax="containerName" referencedElement="//@module/@functions.0/@parameters.0"/>
+              </callPart>
+            </condition>
+            <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;return eObject;&#xA;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Return" concreteSyntax="return eObject">
+                <value xsi:type="dbl:IdExpr" concreteSyntax="eObject" referencedElement="//@module/@functions.0/@parameters.1"/>
+              </statements>
+            </trueCase>
+            <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;return getContainer(containerName, eObject.eContainer());&#xA;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Return" concreteSyntax="return getContainer(containerName, eObject.eContainer())">
+                <value xsi:type="dbl:IdExpr" concreteSyntax="getContainer(containerName, eObject.eContainer())" referencedElement="//@module/@functions.0">
+                  <callPart>
+                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="containerName" referencedElement="//@module/@functions.0/@parameters.0"/>
+                    <callArguments xsi:type="dbl:IdExpr" concreteSyntax="eObject.eContainer()">
+                      <parentIdExpr concreteSyntax="eObject" referencedElement="//@module/@functions.0/@parameters.1"/>
+                      <referencedElement href="../../ecore.xmi#//@module/@classifiers.13/@methods.2"/>
+                      <callPart/>
+                    </callArguments>
+                  </callPart>
+                </value>
+              </statements>
+            </falseCase>
+          </statements>
+        </trueCase>
+        <falseCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;return null;&#xA;&#x9;}">
+          <statements xsi:type="dbl:Return" concreteSyntax="return null">
+            <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+          </statements>
+        </falseCase>
+      </statements>
+      <parameters name="containerName">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </parameters>
+      <parameters name="eObject">
+        <classifierType concreteSyntax="EObject">
+          <referencedElement href="../../ecore.xmi#//@module/@classifiers.13"/>
+        </classifierType>
+      </parameters>
+    </functions>
+  </module>
+</dbl:Model>

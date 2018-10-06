@@ -1,0 +1,71 @@
+#import "../../../stdlib"
+#import "../ssm-language"
+#import "../ssm-runtime"
+
+module ssmDelayerSystem;
+
+class Data extends Signal {
+	string payLoad;
+	
+	new(string payLoad) {
+		self.payLoad = payLoad;
+	}
+}
+
+void main() {
+	Producer producer = new Producer;
+	Delayer delayer = new Delayer;
+	Consumer consumer = new Consumer;
+		
+	activate producer;
+	activate delayer;
+	activate consumer;
+	
+	advance 10;
+	producer.receiver = delayer;
+	delayer.receiver = consumer;
+}
+
+active class Producer implements SignalReceiver {
+	SignalReceiver receiver;
+	
+	actions {
+		print "sending data to delayer";
+		advance 1;
+		receiver.sendSignal(new Data("1"));
+		advance 2;
+		receiver.sendSignal(new Data("2"));
+	}
+}
+
+active class Consumer implements SignalReceiver {
+}
+
+active class Delayer implements SignalReceiver {
+	control SignalReceiver receiver;
+	Data lastReceived = null;
+	
+	stateMachine {
+		initial state disconnected {
+			when receiver != null then delaying
+		}
+		state delaying {
+			// this is a workaround because the data message variable cannot be accessed from here.
+			// by convention, the received message will be made available in a variable named 'message'.
+			on Data data do { saveAsLastData(message as Data); } then delaying,
+			after 5 do forwardLastData(); then delaying,
+			when receiver == null then disconnected
+		}
+	}
+		
+	void saveAsLastData(Data data) {
+		print "received data with pay load: " + data.payLoad;
+		lastReceived = data;
+	}
+	
+	void forwardLastData() {
+		print "sending data with pay load: " + lastReceived.payLoad;
+		send lastReceived to receiver;
+		lastReceived = null;
+	}
+}

@@ -1,0 +1,102 @@
+#import "queue"
+#import "../stdlib"
+
+module timer;
+
+active class Printer {
+	DoubleEndedQueue jobs = new DoubleEndedQueue;
+	control boolean activeJobCancelled = false;
+	
+	int pagesPrinted = 0;
+	
+	int printTimePerPage = 4;
+	
+	actions {
+		while (true) {
+			wait until jobs.size > 0;
+			PrintJob job = jobs.pollFirst() as PrintJob;
+			
+			// Hier muss ein aktives Timer-Objekt verwendet werden, da das aktive Objekt, 
+			// wegen der 1:1-Zuordnung zwischen aktivem Objekt und Ausführung, nicht gleichzeitig auf
+			// verschiedene Ereignisse warten kann.
+			Timer jobTimer = new Timer(job.pages * printTimePerPage);
+			activate jobTimer;
+			
+			while (!activeJobCancelled) {
+				wait until activeJobCancelled or jobs.size > 10 or jobTimer.expired;
+				if (jobs.size > 10) {
+					while (jobs.size > 5) {
+						PrintJob lastJob = jobs.pollLast() as PrintJob;
+						lastJob.cancelled = true;
+					}
+				}
+				if (jobTimer.expired) {
+					job.printed = true;
+					pagesPrinted = pagesPrinted + job.pages;
+				}
+			}
+			activeJobCancelled = false;
+		}
+	}
+	
+	void cancelActiveJob() {
+		activeJobCancelled = true;
+	}
+}
+
+active class Timer {
+	int duration;
+	control boolean expired = false;
+	
+	new(int duration) {
+		self.duration = duration;
+	}
+	
+	actions {
+		advance duration;
+		expired = true;
+	}
+}
+
+active class PrintJob {
+	int pages = 4; // TODO randomize
+	Printer printer;
+	control boolean printed = false;
+	control boolean cancelled = false;
+	
+	actions {
+		while (!printed) {
+			printer.jobs.offerFirst(self);
+			wait until printed or cancelled;
+			if (cancelled) {
+				advance 10; // TODO use some random value here
+			}
+		}
+	}
+}
+
+active class PrintJobGenerator {
+	Printer printer;
+	
+	actions {
+		while (true) {
+			advance 3; // TODO randomize
+			PrintJob job = new PrintJob;
+			job.printer = printer;
+			activate job;		
+		}
+	}
+}
+
+void main() {
+	Printer printer = new Printer;
+	activate printer;
+	PrintJobGenerator jobGenerator = PrintJobGenerator;
+	activate jobGenerator;
+
+	int oneDay = 60*60*24;
+	advance 	oneDay;
+	
+	SystemOut.println("Pages printed: " + printer.pagesPrinted);
+}
+

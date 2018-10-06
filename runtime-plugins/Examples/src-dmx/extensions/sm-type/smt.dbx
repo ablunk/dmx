@@ -1,0 +1,29 @@
+#import "../../dbl"
+#import "../../stdlib"
+#import "../../stdx"
+
+module stateMachineAsType;
+
+/*
+smt Door { open, closed }
+
+Door d = new Door();
+d.is
+*/
+
+extension SMT extends dbl Class {
+	start SMT;
+	SMT -> "smt" name:ID "{" states : list State MoreStates "}";
+	MoreStates -> "," states : list State MoreStates;
+	MoreStates -> ;
+	State -> name:ID;
+}
+
+semantics for SMT {
+	expand "class " name " {";
+	expand " ";
+	expand "}";
+	foreach (State state in states) {
+		expand "class " state.name " {}";
+	}
+}

@@ -1,0 +1,6 @@
+module waituntil;
+
+control int i = 0;
+
+void main() {
+}

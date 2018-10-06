@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <module name="play2">
+    <extensions name="Play" concreteSyntax="extension Play extends dbl Constructor {&#xA;&#x9;start PlayRule;&#xA;&#x9;PlayRule -> &quot;empty&quot; n:INT &quot;;&quot;;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.28"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start PlayRule;&#xA;&#x9;PlayRule -> &quot;empty&quot; n:INT &quot;;&quot;;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="PlayRule" concreteSyntax="PlayRule -> &quot;empty&quot; n:INT &quot;;&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;empty&quot;" keyword="empty"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="n">
+              <ownedClassifier xsi:type="dbl:IntSymbol" concreteSyntax="INT"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;;&quot;" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for Play {&#xA;}" syntaxDefinition="//@module/@extensions.0"/>
+  </module>
+</dbl:Model>

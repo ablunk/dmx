@@ -1,0 +1,26 @@
+#import "../../dbl"
+#import "../../stdx"
+
+module dataClass;
+
+extension DataClass extends dbl Class {
+	start DataClass;
+	DataClass -> "data" name:ID "{" Attributes "}";
+	Attributes -> ;
+	Attributes -> attributes : list Variable ";" Attributes ;
+}
+
+semantics for DataClass {
+	expand "class " name " {";
+	foreach (Variable attribute in attributes) {
+		expand attribute ";";
+	}
+	
+	expand "new(" attributes ") {";
+	foreach (Variable attribute in attributes) {
+		expand "self." attribute.getName() "=" attribute.getName() ";";
+	}
+	expand "}";
+		
+	expand "}";
+}

@@ -1,0 +1,15 @@
+extension SignalTrigger extends dbl LocalScopeStatement {
+	start SignalTrigger;
+	
+	SignalTrigger -> "signal" statements:list Variable Effects;
+	Effects -> ;
+	Effects -> "do" statements:list SimpleStatement;
+}
+
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachine;
+	
+	StateMachine -> "state" "machine" "{" ManyStates "}";
+	// ...	
+	Trigger -> signalTrigger:SignalTrigger;
+}

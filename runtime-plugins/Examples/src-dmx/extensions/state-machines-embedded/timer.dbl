@@ -1,0 +1,31 @@
+#import "../../stdlib"
+
+module timer;
+
+active class StopWatch {
+	static int resetStateId = 0;
+	static int runningStateId = 1;
+	static int pausedStateId = 2;
+	
+	Map stateById = new HashMap;
+
+	int runningTime = 0;
+	
+	actions {
+		
+	}
+}
+
+interface State {
+	State nextState(int event);
+}
+
+class StandByState implements State {
+	State nextState(int event) {
+		switch (event) {
+			case 0:
+				return StopWatch.standBy;
+			break;
+		}
+	}
+}

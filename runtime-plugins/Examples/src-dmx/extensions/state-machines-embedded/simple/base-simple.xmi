@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../../stdx">
+    <model href="../../../stdx.xmi#/"/>
+  </imports>
+  <imports file="../../../stdlib">
+    <model href="../../../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../ssm-runtime">
+    <model href="../ssm-runtime.xmi#/"/>
+  </imports>
+  <module name="baseSimpleSystem">
+    <classifiers xsi:type="dbl:Class" name="Data" concreteSyntax="class Data extends Signal {&#xA;&#x9;string payLoad;&#xA;&#x9;&#xA;&#x9;new(string payLoad) {&#xA;&#x9;&#x9;self.payLoad = payLoad;&#xA;&#x9;}&#xA;}">
+      <attributes name="payLoad" concreteSyntax="string payLoad">
+        <primitiveType xsi:type="dbl:StringType"/>
+      </attributes>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.payLoad = payLoad">
+          <variable concreteSyntax="self.payLoad">
+            <idExpr concreteSyntax="self.payLoad" referencedElement="//@module/@classifiers.0/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="payLoad" referencedElement="//@module/@classifiers.0/@constructors.0/@parameters.0"/>
+        </statements>
+        <parameters name="payLoad">
+          <primitiveType xsi:type="dbl:StringType"/>
+        </parameters>
+      </constructors>
+      <superClass href="../ssm-runtime.xmi#//@module/@classifiers.2"/>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="Delayer" concreteSyntax="active class Delayer implements SignalReceiver {&#xA;&#x9;SignalReceiver dataConsumer;&#xA;&#x9;Data lastData = null;&#xA;&#x9;&#xA;&#x9;ControlList events = new ControlList;&#xA;&#x9;List timers = new ArrayList;&#xA;&#x9;&#xA;&#x9;Map stateById = new HashMap;&#xA;&#x9;State currentState;&#xA;&#x9;&#xA;&#x9;// Nachbildung eines wait until&#xA;&#x9;List objectsWaitingForEventsSizeChanges = new ArrayList;&#xA;&#x9;&#xA;&#x9;actions {&#xA;&#x9;&#x9;State waiting = new State;&#xA;&#x9;&#x9;waiting.id = 1;&#xA;&#x9;&#x9;waiting.name = &quot;waiting&quot;; // wird hier nicht gebraucht, k&#xf6;nnte f&#xfc;r das Debugging aber n&#xfc;tzlich sein&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;currentState = waiting; // Initialzustand setzen&#xA;&#x9;&#x9;stateById.put(waiting.id, waiting);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;eventLoop();&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void sendSignal(Object signal) {&#xA;&#x9;&#x9;events.add(signal);&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// Nachbildung der Reaktivierung von Objekten, die auf den Ausdruck in einer wait-until-Anweisung warten&#xA;&#x9;&#x9;for (int i=0; i&lt;objectsWaitingForEventsSizeChanges.size(); i=i+1) {&#xA;&#x9;&#x9;&#x9;reactivate objectsWaitingForEventsSizeChanges.get(0);&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void leave() {&#xA;&#x9;&#x9;cancelRunningTimers();&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void cancelRunningTimers() {&#xA;&#x9;&#x9;foreach (Timer timer in timers) {&#xA;&#x9;&#x9;&#x9;timer.cancel();&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void eventLoop() {&#xA;&#x9;&#x9;while (currentState != null) {&#xA;&#x9;&#x9;&#x9;State nextState = enterStateById(currentState.id);&#xA;&#x9;&#x9;&#x9;currentState = nextState;&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;State enterStateById(int stateId) {&#xA;&#x9;&#x9;State nextState = null;&#xA;&#x9;&#x9;switch (stateId) {&#xA;&#x9;&#x9;&#x9;case 1: // 1 -> waiting&#xA;&#x9;&#x9;&#x9;&#x9;nextState = state1_wait();&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;return nextState;&#xA;&#x9;}&#xA;&#xA;&#x9;// f&#xfc;r jeden Zustand gibt es eine spezifische wait-Methode mit einer wait-until-Anweisung,&#xA;&#x9;// die in ihrem Ausdruck die Bedingungen der ausgehenden Transitionen enth&#xe4;lt&#xA;&#x9;State state1_wait() {&#xA;&#x9;&#x9;// Die Semantik von wait-until ist nicht formal beschrieben. Deshalb wird das wait-until hier nachgebildet.&#xA;&#x9;&#x9;// Nachbildung f&#xfc;r: wait until events.size > 0;&#xA;&#x9;&#x9;while (! (events.size > 0)) {&#xA;&#x9;&#x9;&#x9;objectsWaitingForEventsSizeChanges.add(self);&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;// pr&#xfc;ft zuerst auf Signal- oder Zeitereignis&#xA;&#x9;&#x9;if (events.size > 0) {&#xA;&#x9;&#x9;&#x9;Object event = events.get(0);&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;// Signal Data&#xA;&#x9;&#x9;&#x9;if (event instanceof Data) {&#xA;&#x9;&#x9;&#x9;&#x9;state1_onDataTransition_effects();&#xA;&#x9;&#x9;&#x9;&#x9;return stateById.get(1); // Folgezustand&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;return null;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;// f&#xfc;r den Effekt jeder Transition gibt es eine entsprechende Methode, die die Aktionen enth&#xe4;lt&#xA;&#x9;void state1_onDataTransition_effects() {&#xA;&#x9;&#x9;print(&quot;received data\n&quot;);&#xA;&#x9;}&#xA;}">
+      <superInterfaces href="../ssm-runtime.xmi#//@module/@classifiers.3"/>
+      <attributes name="dataConsumer" concreteSyntax="SignalReceiver dataConsumer">
+        <classifierType concreteSyntax="SignalReceiver">
+          <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.3"/>
+        </classifierType>
+      </attributes>
+      <attributes name="lastData" concreteSyntax="Data lastData = null">
+        <classifierType concreteSyntax="Data" referencedElement="//@module/@classifiers.0"/>
+        <initialValue xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+      </attributes>
+      <attributes name="events" concreteSyntax="ControlList events = new ControlList">
+        <classifierType concreteSyntax="ControlList">
+          <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.5"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ControlList">
+          <classifierType concreteSyntax="ControlList">
+            <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.5"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="timers" concreteSyntax="List timers = new ArrayList">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.5"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+          <classifierType concreteSyntax="ArrayList">
+            <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.6"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="stateById" concreteSyntax="Map stateById = new HashMap">
+        <classifierType concreteSyntax="Map">
+          <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.10"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new HashMap">
+          <classifierType concreteSyntax="HashMap">
+            <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.11"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <attributes name="currentState" concreteSyntax="State currentState">
+        <classifierType concreteSyntax="State">
+          <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4"/>
+        </classifierType>
+      </attributes>
+      <attributes name="objectsWaitingForEventsSizeChanges" concreteSyntax="List objectsWaitingForEventsSizeChanges = new ArrayList">
+        <classifierType concreteSyntax="List">
+          <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.5"/>
+        </classifierType>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new ArrayList">
+          <classifierType concreteSyntax="ArrayList">
+            <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.6"/>
+          </classifierType>
+        </initialValue>
+      </attributes>
+      <methods name="sendSignal">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="events.add(signal)">
+          <callIdExpr concreteSyntax="events.add(signal)">
+            <parentIdExpr concreteSyntax="events" referencedElement="//@module/@classifiers.1/@attributes.2"/>
+            <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.5/@methods.0"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="signal" referencedElement="//@module/@classifiers.1/@methods.0/@parameters.0"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:ForStatement" concreteSyntax="for (int i=0; i&lt;objectsWaitingForEventsSizeChanges.size(); i=i+1) {&#xA;&#x9;&#x9;&#x9;reactivate objectsWaitingForEventsSizeChanges.get(0);&#xA;&#x9;&#x9;}">
+          <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i=0">
+            <primitiveType xsi:type="dbl:IntType"/>
+            <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </statements>
+          <termination xsi:type="dbl:Less" concreteSyntax="i&lt;objectsWaitingForEventsSizeChanges.size()">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@classifiers.1/@methods.0/@statements.1/@statements.0"/>
+            <op2 xsi:type="dbl:IdExpr" concreteSyntax="objectsWaitingForEventsSizeChanges.size()">
+              <parentIdExpr concreteSyntax="objectsWaitingForEventsSizeChanges" referencedElement="//@module/@classifiers.1/@attributes.6"/>
+              <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.5/@methods.4"/>
+              <callPart/>
+            </op2>
+          </termination>
+          <increment concreteSyntax="i=i+1">
+            <variable concreteSyntax="i">
+              <idExpr concreteSyntax="i" referencedElement="//@module/@classifiers.1/@methods.0/@statements.1/@statements.0"/>
+            </variable>
+            <value xsi:type="dbl:Plus" concreteSyntax="i+1">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@classifiers.1/@methods.0/@statements.1/@statements.0"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </value>
+          </increment>
+          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;reactivate objectsWaitingForEventsSizeChanges.get(0);&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Reactivate" concreteSyntax="reactivate objectsWaitingForEventsSizeChanges.get(0)">
+              <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="objectsWaitingForEventsSizeChanges.get(0)">
+                <parentIdExpr concreteSyntax="objectsWaitingForEventsSizeChanges" referencedElement="//@module/@classifiers.1/@attributes.6"/>
+                <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.5/@methods.5"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                </callPart>
+              </objectAccess>
+            </statements>
+          </body>
+        </statements>
+        <parameters name="signal">
+          <classifierType concreteSyntax="Object">
+            <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.1"/>
+          </classifierType>
+        </parameters>
+      </methods>
+      <methods name="leave">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="cancelRunningTimers()">
+          <callIdExpr concreteSyntax="cancelRunningTimers()" referencedElement="//@module/@classifiers.1/@methods.2">
+            <callPart/>
+          </callIdExpr>
+        </statements>
+      </methods>
+      <methods name="cancelRunningTimers">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (Timer timer in timers) {&#xA;&#x9;&#x9;&#x9;timer.cancel();&#xA;&#x9;&#x9;}" instanceOfExtensionDefinition="true">
+          <statements xsi:type="dbl:Variable" name="timer" concreteSyntax="Timer timer">
+            <classifierType concreteSyntax="Timer">
+              <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.7"/>
+            </classifierType>
+          </statements>
+          <collection xsi:type="dbl:IdExpr" concreteSyntax="timers" referencedElement="//@module/@classifiers.1/@attributes.3"/>
+          <body concreteSyntax="{&#xA;&#x9;&#x9;&#x9;timer.cancel();&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="timer.cancel()">
+              <callIdExpr concreteSyntax="timer.cancel()">
+                <parentIdExpr concreteSyntax="timer" referencedElement="//@module/@classifiers.1/@methods.2/@statements.0/@statements.0"/>
+                <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.7/@methods.1"/>
+                <callPart/>
+              </callIdExpr>
+            </statements>
+          </body>
+        </statements>
+      </methods>
+      <methods name="eventLoop">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (currentState != null) {&#xA;&#x9;&#x9;&#x9;State nextState = enterStateById(currentState.id);&#xA;&#x9;&#x9;&#x9;currentState = nextState;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:NotEqual" concreteSyntax="currentState != null">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="currentState" referencedElement="//@module/@classifiers.1/@attributes.5"/>
+            <op2 xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;State nextState = enterStateById(currentState.id);&#xA;&#x9;&#x9;&#x9;currentState = nextState;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Variable" name="nextState" concreteSyntax="State nextState = enterStateById(currentState.id)">
+              <classifierType concreteSyntax="State">
+                <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:IdExpr" concreteSyntax="enterStateById(currentState.id)" referencedElement="//@module/@classifiers.1/@methods.4">
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" concreteSyntax="currentState.id">
+                    <parentIdExpr concreteSyntax="currentState" referencedElement="//@module/@classifiers.1/@attributes.5"/>
+                    <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4/@attributes.0"/>
+                  </callArguments>
+                </callPart>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:Assignment" concreteSyntax="currentState = nextState">
+              <variable concreteSyntax="currentState">
+                <idExpr concreteSyntax="currentState" referencedElement="//@module/@classifiers.1/@attributes.5"/>
+              </variable>
+              <value xsi:type="dbl:IdExpr" concreteSyntax="nextState" referencedElement="//@module/@classifiers.1/@methods.3/@statements.0/@body/@statements.0"/>
+            </statements>
+          </body>
+        </statements>
+      </methods>
+      <methods name="enterStateById">
+        <classifierType concreteSyntax="State">
+          <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4"/>
+        </classifierType>
+        <statements xsi:type="dbl:Variable" name="nextState" concreteSyntax="State nextState = null">
+          <classifierType concreteSyntax="State">
+            <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+        </statements>
+        <statements xsi:type="dbl:SwitchStatement" concreteSyntax="switch (stateId) {&#xA;&#x9;&#x9;&#x9;case 1: // 1 -> waiting&#xA;&#x9;&#x9;&#x9;&#x9;nextState = state1_wait();&#xA;&#x9;&#x9;&#x9;break;&#xA;&#x9;&#x9;}">
+          <variable concreteSyntax="stateId">
+            <idExpr concreteSyntax="stateId" referencedElement="//@module/@classifiers.1/@methods.4/@parameters.0"/>
+          </variable>
+          <cases>
+            <value xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            <body xsi:type="dbl:Assignment" concreteSyntax="nextState = state1_wait()">
+              <variable concreteSyntax="nextState">
+                <idExpr concreteSyntax="nextState" referencedElement="//@module/@classifiers.1/@methods.4/@statements.0"/>
+              </variable>
+              <value xsi:type="dbl:IdExpr" concreteSyntax="state1_wait()" referencedElement="//@module/@classifiers.1/@methods.5">
+                <callPart/>
+              </value>
+            </body>
+            <body xsi:type="dbl:BreakStatement" concreteSyntax="break"/>
+          </cases>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return nextState">
+          <value xsi:type="dbl:IdExpr" concreteSyntax="nextState" referencedElement="//@module/@classifiers.1/@methods.4/@statements.0"/>
+        </statements>
+        <parameters name="stateId">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+      <methods name="state1_wait">
+        <classifierType concreteSyntax="State">
+          <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4"/>
+        </classifierType>
+        <statements xsi:type="dbl:WhileStatement" concreteSyntax="while (! (events.size > 0)) {&#xA;&#x9;&#x9;&#x9;objectsWaitingForEventsSizeChanges.add(self);&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Not" concreteSyntax="! (events.size > 0)">
+            <op xsi:type="dbl:Greater" concreteSyntax="events.size > 0">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="events.size">
+                <parentIdExpr concreteSyntax="events" referencedElement="//@module/@classifiers.1/@attributes.2"/>
+                <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.5/@attributes.1"/>
+              </op1>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+            </op>
+          </condition>
+          <body xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;objectsWaitingForEventsSizeChanges.add(self);&#xA;&#x9;&#x9;&#x9;wait;&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:FunctionCall" concreteSyntax="objectsWaitingForEventsSizeChanges.add(self)">
+              <callIdExpr concreteSyntax="objectsWaitingForEventsSizeChanges.add(self)">
+                <parentIdExpr concreteSyntax="objectsWaitingForEventsSizeChanges" referencedElement="//@module/@classifiers.1/@attributes.6"/>
+                <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.5/@methods.0"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IdExpr" concreteSyntax="self">
+                    <predefinedId xsi:type="dbl:MeLiteral"/>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </statements>
+            <statements xsi:type="dbl:Wait" concreteSyntax="wait"/>
+          </body>
+        </statements>
+        <statements xsi:type="dbl:IfStatement" concreteSyntax="if (events.size > 0) {&#xA;&#x9;&#x9;&#x9;Object event = events.get(0);&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;// Signal Data&#xA;&#x9;&#x9;&#x9;if (event instanceof Data) {&#xA;&#x9;&#x9;&#x9;&#x9;state1_onDataTransition_effects();&#xA;&#x9;&#x9;&#x9;&#x9;return stateById.get(1); // Folgezustand&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}">
+          <condition xsi:type="dbl:Greater" concreteSyntax="events.size > 0">
+            <op1 xsi:type="dbl:IdExpr" concreteSyntax="events.size">
+              <parentIdExpr concreteSyntax="events" referencedElement="//@module/@classifiers.1/@attributes.2"/>
+              <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.5/@attributes.1"/>
+            </op1>
+            <op2 xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+          </condition>
+          <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;Object event = events.get(0);&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;// Signal Data&#xA;&#x9;&#x9;&#x9;if (event instanceof Data) {&#xA;&#x9;&#x9;&#x9;&#x9;state1_onDataTransition_effects();&#xA;&#x9;&#x9;&#x9;&#x9;return stateById.get(1); // Folgezustand&#xA;&#x9;&#x9;&#x9;}&#xA;&#x9;&#x9;}">
+            <statements xsi:type="dbl:Variable" name="event" concreteSyntax="Object event = events.get(0)">
+              <classifierType concreteSyntax="Object">
+                <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.1"/>
+              </classifierType>
+              <initialValue xsi:type="dbl:IdExpr" concreteSyntax="events.get(0)">
+                <parentIdExpr concreteSyntax="events" referencedElement="//@module/@classifiers.1/@attributes.2"/>
+                <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.5/@methods.5"/>
+                <callPart>
+                  <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+                </callPart>
+              </initialValue>
+            </statements>
+            <statements xsi:type="dbl:IfStatement" concreteSyntax="if (event instanceof Data) {&#xA;&#x9;&#x9;&#x9;&#x9;state1_onDataTransition_effects();&#xA;&#x9;&#x9;&#x9;&#x9;return stateById.get(1); // Folgezustand&#xA;&#x9;&#x9;&#x9;}">
+              <condition xsi:type="dbl:InstanceOf" concreteSyntax="event instanceof Data">
+                <op1 xsi:type="dbl:IdExpr" concreteSyntax="event" referencedElement="//@module/@classifiers.1/@methods.5/@statements.1/@trueCase/@statements.0"/>
+                <op2 xsi:type="dbl:TypeAccess" concreteSyntax="Data">
+                  <idExpr concreteSyntax="Data" referencedElement="//@module/@classifiers.0"/>
+                </op2>
+              </condition>
+              <trueCase xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;state1_onDataTransition_effects();&#xA;&#x9;&#x9;&#x9;&#x9;return stateById.get(1); // Folgezustand&#xA;&#x9;&#x9;&#x9;}">
+                <statements xsi:type="dbl:FunctionCall" concreteSyntax="state1_onDataTransition_effects()">
+                  <callIdExpr concreteSyntax="state1_onDataTransition_effects()" referencedElement="//@module/@classifiers.1/@methods.6">
+                    <callPart/>
+                  </callIdExpr>
+                </statements>
+                <statements xsi:type="dbl:Return" concreteSyntax="return stateById.get(1)">
+                  <value xsi:type="dbl:IdExpr" concreteSyntax="stateById.get(1)">
+                    <parentIdExpr concreteSyntax="stateById" referencedElement="//@module/@classifiers.1/@attributes.4"/>
+                    <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.10/@methods.0"/>
+                    <callPart>
+                      <callArguments xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+                    </callPart>
+                  </value>
+                </statements>
+              </trueCase>
+            </statements>
+          </trueCase>
+        </statements>
+        <statements xsi:type="dbl:Return" concreteSyntax="return null">
+          <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+        </statements>
+      </methods>
+      <methods name="state1_onDataTransition_effects">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:Print" concreteSyntax="print(&quot;received data\n&quot;)">
+          <outputs xsi:type="dbl:StringLiteral" concreteSyntax="&quot;received data\n&quot;" value="received data\n"/>
+        </statements>
+      </methods>
+      <actionsBlock>
+        <statements xsi:type="dbl:Variable" name="waiting" concreteSyntax="State waiting = new State">
+          <classifierType concreteSyntax="State">
+            <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4"/>
+          </classifierType>
+          <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new State">
+            <classifierType concreteSyntax="State">
+              <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4"/>
+            </classifierType>
+          </initialValue>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="waiting.id = 1">
+          <variable concreteSyntax="waiting.id">
+            <idExpr concreteSyntax="waiting.id">
+              <parentIdExpr concreteSyntax="waiting" referencedElement="//@module/@classifiers.1/@actionsBlock/@statements.0"/>
+              <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4/@attributes.0"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="waiting.name = &quot;waiting&quot;">
+          <variable concreteSyntax="waiting.name">
+            <idExpr concreteSyntax="waiting.name">
+              <parentIdExpr concreteSyntax="waiting" referencedElement="//@module/@classifiers.1/@actionsBlock/@statements.0"/>
+              <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4/@attributes.1"/>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:StringLiteral" concreteSyntax="&quot;waiting&quot;" value="waiting"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="currentState = waiting">
+          <variable concreteSyntax="currentState">
+            <idExpr concreteSyntax="currentState" referencedElement="//@module/@classifiers.1/@attributes.5"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="waiting" referencedElement="//@module/@classifiers.1/@actionsBlock/@statements.0"/>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="stateById.put(waiting.id, waiting)">
+          <callIdExpr concreteSyntax="stateById.put(waiting.id, waiting)">
+            <parentIdExpr concreteSyntax="stateById" referencedElement="//@module/@classifiers.1/@attributes.4"/>
+            <referencedElement href="../../../stdlib.xmi#//@module/@classifiers.10/@methods.1"/>
+            <callPart>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="waiting.id">
+                <parentIdExpr concreteSyntax="waiting" referencedElement="//@module/@classifiers.1/@actionsBlock/@statements.0"/>
+                <referencedElement href="../ssm-runtime.xmi#//@module/@classifiers.4/@attributes.0"/>
+              </callArguments>
+              <callArguments xsi:type="dbl:IdExpr" concreteSyntax="waiting" referencedElement="//@module/@classifiers.1/@actionsBlock/@statements.0"/>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="eventLoop()">
+          <callIdExpr concreteSyntax="eventLoop()" referencedElement="//@module/@classifiers.1/@methods.3">
+            <callPart/>
+          </callIdExpr>
+        </statements>
+      </actionsBlock>
+    </classifiers>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="delayer" concreteSyntax="Delayer delayer = new Delayer">
+        <classifierType concreteSyntax="Delayer" referencedElement="//@module/@classifiers.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Delayer">
+          <classifierType concreteSyntax="Delayer" referencedElement="//@module/@classifiers.1"/>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate delayer">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 1">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+      </statements>
+      <statements xsi:type="dbl:FunctionCall" concreteSyntax="delayer.sendSignal(new Data(&quot;blob&quot;))">
+        <callIdExpr concreteSyntax="delayer.sendSignal(new Data(&quot;blob&quot;))" referencedElement="//@module/@classifiers.1/@methods.0">
+          <parentIdExpr concreteSyntax="delayer" referencedElement="//@module/@functions.0/@statements.0"/>
+          <callPart>
+            <callArguments xsi:type="dbl:CreateObject" concreteSyntax="new Data(&quot;blob&quot;)">
+              <classifierType concreteSyntax="Data(&quot;blob&quot;)" referencedElement="//@module/@classifiers.0">
+                <callPart>
+                  <callArguments xsi:type="dbl:StringLiteral" concreteSyntax="&quot;blob&quot;" value="blob"/>
+                </callPart>
+              </classifierType>
+            </callArguments>
+          </callPart>
+        </callIdExpr>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>

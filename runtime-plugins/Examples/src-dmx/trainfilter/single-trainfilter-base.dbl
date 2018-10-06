@@ -1,0 +1,112 @@
+#import "../stdlib"
+
+module singleTrainOnlyFilterBase;
+
+class Train {
+	int number;
+}
+
+active class Filter {
+	Train latestTrain;
+	
+	control boolean enabled = false;
+	control Train queuedTrain;
+	
+	actions {
+		while (true) {
+			wait until enabled or !enabled;
+			if (enabled) {
+				boolean filtering = true;
+				while (filtering) {
+					Timer timer = new Timer(20);
+					activate timer;
+					
+					wait until timer.expired or queuedTrain != null or !enabled;
+					
+					if (timer.expired) {
+						publish();
+						filtering = false;
+					}
+					if (queuedTrain != null) {
+						update(queuedTrain);
+						queuedTrain = null;
+						filtering = true;
+					}
+					if (!enabled) {
+						filtering = false;
+					}
+				}
+			}
+			else {
+				wait until enabled;
+			}
+		}
+	}
+	
+	void filtering() {
+		Timer timer = new Timer(20);
+		activate timer;
+		
+		wait until timer.expired or queuedTrain != null or !enabled;
+		
+		
+	}
+	
+	void send(Train train) {
+		queuedTrain = train;
+	}
+	
+	void publish() {
+		SystemOut.println("published train at " + time);
+	}
+	
+	void update(Train train) {
+		SystemOut.println("received update at " + time);
+		latestTrain = train;
+	}
+}
+
+active class Timer {
+	int duration;
+	control boolean expired = false;
+	
+	new(int duration) {
+		self.duration = duration;
+	}
+	
+	actions {
+		advance duration;
+		expired = true;
+	}
+}
+
+active class TrainArrival {
+	Filter filter;
+	
+	actions {
+		while (true) {
+			advance 2;
+			Train train = new Train();
+			train.number = 2;
+			filter.send(train);
+		}
+	}
+}
+
+void main() {
+	Filter filter = new Filter();
+	activate filter;
+	
+	TrainArrival arrival = new TrainArrival();
+	activate arrival;
+	arrival.filter = filter;
+	
+	advance 10;
+	filter.enabled = true;
+
+	advance 30;
+	filter.enabled = false;
+
+	// Modell dient zur Untersuchung des Systemverhaltens
+	advance 	60;
+}

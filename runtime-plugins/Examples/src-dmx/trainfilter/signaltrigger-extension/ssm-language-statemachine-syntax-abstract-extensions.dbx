@@ -1,0 +1,30 @@
+#import "../../dbl"
+#import "../../stdlib"
+#import "../../stdx"
+
+module ssm;
+
+extension SignalTrigger
+		extends dbl LocalScopeStatement {
+	
+	start SignalTrigger;
+	SignalTrigger -> "signal"
+		statements:list Variable Effects;
+	
+	Effects -> ;
+	Effects -> "do" statements:list SimpleStatement;
+}
+
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachine;
+	
+	Trigger -> signalTrigger:SignalTrigger;
+	Trigger -> "when" condition:Expression Effects;
+	Trigger -> "after" timeDuration:Expression Effects;
+	
+
+	StateMachine -> "state" "machine" "{" ManyStates "}";
+	ManyStates -> ;
+	
+	Effects -> ;
+}

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../../stdx">
+    <model href="../../stdx.xmi#/"/>
+  </imports>
+  <module name="stateMachineAsType">
+    <extensions name="SMT" concreteSyntax="extension SMT extends dbl Class {&#xA;&#x9;start SMT;&#xA;&#x9;SMT -> &quot;smt&quot; name:ID &quot;{&quot; states : list State MoreStates &quot;}&quot;;&#xA;&#x9;MoreStates -> &quot;,&quot; states : list State MoreStates;&#xA;&#x9;MoreStates -> ;&#xA;&#x9;State -> name:ID;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.26"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start SMT;&#xA;&#x9;SMT -> &quot;smt&quot; name:ID &quot;{&quot; states : list State MoreStates &quot;}&quot;;&#xA;&#x9;MoreStates -> &quot;,&quot; states : list State MoreStates;&#xA;&#x9;MoreStates -> ;&#xA;&#x9;State -> name:ID;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="SMT" concreteSyntax="SMT -> &quot;smt&quot; name:ID &quot;{&quot; states : list State MoreStates &quot;}&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;smt&quot;" keyword="smt"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol" concreteSyntax="ID"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;{&quot;" keyword="{"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="states" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.3" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;}&quot;" keyword="}"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="MoreStates" concreteSyntax="MoreStates -> &quot;,&quot; states : list State MoreStates;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;,&quot;" keyword=","/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="states" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.3" list="true"/>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="MoreStates" concreteSyntax="MoreStates -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="State" concreteSyntax="State -> name:ID;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="name">
+              <ownedClassifier xsi:type="dbl:IdSymbol" concreteSyntax="ID"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for SMT {&#xA;&#x9;expand &quot;class &quot; name &quot; {&quot;;&#xA;&#x9;expand &quot; &quot;;&#xA;&#x9;expand &quot;}&quot;;&#xA;&#x9;foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;class &quot; state.name &quot; {}&quot;;&#xA;&#x9;}&#xA;}" syntaxDefinition="//@module/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;class &quot; name &quot; {&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="class "/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="name" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text=" {"/>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot; &quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text=" "/>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;}&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;class &quot; state.name &quot; {}&quot;;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="state" concreteSyntax="State state">
+          <classifierType concreteSyntax="State" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.3"/>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="states" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.3"/>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;class &quot; state.name &quot; {}&quot;;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;class &quot; state.name &quot; {}&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="class "/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="state.name" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.3/@possibleSyntax/@sequence.0">
+                <parentIdExpr concreteSyntax="state" referencedElement="//@module/@extensionSemantics.0/@statements.3/@statements.0"/>
+              </expr>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=" {}"/>
+          </statements>
+        </body>
+      </statements>
+    </extensionSemantics>
+  </module>
+</dbl:Model>

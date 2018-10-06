@@ -1,0 +1,182 @@
+#import "../stdlib"
+
+module singleTrainOnlyFilterWithStatePatternInClass;
+
+class Train {
+	int number;
+}
+
+class Transition {
+	boolean internal;
+	int nextState;
+
+	new(boolean internal, int nextState) {
+		self.internal = internal;
+		self.nextState = nextState;
+	}
+}
+
+active class Filter {
+	Train latestTrain;
+	control boolean enabled = false;
+	
+	control Object signal;
+	Timer timer1;
+	
+	// Zustandstabelle:
+	//  0 -> checking
+	//  1 -> filtering
+	//  2 -> disabled
+	// -1 -> final
+	
+	actions {
+		int initialState = 0;
+		Transition initialTransition = new Transition(false, initialState);
+
+		int currentState = initialTransition.nextState;
+		Transition lastFired = initialTransition;
+		
+		while (currentState != -1) {
+			if (lastFired != null and !lastFired.internal) {
+				enter(currentState);
+			}
+		
+			switch (currentState) {
+				case 0:
+					lastFired = checking_wait();
+					break;
+				case 1:
+					lastFired = filtering_wait();
+					break;
+				case 2:
+					lastFired = disabled_wait();
+					break;
+			}
+			
+			if (lastFired != null) {
+				currentState = lastFired.nextState;
+			} else {
+				currentState = -1;
+			}
+		}
+	}
+	
+	void enter(int currentState) {
+		switch (currentState) {
+		case 0:
+			checking_enter();
+			break;
+		case 1:
+			filtering_enter();
+			break;
+		case 2:
+			disabled_enter();
+			break;
+		}
+	}
+	
+	void send(Object newSignal) {
+		signal = newSignal;
+	}
+	
+	void publish() {
+		SystemOut.println("published train at " + time);
+	}
+	
+	void update(Train train) {
+		SystemOut.println("received update at " + time);
+		latestTrain = train;
+	}
+	
+	void checking_enter() {}
+	
+	Transition checking_wait() {
+		wait until !enabled or signal != null and signal instanceof Train;
+
+		if (!enabled) {
+			return new Transition(false, 2);
+		}
+		if (signal != null and signal instanceof Train) {
+			update(signal as Train);
+			signal = null;
+			return new Transition(false, 1);
+		}
+		return null;
+	}
+		
+	void filtering_enter() {
+		timer1 = new Timer(6);
+		activate timer1;
+	}
+	
+	Transition filtering_wait() {
+		wait until timer1.expired 
+		  or signal != null and signal instanceof Train
+		  or !enabled;
+		
+		if (timer1.expired) {
+			timer1.expired = false;
+			publish();
+			return new Transition(false, 0);
+		}
+		if (signal != null and signal instanceof Train) {
+			update(signal as Train);
+			signal = null;
+			return new Transition(true, 1);
+		}
+		if (!enabled) {
+			return new Transition(false, 2);
+		}
+		return null;
+	}
+	
+	void disabled_enter() {}
+	
+	Transition disabled_wait() {
+		wait until enabled;
+		if (enabled) return new Transition(false, 0);
+		return null;
+	}	
+}
+
+active class Timer {
+	int duration;
+	control boolean expired = false;
+	
+	new(int duration) {
+		self.duration = duration;
+	}
+	
+	actions {
+		advance duration;
+		expired = true;
+	}
+}
+
+active class TrainArrival {
+	Filter filter;
+	
+	actions {
+		while (true) {
+			advance 2;
+			Train train = new Train();
+			train.number = 2;
+			filter.send(train);
+		}
+	}
+}
+
+void main() {
+	Filter filter = new Filter();
+	activate filter;
+	
+	TrainArrival arrival = new TrainArrival();
+	activate arrival;
+	arrival.filter = filter;
+	
+	advance 10;
+	filter.enabled = true;
+	advance 15;
+	filter.enabled = false;
+	advance 	10;
+}

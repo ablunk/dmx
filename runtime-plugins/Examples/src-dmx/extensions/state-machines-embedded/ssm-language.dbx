@@ -1,0 +1,139 @@
+#import "../../dbl"
+#import "../../stdlib"
+#import "../../stdx"
+
+module ssm;
+
+extension MessageAccess extends dbl L1Expr {
+	start MessageAccessSyntax;
+	MessageAccessSyntax -> "message";
+}
+
+semantics for MessageAccess {
+	expand "event";
+}
+
+extension SendStatement extends dbl SimpleStatement {
+	start SendStatementSyntax;
+	SendStatementSyntax -> "send" signal:Expression "to" target:Expression ";";
+}
+
+semantics for SendStatement {
+	expand target ".sendSignal(" signal ");";
+}
+
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachine;
+	
+	StateMachine -> "stateMachine" "{" ManyStates "}";
+	ManyStates -> ;
+	ManyStates -> states : list State ManyStates;
+	
+	State -> InitialModifier "state" name:ID Transitions;
+	InitialModifier -> initial:"initial";
+	InitialModifier -> ;
+	
+	Transitions -> ;
+	Transitions -> "{" OneOrMoreTransitions "}";
+	
+	OneOrMoreTransitions -> outgoing : list Transition MoreTransitions;
+	MoreTransitions -> ;
+	MoreTransitions -> "," OneOrMoreTransitions;
+
+	Transition -> Trigger TargetState;
+	
+	// TODO can we make the messageVariable accessible inside effects?
+	Trigger -> "when" condition:Expression Effects;
+	Trigger -> "on" messageVariable:Variable Effects;
+	Trigger -> "after" timeDuration:Expression Effects;
+	Effects -> ;
+	Effects -> "do" effects : SimpleStatement;
+		
+	TargetState -> "then" target:$$State;
+	TargetState -> "then" "stop";
+}
+
+semantics for StateMachine {
+	expand "StateMachineRuntime createStateMachineRuntime(Object context) {";
+	
+	expand "StateMachine stateMachine = new StateMachine;";
+	expand "stateMachine.context = context;";
+	expand "StateMachineRuntime stateMachineRuntime = new StateMachineRuntime(stateMachine);";
+	
+	foreach (State state in states) {
+		ID stateId;
+		expand "State " stateId " = new State;";
+		expand "stateMachine.states.add(" stateId ");";
+		expand stateId ".name = \"" state.name "\";";
+		
+		if (state.initial) {
+			expand "stateMachine.initialState = " stateId ";";
+		}
+		
+		ID compiledStateId;
+		expand "CompiledState " compiledStateId " = new CompiledState(" stateId ");";
+		expand "stateMachineRuntime.setCompiledState(" stateId ", " compiledStateId ");";
+		
+		foreach (Transition transition in state.outgoing) {
+			ID transitionId;
+			expand "Transition " transitionId " = new Transition;";
+			expand stateId ".outgoingTransitions.add(" transitionId ");";
+			expand transitionId ".target = " stateId ";";
+
+			ID transitionEffectsFunctionId;
+			expand 
+				"void " transitionEffectsFunctionId "() {"
+				transition.effects
+				"}"
+				after self;
+
+			EObject containerModule = getContainer("Module", self);
+			Class containerClass = getContainer("Class", self) as Class;
+			
+			Variable signalVariable = transition.messageVariable;
+			IdExpr signalType = signalVariable.getClassifierType();
+			
+			ID compiledTransitionClassId;
+			expand
+				"class " compiledTransitionClassId " extends CompiledTransition {"
+					"new(Transition transition) {"
+					"	super(transition);"
+					"}"
+					"boolean canHandleSignal(Signal signal) {"
+					"	return signal instanceof " signalType ";" 
+					"}"
+					"void executeEffects(Object context, Event event) {"
+					"	" containerClass.getName() " concreteContext = context as " containerClass.getName() ";"
+					"	concreteContext." transitionEffectsFunctionId "();"
+					"}"
+				"}"
+				after containerModule;
+
+			ID compiledTransitionId;
+			expand "CompiledTransition " compiledTransitionId " = new " compiledTransitionClassId;
+			expand "(" transitionId ");";
+			expand compiledStateId ".addCompiledTransition(" compiledTransitionId ");";
+		}
+	}
+
+	expand "return stateMachineRuntime;";
+	expand "}";
+	
+	expand "void waitForEvent() {";
+	
+	expand "}";
+}
+
+// cannot cast to Module because of dynamic eobjects
+EObject getContainer(string containerName, EObject eObject) {
+	if (eObject != null) {
+		String eClassName = new String(eObject.eClass().getName());
+		if (eClassName.equals(containerName)) {
+			return eObject;
+		} else {
+			return getContainer(containerName, eObject.eContainer());
+		}
+	} else {
+		return null;
+	}
+}

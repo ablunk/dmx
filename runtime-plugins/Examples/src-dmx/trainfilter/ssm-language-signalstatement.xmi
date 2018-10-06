@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <module name="ssmsignalstatement">
+    <extensions name="SendStatement" concreteSyntax="extension SendStatement extends dbl SimpleStatement {&#xA;&#x9;&#x9;start SendStatement;&#xA;&#x9;&#x9;SendStatement -> &quot;send&quot; signal:Expression&#xA;&#x9;&#x9;&#x9;&quot;to&quot; target:Expression &quot;;&quot;;&#xA;&#x9;}">
+      <extensionPoint href="../dbl.xmi#//@module/@classifiers.37"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;&#x9;start SendStatement;&#xA;&#x9;&#x9;SendStatement -> &quot;send&quot; signal:Expression&#xA;&#x9;&#x9;&#x9;&quot;to&quot; target:Expression &quot;;&quot;;&#xA;&#x9;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="SendStatement" concreteSyntax="SendStatement -> &quot;send&quot; signal:Expression&#xA;&#x9;&#x9;&#x9;&quot;to&quot; target:Expression &quot;;&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;send&quot;" keyword="send"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="signal">
+              <referencedClassifier href="../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;to&quot;" keyword="to"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="target">
+              <referencedClassifier href="../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;;&quot;" keyword=";"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for SendStatement {&#xA;&#x9;&#x9;expand target &quot;.send(&quot; signal &quot;);&quot;;&#xA;&#x9;}" syntaxDefinition="//@module/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand target &quot;.send(&quot; signal &quot;);&quot;">
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="target" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.3"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text=".send("/>
+        <parts xsi:type="dbl:ExpandVariablePart">
+          <expr xsi:type="dbl:IdExpr" concreteSyntax="signal" referencedElement="//@module/@extensions.0/@syntaxDefinition/@symbols.0/@possibleSyntax/@sequence.1"/>
+        </parts>
+        <parts xsi:type="dbl:ExpandTextPart" text=");"/>
+      </statements>
+    </extensionSemantics>
+  </module>
+</dbl:Model>

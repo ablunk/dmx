@@ -1,0 +1,64 @@
+#import "../../dbl"
+
+module differentExpressionContext;
+
+extension ContextChange extends dbl SimpleStatement {
+	start ContextChangeRule;
+	ContextChangeRule -> "context" newContext:IdExpr "{" statements : list Statement "}";
+}
+
+semantics for ContextChange {
+	addContextToNavigationExpressions(statements, newContext);
+	for (int i=0; i<statements.size(); i=i+1) {
+		Statement statement = statements.get(0) as Statement;
+		expand prettyPrint(statement);
+	}
+}
+
+void addContextToNavigationExpressions(Statement statement, IdExpr contextPrefix) {
+	List rootIdExpressions = new ArrayList();
+	collectContainedRootIdExpressions(statement, rootIdExpressions);
+
+	for (int i=0; i<rootIdExpressions.size(); i=i+1) {
+		IdExpr rootIdExpr = rootIdExpressions.get(0) as IdExpr;
+		IdExpr lastParent = getLastParent(rootIdExpr);
+		lastParent.getParentIdExpr() = EcoreUtil.copy(contextPrefix);
+	}
+}
+
+string prettyPrint(Construct construct) {
+	// TODO instead of using concreteSyntax() just use prettPrint() from TEF
+}
+
+interface EcoreUtil {
+	bindings {
+		"java" -> "org.eclipse.emf.ecore.util.EcoreUtil"
+	}
+	
+	static EObject copy(EObject eObject);	
+}
+
+void collectContainedRootIdExpressions(EObject eObject, List rootIdExpressions) {
+	if (eObject != null) {
+		String eClassName = new String(eObject.eClass().getName());
+		if (eClassName.equals("IdExpr")) {
+			rootIdExpressions.add(eObject);
+		}
+		if (eObject.eContents().size() > 0) {
+			for (int i=0; i<eObject.eContents().size(); i=i+1) {
+				collectContainedRootIdExpressions(eObject, rootIdExpressions);
+			}
+		}
+	}
+}
+
+boolean isRootIdExpr() {
+}
+
+IdExpr getLastParent(IdExpr idExpr) {
+	IdExpr parent = idExpr.getParentIdExpr();
+	while (parent != null) {
+		parent = idExpr.getParentIdExpr();
+	}
+	return parent;
+}

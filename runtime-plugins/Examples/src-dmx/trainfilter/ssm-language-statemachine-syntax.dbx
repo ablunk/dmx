@@ -1,0 +1,37 @@
+#import "../dbl"
+#import "../stdlib"
+#import "../stdx"
+
+module ssmsyntax;
+
+extension StateMachine extends dbl ClassContentExtension {
+	start StateMachine;
+	
+	StateMachine -> "state" "machine" "{" ManyStates "}";
+	ManyStates -> ;
+	ManyStates -> states : list State ManyStates;
+	
+	State -> InitialModifier "state" name:ID "{"
+		ManyTransitions
+	"}";
+	InitialModifier -> initial:"initial";
+	InitialModifier -> ;
+	
+	ManyTransitions -> ;
+	ManyTransitions -> outgoing : list Transition ManyTransitions;
+
+	Transition -> InternalTransition;
+	Transition -> ExternalTransition;
+	
+	InternalTransition -> internal:"internal" Trigger;
+	ExternalTransition -> Trigger "->" TargetState;
+	
+	Trigger -> "when" condition:Expression Effects;
+	Trigger -> "signal" messageVariable:Variable Effects;
+	Trigger -> "after" timeDuration:Expression Effects;
+	Effects -> ;
+	Effects -> "do" effects : SimpleStatement;
+		
+	TargetState -> target:$$State;
+	TargetState -> stop:"stop";
+}

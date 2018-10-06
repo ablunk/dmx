@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../../dbl">
+    <model href="../../dbl.xmi#/"/>
+  </imports>
+  <imports file="../../stdlib">
+    <model href="../../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../../stdx">
+    <model href="../../stdx.xmi#/"/>
+  </imports>
+  <module name="ssm">
+    <extensions name="SignalTrigger" concreteSyntax="extension SignalTrigger&#xA;&#x9;&#x9;extends dbl LocalScopeStatement {&#xA;&#x9;&#xA;&#x9;start SignalTrigger;&#xA;&#x9;SignalTrigger -> &quot;signal&quot;&#xA;&#x9;&#x9;statements:list Variable Effects;&#xA;&#x9;&#xA;&#x9;Effects -> ;&#xA;&#x9;Effects -> &quot;do&quot; statements:list SimpleStatement;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.51"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;&#xA;&#x9;start SignalTrigger;&#xA;&#x9;SignalTrigger -> &quot;signal&quot;&#xA;&#x9;&#x9;statements:list Variable Effects;&#xA;&#x9;&#xA;&#x9;Effects -> ;&#xA;&#x9;Effects -> &quot;do&quot; statements:list SimpleStatement;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="SignalTrigger" concreteSyntax="SignalTrigger -> &quot;signal&quot;&#xA;&#x9;&#x9;statements:list Variable Effects;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;signal&quot;" keyword="signal"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="statements" list="true">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.31"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.0/@syntaxDefinition/@symbols.2"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Effects" concreteSyntax="Effects -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="Effects" concreteSyntax="Effects -> &quot;do&quot; statements:list SimpleStatement;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;do&quot;" keyword="do"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="statements" list="true">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.37"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensions name="StateMachine" concreteSyntax="extension StateMachine extends dbl ClassContentExtension {&#xA;&#x9;start StateMachine;&#xA;&#x9;&#xA;&#x9;Trigger -> signalTrigger:SignalTrigger;&#xA;&#x9;Trigger -> &quot;when&quot; condition:Expression Effects;&#xA;&#x9;Trigger -> &quot;after&quot; timeDuration:Expression Effects;&#xA;&#x9;&#xA;&#xA;&#x9;StateMachine -> &quot;state&quot; &quot;machine&quot; &quot;{&quot; ManyStates &quot;}&quot;;&#xA;&#x9;ManyStates -> ;&#xA;&#x9;&#xA;&#x9;Effects -> ;&#xA;}">
+      <extensionPoint href="../../dbl.xmi#//@module/@classifiers.11"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start StateMachine;&#xA;&#x9;&#xA;&#x9;Trigger -> signalTrigger:SignalTrigger;&#xA;&#x9;Trigger -> &quot;when&quot; condition:Expression Effects;&#xA;&#x9;Trigger -> &quot;after&quot; timeDuration:Expression Effects;&#xA;&#x9;&#xA;&#xA;&#x9;StateMachine -> &quot;state&quot; &quot;machine&quot; &quot;{&quot; ManyStates &quot;}&quot;;&#xA;&#x9;ManyStates -> ;&#xA;&#x9;&#xA;&#x9;Effects -> ;&#xA;}" startSymbol="//@module/@extensions.1/@syntaxDefinition/@symbols.3">
+        <symbols name="Trigger" concreteSyntax="Trigger -> signalTrigger:SignalTrigger;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="signalTrigger" referencedClassifier="//@module/@extensions.0"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Trigger" concreteSyntax="Trigger -> &quot;when&quot; condition:Expression Effects;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;when&quot;" keyword="when"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="condition">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.1/@syntaxDefinition/@symbols.5"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="Trigger" concreteSyntax="Trigger -> &quot;after&quot; timeDuration:Expression Effects;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;after&quot;" keyword="after"/>
+            </sequence>
+            <sequence xsi:type="dbl:StructuralSymbolReference" name="timeDuration">
+              <referencedClassifier href="../../dbl.xmi#//@module/@classifiers.58"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.1/@syntaxDefinition/@symbols.5"/>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="StateMachine" concreteSyntax="StateMachine -> &quot;state&quot; &quot;machine&quot; &quot;{&quot; ManyStates &quot;}&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;state&quot;" keyword="state"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;machine&quot;" keyword="machine"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;{&quot;" keyword="{"/>
+            </sequence>
+            <sequence xsi:type="dbl:PlainSymbolReference" referencedClassifier="//@module/@extensions.1/@syntaxDefinition/@symbols.4"/>
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;}&quot;" keyword="}"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+        <symbols name="ManyStates" concreteSyntax="ManyStates -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+        <symbols name="Effects" concreteSyntax="Effects -> ;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence"/>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+  </module>
+</dbl:Model>

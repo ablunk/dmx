@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <module name="timer">
+    <classifiers xsi:type="dbl:ActiveClass" name="StopWatch">
+      <attributes name="standBy" class="true">
+        <classifierType referencedElement="//@module/@classifiers.1"/>
+        <initialValue xsi:type="dbl:CreateObject">
+          <classifierType referencedElement="//@module/@classifiers.2"/>
+        </initialValue>
+      </attributes>
+      <attributes name="runningTime">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral"/>
+      </attributes>
+      <actionsBlock/>
+    </classifiers>
+    <classifiers xsi:type="dbl:Interface" name="State">
+      <methods name="nextState">
+        <classifierType referencedElement="//@module/@classifiers.1"/>
+        <parameters name="event">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:Class" name="StandByState" superInterfaces="//@module/@classifiers.1">
+      <methods name="nextState">
+        <classifierType referencedElement="//@module/@classifiers.1"/>
+        <statements xsi:type="dbl:SwitchStatement">
+          <variable>
+            <idExpr referencedElement="//@module/@classifiers.2/@methods.0/@parameters.0"/>
+          </variable>
+          <cases>
+            <value xsi:type="dbl:IntLiteral"/>
+            <body xsi:type="dbl:Return">
+              <value xsi:type="dbl:IdExpr" referencedElement="//@module/@classifiers.0/@attributes.0">
+                <parentIdExpr referencedElement="//@module/@classifiers.0"/>
+              </value>
+            </body>
+            <body xsi:type="dbl:BreakStatement"/>
+          </cases>
+        </statements>
+        <parameters name="event">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </methods>
+    </classifiers>
+  </module>
+</dbl:Model>

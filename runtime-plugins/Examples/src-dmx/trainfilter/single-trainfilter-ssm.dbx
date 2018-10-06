@@ -1,0 +1,66 @@
+#import "ssm-language"
+#import "../stdlib"
+
+module singleTrainOnlyFilter;
+
+signal Train(int number);
+
+active class Filter {
+	Train latestTrain;
+	control boolean enabled = false;
+	ClassContent
+	
+	state machine {
+		initial state checking {
+			when !enabled -> disabled
+			signal Train t do update(signal as Train); -> filtering
+		}
+		state filtering {
+			after 6 do publish(); -> checking
+			internal signal Train t do update(signal as Train);
+			when !enabled -> disabled
+		}
+		state disabled {
+			when enabled -> filtering
+		}
+	}
+	
+	void publish() {
+		SystemOut.println("published train at " + time);
+		latestTrain = null;
+	}
+	
+	void update(Train train) {
+		SystemOut.println("received update at " + time);
+		latestTrain = train;
+	}
+}
+
+active class TrainArrival {
+	Filter filter;
+
+	state machine {
+		initial state waiting {
+			after 2 do {
+				Train train = new Train();
+				train.number = 2;
+				send train to filter;
+			} -> waiting
+		}
+	}
+}
+
+void main() {
+	Filter filter = new Filter();
+	activate filter;
+	
+	TrainArrival arrival = new TrainArrival();
+	activate arrival;
+	arrival.filter = filter;
+	
+	advance 10;
+	filter.enabled = true;
+	advance 15;
+	filter.enabled = false;
+	advance 	10;
+}

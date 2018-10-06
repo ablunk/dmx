@@ -1,0 +1,11 @@
+#import "play2"
+
+module play2Test;
+
+class X {
+	empty 2;
+	new() {}
+}
+
+void main() {
+}

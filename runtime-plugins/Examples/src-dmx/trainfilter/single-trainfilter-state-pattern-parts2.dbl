@@ -1,0 +1,49 @@
+class Filtering implements State {
+	Filter context;
+	Timer timer;
+	
+	new(Filter context) {
+		self.context = context;
+	}
+	
+	void enter() {
+		timer = new Timer(6);
+		activate timer;
+	}
+	
+	Transition waitForEvent() {
+		wait until timer.expired 
+		  or context.signal != null and context.signal instanceof Train
+		  or !context.enabled;
+		
+		// Aktionen
+		if (timer.expired) {
+			timer.expired = false;
+			context.publish();
+			return new Transition(false, new Checking(context));
+		}
+		if (context.signal != null and context.signal instanceof Train) {
+			context.update(context.signal as Train);
+			context.signal = null;
+			return new Transition(true, self);
+		}
+		if (!context.enabled) {
+			return new Transition(false, new Disabled(context));
+		}
+		return null;
+	}	
+}
+
+active class Timer {
+	int duration;
+	control boolean expired = false;
+	
+	new(int duration) {
+		self.duration = duration;
+	}
+	
+	actions {
+		advance duration;
+		expired = true;
+	}
+}

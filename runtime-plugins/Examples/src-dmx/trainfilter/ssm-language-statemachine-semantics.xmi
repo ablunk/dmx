@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <imports file="ssm-language-statemachine-syntax">
+    <model href="ssm-language-statemachine-syntax.xmi#/"/>
+  </imports>
+  <module name="ssmsyntax">
+    <classifiers xsi:type="dbl:Class" name="Transition" concreteSyntax="class Transition {&#xA;&#x9;boolean _internal;&#xA;&#x9;int nextState;&#xA;&#xA;&#x9;new(boolean _internal, int nextState) {&#xA;&#x9;&#x9;self._internal = _internal;&#xA;&#x9;&#x9;self.nextState = nextState;&#xA;&#x9;}&#xA;}">
+      <attributes name="_internal" concreteSyntax="boolean _internal">
+        <primitiveType xsi:type="dbl:BoolType"/>
+      </attributes>
+      <attributes name="nextState" concreteSyntax="int nextState">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+      <constructors>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self._internal = _internal">
+          <variable concreteSyntax="self._internal">
+            <idExpr concreteSyntax="self._internal" referencedElement="//@module/@classifiers.0/@constructors.0/@parameters.0">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="_internal" referencedElement="//@module/@classifiers.0/@constructors.0/@parameters.0"/>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="self.nextState = nextState">
+          <variable concreteSyntax="self.nextState">
+            <idExpr concreteSyntax="self.nextState" referencedElement="//@module/@classifiers.0/@constructors.0/@parameters.1">
+              <parentIdExpr concreteSyntax="self">
+                <predefinedId xsi:type="dbl:MeLiteral"/>
+              </parentIdExpr>
+            </idExpr>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="nextState" referencedElement="//@module/@classifiers.0/@constructors.0/@parameters.1"/>
+        </statements>
+        <parameters name="_internal">
+          <primitiveType xsi:type="dbl:BoolType"/>
+        </parameters>
+        <parameters name="nextState">
+          <primitiveType xsi:type="dbl:IntType"/>
+        </parameters>
+      </constructors>
+    </classifiers>
+    <extensionSemantics concreteSyntax="semantics for StateMachine {&#xA;&#x9;expand &#xA;&#x9;&quot;control Object currentSignal;&quot;&#xA;&#x9;&quot;actions {&quot;&#xA;&#x9;&#x9;&quot;int initialState = 0;&quot;&#xA;&#x9;&#x9;&quot;Transition initialTransition = new Transition(false, initialState);&quot;&#xA;&#xA;&#x9;&#x9;&quot;int currentState = initialTransition.nextState;&quot;&#xA;&#x9;&#x9;&quot;Transition lastFired = initialTransition;&quot;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&quot;while (currentState != -1) {&quot;&#xA;&#x9;&#x9;&#x9;&quot;if (lastFired != null and !lastFired._internal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;switch (currentState) {&quot;;&#xA;&#xA;&#x9;int i=0;&#xA;&#x9;foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;enter_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}&#xA;&#xA;&#x9;expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&quot;switch (currentState) {&quot;;&#xA;&#x9;&#xA;&#x9;i=0;&#xA;&#x9;foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;lastFired = wait_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;expand&#x9;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&quot;if (lastFired != null) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;currentState = lastFired.nextState;&quot;&#xA;&#x9;&#x9;&#x9;&quot;} else {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;currentState = -1;&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&quot;}&quot;;&#xA;&#xA;&#x9;i=0;&#xA;&#x9;foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;void enter_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;entered &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand Function &quot;Transition wait_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;waiting in &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;return new Transition(false, -1);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}&#xA;}">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &#xA;&#x9;&quot;control Object currentSignal;&quot;&#xA;&#x9;&quot;actions {&quot;&#xA;&#x9;&#x9;&quot;int initialState = 0;&quot;&#xA;&#x9;&#x9;&quot;Transition initialTransition = new Transition(false, initialState);&quot;&#xA;&#xA;&#x9;&#x9;&quot;int currentState = initialTransition.nextState;&quot;&#xA;&#x9;&#x9;&quot;Transition lastFired = initialTransition;&quot;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;&quot;while (currentState != -1) {&quot;&#xA;&#x9;&#x9;&#x9;&quot;if (lastFired != null and !lastFired._internal) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;switch (currentState) {&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="control Object currentSignal;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="actions {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="int initialState = 0;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="Transition initialTransition = new Transition(false, initialState);"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="int currentState = initialTransition.nextState;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="Transition lastFired = initialTransition;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="while (currentState != -1) {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="if (lastFired != null and !lastFired._internal) {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="switch (currentState) {"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="i" concreteSyntax="int i=0">
+        <primitiveType xsi:type="dbl:IntType"/>
+        <initialValue xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;enter_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="state" concreteSyntax="State state">
+          <classifierType concreteSyntax="State">
+            <referencedElement href="ssm-language-statemachine-syntax.xmi#//@module/@extensions.0/@syntaxDefinition/@symbols.3"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="states">
+          <referencedElement href="ssm-language-statemachine-syntax.xmi#//@module/@extensions.0/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0"/>
+        </collection>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;enter_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;enter_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="case "/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=":"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="enter_"/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="();"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="break;"/>
+          </statements>
+          <statements xsi:type="dbl:Assignment" concreteSyntax="i=i+1">
+            <variable concreteSyntax="i">
+              <idExpr concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </variable>
+            <value xsi:type="dbl:Plus" concreteSyntax="i+1">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </value>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#xA;&#x9;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&quot;switch (currentState) {&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="switch (currentState) {"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="i=0">
+        <variable concreteSyntax="i">
+          <idExpr concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;lastFired = wait_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="state" concreteSyntax="State state">
+          <classifierType concreteSyntax="State">
+            <referencedElement href="ssm-language-statemachine-syntax.xmi#//@module/@extensions.0/@syntaxDefinition/@symbols.3"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="states">
+          <referencedElement href="ssm-language-statemachine-syntax.xmi#//@module/@extensions.0/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0"/>
+        </collection>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;lastFired = wait_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;case &quot; i &quot;:&quot;&#xA;&#x9;&#x9;&#x9;&quot;lastFired = wait_&quot; i &quot;();&quot;&#xA;&#x9;&#x9;&#x9;&quot;break;&quot;">
+            <parts xsi:type="dbl:ExpandTextPart" text="case "/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text=":"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="lastFired = wait_"/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="();"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="break;"/>
+          </statements>
+          <statements xsi:type="dbl:Assignment" concreteSyntax="i=i+1">
+            <variable concreteSyntax="i">
+              <idExpr concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </variable>
+            <value xsi:type="dbl:Plus" concreteSyntax="i+1">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </value>
+          </statements>
+        </body>
+      </statements>
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand&#x9;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;&quot;if (lastFired != null) {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;currentState = lastFired.nextState;&quot;&#xA;&#x9;&#x9;&#x9;&quot;} else {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;currentState = -1;&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&quot;}&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="if (lastFired != null) {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="currentState = lastFired.nextState;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="} else {"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="currentState = -1;"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+        <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="i=0">
+        <variable concreteSyntax="i">
+          <idExpr concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+        </variable>
+        <value xsi:type="dbl:IntLiteral" concreteSyntax="0"/>
+      </statements>
+      <statements xsi:type="dbl:ForEach_ForEach_extension" concreteSyntax="foreach (State state in states) {&#xA;&#x9;&#x9;expand &quot;void enter_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;entered &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand Function &quot;Transition wait_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;waiting in &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;return new Transition(false, -1);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <statements xsi:type="dbl:Variable" name="state" concreteSyntax="State state">
+          <classifierType concreteSyntax="State">
+            <referencedElement href="ssm-language-statemachine-syntax.xmi#//@module/@extensions.0/@syntaxDefinition/@symbols.3"/>
+          </classifierType>
+        </statements>
+        <collection xsi:type="dbl:IdExpr" concreteSyntax="states">
+          <referencedElement href="ssm-language-statemachine-syntax.xmi#//@module/@extensions.0/@syntaxDefinition/@symbols.2/@possibleSyntax/@sequence.0"/>
+        </collection>
+        <body concreteSyntax="{&#xA;&#x9;&#x9;expand &quot;void enter_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;entered &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;expand Function &quot;Transition wait_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;waiting in &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;return new Transition(false, -1);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self;&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;i=i+1;&#xA;&#x9;}">
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;void enter_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;entered &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self">
+            <differingContext xsi:type="dbl:IdExpr" concreteSyntax="self">
+              <predefinedId xsi:type="dbl:MeLiteral"/>
+            </differingContext>
+            <parts xsi:type="dbl:ExpandTextPart" text="void enter_"/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="() {"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="SystemOut.println(\&quot;entered "/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="\&quot;);"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+          </statements>
+          <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand Function &quot;Transition wait_&quot; i &quot;() {&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;SystemOut.println(\&quot;waiting in &quot; i &quot;\&quot;);&quot;&#xA;&#x9;&#x9;&#x9;&#x9;&quot;return new Transition(false, -1);&quot;&#xA;&#x9;&#x9;&#x9;&quot;}&quot;&#xA;&#x9;&#x9;&#x9;after self">
+            <differingContext xsi:type="dbl:IdExpr" concreteSyntax="self">
+              <predefinedId xsi:type="dbl:MeLiteral"/>
+            </differingContext>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="Function">
+                <referencedElement href="../dbl.xmi#//@module/@classifiers.21"/>
+              </expr>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="Transition wait_"/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="() {"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="SystemOut.println(\&quot;waiting in "/>
+            <parts xsi:type="dbl:ExpandVariablePart">
+              <expr xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </parts>
+            <parts xsi:type="dbl:ExpandTextPart" text="\&quot;);"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="return new Transition(false, -1);"/>
+            <parts xsi:type="dbl:ExpandTextPart" text="}"/>
+          </statements>
+          <statements xsi:type="dbl:Assignment" concreteSyntax="i=i+1">
+            <variable concreteSyntax="i">
+              <idExpr concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+            </variable>
+            <value xsi:type="dbl:Plus" concreteSyntax="i+1">
+              <op1 xsi:type="dbl:IdExpr" concreteSyntax="i" referencedElement="//@module/@extensionSemantics.0/@statements.1"/>
+              <op2 xsi:type="dbl:IntLiteral" concreteSyntax="1" value="1"/>
+            </value>
+          </statements>
+        </body>
+      </statements>
+      <syntaxDefinition href="ssm-language-statemachine-syntax.xmi#//@module/@extensions.0"/>
+    </extensionSemantics>
+  </module>
+</dbl:Model>

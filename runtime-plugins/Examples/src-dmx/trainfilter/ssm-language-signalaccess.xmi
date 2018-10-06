@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="../dbl">
+    <model href="../dbl.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <imports file="../stdx">
+    <model href="../stdx.xmi#/"/>
+  </imports>
+  <module name="ssm">
+    <extensions name="SignalAccess" concreteSyntax="extension SignalAccess extends dbl L1Expr {&#xA;&#x9;start SignalAccess;&#xA;&#x9;SignalAccess -> &quot;signal&quot;;&#xA;}">
+      <extensionPoint href="../dbl.xmi#//@module/@classifiers.59"/>
+      <syntaxDefinition concreteSyntax="{&#xA;&#x9;start SignalAccess;&#xA;&#x9;SignalAccess -> &quot;signal&quot;;&#xA;}" startSymbol="//@module/@extensions.0/@syntaxDefinition/@symbols.0">
+        <symbols name="SignalAccess" concreteSyntax="SignalAccess -> &quot;signal&quot;;">
+          <possibleSyntax xsi:type="dbl:SymbolSequence">
+            <sequence xsi:type="dbl:PlainSymbolReference">
+              <ownedClassifier xsi:type="dbl:Keyword" concreteSyntax="&quot;signal&quot;" keyword="signal"/>
+            </sequence>
+          </possibleSyntax>
+        </symbols>
+      </syntaxDefinition>
+    </extensions>
+    <extensionSemantics concreteSyntax="semantics for SignalAccess {&#xA;&#x9;expand &quot;signal&quot;;&#xA;}" syntaxDefinition="//@module/@extensions.0">
+      <statements xsi:type="dbl:ExpansionStatement" concreteSyntax="expand &quot;signal&quot;">
+        <parts xsi:type="dbl:ExpandTextPart" text="signal"/>
+      </statements>
+    </extensionSemantics>
+  </module>
+</dbl:Model>

@@ -1,0 +1,17 @@
+#import "../../stdx/foreach-collections"
+
+module play;
+
+extension Play extends dbl SimpleStatement {
+	start PlayRule;
+	PlayRule -> "x" key:"key" ";";
+}
+
+semantics for Play {
+	if (key) {
+		expand "print \"key\";";
+	} else {
+		expand "print \"no-key\";";
+	}
+}
+

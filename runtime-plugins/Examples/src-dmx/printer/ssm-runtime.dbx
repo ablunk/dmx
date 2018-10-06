@@ -1,0 +1,55 @@
+#import "../stdlib"
+#import "../dbl"
+#import "../stdx"
+
+module ssmruntime;
+
+interface Event {}
+
+interface EventConsumer {
+	void enterEvent(Event event);
+}
+
+class Signal implements Event {}
+
+class State {
+	int id;
+	string name;
+}
+
+class TimeEvent implements Event {
+	int associatedTransitionId;
+	
+	new(int associatedTransitionId) {
+		self.associatedTransitionId = associatedTransitionId;
+	}
+}
+
+
+active class Timer {
+	EventConsumer consumer;
+	int associatedTransitionId;
+	boolean cancelled = false;
+	double duration;
+	
+	new(int associatedTransitionId, double duration, EventConsumer consumer) {
+		self.associatedTransitionId = associatedTransitionId;
+		self.duration = duration;
+		self.consumer = consumer;
+	}
+	
+	void start() {
+		activate self;
+	}
+	
+	void cancel() {
+		cancelled = true;
+	}
+	
+	actions {
+		advance duration;
+		if (!cancelled) {
+			consumer.enterEvent(new TimeEvent(associatedTransitionId));
+		}
+	}
+}

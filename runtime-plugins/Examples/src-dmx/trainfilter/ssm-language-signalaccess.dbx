@@ -1,0 +1,13 @@
+#import "../dbl"
+#import "../stdlib"
+#import "../stdx"
+
+module ssm;
+
+extension SignalAccess extends dbl L1Expr {
+	start SignalAccess;
+	SignalAccess -> "signal";
+}
+semantics for SignalAccess {
+	expand "currentSignal";
+}

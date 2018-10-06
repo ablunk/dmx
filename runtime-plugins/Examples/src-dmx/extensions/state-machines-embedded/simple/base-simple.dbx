@@ -1,0 +1,113 @@
+#import "../../../stdx"
+#import "../../../stdlib"
+#import "../ssm-runtime"
+
+module baseSimpleSystem;
+
+class Data extends Signal {
+	string payLoad;
+	
+	new(string payLoad) {
+		self.payLoad = payLoad;
+	}
+}
+
+active class Delayer implements SignalReceiver {
+	SignalReceiver dataConsumer;
+	Data lastData = null;
+	
+	ControlList events = new ControlList;
+	List timers = new ArrayList;
+	
+	Map stateById = new HashMap;
+	State currentState;
+	
+	// Nachbildung eines wait until
+	List objectsWaitingForEventsSizeChanges = new ArrayList;
+	
+	actions {
+		State waiting = new State;
+		waiting.id = 1;
+		waiting.name = "waiting"; // wird hier nicht gebraucht, könnte für das Debugging aber nützlich sein
+		
+		currentState = waiting; // Initialzustand setzen
+		stateById.put(waiting.id, waiting);
+		
+		eventLoop();
+	}
+	
+	void sendSignal(Object signal) {
+		events.add(signal);
+		
+		// Nachbildung der Reaktivierung von Objekten, die auf den Ausdruck in einer wait-until-Anweisung warten
+		for (int i=0; i<objectsWaitingForEventsSizeChanges.size(); i=i+1) {
+			reactivate objectsWaitingForEventsSizeChanges.get(0);
+		}
+	}
+	
+	void leave() {
+		cancelRunningTimers();
+	}
+	
+	void cancelRunningTimers() {
+		foreach (Timer timer in timers) {
+			timer.cancel();
+		}
+	}
+	
+	void eventLoop() {
+		while (currentState != null) {
+			State nextState = enterStateById(currentState.id);
+			currentState = nextState;
+		}
+	}
+	
+	State enterStateById(int stateId) {
+		State nextState = null;
+		switch (stateId) {
+			case 1: // 1 -> waiting
+				nextState = state1_wait();
+			break;
+		}
+		return nextState;
+	}
+
+	// für jeden Zustand gibt es eine spezifische wait-Methode mit einer wait-until-Anweisung,
+	// die in ihrem Ausdruck die Bedingungen der ausgehenden Transitionen enthält
+	State state1_wait() {
+		// Die Semantik von wait-until ist nicht formal beschrieben. Deshalb wird das wait-until hier nachgebildet.
+		// Nachbildung für: wait until events.size > 0;
+		while (! (events.size > 0)) {
+			objectsWaitingForEventsSizeChanges.add(self);
+			wait;
+		}
+		
+		// prüft zuerst auf Signal- oder Zeitereignis
+		if (events.size > 0) {
+			Object event = events.get(0);
+			
+			// Signal Data
+			if (event instanceof Data) {
+				state1_onDataTransition_effects();
+				return stateById.get(1) as State; // Folgezustand
+			}
+		}
+		
+		return null;
+	}
+	
+	// für den Effekt jeder Transition gibt es eine entsprechende Methode, die die Aktionen enthält
+	void state1_onDataTransition_effects() {
+		print("received data\n");
+	}
+}
+
+
+
+void main() {
+	Delayer delayer = new Delayer;
+	activate delayer;
+	advance 1;
+	delayer.sendSignal(new Data("blob"));
+	advance 10;
+}

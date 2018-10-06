@@ -1,0 +1,75 @@
+#import "../dbl"
+#import "../stdlib"
+#import "../stdx"
+#import "ssm-language-statemachine-syntax"
+
+module ssmsyntax;
+
+class Transition {
+	boolean _internal;
+	int nextState;
+
+	new(boolean _internal, int nextState) {
+		self._internal = _internal;
+		self.nextState = nextState;
+	}
+}
+
+semantics for StateMachine {
+	expand 
+	"control Object currentSignal;"
+	"actions {"
+		"int initialState = 0;"
+		"Transition initialTransition = new Transition(false, initialState);"
+
+		"int currentState = initialTransition.nextState;"
+		"Transition lastFired = initialTransition;"
+		
+		"while (currentState != -1) {"
+			"if (lastFired != null and !lastFired._internal) {"
+				"switch (currentState) {";
+
+	int i=0;
+	foreach (State state in states) {
+		expand "case " i ":"
+			"enter_" i "();"
+			"break;";
+		i=i+1;
+	}
+
+	expand
+				"}"
+			"}"
+			"switch (currentState) {";
+	
+	i=0;
+	foreach (State state in states) {
+		expand "case " i ":"
+			"lastFired = wait_" i "();"
+			"break;";
+		i=i+1;
+	}
+	
+	expand	
+			"}"
+			"if (lastFired != null) {"
+				"currentState = lastFired.nextState;"
+			"} else {"
+				"currentState = -1;"
+			"}"
+		"}"
+	"}";
+
+	i=0;
+	foreach (State state in states) {
+		expand "void enter_" i "() {"
+			"}"
+			after self;
+		
+		expand "Transition wait_" i "() {"
+			"}"
+			after self;
+		
+		i=i+1;
+	}
+}

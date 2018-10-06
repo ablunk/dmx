@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="ASCII"?>
+<dbl:Model xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbl="http://www.informatik.hu-berlin.de/sam/dbl">
+  <imports file="ssm-language">
+    <model href="ssm-language.xmi#/"/>
+  </imports>
+  <imports file="../stdlib">
+    <model href="../stdlib.xmi#/"/>
+  </imports>
+  <module name="singleTrainOnlyFilter">
+    <classifiers xsi:type="dbl:SignalDefinition_SignalDefinition_extension" name="Train" concreteSyntax="signal Train(int number);" instanceOfExtensionDefinition="true">
+      <attributes name="number" concreteSyntax="int number">
+        <primitiveType xsi:type="dbl:IntType"/>
+      </attributes>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="Filter" concreteSyntax="active class Filter {&#xA;&#x9;Train latestTrain;&#xA;&#x9;control boolean enabled = false;&#xA;&#x9;ClassContent&#xA;&#x9;&#xA;&#x9;state machine {&#xA;&#x9;&#x9;initial state checking {&#xA;&#x9;&#x9;&#x9;when !enabled -> disabled&#xA;&#x9;&#x9;&#x9;signal Train t do update(signal as Train); -> filtering&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state filtering {&#xA;&#x9;&#x9;&#x9;after 6 do publish(); -> checking&#xA;&#x9;&#x9;&#x9;internal signal Train t do update(signal as Train);&#xA;&#x9;&#x9;&#x9;when !enabled -> disabled&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state disabled {&#xA;&#x9;&#x9;&#x9;when enabled -> filtering&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void publish() {&#xA;&#x9;&#x9;SystemOut.println(&quot;published train at &quot; + time);&#xA;&#x9;&#x9;latestTrain = null;&#xA;&#x9;}&#xA;&#x9;&#xA;&#x9;void update(Train train) {&#xA;&#x9;&#x9;SystemOut.println(&quot;received update at &quot; + time);&#xA;&#x9;&#x9;latestTrain = train;&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:ClassContentExtension" concreteSyntax="ClassContent"/>
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="state machine {&#xA;&#x9;&#x9;initial state checking {&#xA;&#x9;&#x9;&#x9;when !enabled -> disabled&#xA;&#x9;&#x9;&#x9;signal Train t do update(signal as Train); -> filtering&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state filtering {&#xA;&#x9;&#x9;&#x9;after 6 do publish(); -> checking&#xA;&#x9;&#x9;&#x9;internal signal Train t do update(signal as Train);&#xA;&#x9;&#x9;&#x9;when !enabled -> disabled&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;state disabled {&#xA;&#x9;&#x9;&#x9;when enabled -> filtering&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="checking" concreteSyntax="initial state checking {&#xA;&#x9;&#x9;&#x9;when !enabled -> disabled&#xA;&#x9;&#x9;&#x9;signal Train t do update(signal as Train); -> filtering&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing xsi:type="dbl:StateMachine_ExternalTransition_extension" concreteSyntax="when !enabled -> disabled" target="//@module/@classifiers.1/@contentExtensions.1/@states.2">
+            <condition xsi:type="dbl:Not" concreteSyntax="!enabled">
+              <op xsi:type="dbl:IdExpr" concreteSyntax="enabled" referencedElement="//@module/@classifiers.1/@attributes.1"/>
+            </condition>
+          </outgoing>
+          <outgoing xsi:type="dbl:StateMachine_ExternalTransition_extension" concreteSyntax="signal Train t do update(signal as Train); -> filtering" target="//@module/@classifiers.1/@contentExtensions.1/@states.1">
+            <effects xsi:type="dbl:FunctionCall" concreteSyntax="update(signal as Train)">
+              <callIdExpr concreteSyntax="update(signal as Train)" referencedElement="//@module/@classifiers.1/@methods.1">
+                <callPart>
+                  <callArguments xsi:type="dbl:Cast" concreteSyntax="signal as Train">
+                    <classifierType concreteSyntax="Train" referencedElement="//@module/@classifiers.0"/>
+                    <op xsi:type="dbl:SignalAccess_SignalAccess_extension" concreteSyntax="signal" instanceOfExtensionDefinition="true"/>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </effects>
+            <messageVariable name="t" concreteSyntax="Train t">
+              <classifierType concreteSyntax="Train" referencedElement="//@module/@classifiers.0"/>
+            </messageVariable>
+          </outgoing>
+        </states>
+        <states name="filtering" concreteSyntax="&#xA;&#x9;&#x9;state filtering {&#xA;&#x9;&#x9;&#x9;after 6 do publish(); -> checking&#xA;&#x9;&#x9;&#x9;internal signal Train t do update(signal as Train);&#xA;&#x9;&#x9;&#x9;when !enabled -> disabled&#xA;&#x9;&#x9;}">
+          <outgoing xsi:type="dbl:StateMachine_ExternalTransition_extension" concreteSyntax="after 6 do publish(); -> checking" target="//@module/@classifiers.1/@contentExtensions.1/@states.0">
+            <timeDuration xsi:type="dbl:IntLiteral" concreteSyntax="6" value="6"/>
+            <effects xsi:type="dbl:FunctionCall" concreteSyntax="publish()">
+              <callIdExpr concreteSyntax="publish()" referencedElement="//@module/@classifiers.1/@methods.0">
+                <callPart/>
+              </callIdExpr>
+            </effects>
+          </outgoing>
+          <outgoing xsi:type="dbl:StateMachine_InternalTransition_extension" concreteSyntax="internal signal Train t do update(signal as Train);" internal="true">
+            <effects xsi:type="dbl:FunctionCall" concreteSyntax="update(signal as Train)">
+              <callIdExpr concreteSyntax="update(signal as Train)" referencedElement="//@module/@classifiers.1/@methods.1">
+                <callPart>
+                  <callArguments xsi:type="dbl:Cast" concreteSyntax="signal as Train">
+                    <classifierType concreteSyntax="Train" referencedElement="//@module/@classifiers.0"/>
+                    <op xsi:type="dbl:SignalAccess_SignalAccess_extension" concreteSyntax="signal" instanceOfExtensionDefinition="true"/>
+                  </callArguments>
+                </callPart>
+              </callIdExpr>
+            </effects>
+            <messageVariable name="t" concreteSyntax="Train t">
+              <classifierType concreteSyntax="Train" referencedElement="//@module/@classifiers.0"/>
+            </messageVariable>
+          </outgoing>
+          <outgoing xsi:type="dbl:StateMachine_ExternalTransition_extension" concreteSyntax="when !enabled -> disabled" target="//@module/@classifiers.1/@contentExtensions.1/@states.2">
+            <condition xsi:type="dbl:Not" concreteSyntax="!enabled">
+              <op xsi:type="dbl:IdExpr" concreteSyntax="enabled" referencedElement="//@module/@classifiers.1/@attributes.1"/>
+            </condition>
+          </outgoing>
+        </states>
+        <states name="disabled" concreteSyntax="&#xA;&#x9;&#x9;state disabled {&#xA;&#x9;&#x9;&#x9;when enabled -> filtering&#xA;&#x9;&#x9;}">
+          <outgoing xsi:type="dbl:StateMachine_ExternalTransition_extension" concreteSyntax="when enabled -> filtering" target="//@module/@classifiers.1/@contentExtensions.1/@states.1">
+            <condition xsi:type="dbl:IdExpr" concreteSyntax="enabled" referencedElement="//@module/@classifiers.1/@attributes.1"/>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="latestTrain" concreteSyntax="Train latestTrain">
+        <classifierType concreteSyntax="Train" referencedElement="//@module/@classifiers.0"/>
+      </attributes>
+      <attributes xsi:type="dbl:ControlVariable" name="enabled" concreteSyntax="control boolean enabled = false">
+        <primitiveType xsi:type="dbl:BoolType"/>
+        <initialValue xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+      </attributes>
+      <methods name="publish">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="SystemOut.println(&quot;published train at &quot; + time)">
+          <callIdExpr concreteSyntax="SystemOut.println(&quot;published train at &quot; + time)">
+            <parentIdExpr concreteSyntax="SystemOut">
+              <referencedElement href="../stdlib.xmi#//@module/@classifiers.3"/>
+            </parentIdExpr>
+            <referencedElement href="../stdlib.xmi#//@module/@classifiers.3/@methods.1"/>
+            <callPart>
+              <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;published train at &quot; + time">
+                <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;published train at &quot;" value="published train at "/>
+                <op2 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="latestTrain = null">
+          <variable concreteSyntax="latestTrain">
+            <idExpr concreteSyntax="latestTrain" referencedElement="//@module/@classifiers.1/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:NullLiteral" concreteSyntax="null"/>
+        </statements>
+      </methods>
+      <methods name="update">
+        <primitiveType xsi:type="dbl:VoidType"/>
+        <statements xsi:type="dbl:FunctionCall" concreteSyntax="SystemOut.println(&quot;received update at &quot; + time)">
+          <callIdExpr concreteSyntax="SystemOut.println(&quot;received update at &quot; + time)">
+            <parentIdExpr concreteSyntax="SystemOut">
+              <referencedElement href="../stdlib.xmi#//@module/@classifiers.3"/>
+            </parentIdExpr>
+            <referencedElement href="../stdlib.xmi#//@module/@classifiers.3/@methods.1"/>
+            <callPart>
+              <callArguments xsi:type="dbl:Plus" concreteSyntax="&quot;received update at &quot; + time">
+                <op1 xsi:type="dbl:StringLiteral" concreteSyntax="&quot;received update at &quot;" value="received update at "/>
+                <op2 xsi:type="dbl:TimeLiteral" concreteSyntax="time"/>
+              </callArguments>
+            </callPart>
+          </callIdExpr>
+        </statements>
+        <statements xsi:type="dbl:Assignment" concreteSyntax="latestTrain = train">
+          <variable concreteSyntax="latestTrain">
+            <idExpr concreteSyntax="latestTrain" referencedElement="//@module/@classifiers.1/@attributes.0"/>
+          </variable>
+          <value xsi:type="dbl:IdExpr" concreteSyntax="train" referencedElement="//@module/@classifiers.1/@methods.1/@parameters.0"/>
+        </statements>
+        <parameters name="train">
+          <classifierType concreteSyntax="Train" referencedElement="//@module/@classifiers.0"/>
+        </parameters>
+      </methods>
+    </classifiers>
+    <classifiers xsi:type="dbl:ActiveClass" name="TrainArrival" concreteSyntax="active class TrainArrival {&#xA;&#x9;Filter filter;&#xA;&#xA;&#x9;state machine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;after 2 do {&#xA;&#x9;&#x9;&#x9;&#x9;Train train = new Train();&#xA;&#x9;&#x9;&#x9;&#x9;train.number = 2;&#xA;&#x9;&#x9;&#x9;&#x9;send train to filter;&#xA;&#x9;&#x9;&#x9;} -> waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}&#xA;}">
+      <contentExtensions xsi:type="dbl:StateMachine_StateMachine_extension" concreteSyntax="state machine {&#xA;&#x9;&#x9;initial state waiting {&#xA;&#x9;&#x9;&#x9;after 2 do {&#xA;&#x9;&#x9;&#x9;&#x9;Train train = new Train();&#xA;&#x9;&#x9;&#x9;&#x9;train.number = 2;&#xA;&#x9;&#x9;&#x9;&#x9;send train to filter;&#xA;&#x9;&#x9;&#x9;} -> waiting&#xA;&#x9;&#x9;}&#xA;&#x9;}" instanceOfExtensionDefinition="true">
+        <states name="waiting" concreteSyntax="initial state waiting {&#xA;&#x9;&#x9;&#x9;after 2 do {&#xA;&#x9;&#x9;&#x9;&#x9;Train train = new Train();&#xA;&#x9;&#x9;&#x9;&#x9;train.number = 2;&#xA;&#x9;&#x9;&#x9;&#x9;send train to filter;&#xA;&#x9;&#x9;&#x9;} -> waiting&#xA;&#x9;&#x9;}" initial="true">
+          <outgoing xsi:type="dbl:StateMachine_ExternalTransition_extension" concreteSyntax="after 2 do {&#xA;&#x9;&#x9;&#x9;&#x9;Train train = new Train();&#xA;&#x9;&#x9;&#x9;&#x9;train.number = 2;&#xA;&#x9;&#x9;&#x9;&#x9;send train to filter;&#xA;&#x9;&#x9;&#x9;} -> waiting" target="//@module/@classifiers.2/@contentExtensions.0/@states.0">
+            <timeDuration xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+            <effects xsi:type="dbl:LocalScopeStatement" concreteSyntax="{&#xA;&#x9;&#x9;&#x9;&#x9;Train train = new Train();&#xA;&#x9;&#x9;&#x9;&#x9;train.number = 2;&#xA;&#x9;&#x9;&#x9;&#x9;send train to filter;&#xA;&#x9;&#x9;&#x9;}">
+              <statements xsi:type="dbl:Variable" name="train" concreteSyntax="Train train = new Train()">
+                <classifierType concreteSyntax="Train" referencedElement="//@module/@classifiers.0"/>
+                <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Train()">
+                  <classifierType concreteSyntax="Train()" referencedElement="//@module/@classifiers.0">
+                    <callPart/>
+                  </classifierType>
+                </initialValue>
+              </statements>
+              <statements xsi:type="dbl:Assignment" concreteSyntax="train.number = 2">
+                <variable concreteSyntax="train.number">
+                  <idExpr concreteSyntax="train.number" referencedElement="//@module/@classifiers.0/@attributes.0">
+                    <parentIdExpr concreteSyntax="train" referencedElement="//@module/@classifiers.2/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+                  </idExpr>
+                </variable>
+                <value xsi:type="dbl:IntLiteral" concreteSyntax="2" value="2"/>
+              </statements>
+              <statements xsi:type="dbl:SendStatement_SendStatement_extension" concreteSyntax="send train to filter;" instanceOfExtensionDefinition="true">
+                <signal xsi:type="dbl:IdExpr" concreteSyntax="train" referencedElement="//@module/@classifiers.2/@contentExtensions.0/@states.0/@outgoing.0/@effects/@statements.0"/>
+                <target xsi:type="dbl:IdExpr" concreteSyntax="filter" referencedElement="//@module/@classifiers.2/@attributes.0"/>
+              </statements>
+            </effects>
+          </outgoing>
+        </states>
+      </contentExtensions>
+      <attributes name="filter" concreteSyntax="Filter filter">
+        <classifierType concreteSyntax="Filter" referencedElement="//@module/@classifiers.1"/>
+      </attributes>
+    </classifiers>
+    <functions name="main">
+      <primitiveType xsi:type="dbl:VoidType"/>
+      <statements xsi:type="dbl:Variable" name="filter" concreteSyntax="Filter filter = new Filter()">
+        <classifierType concreteSyntax="Filter" referencedElement="//@module/@classifiers.1"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new Filter()">
+          <classifierType concreteSyntax="Filter()" referencedElement="//@module/@classifiers.1">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate filter">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="filter" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Variable" name="arrival" concreteSyntax="TrainArrival arrival = new TrainArrival()">
+        <classifierType concreteSyntax="TrainArrival" referencedElement="//@module/@classifiers.2"/>
+        <initialValue xsi:type="dbl:CreateObject" concreteSyntax="new TrainArrival()">
+          <classifierType concreteSyntax="TrainArrival()" referencedElement="//@module/@classifiers.2">
+            <callPart/>
+          </classifierType>
+        </initialValue>
+      </statements>
+      <statements xsi:type="dbl:ActivateObject" concreteSyntax="activate arrival">
+        <objectAccess xsi:type="dbl:IdExpr" concreteSyntax="arrival" referencedElement="//@module/@functions.0/@statements.2"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="arrival.filter = filter">
+        <variable concreteSyntax="arrival.filter">
+          <idExpr concreteSyntax="arrival.filter" referencedElement="//@module/@functions.0/@statements.0">
+            <parentIdExpr concreteSyntax="arrival" referencedElement="//@module/@functions.0/@statements.2"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:IdExpr" concreteSyntax="filter" referencedElement="//@module/@functions.0/@statements.0"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 10">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="filter.enabled = true">
+        <variable concreteSyntax="filter.enabled">
+          <idExpr concreteSyntax="filter.enabled" referencedElement="//@module/@classifiers.1/@attributes.1">
+            <parentIdExpr concreteSyntax="filter" referencedElement="//@module/@functions.0/@statements.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:TrueLiteral" concreteSyntax="true"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance 15">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="15" value="15"/>
+      </statements>
+      <statements xsi:type="dbl:Assignment" concreteSyntax="filter.enabled = false">
+        <variable concreteSyntax="filter.enabled">
+          <idExpr concreteSyntax="filter.enabled" referencedElement="//@module/@classifiers.1/@attributes.1">
+            <parentIdExpr concreteSyntax="filter" referencedElement="//@module/@functions.0/@statements.0"/>
+          </idExpr>
+        </variable>
+        <value xsi:type="dbl:FalseLiteral" concreteSyntax="false"/>
+      </statements>
+      <statements xsi:type="dbl:Advance" concreteSyntax="advance &#x9;10">
+        <time xsi:type="dbl:IntLiteral" concreteSyntax="10" value="10"/>
+      </statements>
+    </functions>
+  </module>
+</dbl:Model>
